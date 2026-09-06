@@ -1,0 +1,426 @@
+{
+  "python": "3.14.6",
+  "mode": "offline constructed fixtures",
+  "chapters": {
+    "01": {
+      "0.5": {
+        "p": [
+          0.015876239976466765,
+          0.11731042782619838,
+          0.8668133321973349
+        ],
+        "counts": {
+          "2": 849,
+          "1": 133,
+          "0": 18
+        }
+      },
+      "1": {
+        "p": [
+          0.09003057317038046,
+          0.24472847105479764,
+          0.6652409557748218
+        ],
+        "counts": {
+          "1": 268,
+          "2": 630,
+          "0": 102
+        }
+      },
+      "2": {
+        "p": [
+          0.1863237232258476,
+          0.3071958857184984,
+          0.506480391055654
+        ],
+        "counts": {
+          "1": 329,
+          "0": 202,
+          "2": 469
+        }
+      }
+    },
+    "02": {
+      "fixture_source": {
+        "s1": "The color is blue."
+      },
+      "responses": [
+        "not json",
+        "{\"answer\":\"x\",\"sources\":[\"missing\"]}",
+        "{\"answer\":\"The fixture says red\",\"sources\":[\"s1\"]}"
+      ],
+      "accepted": [
+        false,
+        false,
+        true
+      ],
+      "format_rate": 0.3333333333333333
+    },
+    "03": {
+      "required": [
+        "read",
+        "write"
+      ],
+      "missing": {
+        "chat": [
+          "read",
+          "write"
+        ],
+        "assistant": [
+          "write"
+        ],
+        "agent": []
+      },
+      "read_trace": "assistant"
+    },
+    "04": {
+      "wrong_finish": {
+        "status": "finished",
+        "answer": "red",
+        "trace": [
+          {
+            "turn": 1,
+            "action": "lookup",
+            "observation": "blue"
+          }
+        ]
+      },
+      "exhaustion": {
+        "status": "budget-exhausted",
+        "trace": [
+          {
+            "turn": 1,
+            "action": "lookup",
+            "observation": "blue"
+          },
+          {
+            "turn": 2,
+            "action": "lookup",
+            "observation": "blue"
+          }
+        ]
+      }
+    },
+    "05": {
+      "read_name": "notes.md",
+      "traversal": {
+        "rejected": true,
+        "error": "Path escapes the data boundary"
+      },
+      "symlink": {
+        "rejected": true,
+        "error": "Path escapes the data boundary"
+      },
+      "unapproved_write": {
+        "rejected": true,
+        "error": "Write requires human approval"
+      }
+    },
+    "06": {
+      "inputs": [
+        2,
+        5
+      ],
+      "expected": [
+        3,
+        6
+      ],
+      "old": [
+        1,
+        4
+      ],
+      "bad_patch": [
+        3,
+        3
+      ],
+      "good_patch": [
+        3,
+        6
+      ],
+      "review_without_approval": {
+        "merge_ready": false,
+        "reasons": [
+          "human review required"
+        ]
+      },
+      "diff": "--- before.py\n+++ after.py\n@@ -1 +1 @@\n-return x - 1\n+return x + 1\n"
+    },
+    "07": {
+      "score": 0.8164965809277261,
+      "independent": 0.8164965809277261,
+      "synonym_miss": [],
+      "tie_order": [
+        [
+          "a",
+          1.0
+        ],
+        [
+          "b",
+          1.0
+        ]
+      ]
+    },
+    "08": [
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "tools/list"
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "error": {
+            "code": -32000,
+            "message": "Initialize and notify before using tools"
+          }
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "method": "initialize",
+          "params": {
+            "protocolVersion": "unsupported-fixture",
+            "capabilities": {},
+            "clientInfo": {
+              "name": "test",
+              "version": "1"
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "result": {
+            "protocolVersion": "2025-11-25",
+            "capabilities": {
+              "tools": {}
+            },
+            "serverInfo": {
+              "name": "info7375-readonly",
+              "version": "1.0.0"
+            }
+          }
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "method": "notifications/initialized"
+        },
+        "response": null
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": 3,
+          "method": "tools/call",
+          "params": {
+            "name": "lookup",
+            "arguments": {
+              "key": "missing"
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 3,
+          "result": {
+            "content": [
+              {
+                "type": "text",
+                "text": "Record not found"
+              }
+            ],
+            "isError": true
+          }
+        }
+      }
+    ],
+    "09": {
+      "train": [
+        [
+          -2,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "one_step": {
+        "w": 0.15000000000000002,
+        "b": 0.0,
+        "loss": [
+          0.6931471805599453,
+          0.5876561461290296
+        ]
+      },
+      "trained": {
+        "w": 3.1669517461217747,
+        "b": -1.1991276027689691e-16,
+        "loss": [
+          0.6931471805599453,
+          0.021520985023173164
+        ]
+      },
+      "held_out": [
+        [
+          -3,
+          0
+        ],
+        [
+          -0.5,
+          0
+        ],
+        [
+          0.5,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "probabilities": [
+        7.478224829489787e-05,
+        0.1703037767767415,
+        0.8296962232232584,
+        0.9999252177517051
+      ],
+      "correct": 4,
+      "held_out_n": 4,
+      "limit": "Constructed sign-separable data, not evidence of real-world generalization",
+      "finite_difference_gradient_at_zero": -0.7499999999938112
+    },
+    "10": {
+      "order": [
+        "inspect",
+        "build",
+        "verify"
+      ],
+      "cycle": {
+        "rejected": true,
+        "error": "Dependency cycle"
+      },
+      "meaningless_complete": []
+    },
+    "11": {
+      "results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "good",
+          "content": "42"
+        },
+        {
+          "type": "tool_result",
+          "tool_use_id": "bad",
+          "content": "Arguments must be finite numbers, not booleans",
+          "is_error": true
+        }
+      ],
+      "independent_integer_sum": 42,
+      "duplicate": {
+        "rejected": true,
+        "error": "Tool IDs must be nonempty and unique"
+      },
+      "unverified_finish": {
+        "status": "finished",
+        "trace": [
+          {
+            "stop_reason": "end_turn",
+            "content": [
+              {
+                "type": "text",
+                "text": "Wrong fixture answer: 99"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "12": {
+      "first_read": {
+        "version": 1,
+        "value": "blue",
+        "source": "s1"
+      },
+      "fresh_false_value": {
+        "version": 2,
+        "value": "red",
+        "source": "unverified source label"
+      },
+      "stale_write": {
+        "rejected": true,
+        "error": "Stale memory version"
+      }
+    },
+    "13": {
+      "fixture_decision": {
+        "approved": true,
+        "approver": "SIMULATED reviewer, not a person",
+        "fingerprint": "1dffb3073edd191ce81ffb8603ff55937576c3e93c092be4046b9820a1ed91f7"
+      },
+      "original_matches": true,
+      "changed_matches": false
+    },
+    "14": {
+      "meaningless_complete": {
+        "status": "ready-for-human-review",
+        "issues": []
+      },
+      "external_write": {
+        "status": "review-required",
+        "issues": [
+          "external action approval"
+        ]
+      },
+      "missing": {
+        "status": "incomplete",
+        "issues": [
+          "owner",
+          "purpose",
+          "data_classes",
+          "retention_days",
+          "approver",
+          "evaluation",
+          "incident_contact"
+        ]
+      }
+    },
+    "15": {
+      "empty": {
+        "structurally_complete": false,
+        "issues": [
+          "brief: missing",
+          "data-boundary: missing",
+          "action-surface-map: missing",
+          "plan: missing",
+          "gates: missing",
+          "pre-mortem: missing",
+          "evidence: missing",
+          "artifact: missing",
+          "audit-note: missing",
+          "transfer-reflection: missing"
+        ],
+        "human_review": "Evidence, authority, and understanding must still be assessed"
+      },
+      "meaningless_complete": {
+        "structurally_complete": true,
+        "issues": [],
+        "human_review": "Evidence, authority, and understanding must still be assessed"
+      }
+    }
+  }
+}
+

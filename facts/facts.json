@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "created": "2026-09-06",
+  "status": "awaiting human research review",
+  "claims": [
+    {
+      "id": "C01-execution",
+      "chapter": 1,
+      "claim": "Constructed logits [1, 2, 3] give probabilities [0.0900305732, 0.2447284711, 0.6652409558] at temperature 1. With seed 7 and 1,000 draws, counts are [102, 268, 630]. Independent direct-exponential normalization agrees with the stabilized implementation. These are toy sampling results, not Claude logits or accuracy.",
+      "sources": [
+        "lessons/01-randomness-and-first-prompts/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.01",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C02-execution",
+      "chapter": 2,
+      "claim": "A response saying red while its cited fixture says blue passes the format validator. Two malformed/unknown-source cases fail. Format acceptance is 1/3 for these three deliberately constructed cases; it is not a truth score.",
+      "sources": [
+        "lessons/02-prompt-contracts-and-evaluation/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.02",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C03-execution",
+      "chapter": 3,
+      "claim": "The reason/read/write capability exercise reports different missing capabilities by mode. Its names are a course-specific action-surface classifier, not Anthropic's workflow/agent taxonomy.",
+      "sources": [
+        "lessons/03-chat-assistant-agent/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.03",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C04-execution",
+      "chapter": 4,
+      "claim": "A lookup of blue followed by finish(red) ends with finished status. Repeated lookups exhaust a budget of two. Termination and factual correctness are separate properties.",
+      "sources": [
+        "lessons/04-the-agent-loop/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.04",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C05-execution",
+      "chapter": 5,
+      "claim": "An in-root read succeeds. Traversal, an outside-pointing symlink, and an unapproved write are rejected in disposable fixtures. This does not establish resistance to filesystem races or constitute a production sandbox.",
+      "sources": [
+        "lessons/05-tools-and-permissions/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.05",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C06-execution",
+      "chapter": 6,
+      "claim": "For inputs [2, 5], the old x-1 function returns [1, 4], an incorrect constant patch returns [3, 3], and x+1 returns [3, 6]. A review without approval fails. Tests expose the illustrated regression; the fixture is not an actual Claude-authored patch or human approval.",
+      "sources": [
+        "lessons/06-claude-code-and-diff-review/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.06",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C07-execution",
+      "chapter": 7,
+      "claim": "Cosine similarity for 'office hours' and 'office hours appointment' is 2/sqrt(6), approximately 0.8164965809. A synonym pair has no token overlap and is not retrieved. Equal-score results retain deterministic ordering. Lexical similarity is not semantic understanding.",
+      "sources": [
+        "lessons/07-context-retrieval-and-cowork/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.07",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C08-execution",
+      "chapter": 8,
+      "claim": "Tool listing before initialization is rejected. Initialization returns version 2025-11-25, the initialized notification has no response, and a missing lookup returns isError. A fixed supported-version fallback can be legal under MCP; the teaching implementation's limited parameter/capability coverage, not fallback alone, prevents claiming full conformance.",
+      "sources": [
+        "lessons/08-mcp-from-scratch/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.08",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C09-execution",
+      "chapter": 9,
+      "claim": "On four constructed separable training points, a 0.2 learning-rate step changes weight from 0 to 0.15 and loss from 0.6931471806 to 0.5876561461. The finite-difference weight gradient is approximately -0.75. After 200 steps, weight is 3.1669517461 and training loss 0.0215209850. Four separately specified held-out toy points classify correctly. This is neither a real-world generalization estimate nor Claude training.",
+      "sources": [
+        "lessons/09-training-and-configuration/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.09",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C10-execution",
+      "chapter": 10,
+      "claim": "The dependency order is inspect, build, verify; a cycle is rejected. A syntactically populated but semantically empty plan produces no missing-field findings. Structural validation cannot establish plan quality.",
+      "sources": [
+        "lessons/10-planning-before-acting/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.10",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C11-execution",
+      "chapter": 11,
+      "claim": "The local add tool returns 42 for 17+25 with matching call identifiers. Boolean arguments and duplicate IDs are rejected. An end_turn answer of 99 can still finish. An independent arithmetic check, not protocol termination, establishes this example's correct answer.",
+      "sources": [
+        "lessons/11-tool-use-and-verification/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.11",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C12-execution",
+      "chapter": 12,
+      "claim": "A fresh write of an unverified red value succeeds, while a stale expected-version write fails. Version checks address stale updates, not truth. This sequential fixture is not a concurrent stress test or evidence that several agents independently verified a claim.",
+      "sources": [
+        "lessons/12-memory-and-multiple-agents/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.12",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C13-execution",
+      "chapter": 13,
+      "claim": "A simulated reviewer's approval matches the original target hash but not changed content. This demonstrates content binding only: the fixture is not a real person's consent, and a digest does not authenticate identity.",
+      "sources": [
+        "lessons/13-evaluation-and-approval-gates/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.13",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C14-execution",
+      "chapter": 14,
+      "claim": "A populated register can be marked ready for human review; external write requests require review; an empty register reports seven omissions. Readiness is a routing state, not ethical clearance or stakeholder consent.",
+      "sources": [
+        "lessons/14-team-governance-and-ethics/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.14",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    },
+    {
+      "id": "C15-execution",
+      "chapter": 15,
+      "claim": "An empty packet reports ten missing requirements. Ten files containing repeated x characters satisfy the structural checker. This counterexample establishes that length/presence checks cannot establish meaningful professional evidence.",
+      "sources": [
+        "lessons/15-supervised-capstone/code/main.py",
+        "research/worked_examples.py",
+        "research/worked-examples.json"
+      ],
+      "evidence_key": "chapters.15",
+      "verified": false,
+      "verified_by": null,
+      "scope": "offline constructed fixture; not provider behavior or real human approval"
+    }
+  ]
+}
