@@ -27,9 +27,9 @@ The mechanism exponentiates score differences, then divides by the total weight.
 
 Let the score for outcome i be z_i, let T be a positive temperature, and let p_i be the probability assigned to that outcome. The mathematical transformation is:
 
-$$
+```math
 p_i = \frac{\exp(z_i/T)}{\sum_j \exp(z_j/T)}.
-$$
+```
 
 The index j walks over all available outcomes. The denominator is the total weight. Each numerator contributes one part of that total, so the resulting probabilities sum to one in exact arithmetic. This is a statement about the transformation. It is not a statement that the inputs were sensible or the outcome labels were true.
 
@@ -45,11 +45,11 @@ The [reference implementation](../lessons/01-randomness-and-first-prompts/code/m
 
 Why is subtraction allowed? Let m be the maximum score. Replacing z_i with z_i minus m gives:
 
-$$
+```math
 \frac{\exp((z_i-m)/T)}{\sum_j \exp((z_j-m)/T)}
 =
 \frac{\exp(z_i/T)\exp(-m/T)}{\exp(-m/T)\sum_j \exp(z_j/T)}.
-$$
+```
 
 The common factor cancels. We have changed the intermediate weights, not the intended normalized distribution. That distinction is the whole design choice. The computer does not need unnecessarily large intermediate exponentials to express a ratio. After subtracting the maximum, the largest exponent is zero and its exponential is one. The other exponentials are no larger than one.
 
@@ -83,9 +83,9 @@ If the probabilities sum to something close to one, you have passed one check. Y
 
 Return to the ratio between two outcomes. Normalization cancels out of that ratio:
 
-$$
+```math
 \frac{p_i}{p_k} = \exp\left(\frac{z_i-z_k}{T}\right).
-$$
+```
 
 Here k names another outcome. This expression explains the temperature effect without requiring a slogan about creativity. If z_i exceeds z_k, their positive difference is divided by T. A smaller positive T makes that exponent larger and increases the probability ratio. A larger T makes it smaller and brings the ratio closer to one. The transformation is changing relative concentration.
 

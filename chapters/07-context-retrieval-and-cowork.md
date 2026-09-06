@@ -47,23 +47,23 @@ Representations optimize for some comparisons by making others impossible. Count
 
 Let q be the query count vector and d be a document count vector. Their dot product multiplies matching coordinates and sums those products:
 
-$$
+```math
 q \cdot d = \sum_t q_t d_t,
-$$
+```
 
 where t ranges over tokens, q_t is the query count for token t, and d_t is the document count. Tokens absent from one side contribute zero. The dot product increases with shared counted terms, but it also grows when vectors grow, so the implementation normalizes by their lengths.
 
 The Euclidean length of q is:
 
-$$
+```math
 \lVert q \rVert = \sqrt{\sum_t q_t^2}.
-$$
+```
 
 Cosine similarity divides the dot product by both lengths:
 
-$$
+```math
 \operatorname{cosine}(q,d) = \frac{q \cdot d}{\lVert q \rVert\lVert d \rVert}.
-$$
+```
 
 The [Stanford information-retrieval text](https://nlp.stanford.edu/IR-book/html/htmledition/dot-products-1.html), consulted in the approved research packet, supports this normalized dot-product formulation. Our use remains a small lexical example. The source does not transform this implementation into a complete production retrieval system.
 
@@ -90,9 +90,9 @@ Now calculate the published example. The query “office hours” has counts off
 
 Therefore:
 
-$$
+```math
 \frac{2}{\sqrt{2}\sqrt{3}} = \frac{2}{\sqrt{6}} \approx 0.8164965809.
-$$
+```
 
 The saved execution records the same decimal. This agreement is useful because every intermediate term can be reconstructed. It does not prove that the document answers every question involving office hours. It proves a lexical relationship under this representation.
 

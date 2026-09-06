@@ -55,9 +55,9 @@ The sets are nested. Every capability assigned to `chat` appears in `assistant`;
 
 Let R be the set of capabilities a task requires, and let C be the set declared for a surface. The missing set is R minus C: the capabilities in the requirement that do not appear in the surface. In symbols:
 
-$$
+```math
 M = R \setminus C.
-$$
+```
 
 M names the missing capabilities. If M is empty, the declared set covers the declared requirements. Notice the two uses of declared. A correct set calculation can still be based on an incomplete task description or an inaccurate description of the runtime. The arithmetic does not authenticate its inputs.
 

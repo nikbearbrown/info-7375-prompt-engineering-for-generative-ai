@@ -23,15 +23,15 @@ Before reading the reference, predict the initial probability for every point wh
 
 For an input feature x, weight w, and bias b, the classifier first computes a linear score:
 
-$$
+```math
 a = wx + b.
-$$
+```
 
 It then maps that score through the sigmoid:
 
-$$
+```math
 \sigma(a) = \frac{1}{1 + e^{-a}}.
-$$
+```
 
 The returned value lies between zero and one for finite a. We interpret it as the classifier's probability for label one under this model. The threshold rule used in the research evaluation predicts one when the value is at least one-half and zero otherwise.
 
@@ -61,15 +61,15 @@ The source used during research, Jurafsky and Martin's logistic-regression chapt
 
 Each training example is a pair `(x, y)` with finite feature x and binary label y. The ordinary binary cross-entropy for predicted probability p is:
 
-$$
+```math
 -y\log(p) - (1-y)\log(1-p).
-$$
+```
 
 The reference evaluates an equivalent stable expression from the score a:
 
-$$
+```math
 \max(a,0) - ya + \log(1 + e^{-|a|}).
-$$
+```
 
 It averages this value across the data. The stable form avoids computing logarithms of probabilities rounded too close to zero or one for large scores. We do not need to treat the implementation as magical; it is a numerically safer route to the same logistic objective for the accepted finite inputs.
 
@@ -104,9 +104,9 @@ The contributions sum to negative three. Divide by four examples and the average
 
 Gradient descent subtracts learning rate times gradient. With rate `0.2`:
 
-$$
+```math
 w_{new} = 0 - 0.2(-0.75) = 0.15,
-$$
+```
 
 and the bias remains zero. This matches the executed result. The sign makes sense before the decimal does: increasing a positive weight pushes positive examples toward label one and negative examples toward label zero.
 
