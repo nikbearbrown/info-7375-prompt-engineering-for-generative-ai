@@ -14,7 +14,7 @@ Claude chat, Claude Code, Claude Cowork, and the Claude Messages API are the cou
 
 ## Start here
 
-Read the [adapted syllabus](SYLLABUS.md), [setup guide](docs/setup.md), and [assessment guide](ASSESSMENT.md). A strong programming background and independent research are prerequisites.
+Read the [adapted syllabus](SYLLABUS.md), [setup guide](docs/setup.md), [assessment guide](ASSESSMENT.md), and [graded Assignment briefs](assignments/README.md). A strong programming background and independent research are prerequisites.
 
 From this repository root, with Python 3.11 or newer:
 
