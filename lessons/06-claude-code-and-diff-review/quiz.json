@@ -1,0 +1,78 @@
+{
+  "lesson": "06-claude-code-and-diff-review",
+  "title": "Claude Code and evidence-based diff review",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What should precede a bug fix?",
+      "options": [
+        "A merge",
+        "A success claim",
+        "A new framework",
+        "A reproducible failure"
+      ],
+      "correct": 3,
+      "explanation": "A reproducible failure. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Passing one regression proves what?",
+      "options": [
+        "Scope is acceptable",
+        "Human approval occurred",
+        "That tested behavior passes",
+        "All behavior is correct"
+      ],
+      "correct": 2,
+      "explanation": "That tested behavior passes. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "An unrelated file changed. What next?",
+      "options": [
+        "Delete all changes",
+        "Review and resolve the scope violation",
+        "Ignore it",
+        "Approve automatically"
+      ],
+      "correct": 1,
+      "explanation": "Review and resolve the scope violation. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why preserve command output?",
+      "options": [
+        "To make the claim inspectable",
+        "To increase prose length",
+        "To replace tests",
+        "To grant permissions"
+      ],
+      "correct": 0,
+      "explanation": "To make the claim inspectable. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "Who owns the merge decision?",
+      "options": [
+        "The pass-rate function",
+        "The model persona",
+        "The diff formatter",
+        "The authorized human reviewer"
+      ],
+      "correct": 3,
+      "explanation": "The authorized human reviewer. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "What does a diff omit?",
+      "options": [
+        "Added text",
+        "Removed text",
+        "The full semantic consequences of a change",
+        "All changed lines"
+      ],
+      "correct": 2,
+      "explanation": "The full semantic consequences of a change. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}

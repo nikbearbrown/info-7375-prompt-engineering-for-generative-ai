@@ -1,0 +1,78 @@
+{
+  "lesson": "01-randomness-and-first-prompts",
+  "title": "Randomness and first prompts",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Does lower temperature guarantee truth?",
+      "options": [
+        "No; it changes the distribution",
+        "Yes, always",
+        "Only for numbers",
+        "Only with a persona"
+      ],
+      "correct": 0,
+      "explanation": "No; it changes the distribution. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why subtract the largest logit?",
+      "options": [
+        "To add evidence",
+        "To train weights",
+        "To increase vocabulary",
+        "To reduce numerical overflow"
+      ],
+      "correct": 3,
+      "explanation": "To reduce numerical overflow. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Equal logits produce what?",
+      "options": [
+        "Certain truth",
+        "No output",
+        "Equal probabilities",
+        "An error"
+      ],
+      "correct": 2,
+      "explanation": "Equal probabilities. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "What does a local seed control?",
+      "options": [
+        "Factual accuracy",
+        "Repeatability of this sampler",
+        "Claude's knowledge",
+        "The API model version"
+      ],
+      "correct": 1,
+      "explanation": "Repeatability of this sampler. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "What should repeated-prompt trials hold fixed?",
+      "options": [
+        "Prompt and recorded model settings",
+        "Only output length",
+        "Only tone",
+        "Nothing"
+      ],
+      "correct": 0,
+      "explanation": "Prompt and recorded model settings. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "A wrong answer becomes more frequent at low temperature. What follows?",
+      "options": [
+        "The sampler has trained Claude",
+        "The answer is now true",
+        "The source no longer matters",
+        "Confidence and correctness differ"
+      ],
+      "correct": 3,
+      "explanation": "Confidence and correctness differ. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}

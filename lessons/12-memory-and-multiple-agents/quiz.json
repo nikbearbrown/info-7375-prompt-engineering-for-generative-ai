@@ -1,0 +1,78 @@
+{
+  "lesson": "12-memory-and-multiple-agents",
+  "title": "Memory and multiple agents",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What does external memory preserve?",
+      "options": [
+        "Unlimited context",
+        "State between model calls",
+        "Guaranteed truth",
+        "Model training weights"
+      ],
+      "correct": 1,
+      "explanation": "State between model calls. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why check an expected version?",
+      "options": [
+        "To detect stale writes",
+        "To approve all writes",
+        "To hide provenance",
+        "To increase token count"
+      ],
+      "correct": 0,
+      "explanation": "To detect stale writes. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "A newer fact is necessarily true?",
+      "options": [
+        "Yes",
+        "Only with a source ID",
+        "Only with a lock",
+        "No"
+      ],
+      "correct": 3,
+      "explanation": "No. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "What does this lock protect?",
+      "options": [
+        "The API bill",
+        "Source truth",
+        "Atomic updates within this process",
+        "All distributed agents globally"
+      ],
+      "correct": 2,
+      "explanation": "Atomic updates within this process. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "Why copy records on read?",
+      "options": [
+        "To suppress conflicts",
+        "To prevent mutation outside the update boundary",
+        "To add embeddings",
+        "To authorize edits"
+      ],
+      "correct": 1,
+      "explanation": "To prevent mutation outside the update boundary. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "What compounds with multiple agents?",
+      "options": [
+        "Shared-state errors and duplicated actions",
+        "Only prose length",
+        "Guaranteed correctness",
+        "Human understanding"
+      ],
+      "correct": 0,
+      "explanation": "Shared-state errors and duplicated actions. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}

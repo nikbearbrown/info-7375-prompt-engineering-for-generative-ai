@@ -1,0 +1,78 @@
+{
+  "lesson": "11-tool-use-and-verification",
+  "title": "Claude tool use and verification",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Who executes a client tool?",
+      "options": [
+        "The quiz",
+        "The schema alone",
+        "The Python runtime",
+        "The model's prose"
+      ],
+      "correct": 2,
+      "explanation": "The Python runtime. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "What connects a result to a request?",
+      "options": [
+        "The file extension",
+        "The tool_use ID",
+        "The timestamp alone",
+        "The answer length"
+      ],
+      "correct": 1,
+      "explanation": "The tool_use ID. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Where are tool results returned?",
+      "options": [
+        "In user-role content blocks",
+        "As a new system role",
+        "As model weights",
+        "Only in a log"
+      ],
+      "correct": 0,
+      "explanation": "In user-role content blocks. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why reject booleans as numeric arguments?",
+      "options": [
+        "Claude requires them",
+        "They improve addition",
+        "JSON cannot represent them",
+        "Python treats bool as an int subclass"
+      ],
+      "correct": 3,
+      "explanation": "Python treats bool as an int subclass. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "A max_tokens stop should be treated as what?",
+      "options": [
+        "Permission to retry indefinitely",
+        "A tool result",
+        "Potentially truncated work",
+        "Verified completion"
+      ],
+      "correct": 2,
+      "explanation": "Potentially truncated work. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "Which verification is independent here?",
+      "options": [
+        "Trust its tone",
+        "Recompute the arithmetic outside the model",
+        "Ask the same model if it is right",
+        "Repeat its answer"
+      ],
+      "correct": 1,
+      "explanation": "Recompute the arithmetic outside the model. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "lesson": "09-training-and-configuration",
+  "title": "Training mechanics and Claude configuration",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What changes during parameter training?",
+      "options": [
+        "Weights",
+        "Only prompt text",
+        "Only filenames",
+        "Only source IDs"
+      ],
+      "correct": 0,
+      "explanation": "Weights. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Does this classifier fine-tune Claude?",
+      "options": [
+        "Yes",
+        "Only after 200 steps",
+        "Only with a key",
+        "No"
+      ],
+      "correct": 3,
+      "explanation": "No. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "What is the gradient used for?",
+      "options": [
+        "Formatting JSON",
+        "Choosing file names",
+        "Updating parameters to reduce loss",
+        "Authorizing a tool"
+      ],
+      "correct": 2,
+      "explanation": "Updating parameters to reduce loss. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why use held-out examples?",
+      "options": [
+        "To replace labels",
+        "To assess generalization",
+        "To maximize training leakage",
+        "To eliminate randomness"
+      ],
+      "correct": 1,
+      "explanation": "To assess generalization. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "Where does retrieval act?",
+      "options": [
+        "On inference context",
+        "Directly on weights",
+        "On the optimizer",
+        "On the learning rate"
+      ],
+      "correct": 0,
+      "explanation": "On inference context. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "RLHF theory belongs where in this lab?",
+      "options": [
+        "In the classifier's name",
+        "In a fake API call",
+        "In the permission policy",
+        "In the conceptual comparison, not claims about implemented features"
+      ],
+      "correct": 3,
+      "explanation": "In the conceptual comparison, not claims about implemented features. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}

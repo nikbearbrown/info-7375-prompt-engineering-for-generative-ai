@@ -1,0 +1,78 @@
+{
+  "lesson": "05-tools-and-permissions",
+  "title": "Tools, permissions, and boundaries",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What enforces a tool boundary?",
+      "options": [
+        "Runtime policy",
+        "A polite prompt alone",
+        "A role name",
+        "A completion message"
+      ],
+      "correct": 0,
+      "explanation": "Runtime policy. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Why resolve a path?",
+      "options": [
+        "To grant more access",
+        "To hide traversal",
+        "To train the model",
+        "To evaluate its actual location"
+      ],
+      "correct": 3,
+      "explanation": "To evaluate its actual location. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "Does a string prefix safely establish containment?",
+      "options": [
+        "Only with short names",
+        "Only in Python",
+        "No; sibling names can share prefixes",
+        "Yes"
+      ],
+      "correct": 2,
+      "explanation": "No; sibling names can share prefixes. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "check",
+      "question": "A write requires what in this lab?",
+      "options": [
+        "Only a filename",
+        "Containment and explicit approval",
+        "Only containment",
+        "Only a prompt"
+      ],
+      "correct": 1,
+      "explanation": "Containment and explicit approval. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "Is a preflight path check a full sandbox?",
+      "options": [
+        "No; races and OS permissions still matter",
+        "Yes",
+        "Only for agents",
+        "Only for Claude"
+      ],
+      "correct": 0,
+      "explanation": "No; races and OS permissions still matter. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    },
+    {
+      "stage": "post",
+      "question": "What belongs in a permission artifact?",
+      "options": [
+        "Only allowed examples",
+        "Only model name",
+        "Only screenshots",
+        "Denied operations and approval ownership"
+      ],
+      "correct": 3,
+      "explanation": "Denied operations and approval ownership. Review the associated mechanism and its stated limitations in the lesson; distinguish observed behavior from a broader claim."
+    }
+  ]
+}
