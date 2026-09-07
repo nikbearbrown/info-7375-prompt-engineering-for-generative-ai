@@ -19,3 +19,21 @@ youtube/**/clips/
 youtube/**/pantry/
 youtube/**/_qc/frames/
 youtube/**/node_modules/
+
+# NEU continuous film supervisor (generated jobs remain local)
+!/neu-courseloop.sh
+!/neu-courseloop.json
+!/NEU-COURSELOOP.md
+!/NEU-COURSELOOP-PROMPT.md
+/.neu-courseloop/
+/youtube/claude-liam-neu-*/
+
+# Keep generated audio/video out of Git, at any depth and in any case.
+*.[mM][pP]3
+*.[mM][pP]4
+node_modules/
+.venv/
+__pycache__/
+
+# Files over 25 MB (25,000,000 bytes), inventoried for this checkout.
+# Gitignore cannot express size rules; refresh this list for new large files.
