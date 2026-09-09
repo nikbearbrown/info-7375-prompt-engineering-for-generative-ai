@@ -16,9 +16,34 @@ The author approved the Blueprint in earlier conversational replies. The latest 
 
 ## Saved full draft
 
-[Chapter index](chapters/README.md). Chapters 1–15 total **80,519 whitespace-delimited words** including retained figure-provenance comments; each is within the 5,000–8,000-word specification. They are AI drafts awaiting human review, not finished author text. All have unsigned review sidecars with `verified:false`. Gate 2 means the full draft exists; it does not grant Gate 3 author sign-off.
+[Chapter index](chapters/README.md). Chapters 1–15 total **83,578 whitespace-delimited words** including retained figure-provenance comments. They are AI drafts awaiting human review, not finished author text. All have unsigned review sidecars with `verified:false`. Gate 2 means the full draft exists; it does not grant Gate 3 author sign-off.
 
 [Batch 1 report](chapters/draft-batch-01-report.md) preserves the initial structural checks and validation. Final validation reports no structural failures across all fifteen manuscripts. All 15 lesson demos, 90 lesson tests, and 13 integration tests pass. The Cajal pass produced 15 chapter-specific SCOPE plans, 20 accessible SVG sources, 20 matching 300-DPI PNGs, and 20 in-chapter references and captions. Automated audits passed structure, accessibility metadata, palette, prohibited-effect, raster-dimension, and grayscale checks. Existing course code and unrelated syllabus/ changes are untouched. No live model calls, commits, pushes, human approvals, or EPUB builds occurred.
+
+## Open item — chapter 1 expansion, 2026-09-07
+
+At the author's instruction ("fine to have a long chapter"), chapter 1 was restructured
+into Part 1 (what a language model does: next-token prediction, the chat scaffold,
+pretraining and preference tuning, scale derivations, the transformer sketch, and the
+stochastic-parrot argument) and Part 2 (the existing randomness material, plus a new
+worked prompt sequence). It is now 8,729 words with five figures.
+
+Two consequences need an author decision:
+
+- **The draft word ceiling was raised from 8,000 to 9,000** in
+  [check-drafts.py](research/check-drafts.py) to accommodate it. No other chapter is
+  near either bound. Reverting the ceiling means cutting roughly 750 words from Part 1.
+- **[chapters-spec.md](chapters-spec.md) chapter 1 is now stale.** Its five content
+  blocks describe Part 2 only; the Cajal candidate names one figure where there are
+  five. The spec was approved at Gate 1, so it has been left unedited rather than
+  silently rewritten to match the manuscript.
+
+New Part 1 sources are registered in [sources.md](research/sources.md) as
+bibliographic citations that were **not** link-checked in this pass. The scale
+derivations are reproducible via [llm_scale.py](research/llm_scale.py) and recorded in
+[llm-scale.json](research/llm-scale.json); they are logged as unverified claim
+`C01-scale` in [facts.json](facts/facts.json). Chapter 1's review sidecar remains
+`verified: false`.
 
 ## Next gate — human review required
 

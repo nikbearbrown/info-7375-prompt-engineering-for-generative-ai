@@ -1,0 +1,28 @@
+{
+  "mode": "offline arithmetic on cited published figures",
+  "assumptions": {
+    "seconds_per_year": 31557600,
+    "words_per_token": 0.75,
+    "ops_per_second": 1000000000.0,
+    "reading_rates_wpm": [
+      150,
+      200,
+      250,
+      300
+    ]
+  },
+  "cited": {
+    "source": "Brown et al. 2020, arXiv:2005.14165",
+    "gpt3_parameters": 175000000000,
+    "gpt3_train_tokens": 300000000000,
+    "gpt3_train_flops": 3.14e+23
+  },
+  "reading_years_by_rate": {
+    "150": 2851.9,
+    "200": 2138.9,
+    "250": 1711.2,
+    "300": 1426.0
+  },
+  "compute_years_at_one_billion_per_second": 9950059.57,
+  "flops_implied_by_one_hundred_million_years": 3.15576e+24
+}

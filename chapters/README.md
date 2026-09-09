@@ -2,7 +2,7 @@
 
 Research is approved. Fifteen full-length Teardown chapter drafts are available below. Drafts await full-book human review and author sign-off. Figure markers are production notes, not completed illustrations. There is no EPUB yet.
 
-- [01-randomness-and-first-prompts](01-randomness-and-first-prompts.md) — 5,628 words.
+- [01-randomness-and-first-prompts](01-randomness-and-first-prompts.md) — 8,729 words.
 - [02-prompt-contracts-and-evaluation](02-prompt-contracts-and-evaluation.md) — 6,108 words.
 - [03-chat-assistant-agent](03-chat-assistant-agent.md) — 6,155 words.
 - [04-the-agent-loop](04-the-agent-loop.md) — 5,648 words.

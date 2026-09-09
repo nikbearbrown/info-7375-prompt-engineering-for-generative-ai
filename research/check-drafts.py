@@ -26,7 +26,7 @@ def main():
             continue
         body = chapter.read_text()
         words = len(body.split())
-        if not 5000 <= words <= 8000:
+        if not 5000 <= words <= 9000:
             failures.append(f"{chapter.name}: {words} words outside approved range")
         if not body.startswith(f"# Chapter {week['week']} — "):
             failures.append(f"{chapter.name}: title/number mismatch")
