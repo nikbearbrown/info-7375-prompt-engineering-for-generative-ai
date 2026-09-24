@@ -1,0 +1,1305 @@
+{
+  "metadata": {
+    "title": "River Moves the Bank.",
+    "slug": "claude-tom-river-moves-the-bank",
+    "topic": "PROMPT ENGINEERING · CHAPTER 1",
+    "register": "Teardown",
+    "audience": "Claude",
+    "brand": "claude-tom",
+    "persona": "Tom (in for Bear)",
+    "voice": "am_michael",
+    "engine": "kokoro",
+    "voice_kokoro": "am_michael",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#FAF9F5",
+    "greeting": "Namaste, Tom",
+    "folderLabel": "@NikBearBrown",
+    "in_for_bear": true,
+    "chassis": "ai-explainer",
+    "playlist": "Claude Taught",
+    "source": "chapters/01-randomness-and-first-prompts.md § 'Inside one prediction step' (line 102) — the single sentence this reel expands",
+    "aspect_ratio": "16:9",
+    "target_duration_s": 233,
+    "approvals": {},
+    "worked_example": {
+      "status": "CONSTRUCTED — ILLUSTRATIVE ONLY",
+      "disclosure": "Every number in this reel is invented by the author for legibility. It is not measured from any model, and no published figure is reproduced. The chapter states the CLAIM (bank-after-river differs from bank-after-savings) and publishes no vectors, scores, or weights for it.",
+      "on_screen_label": "CONSTRUCTED EXAMPLE · ILLUSTRATIVE NUMBERS",
+      "label_rule": "The stamp is persistent on every mechanism beat (B03–B07), not shown once and dropped. A viewer joining mid-scroll must see it.",
+      "simplifications_declared_on_screen": [
+        "d_model = 2 (real models: thousands)",
+        "W_Q = W_K = W_V = I (identity) — real models learn these",
+        "one attention head (real models: many, in parallel)",
+        "one layer (real models: the block repeats many times)",
+        "no positional encoding, no residual add, no layer norm, no output projection"
+      ],
+      "axes": [
+        "axis 1 — 'money-ness'",
+        "axis 2 — 'water-ness'"
+      ],
+      "embeddings": {
+        "the": [
+          1,
+          1
+        ],
+        "river": [
+          0,
+          3
+        ],
+        "savings": [
+          3,
+          0
+        ],
+        "bank": [
+          2,
+          2
+        ]
+      },
+      "d_k": 2,
+      "scale_divisor": "sqrt(2) ≈ 1.414",
+      "run_a": {
+        "context": [
+          "the",
+          "river",
+          "bank"
+        ],
+        "query_token": "bank",
+        "raw_scores": {
+          "the": 4,
+          "river": 6,
+          "bank": 8
+        },
+        "scaled_scores": {
+          "the": 2.828,
+          "river": 4.243,
+          "bank": 5.657
+        },
+        "softmax_weights": {
+          "the": 0.045,
+          "river": 0.187,
+          "bank": 0.768
+        },
+        "weights_sum": 1.0,
+        "contributions": {
+          "the": [
+            0.045,
+            0.045
+          ],
+          "river": [
+            0.0,
+            0.561
+          ],
+          "bank": [
+            1.536,
+            1.536
+          ]
+        },
+        "output": [
+          1.58,
+          2.14
+        ],
+        "shift_from_input": 0.44
+      },
+      "run_b": {
+        "context": [
+          "the",
+          "savings",
+          "bank"
+        ],
+        "query_token": "bank",
+        "raw_scores": {
+          "the": 4,
+          "savings": 6,
+          "bank": 8
+        },
+        "scaled_scores": {
+          "the": 2.828,
+          "savings": 4.243,
+          "bank": 5.657
+        },
+        "softmax_weights": {
+          "the": 0.045,
+          "savings": 0.187,
+          "bank": 0.768
+        },
+        "weights_sum": 1.0,
+        "output": [
+          2.14,
+          1.58
+        ]
+      },
+      "separation_between_runs": 0.79,
+      "arithmetic_verified_by": "scratch script re-deriving every printed figure from the embeddings; weights printed to 3 d.p. sum to exactly 1.000 (2 d.p. would print 1.01 — that is why 3 d.p. is the on-screen format)",
+      "mirror_symmetry_note": "run_b is the exact mirror of run_a. That is a designed property of the chosen embeddings, not a finding — narration and the B07 card both say so."
+    },
+    "boundary_claim": {
+      "establishes": "The SHAPE of one scaled dot-product attention operation: score every pair, normalize the scores into weights that sum to one, return a weighted sum of value vectors — and therefore that the same token's vector is context-dependent.",
+      "does_not_establish": [
+        "that real learned W_Q / W_K / W_V behave like the identity matrices used here",
+        "how multi-head attention assigns different relations to different heads in parallel",
+        "what repeated layers do — how a token's representation changes as the block is stacked",
+        "that any real model's 'bank' axes correspond to interpretable directions like money or water",
+        "any quantitative claim at all: no number here is measured"
+      ],
+      "stated_verbatim_on_screen": "What this single-head 2D example does not establish is how multi-head attention handles dozens of nuanced semantic dimensions simultaneously.",
+      "stated_in": "B09 (Ch1AttnMultiHead) — full-frame, and read aloud verbatim"
+    },
+    "build": {
+      "at": "2026-09-22T18:40:46",
+      "cut": "master",
+      "filled": 13,
+      "of": 13,
+      "slates": [],
+      "skin_warnings": []
+    },
+    "gate_l": {
+      "searched": "./art scenes \"attention vectors embedding dot product softmax\"",
+      "result": "MISS — 8 candidates returned, none about attention (top hits: BrandAgentMapper 6.0, FinanceDotPlot 5.5, AlgArtOrganicTurbulence 4.0). No embedding, dot-product, softmax, or vector-space scene exists in the library.",
+      "punt_disposition": "Design cards, not slates. Seven new components on the existing Ch1Chrome chassis (Ch1Frame / Panel / Kicker / Chip / Arrow / Stamp / Bar from runtime/remotion/src/scenes/Ch1Chrome.tsx), which already carries this reel's eyebrow, serif title, spark line and credit. Log to TEMPLATE-MISSES.md, then ./art scene-index after registration.",
+      "reused_without_change": [
+        "ClaudeComposerAsk",
+        "BrutalistHesitantWriter",
+        "ClaudeVerdictArtifact",
+        "ClaudeTitleOutro",
+        "Ch1Chrome primitives"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "cold open",
+      "narration_text": "Namaste — this is Tom, in for Bear. Chapter one says one sentence in passing: the vector for bank after river ends up somewhere different from the vector for bank after savings. One sentence. Let's open it.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 14.4,
+      "shot": {
+        "type": "REMOTION",
+        "lane": "bookend",
+        "scene_type": "composer-ask",
+        "visual_intent": "The Claude composer types the chapter's own sentence back at it as a question, and the ask lands answered — three output lines that are the episode's spine.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "cream Claude app, serif greeting 'Namaste, Tom' above the composer"
+          },
+          {
+            "at": "'one sentence in passing'",
+            "event": "the ask types itself into the composer"
+          },
+          {
+            "at": "'somewhere different'",
+            "event": "send button arms terracotta; running indicator reads 'reading chapter 1…'"
+          },
+          {
+            "at": "'let's open it'",
+            "event": "three output lines land in order; the last one holds under the caret"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Namaste, Tom",
+            "topic": "PROMPT ENGINEERING · CHAPTER 1",
+            "segment": "River Moves the Bank",
+            "command": "Chapter 1 says the vector for `bank` after `river` ends up somewhere different from the vector for `bank` after `savings`. Show me the arithmetic that moves it.",
+            "runningText": "reading chapter 1 — randomness and first prompts…",
+            "output": [
+              "The chapter states it in one clause and moves on. It publishes no numbers for it.",
+              "The mechanism is scaled dot-product attention: score every pair, normalize, mix.",
+              "What follows is a constructed 2-D example — small enough to check by hand."
+            ],
+            "folderLabel": "@NikBearBrown",
+            "modelLabel": "Fable 5",
+            "effortLabel": "High"
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-09-22T17:31:44.100520+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B00.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 13.97,
+      "render_duration_s": 14.0
+    },
+    {
+      "beat_id": "B01",
+      "act": "executive summary",
+      "narration_text": "Here is the whole idea. A word's vector is not looked up — it is recomputed. Context rewrites it. Same word, two sentences, two different vectors. That mechanism has a name: attention.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 12.4,
+      "lead_silence_s": 0.8,
+      "shot": {
+        "type": "REMOTION",
+        "lane": "bookend",
+        "scene_type": "hesitant-writer",
+        "visual_intent": "The overview is written in front of the viewer. The writer first types the framing a viewer arrives with — a vector is 'looked up' — then deletes it and types 'recomputed'. That swap is exactly the misconception the body dismantles.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "empty cream page, caret waiting through the 0.8s lead"
+          },
+          {
+            "at": "'A word's vector is'",
+            "event": "line 1 types; 'looked up' lands in terracotta, marked for deletion"
+          },
+          {
+            "at": "'it is recomputed'",
+            "event": "'looked up' is backspaced away and 'recomputed' types in its place"
+          },
+          {
+            "at": "'Context rewrites it'",
+            "event": "line 2 types"
+          },
+          {
+            "at": "'two different vectors'",
+            "event": "line 3 types; the corrected overview stands complete and holds"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "A word's vector is\nrecomputed, not stored.\nContext rewrites it.\nSame word. Two vectors.",
+            "triggerWords": "looked up",
+            "replacementWords": "recomputed",
+            "face": "serif",
+            "fontSize": 160,
+            "lineSpacing": 1.2,
+            "align": "center",
+            "charMs": 10,
+            "mistakeRate": 3,
+            "hesitateWithin": 0,
+            "hesitateBetween": 0,
+            "seed": "claude-tom-river-moves-the-bank",
+            "typesize_note": "Two Gate V failures, in opposite directions. 160px over 3 long lines clipped line 3 off BOTH frame edges; dropping to 110px cleared the bleed but left the ink bbox at 29% of SAFE (underfill, min 55%). Fix is the line BREAKS, not the size: 4 lines, longest 23 chars. At ~0.36em average advance that is ~1334x768 = 61% of SAFE, inside 1728 wide."
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-09-22T20:41:50.250206+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B01.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 13.18,
+      "render_duration_s": 13.208333333333334
+    },
+    {
+      "beat_id": "B02",
+      "act": "ACT I — the problem: one word, one row",
+      "narration_text": "Before attention, every token is just a row in a lookup table. Here are two sentences. The river bank. The savings bank. Both contain bank, and both pull the identical row. Same numbers. The table has no idea which bank you meant.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 16.8,
+      "gate_l": "MISS — no embedding-table scene in the library. New component on Ch1Chrome.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "The static embedding table as the thing that CANNOT tell the two sentences apart. Two sentence strips, one table, two identical arrows landing on the same highlighted row — the collision IS the beat.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the embedding table sets: four token rows, two numeric columns, axis headers greyed"
+          },
+          {
+            "at": "'here are two sentences'",
+            "event": "two mono sentence strips slide in above the table — 'The river bank.' and 'The savings bank.'"
+          },
+          {
+            "at": "'both contain bank'",
+            "event": "the word `bank` underlines in both strips simultaneously"
+          },
+          {
+            "at": "'pull the identical row'",
+            "event": "two arrows draw down from both strips and converge on the SAME table row; the row highlights terracotta — the ONE accent"
+          },
+          {
+            "at": "'same numbers'",
+            "event": "the row's values (2, 2) enlarge and hold, duplicated beside each sentence to show they are byte-identical"
+          },
+          {
+            "at": "'no idea which bank you meant'",
+            "event": "a dashed 'CONTEXT' input port is drawn on the table and left visibly unconnected"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnStaticRow",
+          "props": {
+            "sparkLine": "One row for both.",
+            "credit": "Constructed example — illustrative numbers",
+            "sentences": [
+              "The river bank.",
+              "The savings bank."
+            ],
+            "sharedToken": "bank",
+            "table": [
+              {
+                "token": "bank",
+                "vec": [
+                  2,
+                  2
+                ],
+                "highlight": true
+              },
+              {
+                "token": "the",
+                "vec": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "token": "river",
+                "vec": [
+                  0,
+                  3
+                ]
+              },
+              {
+                "token": "savings",
+                "vec": [
+                  3,
+                  0
+                ]
+              }
+            ],
+            "axisLabels": [
+              "money",
+              "water"
+            ],
+            "unconnectedPortLabel": "CONTEXT",
+            "row_order_note": "The highlighted row is listed FIRST so the converging arrow lands on it without crossing the rows above. Row order in a lookup table is arbitrary; the arrow's legibility is not."
+          },
+          "rendered": {
+            "out": "media/B02.mp4",
+            "at": "2026-09-22T20:33:49.305455+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B02.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "remotion:Ch1AttnStaticRow",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 16.28,
+      "render_duration_s": 16.291666666666668
+    },
+    {
+      "beat_id": "B03",
+      "act": "ACT II — the honest setup",
+      "narration_text": "Now the honest part. Real attention runs in thousands of dimensions with learned matrices. Everything from here is a constructed two-dimensional example, built so you can check the arithmetic yourself. Axis one, money. Axis two, water. Bank sits exactly between them.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 16.4,
+      "gate_l": "MISS — no 2-D vector-space scene in the library. New component on Ch1Chrome.",
+      "honesty_gate": "This beat is where the CONSTRUCTED stamp is established. It persists on B04–B07.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "The constructed-example declaration is the SUBJECT of this beat, not a footnote on it. A left ledger names every simplification; a right plane places the four tokens. The terracotta stamp lands before any number is used for anything.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the 2-D plane draws — money on x, water on y, ticks at 1/2/3"
+          },
+          {
+            "at": "'real attention runs in thousands'",
+            "event": "left ledger types its rows one per clause: d_model = 2, W_Q = W_K = W_V = I, one head, one layer, no positional encoding"
+          },
+          {
+            "at": "'a constructed two-dimensional example'",
+            "event": "the terracotta CONSTRUCTED EXAMPLE stamp lands rotated over the ledger head — the ONE accent"
+          },
+          {
+            "at": "'axis one, money'",
+            "event": "x-axis label sets; `savings` plots at (3, 0)"
+          },
+          {
+            "at": "'axis two, water'",
+            "event": "y-axis label sets; `river` plots at (0, 3)"
+          },
+          {
+            "at": "'bank sits exactly between them'",
+            "event": "`bank` plots at (2, 2) on the diagonal; a faint 45° guide confirms it is equidistant, and it holds"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnToySetup",
+          "props": {
+            "sparkLine": "Small enough to check.",
+            "credit": "Constructed example — illustrative numbers",
+            "stampText": "CONSTRUCTED EXAMPLE",
+            "ledgerHeading": "What this toy is NOT",
+            "ledger": [
+              "d_model = 2   (real: thousands)",
+              "W_Q = W_K = W_V = I   (real: learned)",
+              "1 head   (real: many, in parallel)",
+              "1 layer   (real: the block repeats)",
+              "no positional encoding · no residual · no layer norm"
+            ],
+            "axisLabels": [
+              "money",
+              "water"
+            ],
+            "points": [
+              {
+                "token": "the",
+                "vec": [
+                  1,
+                  1
+                ],
+                "muted": true
+              },
+              {
+                "token": "river",
+                "vec": [
+                  0,
+                  3
+                ]
+              },
+              {
+                "token": "savings",
+                "vec": [
+                  3,
+                  0
+                ]
+              },
+              {
+                "token": "bank",
+                "vec": [
+                  2,
+                  2
+                ],
+                "accent": true
+              }
+            ],
+            "diagonalGuide": true
+          },
+          "rendered": {
+            "out": "media/B03.mp4",
+            "at": "2026-09-22T20:42:35.305441+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B03.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "remotion:Ch1AttnToySetup",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 18.79,
+      "render_duration_s": 18.791666666666668
+    },
+    {
+      "beat_id": "B04",
+      "act": "ACT II — step 1: query times key",
+      "narration_text": "Attention asks one question per token. Bank is the query; every token is a key; the score is their dot product. Bank with the, four. With river, six. With itself, eight. Then divide by the square root of the dimension — root two.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 16.8,
+      "gate_l": "MISS — no dot-product worked-arithmetic scene in the library. New component on Ch1Chrome.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "Three rows of worked arithmetic that a viewer can verify while watching. Each row shows the literal multiply-and-add, not a result asserted. The scaling column is drawn as a real step, not omitted.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the query chip `bank (2, 2)` sets top-left with the Q label; three key chips stack beneath it"
+          },
+          {
+            "at": "'the score is their dot product'",
+            "event": "column headers draw: q · k  |  ÷ √2  |  scaled"
+          },
+          {
+            "at": "'bank with the, four'",
+            "event": "row 1 writes itself term by term — 2×1 + 2×1 = 4 — then 4 ÷ 1.414 = 2.828"
+          },
+          {
+            "at": "'with river, six'",
+            "event": "row 2 writes — 2×0 + 2×3 = 6 — then 6 ÷ 1.414 = 4.243"
+          },
+          {
+            "at": "'with itself, eight'",
+            "event": "row 3 writes — 2×2 + 2×2 = 8 — then 8 ÷ 1.414 = 5.657; the bar beside it is longest"
+          },
+          {
+            "at": "'square root of the dimension'",
+            "event": "the ÷√2 column ghosts terracotta and a caption sets: 'd_k = 2. This step is in the real operation too.'"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnScores",
+          "props": {
+            "sparkLine": "Score every pair.",
+            "credit": "Constructed example — illustrative numbers",
+            "stampText": "CONSTRUCTED EXAMPLE",
+            "query": {
+              "token": "bank",
+              "vec": [
+                2,
+                2
+              ]
+            },
+            "rows": [
+              {
+                "token": "the",
+                "vec": [
+                  1,
+                  1
+                ],
+                "work": "2×1 + 2×1",
+                "raw": 4,
+                "scaled": 2.828
+              },
+              {
+                "token": "river",
+                "vec": [
+                  0,
+                  3
+                ],
+                "work": "2×0 + 2×3",
+                "raw": 6,
+                "scaled": 4.243
+              },
+              {
+                "token": "bank",
+                "vec": [
+                  2,
+                  2
+                ],
+                "work": "2×2 + 2×2",
+                "raw": 8,
+                "scaled": 5.657,
+                "isSelf": true
+              }
+            ],
+            "scaleLabel": "÷ √2  (d_k = 2)",
+            "scaleCaption": "d_k = 2. This step is in the real operation too.",
+            "accentColumn": "scale"
+          },
+          "rendered": {
+            "out": "media/B04.mp4",
+            "at": "2026-09-22T20:29:19.155497+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B04.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "remotion:Ch1AttnScores",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 15.96,
+      "render_duration_s": 16.0
+    },
+    {
+      "beat_id": "B05",
+      "act": "ACT II — step 2: softmax to weights",
+      "narration_text": "Softmax turns those three scores into three weights that sum to one. Not probabilities of anything — a mixing recipe. Bank keeps zero point seven six eight of itself. River gets zero point one eight seven. The gets forty-five thousandths.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 16.0,
+      "gate_l": "MISS — no softmax scene in the library. New component on Ch1Chrome.",
+      "honesty_gate": "Weights print to 3 d.p. because 2 d.p. would display 0.05 + 0.19 + 0.77 = 1.01. The running total on screen must land on exactly 1.000.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "The three scaled scores physically become three shares of one bar. The sum-to-one is shown by a running total that lands on 1.000 — the normalization is demonstrated, not claimed.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the three scaled scores carry over from B04 in the same row order, positions held"
+          },
+          {
+            "at": "'softmax turns those three scores'",
+            "event": "the softmax expression sets once, small, above the rows"
+          },
+          {
+            "at": "'three weights that sum to one'",
+            "event": "each score's bar re-scales into its weight share; a unit bar assembles beneath from the three segments"
+          },
+          {
+            "at": "'not probabilities of anything'",
+            "event": "a caption sets beside the unit bar: 'Sums to 1 by construction. Not a claim about the world.'"
+          },
+          {
+            "at": "'zero point seven six eight'",
+            "event": "bank's segment fills — the largest, terracotta, the ONE accent — and its weight counter rolls to 0.768"
+          },
+          {
+            "at": "'zero point one eight seven'",
+            "event": "river's segment fills; counter rolls to 0.187"
+          },
+          {
+            "at": "'forty-five thousandths'",
+            "event": "'the' segment fills; counter rolls to 0.045; the running total snaps to 1.000 and holds"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnSoftmax",
+          "props": {
+            "sparkLine": "A recipe, not a chance.",
+            "credit": "Constructed example — illustrative numbers",
+            "stampText": "CONSTRUCTED EXAMPLE",
+            "formula": "w_i = exp(s_i) / Σ exp(s_j)",
+            "rows": [
+              {
+                "token": "the",
+                "scaled": 2.828,
+                "weight": 0.045
+              },
+              {
+                "token": "river",
+                "scaled": 4.243,
+                "weight": 0.187
+              },
+              {
+                "token": "bank",
+                "scaled": 5.657,
+                "weight": 0.768,
+                "accent": true
+              }
+            ],
+            "total": 1.0,
+            "totalLabel": "1.000",
+            "decimals": 3,
+            "caption": "Sums to 1 by construction. Not a claim about the world."
+          },
+          "rendered": {
+            "out": "media/B05.mp4",
+            "at": "2026-09-22T20:47:53.814877+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B05.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "remotion:Ch1AttnSoftmax",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 17.09,
+      "render_duration_s": 17.125
+    },
+    {
+      "beat_id": "B06",
+      "act": "ACT III — step 3: the weighted sum, and the vector moves",
+      "narration_text": "Now spend the weights. Multiply each token's value vector by its weight, and add them up. Bank went in at two, two. It comes out at one point five eight, two point one four. Money down, water up — moved toward river. But look how far it actually moved: zero point four four units. Bank kept most of itself. Attention revised this vector; it did not replace it.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 26.8,
+      "gate_l": "MISS — no weighted-sum / vector-displacement scene in the library. New component on Ch1Chrome.",
+      "honesty_gate": "The arrow shows the ACTUAL computed displacement (0.44 units), not an exaggerated one. Attention revises the vector; it does not teleport it, and the narration says 'moved toward', never 'became'.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "The payoff. Left: the three weighted contributions add up in a column, term by term. Right: the same plane from B03, with `bank` visibly leaving (2,2) and stopping at (1.58, 2.14). The arrow is short on purpose — that honesty is the lesson.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the B03 plane returns on the right with all four tokens in place; the sum column opens on the left"
+          },
+          {
+            "at": "'multiply each token's value vector'",
+            "event": "row 1: 0.045 × (1, 1) = (0.045, 0.045)"
+          },
+          {
+            "at": "'by its weight'",
+            "event": "row 2: 0.187 × (0, 3) = (0.000, 0.561)"
+          },
+          {
+            "at": "'and add them up'",
+            "event": "row 3: 0.768 × (2, 2) = (1.536, 1.536); a rule draws under the column"
+          },
+          {
+            "at": "'bank went in at two, two'",
+            "event": "a hollow ring marks the input position (2, 2) on the plane"
+          },
+          {
+            "at": "'one point five eight, two point one four'",
+            "event": "the column total resolves to (1.581, 2.142) → (1.58, 2.14) and a terracotta dot travels from the ring to the new position, trailing an arrow — the ONE accent"
+          },
+          {
+            "at": "'money down, water up'",
+            "event": "two small delta ticks annotate the axes: −0.42 money, +0.14 water"
+          },
+          {
+            "at": "'moved toward river'",
+            "event": "a faint dashed line from (2,2) to `river` shows the direction the shift leans; caption holds: 'Revised, not replaced.'"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnWeightedSum",
+          "props": {
+            "sparkLine": "Revised, not replaced.",
+            "credit": "Constructed example — illustrative numbers",
+            "stampText": "CONSTRUCTED EXAMPLE",
+            "terms": [
+              {
+                "token": "the",
+                "weight": 0.045,
+                "vec": [
+                  1,
+                  1
+                ],
+                "product": [
+                  0.045,
+                  0.045
+                ]
+              },
+              {
+                "token": "river",
+                "weight": 0.187,
+                "vec": [
+                  0,
+                  3
+                ],
+                "product": [
+                  0.0,
+                  0.561
+                ]
+              },
+              {
+                "token": "bank",
+                "weight": 0.768,
+                "vec": [
+                  2,
+                  2
+                ],
+                "product": [
+                  1.536,
+                  1.536
+                ]
+              }
+            ],
+            "exactTotal": [
+              1.581,
+              2.142
+            ],
+            "displayTotal": [
+              1.58,
+              2.14
+            ],
+            "inputVec": [
+              2,
+              2
+            ],
+            "outputVec": [
+              1.58,
+              2.14
+            ],
+            "delta": [
+              -0.42,
+              0.14
+            ],
+            "shiftMagnitude": 0.44,
+            "leanToward": "river",
+            "axisLabels": [
+              "money",
+              "water"
+            ],
+            "points": [
+              {
+                "token": "the",
+                "vec": [
+                  1,
+                  1
+                ],
+                "muted": true
+              },
+              {
+                "token": "river",
+                "vec": [
+                  0,
+                  3
+                ]
+              },
+              {
+                "token": "savings",
+                "vec": [
+                  3,
+                  0
+                ],
+                "muted": true
+              },
+              {
+                "token": "bank",
+                "vec": [
+                  2,
+                  2
+                ],
+                "isInput": true
+              }
+            ],
+            "caption": "Revised, not replaced. The shift is 0.44 units — drawn to scale."
+          },
+          "rendered": {
+            "out": "media/B06.mp4",
+            "at": "2026-09-22T22:34:09.793614+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B06.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "remotion:Ch1AttnWeightedSum",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 24.26,
+      "render_duration_s": 24.291666666666668
+    },
+    {
+      "beat_id": "B07",
+      "act": "ACT III — the chapter's sentence, computed",
+      "narration_text": "Swap one word. River becomes savings, nothing else changes. Same query, same weights — but a different value vector in the mix. Bank lands at two point one four, one point five eight. Mirrored. That is chapter one's sentence, computed.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 15.6,
+      "gate_l": "MISS — no side-by-side two-run comparison scene in the library. New component on Ch1Chrome.",
+      "honesty_gate": "The exact mirror symmetry is a designed property of the chosen embeddings, not a result. The card says so on screen.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "Two runs side by side, held together for the comparison (≥2s, per the legibility contract). The only difference between the panels is one token — everything else is visibly identical, so the viewer can see what did the work.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "run A's panel is already on the left, carried over from B06, with its result held"
+          },
+          {
+            "at": "'swap one word'",
+            "event": "the right panel opens as a copy of the left; `river` strikes and `savings` types in its place — the ONE accent"
+          },
+          {
+            "at": "'nothing else changes'",
+            "event": "the shared rows — query, scores 4/6/8, weights 0.045/0.187/0.768 — light up simultaneously in BOTH panels to show they are identical"
+          },
+          {
+            "at": "'a different value vector in the mix'",
+            "event": "only the value row differs: (0, 3) on the left, (3, 0) on the right; both are ringed"
+          },
+          {
+            "at": "'two point one four, one point five eight'",
+            "event": "the right panel's dot travels to (2.14, 1.58) — mirroring the left panel's travel"
+          },
+          {
+            "at": "'mirrored'",
+            "event": "both planes hold side by side with a dashed 45° axis of reflection between them; small caption: 'The mirror is a property of the numbers I chose.'"
+          },
+          {
+            "at": "'chapter one's sentence, computed'",
+            "event": "the chapter's verbatim clause sets beneath both panels with its citation, and holds"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnTwoContexts",
+          "props": {
+            "sparkLine": "Same word. Two vectors.",
+            "credit": "Constructed example — illustrative numbers",
+            "stampText": "CONSTRUCTED EXAMPLE",
+            "panels": [
+              {
+                "label": "the river bank",
+                "swapToken": "river",
+                "valueVec": [
+                  0,
+                  3
+                ],
+                "output": [
+                  1.58,
+                  2.14
+                ]
+              },
+              {
+                "label": "the savings bank",
+                "swapToken": "savings",
+                "valueVec": [
+                  3,
+                  0
+                ],
+                "output": [
+                  2.14,
+                  1.58
+                ]
+              }
+            ],
+            "sharedRows": [
+              {
+                "label": "query",
+                "value": "bank (2, 2)"
+              },
+              {
+                "label": "raw scores",
+                "value": "4 · 6 · 8"
+              },
+              {
+                "label": "weights",
+                "value": "0.045 · 0.187 · 0.768"
+              }
+            ],
+            "separation": 0.79,
+            "mirrorNote": "The mirror is a property of the numbers I chose, not a finding.",
+            "verbatimQuote": "the vector for `bank` after `river` ends up somewhere different from the vector for `bank` after `savings`",
+            "quoteCitation": "Source: chapters/01-randomness-and-first-prompts.md",
+            "holdSeconds": 2.5
+          },
+          "rendered": {
+            "out": "media/B07.mp4",
+            "at": "2026-09-22T20:27:09.803972+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B07.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "remotion:Ch1AttnTwoContexts",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 16.17,
+      "render_duration_s": 16.208333333333332
+    },
+    {
+      "beat_id": "B08",
+      "act": "ACT IV — the boundary (falsifiability)",
+      "narration_text": "Now the boundary — and this column matters more than the other one. This was one head, one layer, two dimensions, identity matrices, and numbers I chose. It does not show learned projections, or what stacking the block dozens of times does. And it licenses no quantitative claim at all, because nothing here was measured. It shows the shape of the operation. Nothing more.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 25.2,
+      "gate_l": "MISS — no establishes/does-not-establish ledger scene in the library. New component on Ch1Chrome.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "A two-column ledger: what the toy licenses, and what it does not. The right column is the longer one, and it is drawn that way deliberately. This is the falsifiability beat — the scope is the content, not a disclaimer under it.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "the two column heads draw: ESTABLISHES (left) · DOES NOT ESTABLISH (right)"
+          },
+          {
+            "at": "'one head, one layer, two dimensions'",
+            "event": "the left column fills with the single claim the toy supports: the shape of the operation — score, normalize, mix"
+          },
+          {
+            "at": "'learned projections'",
+            "event": "right row 1 lands: 'that real learned W_Q/W_K/W_V behave like the identity'"
+          },
+          {
+            "at": "'how many heads track different relations'",
+            "event": "right row 2 lands: 'how multi-head attention splits relations across heads'; a small multi-head fan sketches beside it and stays unlabelled"
+          },
+          {
+            "at": "'stacking the block dozens of times'",
+            "event": "right row 3 lands: 'what repeated layers do to the representation'; a layer stack ghosts in behind it"
+          },
+          {
+            "at": "'numbers I chose'",
+            "event": "right row 4 lands in terracotta — 'any quantitative claim: no number here is measured' — the ONE accent"
+          },
+          {
+            "at": "'nothing more'",
+            "event": "the full ledger holds, both columns readable at once"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnBoundary",
+          "props": {
+            "sparkLine": "The shape, not the size.",
+            "credit": "Constructed example — illustrative numbers",
+            "leftHeading": "ESTABLISHES",
+            "left": [
+              "The shape of one attention operation: score every pair, normalize the scores to weights that sum to 1, return a weighted sum of values.",
+              "That a token's vector is therefore context-dependent — the same `bank` resolves differently in two sentences."
+            ],
+            "rightHeading": "DOES NOT ESTABLISH",
+            "right": [
+              "That real learned W_Q / W_K / W_V behave like the identity matrices used here.",
+              "How multi-head attention assigns different relations to different heads, in parallel.",
+              "What repeated layers do — how a representation changes as the block is stacked.",
+              "That any real model's axes are interpretable directions like 'money' or 'water'.",
+              "Any quantitative claim at all: no number in this video is measured."
+            ],
+            "accentRightIndex": 4
+          },
+          "rendered": {
+            "out": "media/B08.mp4",
+            "at": "2026-09-22T22:35:05.426206+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B08.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "remotion:Ch1AttnBoundary",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 24.53,
+      "render_duration_s": 24.541666666666668
+    },
+    {
+      "beat_id": "B09",
+      "act": "ACT IV — the concluding boundary (multi-head)",
+      "narration_text": "So here is the boundary, said plainly. What this single-head two-dimensional example does not establish is how multi-head attention handles dozens of nuanced semantic dimensions simultaneously. One head, two axes, numbers I chose. A real model runs many heads in parallel over far more dimensions than two — and nothing you just watched tells you what any of those heads learn.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 24.0,
+      "gate_l": "MISS — no single-head-vs-multi-head scene in the library. New component on Ch1Chrome.",
+      "honesty_gate": "The right-hand heads are drawn UNLABELLED. Labelling them would claim to explain multi-head attention, which is the one thing this beat exists to say the video has not done.",
+      "shot": {
+        "type": "REMOTION",
+        "lane": "remotion",
+        "scene_type": "illustration",
+        "visual_intent": "The brief's boundary sentence, full-frame and verbatim, over a density comparison: the one head and two named axes the viewer actually watched, against a grid of unlabelled heads each stacking many dimensions. The argument is carried by the size difference, not by a caption.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "eyebrow and title set; the cream stage is otherwise empty"
+          },
+          {
+            "at": "'the boundary, said plainly'",
+            "event": "the statement types in full width; 'does not establish' lands terracotta — the ONE accent"
+          },
+          {
+            "at": "'single-head, two-dimensional example'",
+            "event": "left card opens: ONE head tile at full size, its two rows labelled money and water"
+          },
+          {
+            "at": "'multi-head attention'",
+            "event": "right card opens, dashed and empty"
+          },
+          {
+            "at": "'dozens of nuanced semantic dimensions'",
+            "event": "twelve head tiles multiply into the right card in quick succession, each stacking nine unlabelled dimension rows"
+          },
+          {
+            "at": "'far more dimensions than two'",
+            "event": "the grid completes; the density difference between the two cards is the whole figure"
+          },
+          {
+            "at": "'what any of those heads learn'",
+            "event": "the footnote sets: drawn unlabelled on purpose — this video has not earned the right to explain it"
+          }
+        ],
+        "remotion": {
+          "pattern": "Ch1AttnMultiHead",
+          "props": {
+            "sparkLine": "One head. Two axes.",
+            "credit": "Constructed example — illustrative numbers",
+            "statement": "What this single-head 2D example does not establish is how multi-head attention handles dozens of nuanced semantic dimensions simultaneously.",
+            "accentPhrase": "does not establish",
+            "leftHeading": "WHAT YOU JUST WATCHED",
+            "leftCaption": "1 head · 2 dimensions · numbers I chose",
+            "rightHeading": "WHAT A REAL MODEL RUNS",
+            "rightCaption": "many heads, in parallel, over far more dimensions",
+            "rightFootnote": "Drawn unlabelled on purpose: this video has not earned the right to explain it.",
+            "heads": 12,
+            "dimsPerHead": 9
+          },
+          "rendered": {
+            "out": "media/B09.mp4",
+            "at": "2026-09-22T22:37:50.280487+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B09.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "remotion:Ch1AttnMultiHead",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 25.71,
+      "render_duration_s": 25.75
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict",
+      "narration_text": "Let's recap with Claude. A static embedding gives one vector per token. Attention scores every pair, normalizes those scores into weights, and returns a weighted sum of value vectors. That is why bank after river differs from bank after savings. The toy numbers were constructed. The operation was not.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 20.0,
+      "lead_silence_s": 0.5,
+      "shot": {
+        "type": "REMOTION",
+        "lane": "bookend",
+        "scene_type": "verdict",
+        "visual_intent": "The Claude artifact page holds the five claims this reel licenses, numbered by the card itself.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "0.5s lead pause, then the artifact page opens"
+          },
+          {
+            "at": "each recap clause",
+            "event": "the card's own numbered line lands as it is spoken"
+          },
+          {
+            "at": "'the operation was not'",
+            "event": "the fifth line holds alone"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "Verdict",
+            "artifactHeading": "What this example licenses you to say",
+            "artifactLines": [
+              "A static embedding gives one vector per token, regardless of context.",
+              "Attention scores every token pair, then normalizes those scores into weights that sum to 1.",
+              "The output is a weighted sum of value vectors — so a token's vector is revised, not replaced.",
+              "That is why `bank` after `river` differs from `bank` after `savings`.",
+              "The numbers were constructed for legibility. The operation they illustrate was not."
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": "2026-09-22T17:38:30.655955+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-BVDT.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BVDT.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 20.71,
+      "render_duration_s": 20.75
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn handoff",
+      "narration_text": "Your turn. Paste this into Claude. \"Take two sentences that reuse one word in different senses. Build a two-dimensional toy attention example by hand — show the dot products, the softmax weights, and the output vector. Then tell me which part of your toy is a lie.\" That last clause is the whole assignment. Every toy lies somewhere. Make it say where.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 24.4,
+      "shot": {
+        "type": "REMOTION",
+        "lane": "bookend",
+        "scene_type": "handoff",
+        "visual_intent": "The composer holds the viewer's prompt, typed in full as it is read aloud. The final clause — 'which part of your toy is a lie' — is the one that makes the exercise worth running, so it is the thing left on screen.",
+        "show": [
+          {
+            "at": "'your turn'",
+            "event": "greeting slot reads 'Your turn.' — the persona drops"
+          },
+          {
+            "at": "'paste this into Claude'",
+            "event": "the prompt begins typing itself as it is read aloud"
+          },
+          {
+            "at": "'the dot products, the softmax weights'",
+            "event": "those three deliverables land as the prompt types past them"
+          },
+          {
+            "at": "'which part of your toy is a lie'",
+            "event": "the final clause completes and the send button arms terracotta — the ONE accent"
+          },
+          {
+            "at": "'make it say where'",
+            "event": "the frame holds on the completed prompt for the viewer to pause and copy"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "PROMPT ENGINEERING · CHAPTER 1",
+            "segment": "Which Part of Your Toy Is a Lie",
+            "command": "Take two sentences that reuse one word in different senses. Build a two-dimensional toy attention example by hand — show the dot products, the softmax weights, and the output vector. Then tell me which part of your toy is a lie.",
+            "runningText": "paste this into Claude…",
+            "folderLabel": "@NikBearBrown",
+            "modelLabel": "Fable 5",
+            "effortLabel": "High"
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-09-22T17:39:30.034553+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 22.42,
+      "render_duration_s": 22.458333333333332
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "narration_text": "River moves the bank.",
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "estimated_duration_s": 1.6,
+      "shot": {
+        "type": "REMOTION",
+        "lane": "bookend",
+        "scene_type": "outro",
+        "visual_intent": "Locked @NikBearBrown outro card — exact title restate, hardcoded handle, slug-seeded mascot, no subline.",
+        "show": [
+          {
+            "at": "0.0",
+            "event": "poster serif title sets with the terracotta period"
+          },
+          {
+            "at": "'the bank'",
+            "event": "@NikBearBrown sets beneath; the slug-seeded mascot plays"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "River Moves the Bank.",
+            "slug": "claude-tom-river-moves-the-bank"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-09-22T17:39:45.549404+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-09-22T18:40:46"
+      },
+      "actual_duration_s": 1.43,
+      "render_duration_s": 1.4583333333333333
+    }
+  ]
+}
