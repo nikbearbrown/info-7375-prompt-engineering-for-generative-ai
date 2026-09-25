@@ -10,7 +10,7 @@ I chose the concept **"A seed makes a run repeatable; it does not make the answe
 
 ### Rebuild
 
-The video source record is in [`week-01-video/`](week-01-video/). Rendering requires a separate checkout of `brutalist.art`; this course folder alone does not include its rendering tools. Place this folder in that checkout as `youtube/claude-hai-seed-repeatable/`, then run the build from the `brutalist.art` checkout root:
+The video source record is in [`beat_sheet.json`](beat_sheet.json). Rendering requires a separate checkout of `brutalist.art`; this course folder alone does not include its rendering tools. Place this folder in that checkout as `youtube/claude-hai-seed-repeatable/`, then run the build from the `brutalist.art` checkout root:
 
 ```bash
 python3 runtime/scripts/generate_audio_kokoro.py youtube/claude-hai-seed-repeatable --speed 1.0
@@ -19,7 +19,7 @@ python3 runtime/scripts/remotion_scenes.py youtube/claude-hai-seed-repeatable
 ./art todo youtube/claude-hai-seed-repeatable
 ```
 
-Review and resolve any missing media, then follow the quality-control steps in [`week-01-video/BUILD-PROMPT.md`](week-01-video/BUILD-PROMPT.md). After fixing any blockers or major defects, render the final video with:
+Review and resolve any missing media, then follow the quality-control steps in [`BUILD-PROMPT.md`](BUILD-PROMPT.md). After fixing any blockers or major defects, render the final video with:
 
 ```bash
 ./art final youtube/claude-hai-seed-repeatable
