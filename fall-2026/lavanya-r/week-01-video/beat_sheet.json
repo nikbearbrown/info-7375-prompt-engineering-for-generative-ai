@@ -1,0 +1,677 @@
+{
+  "metadata": {
+    "title": "Claude, Seeded?",
+    "slug": "claude-hai-seed-repeatable",
+    "topic": "Irreducibly Human",
+    "register": "Plain",
+    "audience": "Students",
+    "brand": "claude-hai",
+    "channel_title": "@HumanitariansAI",
+    "engine": "kokoro",
+    "voice_kokoro": "af_bella",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#F2F0E9",
+    "concept": "A seed makes a run repeatable; it does not make the answer true.",
+    "source_script": "../info-7375-prompt-engineering-for-generative-ai/lessons/01-randomness-and-first-prompts/code/main.py",
+    "tags": [
+      "students",
+      "randomness",
+      "seed",
+      "repeatability"
+    ],
+    "build": {
+      "at": "2026-09-22T19:01:12",
+      "cut": "master",
+      "filled": 11,
+      "of": 11,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "narration_text": "Have you ever wondered, if I run this code twice, will I get a different answer, since it's supposed to be random?",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "start",
+            "event": "The question types into the Claude composer."
+          },
+          {
+            "at": "end",
+            "event": "The result lines appear after the run."
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Hi, HAI",
+            "topic": "RANDOMNESS · REPEATABILITY",
+            "segment": "Claude, Seeded?",
+            "command": "Run the seeded example twice, then change only the seed. Show what stays the same and what changes.",
+            "runningText": "running the example…",
+            "output": [
+              "seed=7 · run 1 = run 2",
+              "then seed=99 changes the counts"
+            ],
+            "folderLabel": "@HumanitariansAI"
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-09-22T21:03:34.436663+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 12,
+      "audio_file": "mp3/beat-B00.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 6.14,
+      "render_duration_s": 6.166666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "FRAME",
+      "narration_text": "Here's the short version: a seed doesn't decide whether an answer is true. All it decides is whether a random process can be repeated — so you can run it again and inspect exactly the same thing. Repeatable is not the same as true, and that distinction is the whole point of this video.",
+      "lead_silence_s": 0.8,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "start",
+            "event": "The writer types the first framing."
+          },
+          {
+            "at": "middle",
+            "event": "The mistaken framing is replaced with the repeatable-process claim."
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "A seed makes the answer true.\nNo — it makes the run repeatable.",
+            "triggerWords": "the answer true",
+            "replacementWords": "the run repeatable",
+            "face": "serif",
+            "fontSize": 116,
+            "seed": "claude-hai-seed-repeatable",
+            "ink": "#3D3929",
+            "accent": "#D97757",
+            "bg": "#F2F0E9",
+            "brandLabel": "@HumanitariansAI"
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-09-22T22:12:16.444349+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 12,
+      "audio_file": "mp3/beat-B01.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 17.43,
+      "render_duration_s": 17.458333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "SETUP",
+      "narration_text": "So what's actually happening in this script? It predicts three outcomes — roughly a 9% chance, a 24.5% chance, and a 66.5% chance. Then it goes one step further: it simulates 1,000 draws from that distribution, using a fixed starting number called a seed.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "reveal",
+        "show": [
+          {
+            "at": "0.2",
+            "event": "The three outcome probabilities appear as measured bars."
+          },
+          {
+            "at": "0.7",
+            "event": "The 1000-draw setting appears beneath the bars."
+          }
+        ],
+        "remotion": {
+          "pattern": "ExecutedData",
+          "props": {
+            "title": "The setup",
+            "mode": "probability",
+            "rows": [
+              {
+                "label": "0",
+                "value": 0.09,
+                "at": 0.2
+              },
+              {
+                "label": "1",
+                "value": 0.2447,
+                "at": 0.4
+              },
+              {
+                "label": "2",
+                "value": 0.6652,
+                "at": 0.6
+              }
+            ],
+            "note": "1000 draws · seed controls the repeatable run",
+            "columnLabels": [
+              "Outcome",
+              "Probability"
+            ]
+          },
+          "rendered": {
+            "out": "media/B02.mp4",
+            "at": "2026-09-22T21:05:06.932005+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 14,
+      "audio_file": "mp3/beat-B02.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 19.16,
+      "render_duration_s": 19.166666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "remotion:ExecutedData",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "EVIDENCE-SAME",
+      "narration_text": "Let's actually test it. I ran main.py, unmodified, with seed 7 — twice, back to back. Both runs came back with the exact same probabilities: 0.0900, 0.2447, 0.6652. And the same counts too — 102, 268, 630. Not close. Identical, down to the last digit.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "reveal",
+        "show": [
+          {
+            "at": "0.2",
+            "event": "The first measured run appears in a table."
+          },
+          {
+            "at": "0.6",
+            "event": "The second run appears beside it with matching values."
+          }
+        ],
+        "remotion": {
+          "pattern": "ShellSession",
+          "props": {
+            "path": "randomness",
+            "command": "python main.py --seed 7",
+            "host": "student@repro",
+            "title": "student@repro — main.py — zsh",
+            "stage": "#F2F0E9",
+            "out": [
+              {
+                "text": "probabilities: 0.0900, 0.2447, 0.6652",
+                "cls": "hi"
+              },
+              {
+                "text": "counts:        102, 268, 630",
+                "cls": "hi"
+              },
+              {
+                "text": "",
+                "cls": "dim"
+              },
+              {
+                "text": "student@repro randomness % python main.py --seed 7",
+                "cls": ""
+              },
+              {
+                "text": "probabilities: 0.0900, 0.2447, 0.6652",
+                "cls": "hi"
+              },
+              {
+                "text": "counts:        102, 268, 630",
+                "cls": "hi"
+              }
+            ],
+            "caret": false
+          },
+          "rendered": {
+            "out": "media/B03.mp4",
+            "at": "2026-09-22T21:07:10.387558+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 17,
+      "audio_file": "mp3/beat-B03.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 24.21,
+      "render_duration_s": 24.25,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B03.mp4",
+        "filled_by": "remotion:ShellSession",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "EVIDENCE-DIFFERENT",
+      "narration_text": "Now watch what happens if I change only one thing — the seed, from 7 to 99. The result shifts: 93, 267, 640. Same process. Different seed. Different result. That's the whole mechanism, laid bare — no mystery, just a fixed starting point for a random number generator.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "reveal",
+        "show": [
+          {
+            "at": "0.2",
+            "event": "The seed changes from 7 to 99."
+          },
+          {
+            "at": "0.6",
+            "event": "The new measured counts replace the first counts."
+          }
+        ],
+        "remotion": {
+          "pattern": "ShellSession",
+          "props": {
+            "path": "randomness",
+            "command": "python main.py --seed 99",
+            "host": "student@repro",
+            "title": "student@repro — main.py — zsh",
+            "stage": "#F2F0E9",
+            "out": [
+              {
+                "text": "seed:           99",
+                "cls": "hi"
+              },
+              {
+                "text": "counts:        93, 267, 640",
+                "cls": "hi"
+              },
+              {
+                "text": "same process · different seed · different result",
+                "cls": ""
+              }
+            ],
+            "caret": false
+          },
+          "rendered": {
+            "out": "media/B04.mp4",
+            "at": "2026-09-22T21:09:16.093631+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 13,
+      "audio_file": "mp3/beat-B04.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 19.9,
+      "render_duration_s": 19.916666666666668,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "remotion:ShellSession",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B04A",
+      "act": "EXPLAIN",
+      "narration_text": "Same starting point. Different seed. Different path. Different destination.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "reveal",
+        "show": [
+          {
+            "at": "start",
+            "event": "The shared start point is centered, then the seeded branches diverge."
+          },
+          {
+            "at": "end",
+            "event": "The two routes resolve to different destinations without changing the process."
+          }
+        ],
+        "remotion": {
+          "pattern": "DivergentFates",
+          "props": {
+            "durationSeconds": 4.59,
+            "data": {
+              "slideMeta": "same process · different seed",
+              "startLabel": "same start",
+              "splitLabel": "seed changes",
+              "tracks": [
+                {
+                  "label": "seed 7",
+                  "outcome": "102 / 268 / 630",
+                  "tone": "good",
+                  "path": "up",
+                  "notes": [
+                    "same starting point",
+                    "same rule",
+                    "same distribution",
+                    "repeatable path",
+                    "outcome: 102 / 268 / 630"
+                  ]
+                },
+                {
+                  "label": "seed 99",
+                  "outcome": "93 / 267 / 640",
+                  "tone": "warn",
+                  "path": "down",
+                  "notes": [
+                    "different seed",
+                    "different path",
+                    "different destination",
+                    "same process",
+                    "outcome: 93 / 267 / 640"
+                  ]
+                }
+              ]
+            }
+          },
+          "rendered": {
+            "out": "media/B04A.mp4",
+            "at": "2026-09-22T21:24:49.389234+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 8,
+      "audio_file": "mp3/beat-B04A.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 4.59,
+      "render_duration_s": 4.625,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04A.mp4",
+        "filled_by": "remotion:DivergentFates",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B04B",
+      "act": "MECHANISM",
+      "narration_text": "There's one more distinction worth making. A seed does not remove randomness from the model. It gives the random number generator a fixed place to begin. From that starting point, the same sequence of pseudo-random choices is produced again. Change the starting point, and the sequence changes, even though the code, the probabilities, and the number of draws all stay the same. That is why seed seven and seed ninety-nine can produce different counts without representing different experiments. They are two repeatable runs of the same experiment, with different starting points. Reproducibility tells us what happened under those conditions. It does not tell us that those conditions produced the right answer.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "stagger",
+        "show": [
+          {
+            "at": "start",
+            "event": "The shared setup and two seed columns appear."
+          },
+          {
+            "at": "middle",
+            "event": "Illustrative draw rows reveal in both columns."
+          },
+          {
+            "at": "end",
+            "event": "The measured count outcomes and boundary statement remain visible."
+          }
+        ],
+        "visual_intent": "Explanatory comparison of two seeded runs; sequence rows are illustrative, while the final counts are the verified outputs.",
+        "remotion": {
+          "pattern": "SeedComparison",
+          "props": {
+            "durationSeconds": 43,
+            "data": {
+              "slideMeta": "same process · different starting point",
+              "title": "Two repeatable runs",
+              "shared": [
+                "same code",
+                "same probabilities",
+                "1000 draws"
+              ],
+              "columns": [
+                {
+                  "seed": "seed 7",
+                  "outcome": "102 / 268 / 630",
+                  "tone": "good",
+                  "sequence": [
+                    "0 · 1 · 2",
+                    "2 · 2 · 1",
+                    "0 · 2 · 2",
+                    "1 · 2 · 2"
+                  ]
+                },
+                {
+                  "seed": "seed 99",
+                  "outcome": "93 / 267 / 640",
+                  "tone": "warn",
+                  "sequence": [
+                    "2 · 0 · 2",
+                    "1 · 2 · 2",
+                    "2 · 2 · 0",
+                    "0 · 1 · 2"
+                  ]
+                }
+              ]
+            }
+          },
+          "rendered": {
+            "out": "media/B04B.mp4",
+            "at": "2026-09-22T22:57:59.724822+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 43,
+      "audio_file": "mp3/beat-B04B.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 42.02,
+      "render_duration_s": 42.041666666666664,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04B.mp4",
+        "filled_by": "remotion:SeedComparison",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "INSIGHT",
+      "narration_text": "Here's where people get tripped up. If an AI gives you a wrong answer, and you fix the seed, you don't get a better answer — you get that exact same wrong answer, perfectly, every time. Reproducing a mistake with total consistency doesn't fix the mistake. It just makes it very, very repeatable.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "reveal",
+        "show": [
+          {
+            "at": "start",
+            "event": "The phrase repeatable does not mean true appears."
+          },
+          {
+            "at": "0.5",
+            "event": "A constructed wrong-answer illustration repeats twice."
+          }
+        ],
+        "visual_intent": "Constructed illustration of a wrong AI answer repeating; not real output.",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "ILLUSTRATION — CONSTRUCTED",
+            "artifactHeading": "Repeatable is not true.",
+            "brandLabel": "@HumanitariansAI",
+            "artifactLines": [
+              "ILLUSTRATIVE EXAMPLE — NOT ACTUAL OUTPUT.",
+              "Seed fixed: same wrong answer.",
+              "This is a constructed illustration, not output from the source script."
+            ]
+          },
+          "rendered": {
+            "out": "media/B05.mp4",
+            "at": "2026-09-22T21:11:53.163884+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 18,
+      "audio_file": "mp3/beat-B05.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 18.56,
+      "render_duration_s": 18.583333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B05.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "LIMIT",
+      "narration_text": "So remember the boundary: this shows you the process is repeatable. It tells you nothing about whether any single output is correct, safe, or good. Those are two different questions, and it's easy to quietly swap one for the other.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "stagger",
+        "show": [
+          {
+            "at": "0.2",
+            "event": "Repeatable is isolated as the supported conclusion."
+          },
+          {
+            "at": "0.6",
+            "event": "Correct, safe, and good appear as unanswered boundaries."
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "The boundary",
+            "artifactHeading": "What the run shows",
+            "brandLabel": "@HumanitariansAI",
+            "artifactLines": [
+              "Supported: the process is repeatable.",
+              "Not shown: whether an output is correct.",
+              "Not shown: whether an output is safe or good."
+            ]
+          },
+          "rendered": {
+            "out": "media/B06.mp4",
+            "at": "2026-09-22T21:13:17.095674+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 14,
+      "audio_file": "mp3/beat-B06.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 14.31,
+      "render_duration_s": 14.333333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B06.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "HANDOFF",
+      "narration_text": "Your turn: take any seeded code you've got, run it twice, and check, is it identical? Then change only the seed and compare. One small experiment, and you'll feel the difference between repeatable and true for yourself.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "type-on",
+        "show": [
+          {
+            "at": "start",
+            "event": "The viewer prompt types into the composer."
+          },
+          {
+            "at": "end",
+            "event": "The prompt remains visible as the handoff is discussed."
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN · REPEATABILITY",
+            "segment": "Claude, Seeded?",
+            "command": "Run your own seeded code twice, then change only the seed. Compare the two outputs.",
+            "runningText": "paste this into Claude and run it on your own code…",
+            "output": [],
+            "folderLabel": "@HumanitariansAI"
+          },
+          "rendered": {
+            "out": "media/B07.mp4",
+            "at": "2026-09-22T21:14:30.816886+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 14,
+      "audio_file": "mp3/beat-B07.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 13.72,
+      "render_duration_s": 13.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-22T19:01:12"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "OUTRO",
+      "narration_text": "Repeatable isn't true.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "show": [
+          {
+            "at": "start",
+            "event": "The title restates on the closing card."
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Claude, Seeded?",
+            "slug": "claude-hai-seed-repeatable"
+          },
+          "rendered": {
+            "out": "media/B08.mp4",
+            "at": "2026-09-22T21:14:48.526933+00:00"
+          }
+        }
+      },
+      "estimated_duration_s": 7,
+      "audio_file": "mp3/beat-B08.mp3",
+      "engine": "kokoro",
+      "voice": "af_bella",
+      "actual_duration_s": 1.26,
+      "render_duration_s": 1.2916666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B08.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-09-22T19:01:12"
+      }
+    }
+  ]
+}
