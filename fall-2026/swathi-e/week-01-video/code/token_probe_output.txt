@@ -1,0 +1,94 @@
+==============================================================================
+TOKENIZER PROBE -- tiktoken 0.14.0 | python 3.12.2
+==============================================================================
+
+------------------------------------------------------------------------------
+word=strawberry   encoding=cl100k_base  chars=10  tokens=3
+------------------------------------------------------------------------------
+  token IDs      : [496, 675, 15717]
+  token pieces   : ['str', 'aw', 'berry']
+      'str'      id=496      chars[0:3]  'r' x1
+      'aw'       id=675      chars[3:5]  'r' x0
+      'berry'    id=15717    chars[5:10]  'r' x2
+  target letter  : 'r'
+  true count     : 3   at char indices [2, 7, 8]
+  per-token split: [1, 0, 2]  -> sum=3
+  crosses token boundary: True
+  decode(ids) == word  : True
+
+------------------------------------------------------------------------------
+word=banana       encoding=cl100k_base  chars=6  tokens=1
+------------------------------------------------------------------------------
+  token IDs      : [88847]
+  token pieces   : ['banana']
+      'banana'   id=88847    chars[0:6]  'a' x3
+  target letter  : 'a'
+  true count     : 3   at char indices [1, 3, 5]
+  per-token split: [3]  -> sum=3
+  crosses token boundary: False
+  decode(ids) == word  : True
+
+------------------------------------------------------------------------------
+word=occurrence   encoding=cl100k_base  chars=10  tokens=2
+------------------------------------------------------------------------------
+  token IDs      : [14310, 21201]
+  token pieces   : ['occ', 'urrence']
+      'occ'      id=14310    chars[0:3]  'c' x2
+      'urrence'  id=21201    chars[3:10]  'c' x1
+  target letter  : 'c'
+  true count     : 3   at char indices [1, 2, 8]
+  per-token split: [2, 1]  -> sum=3
+  crosses token boundary: True
+  decode(ids) == word  : True
+
+------------------------------------------------------------------------------
+word=strawberry   encoding=o200k_base   chars=10  tokens=3
+------------------------------------------------------------------------------
+  token IDs      : [302, 1618, 19772]
+  token pieces   : ['st', 'raw', 'berry']
+      'st'       id=302      chars[0:2]  'r' x0
+      'raw'      id=1618     chars[2:5]  'r' x1
+      'berry'    id=19772    chars[5:10]  'r' x2
+  target letter  : 'r'
+  true count     : 3   at char indices [2, 7, 8]
+  per-token split: [0, 1, 2]  -> sum=3
+  crosses token boundary: True
+  decode(ids) == word  : True
+
+------------------------------------------------------------------------------
+word=banana       encoding=o200k_base   chars=6  tokens=1
+------------------------------------------------------------------------------
+  token IDs      : [183143]
+  token pieces   : ['banana']
+      'banana'   id=183143   chars[0:6]  'a' x3
+  target letter  : 'a'
+  true count     : 3   at char indices [1, 3, 5]
+  per-token split: [3]  -> sum=3
+  crosses token boundary: False
+  decode(ids) == word  : True
+
+------------------------------------------------------------------------------
+word=occurrence   encoding=o200k_base   chars=10  tokens=2
+------------------------------------------------------------------------------
+  token IDs      : [16533, 29194]
+  token pieces   : ['occ', 'urrence']
+      'occ'      id=16533    chars[0:3]  'c' x2
+      'urrence'  id=29194    chars[3:10]  'c' x1
+  target letter  : 'c'
+  true count     : 3   at char indices [1, 2, 8]
+  per-token split: [2, 1]  -> sum=3
+  crosses token boundary: True
+  decode(ids) == word  : True
+
+==============================================================================
+WHAT THE MODEL RECEIVES
+==============================================================================
+  cl100k_base  -> 3 integers: [496, 675, 15717]
+  o200k_base   -> 3 integers: [302, 1618, 19772]
+
+  The 10 characters of 'strawberry' are never handed to the model.
+  A small list of integers is. Each integer is then replaced by a
+  learned embedding vector. The vector is indexed BY the integer;
+  it is not built FROM the letters. There is no 'r' in a vector.
+
+  [wrote code/token_probe_output.json]
