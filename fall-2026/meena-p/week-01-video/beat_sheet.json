@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "title": "Why Subtracting the Maximum Changes the Intermediates but Not the Distribution",
+    "slug": "why-subtract-the-max",
+    "topic": "SOFTMAX · NUMERIC STABILITY",
+    "register": "Plain",
+    "voice_kokoro": "af_bella",
+    "engine": "kokoro",
+    "palette": "teardown",
+    "style_preset": "teardown",
+    "course": "INFO 7375 — Prompt Engineering for Generative AI",
+    "lesson": "lessons/01-randomness-and-first-prompts",
+    "source_code": "lessons/01-randomness-and-first-prompts/code/main.py",
+    "source_repo_head": "8f590fa",
+    "note": "Week 1 assignment reel. EVERY number on screen comes from executing main.py on this machine (Python 3.13.5) — see SOURCES.md for the split between values printed by `python3 main.py` and values derived by importing and calling its own probabilities() function. NO number is taken from the chapter text or from memory. Correction against the original brief: the shifted and direct paths are NOT bit-identical — two of three components differ, max abs difference 1.1102230246251565e-16 — so B03 states agreement to 1.1e-16 rather than identity. Writing 'identical' would contradict the measured run. Palette is 'teardown' (house default), not 'claude': the skin lint requires a claude-palette reel to open on ClaudeComposerAsk and close on ClaudeTitleOutro, and this is a course assignment with its own beat list, not a Claude-branded reel. A 3-second silent title card (BINTRO) was added as a new first beat; no existing beat id, clip, mp3 or measured duration was changed.",
+    "total_estimated_duration_seconds": 193,
+    "build": {
+      "at": "2026-09-26T13:15:05",
+      "cut": "master",
+      "filled": 8,
+      "of": 8,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BINTRO",
+      "act": "TITLE",
+      "role_note": "3-second silent title card. Inserted as a NEW FIRST BEAT — no existing beat was renumbered, because compile.py walks `beats` in array order, never by sorted id.",
+      "narration_text": "",
+      "silent": true,
+      "audio_policy": "silence",
+      "visual_intent": "Title card: course line at top; the full title with 'but not the distribution' in the accent colour; a rule with a travelling marker; week/topic line beneath. No narration.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "BINTRO_Title",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 3,
+      "render_duration_s": 3.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\BINTRO.mp4",
+        "filled_by": "manim:BINTRO_Title",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "HOOK",
+      "role_note": "Open on the actual line of code and the question it raises. No answer yet.",
+      "narration_text": "Here is a line of real code from Chapter One. Before it does anything else, it finds the largest score and subtracts it from every score. Nothing in the math asks for that. So why is it there, and does it change the answer?",
+      "visual_intent": "The real source line `peak = max(logits)` and the line below it, pulled from main.py, centered large; the question 'why subtract first?' resolves beneath it.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B00_Hook",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 16,
+      "actual_duration_s": 13.63,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 13.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B00.mp4",
+        "filled_by": "manim:B00_Hook",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "SETUP",
+      "role_note": "What softmax does, at altitude, plus the three scores this reel uses throughout.",
+      "narration_text": "Softmax turns scores into probabilities. Give it three numbers — one, two, and three — and it returns three numbers that are all positive and add up to one. It does that in two moves: exponentiate every score, then divide each result by the total. Bigger scores get more probability. Running the lesson's own code on one, two, three gives roughly nine percent, twenty-four percent, and sixty-seven percent.",
+      "visual_intent": "Three input chips 1 / 2 / 3 on the left, a SOFTMAX block in the middle, three probability bars on the right labelled with the real values 0.0900, 0.2447, 0.6652.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B01_Setup",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 26,
+      "actual_duration_s": 24.55,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 24.583333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B01.mp4",
+        "filled_by": "manim:B01_Setup",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "MECHANISM",
+      "role_note": "The core animation: four stages, real numbers at every stage. This is the beat the reel exists for.",
+      "narration_text": "Watch the shift. Raw scores: one, two, three. The code finds the peak — three — and subtracts it from each. Now the scores read minus two, minus one, zero. Every score moved, and the largest is always zero. Exponentiate: minus two becomes zero point one three five, minus one becomes zero point three six eight, and zero becomes exactly one. Add them: one point five zero three. Divide each by that total, and you land on zero point zero nine zero, zero point two four five, and zero point six six five. Every intermediate changed. Hold on to those final three numbers.",
+      "visual_intent": "Four columns revealed left to right — RAW, MINUS MAX, EXP, DIVIDE BY TOTAL — each with the three real values; the final column also draws probability bars. Stage labels persist so the whole chain is visible at the end.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B02_Shift",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 44,
+      "actual_duration_s": 40.23,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 40.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B02.mp4",
+        "filled_by": "manim:B02_Shift",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "IDENTITY",
+      "role_note": "Side-by-side. States agreement to 1.1e-16 — NOT bit-identity, which the run disproves.",
+      "narration_text": "Now run it without the shift. Exponentiate the raw scores directly: two point seven one eight, seven point three eight nine, twenty point zero eight six. Completely different intermediates, and a total of thirty point one nine instead of one point five zero. Divide through anyway. The probabilities come back the same to sixteen decimal places. Not bit for bit: two of the three differ in the final digit, by about one times ten to the minus sixteen. That is agreement, not identity.",
+      "visual_intent": "Two columns at full 17-digit precision — SHIFTED and DIRECT — with the differing final digits marked in the accent colour, and a diff column reading 1.39e-17 / 0.0 / 1.11e-16.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B03_Identity",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 30,
+      "actual_duration_s": 31.84,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 31.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B03.mp4",
+        "filled_by": "manim:B03_Identity",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "MOTIVATION",
+      "role_note": "The payoff case. The direct path does not merely lose precision here — it raises OverflowError.",
+      "narration_text": "So if the answer is the same, why shift at all? Try two equal scores: a thousand and a thousand. With the shift, both become zero, both exponentiate to one, and you get exactly one half and one half. Without the shift, Python is asked for e to the power of a thousand. That is larger than the biggest float the machine can hold, and the program stops with an overflow error. Not a worse answer — no answer at all.",
+      "visual_intent": "Split screen. Left: [1000,1000] → shift → [0,0] → exp → [1.0,1.0] → two equal 0.5 bars. Right: exp(1000) → the real traceback line 'OverflowError: math range error' in the accent colour, beside float max 1.7976931348623157e+308.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B04_WhyBother",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 28,
+      "actual_duration_s": 24.94,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 24.958333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B04.mp4",
+        "filled_by": "manim:B04_WhyBother",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "BOUNDARY",
+      "role_note": "MANDATORY on-screen boundary statement. Verbatim. Do not soften or trim this beat.",
+      "narration_text": "One more thing, and it matters. This shows the shifted and direct calculations agree on this input. It does not prove the implementation handles every possible numeric input safely. Floating point arithmetic has its own limits, and passing this test is a narrower claim than numerically stable in general. One example is evidence. It is not a proof.",
+      "visual_intent": "The boundary statement set large and wrapped across the safe area, the qualifying clause in the accent colour. No decoration.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B05_Boundary",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 26,
+      "actual_duration_s": 22.19,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 22.208333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B05.mp4",
+        "filled_by": "manim:B05_Boundary",
+        "at": "2026-09-26T13:15:05"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "CLOSE",
+      "role_note": "One-sentence recap. Nothing new.",
+      "narration_text": "Subtracting the maximum rewrites every intermediate and leaves the distribution where it was. You pay nothing in accuracy, and you buy an answer instead of an overflow.",
+      "visual_intent": "The recap sentence large across the safe area, with 'intermediates change' and 'distribution does not' set apart.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B06_Close",
+          "file": "scenes.py"
+        }
+      },
+      "estimated_duration_s": 12,
+      "actual_duration_s": 10.41,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 10.416666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B06.mp4",
+        "filled_by": "manim:B06_Close",
+        "at": "2026-09-26T13:15:05"
+      }
+    }
+  ]
+}
