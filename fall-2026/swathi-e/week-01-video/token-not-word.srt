@@ -1,0 +1,43 @@
+1
+00:00:00,000 --> 00:00:18,900
+Ask a language model how many R's are in strawberry. For a long time the famous answer was two. The real answer is three. And the usual explanation is that the model is bad at counting. That's wrong. It's bad at seeing. I can show you the exact step where the letters go missing.
+
+2
+00:00:19,200 --> 00:00:34,180
+Here is the claim I am defending, and the only one. The unit a language model reads is a token. Not a word, and not a letter. Everything downstream inherits that choice. So let's run the tokenizer and watch it happen.
+
+3
+00:00:34,480 --> 00:00:56,560
+This is tiktoken, the real byte pair encoding tokenizer, running locally on my machine. Encoding, c l one hundred k base. Feed it strawberry. Ten characters in. Three integers out. Four ninety six. Six seventy five. Fifteen thousand seven seventeen. Decode those three and you get, s t r, a w, berry.
+
+4
+00:00:56,860 --> 00:01:18,450
+Now watch the letters. In the raw string, the R's sit at character index two, seven, and eight. Split across those tokens, that is one R inside s t r, zero inside a w, and two inside berry. One, zero, two. To answer the question, the model would have to reach inside three separate chunks and add them up.
+
+5
+00:01:18,750 --> 00:01:42,520
+Except it cannot reach inside, and here is why. The next step is the embedding lookup, and that lookup is nothing but a row index. Token four ninety six fetches row four ninety six from a table of learned vectors. That row is a list of floating point numbers. There is no slot in it for third letter. The spelling was consumed at the tokenizer. It never reaches the network.
+
+6
+00:01:42,820 --> 00:02:04,790
+And if you think that split tracks something real about the word, switch tokenizers. o two hundred k base, newer, double the vocabulary, cuts the same ten characters as, s t, r a w, berry. Different boundary, different IDs. The cut is not a property of the word. It is a property of whichever merge table got trained.
+
+7
+00:02:05,090 --> 00:02:14,370
+So why berry? Because merges are learned from frequency. Berry on its own is one token. But zyzzyva, seven letters, shatters into four.
+
+8
+00:02:14,670 --> 00:02:35,150
+Now the one that kills the boundary story outright. Banana. Three A's. Encode it and you get one token. Eighty eight thousand, eight hundred forty seven. One. There is no boundary here to blame. The letters are still gone. So it is not the split that hides them. It is the fact that a token is an atom.
+
+9
+00:02:35,450 --> 00:03:08,830
+Which predicts the fix. Space the word out. The same word now encodes to ten tokens instead of three, and every letter gets its own ID. Look at this. Token four hundred thirty six appears three times, at positions two, seven, and eight. The exact character indices the tokenizer destroyed, handed back as repeated tokens. Counting R's is now just counting a repeated integer. The trick does not make the model smarter about spelling. It changes what the model is looking at.
+
+10
+00:03:09,130 --> 00:03:38,760
+Here is what this does not establish. I have shown that tokenization removes character positions at the input. I have not shown a model can never count letters. Give it a chain of thought scratchpad, a code tool, or character level input, and it gets there, by routing around the representation, not by reading inside a token. And many current models answer strawberry correctly now, because that example is all over the training data. Memorising an answer is not seeing the letters.
+
+11
+00:03:39,060 --> 00:03:58,170
+So. The unit is a token. Ten characters became three integers, then three vectors, and the character positions never made the trip. When a letter counting prompt fails, that is not a reasoning bug. That is the input format. Swathi Baba Eswarappa, INFO seven three seven five.

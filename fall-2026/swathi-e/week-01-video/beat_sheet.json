@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "slug": "token-not-word",
+    "title": "The Unit Is a Token, Not a Word",
+    "topic": "INFO 7375 · CHAPTER 1 · PART 1",
+    "purpose": "Show, with live tiktoken output, that BPE tokenization removes character positions before the network ever runs -- which is why letter-counting prompts fail.",
+    "author": "Swathi Baba Eswarappa",
+    "course": "INFO 7375 - Prompt Engineering and Generative AI",
+    "assignment": "Week 01 Explainer Video",
+    "register": "Dunkin -- practical, punchy, Boston-sharp, technically grounded, zero fluff",
+    "engine": "kokoro",
+    "voice": "am_michael",
+    "voice_kokoro": "am_michael",
+    "clock": "narration",
+    "style_preset": "brutalist",
+    "palette": "brutalist-dark",
+    "ground": "#0B0B0C",
+    "target_runtime_s": 225,
+    "runtime_ceiling_s": 240,
+    "evidence_policy": "Every integer spoken or shown is emitted by code/tokenize_probe.py or code/embedding_probe.py on this machine. The only constructed element is the 8-dim embedding vector display in B05, which is labelled CONSTRUCTED on screen (seed=7375).",
+    "data_sources": [
+      "code/token_probe_output.json",
+      "code/embedding_probe_output.json"
+    ],
+    "tooling": {
+      "tokenizer": "tiktoken 0.14.0",
+      "python": "3.12.2",
+      "tts": "kokoro-onnx 0.6.1 (Kokoro-82M, Apache-2.0)",
+      "visual_engine": "Manim Community",
+      "mux": "ffmpeg 9.0.1"
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "act": "HOOK",
+      "estimated_duration_s": 21,
+      "narration_text": "Ask a language model how many R's are in strawberry. For a long time the famous answer was two. The real answer is three. And the usual explanation is that the model is bad at counting. That's wrong. It's bad at seeing. I can show you the exact step where the letters go missing.",
+      "new_visual_element": "Title card: the failed prompt, answer 2 struck through, 3 stamped in",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "type-on"
+      },
+      "graphic": {
+        "manim": "B01_Hook",
+        "engine": "manim",
+        "production_viz": {
+          "label": "THE FAILED PROMPT",
+          "mechanic": "Prompt types on. '2' appears, gets struck through in red. '3' stamps in green.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#3DDC84"
+          ]
+        }
+      },
+      "actual_duration_s": 18.9,
+      "audio_file": "mp3/beat-B01.mp3"
+    },
+    {
+      "beat_id": "B02",
+      "act": "CLAIM",
+      "estimated_duration_s": 18,
+      "narration_text": "Here is the claim I am defending, and the only one. The unit a language model reads is a token. Not a word, and not a letter. Everything downstream inherits that choice. So let's run the tokenizer and watch it happen.",
+      "new_visual_element": "Claim card: TOKEN != WORD != CHARACTER",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B02_Claim",
+        "engine": "manim",
+        "production_viz": {
+          "label": "THE CLAIM",
+          "mechanic": "Three stacked units: CHARACTER / TOKEN / WORD. TOKEN boxes in amber as the one the model actually gets.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 14.98,
+      "audio_file": "mp3/beat-B02.mp3"
+    },
+    {
+      "beat_id": "B03",
+      "act": "MECHANISM",
+      "estimated_duration_s": 26,
+      "narration_text": "This is tiktoken, the real byte pair encoding tokenizer, running locally on my machine. Encoding, c l one hundred k base. Feed it strawberry. Ten characters in. Three integers out. Four ninety six. Six seventy five. Fifteen thousand seven seventeen. Decode those three and you get, s t r, a w, berry.",
+      "new_visual_element": "String enters tokenizer, exits as 3 ID chips",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "flow"
+      },
+      "graphic": {
+        "manim": "B03_Tokenize",
+        "engine": "manim",
+        "production_viz": {
+          "label": "strawberry -> [496, 675, 15717]",
+          "mechanic": "10 char cells slide into a TOKENIZER block; 3 chips emerge, each showing piece + integer ID.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#4FC3F7"
+          ]
+        }
+      },
+      "actual_duration_s": 22.08,
+      "audio_file": "mp3/beat-B03.mp3"
+    },
+    {
+      "beat_id": "B04",
+      "act": "MECHANISM",
+      "estimated_duration_s": 27,
+      "narration_text": "Now watch the letters. In the raw string, the R's sit at character index two, seven, and eight. Split across those tokens, that is one R inside s t r, zero inside a w, and two inside berry. One, zero, two. To answer the question, the model would have to reach inside three separate chunks and add them up.",
+      "new_visual_element": "Char indices 2,7,8 highlighted, then per-token split [1,0,2]",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "highlight"
+      },
+      "graphic": {
+        "manim": "B04_Indices",
+        "engine": "manim",
+        "production_viz": {
+          "label": "r @ [2, 7, 8]  ->  per-token [1, 0, 2]",
+          "mechanic": "Index ruler under the characters; R cells flash red; counts drop into each token chip.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 21.59,
+      "audio_file": "mp3/beat-B04.mp3"
+    },
+    {
+      "beat_id": "B05",
+      "act": "MECHANISM",
+      "estimated_duration_s": 30,
+      "narration_text": "Except it cannot reach inside, and here is why. The next step is the embedding lookup, and that lookup is nothing but a row index. Token four ninety six fetches row four ninety six from a table of learned vectors. That row is a list of floating point numbers. There is no slot in it for third letter. The spelling was consumed at the tokenizer. It never reaches the network.",
+      "new_visual_element": "E[id] -> vector row; character ruler dissolves",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "dissolve"
+      },
+      "graphic": {
+        "manim": "B05_Embedding",
+        "engine": "manim",
+        "production_viz": {
+          "label": "E[496] -> row (CONSTRUCTED vectors, seed=7375)",
+          "mechanic": "Each ID chip fires an arrow into an embedding matrix; the row lights up and floats out as 8 floats. The character index ruler greys out and dissolves. CONSTRUCTED badge pinned to the vectors.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#6B6B70"
+          ]
+        }
+      },
+      "actual_duration_s": 23.77,
+      "audio_file": "mp3/beat-B05.mp3"
+    },
+    {
+      "beat_id": "B06",
+      "act": "EVIDENCE",
+      "estimated_duration_s": 25,
+      "narration_text": "And if you think that split tracks something real about the word, switch tokenizers. o two hundred k base, newer, double the vocabulary, cuts the same ten characters as, s t, r a w, berry. Different boundary, different IDs. The cut is not a property of the word. It is a property of whichever merge table got trained.",
+      "new_visual_element": "Side-by-side cl100k vs o200k split of the same word",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "split-compare"
+      },
+      "graphic": {
+        "manim": "B06_TokenizerDependence",
+        "engine": "manim",
+        "production_viz": {
+          "label": "str|aw|berry   vs   st|raw|berry",
+          "mechanic": "Two rows, same 10 chars, boundary bars animate to different positions; IDs differ.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#B388FF"
+          ]
+        }
+      },
+      "actual_duration_s": 21.97,
+      "audio_file": "mp3/beat-B06.mp3"
+    },
+    {
+      "beat_id": "B06B",
+      "act": "MECHANISM",
+      "estimated_duration_s": 9,
+      "narration_text": "So why berry? Because merges are learned from frequency. Berry on its own is one token. But zyzzyva, seven letters, shatters into four.",
+      "new_visual_element": "frequency ladder: berry=1 token vs zyzzyva=4 tokens",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "ladder"
+      },
+      "graphic": {
+        "manim": "B06B_Frequency",
+        "engine": "manim",
+        "production_viz": {
+          "label": "berry -> [15717] (1)   |   zyzzyva -> 4 tokens",
+          "mechanic": "Two rows: a common string staying whole, a rare string fragmenting. chars/token printed for each.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#FF4D3D"
+          ]
+        }
+      },
+      "actual_duration_s": 9.28,
+      "audio_file": "mp3/beat-B06B.mp3"
+    },
+    {
+      "beat_id": "B07",
+      "act": "EVIDENCE",
+      "estimated_duration_s": 24,
+      "narration_text": "Now the one that kills the boundary story outright. Banana. Three A's. Encode it and you get one token. Eighty eight thousand, eight hundred forty seven. One. There is no boundary here to blame. The letters are still gone. So it is not the split that hides them. It is the fact that a token is an atom.",
+      "new_visual_element": "banana -> single chip 88847",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "collapse"
+      },
+      "graphic": {
+        "manim": "B07_Banana",
+        "engine": "manim",
+        "production_viz": {
+          "label": "banana -> [88847]  (1 token, 3 a's)",
+          "mechanic": "Six char cells collapse into ONE chip. The three a's are visibly swallowed.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#FF4D3D"
+          ]
+        }
+      },
+      "actual_duration_s": 20.48,
+      "audio_file": "mp3/beat-B07.mp3"
+    },
+    {
+      "beat_id": "B08",
+      "act": "PAYOFF",
+      "estimated_duration_s": 33,
+      "narration_text": "Which predicts the fix. Space the word out. The same word now encodes to ten tokens instead of three, and every letter gets its own ID. Look at this. Token four hundred thirty six appears three times, at positions two, seven, and eight. The exact character indices the tokenizer destroyed, handed back as repeated tokens. Counting R's is now just counting a repeated integer. The trick does not make the model smarter about spelling. It changes what the model is looking at.",
+      "new_visual_element": "spaced encoding, 436 x3 at positions 2,7,8 matching original char indices",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "reveal-match"
+      },
+      "graphic": {
+        "manim": "B08_SpacedControl",
+        "engine": "manim",
+        "production_viz": {
+          "label": "3 tokens -> 10 tokens; id 436 x3 @ [2,7,8]",
+          "mechanic": "10 ID chips; the three 436 chips pulse green; callback line draws up to the original [2,7,8] ruler from B04.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 33.38,
+      "audio_file": "mp3/beat-B08.mp3"
+    },
+    {
+      "beat_id": "B09",
+      "act": "BOUNDARY",
+      "estimated_duration_s": 32,
+      "narration_text": "Here is what this does not establish. I have shown that tokenization removes character positions at the input. I have not shown a model can never count letters. Give it a chain of thought scratchpad, a code tool, or character level input, and it gets there, by routing around the representation, not by reading inside a token. And many current models answer strawberry correctly now, because that example is all over the training data. Memorising an answer is not seeing the letters.",
+      "new_visual_element": "BOUNDARY card: established vs not established, two columns",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "two-column"
+      },
+      "graphic": {
+        "manim": "B09_Boundary",
+        "engine": "manim",
+        "production_viz": {
+          "label": "WHAT THIS DOES NOT ESTABLISH",
+          "mechanic": "Left column SHOWN (green ticks), right column NOT SHOWN (amber). Hard rule between them.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 29.63,
+      "audio_file": "mp3/beat-B09.mp3"
+    },
+    {
+      "beat_id": "B10",
+      "act": "CLOSE",
+      "estimated_duration_s": 20,
+      "narration_text": "So. The unit is a token. Ten characters became three integers, then three vectors, and the character positions never made the trip. When a letter counting prompt fails, that is not a reasoning bug. That is the input format. Swathi Baba Eswarappa, INFO seven three seven five.",
+      "new_visual_element": "Pipeline recap + sign-off card",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "recap"
+      },
+      "graphic": {
+        "manim": "B10_Close",
+        "engine": "manim",
+        "production_viz": {
+          "label": "10 chars -> 3 ints -> 3 vectors",
+          "mechanic": "Three-stage pipeline redraws compactly; character ruler shown dropping out at stage 1. Sign-off card.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#4FC3F7"
+          ]
+        }
+      },
+      "actual_duration_s": 19.11,
+      "audio_file": "mp3/beat-B10.mp3"
+    }
+  ]
+}
