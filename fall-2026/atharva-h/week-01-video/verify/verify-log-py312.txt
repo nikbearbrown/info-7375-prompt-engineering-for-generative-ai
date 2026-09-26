@@ -1,0 +1,101 @@
+==============================================================================
+VERIFICATION — Week 01 video, 'the last step keeps only the gaps'
+==============================================================================
+  run_at: 2026-09-25T13:07:30-04:00
+  python_version: 3.12.14
+  python_build: main Aug 12 2026 13:57:54
+  implementation: CPython
+  platform: macOS-26.5.1-arm64-arm-64bit
+  float_info_dig: 15
+  float_info_mant_dig: 53
+
+Constructed input: [1.0, 2.0, 3.0] 
+  (chosen by hand — chapter line 134: 'no model produced them')
+==============================================================================
+
+[PASS] C1  Our probabilities match the chapter's recorded table to 10 decimal places
+         chapter: {0.5: ['0.0158762400', '0.1173104278', '0.8668133322'], 1.0: ['0.0900305732', '0.2447284711', '0.6652409558'], 2.0: ['0.1863237232', '0.3071958857', '0.5064803911']}
+         observed: {0.5: ['0.0158762400', '0.1173104278', '0.8668133322'], 1.0: ['0.0900305732', '0.2447284711', '0.6652409558'], 2.0: ['0.1863237232', '0.3071958857', '0.5064803911']}
+
+[PASS] C2  Seeded sample counts reproduce the chapter's recorded run on this interpreter
+         chapter_counts: {0.5: [18, 133, 849], 1.0: [102, 268, 630], 2.0: [202, 329, 469]}
+         observed_counts: {0.5: [18, 133, 849], 1.0: [102, 268, 630], 2.0: [202, 329, 469]}
+         chapter_interpreter: Python 3.14.6
+         this_interpreter: 3.12.14
+         note: Disagreement here is a portability finding, not a bug in either run.
+
+[PASS] C3  Shifting all scores by up to 1e15 leaves the output bit-for-bit identical
+         unshifted: ['0.0900305732', '0.2447284711', '0.6652409558']
+         by_shift: {'1e0': 'identical', '1e1': 'identical', '1e2': 'identical', '1e3': 'identical', '1e4': 'identical', '1e5': 'identical', '1e6': 'identical', '1e7': 'identical', '1e8': 'identical', '1e9': 'identical', '1e10': 'identical', '1e11': 'identical', '1e12': 'identical', '1e13': 'identical', '1e14': 'identical', '1e15': 'identical'}
+         comparison: exact list equality (==), not math.isclose
+
+[PASS] C4  Negative control: x^2 and |x| normalisation are NOT shift-invariant, softmax is
+         x_squared: {'on_[1,2,3]': ['0.071429', '0.285714', '0.642857'], 'on_[101,102,103]': ['0.326808', '0.333312', '0.339880'], 'changed_under_shift': True}
+         abs_x: {'on_[1,2,3]': ['0.166667', '0.333333', '0.500000'], 'on_[101,102,103]': ['0.330065', '0.333333', '0.336601'], 'changed_under_shift': True}
+         softmax_for_contrast: {'on_[1,2,3]': ['0.090031', '0.244728', '0.665241'], 'on_[101,102,103]': ['0.090031', '0.244728', '0.665241'], 'changed_under_shift': False}
+
+[PASS] C5  Every probability ratio equals exp(score difference) -- only gaps matter
+         p2/p1: {'observed': '2.718281828459', 'exp(difference)': '2.718281828459'}
+         p2/p0: {'observed': '7.389056098931', 'exp(difference)': '7.389056098931'}
+         p1/p0: {'observed': '2.718281828459', 'exp(difference)': '2.718281828459'}
+
+[PASS] C6  Shift-invariance holds at 2**53-3 and breaks at 2**53-2 (float64 integer limit)
+         two_to_the_53: 9007199254740992
+         scan: {'2**53-4': {'gaps': [1.0, 1.0], 'output': ['0.09003057', '0.24472847', '0.66524096'], 'matches_unshifted': True}, '2**53-3': {'gaps': [1.0, 1.0], 'output': ['0.09003057', '0.24472847', '0.66524096'], 'matches_unshifted': True}, '2**53-2': {'gaps': [1.0, 0.0], 'output': ['0.15536240', '0.42231880', '0.42231880'], 'matches_unshifted': False}, '2**53-1': {'gaps': [0.0, 2.0], 'output': ['0.10650698', '0.10650698', '0.78698604'], 'matches_unshifted': False}, '2**53+0': {'gaps': [2.0, 2.0], 'output': ['0.01587624', '0.11731043', '0.86681333'], 'matches_unshifted': False}, '2**53+1': {'gaps': [2.0, 2.0], 'output': ['0.01587624', '0.11731043', '0.86681333'], 'matches_unshifted': False}, '2**53+2': {'gaps': [0.0, 0.0], 'output': ['0.33333333', '0.33333333', '0.33333333'], 'matches_unshifted': False}, '2**53+3': {'gaps': [2.0, 2.0], 'output': ['0.01587624', '0.11731043', '0.86681333'], 'matches_unshifted': False}, '2**53+4': {'gaps': [2.0, 2.0], 'output': ['0.01587624', '0.11731043', '0.86681333'], 'matches_unshifted': False}}
+         reason: past 2**53, float64 can no longer represent consecutive integers, so the gaps between scores are altered by rounding
+
+[PASS] C7  At shift 1e16 the output is digit-identical to the chapter's temperature 0.5 row
+         shift_1e16_at_temperature_1.0: ['0.0158762400', '0.1173104278', '0.8668133322']
+         chapter_temperature_0.5_row: ['0.0158762400', '0.1173104278', '0.8668133322']
+         gaps_after_rounding: [2.0, 2.0]
+         interpretation: a rounding artefact is indistinguishable from turning the confidence dial; the output alone cannot tell you which
+
+[PASS] C8  At shift 1e17 all scores collapse to one value and the output is exactly uniform
+         distinct_shifted_scores: [1e+17]
+         output: ['0.3333333333', '0.3333333333', '0.3333333333']
+         interpretation: uniform is the shape of 'no preference'; here it is produced by rounding, not by anything the model knows
+
+[PASS] C9  Both broken outputs pass a sum-to-one check -- the green test sees nothing
+         shift_1e16_invented_confidence: {'output': ['0.0158762400', '0.1173104278', '0.8668133322'], 'sum': '1.0', 'math.isclose(sum, 1.0)': True}
+         shift_1e17_invented_ignorance: {'output': ['0.3333333333', '0.3333333333', '0.3333333333'], 'sum': '1.0', 'math.isclose(sum, 1.0)': True}
+         note: sum-to-one tests normalisation. It cannot test whether the gaps that went in were the gaps that were meant.
+
+[PASS] C10  The break is NOT monotonic, so the binary search I first used was invalid
+         states: {'2**53+2': 'uniform', '2**53+3': 'skewed: 0.015876,0.117310,0.866813', '2**53+4': 'skewed: 0.015876,0.117310,0.866813'}
+         consequence: binary search requires a monotonic predicate; this one alternates between uniform and skewed. Threshold in C6 was found by an explicit scan instead.
+
+[PASS] C11  Without max-subtraction exp() overflows at [1000,1001,1002]; with it, the answer is fine
+         [1, 2, 3]: {'naive_exp_without_shift': ['0.090031', '0.244728', '0.665241'], 'with_max_subtraction': ['0.090031', '0.244728', '0.665241']}
+         [700, 701, 702]: {'naive_exp_without_shift': ['0.090031', '0.244728', '0.665241'], 'with_max_subtraction': ['0.090031', '0.244728', '0.665241']}
+         [1000, 1001, 1002]: {'naive_exp_without_shift': 'OverflowError: math range error', 'with_max_subtraction': ['0.090031', '0.244728', '0.665241']}
+
+[PASS] C12  Halving temperature IS doubling the gaps -- the same operation, bit-for-bit
+         [1,2,3] at T=0.5: ['0.015876239976', '0.117310427826', '0.866813332197']
+         [1,3,5] at T=1.0: ['0.015876239976', '0.117310427826', '0.866813332197']
+         identical: True
+         general_rule: {'gaps x2.0': {'stretched_at_T=1': ['0.0158762400', '0.1173104278', '0.8668133322'], 'unstretched_at_T=0.5': ['0.0158762400', '0.1173104278', '0.8668133322'], 'identical': True}, 'gaps x3.0': {'stretched_at_T=1': ['0.0023556331', '0.0473141552', '0.9503302117'], 'unstretched_at_T=0.3333333333333333': ['0.0023556331', '0.0473141552', '0.9503302117'], 'identical': True}, 'gaps x0.5': {'stretched_at_T=1': ['0.1863237232', '0.3071958857', '0.5064803911'], 'unstretched_at_T=2.0': ['0.1863237232', '0.3071958857', '0.5064803911'], 'identical': True}}
+         consequence: C7 is not a coincidence. Rounding at 1e16 doubles the gaps, which IS temperature 0.5, so the chapter's 0.5 row is the predicted output -- not a surprising one.
+
+[PASS] C13  Naive exp() also fails downward: at [-800,-801] every weight underflows to 0
+         naive_weights: [0.0, 0.0]
+         naive_total: 0.0
+         naive_next_step: division by zero
+         with_max_subtraction: ['0.7310585786', '0.2689414214']
+         expected_for_a_gap_of_1: 0.7310585786
+         chapter_line_164_reason: avoids 'unnecessarily large intermediate exponentials' -- overflow only; underflow unmentioned
+         scope: not raw next-token logits (those are ~-10..+10); this magnitude occurs in accumulated sequence log-probabilities
+
+[PASS] C14  Just past 2**53 the last digit is unrecordable: gaps 1,1 are stored as 2,2
+         significant_decimal_digits: 15
+         digits_in_2**53: 16
+         wanted: [9007199254740993, 9007199254740994, 9007199254740995]
+         stored: [9007199254740992, 9007199254740994, 9007199254740996]
+         wanted_gaps: [1, 1]
+         stored_gaps: [2, 2]
+         note: 9007199254740993 cannot be represented and becomes ...992; 9007199254740995 becomes ...996. The middle value is exact.
+
+==============================================================================
+SUMMARY: 14/14 claims verified on Python 3.12.14
+==============================================================================
+
+JSON record written to verified-claims-py312.json

@@ -1,0 +1,750 @@
+{
+  "metadata": {
+    "title": "It Can Never Tell You It Hates All Of Them",
+    "slug": "claude-liam-only-the-gaps",
+    "topic": "SOFTMAX · WHAT THE LAST STEP THROWS AWAY",
+    "register": "Teardown",
+    "audience": "Claude",
+    "brand": "claude",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "persona": "Liam, in for Atharva",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#FAF9F5",
+    "greeting": "Atharva",
+    "greeting_note": "Author greeting. This is a student submission, so the reel is signed by its author rather than the @NikBearBrown channel; 'Merhaba, Liam' was replaced with 'Atharva'.",
+    "color_semantics": "Cream ground, warm near-black ink. SPARK #D97757 is one accent EVENT per scene — the gap measurement in B02/B03, the UNCHANGED verdict in B04, the equals in B05, the snap in B06, the prediction frame in B07, the two checks in B08. Never a resting fill, never colour-only meaning.",
+    "note": "INFO 7375 Week 01 assignment reel. ONE concept: the softmax keeps only the GAPS between scores and discards their overall level. REV 2 after review — the first cut was judged correct but too hard to follow: 'gap' was used from beat two onward without ever being defined, 'temperature' was asserted rather than explained, and 2**53 had no plain-language meaning. This revision adds B02 (defines a gap) and B06 (why a computer stops being able to tell 1 apart) and rewrites every line in plain words. Every number on screen is computed by scenes.py from the chapter's own function and cross-checked by verify/verify_claims.py (13/13, Python 3.14.7 and 3.12.14). REV 3 after a second review: B06 was rebuilt because it said 'very big numbers' while showing 1, 2, 3, and B07 now reconnects explicitly to the slide in B03. Constructed inputs are marked CONSTRUCTED on screen. No Claude transcript is used anywhere. REV 4: the reel is credited to its author — greeting 'Atharva', @Atharva on the composer and the outro card, and Liam signs off 'in for Atharva'. The outro handle required adding an optional `handle` prop to ClaudeTitleOutro.tsx, which OUTRO-LOCK.md had hardcoded; the default is unchanged so no other reel is affected. Temperature is now explained by what it does rather than named.",
+    "evidence": "verify/verify_claims.py + verify/verified-claims-py314.json + verify/verified-claims-py312.json — 14/14 claims",
+    "source_chapter": "Chapter 1 — Randomness and first prompts (lines 134, 152-166, 186, 206-210, 373)",
+    "tags": [
+      "softmax",
+      "shift invariance",
+      "temperature",
+      "floating point",
+      "INFO 7375",
+      "Claude for Education",
+      "Nik Bear Brown"
+    ],
+    "build": {
+      "at": "2026-09-25T11:59:04",
+      "cut": "master",
+      "filled": 12,
+      "of": 12,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "ASK",
+      "estimated_duration_s": 15,
+      "narration_text": "Atharva — this is Liam. Here's a strange thing about chatbots. They can always tell you which answer they like best. They can never tell you they think all the answers are rubbish. Not won't — can't. Today: the little bit of maths that makes that true.",
+      "new_visual_element": "Cold open — composer ask, answered",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "lane": "bookend",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "ClaudeComposerAsk: greeting 'Atharva'; ask types itself"
+          },
+          {
+            "at": 0.55,
+            "event": "running indicator 'checking the last step…'"
+          },
+          {
+            "at": 0.8,
+            "event": "output lands, three lines"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Atharva",
+            "command": "Why can a chatbot never say 'all of these answers are bad'?",
+            "runningText": "checking the last step…",
+            "output": [
+              "Because of how it turns scores into chances.",
+              "That step only looks at the distances between scores.",
+              "So there is always a winner."
+            ],
+            "segment": "Only The Gaps Survive",
+            "folderLabel": "@Atharva"
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-09-25T15:55:00.271609+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B00.mp3",
+      "actual_duration_s": 12.27,
+      "render_duration_s": 12.291666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "I — Scores Become Chances",
+      "estimated_duration_s": 19,
+      "narration_text": "A chatbot writes one word at a time. To pick the next one, it gives every word a score — like marks out of ten. Higher means it fits better here. But a score isn't an answer yet. So the last step turns those marks into chances. And the chances always add up to a hundred. One whole pizza, sliced up. Every single time.",
+      "new_visual_element": "The master frame — scores in, chances out",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Split frame held for the whole reel. LEFT: scores as bars on a number line with zero marked. RIGHT: the chances as one fixed-width bar sliced three ways — always the same total width.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "left panel: axis with zero marked, label WHAT THE MODEL THINKS"
+          },
+          {
+            "at": 0.3,
+            "event": "bars rise on spoken cue: 1, 2, 3 — numerals visible, not just heights"
+          },
+          {
+            "at": 0.45,
+            "event": "CONSTRUCTED mark appears and stays"
+          },
+          {
+            "at": 0.7,
+            "event": "right panel builds: one fixed-width bar, label WHAT COMES OUT"
+          },
+          {
+            "at": 0.85,
+            "event": "readout lands at full precision"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B01_ScoreToChances",
+        "production_viz": {
+          "scores": [
+            1,
+            2,
+            3
+          ],
+          "output": [
+            "0.0900305732",
+            "0.2447284711",
+            "0.6652409558"
+          ],
+          "claim": "C1",
+          "label": "CONSTRUCTED — scores chosen by hand, no model produced them"
+        }
+      },
+      "audio_file": "mp3/beat-B01.mp3",
+      "actual_duration_s": 17.02,
+      "render_duration_s": 17.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "I — Scores Become Chances",
+      "estimated_duration_s": 17,
+      "narration_text": "Now the one word you need for the rest of this. A gap is just the distance between two scores. How far apart they are. One, two, three — each one apart. And a hundred and one, a hundred and two, a hundred and three? Also each one apart. Totally different scores. Exactly the same gaps. Hold onto that.",
+      "new_visual_element": "The definition — two number lines, identical distances",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Two number lines stacked. Top 1/2/3, bottom 101/102/103. The distance arrows between them are visibly the SAME length on both rows — that equality is the whole beat.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "heading: a gap is just the distance between two scores"
+          },
+          {
+            "at": 0.25,
+            "event": "top line: 1, 2, 3 land as dots with labels"
+          },
+          {
+            "at": 0.4,
+            "event": "terracotta double-arrows draw between them, each tagged '1 apart'"
+          },
+          {
+            "at": 0.6,
+            "event": "bottom line: 101, 102, 103 land"
+          },
+          {
+            "at": 0.78,
+            "event": "identical-length arrows draw beneath them — same tags"
+          },
+          {
+            "at": 0.9,
+            "event": "verdict: completely different scores, exactly the same gaps"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B02_WhatIsAGap",
+        "production_viz": {
+          "top_row": [
+            1,
+            2,
+            3
+          ],
+          "bottom_row": [
+            101,
+            102,
+            103
+          ],
+          "note": "Added in REV 2. The first cut used 'gap' as a technical term from beat two onward and never defined it — the single biggest reason a viewer could not follow the argument."
+        }
+      },
+      "audio_file": "mp3/beat-B02.mp3",
+      "actual_duration_s": 15.15,
+      "render_duration_s": 15.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "II — Only The Gaps Survive",
+      "estimated_duration_s": 18,
+      "narration_text": "Here's what the machine actually does. When it works out the chances, it only looks at the gaps. Not the scores themselves. Watch. I'll add the same amount to all three — the scores change, the gaps don't. Nothing moves. Add a million. Nothing. Now make every score negative, so the machine thinks every option is bad. Still nothing.",
+      "new_visual_element": "The slide — and the readout that refuses to move",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Prove the output panel is live BEFORE freezing it, then slide the whole score group and hold the unchanged ten-decimal readout. Comparison held ≥2s.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "middle bar rises ALONE; right panel visibly redraws — the panel is live"
+          },
+          {
+            "at": 0.25,
+            "event": "terracotta double-arrow measures the gap between two bar tops, derived from the bar geometry"
+          },
+          {
+            "at": 0.4,
+            "event": "all three bars translate up rigidly, gaps visibly locked"
+          },
+          {
+            "at": 0.55,
+            "event": "hard cut to the readout, unchanged, held"
+          },
+          {
+            "at": 0.72,
+            "event": "axis label spins; readout never flickers"
+          },
+          {
+            "at": 0.88,
+            "event": "bars drop below the zero line; readout still unchanged"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B03_SlideAndFreeze",
+        "production_viz": {
+          "shifts_tested": [
+            "1e0",
+            "1e6",
+            "1e15",
+            "-1e3"
+          ],
+          "output": "identical for every shift, bit-for-bit",
+          "claim": "C3",
+          "note": "Ten decimals shown because bar heights can be redrawn and a frozen readout cannot."
+        }
+      },
+      "audio_file": "mp3/beat-B03.mp3",
+      "actual_duration_s": 16.62,
+      "render_duration_s": 16.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "II — Only The Gaps Survive",
+      "estimated_duration_s": 18,
+      "narration_text": "And that really is this machine, not a stuck animation — two other ways of doing the sums both break when you slide them. So picture lunch. Pizza scores three, salad two, dirt one. Sixty-seven percent: pizza. Now everything in the kitchen has gone rotten. The machine knows — it drops every score by a hundred. Sixty-seven percent. Pizza.",
+      "new_visual_element": "The control, then the rotten kitchen",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Two control columns break under the identical shift while softmax holds, side by side ≥2s. Then the same frame relabelled to lunch, dropped below zero, output unchanged.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "x² and |x| columns flick in — both visibly change under the same +100 slide"
+          },
+          {
+            "at": 0.2,
+            "event": "softmax column beside them, UNCHANGED — comparison held"
+          },
+          {
+            "at": 0.42,
+            "event": "frame relabels: pizza 3, salad 2, dirt 1. CONSTRUCTED mark up"
+          },
+          {
+            "at": 0.6,
+            "event": "output reads 67% pizza"
+          },
+          {
+            "at": 0.72,
+            "event": "labels turn rotten; all three drop 100, below zero. Hold before reveal"
+          },
+          {
+            "at": 0.9,
+            "event": "output: 67% pizza. Unchanged"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B04_ControlAndLunch",
+        "production_viz": {
+          "claim": "C4",
+          "label": "CONSTRUCTED — the lunch example is the narrator's own",
+          "note": "Only the labels are invented; the numbers beneath them are the verified [1,2,3] distribution."
+        }
+      },
+      "audio_file": "mp3/beat-B04.mp3",
+      "actual_duration_s": 17.75,
+      "render_duration_s": 17.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "III — The Only Dial There Is",
+      "estimated_duration_s": 19,
+      "narration_text": "It has to hand out one whole pizza, so somebody always wins, and the winner always looks confident. It can tell you what it prefers. It can never tell you it hates the lot. The one thing that does change the answer is pulling the gaps further apart. That is what temperature means. Stretch them and the favourite wins more often. Squash them together and it picks more evenly.",
+      "new_visual_element": "The payoff line, then temperature shown in both directions",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Thesis line alone on cream with nothing else moving. Then live geometry: SLIDE moves everything and the output holds; STRETCH pulls the gaps apart and the favourite's slice grows; SQUASH pushes them together and the slices even out. Temperature is defined by what the motion does, never by assertion.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "the two thesis lines set alone on cream, held, nothing else animates"
+          },
+          {
+            "at": 0.32,
+            "event": "bars + output bar appear; terracotta arrow marks the gap"
+          },
+          {
+            "at": 0.48,
+            "event": "SLIDE: the whole group moves, the output does not"
+          },
+          {
+            "at": 0.64,
+            "event": "STRETCH: gaps pull apart, the favourite's slice visibly grows — 'temperature down'"
+          },
+          {
+            "at": 0.82,
+            "event": "SQUASH: gaps close up, the slices even out — 'temperature up'"
+          },
+          {
+            "at": 0.93,
+            "event": "both labelled: stretching and squashing the gaps IS the temperature dial"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B05_PayoffAndStretch",
+        "production_viz": {
+          "t_half_on_1_2_3": [
+            "0.015876239976",
+            "0.117310427826",
+            "0.866813332197"
+          ],
+          "t_one_on_1_3_5": [
+            "0.015876239976",
+            "0.117310427826",
+            "0.866813332197"
+          ],
+          "claim": "C12",
+          "note": "REV 4: the first cut named temperature without explaining it. It is now defined by what it does in both directions — stretch (favourite wins more often) and squash (picks more evenly) — and both are shown. Values from C12: gaps x2 == T 0.5, gaps x0.5 == T 2.0, the recorded row.",
+          "t_two_on_1_1p5_2": [
+            "0.1863237232",
+            "0.3071958857",
+            "0.5064803911"
+          ]
+        }
+      },
+      "audio_file": "mp3/beat-B05.mp3",
+      "actual_duration_s": 18.65,
+      "render_duration_s": 18.666666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "IV — Now Break It",
+      "estimated_duration_s": 18,
+      "narration_text": "Here's the bit that makes it break. A computer only has room for about sixteen digits in a number. For a small score that's loads — most of the box sits empty. But make the score enormous and all sixteen get eaten by the big part. Nothing's left for the last little digit. So it rounds the end off. Watch what that does to three scores one apart.",
+      "new_visual_element": "The digits running out — and the gaps doubling",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "A 16-cell digit box: a small score leaves it nearly empty, a huge score fills every cell. Then the three scores we wanted against the three it can actually store, with the gap arrows going from 1 apart to 2 apart.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "heading: a computer has room for about sixteen digits in a number"
+          },
+          {
+            "at": 0.18,
+            "event": "16-cell box holding a single digit — fifteen cells visibly free"
+          },
+          {
+            "at": 0.38,
+            "event": "the same box fills completely with a 16-digit score — no room left"
+          },
+          {
+            "at": 0.58,
+            "event": "WHAT WE WANTED: three scores ending 993, 994, 995 — arrows read '1 apart'"
+          },
+          {
+            "at": 0.78,
+            "event": "WHAT IT CAN STORE: 992, 994, 996 in terracotta — arrows now read '2 apart'"
+          },
+          {
+            "at": 0.92,
+            "event": "verdict: the last digit can't be written down, so the gaps doubled"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B06_OutOfDigits",
+        "production_viz": {
+          "wanted": [
+            9007199254740993,
+            9007199254740994,
+            9007199254740995
+          ],
+          "stored": [
+            9007199254740992,
+            9007199254740994,
+            9007199254740996
+          ],
+          "wanted_gaps": [
+            1,
+            1
+          ],
+          "stored_gaps": [
+            2,
+            2
+          ],
+          "claim": "C14",
+          "note": "REV 3. The previous version said 'very big numbers' while showing 1, 2, 3 — the visual contradicted the voice. This shows real 16-digit values losing their last digit, so 'runs out of room' has something on screen to attach to."
+        }
+      },
+      "audio_file": "mp3/beat-B06.mp3",
+      "actual_duration_s": 17.28,
+      "render_duration_s": 17.291666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "IV — Now Break It",
+      "estimated_duration_s": 19,
+      "narration_text": "Remember when I slid all three scores up? Do that far enough and they get too big for the box, so the rounding kicks in. It pushes the gaps from one apart to two apart. Twice as far. And twice as far apart is exactly what turning the temperature down does. So this should suddenly look far more certain — by accident. Let's look. There it is.",
+      "new_visual_element": "The prediction, stated before the reveal",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "The scan around the limit, then the prediction typed into an accent-framed card and HELD with nothing computed, then the gaps physically stretching and the confirmation landing beside the recorded row.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "heading: 'past about 9 quadrillion, the digits run out'; exact 2^53 figure small underneath"
+          },
+          {
+            "at": 0.25,
+            "event": "bars + output bar appear on the left"
+          },
+          {
+            "at": 0.4,
+            "event": "prediction card types itself and HOLDS — nothing computed yet"
+          },
+          {
+            "at": 0.6,
+            "event": "hold on the bare prediction ~1.7s — the audience gets to disbelieve it"
+          },
+          {
+            "at": 0.75,
+            "event": "the gaps stretch; the output re-slices"
+          },
+          {
+            "at": 0.9,
+            "event": "computed output lands beside the recorded T=0.5 row — digits match"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B07_PredictConfirm",
+        "production_viz": {
+          "two_to_the_53": 9007199254740992,
+          "holds_at": "2**53−3",
+          "breaks_at": "2**53−2",
+          "shift_1e16_output": [
+            "0.0158762400",
+            "0.1173104278",
+            "0.8668133322"
+          ],
+          "claims": [
+            "C6",
+            "C7",
+            "C12"
+          ],
+          "note": "REV 3: the 2^53 digit string was the headline and read as a wall of numbers. It is now a subtitle under a figure a person can hold. Narration reconnects to the slide in B03, which the first cut never did — that missing link was why 'past a certain huge number' arrived from nowhere."
+        }
+      },
+      "audio_file": "mp3/beat-B07.mp3",
+      "actual_duration_s": 17.26,
+      "render_duration_s": 17.291666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "IV — Now Break It",
+      "estimated_duration_s": 17,
+      "narration_text": "Push harder and the rounding squashes all three scores into the same number. Gaps: zero. Thirty-three, thirty-three, thirty-three. Now it looks completely unsure — also by accident. Both of those answers are wrong. And the usual safety check only asks one thing: do the chances add up to a hundred? They do. Both times. It waves them straight through.",
+      "new_visual_element": "Fake uncertainty, and the check that sees nothing",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Three scores collapse onto one value and the output goes flat. Then both wrong outputs side by side, each stamped with the passing check — the misleading pass, shown not asserted.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "three distinct scores collapse onto a single value; gaps read 0, 0"
+          },
+          {
+            "at": 0.25,
+            "event": "output flattens to 0.3333333333 x3 — the same shape as 'no preference'"
+          },
+          {
+            "at": 0.55,
+            "event": "both wrong outputs placed side by side"
+          },
+          {
+            "at": 0.75,
+            "event": "sum computes to 1.0 under each; the check stamps BOTH"
+          },
+          {
+            "at": 0.9,
+            "event": "held ≥2s; un-highlighted elements never below 40% opacity"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B08_FlatAndCheck",
+        "production_viz": {
+          "shift_1e17_output": [
+            "0.3333333333",
+            "0.3333333333",
+            "0.3333333333"
+          ],
+          "sums": {
+            "1e16": "1.0",
+            "1e17": "1.0"
+          },
+          "claims": [
+            "C8",
+            "C9"
+          ]
+        }
+      },
+      "audio_file": "mp3/beat-B08.mp3",
+      "actual_duration_s": 17.83,
+      "render_duration_s": 17.833333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "VERDICT",
+      "estimated_duration_s": 21,
+      "lead_silence_s": 0.5,
+      "narration_text": "Let's recap with Claude. The machine only ever looks at the distances between its scores, never at how good or bad they all are. So it can rank, but it can't refuse. Spread those distances and you have turned the confidence dial, whoever did the spreading. What this does not show is real chatbots failing this way — real scores are small. And I found that breaking point the wrong way first.",
+      "new_visual_element": "Verdict card — with the limit and the bad method on it",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "lane": "bookend",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "0.5s lead pause, then the handoff line"
+          },
+          {
+            "at": 0.15,
+            "event": "ClaudeVerdictArtifact card; recap lines are bare sentences, the card numbers them"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "Only The Gaps Survive",
+            "artifactHeading": "What the last step keeps",
+            "artifactLines": [
+              "A gap is the distance between two scores.",
+              "The last step keeps the gaps, throws away the level.",
+              "So it can rank. It cannot refuse.",
+              "Spreading the gaps is what temperature is.",
+              "Rounding spreads them too — nobody asked.",
+              "Does NOT show real chatbots failing this way.",
+              "Breaking point found by scan; my first search was invalid."
+            ]
+          },
+          "rendered": {
+            "out": "media/B09.mp4",
+            "at": "2026-09-23T14:43:10.396967+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B09.mp3",
+      "actual_duration_s": 18.99,
+      "render_duration_s": 19.0,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B09.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "YOUR TURN",
+      "estimated_duration_s": 11,
+      "narration_text": "Your turn. Add the same number to every score in a softmax, print ten decimal places, and check that nothing changes. Then go hunting for the point where it does — and see whether your test notices.",
+      "new_visual_element": "A prompt the viewer can actually run",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "lane": "ask",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "ClaudeComposerAsk, greeting 'Your turn.'; prompt types itself in full"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "command": "Add the same number to every score in a softmax, print ten decimal places, and check that nothing changes. Then go hunting for the point where it does — and see whether your test notices.",
+            "segment": "Your Turn",
+            "topic": "SOFTMAX · SHIFT INVARIANCE",
+            "folderLabel": "@Atharva"
+          },
+          "rendered": {
+            "out": "media/B10.mp4",
+            "at": "2026-09-25T15:56:10.817760+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B10.mp3",
+      "actual_duration_s": 11.29,
+      "render_duration_s": 11.291666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B10.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-25T11:59:04"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "OUTRO",
+      "estimated_duration_s": 5,
+      "narration_text": "It Can Never Tell You It Hates All Of Them. Liam, in for Atharva.",
+      "new_visual_element": "Title re-read",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "lane": "bookend",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "ClaudeTitleOutro; title sets, @Atharva handle holds"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "It Can Never Tell You It Hates All Of Them",
+            "slug": "claude-liam-only-the-gaps",
+            "handle": "@Atharva"
+          },
+          "rendered": {
+            "out": "media/B11.mp4",
+            "at": "2026-09-25T15:56:27.217005+00:00"
+          }
+        }
+      },
+      "audio_file": "mp3/beat-B11.mp3",
+      "actual_duration_s": 4.33,
+      "render_duration_s": 4.333333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B11.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-09-25T11:59:04"
+      }
+    }
+  ]
+}
