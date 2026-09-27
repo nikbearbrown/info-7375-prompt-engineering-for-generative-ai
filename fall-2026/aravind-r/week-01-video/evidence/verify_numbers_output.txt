@@ -1,0 +1,22 @@
+# command: python3 fall-2026/aravind-r/week-01-video/verify_numbers.py   (run from the course repo root)
+# run by: Aravind Ravi, in my own terminal
+run date: 2026-09-27T00:59:36-04:00
+python: 3.13.0 | darwin
+
+B03 direct weights       [2.718282, 7.389056, 20.085537]  sum 30.192875
+B03 direct probabilities [0.0900305732, 0.2447284711, 0.6652409558]
+B04 shifted scores       [-2, -1, 0]
+B04 shifted weights      [0.135335, 0.367879, 1.000000]  sum 1.503215
+B04 shifted probabilities [0.0900305732, 0.2447284711, 0.6652409558]
+B04 bit-identical?       False
+B04 largest difference   1.1102230246251565e-16
+chapter probabilities()  [0.09003057317038046, 0.24472847105479764, 0.6652409557748218]
+
+B07 math.exp(1000)       OverflowError: math range error
+B07 probabilities([1000, 1000]) [0.5, 0.5]
+B07 largest float        1.7976931348623157e+308
+
+B08 math.exp(-1000)      0.0
+B08 probabilities([0, -1000]) [1.0, 0.0]
+B08 smallest positive float 5e-324
+B08 true size of exp(-1000) = 10 ** -434.29 (computed, not printed by Python)
