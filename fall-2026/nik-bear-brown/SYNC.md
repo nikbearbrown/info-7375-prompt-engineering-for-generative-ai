@@ -36,4 +36,4 @@ It happens mid-class. Do not copy it back blindly:
 4. Run `./lectern/sync.sh` so all three match.
 5. Record it in this class's `FRICTIONAL.md` — a drift that happened is a finding about the workflow, not an embarrassment.
 
-The full rule, including why Computational Skepticism is master, is in that folder's [`SYNC.md`](../../../info-7375-computational-skepticism-for-ai/fall-2026/nik-bear-brown/SYNC.md).
+The full rule, including why Computational Skepticism is master, is in that folder's [`SYNC.md`](https://github.com/nikbearbrown/info-7375-computational-skepticism-for-ai/blob/main/fall-2026/nik-bear-brown/SYNC.md).
