@@ -1,0 +1,19 @@
+=== [1, 2, 3] ===
+raw exp(x):           [2.718281828459045, 7.38905609893065, 20.085536923187668]
+shifted exp(x - max): [0.1353352832366127, 0.36787944117144233, 1.0]
+probs from raw:       [0.09003057317038045, 0.24472847105479764, 0.6652409557748219]
+probs from shifted:   [0.09003057317038046, 0.24472847105479764, 0.6652409557748218]
+main.probabilities(): [0.09003057317038046, 0.24472847105479764, 0.6652409557748218]
+
+=== [1000, 1000] ===
+naive (no max-subtraction): OverflowError: math range error
+main.probabilities():       [0.5, 0.5]
+
+=== [1000, 1001] ===
+naive (no max-subtraction): OverflowError: math range error
+main.probabilities():       [0.2689414213699951, 0.7310585786300049]
+main.probabilities([0, 1]): [0.2689414213699951, 0.7310585786300049]
+
+=== [0, -1000] ===
+math.exp(-1000):      0.0
+main.probabilities(): [1.0, 0.0]

@@ -1,0 +1,678 @@
+{
+  "_comment_skipped_framing": "FRICTIONAL.md: ai-explainer's required framing beats were deliberately skipped at the author's request (2026-09-26): no ClaudeComposerAsk cold open (COLD OPEN LAW), no BrutalistHesitantWriter Beat-2 overview (EXECUTIVE-SUMMARY LAW), no 'Your turn' handoff (HANDOFF LAW), no ClaudeTitleOutro / spoken outro (OUTRO LAW), no 'Liam, in for Bear' line (IN-FOR-BEAR LAW). Replaced by a silent 3 s title card (B00). All 10 beats render in Manim (no Remotion scenes used).",
+  "metadata": {
+    "title": "Why subtracting the max changes nothing that matters",
+    "slug": "week-01-softmax-max-subtraction",
+    "topic": "INFO 7375 WEEK 1 · SOFTMAX STABILITY",
+    "author": "Nishant",
+    "skill": "ai-explainer",
+    "brand": "claude-liam",
+    "register": "Teardown",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "free_pipeline_only": true,
+    "no_paid_calls": true,
+    "never_publish": true,
+    "evidence": {
+      "script": "maxsub_runs.py",
+      "script_sha256": "e0fd1eca6cea9ad6c66246f09d6d9d4fda1d24232b7c2a6b7f124272f26c150c",
+      "imports": "info-7375-prompt-engineering-for-generative-ai/lessons/01-randomness-and-first-prompts/code/main.py",
+      "imports_sha256": "df9940caec2494c132277a43f93de9f65983597c1be18f77961b88cd11743e5d",
+      "python": "3.12.10",
+      "run_date": "2026-09-26",
+      "labels": {
+        "printed": "Source: maxsub_runs.py output, 2026-09-26",
+        "totals": "Totals computed from printed values.",
+        "by_hand": "Worked by hand from the formula.",
+        "printed_0927": "Source: maxsub_runs.py output, 2026-09-27",
+        "rounded": "Rounded to 3 decimals."
+      },
+      "run_dates": {
+        "2026-09-26": "[1,2,3] and [1000,1000] blocks (reproduced identically 2026-09-27)",
+        "2026-09-27": "[1000,1001], [0,1] and [0,-1000] blocks"
+      },
+      "stdout": "maxsub_runs.stdout.txt"
+    },
+    "build": {
+      "at": "2026-09-27T15:51:33",
+      "cut": "master",
+      "filled": 10,
+      "of": 10,
+      "slates": [],
+      "skin_warnings": [
+        "B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B08: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    },
+    "inter_beat_gap_s": 0.8,
+    "inter_beat_gap_note": "0.8 s trailing silence appended to every narrated beat except the last (pad_gaps.py), then re-measured; the toolkit has no native gap option."
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "TITLE",
+      "narration_text": "",
+      "estimated_duration_s": 3,
+      "classification": "CARD",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "TitleCard",
+          "file": "manim/scenes.py",
+          "out": "manim/B00.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "text": [
+              "Why subtracting the max changes nothing that matters",
+              "Nishant · INFO 7375 Week 1"
+            ]
+          },
+          "labels": []
+        },
+        "show": [
+          {
+            "at": 0.0,
+            "event": "silent title card, 3 s hold"
+          }
+        ]
+      },
+      "audio_policy": "silence",
+      "actual_duration_s": 3.0,
+      "render_duration_s": 3.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B00.mp4",
+        "filled_by": "manim:TitleCard",
+        "at": "2026-09-27T15:51:33"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "COLD OPEN",
+      "narration_text": "Ask Python for the probability of an option with a score of 1000, and it crashes. The fix is one subtraction, and it changes nothing that matters.",
+      "estimated_duration_s": 15,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "OverflowOpen",
+          "file": "manim/scenes.py",
+          "out": "manim/B01.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "code": [
+              "naive (no max-subtraction): OverflowError: math range error"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26"
+          ]
+        },
+        "show": [
+          {
+            "at": 0.0,
+            "event": "recorded-output card; line types on"
+          },
+          {
+            "at": "it crashes",
+            "event": "'OverflowError: math range error' in terracotta"
+          },
+          {
+            "at": "one subtraction",
+            "event": "caption: 'The fix: one subtraction.'"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B01.mp3",
+      "evidence": "maxsub_runs.py stdout, [1000, 1000] block, naive line (verbatim)",
+      "actual_duration_s": 9.89,
+      "render_duration_s": 9.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B01.mp4",
+        "filled_by": "manim:OverflowOpen",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 9.89
+    },
+    {
+      "beat_id": "B02",
+      "act": "FRAMEWORK",
+      "narration_text": "A language model gives each option a score. Softmax turns scores into probabilities: raise e to each score, then divide by the total. For scores one, two, three, that gives nine, twenty-four and a half, and sixty-six and a half percent.",
+      "estimated_duration_s": 25,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "SoftmaxDefinition",
+          "file": "manim/scenes.py",
+          "out": "manim/B02.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "z = [1,\\ 2,\\ 3]",
+              "p_i = \\frac{e^{z_i}}{\\sum_j e^{z_j}}",
+              "p = [0.090,\\ 0.245,\\ 0.665]"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26"
+          ]
+        },
+        "show": [
+          {
+            "at": "gives each option a score",
+            "event": "scores [1, 2, 3]"
+          },
+          {
+            "at": "Softmax turns scores",
+            "event": "softmax formula writes in"
+          },
+          {
+            "at": "raise e",
+            "event": "numerator highlights"
+          },
+          {
+            "at": "divide by the total",
+            "event": "denominator highlights"
+          },
+          {
+            "at": "that gives",
+            "event": "0.090 / 0.245 / 0.665 + source label"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B02.mp3",
+      "evidence": "probs from raw: [0.09003057317038045, 0.24472847105479764, 0.6652409557748219]",
+      "actual_duration_s": 14.05,
+      "render_duration_s": 14.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B02.mp4",
+        "filled_by": "manim:SoftmaxDefinition",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 14.05
+    },
+    {
+      "beat_id": "B03",
+      "act": "WORKED EXAMPLE",
+      "narration_text": "Computed directly, the in-between numbers are 2.7, 7.4 and 20.1. Divide each by their total, and you get those probabilities.",
+      "estimated_duration_s": 20,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "RawPath",
+          "file": "manim/scenes.py",
+          "out": "manim/B03.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "e^{1},\\ e^{2},\\ e^{3} = 2.718,\\ 7.389,\\ 20.086",
+              "\\text{total} = 30.193",
+              "\\frac{2.718}{30.193},\\ \\frac{7.389}{30.193},\\ \\frac{20.086}{30.193} = 0.090,\\ 0.245,\\ 0.665"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26",
+            "Totals computed from printed values."
+          ]
+        },
+        "show": [
+          {
+            "at": "in-between numbers",
+            "event": "e^1, e^2, e^3 = 2.718, 7.389, 20.086"
+          },
+          {
+            "at": "their total",
+            "event": "total 30.193 (label: totals computed)"
+          },
+          {
+            "at": "Divide each",
+            "event": "fractions resolve to 0.090 / 0.245 / 0.665"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B03.mp3",
+      "evidence": "raw exp(x): [2.718281828459045, 7.38905609893065, 20.085536923187668]; total = sum of printed values",
+      "actual_duration_s": 10.29,
+      "render_duration_s": 10.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B03.mp4",
+        "filled_by": "manim:RawPath",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 10.29
+    },
+    {
+      "beat_id": "B04",
+      "act": "WORKED EXAMPLE",
+      "narration_text": "Now subtract the biggest score from every score first. The in-between numbers are completely different, and the largest is always exactly one. But the final probabilities are identical.",
+      "estimated_duration_s": 25,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "ShiftedPathSideBySide",
+          "file": "manim/scenes.py",
+          "out": "manim/B04.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "[1,\\ 2,\\ 3] - 3 = [-2,\\ -1,\\ 0]",
+              "e^{-2},\\ e^{-1},\\ e^{0} = 0.135,\\ 0.368,\\ 1.000",
+              "\\text{total} = 1.503",
+              "0.090,\\ 0.245,\\ 0.665"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26",
+            "Totals computed from printed values."
+          ]
+        },
+        "show": [
+          {
+            "at": "subtract the biggest score",
+            "event": "[1, 2, 3] - 3 = [-2, -1, 0]"
+          },
+          {
+            "at": "completely different",
+            "event": "0.135, 0.368, 1.000 beside raw 2.718, 7.389, 20.086"
+          },
+          {
+            "at": "exactly one",
+            "event": "1.000 in terracotta"
+          },
+          {
+            "at": "identical",
+            "event": "raw and shifted probabilities side by side, held"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B04.mp3",
+      "evidence": "shifted exp(x - max): [0.1353352832366127, 0.36787944117144233, 1.0]; probs from shifted: [0.09003057317038046, 0.24472847105479764, 0.6652409557748218]",
+      "actual_duration_s": 11.72,
+      "render_duration_s": 11.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B04.mp4",
+        "filled_by": "manim:ShiftedPathSideBySide",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 11.72
+    },
+    {
+      "beat_id": "B05",
+      "act": "MECHANISM",
+      "narration_text": "Here's why. Subtracting m from every score multiplies the top and the bottom by the same number, e to the minus m, and it cancels. Softmax only cares about the gaps between scores, not their size.",
+      "estimated_duration_s": 30,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "ShiftInvariance",
+          "file": "manim/scenes.py",
+          "out": "manim/B05.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "\\frac{e^{z_i - m}}{\\sum_j e^{z_j - m}}",
+              "= \\frac{e^{-m}\\, e^{z_i}}{e^{-m} \\sum_j e^{z_j}}",
+              "= \\frac{e^{z_i}}{\\sum_j e^{z_j}}"
+            ]
+          },
+          "labels": []
+        },
+        "show": [
+          {
+            "at": "Subtracting m",
+            "event": "shifted softmax"
+          },
+          {
+            "at": "multiplies the top and the bottom",
+            "event": "factor e^{-m} top and bottom"
+          },
+          {
+            "at": "it cancels",
+            "event": "both e^{-m} in terracotta, struck through"
+          },
+          {
+            "at": "only cares about the gaps",
+            "event": "= original softmax"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B05.mp3",
+      "evidence": "e^{z_j - m} = e^{-m} e^{z_j}; e^{-m} independent of j, factors out of the sum; any real m",
+      "actual_duration_s": 12.83,
+      "render_duration_s": 12.833333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B05.mp4",
+        "filled_by": "manim:ShiftInvariance",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 12.83
+    },
+    {
+      "beat_id": "B06",
+      "act": "STRESS TEST",
+      "narration_text": "So try one thousand and one thousand. Done directly, e to the thousand overflows. Subtract the max, and you get zero and zero, then one and one, then fifty-fifty. The thousand was shared by both options. It never said which was better, so the math never needed it.",
+      "estimated_duration_s": 30,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "OverflowVsShifted",
+          "file": "manim/scenes.py",
+          "out": "manim/B06.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "z = [1000,\\ 1000]",
+              "[0,\\ 0] \\rightarrow [1,\\ 1]",
+              "[0.5,\\ 0.5]"
+            ],
+            "code": [
+              "OverflowError: math range error"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26",
+            "Worked by hand from the formula."
+          ]
+        },
+        "show": [
+          {
+            "at": "one thousand and one thousand",
+            "event": "[1000, 1000], two lanes"
+          },
+          {
+            "at": "overflows",
+            "event": "left: recorded OverflowError (source label)"
+          },
+          {
+            "at": "zero and zero",
+            "event": "right: [0, 0] -> [1, 1] (label: worked by hand)"
+          },
+          {
+            "at": "fifty-fifty",
+            "event": "[0.5, 0.5] (source label)"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B06.mp3",
+      "evidence": "naive line and main.probabilities(): [0.5, 0.5] are recorded output; [0, 0] and [1, 1] worked by hand",
+      "actual_duration_s": 15.43,
+      "render_duration_s": 15.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B06.mp4",
+        "filled_by": "manim:OverflowVsShifted",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 15.43
+    },
+    {
+      "beat_id": "B06B",
+      "act": "STRESS TEST",
+      "estimated_duration_s": 12,
+      "classification": "SHOW",
+      "narration_text": "It isn't just ties. One thousand and one thousand and one become minus one and zero. The result matches what scores zero and one give. Same gap, same answer.",
+      "audio_file": "mp3/beat-B06B.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "GapNotSize",
+          "file": "manim/scenes.py",
+          "out": "manim/B06B.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "mathtex": [
+              "z = [1000,\\ 1001]",
+              "z - 1001 = [-1,\\ 0]",
+              "p = [0.269,\\ 0.731]",
+              "z = [0,\\ 1] \\Rightarrow p = [0.269,\\ 0.731]"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-27",
+            "Rounded to 3 decimals.",
+            "Worked by hand from the formula."
+          ]
+        },
+        "show": [
+          {
+            "at": "It isn't just ties",
+            "event": "z = [1000, 1001]"
+          },
+          {
+            "at": "become minus one and zero",
+            "event": "z - 1001 = [-1, 0] (worked by hand)"
+          },
+          {
+            "at": "The result matches",
+            "event": "p = [0.269, 0.731] beside [0, 1] -> [0.269, 0.731] (source, rounded)"
+          },
+          {
+            "at": "Same gap",
+            "event": "gap of 1 bracketed in both rows"
+          }
+        ]
+      },
+      "evidence": "main.probabilities([1000, 1001]) and main.probabilities([0, 1]) both printed [0.2689414213699951, 0.7310585786300049]; [-1, 0] worked by hand",
+      "actual_duration_s": 10.27,
+      "gap_padded_s": 0.8,
+      "render_duration_s": 10.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B06B.mp4",
+        "filled_by": "manim:GapNotSize",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_mp3_s": 10.27
+    },
+    {
+      "beat_id": "B07",
+      "act": "HONEST DETAIL",
+      "narration_text": "One honest detail: for two of the three probabilities, the methods differ in the last digit. That's ordinary floating-point rounding.",
+      "estimated_duration_s": 10,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "LastDigit",
+          "file": "manim/scenes.py",
+          "out": "manim/B07.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "code": [
+              "0.09003057317038045",
+              "0.09003057317038046"
+            ]
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-26"
+          ]
+        },
+        "show": [
+          {
+            "at": 0.0,
+            "event": "raw and shifted values stacked, aligned"
+          },
+          {
+            "at": "last digit",
+            "event": "5 and 6 highlighted"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B07.mp3",
+      "evidence": "probs from raw[0] and probs from shifted[0], verbatim",
+      "actual_duration_s": 8.52,
+      "render_duration_s": 8.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B07.mp4",
+        "filled_by": "manim:LastDigit",
+        "at": "2026-09-27T15:51:33"
+      },
+      "gap_padded_s": 0.8,
+      "gap_padded_mp3_s": 8.52
+    },
+    {
+      "beat_id": "B08",
+      "act": "LIMITS",
+      "narration_text": "What this doesn't show: one passing test covers one case. It doesn't prove the code is stable for every input, and it doesn't change what the model prefers or whether its answer is right. For example, with scores zero and minus one thousand, the smaller option's probability comes out as exactly zero. Its true value is tiny, but not zero. The subtraction prevents overflow, not rounding.",
+      "estimated_duration_s": 28,
+      "classification": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "illustrate",
+        "manim": {
+          "scene_class": "Limits",
+          "file": "manim/scenes.py",
+          "out": "manim/B08.mp4",
+          "renderer": "MathTex",
+          "palette": {
+            "bg": "#F2F0E9",
+            "ink": "#3D3929",
+            "accent": "#D97757"
+          },
+          "content": {
+            "text": [
+              "What this does not show",
+              "One passing test covers one case.",
+              "Not proof of stability for every input.",
+              "Not a change in what the model prefers, or whether it's right."
+            ],
+            "example": {
+              "mathtex": [
+                "z = [0,\\ -1000]",
+                "\\texttt{math.exp(-1000)} = 0.0",
+                "p = [1.0,\\ 0.0]",
+                "\\text{true value: } \\frac{e^{-1000}}{1 + e^{-1000}} > 0"
+              ]
+            }
+          },
+          "labels": [
+            "Source: maxsub_runs.py output, 2026-09-27"
+          ]
+        },
+        "show": [
+          {
+            "at": 0.0,
+            "event": "heading"
+          },
+          {
+            "at": "one passing test",
+            "event": "line 1"
+          },
+          {
+            "at": "stable for every input",
+            "event": "line 2"
+          },
+          {
+            "at": "what the model prefers",
+            "event": "line 3"
+          },
+          {
+            "at": "For example",
+            "event": "list gives way to z = [0, -1000]; math.exp(-1000) = 0.0 and p = [1.0, 0.0] (source 2026-09-27)"
+          },
+          {
+            "at": "Its true value",
+            "event": "true value e^{-1000}/(1+e^{-1000}) > 0 (from the formula)"
+          },
+          {
+            "at": "prevents overflow",
+            "event": "'Prevents overflow, not rounding.' in terracotta"
+          }
+        ]
+      },
+      "audio_file": "mp3/beat-B08.mp3",
+      "actual_duration_s": 20.22,
+      "render_duration_s": 20.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B08.mp4",
+        "filled_by": "manim:Limits",
+        "at": "2026-09-27T15:51:33"
+      },
+      "evidence": "math.exp(-1000): 0.0; main.probabilities([0, -1000]): [1.0, 0.0] (printed 2026-09-27)"
+    }
+  ],
+  "_comment_b06b_id": "Requested id 'B06b' stored as 'B06B': the toolkit's validate_project only accepts uppercase beat ids ([A-Z][A-Z0-9_]*)."
+}

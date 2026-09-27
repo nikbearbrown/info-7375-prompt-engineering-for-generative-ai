@@ -1,0 +1,52 @@
+diff --git a/examples/_smoke/beat_sheet.json b/examples/_smoke/beat_sheet.json
+index 83a4e7e..90b5b78 100644
+--- a/examples/_smoke/beat_sheet.json
++++ b/examples/_smoke/beat_sheet.json
+@@ -1,7 +1,7 @@
+ {
+  "metadata": {
+   "title": "Smoke Test",
+-  "slug": "_smoke",
++  "slug": "smoke",
+   "topic": "PACKAGING SMOKE TEST",
+   "register": "fixture",
+   "engine": "kokoro",
+diff --git a/runtime/scripts/compile.py b/runtime/scripts/compile.py
+index f085271..8293418 100644
+--- a/runtime/scripts/compile.py
++++ b/runtime/scripts/compile.py
+@@ -96,6 +96,12 @@ def find_font():
+             return str(p)
+     return None
+ 
++def ffmpeg_filter_path(path):
++    # a raw Windows path breaks a filtergraph: '\' is an escape and the drive
++    # colon splits options. Forward slashes + quoted, escaped colon parse on
++    # every OS ('C:\x\y.ttf' -> 'C\:/x/y.ttf').
++    return "'" + str(path).replace("\\", "/").replace(":", "\\:") + "'"
++
+ # ------------------------------------------------------------- PIL text
+ 
+ def _pil_font(font_path, size):
+@@ -786,7 +792,7 @@ def compile_reel(a):
+                       f":enable='between(t,0,{first_beat_dur:.3f})'[vtitle]")
+             prev = "vtitle"
+         if a.review and drawtext:
+-            fc.append(f"[{prev}]drawtext=fontfile={font}:text='%{{pts\\:hms}}'"
++            fc.append(f"[{prev}]drawtext=fontfile={ffmpeg_filter_path(font)}:text='%{{pts\\:hms}}'"
+                       f":fontcolor=white:fontsize={int(h*0.04)}:box=1"
+                       f":boxcolor=black@0.55:boxborderw=8:x=w-text_w-16:y=16[vout]")
+         else:
+diff --git a/runtime/scripts/smoke_test.sh b/runtime/scripts/smoke_test.sh
+index 2c4d631..4aa9d56 100755
+--- a/runtime/scripts/smoke_test.sh
++++ b/runtime/scripts/smoke_test.sh
+@@ -57,7 +57,7 @@ if ! ART_FACTS=0 ART_QC=1 ART_STRICT=0 bash "$ROOT/scripts/run.sh" "$WORK" 2>&1
+   fail "run.sh exited non-zero — see $WORK/.run.log"
+ fi
+ 
+-OUT="$WORK/_smoke-slate.mp4"
++OUT="$WORK/smoke-slate.mp4"
+ [ -f "$OUT" ] || fail "no compiled slate cut at $OUT — run.sh reported success but produced nothing"
+ 
+ echo "[smoke] --- GATE SIZE: non-zero, non-truncated mp4 on disk ---"
