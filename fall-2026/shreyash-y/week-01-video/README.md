@@ -81,6 +81,23 @@ used as evidence for anything.
 
 Per-claim backing is in [`FACTCHECK.md`](FACTCHECK.md).
 
+## Where the video is
+
+The rendered master is **not in this repository** — the course repo's
+`.gitignore` excludes `*.mp4`, so it lives with the Canvas submission instead.
+
+| | |
+|---|---|
+| file | `Yadav_Shreyash_INFO7375_Week01_Video.mp4` |
+| runtime | 3:06 (185.75 s) |
+| format | 3840x2160, h264 + AAC |
+| size | 15,183,729 bytes |
+| sha256 | `a85ba1729f1c82e2726906434a7c9bfb0c9e983986ebb8923d05f2896b46d6fd` |
+
+Everything needed to **rebuild it byte-for-byte** is in this folder: run
+`./build.sh` (see below). `evidence/run_evidence.py` regenerates every number
+the video displays, from the unmodified course `main.py`.
+
 ## Rebuild
 
 ```bash
