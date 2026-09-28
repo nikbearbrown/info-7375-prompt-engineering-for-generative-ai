@@ -1,0 +1,14 @@
+diff --git a/runtime/scripts/compile.py b/runtime/scripts/compile.py
+index 7478306..7428f92 100644
+--- a/runtime/scripts/compile.py
++++ b/runtime/scripts/compile.py
+@@ -791,7 +791,8 @@ def compile_reel(a):
+             ff_font = str(font).replace("\\", "/").replace(":", "\\:")
+             fc.append(f"[{prev}]drawtext=fontfile='{ff_font}':text='%{{pts\\:hms}}'"
+                       f":fontcolor=white:fontsize={int(h*0.04)}:box=1"
+-                      f":boxcolor=black@0.55:boxborderw=8:x=w-text_w-16:y=16[vout]")
++                      # inside the 5% title-safe inset (layout.ts SAFE), box border included
++                      f":boxcolor=black@0.55:boxborderw=8:x=w*0.95-text_w-8:y=h*0.05+8[vout]")
+         else:
+             fc.append(f"[{prev}]null[vout]")
+     if fc:
