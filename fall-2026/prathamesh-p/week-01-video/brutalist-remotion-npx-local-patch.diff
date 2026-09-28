@@ -1,0 +1,13 @@
+diff --git a/runtime/scripts/remotion_scenes.py b/runtime/scripts/remotion_scenes.py
+index db4b386..0c6e870 100644
+--- a/runtime/scripts/remotion_scenes.py
++++ b/runtime/scripts/remotion_scenes.py
+@@ -87,7 +87,7 @@ def render_beat(folder: Path, beat: dict, force: bool) -> str:
+             candidate = Path(scratch) / 'render.mp4'
+             props_path = Path(scratch) / 'props.json'
+             atomic_json(props_path, rem.get('props', {}))
+-            cmd = ["npx", "remotion", "render", ENTRY, pattern, str(candidate),
++            cmd = [shutil.which("npx") or "npx", "remotion", "render", ENTRY, pattern, str(candidate),
+                    f"--props={props_path}", "--concurrency=1",
+                    "--scale=2", "--image-format=png", "--crf=16"] + browser_flags()
+             r = subprocess.run(cmd, cwd=PROJECT, capture_output=True, text=True)

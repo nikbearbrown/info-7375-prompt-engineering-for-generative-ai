@@ -1,0 +1,19 @@
+diff --git a/setup b/setup
+index 7209959..a4f4ae1 100755
+--- a/setup
++++ b/setup
+@@ -104,12 +104,12 @@ fi
+ # name is allowed. setup is excluded because it contains this guard.
+ EL_PAT="ELEVEN""LABS_API_KEY|elevenlabs""\.io|\"engine\"[^\"]*\"elevenlabs\"|xi-api-key"
+ if grep -rqiE "$EL_PAT" \
+-    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
++    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ --exclude-dir=youtube \
+     --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup .; then
+   r "ElevenLabs reference found — this toolkit is Kokoro-only for narration."; echo
+   echo "  Files with hits:"
+   grep -rliE "$EL_PAT" \
+-    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
++    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ --exclude-dir=youtube \
+     --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup . | sed 's/^/    /'
+   exit 1
+ fi

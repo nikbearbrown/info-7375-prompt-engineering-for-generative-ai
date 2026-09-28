@@ -1,0 +1,28 @@
+[kokoro] beat-B00.mp3  8.73s  voice=af_bella
+[kokoro] beat-B01.mp3  5.12s  voice=af_bella
+[kokoro] 2 beat(s) generated · cost $0.00 · durations are GROUND TRUTH, same as generate_audio.py
+[run] no Manim beats in this reel's beat sheet â€” skipping Manim stage
+[run] nothing to render â€” recompiling only
+[run] GATE L â€” beat-mix lint
+[beat-lint] clean — beat mix OK (beat_sheet.json)
+[run] GATE SHAPE â€” finance chart-shape enforcement
+[gate-shape] skip — not a finance reel (beat_sheet.json)
+[remotion] nothing to do — no shot.remotion.pattern beats
+[art] compiled B00  SLATE     8.8s
+[art] compiled B01  SLATE     5.1s
+[art] REFUSED: [art] command failed:
+C:\Users\Prathamesh P\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin\ffmpeg.EXE -y -f concat -safe 0 -i C:\Users\Prathamesh P\AppData\Local\Temp\claude\C--info7375\e4e11c40-4691-4e98-9760-00bf8f3a2de6\scratchpad\smoke-kept\clips\concat.txt -i C:\Users\Prathamesh P\AppData\Local\Temp\claude\C--info7375\e4e11c40-4691-4e98-9760-00bf8f3a2de6\scratchpad\smoke-kept\clips\_work\master.wav -i C:\Users\Prathamesh P\AppData\Local\Temp\claude\C--info7375\e4e11c40-4691-4e98-9760-00bf8f3a2de6\scratchpad\smoke-kept\clips\_work\lbl-B00.png -i C:\Users\Prathamesh P\AppData\Local\Temp\claude\C--info7375\e4e11c40-4691-4e98-9760-00bf8f3a2de6\scratchpad\smoke-kept\clips\_work\lbl-B01.png -filter_complex [0:v][2:v]overlay=16:H-h-16:enable='between(t,0.000,8.750)'[v0];[v0][3:v]overlay=16:H-h-16:enable='between(t,8.750,13.875)'[v1];[v1]drawtext=fontfile=C:\info7375\brutalist.art\runtime\fonts\EB_Garamond\static\EBGaramond-Regular.ttf:text='%{pts\:hms}':fontcolor=white:fontsize=86:box=1:boxcolor=black@0.55:boxborderw=8:x=w-text_w-16:y=16[vout] -map [vout] -map 1:a -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -c:a aac -shortest -t 13.875 C:\Users\Prathamesh P\AppData\Local\Temp\claude\C--info7375\e4e11c40-4691-4e98-9760-00bf8f3a2de6\scratchpad\smoke-kept\.smoke-candidate-p3j3ti2_\candidate.mp4
+-enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint --enable-whisper
+  libavutil      61.  1.102 / 61.  1.102
+  libavcodec     63.  1.102 / 63.  1.102
+  libavformat    63.  1.102 / 63.  1.102
+  libavdevice    63.  1.102 / 63.  1.102
+  libavfilter    12.  1.102 / 12.  1.102
+  libswscale     10.  1.102 / 10.  1.102
+  libswresample   7.  1.102 /  7.  1.102
+[AVFilterGraph @ 0000020372b34040] No option name near 'info7375brutalist.artruntimefontsEB_GaramondstaticEBGaramond-Regular.ttf:text=%{pts\:hms}:fontcolor=white:fontsize=86:box=1:boxcolor=black@0.55:boxborderw=8:x=w-text_w-16:y=16'
+[AVFilterGraph @ 0000020372b34040] Error parsing a filter description around: [vout]
+[AVFilterGraph @ 0000020372b34040] Error parsing filterchain '[v1]drawtext=fontfile=C:\info7375\brutalist.art\runtime\fonts\EB_Garamond\static\EBGaramond-Regular.ttf:text='%{pts\:hms}':fontcolor=white:fontsize=86:box=1:boxcolor=black@0.55:boxborderw=8:x=w-text_w-16:y=16[vout]' around: [vout]
+Error : Invalid argument
+
+[art] motion histogram: ?:2

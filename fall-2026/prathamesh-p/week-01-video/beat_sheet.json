@@ -1,0 +1,471 @@
+{
+  "metadata": {
+    "title": "Expected 665.24, Observed 630",
+    "slug": "week-01-expected-vs-observed",
+    "topic": "INFO 7375 WEEK 1 - RANDOMNESS AND FIRST PROMPTS",
+    "register": "student explainer (no channel persona)",
+    "engine": "kokoro",
+    "voice_kokoro": "af_bella",
+    "aspect": "16:9",
+    "palette": "claude",
+    "author": "Prathamesh P",
+    "note": "Week 1 explainer. One concept: expected count (1000 x 0.6652409557748218 = 665.24) vs observed count (630) for token 2 in the seed-7 run of lessons/01-randomness-and-first-prompts/code/main.py (course repo b293224, Python 3.11.9, run 2026-09-27). No Claude interface, no instructor persona, no channel chip or logo (student decision; see FRICTIONAL.md). Counters only, no equation beats (course prerequisite guide takes priority). Narration signed at GATE P by the student - see PEDAGOGY.md.",
+    "build": {
+      "at": "2026-09-27T21:47:32",
+      "cut": "master",
+      "filled": 10,
+      "of": 10,
+      "slates": [],
+      "skin_warnings": [
+        "B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B09: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "cold open",
+      "narration_text": "Same program, same token, same run. One number says 665.24. The other says 630. Neither is a mistake. They answer different questions.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 10,
+      "visual_intent": "Two large numbers side by side, each with its provenance label.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B00_TwoNumbers",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "Same program, same token, same run",
+            "event": "kicker line types in: same program, same token, same run"
+          },
+          {
+            "at": "665.24",
+            "event": "665.24 rises in on the left; label: expected count, computed 1000 x p(token 2), main.py"
+          },
+          {
+            "at": "630",
+            "event": "630 rises in on the right; label: observed count, main.py output, seed 7"
+          },
+          {
+            "at": "different questions",
+            "event": "a question mark under each: what chance was assigned? / what happened this run?"
+          }
+        ]
+      },
+      "actual_duration_s": 12.05,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 12.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B00.mp4",
+        "filled_by": "manim:B00_TwoNumbers",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "overview",
+      "narration_text": "The distribution expects 665.24 draws of token two. One seeded run of a thousand gave 630. Read the first as a promise, and the second looks like a bug. It isn't.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "lead_silence_s": 0.8,
+      "estimated_duration_s": 13,
+      "visual_intent": "Hesitant writer types the misconception and corrects it; corner banner labels it a constructed example.",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "The code predicts\n665 of token 2.\nOne seeded run of 1,000 draws gave 630.",
+            "triggerWords": "code, predicts, 665",
+            "replacementWords": "distribution, expects, 665.24",
+            "banner": "CONSTRUCTED EXAMPLE",
+            "fontSize": 92,
+            "mistakeRate": 0,
+            "seed": "week01-expected-vs-observed-b01",
+            "align": "center",
+            "contextTitle": "Constructed example",
+            "brandLabel": "Narration: synthetic voice (Kokoro af_bella), not the author"
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-09-28T00:20:40.700060+00:00"
+          }
+        },
+        "show": [
+          {
+            "at": 0.0,
+            "event": "writer types 'The code predicts 665 of token 2.' - code, predicts and 665 are each reconsidered and replaced"
+          },
+          {
+            "at": "promise",
+            "event": "corrected line stands: 'The distribution expects 665.24 of token 2.'"
+          },
+          {
+            "at": "It isn't",
+            "event": "second line complete: 'One seeded run of 1,000 draws gave 630.'"
+          }
+        ]
+      },
+      "actual_duration_s": 13.97,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 14.0,
+      "build": {
+        "status": "VIDEO",
+        "src": "media\\B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "mechanism",
+      "narration_text": "This is the whole mechanism, from the course's main.py. Scores one, two, three become probabilities, and token two gets about sixty-six and a half percent. Then a generator seeded with seven makes a thousand weighted draws.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 15,
+      "visual_intent": "Real main.py excerpt beside three probability bars built from its actual output.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B02_Mechanism",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "main.py",
+            "event": "real code excerpt of probabilities() and sample() appears, source line labelled"
+          },
+          {
+            "at": "become probabilities",
+            "event": "scores 1, 2, 3 become bars 0.0900, 0.2447, 0.6652"
+          },
+          {
+            "at": "sixty-six and a half percent",
+            "event": "token 2 bar is the one accent"
+          },
+          {
+            "at": "seeded with seven",
+            "event": "the rng.choices(..., k=count) line and Random(seed) highlight"
+          }
+        ]
+      },
+      "actual_duration_s": 14.7,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 14.708333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B02.mp4",
+        "filled_by": "manim:B02_Mechanism",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "expected count",
+      "narration_text": "Multiply that probability by a thousand: 665.24. That's an expected count, the average number of token twos you would see across many runs of a thousand draws. It isn't even a whole number, so no single run can land on it. A count is an integer.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 16,
+      "visual_intent": "Counter rolls from 0 to 665.24; the other expected counts follow; the .24 is flagged as not an integer.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B03_ExpectedCount",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "Multiply that probability",
+            "event": "0.6652409557748218 x 1000 appears"
+          },
+          {
+            "at": "665.24",
+            "event": "counter rolls to 665.24"
+          },
+          {
+            "at": "many runs",
+            "event": "expected counts for all three tokens: 90.03, 244.73, 665.24 (labelled computed from main.py output)"
+          },
+          {
+            "at": "whole number",
+            "event": "the .24 is boxed: not an integer"
+          }
+        ]
+      },
+      "actual_duration_s": 18.24,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 18.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B03.mp4",
+        "filled_by": "manim:B03_ExpectedCount",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "observed count",
+      "narration_text": "Now the real draws, in order. The first is token one, not the favorite. Token two first appears on draw three. Nothing reserves a quota; each draw is weighted and independent. After a thousand: 102, 268, 630.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 15,
+      "visual_intent": "The real seed-7 sequence fills three bins draw by draw, slow at first then fast, ending at 102 / 268 / 630.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B04_DrawByDraw",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "The first is token one",
+            "event": "draw 1 drops into the token 1 bin"
+          },
+          {
+            "at": "draw three",
+            "event": "draw 3 drops into token 2, marked: first token 2"
+          },
+          {
+            "at": "Nothing reserves a quota",
+            "event": "remaining draws stream in from the real sequence, counters climbing"
+          },
+          {
+            "at": "After a thousand",
+            "event": "counters land on 102, 268, 630"
+          }
+        ]
+      },
+      "actual_duration_s": 16.81,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 16.833333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B04.mp4",
+        "filled_by": "manim:B04_DrawByDraw",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "comparison",
+      "narration_text": "Side by side: token zero came up about twelve more times than expected, token one about twenty-three more, token two about thirty-five fewer. The gaps cancel, because both rows total a thousand. The probability is the chance assigned; the count is what this sample did.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 17,
+      "visual_intent": "Expected (outline) vs observed (filled) bars per token, with the three gaps and their zero sum.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B05_SideBySide",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "token zero",
+            "event": "token 0 pair with gap +11.97"
+          },
+          {
+            "at": "token one",
+            "event": "token 1 pair with gap +23.27"
+          },
+          {
+            "at": "token two",
+            "event": "token 2 pair with gap -35.24"
+          },
+          {
+            "at": "The gaps cancel",
+            "event": "gaps sum line: +11.97 + 23.27 - 35.24 = 0.00; both rows total 1000"
+          },
+          {
+            "at": "chance assigned",
+            "event": "probability 0.6652 vs observed share 0.630 for token 2"
+          }
+        ]
+      },
+      "actual_duration_s": 18.39,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 18.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B05.mp4",
+        "filled_by": "manim:B05_SideBySide",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "seed",
+      "narration_text": "Run it again with seed seven on this machine: 630 again, byte for byte. A seed makes the run repeatable. It doesn't pull the count toward 665, and it doesn't make 630 more correct.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 12,
+      "visual_intent": "The two real saved outputs side by side with matching SHA-256.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B06_Rerun",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "Run it again",
+            "event": "run 1 output file appears, then run 2 beside it"
+          },
+          {
+            "at": "byte for byte",
+            "event": "both SHA-256 lines appear and match: identical"
+          },
+          {
+            "at": "toward 665",
+            "event": "the 630 in both panels stays put"
+          }
+        ]
+      },
+      "actual_duration_s": 13.78,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 13.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B06.mp4",
+        "filled_by": "manim:B06_Rerun",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "boundary",
+      "narration_text": "Here's what this can't tell you. One seed-seven run of a thousand draws cannot show whether a gap of 35.24 is typical. To call it broken, or normal, you need an acceptance criterion. A single run cannot give you that criterion. You have to decide it first.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 17,
+      "visual_intent": "One real point at -35.24 on a constructed axis whose other slots are marked not measured.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B07_Boundary",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "can't tell you",
+            "event": "heading: What this does not establish"
+          },
+          {
+            "at": "35.24",
+            "event": "one dot at -35.24 on the gap axis (seed 7); other slots dashed: not measured"
+          },
+          {
+            "at": "acceptance criterion",
+            "event": "an empty criterion box appears on the axis"
+          },
+          {
+            "at": "decide it first",
+            "event": "box label: decide before you look"
+          }
+        ]
+      },
+      "actual_duration_s": 17.79,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 17.791666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B07.mp4",
+        "filled_by": "manim:B07_Boundary",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "your turn",
+      "narration_text": "Your turn. Before you run anything, write down how far from 665 is too far. Then run the course's sample function with twenty other seeds and list token two's count. Check them against your rule, and notice if you're tempted to move it.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 15,
+      "visual_intent": "Plain card: the suggested experiment, the tested snippet, and the folder to run it from.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B08_YourTurn",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "Your turn",
+            "event": "heading: Your turn"
+          },
+          {
+            "at": "too far",
+            "event": "the rule prompt appears with an empty line to fill"
+          },
+          {
+            "at": "twenty other seeds",
+            "event": "3-line snippet and run-from folder appear; label: suggestion, results not shown"
+          },
+          {
+            "at": "move it",
+            "event": "the empty rule line pulses once"
+          }
+        ]
+      },
+      "actual_duration_s": 15.66,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 15.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B08.mp4",
+        "filled_by": "manim:B08_YourTurn",
+        "at": "2026-09-27T21:47:32"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "outro",
+      "narration_text": "Expected, 665.24. Observed, 630. Two numbers, two questions. Keep both.",
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "estimated_duration_s": 7,
+      "visual_intent": "Title restate, author, provenance and narration disclosure.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "manim": {
+          "scene_class": "B09_Outro",
+          "file": "scenes.py"
+        },
+        "show": [
+          {
+            "at": "Expected",
+            "event": "title restate: Expected 665.24, Observed 630."
+          },
+          {
+            "at": "Keep both",
+            "event": "author, provenance and synthetic-narration lines"
+          }
+        ]
+      },
+      "actual_duration_s": 7.94,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 7.958333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B09.mp4",
+        "filled_by": "manim:B09_Outro",
+        "at": "2026-09-27T21:47:32"
+      }
+    }
+  ]
+}
