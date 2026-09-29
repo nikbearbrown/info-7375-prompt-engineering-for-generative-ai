@@ -1,0 +1,29 @@
+# B00 cold open: a real Claude Code reply
+# session: a fresh Claude Code CLI session (v2.1.7), started by Aravind Ravi in the course repo root
+# date: 2026-09-27
+# model: Sonnet 4.5 (the "Model:" line from /status in that session; the session had cd'd into lessons/01-randomness-and-first-prompts/code)
+# prompt (verbatim, as typed in B00):
+#   Run lessons/01-randomness-and-first-prompts/code/main.py and show me what probabilities([1, 2, 3])
+#   returns. Then compute the same distribution without subtracting the max, and print both sets of
+#   intermediate weights side by side.
+# The reply below is the final message, copied from the terminal. Tool-call output shown in the session
+# above that message was not copied.
+
+Perfect! Here's what probabilities([1, 2, 3]) returns:
+
+  [0.09003057317038046, 0.24472847105479764, 0.6652409557748218]
+
+  And here's the key insight from the comparison:
+
+  Intermediate weights (before normalization):
+  - With max subtraction: [0.135, 0.368, 1.000] (smaller, more manageable numbers)
+  - Without max subtraction: [2.718, 7.389, 20.086] (larger exponentials)
+
+  Final probabilities are identical to 15 decimal places. The False result at the end is just due to floating-point precision beyond that.
+
+  The max subtraction is a numerical stability trick: by subtracting the maximum logit (3) before exponentiating, we get:
+  - exp(1-3) = exp(-2) = 0.135
+  - exp(2-3) = exp(-1) = 0.368
+  - exp(3-3) = exp(0) = 1.000
+
+  Instead of the much larger values from direct exponentiation. This prevents overflow when logits are large (imagine exp(1000) vs exp(0)), while the normalization step ensures the final probabilities are mathematically identical.

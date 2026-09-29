@@ -1,0 +1,31 @@
+diff --git a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+index a2f2bfe..29cd5d0 100644
+--- a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
++++ b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+@@ -32,6 +32,8 @@ export const claudeTitleOutroSchema = z.object({
+   slug: z.string().default(''),
+   // mascotAnimation: explicit override for dev/preview; production uses slug seed.
+   mascotAnimation: z.string().optional(),
++  // handle: optional override (student patch). Defaults to the locked @NikBearBrown handle.
++  handle: z.string().optional(),
+ });
+ export type ClaudeTitleOutroProps = z.infer<typeof claudeTitleOutroSchema>;
+ 
+@@ -39,7 +41,7 @@ const SERIF = CLAUDE_FONT.serif;
+ 
+ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+ 
+-export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation }) => {
++export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation, handle }) => {
+   const frame = useCurrentFrame();
+   const { fps } = useVideoConfig();
+   const o = clamp(interpolate(frame, [0, 14], [0, 1]), 0, 1);
+@@ -101,7 +103,7 @@ export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug,
+         marginTop: 28,
+         opacity: 0.9,
+       }}>
+-        {HANDLE}
++        {handle || HANDLE}
+       </div>
+ 
+       {/* Mascot — slug-seeded, small, under the handle */}
