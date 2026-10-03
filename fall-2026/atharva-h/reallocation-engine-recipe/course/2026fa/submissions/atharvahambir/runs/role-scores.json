@@ -1,0 +1,241 @@
+{
+  "_scorer": "bayesian-role-scorer",
+  "_chapter": 11,
+  "generated": "2026-10-03",
+  "config": {
+    "weights": {
+      "sponsorship": 0.35,
+      "fit": 0.3,
+      "role_quality": 0
+    },
+    "apply_threshold": 0.3,
+    "consider_floor": 0.2,
+    "gate_zero": 0.05,
+    "soft_sponsorship_tiers": [
+      "likely",
+      "possible",
+      "unknown"
+    ]
+  },
+  "profile_needs_sponsorship": true,
+  "roles": [
+    {
+      "role_id": "biotech-data",
+      "company": "Cambridge biotech (Ch.7)",
+      "title": "Data role (Proven tier)",
+      "composite": 0.4462,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.446 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.7,
+            "weight": 0.3,
+            "contribution": 0.21,
+            "source": "model-judgment"
+          }
+        ],
+        "vote_sum": 0.525,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.85,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.85,
+        "arithmetic": "(0.9·0.35 + 0.7·0.3) × 1 × 0.85 = 0.446"
+      }
+    },
+    {
+      "role_id": "household-nonsponsor",
+      "company": "Household-name non-sponsor",
+      "title": "Same data role",
+      "composite": 0.1785,
+      "recommendation": "Skip",
+      "machine_recommendation": "Skip",
+      "reason": "composite 0.178 < 0.2 — time is better spent elsewhere",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0,
+            "weight": 0.35,
+            "contribution": 0,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.7,
+            "weight": 0.3,
+            "contribution": 0.21,
+            "source": "model-judgment"
+          }
+        ],
+        "vote_sum": 0.21,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.85,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.85,
+        "arithmetic": "(0·0.35 + 0.7·0.3) × 1 × 0.85 = 0.178"
+      }
+    },
+    {
+      "role_id": "ghost-posting",
+      "company": "Proven sponsor (ghost posting)",
+      "title": "Looks perfect, isn't real",
+      "composite": 0,
+      "recommendation": "Skip",
+      "machine_recommendation": "Skip",
+      "reason": "gated: liveness ≈ 0.000 (a closed gate zeroes the composite regardless of votes)",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "model-judgment"
+          }
+        ],
+        "vote_sum": 0.555,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 0,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.85,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0,
+        "arithmetic": "(0.9·0.35 + 0.8·0.3) × 0 × 0.85 = 0.000"
+      }
+    },
+    {
+      "role_id": "likely-soft",
+      "company": "Likely-tier sponsor",
+      "title": "Strong but Likely not Proven",
+      "composite": 0.4185,
+      "recommendation": "Consider",
+      "machine_recommendation": "Consider",
+      "reason": "above threshold (0.418) but one soft spot: sponsorship tier \"Likely\"",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.6,
+            "weight": 0.35,
+            "contribution": 0.21,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.85,
+            "weight": 0.3,
+            "contribution": 0.255,
+            "source": "model-judgment"
+          }
+        ],
+        "vote_sum": 0.465,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.9,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.9,
+        "arithmetic": "(0.6·0.35 + 0.85·0.3) × 1 × 0.9 = 0.418"
+      }
+    },
+    {
+      "role_id": "override-demo",
+      "company": "Non-sponsor, but HM is a contact",
+      "title": "Scorer says Skip, you know better",
+      "composite": 0.1934,
+      "recommendation": "Apply",
+      "machine_recommendation": "Skip",
+      "reason": "composite 0.193 < 0.2 — time is better spent elsewhere",
+      "override": {
+        "decision": "Apply",
+        "reason": "Hiring manager told me directly they are interviewing and the company started sponsoring last month; LCA record lags."
+      },
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.05,
+            "weight": 0.35,
+            "contribution": 0.0175,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.7,
+            "weight": 0.3,
+            "contribution": 0.21,
+            "source": "model-judgment"
+          }
+        ],
+        "vote_sum": 0.2275,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.85,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.85,
+        "arithmetic": "(0.05·0.35 + 0.7·0.3) × 1 × 0.85 = 0.193"
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "_note": "FICTIONAL persona Atharva (see profile.yml in this folder) in the input format of the data-roles daily checker. Every date, limit and fit value here is invented and is not the author's. Used by `daily_check.py --sample` and its tests.",
+  "candidate": "atharva-persona",
+  "authorization": "F-1 OPT \u2014 needs H-1B sponsorship",
+  "visa": {
+    "opt_end_date": "2027-03-15",
+    "unemployment_days_used": 3,
+    "unemployment_days_as_of": "2026-09-21",
+    "unemployment_limit_days": 90,
+    "needs_e_verify_employer": true,
+    "buffer_days": 30
+  },
+  "search": {
+    "titles": [
+      {
+        "phrase": "data analyst",
+        "fit": 0.8,
+        "soc": "15-2051.00"
+      },
+      {
+        "phrase": "business intelligence analyst",
+        "fit": 0.7,
+        "soc": "15-2051.01"
+      },
+      {
+        "phrase": "business analyst",
+        "fit": 0.6,
+        "soc": "13-1111.00"
+      },
+      {
+        "phrase": "analytics engineer",
+        "fit": 0.6,
+        "soc": "15-2051.00"
+      },
+      {
+        "phrase": "data engineer",
+        "fit": 0.6,
+        "soc": "15-1243.00"
+      }
+    ],
+    "exclude_title_words": [
+      "senior",
+      "sr",
+      "staff",
+      "lead",
+      "principal",
+      "manager",
+      "director",
+      "head",
+      "vp",
+      "intern",
+      "internship",
+      "co op",
+      "iii",
+      "iv"
+    ],
+    "flag_title_words": [
+      "ii"
+    ],
+    "max_years_experience": 3
+  }
+}

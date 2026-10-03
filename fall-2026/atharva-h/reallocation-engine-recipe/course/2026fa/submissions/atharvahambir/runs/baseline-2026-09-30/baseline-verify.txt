@@ -1,0 +1,19 @@
+
+> the-reallocation-engine@1.0.0 verify
+> node scripts/conformance.mjs && node scripts/manifest-check.mjs
+
+conformance: 158 files (85 md · 36 py · 30 js · 4 sh · 3 json)
+✓ all conform (machine half of P4). Adequacy is still the human gate.
+MANIFEST CHECK — The Reallocation Engine
+==========================================
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import yaml,json;print(json.dumps(yaml.safe_load(open('.ai/manifest.yaml'))))
+    ^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'yaml'
+
+ERROR (1):
+  E1 .ai/manifest.yaml does not parse: Error: Command failed: python3 -c "import yaml,json;print(json.dumps(yaml.safe_load(open('.ai/manifest.yaml'))))"
+
+✗ manifest check FAILED (1 error)
+EXIT=1

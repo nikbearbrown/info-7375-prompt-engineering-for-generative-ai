@@ -1,0 +1,37 @@
+# FICTIONAL persona — not a real person's record. First name only; @example.com email, 555 phone,
+# invented city, school, employers and dates (none of them are the author's).
+# Built for the data-roles daily checker
+# (scripts/contrib/2026fa/atharvahambir-reallocation-engine/), whose sample run uses
+# daily-check.candidate.json in this folder.
+candidate:
+  name: Atharva
+  email: atharva.persona@example.com
+  phone: "(312) 555-0187"
+  location: Chicago, IL
+target_role:
+  primary: Data Analyst
+  also:
+    - Business Intelligence Analyst
+    - Business Analyst
+    - Analytics Engineer
+    - Data Engineer
+  level: entry level, 0-3 years of experience
+  locations: any US city, or US-remote
+  excluded: senior / staff / lead / manager titles, internships
+visa:
+  current_status: "F-1 OPT (post-completion); STEM-designated degree; STEM extension not yet filed"
+  needs_sponsorship: true
+  opt_end_date: 2027-03-15
+  unemployment_days_used: 3
+  unemployment_days_as_of: 2026-09-21
+  unemployment_limit_days: 90
+  stem_eligible: true
+  needs_e_verify_employer: true
+  notes: >-
+    The next employer must be enrolled in E-Verify to support the STEM extension, and the
+    unemployment allowance runs out (mid-December) long before the OPT end date — so the allowance,
+    not the OPT date, is the real deadline. Both are inputs to confirm with a DSO, not rules the
+    engine decides.
+search:
+  default_hiring_weeks: 8
+  buffer_days: 30

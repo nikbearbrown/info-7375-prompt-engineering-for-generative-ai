@@ -1,0 +1,453 @@
+{
+  "_scorer": "bayesian-role-scorer",
+  "_chapter": 11,
+  "generated": "2026-10-03",
+  "config": {
+    "weights": {
+      "sponsorship": 0.35,
+      "fit": 0.3,
+      "role_quality": 0
+    },
+    "apply_threshold": 0.3,
+    "consider_floor": 0.2,
+    "gate_zero": 0.05,
+    "soft_sponsorship_tiers": [
+      "likely",
+      "possible",
+      "unknown"
+    ]
+  },
+  "profile_needs_sponsorship": true,
+  "roles": [
+    {
+      "role_id": "greenhouse:stripe:9100001",
+      "company": "Stripe",
+      "title": "Data Analyst, Revenue",
+      "composite": 0.3885,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.388 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.555,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.8·0.3) × 1 × 0.7 = 0.388"
+      }
+    },
+    {
+      "role_id": "greenhouse:stripe:9100005",
+      "company": "Stripe",
+      "title": "Business Analyst, Operations",
+      "composite": 0.3465,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.346 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.6,
+            "weight": 0.3,
+            "contribution": 0.18,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.495,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.6·0.3) × 1 × 0.7 = 0.346"
+      }
+    },
+    {
+      "role_id": "greenhouse:stripe:9100007",
+      "company": "Stripe",
+      "title": "Data Engineer I",
+      "composite": 0.3465,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.346 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.6,
+            "weight": 0.3,
+            "contribution": 0.18,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.495,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.6·0.3) × 1 × 0.7 = 0.346"
+      }
+    },
+    {
+      "role_id": "greenhouse:stripe:9100009",
+      "company": "Stripe",
+      "title": "Data Analyst II",
+      "composite": 0.3885,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.388 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.555,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.8·0.3) × 1 × 0.7 = 0.388"
+      }
+    },
+    {
+      "role_id": "ashby:benchling:b1a2c3d4-0001",
+      "company": "Benchling",
+      "title": "Data Engineer",
+      "composite": 0.3465,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.346 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.6,
+            "weight": 0.3,
+            "contribution": 0.18,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.495,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.6·0.3) × 1 × 0.7 = 0.346"
+      }
+    },
+    {
+      "role_id": "ashby:notion:n0t10n00-0001",
+      "company": "Notion",
+      "title": "Data Analyst",
+      "composite": 0.3885,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.388 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.555,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.8·0.3) × 1 × 0.7 = 0.388"
+      }
+    },
+    {
+      "role_id": "greenhouse:moloco:9500001",
+      "company": "Moloco",
+      "title": "Data Analyst",
+      "composite": 0.3885,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.388 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.555,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.8·0.3) × 1 × 0.7 = 0.388"
+      }
+    },
+    {
+      "role_id": "greenhouse:roblox:9600001",
+      "company": "Roblox",
+      "title": "Data Engineer",
+      "composite": 0,
+      "recommendation": "Skip",
+      "machine_recommendation": "Skip",
+      "reason": "gated: timeline ≈ 0.000 (a closed gate zeroes the composite regardless of votes)",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.6,
+            "weight": 0.3,
+            "contribution": 0.18,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.495,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0,
+        "arithmetic": "(0.9·0.35 + 0.6·0.3) × 1 × 0 = 0.000"
+      }
+    },
+    {
+      "role_id": "greenhouse:pinterest:9700001",
+      "company": "Pinterest",
+      "title": "Business Intelligence Analyst",
+      "composite": 0.3675,
+      "recommendation": "Apply",
+      "machine_recommendation": "Apply",
+      "reason": "composite 0.367 ≥ 0.3, gates healthy",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.9,
+            "weight": 0.35,
+            "contribution": 0.315,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.7,
+            "weight": 0.3,
+            "contribution": 0.21,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.525,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.9·0.35 + 0.7·0.3) × 1 × 0.7 = 0.367"
+      }
+    },
+    {
+      "role_id": "greenhouse:chime:9800001",
+      "company": "Chime",
+      "title": "Data Analyst",
+      "composite": 0.315,
+      "recommendation": "Consider",
+      "machine_recommendation": "Consider",
+      "reason": "above threshold (0.315) but one soft spot: sponsorship tier \"Likely\"",
+      "override": null,
+      "trace": {
+        "votes": [
+          {
+            "factor": "sponsorship",
+            "value": 0.6,
+            "weight": 0.35,
+            "contribution": 0.21,
+            "source": "record"
+          },
+          {
+            "factor": "fit",
+            "value": 0.8,
+            "weight": 0.3,
+            "contribution": 0.24,
+            "source": "your-input"
+          }
+        ],
+        "vote_sum": 0.45,
+        "gates": [
+          {
+            "factor": "liveness",
+            "multiplier": 1,
+            "source": "record"
+          },
+          {
+            "factor": "timeline",
+            "multiplier": 0.7,
+            "source": "your-input"
+          }
+        ],
+        "gate_product": 0.7,
+        "arithmetic": "(0.6·0.35 + 0.8·0.3) × 1 × 0.7 = 0.315"
+      }
+    }
+  ]
+}

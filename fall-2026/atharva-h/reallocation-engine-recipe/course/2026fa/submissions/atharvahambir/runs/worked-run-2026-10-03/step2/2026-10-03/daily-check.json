@@ -1,0 +1,278 @@
+{
+  "_recipe": "atharvahambir-data-roles-opt90-h1b-daily",
+  "recipe_version": "0.1.0",
+  "_prototype": "scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/daily_check.py",
+  "generated_at": "2026-10-03T14:10:23-04:00",
+  "today": "2026-10-03",
+  "mode": "live (board APIs)",
+  "stop": null,
+  "inputs": {
+    "candidate": "search/examples/atharva/daily-check.candidate.json",
+    "targets": "course/2026fa/submissions/atharvahambir/runs/worked-run-2026-10-03/targets.step2.json",
+    "boards_dir": null,
+    "sponsorship_csv": {
+      "path": "data/80-days-to-stay/80-days-csv/mapped_student_employment_targets_v3.csv",
+      "sha256": "eccdee2addf472b1639269f42eec693b083b7ce251347d5fd0b2856cfdae6270",
+      "rows": 30369,
+      "rows_with_h1b_fields": 1557
+    },
+    "bls_compact": {
+      "path": "data/bls/compact/soc_occupation_compact.csv",
+      "sha256": "bac5acf77ca2d25268c75b3706084f7f67bcc0c6e3cc68cd03e0ebd2598343d1"
+    },
+    "fetcher": ".claude/skills/greenhouse-watch/scripts/greenhouse_watch.py",
+    "scorer": "scripts/score/role-scorer.mjs"
+  },
+  "config": {
+    "tier_rule": {
+      "proven_min_approvals": 10,
+      "proven_min_approval_rate": 90.0,
+      "likely_min_approvals": 1
+    },
+    "tier_p": {
+      "Proven": 0.9,
+      "Likely": 0.6,
+      "Avoid": 0.0
+    },
+    "low_approval_rate_flag": 75.0,
+    "long_open_days_flag": 60,
+    "timeline_curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days",
+    "default_hiring_weeks": {
+      "value": 8,
+      "source": "your-input"
+    },
+    "max_years_experience": {
+      "value": 3,
+      "source": "your-input"
+    },
+    "title_phrases": {
+      "value": [
+        "business intelligence analyst",
+        "analytics engineer",
+        "business analyst",
+        "data engineer",
+        "data analyst"
+      ],
+      "source": "your-input"
+    },
+    "exclude_title_words": {
+      "value": [
+        "senior",
+        "sr",
+        "staff",
+        "lead",
+        "principal",
+        "manager",
+        "director",
+        "head",
+        "vp",
+        "intern",
+        "internship",
+        "co op",
+        "iii",
+        "iv"
+      ],
+      "source": "your-input"
+    },
+    "flag_title_words": {
+      "value": [
+        "ii"
+      ],
+      "source": "your-input"
+    }
+  },
+  "runway": {
+    "opt_end_date": {
+      "value": "2027-03-15",
+      "source": "your-input"
+    },
+    "unemployment_days_used_today": {
+      "value": 15,
+      "source": "your-input",
+      "note": "3 as of 2026-09-21 + days since, assuming still unemployed"
+    },
+    "unemployment_limit_days": {
+      "value": 90,
+      "source": "your-input",
+      "note": "confirm with your DSO"
+    },
+    "unemployment_runs_out": {
+      "value": "2026-12-17",
+      "source": "your-input"
+    },
+    "cliff": {
+      "value": "2026-12-17",
+      "source": "your-input",
+      "binding": "unemployment allowance"
+    },
+    "buffer_days": {
+      "value": 30,
+      "source": "your-input"
+    },
+    "needs_e_verify_employer": {
+      "value": true,
+      "source": "your-input",
+      "note": "DSO question; the recipe never decides it"
+    }
+  },
+  "gates": {
+    "G0 intake": "passed"
+  },
+  "scorer": {
+    "called": false,
+    "why": "no posting had a sponsorship value to score"
+  },
+  "companies": [
+    {
+      "name": "Robinhood",
+      "board_link": "https://job-boards.greenhouse.io/robinhood",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.633,
+        "source": "your-input",
+        "expected_start": "2026-11-28",
+        "cliff": "2026-12-17",
+        "slack_days": 19,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "stated by Atharva Hambir at gate G4; not verified by the tool",
+        "checked_on": "2026-10-03"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "csv_name given in targets: ROBINHOOD MARKETS INC",
+          "source": "your-input"
+        },
+        "csv_row": {
+          "value": "ROBINHOOD MARKETS INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2020-08-13"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 824.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 24.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 97.2,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 186000.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Senior Software Engineer",
+            "Senior Staff Software Engineer",
+            "Engineering Manager",
+            "Senior Corporate Accountant"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "robinhood",
+      "status": "checked",
+      "listing_evidence": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true fetched 2026-10-03T14:10:24-04:00",
+      "counts": {
+        "listed": 162,
+        "not a target title": 161,
+        "excluded title word": 1,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 0
+      },
+      "excluded_examples": [
+        {
+          "title": "Business Analyst Intern (Summer 2027)",
+          "why": "title word: intern"
+        }
+      ]
+    }
+  ],
+  "postings": [],
+  "closed_since_last_run": [],
+  "network_targets": [
+    {
+      "company": "Robinhood",
+      "tier": {
+        "value": "Proven",
+        "source": "record"
+      },
+      "why": "Proven sponsor on record, no matching posting today",
+      "next_action": "Network into this company (3 networking hours): ask for an informational chat before a role opens."
+    }
+  ],
+  "not_checked": [],
+  "first_run": true,
+  "summary": {
+    "companies": 1,
+    "companies_checked": 1,
+    "postings_listed": 162,
+    "postings_matching": 0,
+    "new_today": 0,
+    "Apply": 0,
+    "Consider": 0,
+    "Skip": 0,
+    "Held": 0,
+    "closed_since_last_run": 0,
+    "network_targets": 1,
+    "not_checked": 0
+  },
+  "cannot_verify": [
+    "Whether a listed posting is actually being filled: being on the board proves it is open on the board, not that anyone is hiring.",
+    "Whether a sponsor on record will sponsor this role now: the H-1B counts are past filings, their years are not documented, and only up to 5 titles per company are listed.",
+    "Anything about a company with no H-1B record in the data: 'unknown' is not 'does not sponsor'.",
+    "E-Verify enrollment: the repo has no E-Verify data; the value is whatever you recorded in the targets file.",
+    "How long a company really takes to hire: every hiring time is your estimate.",
+    "Immigration rules: unemployment limit, STEM extension and E-Verify requirements are your inputs to confirm with your DSO.",
+    "Experience, title and location filters read text with fixed rules; a posting worded unusually can be kept or dropped wrongly \u2014 excluded examples are listed so you can check.",
+    "Funding: the SEC Form D samples that ship with the repo match none of these companies, so funding is not used."
+  ]
+}

@@ -1,0 +1,66 @@
+$ npm run doctor
+
+> the-reallocation-engine@1.0.0 doctor
+> node scripts/doctor.mjs
+
+RECIPE DOCTOR — The Reallocation Engine
+==========================================
+
+ENVIRONMENT (required)
+  ✓ node       v26.8.2
+  ✓ python3    Python 3.12.14
+
+ENVIRONMENT (optional — features degrade without these)
+  — pandoc     not found (resume/PDF rendering)
+  — libreoffice not found (PDF fallback)
+  ✓ playwright installed
+
+RUNNABLE COMMANDS (npm script → target file present?)
+  ✓ verify         scripts/conformance.mjs
+  ✓ manifest-check scripts/manifest-check.mjs
+  ✓ eval:score     scripts/eval/score-run.mjs
+  ✓ eval:report    scripts/eval/report.mjs
+  ✓ doctor         scripts/doctor.mjs
+  ✓ bls:local-wage scripts/bls/local-wage-adjustment.py
+  ✓ build-instructions scripts/build-instructions.mjs
+  ✓ to-markdown    scripts/to-markdown.mjs
+  ✓ score          scripts/score/role-scorer.mjs
+  ✓ score:gates    scripts/score/gate-harness.mjs
+  ✓ ats:dedup      scripts/ats/dedup-tracker.mjs
+  ✓ ats:liveness   scripts/ats/check-liveness.mjs
+  ✓ ats:merge      scripts/ats/merge-tracker.mjs
+  ✓ ats:normalize  scripts/ats/normalize-statuses.mjs
+  ✓ ats:scan       scripts/ats/scan.mjs
+  ✓ ats:verify     scripts/ats/verify-pipeline.mjs
+  ✓ resumes:pdf    scripts/resumes/generate-pdf.mjs
+  ✓ svg-to-png     scripts/svg-to-png.mjs
+  ✓ audit:layout   scripts/svg-layout-audit.mjs
+  ✓ postsvg-to-png scripts/svg-layout-audit.mjs
+  ✓ skill-demand   scripts/score/skill-demand-monitor.mjs
+  ✓ skill-demand:test scripts/score/skill-demand-monitor.test.mjs
+  ✓ fetch-postings scripts/ats/fetch-real-postings.py
+  ✓ pii-scan       scripts/pii-scan.mjs
+
+DOMAIN DIRECTORIES
+  ✓ data/sec
+  ✓ data/bls
+  ✓ data/ats
+  ✓ data/80-days-to-stay
+  ✓ scripts/sec
+  ✓ scripts/bls
+  ✓ scripts/ats
+  ✓ scripts/resumes
+
+PRIVACY (no personal data committed)
+  ✓ no private/PII paths are tracked
+
+RECIPES (33)
+  with lifecycle frontmatter: 33   missing: 0
+  by status: DRAFT 28 · RUNNABLE-SAMPLE 4 · RUNNABLE-LIVE  # DRAFT | SPECIFIED | RUNNABLE-SAMPLE | RUNNABLE-LIVE | VERIFIED 1
+  open TODOs: 318 declared (in frontmatter) · 318 [TODO markers in bodies
+
+SUMMARY
+  environment: ✓ runnable
+  recipes: 33/33 carry lifecycle frontmatter — all tracked
+  next: continue
+EXIT=0

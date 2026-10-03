@@ -1,0 +1,17 @@
+Deliberate break attempts (mutation check) — run 2026-09-30 (the sample inside it simulates 2026-10-01)
+Each mutant is one edit to daily_check.py; the offline suite is run against it; the original is then restored
+(cmp against a backup copy: identical).
+
+=== MUTANT M1 intake gate lets a past OPT date through   (if v["opt_end_date"] <= today:  →  if False:)
+FAIL: test_f4_past_opt_date_stops_at_the_intake_gate (__main__.EndToEnd.test_f4_past_opt_date_stops_at_the_intake_gate)
+Ran 18 tests in 1.407s
+FAILED (failures=1)
+=== MUTANT M2 unknown sponsorship scored as a non-sponsor (p=0)   (vote = None  →  vote = {"p": 0.0, "tier": "None", "source": RECORD})
+FAIL: test_sample_run_end_to_end (__main__.EndToEnd.test_sample_run_end_to_end)
+Ran 18 tests in 1.240s
+FAILED (failures=1)
+=== MUTANT M3 E-Verify gate ignored   (if ev_needed and enrolled is False:  →  if False:)
+FAIL: test_sample_run_end_to_end (__main__.EndToEnd.test_sample_run_end_to_end)
+Ran 18 tests in 1.246s
+FAILED (failures=1)
+restored original daily_check.py

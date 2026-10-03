@@ -1,0 +1,17 @@
+Hand cross-check of the report's Robinhood numbers against the source CSV row.
+
+$ grep -n '^ROBINHOOD MARKETS INC,' data/80-days-to-stay/80-days-csv/mapped_student_employment_targets_v3.csv | cut -d: -f1
+22735
+
+$ python3 -c "import csv; r=[x for x in csv.DictReader(open('data/80-days-to-stay/80-days-csv/mapped_student_employment_targets_v3.csv', errors='replace')) if x['company_name']=='ROBINHOOD MARKETS INC'][0]; [print(k, '=', r[k]) for k in ('company_name','Total Approvals','Total Denials','Approval_Rate','top_job_titles_sponsored','median_salary_offered')]"
+company_name = ROBINHOOD MARKETS INC
+Total Approvals = 824.0
+Total Denials = 24.0
+Approval_Rate = 97.16981132075472
+top_job_titles_sponsored = ['Software Engineer', 'Senior Software Engineer', 'Senior Staff Software Engineer', 'Engineering Manager', 'Senior Corporate Accountant']
+median_salary_offered = 186000.0
+
+$ shasum -a 256 course/2026fa/submissions/atharvahambir/runs/worked-run-2026-10-03/step1/2026-10-03/raw/greenhouse-robinhood.json course/2026fa/submissions/atharvahambir/runs/worked-run-2026-10-03/step2/2026-10-03/raw/greenhouse-robinhood.json; wc -c <step1 raw>
+a6ac36d2a87278210f842f9af071544dd8b49b37871f8883313811ce50854f29  course/2026fa/submissions/atharvahambir/runs/worked-run-2026-10-03/step1/2026-10-03/raw/greenhouse-robinhood.json
+a6ac36d2a87278210f842f9af071544dd8b49b37871f8883313811ce50854f29  course/2026fa/submissions/atharvahambir/runs/worked-run-2026-10-03/step2/2026-10-03/raw/greenhouse-robinhood.json
+ 1751334

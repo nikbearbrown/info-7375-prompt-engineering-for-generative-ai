@@ -1,0 +1,20 @@
+$ git add -A && git diff --cached --stat | tail -12 && git diff --cached --name-only | cut -d/ -f1-3 | sort | uniq -c
+ .../boards/greenhouse-northwind-analytics.json     |   28 +
+ .../fixtures/boards/greenhouse-pinterest.json      |   28 +
+ .../fixtures/boards/greenhouse-roblox.json         |   28 +
+ .../fixtures/boards/greenhouse-stripe.json         |  194 ++
+ .../fixtures/candidate.expired.fictional.json      |   27 +
+ .../fixtures/targets.sample.json                   |  111 +
+ .../test_daily_check.py                            |  307 +++
+ search/examples/atharva/daily-check.candidate.json |   62 +
+ search/examples/atharva/gaps.md                    |   12 +
+ search/examples/atharva/profile.yml                |   37 +
+ search/examples/atharva/resume.example.json        |   48 +
+ 83 files changed, 9090 insertions(+)
+  56 course/2026fa/submissions
+   1 logs/runs/2026fa-atharvahambir-1.md
+   1 logs/runs/2026fa-atharvahambir-2.md
+   2 recipes/cases/2026fa
+  19 scripts/contrib/2026fa
+   4 search/examples/atharva
+EXIT=0

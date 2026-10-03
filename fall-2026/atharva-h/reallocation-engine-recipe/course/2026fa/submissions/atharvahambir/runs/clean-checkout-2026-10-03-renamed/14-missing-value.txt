@@ -1,0 +1,4 @@
+$ python3 -c "import json; c=json.load(open('search/examples/atharva/daily-check.candidate.json')); c['visa']['unemployment_days_used']=None; json.dump(c, open('/private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad/missing.json','w'))" && python3 scripts/contrib/2026fa/atharvahambir-reallocation-engine/daily_check.py --sample --candidate /private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad/missing.json --out-dir /private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad/missing
+✗ stopped at the intake gate: visa.unemployment_days_used is missing or not a number — fill it in; there is no default
+  /private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad/missing/2026-10-01/daily-check.md
+EXIT=2

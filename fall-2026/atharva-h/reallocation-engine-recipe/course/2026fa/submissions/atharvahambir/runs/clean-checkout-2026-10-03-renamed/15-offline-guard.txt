@@ -1,0 +1,4 @@
+$ DAILY_CHECK_OFFLINE=1 python3 scripts/contrib/2026fa/atharvahambir-reallocation-engine/daily_check.py --candidate search/examples/atharva/daily-check.candidate.json --targets scripts/contrib/2026fa/atharvahambir-reallocation-engine/fixtures/targets.sample.json --out-dir /private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad/guard --today 2026-10-01 2>&1 | tail -2
+    raise RuntimeError("network fetch attempted while DAILY_CHECK_OFFLINE=1")
+RuntimeError: network fetch attempted while DAILY_CHECK_OFFLINE=1
+EXIT=1

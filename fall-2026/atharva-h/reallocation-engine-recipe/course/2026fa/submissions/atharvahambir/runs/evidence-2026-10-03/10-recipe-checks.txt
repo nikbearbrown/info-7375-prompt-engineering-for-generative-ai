@@ -1,0 +1,45 @@
+
+$ node scripts/conformance.mjs recipes/cases/2026fa/ logs/runs/ scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/ search/examples/atharva/
+conformance: 32 files (7 md · 3 py · 21 json · 1 yaml)
+✓ all conform (machine half of P4). Adequacy is still the human gate.
+EXIT=0
+
+$ python3 -c "import re;t=open('recipes/cases/2026fa/atharvahambir-data-roles-opt90-h1b-daily.md').read();fm=int(re.search(r'todos_open: (\\d+)',t).group(1));n=t.count('[TODO');print('todos_open',fm,'| [TODO markers in body',n,'| match' if fm==n else '| MISMATCH');raise SystemExit(fm!=n)"
+todos_open 7 | [TODO markers in body 7 | match
+EXIT=0
+
+$ python3 /private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/13100c8e-920a-415d-bf8a-251cb0618201/scratchpad/check_paths.py . recipes/cases/2026fa/atharvahambir-data-roles-opt90-h1b-daily.md recipes/cases/2026fa/atharvahambir-data-roles-opt90-h1b-daily.card.md logs/runs/2026fa-atharvahambir-1.md
+path check: 58 backticked repo paths exist; 3 named on purpose as NOT existing (Fact 4) and confirmed absent: ['data/raw/', 'data/verified/', 'logs/gate-decisions/']
+EXIT=0
+
+$ python3 scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/daily_check.py --sample
+✓ 2026-10-01 — 11/13 boards read · 22 postings listed · 13 match (13 new)
+  Apply 6 · Consider 1 · Skip 2 · Held for you 4 · closed 0 · network 1 · not checked 2
+  scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/out/sample/2026-10-01/daily-check.md  +  scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/out/sample/2026-10-01/daily-check.json
+EXIT=0
+
+$ python3 scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/test_daily_check.py 2>&1 | tail -4
+----------------------------------------------------------------------
+Ran 18 tests in 1.231s
+
+OK
+EXIT=0
+
+$ python3 scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/break_attempts.py
+✓ real daily_check.py: suite passes
+✓ BROKEN-1-past-opt-date-passes: caught by test_f4_past_opt_date_stops_at_the_intake_gate
+✓ BROKEN-2-unknown-sponsor-scored-as-zero: caught by test_sample_run_end_to_end
+✓ BROKEN-3-e-verify-gate-ignored: caught by test_sample_run_end_to_end
+✓ BROKEN-4-timeline-gate-weakened: caught by test_sample_run_end_to_end, test_timeline_factor
+✓ all 4 mutants caught
+EXIT=0
+
+$ git branch --show-current; git status --short; git diff --stat; git log --oneline -1
+contrib/2026fa-atharvahambir-data-roles-opt90-h1b-daily
+?? course/2026fa/
+?? logs/runs/2026fa-atharvahambir-1.md
+?? recipes/cases/2026fa/
+?? scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/
+?? search/examples/atharva/
+015843d fix(greenhouse-watch): justification lines now sum to the score
+EXIT=0

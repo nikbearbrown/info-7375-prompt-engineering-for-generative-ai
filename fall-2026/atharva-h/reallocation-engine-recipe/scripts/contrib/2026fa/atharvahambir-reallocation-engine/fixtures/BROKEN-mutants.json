@@ -1,0 +1,34 @@
+{
+  "_note": "Deliberately broken versions of daily_check.py, as one exact find→replace each. break_attempts.py builds each mutant in a temporary copy (the real file is never edited), runs the offline suite against it, and requires the suite to FAIL. A mutant the suite does not catch means the tests cannot see that bug.",
+  "target": "daily_check.py",
+  "mutants": [
+    {
+      "id": "BROKEN-1-past-opt-date-passes",
+      "breaks": "the intake gate lets a run continue when the OPT end date has already passed",
+      "find": "if v[\"opt_end_date\"] <= today:",
+      "replace": "if False:",
+      "expect_failing_test": "test_f4_past_opt_date_stops_at_the_intake_gate"
+    },
+    {
+      "id": "BROKEN-2-unknown-sponsor-scored-as-zero",
+      "breaks": "a company with no sponsorship record is scored as a known non-sponsor (p = 0) instead of held — the 'unknown is not does-not-sponsor' rule",
+      "find": "            vote = None\n        p[\"sponsorship_vote\"] = vote",
+      "replace": "            vote = {\"p\": 0.0, \"tier\": \"None\", \"source\": RECORD}\n        p[\"sponsorship_vote\"] = vote",
+      "expect_failing_test": "test_sample_run_end_to_end"
+    },
+    {
+      "id": "BROKEN-3-e-verify-gate-ignored",
+      "breaks": "an employer recorded as not E-Verify enrolled is no longer skipped",
+      "find": "if ev_needed and enrolled is False:",
+      "replace": "if False:",
+      "expect_failing_test": "test_sample_run_end_to_end"
+    },
+    {
+      "id": "BROKEN-4-timeline-gate-weakened",
+      "breaks": "a start date after the deadline gets a timeline factor of 0.5 instead of 0 — weakening a gate so a role passes",
+      "find": "    if slack < 0:\n        f = 0.0",
+      "replace": "    if slack < 0:\n        f = 0.5",
+      "expect_failing_test": "test_timeline_factor"
+    }
+  ]
+}

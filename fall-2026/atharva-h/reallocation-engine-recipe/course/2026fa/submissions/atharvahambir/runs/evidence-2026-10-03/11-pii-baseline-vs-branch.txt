@@ -1,0 +1,23 @@
+PII scan — baseline (clean export of the instructor's commit 015843d) vs this branch's working tree. Run 2026-10-03.
+Output is written outside the repo first and moved in afterwards, so the scan never reads its own output. The one email address reported is redacted in this saved copy only.
+
+$ git archive 015843d | tar -x -C <scratch>/baseline-015843d && cd <scratch>/baseline-015843d && node scripts/pii-scan.mjs
+pii-scan: 1 finding(s) — see DATA_CONTRACT.md §Zero-Conditions
+
+  [email] package-lock.json — [email redacted in this saved copy — npm package author metadata]
+
+If a finding is a false positive (fictional data outside the sanctioned dirs),
+move it under search/examples/ or resumes/ rather than allowlisting it here.
+EXIT=1
+
+$ node scripts/pii-scan.mjs    # this branch's working tree, all my files present
+pii-scan: 1 finding(s) — see DATA_CONTRACT.md §Zero-Conditions
+
+  [email] package-lock.json — [email redacted in this saved copy — npm package author metadata]
+
+If a finding is a false positive (fictional data outside the sanctioned dirs),
+move it under search/examples/ or resumes/ rather than allowlisting it here.
+EXIT=1
+
+$ diff <(baseline findings) <(branch findings)
+identical — findings added by this work: 0

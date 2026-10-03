@@ -1,0 +1,2462 @@
+{
+  "_recipe": "atharvahambir-data-roles-opt90-h1b-daily",
+  "recipe_version": "0.1.0",
+  "_prototype": "scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/daily_check.py",
+  "generated_at": "2026-10-03T12:40:09-04:00",
+  "today": "2026-10-01",
+  "mode": "offline (saved board responses)",
+  "stop": null,
+  "inputs": {
+    "candidate": "search/examples/atharva/daily-check.candidate.json",
+    "targets": "scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/targets.sample.json",
+    "boards_dir": "scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards",
+    "sponsorship_csv": {
+      "path": "data/80-days-to-stay/80-days-csv/mapped_student_employment_targets_v3.csv",
+      "sha256": "eccdee2addf472b1639269f42eec693b083b7ce251347d5fd0b2856cfdae6270",
+      "rows": 30369,
+      "rows_with_h1b_fields": 1557
+    },
+    "bls_compact": {
+      "path": "data/bls/compact/soc_occupation_compact.csv",
+      "sha256": "bac5acf77ca2d25268c75b3706084f7f67bcc0c6e3cc68cd03e0ebd2598343d1"
+    },
+    "fetcher": ".claude/skills/greenhouse-watch/scripts/greenhouse_watch.py",
+    "scorer": "scripts/score/role-scorer.mjs"
+  },
+  "config": {
+    "tier_rule": {
+      "proven_min_approvals": 10,
+      "proven_min_approval_rate": 90.0,
+      "likely_min_approvals": 1
+    },
+    "tier_p": {
+      "Proven": 0.9,
+      "Likely": 0.6,
+      "Avoid": 0.0
+    },
+    "low_approval_rate_flag": 75.0,
+    "long_open_days_flag": 60,
+    "timeline_curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days",
+    "default_hiring_weeks": {
+      "value": 8,
+      "source": "your-input"
+    },
+    "max_years_experience": {
+      "value": 3,
+      "source": "your-input"
+    },
+    "title_phrases": {
+      "value": [
+        "business intelligence analyst",
+        "analytics engineer",
+        "business analyst",
+        "data engineer",
+        "data analyst"
+      ],
+      "source": "your-input"
+    },
+    "exclude_title_words": {
+      "value": [
+        "senior",
+        "sr",
+        "staff",
+        "lead",
+        "principal",
+        "manager",
+        "director",
+        "head",
+        "vp",
+        "intern",
+        "internship",
+        "co op",
+        "iii",
+        "iv"
+      ],
+      "source": "your-input"
+    },
+    "flag_title_words": {
+      "value": [
+        "ii"
+      ],
+      "source": "your-input"
+    }
+  },
+  "runway": {
+    "opt_end_date": {
+      "value": "2027-03-15",
+      "source": "your-input"
+    },
+    "unemployment_days_used_today": {
+      "value": 13,
+      "source": "your-input",
+      "note": "3 as of 2026-09-21 + days since, assuming still unemployed"
+    },
+    "unemployment_limit_days": {
+      "value": 90,
+      "source": "your-input",
+      "note": "confirm with your DSO"
+    },
+    "unemployment_runs_out": {
+      "value": "2026-12-17",
+      "source": "your-input"
+    },
+    "cliff": {
+      "value": "2026-12-17",
+      "source": "your-input",
+      "binding": "unemployment allowance"
+    },
+    "buffer_days": {
+      "value": 30,
+      "source": "your-input"
+    },
+    "needs_e_verify_employer": {
+      "value": true,
+      "source": "your-input",
+      "note": "DSO question; the recipe never decides it"
+    }
+  },
+  "gates": {
+    "G0 intake": "passed"
+  },
+  "scorer": {
+    "called": true,
+    "command": [
+      "node",
+      "scripts/score/role-scorer.mjs",
+      "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/roles.json",
+      "--profile",
+      "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/scorer-profile.json",
+      "--out-dir",
+      "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01"
+    ],
+    "exit": 0,
+    "stdout": "\u2713 scored 10 roles \u2192 Apply 8 \u00b7 Consider 1 \u00b7 Skip 1 (skip 10%)\n  course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/role-scores.json  +  course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/role-scores.md",
+    "stderr": "",
+    "roles_json": "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/roles.json",
+    "scores_json": "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/role-scores.json",
+    "scores_md": "course/2026fa/submissions/atharvahambir/runs/evidence-2026-10-03/sample/2026-10-01/role-scores.md",
+    "config_seen": {
+      "weights": {
+        "sponsorship": 0.35,
+        "fit": 0.3,
+        "role_quality": 0
+      },
+      "apply_threshold": 0.3,
+      "consider_floor": 0.2,
+      "gate_zero": 0.05,
+      "soft_sponsorship_tiers": [
+        "likely",
+        "possible",
+        "unknown"
+      ]
+    },
+    "scorer_id": "bayesian-role-scorer"
+  },
+  "companies": [
+    {
+      "name": "Stripe",
+      "board_link": "https://job-boards.greenhouse.io/stripe",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "STRIPE INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2024-04-08"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 1250.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 22.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 98.3,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 158371.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Backend Engineer",
+            "Risk Strategist",
+            "Product Manager",
+            "Engineering Manager"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "stripe",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-stripe.json",
+      "counts": {
+        "listed": 9,
+        "not a target title": 1,
+        "excluded title word": 2,
+        "outside the US": 1,
+        "experience above limit": 1,
+        "matching": 4
+      },
+      "excluded_examples": [
+        {
+          "title": "Senior Data Analyst",
+          "why": "title word: senior"
+        },
+        {
+          "title": "Data Analyst",
+          "why": "location: London"
+        },
+        {
+          "title": "Analytics Engineer",
+          "why": "experience: 5+ years of experience building data models in d"
+        },
+        {
+          "title": "Data Analyst Intern",
+          "why": "title word: intern"
+        }
+      ]
+    },
+    {
+      "name": "Benchling",
+      "board_link": "https://jobs.ashbyhq.com/benchling",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "BENCHLING INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series A",
+            "date": "2016-04-18"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 78.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 0.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 100.0,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 142500.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Sales Implementation Engineer",
+            "Implementation Manager",
+            "Engagement Manager",
+            "Business Systems Analyst"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "ashby",
+      "board": "benchling",
+      "status": "checked",
+      "listing_evidence": "saved ashby board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/ashby-benchling.json",
+      "counts": {
+        "listed": 2,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 1,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": [
+        {
+          "title": "Business Intelligence Analyst",
+          "why": "location: Toronto, ON / Canada"
+        }
+      ]
+    },
+    {
+      "name": "Notion",
+      "board_link": "https://jobs.ashbyhq.com/notion",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "csv_name given in targets: NOTION LABS INC",
+          "source": "your-input"
+        },
+        "csv_row": {
+          "value": "NOTION LABS INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2021-09-28"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 98.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 2.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 98.0,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 182500.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "ashby",
+      "board": "notion",
+      "status": "checked",
+      "listing_evidence": "saved ashby board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/ashby-notion.json",
+      "counts": {
+        "listed": 2,
+        "not a target title": 1,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Coinbase",
+      "board_link": "https://job-boards.greenhouse.io/coinbase",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "csv_name given in targets: COINBASE GLOBAL INC",
+          "source": "your-input"
+        },
+        "csv_row": {
+          "value": "COINBASE GLOBAL INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series B",
+            "date": "2018-12-07"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "status": "no-h1b-fields",
+        "hold": "'COINBASE GLOBAL INC' is in the data but has no H-1B history fields \u2014 unknown, not 'does not sponsor'"
+      },
+      "ats": "greenhouse",
+      "board": "coinbase",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-coinbase.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Northwind Analytics",
+      "board_link": "https://job-boards.greenhouse.io/northwind-analytics",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "did_you_mean": [],
+        "status": "no-row",
+        "hold": "no row named 'Northwind Analytics' in the sponsorship data \u2014 unknown, not 'does not sponsor'"
+      },
+      "ats": "greenhouse",
+      "board": "northwind-analytics",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-northwind-analytics.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Apricus Biosciences",
+      "board_link": "https://job-boards.greenhouse.io/apricus-biosciences",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "APRICUS BIOSCIENCES INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Seed",
+            "date": "2017-09-13"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 90.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 0.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 100.0,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 135000.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Scientist",
+            "Senior Enterprise Systems & Data Analyst",
+            "Manager, IT Validation",
+            "Senior Research Associate"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [
+            "Senior Enterprise Systems & Data Analyst"
+          ],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "duplicate-record",
+        "twins": [
+          "ASCUS BIOSCIENCES INC"
+        ],
+        "hold": "H-1B fields identical to ASCUS BIOSCIENCES INC \u2014 likely a join artifact, not trusted as a record"
+      },
+      "ats": "greenhouse",
+      "board": "apricus-biosciences",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-apricus-biosciences.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Moloco",
+      "board_link": "https://job-boards.greenhouse.io/moloco",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": false,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "MOLOCO INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2021-08-09"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 200.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 2.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 99.0,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 146242.5,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Staff Data Scientist",
+            "Data Analyst II",
+            "Sr. Growth Manager",
+            "Growth Associate",
+            "Machine Learning Engineer II"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [
+            "Data Analyst II"
+          ],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "moloco",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-moloco.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Roblox",
+      "board_link": "https://job-boards.greenhouse.io/roblox",
+      "hiring_weeks": {
+        "value": 12,
+        "source": "your-input",
+        "from": "company override"
+      },
+      "timeline": {
+        "value": 0.0,
+        "source": "your-input",
+        "expected_start": "2026-12-24",
+        "cliff": "2026-12-17",
+        "slack_days": -7,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "ROBLOX CORP",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series B",
+            "date": "2022-04-01"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 856.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 10.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 98.8,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 265000.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Senior Software Engineer",
+            "Software Engineer",
+            "Principal Software Engineer",
+            "Senior Product Designer",
+            "Principal Machine Learning Engineer - Personalization"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "roblox",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-roblox.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Pinterest",
+      "board_link": "https://job-boards.greenhouse.io/pinterest",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": null,
+        "source": "your-input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "PINTEREST INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2017-06-02"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 1364.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 16.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 98.8,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 156853.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Software Engineer II",
+            "Software Engineer I",
+            "Senior Software Engineer",
+            "Senior Data Analyst"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [
+            "Senior Data Analyst"
+          ],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "pinterest",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-pinterest.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Chime",
+      "board_link": "https://job-boards.greenhouse.io/chime",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "CHIME INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [
+          "CHIME FINANCIAL INC (580 approvals)"
+        ],
+        "latest_funding": {
+          "value": {
+            "stage": "Series A",
+            "date": "2016-05-13"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 2.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 0.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 100.0,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 133869.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Senior Growth Marketing Manager"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Likely",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "other companies with a similar name have H-1B records \u2014 confirm this is the right row",
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.6,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "chime",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-chime.json",
+      "counts": {
+        "listed": 1,
+        "not a target title": 0,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 1
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Databricks",
+      "board_link": "https://job-boards.greenhouse.io/databricks",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "DATABRICKS INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2025-09-08"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 1640.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 8.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 99.5,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 149422.5,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Senior Software Engineer",
+            "Solutions Architect",
+            "Specialist Solutions Architect",
+            "Senior Solutions Engineer"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "databricks",
+      "status": "checked",
+      "listing_evidence": "saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-databricks.json",
+      "counts": {
+        "listed": 2,
+        "not a target title": 2,
+        "excluded title word": 0,
+        "outside the US": 0,
+        "experience above limit": 0,
+        "matching": 0
+      },
+      "excluded_examples": []
+    },
+    {
+      "name": "Adobe",
+      "board_link": "https://adobe.wd5.myworkdayjobs.com/en-US/external_experienced",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "did_you_mean": [],
+        "status": "no-row",
+        "hold": "no row named 'Adobe' in the sponsorship data \u2014 unknown, not 'does not sponsor'"
+      },
+      "status": "not checkable",
+      "reason": "board link is not Greenhouse or Ashby \u2014 only those two sources are supported so far"
+    },
+    {
+      "name": "Dropbox",
+      "board_link": "https://job-boards.greenhouse.io/dropbox",
+      "hiring_weeks": {
+        "value": 8,
+        "source": "your-input",
+        "from": "default"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "e_verify": {
+        "value": true,
+        "source": "your-input",
+        "source_note": "SYNTHETIC test input"
+      },
+      "sponsorship": {
+        "match_method": {
+          "value": "exact match on normalized company name (no fuzzy matching)",
+          "source": "record"
+        },
+        "csv_row": {
+          "value": "DROPBOX INC",
+          "source": "record"
+        },
+        "similar_names_with_h1b": [],
+        "latest_funding": {
+          "value": {
+            "stage": "Series D+",
+            "date": "2014-01-30"
+          },
+          "source": "record",
+          "note": "80 Days CSV column; its provenance is not documented \u2014 shown, not used"
+        },
+        "approvals": {
+          "value": 430.0,
+          "source": "record"
+        },
+        "denials": {
+          "value": 4.0,
+          "source": "record"
+        },
+        "approval_rate": {
+          "value": 99.1,
+          "source": "record"
+        },
+        "median_salary_offered": {
+          "value": 187000.0,
+          "source": "record",
+          "note": "all sponsored roles, not role-specific"
+        },
+        "top_titles": {
+          "value": [
+            "Software Engineer",
+            "Software Engineer",
+            "Capacity Engineer",
+            "Software Engineering Manager",
+            "Senior Enterprise Architect Manager"
+          ],
+          "source": "record",
+          "note": "at most 5 titles are listed; absence of a title is weak evidence"
+        },
+        "sponsored_matching_title": {
+          "value": [],
+          "source": "record",
+          "note": "titles in the \u22645 listed that contain one of your title phrases"
+        },
+        "status": "record",
+        "tier": {
+          "value": "Proven",
+          "source": "record",
+          "rule": {
+            "proven_min_approvals": 10,
+            "proven_min_approval_rate": 90.0,
+            "likely_min_approvals": 1
+          }
+        },
+        "flags": [
+          "none of the \u22645 listed sponsored titles is one of your title phrases"
+        ],
+        "p": {
+          "value": 0.9,
+          "source": "record",
+          "note": "p for the tier, as in data/examples/ch11-roles.json"
+        }
+      },
+      "ats": "greenhouse",
+      "board": "dropbox",
+      "status": "not checked today",
+      "reason": "no saved response at scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-dropbox.json"
+    }
+  ],
+  "postings": [
+    {
+      "key": "greenhouse:stripe:9100001",
+      "company": "Stripe",
+      "title": "Data Analyst, Revenue",
+      "url": "https://job-boards.greenhouse.io/stripe/jobs/9100001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "San Francisco, CA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": null,
+            "text": "You have 2+ years of experience with SQL and dashboards."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-stripe.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3885,
+        "reason": "composite 0.388 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.8\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.388"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.388 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "greenhouse:stripe:9100005",
+      "company": "Stripe",
+      "title": "Business Analyst, Operations",
+      "url": "https://job-boards.greenhouse.io/stripe/jobs/9100005",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "business analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "Chicago"
+      },
+      "experience": {
+        "value": "mixed",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 3,
+            "max": 5,
+            "text": "3-5 years of experience in business analysis."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-stripe.json"
+      },
+      "fit": {
+        "value": 0.6,
+        "source": "your-input",
+        "note": "your fit value for 'business analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "13-1111.00",
+          "occupation": "Management Analysts",
+          "annual_median_wage": 101190.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [
+        "experience statements cross your limit"
+      ],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3465,
+        "reason": "composite 0.346 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.6\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.346"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.346 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "greenhouse:stripe:9100007",
+      "company": "Stripe",
+      "title": "Data Engineer I",
+      "url": "https://job-boards.greenhouse.io/stripe/jobs/9100007",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data engineer",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "Seattle, WA"
+      },
+      "experience": {
+        "value": "not-stated",
+        "source": "record",
+        "mentions": [],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-06-15",
+        "source": "record",
+        "age_days": 108
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-stripe.json"
+      },
+      "fit": {
+        "value": 0.6,
+        "source": "your-input",
+        "note": "your fit value for 'data engineer'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-1243.00",
+          "occupation": "Database Architects",
+          "annual_median_wage": 135980.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [
+        "experience not stated",
+        "open 108 days \u2014 ask a contact whether it is still being filled"
+      ],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3465,
+        "reason": "composite 0.346 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.6\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.346"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.346 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "greenhouse:stripe:9100009",
+      "company": "Stripe",
+      "title": "Data Analyst II",
+      "url": "https://job-boards.greenhouse.io/stripe/jobs/9100009",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "N/A / US"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 1,
+            "max": 3,
+            "text": "1-3 years of experience with experimentation and"
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-stripe.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [
+        "title word to check: ii"
+      ],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3885,
+        "reason": "composite 0.388 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.8\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.388"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.388 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "ashby:benchling:b1a2c3d4-0001",
+      "company": "Benchling",
+      "title": "Data Engineer",
+      "url": "https://jobs.ashbyhq.com/benchling/b1a2c3d4-0001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data engineer",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us-remote",
+        "source": "record",
+        "text": "Remote \u2022 Remote / United States"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 1,
+            "max": 3,
+            "text": "1-3 years of experience with Python and SQL."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-25",
+        "source": "record",
+        "age_days": 6
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the ashby board \u2014 saved ashby board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/ashby-benchling.json"
+      },
+      "fit": {
+        "value": 0.6,
+        "source": "your-input",
+        "note": "your fit value for 'data engineer'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-1243.00",
+          "occupation": "Database Architects",
+          "annual_median_wage": 135980.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3465,
+        "reason": "composite 0.346 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.6\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.346"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.346 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "ashby:notion:n0t10n00-0001",
+      "company": "Notion",
+      "title": "Data Analyst",
+      "url": "https://jobs.ashbyhq.com/notion/n0t10n00-0001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "New York, NY / United States"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 0,
+            "max": 2,
+            "text": "0-2 years of experience in product analytics."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-29",
+        "source": "record",
+        "age_days": 2
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the ashby board \u2014 saved ashby board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/ashby-notion.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3885,
+        "reason": "composite 0.388 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.8\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.388"
+      },
+      "decision": {
+        "final": "Apply",
+        "decided_by": "scorer",
+        "reasons": [
+          "composite 0.388 \u2265 0.3, gates healthy"
+        ],
+        "next_action": "Tailor an application today (your 2 research-and-apply hours)."
+      }
+    },
+    {
+      "key": "greenhouse:coinbase:9200001",
+      "company": "Coinbase",
+      "title": "Data Analyst",
+      "url": "https://job-boards.greenhouse.io/coinbase/jobs/9200001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us-remote",
+        "source": "record",
+        "text": "Remote - USA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": null,
+            "text": "2+ years of experience with SQL."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-coinbase.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": null,
+      "sponsorship_status": "no-h1b-fields",
+      "decision": {
+        "final": "Held",
+        "decided_by": "recipe gate: needs you",
+        "reasons": [
+          "'COINBASE GLOBAL INC' is in the data but has no H-1B history fields \u2014 unknown, not 'does not sponsor'"
+        ],
+        "next_action": "Needs you before any decision \u2014 see the reason."
+      }
+    },
+    {
+      "key": "greenhouse:northwind-analytics:9300001",
+      "company": "Northwind Analytics",
+      "title": "Associate Data Analyst",
+      "url": "https://job-boards.greenhouse.io/northwind-analytics/jobs/9300001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "Boston, MA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 0,
+            "max": 1,
+            "text": "Entry level: 0-1 years of experience."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-northwind-analytics.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": null,
+      "sponsorship_status": "no-row",
+      "decision": {
+        "final": "Held",
+        "decided_by": "recipe gate: needs you",
+        "reasons": [
+          "no row named 'Northwind Analytics' in the sponsorship data \u2014 unknown, not 'does not sponsor'"
+        ],
+        "next_action": "Needs you before any decision \u2014 see the reason."
+      }
+    },
+    {
+      "key": "greenhouse:apricus-biosciences:9400001",
+      "company": "Apricus Biosciences",
+      "title": "Data Analyst",
+      "url": "https://job-boards.greenhouse.io/apricus-biosciences/jobs/9400001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "San Diego, CA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": null,
+            "text": "2+ years of experience with clinical data."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-apricus-biosciences.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": null,
+      "sponsorship_status": "duplicate-record",
+      "decision": {
+        "final": "Held",
+        "decided_by": "recipe gate: needs you",
+        "reasons": [
+          "H-1B fields identical to ASCUS BIOSCIENCES INC \u2014 likely a join artifact, not trusted as a record"
+        ],
+        "next_action": "Needs you before any decision \u2014 see the reason."
+      }
+    },
+    {
+      "key": "greenhouse:moloco:9500001",
+      "company": "Moloco",
+      "title": "Data Analyst",
+      "url": "https://job-boards.greenhouse.io/moloco/jobs/9500001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "Redwood City, CA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 1,
+            "max": null,
+            "text": "1+ years of experience with SQL."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-moloco.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3885,
+        "reason": "composite 0.388 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.8\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.388"
+      },
+      "decision": {
+        "final": "Skip",
+        "decided_by": "recipe gate: E-Verify",
+        "reasons": [
+          "employer is not E-Verify enrolled, so it cannot support the STEM extension (confirm with your DSO)"
+        ],
+        "next_action": "Skip \u2014 spend the time elsewhere."
+      }
+    },
+    {
+      "key": "greenhouse:roblox:9600001",
+      "company": "Roblox",
+      "title": "Data Engineer",
+      "url": "https://job-boards.greenhouse.io/roblox/jobs/9600001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data engineer",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "San Mateo, CA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": null,
+            "text": "2+ years of experience with Spark."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-roblox.json"
+      },
+      "fit": {
+        "value": 0.6,
+        "source": "your-input",
+        "note": "your fit value for 'data engineer'"
+      },
+      "timeline": {
+        "value": 0.0,
+        "source": "your-input",
+        "expected_start": "2026-12-24",
+        "cliff": "2026-12-17",
+        "slack_days": -7,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-1243.00",
+          "occupation": "Database Architects",
+          "annual_median_wage": 135980.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Skip",
+        "composite": 0,
+        "reason": "gated: timeline \u2248 0.000 (a closed gate zeroes the composite regardless of votes)",
+        "arithmetic": "(0.9\u00b70.35 + 0.6\u00b70.3) \u00d7 1 \u00d7 0 = 0.000"
+      },
+      "decision": {
+        "final": "Skip",
+        "decided_by": "scorer",
+        "reasons": [
+          "gated: timeline \u2248 0.000 (a closed gate zeroes the composite regardless of votes)"
+        ],
+        "next_action": "Skip \u2014 spend the time elsewhere."
+      }
+    },
+    {
+      "key": "greenhouse:pinterest:9700001",
+      "company": "Pinterest",
+      "title": "Business Intelligence Analyst",
+      "url": "https://job-boards.greenhouse.io/pinterest/jobs/9700001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "business intelligence analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "San Francisco, CA"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": 3,
+            "text": "2-3 years of experience with Tableau."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-pinterest.json"
+      },
+      "fit": {
+        "value": 0.7,
+        "source": "your-input",
+        "note": "your fit value for 'business intelligence analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.01",
+          "occupation": "Business Intelligence Analysts",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.9,
+        "tier": "Proven",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Apply",
+        "composite": 0.3675,
+        "reason": "composite 0.367 \u2265 0.3, gates healthy",
+        "arithmetic": "(0.9\u00b70.35 + 0.7\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.367"
+      },
+      "decision": {
+        "final": "Held",
+        "decided_by": "recipe gate: needs you",
+        "reasons": [
+          "E-Verify enrollment not checked \u2014 look it up and record it in the targets file"
+        ],
+        "next_action": "Needs you before any decision \u2014 see the reason."
+      }
+    },
+    {
+      "key": "greenhouse:chime:9800001",
+      "company": "Chime",
+      "title": "Data Analyst",
+      "url": "https://job-boards.greenhouse.io/chime/jobs/9800001",
+      "new": true,
+      "first_seen": "2026-10-01",
+      "title_family": {
+        "value": "data analyst",
+        "source": "your-input"
+      },
+      "location": {
+        "value": "us",
+        "source": "record",
+        "text": "Chicago, IL"
+      },
+      "experience": {
+        "value": "within",
+        "source": "record",
+        "mentions": [
+          {
+            "min": 2,
+            "max": null,
+            "text": "2+ years of experience with SQL."
+          }
+        ],
+        "limit_years": 3
+      },
+      "published": {
+        "value": "2026-09-28",
+        "source": "record",
+        "age_days": 3
+      },
+      "liveness": {
+        "value": 1.0,
+        "source": "record",
+        "evidence": "listed on the greenhouse board \u2014 saved greenhouse board response scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-chime.json"
+      },
+      "fit": {
+        "value": 0.8,
+        "source": "your-input",
+        "note": "your fit value for 'data analyst'"
+      },
+      "timeline": {
+        "value": 0.7,
+        "source": "your-input",
+        "expected_start": "2026-11-26",
+        "cliff": "2026-12-17",
+        "slack_days": 21,
+        "buffer_days": 30,
+        "curve": "expected start = today + hiring weeks; slack = cliff \u2212 expected start; factor 0 if slack < 0, 1 if slack \u2265 buffer days, else slack \u00f7 buffer days"
+      },
+      "role_quality_reference": {
+        "value": {
+          "soc": "15-2051.00",
+          "occupation": "Data Scientists",
+          "annual_median_wage": 112590.0,
+          "oews_year": "2024"
+        },
+        "source": "record",
+        "note": "national BLS median for the occupation code you mapped this title to (the mapping is your input) \u2014 shown only; role quality weighs 0 in the scorer"
+      },
+      "flags": [],
+      "sponsorship_vote": {
+        "p": 0.6,
+        "tier": "Likely",
+        "source": "record"
+      },
+      "sponsorship_status": "record",
+      "scorer": {
+        "recommendation": "Consider",
+        "composite": 0.315,
+        "reason": "above threshold (0.315) but one soft spot: sponsorship tier \"Likely\"",
+        "arithmetic": "(0.6\u00b70.35 + 0.8\u00b70.3) \u00d7 1 \u00d7 0.7 = 0.315"
+      },
+      "decision": {
+        "final": "Consider",
+        "decided_by": "scorer",
+        "reasons": [
+          "above threshold (0.315) but one soft spot: sponsorship tier \"Likely\""
+        ],
+        "next_action": "Tailor only after the Apply roles; ask a contact about it first."
+      }
+    }
+  ],
+  "closed_since_last_run": [],
+  "network_targets": [
+    {
+      "company": "Databricks",
+      "tier": {
+        "value": "Proven",
+        "source": "record"
+      },
+      "why": "Proven sponsor on record, no matching posting today",
+      "next_action": "Network into this company (3 networking hours): ask for an informational chat before a role opens."
+    }
+  ],
+  "not_checked": [
+    {
+      "company": "Adobe",
+      "reason": "board link is not Greenhouse or Ashby \u2014 only those two sources are supported so far",
+      "board_link": "https://adobe.wd5.myworkdayjobs.com/en-US/external_experienced"
+    },
+    {
+      "company": "Dropbox",
+      "reason": "board could not be read: no saved response at scripts/contrib/2026fa/atharvahambir-data-roles-opt90-h1b-daily/fixtures/boards/greenhouse-dropbox.json",
+      "board_link": "https://job-boards.greenhouse.io/dropbox"
+    }
+  ],
+  "first_run": true,
+  "summary": {
+    "companies": 13,
+    "companies_checked": 11,
+    "postings_listed": 22,
+    "postings_matching": 13,
+    "new_today": 13,
+    "Apply": 6,
+    "Consider": 1,
+    "Skip": 2,
+    "Held": 4,
+    "closed_since_last_run": 0,
+    "network_targets": 1,
+    "not_checked": 2
+  },
+  "cannot_verify": [
+    "Whether a listed posting is actually being filled: being on the board proves it is open on the board, not that anyone is hiring.",
+    "Whether a sponsor on record will sponsor this role now: the H-1B counts are past filings, their years are not documented, and only up to 5 titles per company are listed.",
+    "Anything about a company with no H-1B record in the data: 'unknown' is not 'does not sponsor'.",
+    "E-Verify enrollment: the repo has no E-Verify data; the value is whatever you recorded in the targets file.",
+    "How long a company really takes to hire: every hiring time is your estimate.",
+    "Immigration rules: unemployment limit, STEM extension and E-Verify requirements are your inputs to confirm with your DSO.",
+    "Experience, title and location filters read text with fixed rules; a posting worded unusually can be kept or dropped wrongly \u2014 excluded examples are listed so you can check.",
+    "Funding: the SEC Form D samples that ship with the repo match none of these companies, so funding is not used."
+  ]
+}

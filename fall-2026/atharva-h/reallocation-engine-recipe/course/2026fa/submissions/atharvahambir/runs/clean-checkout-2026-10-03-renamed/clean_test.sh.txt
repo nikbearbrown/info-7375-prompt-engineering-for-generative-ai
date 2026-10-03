@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Clean-checkout test: fresh engine clone at 015843d + this submission folder overlaid exactly as its README says.
+# Every step writes "$ <command>", its output, and "EXIT=<code>" into $OUT/<nn>-<name>.txt.
+set -u
+S=/private/tmp/claude-501/-Users-atharvahambir-Desktop-INFO-7375/36f9a132-8331-4c7f-95ca-d6600015f352/scratchpad
+ENGINE_SRC=/Users/atharvahambir/Desktop/INFO-7375/the-reallocation-engine
+FOLDER=/Users/atharvahambir/Desktop/INFO-7375/info-7375-prompt-engineering-for-generative-ai/fall-2026/atharva-h/reallocation-engine-recipe
+VENV=$ENGINE_SRC/.venv            # only to supply PyYAML for the engine's own `npm run verify`
+CLONE=$S/clean-engine
+OUT=$S/clean-out-renamed
+C=scripts/contrib/2026fa/atharvahambir-reallocation-engine
+rm -rf "$CLONE" "$OUT" && mkdir -p "$OUT"
+
+step() {  # step <file> <command...>
+  local f="$1"; shift
+  { printf '$ %s\n' "$*"; ( set -o pipefail; eval "$@" ) 2>&1; echo "EXIT=$?"; } > "$OUT/$f"   # pipefail: a "| tail" must not hide the command's exit code
+  printf '%-34s %s\n' "$f" "$(tail -1 "$OUT/$f")"
+}
+
+cd "$S"
+step 00-clone.txt "git clone -q $ENGINE_SRC $CLONE && cd $CLONE && git checkout -q 015843d && git log --oneline -1 && git status --short | wc -l"
+cd "$CLONE"
+step 01-npm-install.txt "npm ci --offline --no-audit --no-fund 2>&1 | tail -4"
+# ---- BEFORE: the fresh clone, none of my files present ----
+step 02-before-doctor.txt "npm run doctor 2>&1 | tail -6"
+step 03-before-verify-default-python3.txt "python3 --version; npm run verify 2>&1 | tail -6"
+step 04-before-verify-with-pyyaml.txt "source $VENV/bin/activate && python3 --version && npm run verify 2>&1 | tail -6"
+# ---- overlay, exactly the README's cp command ----
+step 05-overlay.txt "cp -R $FOLDER/recipes $FOLDER/scripts $FOLDER/logs $FOLDER/course $FOLDER/search . && git status --short"
+# ---- AFTER ----
+step 06-after-doctor.txt "npm run doctor 2>&1 | tail -6"
+step 07-after-verify-with-pyyaml.txt "source $VENV/bin/activate && npm run verify 2>&1 | tail -6"
+step 08-conformance-prototype.txt "source $VENV/bin/activate && node scripts/conformance.mjs $C/"
+step 09-sample-run.txt "python3 $C/daily_check.py --sample"
+step 10-sample-report.txt "cat $C/out/sample/2026-10-01/daily-check.md"
+step 11-tests.txt "python3 $C/test_daily_check.py"
+step 12-break-attempts.txt "python3 $C/break_attempts.py"
+step 13-f4-expired-opt.txt "python3 $C/daily_check.py --sample --candidate $C/fixtures/candidate.expired.fictional.json --out-dir $S/f4"
+step 14-missing-value.txt "python3 -c \"import json; c=json.load(open('search/examples/atharva/daily-check.candidate.json')); c['visa']['unemployment_days_used']=None; json.dump(c, open('$S/missing.json','w'))\" && python3 $C/daily_check.py --sample --candidate $S/missing.json --out-dir $S/missing"
+step 15-offline-guard.txt "DAILY_CHECK_OFFLINE=1 python3 $C/daily_check.py --candidate search/examples/atharva/daily-check.candidate.json --targets $C/fixtures/targets.sample.json --out-dir $S/guard --today 2026-10-01 2>&1 | tail -2"
+step 16-pii-scan.txt "node scripts/pii-scan.mjs"
+step 17-diff-stat.txt "git add -A && git diff --cached --stat | tail -12 && git diff --cached --name-only | cut -d/ -f1-3 | sort | uniq -c"
+echo "outputs in $OUT"
