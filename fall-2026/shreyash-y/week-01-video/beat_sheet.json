@@ -1,0 +1,391 @@
+{
+  "metadata": {
+    "title": "Subtract the Max.",
+    "slug": "yadav-shreyash-week01-softmax-max-subtraction",
+    "topic": "INFO 7375 - WEEK 1 - SOFTMAX",
+    "register": "Teardown",
+    "audience": "INFO 7375 classmates",
+    "brand": "claude",
+    "persona": "Shreyash Yadav",
+    "voice": "am_onyx",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#F2F0E9",
+    "greeting": "Namaste, Shreyash",
+    "folderLabel": "INFO 7375",
+    "aspect": "16:9",
+    "concept": "Subtracting the maximum logit changes every intermediate weight but not the distribution - and that invariance is what buys numerical stability.",
+    "note": "Coursework submission, not a channel reel: the IN-FOR-BEAR persona and the @NikBearBrown chip are deliberately NOT used, because the explanation is the student's own. Narration is Kokoro am_onyx (local, free) reading a script written by the student. Every number on screen is read from evidence/evidence.json, produced by evidence/run_evidence.py from the unmodified course main.py.",
+    "build": {
+      "at": "2026-09-27T14:17:11",
+      "cut": "master",
+      "filled": 11,
+      "of": 11,
+      "slates": [],
+      "skin_warnings": []
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "cold open",
+      "narration_text": "Line fourteen of the Week One reference implementation subtracts the largest logit before it exponentiates anything. The lesson calls that numerical stability and moves on. I want to know what it actually buys, because the probabilities that come out the other side are the same either way.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Namaste, Shreyash",
+            "topic": "INFO 7375 - WEEK 1 - RECONSTRUCTED INTERFACE",
+            "segment": "Subtract the Max.",
+            "command": "In main.py, why subtract max(logits) before exp() if the distribution is unchanged?",
+            "runningText": "opening lessons/01-randomness-and-first-prompts/code/main.py",
+            "output": [
+              "main.py, lines 14-15 - quoted from the file, not a model reply:",
+              "peak = max(logits)",
+              "weights = [math.exp((x - peak) / temperature) for x in logits]"
+            ],
+            "folderLabel": "INFO 7375",
+            "modelLabel": "",
+            "effortLabel": ""
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-09-27T18:10:15.572721+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B00.mp3",
+      "actual_duration_s": 15.72,
+      "render_duration_s": 15.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "narration_text": "Here is the framing most people arrive with, including me: it is a rounding trick that stops big numbers from breaking. That is not so much wrong as backwards. Subtracting the max is an exact identity. It changes nothing about the result, and that is precisely why it is allowed to fix anything.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Subtracting the max\nlooks like rounding.\nIt is an exact identity.\nThe same factor divides\nout of every term.",
+            "face": "serif",
+            "fontSize": 120,
+            "align": "center",
+            "triggerWords": "rounding",
+            "replacementWords": "algebra",
+            "charMs": 20,
+            "lineSpacing": 1.3,
+            "jitter": 25,
+            "hesitateBetween": 8,
+            "hesitateWithin": 2,
+            "mistakeRate": 6,
+            "contextTitle": "What this video argues, before any numbers"
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-09-22T02:19:15.090664+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B01.mp3",
+      "actual_duration_s": 15.74,
+      "render_duration_s": 15.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "the code",
+      "narration_text": "This is the function, unedited, from the course repository. Take the largest logit. Subtract it from every logit before exponentiating. Divide each weight by the sum. No clamping, no epsilon, no special case. The subtraction does all of the work by itself.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeCodeBeat",
+          "props": {
+            "title": "lessons/01-randomness-and-first-prompts/code/main.py",
+            "code": "def probabilities(logits, temperature=1.0):\n    ...\n    peak = max(logits)\n    weights = [math.exp((x - peak) / temperature) for x in logits]\n    total = sum(weights)\n    return [weight / total for weight in weights]",
+            "language": "python",
+            "sparkLine": "the course reference implementation, unmodified"
+          },
+          "rendered": {
+            "out": "media/B02.mp4",
+            "at": "2026-09-22T01:32:39.957227+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B02.mp3",
+      "actual_duration_s": 15.34,
+      "render_duration_s": 15.375,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B02.mp4",
+        "filled_by": "remotion:ClaudeCodeBeat",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "mechanism 1 - the shared factor",
+      "narration_text": "Same logits, one two three, weighted two ways. On the left, e to the x. On the right, e to the x minus three, because three is the max. The numbers are completely different. Twenty point zero eight five against one point zero. But take the ratio row by row. Every row is off by the same factor, twenty point zero eight five five three seven. That is e cubed. That is the max we subtracted.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B03_TwoColumns",
+          "file": "scenes.py"
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B03.mp3",
+      "actual_duration_s": 20.12,
+      "render_duration_s": 20.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim:B03_TwoColumns",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "mechanism 2 - the cancellation",
+      "narration_text": "Now divide each column by its own sum. The left gives nought point zero nine, nought point two four four, nought point six six five. The right gives the same three numbers, and the algebra says it has to. E to the minus m is a factor of every term in the numerator and every term in the denominator, so it cancels. This is not an approximation that is close enough. It is an identity.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B04_Normalize",
+          "file": "scenes.py"
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B04.mp3",
+      "actual_duration_s": 20.05,
+      "render_duration_s": 20.083333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim:B04_Normalize",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "mechanism 3 - what it buys",
+      "narration_text": "So why write it, if it changes nothing? Push the logits to a thousand. Without the shift, e to the thousand does not round badly. It does not exist. A sixty four bit float runs out just past e to the seven hundred and nine, and Python raises an overflow error. With the shift the largest exponent is always e to the zero, which is one, and you get a clean point five, point five.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B05_Overflow",
+          "file": "scenes.py"
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B05.mp3",
+      "actual_duration_s": 19.39,
+      "render_duration_s": 19.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim:B05_Overflow",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "the boundary",
+      "narration_text": "Here is what I cannot claim. I said the distribution does not change. On paper that is exact. In floating point it is not. Print both at full precision and the last digits disagree, by one unit in the last place, in two of the three entries. The unshifted probabilities sum to exactly one. The shifted ones sum to just under it. Equal as mathematics. Not equal as bits.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B06_Boundary",
+          "file": "scenes.py"
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B06.mp3",
+      "actual_duration_s": 19.35,
+      "render_duration_s": 19.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim:B06_Boundary",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "the boundary, harder",
+      "narration_text": "And it is worse than that, in an interesting way. I ran the identical script under two Pythons on this one laptop. Three point fourteen puts the gap in one place. Three point eleven puts it in another. Neither is broken. C Python changed sum to compensated summation in three point twelve, so the unshifted total rounds differently. The gap is real and reproducible. Where it lands belongs to your interpreter, not to the mathematics.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B07_Interpreter",
+          "file": "scenes.py"
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B07.mp3",
+      "actual_duration_s": 21.7,
+      "render_duration_s": 21.708333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim:B07_Interpreter",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict",
+      "narration_text": "So the max subtraction is an exact identity that leaves the distribution alone and drags every intermediate into a range the hardware can represent. What it does not give you is bit identical output. And it says nothing whatsoever about whether the likeliest token is the correct one. A numerically stable computation of a confident wrong answer is still a wrong answer.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "Subtract the Max.",
+            "artifactHeading": "What the mechanism establishes",
+            "brandLabel": "INFO 7375",
+            "artifactLines": [
+              "Every weight is scaled by the same e^max, so normalising cancels it.",
+              "The shift is an exact identity, not an approximation.",
+              "It buys representability: exp(1000) overflows float64; exp(0) does not.",
+              "NOT established: bit-identical output (+/-1 ULP, and it moves by interpreter).",
+              "NOT established: anything at all about which token is correct."
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": "2026-09-21T20:39:18.460462+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BVDT.mp3",
+      "actual_duration_s": 19.95,
+      "render_duration_s": 19.958333333333332,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BVDT.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "narration_text": "Your turn. Run the demo on your own machine and print the two probability vectors with repr, not with formatting. Then check whether your last digits match mine. If they do not, find out what your Python does with sum before you blame the mathematics.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN - RECONSTRUCTED INTERFACE",
+            "segment": "Subtract the Max.",
+            "command": "Run probabilities([1,2,3]) two ways - with and without the max shift - and print both with repr(). Do the last digits match?",
+            "runningText": "waiting for your run",
+            "output": [
+              "python3 lessons/01-randomness-and-first-prompts/code/main.py",
+              "python3 evidence/run_evidence.py --course <your clone> --compare <another python3>"
+            ],
+            "folderLabel": "INFO 7375",
+            "modelLabel": "",
+            "effortLabel": ""
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-09-27T18:11:55.795886+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "actual_duration_s": 13.29,
+      "render_duration_s": 13.291666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-09-27T14:17:11"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "narration_text": "Shreyash Yadav. INFO 7375, week one.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Subtract the Max.",
+            "slug": "yadav-shreyash-week01-softmax-max-subtraction"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-09-21T20:59:41.144758+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "actual_duration_s": 4.91,
+      "render_duration_s": 4.916666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-09-27T14:17:11"
+      }
+    }
+  ]
+}

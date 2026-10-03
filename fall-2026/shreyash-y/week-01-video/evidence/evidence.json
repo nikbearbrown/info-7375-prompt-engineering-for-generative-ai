@@ -1,0 +1,132 @@
+{
+  "generated_at_utc": "2026-09-21T19:17:21+00:00",
+  "provenance": {
+    "course_repo": "https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai",
+    "course_commit": "a0d8a1e77776923aa420d8209b4250ffeedbb37e",
+    "source_file": "lessons/01-randomness-and-first-prompts/code/main.py",
+    "source_modified": false,
+    "python": "3.14.6",
+    "platform": "Darwin arm64"
+  },
+  "inputs": {
+    "logits": [
+      1,
+      2,
+      3
+    ],
+    "temperature": 1.0,
+    "seed": 7,
+    "count": 1000,
+    "peak": 3
+  },
+  "naive": {
+    "weights": [
+      2.718281828459045,
+      7.38905609893065,
+      20.085536923187668
+    ],
+    "sum": 30.192874850577365,
+    "probs": [
+      0.09003057317038045,
+      0.24472847105479764,
+      0.6652409557748219
+    ]
+  },
+  "shifted": {
+    "weights": [
+      0.1353352832366127,
+      0.36787944117144233,
+      1.0
+    ],
+    "sum": 1.5032147244080551,
+    "probs": [
+      0.09003057317038046,
+      0.24472847105479764,
+      0.6652409557748218
+    ]
+  },
+  "ratios": [
+    20.085536923187664,
+    20.085536923187668,
+    20.085536923187668
+  ],
+  "e_to_the_peak": 20.085536923187668,
+  "identical_bitwise": false,
+  "ulp_difference": [
+    1,
+    0,
+    -1
+  ],
+  "prob_sums": {
+    "naive": 1.0,
+    "shifted": 0.9999999999999999
+  },
+  "overflow_demo": {
+    "naive_exp_1000": {
+      "raised": true,
+      "error": "OverflowError: math range error"
+    },
+    "shifted_probabilities_1000_1000": [
+      0.5,
+      0.5
+    ]
+  },
+  "sampling": {
+    "counts": {
+      "1": 268,
+      "2": 630,
+      "0": 102
+    },
+    "expected": [
+      90.03057317038046,
+      244.72847105479764,
+      665.2409557748218
+    ]
+  },
+  "reference_demo_output": {
+    "probabilities": [
+      0.09003057317038046,
+      0.24472847105479764,
+      0.6652409557748218
+    ],
+    "counts": {
+      "1": 268,
+      "2": 630,
+      "0": 102
+    }
+  },
+  "neumaier_probe": {
+    "expression": "sum([1e100, 1.0, -1e100, 1.0])",
+    "value": 2.0,
+    "compensated": true
+  },
+  "crosscheck": {
+    "python": "3.11.15",
+    "naive_sum": 30.19287485057736,
+    "naive_probs": [
+      0.09003057317038046,
+      0.24472847105479767,
+      0.6652409557748219
+    ],
+    "shifted_probs": [
+      0.09003057317038046,
+      0.24472847105479764,
+      0.6652409557748218
+    ],
+    "identical_bitwise": false,
+    "ulp_difference": [
+      0,
+      -1,
+      -1
+    ],
+    "prob_sums": {
+      "naive": 1.0,
+      "shifted": 0.9999999999999999
+    },
+    "neumaier_probe": {
+      "expression": "sum([1e100, 1.0, -1e100, 1.0])",
+      "value": 1.0,
+      "compensated": false
+    }
+  }
+}
