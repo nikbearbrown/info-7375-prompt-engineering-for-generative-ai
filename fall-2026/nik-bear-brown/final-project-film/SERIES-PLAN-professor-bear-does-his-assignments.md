@@ -14,6 +14,8 @@ Drafted 2026-10-07. Nothing here is built. Items in [brackets] are mine to confi
 
 **The series is also a record of getting better.** The earlier films are uneven, and the series is not yet coherent. That is part of the lesson. Professor Bear gets better at making films by making films, using the same AI and the same tool as last week, so the improvement is not the tool. It is how the person works with the tool. That is Conducting AI shown on the author's own practice: it is Claude plus the person, not Claude alone.
 
+**Where it lives.** A new YouTube playlist named exactly **Professor Bear Does His Assignments**. The older films stay where they are and will be made unlisted later, by him.
+
 **What is not yet decided.** Which assignment is film 3 (see the series list), and whether film 1 is also the final-project pitch film assignment.
 
 ## The through-line, in every film
@@ -47,6 +49,14 @@ A film with no honest entry for line 3 says so. That is itself a finding.
 **What stays true now.** The series is not yet coherent. Films were made quickly and in different forms. The plan does not hide that, and the first film may say so.
 
 **The YouTube cleanup is later, and it is Professor Bear's to do.** He intends to make many of the older films unlisted. Students have already commented on some, so the rule is: **unlisted, not deleted and not private**, which keeps the links and the comments alive. Nothing in this plan, and no one building these films, changes the privacy of an existing film or deletes anything; that is his action, taken when he decides.
+
+## The playlist
+
+The series gets its own new playlist, **Professor Bear Does His Assignments**. The name is his decision, 2026-10-07 ("we'll go with Professor Bear does his assignments").
+
+- **Not created yet.** Nothing is uploaded and no playlist exists. Creating it is an upload-time step, taken only on his word, and public stays a manual flip in Studio.
+- **Exact title matters.** The publisher finds a playlist by exact title and creates a new one if none matches, so a misspelled or shortened name makes a second, wrong playlist. Use the full title every time.
+- **Order.** Films go in series order, film 1 first. [Confirm: oldest first, or newest first?]
 
 ## The series (a proposal)
 
