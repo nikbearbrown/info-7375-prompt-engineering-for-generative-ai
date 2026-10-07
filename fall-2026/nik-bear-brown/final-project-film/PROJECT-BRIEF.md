@@ -80,9 +80,9 @@ revisions that follow.
 - **Out, for now:** administrators' and companies' perspectives; any tool I have not used
   myself; any claim that a verdict holds for everyone or for long.
 - **Out, always:** promoting a tool I don't believe in.
-- **First:** [one Google tool trial — NotebookLM is my suggestion — on one real course
-  assignment, with a student, filmed with what went wrong. It has run when the film
-  exists and the failure is in it.]
+- **First:** the film you are reading about is diary entry 1, dated 2026-10-07, on the state
+  of the job-search project (see `DIARY-ENTRY-2026-10-07.md`). It has run when the film
+  exists and says what has not been done. Later entries repeat the form.
 
 ### 6. What could sink it?
 Tools change faster than films do. A verdict that was fair in October can be unfair, or
@@ -112,6 +112,7 @@ Microsoft and OpenAI tools you already use day to day and which are genuinely ne
 - This course, as the first real test case.
 
 **Will exist**
+- Diary entries 2 onward, one per dated state of the project.
 - Google, Microsoft and OpenAI tool trials.
 - Any other tool that passes my own trial.
 - Student feedback gathered while assignments are written.
