@@ -352,6 +352,16 @@ Where to check each claim in this log. Commits in this repository are listed in 
 
 ---
 
+### 2026-10-07 — A shared file arrives that the sync had missed
+
+- **Date and what I was working on:** The job-search example, kept in sync from the Computational Skepticism master.
+- **I tried / expected:** Professor Bear asked for all three classes to be brought into sync and pushed: "All three classes should be in sync." I expected `lectern/` here to already match the master.
+- **What happened:** Everything on the sync script's shared list matched. But `lectern/demand_report.py`, the script that ranks companies by demand rather than postings by fit (added to the master and Branding on 2026-09-26), had never been copied here: the master's `sync.sh` shared list had not been updated when the file was created, so the check could not see it.
+- **What I did:** Nothing was edited here by hand. The master's list now includes the file, and the master's `sync.sh` was run for real for the first time, which placed `lectern/demand_report.py` in this folder. `SYNC.md` here is unchanged: this folder is still a copy.
+- **What Claude or another person contributed:** Claude Code found the gap by comparing folders file by file rather than trusting the list, fixed the list in the master, ran the sync, validated this repo, and pushed under the standing approval and Professor Bear's instruction.
+- **What I understand now / still do not understand:** A sync check reports on its list, not on the folder. Still open: nothing in this class; the fix lives in the master.
+- **Evidence and next step:** `lectern/demand_report.py` now present and byte-identical to the master's; the master's `./lectern/sync.sh --check` reporting all three in sync.
+
 ## GitHub pushes
 
 One line per push to GitHub: the date and the commit note. The commit ID for each push is in `git log`; a commit can't contain its own ID.
@@ -445,3 +455,4 @@ One line per push to GitHub: the date and the commit note. The commit ID for eac
 | 2026-10-06 | docs(fall-2026): log the sign-off on Figma films 26 to 35 and the two pushes |
   - **Done the same evening:** both pushes (anthropics 4adec378, the Figma repo 783ba01) and all ten films up, unlisted, native 4K, one caption track each, in both playlists: 26 TRiMctnOQSE, 27 ePGXsvt9LhA, 28 pGkpWSUhOLQ, 29 SG4Y4srlgb4, 30 4lnhfDWG2hA, 31 7wwq6JK3mE4, 32 zU33OV5bQIA, 33 pezfmRyUClU, 34 2iCWJuiYFVE, 35 gN7pbmABQ1k (youtu.be/…). Thirty-six films in the Figma playlist.
 | 2026-10-06 | docs(fall-2026): log films 26 to 35 going up unlisted and the two pushes |
+| 2026-10-07 | chore(fall-2026): receive demand_report.py from the master in the first real sync |
