@@ -443,3 +443,5 @@ One line per push to GitHub: the date and the commit note. The commit ID for eac
 | 2026-10-06 | docs(fall-2026): log the ten finished Figma films from the show-tell loop |
 - **2026-10-06, evening: sign-off on films 26 to 35.** In my words: "push to the Anthropics folder as well as the GitHub. Publish everything that's not been published at 4K to the Nick Bear Brown YouTube. They look great." So: the loop scripts go into the anthropics repo, the Figma repo gets films 26 to 35, and all ten go up unlisted on @NikBearBrown in both playlists.
 | 2026-10-06 | docs(fall-2026): log the sign-off on Figma films 26 to 35 and the two pushes |
+  - **Done the same evening:** both pushes (anthropics 4adec378, the Figma repo 783ba01) and all ten films up, unlisted, native 4K, one caption track each, in both playlists: 26 TRiMctnOQSE, 27 ePGXsvt9LhA, 28 pGkpWSUhOLQ, 29 SG4Y4srlgb4, 30 4lnhfDWG2hA, 31 7wwq6JK3mE4, 32 zU33OV5bQIA, 33 pezfmRyUClU, 34 2iCWJuiYFVE, 35 gN7pbmABQ1k (youtu.be/…). Thirty-six films in the Figma playlist.
+| 2026-10-06 | docs(fall-2026): log films 26 to 35 going up unlisted and the two pushes |
