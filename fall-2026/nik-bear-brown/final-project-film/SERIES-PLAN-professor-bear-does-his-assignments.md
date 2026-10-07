@@ -10,7 +10,31 @@ Drafted 2026-10-07. Nothing here is built. Items in [brackets] are mine to confi
 
 **Film 1 says three things.** What he is doing and why. How the project fits together: one job-search tool, built live in three classes, each asking it a different question. And exactly where it stands today, 2026-10-07: it has run once, it reads 18 company job boards, it kept 97 postings out of 3,446, nothing runs on a schedule, and some of the work is still only a plan. It is told in third person by Liam, in for Bear, so the series title is literal.
 
+**Through every film.** Each film carries the same argument: the AI does the AI work, such as collecting the jobs, drafting a first version, or finding the matches, and it is the human's judgment and guidance that turns that into a good product instead of AI slop. That means three ideas from his courses run through the whole series: **Conducting AI** (the human directs and supervises), **what is irreducibly human** (the decisions and the understanding that stay with the person), and **computational skepticism** (doubting anything that looks polished until it has been checked). See "The through-line" below.
+
 **What is not yet decided.** Which assignment is film 3 (see the series list), and whether film 1 is also the final-project pitch film assignment.
+
+## The through-line, in every film
+
+**The claim.** AI is good at producing: fetching, sorting, drafting, matching. What it produces looks finished whether or not it is right. The result is good only because a person set the goal, supervised the work, and doubted the output before using it. Every film says this, with an example from the real log, and does not leave it as a slogan.
+
+**The three ideas, in the plainest words the films will use.**
+- **Conducting AI.** The person directs the AI the way a conductor directs an orchestra: chooses what to play, hears what is off, decides what goes out. The author's framework names five supervisory capacities: auditing whether an output is plausible, formulating the problem, orchestrating tools, interpreting results, and integrating everything into a decision. [Confirm these five as the ones you want named on screen.]
+- **Irreducibly human.** The part of the work that stays with the person. It is decided task by task, not as a claim that people are always better. In the course's own phrasing, the AI can draft, compute, retrieve, test and challenge; the human owns understanding, the situated decision, the relationships and the permissions.
+- **Computational skepticism.** A habit of doubt: an output is not true because it is fluent, polished or confident. It is true when something has been checked.
+
+**The rule that makes it concrete: the ledger.** Each film ends one act, or the whole film, on three lines drawn from real entries in that film's log:
+1. **The AI did:** the specific work it produced.
+2. **The human decided:** the specific call a person made, which the AI did not.
+3. **Doubt caught:** the thing that looked right and was not, or the check that confirmed it was.
+
+A film with no honest entry for line 3 says so. That is itself a finding.
+
+**Rules for the through-line.**
+- Never say or imply that AI cannot do something in principle. Say what it did in this case and what the person had to supply.
+- Never credit the human with work the AI did, or the AI with a decision the person made. Where Claude Code typed answers on his behalf, the film says so.
+- Never let a polished picture, number or summary stand without its check shown.
+- The series applies the doubt to itself. Film 1 says that some of the specification session's answers were typed by Claude Code and that Professor Bear has not yet reviewed them. That is the thesis, shown on the author's own work.
 
 ## The series (a proposal)
 
@@ -26,6 +50,8 @@ Each film is dated and stands alone. A viewer who has seen none of the others ca
 | 6 | Study mode and Learning Guide | A filmed trial of ChatGPT's Study mode and NotebookLM's Learning Guide on one real task, failures included | Research done, trial not run |
 | 7 | The pitch film | Writing the final-project film assignment for students and taking their feedback | Assignment drafted |
 
+Every film in the series fills in the ledger above from its own log. Film 1 uses the entries below; films 2 to 7 will be read for theirs when each is built, not guessed now.
+
 [Which of these did you mean by "assignment three"? Branding's data pipeline is film 3 above; the skepticism course's probe runner is film 5.]
 
 ## Film 1: layout
@@ -36,7 +62,7 @@ Each film is dated and stands alone. A viewer who has seen none of the others ca
 
 **Opening (BIDEA).** The hesitant writer types the framing a newcomer arrives with and corrects one phrase: *"A professor assigns work."* becomes *"A professor does the work."* Liam's greeting is spoken over it.
 
-**Key terms (BDEFS), five.** Frictional log: a dated record of what was tried, what went wrong and who did what. Job board: the page where a company lists open roles. Applicant tracking system: the software behind that page. Posting: one open role. Filter: the rules that keep a posting or throw it out.
+**Key terms (BDEFS), six.** Frictional log: a dated record of what was tried, what went wrong and who did what. Conducting AI: the person directs and supervises the AI's work. Irreducibly human: the decisions and understanding that stay with the person. Skepticism: not believing an output because it looks polished. Posting: one open role on a company's job page. Filter: the rules that keep a posting or throw it out. Terms must be 17 characters or fewer, so "Skepticism" stands in for the full phrase and the opening act says "computational skepticism" in full. The job board and the applicant tracking system are defined in Act III, where each first appears.
 
 ### Act I: The point
 | Beat | What the viewer sees | Best visual, runner-up |
@@ -65,12 +91,19 @@ Claim made aloud: that is the purpose he states, "evaluating real learning, not 
 | 12 | A CV with four empty slots, then a playlist filling a gap | The real playlist page, captured; runner-up icons |
 | 13 | Two columns, "exists" and "not yet": the 36 films on one side; the unwritten book chapters, the unsigned rubric and the unfinished assignment on the other | Drawn table; runner-up isometric |
 
-### Act IV: What went wrong
-Four things from the log, each a few seconds: the tool specified for the wrong application and stopped; building started before the design existed; a bug in his own audit; a summary written about the wrong thing. Shown as the real log headings, captured. The film does not explain their causes; it only says they happened and that each is in the log. Films 2 and 3 do the explaining.
+**Ledger beat for Acts II and III (beat 14).** Three lines drawn on screen, each tied to a real log entry:
+- **The AI did:** read 18 job boards and returned 3,446 postings; ranked companies by evidence they want this work done.
+- **The human decided:** the target. The log records that the target became "makes the materials" and that one word in the first filter had been hiding the real bullseye.
+- **Doubt caught:** the title audit found false positives among the kept postings, and the audit itself had a bug the log records.
+
+[Each of these three lines is taken from a log heading. I have not yet read the entries behind two of them closely enough to quote them; that happens in the fact-check step before building. Also: Lectern is a plain script that Claude Code wrote, so "the AI did" needs one honest sentence saying the AI wrote the tool and the tool did the fetching.]
+
+### Act IV: What went wrong, and where doubt mattered
+Four things from the log, each a few seconds, shown as the real log headings: the tool specified for the wrong application and stopped by Professor Bear; building started before the design existed; a bug in an audit; a summary written about the wrong thing. Then the one that carries the thesis: in the specification session, Claude Code typed Professor Bear's answers and confirmed each gate for him, and he has not yet reviewed them. The film says that plainly. The AI did the typing; reviewing is the human's job, and it is still undone. The film does not explain the other causes; films 2 and 3 do.
 
 ### Close
-- **Recap (BVDT).** One bare sentence per act, four lines.
-- **Your Turn (BHTF).** A prompt the viewer can paste: write one dated line about their own project, in the past tense for what exists and the future for what doesn't, then check each line against a file. Two checks follow.
+- **Recap (BVDT).** One bare sentence per act, four lines; the AI-did, human-decided, doubt-caught split is in at least two of them.
+- **Your Turn (BHTF).** A prompt the viewer can paste: write one dated line about their own project, then list what an AI did, what you decided, and one thing you doubted and checked. Check each line against a file. Two checks follow.
 - **Outro (BOUT).** The title, then "At Nik Bear Brown."
 
 ## What the film must not do
@@ -78,6 +111,9 @@ Four things from the log, each a few seconds: the tool specified for the wrong a
 - Call the 97 postings jobs. They are a measure of the filter, and the title audit found 23 false positives among them.
 - Present an unsigned rubric, an unfinished assignment or a one-run tool as more than it is.
 - Show a screen that was not captured or run for real.
+- Treat a polished number, chart or summary as established because it looks finished.
+- Say AI cannot do something in principle, or that people are always better.
+- Blur who did what: AI work and human decisions are named separately.
 
 ## Evidence to produce before building
 1. The counts, read from the run output files by a short script, and shown as the script's own output.
