@@ -2,6 +2,8 @@
 
 ## Executive summary
 
+**Update, same day.** This became film 1 of a series, laid out in `SERIES-PLAN-professor-bear-does-his-assignments.md`, which supersedes this script's format (third person, `lecture` skill). The diary rules below still hold.
+
 **What this is.** The plan for my final project film as a dated diary, and the script for the first entry. Each film says one thing: on this date, this is the state of the project. Today's film, 2026-10-07, is entry 1. Later entries repeat the form and say what changed since the last one.
 
 **Why it is a diary.** The project is not finished and will not be on any single day. A diary lets me show it honestly as it is: what exists, what ran, what didn't, and what I have not done yet. It also gives the viewer a trace of the process, which is the point of the course's Frictional log.
