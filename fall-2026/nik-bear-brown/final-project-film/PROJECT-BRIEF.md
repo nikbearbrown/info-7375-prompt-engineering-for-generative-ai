@@ -112,6 +112,7 @@ Microsoft and OpenAI tools you already use day to day and which are genuinely ne
 - This course, as the first real test case.
 
 **Will exist**
+- A filmed trial of ChatGPT Study mode and NotebookLM's Learning Guide on one real task (see `RESEARCH-socratic-modes-2026-10-07.md`).
 - Diary entries 2 onward, one per dated state of the project.
 - Google, Microsoft and OpenAI tool trials.
 - Any other tool that passes my own trial.
