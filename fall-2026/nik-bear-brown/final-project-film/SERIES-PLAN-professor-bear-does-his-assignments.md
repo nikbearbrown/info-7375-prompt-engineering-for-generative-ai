@@ -12,6 +12,8 @@ Drafted 2026-10-07. Nothing here is built. Items in [brackets] are mine to confi
 
 **Through every film.** Each film carries the same argument: the AI does the AI work, such as collecting the jobs, drafting a first version, or finding the matches, and it is the human's judgment and guidance that turns that into a good product instead of AI slop. That means three ideas from his courses run through the whole series: **Conducting AI** (the human directs and supervises), **what is irreducibly human** (the decisions and the understanding that stay with the person), and **computational skepticism** (doubting anything that looks polished until it has been checked). See "The through-line" below.
 
+**The series is also a record of getting better.** The earlier films are uneven, and the series is not yet coherent. That is part of the lesson. Professor Bear gets better at making films by making films, using the same AI and the same tool as last week, so the improvement is not the tool. It is how the person works with the tool. That is Conducting AI shown on the author's own practice: it is Claude plus the person, not Claude alone.
+
 **What is not yet decided.** Which assignment is film 3 (see the series list), and whether film 1 is also the final-project pitch film assignment.
 
 ## The through-line, in every film
@@ -35,6 +37,16 @@ A film with no honest entry for line 3 says so. That is itself a finding.
 - Never credit the human with work the AI did, or the AI with a decision the person made. Where Claude Code typed answers on his behalf, the film says so.
 - Never let a polished picture, number or summary stand without its check shown.
 - The series applies the doubt to itself. Film 1 says that some of the specification session's answers were typed by Claude Code and that Professor Bear has not yet reviewed them. That is the thesis, shown on the author's own work.
+
+## Getting better by making films
+
+**The claim, in his words, attributed to him.** Making films about the material makes him better at making films, and the tool does not change. Because the same AI produces both the early and the later films, the difference between them comes from how the person directs it: what he asks for, what he checks, what he rejects.
+
+**How a film can show it without overclaiming.** Put one early film and one recent film side by side, real frames from the real playlist, and let the viewer judge. The film says "this is my view of what changed." It does not call the later film better as a measured fact. [Confirm whether film 1 includes this comparison or a later film does.]
+
+**What stays true now.** The series is not yet coherent. Films were made quickly and in different forms. The plan does not hide that, and the first film may say so.
+
+**The YouTube cleanup is later, and it is Professor Bear's to do.** He intends to make many of the older films unlisted. Students have already commented on some, so the rule is: **unlisted, not deleted and not private**, which keeps the links and the comments alive. Nothing in this plan, and no one building these films, changes the privacy of an existing film or deletes anything; that is his action, taken when he decides.
 
 ## The series (a proposal)
 
@@ -101,6 +113,9 @@ Claim made aloud: that is the purpose he states, "evaluating real learning, not 
 ### Act IV: What went wrong, and where doubt mattered
 Four things from the log, each a few seconds, shown as the real log headings: the tool specified for the wrong application and stopped by Professor Bear; building started before the design existed; a bug in an audit; a summary written about the wrong thing. Then the one that carries the thesis: in the specification session, Claude Code typed Professor Bear's answers and confirmed each gate for him, and he has not yet reviewed them. The film says that plainly. The AI did the typing; reviewing is the human's job, and it is still undone. The film does not explain the other causes; films 2 and 3 do.
 
+### Act V: Better by doing
+Two beats. One shows an early film and a recent film side by side, real frames, with the one line "same AI, same tool." The next shows the difference as what the person asked for and checked, using one real example from the log, not a claim in the abstract. [Placement depends on the open question above.]
+
 ### Close
 - **Recap (BVDT).** One bare sentence per act, four lines; the AI-did, human-decided, doubt-caught split is in at least two of them.
 - **Your Turn (BHTF).** A prompt the viewer can paste: write one dated line about their own project, then list what an AI did, what you decided, and one thing you doubted and checked. Check each line against a file. Two checks follow.
@@ -126,3 +141,5 @@ Four things from the log, each a few seconds, shown as the real log headings: th
 2. Is film 1 also your 50-point pitch film, or is that a separate film?
 3. Third person ("Professor Bear does...") for the whole series, or first person in diary entries after film 1?
 4. May I capture the public GitHub and YouTube pages for the film?
+5. Does film 1 include the early-versus-recent comparison (Act V), or does a later film?
+6. Which early film and which recent film should be the pair?
