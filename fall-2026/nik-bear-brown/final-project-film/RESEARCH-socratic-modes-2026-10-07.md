@@ -2,6 +2,8 @@
 
 ## Executive summary
 
+**Correction, same day.** NotebookLM has been renamed **Gemini Notebook**. Google's blog dated 2026-07-16 says so, and notebooklm.google now redirects to notebook.google. This note was written under the old name. Google's rename post does not mention the Learning Guide, so whether it still exists under the new name is unchecked.
+
 **What this is.** A check of two claims: that ChatGPT has a Socratic mode, and that NotebookLM is Google's main educational tool. Both are true in substance, with different names than the ones used in conversation.
 
 **What I found.**

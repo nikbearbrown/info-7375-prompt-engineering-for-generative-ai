@@ -8,7 +8,9 @@ Drafted 2026-10-07. Nothing here is built. Items in [brackets] are mine to confi
 
 **Why a series.** One film cannot show a project that is still being built. And the point of the project is the process, not the finished artifact: teachers can see what a student handed in, but not whether the student learned anything. A dated trail of what was tried, what broke and what changed is evidence of learning in a way the artifact is not.
 
-**Film 1 says three things.** What he is doing and why. How the project fits together: one job-search tool, built live in three classes, each asking it a different question. And exactly where it stands today, 2026-10-07: it has run once, it reads 18 company job boards, it kept 97 postings out of 3,446, nothing runs on a schedule, and some of the work is still only a plan. It is told in third person by Liam, in for Bear, so the series title is literal.
+**Film 1 is a general introduction with no date.** What he is doing and why: a professor does the assignments he gives, in public, with the same log; the AI does the AI work and the person conducts it; skepticism checks it; one project across three courses; the same honest test on the tools students and teachers use; how the series will work. Professor Bear approved this film's plan and its build on 2026-10-07. It is told in third person by Liam, in for Bear.
+
+**Film 2 is the first diary entry.** It reads like a diary: on this date, this is the state of the project. Its content is what the first layout of film 1 held: the numbers from the one run, the five boards that cannot be read, the CV gaps, the 36 films, and what went wrong. It is planned when film 2 is.
 
 **Through every film.** Each film carries the same argument: the AI does the AI work, such as collecting the jobs, drafting a first version, or finding the matches, and it is the human's judgment and guidance that turns that into a good product instead of AI slop. That means three ideas from his courses run through the whole series: **Conducting AI** (the human directs and supervises), **what is irreducibly human** (the decisions and the understanding that stay with the person), and **computational skepticism** (doubting anything that looks polished until it has been checked). See "The through-line" below.
 
@@ -64,19 +66,23 @@ Each film is dated and stands alone. A viewer who has seen none of the others ca
 
 | # | Working title | What it shows | State |
 |---|---|---|---|
-| 1 | What am I doing, and why | The point, the shape of the project, the state on 2026-10-07 | This plan |
-| 2 | Specifying a tool with Gru | The Boondoggle Report in the skepticism course: a downloadable Gru; the wrong application and the build-before-spec mistakes, kept in the log | Work exists, log exists |
-| 3 | Collecting the jobs | The data-pipeline assignment in the branding course: Lectern reading three applicant-tracking systems, the filter tuned across one day, the audit that found a bug in its own audit | Work exists; deliverables unfinished, past due |
-| 4 | Does it still run tomorrow? | A second Lectern run, so there is a day-over-day difference to show; the question of scheduling | Not done |
-| 5 | The probe runner | The skepticism course's third assignment: robustness and explanation | Planned, nothing built |
-| 6 | Study mode and Learning Guide | A filmed trial of ChatGPT's Study mode and NotebookLM's Learning Guide on one real task, failures included | Research done, trial not run |
-| 7 | The pitch film | Writing the final-project film assignment for students and taking their feedback | Assignment drafted |
+| 1 | Professor Bear Does His Assignments | A general, undated introduction: the idea, who does what, the project, how to follow | Built 2026-10-07 |
+| 2 | Diary: the state of the project | The first dated entry: what exists, what ran, what didn't, what changed | To plan |
+| 3 | Specifying a tool with Gru | The Boondoggle Report in the skepticism course: a downloadable Gru; the wrong application and the build-before-spec mistakes, kept in the log | Work exists, log exists |
+| 4 | Collecting the jobs | The data-pipeline assignment in the branding course: Lectern reading three applicant-tracking systems, the filter tuned across one day, the audit that found a bug in its own audit | Work exists; deliverables unfinished, past due |
+| 5 | Does it still run tomorrow? | A second Lectern run, so there is a day-over-day difference to show; the question of scheduling | Not done |
+| 6 | The probe runner | The skepticism course's third assignment: robustness and explanation | Planned, nothing built |
+| 7 | Study mode and the research notebook | A filmed trial of ChatGPT's Study mode and Google's Gemini Notebook (formerly NotebookLM) on one real task, failures included | Research done, trial not run |
+| 8 | The pitch film | Writing the final-project film assignment for students and taking their feedback | Assignment drafted |
 
 Every film in the series fills in the ledger above from its own log. Film 1 uses the entries below; films 2 to 7 will be read for theirs when each is built, not guessed now.
 
-[Which of these did you mean by "assignment three"? Branding's data pipeline is film 3 above; the skepticism course's probe runner is film 5.]
+[Which of these did you mean by "assignment three"? Branding's data pipeline is film 4 above; the skepticism course's probe runner is film 6.]
 
-## Film 1: layout
+## Film 2 layout draft: the state on 2026-10-07 (moved here from the first plan of film 1)
+
+**Film 1 as built is different:** it is the general introduction. Its own coverage map, shot list and fact-check are in `youtube/claude-liam-lecture-professor-bear-does-his-assignments/` in this repository. What follows is the earlier layout, kept because most of it is the first diary entry.
+
 
 **Form.** The `lecture` skill, Liam in for Bear, free local voice, no approval gates on free steps, never published without your word. Because it is made for the course, INFO 7375 is named at the opening and in the outro block. The film is self-contained: it assumes the viewer has seen none of the other films and read none of the books.
 
