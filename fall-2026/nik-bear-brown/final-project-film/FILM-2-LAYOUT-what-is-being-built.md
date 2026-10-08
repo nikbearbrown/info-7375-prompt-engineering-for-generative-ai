@@ -1,6 +1,6 @@
-# Film 2 layout: what is being built
+# Film 2 layout: Bear's Agentic Approach to Finding Work
 
-Drafted 2026-10-08. Nothing here is built. Items in [brackets] are mine to confirm.
+Drafted 2026-10-08, revised the same day on Professor Bear's answers. Nothing here is built. Items in [brackets] are mine to confirm. The file keeps its original name so links stay valid.
 
 ## Executive summary
 
@@ -8,11 +8,16 @@ Drafted 2026-10-08. Nothing here is built. Items in [brackets] are mine to confi
 
 **What the film says.** One tool and its surroundings: a collector that reads company job boards; the filter and the audits that say what its output is worth; a ranking of which companies want teaching work done; the rule that keeps three course folders consistent; the public work that fills the gaps the search found. And, because the design document compared itself with the code, what is not built: the "what is new since last time" memory, the scheduler, the five companies the tool cannot read, and a quality-report writer the code only promises in a comment.
 
+**Decisions from Professor Bear (2026-10-08).**
+- **Title:** "Bear's Agentic Approach to Finding Work." Not "What Is Being Built."
+- **No specific date.** The film says "fall 2026" and nothing narrower, on screen or in the narration. The one run's counts may appear, labelled "fall 2026".
+- **The not-built list is a current thought, not a verdict.** It is what the plan is today, and it will change as the thing is built. The film's idea is the loop: write down a good enough plan, start building, let the real world push back, change the plan. Do not spend two years designing something that turns out wrong. AI's real power is quick ideation: build something fast, see whether it is promising; if not, let go and move on; if so, extend it until you get stuck, then do it again. Constant ideation, constant iteration.
+
 **Why that last part is the point.** The series argues that the AI does the AI work and the person's judgment makes it good. This film shows it on the author's own project: the design document is fluent and complete, and the person is the one who checks it against the code. The finding that the earlier design and the code disagree is the film's central example of computational skepticism.
 
 **Form.** The `lecture` skill, Liam in for Bear, free build, never published without Professor Bear's word. The film opens on the narrated card (series name, film title, a short summary), then the hesitant writer. It is told in third person. Video 02 of the series.
 
-**What is not decided.** The title; whether the film carries an "as of" date on screen; and whether any number from the one run (3,446 postings, 97 kept) appears, since the series plan keeps dated state for the diary films.
+**What is not decided.** Whether to build it now.
 
 ## Source
 
@@ -20,8 +25,8 @@ The software design document, read whole. Its seventeen sections map to the acts
 
 ## Opening
 
-- **BOPEN (narrated card).** "Professor Bear Does His Assignments. [Title]. Learn what the job-search project is made of, how each part is checked, and what is not built yet."
-- **BIDEA (hesitant writer).** Types "A tool that runs is a tool that works." and corrects "runs" to "was checked". [Confirm the phrase.]
+- **BOPEN (narrated card).** "Professor Bear Does His Assignments. Bear's Agentic Approach to Finding Work. Learn how a professor uses AI to look for work, how each part is checked, and why the plan keeps changing as it is built." Card title in two balanced lines: "Bear's Agentic Approach" / "to Finding Work". Series field "Video 02 / 08".
+- **BIDEA (hesitant writer).** Types "Plan everything before you build anything." and corrects "everything" to "enough". [Confirm the phrase.]
 - **BDEFS (terms, 17 characters or fewer, 3 to 6).** Collector: a program that downloads postings from company job pages. Filter: the rules that keep or throw out a posting. Audit: a check on what the filter got wrong. Design doc: the plan written before or about a build. Human gate: a stop only a person clears.
 
 ## Acts
@@ -61,19 +66,21 @@ The software design document, read whole. Its seventeen sections map to the acts
 | 18 | The process log and the film series: how each change is recorded | The real log page, captured |
 | 19 | The public work against the gaps: a film series on Figma for education | The real playlist page, captured |
 
-### Act V: What is not built
+### Act V: Plan, build, learn, change
 | Beat | What is said | Best visual (runner-up) |
 |---|---|---|
-| 20 | The design said the tool remembers what it has seen; the code does not | Two columns, "designed" and "built", with the row that disagrees ringed |
-| 21 | The code's own comment says it writes a quality report; it writes four other files | The real comment and the real list of files, captured |
-| 22 | Nothing runs on a schedule; five companies the project cares about cannot be read | A calendar with one marked day; five locked boards |
-| 23 | Why this is the example: the design document read fluently and was complete; the comparison with the code is the human's check | The ledger: the AI did, the human decided, doubt caught |
+| 20 | Write down a plan good enough to start. Do not spend two years designing something that may be wrong | A short plan page, then a hand starting to build (Manim or isometric) |
+| 21 | The design said the tool would remember what it has seen. The code does not yet. That is not a failure: the real world arrives, and the plan changes | Two columns, "planned" and "built so far", with the row that differs ringed; the real file listing, captured |
+| 22 | The code's own comment promises a quality report that nothing writes. Another thing found by building, not by planning | The real comment and the real list of files, captured |
+| 23 | Right now the plan says: remember what was seen, run on a schedule, read the five companies that cannot be read. It will change as it is built | Three open boxes with a pencil mark, not a locked list |
+| 24 | The power of AI here is fast ideation: build something quickly, see if it is promising, drop it if not, extend it if so, until you get stuck, then repeat | A loop drawn as build, look, keep or drop, extend (Manim) |
+| 25 | The AI did the fast building; the person decides what is promising and when to let go. That is the part that stays human | The ledger: the AI did, the human decided, doubt caught |
 
 ### Act VI: Who decides
 | Beat | What is said | Best visual (runner-up) |
 |---|---|---|
-| 24 | Fourteen open questions, all Professor Bear's: schedule or not, readers for the five, build the memory or strike it from the design | A short list drawn as open boxes |
-| 25 | The last step is always a person: nothing here applies, emails or posts | The chain from Act I, ending on the person, with the gate ringed |
+| 26 | Open questions, all Professor Bear's: schedule or not, readers for the five, build the memory or drop it. Each is a bet, not a promise | A short list drawn as open boxes |
+| 27 | The last step is always a person: nothing here applies, emails or posts | The chain from Act I, ending on the person, with the gate ringed |
 
 ### Close
 - **Recap (BVDT).** Four bare lines, one per major act group.
@@ -86,13 +93,13 @@ The software design document, read whole. Its seventeen sections map to the acts
 |---|---|---|---|
 | 10 | Wrote the sampler and found both problems while checking snippets | Whether to change the filter; it was not changed without his decision | Recruiters were being kept; one word was in 618 of 618 postings |
 | 15 | Ran the sync | Added the missing file to the list | A check that passed while a file was absent |
-| 23 | Compiled the design document in silent mode | What happens to every open question | The design and the code disagree in two places |
+| 25 | Compiled the design document in silent mode and built quickly | What to keep, what to drop, when to stop designing | The design and the code disagree in two places, which is how the plan gets corrected |
 
 ## Left out, with reasons
 - **The full risk register and the data tables:** too large to show; one beat names them and the document stays public.
 - **The domain model and invariants:** detail for a reader of the document, not a viewer of the film.
 - **Figma, YouTube and quota specifics:** other films cover them.
-- **The one run's counts:** dated state; kept for the diary films unless Professor Bear wants them here.
+- **The one run's counts:** may appear, labelled "fall 2026" with no narrower date.
 
 ## Evidence to produce before building
 1. Capture `collect.py --help` and a directory listing as real terminal output.
@@ -100,8 +107,11 @@ The software design document, read whole. Its seventeen sections map to the acts
 3. Recheck every claim against the design document and, where the document cites a file, against the file.
 4. Run no network collection for the film; the film reads files and a `--help`.
 
-## Open questions
-1. Title for film 2? [Suggested: "What Is Being Built".]
-2. May the one run's counts appear, with an "as of" label, or stay in the diary films?
-3. Is Act V, the not-built list, what you want the film to hold longest?
-4. Build film 2 now, or revise this layout first?
+## Answered by Professor Bear, 2026-10-08
+1. Title: "Bear's Agentic Approach to Finding Work."
+2. Counts: allowed, labelled "fall 2026" only.
+3. The not-built act: reframed as a plan that changes, the iteration idea (above).
+
+## Open
+1. Build film 2 now, with these changes?
+2. Confirm the hesitant-writer phrase: "Plan everything before you build anything" corrected to "enough".

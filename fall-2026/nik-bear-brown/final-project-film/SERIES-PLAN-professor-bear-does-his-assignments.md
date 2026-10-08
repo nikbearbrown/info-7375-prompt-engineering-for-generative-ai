@@ -67,7 +67,7 @@ Each film is dated and stands alone. A viewer who has seen none of the others ca
 | # | Working title | What it shows | State |
 |---|---|---|---|
 | 1 | Professor Bear Does His Assignments | A general, undated introduction: the idea, who does what, the project, how to follow | Built 2026-10-07 |
-| 2 | What is being built | A detailed overview from the Gru design document: the parts, how each is checked, what is not built. Not a diary entry | Layout drafted 2026-10-08 (`FILM-2-LAYOUT-what-is-being-built.md`) |
+| 2 | Bear's Agentic Approach to Finding Work | A detailed overview from the Gru design document: the parts, how each is checked, and the plan that changes as it is built. Not a diary entry. "Fall 2026", no narrower date | Layout revised 2026-10-08 (`FILM-2-LAYOUT-what-is-being-built.md`) |
 | 2b | Diary: the state of the project | The first dated entry: what exists, what ran, what didn't, what changed | To plan |
 | 3 | Specifying a tool with Gru | The Boondoggle Report in the skepticism course: a downloadable Gru; the wrong application and the build-before-spec mistakes, kept in the log | Work exists, log exists |
 | 4 | Collecting the jobs | The data-pipeline assignment in the branding course: Lectern reading three applicant-tracking systems, the filter tuned across one day, the audit that found a bug in its own audit | Work exists; deliverables unfinished, past due |
