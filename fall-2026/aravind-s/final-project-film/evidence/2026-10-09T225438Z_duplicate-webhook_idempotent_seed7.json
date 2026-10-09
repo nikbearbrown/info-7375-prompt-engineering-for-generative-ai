@@ -1,0 +1,324 @@
+{
+  "label": "Synthetic, seeded demo. In-process simulation: no network, no real money, no real provider. It shows the money check Klaxon will use to verify fixes; it is not the Klaxon agent.",
+  "scenario": "duplicate-webhook",
+  "handler": "idempotent",
+  "handler_description": "dedupes by event id with a unique constraint",
+  "seed": 7,
+  "rerun_command": "python -m klaxon.demo duplicate-webhook --handler idempotent",
+  "ran_at_utc": "2026-10-09T22:54:38+00:00",
+  "ran_at_local": "2026-10-09T15:54:38-07:00",
+  "python": "3.12.14",
+  "klaxon_version": "0.0.1",
+  "code_sha256": "5cc69830a8d7565d78886db6dc53f2663a72780700a9118c9a3740abbea83adf",
+  "git_commit": null,
+  "git_source_clean": false,
+  "money_check_passed": true,
+  "dashboard": {
+    "requests": 7,
+    "status_counts": {
+      "200": 7
+    },
+    "ok": 7,
+    "client_errors": 0,
+    "server_errors": 0,
+    "error_rate": 0.0,
+    "status": "GREEN"
+  },
+  "money_check": {
+    "passed": true,
+    "ledger_clearing_cents": 25297,
+    "provider_balance_cents": 25297,
+    "money_off_cents": 0,
+    "invariants": [
+      {
+        "name": "posted_exactly_once",
+        "passed": true,
+        "summary": "all 6 provider events posted exactly once",
+        "evidence": []
+      },
+      {
+        "name": "ledger_balanced",
+        "passed": true,
+        "summary": "debits $311.01 = credits $311.01",
+        "evidence": []
+      },
+      {
+        "name": "matches_provider",
+        "passed": true,
+        "summary": "ledger and provider both say $252.97",
+        "evidence": []
+      }
+    ]
+  },
+  "provider": {
+    "note": "simulated clock; timestamps are not real",
+    "balance_cents": 25297,
+    "payments": [
+      {
+        "id": "pay_0001",
+        "customer": "cus_001",
+        "amount_cents": 5805
+      },
+      {
+        "id": "pay_0002",
+        "customer": "cus_002",
+        "amount_cents": 2971
+      },
+      {
+        "id": "pay_0003",
+        "customer": "cus_003",
+        "amount_cents": 6968
+      },
+      {
+        "id": "pay_0004",
+        "customer": "cus_004",
+        "amount_cents": 11164
+      },
+      {
+        "id": "pay_0005",
+        "customer": "cus_005",
+        "amount_cents": 1291
+      }
+    ],
+    "events": [
+      {
+        "id": "evt_0001",
+        "type": "payment.succeeded",
+        "payment_id": "pay_0001",
+        "amount_cents": 5805,
+        "created": 1791504001
+      },
+      {
+        "id": "evt_0002",
+        "type": "payment.succeeded",
+        "payment_id": "pay_0002",
+        "amount_cents": 2971,
+        "created": 1791504002
+      },
+      {
+        "id": "evt_0003",
+        "type": "payment.succeeded",
+        "payment_id": "pay_0003",
+        "amount_cents": 6968,
+        "created": 1791504003
+      },
+      {
+        "id": "evt_0004",
+        "type": "payment.succeeded",
+        "payment_id": "pay_0004",
+        "amount_cents": 11164,
+        "created": 1791504004
+      },
+      {
+        "id": "evt_0005",
+        "type": "payment.succeeded",
+        "payment_id": "pay_0005",
+        "amount_cents": 1291,
+        "created": 1791504005
+      },
+      {
+        "id": "evt_0006",
+        "type": "refund.succeeded",
+        "payment_id": "pay_0001",
+        "amount_cents": 2902,
+        "created": 1791504006
+      }
+    ]
+  },
+  "deliveries": [
+    {
+      "n": 1,
+      "event_id": "evt_0001",
+      "status": 200,
+      "note": "",
+      "outcome": "posted"
+    },
+    {
+      "n": 2,
+      "event_id": "evt_0002",
+      "status": 200,
+      "note": "",
+      "outcome": "posted"
+    },
+    {
+      "n": 3,
+      "event_id": "evt_0003",
+      "status": 200,
+      "note": "acknowledgement lost (simulated timeout)",
+      "outcome": "posted"
+    },
+    {
+      "n": 4,
+      "event_id": "evt_0004",
+      "status": 200,
+      "note": "",
+      "outcome": "posted"
+    },
+    {
+      "n": 5,
+      "event_id": "evt_0005",
+      "status": 200,
+      "note": "",
+      "outcome": "posted"
+    },
+    {
+      "n": 6,
+      "event_id": "evt_0006",
+      "status": 200,
+      "note": "",
+      "outcome": "posted"
+    },
+    {
+      "n": 7,
+      "event_id": "evt_0003",
+      "status": 200,
+      "note": "retry of #3",
+      "outcome": "already_processed"
+    }
+  ],
+  "ledger_transactions": [
+    {
+      "id": 1,
+      "event_id": "evt_0001",
+      "payment_id": "pay_0001",
+      "description": "payment.succeeded pay_0001",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "provider_clearing",
+          "side": "debit",
+          "amount_cents": 5805
+        },
+        {
+          "account": "sales",
+          "side": "credit",
+          "amount_cents": 5805
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "event_id": "evt_0002",
+      "payment_id": "pay_0002",
+      "description": "payment.succeeded pay_0002",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "provider_clearing",
+          "side": "debit",
+          "amount_cents": 2971
+        },
+        {
+          "account": "sales",
+          "side": "credit",
+          "amount_cents": 2971
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "event_id": "evt_0003",
+      "payment_id": "pay_0003",
+      "description": "payment.succeeded pay_0003",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "provider_clearing",
+          "side": "debit",
+          "amount_cents": 6968
+        },
+        {
+          "account": "sales",
+          "side": "credit",
+          "amount_cents": 6968
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "event_id": "evt_0004",
+      "payment_id": "pay_0004",
+      "description": "payment.succeeded pay_0004",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "provider_clearing",
+          "side": "debit",
+          "amount_cents": 11164
+        },
+        {
+          "account": "sales",
+          "side": "credit",
+          "amount_cents": 11164
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "event_id": "evt_0005",
+      "payment_id": "pay_0005",
+      "description": "payment.succeeded pay_0005",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "provider_clearing",
+          "side": "debit",
+          "amount_cents": 1291
+        },
+        {
+          "account": "sales",
+          "side": "credit",
+          "amount_cents": 1291
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "event_id": "evt_0006",
+      "payment_id": "pay_0001",
+      "description": "refund.succeeded pay_0001",
+      "reverses_transaction_id": null,
+      "lines": [
+        {
+          "account": "refunds",
+          "side": "debit",
+          "amount_cents": 2902
+        },
+        {
+          "account": "provider_clearing",
+          "side": "credit",
+          "amount_cents": 2902
+        }
+      ]
+    }
+  ],
+  "printed_output": [
+    "Klaxon first piece: one webhook delivered twice",
+    "SYNTHETIC, SEEDED DEMO (seed 7). In-process simulation: no network, no real money.",
+    "It shows the money check Klaxon will use to verify fixes. It is not the agent.",
+    "",
+    "Handler: idempotent (dedupes by event id with a unique constraint)",
+    "",
+    "Deliveries, fake provider -> our webhook endpoint",
+    "  #1  evt_0001  payment.succeeded  pay_0001    $58.05  -> 200 posted",
+    "  #2  evt_0002  payment.succeeded  pay_0002    $29.71  -> 200 posted",
+    "  #3  evt_0003  payment.succeeded  pay_0003    $69.68  -> 200 posted             acknowledgement lost (simulated timeout)",
+    "  #4  evt_0004  payment.succeeded  pay_0004   $111.64  -> 200 posted",
+    "  #5  evt_0005  payment.succeeded  pay_0005    $12.91  -> 200 posted",
+    "  #6  evt_0006  refund.succeeded   pay_0001    $29.02  -> 200 posted",
+    "  #7  evt_0003  payment.succeeded  pay_0003    $69.68  -> 200 already_processed  retry of #3",
+    "",
+    "Dashboard, what HTTP monitoring sees",
+    "  requests          7",
+    "  2xx / 4xx / 5xx   7 / 0 / 0",
+    "  error rate        0.0%",
+    "  status            GREEN",
+    "",
+    "Money check, ledger vs the provider's own records",
+    "  PASS  posted_exactly_once  all 6 provider events posted exactly once",
+    "  PASS  ledger_balanced      debits $311.01 = credits $311.01",
+    "  PASS  matches_provider     ledger and provider both say $252.97",
+    "",
+    "RESULT: money check PASSED (dashboard GREEN, ledger balanced, ledger matches the provider)"
+  ]
+}
