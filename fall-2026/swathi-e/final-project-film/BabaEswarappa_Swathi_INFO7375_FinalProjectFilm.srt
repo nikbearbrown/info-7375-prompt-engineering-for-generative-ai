@@ -1,0 +1,351 @@
+1
+00:00:00,000 --> 00:00:04,555
+On October ninth, I asked ChatGPT the same
+tax question twice.
+
+2
+00:00:04,555 --> 00:00:06,211
+Same tool, same day,
+
+3
+00:00:06,211 --> 00:00:07,453
+same tax year.
+
+4
+00:00:07,453 --> 00:00:12,835
+One run said the standard deduction for
+Indian students was fifteen thousand seven
+
+5
+00:00:12,835 --> 00:00:16,148
+hundred fifty dollars. The other said
+fifteen thousand.
+
+6
+00:00:16,148 --> 00:00:17,390
+Both sounded confident.
+
+7
+00:00:17,690 --> 00:00:22,859
+So I checked the official twenty twenty
+five instructions for Form ten forty N
+
+8
+00:00:22,859 --> 00:00:28,028
+R. Page seven lists fifteen thousand seven
+hundred fifty as the filing threshold for
+
+9
+00:00:28,028 --> 00:00:30,613
+single students eligible under the India
+treaty.
+
+10
+00:00:30,613 --> 00:00:32,828
+One run's number matched that figure.
+
+11
+00:00:32,828 --> 00:00:34,305
+The other did not.
+
+12
+00:00:34,305 --> 00:00:36,890
+Neither answer told me which to trust.
+
+13
+00:00:37,190 --> 00:00:39,059
+I am an international student.
+
+14
+00:00:39,059 --> 00:00:39,807
+Every year,
+
+15
+00:00:39,807 --> 00:00:45,040
+students like me file Form eighty eight
+forty three and work out whether a
+
+16
+00:00:45,040 --> 00:00:50,273
+tax treaty applies. The rules live in long
+IRS publications that change every year,
+
+17
+00:00:50,273 --> 00:00:52,890
+and a wrong answer has real consequences.
+
+18
+00:00:53,190 --> 00:00:55,780
+So here is what I will build.
+
+19
+00:00:55,780 --> 00:01:00,590
+Cite or Refuse: a tax helper that answers
+only from official IRS publications,
+
+20
+00:01:00,590 --> 00:01:03,180
+shows the exact passage and tax year,
+
+21
+00:01:03,180 --> 00:01:06,510
+and refuses when they do not cover the
+question.
+
+22
+00:01:06,510 --> 00:01:08,730
+It will be a GitHub repository.
+
+23
+00:01:08,730 --> 00:01:10,580
+None of it exists yet.
+
+24
+00:01:10,880 --> 00:01:12,517
+I tested ChatGPT, Gemini,
+
+25
+00:01:12,517 --> 00:01:15,382
+and Claude with the same three questions.
+
+26
+00:01:15,382 --> 00:01:17,838
+A small test, one run each.
+
+27
+00:01:17,838 --> 00:01:23,569
+None tied each claim to an exact IRS
+passage for a stated tax year.
+
+28
+00:01:23,569 --> 00:01:26,025
+Gemini cited only third party sites.
+
+29
+00:01:26,025 --> 00:01:27,662
+Asked about my refund,
+
+30
+00:01:27,662 --> 00:01:28,890
+none cleanly declined.
+
+31
+00:01:29,190 --> 00:01:30,667
+Here is the plan.
+
+32
+00:01:30,667 --> 00:01:33,989
+A pipeline will ingest several years of
+IRS publications.
+
+33
+00:01:33,989 --> 00:01:36,204
+Treaty tables will go into Postgres,
+
+34
+00:01:36,204 --> 00:01:38,050
+so numbers are looked up,
+
+35
+00:01:38,050 --> 00:01:40,266
+not generated. Retrieval finds the
+passage,
+
+36
+00:01:40,266 --> 00:01:44,696
+and an agent, through an M C P server in
+Claude Code,
+
+37
+00:01:44,696 --> 00:01:47,280
+answers only with what it can cite.
+
+38
+00:01:47,580 --> 00:01:48,717
+Tax years matter.
+
+39
+00:01:48,717 --> 00:01:53,265
+The IRS published clarifications to these
+same twenty twenty five instructions after
+
+40
+00:01:53,265 --> 00:01:56,675
+release. So every answer will carry its
+tax year,
+
+41
+00:01:56,675 --> 00:02:01,981
+and a new year's documents will go live
+only after a human approves the
+
+42
+00:02:01,981 --> 00:02:02,360
+update.
+
+43
+00:02:02,660 --> 00:02:07,091
+Who opens it? A hiring manager for an AI
+or data engineering role.
+
+44
+00:02:07,091 --> 00:02:08,454
+In the first minute,
+
+45
+00:02:08,454 --> 00:02:10,158
+they will run one command,
+
+46
+00:02:10,158 --> 00:02:14,248
+ask a question and see a cited answer with
+its tax year,
+
+47
+00:02:14,248 --> 00:02:17,316
+ask something out of scope and see a
+refusal,
+
+48
+00:02:17,316 --> 00:02:19,020
+then check the evaluation scoreboard.
+
+49
+00:02:19,320 --> 00:02:21,312
+What would that show about me?
+
+50
+00:02:21,312 --> 00:02:25,296
+That I can build an AI system whose output
+can be checked:
+
+51
+00:02:25,296 --> 00:02:26,624
+prompt contracts, source grounding,
+
+52
+00:02:26,624 --> 00:02:27,952
+a bounded agent loop,
+
+53
+00:02:27,952 --> 00:02:29,280
+a small trained classifier,
+
+54
+00:02:29,280 --> 00:02:30,608
+and held out evaluation.
+
+55
+00:02:30,608 --> 00:02:32,600
+The evidence will be the tests,
+
+56
+00:02:32,600 --> 00:02:35,920
+the scoreboard, and a log of where it was
+wrong.
+
+57
+00:02:36,220 --> 00:02:37,842
+What it will not do:
+
+58
+00:02:37,842 --> 00:02:39,139
+give personal tax advice,
+
+59
+00:02:39,139 --> 00:02:41,085
+or prepare or file a return.
+
+60
+00:02:41,085 --> 00:02:44,004
+What comes first: one tax year of one
+publication,
+
+61
+00:02:44,004 --> 00:02:46,274
+and ten held out questions through
+retrieval.
+
+62
+00:02:46,274 --> 00:02:50,490
+You will know it ran when the tests pass
+on a fresh clone.
+
+63
+00:02:50,790 --> 00:02:52,328
+What could sink it?
+
+64
+00:02:52,328 --> 00:02:55,403
+Extracting tables from IRS documents can
+go wrong,
+
+65
+00:02:55,403 --> 00:02:59,247
+and a bad extraction would make a verified
+number wrong.
+
+66
+00:02:59,247 --> 00:03:01,938
+So I will start with one publication,
+
+67
+00:03:01,938 --> 00:03:05,013
+check extracted values against the source
+by hand,
+
+68
+00:03:05,013 --> 00:03:07,320
+and mark anything unchecked as unverified.
+
+69
+00:03:07,620 --> 00:03:09,868
+Why this project? It is personal,
+
+70
+00:03:09,868 --> 00:03:11,740
+and it is a mix.
+
+71
+00:03:11,740 --> 00:03:14,737
+Python, data cleaning, and testing I
+already have,
+
+72
+00:03:14,737 --> 00:03:18,858
+and my Reallocation Engine pull request
+for this course shows them.
+
+73
+00:03:18,858 --> 00:03:20,356
+M C P servers,
+
+74
+00:03:20,356 --> 00:03:21,854
+retrieval evaluation, rules engines,
+
+75
+00:03:21,854 --> 00:03:25,600
+and training a classifier from scratch are
+new to me.
+
+76
+00:03:25,900 --> 00:03:28,435
+Today, what exists is this plan,
+
+77
+00:03:28,435 --> 00:03:32,661
+my test notes, and one check against an
+IRS document.
+
+78
+00:03:32,661 --> 00:03:34,352
+Everything else is will.
+
+79
+00:03:34,352 --> 00:03:36,887
+Cite or Refuse. Swathi Baba Eswarappa,
+
+80
+00:03:36,887 --> 00:03:39,000
+INFO seven three seven five.

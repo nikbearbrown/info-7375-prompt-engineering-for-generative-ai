@@ -1,0 +1,378 @@
+{
+  "metadata": {
+    "slug": "cite-or-refuse-pitch",
+    "title": "Cite or Refuse: A Source-Grounded Tax Helper for International Students",
+    "topic": "INFO 7375 · FINAL PROJECT PITCH",
+    "purpose": "Pitch the final project honestly: what exists today (a plan, dated test notes, one check against IRS instructions) and what will exist.",
+    "author": "Swathi Baba Eswarappa",
+    "course": "INFO 7375 - Prompt Engineering and Generative AI",
+    "assignment": "Final Project Pitch Film",
+    "register": "plain, direct, first person, no hype",
+    "engine": "kokoro",
+    "voice": "af_heart",
+    "voice_kokoro": "af_heart",
+    "clock": "narration",
+    "style_preset": "brutalist",
+    "palette": "brutalist-dark",
+    "ground": "#0B0B0C",
+    "target_runtime_s": 230,
+    "runtime_ceiling_s": 240,
+    "evidence_policy": "Every number spoken or shown comes from TEST-NOTES.md (Swathi's dated test runs, Oct 9 2026) or page 7 of the 2025 Instructions for Form 1040-NR. No screenshots containing personal details are shown. Diagrams of the planned system are labelled PROPOSED; the first-minute terminal is labelled CONSTRUCTED MOCK-UP. Everything not yet built is narrated with 'will'.",
+    "data_sources": [
+      "TEST-NOTES.md",
+      "IRS 2025 Instructions for Form 1040-NR (i1040nr.pdf), p.7 and pp.20-21"
+    ]
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "act": "HOOK",
+      "estimated_duration_s": 17,
+      "narration_text": "On October ninth, I asked ChatGPT the same tax question twice. Same tool, same day, same tax year. One run said the standard deduction for Indian students was fifteen thousand seven hundred fifty dollars. The other said fifteen thousand. Both sounded confident.",
+      "new_visual_element": "Two answer cards side by side: $15,750 vs $15,000, same question",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B01_TwoAnswers",
+        "engine": "manim",
+        "production_viz": {
+          "label": "TWO RUNS, TWO NUMBERS",
+          "mechanic": "Two cards slide in. Card A: 'ChatGPT, Oct 9 2026, run A: $15,750'. Card B: 'run B: $15,000'. Same question typed above both. No screenshots, numbers only.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#FF4D3D"
+          ]
+        }
+      },
+      "actual_duration_s": 17.39,
+      "audio_file": "mp3/beat-B01.mp3"
+    },
+    {
+      "beat_id": "B02",
+      "act": "EVIDENCE",
+      "estimated_duration_s": 18,
+      "narration_text": "So I checked the official twenty twenty five instructions for Form ten forty N R. Page seven lists fifteen thousand seven hundred fifty as the filing threshold for single students eligible under the India treaty. One run's number matched that figure. The other did not. Neither answer told me which to trust.",
+      "new_visual_element": "IRS instructions page 7 highlight; card A gets a check, card B a cross",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B02_OfficialCheck",
+        "engine": "manim",
+        "production_viz": {
+          "label": "2025 i1040-NR, p. 7: $15,750",
+          "mechanic": "Document page icon labelled '2025 Instructions for Form 1040-NR, p.7'. The $15,750 line highlights. Line draws to card A (green check) and card B (red cross).",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FF4D3D"
+          ]
+        }
+      },
+      "actual_duration_s": 19.2,
+      "audio_file": "mp3/beat-B02.mp3"
+    },
+    {
+      "beat_id": "B03",
+      "act": "PROBLEM",
+      "estimated_duration_s": 17,
+      "narration_text": "I am an international student. Every year, students like me file Form eighty eight forty three and work out whether a tax treaty applies. The rules live in long IRS publications that change every year, and a wrong answer has real consequences.",
+      "new_visual_element": "Stack of IRS publications labelled by year; a student figure in front",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B03_Problem",
+        "engine": "manim",
+        "production_viz": {
+          "label": "THE PROBLEM",
+          "mechanic": "Simple drawn figure facing a growing stack of documents labelled 2023, 2024, 2025. Form 8843 card on top.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 15.7,
+      "audio_file": "mp3/beat-B03.mp3"
+    },
+    {
+      "beat_id": "B04",
+      "act": "WHAT",
+      "estimated_duration_s": 19,
+      "narration_text": "So here is what I will build. Cite or Refuse: a tax helper that answers only from official IRS publications, shows the exact passage and tax year, and refuses when they do not cover the question. It will be a GitHub repository. None of it exists yet.",
+      "new_visual_element": "Title card: CITE OR REFUSE, with PROPOSED badge",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B04_What",
+        "engine": "manim",
+        "production_viz": {
+          "label": "CITE OR REFUSE  (PROPOSED, NOT BUILT)",
+          "mechanic": "Title types on. Two outcomes branch below: 'answer + passage + tax year' and 'refuse'. PROPOSED badge pinned top right.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 17.39,
+      "audio_file": "mp3/beat-B04.mp3"
+    },
+    {
+      "beat_id": "B05",
+      "act": "ALTERNATIVES",
+      "estimated_duration_s": 18,
+      "narration_text": "I tested ChatGPT, Gemini, and Claude with the same three questions. A small test, one run each. None tied each claim to an exact IRS passage for a stated tax year. Gemini cited only third party sites. Asked about my refund, none cleanly declined.",
+      "new_visual_element": "Three-column result grid: cited passage / tax year / refused",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B05_Alternatives",
+        "engine": "manim",
+        "production_viz": {
+          "label": "MY TEST, OCT 9 2026 (3 tools x 3 questions)",
+          "mechanic": "Grid with three tool rows and three columns: exact passage, tax year, refused when it should. Cells fill from TEST-NOTES.md. Footer: 'small informal test, not a benchmark'.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#6B6B70"
+          ]
+        }
+      },
+      "actual_duration_s": 18.01,
+      "audio_file": "mp3/beat-B05.mp3"
+    },
+    {
+      "beat_id": "B06",
+      "act": "HOW",
+      "estimated_duration_s": 20,
+      "narration_text": "Here is the plan. A pipeline will ingest several years of IRS publications. Treaty tables will go into Postgres, so numbers are looked up, not generated. Retrieval finds the passage, and an agent, through an M C P server in Claude Code, answers only with what it can cite.",
+      "new_visual_element": "Pipeline diagram: publications -> versioned store -> Postgres tables + retrieval -> agent -> cite or refuse",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B06_Plan",
+        "engine": "manim",
+        "production_viz": {
+          "label": "PLANNED PIPELINE (PROPOSED)",
+          "mechanic": "Boxes draw left to right with arrows. Every box outlined dashed to show it is not built. PROPOSED label on the diagram.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 18.09,
+      "audio_file": "mp3/beat-B06.mp3"
+    },
+    {
+      "beat_id": "B07",
+      "act": "VERSIONS",
+      "estimated_duration_s": 16,
+      "narration_text": "Tax years matter. The IRS published clarifications to these same twenty twenty five instructions after release. So every answer will carry its tax year, and a new year's documents will go live only after a human approves the update.",
+      "new_visual_element": "Document v1 -> clarification -> v2; approval gate before 'live'",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B07_Versions",
+        "engine": "manim",
+        "production_viz": {
+          "label": "VERSIONED SOURCES + HUMAN APPROVAL",
+          "mechanic": "Document card gets a 'clarified' stamp and a v2 copy. A gate icon with 'human approves' sits between v2 and LIVE.",
+          "colors": [
+            "#F5F3EF",
+            "#B388FF",
+            "#3DDC84"
+          ]
+        }
+      },
+      "actual_duration_s": 14.78,
+      "audio_file": "mp3/beat-B07.mp3"
+    },
+    {
+      "beat_id": "B08",
+      "act": "WHO",
+      "estimated_duration_s": 19,
+      "narration_text": "Who opens it? A hiring manager for an AI or data engineering role. In the first minute, they will run one command, ask a question and see a cited answer with its tax year, ask something out of scope and see a refusal, then check the evaluation scoreboard.",
+      "new_visual_element": "Mock terminal: question -> cited answer; out-of-scope -> refusal; scoreboard",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B08_FirstMinute",
+        "engine": "manim",
+        "production_viz": {
+          "label": "CONSTRUCTED MOCK-UP",
+          "mechanic": "Mock terminal draws three exchanges in sequence. Large 'CONSTRUCTED MOCK-UP' label stays on screen the whole beat. No real numbers in the scoreboard; placeholders shown as dashes.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 16.36,
+      "audio_file": "mp3/beat-B08.mp3"
+    },
+    {
+      "beat_id": "B09",
+      "act": "PROVES",
+      "estimated_duration_s": 20,
+      "narration_text": "What would that show about me? That I can build an AI system whose output can be checked: prompt contracts, source grounding, a bounded agent loop, a small trained classifier, and held out evaluation. The evidence will be the tests, the scoreboard, and a log of where it was wrong.",
+      "new_visual_element": "Skill chips mapped to course weeks; evidence column",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B09_Proves",
+        "engine": "manim",
+        "production_viz": {
+          "label": "WHAT IT WILL PROVE",
+          "mechanic": "Five skill chips drop in, each tagged with its course week. Arrows point to three evidence boxes: tests, scoreboard, error log, all labelled 'will exist'.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 16.6,
+      "audio_file": "mp3/beat-B09.mp3"
+    },
+    {
+      "beat_id": "B10",
+      "act": "SCOPE",
+      "estimated_duration_s": 18,
+      "narration_text": "What it will not do: give personal tax advice, or prepare or file a return. What comes first: one tax year of one publication, and ten held out questions through retrieval. You will know it ran when the tests pass on a fresh clone.",
+      "new_visual_element": "OUT / FIRST two-column card",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B10_Scope",
+        "engine": "manim",
+        "production_viz": {
+          "label": "OUT  |  FIRST",
+          "mechanic": "Left column OUT with a strike icon. Right column FIRST with a single small box and a test-pass tick labelled 'will run'.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#3DDC84"
+          ]
+        }
+      },
+      "actual_duration_s": 14.27,
+      "audio_file": "mp3/beat-B10.mp3"
+    },
+    {
+      "beat_id": "B11",
+      "act": "RISK",
+      "estimated_duration_s": 17,
+      "narration_text": "What could sink it? Extracting tables from IRS documents can go wrong, and a bad extraction would make a verified number wrong. So I will start with one publication, check extracted values against the source by hand, and mark anything unchecked as unverified.",
+      "new_visual_element": "Table extraction with one wrong cell flagged; manual check",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B11_Risk",
+        "engine": "manim",
+        "production_viz": {
+          "label": "RISK: EXTRACTION ERRORS",
+          "mechanic": "A table extracts from a page; one cell turns red. A magnifier checks it against the page. Unchecked cells get an 'unverified' tag.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 16.53,
+      "audio_file": "mp3/beat-B11.mp3"
+    },
+    {
+      "beat_id": "B12",
+      "act": "WHY",
+      "estimated_duration_s": 19,
+      "narration_text": "Why this project? It is personal, and it is a mix. Python, data cleaning, and testing I already have, and my Reallocation Engine pull request for this course shows them. M C P servers, retrieval evaluation, rules engines, and training a classifier from scratch are new to me.",
+      "new_visual_element": "Two columns: ALREADY HAVE (with PR #6 evidence) / NEW TO ME",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B12_Why",
+        "engine": "manim",
+        "production_viz": {
+          "label": "ALREADY HAVE  |  NEW TO ME",
+          "mechanic": "Left column lists existing skills with a small link card 'Reallocation Engine PR #6'. Right column lists new skills.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#B388FF"
+          ]
+        }
+      },
+      "actual_duration_s": 17.98,
+      "audio_file": "mp3/beat-B12.mp3"
+    },
+    {
+      "beat_id": "B13",
+      "act": "CLOSE",
+      "estimated_duration_s": 12,
+      "narration_text": "Today, what exists is this plan, my test notes, and one check against an IRS document. Everything else is will. Cite or Refuse. Swathi Baba Eswarappa, INFO seven three seven five.",
+      "new_visual_element": "EXISTS TODAY vs WILL EXIST; sign-off card",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B13_Close",
+        "engine": "manim",
+        "production_viz": {
+          "label": "EXISTS TODAY  |  WILL EXIST",
+          "mechanic": "Two columns: short 'exists today' list, longer 'will exist' list. Fades to sign-off card with name and course.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      },
+      "actual_duration_s": 13.1,
+      "audio_file": "mp3/beat-B13.mp3"
+    }
+  ]
+}

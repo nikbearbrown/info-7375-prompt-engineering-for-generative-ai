@@ -1,0 +1,36 @@
+1. spoken forms vs narration
+  ok   amount_run_a             B01        'fifteen thousand seven hundred fifty'   $15,750
+  ok   amount_run_a             B02        'fifteen thousand seven hundred fifty'   $15,750
+  ok   amount_run_b             B01        'The other said fifteen thousand'        $15,000
+  ok   test_date                B01        'October ninth'                          Oct 9, 2026
+       note: Year 2026 is shown on the B01 cards (required by the build prompt) and the date heads the B05 grid (the honesty rule asks for the date on any chatbot result shown); spoken only in B01.
+  ok   irs_page                 B02        'Page seven'                             p. 7
+  ok   tax_year                 B02        'twenty twenty five'                     2025
+  ok   tax_year                 B07        'twenty twenty five'                     2025
+  ok   form_1040nr              B02        'ten forty N R'                          1040-NR
+  ok   form_8843                B03        'eighty eight forty three'               8843
+  ok   publication_years        B03        'change every year'                      ['2023', '2024', '2025']
+       note: Shown as tabs on a stack of documents; narration says 'change every year' rather than naming each year.
+  ok   tools_tested             B05        'ChatGPT, Gemini, and Claude'            3
+  ok   questions_tested         B05        'same three questions'                   3
+  ok   first_tax_years          B10        'one tax year'                           1
+  ok   first_publications       B10        'of one publication'                     1
+  ok   first_publications       B11        'start with one publication'             1
+  ok   first_heldout_questions  B10        'ten held out questions'                 10
+  ok   pr_number                B12        'Reallocation Engine pull request'       #6
+       note: The PR number is shown on screen but not spoken; narration names the pull request.
+  ok   course                   B13        'INFO seven three seven five'            INFO 7375
+       note: Also appears in the footer chrome of every beat.
+
+2. B05 grid cues vs narration
+  ok   'None tied each claim'
+  ok   'for a stated tax year'
+  ok   'Asked about my refund'
+  ok   'I tested ChatGPT'
+  ok   'Gemini, and'
+  ok   'and Claude'
+
+3. digits in scene.py string literals
+  ok   no hand-typed digits
+
+RESULT: PASS

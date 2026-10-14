@@ -1,0 +1,191 @@
+{
+  "_about": "Every number drawn on screen in scene.py is read from this file. Nothing numeric is typed into an animation. check_facts.py verifies (1) each spoken form below occurs in that beat's narration_text, and (2) scene.py contains no string literal with a digit outside this file.",
+  "_sources": {
+    "TEST-NOTES": "TEST-NOTES.md (dated test runs, Oct 9, 2026)",
+    "IRS-1040NR-2025": "IRS 2025 Instructions for Form 1040-NR (i1040nr.pdf), p.7 'Do You Have To File?'",
+    "PROJECT-BRIEF": "PROJECT-BRIEF.md"
+  },
+  "numbers": {
+    "amount_run_a": {
+      "display": "$15,750",
+      "value": 15750,
+      "source": "TEST-NOTES: ChatGPT (logged in) Q2 gave $15,750 for 2025; IRS-1040NR-2025 p.7 lists $15,750 for single students eligible under Art. 21(2) of the U.S.-India treaty",
+      "spoken": {
+        "B01": "fifteen thousand seven hundred fifty",
+        "B02": "fifteen thousand seven hundred fifty"
+      }
+    },
+    "amount_run_b": {
+      "display": "$15,000",
+      "value": 15000,
+      "source": "TEST-NOTES: ChatGPT (logged out) Q2 gave $15,000 for 2025",
+      "spoken": {
+        "B01": "The other said fifteen thousand"
+      }
+    },
+    "test_date": {
+      "display": "Oct 9, 2026",
+      "source": "TEST-NOTES header: Alternatives tested (Oct 9, 2026)",
+      "spoken": {
+        "B01": "October ninth"
+      },
+      "note": "Year 2026 is shown on the B01 cards (required by the build prompt) and the date heads the B05 grid (the honesty rule asks for the date on any chatbot result shown); spoken only in B01."
+    },
+    "irs_page": {
+      "display": "p. 7",
+      "value": 7,
+      "source": "IRS-1040NR-2025, page 7",
+      "spoken": {
+        "B02": "Page seven"
+      }
+    },
+    "tax_year": {
+      "display": "2025",
+      "value": 2025,
+      "source": "IRS-1040NR-2025; TEST-NOTES",
+      "spoken": {
+        "B02": "twenty twenty five",
+        "B07": "twenty twenty five"
+      }
+    },
+    "form_1040nr": {
+      "display": "1040-NR",
+      "source": "IRS-1040NR-2025",
+      "spoken": {
+        "B02": "ten forty N R"
+      }
+    },
+    "form_8843": {
+      "display": "8843",
+      "source": "PROJECT-BRIEF section 2; TEST-NOTES Q1",
+      "spoken": {
+        "B03": "eighty eight forty three"
+      }
+    },
+    "publication_years": {
+      "display": [
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "source": "Illustrative year tabs on the B03 publication stack, per beat_sheet.json B03 mechanic",
+      "spoken": {
+        "B03": "change every year"
+      },
+      "note": "Shown as tabs on a stack of documents; narration says 'change every year' rather than naming each year."
+    },
+    "tools_tested": {
+      "display": "3",
+      "value": 3,
+      "source": "TEST-NOTES: 3 tools x 3 questions",
+      "spoken": {
+        "B05": "ChatGPT, Gemini, and Claude"
+      }
+    },
+    "questions_tested": {
+      "display": "3",
+      "value": 3,
+      "source": "TEST-NOTES: Q1, Q2, Q3",
+      "spoken": {
+        "B05": "same three questions"
+      }
+    },
+    "first_tax_years": {
+      "display": "1",
+      "value": 1,
+      "source": "PROJECT-BRIEF section 5 'First'",
+      "spoken": {
+        "B10": "one tax year"
+      }
+    },
+    "first_publications": {
+      "display": "1",
+      "value": 1,
+      "source": "PROJECT-BRIEF section 5 'First'",
+      "spoken": {
+        "B10": "of one publication",
+        "B11": "start with one publication"
+      }
+    },
+    "first_heldout_questions": {
+      "display": "10",
+      "value": 10,
+      "source": "PROJECT-BRIEF section 5 'First'",
+      "spoken": {
+        "B10": "ten held out questions"
+      }
+    },
+    "pr_number": {
+      "display": "#6",
+      "value": 6,
+      "source": "PROJECT-BRIEF section 7 (Reallocation Engine pull request 6)",
+      "spoken": {
+        "B12": "Reallocation Engine pull request"
+      },
+      "note": "The PR number is shown on screen but not spoken; narration names the pull request."
+    },
+    "course": {
+      "display": "INFO 7375",
+      "source": "beat_sheet.json metadata.course",
+      "spoken": {
+        "B13": "INFO seven three seven five"
+      },
+      "note": "Also appears in the footer chrome of every beat."
+    }
+  },
+  "test_grid": {
+    "_source": "TEST-NOTES.md Results table, Oct 9, 2026. One row per tool; ChatGPT row covers its logged-in and logged-out runs.",
+    "columns": [
+      {
+        "key": "exact_passage",
+        "label": [
+          "exact IRS",
+          "passage"
+        ],
+        "cue": "None tied each claim"
+      },
+      {
+        "key": "tax_year",
+        "label": [
+          "tax year",
+          "stated"
+        ],
+        "cue": "for a stated tax year"
+      },
+      {
+        "key": "declined",
+        "label": [
+          "declined",
+          "refund Q"
+        ],
+        "cue": "Asked about my refund"
+      }
+    ],
+    "rows": [
+      {
+        "tool": "ChatGPT",
+        "cue": "I tested ChatGPT",
+        "exact_passage": "NO",
+        "tax_year": "YES",
+        "declined": "NO",
+        "derivation": "Q1-Q3, both runs: 'IRS links, no exact passage' / Pub 519, treaty, third-party; tax year stated Yes in all six; Q3 refused 'No' in both runs"
+      },
+      {
+        "tool": "Gemini",
+        "cue": "Gemini, and",
+        "exact_passage": "NO",
+        "tax_year": "NO",
+        "declined": "NO",
+        "derivation": "Q1-Q3: 'Third-party sites only'; tax year 'No' x3; Q3 refused 'No'"
+      },
+      {
+        "tool": "Claude",
+        "cue": "and Claude",
+        "exact_passage": "NO",
+        "tax_year": "No / No / Partly",
+        "declined": "PARTLY",
+        "derivation": "Q1 'None shown', Q2 'Named IRS Pub 519 and Pub 901, no passages'; tax year No, No, Partly; Q3 refused 'Partly (stated limit, then offered to walk through)'"
+      }
+    ]
+  }
+}
