@@ -1,0 +1,98 @@
+Manim Community v0.18.1
+
+[09/27/26 14:34:40] INFO     Caching disabled.             cairo_renderer.py:78
+
+Animation 0: FadeIn(Text("How many r's?")), etc.:   0%|          | 0/29 [00:00<?, ?it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:   3%|3         | 1/29 [00:00<00:08,  3.30it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  14%|#3        | 4/29 [00:00<00:02, 11.01it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  28%|##7       | 8/29 [00:00<00:01, 18.81it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  38%|###7      | 11/29 [00:00<00:00, 20.88it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  52%|#####1    | 15/29 [00:00<00:00, 25.03it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  66%|######5   | 19/29 [00:00<00:00, 28.14it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  79%|#######9  | 23/29 [00:01<00:00, 30.01it/s]
+Animation 0: FadeIn(Text("How many r's?")), etc.:  93%|#########3| 27/29 [00:01<00:00, 29.77it/s]
+
+[09/27/26 14:34:41] INFO     Animation 0 : Partial     scene_file_writer.py:527
+                             movie file written in
+[wrapped local filesystem path redacted]
+[wrapped local path redacted]
+                             w
+[wrapped local path redacted]
+                    INFO     Caching disabled.             cairo_renderer.py:78
+
+Animation 1: FadeIn(Text('3')):   0%|          | 0/15 [00:00<?, ?it/s]
+Animation 1: FadeIn(Text('3')):  40%|####      | 6/15 [00:00<00:00, 50.64it/s]
+Animation 1: FadeIn(Text('3')):  80%|########  | 12/15 [00:00<00:00, 49.80it/s]
+
+(process:32636): GLib-GIO-WARNING **: 14:34:42.428: Unexpectedly, UWP app `5957Turnipsoft.freda_5.4.5.0_x64__ypmq2qh89vmny' (AUMId `5957Turnipsoft.freda_ypmq2qh89vmny!App') supports 4 extensions but has no verbs
+[09/27/26 14:34:42] INFO     Animation 1 : Partial     scene_file_writer.py:527
+                             movie file written in
+[wrapped local filesystem path redacted]
+[wrapped local path redacted]
+                             w
+[wrapped local path redacted]
+
+(process:32636): GLib-GIO-WARNING **: 14:34:42.479: Failed to open application manifest `C:\Windows\SystemApps\SxS\MicrosoftWindows.57242383.Tasbar_cw5n1h2txyewy\AppxManifest.xml' for package #124 (`MicrosoftWindows.57242383.Tasbar_1000.26100.8737.0_x64__cw5n1h2txyewy'): error code 0x2
+┌───────────────────── Traceback (most recent call last) ─────────────────────┐
+[wrapped local filesystem path redacted]
+[wrapped local filesystem path redacted]
+│ mmands.py:120 in render                                                     │
+│                                                                             │
+│   117 │   │   │   try:                                                      │
+│   118 │   │   │   │   with tempconfig({}):                                  │
+│   119 │   │   │   │   │   scene = SceneClass()                              │
+│ > 120 │   │   │   │   │   scene.render()                                    │
+│   121 │   │   │   except Exception:                                         │
+│   122 │   │   │   │   error_console.print_exception()                       │
+│   123 │   │   │   │   sys.exit(1)                                           │
+│                                                                             │
+[wrapped local filesystem path redacted]
+[wrapped local filesystem path redacted]
+│ y:229 in render                                                             │
+│                                                                             │
+│    226 │   │   """                                                          │
+│    227 │   │   self.setup()                                                 │
+│    228 │   │   try:                                                         │
+│ >  229 │   │   │   self.construct()                                         │
+│    230 │   │   except EndSceneEarlyException:                               │
+│    231 │   │   │   pass                                                     │
+│    232 │   │   except RerunSceneException as e:                             │
+│                                                                             │
+[wrapped local filesystem path redacted]
+[wrapped local filesystem path redacted]
+│                                                                             │
+│    62 │   │   rule=Line([-6.2,2.17,0],[6.2,2.17,0],color=LIGHT,stroke_width │
+│    63 │   │   footer=txt('TOKENS, NOT WORDS   /   LOCAL EVIDENCE + CONSTRUC │
+│    64 │   │   self.add(eyebrow,folio,title,rule,footer)                     │
+│ >  65 │   │   getattr(self,b['kind'])()                                     │
+│    66 │   │   end=b['actual_duration_s']                                    │
+│    67 │   │   if self.time>end+.05:raise RuntimeError(f'Animation exceeds a │
+│    68 │   │   if end>self.time:self.wait(end-self.time)                     │
+│                                                                             │
+[wrapped local filesystem path redacted]
+[wrapped local filesystem path redacted]
+│                                                                             │
+│    76 │   │   self.play(FadeIn(question),LaggedStart(*[FadeIn(c,shift=UP*.1 │
+│    77 │   │   answer=txt('3',90,PINK).move_to([0,-1,0])                     │
+│    78 │   │   self.play(FadeIn(answer,scale=.6),run_time=.6)                │
+│ >  79 │   │   self.cue(1)                                                   │
+│    80 │   │   self.play(FadeOut(answer),FadeOut(question),word.animate.shif │
+│    81 │   │   count=txt('9 character positions',28,MUTED).move_to([0,-.55,0 │
+│    82 │   │   chunks=VGroup(*[RoundedRectangle(width=2.2,height=.42,corner_ │
+│                                                                             │
+[wrapped local filesystem path redacted]
+[wrapped local filesystem path redacted]
+│                                                                             │
+│    69 │                                                                     │
+│    70 │   def cue(self,i):                                                  │
+│    71 │   │   target=self.beat['cues'][i]['start_s']                        │
+│ >  72 │   │   if target>self.time:self.wait(target-self.time)               │
+│    73 │                                                                     │
+│    74 │   def hook(self):                                                   │
+│    75 │   │   word=letters(y=.75);question=txt('How many r\'s?',35).move_to │
+└─────────────────────────────────────────────────────────────────────────────┘
+AttributeError: 'TokenFilm' object has no attribute 'time'
+
+(process:32636): GLib-GIO-WARNING **: 14:34:42.913: Unexpectedly, UWP app `Microsoft.OutlookForWindows_1.2026.908.200_x64__8wekyb3d8bbwe' (AUMId `Microsoft.OutlookForWindows_8wekyb3d8bbwe!Microsoft.OutlookforWindows') supports 5 extensions but has no verbs
+
+(process:32636): GLib-GIO-WARNING **: 14:34:42.965: Unexpectedly, UWP app `Clipchamp.Clipchamp_4.6.10420.0_x64__yxz26nhyzhsrt' (AUMId `Clipchamp.Clipchamp_yxz26nhyzhsrt!App') supports 41 extensions but has no verbs

@@ -1,0 +1,72 @@
+Command: PYTHONUTF8=1 python scripts/validate_course.py
+Exit code: 1
+
+Week 01: demo and 6 tests checked
+Week 02: demo and 6 tests checked
+Week 03: demo and 6 tests checked
+Week 04: demo and 6 tests checked
+Week 05: demo and 6 tests checked
+Week 06: demo and 6 tests checked
+Week 07: demo and 6 tests checked
+Week 08: demo and 6 tests checked
+Week 09: demo and 6 tests checked
+Week 10: demo and 6 tests checked
+Week 11: demo and 6 tests checked
+Week 12: demo and 6 tests checked
+Week 13: demo and 6 tests checked
+Week 14: demo and 6 tests checked
+Week 15: demo and 6 tests checked
+test_full_fixture_lifecycle (test_integration.McpTests.test_full_fixture_lifecycle) ... ok
+test_budget_stops_repeated_actions (test_integration.ToolLoopTests.test_budget_stops_repeated_actions) ... ok
+test_duplicate_ids_rejected (test_integration.ToolLoopTests.test_duplicate_ids_rejected) ... ok
+test_multiple_results_and_history (test_integration.ToolLoopTests.test_multiple_results_and_history) ... ok
+test_overflow_rejected (test_integration.ToolLoopTests.test_overflow_rejected) ... ok
+test_budget (test_integration.TransportTests.test_budget) ... ok
+test_http_error_is_sanitized (test_integration.TransportTests.test_http_error_is_sanitized) ... ok
+test_malformed_response (test_integration.TransportTests.test_malformed_response) ... ok
+test_missing_key (test_integration.TransportTests.test_missing_key) ... ok
+test_mock_transport_headers_and_timeout (test_integration.TransportTests.test_mock_transport_headers_and_timeout) ... ok
+test_offline_denied_before_key_access (test_integration.TransportTests.test_offline_denied_before_key_access) ... ok
+test_request_shape (test_integration.TransportTests.test_request_shape) ... ok
+test_requires_claude (test_integration.TransportTests.test_requires_claude) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.007s
+
+OK
+
+Broken local link in fall-2026\nik-bear-brown\SYNC.md: ../../../info-7375-computational-skepticism-for-ai/fall-2026/nik-bear-brown/SYNC.md
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\apertureKit.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempBoundary.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempClose.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempDivide.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempHook.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempRatio.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempScores.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempSoftmax.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\scenes\TempTriptych.tsx
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\tokens\aperture.ts
+Non-Python implementation: fall-2026\deepak-s\week-01-video\src\tokens\geistFont.ts
+Broken local link in fall-2026\pavithra-p\week-01-video\README.md: thousands-of-years-divided.mp4
+lessons/15-supervised-capstone: test_01 (test_main.LessonTests.test_01) ... ok
+test_02 (test_main.LessonTests.test_02) ... ok
+test_03 (test_main.LessonTests.test_03) ... ok
+test_04 (test_main.LessonTests.test_04) ... ok
+test_05 (test_main.LessonTests.test_05) ... ERROR
+test_06 (test_main.LessonTests.test_06) ... ok
+
+======================================================================
+ERROR: test_05 (test_main.LessonTests.test_05)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKSPACE\course-repo\lessons\15-supervised-capstone\code\tests\test_main.py", line 29, in test_05
+    Path(d, "brief.md").symlink_to("/etc/hosts"); self.assertIn("brief: outside packet", m.validate_packet(d)["issues"])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\pathlib.py", line 1386, in symlink_to
+    os.symlink(target, self, target_is_directory)
+OSError: [WinError 1314] A required privilege is not held by the client: '/etc/hosts' -> '$USER_HOME\\AppData\\Local\\Temp\\tmp4wmgjy9d\\brief.md'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.025s
+
+FAILED (errors=1)

@@ -1,0 +1,131 @@
+1
+00:00:00,000 --> 00:00:05,411
+How many r's are in strawberry? Three. Why can a language model stumble on that? Start with the ruler it uses.
+
+2
+00:00:05,411 --> 00:00:11,319
+Models process tokens, not a separate position for every letter. Counting becomes less direct, not impossible.
+
+3
+00:00:11,319 --> 00:00:14,640
+Let's inspect two real tokenizers and check the count.
+
+4
+00:00:14,917 --> 00:00:20,878
+A tokenizer converts text into integer IDs. A token can cover a word, part of a word, or other text.
+
+5
+00:00:20,878 --> 00:00:26,158
+We ran tik token locally with both encodings shown here: lowercase inputs, no leading spaces.
+
+6
+00:00:26,158 --> 00:00:30,197
+These are OpenAI encodings, not measurements of Claude's tokenizer.
+
+7
+00:00:30,458 --> 00:00:35,983
+First, strawberry in c l one hundred k base: str, aw, berry. These are the exact measured IDs.
+
+8
+00:00:35,983 --> 00:00:39,621
+Count r inside each chunk: one, zero, two. Add them: three.
+
+9
+00:00:39,621 --> 00:00:44,669
+Three tokens matching three r's is a coincidence. Token count is not a letter-counting rule.
+
+10
+00:00:44,917 --> 00:00:50,609
+Switch encodings. Strawberry now splits into st, raw, berry. Different boundaries and IDs; same spelling.
+
+11
+00:00:50,609 --> 00:00:56,238
+The r counts become zero, one, two. Still three. The first r moved into another chunk, not out of the text.
+
+12
+00:00:56,238 --> 00:00:58,831
+Token boundaries depend on the encoding.
+
+13
+00:00:59,083 --> 00:01:05,283
+Banana is one token in both encodings. Different IDs, but still three a's. One token does not mean one letter.
+
+14
+00:01:05,283 --> 00:01:10,428
+Occurrence splits into occ and urrence. Both r's are in the second chunk. These IDs are also measured.
+
+15
+00:01:10,428 --> 00:01:13,936
+Counting chunks and counting characters are different operations.
+
+16
+00:01:14,208 --> 00:01:21,441
+Embedding lookup selects a learned vector for each token ID. These colored vectors are constructed illustrations, not real model weights.
+
+17
+00:01:21,441 --> 00:01:28,074
+Ten character positions become three token positions for strawberry. Internal letters have no separate input token position.
+
+18
+00:01:28,074 --> 00:01:32,989
+But vectors can carry spelling-related information. Lookup does not prove spelling was erased.
+
+19
+00:01:33,250 --> 00:01:38,321
+Tokenization is reversible. Decode these IDs and every letter of strawberry comes back.
+
+20
+00:01:38,321 --> 00:01:45,376
+All six word-and-encoding pairs passed our Python round-trip checks. Counts across decoded fragments also matched the original strings.
+
+21
+00:01:45,376 --> 00:01:48,360
+Less direct access does not mean lost characters.
+
+22
+00:01:48,625 --> 00:01:53,084
+Predicting an answer is not automatically the same as running a character-counting loop.
+
+23
+00:01:53,084 --> 00:02:00,503
+We tested tokenizers, not model responses. This experiment gives no model failure rate and cannot diagnose a particular wrong answer.
+
+24
+00:02:00,503 --> 00:02:03,265
+Keep the conclusion as narrow as the evidence.
+
+25
+00:02:03,542 --> 00:02:09,307
+Run Python's count operation. Strawberry has three r's; banana has three a's; occurrence has two r's.
+
+26
+00:02:09,307 --> 00:02:15,590
+These results were executed locally. This code view reconstructs recorded output; it is not a live screen capture.
+
+27
+00:02:15,590 --> 00:02:19,782
+Run the operation. Inspect the result. Fluency alone verifies nothing.
+
+28
+00:02:20,042 --> 00:02:27,573
+Tokens do not make models unable to count. A model may answer correctly, use a scratchpad, use character-level representations, or call tools.
+
+29
+00:02:27,573 --> 00:02:32,867
+Scratchpads still do not guarantee correctness. Two encodings do not establish how every model works.
+
+30
+00:02:32,867 --> 00:02:38,181
+Our claim: token positions differ from character positions. Not a universal failure diagnosis.
+
+31
+00:02:38,458 --> 00:02:43,096
+Try another word: encode it, inspect the IDs, decode it, then count the target letter.
+
+32
+00:02:43,096 --> 00:02:47,072
+A token is a processing unit, not a spelling unit. Use the right ruler.
+
+33
+00:02:47,072 --> 00:02:49,746
+Strawberry: three r's. Verified locally.

@@ -1,0 +1,474 @@
+{
+  "schema_version": "2",
+  "metadata": {
+    "title": "Tokens, Not Words",
+    "student_name": "Jayaraman Gopalakrishnan Shyam Sundar",
+    "course": "INFO 7375",
+    "persona": "Dunkin (speaking style; no affiliation)",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "aspect_ratio": "16:9",
+    "resolution": "1920x1080",
+    "fps": 24,
+    "human_review": "pending",
+    "target_duration_s": [
+      170,
+      170
+    ],
+    "workflow": "Brutalist audio-first; direct toolkit audio helpers, custom Manim scenes, FFmpeg assembly",
+    "runtime_s": 170
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "title": "Wrong-sized ruler",
+      "kind": "hook",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "How many r's are in strawberry? Three. Why can a language model stumble on that? Start with the ruler it uses. Models process tokens, not a separate position for every letter. Counting becomes less direct, not impossible. Let's inspect two real tokenizers and check the count.",
+      "segments": [
+        "How many r's are in strawberry? Three. Why can a language model stumble on that? Start with the ruler it uses.",
+        "Models process tokens, not a separate position for every letter. Counting becomes less direct, not impossible.",
+        "Let's inspect two real tokenizers and check the count."
+      ],
+      "visual_description": "Reveal strawberry; highlight its three r characters; contrast ten character slots with three token slots.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B00.wav",
+      "actual_duration_s": 14.916666666666666,
+      "global_start_s": 0,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.411068,
+          "narration": "How many r's are in strawberry? Three. Why can a language model stumble on that? Start with the ruler it uses."
+        },
+        {
+          "index": 1,
+          "start_s": 5.411068,
+          "duration_s": 5.907805,
+          "narration": "Models process tokens, not a separate position for every letter. Counting becomes less direct, not impossible."
+        },
+        {
+          "index": 2,
+          "start_s": 11.318883,
+          "duration_s": 3.320639,
+          "narration": "Let's inspect two real tokenizers and check the count."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0307262569832403
+    },
+    {
+      "beat_id": "B01",
+      "title": "Text in. Token IDs out.",
+      "kind": "pipeline",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "A tokenizer converts text into integer IDs. A token can cover a word, part of a word, or other text. We ran tik token locally with both encodings shown here: lowercase inputs, no leading spaces. These are OpenAI encodings, not measurements of Claude's tokenizer.",
+      "segments": [
+        "A tokenizer converts text into integer IDs. A token can cover a word, part of a word, or other text.",
+        "We ran tik token locally with both encodings shown here: lowercase inputs, no leading spaces.",
+        "These are OpenAI encodings, not measurements of Claude's tokenizer."
+      ],
+      "visual_description": "Animate raw text through tokenizer box into real IDs; name both encodings and exact input conditions.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B01.wav",
+      "actual_duration_s": 15.541666666666666,
+      "global_start_s": 14.916666666666666,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.961538,
+          "narration": "A tokenizer converts text into integer IDs. A token can cover a word, part of a word, or other text."
+        },
+        {
+          "index": 1,
+          "start_s": 5.961538,
+          "duration_s": 5.279481,
+          "narration": "We ran tik token locally with both encodings shown here: lowercase inputs, no leading spaces."
+        },
+        {
+          "index": 2,
+          "start_s": 11.241028,
+          "duration_s": 4.039377,
+          "narration": "These are OpenAI encodings, not measurements of Claude's tokenizer."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.032171581769437
+    },
+    {
+      "beat_id": "B02",
+      "title": "One word. Three tokens.",
+      "kind": "cl100k",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "First, strawberry in c l one hundred k base: str, aw, berry. These are the exact measured IDs. Count r inside each chunk: one, zero, two. Add them: three. Three tokens matching three r's is a coincidence. Token count is not a letter-counting rule.",
+      "segments": [
+        "First, strawberry in c l one hundred k base: str, aw, berry. These are the exact measured IDs.",
+        "Count r inside each chunk: one, zero, two. Add them: three.",
+        "Three tokens matching three r's is a coincidence. Token count is not a letter-counting rule."
+      ],
+      "visual_description": "Reveal measured fragments and IDs in cl100k_base; reveal per-fragment counts 1, 0, 2; sum to 3.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B02.wav",
+      "actual_duration_s": 14.458333333333334,
+      "global_start_s": 30.458333333333332,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.524784,
+          "narration": "First, strawberry in c l one hundred k base: str, aw, berry. These are the exact measured IDs."
+        },
+        {
+          "index": 1,
+          "start_s": 5.524784,
+          "duration_s": 3.637833,
+          "narration": "Count r inside each chunk: one, zero, two. Add them: three."
+        },
+        {
+          "index": 2,
+          "start_s": 9.162618,
+          "duration_s": 5.047859,
+          "narration": "Three tokens matching three r's is a coincidence. Token count is not a letter-counting rule."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0288184438040346
+    },
+    {
+      "beat_id": "B03",
+      "title": "Same spelling. Different split.",
+      "kind": "o200k",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Switch encodings. Strawberry now splits into st, raw, berry. Different boundaries and IDs; same spelling. The r counts become zero, one, two. Still three. The first r moved into another chunk, not out of the text. Token boundaries depend on the encoding.",
+      "segments": [
+        "Switch encodings. Strawberry now splits into st, raw, berry. Different boundaries and IDs; same spelling.",
+        "The r counts become zero, one, two. Still three. The first r moved into another chunk, not out of the text.",
+        "Token boundaries depend on the encoding."
+      ],
+      "visual_description": "Compare measured cl100k_base and o200k_base chunks; show 0 + 1 + 2 = 3.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B03.wav",
+      "actual_duration_s": 14.166666666666666,
+      "global_start_s": 44.916666666666664,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.691852,
+          "narration": "Switch encodings. Strawberry now splits into st, raw, berry. Different boundaries and IDs; same spelling."
+        },
+        {
+          "index": 1,
+          "start_s": 5.691852,
+          "duration_s": 5.629858,
+          "narration": "The r counts become zero, one, two. Still three. The first r moved into another chunk, not out of the text."
+        },
+        {
+          "index": 2,
+          "start_s": 11.321709,
+          "duration_s": 2.592137,
+          "narration": "Token boundaries depend on the encoding."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0323529411764707
+    },
+    {
+      "beat_id": "B04",
+      "title": "One token can hide a whole word",
+      "kind": "other_words",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Banana is one token in both encodings. Different IDs, but still three a's. One token does not mean one letter. Occurrence splits into occ and urrence. Both r's are in the second chunk. These IDs are also measured. Counting chunks and counting characters are different operations.",
+      "segments": [
+        "Banana is one token in both encodings. Different IDs, but still three a's. One token does not mean one letter.",
+        "Occurrence splits into occ and urrence. Both r's are in the second chunk. These IDs are also measured.",
+        "Counting chunks and counting characters are different operations."
+      ],
+      "visual_description": "Animate banana one-token cards for both encodings; occurrence two-token cards; highlight three a and two r characters.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B04.wav",
+      "actual_duration_s": 15.125,
+      "global_start_s": 59.08333333333333,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 6.200118,
+          "narration": "Banana is one token in both encodings. Different IDs, but still three a's. One token does not mean one letter."
+        },
+        {
+          "index": 1,
+          "start_s": 6.200118,
+          "duration_s": 5.144118,
+          "narration": "Occurrence splits into occ and urrence. Both r's are in the second chunk. These IDs are also measured."
+        },
+        {
+          "index": 2,
+          "start_s": 11.344235,
+          "duration_s": 3.508356,
+          "narration": "Counting chunks and counting characters are different operations."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0303030303030303
+    },
+    {
+      "beat_id": "B05",
+      "title": "Lookup at token resolution",
+      "kind": "embedding",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Embedding lookup selects a learned vector for each token ID. These colored vectors are constructed illustrations, not real model weights. Ten character positions become three token positions for strawberry. Internal letters have no separate input token position. But vectors can carry spelling-related information. Lookup does not prove spelling was erased.",
+      "segments": [
+        "Embedding lookup selects a learned vector for each token ID. These colored vectors are constructed illustrations, not real model weights.",
+        "Ten character positions become three token positions for strawberry. Internal letters have no separate input token position.",
+        "But vectors can carry spelling-related information. Lookup does not prove spelling was erased."
+      ],
+      "visual_description": "Replace visible character indices with token indices; animate ID-to-vector lookup; keep constructed-illustration label visible.",
+      "source": "Constructed teaching graphic; see SOURCES.md",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B05.wav",
+      "actual_duration_s": 19.041666666666668,
+      "global_start_s": 74.20833333333333,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 7.233087,
+          "narration": "Embedding lookup selects a learned vector for each token ID. These colored vectors are constructed illustrations, not real model weights."
+        },
+        {
+          "index": 1,
+          "start_s": 7.233087,
+          "duration_s": 6.632807,
+          "narration": "Ten character positions become three token positions for strawberry. Internal letters have no separate input token position."
+        },
+        {
+          "index": 2,
+          "start_s": 13.865894,
+          "duration_s": 4.914768,
+          "narration": "But vectors can carry spelling-related information. Lookup does not prove spelling was erased."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0306345733041575
+    },
+    {
+      "beat_id": "B06",
+      "title": "The letters are still there",
+      "kind": "lossless",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Tokenization is reversible. Decode these IDs and every letter of strawberry comes back. All six word-and-encoding pairs passed our Python round-trip checks. Counts across decoded fragments also matched the original strings. Less direct access does not mean lost characters.",
+      "segments": [
+        "Tokenization is reversible. Decode these IDs and every letter of strawberry comes back.",
+        "All six word-and-encoding pairs passed our Python round-trip checks. Counts across decoded fragments also matched the original strings.",
+        "Less direct access does not mean lost characters."
+      ],
+      "visual_description": "Animate token cards joining back into strawberry; show actual round-trip and count assertions from measurement script.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B06.wav",
+      "actual_duration_s": 15.375,
+      "global_start_s": 93.25,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.071087,
+          "narration": "Tokenization is reversible. Decode these IDs and every letter of strawberry comes back."
+        },
+        {
+          "index": 1,
+          "start_s": 5.071087,
+          "duration_s": 7.054583,
+          "narration": "All six word-and-encoding pairs passed our Python round-trip checks. Counts across decoded fragments also matched the original strings."
+        },
+        {
+          "index": 2,
+          "start_s": 12.125669,
+          "duration_s": 2.98428,
+          "narration": "Less direct access does not mean lost characters."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.032520325203252
+    },
+    {
+      "beat_id": "B07",
+      "title": "Prediction is not a counting loop",
+      "kind": "prediction",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Predicting an answer is not automatically the same as running a character-counting loop. We tested tokenizers, not model responses. This experiment gives no model failure rate and cannot diagnose a particular wrong answer. Keep the conclusion as narrow as the evidence.",
+      "segments": [
+        "Predicting an answer is not automatically the same as running a character-counting loop.",
+        "We tested tokenizers, not model responses. This experiment gives no model failure rate and cannot diagnose a particular wrong answer.",
+        "Keep the conclusion as narrow as the evidence."
+      ],
+      "visual_description": "Contrast constructed model-answer pathway with deterministic counting pathway; no fabricated response text; label no model benchmark.",
+      "source": "Constructed teaching graphic; see SOURCES.md",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B07.wav",
+      "actual_duration_s": 14.916666666666666,
+      "global_start_s": 108.625,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 4.458992,
+          "narration": "Predicting an answer is not automatically the same as running a character-counting loop."
+        },
+        {
+          "index": 1,
+          "start_s": 4.458992,
+          "duration_s": 7.41872,
+          "narration": "We tested tokenizers, not model responses. This experiment gives no model failure rate and cannot diagnose a particular wrong answer."
+        },
+        {
+          "index": 2,
+          "start_s": 11.877712,
+          "duration_s": 2.76181,
+          "narration": "Keep the conclusion as narrow as the evidence."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0307262569832403
+    },
+    {
+      "beat_id": "B08",
+      "title": "Use the right tool",
+      "kind": "code",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Run Python's count operation. Strawberry has three r's; banana has three a's; occurrence has two r's. These results were executed locally. This code view reconstructs recorded output; it is not a live screen capture. Run the operation. Inspect the result. Fluency alone verifies nothing.",
+      "segments": [
+        "Run Python's count operation. Strawberry has three r's; banana has three a's; occurrence has two r's.",
+        "These results were executed locally. This code view reconstructs recorded output; it is not a live screen capture.",
+        "Run the operation. Inspect the result. Fluency alone verifies nothing."
+      ],
+      "visual_description": "Reveal executable Python count expressions and measured outputs 3, 3, 2; replay character highlights.",
+      "source": "evidence/tokenization.json",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B08.wav",
+      "actual_duration_s": 16.5,
+      "global_start_s": 123.54166666666667,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 5.765294,
+          "narration": "Run Python's count operation. Strawberry has three r's; banana has three a's; occurrence has two r's."
+        },
+        {
+          "index": 1,
+          "start_s": 5.765294,
+          "duration_s": 6.282938,
+          "narration": "These results were executed locally. This code view reconstructs recorded output; it is not a live screen capture."
+        },
+        {
+          "index": 2,
+          "start_s": 12.048232,
+          "duration_s": 4.19165,
+          "narration": "Run the operation. Inspect the result. Fluency alone verifies nothing."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0303030303030303
+    },
+    {
+      "beat_id": "B09",
+      "title": "What this does not prove",
+      "kind": "boundary",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Tokens do not make models unable to count. A model may answer correctly, use a scratchpad, use character-level representations, or call tools. Scratchpads still do not guarantee correctness. Two encodings do not establish how every model works. Our claim: token positions differ from character positions. Not a universal failure diagnosis.",
+      "segments": [
+        "Tokens do not make models unable to count. A model may answer correctly, use a scratchpad, use character-level representations, or call tools.",
+        "Scratchpads still do not guarantee correctness. Two encodings do not establish how every model works.",
+        "Our claim: token positions differ from character positions. Not a universal failure diagnosis."
+      ],
+      "visual_description": "Reveal CAN count, tools and representations; distinguish possible aids from guarantees; state scope.",
+      "source": "Constructed teaching graphic; see SOURCES.md",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B09.wav",
+      "actual_duration_s": 18.416666666666668,
+      "global_start_s": 140.04166666666669,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 7.531806,
+          "narration": "Tokens do not make models unable to count. A model may answer correctly, use a scratchpad, use character-level representations, or call tools."
+        },
+        {
+          "index": 1,
+          "start_s": 7.531806,
+          "duration_s": 5.293635,
+          "narration": "Scratchpads still do not guarantee correctness. Two encodings do not establish how every model works."
+        },
+        {
+          "index": 2,
+          "start_s": 12.825451,
+          "duration_s": 5.314365,
+          "narration": "Our claim: token positions differ from character positions. Not a universal failure diagnosis."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.0294117647058822
+    },
+    {
+      "beat_id": "B10",
+      "title": "Count characters. Not chunks.",
+      "kind": "closing",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "narration_text": "Try another word: encode it, inspect the IDs, decode it, then count the target letter. A token is a processing unit, not a spelling unit. Use the right ruler. Strawberry: three r's. Verified locally.",
+      "segments": [
+        "Try another word: encode it, inspect the IDs, decode it, then count the target letter.",
+        "A token is a processing unit, not a spelling unit. Use the right ruler.",
+        "Strawberry: three r's. Verified locally."
+      ],
+      "visual_description": "Return to ten character slots; highlight positions 2, 7, 8; show final answer and reproducible exercise.",
+      "source": "Constructed teaching graphic; see SOURCES.md",
+      "timing_status": "Measured speech; pitch-preserving tempo conformed to exact frame budget",
+      "audio_file": "assets/audio/B10.wav",
+      "actual_duration_s": 11.541666666666666,
+      "global_start_s": 158.45833333333334,
+      "cues": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "duration_s": 4.637329,
+          "narration": "Try another word: encode it, inspect the IDs, decode it, then count the target letter."
+        },
+        {
+          "index": 1,
+          "start_s": 4.637329,
+          "duration_s": 3.976141,
+          "narration": "A token is a processing unit, not a spelling unit. Use the right ruler."
+        },
+        {
+          "index": 2,
+          "start_s": 8.61347,
+          "duration_s": 2.674435,
+          "narration": "Strawberry: three r's. Verified locally."
+        }
+      ],
+      "tts_speed": 1.25,
+      "tempo_adjustment": 1.032490974729242
+    }
+  ]
+}
