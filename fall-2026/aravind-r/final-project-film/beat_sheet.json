@@ -1,0 +1,632 @@
+{
+  "metadata": {
+    "slug": "aravind-r-readback-pitch",
+    "title": "Readback",
+    "topic": "FINAL PROJECT PITCH",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "aravind-r",
+    "channel_title": "Aravind Ravi · INFO 7375",
+    "persona": "Aravind Ravi (synthetic voice)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Assignment pitch film: first person as the student, no instructor persona; the hesitant-writer hook replaces the composer cold open; no verdict card and no Claude.ai composer Your Turn, so no Claude interface is shown. The outro stays (never exempt).",
+    "audience": "an AI product manager hiring manager",
+    "source_doc": "PROJECT-BRIEF.md (final, 2026-10-14)",
+    "tags": [
+      "Readback",
+      "LLM-as-a-judge",
+      "eval rubric",
+      "AI product management",
+      "INFO 7375"
+    ],
+    "build": {
+      "at": "2026-10-14T16:52:01",
+      "cut": "master",
+      "filled": 10,
+      "of": 10,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    },
+    "visual_version": "v2 (see ../gates/v2-visual-plan.md)"
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "hook",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Aravind Ravi, and this pitch is read by a synthetic voice. When you own an AI feature, a judge model scores it against your rubric. So the question isn't only whether my feature passes. It's whether the judge reads my rubric the way I meant it.",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "lead_silence_s": 0.8,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "BIDEA_Hook"
+        },
+        "visual_intent": "The rubric page draws clause by clause; a recap card slides in; three judge tokens stamp pass, pass, fail; C4 marks red; the line 'Does the judge misread my rubric?' types in.",
+        "show": [
+          {
+            "at": 0.02,
+            "event": "rubric C1–C5 draw"
+          },
+          {
+            "at": 0.32,
+            "event": "recap card"
+          },
+          {
+            "at": 0.4,
+            "event": "3 judges"
+          },
+          {
+            "at": 0.45,
+            "event": "pass, pass, fail"
+          },
+          {
+            "at": 0.56,
+            "event": "C4 red"
+          },
+          {
+            "at": 0.73,
+            "event": "typed question"
+          }
+        ]
+      },
+      "motion_claim": "The rubric page draws clause by clause; a recap card slides in; three judge tokens stamp pass, pass, fail; C4 marks red; the line 'Does the judge misread my rubric?' types in.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer hook: the correction is the motion."
+      },
+      "question_ids": [],
+      "claim_status": "constructed",
+      "evidence": null,
+      "on_screen_label": "CONSTRUCTED — no judges have run yet",
+      "hold_after_s": 1.0,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "actual_duration_s": 15.08,
+      "render_duration_s": 15.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BIDEA.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It's called Readback. It will show a product manager which clause of their eval rubric an AI judge reads differently than they meant. When it's done, it will be a Python repository with a command-line tool, a case study on public meeting data, and a log of judge agreement before and after a revision.",
+      "estimated_duration_s": 21.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A rubric page with five clause lines stands on the stage; a judge figure reads it; one clause line lifts out and gets a terracotta tape marker; a small repository box with a terminal prompt drops in beside it.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "rubric page"
+          },
+          {
+            "at": 0.35,
+            "event": "judge reads"
+          },
+          {
+            "at": 0.55,
+            "event": "one clause lifts, tape marker"
+          },
+          {
+            "at": 0.8,
+            "event": "repo box + terminal"
+          }
+        ],
+        "manim": {
+          "class": "B01_WhatItIs"
+        },
+        "motion_claim": "A rubric page with five clause lines stands on the stage; a judge figure reads it; one clause line lifts out and gets a terracotta tape marker; a small repository box with a terminal prompt drops in beside it."
+      },
+      "question_ids": [
+        "Q1"
+      ],
+      "claim_status": "will",
+      "evidence": [
+        "PROJECT-BRIEF.md (2026-10-14)"
+      ],
+      "on_screen_label": "CONSTRUCTED · grey = planned",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 17.21,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 17.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why care? If the judge misreads a clause, the scores look fine and the ship decision is wrong. I looked at two tools. Maxim AI measures how well several judges agree with humans. Ork dot AI compares an evaluator with human labels, then rewrites its prompt. As far as I could find in their docs on October fourteenth, neither says which clause caused the disagreement. Readback will, and it will ask the P M about that clause instead of rewriting it.",
+      "estimated_duration_s": 32.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two plain grey boxes labelled 'Maxim AI' and 'orq.ai' (text only, no logos) each output a single score dial; a third box, 'Readback', outputs the rubric page with one clause taped and a question mark card beside it.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "score looks fine"
+          },
+          {
+            "at": 0.35,
+            "event": "Maxim AI box, dial"
+          },
+          {
+            "at": 0.55,
+            "event": "orq.ai box, rewritten page"
+          },
+          {
+            "at": 0.8,
+            "event": "Readback: taped clause + question card"
+          }
+        ],
+        "manim": {
+          "class": "B02_Difference"
+        },
+        "motion_claim": "Two plain grey boxes labelled 'Maxim AI' and 'orq.ai' (text only, no logos) each output a single score dial; a third box, 'Readback', outputs the rubric page with one clause taped and a question mark card beside it."
+      },
+      "question_ids": [
+        "Q2"
+      ],
+      "claim_status": "will",
+      "evidence": [
+        "FRICTIONAL.md, alternative checks dated 2026-10-14",
+        "PROJECT-BRIEF.md (2026-10-14)"
+      ],
+      "on_screen_label": "per their public docs, as of 14 Oct 2026 · names only (no logos)",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 23.46,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 23.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The reader is a hiring manager for AI product roles. In the first minute, they'll open the README and see one table: per-clause agreement with my labels, the clause that disagreed most, the question Readback will ask, my revision, and held-out agreement before and after. The end user is a P M with their own rubric.",
+      "estimated_duration_s": 22.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A README page opens; a five-row table draws itself with EMPTY value cells (no numbers); one row lifts with a question card; a sixty-second dial sweeps beside it.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "README opens"
+          },
+          {
+            "at": 0.4,
+            "event": "table draws, cells empty"
+          },
+          {
+            "at": 0.65,
+            "event": "one row lifts, question card"
+          },
+          {
+            "at": 0.85,
+            "event": "60 s dial completes"
+          }
+        ],
+        "manim": {
+          "class": "B03_FirstMinute"
+        },
+        "motion_claim": "A README page opens; a five-row table draws itself with EMPTY value cells (no numbers); one row lifts with a question card; a sixty-second dial sweeps beside it."
+      },
+      "question_ids": [
+        "Q3"
+      ],
+      "claim_status": "will",
+      "evidence": [
+        "PROJECT-BRIEF.md (2026-10-14)"
+      ],
+      "on_screen_label": "CONSTRUCTED mock-up — values will be measured",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 17.79,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 17.791666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What does it prove? That I treat a rubric as a prompt contract, and verify instead of trust: my labels will be committed before any judge runs, so the git history proves the order. That I'll evaluate per clause on held-out data, and ground claims in transcript lines. A reviewer could conclude I understand why judges need a human anchor. Not that it works for every feature. I'll test one.",
+      "estimated_duration_s": 28.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A git timeline: a 'labels' commit dot lands first, then a 'judges' commit dot after it; an anchor drops from the labels dot; a single feature box sits under a '1 feature' label.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "labels commit"
+          },
+          {
+            "at": 0.4,
+            "event": "judges commit after"
+          },
+          {
+            "at": 0.65,
+            "event": "anchor drops"
+          },
+          {
+            "at": 0.85,
+            "event": "one feature only"
+          }
+        ],
+        "manim": {
+          "class": "B04_Proves"
+        },
+        "motion_claim": "A git timeline: a 'labels' commit dot lands first, then a 'judges' commit dot after it; an anchor drops from the labels dot; a single feature box sits under a '1 feature' label."
+      },
+      "question_ids": [
+        "Q4"
+      ],
+      "claim_status": "will",
+      "evidence": [
+        "PROJECT-BRIEF.md (2026-10-14)"
+      ],
+      "on_screen_label": "CONSTRUCTED · grey = planned · real pair: AMI ES2007a [00:17:52] + recap (Claude Opus 5.5, 14 Oct 2026)",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 20.54,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 20.541666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "In: the rubric module, and a case study on ten public AMI meetings, where teams role-play product design. Out: Readback will never rewrite a rubric itself. It asks, and the P M decides. First: one rubric, three judges, and my labels, producing an agreement table. You'll know it ran because its commit comes after my labels' commit.",
+      "estimated_duration_s": 22.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Ten transcript pages fan out on the stage (real sample); a pencil with a 'no' strike stays away from the rubric page; three judge figures line up in front of one rubric; an empty table appears after a labels commit dot.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "ten AMI pages"
+          },
+          {
+            "at": 0.45,
+            "event": "no-rewrite pencil"
+          },
+          {
+            "at": 0.7,
+            "event": "three judges, one rubric"
+          },
+          {
+            "at": 0.88,
+            "event": "table after labels commit"
+          }
+        ],
+        "manim": {
+          "class": "B05_InOutFirst"
+        },
+        "motion_claim": "Ten transcript pages fan out on the stage (real sample); a pencil with a 'no' strike stays away from the rubric page; three judge figures line up in front of one rubric; an empty table appears after a labels commit dot."
+      },
+      "question_ids": [
+        "Q5"
+      ],
+      "claim_status": "exists",
+      "evidence": [
+        "case-study/data/sample/ (AMI Meeting Corpus, CC BY 4.0, downloaded 2026-10-14)",
+        "case-study/constructed/rubric-v0.md (CONSTRUCTED, 2026-10-14)"
+      ],
+      "on_screen_label": "AMI sample · CC BY 4.0 · downloaded 14 Oct 2026 · rubric CONSTRUCTED · first run planned",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 19.35,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 19.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What could sink it? Overfitting: revising the rubric until the judges agree on the examples I tuned it on. So I'll freeze a held-out set first, and report only held-out numbers. And because judges can share blind spots, I'll compare same-model and cross-model judges, and report it either way.",
+      "estimated_duration_s": 19.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A stack of example cards splits in two; the smaller stack goes into a box that locks with a padlock labelled 'held-out'; two judge figures with identical blinkers sit side by side, then a third different one joins.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "cards split"
+          },
+          {
+            "at": 0.45,
+            "event": "held-out box locks"
+          },
+          {
+            "at": 0.75,
+            "event": "same-model pair, then a cross-model judge"
+          }
+        ],
+        "manim": {
+          "class": "B06_Risk"
+        },
+        "motion_claim": "A stack of example cards splits in two; the smaller stack goes into a box that locks with a padlock labelled 'held-out'; two judge figures with identical blinkers sit side by side, then a third different one joins."
+      },
+      "question_ids": [
+        "Q6"
+      ],
+      "claim_status": "will",
+      "evidence": [
+        "PROJECT-BRIEF.md (2026-10-14)"
+      ],
+      "on_screen_label": "CONSTRUCTED — planned method",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 17.3,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 17.333333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why this project? It's a mix. New to me: eval design, judge and human agreement, and multi-model judging. Already mine: writing product requirements, as a P M at L G Energy Solution Vertech, Tech for Dev and Koine Arth, though those documents are internal. From this course: my week one film verified every on-screen number, and I held my week two recipe at draft while to-do items were open. I think e-vals are becoming core to AI PM work, and I don't have an eval project yet.",
+      "estimated_duration_s": 34.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two shelves: 'new' holds three empty jars; 'mine' holds a sealed folder (internal, closed) and two open folders tagged 'PR #8 · open' and 'PR #23 · open, not merged'.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "new shelf"
+          },
+          {
+            "at": 0.45,
+            "event": "sealed internal folder"
+          },
+          {
+            "at": 0.7,
+            "event": "PR #8 tag"
+          },
+          {
+            "at": 0.85,
+            "event": "PR #23 tag"
+          }
+        ],
+        "manim": {
+          "class": "B07_WhyMe"
+        },
+        "motion_claim": "Two shelves: 'new' holds three empty jars; 'mine' holds a sealed folder (internal, closed) and two open folders tagged 'PR #8 · open' and 'PR #23 · open, not merged'."
+      },
+      "question_ids": [
+        "Q7"
+      ],
+      "claim_status": "exists",
+      "evidence": [
+        "Week 1: github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai/pull/8 (open)",
+        "Week 2: github.com/nikbearbrown/the-reallocation-engine/pull/23 (open, not merged, DRAFT)"
+      ],
+      "on_screen_label": "PR status as of 14 Oct 2026 · roles internal, not shown",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.0,
+      "actual_duration_s": 29.22,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 29.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What exists today, October fourteenth: ten AMI meetings, a constructed five-clause rubric, and the recap feature, my prompt, run once on each meeting with Claude Opus five point five. Ten real outputs. What will exist: my labels, the judges, and the agreement table. Those numbers don't exist yet. They will be measured.",
+      "estimated_duration_s": 20.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Left shelf 'exists': ten pages, the rubric page, and ten recap cards (one shows a real excerpt from a recap). Right shelf 'will': empty outlines of a label sheet, three judges and a table, drawn in ghost grey.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "exists shelf fills"
+          },
+          {
+            "at": 0.45,
+            "event": "real recap excerpt card"
+          },
+          {
+            "at": 0.75,
+            "event": "will shelf: ghost outlines"
+          }
+        ],
+        "manim": {
+          "class": "B08_ExistsWill"
+        },
+        "motion_claim": "Left shelf 'exists': ten pages, the rubric page, and ten recap cards (one shows a real excerpt from a recap). Right shelf 'will': empty outlines of a label sheet, three judges and a table, drawn in ghost grey."
+      },
+      "question_ids": [
+        "Q5"
+      ],
+      "claim_status": "exists",
+      "evidence": [
+        "case-study/data/sample/ (AMI Meeting Corpus, CC BY 4.0, downloaded 2026-10-14)",
+        "case-study/constructed/rubric-v0.md (CONSTRUCTED, 2026-10-14)",
+        "case-study/outputs/feature-run/ (Claude Opus 5.5, claude-opus-5-5, 2026-10-14)"
+      ],
+      "on_screen_label": "real output · Claude Opus 5.5 · 14 Oct 2026 · grey = will",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "hold_after_s": 1.5,
+      "actual_duration_s": 18.55,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 18.583333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T16:52:01"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Readback. A pitch by Aravind Ravi.",
+      "estimated_duration_s": 4.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; my handle"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Readback",
+            "slug": "aravind-r-readback-pitch",
+            "handle": "Aravind Ravi · INFO 7375",
+            "subline": "",
+            "hideMascot": true
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-10-14T20:50:47.591116+00:00"
+          }
+        }
+      },
+      "question_ids": [],
+      "claim_status": "exists",
+      "evidence": null,
+      "on_screen_label": "Aravind Ravi · INFO 7375",
+      "hold_after_s": 1.0,
+      "actual_duration_s": 3.73,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 3.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-10-14T16:52:01"
+      }
+    }
+  ]
+}

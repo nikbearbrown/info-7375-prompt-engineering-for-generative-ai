@@ -1,0 +1,608 @@
+[00:00:31] D (ME): Okay.
+[00:00:33] A (PM): 'Kay so we'll try to zip through this, since we're short on time.
+[00:00:36] A (PM): Welcome everybody.
+[00:00:37] A (PM): Um hope your sessions went well.
+[00:00:41] A (PM): Um so this is our functional design meeting,
+[00:00:45] A (PM): we're going to consider um user needs, technical effects, and the working design of our remote control.
+[00:00:56] A (PM): Um I've been taking meetings on the minute minutes on the meetings,
+[00:01:01] A (PM): and I'll be putting them in the shared documents folder
+[00:01:03] A (PM): so if there's anything you need to refer to you can find them in there.
+[00:01:07] A (PM): Um I I'll get the ones up for next time,
+[00:01:10] A (PM): um they're not finished yet.
+[00:01:12] A (PM): Right.
+[00:01:13] A (PM): Um so can we have updates from everyone from what you've worked
+[00:01:17] A (PM): on
+[00:01:23] D (ME): And I can start if you want. Mm.
+[00:01:24] A (PM): sure.
+[00:01:26] D (ME): Is there an order?
+[00:01:26] D (ME): No.
+[00:01:28] D (ME): We haven't decided on an order.
+[00:01:28] A (PM): Hm?
+[00:01:30] A (PM): No, any any order's fine. Yeah.
+[00:01:30] D (ME): First.
+[00:01:31] D (ME): Okay.
+[00:01:32] D (ME): Um
+[00:01:35] B (ID): Just
+[00:01:35] D (ME): I'll just put the cable in.
+[00:01:38] A (PM): Oh yeah,
+[00:01:38] A (PM): sorry.
+[00:01:47] D (ME): Is that it?
+[00:01:48] D (ME): Can you see?
+[00:01:53] D (ME): So what happens it doesn't work?
+[00:01:55] A (PM): It sh it takes a few seconds I think.
+[00:02:04] B (ID): You
+[00:02:13] D (ME): No.
+[00:02:15] D (ME): Is it in the right thing?
+[00:02:15] B (ID): But
+[00:02:16] B (ID): it's like a three set setting cycle, so press it a couple times, hold down function and then press F_ eight.
+[00:02:22] D (ME): Oh wait, um.
+[00:02:26] D (ME): Uh
+[00:02:28] A (PM): Uh-huh, and then press function.
+[00:02:32] D (ME): Yeah.
+[00:02:32] A (PM): and F_ eight.
+[00:02:37] C (UI): Could you just plug it back into hers
+[00:02:38] C (UI): because
+[00:02:38] D (ME): Oh, wait.
+[00:02:39] D (ME): That's
+[00:02:39] C (UI): oh.
+[00:02:39] D (ME): is that it?
+[00:02:40] B (ID): Adjusting.
+[00:02:42] A (PM): Here we are.
+[00:02:45] B (ID): The cable might be a little loose or something.
+[00:02:47] D (ME): Right here we are.
+[00:02:47] B (ID): Oh, you got it.
+[00:02:49] A (PM): Oh. Is it on?
+[00:02:49] D (ME): We're here.
+[00:02:50] A (PM): Okay.
+[00:02:50] D (ME): Okay, um.
+[00:02:52] D (ME): In order to see what the functional requirements were to be found, um
+[00:02:59] D (ME): a hundred people were tested in a usability laboratory
+[00:03:03] D (ME): through just their habits to n know
+[00:03:06] D (ME): their habits were observed and questionnaires were given out.
+[00:03:10] D (ME): Um, the findings in in some cases matched what we were talking about.
+[00:03:17] D (ME): Custome Customers and users don't like the way remote controls look,
+[00:03:22] D (ME): they don't like the way they feel,
+[00:03:24] D (ME): they don't think they match their operating behaviour,
+[00:03:28] D (ME): and an example is what we were talking about, the buttons, they only use ten per cent of the buttons,
+[00:03:32] D (ME): so later on there's a study of the buttons that they use most
+[00:03:36] D (ME): and I think we should design according to these buttons.
+[00:03:40] D (ME): Easy to lose, and R_S_I_.
+[00:03:41] D (ME): I don't know what R_S_I_ means.
+[00:03:43] D (ME): Um the person that did the questionnaire obviously did, I don't have a clue.
+[00:03:47] A (PM): Hm.
+[00:03:48] D (ME): Um, according to the frequency of use and the relevance of each buttons, I have made a list of the buttons that we should focus on in order of importance.
+[00:04:01] D (ME): So the most important buttons are those to do with channel selection.
+[00:04:04] D (ME): They're used about a hundred and sixty times per hour.
+[00:04:09] D (ME): And um
+[00:04:11] D (ME): yeah so and and people like to zap a lot apparently,
+[00:04:14] D (ME): so this is the order.
+[00:04:16] D (ME): Channel selection, teletext, volume, and power.
+[00:04:20] D (ME): The other ones are the settings, and they're used less than you know zero point eight to zero point five times per hour,
+[00:04:27] D (ME): and this means that I think we can we could have like a a button for all the settings,
+[00:04:32] D (ME): and then, just one,
+[00:04:33] D (ME): and then from there go on to the audio on the screen, either on the remote or on the television.
+[00:04:38] D (ME): Um,
+[00:04:40] D (ME): about the screen, and speech recognition, some people are more willing than others to actually pay for that.
+[00:04:46] D (ME): And if we look at the market, f people from well from fifteen to thirty five year old year olds,
+[00:04:53] D (ME): I don't really know how to describe this,
+[00:04:55] D (ME): um ninety one to seventy six percent of people in that age range are willing to pay more for this sort of product,
+[00:05:04] D (ME): while people that are above thirty five years ol um years old go from thirty five percent to eight percent,
+[00:05:11] D (ME): so people that are sixty five for example wouldn't actually pay for this sort of thing.
+[00:05:17] D (ME): Um I don't I don't know um what the decision to be made is,
+[00:05:22] D (ME): but I think that the people that actually do buy remotes m more are those like teenagers and young professionals and um, most likely,
+[00:05:31] D (ME): but we should discuss this together.
+[00:05:37] A (PM): 'Kay.
+[00:05:41] D (ME): Shall
+[00:05:42] D (ME): what do I do?
+[00:05:43] D (ME): Do I give this to someone else?
+[00:05:44] A (PM): Yeah. Just move right on.
+[00:05:50] C (UI): Right.
+[00:05:52] C (UI): So get this.
+[00:06:17] C (UI): Okay so now I need to press F_ eight, what is it?
+[00:06:22] D (ME): Function F_ eight.
+[00:06:29] C (UI): 'Kay.
+[00:06:30] C (UI): What's function?
+[00:06:31] A (PM): It's the little blue w it's the one th
+[00:06:33] C (UI): Oh function, I see it.
+[00:06:33] A (PM): yeah.
+[00:06:37] C (UI): There we go.
+[00:06:38] A (PM): Yeah
+[00:06:45] A (PM): It should be yeah.
+[00:06:50] C (UI): Okay. Um.
+[00:06:54] C (UI): This my presentation about the uh technical functions design
+[00:06:58] C (UI): and I basically just tried to focus on um just what what functions we need and how to make that the best function for the user.
+[00:07:10] C (UI): So uh and I just sort of like thought about it myself and looked on the internet.
+[00:07:15] C (UI): And okay so basically um I think i uh like it is really important that we sort of get this done in a user friendly and fashionable way.
+[00:07:25] C (UI): Um so I think things like uh
+[00:07:29] C (UI): you know keeping buttons together that like close together that um are used in the same way,
+[00:07:36] C (UI): uh
+[00:07:38] C (UI): or um maybe that making 'em the same colour,
+[00:07:42] C (UI): keeping the number of buttons the uh leas you know to a minimum,
+[00:07:47] C (UI): and also things like is it is it um is it uh can you c y small enough large enough
+[00:07:55] C (UI): I'm not sure we c
+[00:07:56] C (UI): I guess we would need to do some research about, I would, about what size is appropriate and that sort of thing,
+[00:08:04] C (UI): um but basically we need to make sure that it turns on and off the T_V_.
+[00:08:07] C (UI): Does it have like capacity to change the channels?
+[00:08:10] C (UI): Um
+[00:08:12] C (UI): or do we need to have like functions for cable or V_C_R_?
+[00:08:17] C (UI): And then, is it findable,
+[00:08:19] C (UI): and uh how do we wanna do that?
+[00:08:23] C (UI): And
+[00:08:29] C (UI): um
+[00:08:34] C (UI): And I think we can find something that's more fun to look at and use than either of those.
+[00:08:45] C (UI): uh but I mean I think we sh can sort of think about things like um like colour and you know size, shapes, that sort of thing, to best fit the user.
+[00:09:05] C (UI): Okay. You need the little thingy.
+[00:09:24] C (UI): Ooh.
+[00:09:53] B (ID): How
+[00:09:59] D (ME): S
+[00:10:09] D (ME): That's on view.
+[00:10:11] D (ME): Oh.
+[00:10:11] B (ID): Right.
+[00:10:14] B (ID): Okay so this is on the working design, which is sort of the uh mechanical functions of the remote,
+[00:10:21] B (ID): um and the method I used was to basically look at existing designs and incorporate ideas from our last meeting.
+[00:10:28] B (ID): Um so I think we need two basic functions which is just the basic remote functions,
+[00:10:33] B (ID): the user can input a channel or volume setting and it will be output to the T_V_.
+[00:10:38] B (ID): And also we talked about um a location function where maybe you could press a button on the T_V_ and it would send sort of signal to the remote where it would beep or flash or vibrate or whatever to tell you where the remote is.
+[00:10:52] B (ID): So the components we need are an energy source to power the remote,
+[00:10:55] B (ID): um input which would probably be buttons,
+[00:10:58] B (ID): although um we just talked about voice recognition,
+[00:11:01] B (ID): processor to take the information,
+[00:11:04] B (ID): um something to transmit it to the T_V_,
+[00:11:06] B (ID): and we also need something on the remote that would receive the location signal and have an output, like possibly a beep or a vibration.
+[00:11:15] B (ID): And also you need a sender for location signal,
+[00:11:18] B (ID): which would probably be a separate um thing that we'd have to sell with the remote and people could stick it on their T_V_ or stick it on their wall.
+[00:11:26] B (ID): And this is just sort of an overview of how the remote works.
+[00:11:30] B (ID): Power comes from the battery, goes to the chip,
+[00:11:33] B (ID): um and then it is sent from there to an infrared bulb
+[00:11:37] B (ID): which is probably the easiest way to send to the T_V_.
+[00:11:40] B (ID): And then for the location function, you would have a sender on the T_V_ which would output some sort of signal,
+[00:11:47] B (ID): um we could use I_R_ but we'd probably wanna use radio instead.
+[00:11:51] B (ID): That signal would go to a receiver which it would process it,
+[00:11:54] B (ID): and it would be output in the form of a buzzer or a light lighting up.
+[00:12:01] B (ID): Um so my personal preferences for how to build the remote would probably be uh, battery for the energy source,
+[00:12:07] B (ID): that way you wouldn't have to plug it in,
+[00:12:09] B (ID): um a button pad for input,
+[00:12:12] B (ID): um we can purchase a pre-made chip which will handle all the processing stuff,
+[00:12:16] B (ID): I_R_ transmitter to communicate to the T_V_,
+[00:12:18] B (ID): that's just sort of standard, um so most T_V_s have an I_R_ receiver.
+[00:12:23] B (ID): Probably a radio receiver to send out location function and to receive it
+[00:12:27] B (ID): and I'd probably say a buzzer for the location function on the remote itself.
+[00:12:32] B (ID): So that concludes my presentation.
+[00:12:36] A (PM): 'Kay.
+[00:12:36] C (UI): Do
+[00:12:38] C (UI): I
+[00:12:38] B (ID): Mm?
+[00:12:40] B (ID): Yeah, uh I d I was an engineer before I came here.
+[00:12:41] C (UI): Okay
+[00:12:48] A (PM): Okay.
+[00:12:49] A (PM): Well thank you everybody.
+[00:12:50] A (PM): Um
+[00:12:53] A (PM): we'll discuss that
+[00:12:54] A (PM): and then I just wanna mention some new project requirements that came in.
+[00:12:59] A (PM): Um, teletext is apparently outdated, so due to internet popularity, so that's off the list. Um,
+[00:13:12] A (PM): also our remote should be used only for television, um,
+[00:13:16] A (PM): no extra internet kinda fancy things, just the remote and the television.
+[00:13:23] A (PM): Um and also we need to incorporate our corporate image onto this,
+[00:13:29] A (PM): so um the phrase is, we put fashion in electronics,
+[00:13:37] A (PM): so let's be fashionable I guess.
+[00:13:40] A (PM): Um
+[00:13:43] A (PM): I mean silver and and gold or yellow are our colours,
+[00:13:46] A (PM): so if we had a like a kind of silver one like you saw, and yellow writing, something like that.
+[00:13:54] A (PM): Okay. Um.
+[00:13:57] A (PM): So we need to make some decisions on the remote control functions.
+[00:14:03] A (PM): Um
+[00:14:10] A (PM): I guess we should yeah make some
+[00:14:13] A (PM): kind of brainstorming,
+[00:14:15] C (UI): Like in terms of
+[00:14:15] A (PM): see
+[00:14:16] D (ME): How
+[00:14:17] C (UI): how it looks, or like what it does?
+[00:14:19] A (PM): wha
+[00:14:22] A (PM): well probably our target group and how it's gonna going to appeal to our target group
+[00:14:28] C (UI): Okay.
+[00:14:28] A (PM): and I dunno the the s
+[00:14:30] A (PM): the buttons and what it does and that sort of thing. So.
+[00:14:32] C (UI): Yeah. Okay.
+[00:14:37] C (UI): So
+[00:14:40] C (UI): Is
+[00:14:43] C (UI): so do we wanna go ahead and design this thing with the finder button?
+[00:14:48] C (UI): So
+[00:14:48] B (ID): It's easy to implement.
+[00:14:50] C (UI): Okay.
+[00:14:51] C (UI): So
+[00:14:52] C (UI): yeah, yeah, yeah.
+[00:14:53] D (ME): yeah, for sure, yeah.
+[00:14:53] B (ID): Locator.
+[00:14:54] C (UI): So then our target age group would be the nineteen to thirty five range,
+[00:14:58] A (PM): Yeah, teenagers and young professionals.
+[00:14:58] C (UI): what was it?
+[00:15:00] D (ME): Well that's for speech recognition.
+[00:15:02] C (UI): Oh.
+[00:15:02] B (ID): Well
+[00:15:02] A (PM): Oh, uh.
+[00:15:03] D (ME): And screen.
+[00:15:04] D (ME): That's only for speech recognition and screen.
+[00:15:04] B (ID): I was thinking about that
+[00:15:06] B (ID): but uh I mean speech recognition is really hard to programme,
+[00:15:09] B (ID): and also, if the T_V_ is on it's making sound and the people on the T_V_ are talking, and if somebody says like one, then the T_V_'s gonna switch itself to channel one,
+[00:15:10] A (PM): Yeah.
+[00:15:16] D (ME): Yeah yeah yeah.
+[00:15:17] B (ID): or
+[00:15:17] C (UI): Yeah.
+[00:15:17] A (PM): Mm.
+[00:15:17] B (ID): it seems like a silly,
+[00:15:17] D (ME): I
+[00:15:18] C (UI): Yeah.
+[00:15:18] B (ID): I'm not sure how you would implement it.
+[00:15:20] D (ME): I just put the values in.
+[00:15:22] A (PM): And
+[00:15:22] D (ME): But
+[00:15:24] B (ID): It's
+[00:15:25] A (PM): if you consider our budget, to h have speech recognition programmed in every single remote might be a little pricey.
+[00:15:27] C (UI): Yeah.
+[00:15:32] D (ME): Yeah, I'm happy with that.
+[00:15:33] A (PM): Yeah.
+[00:15:34] C (UI): Hu yeah.
+[00:15:35] A (PM): Right so um yeah.
+[00:15:39] C (UI): Okay so are we gonna have just some kind of a like we'll have the buzzer on the som like on the T_V_ itself.
+[00:15:44] B (ID): Well you would have to have a button on a T_V_ or on your wall or some place since the T_V_ already has power.
+[00:15:46] D (ME): Yeah.
+[00:15:47] A (PM): Yeah.
+[00:15:49] C (UI): Yeah.
+[00:15:50] B (ID): Yeah you click the button, it's gonna send out a signal,
+[00:15:53] B (ID): and I was thinking, I_R_ is line of sight, so unless the remote is like actually in front of the T_V_ it's not gonna work,
+[00:15:59] B (ID): um so probably like a radio signal like on a on a cell phone.
+[00:16:01] C (UI): Okay.
+[00:16:02] C (UI): Okay.
+[00:16:02] D (ME): Yeah.
+[00:16:03] D (ME): Okay.
+[00:16:03] C (UI): Alright.
+[00:16:03] A (PM): Okay.
+[00:16:03] B (ID): Sends out a signal and then the the remote hears the signal and so it beeps probably.
+[00:16:09] A (PM): So
+[00:16:12] B (ID): It would have to be sold separately because if the sender's on the remote then you'd have to find the remote first to click the button to find the remote.
+[00:16:13] A (PM): right.
+[00:16:17] A (PM): Yeah, yeah.
+[00:16:19] D (ME): So do you plug it in the T_ you plug it in T_V_, this thing?
+[00:16:22] B (ID): Yeah, it'd probably just stick it on your T_V_
+[00:16:24] B (ID): so if you need to find the remote, click the button.
+[00:16:24] D (ME): Okay.
+[00:16:25] D (ME): Okay.
+[00:16:26] C (UI): So it's now like a two-part thing.
+[00:16:28] B (ID): Yeah, so it would be a two part package.
+[00:16:28] C (UI): Okay. Alright.
+[00:16:29] D (ME): Okay.
+[00:16:31] C (UI): So we get to design that too.
+[00:16:35] C (UI): Um, okay.
+[00:16:38] A (PM): So do you think even though we're not talking about speek speech recognition our target group should still be teenagers and young professionals.
+[00:16:44] B (ID): Yeah I think so.
+[00:16:45] D (ME): Yeah. Just there.
+[00:16:45] A (PM): Huh.
+[00:16:47] A (PM): Okay.
+[00:16:47] D (ME): Mm. Are we um should that thing be on the thing to put the you s
+[00:16:54] D (ME): you talking about a home for it.
+[00:16:56] D (ME): Do you still want to build a little thing next to the telly or to p hang on the wall
+[00:16:56] A (PM): Yeah.
+[00:17:00] D (ME): or shall we leave that for now?
+[00:17:02] A (PM): We probably leave that.
+[00:17:03] A (PM): I mean I guess one takes care of the other,
+[00:17:05] D (ME): Okay.
+[00:17:05] A (PM): like
+[00:17:06] C (UI): Yeah.
+[00:17:10] C (UI): Then it can live anywhere.
+[00:17:11] A (PM): Yeah.
+[00:17:12] D (ME): Okay.
+[00:17:12] C (UI): Yeah.
+[00:17:13] D (ME): For
+[00:17:15] D (ME): so you have that button,
+[00:17:16] D (ME): that
+[00:17:18] D (ME): is there a light or shall we leave just have a radio?
+[00:17:21] B (ID): Um on the T_V_ or on the phone?
+[00:17:21] D (ME): Are we just having a radio?
+[00:17:23] D (ME): On the phone.
+[00:17:24] B (ID): Um it seemed like a a beep seemed the most reasonable to me,
+[00:17:25] C (UI): T
+[00:17:26] D (ME): You don't need a light.
+[00:17:27] D (ME): Yeah yeah yeah.
+[00:17:28] B (ID): I think that's what the phone has,
+[00:17:28] A (PM): Yeah.
+[00:17:29] D (ME): Yeah yeah.
+[00:17:30] A (PM): Yeah.
+[00:17:30] B (ID): I mean when you need to find your phone, you just have someone call it and it starts ringing somewhere and then you can figure out that it's in the couch or wherever.
+[00:17:34] A (PM): And like if the if the phone's under the couch, you might not see the light, so
+[00:17:37] D (ME): You can hear it's under the couch yeah.
+[00:17:39] C (UI): So i Yeah.
+[00:17:39] D (ME): Um
+[00:17:47] D (ME): So need the other buttons.
+[00:17:49] D (ME): So we have this mm.
+[00:17:51] A (PM): So I mean the two remotes that you had shown r
+[00:17:54] A (PM): I don't remember who showed them,
+[00:17:55] D (ME): Mm-hmm
+[00:17:55] C (UI): That was that was me.
+[00:17:56] A (PM): yeah you you did um,
+[00:17:58] A (PM): they're
+[00:17:59] A (PM): I mean one looked like it was for V_C_R_ type thing, and the other looked like just television.
+[00:18:04] C (UI): I think w I think they're both sort of just like general remo they're both general remotes.
+[00:18:07] A (PM): Oh really.
+[00:18:09] C (UI): And uh
+[00:18:09] A (PM): 'Cause that that is something we have to decide, is whether we want to have V_C_R_ capabilities.
+[00:18:15] C (UI): Yeah.
+[00:18:15] B (ID): Does anyone know if V_C_R_s are the same across international?
+[00:18:19] A (PM): They're not no.
+[00:18:20] D (ME): They're not, no.
+[00:18:21] B (ID): Okay, so you'd need like a whole different set of buttons for everybody's V_C_R_s.
+[00:18:21] C (UI): S
+[00:18:22] A (PM): Yeah, that's right, yeah.
+[00:18:24] A (PM): But D_V_D_ probably is.
+[00:18:27] B (ID): Yeah, other than that region and coding thing.
+[00:18:29] C (UI): Um
+[00:18:30] D (ME): But
+[00:18:30] A (PM): And and if we're if we're targeting young professionals and teenagers, I mean it's gonna be D_V_D_ type, that's the the technology these days.
+[00:18:36] D (ME): Yeah. Yeah, for sure.
+[00:18:37] C (UI): Yeah.
+[00:18:37] B (ID): Mm-hmm.
+[00:18:38] C (UI): So. Okay,
+[00:18:40] C (UI): let's
+[00:18:42] C (UI): I think still though, it shouldn't be that hard to take like just reduce the number of buttons you know,
+[00:18:47] A (PM): Yeah.
+[00:18:47] C (UI): like 'cause if you just have like one menu button, that works like with a
+[00:18:53] C (UI): you know, or you can just kind of scroll through the options u that come up on the T_V_.
+[00:18:56] A (PM): Yeah.
+[00:18:57] D (ME): Well
+[00:19:00] D (ME): I think we can just design the channels?
+[00:19:05] D (ME): I mean power's just a button, and it's not used that much,
+[00:19:06] A (PM): S
+[00:19:07] C (UI): Yeah.
+[00:19:07] B (ID): Mm-hmm.
+[00:19:08] A (PM): Huh.
+[00:19:09] D (ME): s and it's usually that red
+[00:19:10] C (UI): Yeah.
+[00:19:11] C (UI): Yeah.
+[00:19:11] D (ME): and I think it's quite nice to keep it like red.
+[00:19:14] C (UI): Yeah.
+[00:19:14] A (PM): You know, I've seen some remotes that where you just hold one,
+[00:19:19] A (PM): like if you hold one down it's it's a different colour than the other buttons but that turns it on.
+[00:19:24] A (PM): So
+[00:19:26] D (ME): Oh okay, yeah.
+[00:19:27] C (UI): It seems like that would be hard though.
+[00:19:28] A (PM): But
+[00:19:29] C (UI): I
+[00:19:31] A (PM): It might be confusing.
+[00:19:32] C (UI): yeah.
+[00:19:32] A (PM): Yeah.
+[00:19:33] C (UI): Just
+[00:19:34] C (UI): I
+[00:19:35] A (PM): Yeah.
+[00:19:37] A (PM): Besides you like to be able to go power.
+[00:19:38] B (ID): Yeah
+[00:19:38] D (ME): Yeah.
+[00:19:39] C (UI): Yeah.
+[00:19:39] C (UI): B Yeah.
+[00:19:42] A (PM): I guess.
+[00:19:42] A (PM): So we definitely want a power button and numbers.
+[00:19:45] C (UI): Yeah.
+[00:19:46] A (PM): Right.
+[00:19:46] D (ME): Well even um iPod thing,
+[00:19:49] D (ME): like um,
+[00:19:49] D (ME): I don't know if people like this
+[00:19:51] D (ME): but if you want to reduce the number, of buttons, instead of having like one to nine, have a sort of
+[00:20:02] C (UI): That sort of like joystick flat touch thing, yeah.
+[00:20:02] D (ME): scrolling
+[00:20:02] D (ME): I don't know.
+[00:20:03] A (PM): Mm
+[00:20:04] D (ME): Yeah.
+[00:20:05] D (ME): Because
+[00:20:06] D (ME): now
+[00:20:11] D (ME): Know
+[00:20:12] C (UI): Yeah, yeah.
+[00:20:13] C (UI): I think that's an interesting idea, 'cause it's cool,
+[00:20:14] A (PM): Mm.
+[00:20:15] C (UI): it's
+[00:20:18] C (UI): I don't have an iPod but like I, you know, I just like started messing around with one of my friend's the other day,
+[00:20:22] C (UI): and
+[00:20:24] C (UI): it's funny how you pick it up and you just figure out how to use it quite easily,
+[00:20:26] C (UI): like it's not that hard, you know.
+[00:20:27] A (PM): Yeah.
+[00:20:27] D (ME): Yeah yeah, it's just and it's one thing which has everything.
+[00:20:29] C (UI): Yeah, and it is yeah.
+[00:20:31] C (UI): It
+[00:20:32] C (UI): but do you need a screen then, do you have to have a screen then?
+[00:20:34] D (ME): Well
+[00:20:37] B (ID): Yeah, you can have the number going around in the corner.
+[00:20:39] D (ME): you
+[00:20:39] C (UI): Yeah. Okay.
+[00:20:40] C (UI): Yeah.
+[00:20:41] C (UI): Yeah.
+[00:20:42] C (UI): Okay so we have this like scrolling sort of button.
+[00:20:43] A (PM): Oh
+[00:20:45] A (PM): Is
+[00:20:46] C (UI): Like a disc.
+[00:20:48] C (UI): Yeah. Yeah. It's like it's just like the same technology as a mouse pad.
+[00:20:49] A (PM): okay.
+[00:20:50] A (PM): I've never used one. No.
+[00:20:50] D (ME): It's like l this like that, and then you do that.
+[00:20:53] A (PM): Okay.
+[00:20:55] A (PM): Okay.
+[00:20:55] C (UI): Yeah.
+[00:20:56] C (UI): Yeah and then.
+[00:20:56] D (ME): And
+[00:21:00] D (ME): if you actually just want to zap, you can have like a thing like that, and that, and then it can just be plus and minus.
+[00:21:11] C (UI): Okay.
+[00:21:12] C (UI): So
+[00:21:16] C (UI): Or
+[00:21:17] D (ME): Yeah,
+[00:21:17] C (UI): oh
+[00:21:17] D (ME): you
+[00:21:18] A (PM): Well i
+[00:21:20] D (ME): Yeah
+[00:21:20] C (UI): zap.
+[00:21:21] C (UI): Okay.
+[00:21:22] A (PM): We could we could even have four buttons,
+[00:21:24] A (PM): like, if that's the if that's the mouse, you could have the volume and the channel changers just like on that as well.
+[00:21:29] D (ME): Yeah.
+[00:21:30] C (UI): Yeah.
+[00:21:31] C (UI): So
+[00:21:34] C (UI): So
+[00:21:34] B (ID): Doesn't it rotate though,
+[00:21:35] C (UI): okay.
+[00:21:35] B (ID): so it'll be moving around.
+[00:21:36] C (UI): Well
+[00:21:41] D (ME): What do you mean the function?
+[00:21:42] C (UI): I
+[00:21:46] C (UI): I
+[00:21:47] C (UI): so when you g scroll your thumb like around it, it'll s like say you're go you're going clockwise.
+[00:21:53] C (UI): That that means you're gonna go up the channels,
+[00:21:55] C (UI): and then you scroll the other way and it'll go down.
+[00:21:55] D (ME): Yeah.
+[00:21:57] D (ME): Yeah.
+[00:21:57] B (ID): Mm-hmm.
+[00:21:57] C (UI): But
+[00:21:58] C (UI): so if you wanna switch to the to u do you have to switch to a function where
+[00:22:02] C (UI): like y so you're either in that mode or you're in the mode where like it just has like the four like you know this is channel that way, that's that way and volume is up and down.
+[00:22:11] D (ME): Yeah but it knows for some reason.
+[00:22:12] C (UI): It
+[00:22:13] D (ME): The iPod knows.
+[00:22:14] C (UI): It just kno the iPod knows. S
+[00:22:17] C (UI): Yeah.
+[00:22:18] A (PM): Huh.
+[00:22:18] C (UI): So you just you just can either do this or like you can just touch it if you want.
+[00:22:19] B (ID): I don't have one.
+[00:22:21] D (ME): Well for the volume you have to press the middle, and then go up.
+[00:22:24] C (UI): Okay. That's what I mean. Okay.
+[00:22:26] C (UI): Okay so you have to like press this middle region and then you can scroll up, go up and down.
+[00:22:28] B (ID): Oh.
+[00:22:31] D (ME): And then well if you do that it goes,
+[00:22:31] A (PM): So
+[00:22:32] D (ME): but if you like that makes more sense
+[00:22:35] D (ME): 'cause there's already ones with up and down here, that I've seen.
+[00:22:36] A (PM): You can o
+[00:22:39] A (PM): And you
+[00:22:40] A (PM): you
+[00:22:41] A (PM): is there an extra actual button?
+[00:22:42] A (PM): Or are you actually you're just using the mouse to go up and down.
+[00:22:46] D (ME): Well
+[00:22:46] A (PM): Like
+[00:22:46] D (ME): for
+[00:22:47] C (UI): It's like a b
+[00:22:48] D (ME): w right if you're on the channel let's say, then you press on the middle and then if you do that again the volume goes up, and if you do that it goes down.
+[00:22:50] A (PM): Mm-hmm.
+[00:22:52] A (PM): Mm-hmm.
+[00:22:54] A (PM): Right.
+[00:22:55] A (PM): Mm-hmm.
+[00:22:56] D (ME): But
+[00:23:02] A (PM): Well I mean if if you're gonna this for channels, right, then y wouldn't the volume need to be separate somehow?
+[00:23:05] D (ME): Yeah.
+[00:23:08] A (PM): Like
+[00:23:11] D (ME): I don't know,
+[00:23:11] D (ME): you could click and then have it up and down,
+[00:23:11] A (PM): Oh
+[00:23:13] C (UI): Like
+[00:23:13] A (PM): Oh
+[00:23:13] D (ME): but
+[00:23:15] C (UI): I think we can go on the fact that it does just work with the iPod.
+[00:23:17] D (ME): Yeah yeah yeah.
+[00:23:18] B (ID): Yeah.
+[00:23:18] A (PM): Yeah.
+[00:23:18] C (UI): But the only thing is like, iPods are so expensive,
+[00:23:20] C (UI): like
+[00:23:22] C (UI): is
+[00:23:23] A (PM): Is that what makes them expensi
+[00:23:23] C (UI): yeah,
+[00:23:24] A (PM): I
+[00:23:24] C (UI): I dunno, I dunno.
+[00:23:25] A (PM): they have so much memory though,
+[00:23:26] C (UI): You don't think so?
+[00:23:26] A (PM): that's
+[00:23:27] B (ID): I don't think it's the wheel dealy.
+[00:23:27] C (UI): Okay.
+[00:23:28] D (ME): I
+[00:23:29] A (PM): Yeah.
+[00:23:29] D (ME): Yeah.
+[00:23:29] A (PM): I think it's the uh h it's their capabili I mean they it can hold what like five thousand songs or something.
+[00:23:30] C (UI): Okay.
+[00:23:34] B (ID): Yeah.
+[00:23:34] C (UI): Yeah.
+[00:23:35] C (UI): I'm
+[00:23:36] C (UI): if if we're hav So ba
+[00:23:37] C (UI): I mean but an iPod just has that circle thing you know.
+[00:23:37] B (ID): And they're re-programmable aren't they?
+[00:23:39] B (ID): You can put on your songs and then put on a different set,
+[00:23:39] A (PM): Yeah.
+[00:23:40] A (PM): Yeah.
+[00:23:41] B (ID): that's probably why they're expensive, they're like little computers.
+[00:23:41] A (PM): Yeah.
+[00:23:42] C (UI): Yeah.
+[00:23:43] A (PM): S
+[00:23:43] C (UI): Yeah.
+[00:23:45] C (UI): Well like since it just has the circle thing, you could make it a qui a kind of cool shape,
+[00:23:49] C (UI): like
+[00:23:50] D (ME): Yeah.
+[00:23:51] B (ID): Mm-hmm.
+[00:23:54] D (ME): Yeah yeah yeah.
+[00:23:55] D (ME): Well it could just be simple instead of being a l mass.
+[00:23:59] D (ME): Because, the other thing, I didn't tell you all my presentation, is that people find it find that it's a big waste of time to have to learn how to use your remote
+[00:24:13] C (UI): Yeah.
+[00:24:13] D (ME): and that's another thing they complained about.
+[00:24:14] A (PM): Mm.
+[00:24:16] C (UI): Yeah.
+[00:24:17] D (ME): Um, what other buttons were there?
+[00:24:20] D (ME): Volume
+[00:24:21] D (ME): oh we've ts just said that.
+[00:24:24] C (UI): So okay.
+[00:24:24] D (ME): Channel selection.
+[00:24:25] C (UI): This
+[00:24:29] B (ID): I
+[00:24:29] A (PM): Um
+[00:24:30] B (ID): A D_V_D_ is simple, you just have play, pause, eject,
+[00:24:32] C (UI): Yeah.
+[00:24:33] C (UI): So
+[00:24:33] D (ME): Menu.
+[00:24:34] A (PM): You know actually our our new project requirements, I'm not sure if they meant o onl use only for television as in not for D_V_D_ or just not internet type things.
+[00:24:36] B (ID): and menu maybe.
+[00:24:42] B (ID): Oh yeah.
+[00:24:43] A (PM): So
+[00:24:44] C (UI): Okay.
+[00:24:46] C (UI): So
+[00:24:47] A (PM): But
+[00:24:49] C (UI): Yeah.
+[00:24:50] A (PM): But s yeah uh.
+[00:24:50] D (ME): But D_V_D_ players usually have their own remote.
+[00:24:53] C (UI): That's true, yeah.
+[00:24:54] A (PM): Yeah.
+[00:24:55] C (UI): So
+[00:24:56] B (ID): But it's cool to have it all on one,
+[00:24:57] B (ID): because you wanna turn it on then you wanna turn up the volume, and then you wanna go to the menu, so you don't wanna switch.
+[00:24:57] D (ME): Yeah, yeah, yeah.
+[00:24:57] C (UI): Yeah, yeah.
+[00:25:00] A (PM): Mm.
+[00:25:00] D (ME): Yeah.
+[00:25:00] C (UI): So
+[00:25:01] A (PM): Mm.
+[00:25:01] C (UI): I think you would have to have like a function switch button,
+[00:25:04] C (UI): you
+[00:25:09] A (PM): Yeah.
+[00:25:10] B (ID): Well but D_V_D_ is only like four buttons.
+[00:25:12] D (ME): Yeah, it is only fun
+[00:25:12] C (UI): Yeah,
+[00:25:13] C (UI): but I mean like to switch the fun so like to switch the function of the little circle disc, the touch pad.
+[00:25:14] A (PM): But i
+[00:25:18] B (ID): Oh.
+[00:25:18] A (PM): Yeah.
+[00:25:18] B (ID): But
+[00:25:20] B (ID): channel
+[00:25:23] C (UI): Yeah
+[00:25:24] B (ID): but volume is and volume is actually controlled on the T_V_ so you don't have to switch.
+[00:25:27] C (UI): So but I'm saying like, does it make sense to have like some kind of a button,
+[00:25:31] C (UI): so like you're if you're on T_V_, like you can switch channels,
+[00:25:35] C (UI): but then if uh if you're on D_V_D_ then like the channel bu like the the region of the disc that was for channels is for like switching to different tracks
+[00:25:44] C (UI): or
+[00:25:46] C (UI): I mean do we need to think about that,
+[00:25:47] C (UI): that
+[00:25:48] A (PM): Um, yeah, let's think about it
+[00:25:48] B (ID): Yes we can try that.
+[00:25:49] A (PM): 'cause we need to wrap up.
+[00:25:50] A (PM): Um let's see.
+[00:25:53] A (PM): Um so everyone's gonna go finish their questionnaire,
+[00:25:57] A (PM): uh then when we come back after lunch we'll have thirty minutes of individual work,
+[00:26:02] A (PM): um yeah, so think about the things we've discussed and bring some new ideas to our next meeting.
+[00:26:10] A (PM): See you soon.

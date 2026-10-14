@@ -1,0 +1,48 @@
+{
+  "meeting": "ES2011b",
+  "run_started_utc": "2026-10-14T18:01:53+00:00",
+  "claude_version": "2.1.283 (Claude Code)",
+  "models_reported": [
+    "claude-opus-5-5"
+  ],
+  "is_error": false,
+  "recap": "## Decisions\n- Include a remote-locator (\"finder\") function. [00:14:53]\n- No speech recognition, because it is hard to program, risks false triggers from TV audio, and is costly. [00:15:32]\n- The locator will be a two-part package: a separate sender stuck on the TV or wall sends a radio signal to the remote. [00:16:28]\n- The remote beeps when located; no light is needed. [00:17:26]\n- The target group stays teenagers and young professionals, even without speech recognition. [00:16:45]\n- The idea of a \"home\" or holder for the remote is set aside for now. [00:17:02]\n- The remote gets a dedicated power button. Using a held-down number button for power was rejected as confusing. [00:19:42]\n\n## Action items\n- PM: Put meeting minutes in the shared documents folder and finish the pending ones before next time [00:01:07]\n- All: Finish the questionnaire [00:25:53]\n- All: Do 30 minutes of individual work after lunch and bring new ideas to the next meeting [00:26:02]\n\n## Unresolved\n- Whether to replace number buttons with an iPod-style scroll wheel or touchpad, and how channel and volume would be separated on it. [00:23:02]\n- Whether a scroll wheel would make the remote too expensive. [00:23:18]\n- Whether to include DVD controls. The PM is unsure whether \"television only\" excludes DVD, and the ME noted DVD players have their own remotes. [00:24:50]\n- Whether to add a mode-switch button so the touchpad works for both TV and DVD. This was deferred for further thought. [00:25:48]",
+  "system_prompt_file": "constructed/recap-system-prompt.md",
+  "system_prompt_sha256": "6a0478886f1213112b697513b2dfa3ecfec215a40dda719e6690626bbeb4022c",
+  "transcript_file": "data/sample/ES2011b/transcript.txt",
+  "transcript_sha256": "b39fd3043216e64b33b76eb3e9bddcccb697ee5e3256c64d52a44a854679d4dc",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 15193,
+    "cache_read_input_tokens": 793,
+    "output_tokens": 1898,
+    "output_tokens_details": {
+      "thinking_tokens": 1355
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 15193,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1898,
+        "cache_read_input_tokens": 793,
+        "cache_creation_input_tokens": 15193,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 15193
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "duration_ms": 21095
+}
