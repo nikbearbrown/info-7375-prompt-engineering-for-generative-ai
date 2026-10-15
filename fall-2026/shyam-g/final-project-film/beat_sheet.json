@@ -1,0 +1,666 @@
+{
+  "metadata": {
+    "slug": "stopline-pitch",
+    "title": "StopLine: Checking the Evidence Behind a Quality Decision",
+    "topic": "INFO 7375 · FINAL PROJECT PITCH",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "student-pitch",
+    "channel_title": "@contactshyam14-code",
+    "persona": "Shyam Sundar Jayaraman Gopalakrishnan",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Student pitch for INFO 7375, 2-4 minute limit: opens on the hesitant writer, no terms card, no verdict card, no Your Turn composer; the spoken outro stays.",
+    "audience": "hiring managers for supply chain manager roles; INFO 7375 reviewers",
+    "source_doc": "PROJECT-BRIEF.md and reports/ in this repository (run 2026-10-14)",
+    "purpose": "Final project pitch: what StopLine is, what exists, what will exist, and the risk.",
+    "playlist": "INFO 7375 Final Project",
+    "chapter_number": 0,
+    "tags": [
+      "StopLine",
+      "quality incidents",
+      "verification",
+      "evaluation",
+      "supply chain",
+      "INFO 7375"
+    ],
+    "estimated_total_s": 221.4,
+    "build": {
+      "at": "2026-10-15T00:29:17",
+      "cut": "master",
+      "filled": 13,
+      "of": 13,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Shyam Sundar. When a lot is released, the question isn't only whether someone approved it. It's whether the evidence behind it holds up.",
+      "estimated_duration_s": 10.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types 'Was this lot release approved'"
+          },
+          {
+            "at": 0.6,
+            "event": "corrects 'approved' to 'backed by evidence' on the spoken correction"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Was this lot release\napproved",
+            "triggerWords": "approved",
+            "replacementWords": "backed by evidence",
+            "fontSize": 70,
+            "charMs": 22,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "stopline-pitch",
+            "banner": ""
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-10-15T03:42:45.943797+00:00"
+          }
+        }
+      },
+      "lead_silence_s": 0.8,
+      "motion_claim": "The writer types the naive question and corrects it to the real one: is the release backed by evidence.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "actual_duration_s": 8.36,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 8.375,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "what",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "My final project is called StopLine. It's a small Python tool that checks a proposed decision on a factory quality incident against the evidence that decision cites.",
+      "estimated_duration_s": 10.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "A kraft crate (the lot) drops in",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A kraft crate (the lot) drops in. A proposed-action sheet appears beside it, and an ink arrow draws from the sheet to two evidence records.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "crate drops"
+          },
+          {
+            "at": 0.25,
+            "event": "sheet + records"
+          },
+          {
+            "at": 0.65,
+            "event": "arrow draws"
+          }
+        ],
+        "manim": {
+          "class": "B00_Crate"
+        },
+        "motion_claim": "A kraft crate (the lot) drops in. A proposed-action sheet appears beside it, and an ink arrow draws from the sheet to two evidence records."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 9.9,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 9.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "what",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When it's finished, it will be a public repository with a command-line tool, a synthetic test set, tests, and an evaluation report that lists where it fails.",
+      "estimated_duration_s": 10.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Three objects land in a row: a dark terminal block, a stack of test pages, and a report page",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three objects land in a row: a dark terminal block, a stack of test pages, and a report page.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "terminal"
+          },
+          {
+            "at": 0.25,
+            "event": "pages"
+          },
+          {
+            "at": 0.65,
+            "event": "report"
+          }
+        ],
+        "manim": {
+          "class": "B01_Parts"
+        },
+        "motion_claim": "Three objects land in a row: a dark terminal block, a stack of test pages, and a report page."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 8.9,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 8.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "what",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It gives one of three answers: human review required, needs more evidence, or accept for review. The most cautious one wins. It never approves anything. Accept only means a person may now look at it.",
+      "estimated_duration_s": 14.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Three stacked lanes",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three stacked lanes. A marker drops from the bottom lane up to the top lane, which takes a terracotta dot.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "lanes"
+          },
+          {
+            "at": 0.65,
+            "event": "marker settles on the top lane"
+          }
+        ],
+        "manim": {
+          "class": "B02_Lanes"
+        },
+        "motion_claim": "Three stacked lanes. A marker drops from the bottom lane up to the top lane, which takes a terracotta dot."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 11.09,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 11.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "exists",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "A first version exists today. Claude Code wrote most of the code with me on October fourteenth, and I've since reviewed every check myself. Here is the real output: seventeen synthetic incidents, one outcome each, and twelve tests passing. Every incident and number in it is made up for testing.",
+      "estimated_duration_s": 20.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "A terminal panel redraws three real lines from reports/cli_output",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A terminal panel redraws three real lines from reports/cli_output.txt and reports/test_run.txt (run 2026-10-14). Caption: real run, synthetic data.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "panel"
+          },
+          {
+            "at": 0.25,
+            "event": "real lines"
+          },
+          {
+            "at": 0.65,
+            "event": "check"
+          }
+        ],
+        "manim": {
+          "class": "B03_Run"
+        },
+        "motion_claim": "A terminal panel redraws three real lines from reports/cli_output.txt and reports/test_run.txt (run 2026-10-14). Caption: real run, synthetic data."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 16.15,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 16.166666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "why",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The real alternative is SAP's quality module, where a usage decision accepts or rejects a lot. From my experience in SAP, it already checks that results are recorded, that they belong to the right lot, and that they come before the decision, and it can refuse or warn. It checks structured results, not the written justification. So, honestly, StopLine doesn't beat SAP yet. The question I'll test is whether checking written claims catches something SAP's checks don't, and right now my own tool misses that case too.",
+      "estimated_duration_s": 34.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Constructed sketch: two columns, SAP QM and StopLine, ticks on the same three rows in both; a fourth row stays empty in both",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Constructed sketch: two columns, SAP QM and StopLine, ticks on the same three rows in both; a fourth row stays empty in both.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "columns"
+          },
+          {
+            "at": 0.25,
+            "event": "three ticks each"
+          },
+          {
+            "at": 0.65,
+            "event": "empty fourth row"
+          }
+        ],
+        "manim": {
+          "class": "B04_SAP"
+        },
+        "motion_claim": "Constructed sketch: two columns, SAP QM and StopLine, ticks on the same three rows in both; a fourth row stays empty in both."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 28.57,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 28.583333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "who",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It's aimed at supply chain manager roles. When a lot goes on hold, supply waits on the decision to release, rework, or scrap it. A hiring manager runs one command, sees an outcome for each incident, and opens the report, in under a minute.",
+      "estimated_duration_s": 17.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "The crate sits behind a hold bar",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The crate sits behind a hold bar. A terminal prompt appears, then a report page slides in beside it.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "crate on hold"
+          },
+          {
+            "at": 0.25,
+            "event": "prompt"
+          },
+          {
+            "at": 0.65,
+            "event": "report"
+          }
+        ],
+        "manim": {
+          "class": "B05_Hold"
+        },
+        "motion_claim": "The crate sits behind a hold bar. A terminal prompt appears, then a report page slides in beside it."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 13.95,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 13.958333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "proves",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It shows verification: every claim checked against a record. Evaluation: a labelled test set and a report. And escalation: what it can't check goes to a person. It does not show an agent loop or prompt contracts. There's no language model in it.",
+      "estimated_duration_s": 17.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Three badges light up (verify, evaluate, escalate); two more stay ghost grey with a slash",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three badges light up (verify, evaluate, escalate); two more stay ghost grey with a slash.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "badges"
+          },
+          {
+            "at": 0.25,
+            "event": "three light"
+          },
+          {
+            "at": 0.65,
+            "event": "two slashed"
+          }
+        ],
+        "manim": {
+          "class": "B06_Badges"
+        },
+        "motion_claim": "Three badges light up (verify, evaluate, escalate); two more stay ghost grey with a slash."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 13.89,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 13.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "scope",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Out of scope, on purpose: real factory data, and any model making the decision. The first piece, the command-line run, already works, and the saved output shows it ran.",
+      "estimated_duration_s": 11.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "A fence line: a crate and a dark model block outside it; inside, a terminal whose light comes on",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A fence line: a crate and a dark model block outside it; inside, a terminal whose light comes on.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "fence"
+          },
+          {
+            "at": 0.25,
+            "event": "outside objects"
+          },
+          {
+            "at": 0.65,
+            "event": "terminal lights"
+          }
+        ],
+        "manim": {
+          "class": "B07_Fence"
+        },
+        "motion_claim": "A fence line: a crate and a dark model block outside it; inside, a terminal whose light comes on."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 9.71,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 9.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "risk",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The risk is already visible. Two of seventeen cases get it wrong. One claim says all suspect units are contained, citing four hundred units from a lot of twelve hundred. The number is right, the sentence misleads, and every rule passes. A check is only as strict as the information it's given. I'll add harder cases and keep escalation as the default.",
+      "estimated_duration_s": 24.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "A row of twelve small crates; only four sit inside a rope",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A row of twelve small crates; only four sit inside a rope. A ticket passes through the gate, which stays open.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "twelve crates, rope round four"
+          },
+          {
+            "at": 0.25,
+            "event": "gate + ticket"
+          },
+          {
+            "at": 0.65,
+            "event": "ticket passes"
+          }
+        ],
+        "manim": {
+          "class": "B08_Gate"
+        },
+        "motion_claim": "A row of twelve small crates; only four sit inside a rope. A ticket passes through the gate, which stays open."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 18.47,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 18.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "why-me",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why this project? I had an idea of how to bring it to life, so I took it on. It's a mix. What I already bring is supply chain work: supplier scorecards and root-cause reviews in SAP as an analyst, and a Six Sigma Green Belt. What's new is writing and testing a verification engine like this myself, with a labelled test set and an honest failure report, and blending supply chain with AI in a way I can check.",
+      "estimated_duration_s": 32.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Two columns of pages, already-have and new-to-me; each column fills with scribbled pages",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns of pages, already-have and new-to-me; each column fills with scribbled pages.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "two columns"
+          },
+          {
+            "at": 0.25,
+            "event": "already-have fills"
+          },
+          {
+            "at": 0.65,
+            "event": "new-to-me fills"
+          }
+        ],
+        "manim": {
+          "class": "B09_Columns"
+        },
+        "motion_claim": "Two columns of pages, already-have and new-to-me; each column fills with scribbled pages."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 20.59,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 20.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "close",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What exists today: the engine, the data, the tests, and an honest report. What will exist: harder test cases, fixes for the misses, and a real test against SAP's checks. That's StopLine.",
+      "estimated_duration_s": 12.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "new_visual_element": "Left, four solid crates labelled exists; right, three ghost crates labelled will exist",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Left, four solid crates labelled exists; right, three ghost crates labelled will exist.",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "solid crates"
+          },
+          {
+            "at": 0.65,
+            "event": "ghost crates"
+          }
+        ],
+        "manim": {
+          "class": "B10_Split"
+        },
+        "motion_claim": "Left, four solid crates labelled exists; right, three ghost crates labelled will exist."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived."
+      },
+      "actual_duration_s": 11.01,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 11.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-15T00:29:17"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "StopLine: Checking the Evidence Behind a Quality Decision. By Shyam Sundar Jayaraman Gopalakrishnan.",
+      "estimated_duration_s": 5.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; handle"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "StopLine: Checking the Evidence Behind a Quality Decision",
+            "slug": "stopline-pitch",
+            "handle": "@contactshyam14-code",
+            "subline": ""
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-10-15T03:43:31.257209+00:00"
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 7.85,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 7.875,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-10-15T00:29:17"
+      }
+    }
+  ]
+}

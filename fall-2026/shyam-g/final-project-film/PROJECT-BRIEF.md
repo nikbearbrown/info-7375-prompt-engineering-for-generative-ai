@@ -1,0 +1,21 @@
+# StopLine — Project Brief
+
+Shyam Sundar Jayaraman Gopalakrishnan (GitHub: contactshyam14-code) · INFO 7375 · 2026-10-15
+
+**1. What is it?** StopLine is a small, deterministic Python tool that checks a proposed action on a manufacturing quality incident (release, rework or scrap a lot, or close the incident) against the evidence the action cites. It returns one outcome with an audit record: ACCEPT FOR REVIEW, NEEDS MORE EVIDENCE, or HUMAN REVIEW REQUIRED. When it is done, it will be a public repository with a CLI, a synthetic test set, tests, and an evaluation report that lists its misses.
+
+**2. Why would anyone care?** I compared it with the **SAP QM usage decision (QA11/QA32)**, using my own SAP experience; I did not re-check it on a current S/4HANA system. SAP already checks that results are recorded, that they belong to the right lot, and that they come before the decision, and it can refuse or warn (SAP KBA 1958483, viewed 2026-10-14, describes a warning that lets the user force completion). It checks structured results only, not the written justification. **StopLine does not beat it yet.** Its checks are also structured. The open question I will test is whether checking *written claims* catches what structured checks miss. StopLine misses that case today too (INC-016).
+
+**3. Who opens it?** The target role is supply chain manager, and the reader is a hiring manager for that role. When a lot goes on hold, supply waits on the release, rework or scrap decision. In the first sixty seconds the reader runs `python -m stopline data/incidents.json`, sees one outcome per incident, and opens `reports/eval_report.md`: 15 of 17 synthetic cases match their labels, and the 2 misses are explained.
+
+**4. What does it prove?** Verification: claims are checked against records by explicit rules. Evaluation: a labelled test set and a report that lists failures. Escalation: what the tool can't check goes to a person. It does **not** show agent loops, prompt contracts or LLM output, because there is no LLM in it. A reviewer can conclude that I can specify and test a rule-based checker, not that I have built an AI system.
+
+**5. In, out, first.** *In:* 4 action types, 11 checks, and 3 outcomes where the most cautious one wins. All data is synthetic. *Out:* StopLine never approves anything, uses no real factory data, and lets no model make a decision. *First:* the CLI, which ran on 2026-10-14. The proof is `reports/cli_output.txt` and `reports/test_run.txt` (12 tests passing).
+
+**6. What could sink it?** A correct number inside a misleading sentence passes every rule. In INC-016, "all suspect units are contained" cites 400 units from a 1,200-unit lot, and the tool returns ACCEPT FOR REVIEW. My mitigation is to write more adversarial cases, keep escalation as the default for anything that doesn't validate, and state the limit openly. That mitigation is **incomplete**: rules only catch what someone thought to write a rule for. A further weakness is that the same author (Claude) wrote both the rules and the labels.
+
+**7. Why this project?** I had an idea of how to bring it to life. It is **a mix** of new and existing skills. *New to me:* writing and testing a verification engine, and blending supply chain work with AI in a way that can be checked. *Already have:* supply chain domain work, as a supply chain and operations analyst (supplier scorecards and root-cause reviews in SAP S/4HANA), a Six Sigma Green Belt, and an MS in Engineering Management at Northeastern (expected Dec 2026). Claude Code wrote most of the code. On 2026-10-14 I reviewed all 11 checks by changing a value, removing a rule and explaining the two misses (see FRICTIONAL.md).
+
+**Exists today** (all synthetic and runnable): `stopline/` (engine, CLI, evaluator; standard library only) · `data/` (17 incidents, 24 evidence records, labels) · `tests/` (12 passing) · `reports/` (CLI output, audit records, eval report: 15/17 matched, 2 known misses) · `film/stopline-pitch.mp4` (2:59, all toolkit gates passing, 2026-10-15).
+
+**Will exist:** a test of whether checking written claims finds anything SAP's structured checks miss · more adversarial cases, some written by someone other than the rules' author · rules for the two known misses · a reviewer walkthrough in the README.
