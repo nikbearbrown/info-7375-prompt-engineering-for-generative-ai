@@ -1,0 +1,21 @@
+# run: 2026-10-14 03:31 EDT
+
+$ python3 runtime/qc/factcheck_check.py <reel>
+[factcheck] clean — every row resolved, every claim-bearing beat covered
+[factcheck] rows=20 beats_covered=14 claim_bearing_beats=1 uncovered=0
+
+$ python3 runtime/qc/content_check.py <reel>
+[content-check] yadav-shreyash-final-project-pitch-film  beats=14
+[content-check] PASS — 14 beats checked, no violations.
+
+$ python3 runtime/qc/frame_check.py <reel>
+[frame-check] yadav-shreyash-final-project-pitch-film  canvas=3840×2160  beats=14
+[frame-check] PASS — 14 beats checked, no violations.
+
+$ python3 runtime/qc/beat_lint.py <reel>
+[beat-lint] clean — beat mix OK (beat_sheet.json)
+
+$ ffmpeg -v error -i <master> -f null -   (full decode)
+decode errors: none (exit 0)
+stream|codec_name=h264|width=3840|height=2160|r_frame_rate=24/1|duration=213.291667|nb_read_frames=5119
+stream|codec_name=aac|duration=213.291000

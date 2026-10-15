@@ -1,0 +1,695 @@
+{
+  "metadata": {
+    "title": "Quote It or Refuse.",
+    "slug": "yadav-shreyash-final-project-pitch-film",
+    "topic": "INFO 7375 - FINAL PROJECT PITCH",
+    "working_title": "ClaimCheck",
+    "register": "Teardown",
+    "audience": "INFO 7375 reviewers; hiring managers for applied-AI / LLM engineer roles",
+    "brand": "claude",
+    "persona": "Shreyash Yadav",
+    "voice": "am_onyx",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#F2F0E9",
+    "greeting": "Ciao, Shreyash",
+    "folderLabel": "INFO 7375",
+    "aspect": "16:9",
+    "target_runtime_s": "200-230",
+    "concept": "A pitch for ClaimCheck: an insurance-claims Q&A tool that answers only with a verbatim quote that code has verified, and otherwise refuses. Nothing is built yet; the film says so.",
+    "note": "Coursework pitch, not a channel reel. No IN-FOR-BEAR persona, no @NikBearBrown chip, no instructor name or credit line. Narration is the local Kokoro am_onyx voice (free, no key). The script was drafted with Claude in Claude Code from the student's own choices (project, alternatives tried, what to leave out) and is the student's to approve; see SOURCES.md. This checkout has no show-tell skill; ai-explainer is used instead and the substitution is logged in FRICTIONAL.md. HONESTY: every picture of the tool is a mock-up and carries a CONSTRUCTED stamp on screen; no Claude response is shown anywhere; the only past-tense evidence is Dovetail's real test output, captured and dated at build time.",
+    "drafted": "2026-10-07",
+    "build": {
+      "at": "2026-10-14T03:31:09",
+      "cut": "master",
+      "filled": 14,
+      "of": 14,
+      "slates": [],
+      "skin_warnings": [
+        "BOUT: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "cold open",
+      "brief_q": "Q1",
+      "narration_text": "A claims examiner asks one question all day: is this covered, and which clause says so? Any chat assistant will answer fluently. My final project is a tool that has to prove its answer, or refuse. I'm Shreyash Yadav, and nothing in this pitch is built yet.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Ciao, Shreyash",
+            "topic": "INFO 7375 - FINAL PROJECT PITCH - RECONSTRUCTED INTERFACE",
+            "segment": "Quote It or Refuse.",
+            "command": "Does this homeowner policy cover water damage from a burst pipe? Quote the clause.",
+            "runningText": "no model call made - this tool does not exist yet",
+            "output": [
+              "No answer shown. This is a pitch: nothing is built yet.",
+              "Every tool screen in this film is labelled CONSTRUCTED."
+            ],
+            "folderLabel": "INFO 7375",
+            "modelLabel": "",
+            "effortLabel": ""
+          },
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": "2026-10-14T05:32:32.467757+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B00.mp3",
+      "actual_duration_s": 14.46,
+      "render_duration_s": 14.5,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B00.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "BLUF",
+      "brief_q": "Q1",
+      "lead_silence_s": 0.8,
+      "narration_text": "ClaimCheck is a citation checker for insurance claim files. It answers only when code can verify the clause it quotes. Otherwise it says: not in the documents.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "ClaimCheck is a smarter chatbot\nfor insurance claim files.",
+            "face": "serif",
+            "fontSize": 132,
+            "align": "center",
+            "triggerWords": "smarter, chatbot",
+            "replacementWords": "citation, checker",
+            "charMs": 20,
+            "lineSpacing": 1.55,
+            "jitter": 25,
+            "hesitateBetween": 8,
+            "hesitateWithin": 2,
+            "mistakeRate": 6,
+            "seed": "claimcheck-7375",
+            "contextTitle": "What this pitch is about, before any detail",
+            "yOffset": 150
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-10-14T06:48:29.281053+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B01.mp3",
+      "actual_duration_s": 9.73,
+      "render_duration_s": 9.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "the problem",
+      "brief_q": "Q2",
+      "narration_text": "Here's the problem. A policy runs dozens of pages, and an endorsement can quietly override the base form. An answer that cites a section looks exactly like a correct one. Nobody checks whether that section exists, or whether it says what the answer claims.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B02_UncheckedCitation",
+          "file": "scenes.py"
+        },
+        "visual_intent": "A synthetic policy page next to a confident answer bubble whose citation points at nothing.",
+        "show": [
+          {
+            "at": "start",
+            "event": "A tall synthetic policy page fills the left half; section headings scroll past (1, 2, 3, 4...)."
+          },
+          {
+            "at": "endorsement can quietly override",
+            "event": "An endorsement sheet slides over Section 4 and strikes one line through."
+          },
+          {
+            "at": "an answer that cites a section",
+            "event": "Right half: answer bubble types 'Yes - covered under Section 4(b).'"
+          },
+          {
+            "at": "Nobody checks whether that section exists",
+            "event": "Dashed arrow from '4(b)' searches the page; lands on blank space; terracotta '?' appears."
+          },
+          {
+            "at": "end",
+            "event": "Small stamp lower-left: CONSTRUCTED EXAMPLE - synthetic text."
+          }
+        ],
+        "honesty": "constructed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B02.mp3",
+      "actual_duration_s": 14.4,
+      "render_duration_s": 14.416666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim:B02_UncheckedCitation",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "what it is",
+      "brief_q": "Q1",
+      "narration_text": "So here is what I will build: a public GitHub repository holding a Python command-line tool on Claude, with its test set and eval report. Claude must return an answer, a word-for-word quote, and the document it came from. Then plain code checks two things. Does the quote exist in that document? Does it contain the answer? Fail either, and the answer never reaches the reader.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B03_Pipeline",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Left-to-right pipeline; the checker is the one terracotta element.",
+        "show": [
+          {
+            "at": "start",
+            "event": "Box 'question' draws on the left."
+          },
+          {
+            "at": "a public GitHub repository",
+            "event": "Caption under the heading: 'public GitHub repo · Python + Claude CLI · test set · eval report'."
+          },
+          {
+            "at": "a Python tool on Claude",
+            "event": "Arrow to box 'Claude + synthetic claim file'."
+          },
+          {
+            "at": "an answer, a word-for-word quote, and the document",
+            "event": "Box splits into three stacked chips: answer / quote / doc id."
+          },
+          {
+            "at": "plain code checks two things",
+            "event": "Terracotta box 'checker (code, not a model)' draws; two checkboxes appear inside it."
+          },
+          {
+            "at": "Does the quote exist",
+            "event": "First checkbox label: 'quote found in doc?'"
+          },
+          {
+            "at": "Does it contain the answer",
+            "event": "Second checkbox label: 'quote contains answer?'"
+          },
+          {
+            "at": "Fail either",
+            "event": "Path forks: pass -> 'reader'; fail -> 'rejected: not in the documents'. Fail path drawn in terracotta."
+          },
+          {
+            "at": "end",
+            "event": "Caption small: PLANNED DESIGN - not built."
+          }
+        ],
+        "honesty": "proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B03.mp3",
+      "actual_duration_s": 19.65,
+      "render_duration_s": 19.666666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim:B03_Pipeline",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "the prompt contract",
+      "brief_q": "Q4",
+      "narration_text": "This is the prompt contract, and it is still a proposal. The model either fills all four fields, or sets the status to not in documents. A parser enforces the format, so a reply that drifts from the contract fails as loudly as a wrong answer.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeCodeBeat",
+          "props": {
+            "title": "PROPOSED_answer_contract.json",
+            "code": "{\n  \"answer\":  \"<one sentence>\",\n  \"quote\":   \"<verbatim span>\",\n  \"doc_id\":  \"policy_ho3_synthetic.md\",\n  \"status\":  \"answered | not_in_documents\"\n}",
+            "language": "json",
+            "sparkLine": "Proposed - not written yet. Enforced by a parser.",
+            "largeText": true
+          },
+          "rendered": {
+            "out": "media/B04.mp4",
+            "at": "2026-10-14T07:03:14.294021+00:00"
+          }
+        },
+        "honesty": "proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B04.mp3",
+      "actual_duration_s": 13.85,
+      "render_duration_s": 13.875,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B04.mp4",
+        "filled_by": "remotion:ClaudeCodeBeat",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "the alternatives",
+      "brief_q": "Q2",
+      "confirmed": "2026-10-07: student confirmed trying both alternatives (chat assistant + PDF upload; LlamaIndex/LangChain RAG). No third alternative.",
+      "narration_text": "I looked at two things people already use. Uploading the PDF to a chat assistant gives a fluent answer, but nothing checks the citation, and there is no test set. A LlamaIndex or LangChain RAG template retrieves good chunks, but out of the box it returns whatever the model says. ClaimCheck will save a claims examiner from acting on a cited clause that nobody checked, which neither of those does.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B05_Alternatives",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Comparison grid, three rows, three columns. Claims kept to what the student observed.",
+        "show": [
+          {
+            "at": "start",
+            "event": "Column headers draw: 'citation checked by code' / 'ships with a test set' / 'refusal is a rule'."
+          },
+          {
+            "at": "Uploading the PDF to a chat assistant",
+            "event": "Row 1 'chat assistant + PDF upload' slides in; three grey dashes fill its cells."
+          },
+          {
+            "at": "RAG template",
+            "event": "Row 2 'RAG template (LlamaIndex / LangChain), out of the box' slides in; three grey dashes."
+          },
+          {
+            "at": "ClaimCheck's difference",
+            "event": "Row 3 'ClaimCheck (planned)' slides in; three terracotta outlined (not filled) ticks, labelled 'planned'."
+          },
+          {
+            "at": "end",
+            "event": "Hold the full grid >= 2s. Footer small: 'what I observed in my own tries; not a market survey'."
+          }
+        ],
+        "honesty": "observed + proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B05.mp3",
+      "actual_duration_s": 21.12,
+      "render_duration_s": 21.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim:B05_Alternatives",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "who opens it - the first sixty seconds",
+      "brief_q": "Q3",
+      "narration_text": "Who opens it? A hiring manager for an applied AI engineering role at an insurtech or health tech company. In the first minute, they read the README, run one command, and get this report, with failures listed first next to the clause the tool cited. This table is a mock-up. There are no results yet.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B06_FirstMinute",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Three-step strip (README -> one command -> report), then the report mock-up fills the frame.",
+        "show": [
+          {
+            "at": "start",
+            "event": "Title chip: 'reader: hiring manager, applied-AI / LLM engineer'."
+          },
+          {
+            "at": "read the README",
+            "event": "Step 1 icon 'README.md' lights."
+          },
+          {
+            "at": "run one command",
+            "event": "Step 2: 'python -m claimcheck eval' lights."
+          },
+          {
+            "at": "get this report",
+            "event": "Report table grows to fill the frame: columns Q / result / cited clause. Rows use placeholder IDs and the words FAIL / PASS / REFUSED only - no scores, no percentages."
+          },
+          {
+            "at": "failures listed first",
+            "event": "FAIL rows sort to the top in terracotta."
+          },
+          {
+            "at": "This table is a mock-up",
+            "event": "Large diagonal stamp: CONSTRUCTED MOCK-UP - no results exist."
+          }
+        ],
+        "honesty": "constructed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B06.mp3",
+      "actual_duration_s": 16.45,
+      "render_duration_s": 16.458333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim:B06_FirstMinute",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "what it proves",
+      "brief_q": "Q4",
+      "narration_text": "If it works, a reviewer could fairly conclude one thing: I can put a checker around a language model and measure it honestly. Each skill maps to a file they can open. What they could not conclude is that it works on real claims. It will only ever see synthetic data.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B07_SkillsToEvidence",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Four skill labels on the left, each wired to the file that will prove it on the right; a boundary line below.",
+        "show": [
+          {
+            "at": "start",
+            "event": "Left column draws: prompt contracts / source grounding / evaluation / failure analysis."
+          },
+          {
+            "at": "Each skill maps to a file",
+            "event": "Arrows draw one by one to: contract + parser / citation checker / frozen test set + prompt log / FAILURES.md. Files drawn with dashed outlines = 'will exist'."
+          },
+          {
+            "at": "could not conclude",
+            "event": "A horizontal terracotta line drops below the grid with the label 'NOT claimed: works on real claims'."
+          },
+          {
+            "at": "synthetic data",
+            "event": "Chip under the line: 'synthetic data only'."
+          }
+        ],
+        "honesty": "proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B07.mp3",
+      "actual_duration_s": 14.34,
+      "render_duration_s": 14.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim:B07_SkillsToEvidence",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "in / out / first",
+      "brief_q": "Q5",
+      "narration_text": "The scope. In: one synthetic claim file and thirty to fifty questions, at least a third of them traps. Out, on purpose: it will never decide whether a claim is covered. It finds and quotes; a person decides. First to run: one policy, ten questions, and the checker. You'll know it ran when a dated report exists.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B08_Scope",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Three columns IN / OUT / FIRST, each filling on its spoken word.",
+        "show": [
+          {
+            "at": "In:",
+            "event": "IN column: '1 synthetic claim file' / '30-50 questions' / '>= 1/3 adversarial'."
+          },
+          {
+            "at": "Out, on purpose",
+            "event": "OUT column: 'deciding coverage' / 'approve or deny' / 'real claims, real customer data' - each struck through in terracotta."
+          },
+          {
+            "at": "a person decides",
+            "event": "Small human icon under OUT labelled 'examiner decides'."
+          },
+          {
+            "at": "First to run",
+            "event": "FIRST column: '1 policy' / '10 questions' / 'checker' -> 'eval_report.md (dated)'."
+          }
+        ],
+        "honesty": "proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B08.mp3",
+      "actual_duration_s": 16.51,
+      "render_duration_s": 16.541666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim:B08_Scope",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "what could sink it",
+      "brief_q": "Q6",
+      "confirmed": "2026-10-07: no classmate blind questions arranged; mitigation list left at three items.",
+      "narration_text": "What could sink it: I write the documents, the questions, and the tool. So the test can end up measuring my own blind spots, and the score looks better than it is. My answer: freeze the test set before I tune any prompt, make a third of it adversarial, and log every prompt change next to its score.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B09_Risk",
+          "file": "scenes.py"
+        },
+        "visual_intent": "A closed loop of 'me' writing every part, then three mitigations break the loop.",
+        "show": [
+          {
+            "at": "I write the documents, the questions, and the tool",
+            "event": "Three nodes (documents / questions / tool) draw in a circle, each labelled 'written by me'."
+          },
+          {
+            "at": "my own blind spots",
+            "event": "Loop closes; a score gauge in the centre inflates past a dashed 'true' mark (no numbers on the gauge)."
+          },
+          {
+            "at": "freeze the test set",
+            "event": "Padlock snaps onto 'questions' with label 'frozen before tuning'."
+          },
+          {
+            "at": "a third of it adversarial",
+            "event": "One third of the questions node turns terracotta: 'adversarial'."
+          },
+          {
+            "at": "log every prompt change",
+            "event": "A log strip unrolls: 'prompt v1 -> score', 'prompt v2 -> score'. Gauge settles back toward the dashed mark."
+          }
+        ],
+        "honesty": "proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B09.mp3",
+      "actual_duration_s": 16.02,
+      "render_duration_s": 16.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim:B09_Risk",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "why this project",
+      "brief_q": "Q7",
+      "confirmed": "2026-10-07 21:41-21:42 EDT (evidence file stamped 21:42): `pytest -q` in the Dovetail repo -> 47 passed (Python 3.13.14). Full output: evidence/dovetail-pytest-2026-10-07.txt. Cybersenz deliberately not mentioned (student's choice).",
+      "evidence": "evidence/dovetail-pytest-2026-10-07.txt",
+      "narration_text": "Why this project? It's a mix. Wrapping a model in a deterministic checker is something I have done before. In Dovetail, my errand-planning agent, a solver checks the model's plan, and all forty-seven of its offline tests passed when I re-ran them on October seventh. The Claude API, prompt contracts, and a source-grounded test set are new to me. And insurance is the domain I want to work in.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "B10_HaveVsNew",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Two columns: ALREADY HAVE (with real evidence) / NEW TO ME.",
+        "show": [
+          {
+            "at": "something I have done before",
+            "event": "Left column header 'already have'; item 'LLM + deterministic checker'."
+          },
+          {
+            "at": "forty-seven of its offline tests passed",
+            "event": "Evidence box under the item shows the real lines from evidence/dovetail-pytest-2026-10-07.txt, verbatim: the dots row and '47 passed in 0.62s', with 'run 2026-10-07 21:41 EDT' beneath. Caption: 'Dovetail - separate project, evidence of skill only'."
+          },
+          {
+            "at": "new to me",
+            "event": "Right column 'new to me': Claude API / prompt contracts / source-grounded test set - each with a dashed outline."
+          },
+          {
+            "at": "insurance",
+            "event": "Footer chip: 'target domain: insurance / health tech'."
+          }
+        ],
+        "honesty": "real evidence (Dovetail) + proposed"
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B10.mp3",
+      "actual_duration_s": 20.42,
+      "render_duration_s": 20.458333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim:B10_HaveVsNew",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict - exists vs will exist",
+      "brief_q": "honesty rule",
+      "narration_text": "So, honestly: today this project is a brief, a beat sheet, and this film. Everything else is will. The synthetic claim file, the frozen test set, the tool and its checker, and a report that lists its own failures first.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "Quote It or Refuse.",
+            "artifactHeading": "Exists today vs. will exist",
+            "brandLabel": "INFO 7375",
+            "artifactLines": [
+              "EXISTS: project brief (2026-10-07), beat sheet, this film (2026-10-14).",
+              "EXISTS: Dovetail's tests - evidence of a skill, not part of ClaimCheck.",
+              "WILL EXIST: synthetic claim file + frozen test set.",
+              "WILL EXIST: Python + Claude tool, answer contract, citation checker.",
+              "WILL EXIST: eval report (failures first), prompt-change log, failure analysis."
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": "2026-10-14T06:34:26.321678+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BVDT.mp3",
+      "actual_duration_s": 12.22,
+      "render_duration_s": 12.25,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BVDT.mp4",
+        "filled_by": "remotion:ClaudeVerdictArtifact",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "narration_text": "Your turn. Paste this into Claude with any long document you have the right to share. Here is a document. Answer my question only with a word-for-word quote from it. If no sentence answers it, reply exactly: not in the document. Then search for that quote yourself. That manual check is the step ClaimCheck will automate.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "remotion",
+        "motion": "fade",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN - RECONSTRUCTED INTERFACE",
+            "segment": "Quote It or Refuse.",
+            "command": "Here is a document. Answer my question only with a word-for-word quote from it. If no sentence answers it, reply exactly: not in the document.",
+            "runningText": "paste this into Claude...",
+            "output": [
+              "Then search the document for the quote yourself.",
+              "Did it exist? Did it actually answer the question?"
+            ],
+            "folderLabel": "INFO 7375",
+            "modelLabel": "",
+            "effortLabel": ""
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-10-14T05:44:03.970333+00:00"
+          }
+        }
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "actual_duration_s": 17.09,
+      "render_duration_s": 17.125,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-14T03:31:09"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "narration_text": "Quote it or refuse. Shreyash Yadav, INFO 7375, final project pitch.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "manim",
+        "motion": "fade",
+        "manim": {
+          "scene_class": "BOUT_Title",
+          "file": "scenes.py"
+        },
+        "visual_intent": "Title restate with the student's name and course. Replaces ClaudeTitleOutro, whose @NikBearBrown handle is hard-coded.",
+        "show": [
+          {
+            "at": "start",
+            "event": "Title types in with the terracotta period; rule draws."
+          },
+          {
+            "at": "Shreyash Yadav",
+            "event": "Name, course line, and 'nothing built yet' fade in."
+          }
+        ]
+      },
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "actual_duration_s": 6.7,
+      "render_duration_s": 6.708333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BOUT.mp4",
+        "filled_by": "manim:BOUT_Title",
+        "at": "2026-10-14T03:31:09"
+      }
+    }
+  ]
+}
