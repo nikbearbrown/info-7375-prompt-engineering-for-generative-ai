@@ -1,0 +1,615 @@
+{
+  "metadata": {
+    "slug": "agent-reliability-audit-pitch",
+    "title": "agent-reliability-audit: pass-at-k isn't enough",
+    "topic": "AGENT EVALUATION · RELIABILITY",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "",
+    "persona": "Om Raut, narrated in first person (synthetic Kokoro voice — see SOURCES.md)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "plain, direct, first-person",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "show-tell pitch film: opens on the hesitant writer + terms card, no verdict card. The ClaudeTitleOutro bookend is deliberately not used at all (its handle prop is hardcoded and ignored by the component — see make_sheet.py docstring), so bookend_exempt includes 'bhtf' defensively even though no automated gate in this pipeline actually calls bookend_check.py.",
+    "audience": "a hiring manager or engineer evaluating my work for an ML/AI engineering role",
+    "source_doc": "Pass@k vs pass^k framing and its illustrative figures: 'Building an AI Agent Evaluation Pipeline: 2026 Methodology,' digitalapplied.com (cited, not my own result — see SOURCES.md).",
+    "tags": [
+      "agent evaluation",
+      "reliability",
+      "pass@k",
+      "fault injection",
+      "tool contracts"
+    ],
+    "build": {
+      "at": "2026-10-14T15:20:22",
+      "cut": "master",
+      "filled": 12,
+      "of": 12,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BCLOSE: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Here's the pitch, and I want to be upfront about this part first: nothing in this film has been built yet. It's an honest plan for a tool that checks one thing most agent demos never check.",
+      "estimated_duration_s": 14.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types 'I'm building an agent that works.'"
+          },
+          {
+            "at": 0.6,
+            "event": "corrects 'that works' -> 'that is reliably right, not just right once'"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "I'm building an agent that works.",
+            "triggerWords": "that works",
+            "replacementWords": "that's reliably right",
+            "fontSize": 70,
+            "charMs": 22,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "agent-reliability-audit-pitch",
+            "banner": ""
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-10-11T23:19:58.719599+00:00"
+          }
+        }
+      },
+      "lead_silence_s": 0.8,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "actual_duration_s": 10.15,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 10.166666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "BDEFS",
+      "act": "terms",
+      "lane": "bookend",
+      "proof_gate": "CARD",
+      "narration_text": "Three terms. Pass-at-k: did it succeed at least once across k tries. Pass-caret-k: did it succeed every single time. And a tool contract: the deal a tool makes about what it will actually return.",
+      "estimated_duration_s": 13.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "'pass@k' lands"
+          },
+          {
+            "at": 0.5,
+            "event": "'pass^k' lands"
+          },
+          {
+            "at": 0.8,
+            "event": "'tool contract' lands"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeDefinitions",
+          "props": {
+            "title": "Terms In This Film",
+            "terms": [
+              {
+                "term": "pass@k",
+                "meaning": "succeeded at least once in k tries"
+              },
+              {
+                "term": "pass^k",
+                "meaning": "succeeded every single time"
+              },
+              {
+                "term": "tool contract",
+                "meaning": "what a tool promises to return"
+              }
+            ],
+            "folderLabel": "",
+            "durationSeconds": 11.18
+          },
+          "rendered": {
+            "out": "media/BDEFS.mp4",
+            "at": "2026-10-11T23:20:46.583540+00:00"
+          }
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Terms card: three prerequisites, one line each."
+      },
+      "actual_duration_s": 11.18,
+      "audio_file": "mp3/beat-BDEFS.mp3",
+      "render_duration_s": 11.208333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BDEFS.mp4",
+        "filled_by": "remotion:ClaudeDefinitions",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Picture the thing I'm building as a crate. Open it up, and there's exactly one tool inside — it reaches out and fetches a real page from Python's own documentation.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A crate labeled AGENT drops onto the stage; the lid lifts; a cable draws from inside it out to a small page icon labeled docs.python.org.",
+        "motion_claim": "A crate labeled AGENT drops onto the stage; the lid lifts; a cable draws from inside it out to a small page icon labeled docs.python.org.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "crate drops in"
+          },
+          {
+            "at": 0.4,
+            "event": "lid lifts"
+          },
+          {
+            "at": 0.7,
+            "event": "cable draws to the docs.python.org page"
+          }
+        ],
+        "manim": {
+          "class": "B00_CrateOpens"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 9.79,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 9.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I'll run the same real question through that same tool, five times in a row, and watch what comes back each time.",
+      "estimated_duration_s": 8.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The crate rides a conveyor through one gate, five times in a loop; each pass lights the gate briefly.",
+        "motion_claim": "The crate rides a conveyor through one gate, five times in a loop; each pass lights the gate briefly.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "conveyor and gate appear"
+          },
+          {
+            "at": 0.4,
+            "event": "first pass, gate lights"
+          },
+          {
+            "at": 0.75,
+            "event": "loop continues, gate lights again"
+          }
+        ],
+        "manim": {
+          "class": "B01_ConveyorLoop"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 6.63,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 6.666666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "This next number isn't mine. A 2026 agent-evaluation methodology piece reports a real example: an agent can look ninety-seven percent successful under pass-at-three.",
+      "estimated_duration_s": 9.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A counter climbs to 97 percent, with a small on-screen label reading 'cited, not mine'.",
+        "motion_claim": "A counter climbs to 97 percent, with a small on-screen label reading 'cited, not mine'.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "counter starts climbing"
+          },
+          {
+            "at": 0.65,
+            "event": "counter settles at 97%, CITED label appears"
+          }
+        ],
+        "manim": {
+          "class": "B02_PassAtKCounter"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 11.35,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 11.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The same source reports the all-three-times number for that same agent at around thirty-four percent — a sixty-three point gap. That gap is the whole reason this tool exists.",
+      "estimated_duration_s": 11.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A second, smaller counter appears beside the first, falling to 34 percent, same 'cited, not mine' label carried over.",
+        "motion_claim": "A second, smaller counter appears beside the first, falling to 34 percent, same 'cited, not mine' label carried over.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "second counter appears"
+          },
+          {
+            "at": 0.6,
+            "event": "it falls to 34%"
+          }
+        ],
+        "manim": {
+          "class": "B03_PassCaretKCounter"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 10.07,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 10.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Here's the other half of the audit: what happens when the tool itself lies to the agent? I'll deliberately feed it a broken response — malformed data, a stale page, a timeout.",
+      "estimated_duration_s": 12.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "One gate on the conveyor cracks and turns jagged; a small warning icon appears over it.",
+        "motion_claim": "One gate on the conveyor cracks and turns jagged; a small warning icon appears over it.",
+        "show": [
+          {
+            "at": 0.25,
+            "event": "gate cracks"
+          },
+          {
+            "at": 0.6,
+            "event": "warning icon appears"
+          }
+        ],
+        "manim": {
+          "class": "B04_GateBreaks"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 9.9,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 9.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "From there the crate has two paths. One: it notices and refuses to guess. Two: it quietly passes the bad data through anyway. One of those is safe. The other is the failure mode nobody shows you.",
+      "estimated_duration_s": 14.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The conveyor forks past the broken gate: one path ends at a stop sign with a check; the other continues through with a faded, uncertain box.",
+        "motion_claim": "The conveyor forks past the broken gate: one path ends at a stop sign with a check; the other continues through with a faded, uncertain box.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "fork appears"
+          },
+          {
+            "at": 0.5,
+            "event": "safe path: stop sign + check"
+          },
+          {
+            "at": 0.8,
+            "event": "unsafe path: faded box continues"
+          }
+        ],
+        "manim": {
+          "class": "B05_TwoPaths"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 11.18,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 11.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I'm keeping this small on purpose: one real tool, ten real questions, one documentation source. The hard part isn't the demo — it's making the interface work with any agent, not just mine. If I run out of time, I'll say so plainly instead of pretending otherwise.",
+      "estimated_duration_s": 18.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The same crate sits alone on an otherwise empty stage, with a small label reading '1 tool'.",
+        "motion_claim": "The same crate sits alone on an otherwise empty stage, with a small label reading '1 tool'.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "crate alone, label settles"
+          }
+        ],
+        "manim": {
+          "class": "B06_SmallScope"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 14.78,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 14.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Most of this is new to me — I've never built a fault-injection harness before. But the instinct isn't new. In a real pull request I have open right now, I deliberately tried to break a different scoring system and found a real flaw in it. This applies that same habit to agents instead.",
+      "estimated_duration_s": 21.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The crate sits beside a small GitHub pull-request icon, connected by one line.",
+        "motion_claim": "The crate sits beside a small GitHub pull-request icon, connected by one line.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "crate and PR icon, line connects them"
+          }
+        ],
+        "manim": {
+          "class": "B07_PullRequest"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 15.64,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 15.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "If you want to try this yourself: paste this into Claude. Pick an agent you've built. Run its hardest task five times in a row. Tell me honestly: did it succeed every single time, or just once? If it has any tool calls, tell me what happens if one of those tools returns something malformed or wrong. Then check two things. Did it actually run five real times, not just once? And did it tell you what happens when a tool lies to it?",
+      "estimated_duration_s": 33.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "composer opens — 'Your turn.'"
+          },
+          {
+            "at": 0.15,
+            "event": "the prompt types in full"
+          },
+          {
+            "at": 0.8,
+            "event": "two check lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "AGENT RELIABILITY · YOUR TURN",
+            "segment": "Check Your Own Agent",
+            "command": "Pick an agent you've built. Run its hardest task five times in a row. Tell me honestly: did it succeed every single time, or just once? If it has any tool calls, tell me what happens if one of those tools returns something malformed or wrong.",
+            "runningText": "paste this into Claude…",
+            "output": [
+              "Check: it actually ran five times, not once.",
+              "Check: it says what happens when a tool returns bad data."
+            ],
+            "folderLabel": "",
+            "modelLabel": "",
+            "effortLabel": ""
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-10-11T23:22:39.684703+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 20.46,
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "render_duration_s": 20.5,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-10-14T15:20:22"
+      }
+    },
+    {
+      "beat_id": "BCLOSE",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "That's agent-reliability-audit — nothing built yet, but the plan is real, and the repo link is in the description if you want to watch it get built.",
+      "estimated_duration_s": 10.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The crate, conveyor, and dashboard from earlier settle together one last time; the project name is drawn in simple ink lettering beside them.",
+        "motion_claim": "The crate, conveyor, and dashboard from earlier settle together one last time; the project name is drawn in simple ink lettering beside them.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "cast settles together"
+          },
+          {
+            "at": 0.6,
+            "event": "project name draws in"
+          }
+        ],
+        "manim": {
+          "class": "BCLOSE_TitleCard"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on the cream stage per beat, minimal labels, narration carries the explanation. Negative space is the style; only underfill/clustered are waived."
+      },
+      "actual_duration_s": 9.38,
+      "audio_file": "mp3/beat-BCLOSE.mp3",
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BCLOSE.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-14T15:20:22"
+      },
+      "render_duration_s": 9.416666666666666
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# FACTCHECK.md — agent-reliability-audit-pitch
+
+| # | Beat | Claim | Verdict | Source | Fix |
+|---|------|-------|---------|--------|-----|
+| 1 | BIDEA | "Nothing in this film has been built yet" | PASS | Self-attested: at time of writing, no code under `agent-reliability-audit` exists; confirmed by the state of this submission folder | — |
+| 2 | BDEFS | pass@k = succeeded at least once in k tries; pass^k = succeeded every time | PASS | Standard definitions used throughout the cited methodology source (see #3) and general agent-evaluation literature | — |
+| 3 | BDEFS | "tool contract: the deal a tool makes about what it will return" | PASS | My own working definition for this project, stated as a definition, not an external citation | — |
+| 4 | B02 | "an agent can look ninety-seven percent successful under pass-at-three" | PASS | Quoted directly from "Building an AI Agent Evaluation Pipeline: 2026 Methodology," digitalapplied.com, published 2026-06-02 — the article's own stat block states "pass@3 vs pass^3 / 97% / vs ~34% for the same agent / −63 pp gap" | — |
+| 5 | B03 | "the all-three-times number for that same agent at around thirty-four percent — a sixty-three point gap" | PASS | Same source as #4, same stat block, quoted directly | — |
+| 6 | B03 | Implicit per-trial success rate (~70%) | CORRECTED, THEN RE-CORRECTED | "Building an AI Agent Evaluation Pipeline: 2026 Methodology," digitalapplied.com — states the 70%-per-trial figure directly in several places (Key Takeaways, the Section 01 worked example, its reliability table, its FAQ, and its closing callout) | Initial narration attributed 70% to the source directly, which was correct. A later pass wrongly 'corrected' this to say the source never states it (false — it appears in several places). See SOURCES.md's correction note for the full history. |
+| 7 | B04–B05 | Description of fault-injection testing (malformed data, stale page, timeout; safe-refuse vs. silent-pass-through) | EXEMPT | This describes planned future work ("I'll deliberately feed it..."), not a claim about something that has already happened | — |
+| 8 | B06 | Scope claims: "one real tool, ten real questions, one documentation source" | EXEMPT | Stated as a plan ("I'm keeping this small on purpose"), not a completed fact | — |
+| 9 | B07 | "a real pull request I have open right now, I deliberately tried to break a different scoring system and found a real flaw in it" | PASS | `nikbearbrown/the-reallocation-engine` PR #3, public and open as of this writing; the described break-attempt (a constructed 0-approvals/2-denials company scoring 0.699 and outranking Microsoft) is documented in that PR's own `WORKED-RUN.md` and attestation | — |
+| 10 | BHTF | The "Your Turn" prompt itself | EXEMPT | A suggested prompt for the viewer to try, not a factual claim | — |
+| 11 | BCLOSE | "the repo link is in the description" | EXEMPT | A pointer to where the (not-yet-public) repo will be linked once created; not a claim being made now | — |
+
+**Summary:** 2 numeric claims verified directly against the source's own published stat block (not a search snippet). The source also states the 70%-per-trial figure directly, in several places; an earlier fact-check pass wrongly claimed it didn't and "corrected" the narration accordingly. That error was itself caught and corrected on 2026-10-14 by rereading the full article (see #6 and `SOURCES.md`). All forward-looking "will" claims marked EXEMPT rather than fact-checked as if they were completed work.
