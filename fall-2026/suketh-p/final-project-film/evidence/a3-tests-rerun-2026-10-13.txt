@@ -1,0 +1,51 @@
+# A3 prototype re-run from a fresh clone (run by Claude Code on the student's machine)
+# date: 2026-10-13 00:43:45 EDT
+# repo: https://github.com/sukethrp/the-reallocation-engine  branch: contrib/2026fa-sukethrp-ml-newgrad-sponsor-match
+# commit: 95d49825a02082a9520217c2853f74e5363c5e8a
+# python: Python 3.12.7  node: v22.11.0
+# command: python3 -m unittest discover -s scripts/contrib/2026fa/sukethrp-ml-newgrad-sponsor-match/tests -v
+
+test_authorization_text_that_zeroes_sponsorship_voids_the_run (test_sponsor_match.BreakAttempts.test_authorization_text_that_zeroes_sponsorship_voids_the_run)
+The scorer reads 'work authorized' as 'no sponsorship needed'. The contract gate must catch it. ... ok
+test_live_mode_only_fetches_hosts_the_recipe_names (test_sponsor_match.BreakAttempts.test_live_mode_only_fetches_hosts_the_recipe_names)
+The fixture URLs are on example.com. With the network forbidden, a fetch attempt would fail the run. ... ok
+test_a_record_shared_with_a_lookalike_is_held_until_a_person_checks_it (test_sponsor_match.EndToEnd.test_a_record_shared_with_a_lookalike_is_held_until_a_person_checks_it) ... ok
+test_a_row_chosen_by_a_person_relabels_what_is_read_through_it (test_sponsor_match.EndToEnd.test_a_row_chosen_by_a_person_relabels_what_is_read_through_it) ... ok
+test_ambiguous_match_lists_candidates_and_picks_none (test_sponsor_match.EndToEnd.test_ambiguous_match_lists_candidates_and_picks_none) ... ok
+test_each_role_lands_where_its_gates_send_it (test_sponsor_match.EndToEnd.test_each_role_lands_where_its_gates_send_it) ... ok
+test_every_scorer_term_is_labeled_and_no_model_judgment (test_sponsor_match.EndToEnd.test_every_scorer_term_is_labeled_and_no_model_judgment) ... ok
+test_gates_reach_the_scorer_explicitly (test_sponsor_match.EndToEnd.test_gates_reach_the_scorer_explicitly) ... ok
+test_held_roles_never_reach_the_scorer (test_sponsor_match.EndToEnd.test_held_roles_never_reach_the_scorer) ... ok
+test_liveness_is_a_record_only_when_saved_evidence_backs_it (test_sponsor_match.EndToEnd.test_liveness_is_a_record_only_when_saved_evidence_backs_it) ... ok
+test_override_passes_through_and_is_named_as_yours (test_sponsor_match.EndToEnd.test_override_passes_through_and_is_named_as_yours) ... ok
+test_personal_columns_never_reach_any_output (test_sponsor_match.EndToEnd.test_personal_columns_never_reach_any_output) ... ok
+test_report_opens_with_an_executive_summary (test_sponsor_match.EndToEnd.test_report_opens_with_an_executive_summary) ... ok
+test_run_completes_and_writes_both_outputs (test_sponsor_match.EndToEnd.test_run_completes_and_writes_both_outputs) ... ok
+test_same_name_duplicates_are_not_called_lookalikes (test_sponsor_match.EndToEnd.test_same_name_duplicates_are_not_called_lookalikes) ... ok
+test_summary_counts_held_roles_separately (test_sponsor_match.EndToEnd.test_summary_counts_held_roles_separately) ... ok
+test_unrated_fit_is_dropped_and_flagged (test_sponsor_match.EndToEnd.test_unrated_fit_is_dropped_and_flagged) ... ok
+test_company_names_use_the_engines_own_normalizer (test_sponsor_match.RealDataContract.test_company_names_use_the_engines_own_normalizer) ... ok
+test_counts_match_the_published_audit (test_sponsor_match.RealDataContract.test_counts_match_the_published_audit) ... ok
+test_file_matches_the_pinned_hash (test_sponsor_match.RealDataContract.test_file_matches_the_pinned_hash) ... ok
+test_status_and_todos_are_honest (test_sponsor_match.RecipeFrontmatter.test_status_and_todos_are_honest) ... ok
+test_a_board_that_forwards_to_an_unnamed_host_is_held_and_never_fetched (test_sponsor_match.RedirectPreCheck.test_a_board_that_forwards_to_an_unnamed_host_is_held_and_never_fetched) ... ok
+test_a_posting_that_stays_on_the_board_is_checked (test_sponsor_match.RedirectPreCheck.test_a_posting_that_stays_on_the_board_is_checked) ... ok
+test_a_redirect_between_named_hosts_is_followed (test_sponsor_match.RedirectPreCheck.test_a_redirect_between_named_hosts_is_followed) ... ok
+test_does_not_overwrite_committed_evidence_without_permission (test_sponsor_match.RunLevelGates.test_does_not_overwrite_committed_evidence_without_permission) ... ok
+test_input_gate_names_missing_fields (test_sponsor_match.RunLevelGates.test_input_gate_names_missing_fields) ... ok
+test_never_reads_a_profile_outside_the_fictional_personas (test_sponsor_match.RunLevelGates.test_never_reads_a_profile_outside_the_fictional_personas) ... ok
+test_never_writes_into_tracked_engine_folders (test_sponsor_match.RunLevelGates.test_never_writes_into_tracked_engine_folders) ... ok
+test_persona_must_say_it_needs_sponsorship (test_sponsor_match.RunLevelGates.test_persona_must_say_it_needs_sponsorship) ... ok
+test_source_gate_needs_an_explicit_hash_for_another_file (test_sponsor_match.RunLevelGates.test_source_gate_needs_an_explicit_hash_for_another_file) ... ok
+test_source_gate_stops_on_an_unpinned_hash (test_sponsor_match.RunLevelGates.test_source_gate_stops_on_an_unpinned_hash) ... ok
+test_level_markers_are_not_entry_level_evidence (test_sponsor_match.TitleRules.test_level_markers_are_not_entry_level_evidence) ... ok
+test_ml_titles_with_no_marker_count_as_role_level_evidence (test_sponsor_match.TitleRules.test_ml_titles_with_no_marker_count_as_role_level_evidence) ... ok
+test_non_engineering_titles_are_excluded (test_sponsor_match.TitleRules.test_non_engineering_titles_are_excluded) ... ok
+test_not_ml (test_sponsor_match.TitleRules.test_not_ml) ... ok
+test_seniority_markers (test_sponsor_match.TitleRules.test_seniority_markers) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 1.569s
+
+OK
+exit code: 0

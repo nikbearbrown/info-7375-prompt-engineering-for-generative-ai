@@ -7,6 +7,7 @@ A place for the public work of Suketh P — INFO 7375, Fall 2026.
 | Week | Assignment | What it is | Status |
 |---|---|---|---|
 | 1 | [`week-01-video/`](week-01-video/) | **Shifted, Not Changed** — an explainer on Chapter 1's max-subtraction: why softmax subtracts the largest score before exponentiating, what that changes, and where the fix runs out | Posted here; the video goes to Canvas |
+| Final project pitch | [`final-project-film/`](final-project-film/) | **Fine Print** — a 3:15 pitch for an agent that reads new-grad ML job postings for an F-1 student, quotes the sentence behind every requirement, compares it with the applicant's documented background, and stops for my approval. Nothing of the agent is built yet; the film says so on every picture of it | Posted here; the MP4 goes to Canvas (SHA-256 in the folder's README) |
 
 ## Week 1 — the short version
 

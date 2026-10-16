@@ -1,0 +1,79 @@
+# Brutalist toolkit setup on this machine — run by Claude Code
+# toolkit: https://github.com/nikbearbrown/brutalist.art @ 519fcbb96e9e1898d374c8794117cab494ffc5cb (fresh clone into Assignment 4/brutalist.art)
+# python venv: Python 3.12.7 (from /opt/anaconda3), node v22.11.0, ffmpeg version 8.1
+# command: python3 -m venv .venv && source .venv/bin/activate && ./setup --install
+# result: exit 1. Every install step succeeded; the script then stopped at its own ElevenLabs guard, which
+#         flagged 10 files inside the toolkit's own youtube/ folder, so it never printed the readiness table.
+
+## ./setup --install output (pip download lines trimmed)
+[1mInstalling core Python deps…[0m
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: pycairo, srt
+  Building wheel for pycairo (pyproject.toml): started
+  Building wheel for pycairo (pyproject.toml): finished with status 'done'
+  Created wheel for pycairo: filename=pycairo-1.29.2-cp312-cp312-macosx_27_0_arm64.whl size=112574 sha256=b11236c74efdebd9e1fea1d4d3612fbcd856737be54a3cd49471ae94b79aa53d
+  Stored in directory: ~/Library/Caches/pip/wheels/32/a7/08/3e5ffb24d5375c9808e310766bbf5ea7d6dc9724859c35224f
+  Building wheel for srt (pyproject.toml): started
+  Building wheel for srt (pyproject.toml): finished with status 'done'
+  Created wheel for srt: filename=srt-3.5.3-py3-none-any.whl size=22510 sha256=cd70cb425d3e0bcbf97c6fa8bf4f25c3a1f664e8e2eb333a343cbc880f6c6ede
+  Stored in directory: ~/Library/Caches/pip/wheels/7e/75/5b/e1d5c3756631e4bda806f6cc9640153b39484bb6f7b0b8def3
+Successfully built pycairo srt
+Installing collected packages: svgelements, pyglm, pydub, glcontext, flatbuffers, watchdog, typing-extensions, truststore, tqdm, srt, soupsieve, skia-pathops, pyyaml, pyobjc-core, pygments, pyglet, pycairo, protobuf, Pillow, packaging, numpy, networkx, mutagen, moderngl, mdurl, manimpango, idna, hf-xet, h11, fsspec, filelock, espeakng-loader, dlinfo, decorator, Cython, cloudpickle, click, av, attrs, scipy, pyobjc-framework-Cocoa, onnxruntime, moderngl-window, markdown-it-py, mapbox-earcut, joblib, isosurfaces, httpcore2, ctranslate2, cloup, beautifulsoup4, anyio, screeninfo, rich, phonemizer, httpx2, manim, kokoro-onnx, huggingface-hub, tokenizers, faster-whisper
+
+Successfully installed Cython-3.3.0 Pillow-12.3.0 anyio-4.15.1 attrs-26.1.0 av-19.0.1 beautifulsoup4-4.15.0 click-8.5.0 cloudpickle-3.1.2 cloup-4.0.0 ctranslate2-4.8.2 decorator-5.3.1 dlinfo-2.0.0 espeakng-loader-0.2.4 faster-whisper-1.2.1 filelock-4.1.1 flatbuffers-25.12.19 fsspec-2026.9.0 glcontext-3.1.0 h11-0.16.0 hf-xet-1.7.0 httpcore2-2.13.1 httpx2-2.13.1 huggingface-hub-2.2.0 idna-3.20 isosurfaces-0.1.2 joblib-1.6.0 kokoro-onnx-0.6.1 manim-0.20.1 manimpango-0.6.1 mapbox-earcut-2.1.0 markdown-it-py-4.2.0 mdurl-0.1.2 moderngl-5.13.0 moderngl-window-3.1.1 mutagen-1.48.1 networkx-3.7 numpy-2.5.4 onnxruntime-1.31.0 packaging-26.3 phonemizer-3.4.0 protobuf-7.36.2 pycairo-1.29.2 pydub-0.25.1 pyglet-2.1.19 pyglm-2.8.3 pygments-2.21.0 pyobjc-core-12.2.2 pyobjc-framework-Cocoa-12.2.2 pyyaml-6.0.3 rich-15.0.0 scipy-1.18.1 screeninfo-0.8.1 skia-pathops-0.9.2 soupsieve-3.0.3 srt-3.5.3 svgelements-1.9.6 tokenizers-0.23.3 tqdm-4.70.1 truststore-0.10.5 typing-extensions-4.16.0 watchdog-6.0.0
+
+[1mInstalling Remotion node deps…[0m
+npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+
+added 189 packages, and audited 190 packages in 2s
+
+29 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (2 moderate, 5 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm notice
+npm notice New minor version of npm available! 11.16.0 -> 11.21.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+npm notice To update run: npm install -g npm@11.21.0
+npm notice
+
+[1mInstalling fonts (bundled families + Oswald) into ~/Library/Fonts…[0m
+
+
+[31mElevenLabs reference found — this toolkit is Kokoro-only for narration.[0m
+  Files with hits:
+    ./youtube/brutalist/claude-liam-brutalist-command-setup/SCRIPT.md
+    ./youtube/brutalist/claude-liam-brutalist-command-setup/beat_sheet.json
+    ./youtube/brutalist/claude-liam-brutalist-command-setup/PROMPTS.md
+    ./youtube/brutalist/claude-liam-brutalist-command-setup/vertical/beat_sheet.json
+    ./youtube/brutalist/claude-liam-brutalist-command-setup/vertical/PROMPTS.md
+    ./youtube/brutalist/claude-liam-brutalist-runtime-brand-variant/demo/canonical/beat_sheet.json
+    ./youtube/brutalist/claude-liam-brutalist-runtime-brand-variant/demo/book-example/lectures/chap01-lecture/beat_sheet.json
+    ./youtube/brutalist/shorts/claude-liam-brutalist-command-setup-short/PROMPTS.md
+    ./youtube/brutalist/claude-liam-brutalist-skill-your-turn/demo/fixture-beat_sheet.applied.json
+    ./youtube/brutalist/claude-liam-brutalist-skill-your-turn/demo/fixture-beat_sheet.json
+
+## Readiness re-checked by hand, 2026-10-13 00:47 EDT (the checks setup would have run)
+imports OK: manim 0.20.1 | manimpango 0.6.1 | Pillow 12.3.0 | numpy 2.5.4
+[smoke] kokoro synth OK — mean_volume -21.8 dB
+remotion node_modules: present
+fonts matching Garamond/Oswald in fc-list: 10
+LaTeX: absent (only needed for Manim equation beats; this film has none)

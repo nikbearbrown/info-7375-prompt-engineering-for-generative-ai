@@ -1,0 +1,279 @@
+1
+00:00:00,800 --> 00:00:02,161
+Hi, I'm Suketh Produtoor.
+
+2
+00:00:02,181 --> 00:00:06,636
+I'm an international student on F-1, looking for new-grad machine learning roles.
+
+3
+00:00:06,656 --> 00:00:09,454
+The question isn't only whether a company sponsors.
+
+4
+00:00:09,474 --> 00:00:11,553
+It's whether the posting even fits me.
+
+5
+00:00:11,573 --> 00:00:15,705
+Earlier this term, Claude Code and I built a recipe for the course's job-search
+
+6
+00:00:15,725 --> 00:00:17,386
+engine, the Reallocation Engine.
+
+7
+00:00:17,406 --> 00:00:21,801
+It checks a company's sponsor record, its past work-visa filings, at the role level.
+
+8
+00:00:21,821 --> 00:00:24,954
+Claude wrote the code; I chose the rules and ran the checks.
+
+9
+00:00:24,974 --> 00:00:26,636
+Its thirty-six tests still pass.
+
+10
+00:00:26,656 --> 00:00:30,767
+Then it screened eight real postings by title and company record, for Arjun Rao,
+
+11
+00:00:30,787 --> 00:00:33,401
+a fictional applicant with no work history on file.
+
+12
+00:00:33,421 --> 00:00:36,861
+Read in full, six asked for two to twelve-plus years of experience,
+
+13
+00:00:36,881 --> 00:00:38,204
+or excluded new graduates.
+
+14
+00:00:38,224 --> 00:00:41,612
+An AI reviewer read them, Claude re-checked, and I held all eight.
+
+15
+00:00:41,632 --> 00:00:44,628
+A relevant title and a sponsor record are useful signals.
+
+16
+00:00:44,648 --> 00:00:47,114
+But the posting itself can change the decision.
+
+17
+00:00:47,134 --> 00:00:50,553
+So I will build Fine Print: an agent that will read each posting,
+
+18
+00:00:50,573 --> 00:00:52,881
+quote the sentence behind every requirement,
+
+19
+00:00:52,901 --> 00:00:56,161
+and stop for my approval before anything reaches my shortlist.
+
+20
+00:00:56,181 --> 00:00:59,558
+Every requirement it finds will need its sentence, word for word.
+
+21
+00:00:59,578 --> 00:01:02,641
+Code will check that the sentence really is in the posting.
+
+22
+00:01:02,661 --> 00:01:04,993
+If it isn't, the requirement gets thrown out.
+
+23
+00:01:05,013 --> 00:01:07,596
+What could sink it: a real quote, read the wrong way.
+
+24
+00:01:07,616 --> 00:01:11,132
+Say a posting says five years preferred, and the agent records required.
+
+25
+00:01:11,152 --> 00:01:12,752
+The quote check would still pass.
+
+26
+00:01:12,772 --> 00:01:15,699
+So preferred, required, and either-or rules will stay apart,
+
+27
+00:01:15,719 --> 00:01:17,516
+and anything unclear will stop at me.
+
+28
+00:01:17,536 --> 00:01:21,342
+A requirement also needs the applicant's documented background beside it.
+
+29
+00:01:21,362 --> 00:01:24,958
+I have about two and a half years at Amazon and six months at Vertex,
+
+30
+00:01:24,978 --> 00:01:27,788
+so two years required needs a comparison, not a guess.
+
+31
+00:01:27,808 --> 00:01:30,828
+The repo will use a fictional profile; mine stays private.
+
+32
+00:01:30,848 --> 00:01:34,875
+It will run as a loop: fetch a public posting from an allowed job board, read it,
+
+33
+00:01:34,895 --> 00:01:37,073
+check the sponsor record, log what it found.
+
+34
+00:01:37,093 --> 00:01:39,971
+It will stop when the list is done or the budget runs out.
+
+35
+00:01:39,991 --> 00:01:42,369
+It will read, and never apply, email, or log in.
+
+36
+00:01:42,389 --> 00:01:46,171
+That's the human gate: nothing will reach my shortlist until I approve it,
+
+37
+00:01:46,191 --> 00:01:48,432
+and the record will keep exactly what I saw.
+
+38
+00:01:48,452 --> 00:01:51,310
+A value the model proposed will still say source: model,
+
+39
+00:01:51,330 --> 00:01:54,444
+and my approval will be recorded beside it, as its own field.
+
+40
+00:01:54,464 --> 00:01:56,705
+My earlier prototype labelled those as mine.
+
+41
+00:01:56,725 --> 00:02:00,525
+I checked graduate ML descriptions from Qualcomm and TikTok on LinkedIn.
+
+42
+00:02:00,545 --> 00:02:03,230
+Both separate minimum and preferred qualifications;
+
+43
+00:02:03,250 --> 00:02:05,883
+neither accessible description states sponsorship.
+
+44
+00:02:05,903 --> 00:02:09,808
+Fine Print will preserve those distinctions, attach checked source quotes,
+
+45
+00:02:09,828 --> 00:02:12,620
+and keep missing sponsorship evidence marked unknown.
+
+46
+00:02:12,640 --> 00:02:13,343
+Who opens it?
+
+47
+00:02:13,363 --> 00:02:15,291
+A hiring manager or an ML engineer.
+
+48
+00:02:15,311 --> 00:02:18,686
+In the first minute, they'll run one command with no API key,
+
+49
+00:02:18,706 --> 00:02:22,692
+which replays recorded model outputs, and read the report: each posting,
+
+50
+00:02:22,712 --> 00:02:25,697
+each requirement beside its sentence, and my decision.
+
+51
+00:02:25,717 --> 00:02:29,073
+It should prove I can build an agent whose claims can be checked.
+
+52
+00:02:29,093 --> 00:02:32,968
+I'll label real postings by hand, set a held-out group aside before tuning,
+
+53
+00:02:32,988 --> 00:02:36,811
+and count two mistakes separately: clearing a posting I don't qualify for,
+
+54
+00:02:36,831 --> 00:02:38,006
+and excluding one I do.
+
+55
+00:02:38,026 --> 00:02:39,421
+It will never apply for me.
+
+56
+00:02:39,441 --> 00:02:43,563
+The first piece will be one loop over one public posting, with the quote check,
+
+57
+00:02:43,583 --> 00:02:46,603
+and a test that fails if a quote changes by a single word.
+
+58
+00:02:46,623 --> 00:02:47,486
+Why this project?
+
+59
+00:02:47,506 --> 00:02:48,058
+It's a mix.
+
+60
+00:02:48,078 --> 00:02:50,188
+I already have production ML from Amazon,
+
+61
+00:02:50,208 --> 00:02:53,150
+data checks with human sign-off from Vertex, and AgentOS,
+
+62
+00:02:53,170 --> 00:02:56,268
+my open-source project with budget limits and a kill switch.
+
+63
+00:02:56,288 --> 00:02:59,593
+New to me: reading a requirement without changing what it means,
+
+64
+00:02:59,613 --> 00:03:02,347
+and testing extraction and interpretation separately.
+
+65
+00:03:02,367 --> 00:03:06,184
+Today there's the recipe, its passing tests, the eight-posting finding,
+
+66
+00:03:06,204 --> 00:03:07,534
+and an open pull request.
+
+67
+00:03:07,554 --> 00:03:10,344
+Not yet: the agent, the quote check, the evaluation.
+
+68
+00:03:10,364 --> 00:03:11,371
+Those I will build.
+
+69
+00:03:11,391 --> 00:03:12,151
+Fine Print.
+
+70
+00:03:12,171 --> 00:03:13,782
+Suketh Reddy Produtoor.

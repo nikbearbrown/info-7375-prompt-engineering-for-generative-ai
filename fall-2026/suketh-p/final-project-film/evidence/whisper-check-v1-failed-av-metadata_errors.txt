@@ -1,0 +1,11 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "<toolkit>/.venv/lib/python3.12/site-packages/faster_whisper/transcribe.py", line 876, in transcribe
+    audio = decode_audio(audio, sampling_rate=sampling_rate)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<toolkit>/.venv/lib/python3.12/site-packages/faster_whisper/audio.py", line 46, in decode_audio
+    with av.open(input_file, mode="r", metadata_errors="ignore") as container:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "av/container/core.py", line 479, in av.container.core.open
+TypeError: open() got an unexpected keyword argument 'metadata_errors'
