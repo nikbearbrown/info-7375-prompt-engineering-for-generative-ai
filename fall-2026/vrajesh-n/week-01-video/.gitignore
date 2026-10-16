@@ -1,0 +1,15 @@
+# Render intermediates — regenerable from beat_sheet.json, never deliverables.
+clips/
+media/
+images/
+manim/
+pantry/
+mp4/
+build-state.json
+
+# A byte-identical duplicate of the master; the master itself is committed.
+_qc/probe-master.mp4
+
+# The repository root ignores *.mp4 at any depth (root .gitignore:33) and *.mp3
+# with it. Re-include ONLY the finished master — the narration mp3s stay out.
+!week-01-scale-slogan.mp4
