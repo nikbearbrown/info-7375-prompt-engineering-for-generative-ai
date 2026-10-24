@@ -38,3 +38,20 @@ To change the script: edit the narration in `build/make_sheet.py`, re-run `./bui
 
 - Before rendering it sets `meanSize` 48 -> 52 in `runtime/remotion/src/scenes/ClaudeDefinitions.tsx`. At 48 the terms card fails Gate T (40px < 41px).
 - `./art final` writes the master to `brutalist.art/renders/`, so the script copies it into the reel folder before the render-integrity check.
+
+## v2 (2026-10-24): prompts and what changed
+
+Prompt to Claude: *"i got 41 out of 50 i want full marks check for all mistakes make this whole video more detailed add more images…"*, with the professor's feedback pasted in.
+
+- Built `checkedsql/` first (the professor's "next step"), then rebuilt the film around its real results.
+- New build steps in `build_film.sh`:
+  - `--fresh` clears old drawn clips.
+  - `build/sync_props.py` copies each card's measured audio length into its props. Remotion cards don't read it on their own.
+  - `build/make_srt.py` writes the captions.
+  - The script copies `build/chat_test.png` into the reel.
+
+```bash
+./build_film.sh ~/brutalist.art --fresh     # full v2 rebuild
+python3 checkedsql/checker.py               # the baseline the film shows
+python3 checkedsql/answer_key.py --check    # the answer key, recomputed without SQL
+```

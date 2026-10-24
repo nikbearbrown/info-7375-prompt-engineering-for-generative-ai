@@ -1,0 +1,351 @@
+1
+00:00:00,800 --> 00:00:01,258
+Namaste.
+
+2
+00:00:01,258 --> 00:00:04,869
+I'm Siddhesh Nikam, and this is the pitch for my final project.
+
+3
+00:00:04,869 --> 00:00:07,275
+Lots of tools will answer a data question.
+
+4
+00:00:07,275 --> 00:00:08,708
+My question is different.
+
+5
+00:00:08,708 --> 00:00:10,542
+Can I prove the answer is right?
+
+6
+00:00:10,542 --> 00:00:11,218
+Three terms.
+
+7
+00:00:11,218 --> 00:00:12,626
+ROAS, return on ad spend:
+
+8
+00:00:12,626 --> 00:00:14,710
+revenue divided by what the ads cost.
+
+9
+00:00:14,710 --> 00:00:15,723
+A prompt contract:
+
+10
+00:00:15,723 --> 00:00:19,779
+the fixed rules I give Claude about what it may write, and in what form.
+
+11
+00:00:19,779 --> 00:00:20,624
+And a test set:
+
+12
+00:00:20,624 --> 00:00:24,792
+questions whose right answers I work out by hand, before Claude sees them.
+
+13
+00:00:24,792 --> 00:00:25,551
+One sentence.
+
+14
+00:00:25,551 --> 00:00:30,279
+CheckedSQL will let a marketing analyst ask a campaign question in plain English,
+
+15
+00:00:30,279 --> 00:00:32,964
+have Claude write the SQL, run it on the data,
+
+16
+00:00:32,964 --> 00:00:36,875
+and show the answer beside the query, scored against an answer key.
+
+17
+00:00:36,875 --> 00:00:40,985
+When it's done, it will be a GitHub repository, and part of it already runs.
+
+18
+00:00:40,985 --> 00:00:45,095
+On October twenty-fourth, with Claude's help, I built the synthetic dataset,
+
+19
+00:00:45,095 --> 00:00:48,069
+ten test questions with an answer key, and the checker.
+
+20
+00:00:48,069 --> 00:00:48,826
+Still to come:
+
+21
+00:00:48,826 --> 00:00:52,125
+the prompt contract, the Claude step, and the evaluation log.
+
+22
+00:00:52,125 --> 00:00:53,345
+Why would anyone care?
+
+23
+00:00:53,345 --> 00:00:55,728
+The first alternative is a fixed dashboard,
+
+24
+00:00:55,728 --> 00:00:59,055
+like the Tableau dashboard in my marketing campaign project,
+
+25
+00:00:59,055 --> 00:01:00,496
+which I made with AI help.
+
+26
+00:01:00,496 --> 00:01:02,935
+It answers the questions planned in advance.
+
+27
+00:01:02,935 --> 00:01:05,208
+A new question means building a new view.
+
+28
+00:01:05,208 --> 00:01:07,333
+The second is a general chat assistant.
+
+29
+00:01:07,333 --> 00:01:08,696
+On October twenty-fourth,
+
+30
+00:01:08,696 --> 00:01:12,891
+I gave ChatGPT my campaign data and asked which channel had the highest ROAS.
+
+31
+00:01:12,891 --> 00:01:14,798
+It answered Search, which is right.
+
+32
+00:01:14,798 --> 00:01:16,487
+But there is no fixed test set,
+
+33
+00:01:16,487 --> 00:01:21,010
+so no record of how often it is right on my questions, or which ones it gets wrong.
+
+34
+00:01:21,010 --> 00:01:24,333
+CheckedSQL runs every answer, shows its query, and scores it.
+
+35
+00:01:24,333 --> 00:01:25,185
+Who opens it?
+
+36
+00:01:25,185 --> 00:01:27,869
+A hiring manager for a data analyst role.
+
+37
+00:01:27,869 --> 00:01:32,190
+In the first sixty seconds, they open the README, run one command,
+
+38
+00:01:32,190 --> 00:01:35,006
+python3 checker .py, and see a score table.
+
+39
+00:01:35,006 --> 00:01:37,167
+That command already works today.
+
+40
+00:01:37,167 --> 00:01:38,207
+What will it prove?
+
+41
+00:01:38,207 --> 00:01:42,367
+That I can get marketing metrics right and check them against an answer key.
+
+42
+00:01:42,367 --> 00:01:43,681
+And three course skills:
+
+43
+00:01:43,681 --> 00:01:48,224
+a prompt contract, verification against known answers, and evaluation I can repeat.
+
+44
+00:01:48,224 --> 00:01:51,016
+Verification and evaluation now have real evidence:
+
+45
+00:01:51,016 --> 00:01:52,767
+the checker and its score table.
+
+46
+00:01:52,767 --> 00:01:53,917
+The contract is next.
+
+47
+00:01:53,917 --> 00:01:54,569
+What's out:
+
+48
+00:01:54,569 --> 00:01:56,585
+it will never change the database.
+
+49
+00:01:56,585 --> 00:02:00,557
+The checker already refuses anything but a single read-only SELECT.
+
+50
+00:02:00,557 --> 00:02:03,640
+One schema, no dashboards, and no real company data:
+
+51
+00:02:03,640 --> 00:02:05,833
+these twenty-four rows are synthetic.
+
+52
+00:02:05,833 --> 00:02:09,042
+What came first was the baseline, before any Claude call:
+
+53
+00:02:09,042 --> 00:02:12,195
+ten questions, an answer key worked out from the totals,
+
+54
+00:02:12,195 --> 00:02:14,277
+and baseline SQL drafted with Claude.
+
+55
+00:02:14,277 --> 00:02:16,248
+The checker printed ten out of ten.
+
+56
+00:02:16,248 --> 00:02:20,357
+Then I added two deliberately wrong queries that average ROAS row by row.
+
+57
+00:02:20,357 --> 00:02:21,708
+The checker failed both.
+
+58
+00:02:21,708 --> 00:02:22,783
+What could sink it?
+
+59
+00:02:22,783 --> 00:02:24,874
+An answer that looks right but isn't.
+
+60
+00:02:24,874 --> 00:02:26,797
+These are Email's eight real rows.
+
+61
+00:02:26,797 --> 00:02:31,037
+Four of them spend almost nothing and return fourteen to twenty times that.
+
+62
+00:02:31,037 --> 00:02:35,333
+Average the row ratios, and Email's ROAS comes out at nine point seven five.
+
+63
+00:02:35,333 --> 00:02:39,657
+Divide total revenue by total spend instead, and Email is two point two nine.
+
+64
+00:02:39,657 --> 00:02:41,790
+The best channel is Search, not Email.
+
+65
+00:02:41,790 --> 00:02:43,362
+Both numbers look plausible.
+
+66
+00:02:43,362 --> 00:02:43,755
+My fix:
+
+67
+00:02:43,755 --> 00:02:46,563
+the metric definition goes in the prompt contract,
+
+68
+00:02:46,563 --> 00:02:51,167
+and the test set has ratio questions, so this mistake gets caught, as it just was.
+
+69
+00:02:51,167 --> 00:02:52,098
+Why this project?
+
+70
+00:02:52,098 --> 00:02:52,975
+Mostly to learn.
+
+71
+00:02:52,975 --> 00:02:56,977
+My earlier marketing campaign repository was built with a lot of AI help,
+
+72
+00:02:56,977 --> 00:02:58,950
+so it shows the domain I care about,
+
+73
+00:02:58,950 --> 00:03:01,965
+metrics like click-through rate and return on ad spend,
+
+74
+00:03:01,965 --> 00:03:03,993
+more than it proves I can code alone.
+
+75
+00:03:03,993 --> 00:03:04,541
+New to me:
+
+76
+00:03:04,541 --> 00:03:08,816
+writing and checking SQL myself, calling Claude from Python, prompt contracts,
+
+77
+00:03:08,816 --> 00:03:09,639
+and evaluation.
+
+78
+00:03:09,639 --> 00:03:11,667
+This project is how I'll prove those.
+
+79
+00:03:11,667 --> 00:03:12,763
+So, what exists today:
+
+80
+00:03:12,763 --> 00:03:16,450
+my two earlier repositories, this film, and the first piece of CheckedSQL:
+
+81
+00:03:16,450 --> 00:03:19,440
+the dataset, the questions, the answer key, and the checker.
+
+82
+00:03:19,440 --> 00:03:20,237
+What will exist:
+
+83
+00:03:20,237 --> 00:03:24,173
+the prompt contract, the Claude step, thirty questions, and the evaluation log.
+
+84
+00:03:24,173 --> 00:03:26,664
+What I don't know yet is whether thirty is enough.
+
+85
+00:03:26,664 --> 00:03:30,750
+I'll find out by watching whether new questions keep finding new kinds of failure.
+
+86
+00:03:30,750 --> 00:03:31,431
+CheckedSQL:
+
+87
+00:03:31,431 --> 00:03:31,927
+A Pitch.
+
+88
+00:03:31,927 --> 00:03:33,042
+By Siddhesh Nikam.
