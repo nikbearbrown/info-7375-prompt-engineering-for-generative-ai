@@ -18,6 +18,10 @@ decided to build exactly that and nothing more, and to freeze the 10 questions b
 Claude on them, which is what my pitch said I would do. I also decided to keep this log as I go
 this time, with my own notes separate from what Claude writes.
 
+I don't have a Claude API key, so ClaimCheck can't call Claude yet. I'm submitting the offline
+baseline run as the first dated eval report, labelled as a baseline, and the Claude run is the
+next step once I have a key.
+
 ### Claude's build log
 
 - **Where it lives.** `fall-2026/shreyash-y/claimcheck/` on a new branch from the course repo's
@@ -42,5 +46,5 @@ this time, with my own notes separate from what Claude writes.
   This is the most useful thing the run showed: **the checker proves an answer is traceable, not
   that it is right.** Grading against frozen gold text caught all four. I added a test that pins
   this down (a real quote from the wrong clause passes the checker but grades WRONG).
-- **Next.** Run `--answerer claude` once a key is available, commit that dated report and the raw
+- **Next.** Shreyash confirmed he has no API key. Run `--answerer claude` once one is available, commit that dated report and the raw
   replies in `runs/` so the run can be replayed, and compare it with the baseline.

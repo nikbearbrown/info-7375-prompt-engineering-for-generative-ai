@@ -52,6 +52,7 @@ that limit down so it can't be forgotten.
 
 ## Not done yet
 
-- The live Claude run (needs my API key; see FRICTIONAL.md).
+- The live Claude run. I don't have a Claude API key yet, so the only report so far is the no-model
+  baseline. The `claude` answerer is written and tested to stop cleanly without a key; it has not called the API.
 - More documents, a larger question set, and questions written by someone other than me.
 - The failure analysis write-up across several runs and prompt versions.
