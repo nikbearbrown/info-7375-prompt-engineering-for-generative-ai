@@ -3,8 +3,12 @@
 I worked on this pitch on two days: **2026-10-07** (choosing the project, the brief, the beat
 sheet) and **2026-10-14**, the due date (building the film, running the checks, fixing what
 failed, assembling the submission). The dates below come from the files themselves: the brief,
-the beat sheet, the Dovetail test output, the build logs, and the git commits. The detailed log
-at the end records each failure and fix with its date.
+the beat sheet, the Dovetail test output, the build logs, and the git commits.
+
+**Who wrote what.** Sections 1 to 8 are mine. The build log at the end was written by Claude
+(Claude Code) during the build sessions, on my instructions; "I" in that log means Claude, not
+me. I read it and kept it because it records each failure and fix with its date, but I did not
+write it. (Added 2026-10-25, after grading: the first version of this file didn't say this.)
 
 ## 1. Choosing My Project — 2026-10-07
 
@@ -60,9 +64,19 @@ I used the Brutalist toolkit to create the film and Kokoro for narration. I also
 
 I did not record the narration using my own voice, and ClaimCheck itself has not been implemented yet. I wanted to be clear about these limitations instead of presenting unfinished work as completed.
 
+## 8. After Grading — 2026-10-25
+
+My TA gave this log 3/5 and said the next step is to build the first piece of ClaimCheck. I
+labelled the build log below as Claude's, because it was written in the first person and did
+not say who wrote it. Then I built the first piece the film promised in B08: one synthetic
+policy, 10 frozen questions, the citation checker, and a dated eval report. That work and its own
+dated log are in `../claimcheck/`.
+
 ---
 
-## Detailed log (dated)
+## Build log written by Claude (Claude Code), dated
+
+"I" in this section means Claude. Written during the sessions on 2026-10-07 and 2026-10-14.
 
 ### 2026-10-07
 
