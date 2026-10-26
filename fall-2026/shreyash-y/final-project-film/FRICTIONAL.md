@@ -70,7 +70,7 @@ My TA gave this log 3/5 and said the next step is to build the first piece of Cl
 labelled the build log below as Claude's, because it was written in the first person and did
 not say who wrote it. Then I built the first piece the film promised in B08: one synthetic
 policy, 10 frozen questions, the citation checker, and a dated eval report. That work and its own
-dated log are in `../claimcheck/`.
+dated log are in `claimcheck/` inside this folder.
 
 ---
 

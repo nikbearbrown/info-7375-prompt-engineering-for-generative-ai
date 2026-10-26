@@ -8,7 +8,7 @@ is the first piece promised in my pitch film (beat B08): **one synthetic policy,
 questions, the citation checker, and a dated eval report**. It runs offline with one command; the
 live Claude run is a separate, explicit step.
 
-Shreyash Yadav · INFO 7375, Fall 2026 · pitch film: `../final-project-film/`
+Shreyash Yadav · INFO 7375, Fall 2026 · pitch film: the folder above this one (`../`)
 
 ## Run it
 

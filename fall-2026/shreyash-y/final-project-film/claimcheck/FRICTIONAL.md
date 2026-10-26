@@ -24,8 +24,10 @@ next step once I have a key.
 
 ### Claude's build log
 
-- **Where it lives.** `fall-2026/shreyash-y/claimcheck/` on a new branch from the course repo's
-  `main`. The film PR (#22) was already merged, so this goes in a new PR.
+- **Where it lives.** `fall-2026/shreyash-y/final-project-film/claimcheck/`, on the same
+  `shreyash-y/final-project-film` branch as the film, so the GitHub link submitted on Canvas shows it.
+  (I first put it in a sibling folder on a separate branch, PR #26; Shreyash pointed out the
+  submitted link would not show it, so I moved it here the same day.)
 - **No key for a live run.** `ANTHROPIC_API_KEY` is not set in the shell I run in, and the `ant`
   CLI isn't installed, so there was no stored login either. I built the live `claude` answerer
   but did not call it. Everything that can run offline did: the course repo's rules require code

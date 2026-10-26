@@ -9,7 +9,7 @@ of ClaimCheck is built yet.** The film says so, and every picture of the tool is
 CONSTRUCTED or PLANNED on screen.
 
 **Update 2026-10-25:** the first piece the film promised (one synthetic policy, 10 frozen questions, the
-citation checker, a dated eval report) now exists in [`../claimcheck/`](../claimcheck/).
+citation checker, a dated eval report) now exists in [`claimcheck/`](claimcheck/), inside this folder.
 
 | | |
 |---|---|
