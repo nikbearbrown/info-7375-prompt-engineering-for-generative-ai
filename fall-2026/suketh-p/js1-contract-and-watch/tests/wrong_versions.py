@@ -39,6 +39,8 @@ def judge_posting_fail_open(resume, posting, send):
     except JudgeError as error:
         return {
             "kind": "model_judgment",
+            "note": judge.NOTE,
+            "prompt": judge.DEFAULT_PROMPT,
             "verdict": "not_relevant",
             "justification": f"Reply rejected: {error}",
             "resume_evidence": [],

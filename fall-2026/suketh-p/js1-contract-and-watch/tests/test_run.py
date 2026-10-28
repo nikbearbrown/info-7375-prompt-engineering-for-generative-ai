@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from jobwatch import net, run, state
+from jobwatch import net, run, state, transports
 from jobwatch.errors import FetchError, InputError, JudgeError, StateError
 from tests.helpers import NOT_RELEVANT_202, OTHER_1, RELEVANT_101, ScriptedModel, board_bytes, persona
 
@@ -261,6 +261,15 @@ class OutputTest(AgentCase):
         result = self.by_id(self.new_101())[101]
         self.assertEqual(result["rule_verdict"]["kind"], "record")
         self.assertEqual(result["claude_verdict"]["kind"], "model_judgment")
+
+    def test_the_call_metadata_is_kept_with_the_verdict(self):
+        scripted = self.model
+
+        def send_with_meta(system, user):
+            return transports.Reply(scripted(system, user), {"transport": "constructed", "model": "m-1"})
+        self.model = send_with_meta
+        result = self.by_id(self.new_101())[101]
+        self.assertEqual(result["claude_verdict"]["call"], {"transport": "constructed", "model": "m-1"})
 
     def test_the_model_reply_is_saved_verbatim(self):
         summary = self.new_101()

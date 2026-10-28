@@ -1,0 +1,20 @@
+# 2026-10-28 06:25:04 EDT — python3 -m unittest tests.test_transports (RED: transports module not written yet)
+E
+======================================================================
+ERROR: test_transports (unittest.loader._FailedTest.test_transports)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_transports
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_transports.py", line 11, in <module>
+    from jobwatch import transports
+ImportError: cannot import name 'transports' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/jobwatch/__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+exit code: 1
