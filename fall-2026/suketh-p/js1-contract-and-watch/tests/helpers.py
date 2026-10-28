@@ -23,9 +23,14 @@ def esc(markup):
 
 
 def job(job_id, title, location, content_markup):
-    """One job record shaped like a Greenhouse Job Board API job with content=true."""
+    """One job record with the same keys and value types as a job in the live Greenhouse
+    response with content=true (checked against the 2026-10-28 baseline response)."""
     return {
         "absolute_url": f"https://job-boards.greenhouse.io/constructed/jobs/{job_id}",
+        "ai_disclaimer": None,
+        "ai_opt_out_request_url": None,
+        "application_deadline": None,
+        "include_ai_disclaimer": None,
         "data_compliance": [
             {
                 "type": "gdpr",
@@ -38,7 +43,7 @@ def job(job_id, title, location, content_markup):
         ],
         "internal_job_id": job_id + 1,
         "location": {"name": location},
-        "metadata": None,
+        "metadata": [],
         "id": job_id,
         "updated_at": "2026-10-27T12:00:00-04:00",
         "requisition_id": f"REQ-{job_id}",

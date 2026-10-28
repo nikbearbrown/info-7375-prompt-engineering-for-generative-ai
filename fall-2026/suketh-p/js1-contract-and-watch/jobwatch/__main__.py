@@ -1,6 +1,8 @@
 """Command line: python3 -m jobwatch run|rule ... (see README.md for the exact commands)."""
 
 import argparse
+import gzip
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -18,10 +20,16 @@ def read_resume(path):
         raise InputError("résumé file could not be read as JSON") from None
 
 
+def read_saved(path):
+    """Bytes of a saved response; a .gz file is decompressed (the repo stores raw responses gzipped)."""
+    data = Path(path).read_bytes()
+    return gzip.decompress(data) if str(path).endswith(".gz") else data
+
+
 def replay(path):
     """A saved earlier response, served as if fetched. Runs that use it are labelled seeded."""
     def fetch():
-        return net.FetchResult(Path(path).read_bytes(), net.BOARD_URL, 200, "application/json (saved file)", net.utc_now())
+        return net.FetchResult(read_saved(path), net.BOARD_URL, 200, "application/json (saved file)", net.utc_now())
     return fetch
 
 
@@ -48,10 +56,24 @@ def cmd_run(args):
 
 def cmd_rule(args):
     resume = validate_resume(read_resume(args.resume))
-    postings = {p.id: p for p in board.parse_board(Path(args.raw).read_bytes())}
+    postings = {p.id: p for p in board.parse_board(read_saved(args.raw))}
     if args.id not in postings:
         raise InputError(f"posting {args.id} is not in {args.raw}")
     print(json.dumps(rule.rule_verdict(resume, postings[args.id]), indent=2, ensure_ascii=False))
+
+
+def cmd_verify(args):
+    """Check that a run's saved raw response (plain or .gz) is byte-for-byte what retrieval.json recorded."""
+    run_dir = Path(args.run_dir)
+    recorded = json.loads((run_dir / "retrieval.json").read_text(encoding="utf-8"))
+    plain, packed = run_dir / "raw_response.json", run_dir / "raw_response.json.gz"
+    source = plain if plain.exists() else packed
+    body = read_saved(source)
+    digest = hashlib.sha256(body).hexdigest()
+    if digest != recorded["sha256"] or len(body) != recorded["bytes"]:
+        raise InputError(f"{source} does not match retrieval.json (sha256 {digest}, {len(body)} bytes)")
+    print(f"OK {source}: {len(body)} bytes, sha256 {digest} matches retrieval.json "
+          f"({recorded['mode']}, retrieved {recorded['retrieved_at']})")
 
 
 def main(argv=None):
@@ -73,6 +95,10 @@ def main(argv=None):
     recompute.add_argument("--raw", required=True, type=Path)
     recompute.add_argument("--id", required=True, type=int)
     recompute.set_defaults(func=cmd_rule)
+
+    verify = sub.add_parser("verify", help="check a run's saved raw response against its recorded sha256")
+    verify.add_argument("run_dir", type=Path)
+    verify.set_defaults(func=cmd_verify)
 
     args = parser.parse_args(argv)
     try:

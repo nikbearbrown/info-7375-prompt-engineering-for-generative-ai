@@ -1,5 +1,6 @@
 """The command a TA runs, against a constructed saved response. No network."""
 
+import gzip
 import json
 import subprocess
 import sys
@@ -38,6 +39,26 @@ class CommandLineTest(unittest.TestCase):
         proc = cli("rule", "--raw", str(self.saved), "--id", "101", "--resume", str(PERSONA_PATH))
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertEqual(json.loads(proc.stdout)["verdict"], "relevant")
+
+    def test_rule_command_reads_a_gzipped_saved_response(self):
+        packed = self.root / "saved.json.gz"
+        packed.write_bytes(gzip.compress(self.saved.read_bytes()))
+        proc = cli("rule", "--raw", str(packed), "--id", "101", "--resume", str(PERSONA_PATH))
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertEqual(json.loads(proc.stdout)["posting_id"], 101)
+
+    def test_verify_checks_the_packed_raw_response_against_its_recorded_hash(self):
+        runs = self.root / "runs"
+        proc = cli("run", "--from-file", str(self.saved), "--resume", str(PERSONA_PATH),
+                   "--state", str(self.root / "state.json"), "--out", str(runs))
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        [run_dir] = runs.iterdir()
+        raw = run_dir / "raw_response.json"
+        (run_dir / "raw_response.json.gz").write_bytes(gzip.compress(raw.read_bytes()))
+        raw.unlink()
+        self.assertEqual(cli("verify", str(run_dir)).returncode, 0)
+        (run_dir / "raw_response.json.gz").write_bytes(gzip.compress(b'{"jobs": []}'))
+        self.assertNotEqual(cli("verify", str(run_dir)).returncode, 0)
 
     def test_a_rejected_resume_exits_nonzero_without_echoing_it(self):
         real_looking = persona()
