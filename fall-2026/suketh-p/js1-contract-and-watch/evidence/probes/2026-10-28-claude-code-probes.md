@@ -2,7 +2,7 @@
 
 Two `claude -p` calls Claude Code made while choosing how the judge reaches Claude. Both ran in an empty scratch directory with Claude Code 2.1.291, before any judge code existed. Neither call contained a posting or the persona.
 
-## Probe 1: can `claude -p` run with nothing turned on? (about 06:13 EDT)
+## Probe 1: can `claude -p` run with nothing turned on? (between commits 29b3a26 at 06:10 and d945f28 at 06:19 EDT)
 
 ```bash
 printf 'Reply with exactly the word OK and nothing else.' | claude -p --tools "" \
@@ -25,7 +25,7 @@ Recorded from the stream:
 
 **What this shows.** Our text was about 20 tokens (a 5-word system prompt and an 11-word message), yet the request carried about 828 input tokens. Claude Code adds context of its own that the agent does not write and cannot see. That conflicts with the CONTRACT.md refusal "Send anything to Claude beyond the fixed instructions, fictional résumé, and public posting" if the judge uses this route.
 
-## Probe 2: what is that added context? (about 06:31 EDT)
+## Probe 2: what is that added context? (between commits 78c1b1b at 06:28 and 846c35a at 06:30 EDT)
 
 Same flags plus `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1`, with a system prompt asking Claude to quote, verbatim, all text in its context before the user message.
 
