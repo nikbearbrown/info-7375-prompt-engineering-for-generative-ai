@@ -1,0 +1,90 @@
+{
+  "raw_file": "runs/raw/oscar-20261029T031015Z.json",
+  "procedure": "Pick the 20 real postings for hand labeling, from run 1's saved raw response.\nCommitted (with its output) before Shreyash labeled anything or saw the list.\n\nProcedure, fixed in advance:\n1. Pool = postings whose department is Engineering, Data, Product & Design or Security, or whose\n   title contains engineer, software, developer, data, scien, machine learning, AI or ML.\n   (A random draw from the whole board would be almost all claims, actuarial and clinical\n   jobs, which every judge gets right and which teach nothing.)\n2. One posting per distinct title (the same title in another city has the same ad text),\n   choosing which city with random.Random(7375).\n3. Draw 20 titles with the same generator, then the first 10 drawn are DEVELOPMENT and the\n   last 10 are HELD-OUT.\nNo rule verdict, Claude verdict or content was looked at while choosing.",
+  "pool_size": 57,
+  "distinct_titles_in_pool": 33,
+  "development": [
+    {
+      "id": 8264996,
+      "title": "Senior Market Researcher, Insurance Product & Marketing"
+    },
+    {
+      "id": 8188906,
+      "title": "Manager, Data Mining - Payment Integrity "
+    },
+    {
+      "id": 8083703,
+      "title": "Senior Data Scientist"
+    },
+    {
+      "id": 6555819,
+      "title": "Staff Software Engineer, Backend"
+    },
+    {
+      "id": 8289735,
+      "title": "Director of Product, Provider Data Management"
+    },
+    {
+      "id": 8315120,
+      "title": "Group Product Manager, Lucie Platform"
+    },
+    {
+      "id": 8315032,
+      "title": "Senior Product Manager, Marketplace"
+    },
+    {
+      "id": 8193718,
+      "title": "Senior Analyst, Data Analytics, SIU"
+    },
+    {
+      "id": 8073842,
+      "title": "Director of Product, Claims Design"
+    },
+    {
+      "id": 8131843,
+      "title": "Staff Security Engineer, GRC"
+    }
+  ],
+  "held_out": [
+    {
+      "id": 8319419,
+      "title": "Technical Program Manager, Data"
+    },
+    {
+      "id": 8250366,
+      "title": "Staff Product Manager"
+    },
+    {
+      "id": 7660215,
+      "title": "Senior Product Designer"
+    },
+    {
+      "id": 7205649,
+      "title": "Senior Software Engineer, Backend"
+    },
+    {
+      "id": 7572045,
+      "title": "Senior Software Engineer, Cloud Infrastructure / SRE"
+    },
+    {
+      "id": 8301400,
+      "title": "Director, Analytics Engineering"
+    },
+    {
+      "id": 8193724,
+      "title": "Medical Director Scientific Affairs"
+    },
+    {
+      "id": 8052900,
+      "title": "Senior Product Security Engineer I"
+    },
+    {
+      "id": 8233063,
+      "title": "Senior Director, Data Science, Core Insurance & Network"
+    },
+    {
+      "id": 8264978,
+      "title": "Technical Program Manager"
+    }
+  ]
+}

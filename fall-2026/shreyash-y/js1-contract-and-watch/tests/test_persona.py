@@ -44,8 +44,9 @@ class PersonaValidation(unittest.TestCase):
 
 class FolderHasNoRealContacts(unittest.TestCase):
     """Scans every text file in this folder. Emails must be @example.com (or the
-    noreply addresses git and Anthropic use); phone numbers must use 555."""
-    ALLOWED_EMAIL = re.compile(r"@((?:[\w-]+\.)*example\.com|anthropic\.com|users\.noreply\.github\.com)$")
+    noreply addresses git and Anthropic use, or hioscar.com, the address Oscar publishes inside its
+    own postings for accommodation requests); phone numbers must use 555."""
+    ALLOWED_EMAIL = re.compile(r"@((?:[\w-]+\.)*example\.com|anthropic\.com|hioscar\.com|users\.noreply\.github\.com)$")
     SKIP_DIRS = {"raw", "__pycache__", "calls"}
 
     def files(self):
