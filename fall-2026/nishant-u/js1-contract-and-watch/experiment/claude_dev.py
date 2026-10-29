@@ -2,6 +2,7 @@
 
     python3 experiment/claude_dev.py sampling       # 5 dev postings x 4 fresh calls -> experiment/sampling/
     python3 experiment/claude_dev.py baseline-dev   # 10 dev postings x 1 fresh call -> experiment/runs/baseline-dev/
+    python3 experiment/claude_dev.py revision1-dev  # the same with prompts/revision-1.md -> experiment/runs/revision1-dev/
 
 Every call is a separate `claude -p` process (a fresh conversation) through agent.claude_judge,
 which saves the prompt, the raw reply and its date, session_id and model. Any held-out id is refused.
@@ -13,7 +14,7 @@ from pathlib import Path
 
 sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve().parent.parent)]
 from hand_labels import HERE, ROOT, hand_labels, postings, split  # noqa: E402
-from agent import claude_judge, validator  # noqa: E402
+from agent import claude_judge, rules, validator  # noqa: E402
 from agent.resume import load_resume  # noqa: E402
 
 SAMPLING_SEED = 20261030
@@ -30,7 +31,7 @@ def sampling_pick(dev, labels):
     return sorted(rng.sample(rel, k_rel) + rng.sample(other, SAMPLING_POSTINGS - k_rel))
 
 
-def one_call(job, resume, out_dir, template):
+def one_call(job, resume, out_dir, template, schema="baseline"):
     """One fresh judge call, then the validator and the support check, kept in separate columns."""
     outcome = claude_judge.judge(job, resume, out_dir, template=template)
     row = {"posting_id": job["id"], "status": outcome["status"], "meta": outcome.get("meta")}
@@ -38,7 +39,7 @@ def one_call(job, resume, out_dir, template):
         row.update(valid=False, errors=[f"not run: {outcome['reason']}"], verdict=None, citations=[])
         return row
     # The posting it was given is the only id a judgment may name.
-    errors = validator.validate(outcome["result"], resume, {job["id"]})
+    errors = validator.validate(outcome["result"], resume, {job["id"]}, schema=schema)
     row.update(valid=not errors, errors=errors, verdict=None, citations=[])
     try:
         parsed = json.loads(outcome["result"])
@@ -47,6 +48,8 @@ def one_call(job, resume, out_dir, template):
     if isinstance(parsed, dict):
         # Recorded even when invalid, so a wrong shape and an unsupported quote stay distinguishable.
         row["verdict"] = parsed.get("verdict")
+        if schema != "baseline":
+            row["failed_check"] = parsed.get("failed_check", "(missing)")
         if isinstance(parsed.get("citations"), list):
             row["citations"] = [dict(c, support=validator.support_check(c, job))
                                 for c in parsed["citations"] if isinstance(c, dict)]
@@ -59,17 +62,22 @@ def all_supported(row):
 
 def main(mode):
     resume = load_resume(ROOT / "data" / "resume.example.json")
-    template = (ROOT / "prompts" / "baseline.md").read_text(encoding="utf-8")
     dev, heldout = split()
     labels = hand_labels()
     jobs = postings()
 
+    prompt, schema = "baseline.md", "baseline"
     if mode == "sampling":
         ids, calls, base = sampling_pick(dev, labels), SAMPLING_CALLS, HERE / "sampling"
     elif mode == "baseline-dev":
         ids, calls, base = sorted(dev), 1, HERE / "runs" / "baseline-dev"
+    elif mode == "revision1-dev":
+        ids, calls, base = sorted(dev), 1, HERE / "runs" / "revision1-dev"
+        prompt, schema = "revision-1.md", "revision-1"
     else:
-        raise SystemExit("usage: claude_dev.py sampling | baseline-dev")
+        raise SystemExit("usage: claude_dev.py sampling | baseline-dev | revision1-dev")
+    template = (ROOT / "prompts" / prompt).read_text(encoding="utf-8")
+    requirements = json.loads((ROOT / "data" / "requirements.json").read_text(encoding="utf-8"))
     if set(ids) & set(heldout) or not set(ids) <= set(dev):
         raise SystemExit("refused: only development postings may be sent to Claude")
     if (base / "results.json").exists():
@@ -79,14 +87,18 @@ def main(mode):
     for pid in ids:
         for n in range(1, calls + 1):
             out_dir = base / str(pid) / f"call-{n}" if calls > 1 else base
-            row = one_call(jobs[pid], resume, out_dir, template)
+            row = one_call(jobs[pid], resume, out_dir, template, schema)
+            if schema != "baseline":
+                rule = rules.evaluate(jobs[pid], resume, requirements)
+                row.update(rule_failed_check=rule["failed_check"],
+                           failed_check_agrees=row["valid"] and row.get("failed_check") == rule["failed_check"])
             row.update(call=n, my_label=labels[pid]["my_label"], my_failed_check=labels[pid]["my_failed_check"],
                        supported=all_supported(row),
                        passed=row["valid"] and row["verdict"] == labels[pid]["my_label"])
             rows.append(row)
             print(pid, n, row["status"], row["verdict"], "valid" if row["valid"] else row["errors"], flush=True)
 
-    result = {"mode": mode, "prompt": "prompts/baseline.md", "seed": SAMPLING_SEED if mode == "sampling" else None,
+    result = {"mode": mode, "prompt": f"prompts/{prompt}", "schema": schema, "seed": SAMPLING_SEED if mode == "sampling" else None,
               "posting_ids": ids, "calls_per_posting": calls, "rows": rows}
     (base / "results.json").write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n",
                                        encoding="utf-8", newline="\n")

@@ -51,3 +51,5 @@ Whether each quote actually appears in the cited field is checked separately and
 
 ## Amendments
 2026-10-29, after implementation: a quote must be a non-empty string. Found by Claude Code during implementation: an empty quote passed the validator and counted as supported. The original text above is unchanged.
+
+2026-10-29: prompts/revision-1.md adds a required failed_check field (R1–R4, or null if relevant). The baseline schema is unchanged and still used for the baseline results. Declared before the revision run: the pass rule stays (valid AND verdict equals my hand label); a second measure, failed_check agreement with the rule judge, is reported for the revision only, since the baseline has no such field.

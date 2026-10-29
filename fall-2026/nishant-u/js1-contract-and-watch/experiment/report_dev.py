@@ -2,6 +2,7 @@
 
     python3 experiment/report_dev.py sampling       # prints the sampling tables
     python3 experiment/report_dev.py baseline-dev   # prints the baseline-dev table
+    python3 experiment/report_dev.py revision1-dev  # prints the revision-1 dev tables
 
 It reads only saved results: no Claude call.
 """
@@ -66,7 +67,21 @@ def baseline(result):
     lines += ["", f"**Dev pass rate: {passed}/{len(rows)}** (pass = valid AND verdict equals my label).",
               f"Valid: {sum(r['valid'] for r in rows)}/{len(rows)}. "
               f"All citations supported: {sum(r['supported'] for r in rows)}/{len(rows)}."]
+    if result.get("schema") == "revision-1":
+        lines += failed_check_section(rows)
     lines += unsupported_section(rows)
+    return lines
+
+
+def failed_check_section(rows):
+    agree = sum(r["failed_check_agrees"] for r in rows)
+    lines = ["", "## failed_check vs the rule judge (declared second measure)", "",
+             f"**failed_check agreement with the rule judge: {agree}/{len(rows)}** (counted only when valid).", "",
+             "| posting_id | Claude failed_check | rule failed_check | agrees | my failed check (not a declared measure) |",
+             "|---|---|---|---|---|"]
+    for r in rows:
+        lines.append(f"| {r['posting_id']} | {r.get('failed_check') or 'null'} | {r['rule_failed_check'] or 'null'} | "
+                     f"{'yes' if r['failed_check_agrees'] else 'no'} | {r['my_failed_check'] or '-'} |")
     return lines
 
 
@@ -83,8 +98,9 @@ def unsupported_section(rows):
 
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
-    path = {"sampling": HERE / "sampling", "baseline-dev": HERE / "runs" / "baseline-dev"}.get(mode)
+    path = {"sampling": HERE / "sampling", "baseline-dev": HERE / "runs" / "baseline-dev",
+            "revision1-dev": HERE / "runs" / "revision1-dev"}.get(mode)
     if not path:
-        raise SystemExit("usage: report_dev.py sampling | baseline-dev")
+        raise SystemExit("usage: report_dev.py sampling | baseline-dev | revision1-dev")
     result = json.loads((path / "results.json").read_text(encoding="utf-8"))
     print("\n".join(sampling(result) if mode == "sampling" else baseline(result)))

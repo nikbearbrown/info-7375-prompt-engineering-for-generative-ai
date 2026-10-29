@@ -8,6 +8,9 @@ import json
 from agent import rules
 
 JUDGMENT_KEYS = {"posting_id", "verdict", "citations", "label"}
+# Amendment 2026-10-29: prompts/revision-1.md adds failed_check. The baseline schema is unchanged.
+SCHEMA_KEYS = {"baseline": JUDGMENT_KEYS, "revision-1": JUDGMENT_KEYS | {"failed_check"}}
+FAILED_CHECKS = {"R1", "R2", "R3", "R4"}
 CITATION_KEYS = {"resume_field", "posting_field", "quote"}
 VERDICTS = {"relevant", "not_relevant"}
 
@@ -25,8 +28,9 @@ def resume_field_exists(resume, path):
     return True
 
 
-def validate(judgment, resume, new_ids):
+def validate(judgment, resume, new_ids, schema="baseline"):
     """A list of reasons the judgment breaks the schema; empty means accepted."""
+    keys = SCHEMA_KEYS[schema]
     if isinstance(judgment, (str, bytes)):
         try:
             judgment = json.loads(judgment)
@@ -36,9 +40,9 @@ def validate(judgment, resume, new_ids):
         return ["not a JSON object"]
 
     errors = []
-    if set(judgment) != JUDGMENT_KEYS:
-        missing, extra = JUDGMENT_KEYS - set(judgment), set(judgment) - JUDGMENT_KEYS
-        errors.append(f"keys must be exactly {sorted(JUDGMENT_KEYS)}; "
+    if set(judgment) != keys:
+        missing, extra = keys - set(judgment), set(judgment) - keys
+        errors.append(f"keys must be exactly {sorted(keys)}; "
                       f"missing {sorted(missing)}, extra {sorted(extra)}")
 
     posting_id = judgment.get("posting_id")
@@ -51,6 +55,14 @@ def validate(judgment, resume, new_ids):
         errors.append(f"verdict must be one of {sorted(VERDICTS)}")
     if judgment.get("label") != "judgment":
         errors.append('label must be "judgment"')
+    if "failed_check" in keys and "failed_check" in judgment:
+        failed = judgment["failed_check"]
+        if failed is not None and not (isinstance(failed, str) and failed in FAILED_CHECKS):
+            errors.append(f"failed_check must be one of {sorted(FAILED_CHECKS)} or null")
+        elif judgment.get("verdict") == "relevant" and failed is not None:
+            errors.append("failed_check must be null when the verdict is relevant")
+        elif judgment.get("verdict") == "not_relevant" and failed is None:
+            errors.append("failed_check must be R1–R4 when the verdict is not_relevant")
 
     citations = judgment.get("citations")
     if not isinstance(citations, list) or not citations:
