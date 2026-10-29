@@ -93,3 +93,5 @@ judge's (`rule_vs_hand.md`).
   Agreement here is not a measured rate, and repeatability isn't correctness (`SAMPLING-REPORT.md`).
 - **Not evaluated on held-out.** These are development results. The held-out comparison hasn't been
   run yet. It should run only after Nishant freezes `prompts/revision-1.md`.
+
+2026-10-29: revision-1 frozen before the held-out evaluation. prompts/baseline.md sha256 5bd931e7b14669884357b6bb20b960afccea86cefe93cd8d3a3ad70b883997a1, prompts/revision-1.md sha256 16ecb4366aaf1d07f52f33ac5f9bb0bc9e442616954bdab6795e96968c453206. No further prompt changes.
