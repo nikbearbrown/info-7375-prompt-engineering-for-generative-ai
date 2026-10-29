@@ -1,4 +1,4 @@
-# Prompt experiment: baseline vs revision-1 (draft for Nishant to edit)
+# Prompt experiment: baseline vs revision-1
 
 Status 2026-10-29: development results, then the freeze (commit `37fd62f`), then the held-out
 evaluation, run once. The held-out results are at the end.
@@ -178,24 +178,13 @@ My failed check differs from Claude's and the rule judge's on 8609131002 and 884
 2 held-out postings where my failed check differs from the rule judge's (`rule_vs_hand.md`). It wasn't
 a declared measure.
 
-## Limits
+## What the experiment showed
+Both prompts passed 10/10 on development and 10/10 on held-out, so the pass rule can't tell them apart. The one change, adding `failed_check`, didn't change any verdict, but it made Claude's reason checkable: its `failed_check` matched the rule judge 10/10 on both dev and held-out. It also matched the rule more often than I did by hand: on the 6 postings where my failed check was wrong (5 times I swapped R1 and R2; once I gave R2 where the location check R3 failed), Claude's agreed with the rule. Citations didn't improve: revision 1 still cited titles under unrelated résumé fields, and still cited present text rather than the absence of skills for the R4 failure.
 
-- **10 cases is tiny.** Both pass rates are 10/10. The exact 95% Clopper-Pearson interval for 10/10 is
-  69.2% to 100.0%: the result is consistent with a true pass rate as low as about 69%. One failure (9/10)
-  would have given 55.5% to 99.7%. The two prompts' intervals are the same.
-- **Class balance.** Only 2 of the 10 held-out postings (and 1 of the 10 dev postings, 3 of all 20)
-  are relevant by my labels. Each prompt's relevant path was tested 2 times on held-out. A prompt
-  that answered not_relevant to everything would have passed 8/10.
-- **The pass rule can't separate the prompts.** Both scored 10/10 on dev and on held-out, so the declared pass
-  rule shows no difference between them. Revision 1's only measurable gain is the second measure,
-  failed_check agreement with the rule judge (10/10). The baseline couldn't be scored on it because its
-  schema has no such field.
-- **Exposure.** As recorded in `SPLIT.md`, the held-out titles and locations, but not their posting
-  text or my labels, were shared with Claude in claude.ai while I asked how the rule reads. No prompt
-  was written or changed from that conversation, and no held-out posting was sent to the `claude -p`
-  judge before this run. Still, the held-out set is not untouched in the strictest sense.
-- **One model, one day, one board.** Every call was `claude-opus-5-5` through Claude Code CLI 2.1.312 on
-  2026-10-29, against one snapshot of Faire's Greenhouse board, for one fictional persona. None of this
-  says how another model, a later date, another board or another résumé would score.
-- **One call per posting.** The held-out run sampled each posting once. The repeatability evidence is
-  from 5 dev postings only (`SAMPLING-REPORT.md`).
+## How little ten cases can show
+Ten held-out cases is tiny. 10/10 has a 95% Clopper-Pearson interval of about 69% to 100%, so the true pass rate could be much lower. Only 2 of the 10 held-out postings were relevant, so a prompt that always answered "not relevant" would still pass 8/10. This was one model, one day, one board and one persona, with one call per held-out posting. And the held-out titles and locations had been shared with claude.ai earlier (logged in SPLIT.md), though not with the claude -p judge.
+
+## What I'd change next
+A harder held-out set with more relevant and borderline postings, several calls per held-out posting, and a citation rule that checks the right résumé field is cited, not just that the field exists.
+
+Conclusion drafted with Claude (claude.ai), reviewed and approved by Nishant, 2026-10-29.

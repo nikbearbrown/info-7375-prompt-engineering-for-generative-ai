@@ -88,6 +88,10 @@ Each test failed against a deliberately broken version before passing against th
 
 My sampling-report conclusion (drafted with Claude in claude.ai) said the not-relevant calls were decided by title or location; Claude Code checked it against results.json and found none were decided by location (three by title, one by R4). Corrected before commit.
 
+## 2026-10-29 — Prompt-experiment conclusion: a wrong claim caught before commit
+
+My prompt-experiment conclusion (drafted with Claude in claude.ai) said all my failed-check mistakes were R1/R2 swaps; Claude Code found one was an R2 given where R3 failed (8618151002). Corrected before commit.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,
