@@ -3,15 +3,34 @@
     python3 experiment/report_dev.py sampling       # prints the sampling tables
     python3 experiment/report_dev.py baseline-dev   # prints the baseline-dev table
     python3 experiment/report_dev.py revision1-dev  # prints the revision-1 dev tables
+    python3 experiment/report_dev.py baseline-heldout | revision1-heldout   # the held-out tables
 
 It reads only saved results: no Claude call.
 """
 import json
+import math
 import sys
 from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+
+
+def binom_cdf(k, n, p):
+    return sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k + 1))
+
+
+def clopper_pearson(x, n, alpha=0.05):
+    """Exact 95% interval for a binomial proportion, by bisection on the binomial tail."""
+    def solve(f):
+        lo, hi = 0.0, 1.0
+        for _ in range(100):
+            mid = (lo + hi) / 2
+            lo, hi = (mid, hi) if f(mid) else (lo, mid)
+        return (lo + hi) / 2
+    lower = 0.0 if x == 0 else solve(lambda p: 1 - binom_cdf(x - 1, n, p) < alpha / 2)
+    upper = 1.0 if x == n else solve(lambda p: binom_cdf(x, n, p) > alpha / 2)
+    return lower, upper
 
 
 def cell(text):
@@ -63,8 +82,11 @@ def sampling(result):
 def baseline(result):
     rows = result["rows"]
     passed = sum(r["passed"] for r in rows)
+    where = "Held-out" if result["mode"].endswith("heldout") else "Dev"
+    low, high = clopper_pearson(passed, len(rows))
     lines = ["## Every call", ""] + call_table(rows, False)
-    lines += ["", f"**Dev pass rate: {passed}/{len(rows)}** (pass = valid AND verdict equals my label).",
+    lines += ["", f"**{where} pass rate: {passed}/{len(rows)}** (pass = valid AND verdict equals my label); "
+                  f"95% Clopper-Pearson interval {low:.1%} to {high:.1%}.",
               f"Valid: {sum(r['valid'] for r in rows)}/{len(rows)}. "
               f"All citations supported: {sum(r['supported'] for r in rows)}/{len(rows)}."]
     if result.get("schema") == "revision-1":
@@ -99,8 +121,11 @@ def unsupported_section(rows):
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
     path = {"sampling": HERE / "sampling", "baseline-dev": HERE / "runs" / "baseline-dev",
-            "revision1-dev": HERE / "runs" / "revision1-dev"}.get(mode)
+            "revision1-dev": HERE / "runs" / "revision1-dev",
+            "baseline-heldout": HERE / "runs" / "baseline-heldout",
+            "revision1-heldout": HERE / "runs" / "revision1-heldout"}.get(mode)
     if not path:
-        raise SystemExit("usage: report_dev.py sampling | baseline-dev | revision1-dev")
+        raise SystemExit("usage: report_dev.py sampling | baseline-dev | revision1-dev | baseline-heldout | "
+                         "revision1-heldout")
     result = json.loads((path / "results.json").read_text(encoding="utf-8"))
     print("\n".join(sampling(result) if mode == "sampling" else baseline(result)))
