@@ -27,7 +27,8 @@ def save(surface, text_path, saved_at):
     out = HERE / SURFACES[surface]
     if out.exists():
         raise SystemExit(f"refused: {out.name} exists; replies are saved once")
-    reply = Path(text_path).read_text(encoding="utf-8-sig")
+    # Bytes, not text mode: text mode would turn CRLF into LF, so the reply would not be verbatim.
+    reply = Path(text_path).read_bytes().decode("utf-8-sig")
     out.write_text(json.dumps({"surface": surface, "posting_id": POSTING_ID, "saved_at": saved_at,
                                "reply": reply}, indent=2, ensure_ascii=False) + "\n",
                    encoding="utf-8", newline="\n")
