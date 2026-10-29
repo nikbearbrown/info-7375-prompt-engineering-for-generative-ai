@@ -73,7 +73,7 @@ is **not** judged." That is a limit of this rule, not a claim that Priya is a fi
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,
-change or reject each one; none has been reviewed yet.
+change or reject each one; none had been reviewed when this list was written. My decisions are below it.
 
 - R3 markers: entries starting with `, ` must end a location part; `Remote - US` must equal it. Only
   the 50 state codes are listed: `, DC` is not.
@@ -84,3 +84,12 @@ change or reject each one; none has been reviewed yet.
   since `""` is a substring of every field. The contract doesn't rule this out.
 - The Claude judge runs with `--tools ""` in an empty temporary folder, so this repository's
   CLAUDE.md is not in its context.
+
+### My decisions, 2026-10-29
+
+- R3 markers: keep the 50-state list. `, DC` is not counted; it goes under "Not checked" in the sign-off.
+- `resume_field: null` for R1–R3: keep.
+- Empty quotes: fixed by the 2026-10-29 contract amendment (`CONTRACT.md`, Amendments). The validator
+  now rejects an empty or blank quote, and the support check marks it not supported.
+- Not decided yet: absence cited with `quote: null` plus `absent_terms`; the judge running with
+  `--tools ""` in an empty temporary folder.

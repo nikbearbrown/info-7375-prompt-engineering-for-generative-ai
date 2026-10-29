@@ -24,3 +24,7 @@ The script refuses to run again once `heldout_ids.json` exists.
 **The held-out rule:** the held-out postings are not shown to Claude and not used to change a prompt
 until the revision is frozen. If one is used before then, it is recorded here and counted as
 development evidence from that point on.
+
+## Exposure log
+
+- 2026-10-29: the held-out titles and locations (not their posting text or my labels) were shared with Claude in claude.ai while I asked how the rule reads. No prompt was written or changed from that conversation. The seal applies to the claude -p judge, which had not seen any of these postings before the held-out evaluation.
