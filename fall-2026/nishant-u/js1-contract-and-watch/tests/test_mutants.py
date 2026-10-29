@@ -5,7 +5,7 @@ from tests import helpers, mutants
 
 
 def misaligned_ids(verdicts):
-    """Ids whose verdict differs from the one predicted by hand for that posting."""
+    """Ids whose verdict differs from the expected verdict for that posting."""
     expected = {p["id"]: p["expected_verdict"] for p in helpers.postings()}
     return [v["posting_id"] for v in verdicts if v["verdict"] != expected[v["posting_id"]]]
 

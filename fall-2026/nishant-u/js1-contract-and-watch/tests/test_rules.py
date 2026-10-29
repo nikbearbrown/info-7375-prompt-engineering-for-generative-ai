@@ -1,4 +1,4 @@
-"""The rule R1-R4, one test per branch, with verdicts predicted by hand (tests/fixtures/README.md)."""
+"""The rule R1-R4, one test per branch, against the expected verdicts in tests/fixtures/README.md."""
 import unittest
 
 from tests import helpers

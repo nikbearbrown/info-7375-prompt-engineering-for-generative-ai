@@ -96,6 +96,10 @@ My prompt-experiment conclusion (drafted with Claude in claude.ai) said all my f
 
 My action-surface conclusion (drafted with Claude in claude.ai) blamed both claude.ai failures on copy-paste; Claude Code pointed out the chat reply also used bracket notation for resume_field, an error inside the JSON. Corrected before commit. It also corrected my call count from 50 to 60.
 
+## 2026-10-29 — Fixtures provenance corrected
+
+The fixtures README said the expected verdicts were mine, predicted by hand; Claude Code wrote them. Claude in claude.ai checked all 8 against R1–R4 (all correct) and I reviewed that; the wording is corrected.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,

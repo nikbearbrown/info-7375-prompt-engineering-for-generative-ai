@@ -1,11 +1,13 @@
 # Test fixtures: all constructed
 
-Every file here is **constructed** test data, written by hand from CONTRACT.md. None of it was fetched
+Every file here is **constructed** test data, written by Claude Code from CONTRACT.md. None of it was fetched
 from a job board, and none of it is a Claude output.
 
 - `postings.json`: eight Greenhouse-shaped postings, each with `"provenance": "constructed"` and ids
-  starting at 9000000001, so they can't collide with real Greenhouse ids. Each one carries the
-  verdict I predicted by hand from the rule (`expected_verdict`, `expected_failed_check`):
+  starting at 9000000001, so they can't collide with real Greenhouse ids. Each one carries an
+  expected verdict (`expected_verdict`, `expected_failed_check`). Expected verdicts were written by
+  Claude Code from my CONTRACT.md on 2026-10-29, before the implementation. On 2026-10-29 Claude
+  (claude.ai) checked all 8 against R1–R4 and found them correct; I reviewed that check.
 
   | id | Hits | Expected |
   |---|---|---|
