@@ -8,8 +8,8 @@
 
 - **Greenhouse Job Board API.** Endpoint used, GET only, no login:
   `https://boards-api.greenhouse.io/v1/boards/faire/jobs?content=true`. Documentation:
-  <https://developers.greenhouse.io/job-board.html>, read 2026-10-29 for the claim that GET endpoints
-  need no authentication (`FRICTIONAL.md`). TODO-NISHANT: re-check the docs link and record the date.
+  <https://docs.greenhouse.io/job-board.html>, opened by Claude Code during setup on 2026-10-29. It says
+  authentication isn't required for GET endpoints (`FRICTIONAL.md`).
 - **Faire's board** on Greenhouse (board token `faire`): 68 postings in the baseline response of
   2026-10-29, saved verbatim as `runs/2026-10-29-1/raw.json` (sha256
   `3c10b536e3805bb5a4fca46800ac5caf4c521fa84c9beec30a8ab0beb995c2b7`). I haven't read Faire's own
@@ -76,9 +76,9 @@
 - **Bugs it found:**
   - The empty-quote hole: an empty quote passed the validator and counted as supported. Found during
     implementation; fixed by the contract amendment.
-  - The `skills.agent_note` letter split: a read-only check read the string letter by letter, so single
-    letters counted as skills. It became wrong version 3. TODO-NISHANT: confirm who wrote and who caught
-    that check; `FRICTIONAL.md` doesn't name them.
+  - The `skills.agent_note` letter split, a bug Claude Code both made and caught. On 2026-10-29, before
+    the contract was written, its read-only skills check read the string letter by letter, so single
+    letters counted as skills. I didn't write that code. I then made it wrong version 3 in my contract.
   - The safety claims in the `ACTION-SURFACE.md` draft were broader than the tests.
 - **The fresh-clone check** in `README.md` (2026-10-29).
 

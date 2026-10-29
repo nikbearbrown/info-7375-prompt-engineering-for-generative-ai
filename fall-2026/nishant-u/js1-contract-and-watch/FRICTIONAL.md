@@ -32,16 +32,17 @@ but the mismatch with my pitch is still there and I need to address it in the wr
 
 ## 2026-10-29 — A read-only check that was wrong: agent_note split into letters
 
-**Happened.** In a read-only check of how many of Priya's skills appear in Faire postings, the first
-script took every value under `skills` and iterated it. `skills.agent_note` is a string ("No
+**Happened.** On 2026-10-29, before the contract was written, Claude Code ran a read-only check of how
+many of Priya's skills appear in Faire postings. Claude Code wrote that script; I didn't. Its first
+version took every value under `skills` and iterated it. `skills.agent_note` is a string ("No
 certification claims - none exist for this persona."), so it was read letter by letter, and single
 letters such as `a` and `s` counted as matched skills. Every posting appeared to match 16–28 skills.
 
-**Caught by.** The numbers were implausible (a non-data posting "matched" as many skills as a data
+**Caught by.** Claude Code itself, in the same check. The numbers were implausible (a non-data posting "matched" as many skills as a data
 one), and the printed match list was mostly single characters and spaces. The rerun, using only the
 list-valued fields, gave 0–4 skills per posting.
 
-**Changed.** This became wrong version 3 in `CONTRACT.md` and the mutant `string_skills` in
+**Changed.** I made this wrong version 3 in my contract, `CONTRACT.md`, and the mutant `string_skills` in
 `tests/mutants.py`, caught by `test_3_skills_read_from_string_is_caught`.
 
 ## 2026-10-29 — Allowing Senior and Staff titles

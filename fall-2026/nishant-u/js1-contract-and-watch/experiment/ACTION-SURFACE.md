@@ -50,6 +50,10 @@ Chapter 3's terms, as used here:
     `content`, `posting_id` was present and correct, and no quote spanned a line break.
 - **Evidence:** `action-surface/file-reply.json` and `action-surface/check-output.txt`.
 
+The pasted originals, `chat-reply.txt` and `file-reply.txt`, stay on my machine, untracked. The `reply`
+field of each committed `.json` is byte for byte the same as its `.txt` (550 and 244 bytes, compared
+2026-10-29); the `.json` adds only the surface, posting_id and saved_at.
+
 **What these two results can't tell us:** I saw the replies after claude.ai rendered them and I copied
 them. Whether the empty fence and the curly quotes were in the model's output, or were added by
 rendering, copying or an editor, isn't observable from what was saved. Either way, the copy-paste
