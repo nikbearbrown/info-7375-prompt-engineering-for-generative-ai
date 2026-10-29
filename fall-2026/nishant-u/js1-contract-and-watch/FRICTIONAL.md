@@ -92,6 +92,10 @@ My sampling-report conclusion (drafted with Claude in claude.ai) said the not-re
 
 My prompt-experiment conclusion (drafted with Claude in claude.ai) said all my failed-check mistakes were R1/R2 swaps; Claude Code found one was an R2 given where R3 failed (8618151002). Corrected before commit.
 
+## 2026-10-29 — Action-surface conclusion: a wrong claim caught before commit
+
+My action-surface conclusion (drafted with Claude in claude.ai) blamed both claude.ai failures on copy-paste; Claude Code pointed out the chat reply also used bracket notation for resume_field, an error inside the JSON. Corrected before commit. It also corrected my call count from 50 to 60.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,

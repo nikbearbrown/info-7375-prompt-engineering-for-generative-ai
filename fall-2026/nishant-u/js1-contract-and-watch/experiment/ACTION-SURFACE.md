@@ -1,4 +1,4 @@
-# Action-surface comparison (Chapter 3) — draft for Nishant to edit
+# Action-surface comparison (Chapter 3)
 
 The same task on three surfaces: apply the frozen revision-1 rule (`prompts/revision-1.md`, sha256
 `16ecb436…c453206`) to development posting **8660923002**, "Senior Applied ML/AI Scientist - Search",
@@ -94,24 +94,11 @@ path is part of these surfaces, and `claude -p` (JSON on stdout, read by code) h
 
 ## The autonomy choice
 
-The watch and the state are handled by Python code, not by Claude:
-- **Allow-listed fetch:** `agent/watch.py` accepts only `boards-api.greenhouse.io` and re-checks the
-  host on every redirect.
-- **Atomic state write:** a temp file plus `os.replace`, and the state moves only after the report is
-  written.
-- **Claude's role:** it gets the least autonomy that suffices. Text in, JSON out, through
-  `claude -p --tools ""` in an empty folder. That is the same capability set as the chat surface,
-  with code instead of a person on both ends.
+**What the surfaces showed.** On the same posting and the same frozen prompt, both claude.ai surfaces gave the right verdict (relevant, failed_check null), but neither reply passed the validator. The chat reply had an empty code fence before the JSON and, even with the fence removed, cited a résumé field in bracket notation (experience[0].title); the file reply used curly quotes. The claude -p judge, which reads raw output with no copy-paste step, never failed the validator in 60 calls. I can't tell whether the fence and the curly quotes came from the model or from the browser, copying, or an editor; either way, every manual step between the model and my code is another place things can break. The bracket-notation field is different: it's inside the JSON, so it's the model's own error, and the validator caught it.
 
-Why the other two add authority this task doesn't need:
-- **File surface:** uploads add file reading, but the posting and résumé already fit in the prompt.
-  Uploading also stores the files with a third-party chat, which costs nothing here (fictional data)
-  but would expose a real résumé.
-- **Agent surface:** shell, file writes and network are needed for the *watch*, and tested,
-  deterministic code already does the watch. Giving them to the *judge* would add the push, edit and
-  network risks listed above, and no check in the contract needs them.
-- **The chat surface shows a further cost of a human in the loop.** Its copy-paste path broke the
-  JSON on both claude.ai surfaces today. A program reading `claude -p` stdout doesn't have that step.
+**Least autonomy that suffices.** The task needs a board fetched, state remembered and a verdict judged. Only the fetching and state need authority, and tested code does those: an allow-listed host, refused redirects and an atomic state write, each with a test. Claude needs only to read text and return JSON, so the judge runs with --tools "" in an empty folder, the same capability set as the chat surface but without the copy-paste step. The file surface adds nothing the judge needs. The agent surface adds a shell, file writes and network access that the judge must not have, so it's used only to operate the watch, not to judge.
+
+**Agent surface:** results pending, to be added after the 2026-10-30 run.
 
 Each safety claim above has a test (no real network, no real `claude` call):
 
@@ -132,3 +119,5 @@ deliberately broken version before passing against the real code:
 
 The tests cover these mechanisms. They don't show what Claude Code, as the operator of the agent
 surface, will or won't do with its own shell.
+
+Conclusion drafted with Claude (claude.ai), reviewed and approved by Nishant, 2026-10-29; agent-surface results to be added 2026-10-30.
