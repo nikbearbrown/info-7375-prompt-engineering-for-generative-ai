@@ -70,6 +70,19 @@ is **not** judged." That is a limit of this rule, not a claim that Priya is a fi
 
 2026-10-29: I hand-labeled all 20 postings in Excel by applying R1–R4 in order (title, title, location, then Ctrl+F for the 10 shipped skills in the .txt files). While labeling I asked Claude (claude.ai) how the rule reads on word forms (e.g. that 'AI/ML' contains ML, that 'Leader' is not 'lead', that 'ML models' in the text is not a skill for R4). I shared the 20 titles and locations with claude.ai, including the held-out ones; Claude explained rule wording and did not label any posting.
 
+## 2026-10-29 — Tests added after the implementation for three safety claims
+
+The draft of `experiment/ACTION-SURFACE.md` said the watch and state were "handled by tested code".
+Claude Code pointed out that the claim was broader than the tests: only the host allow-list had a
+test. The redirect re-check, the atomic state write and `--tools ""` were in the code but untested. I
+had `tests/test_safety.py` added after the implementation:
+- a redirect to a non-allow-listed host is refused before any request to it;
+- a state write that fails after the temp file is written, or partway through writing, leaves the old
+  `seen_ids.json` unchanged;
+- the judge's command always includes `--tools ""`, and the judge runs in an empty folder.
+
+Each test failed against a deliberately broken version before passing against the real code.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,

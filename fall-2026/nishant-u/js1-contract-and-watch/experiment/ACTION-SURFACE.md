@@ -109,6 +109,22 @@ Why the other two add authority this task doesn't need:
 - **The chat surface shows a further cost of a human in the loop.** Its copy-paste path broke the
   JSON on both claude.ai surfaces today. A program reading `claude -p` stdout doesn't have that step.
 
-What is and isn't tested: the host allow-list has tests (`tests/test_watch.py`). The redirect
-re-check, the atomic state write and the `--tools ""` argument are in the code but no test covers
-them yet.
+Each safety claim above has a test (no real network, no real `claude` call):
+
+| Claim | Test |
+|---|---|
+| Only `boards-api.greenhouse.io` is fetched | `tests/test_watch.py` `HostAllowList.test_other_hosts_are_refused_before_any_network_call` |
+| A redirect to another host is refused before any request to it | `tests/test_safety.py` `RedirectRefusal.test_redirect_to_another_host_is_refused_before_any_request_to_it` (and `test_redirect_within_the_allow_list_is_followed`) |
+| A failed state write leaves the old `seen_ids.json` unchanged, with no partial file | `tests/test_safety.py` `AtomicStateWrite.test_failure_after_temp_written_before_replace_leaves_old_state`, `test_failure_partway_through_writing_leaves_old_state` |
+| The judge always runs with `--tools ""` | `tests/test_safety.py` `JudgeHasNoTools.test_command_always_has_tools_set_to_none` |
+| The judge runs in an empty folder | `tests/test_safety.py` `JudgeHasNoTools.test_judge_runs_in_an_empty_folder` |
+
+The `test_safety.py` tests were added 2026-10-29, after the implementation. Each failed against a
+deliberately broken version before passing against the real code:
+- the redirect check removed, or the opener built without it;
+- the state written in place;
+- `--tools` dropped;
+- the judge run in the repository folder.
+
+The tests cover these mechanisms. They don't show what Claude Code, as the operator of the agent
+surface, will or won't do with its own shell.
