@@ -66,6 +66,10 @@ is **not** judged." That is a limit of this rule, not a claim that Priya is a fi
   responses and break their sha256. `.gitattributes` marks `runs/**/raw.json` and Claude replies as
   `-text` so they are stored exactly.
 
+## 2026-10-29 — Hand-labeling the 20 postings
+
+2026-10-29: I hand-labeled all 20 postings in Excel by applying R1–R4 in order (title, title, location, then Ctrl+F for the 10 shipped skills in the .txt files). While labeling I asked Claude (claude.ai) how the rule reads on word forms (e.g. that 'AI/ML' contains ML, that 'Leader' is not 'lead', that 'ML models' in the text is not a skill for R4). I shared the 20 titles and locations with claude.ai, including the held-out ones; Claude explained rule wording and did not label any posting.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,
