@@ -65,8 +65,9 @@ def validate(judgment, resume, new_ids):
             errors.append(f"citations[{i}].resume_field {field!r} does not exist in the résumé")
         if citation["posting_field"] not in rules.POSTING_FIELDS:
             errors.append(f"citations[{i}].posting_field must be one of {list(rules.POSTING_FIELDS)}")
-        if not isinstance(citation["quote"], str):
-            errors.append(f"citations[{i}].quote must be a string")
+        # Amendment 2026-10-29: "" is a substring of every field, so it would always count as supported.
+        if not isinstance(citation["quote"], str) or not citation["quote"].strip():
+            errors.append(f"citations[{i}].quote must be a non-empty string")
     return errors
 
 
@@ -83,4 +84,6 @@ def support_check(citation, posting):
         if not terms:
             return "not supported"
         return "not supported" if any(rules.find_term(text, t) for t in terms) else "supported"
-    return "supported" if isinstance(quote, str) and quote in text else "not supported"
+    if not isinstance(quote, str) or not quote.strip():
+        return "not supported"
+    return "supported" if quote in text else "not supported"

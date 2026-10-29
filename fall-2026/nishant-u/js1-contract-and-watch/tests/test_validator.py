@@ -66,6 +66,14 @@ class Schema(helpers.ContractTest):
     def test_posting_id_not_in_this_run(self):
         self.assert_rejected(dict(valid_judgment(), posting_id=9000000001))
 
+    def test_empty_or_whitespace_quote(self):
+        # CONTRACT.md amendment, 2026-10-29.
+        for quote in ("", "   ", "\n"):
+            judgment = valid_judgment()
+            judgment["citations"][0]["quote"] = quote
+            with self.subTest(quote=quote):
+                self.assert_rejected(judgment)
+
 
 class Support(helpers.ContractTest):
     modules = ("agent.validator",)
@@ -76,6 +84,10 @@ class Support(helpers.ContractTest):
 
     def test_quote_absent_from_field_is_not_supported(self):
         citation = {"resume_field": "skills.data_bi", "posting_field": "content", "quote": "Databricks"}
+        self.assertEqual(self.validator.support_check(citation, helpers.posting(9000000008)), "not supported")
+
+    def test_empty_quote_is_not_supported(self):
+        citation = {"resume_field": "skills.languages", "posting_field": "content", "quote": ""}
         self.assertEqual(self.validator.support_check(citation, helpers.posting(9000000008)), "not supported")
 
     def test_quote_present_in_a_different_field_is_not_supported(self):

@@ -48,3 +48,6 @@ Whether each quote actually appears in the cited field is checked separately and
 
 ## What a failure looks like
 2026-10-29, written before any run: *Failure is the second run reporting as new a posting that was in the baseline, or any verdict, rule or Claude, whose justification cites a field that does not contain the quoted text.*
+
+## Amendments
+2026-10-29, after implementation: a quote must be a non-empty string. Found by Claude Code during implementation: an empty quote passed the validator and counted as supported. The original text above is unchanged.
