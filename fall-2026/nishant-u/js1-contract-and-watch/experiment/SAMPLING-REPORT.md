@@ -52,32 +52,12 @@
 
 No unsupported citations.
 
-## What we can and can't conclude (draft for Nishant to edit)
+## What we can and can't conclude
 
-**Observed.**
-- **Verdicts:** every posting got the same verdict in 4 of 4 calls, and all 20 calls agreed with my hand
-  label.
-- **Shape and quotes:** all 20 replies were valid, and every quote appeared in the field it named.
-- **Citations varied:** the number of citations changed between calls of the same posting (8820806002: 1 or 2;
-  8870975002: 1 or 3), and so did the `resume_field` attached to the same quote. For example, the title
-  of 8820806002 was cited twice under `experience.0.title` and twice under `skills.languages`.
+**Repeatable, not proven correct.** All 20 calls gave the same verdict for each posting, so the baseline prompt is repeatable on these five postings. That doesn't make it correct: Chapter 1 says repeatability can preserve a mistake. The verdicts only count as right because they also matched my hand labels, which were made blind.
 
-**We can conclude:** on these 5 postings, at this prompt, model and date, the baseline's verdict was
-repeatable and so was its format.
+**Why this shows little.** The sample is tiny and easy. Only 1 of the 5 postings was relevant, so most calls were "not relevant" decided by an obvious title, or by none of Priya's skills appearing in the posting text. Four runs per posting can't show how often Claude would disagree on a harder or borderline posting, and all calls used one model on one day.
 
-**We can't conclude:**
-- **Repeatability isn't correctness.** Four identical answers show the sampling spread is small here,
-  not that the answer is right. That they match my labels is a separate check, and it only covers
-  5 postings, picked to include just one relevant posting.
-- **4 runs is a tiny sample.** 4/4 doesn't rule out a different answer on a fifth call. It is weak
-  evidence that the disagreement rate is low on these postings, not a measured rate.
-- **The 5 postings are easy.** Of the four not_relevant postings, three fail on the title (R1 or R2) and one fails R4 with no shipped skill.
-  None is a borderline case such as a skill appearing only inside another word, or a multi-city
-  location.
-- **"Supported" is weaker than it sounds.** The support check confirms a quote exists, not that it
-  is the evidence for the verdict. The schema doesn't ask which check failed, so a not_relevant reply
-  can't be compared with my failed check. For an R4 failure, Claude has no way to cite an absence:
-  quotes must be non-empty text from the field. In 8832899002 it cited "Strong programming skills"
-  and an ML-methods sentence under `skills.backend_automation`; neither is the reason for its verdict.
-- **The model can change.** These results are for `claude-opus-5-5` on 2026-10-29 only. A later model
-  or CLI version may behave differently.
+**Stable verdict, unstable evidence.** The verdict was stable, but the evidence wasn't: the number of citations and the résumé fields Claude cited changed between calls. So a repeated verdict doesn't mean a repeated reason. That's why the contract checks citations separately, and why the revision added `failed_check` to make the reason comparable.
+
+Conclusion drafted with Claude (claude.ai), reviewed and approved by Nishant, 2026-10-29.

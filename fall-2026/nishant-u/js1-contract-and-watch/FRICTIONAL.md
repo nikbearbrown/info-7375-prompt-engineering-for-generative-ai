@@ -84,6 +84,10 @@ had `tests/test_safety.py` added after the implementation:
 
 Each test failed against a deliberately broken version before passing against the real code.
 
+## 2026-10-29 — Sampling-report conclusion: a wrong claim caught before commit
+
+My sampling-report conclusion (drafted with Claude in claude.ai) said the not-relevant calls were decided by title or location; Claude Code checked it against results.json and found none were decided by location (three by title, one by R4). Corrected before commit.
+
 ## Open: implementation choices I have not reviewed yet
 
 Claude Code made these choices while implementing my contract. They are listed so I can accept,
