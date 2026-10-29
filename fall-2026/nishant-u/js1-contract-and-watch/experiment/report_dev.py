@@ -1,0 +1,90 @@
+"""Tables for SAMPLING-REPORT.md and BASELINE-DEV.md, built from the saved results.json files.
+
+    python3 experiment/report_dev.py sampling       # prints the sampling tables
+    python3 experiment/report_dev.py baseline-dev   # prints the baseline-dev table
+
+It reads only saved results: no Claude call.
+"""
+import json
+import sys
+from collections import Counter
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+
+
+def cell(text):
+    return str(text).replace("|", "/").replace("\n", " ")
+
+
+def support_summary(row):
+    if not row["citations"]:
+        return "none"
+    n = sum(c["support"] == "supported" for c in row["citations"])
+    return f"{n}/{len(row['citations'])}"
+
+
+def unsupported(row):
+    return "; ".join(f"`{c.get('posting_field')}` {c.get('quote')!r}" for c in row["citations"]
+                     if c["support"] != "supported")
+
+
+def call_table(rows, with_call):
+    head = ["posting_id"] + (["call"] if with_call else []) + [
+        "date (UTC)", "session_id", "model", "my label", "Claude verdict", "valid?", "citations supported", "pass"]
+    lines = ["| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
+    for r in rows:
+        meta = r["meta"] or {}
+        valid = "valid" if r["valid"] else "invalid: " + cell("; ".join(r["errors"]))
+        lines.append("| " + " | ".join([str(r["posting_id"])] + ([str(r["call"])] if with_call else []) + [
+            meta.get("date") or "-", f"`{meta.get('session_id')}`", str(meta.get("model")), r["my_label"],
+            str(r["verdict"]), valid, support_summary(r), "yes" if r["passed"] else "no"]) + " |")
+    return lines
+
+
+def sampling(result):
+    rows = result["rows"]
+    lines = ["## Every call", ""] + call_table(rows, True)
+    lines += ["", "## Spread per posting", "",
+              "| posting_id | my label | verdicts (4 calls) | valid | all citations supported | agrees with my label |",
+              "|---|---|---|---|---|---|"]
+    for pid in result["posting_ids"]:
+        mine = [r for r in rows if r["posting_id"] == pid]
+        n = len(mine)
+        verdicts = Counter(str(r["verdict"]) for r in mine)
+        spread = ", ".join(f"{k} {v}/{n}" for k, v in verdicts.most_common())
+        lines.append(f"| {pid} | {mine[0]['my_label']} | {spread} | {sum(r['valid'] for r in mine)}/{n} | "
+                     f"{sum(r['supported'] for r in mine)}/{n} | {sum(r['passed'] for r in mine)}/{n} |")
+    lines += unsupported_section(rows)
+    return lines
+
+
+def baseline(result):
+    rows = result["rows"]
+    passed = sum(r["passed"] for r in rows)
+    lines = ["## Every call", ""] + call_table(rows, False)
+    lines += ["", f"**Dev pass rate: {passed}/{len(rows)}** (pass = valid AND verdict equals my label).",
+              f"Valid: {sum(r['valid'] for r in rows)}/{len(rows)}. "
+              f"All citations supported: {sum(r['supported'] for r in rows)}/{len(rows)}."]
+    lines += unsupported_section(rows)
+    return lines
+
+
+def unsupported_section(rows):
+    bad = [r for r in rows if r["citations"] and not r["supported"]]
+    if not bad:
+        return ["", "No unsupported citations."]
+    lines = ["", "## Unsupported citations", "", "| posting_id | call | quote not found in the cited field |",
+             "|---|---|---|"]
+    for r in bad:
+        lines.append(f"| {r['posting_id']} | {r['call']} | {cell(unsupported(r))} |")
+    return lines
+
+
+if __name__ == "__main__":
+    mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    path = {"sampling": HERE / "sampling", "baseline-dev": HERE / "runs" / "baseline-dev"}.get(mode)
+    if not path:
+        raise SystemExit("usage: report_dev.py sampling | baseline-dev")
+    result = json.loads((path / "results.json").read_text(encoding="utf-8"))
+    print("\n".join(sampling(result) if mode == "sampling" else baseline(result)))
