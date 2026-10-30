@@ -22,7 +22,7 @@ def load_state(path):
     return json.loads(path.read_text())
 
 
-def run_once(raw, resume_data, out_dir, run_label, seeded_from=None):
+def run_once(raw, resume_data, out_dir, run_label, seeded_from=None, claude=None):
     out_dir = Path(out_dir)
     run_dir = out_dir / "runs" / run_label
     run_dir.mkdir(parents=True, exist_ok=False)
@@ -37,6 +37,8 @@ def run_once(raw, resume_data, out_dir, run_label, seeded_from=None):
 
     new_jobs = [] if baseline else [j for j in jobs if str(j["id"]) not in seen]
     verdicts = rule.judge_all(new_jobs, resume_data)
+    # Second judge (a judgment, not a record): one fresh Claude call per new posting.
+    claude_verdicts = [claude(j) for j in new_jobs] if claude else []
 
     report = {
         "run": run_label,
@@ -49,6 +51,7 @@ def run_once(raw, resume_data, out_dir, run_label, seeded_from=None):
         "new_count": len(new_jobs),
         "relevant_count": sum(v["verdict"] == "relevant" for v in verdicts),
         "new_postings": verdicts,
+        "claude_judgments": claude_verdicts,
     }
     (run_dir / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False))
 
@@ -66,6 +69,7 @@ def main(argv=None):
     ap.add_argument("--resume", required=True, help="fictional persona résumé JSON")
     ap.add_argument("--replay", help="use a saved raw.json instead of fetching (labeled SEEDED)")
     ap.add_argument("--out", default=str(ROOT), help="folder holding runs/ and state/")
+    ap.add_argument("--claude", action="store_true", help="also ask Claude about each new posting (a judgment)")
     args = ap.parse_args(argv)
 
     try:
@@ -79,12 +83,22 @@ def main(argv=None):
     else:
         raw, label = fetch.get(), stamp
 
-    rep = run_once(raw, resume_data, args.out, label, seeded_from=args.replay)
+    claude = None
+    if args.claude:
+        from agent import claude_judge
+        log = Path(args.out) / "runs" / label / "claude_calls.jsonl"
+        claude = lambda j: claude_judge.judge(j, resume_data, ROOT / "prompts" / "baseline.txt", log, tag=label)
+    rep = run_once(raw, resume_data, args.out, label, seeded_from=args.replay, claude=claude)
     kind = "BASELINE" if rep["baseline"] else ("SEEDED run" if rep["seeded"] else "run")
     print(f"{kind} {rep['run']}: {rep['postings_in_response']} postings in response, "
           f"{rep['new_count']} new, {rep['relevant_count']} relevant by the rule (a record).")
+    cj = {c["posting_id"]: c for c in rep["claude_judgments"]}
     for v in rep["new_postings"]:
-        print(f"- [{v['verdict']}] {v['posting_id']} {v['posting_title']}\n    {v['justification']}")
+        print(f"- [{v['verdict']}] {v['posting_id']} {v['posting_title']}\n    rule (record): {v['justification']}")
+        c = cj.get(v["posting_id"])
+        if c:
+            shown = c["verdict"] if c["valid"] else f"REJECTED by validator: {c['rejected_because']}"
+            print(f"    Claude (a model judgment, not a fact): {shown}" + (f" — {c['reason']}" if c["valid"] else ""))
     print(f"saved: runs/{rep['run']}/raw.json, runs/{rep['run']}/report.json, state/seen_ids.json")
 
 
