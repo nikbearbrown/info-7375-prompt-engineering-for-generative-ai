@@ -24,3 +24,10 @@ rule in CONTRACT.md.
 
 In `labels/sheet.csv`: `my_label` is `relevant` or `not relevant`, and
 `my_reason` names the numbered point above that decided it.
+
+## Clarification added during labeling (2026-10-30)
+
+While labeling, I had answered two postings with mixed US and Canada locations
+differently (7557899 relevant, 8212314 not). I settled it as: **a location
+must be purely US**; any non-US place fails point 4. I changed 7557899 to
+"not relevant (4)". This was decided after I had seen the postings, not before.
