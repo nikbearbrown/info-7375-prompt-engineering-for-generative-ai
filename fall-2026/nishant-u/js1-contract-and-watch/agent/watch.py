@@ -90,9 +90,16 @@ def compare_seen(state_path, ids):
     return sorted(set(ids) - seen), False
 
 
-def save_seen(state_path, ids, run_id):
+SEEDED_NOTE = "SEEDED state, not a live change: updated by a run labeled seeded ({run_id})."
+
+
+def save_seen(state_path, ids, run_id, seeded=False):
+    """Merge ids into the state. A state once marked seeded keeps "seeded": true and its note,
+    and a seeded run marks the state it writes, so a seeded state can never look real."""
     state_path = Path(state_path)
-    seen = set()
-    if state_path.exists():
-        seen = set(json.loads(state_path.read_text(encoding="utf-8"))["seen_ids"])
-    write_json_atomic(state_path, {"last_run": run_id, "seen_ids": sorted(seen | set(ids))})
+    old = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+    state = {}
+    if seeded or old.get("seeded"):
+        state = {"seeded": True, "note": old.get("note") or SEEDED_NOTE.format(run_id=run_id)}
+    state.update({"last_run": run_id, "seen_ids": sorted(set(old.get("seen_ids", [])) | set(ids))})
+    write_json_atomic(state_path, state)

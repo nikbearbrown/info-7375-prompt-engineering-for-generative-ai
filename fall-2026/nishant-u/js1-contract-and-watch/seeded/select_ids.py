@@ -1,6 +1,6 @@
 """Pick the 3 IDs removed from the seeded state copy; offline, standard library only.
 
-    python3 seeded/select_ids.py
+    python3 seeded/select_ids.py [out.json]     # default: seeded/state/seen_ids.json
 
 Candidates are the postings in runs/2026-10-30-1/raw.json that are not among the 20 labeled
 ones (experiment/dev_ids.json + experiment/heldout_ids.json). With random.Random(SEED), one is
@@ -20,7 +20,7 @@ RAW = ROOT / "runs" / "2026-10-30-1" / "raw.json"
 OUT = ROOT / "seeded" / "state" / "seen_ids.json"
 
 
-def main():
+def main(out=OUT):
     jobs = sorted(watch.parse_jobs(RAW.read_bytes()), key=lambda j: j["id"])
     labeled = set()
     for name in ("dev_ids.json", "heldout_ids.json"):
@@ -43,10 +43,10 @@ def main():
         "last_run": "2026-10-30-1",
         "seen_ids": kept,
     }
-    watch.write_json_atomic(OUT, state)
+    watch.write_json_atomic(out, state)
     print(f"seed {SEED}; candidates {len(candidates)} ({len(relevant)} relevant, {len(other)} not); "
-          f"removed {removed}; kept {len(kept)}")
+          f"removed {removed}; kept {len(kept)}; wrote {Path(out).as_posix()}")
 
 
 if __name__ == "__main__":
-    main()
+    main(Path(sys.argv[1]) if len(sys.argv) > 1 else OUT)

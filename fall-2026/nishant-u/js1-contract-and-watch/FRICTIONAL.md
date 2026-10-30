@@ -123,3 +123,21 @@ change or reject each one; none had been reviewed when this list was written. My
   now rejects an empty or blank quote, and the support check marks it not supported.
 - Not decided yet: absence cited with `quote: null` plus `absent_terms`; the judge running with
   `--tools ""` in an empty temporary folder.
+
+## 2026-10-30 — Seeded run: three agent bugs and a misread field
+
+- **The agent still used the baseline prompt.** The prompt experiment chose revision-1 and froze it on
+  2026-10-29, but `agent.run` kept calling `prompts/baseline.md` with the baseline schema. The first
+  seeded run (`seeded/runs/`) showed it. Fixed: revision-1 and its schema are the default, `--prompt
+  baseline` keeps the old one, and each report names the prompt file and its sha256 (`seeded/rev1/`).
+- **A missing field reported as "null".** Claude Code told me Claude's `failed_check` was null on both
+  not-relevant postings. I thought the replies had no such field, because the baseline schema doesn't
+  have one; Claude Code checked the saved replies and confirmed the key was absent. Its report had read
+  it with `.get()`, which turns a missing key into None.
+- **The seeded label was lost.** `save_seen` rewrote the state as only `last_run` and `seen_ids`, so the
+  seeded state copy lost `"seeded": true` and its note and looked like a real state. Fixed: a seeded run
+  writes the label, and a state once labeled seeded keeps it.
+- **The printed path was wrong.** The run's summary line always said `runs/<run>/report.md`, even with
+  `--runs seeded/runs`. Fixed: it prints the real `--runs` folder.
+
+Tests for the three code fixes are in `tests/test_agent_fixes.py`.
