@@ -1,8 +1,5 @@
 # Job-Search Agent 1 — The Contract and the Watch (nishant-u)
 
-> Draft for Nishant to edit. Drafted by Claude Code on 2026-10-29 from the commit history and the
-> files in this folder. Sections marked **TODO-NISHANT** are yours to write.
-
 <!-- data/resume.example.json is copied unchanged from the Reallocation Engine,
      search/examples/priya-nair/resume.example.json (repo commit d08afddc, 2026-08-17).
      sha256 a4fdbc960457ba911b9d3b8593400d17ea77f35a33ce2a508128c1694c4493c1.
@@ -133,7 +130,9 @@ All on 2026-10-29 (Eastern time) unless marked.
 | Freeze | `37fd62f` | both prompts frozen by sha256 before the held-out evaluation |
 | Held-out evaluation | `8a53c80` | run once: baseline and revision 1, 10/10 pass each |
 | Safety tests | `3d397ae` | redirect refusal, atomic state write, `--tools ""` |
-| Second watch run | pending 2026-10-30 | to be `runs/2026-10-30-<n>/`, run by Claude Code with `--claude` (the agent surface in `ACTION-SURFACE.md`) |
+| Second watch run (2026-10-30) | `e4d3cae` | `runs/2026-10-30-1/`: live fetch by Claude Code with `--claude` (the agent surface in `ACTION-SURFACE.md`); 67 postings, 0 new, 1 removed (8580854002); the Claude judge wasn't called |
+| Seeded run, baseline prompt (2026-10-30) | `14cf874` | `seeded/runs/`: labeled seeded; a state copy with 3 ids removed; all 3 detected; rule and Claude verdicts match 3/3 |
+| Agent fixes and seeded rerun (2026-10-30) | `2eb62a9` | the agent defaults to the frozen revision-1 (`--prompt baseline` keeps the old one); seeded states keep their label; the printed report path is the real `--runs` folder; `seeded/rev1/`: verdicts and failed_check match the rule 3/3 |
 
 The full list of commits is in `git log -- .`.
 
@@ -144,7 +143,7 @@ The full list of commits is in `git log -- .`.
 | Contract | `CONTRACT.md` (amendments at the end); labeling rule in `LABELING-RULE.md` |
 | Code | `agent/`: `watch` (allow-listed fetch, state), `rules` (record), `claude_judge` (judgment), `validator`, `resume`, `run` |
 | Tests | `tests/`; constructed fixtures in `tests/fixtures/` (see its `README.md`); the three wrong versions in `tests/mutants.py` |
-| Raw responses and state | `runs/2026-10-29-1/` (`raw.json` verbatim, `meta.json` with time and sha256, `report.md`, `report.json`); `state/seen_ids.json`. The second run: pending 2026-10-30 |
+| Raw responses and state | `runs/2026-10-29-1/` (`raw.json` verbatim, `meta.json` with time and sha256, `report.md`, `report.json`); `state/seen_ids.json`. The second run: `runs/2026-10-30-1/`. Seeded runs, labeled seeded: `seeded/` (see its `README.md`) |
 | Sampling report | `experiment/SAMPLING-REPORT.md`; replies in `experiment/sampling/` |
 | Prompt experiment | `experiment/PROMPT-EXPERIMENT.md` (with `BASELINE-DEV.md`, `SPLIT.md`, `rule_vs_hand.md`); prompts in `prompts/`; labels in `experiment/labeling/labels.csv`; replies and results in `experiment/runs/` |
 | Action-surface comparison | `experiment/ACTION-SURFACE.md`; kit, prompts, saved replies and check output in `experiment/action-surface/` |
@@ -153,27 +152,22 @@ The full list of commits is in `git log -- .`.
 
 ## Sign-off
 
-**TODO-NISHANT:** write this yourself, in the assignment's template. "Not checked" needs at least three
-real items. Candidates from the record, for you to keep, change or drop: `, DC` and other non-state
-locations aren't counted by R3; the second run hasn't happened yet; the live commands weren't run in
-the fresh-clone check; macOS wasn't tested; the undecided choices in `FRICTIONAL.md` (absence citations,
-the judge's empty folder).
-
 ```text
 Sign-off — Job-Search Agent 1
-Checked:      TODO-NISHANT
-How:          TODO-NISHANT
-Not checked:  TODO-NISHANT
-Not claiming: TODO-NISHANT
-Signed or withheld: TODO-NISHANT (name, date)
+Checked: the contract came before any code (3deb719); each rule branch (tests/test_rules.py); the three wrong versions are caught (tests/test_mutants.py); a baseline reports 0 new and a later run only new IDs (tests/test_watch.py; live runs 2026-10-29 and 2026-10-30; seeded runs 2026-10-30); allow-list, redirect refusal, atomic state write and --tools "" (tests/test_watch.py, tests/test_safety.py); a non-fictional résumé is refused (tests/test_resume.py); the validator rejects malformed or empty-quote replies (tests/test_validator*.py); the agent uses the frozen revision-1 and keeps seeded labels (tests/test_agent_fixes.py); the held-out set was sealed and run once (SPLIT.md hash, freeze 37fd62f).
+How: by hand: my 20 blind labels. By recomputation: the rule judge on my 20 labels (20/20 labels, 14/20 failed checks; my 6 mistakes are logged). Tests written before Claude's code existed: 771bb15, written by Claude Code from my contract, all erroring before the implementation. Added after the implementation: test_implementation.py, test_validator_revision.py, test_safety.py, test_agent_fixes.py. With Claude's help: the 8 test fixtures (written by Claude Code, checked by Claude in claude.ai, reviewed by me), and the code, scripts and report drafts.
+Not checked: a real new posting on the live board (day 2 had 0 new; new-posting detection is shown only by labeled seeded runs); DC and other non-state US locations; macOS and Linux, and the live commands in the fresh-clone check; Faire's and Greenhouse's full terms of use; whether Claude cites the right résumé field (only that the quote exists); seniority fit; harder or borderline postings.
+Not claiming: that the Claude judge is accurate in general (10/10 on 10 held-out cases, 95% interval 69–100%); that "relevant" means Priya should apply, qualifies, or would be sponsored; that it works on other boards, personas or models; that the claude.ai formatting failures came from the model.
+Signed: Nishant U, 2026-10-30.
 ```
 
 ## Driver's seat
 
-**TODO-NISHANT:** fill in each row, and link the commit, file or transcript line that shows the split.
-
-| Task | What Claude did | What I did | Why that part stays mine | Evidence |
+| Task | Claude did | I did | Why it stays mine | Evidence |
 |---|---|---|---|---|
-| TODO-NISHANT | | | | |
-| TODO-NISHANT | | | | |
-| TODO-NISHANT | | | | |
+| Contract and rule | Drafted the wording | Chose the rule: allow Senior/Staff, at least 1 shipped skill, narrow title terms | What's "worth Priya's time" is a judgment | 3deb719; FRICTIONAL decisions |
+| Hand labels | Explained rule wording only | Labeled all 20 blind | The answer key must be independent of Claude | 8e2fa73; rule_vs_hand.md shows my own mistakes |
+| Code and tests | Claude Code wrote them | Set the order (contract, then tests, then code), decided the open choices | I'm responsible for what's built | commit order 3deb719, 771bb15, 4b9e88e |
+| Prompt experiment | Ran the calls, drafted reports | Chose the one change; froze it before held-out | Tuning choices decide what the result means | 570deba, 37fd62f |
+| Operating the agent | Claude Code ran the live and seeded runs | Set limits (no push, no seeded run without asking), caught the baseline-prompt and missing-field errors | Authority over my repo stays with me | e4d3cae, 2eb62a9; FRICTIONAL 2026-10-30 |
+| Conclusions and sign-off | Drafted; Claude Code caught 4 wrong claims | Reviewed, approved, signed | My name goes on the claims | FRICTIONAL "wrong claim caught" entries |

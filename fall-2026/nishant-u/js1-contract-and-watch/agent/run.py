@@ -189,7 +189,9 @@ def render_markdown(report):
                          + "; ".join(j["validator_errors"]))
         else:
             meta = j["meta"]
-            failed = f", failed_check `{j['failed_check']}`" if "failed_check" in j else ""
+            # A null failed_check prints as JSON's null, not Python's None.
+            failed = (f", failed_check `{'null' if j['failed_check'] is None else j['failed_check']}`"
+                      if "failed_check" in j else "")
             lines.append(f"- **{j['posting_id']}**: `{j['verdict']}`{failed} [judgment], {meta['model']}, "
                          f"session {meta['session_id']}, {meta['date']}")
             for c in j["citations"]:

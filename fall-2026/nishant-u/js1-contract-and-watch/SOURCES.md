@@ -1,9 +1,5 @@
 # SOURCES — Job-Search Agent 1 (nishant-u)
 
-> Draft for Nishant to edit. Drafted by Claude Code on 2026-10-29 from the commit history and the
-> files in this folder. Check every line against your own memory of who did what; lines marked
-> **TODO-NISHANT** need your confirmation.
-
 ## Sources used
 
 - **Greenhouse Job Board API.** Endpoint used, GET only, no login:
@@ -49,7 +45,10 @@
   `, DC`, keeping `resume_field: null` for R1–R3, fixing empty quotes through a contract amendment, and
   having the safety tests added. Two choices are still undecided: absence citations, and the judge's
   empty folder (`FRICTIONAL.md`, "My decisions").
-- TODO-NISHANT: the sign-off, the driver's seat, and your edits to the drafts named below.
+- **The sign-off and the driver's seat** (`README.md`): approved and signed by me, 2026-10-30.
+- **The limits on the agent surface** (no push, no seeded run without asking), and catching that the
+  agent still used the baseline prompt and that a missing `failed_check` was misread as null
+  (`FRICTIONAL.md`, 2026-10-30).
 
 ## What Claude contributed
 
@@ -63,6 +62,10 @@
 - The two action-surface replies (chat and file surfaces) in `experiment/action-surface/` are claude.ai
   output, saved byte for byte, observed 2026-10-29.
 
+### claude.ai (chat), 2026-10-30
+
+- Drafted the sign-off and the driver's seat in `README.md` with me; I approved them.
+
 ### Claude Code, 2026-10-29
 
 - **Code:** `agent/`, written against my contract.
@@ -71,8 +74,7 @@
 - **Scripts:** `experiment/make_split.py`, `claude_dev.py`, `report_dev.py`, `rule_vs_hand.py`,
   `hand_labels.py`, and `action-surface/check_surface_replies.py`.
 - **Report drafts:** `SAMPLING-REPORT.md`, `BASELINE-DEV.md`, `PROMPT-EXPERIMENT.md`,
-  `ACTION-SURFACE.md`, the `FRICTIONAL.md` entries, and this file and `README.md`. All are marked as
-  drafts for me to edit.
+  `ACTION-SURFACE.md`, the `FRICTIONAL.md` entries, and this file and `README.md`.
 - **Bugs it found:**
   - The empty-quote hole: an empty quote passed the validator and counted as supported. Found during
     implementation; fixed by the contract amendment.
@@ -82,9 +84,25 @@
   - The safety claims in the `ACTION-SURFACE.md` draft were broader than the tests.
 - **The fresh-clone check** in `README.md` (2026-10-29).
 
+### Claude Code, 2026-10-30 (the agent surface)
+
+- **Operated the watch** as the agent surface (`experiment/ACTION-SURFACE.md`, "Results, 2026-10-30"):
+  the live second run (`e4d3cae`) and, with my permission, the seeded runs (`14cf874`, `2eb62a9`),
+  including `seeded/select_ids.py`.
+- **Fixed the agent** after I pointed out the baseline-prompt default (`2eb62a9`): revision-1 as the
+  default, seeded labels kept, the printed path, the null rendering, and `tests/test_agent_fixes.py`.
+- **Its own mistakes** in that session, logged in `ACTION-SURFACE.md` and `FRICTIONAL.md`: a
+  `git stash -u` blocked by the auto-mode classifier, a wrong exit code reported for
+  `scripts/validate_course.py`, and a missing `failed_check` read as null.
+- **Drafted** the 2026-10-30 updates to `ACTION-SURFACE.md`, `README.md`, this file and `FRICTIONAL.md`.
+
 ### `claude -p` (the judge), 2026-10-29
 
 - Every Claude verdict in this folder: the sampling calls, both dev runs and the held-out evaluation.
   Each was a separate `claude -p --output-format json --tools ""` call on my Claude Code login (CLI
   2.1.312, model `claude-opus-5-5`, no API key). Each saved prompt, raw reply, date and session_id is
   under `experiment/sampling/` and `experiment/runs/`.
+- 2026-10-30: the six judge calls in the seeded runs (`seeded/runs/` and `seeded/rev1/runs/`, three
+  each), the same command run in an empty temporary folder, model `claude-opus-5-5`. Each prompt, raw
+  reply and meta (date, session_id) is saved under that run's `claude/` folder. The live second run
+  made no judge call.

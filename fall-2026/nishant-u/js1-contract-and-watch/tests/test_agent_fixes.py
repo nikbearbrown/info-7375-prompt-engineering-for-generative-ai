@@ -13,13 +13,13 @@ from unittest import mock
 from tests import helpers
 
 
-def fake_reply(job, failed_check=True):
-    reply = {"posting_id": job["id"], "verdict": "not_relevant",
+def fake_reply(job, failed_check=True, verdict="not_relevant"):
+    reply = {"posting_id": job["id"], "verdict": verdict,
              "citations": [{"resume_field": "skills.languages", "posting_field": "title",
                             "quote": job["title"]}],
              "label": "judgment"}
     if failed_check:
-        reply["failed_check"] = "R1"
+        reply["failed_check"] = "R1" if verdict == "not_relevant" else None
     return json.dumps(reply)
 
 
@@ -30,7 +30,7 @@ class AgentFixes(helpers.ContractTest):
         return [*extra, "--state", str(state or Path(tmp) / "state" / "seen_ids.json"),
                 "--runs", str(Path(tmp) / "runs")]
 
-    def judged_run(self, tmp, *extra, failed_check=True):
+    def judged_run(self, tmp, *extra, failed_check=True, verdict="not_relevant"):
         """A baseline, then a second run with one new posting judged by a fake Claude."""
         jobs = helpers.postings()
         self.run.main(self.args(tmp, "--replay", str(helpers.write_board(Path(tmp) / "b1.json", jobs[:-1]))))
@@ -38,7 +38,7 @@ class AgentFixes(helpers.ContractTest):
 
         def fake_judge(job, resume, out_dir, template=None):
             templates.append(template)
-            return {"status": "ran", "result": fake_reply(job, failed_check),
+            return {"status": "ran", "result": fake_reply(job, failed_check, verdict),
                     "meta": {"model": "fake", "session_id": "s", "date": "d"}}
 
         with mock.patch.object(self.run.claude_judge, "judge", side_effect=fake_judge):
@@ -84,6 +84,15 @@ class AgentFixes(helpers.ContractTest):
         self.assertIn("`prompts/revision-1.md`", md)
         self.assertIn(report["prompt"]["sha256"], md)
         self.assertIn("failed_check `R1`", md)
+
+    def test_report_md_prints_a_null_failed_check_as_null(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            report, _ = self.judged_run(tmp, verdict="relevant")
+            md = (Path(tmp) / "runs" / report["run"] / "report.md").read_text(encoding="utf-8")
+        self.assertEqual(report["claude"]["judgments"][0]["validator_errors"], [])
+        self.assertIsNone(report["claude"]["judgments"][0]["failed_check"])
+        self.assertIn("failed_check `null`", md)
+        self.assertNotIn("None", md)
 
     def test_seeded_run_keeps_the_seeded_label_and_note(self):
         jobs = helpers.postings()

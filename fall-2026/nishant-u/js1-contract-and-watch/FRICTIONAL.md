@@ -1,7 +1,6 @@
 # FRICTIONAL — Job-Search Agent 1 (nishant-u)
 
-An honest log of what I tried and what happened. Entries were drafted with Claude Code from the
-session record on the dates shown; I review and edit them before submitting.
+An honest log of what I tried and what happened. Entries drafted with Claude Code from my instructions and decisions; I reviewed them on 2026-10-30.
 
 ## 2026-10-29 — Board choice: Faire, not the retailers in my pitch
 
@@ -141,3 +140,10 @@ change or reject each one; none had been reviewed when this list was written. My
   `--runs seeded/runs`. Fixed: it prints the real `--runs` folder.
 
 Tests for the three code fixes are in `tests/test_agent_fixes.py`.
+
+## 2026-10-30 — Report renderer printed "None" for a null failed_check
+
+The report renderer printed a null `failed_check` as Python's `None` instead of `null`. Fixed in the
+renderer, with a test in `tests/test_agent_fixes.py`. The committed
+`seeded/rev1/runs/2026-10-30-1/report.md` still shows "None" for 8828560002, because it was rendered
+before this fix; its `report.json` has `null`. It wasn't regenerated.

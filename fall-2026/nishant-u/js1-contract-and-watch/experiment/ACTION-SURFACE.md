@@ -59,9 +59,9 @@ them. Whether the empty fence and the curly quotes were in the model's output, o
 rendering, copying or an editor, isn't observable from what was saved. Either way, the copy-paste
 path is part of these surfaces, and `claude -p` (JSON on stdout, read by code) has no such step.
 
-## Agent surface (Claude Code) — to be run on 2026-10-30 as the second watch run
+## Agent surface (Claude Code) — run on 2026-10-30 as the second watch run
 
-- **What it will be:** Claude Code running `python -m agent.run --claude` in this folder.
+- **What it was:** Claude Code running `python -m agent.run --claude` in this folder.
 - **Reads:** the Faire board at the allow-listed host `boards-api.greenhouse.io`, `state/seen_ids.json`,
   the résumé and requirements, and the repository files Claude Code itself can open.
 - **Writes:** `state/seen_ids.json` and a new run folder `runs/2026-10-30-<n>/` (`raw.json`,
@@ -78,19 +78,53 @@ path is part of these surfaces, and `claude -p` (JSON on stdout, read by code) h
 
   None of these is needed. The proposed action is "run one command." The observed state changes
   should be checked afterwards with `git status` and `git diff`.
-- **Evidence (after it runs):** the run folder `runs/2026-10-30-<n>/`, the diff of
-  `state/seen_ids.json`, and `git status` before and after.
+- **Evidence:** the run folder `runs/2026-10-30-1/`, the diff of `state/seen_ids.json`, and
+  `git status` before and after.
+
+### Results, 2026-10-30
+
+- **Live second run (`e4d3cae`):** `runs/2026-10-30-1/`. 67 postings, 0 new, 1 removed since the
+  baseline (8580854002). It fetched only `boards-api.greenhouse.io` (`meta.json`). The Claude judge
+  wasn't called, because nothing was new. `state/seen_ids.json` changed only in `last_run`; it still
+  holds 68 ids.
+- **Seeded runs, labeled seeded (`14cf874` with the baseline prompt; `2eb62a9` with revision-1):** a
+  replay of the same `raw.json` against a copy of the state with 3 ids removed (seed 20261030; postings
+  outside my 20 labeled ones; 1 rule-relevant, 2 not). All 3 were detected as new. The rule and Claude
+  verdicts matched 3/3 in both runs. With revision-1, Claude's failed_check matched the rule's 3/3
+  (R4, null, R1). Every reply was valid and every citation was supported. The first seeded run used the
+  baseline prompt because the agent's default hadn't been switched to the frozen revision-1; its replies
+  have no failed_check at all. The real `state/seen_ids.json` was untouched by both (sha256
+  `1dab9c29…` before and after).
+- **What the operator (Claude Code) did, from its own session log:**
+  - Commands: `date`; `git status`, `log`, `show`, `diff --stat`, `add`, `commit` and `stash list`;
+    `ls`, `cat`, `head`, `sed -n`, `grep`, `wc`, `find`, `sha256sum`, `cp`; `python -m agent.run`
+    (once live, twice seeded); `seeded/select_ids.py`; `python -m unittest`;
+    `scripts/validate_course.py`.
+  - Files written: the run folders and state above (by `agent.run`); `seeded/` (README,
+    `select_ids.py`, state copies); the fixes in `agent/run.py` and `agent/watch.py`;
+    `tests/test_agent_fixes.py`; `FRICTIONAL.md`; and, for the final docs, `README.md`, `SOURCES.md`
+    and this file. A pre-run copy of the first seeded state went to its temporary scratch folder.
+  - No push. No edits outside this folder. Hosts: `boards-api.greenhouse.io` (from `agent/watch.py`)
+    and the `claude` CLI's own connection. This comes from the code and the run records; network
+    traffic wasn't monitored independently.
+- **Operator failures:**
+  - It put `git stash -u` into a command, which would have stashed my two untracked files. The
+    auto-mode classifier blocked it; the files were unchanged.
+  - It reported `scripts/validate_course.py` as exit 0, when the 0 was `tail`'s exit code. The real exit
+    code was 1, from failures outside this folder; it had already committed by then.
+  - It read a missing `failed_check` as null (`.get()` returns None) and reported Claude's answers as
+    wrong, when the baseline prompt never asked for the field.
 
 ## Comparison
 
-| | Chat | File | Agent (planned) |
+| | Chat | File | Agent (2026-10-30) |
 |---|---|---|---|
 | Sees | pasted prompt | uploaded posting and résumé, plus the rule | board, state, repo |
 | Decides | verdict text | verdict text | verdict via `claude -p` with no tools |
 | Does (state change) | none | uploads stored by claude.ai | writes state and the run folder; network GETs |
 | Authority | claude.ai login | login plus upload | shell, files, network |
-| Valid on 2026-10-29 | no (fence; bracket path) | no (curly quotes) | to be run |
-| Verdict / failed_check (diagnostic) | relevant / null | relevant / null | to be run |
+| Valid | no (fence; bracket path), 2026-10-29 | no (curly quotes), 2026-10-29 | yes, 3/3 in each seeded run |
+| Verdict / failed_check (diagnostic) | relevant / null | relevant / null | 3/3 verdicts match the rule; failed_check 3/3 with revision-1 |
 
 ## The autonomy choice
 
@@ -98,7 +132,7 @@ path is part of these surfaces, and `claude -p` (JSON on stdout, read by code) h
 
 **Least autonomy that suffices.** The task needs a board fetched, state remembered and a verdict judged. Only the fetching and state need authority, and tested code does those: an allow-listed host, refused redirects and an atomic state write, each with a test. Claude needs only to read text and return JSON, so the judge runs with --tools "" in an empty folder, the same capability set as the chat surface but without the copy-paste step. The file surface adds nothing the judge needs. The agent surface adds a shell, file writes and network access that the judge must not have, so it's used only to operate the watch, not to judge.
 
-**Agent surface:** results pending, to be added after the 2026-10-30 run.
+**Agent surface:** The agent surface needed shell, file and network authority to operate the watch, and it made mistakes a code-only path doesn't: an unsafe git command (blocked), a wrong exit code, a misread field. This supports keeping the judge at the chat-level capability set and having tested code, not an agent, do the fetching and state.
 
 Each safety claim above has a test (no real network, no real `claude` call):
 
@@ -120,4 +154,4 @@ deliberately broken version before passing against the real code:
 The tests cover these mechanisms. They don't show what Claude Code, as the operator of the agent
 surface, will or won't do with its own shell.
 
-Conclusion drafted with Claude (claude.ai), reviewed and approved by Nishant, 2026-10-29; agent-surface results to be added 2026-10-30.
+Conclusion drafted with Claude (claude.ai), reviewed and approved by Nishant, 2026-10-29.
