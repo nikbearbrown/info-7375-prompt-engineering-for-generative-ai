@@ -170,4 +170,4 @@ Signed: Nishant U, 2026-10-30.
 | Code and tests | Claude Code wrote them | Set the order (contract, then tests, then code), decided the open choices | I'm responsible for what's built | commit order 3deb719, 771bb15, 4b9e88e |
 | Prompt experiment | Ran the calls, drafted reports | Chose the one change; froze it before held-out | Tuning choices decide what the result means | 570deba, 37fd62f |
 | Operating the agent | Claude Code ran the live and seeded runs | Set limits (no push, no seeded run without asking), caught the baseline-prompt and missing-field errors | Authority over my repo stays with me | e4d3cae, 2eb62a9; FRICTIONAL 2026-10-30 |
-| Conclusions and sign-off | Drafted; Claude Code caught 4 wrong claims | Reviewed, approved, signed | My name goes on the claims | FRICTIONAL "wrong claim caught" entries |
+| Conclusions and sign-off | Drafted; Claude Code caught 4 errors across 3 of my drafted conclusions | Reviewed, approved, signed | My name goes on the claims | FRICTIONAL "wrong claim caught" entries |
