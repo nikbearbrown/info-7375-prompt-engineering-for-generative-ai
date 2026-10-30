@@ -50,6 +50,14 @@ Fallback if no real second-day run is possible (output labeled SEEDED):
 python3 -m agent.watch --resume examples/rohan-desai.resume.example.json --replay runs/<earlier-run>/raw.json
 ```
 
+With `--claude`, each new posting also gets a Claude verdict (a model
+judgment, not a fact) from `prompts/revision.txt`. That prompt was chosen on
+2026-10-30 *after* the prompt experiment: it lists the valid résumé field
+names, and it produced 0 invalid outputs in 20 calls versus 2 in 20 for
+`prompts/baseline.txt`. Claude calls use the logged-in `claude` CLI in
+headless mode (`claude -p`, tools off, model `claude-sonnet-5-5`); no API key
+is stored anywhere.
+
 Each run writes `runs/<UTC timestamp>/raw.json` (the response, byte for byte),
 `runs/<UTC timestamp>/report.json` (new postings and the rule's verdicts), and
 updates `state/seen_ids.json`.

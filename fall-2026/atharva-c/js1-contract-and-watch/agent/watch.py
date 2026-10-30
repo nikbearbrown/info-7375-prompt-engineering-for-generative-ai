@@ -87,7 +87,7 @@ def main(argv=None):
     if args.claude:
         from agent import claude_judge
         log = Path(args.out) / "runs" / label / "claude_calls.jsonl"
-        claude = lambda j: claude_judge.judge(j, resume_data, ROOT / "prompts" / "baseline.txt", log, tag=label)
+        claude = lambda j: claude_judge.judge(j, resume_data, ROOT / "prompts" / "revision.txt", log, tag=label)
     rep = run_once(raw, resume_data, args.out, label, seeded_from=args.replay, claude=claude)
     kind = "BASELINE" if rep["baseline"] else ("SEEDED run" if rep["seeded"] else "run")
     print(f"{kind} {rep['run']}: {rep['postings_in_response']} postings in response, "
