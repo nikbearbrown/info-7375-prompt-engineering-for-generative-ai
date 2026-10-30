@@ -1,0 +1,74 @@
+{
+  "surface": "agent",
+  "posting_id": 8546367002,
+  "label": "judgment",
+  "source": "Claude via Claude Code `claude -p` (not the bare model)",
+  "called_at": "2026-10-26T22:54:37.466535-04:00",
+  "model_pinned": "claude-opus-5-5",
+  "model_reported": [
+    "claude-haiku-5-5",
+    "claude-opus-5-5"
+  ],
+  "prompt_file": "prompts/judge-revision.txt",
+  "command": [
+    "claude",
+    "-p",
+    "<user message below>",
+    "--model",
+    "claude-opus-5-5",
+    "--tools",
+    "WebFetch,Write",
+    "--allowedTools",
+    "WebFetch(domain:boards-api.greenhouse.io)",
+    "Edit(//private/var/folders/tg/sb9c_8bn6ys_zqrrqc5tthc80000gn/T/js1-agent-chwgwt4f/judge-record.json)",
+    "--permission-mode",
+    "dontAsk",
+    "--no-session-persistence",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--system-prompt",
+    "<system prompt: prompts/judge-revision.txt>"
+  ],
+  "exit_code": 0,
+  "tool_calls": [
+    {
+      "tool": "WebFetch",
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs/8546367002",
+        "prompt": "Return the job title, location, and the full description text verbatim, especially any experience requirements (years), and any statements about citizenship, security clearance, visa sponsorship, or work authorization. Quote exactly."
+      }
+    },
+    {
+      "tool": "WebFetch",
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs/8546367002",
+        "prompt": "Copy verbatim, character for character, the full sentence(s) containing \"not intended for internship\" and the sentence containing \"Extensive years\". No paraphrase."
+      }
+    },
+    {
+      "tool": "Write",
+      "input": {
+        "file_path": "/private/var/folders/tg/sb9c_8bn6ys_zqrrqc5tthc80000gn/T/js1-agent-chwgwt4f/judge-record.json",
+        "content": "{\n  \"verdict\": \"not_relevant\",\n  \"label\": \"judgment\",\n  \"experience_found\": \"It is not intended for internship, new graduate, or entry-level applicants.\",\n  \"authorization_found\": \"none stated\",\n  \"posting_fields_cited\": [\"title\", \"location\", \"description\"],\n  \"resume_fields_cited\": [\"target roles\", \"location\", \"visa status\"],\n  \"reason\": \"The AI Engineer title and the remote US location fit Priya's target roles and location, and the posting has no sponsorship or citizenship limits. It fails on experience, though: it asks for extensive years of industry experience and excludes new graduate and entry-level applicants.\"\n}\n"
+      }
+    }
+  ],
+  "permission_denials": [],
+  "files_in_folder_after": [
+    "judge-record.json"
+  ],
+  "raw_reply": "{\n  \"verdict\": \"not_relevant\",\n  \"label\": \"judgment\",\n  \"experience_found\": \"It is not intended for internship, new graduate, or entry-level applicants.\",\n  \"authorization_found\": \"none stated\",\n  \"posting_fields_cited\": [\"title\", \"location\", \"description\"],\n  \"resume_fields_cited\": [\"target roles\", \"location\", \"visa status\"],\n  \"reason\": \"The AI Engineer title and the remote US location fit Priya's target roles and location, and the posting has no sponsorship or citizenship limits. It fails on experience, though: it asks for extensive years of industry experience and excludes new graduate and entry-level applicants.\"\n}",
+  "written_file": "{\n  \"verdict\": \"not_relevant\",\n  \"label\": \"judgment\",\n  \"experience_found\": \"It is not intended for internship, new graduate, or entry-level applicants.\",\n  \"authorization_found\": \"none stated\",\n  \"posting_fields_cited\": [\"title\", \"location\", \"description\"],\n  \"resume_fields_cited\": [\"target roles\", \"location\", \"visa status\"],\n  \"reason\": \"The AI Engineer title and the remote US location fit Priya's target roles and location, and the posting has no sponsorship or citizenship limits. It fails on experience, though: it asks for extensive years of industry experience and excludes new graduate and entry-level applicants.\"\n}\n",
+  "validation": {
+    "reply": {
+      "accepted": true,
+      "errors": []
+    },
+    "written_file": {
+      "accepted": true,
+      "errors": []
+    }
+  },
+  "stderr": ""
+}

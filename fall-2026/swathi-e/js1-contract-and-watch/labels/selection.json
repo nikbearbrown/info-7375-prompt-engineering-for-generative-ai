@@ -1,0 +1,59 @@
+{
+  "source": "runs/raw/databricks_2026-10-26T10-20-47-0400.json",
+  "source_sha256": "7882568caf5a77ca4a7260374a4759c3df14cffa3e4f94713dde3ecf80be6363",
+  "postings_in_source": 892,
+  "rule": "rule.py, CONTRACT.md Revision 2",
+  "method": "all postings that pass the written rule, plus 12 drawn with random.Random(7375).sample from postings (sorted by id) whose title contains a check 1(a) word (rule.ROLE_TERMS, whole word, case-insensitive) but that do not pass the rule",
+  "split_method": "decided before labeling: the rule-passing postings, whose descriptions were already read, all go to development; held_out is 10 drawn with random.Random(20261026).sample from the 12 random postings; the remaining 2 go to development",
+  "select_seed": 7375,
+  "split_seed": 20261026,
+  "passing_rule": [
+    8199399002,
+    8546367002,
+    8692962002,
+    8697991002,
+    8739506002,
+    8739507002,
+    8760167002,
+    8859666002
+  ],
+  "pool_size": 75,
+  "random_drawn": [
+    7845325002,
+    7958982002,
+    8091041002,
+    8584704002,
+    8585164002,
+    8585599002,
+    8604579002,
+    8635216002,
+    8735590002,
+    8793863002,
+    8860653002,
+    8870159002
+  ],
+  "development": [
+    8199399002,
+    8546367002,
+    8692962002,
+    8697991002,
+    8735590002,
+    8739506002,
+    8739507002,
+    8760167002,
+    8859666002,
+    8870159002
+  ],
+  "held_out": [
+    7845325002,
+    7958982002,
+    8091041002,
+    8584704002,
+    8585164002,
+    8585599002,
+    8604579002,
+    8635216002,
+    8793863002,
+    8860653002
+  ]
+}

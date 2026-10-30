@@ -1,0 +1,35 @@
+{
+  "surface": "chat",
+  "posting_id": 8546367002,
+  "label": "judgment",
+  "source": "Claude.ai chat, run and copied by Swathi; reply pasted back into Claude Code by her",
+  "called_at": "2026-10-26T23:07:00-04:00",
+  "called_at_precision": "minute, as reported by Swathi",
+  "model_pinned": null,
+  "model_shown_in_chat": "Claude Opus 5.5 (as shown in the claude.ai chat)",
+  "model_reported": null,
+  "chat_settings": "new chat; web search off (both as reported by Swathi)",
+  "input": "experiments/action_surface/chat_paste.txt (commit 4b2f190), pasted by Swathi",
+  "input_sha256": "24d0f8ad095df4799671e0955c7d07c3f7178379a67fbe161b9b5c39e6f267ba",
+  "tool_calls": "not observable from the chat surface",
+  "permission_denials": "not applicable",
+  "raw_reply": "{\n“verdict”: “not_relevant”,\n“label”: “judgment”,\n“experience_found”: “It is not intended for internship, new graduate, or entry-level applicants.”,\n“authorization_found”: “none stated”,\n“posting_fields_cited”: [“title”, “location”, “description”],\n“resume_fields_cited”: [“target roles”, “location”, “visa status”],\n“reason”: “The role and location fit Priya, since it is an AI Engineer role in the United States and no sponsorship limit is stated. However, the posting excludes new-graduate and entry-level applicants and asks for ‘Extensive years of hands-on industry data science experience’, which is well over the 1-year limit.”\n}\n",
+  "raw_reply_sha256": "4a0f6d220ac15832b3e1b10d86986159e744c96e224550f3b7e4c10793e8b9e9",
+  "validated_against": "runs/postings/databricks_job_8546367002_2026-10-26T12-40-58-0400.json",
+  "validation": {
+    "reply": {
+      "accepted": false,
+      "errors": [
+        "not valid JSON"
+      ]
+    }
+  },
+  "status": "rejected",
+  "repaired": false,
+  "notes": [
+    "The reply as received contains curly quotes (18 U+201C, 18 U+201D, 1 U+2018, 1 U+2019) and no straight double quotes, so it is not valid JSON.",
+    "Swathi reports the reply had curly quotes every time she copied it (Copy button and by hand); whether they came from the chat's own output, the Copy button, or pasting is unknown.",
+    "Recorded as received, rejected, and not repaired, per JUDGE-CONTRACT.md."
+  ],
+  "finding": "The chat reply did not survive the trip back as valid JSON, so nothing in it could be checked automatically, even though the visible verdict (not_relevant) and quote looked right to Swathi."
+}
