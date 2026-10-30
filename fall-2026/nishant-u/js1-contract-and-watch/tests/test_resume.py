@@ -16,6 +16,13 @@ class ResumeRefusal(helpers.ContractTest):
         with self.assertRaises(self.resume.RefusedResume):
             self.resume.load_resume(helpers.FIXTURES / "resume_not_fictional.json")
 
+    def test_fixture_email_alone_is_refused(self):
+        # The fixture is refused first for its missing marker; this checks its email is refused too.
+        data = copy.deepcopy(helpers.resume())
+        data["personal"]["email"] = helpers.load_json(helpers.FIXTURES / "resume_not_fictional.json")["personal"]["email"]
+        with self.assertRaisesRegex(self.resume.RefusedResume, "email"):
+            self.resume.check_resume(data)
+
     def test_missing_marker_is_refused_even_with_example_email(self):
         data = copy.deepcopy(helpers.resume())
         data["_comment"] = "Example persona."

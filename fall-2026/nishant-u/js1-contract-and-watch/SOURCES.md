@@ -9,7 +9,7 @@
 - **Faire's board** on Greenhouse (board token `faire`): 68 postings in the baseline response of
   2026-10-29, saved verbatim as `runs/2026-10-29-1/raw.json` (sha256
   `3c10b536e3805bb5a4fca46800ac5caf4c521fa84c9beec30a8ab0beb995c2b7`). I haven't read Faire's own
-  careers-site terms (`FRICTIONAL.md`).
+  careers-site terms (`FRICTIONAL.md`). The raw.json files are Faire's public board responses saved verbatim; they include contact details Faire itself published in its postings (e.g. an accommodations contact). They are kept unedited so their recorded sha256 hashes stay valid.
 - **The Reallocation Engine** (<https://github.com/nikbearbrown/the-reallocation-engine>), for the
   fictional persona Priya Nair: `search/examples/priya-nair/resume.example.json`, repo commit
   `d08afddc` (2026-08-17), copied unchanged to `data/resume.example.json`, sha256

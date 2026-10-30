@@ -147,3 +147,7 @@ The report renderer printed a null `failed_check` as Python's `None` instead of 
 renderer, with a test in `tests/test_agent_fixes.py`. The committed
 `seeded/rev1/runs/2026-10-30-1/report.md` still shows "None" for 8828560002, because it was rendered
 before this fix; its `report.json` has `null`. It wasn't regenerated.
+
+## 2026-10-30 — Pre-submission email check
+
+The pre-submission email check found a Faire employee contact inside the verbatim raw responses (published by Faire in a public posting) and a gmail address in my constructed refusal fixture. I kept the raw responses verbatim and documented it, and changed the fixture to a reserved .test domain.

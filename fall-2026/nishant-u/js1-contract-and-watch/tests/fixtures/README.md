@@ -20,8 +20,8 @@ from a job board, and none of it is a Claude output.
   | 9000000007 | R4 pass (MLflow inside HTML tags; Senior title allowed) | relevant |
   | 9000000008 | all checks pass | relevant |
 
-- `resume_not_fictional.json`: a constructed résumé with no FICTIONAL marker in `_comment` and a gmail
-  address. The agent must refuse it.
+- `resume_not_fictional.json`: a constructed résumé with no FICTIONAL marker in `_comment` and an
+  address at the reserved `.test` domain (RFC 2606), so it can't be a real mailbox and isn't @example.com. The agent must refuse it.
 
 The board files the watch tests use are built from `postings.json` in a temporary directory during the
 test run; they are never written here.

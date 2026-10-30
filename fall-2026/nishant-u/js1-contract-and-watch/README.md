@@ -143,7 +143,7 @@ The full list of commits is in `git log -- .`.
 | Contract | `CONTRACT.md` (amendments at the end); labeling rule in `LABELING-RULE.md` |
 | Code | `agent/`: `watch` (allow-listed fetch, state), `rules` (record), `claude_judge` (judgment), `validator`, `resume`, `run` |
 | Tests | `tests/`; constructed fixtures in `tests/fixtures/` (see its `README.md`); the three wrong versions in `tests/mutants.py` |
-| Raw responses and state | `runs/2026-10-29-1/` (`raw.json` verbatim, `meta.json` with time and sha256, `report.md`, `report.json`); `state/seen_ids.json`. The second run: `runs/2026-10-30-1/`. Seeded runs, labeled seeded: `seeded/` (see its `README.md`) |
+| Raw responses and state | `runs/2026-10-29-1/` (`raw.json` verbatim, `meta.json` with time and sha256, `report.md`, `report.json`); `state/seen_ids.json`. The second run: `runs/2026-10-30-1/`. Seeded runs, labeled seeded: `seeded/` (see its `README.md`). The raw.json files are Faire's public board responses saved verbatim; they include contact details Faire itself published in its postings (e.g. an accommodations contact). They are kept unedited so their recorded sha256 hashes stay valid. |
 | Sampling report | `experiment/SAMPLING-REPORT.md`; replies in `experiment/sampling/` |
 | Prompt experiment | `experiment/PROMPT-EXPERIMENT.md` (with `BASELINE-DEV.md`, `SPLIT.md`, `rule_vs_hand.md`); prompts in `prompts/`; labels in `experiment/labeling/labels.csv`; replies and results in `experiment/runs/` |
 | Action-surface comparison | `experiment/ACTION-SURFACE.md`; kit, prompts, saved replies and check output in `experiment/action-surface/` |
