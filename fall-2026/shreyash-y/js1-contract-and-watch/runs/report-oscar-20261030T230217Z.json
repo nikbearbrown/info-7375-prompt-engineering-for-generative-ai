@@ -1,0 +1,1581 @@
+{
+  "board_token": "oscar",
+  "run_at": "2026-10-30T23:02:17Z",
+  "source": "LIVE: GET https://boards-api.greenhouse.io/v1/boards/oscar/jobs?content=true",
+  "raw_file": "runs/raw/oscar-20261030T230217Z.json",
+  "raw_sha256": "e6620c3549fb32a23d18625677567d9debcbbd36f93f1eb91270dc66982636fb",
+  "fetched": 214,
+  "baseline": false,
+  "seen_before_this_run": 220,
+  "new_count": 12,
+  "new": [
+    {
+      "posting_id": 8334493,
+      "board_token": "oscar",
+      "title": "Director of Product, Claims Design",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "justification": "C1 FAIL [posting.id=8334493; resume.target_roles; posting.title]: posting.title 'Director of Product, Claims Design' contains none of the title phrases\nC2 FAIL [posting.id=8334493; resume.target_roles; posting.departments]: posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8334493; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'New York, New York, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 FAIL [posting.id=8334493; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC5 FAIL [posting.id=8334493; resume.experience_years; posting.content]: posting.content requires 10 years ('10+ years of product experience'); resume.experience_years is 3\nC6 FAIL [posting.id=8334493; resume.exclusions; posting.title, posting.content]: posting.title has excluded word 'Director'",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Director of Product, Claims Design' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'New York, New York, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": false,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 10 years ('10+ years of product experience'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": false,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title has excluded word 'Director'"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "New York, New York, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334493",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:02:17+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334493,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334493, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Director of Product, Claims Design' contains none of the required role phrases, and its departments value 'Product & Design' is not an allowed department. Its location and offices place it in New York, NY on a hybrid schedule with no US-remote option, which does not match the r\u00e9sum\u00e9 location (Boston, MA) or remote_ok. The content mentions none of the r\u00e9sum\u00e9 skills as complete terms and requires 10+ years of experience, above the 3-year limit, and the title contains the excluded word 'Director'.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334493,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "resume_fields": [
+            "target_roles",
+            "experience_years",
+            "skills",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Director of Product, Claims Design' contains none of the required role phrases, and its departments value 'Product & Design' is not an allowed department. Its location and offices place it in New York, NY on a hybrid schedule with no US-remote option, which does not match the r\u00e9sum\u00e9 location (Boston, MA) or remote_ok. The content mentions none of the r\u00e9sum\u00e9 skills as complete terms and requires 10+ years of experience, above the 3-year limit, and the title contains the excluded word 'Director'."
+        },
+        "session_id": "f5655a07-42dc-49b1-b259-9d809fa737ef",
+        "cost_usd": 0.039232
+      }
+    },
+    {
+      "posting_id": 8335644,
+      "board_token": "oscar",
+      "title": "Nurse Practitioner (Part Time) - Virtual Health Assessment Team",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        4
+      ],
+      "justification": "C1 FAIL [posting.id=8335644; resume.target_roles; posting.title]: posting.title 'Nurse Practitioner (Part Time) - Virtual Health Assessment Team' contains none of the title phrases\nC2 FAIL [posting.id=8335644; resume.target_roles; posting.departments]: posting.departments ['Oscar Medical Group'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC4 FAIL [posting.id=8335644; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC3 PASS [posting.id=8335644; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Remote' / posting.offices ['Remote (Georgia)'] is remote within the United States and resume.remote_ok is true\nC5 PASS [posting.id=8335644; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years experience in outpatient Family Medicine, Internal'); resume.experience_years is 3\nC6 PASS [posting.id=8335644; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Nurse Practitioner (Part Time) - Virtual Health Assessment Team' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Oscar Medical Group'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": true,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Remote' / posting.offices ['Remote (Georgia)'] is remote within the United States and resume.remote_ok is true"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years experience in outpatient Family Medicine, Internal'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Remote",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8335644",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:02:27+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8335644,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8335644, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Nurse Practitioner (Part Time) - Virtual Health Assessment Team' contains none of the required engineering phrases from target_roles, and the departments value 'Oscar Medical Group' is not an allowed department. The content mentions none of the r\u00e9sum\u00e9 skills (e.g., Python, SQL, Docker), so the skills condition fails. Location passes because the role is remote and open to Massachusetts residents, matching remote_ok. Experience passes because the minimum is 3 years, and exclusions pass because the title has no excluded words and the role is paid and not contract-only.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8335644,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            4
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "location",
+            "remote_ok",
+            "experience_years",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Nurse Practitioner (Part Time) - Virtual Health Assessment Team' contains none of the required engineering phrases from target_roles, and the departments value 'Oscar Medical Group' is not an allowed department. The content mentions none of the r\u00e9sum\u00e9 skills (e.g., Python, SQL, Docker), so the skills condition fails. Location passes because the role is remote and open to Massachusetts residents, matching remote_ok. Experience passes because the minimum is 3 years, and exclusions pass because the title has no excluded words and the role is paid and not contract-only."
+        },
+        "session_id": "09f639ae-3c91-4cf7-b8ee-2cd5b9739e90",
+        "cost_usd": 0.0319134
+      }
+    },
+    {
+      "posting_id": 8334717,
+      "board_token": "oscar",
+      "title": "Provider Data Operations Lead",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        4,
+        6
+      ],
+      "justification": "C1 FAIL [posting.id=8334717; resume.target_roles; posting.title]: posting.title 'Provider Data Operations Lead' contains none of the title phrases\nC2 FAIL [posting.id=8334717; resume.target_roles; posting.departments]: posting.departments ['Insurance Operations'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC4 FAIL [posting.id=8334717; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC6 FAIL [posting.id=8334717; resume.exclusions; posting.title, posting.content]: posting.title has excluded word 'Lead'\nC3 PASS [posting.id=8334717; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Remote' / posting.offices ['Remote (Arizona)'] is remote within the United States and resume.remote_ok is true\nC5 PASS [posting.id=8334717; resume.experience_years; posting.content]: posting.content requires 2 years ('2+ years experience solving complex inquiries 1+ years manag'); resume.experience_years is 3",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Provider Data Operations Lead' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Insurance Operations'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": true,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Remote' / posting.offices ['Remote (Arizona)'] is remote within the United States and resume.remote_ok is true"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 2 years ('2+ years experience solving complex inquiries 1+ years manag'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": false,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title has excluded word 'Lead'"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Remote",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334717",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:02:35+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334717,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334717, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Provider Data Operations Lead' contains none of the required role phrases, and it contains the excluded whole word 'Lead' (failing conditions 1 and 6 against target_roles and exclusions). The department 'Insurance Operations' is not an allowed department (condition 2), and the content mentions none of the ten r\u00e9sum\u00e9 skills (condition 4). Location passes because the content states the role is fully remote within the U.S. and Massachusetts is not excluded, matching location and remote_ok. Experience passes because the content's largest stated minimum is 2 years, which is within experience_years.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334717,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            4,
+            6
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "location",
+            "remote_ok",
+            "experience_years",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The title 'Provider Data Operations Lead' contains none of the required role phrases, and it contains the excluded whole word 'Lead' (failing conditions 1 and 6 against target_roles and exclusions). The department 'Insurance Operations' is not an allowed department (condition 2), and the content mentions none of the ten r\u00e9sum\u00e9 skills (condition 4). Location passes because the content states the role is fully remote within the U.S. and Massachusetts is not excluded, matching location and remote_ok. Experience passes because the content's largest stated minimum is 2 years, which is within experience_years."
+        },
+        "session_id": "9d9029dc-e00e-4ad5-a266-00ae4df93e9f",
+        "cost_usd": 0.0333494
+      }
+    },
+    {
+      "posting_id": 8334720,
+      "board_token": "oscar",
+      "title": "Provider Data Operations Supervisor",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        4
+      ],
+      "justification": "C1 FAIL [posting.id=8334720; resume.target_roles; posting.title]: posting.title 'Provider Data Operations Supervisor' contains none of the title phrases\nC2 FAIL [posting.id=8334720; resume.target_roles; posting.departments]: posting.departments ['Insurance Operations'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC4 FAIL [posting.id=8334720; resume.skills; posting.content]: posting.content mentions 1 of resume.skills ['SQL'] (fewer than 2)\nC3 PASS [posting.id=8334720; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Remote' / posting.offices ['Remote (Texas)'] is remote within the United States and resume.remote_ok is true\nC5 PASS [posting.id=8334720; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years of direct people management experience 2+ years of'); resume.experience_years is 3\nC6 PASS [posting.id=8334720; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Provider Data Operations Supervisor' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Insurance Operations'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": true,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Remote' / posting.offices ['Remote (Texas)'] is remote within the United States and resume.remote_ok is true"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 1 of resume.skills ['SQL'] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years of direct people management experience 2+ years of'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Remote",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334720",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:02:44+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334720,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334720, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Provider Data Operations Supervisor' contains none of the required phrases, and the department 'Insurance Operations' is not an allowed department. The content mentions only one of the r\u00e9sum\u00e9 skills (SQL), so the two-skill requirement fails. The location passes because the content allows fully remote US work and does not exclude Massachusetts, which fits remote_ok. The experience minimums are 3 years and fit experience_years, and the title has no excluded words, so conditions 5 and 6 pass.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334720,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            4
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "location",
+            "remote_ok",
+            "experience_years",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The title 'Provider Data Operations Supervisor' contains none of the required phrases, and the department 'Insurance Operations' is not an allowed department. The content mentions only one of the r\u00e9sum\u00e9 skills (SQL), so the two-skill requirement fails. The location passes because the content allows fully remote US work and does not exclude Massachusetts, which fits remote_ok. The experience minimums are 3 years and fit experience_years, and the title has no excluded words, so conditions 5 and 6 pass."
+        },
+        "session_id": "9cf77f74-03f1-4fe8-ad47-f1542c0910f5",
+        "cost_usd": 0.030597399999999997
+      }
+    },
+    {
+      "posting_id": 8334297,
+      "board_token": "oscar",
+      "title": "Senior Product Manager, Marketplace",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "justification": "C1 FAIL [posting.id=8334297; resume.target_roles; posting.title]: posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases\nC2 FAIL [posting.id=8334297; resume.target_roles; posting.departments]: posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC4 FAIL [posting.id=8334297; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC5 FAIL [posting.id=8334297; resume.experience_years; posting.content]: posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3\nC6 FAIL [posting.id=8334297; resume.exclusions; posting.title, posting.content]: posting.title has excluded word 'Manager'\nC3 PASS [posting.id=8334297; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Boston, Massachusetts, United States' is Boston, matching resume.location",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": true,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Boston, Massachusetts, United States' is Boston, matching resume.location"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": false,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": false,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title has excluded word 'Manager'"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Boston, Massachusetts, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334297",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:02:52+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334297,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334297, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"content\"], \"justification\": \"The title 'Senior Product Manager, Marketplace' contains none of the required role phrases from target_roles, and it contains the excluded whole word 'Manager' (exclusions). The department 'Product & Design' is not an allowed department. Of the r\u00e9sum\u00e9 skills, the posting content mentions at most SQL, and only as part of the run-together text 'SQL2+', so fewer than two skills match. The content also requires 6+ years of experience, which exceeds the 3-year limit (experience_years), though the Boston, MA remote location does satisfy location and remote_ok.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334297,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            4,
+            5,
+            6
+          ],
+          "resume_fields": [
+            "target_roles",
+            "experience_years",
+            "skills",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "content"
+          ],
+          "justification": "The title 'Senior Product Manager, Marketplace' contains none of the required role phrases from target_roles, and it contains the excluded whole word 'Manager' (exclusions). The department 'Product & Design' is not an allowed department. Of the r\u00e9sum\u00e9 skills, the posting content mentions at most SQL, and only as part of the run-together text 'SQL2+', so fewer than two skills match. The content also requires 6+ years of experience, which exceeds the 3-year limit (experience_years), though the Boston, MA remote location does satisfy location and remote_ok."
+        },
+        "session_id": "6f3356d8-c3a7-4935-b4c7-a42db345048c",
+        "cost_usd": 0.034925399999999995
+      }
+    },
+    {
+      "posting_id": 8334296,
+      "board_token": "oscar",
+      "title": "Senior Product Manager, Marketplace",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "justification": "C1 FAIL [posting.id=8334296; resume.target_roles; posting.title]: posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases\nC2 FAIL [posting.id=8334296; resume.target_roles; posting.departments]: posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8334296; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Los Angeles, California, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 FAIL [posting.id=8334296; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC5 FAIL [posting.id=8334296; resume.experience_years; posting.content]: posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3\nC6 FAIL [posting.id=8334296; resume.exclusions; posting.title, posting.content]: posting.title has excluded word 'Manager'",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Los Angeles, California, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": false,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": false,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title has excluded word 'Manager'"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Los Angeles, California, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334296",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:00+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334296,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334296, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Product Manager, Marketplace' contains none of the required phrases in target_roles, and it includes the excluded whole word 'Manager' (exclusions), so conditions 1 and 6 fail. The departments field ('Product & Design') is not an allowed department, and the location, offices and content place the job in hybrid Los Angeles and New York offices, not Boston or remote, which conflicts with the r\u00e9sum\u00e9 location and remote_ok, so conditions 2 and 3 fail. The content mentions at most one r\u00e9sum\u00e9 skill (SQL, written run-together as 'SQL2+'), and it requires 6+ years versus experience_years of 3, so conditions 4 and 5 fail.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334296,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "experience_years",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Senior Product Manager, Marketplace' contains none of the required phrases in target_roles, and it includes the excluded whole word 'Manager' (exclusions), so conditions 1 and 6 fail. The departments field ('Product & Design') is not an allowed department, and the location, offices and content place the job in hybrid Los Angeles and New York offices, not Boston or remote, which conflicts with the r\u00e9sum\u00e9 location and remote_ok, so conditions 2 and 3 fail. The content mentions at most one r\u00e9sum\u00e9 skill (SQL, written run-together as 'SQL2+'), and it requires 6+ years versus experience_years of 3, so conditions 4 and 5 fail."
+        },
+        "session_id": "b6fc1f25-dcae-43ec-bb3b-0d98d10fe3ad",
+        "cost_usd": 0.0348574
+      }
+    },
+    {
+      "posting_id": 8334311,
+      "board_token": "oscar",
+      "title": "Senior Product Manager, Marketplace",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "justification": "C1 FAIL [posting.id=8334311; resume.target_roles; posting.title]: posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases\nC2 FAIL [posting.id=8334311; resume.target_roles; posting.departments]: posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8334311; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'San Francisco, California, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 FAIL [posting.id=8334311; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC5 FAIL [posting.id=8334311; resume.experience_years; posting.content]: posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3\nC6 FAIL [posting.id=8334311; resume.exclusions; posting.title, posting.content]: posting.title has excluded word 'Manager'",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Senior Product Manager, Marketplace' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Product & Design'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'San Francisco, California, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": false,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 6 years ('6+ years of experience collaborating cross-functionally amon'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": false,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title has excluded word 'Manager'"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "San Francisco, California, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8334311",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:10+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8334311,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8334311, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Senior Product Manager, Marketplace' contains none of the required engineering phrases, which fails the r\u00e9sum\u00e9 target_roles check. It also contains 'Manager' as a whole word, which hits the exclusions rule. The department 'Product & Design' is not an allowed department, and the location (San Francisco, with an office in New York) is not Boston and offers remote work only to San Francisco residents, so it does not match the r\u00e9sum\u00e9 location or remote_ok. The content mentions at most one r\u00e9sum\u00e9 skill (SQL, run together as 'SQL2+') and requires 6+ years of experience, well above the 3-year limit set by experience_years.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8334311,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "experience_years",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The title 'Senior Product Manager, Marketplace' contains none of the required engineering phrases, which fails the r\u00e9sum\u00e9 target_roles check. It also contains 'Manager' as a whole word, which hits the exclusions rule. The department 'Product & Design' is not an allowed department, and the location (San Francisco, with an office in New York) is not Boston and offers remote work only to San Francisco residents, so it does not match the r\u00e9sum\u00e9 location or remote_ok. The content mentions at most one r\u00e9sum\u00e9 skill (SQL, run together as 'SQL2+') and requires 6+ years of experience, well above the 3-year limit set by experience_years."
+        },
+        "session_id": "5eddaa60-ebfc-44e1-8534-3ccbe3fe254d",
+        "cost_usd": 0.0354094
+      }
+    },
+    {
+      "posting_id": 8250197,
+      "board_token": "oscar",
+      "title": "Strategic Insights Associate, Data Analytics",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3
+      ],
+      "justification": "C1 FAIL [posting.id=8250197; resume.target_roles; posting.title]: posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases\nC2 FAIL [posting.id=8250197; resume.target_roles; posting.departments]: posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8250197; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Dallas, Texas, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 PASS [posting.id=8250197; resume.skills; posting.content]: posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)\nC5 PASS [posting.id=8250197; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3\nC6 PASS [posting.id=8250197; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Dallas, Texas, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": true,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Dallas, Texas, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8250197",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:19+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8250197,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8250197, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases from the r\u00e9sum\u00e9's target_roles, and the department 'Member Programs' is not an allowed department. The posting location is Dallas, TX (office New York, NY), and its content limits remote work to Dallas residents, so it is neither in the r\u00e9sum\u00e9 location of Boston, MA nor a US-wide remote role despite remote_ok. The content mentions the r\u00e9sum\u00e9 skills Python and SQL, its 3+ year minimum is within experience_years, and nothing in the title or content triggers the exclusions.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8250197,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "experience_years",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases from the r\u00e9sum\u00e9's target_roles, and the department 'Member Programs' is not an allowed department. The posting location is Dallas, TX (office New York, NY), and its content limits remote work to Dallas residents, so it is neither in the r\u00e9sum\u00e9 location of Boston, MA nor a US-wide remote role despite remote_ok. The content mentions the r\u00e9sum\u00e9 skills Python and SQL, its 3+ year minimum is within experience_years, and nothing in the title or content triggers the exclusions."
+        },
+        "session_id": "116c7d4c-d378-4fce-b755-fddc219ca732",
+        "cost_usd": 0.0370014
+      }
+    },
+    {
+      "posting_id": 8250129,
+      "board_token": "oscar",
+      "title": "Strategic Insights Associate, Data Analytics",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3
+      ],
+      "justification": "C1 FAIL [posting.id=8250129; resume.target_roles; posting.title]: posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases\nC2 FAIL [posting.id=8250129; resume.target_roles; posting.departments]: posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8250129; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Tempe, Arizona, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 PASS [posting.id=8250129; resume.skills; posting.content]: posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)\nC5 PASS [posting.id=8250129; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3\nC6 PASS [posting.id=8250129; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Tempe, Arizona, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": true,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Tempe, Arizona, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8250129",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:28+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8250129,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8250129, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases, so it fails Condition 1 for the target_roles. The department 'Member Programs' is not on the allowed list, so it fails Condition 2. The location (Tempe, AZ, hybrid with 3 in-office days; office listed as New York, NY) is neither Boston, MA nor US remote, so it fails Condition 3 against the r\u00e9sum\u00e9 location and remote_ok. The content mentions SQL and Python from the skills and requires 3+ years, which is within experience_years, and the title and content trigger no exclusions, so Conditions 4, 5 and 6 pass.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8250129,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "experience_years",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases, so it fails Condition 1 for the target_roles. The department 'Member Programs' is not on the allowed list, so it fails Condition 2. The location (Tempe, AZ, hybrid with 3 in-office days; office listed as New York, NY) is neither Boston, MA nor US remote, so it fails Condition 3 against the r\u00e9sum\u00e9 location and remote_ok. The content mentions SQL and Python from the skills and requires 3+ years, which is within experience_years, and the title and content trigger no exclusions, so Conditions 4, 5 and 6 pass."
+        },
+        "session_id": "10efbdb9-05e0-429c-ad62-aa89a75d2c9e",
+        "cost_usd": 0.0337774
+      }
+    },
+    {
+      "posting_id": 8249773,
+      "board_token": "oscar",
+      "title": "Strategic Insights Associate, Data Analytics",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3
+      ],
+      "justification": "C1 FAIL [posting.id=8249773; resume.target_roles; posting.title]: posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases\nC2 FAIL [posting.id=8249773; resume.target_roles; posting.departments]: posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8249773; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'New York, New York, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 PASS [posting.id=8249773; resume.skills; posting.content]: posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)\nC5 PASS [posting.id=8249773; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3\nC6 PASS [posting.id=8249773; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'New York, New York, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": true,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "New York, New York, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8249773",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:37+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8249773,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8249773, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the allowed role phrases (Condition 1), and the department 'Member Programs' is not an allowed department (Condition 2). The posting location and offices are New York, NY, with a required hybrid schedule of 3 in-office days per week, so it is neither in Boston, MA nor remote within the US, which conflicts with the r\u00e9sum\u00e9 location and remote_ok preference (Condition 3). The content does mention the r\u00e9sum\u00e9 skills Python and SQL, requires a minimum of 3+ years of experience against the r\u00e9sum\u00e9's experience_years of 3, and does not trigger any r\u00e9sum\u00e9 exclusions, so Conditions 4, 5 and 6 pass.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8249773,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3
+          ],
+          "resume_fields": [
+            "target_roles",
+            "experience_years",
+            "skills",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Strategic Insights Associate, Data Analytics' contains none of the allowed role phrases (Condition 1), and the department 'Member Programs' is not an allowed department (Condition 2). The posting location and offices are New York, NY, with a required hybrid schedule of 3 in-office days per week, so it is neither in Boston, MA nor remote within the US, which conflicts with the r\u00e9sum\u00e9 location and remote_ok preference (Condition 3). The content does mention the r\u00e9sum\u00e9 skills Python and SQL, requires a minimum of 3+ years of experience against the r\u00e9sum\u00e9's experience_years of 3, and does not trigger any r\u00e9sum\u00e9 exclusions, so Conditions 4, 5 and 6 pass."
+        },
+        "session_id": "96bc302d-e767-4f56-bd48-131daf4ac7b4",
+        "cost_usd": 0.0347094
+      }
+    },
+    {
+      "posting_id": 8250195,
+      "board_token": "oscar",
+      "title": "Strategic Insights Associate, Data Analytics",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3
+      ],
+      "justification": "C1 FAIL [posting.id=8250195; resume.target_roles; posting.title]: posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases\nC2 FAIL [posting.id=8250195; resume.target_roles; posting.departments]: posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC3 FAIL [posting.id=8250195; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Atlanta, Georgia, United States' is not Boston and not remote (resume.location 'Boston, MA')\nC4 PASS [posting.id=8250195; resume.skills; posting.content]: posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)\nC5 PASS [posting.id=8250195; resume.experience_years; posting.content]: posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3\nC6 PASS [posting.id=8250195; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Strategic Insights Associate, Data Analytics' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Member Programs'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": false,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Atlanta, Georgia, United States' is not Boston and not remote (resume.location 'Boston, MA')"
+        },
+        {
+          "n": 4,
+          "passed": true,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 2 of resume.skills ['Python', 'SQL'] (at least 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 3 years ('3+ years of technical work experience using analytical tools'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Atlanta, Georgia, United States",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8250195",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:45+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8250195,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8250195, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required title phrases from target_roles, and the department 'Member Programs' is not an allowed department. The posting location is Atlanta, Georgia (office New York, NY), and the content limits remote work to Atlanta, GA residents, so it does not match the r\u00e9sum\u00e9 location of Boston, MA or offer US-wide remote work for remote_ok. The content does mention the skills Python and SQL, requires 3+ years (within experience_years of 3), and its title contains no excluded words.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8250195,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3
+          ],
+          "resume_fields": [
+            "target_roles",
+            "experience_years",
+            "skills",
+            "location",
+            "remote_ok",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required title phrases from target_roles, and the department 'Member Programs' is not an allowed department. The posting location is Atlanta, Georgia (office New York, NY), and the content limits remote work to Atlanta, GA residents, so it does not match the r\u00e9sum\u00e9 location of Boston, MA or offer US-wide remote work for remote_ok. The content does mention the skills Python and SQL, requires 3+ years (within experience_years of 3), and its title contains no excluded words."
+        },
+        "session_id": "d4503a95-b151-411e-8a34-297b1c3b954a",
+        "cost_usd": 0.0342894
+      }
+    },
+    {
+      "posting_id": 8172223,
+      "board_token": "oscar",
+      "title": "Utilization Review Nurse",
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        4
+      ],
+      "justification": "C1 FAIL [posting.id=8172223; resume.target_roles; posting.title]: posting.title 'Utilization Review Nurse' contains none of the title phrases\nC2 FAIL [posting.id=8172223; resume.target_roles; posting.departments]: posting.departments ['Clinical'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']\nC4 FAIL [posting.id=8172223; resume.skills; posting.content]: posting.content mentions 0 of resume.skills [] (fewer than 2)\nC3 PASS [posting.id=8172223; resume.location, resume.remote_ok; posting.location, posting.offices]: posting.location 'Remote' / posting.offices ['Remote (Arizona)'] is remote within the United States and resume.remote_ok is true\nC5 PASS [posting.id=8172223; resume.experience_years; posting.content]: posting.content requires 1 years ('1+ years of clinical experience (including at least 1+ year'); resume.experience_years is 3\nC6 PASS [posting.id=8172223; resume.exclusions; posting.title, posting.content]: posting.title and posting.content hit none of resume.exclusions",
+      "conditions": [
+        {
+          "n": 1,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.title"
+          ],
+          "detail": "posting.title 'Utilization Review Nurse' contains none of the title phrases"
+        },
+        {
+          "n": 2,
+          "passed": false,
+          "resume_fields": [
+            "resume.target_roles"
+          ],
+          "posting_fields": [
+            "posting.departments"
+          ],
+          "detail": "posting.departments ['Clinical'] is not one of ['Engineering', 'Software Engineering', 'Machine Learning', 'AI', 'Artificial Intelligence', 'Data Science']"
+        },
+        {
+          "n": 3,
+          "passed": true,
+          "resume_fields": [
+            "resume.location",
+            "resume.remote_ok"
+          ],
+          "posting_fields": [
+            "posting.location",
+            "posting.offices"
+          ],
+          "detail": "posting.location 'Remote' / posting.offices ['Remote (Arizona)'] is remote within the United States and resume.remote_ok is true"
+        },
+        {
+          "n": 4,
+          "passed": false,
+          "resume_fields": [
+            "resume.skills"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content mentions 0 of resume.skills [] (fewer than 2)"
+        },
+        {
+          "n": 5,
+          "passed": true,
+          "resume_fields": [
+            "resume.experience_years"
+          ],
+          "posting_fields": [
+            "posting.content"
+          ],
+          "detail": "posting.content requires 1 years ('1+ years of clinical experience (including at least 1+ year'); resume.experience_years is 3"
+        },
+        {
+          "n": 6,
+          "passed": true,
+          "resume_fields": [
+            "resume.exclusions"
+          ],
+          "posting_fields": [
+            "posting.title",
+            "posting.content"
+          ],
+          "detail": "posting.title and posting.content hit none of resume.exclusions"
+        }
+      ],
+      "judge": "rule (record)",
+      "is_new": true,
+      "location": "Remote",
+      "absolute_url": "https://job-boards.greenhouse.io/oscar/jobs/8172223",
+      "claude": {
+        "judge": "Claude (judgment, not a fact)",
+        "called_at": "2026-10-30T23:03:54+00:00",
+        "model": "claude-opus-5-5",
+        "prompt_file": "prompts/baseline-v1.md",
+        "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+        "posting_id": 8172223,
+        "tag": "watch",
+        "raw_text": "{\"posting_id\": 8172223, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Utilization Review Nurse' contains none of the required phrases, and the department 'Clinical' is not an allowed department. The posting's location and offices allow remote work only for residents of listed states, and Massachusetts is not one of them, so the r\u00e9sum\u00e9 location (Boston, MA) and remote_ok preference do not satisfy the location condition. The content mentions none of the r\u00e9sum\u00e9 skills. The 1+ year experience minimum fits the r\u00e9sum\u00e9 experience_years, and the title and pay information trigger none of the r\u00e9sum\u00e9 exclusions.\"}",
+        "valid": true,
+        "errors": [],
+        "parsed": {
+          "posting_id": 8172223,
+          "verdict": "Not Relevant",
+          "failed_conditions": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "resume_fields": [
+            "target_roles",
+            "skills",
+            "location",
+            "remote_ok",
+            "experience_years",
+            "exclusions"
+          ],
+          "posting_fields": [
+            "id",
+            "title",
+            "departments",
+            "location",
+            "offices",
+            "content"
+          ],
+          "justification": "The posting title 'Utilization Review Nurse' contains none of the required phrases, and the department 'Clinical' is not an allowed department. The posting's location and offices allow remote work only for residents of listed states, and Massachusetts is not one of them, so the r\u00e9sum\u00e9 location (Boston, MA) and remote_ok preference do not satisfy the location condition. The content mentions none of the r\u00e9sum\u00e9 skills. The 1+ year experience minimum fits the r\u00e9sum\u00e9 experience_years, and the title and pay information trigger none of the r\u00e9sum\u00e9 exclusions."
+        },
+        "session_id": "f47018da-81e1-4949-9a08-b9f7805827a5",
+        "cost_usd": 0.029953399999999998
+      }
+    }
+  ],
+  "removed_since_last_run": [
+    7782402,
+    7793711,
+    7793712,
+    7793713,
+    8053913,
+    8073039,
+    8073842,
+    8089536,
+    8089548,
+    8089549,
+    8168038,
+    8168179,
+    8188906,
+    8188907,
+    8224397,
+    8227023,
+    8245793,
+    8257508
+  ]
+}
