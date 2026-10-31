@@ -97,3 +97,60 @@ brackets.
   listed `claude-haiku-4-5-20251001` alongside the requested
   `claude-sonnet-5-5`. Earlier calls listed only Sonnet. I don't know which
   model wrote each run-2 verdict.
+
+## Sign-off — Job-Search Agent 1
+
+**Checked:**
+- **The allow-list:** `tests/test_contract.py::TestRefuses`. It refuses
+  LinkedIn, stripe.com, http, and a look-alike host.
+- **Baseline and new-since-last by id:** `TestWatch`, plus
+  `python3 -m tests.mutants`, which reports all three contract wrong versions
+  as `CAUGHT`.
+- **Whole-word skill matching:** `test_wrong_version_substring_go_good`.
+- **The Claude output contract:** `tests/test_claude_validator.py`, which
+  rejects prose, fences, extra keys, invented fields, and empty citations.
+- **Run 2's 18 new postings:** recomputed against the two raw responses
+  (18 added, 10 removed).
+
+**How:**
+- Claude wrote the tests from my contract; I did not write them before
+  reading its code.
+- I ran the unit tests on 2026-10-30 and reported 30 passing.
+- Claude ran the full suite (37 tests) and the mutant check again on the
+  pushed branch on 2026-10-31. All passed, and all 3 wrong versions were
+  `CAUGHT`.
+- The run-2 recomputation was done by Claude, from the committed raw files.
+
+**Not checked:**
+- **Skill matching counts ordinary English words.** "React" matched "react
+  well under pressure", and "Go" matched "go-to-market". It's known, and not
+  fixed.
+- **Which model wrote the run-2 verdicts.** `claude-haiku-4-5` appeared next
+  to `claude-sonnet-5-5` in run 2's usage, unexplained.
+- **Whether the validator's citations are the right fields.** It checks that
+  cited fields exist, not that they are what the reason depends on.
+- **Other boards, other days, and pagination.** Only Stripe was run, only on
+  2026-10-30 and 2026-10-31.
+
+**Not claiming:**
+- That the agent finds good jobs.
+- That Claude's judgment is accurate. Its pass rates equal an
+  always-"not relevant" guesser on my imbalanced labels.
+- That the revision prompt is better in general.
+- My own label on 7776179 was wrong. By my later judgment, Claude was right
+  about it (see `FRICTIONAL.md`).
+
+**Signed:** Atharva C, 2026-10-31
+
+### Driver's seat
+
+| Part of the task | Claude did | I did | Evidence |
+|---|---|---|---|
+| Contract | asked questions, formatted my answers | made every decision | `CONTRACT.md` header; first commit |
+| Hand labels (20) | showed title and location, flagged contradictions | chose every label, re-answered the flagged ones | `labels/sheet.csv`; "hand labels" commit |
+| Prompt experiment | proposed four possible changes, ran the calls | chose the one change (list valid field names) | `EXPERIMENT.md`; `prompts/revision.txt` |
+| Imbalanced data | laid out two options | chose to keep the set and report it honestly | `EXPERIMENT.md` limits |
+| Code, tests, report drafts | wrote them | approved each commit, ran the tests | `SOURCES.md` |
+
+**Why the decisions stay mine** (my words):
+> i took all the decision and it was me who did all the decision making claude was the one to gave me the plan

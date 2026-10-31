@@ -44,6 +44,12 @@ All calls ran on 2026-10-30 on `claude-sonnet-5-5`, one fresh tool-less
   (dev, 7776179) and `resume.experience.years` (held-out, 8155381).
 - The one dev failure for the revision is 7776179: Claude said "not
   relevant", stating the posting requires 8+ years. I labeled it relevant.
+  **Update 2026-10-31:** looking back, I judge Claude was right and my label
+  was wrong. My labeling rule ignored required years. Against my
+  *corrected* judgment, every valid verdict from both prompts matched. The
+  baseline's 2 invalid outputs gave no verdict at all. That still says
+  little, because all 20 are now "not relevant". The committed labels and
+  pass rates above are left as they were.
 
 ## What the change did
 
