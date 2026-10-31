@@ -13,7 +13,8 @@ Claude Code drafted this README from the commit record. The student's own words 
 | | |
 |---|---|
 | Language | Python 3, standard library only (no `pip install`). Ran on Python 3.12.7, macOS 27.0.1. |
-| Tests | `unittest` (standard library), 91 tests, offline |
+| Tests | `unittest` (standard library), 92 tests, offline. The student's own run at `9243e75` showed 91; one test was added afterwards for the switch to prompt v2. |
+| Prompt | Future runs use `prompts/judge_v2.md` (the student's decision, 2026-10-31). Runs 1 and 2, the sampling, and the demo used `judge_v1`; each results file records the prompt it used. |
 | Claude, for new postings only | Default `--judge claude-code`: the `claude` CLI (Claude Code 2.1.291), logged in. Alternative `--judge api`: `ANTHROPIC_API_KEY` set in the shell. The `api` route was only tested against fakes; it never made a real call (no key was available). |
 | Model | `claude-opus-5-5` |
 | Network | Exactly two allow-listed requests: `GET https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true` and `POST https://api.anthropic.com/v1/messages` (api route only) |
@@ -71,7 +72,6 @@ All times EDT. "Code" is the commit the run used.
 | 2026-10-31 morning | Paste into a chat (action surface 1), done by the student | claude.ai, Opus 5.5, effort Max (as shown in the chat) | `relevant`; the agent's validator accepted the copied reply | [action-surface/1-chat](action-surface/1-chat/README.md) | n/a |
 | 2026-10-31 09:05 | The 20 labels the student supplied in chat vs the rule records | consistency check, **not independent** (see "The labels" below) | identical on 20/20; the student's reasons name the same failed conditions in 14/14 negatives | [experiments/hand-vs-rule.md](experiments/hand-vs-rule.md) | `0f312fb` |
 | 2026-10-31 09:08 | Sampling: 5 postings × 4 fresh conversations, prompt v1 | real `claude -p` | 20/20 valid; 20/20 equal the student's label; every posting unanimous | [reports/SAMPLING-REPORT.md](reports/SAMPLING-REPORT.md) | `0f3b4af` + one-line fix (`d2db430`) |
-| 2026-10-31 09:39 | Fresh clone from GitHub (sparse checkout of this folder) at `406fb0a` | real clone | 91 tests OK; both `verify` OK; `rule` recompute; offline baseline replay | [output](evidence/test-runs/2026-10-31-05-fresh-clone-from-github.txt) | `406fb0a` |
 | 2026-10-31 09:06–09:18 | Prompt experiment: v1, then the student's one change (v2, justification names the field paths), on 10 development then 10 held-out postings, 3 calls each | real `claude -p` | Pass rate: v1 30/30 and 30/30; v2 30/30 and 29/30 (one malformed reply rejected). Justification names all 8 paths: v1 0/30 and 0/30; v2 30/30 and 29/29 | [reports/PROMPT-EXPERIMENT.md](reports/PROMPT-EXPERIMENT.md) | `0f3b4af`, `b0d2a88` |
 
 The state file after each run is saved next to its results (`state_after.json`); the live state is [state/state.json](state/state.json), and git history shows it after run 1 (`78c1b1b`) and after run 2 (`a516410`).
@@ -113,7 +113,7 @@ Any error before the last step leaves `state.json` untouched. The failed run's f
 | `jobwatch/judge.py`, `prompts/judge_v1.md` | the prompt contract and the validator |
 | `jobwatch/transports.py` | `claude -p` with tools, settings, MCP and saved sessions off; or one API POST |
 | `jobwatch/run.py`, `jobwatch/state.py` | one run, and the state file |
-| `tests/` | 91 tests, plus the contract's wrong versions as code (`tests/wrong_versions.py`) |
+| `tests/` | 92 tests, plus the contract's wrong versions as code (`tests/wrong_versions.py`) |
 | `experiments/`, `labels/` | sample selection, the student's labeling rule and labels, sampling and experiment scripts |
 | `reports/` | sampling report, prompt experiment, action-surface comparison |
 
@@ -168,19 +168,19 @@ On 2026-10-31 the student accepted four of these by name: "OK on the stricter fi
 | The labels | Chose the 20 postings by seed and built a sheet with no rule or Claude output. But it had earlier shown the rule's relevant list in the conversation, and it wrote each posting's rule category into `selection.json`. | Wrote the labeling rule; supplied the 20 labels in chat | The yardstick should not come from the thing being measured. Here it was exposed to it, so the labels are reported as **not independent**. | `7752e69` (rule), `0f312fb` (labels); "The labels are not independent" above |
 | How the judge reaches Claude | Probed `claude -p`; found the ~800 tokens it adds; laid out two routes | Chose the Claude Code login from those two routes | Cost and privacy trade-offs belong to the owner | chat, 2026-10-30 00:50–00:53; [probes](evidence/probes/2026-10-28-claude-code-probes.md) |
 | The one prompt change | Measured v1; proposed changes A and B; wrote v2 | Chose A and gave their own reason | What counts as an explanation they can trust is their standard | `b0d2a88`; the reason is quoted in [PROMPT-EXPERIMENT.md](reports/PROMPT-EXPERIMENT.md) |
-| Code, tests, runs, reports | Wrote and ran all of them. Drafted the reports, this README, SOURCES, and the sign-off draft. Checked the student's two observations against the saved posting text. | Observed that 4616971008 has Python and PyTorch but fails on its title, and that 5418610008 asks for 5+ years (Frictional, 2026-10-31). Ran the 91 tests in their own Terminal ([output](evidence/test-runs/2026-10-31-04-student-own-run.txt)). | — | `d945f28` (failing tests) → `546fd7a` (code) |
-| Whether to sign | Drafted the facts | **Withheld** on 2026-10-31 and named the corrections needed | Their name goes on it | this section |
+| Code, tests, runs, reports | Wrote and ran all of them. Drafted the reports, this README, SOURCES, and the sign-off draft. Checked the student's two observations against the saved posting text. | Observed that 4616971008 has Python and PyTorch but fails on its title, and that 5418610008 asks for 5+ years (Frictional, 2026-10-31). Ran the 91 tests that existed at `9243e75` in their own Terminal ([output](evidence/test-runs/2026-10-31-04-student-own-run.txt)). | — | `d945f28` (failing tests) → `546fd7a` (code) |
+| Whether to sign | Drafted the facts; made the corrections the student named | **Withheld** first and named three corrections; after they were made (`5805125`), reviewed the drafts and **signed** (2026-10-31) | Their name goes on it | this section |
 
 ## Sign-off
 
-**Withheld by the student on 2026-10-31.** The student's reason, verbatim:
+**Signed by the student on 2026-10-31, after first withholding it.** The student's first answer, verbatim:
 
 > Withheld because the labels supplied in this chat cannot be presented as independent hand labels, and the descriptions of who wrote what need correcting. The statement "before any Claude call" also needs to match the recorded timeline.
 
-Claude Code then corrected the README, SOURCES, the reports, and the label files for those three reasons. The draft below is Claude Code's, from facts in this repo. The student has not signed it.
+Claude Code corrected the README, SOURCES, the reports, and the label files for those three reasons (`5805125`). The student reviewed the corrected drafts ("All are clear, I guess") and answered "Sign now". Claude Code drafted the text below from facts in this repo; the student signed it.
 
 ```text
-Sign-off — Job-Search Agent 1   (draft by Claude Code; withheld by the student)
+Sign-off — Job-Search Agent 1   (drafted by Claude Code; signed by the student)
 Checked:      Consistency of the rule code with the 20 labels the student supplied:
               identical on 20/20, same failed conditions in 14/14 negatives
               (experiments/hand-vs-rule.md). NOT an independent check: the rule's
@@ -194,7 +194,8 @@ Checked:      Consistency of the rule code with the 20 labels the student suppli
               Every Claude verdict that counted passed the validator; the one
               malformed reply (v2, held-out) was rejected, not scored not_relevant.
 How:          By the student's own run: python3 -m unittest -v in their Terminal
-              on 2026-10-31, 91 OK (evidence/test-runs/2026-10-31-04-student-own-run.txt).
+              on 2026-10-31, 91 OK at 9243e75 (evidence/test-runs/2026-10-31-04-student-own-run.txt);
+              the 92nd test (the v2 switch) was run by Claude Code, not by the student.
               By tests written before the code, but written by Claude Code, from
               the student's contract, and committed failing (d945f28) before any
               agent code; the student wrote no test code.
@@ -215,5 +216,5 @@ Not claiming: That a relevant posting is a good job, or that Alex is qualified
               independent of the rule.
               That v2 is better overall: more traceable, longer, and one malformed
               reply in 30 held-out calls.
-Signed or withheld: Withheld — Suketh Produtoor, 2026-10-31
+Signed or withheld: Signed — Suketh Produtoor, 2026-10-31 (withheld earlier the same day; signed after 5805125)
 ```

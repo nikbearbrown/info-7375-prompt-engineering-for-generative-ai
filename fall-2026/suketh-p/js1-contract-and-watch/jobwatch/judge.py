@@ -9,7 +9,9 @@ from jobwatch.errors import JudgeError
 from jobwatch.normalize import plain_text
 
 PROMPTS_DIR = Path(__file__).resolve().parent.parent / "prompts"
-DEFAULT_PROMPT = "judge_v1"
+# The student switched future runs to v2 on 2026-10-31 (reports/PROMPT-EXPERIMENT.md).
+# Runs 1 and 2 used judge_v1; each results.json records the prompt it used.
+DEFAULT_PROMPT = "judge_v2"
 KEYS = {"posting_id", "verdict", "justification", "resume_evidence", "posting_evidence"}
 EVIDENCE_KEYS = {"field", "quote"}
 VERDICTS = ("relevant", "not_relevant")

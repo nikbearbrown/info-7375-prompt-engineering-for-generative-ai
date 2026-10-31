@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from jobwatch import net, run, state, transports
+from jobwatch import judge, net, run, state, transports
 from jobwatch.errors import FetchError, InputError, JudgeError, StateError
 from tests.helpers import NOT_RELEVANT_202, OTHER_1, RELEVANT_101, ScriptedModel, board_bytes, persona
 
@@ -270,6 +270,13 @@ class OutputTest(AgentCase):
         self.model = send_with_meta
         result = self.by_id(self.new_101())[101]
         self.assertEqual(result["claude_verdict"]["call"], {"transport": "constructed", "model": "m-1"})
+
+    def test_the_prompt_recorded_is_the_prompt_sent_and_it_is_v2(self):
+        # 2026-10-31: the student switched future runs to judge_v2; runs 1 and 2 used judge_v1.
+        result = self.by_id(self.new_101())[101]
+        [(system, _user)] = self.model.calls
+        self.assertEqual(result["claude_verdict"]["prompt"], "judge_v2")
+        self.assertEqual(system, judge.load_prompt(result["claude_verdict"]["prompt"]))
 
     def test_the_model_reply_is_saved_verbatim(self):
         summary = self.new_101()

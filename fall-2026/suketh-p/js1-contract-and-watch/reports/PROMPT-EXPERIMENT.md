@@ -69,4 +69,8 @@ v2's replies were longer (about 100–125 more output tokens each) and cost abou
 - **Everything ran on one model, one route, and one morning.** `claude -p` ran at its default effort, while the chat surface used "Max". The `api` route was never run.
 - **The held-out set was run once per prompt.** Nothing was changed after seeing it.
 
-**The agent still uses v1** (`jobwatch.judge.DEFAULT_PROMPT`). Whether to switch is the student's decision; see the README.
+**After the experiment, the student switched the agent to v2 for future runs.** The student's words (2026-10-31):
+
+> Switch to v2 for future runs only, keeping strict validation and leaving runs 1 and 2 recorded as v1. This is a choice for clearer explanations; v2 still missed the experiment's original acceptance condition because one held-out reply was malformed.
+
+`jobwatch.judge.DEFAULT_PROMPT` is now `judge_v2`, with a test that the prompt recorded in the results is the prompt sent. The validator is unchanged, so a malformed reply still fails the run and never becomes a verdict.

@@ -26,7 +26,7 @@ class ResumeValidationTest(unittest.TestCase):
         self.rejects(lambda p: p.update(email="alex.morgan@gmail.com"))
 
     def test_rejects_a_phone_without_the_555_exchange(self):
-        self.rejects(lambda p: p.update(phone="202-867-0147"))
+        self.rejects(lambda p: p.update(phone="000-000-0000"))
 
     def test_rejects_a_missing_preference(self):
         self.rejects(lambda p: p["preferences"].pop("location_terms"))
