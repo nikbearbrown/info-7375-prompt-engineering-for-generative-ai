@@ -1,0 +1,18 @@
+version: v1
+model: claude-sonnet-5-5
+argv: claude -p --output-format json --model claude-sonnet-5-5 --tools "" --no-session-persistence --strict-mcp-config --setting-sources project
+cwd: a new, empty temp directory outside the repo, created for each call and deleted after it
+stdin: the filled prompts/<prompt_version>.md template (front matter removed), encoded as UTF-8
+stdout: read as UTF-8 and saved unmodified to raw/<run_id>/claude_<posting_id>.json
+user_claude_md: none loaded. ~/.claude/CLAUDE.md does not exist on the machine that ran this (checked 2026-10-31).
+
+# Why each flag (from `claude --help`, Claude Code 2.1.304, read 2026-10-31)
+# -p --output-format json   one non-interactive turn; stdout is a JSON envelope with is_error and result
+# --model claude-sonnet-5-5 the pinned model; every verdict line records it
+# --tools ""                help text: 'Use "" to disable all tools'
+# --no-session-persistence  the call is not saved and cannot be resumed
+# --strict-mcp-config       with no --mcp-config given, no MCP servers load
+# --setting-sources project user settings are not loaded; the empty temp dir has no project settings
+# Not used: --bare. It skips CLAUDE.md discovery but accepts only API-key auth, and this agent uses the logged-in CLI.
+# Still present: Claude Code's own default system prompt. It is part of every call, judge and experiments alike.
+# `claude` is found on PATH. Tests put tests/stubs/ first on PATH; live runs need the real CLI installed and logged in.
