@@ -1,6 +1,6 @@
 # Job-Search Agent 1 — Contract and Watch
 
-INFO7375, fall 2026 · Chethan G
+INFO7375, fall 2026 · Chethan T
 
 An agent that watches one public Greenhouse job board, finds postings new
 since the last run, and judges each one against a fictional persona's résumé,

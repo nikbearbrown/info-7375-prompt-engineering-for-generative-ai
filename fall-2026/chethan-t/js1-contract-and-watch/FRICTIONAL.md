@@ -32,4 +32,6 @@ code is written.
 
 **Unresolved.** Which answers will change in the revision.
 
-**Trace.** v1 contract commit: ________ · revised contract commit: ________
+**Trace.** Revised contract (v2): `046b749` (2026-10-31 17:07). v1 draft
+added for reference in `b938a14` (2026-10-31 17:18). Git shows v1 committed
+after v2 because I only saved v1 as a reference copy after deciding to restart.
