@@ -1,8 +1,10 @@
 # Sampling report (Chapter 1)
 
-*Drafted by Claude Code from the committed evidence. Review by Atharva C.:
-PENDING. Every number below comes from `logs/sampling.jsonl` (commit
-13e0832).*
+*Drafted by Claude Code from the committed evidence. Reviewed by Atharva C.,
+2026-10-31: I checked the verdict table against
+`results/sampling_table.md`, which the script wrote, and it matches (7776179:
+4 × "not relevant", 0/4). Every number below comes from
+`logs/sampling.jsonl` (commit 13e0832).*
 
 ## What ran
 

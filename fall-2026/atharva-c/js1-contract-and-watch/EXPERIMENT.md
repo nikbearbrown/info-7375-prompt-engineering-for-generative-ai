@@ -1,8 +1,11 @@
 # Prompt experiment (Chapter 2)
 
-*Drafted by Claude Code from the committed evidence. Review by Atharva C.:
-PENDING. Numbers come from `results/experiment_*.json` and
-`logs/experiment_*.jsonl` (commits 1e11045 and f82287b).*
+*Drafted by Claude Code from the committed evidence. Reviewed by Atharva C.,
+2026-10-31: I ran `diff prompts/baseline.txt prompts/revision.txt` (one
+changed line, 20c20) and checked the held-out scores in
+`results/experiment_*_held-out.json` (baseline 9/10, revision 10/10).
+Numbers come from `results/experiment_*.json` and `logs/experiment_*.jsonl`
+(commits 1e11045 and f82287b).*
 
 ## Setup, in the order it happened
 

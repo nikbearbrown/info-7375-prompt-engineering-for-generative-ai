@@ -1,7 +1,9 @@
 # Action-surface comparison (Chapter 3)
 
-*Drafted by Claude Code from the committed evidence. Review by Atharva C.:
-PENDING. Evidence: `logs/action_surface/runs.json` and
+*Drafted by Claude Code from the committed evidence. Reviewed by Atharva C.,
+2026-10-31: I checked the mode-3 summarizer prompt in
+`logs/action_surface/runs.json`. My check found the draft had cut the quote
+short, and it is now quoted in full. Evidence: `logs/action_surface/runs.json` and
 `logs/action_surface/agent_state.json`, produced by
 `python3 -m tools.action_surface`.*
 
@@ -51,7 +53,8 @@ actually did was read back from its transcript, not assumed.
 - **Authority needed:** network, plus write access to disk.
 - **What could go wrong, seen in this run:** `WebFetch` gave the page to a
   summarizer with the prompt "Return the job title, location name, and a
-  summary of the content including required years". Claude judged *a
+  summary of the content including required years of experience, skills,
+  and level." Claude judged *a
   summary written by another model*, not the posting, and no raw response
   was saved. My contract requires the raw response as evidence, and this
   mode broke that.
@@ -61,7 +64,11 @@ actually did was read back from its transcript, not assumed.
 
 ## The choice: the least autonomy that suffices
 
-*Draft. Atharva to confirm or rewrite in their own words.*
+**My choice, in my words:**
+> yes i do because thats what happened
+> mode 3 lost raw posting it is verty important that the job posting not be lost
+
+The reasoning below is Claude's draft; I agree with it.
 
 **Mode 1, with my own code around it.** My code does the fetching, the
 allow-list, the raw-response saving, and the state file, and all of that is
