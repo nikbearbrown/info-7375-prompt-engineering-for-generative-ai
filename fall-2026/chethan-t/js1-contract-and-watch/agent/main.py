@@ -1,4 +1,4 @@
-"""Run the watch: python -m agent.main [--board BOARD] [--resume PATH]."""
+"""Run the watch: python -m agent.main [--board BOARD] [--resume PATH] [--no-claude]."""
 
 import argparse
 import json
@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from agent import fetch, rule, watch
+from agent import claude_judge, fetch, rule, watch
 from agent.resume import load_resume
 
 PROJECT = Path(__file__).resolve().parent.parent
@@ -23,6 +23,7 @@ def parse_args(argv):
     parser = argparse.ArgumentParser(prog="python -m agent.main")
     parser.add_argument("--board", default=config["board"], help="Greenhouse board name")
     parser.add_argument("--resume", default=str(PROJECT / config["resume"]), help="persona résumé JSON")
+    parser.add_argument("--no-claude", action="store_true", help="skip the Claude verdict (judgment)")
     return parser.parse_args(argv)
 
 
@@ -40,24 +41,36 @@ def save_seen(board, ids):
     STATE_PATH.write_text(json.dumps(state, indent=2) + "\n")
 
 
-def result_for(posting, resume):
+def result_for(posting, resume, use_claude=True):
+    record = rule.judge(posting, resume)
+    if use_claude:
+        judgment = claude_judge.judge(posting, resume)
+    else:
+        judgment = claude_judge.not_run("skipped (--no-claude)")
     return {
         "posting_id": posting["id"],
         "title": posting.get("title"),
         "location": (posting.get("location") or {}).get("name"),
         "url": posting.get("absolute_url"),
         "flags": rule.auth_flags(posting),
-        "record": rule.judge(posting, resume),
+        "record": record,
+        "judgment": judgment,
     }
 
 
 def print_result(r):
-    rec, flags = r["record"], r["flags"]
-    print(f"[{rec['verdict']}] {r['title']} — {r['location']} (id {r['posting_id']})")
+    rec, jud, flags = r["record"], r["judgment"], r["flags"]
+    print(f"{r['title']} — {r['location']} (id {r['posting_id']})")
     print(f"  {r['url']}")
-    print(f"  record: {rec['reason']}")
-    print(f"  fields: posting {rec['posting_fields']} / résumé {rec['resume_fields']}")
-    print("  flags:  " + ", ".join(f"{k}={v}" for k, v in flags.items()))
+    print(f"  record:   [{rec['verdict']}] {rec['reason']}")
+    print(f"            posting {rec['posting_fields']} / résumé {rec['resume_fields']}")
+    if jud["status"] == "ok":
+        print(f"  judgment: [{jud['verdict']}] {jud['reason']}")
+        print(f"            posting {jud['posting_fields']} / résumé {jud['resume_fields']}")
+    else:
+        detail = jud.get("error") or f"reply saved to {jud.get('raw_file')}"
+        print(f"  judgment: {jud['status']} ({detail})")
+    print("  flags:    " + ", ".join(f"{k}={v}" for k, v in flags.items()))
 
 
 def save_raw(board, raw, now):
@@ -102,7 +115,7 @@ def main(argv=None):
     new, updated = watch.find_new(postings, seen)
     save_seen(args.board, updated)
 
-    results = [result_for(p, resume) for p in new]
+    results = [result_for(p, resume, use_claude=not args.no_claude) for p in new]
     if seen is None:
         print(f"Baseline run for {args.board}: {len(postings)} postings saved as seen, 0 new.")
     else:
