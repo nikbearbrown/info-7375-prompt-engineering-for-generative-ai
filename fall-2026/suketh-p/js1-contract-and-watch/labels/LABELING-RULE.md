@@ -1,6 +1,6 @@
 # Labeling rule
 
-_The student's words, sent in chat on 2026-10-31 before 08:49 EDT, before any hand label existed. Saved verbatim by Claude Code; only this italic line was added._
+_The student's words, sent in chat on 2026-10-31 before 08:49 EDT, before the labels were sent. Saved verbatim by Claude Code; only this italic line was added._
 
 I am focusing on hands-on engineering roles involving machine learning, AI systems, and data infrastructure. I will label a posting `relevant` only if all four conditions pass:
 

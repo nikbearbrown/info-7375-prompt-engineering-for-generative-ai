@@ -15,7 +15,7 @@
 
 ## Every verdict
 
-| Posting | Title | Hand label (student) | Rule record | Claude, 4 fresh calls | Valid replies |
+| Posting | Title | Student's label | Rule record | Claude, 4 fresh calls | Valid replies |
 |---|---|---|---|---|---|
 | 4613568008 | Research Engineer, Machine Learning (Reinforcement Learning) | relevant | relevant | relevant, relevant, relevant, relevant | 4/4 |
 | 5418610008 | Data Engineer, GTM | relevant | relevant | relevant, relevant, relevant, relevant | 4/4 |
@@ -25,7 +25,7 @@
 
 ## How much they varied
 
-**The verdicts didn't vary at all:** 20 of 20 matched the other calls on the same posting, and 20 of 20 matched the student's hand label.
+**The verdicts didn't vary at all:** 20 of 20 matched the other calls on the same posting, and 20 of 20 matched the student's label.
 
 **What did vary** (from `python3 experiments/describe_calls.py experiments/sampling/calls.jsonl`):
 
@@ -43,10 +43,10 @@ The two relevant postings got nearly identical replies. The three not-relevant o
 
 **Can:**
 - On these 5 postings, with this prompt, model, and route, on this morning, Claude's verdict was repeatable: 4 of 4 agreed every time.
-- On these 5 postings, every verdict also equalled the student's hand label. The labels were written before any Claude call (`0f312fb`).
+- On these 5 postings, every verdict also equalled the student's label. The labels were committed before the sampling calls (`0f312fb` at 09:05; sampling at 09:08), but after other Claude calls, and they are **not independent** of the rule's output (see the README section "The labels are not independent").
 
 **Cannot:**
-- **Repeatability is not correctness.** Four identical answers would be just as identical if they were all wrong. Correctness here comes only from comparing with the hand label, on 5 postings.
+- **Repeatability is not correctness.** Four identical answers would be just as identical if they were all wrong. The only check on correctness here is comparison with the student's labels, on 5 postings, and those labels equal the rule and were made after its output had been shown. So this is agreement with the rule, not independent correctness.
 - **This doesn't generalize to the board.** These 5 were chosen to include near-misses, not at random, and 5 postings × 4 calls is a very small sample. A posting where the rule is a close call, like "Data Center Controls Engineer", which is relevant only because "data" is a focus term, could split, and none of those was among the 5.
 - **It doesn't hold for other settings.** Variation could differ with another effort level, model version, or route. The `api` route was never run. The chat surface used effort "Max", per the student.
-- **The hand labels only check one thing.** They apply the same rule the prompt describes, so agreement shows that Claude applied the student's rule, not that the rule picks good jobs. The student's Frictional note gives two counter-examples: posting 4616971008 has Python and PyTorch but fails on its title, and posting 5418610008 passes while asking for 5+ years of experience.
+- **The labels check only one thing.** They apply the same rule the prompt describes, so agreement shows that Claude applied the student's rule, not that the rule picks good jobs. The student's Frictional note gives two counter-examples: posting 4616971008 has Python and PyTorch but fails on its title, and posting 5418610008 passes while asking for 5+ years of experience.

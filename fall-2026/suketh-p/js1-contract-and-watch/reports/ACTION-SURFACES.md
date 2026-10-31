@@ -15,7 +15,11 @@
 
 ## Least autonomy that suffices
 
-PENDING: the student's choice and defense, in their own words.
+The student's choice and defense, verbatim (2026-10-31):
+
+> Chat is enough to judge one pasted posting because it needs no access to my files. The full watch needs a limited agent to fetch the approved board and remember posting IDs. I would keep those permissions in the program and give the model no tools.
+
+That is how the agent is built: `jobwatch/net.py` holds the two allow-listed requests and `jobwatch/state.py` holds the memory, while Claude runs with `--tools ""` and its reply is checked as data.
 
 ## Observed in these runs
 

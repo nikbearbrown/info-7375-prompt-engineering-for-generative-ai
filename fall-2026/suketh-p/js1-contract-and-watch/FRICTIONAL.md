@@ -4,7 +4,7 @@ Two parts. **My entries** are in my own words, written while the work happened, 
 
 ## My entries
 
-### 2026-10-31, after hand-labeling the 20 postings
+### 2026-10-31, after labeling the 20 postings (sent as a draft to review)
 
 The rule is clear, but it is narrower than my actual job interests. Posting 6 has Python and PyTorch, yet fails because its title does not include one of the required focus terms. Posting 20 passes even though it asks for five or more years of experience, since experience is outside the rule. I will keep the rule unchanged for this experiment and report both limits with the results.
 
@@ -16,7 +16,13 @@ A. I want the justification to name the exact résumé and posting fields becaus
 
 I accepted the suggestion to make field names explicit in the justification because that requirement is already in my contract. I am keeping the matching rules unchanged so this experiment tests one change at a time.
 
-PENDING: the student's next entries (after the held-out results; at sign-off).
+### 2026-10-31, after the held-out results
+
+I would switch to v2 because its valid explanations name the fields my contract requires, while continuing to reject malformed replies; the one broken held-out reply remains a failure, and these results do not show that v2 is better overall.
+
+### 2026-10-31, at sign-off
+
+Withheld because the labels supplied in this chat cannot be presented as independent hand labels, and the descriptions of who wrote what need correcting. The statement "before any Claude call" also needs to match the recorded timeline.
 
 ## Claude Code's timeline (factual)
 
@@ -39,8 +45,8 @@ All times EDT; each line points to the commit or file that shows it.
 | 10-31 08:49 | Seeded agent demo for posting 5418610008: first real Claude call, valid reply, relevant. | — | `a516410` |
 | 10-31 08:50 | Run 2, live: 675 postings, 27 new, 27/27 valid replies, 0 disagreements. | — | `a516410` |
 | 10-31 08:53 | Surface 2 (Read tool only): relevant, validated. The home path in the saved stream was replaced with `~`. | Privacy edit, recorded in the file | `0f20222` |
-| 10-31 09:05 | The student's 20 hand labels were saved verbatim (6 relevant, 14 not), before any sampling or experiment call. | Student's labels | `0f312fb` |
-| 10-31 09:06 | Hand labels vs rule records: identical on 20/20. The surface-1 reply from the student's chat passed the validator. The chat link was kept out of the repo (privacy rule). | — | `0f3b4af` |
+| 10-31 09:05 | The 20 labels the student sent in chat were saved verbatim (6 relevant, 14 not), before any sampling or experiment call. They came after run 2, the demo and surface 2. The commit message wrongly says they were made "by reading" the sheet; see the 09:30 row. | Student's labels | `0f312fb` |
+| 10-31 09:06 | Labels vs rule records: identical on 20/20 (a consistency check; not independent, see the 09:30 row). The surface-1 reply from the student's chat passed the validator. The chat link was kept out of the repo (privacy rule). | — | `0f3b4af` |
 | 10-31 09:06 | Sampling attempt 1 crashed before making any call: the script wrote a file before creating its folder. Fixed with one line; no test was written for that script's file handling. | Claude Code's own bug | `d2db430` |
 | 10-31 09:07–09:08 | v1 on development: 30/30 pass. Sampling: 20/20, every posting unanimous. | — | `d2db430` |
 | 10-31 09:10 | Claude Code's keyword check for "does the justification cover all four conditions" undercounted: it missed replies that say "Condition 3 (San Francisco…)". It was **discarded, not used as a metric**. A field-path count replaced it (v1: 0/30 justifications name all three posting paths). | Claude Code's own mistake, caught before use | this file |
@@ -48,3 +54,4 @@ All times EDT; each line points to the commit or file that shows it.
 | 10-31 09:15 | v2 prompt and both measures were committed before any v2 call. The first launch failed: zsh did not split `$spec` into words, so argparse refused before any call. The three malformed log files were removed. | Claude Code's own shell mistake | `d5154cd` (message) |
 | 10-31 09:16–09:18 | v2 on development: 30/30, traceable 30/30. Held-out, once each: v1 30/30 (traceable 0/30); v2 29/30, one reply with a stray `]` rejected (traceable 29/29). | — | `d5154cd` |
 | 10-31 09:22–09:24 | **The student ran all 91 tests in their own Terminal: OK.** Their output was saved, with user and host names masked. Claude Code's own run matched its 91 test lines exactly. | Student's check | [output](evidence/test-runs/2026-10-31-04-student-own-run.txt) |
+| 10-31 09:28–09:30 | **The student withheld the sign-off** (reason above, under "My entries"). The record confirms what Claude Code had overstated:<br>• "before any Claude call": false. Run 2, the demo, surface 2 and the 10-28 probes all came before the labels.<br>• "independent hand check": the conversation had shown the rule's relevant list on 10-28, `selection.json` holds each posting's rule category, and both judges' verdicts on 5418610008 were reported before labeling.<br>• The driver's seat credited the student with checks Claude Code did, and SOURCES spoke in the student's voice without saying Claude Code wrote it.<br>All corrected; git history was kept, not rewritten. The student also asked to change the README's test count from 90 to 91. | Student's correction of Claude Code's overstatements, accepted | this file, README "The labels are not independent" |
