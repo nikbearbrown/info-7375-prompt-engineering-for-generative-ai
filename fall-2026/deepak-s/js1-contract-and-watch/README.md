@@ -5,7 +5,7 @@ Language: Python 3.15.0 · Toolchain: CPython 3.15.0, pip 26.2.2, and the pinned
 ## From a fresh clone
 ```
 git clone https://github.com/DeepakKTS/INFO-7375-Prompt-Engineering-Agentic-AI.git
-cd INFO-7375-Prompt-Engineering-Agentic-AI/fall2026/deepak-kumaran-ts/js1-contract-and-watch
+# cd into this js1-contract-and-watch folder (in the class repo: fall-2026/deepak-s/js1-contract-and-watch)
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest -q                                                  # offline, no key, no CLI
