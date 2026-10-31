@@ -36,7 +36,11 @@ From this folder:
 python3 -m pytest tests                 # tests, offline
 python3 -m agent.main                   # defaults from config.json
 python3 -m agent.main --board klaviyo --resume persona_arjun_mehta.json
+python3 -m agent.main --no-claude       # rule verdict only; skip the Claude call
 ```
+
+Without `--no-claude`, each new posting is also sent to `claude -p` (run
+from a fresh empty temporary folder) for the Claude verdict (`judgment`).
 
 The first run for a board is the baseline: it saves every posting id and
 reports 0 new.

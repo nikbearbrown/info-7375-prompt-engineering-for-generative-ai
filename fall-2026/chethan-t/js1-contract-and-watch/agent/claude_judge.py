@@ -3,6 +3,7 @@
 import json
 import re
 import subprocess
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -93,10 +94,12 @@ def judge(posting, resume):
     """Ask Claude for a verdict. Always returns a dict labeled `judgment`."""
     prompt = build_prompt(posting, resume)
     try:
-        proc = subprocess.run(
-            ["claude", "-p", prompt, "--output-format", "json"],
-            capture_output=True, text=True, timeout=TIMEOUT_SECONDS,
-        )
+        # A fresh empty folder outside the repo, so no project CLAUDE.md/AGENTS.md is loaded.
+        with tempfile.TemporaryDirectory(prefix="js1-claude-") as neutral:
+            proc = subprocess.run(
+                ["claude", "-p", prompt, "--output-format", "json"],
+                capture_output=True, text=True, timeout=TIMEOUT_SECONDS, cwd=neutral,
+            )
     except FileNotFoundError:
         return not_run("claude command not found")
     except subprocess.TimeoutExpired:
