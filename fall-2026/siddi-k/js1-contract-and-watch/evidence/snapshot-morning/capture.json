@@ -1,0 +1,7 @@
+{
+  "what": "Raw Greenhouse board response saved BEFORE the agent existed (plain curl), as a fallback baseline for a seeded run",
+  "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+  "fetched_at_utc": "2026-10-31T09:50:37Z",
+  "command": "curl -s -D headers.txt -o databricks-jobs.json \"https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true\" && gzip -9 -n -k databricks-jobs.json",
+  "sha256_uncompressed": "f2c0e004cea72487ecfd5152c09e3f330e1c56a147584206d06eb3d17709a69f"
+}
