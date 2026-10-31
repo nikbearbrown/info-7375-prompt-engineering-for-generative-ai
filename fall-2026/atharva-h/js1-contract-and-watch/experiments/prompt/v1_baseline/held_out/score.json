@@ -1,0 +1,126 @@
+{
+  "summary": {
+    "variant": "v1_baseline",
+    "set": "held_out",
+    "total": 10,
+    "committed": 3,
+    "passes": 3,
+    "fails": 0,
+    "excluded": 7,
+    "unlabeled": 0,
+    "pass_rate": "3/3",
+    "coverage": "3/10",
+    "invalid_outputs": 7,
+    "claude_needs_human": 0,
+    "rule_agrees_with_hand": "10/10",
+    "always_not_relevant_baseline": "10/10 (pass rate if every answer were not_relevant)"
+  },
+  "rows": [
+    {
+      "id": 4469298009,
+      "title": "Senior Data Analyst, Lifecycle Marketing",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[1].path 'targets.excluded_seniority.0' does not exist in the resume"
+      ]
+    },
+    {
+      "id": 8857588002,
+      "title": "Business Analyst II",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[3].path 'offices.0.location' does not exist in the posting"
+      ]
+    },
+    {
+      "id": 6220813004,
+      "title": "Associate Clinical Oncology Specialist",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[0].path 'targets.titles.0' does not exist in the resume",
+        "cites[1].path 'targets.titles.3' does not exist in the resume",
+        "needs at least one valid resume cite"
+      ]
+    },
+    {
+      "id": 8370107002,
+      "title": "Data Analyst",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[2].path 'offices.0.location' does not exist in the posting"
+      ]
+    },
+    {
+      "id": 4127324002,
+      "title": "Senior Data Analyst",
+      "hand": "not_relevant",
+      "claude": "not_relevant",
+      "rule": "not_relevant",
+      "outcome": "pass",
+      "errors": []
+    },
+    {
+      "id": 7798698002,
+      "title": "Market Data Solutions Specialist",
+      "hand": "not_relevant",
+      "claude": "not_relevant",
+      "rule": "not_relevant",
+      "outcome": "pass",
+      "errors": []
+    },
+    {
+      "id": 8109620,
+      "title": "Data Analyst",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[2].path 'offices.0.location' does not exist in the posting"
+      ]
+    },
+    {
+      "id": 8243907,
+      "title": "Senior Business Analyst",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[1].path 'targets.excluded_seniority.0' does not exist in the resume"
+      ]
+    },
+    {
+      "id": 8395788002,
+      "title": "Engagement Manager (Strategy & Data/AI Transformation) ",
+      "hand": "not_relevant",
+      "claude": "not_relevant",
+      "rule": "not_relevant",
+      "outcome": "pass",
+      "errors": []
+    },
+    {
+      "id": 8360407002,
+      "title": "Data Analyst - India (2026)",
+      "hand": "not_relevant",
+      "claude": "invalid",
+      "rule": "not_relevant",
+      "outcome": "excluded",
+      "errors": [
+        "cites[2].path 'offices.0.location' does not exist in the posting"
+      ]
+    }
+  ]
+}

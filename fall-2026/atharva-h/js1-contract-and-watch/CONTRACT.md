@@ -6,7 +6,7 @@ Written before any agent code exists. Started 2026-10-28; the rule, wrong versio
 - **Board:** the public Greenhouse job board for Abacus Insights. Host `boards-api.greenhouse.io`, board token `abacusinsights`, endpoint `https://boards-api.greenhouse.io/v1/boards/abacusinsights/jobs?content=true`.
 - **Résumé:** one JSON file for a fictional persona, validated before every run. The persona is an entry-level Data Analyst:
   - 0–2 years of experience, new MS grad
-  - targets Data Analyst, BI Analyst, and Business/Analytics Analyst titles
+  - targets Data Analyst, BI Analyst, Business Intelligence Analyst, and Business Analyst titles
   - any US location, including remote
   - needs H-1B sponsorship
   - contact details are an `@example.com` address and a 555 phone number only
@@ -48,7 +48,7 @@ For each new posting, the agent writes two verdicts:
 ## The rule
 Apply clear exclusions first. If any one applies, label the posting `not_relevant`, even when another field is missing. If none applies but a required decision remains unclear, label it `needs_human`. Label it `relevant` only when every check below is satisfied.
 
-1. Title: Ignore case and punctuation, then look for a whole phrase in the posting’s `title`: “Data Analyst,”"Data Engineer", “BI Analyst,” “Business Intelligence Analyst,” “Business Analyst,” or “Analytics Engineer.” Do not use description keywords to create a title match. “Payer Analytics Consultant” and “Sales Operations Analyst” do not match.
+1. Title: Ignore case and punctuation, then look for a whole phrase in the posting’s `title`: “Data Analyst,” “BI Analyst,” “Business Intelligence Analyst,” or “Business Analyst.” Do not use description keywords to create a title match. “Payer Analytics Consultant” and “Sales Operations Analyst” do not match.
 2. Seniority: A matching title is ruled out if it contains the whole word “Senior,” “Sr,” “Lead,” “Principal,” “Staff,” “Manager,” “Director,” “Head,” “VP,” “Vice President,” or “Chief.” “Junior,” “Associate,” and “Entry Level” are allowed. A “Contractor:” prefix does not rule a posting out; the other checks still apply.
 3. Location: A stated US location, including “US Remote,” passes. A posting whose available locations are only India, Nepal, or other non-US places is `not_relevant`. “Remote” without a country or other clear US location is `needs_human`. When several locations are offered, one clear US option is enough. If the location fields conflict about whether the role can be based in the US, use `needs_human`.
 4. Sponsorship: Label `not_relevant` when the description explicitly says it cannot provide H-1B or visa sponsorship, requires work authorization without current or future sponsorship, limits the role to US citizens or permanent residents, or offers H-1B transfers only. An explicit offer of H-1B sponsorship passes this check. Silence, a generic work-authorization requirement, or a vague statement that visa sponsorship “may” be available is `needs_human`; do not assume either approval or denial.
