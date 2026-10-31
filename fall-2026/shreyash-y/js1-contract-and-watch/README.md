@@ -120,7 +120,9 @@ Checked:      - New-since-last by id, baseline first, and no title dedup: tests/
               - The 20 hand labels: Shreyash labeled all 20 Not Relevant "using the rule above and
                 the 20 Oscar job descriptions" (labels/LABELING-RULE.md, labels/hand-labels.csv).
 How:          Tests were written by Claude Code from CONTRACT.md and committed before the
-              implementation (1ab74ec before 6d74630); they were not written by Shreyash. The run 2
+              implementation (1ab74ec before 6d74630); they were not written by Shreyash, but
+              Shreyash ran all 65 in Shreyash's own terminal on 2026-10-31: OK
+              (evidence/tests-run-by-shreyash-2026-10-31.txt). The run 2
               recount and the seeded replay are recomputations. The labels are by hand (Shreyash).
               Reading the ads where the two judges disagreed was done by Claude Code, which also
               checked the quotes against the raw files; Shreyash has not re-read those five ads.
