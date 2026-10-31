@@ -16,22 +16,22 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 
 ### In my own words
 
-*Shreyash's words, pasted into the session on 2026-10-31. The third answer was worded by Claude Code at Shreyash's request.*
+*Shreyash's words, pasted into the session on 2026-10-31. Claude Code did not change them.*
 
 - **2026-10-31:**
   - What I tried and expected:
-    I worked on defining a labeling rule for the 20 Oscar job postings. I expected the rule to help separate jobs that matched my fictional applicant's skills and experience from those that didn't.
+    I worked on a labeling rule for 20 Oscar Health job postings. My goal was to find jobs that matched my fictional applicant's skills, experience, and location. I expected the rule to clearly separate relevant and irrelevant jobs.
   - What surprised me, or what I checked:
-    I noticed that even some software engineering jobs didn't qualify because of their experience requirements or location. I also found that a job could have a remote office tag but still require working from an office.
-  - What I accepted, changed or rejected from Claude:
-    I read the 20 ads myself and labeled them before any Claude call. After the runs I checked the five postings where the rule and Claude disagreed, and Claude's reading was supported in all five.
+    I noticed that even some software engineering jobs didn't match because they required more experience or had location restrictions. One thing that surprised me was that some jobs were tagged as remote but still required employees to come into an office.
+  - What I accepted, changed, or rejected from Claude:
+    I worked through the 20 job postings and their labels. Later, I looked at five postings where Claude and my rule gave different results. After checking the job descriptions, I found that Claude was right in those five cases. I decided to keep the rule-based approach, but I identified some problems with how it checks experience and remote locations that I still need to fix.
   - What I still don't understand, and my next step:
-    I'm still figuring out how to handle postings with missing information without making assumptions. My next step is to compare the rule's output against my hand labels and check where they disagree.
+    I'm still figuring out how to handle jobs that don't clearly mention experience or location requirements. I also realized that having all 20 jobs marked Not Relevant doesn't really prove the rule works for matching jobs. My next step is to test the rule on more postings and see whether it can correctly identify relevant jobs too.
 
-- **2026-10-31, posting review:**
-  After checking the five disputed postings against the saved job descriptions, I found that Claude's interpretation was supported in each case. The deterministic rule missed two experience requirements and three location restrictions.
-  I decided to keep the largest required experience minimum, but only for mandatory qualifications. I also decided that a remote job should count as eligible only when the applicant can legally and practically work from Massachusetts.
-  I am keeping the original experiment results unchanged because these corrections were made after the experiment. I will use the corrected rule for future runs and keep the original outputs as evidence of what failed.
+- **2026-10-31 — Posting Review:**
+  I went back and checked the five postings where Claude and the rule disagreed. I found that the rule missed two experience requirements and incorrectly handled three location restrictions.
+  For experience, I decided that the rule should use the highest minimum requirement mentioned in the mandatory qualifications because the applicant needs to meet all required experience conditions. For remote jobs, I decided that the job should only count as eligible if someone living in Massachusetts can actually work there.
+  I didn't change the original experiment results because I wanted to keep a record of what went wrong. I have identified the issues, but I still need to update the code and add tests to make sure these cases are handled correctly. My next step is to make those changes and test whether they work consistently.
 
 ## Part 2 — Claude Code's process log ("I" = Claude Code)
 
