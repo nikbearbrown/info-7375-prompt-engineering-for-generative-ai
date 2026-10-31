@@ -1,0 +1,3882 @@
+{
+  "run_id": "20261031T125015Z-live",
+  "board": "anthropic",
+  "endpoint": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+  "mode": "live",
+  "source": "live GET of the board endpoint",
+  "retrieved_at": "2026-10-31T12:50:15Z",
+  "raw_sha256": "1e5b62fec42a5b1d83e1c491da70215c5b8f77776097b2ef26e1fb4e7b0a7e88",
+  "baseline": false,
+  "posting_count": 675,
+  "previously_seen_count": 681,
+  "new_ids": [
+    5173120008,
+    5174755008,
+    5394403008,
+    5419154008,
+    5426617008,
+    5438311008,
+    5439169008,
+    5451912008,
+    5458064008,
+    5458689008,
+    5461024008,
+    5462040008,
+    5464234008,
+    5465561008,
+    5465578008,
+    5466480008,
+    5466517008,
+    5467083008,
+    5467092008,
+    5467099008,
+    5467233008,
+    5467425008,
+    5467690008,
+    5468266008,
+    5468374008,
+    5468380008,
+    5468392008
+  ],
+  "postings": [
+    {
+      "board": "anthropic",
+      "posting_id": 5173120008,
+      "title": "Staff+ Software Engineer, Enterprise Connectivity",
+      "location": "San Francisco, CA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5173120008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Enterprise Connectivity",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Enterprise Connectivity\" contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Enterprise Connectivity",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "staff"
+              ]
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Enterprise Connectivity\" contains resume.preferences.excluded_title_words \"staff\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Enterprise Connectivity\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Enterprise Connectivity\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails: the title contains \"engineer\" but none of the focus terms. Condition 2 fails because the title contains the excluded word \"staff\", and condition 4 fails because the content never mentions \"python\". Only condition 3 (location) passes, on \"san francisco\" and \"new york\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "staff"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "machine learning"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Staff+ Software Engineer, Enterprise Connectivity"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "93524c3d-bed8-4981-bc13-3851b00b879b",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3170,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 436,
+            "output_tokens_details": {
+              "thinking_tokens": 118
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3170,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.034276799999999996
+        },
+        "reply_file": "claude/5173120008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5174755008,
+      "title": "Staff+ Software Engineer, Backend",
+      "location": "San Francisco, CA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5174755008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Backend",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Backend\" contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Backend",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "staff"
+              ]
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Backend\" contains resume.preferences.excluded_title_words \"staff\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Backend\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Backend\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title contains 'engineer' but no focus term, and condition 2 fails because the title contains the excluded word 'staff'. Location passes on 'san francisco', but condition 4 fails because the content never mentions 'python'.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "staff"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "machine learning"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Staff+ Software Engineer, Backend"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "056f6e22-cf07-4f72-a154-a4b27dd1ebec",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4319,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 457,
+            "output_tokens_details": {
+              "thinking_tokens": 154
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4319,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0438888
+        },
+        "reply_file": "claude/5174755008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5394403008,
+      "title": "Engineering Manager, Integrity and Attestation",
+      "location": "San Francisco, CA | Seattle, WA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5394403008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Engineering Manager, Integrity and Attestation",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Engineering Manager, Integrity and Attestation\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Engineering Manager, Integrity and Attestation",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "manager"
+              ]
+            },
+            "explanation": "posting.title \"Engineering Manager, Integrity and Attestation\" contains resume.preferences.excluded_title_words \"manager\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | Seattle, WA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco",
+                "seattle"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | Seattle, WA\" contains resume.preferences.location_terms \"san francisco\", \"seattle\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Engineering Manager, Integrity and Attestation\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Engineering Manager, Integrity and Attestation\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | Seattle, WA\" contains resume.preferences.location_terms \"san francisco\", \"seattle\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has the token \"engineering\" but not \"engineer\", and it has no focus term. Condition 2 fails because the title contains the excluded word \"manager\", and condition 4 fails because the content never mentions \"python\"; only condition 3 (location) passes.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "manager"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Engineering Manager, Integrity and Attestation"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "a0f82e76-0812-498f-ac47-edd26d0e9bfc",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3796,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 436,
+            "output_tokens_details": {
+              "thinking_tokens": 120
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3796,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.039284799999999995
+        },
+        "reply_file": "claude/5394403008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5419154008,
+      "title": "Staff / Senior Data Center Security Engineer",
+      "location": "Remote-Friendly (Travel Required) | San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5419154008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff / Senior Data Center Security Engineer",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Staff / Senior Data Center Security Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff / Senior Data Center Security Engineer",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "senior",
+                "staff"
+              ]
+            },
+            "explanation": "posting.title \"Staff / Senior Data Center Security Engineer\" contains resume.preferences.excluded_title_words \"senior\", \"staff\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly (Travel Required) | San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly (Travel Required) | San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed title_seniority, skills. posting.title \"Staff / Senior Data Center Security Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Staff / Senior Data Center Security Engineer\" contains resume.preferences.excluded_title_words \"senior\", \"staff\". posting.location.name \"Remote-Friendly (Travel Required) | San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 passes because the title contains \"engineer\" and \"data\", and condition 3 passes because the location contains \"san francisco\". Condition 2 fails because the title contains the excluded words \"staff\" and \"senior\", and condition 4 fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "staff"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "senior"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Staff / Senior Data Center Security Engineer"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "2fed2172-2bae-4f6f-8a9c-ddeea1f3cc98",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3556,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 485,
+            "output_tokens_details": {
+              "thinking_tokens": 136
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3556,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0383448
+        },
+        "reply_file": "claude/5419154008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5426617008,
+      "title": "Public Sector Sales Lead",
+      "location": "Paris, France",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5426617008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Public Sector Sales Lead",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Public Sector Sales Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Public Sector Sales Lead",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "lead"
+              ]
+            },
+            "explanation": "posting.title \"Public Sector Sales Lead\" contains resume.preferences.excluded_title_words \"lead\"."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Paris, France",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"Paris, France\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Public Sector Sales Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Public Sector Sales Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Paris, France\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title lacks \"engineer\" and every focus term, condition 2 fails because the title contains the excluded word \"lead\", and condition 3 fails because \"Paris, France\" matches no location term. Condition 4 also fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "lead"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Public Sector Sales Lead"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Paris, France"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "ec09d368-2c33-43eb-b4ac-fbcfda2aa696",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5374,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 292,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5374,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.049028800000000004
+        },
+        "reply_file": "claude/5426617008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5438311008,
+      "title": "Anthropic Research Resident",
+      "location": "San Francisco, CA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5438311008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Anthropic Research Resident",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Anthropic Research Resident\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Anthropic Research Resident",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Anthropic Research Resident\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, skills. posting.title \"Anthropic Research Resident\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Anthropic Research Resident\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has neither \"engineer\" nor any focus term, and condition 4 fails because the content never mentions \"python\". Condition 2 passes with no excluded title words, and condition 3 passes on \"san francisco\" and \"new york\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Anthropic Research Resident"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "69e88722-4756-428d-827b-f2743e5e1bf1",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3772,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 367,
+            "output_tokens_details": {
+              "thinking_tokens": 95
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3772,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.037712800000000005
+        },
+        "reply_file": "claude/5438311008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5439169008,
+      "title": "Anthropic Research Resident",
+      "location": "London, UK",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5439169008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Anthropic Research Resident",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Anthropic Research Resident\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Anthropic Research Resident",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Anthropic Research Resident\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "London, UK",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"London, UK\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Anthropic Research Resident\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Anthropic Research Resident\" contains none of resume.preferences.excluded_title_words. posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no \"engineer\" token and no focus term. Condition 3 fails because \"London, UK\" matches no location term, and condition 4 fails because the content never mentions \"python\"; only condition 2 (no excluded title words) passes.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Anthropic Research Resident"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "London, UK"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "45439dc4-edab-4504-9824-110e2417c7d5",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3785,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 352,
+            "output_tokens_details": {
+              "thinking_tokens": 86
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3785,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0375168
+        },
+        "reply_file": "claude/5439169008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5451912008,
+      "title": "Director, Order-to-Cash Assurance",
+      "location": "San Francisco, CA | Seattle, WA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5451912008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Director, Order-to-Cash Assurance",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Director, Order-to-Cash Assurance\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Director, Order-to-Cash Assurance",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "director"
+              ]
+            },
+            "explanation": "posting.title \"Director, Order-to-Cash Assurance\" contains resume.preferences.excluded_title_words \"director\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | Seattle, WA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco",
+                "seattle"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | Seattle, WA\" contains resume.preferences.location_terms \"san francisco\", \"seattle\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "sql": "… workday financials proficiency with sql or similar tools for …"
+            },
+            "matched": {
+              "resume.skills": [
+                "sql"
+              ]
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Director, Order-to-Cash Assurance\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Director, Order-to-Cash Assurance\" contains resume.preferences.excluded_title_words \"director\". posting.location.name \"San Francisco, CA | Seattle, WA\" contains resume.preferences.location_terms \"san francisco\", \"seattle\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Conditions 1 and 2 fail: the title has no \"engineer\" or focus term, and it contains the excluded word \"director\". Location passes on San Francisco and Seattle, but condition 4 fails because the content never mentions \"python\" (it mentions sql only).",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "director"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Director, Order-to-Cash Assurance"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA | Seattle, WA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Proficiency with SQL or similar tools"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "df00a5aa-0686-42bf-bb38-27aa97e4d9a6",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3621,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 436,
+            "output_tokens_details": {
+              "thinking_tokens": 89
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3621,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.037884799999999996
+        },
+        "reply_file": "claude/5451912008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5458064008,
+      "title": "Enterprise Account Executive, Public Sector",
+      "location": "Madrid, Spain",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5458064008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive, Public Sector",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive, Public Sector\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive, Public Sector",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive, Public Sector\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Madrid, Spain",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"Madrid, Spain\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Enterprise Account Executive, Public Sector\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Enterprise Account Executive, Public Sector\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Madrid, Spain\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no \"engineer\" token and no focus term. Condition 3 fails because the location \"Madrid, Spain\" matches no location term. Condition 4 also fails because the content does not contain \"python\", although condition 2 passes.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Enterprise Account Executive, Public Sector"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Madrid, Spain"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "2701adcb-ecba-43e5-8bbe-af232a2f2dcb",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5262,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 274,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5262,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.047772800000000004
+        },
+        "reply_file": "claude/5458064008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5458689008,
+      "title": "Enterprise Account Executive, Public Sector",
+      "location": "Milan, Italy",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5458689008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive, Public Sector",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive, Public Sector\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive, Public Sector",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive, Public Sector\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Milan, Italy",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"Milan, Italy\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Enterprise Account Executive, Public Sector\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Enterprise Account Executive, Public Sector\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Milan, Italy\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no \"engineer\" token and no focus term. Condition 3 fails because \"Milan, Italy\" matches no location term. Condition 4 also fails because the content never contains the token \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Enterprise Account Executive, Public Sector"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Milan, Italy"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "52444a6f-d78a-4694-855f-8901f86ffb89",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5433,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 262,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5433,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0489008
+        },
+        "reply_file": "claude/5458689008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5461024008,
+      "title": "Enterprise Account Executive - Semiconductors",
+      "location": "London, UK",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5461024008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive - Semiconductors",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive - Semiconductors\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Enterprise Account Executive - Semiconductors",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Enterprise Account Executive - Semiconductors\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "London, UK",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"London, UK\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Enterprise Account Executive - Semiconductors\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Enterprise Account Executive - Semiconductors\" contains none of resume.preferences.excluded_title_words. posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no 'engineer' token and no focus term. Condition 3 fails because 'London, UK' matches no location term. Condition 4 fails because the content does not contain 'python'. Condition 2 passes because the title has no excluded word.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Enterprise Account Executive - Semiconductors"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "London, UK"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "37bf31c9-10ee-4703-a698-42ffdc09846a",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3466,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 271,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3466,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0333448
+        },
+        "reply_file": "claude/5461024008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5462040008,
+      "title": "Customer Success Manager, Beneficial Deployments EMEA",
+      "location": "London, UK",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5462040008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Customer Success Manager, Beneficial Deployments EMEA",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Customer Success Manager, Beneficial Deployments EMEA\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Customer Success Manager, Beneficial Deployments EMEA",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "manager"
+              ]
+            },
+            "explanation": "posting.title \"Customer Success Manager, Beneficial Deployments EMEA\" contains resume.preferences.excluded_title_words \"manager\"."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "London, UK",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"London, UK\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Customer Success Manager, Beneficial Deployments EMEA\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Customer Success Manager, Beneficial Deployments EMEA\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no \"engineer\" token and no focus term. Condition 2 fails on \"manager\", condition 3 fails because \"London, UK\" matches no location term, and condition 4 fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "manager"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Customer Success Manager, Beneficial Deployments EMEA"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "London, UK"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "66b2e966-278a-4030-b832-749395aaf5c0",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3504,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 304,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3504,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0343088
+        },
+        "reply_file": "claude/5462040008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5464234008,
+      "title": "Data Engineer",
+      "location": "San Francisco, CA | New York City, NY; Seattle, WA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5464234008,
+        "verdict": "relevant",
+        "failed_conditions": [],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Engineer",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Data Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Engineer",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Data Engineer\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY; Seattle, WA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco",
+                "seattle"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\"."
+          },
+          {
+            "condition": "skills",
+            "passed": true,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "python": "… models strong sql and python and experience with modern …",
+              "sql": "… and data models strong sql and python and experience …"
+            },
+            "matched": {
+              "resume.skills": [
+                "python",
+                "sql"
+              ]
+            },
+            "explanation": "posting.content contains python and resume.skills \"sql\"."
+          }
+        ],
+        "justification": "relevant: all four conditions passed. posting.title \"Data Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Data Engineer\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python and resume.skills \"sql\"."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "relevant",
+        "justification": "All four conditions pass. The title contains \"engineer\" and the focus term \"data\" with no excluded words, the location includes \"San Francisco\", and the content mentions Python plus SQL.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "sql"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Data Engineer"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Strong SQL and Python"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "f3b03e98-9d9d-463c-b812-cbda4163dd18",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3181,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 372,
+            "output_tokens_details": {
+              "thinking_tokens": 56
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3181,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0330848
+        },
+        "reply_file": "claude/5464234008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5465561008,
+      "title": "Senior Partner Systems Analyst ",
+      "location": "San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5465561008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Senior Partner Systems Analyst ",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Senior Partner Systems Analyst \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Senior Partner Systems Analyst ",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "senior"
+              ]
+            },
+            "explanation": "posting.title \"Senior Partner Systems Analyst \" contains resume.preferences.excluded_title_words \"senior\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "sql": "… tooling and deployment checklists sql or scripting skills for …"
+            },
+            "matched": {
+              "resume.skills": [
+                "sql"
+              ]
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Senior Partner Systems Analyst \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Senior Partner Systems Analyst \" contains resume.preferences.excluded_title_words \"senior\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title lacks the token \"engineer\" and every focus term, and condition 2 fails because the title contains the excluded word \"senior\". Condition 3 passes on \"san francisco\", and condition 4 fails because the content never contains the token \"python\", though it does mention \"sql\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "senior"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Senior Partner Systems Analyst"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "d201aebf-06df-47e1-8a75-9337d383e86d",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4235,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 287,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4235,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0398168
+        },
+        "reply_file": "claude/5465561008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5465578008,
+      "title": "Performance & Talent Programs Manager ",
+      "location": "New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5465578008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Performance & Talent Programs Manager ",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Performance & Talent Programs Manager \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Performance & Talent Programs Manager ",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "manager"
+              ]
+            },
+            "explanation": "posting.title \"Performance & Talent Programs Manager \" contains resume.preferences.excluded_title_words \"manager\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco",
+                "seattle"
+              ]
+            },
+            "explanation": "posting.location.name \"New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Performance & Talent Programs Manager \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Performance & Talent Programs Manager \" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title lacks \"engineer\" and every focus term, and condition 2 fails because the title contains the excluded word \"manager\". Location passes (New York, San Francisco, Seattle), but condition 4 fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "manager"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Performance & Talent Programs Manager"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "New York City, NY"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "90e0c38e-4900-44b0-bca1-c72e8d67cc41",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3090,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 327,
+            "output_tokens_details": {
+              "thinking_tokens": 51
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3090,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0314568
+        },
+        "reply_file": "claude/5465578008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5466480008,
+      "title": "Staff+ Software Engineer, Deployment",
+      "location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5466480008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Deployment",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Deployment\" contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Staff+ Software Engineer, Deployment",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "staff"
+              ]
+            },
+            "explanation": "posting.title \"Staff+ Software Engineer, Deployment\" contains resume.preferences.excluded_title_words \"staff\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco",
+                "seattle"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "aws": "… such as kubernetes on aws or gcp strong written …"
+            },
+            "matched": {
+              "resume.skills": [
+                "aws"
+              ]
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Deployment\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Deployment\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has \"engineer\" but no focus term, and condition 2 fails because the title contains the excluded word \"staff\". Location passes via \"San Francisco\", but condition 4 fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "staff"
+          },
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Staff+ Software Engineer, Deployment"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "such as Rust, Go, C++, or Java"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "5580de05-8131-4ea6-8557-413d14e6a0c9",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3328,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 459,
+            "output_tokens_details": {
+              "thinking_tokens": 152
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3328,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0360008
+        },
+        "reply_file": "claude/5466480008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5466517008,
+      "title": "Field Engineer, Data Center Design and Engineering",
+      "location": "Remote-Friendly, United States",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5466517008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Field Engineer, Data Center Design and Engineering",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Field Engineer, Data Center Design and Engineering\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Field Engineer, Data Center Design and Engineering",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Field Engineer, Data Center Design and Engineering\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly, United States",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "united states"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed skills. posting.title \"Field Engineer, Data Center Design and Engineering\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Field Engineer, Data Center Design and Engineering\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Conditions 1-3 pass: the title contains 'engineer' and 'data', has no excluded title words, and the location contains 'united states'. Condition 4 fails because the posting content never mentions 'python'.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Field Engineer, Data Center Design and Engineering"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Remote-Friendly, United States"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "84370359-f3ca-432e-967b-da5c15c5c063",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3280,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 424,
+            "output_tokens_details": {
+              "thinking_tokens": 136
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3280,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0349168
+        },
+        "reply_file": "claude/5466517008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467083008,
+      "title": "Senior Engineer, Bioinformatics",
+      "location": "San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467083008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Senior Engineer, Bioinformatics",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Senior Engineer, Bioinformatics\" contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Senior Engineer, Bioinformatics",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "senior"
+              ]
+            },
+            "explanation": "posting.title \"Senior Engineer, Bioinformatics\" contains resume.preferences.excluded_title_words \"senior\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "python": "… fields are proficient in python and comfortable working with …"
+            },
+            "matched": {
+              "resume.skills": [
+                "python"
+              ]
+            },
+            "explanation": "posting.content contains python but no other item from resume.skills."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Senior Engineer, Bioinformatics\" contains none of resume.preferences.focus_terms. posting.title \"Senior Engineer, Bioinformatics\" contains resume.preferences.excluded_title_words \"senior\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title contains \"engineer\" but none of the focus terms, and condition 2 fails because the title contains the excluded word \"senior\". Condition 3 passes on \"San Francisco\", but condition 4 fails because the content mentions Python and none of the other listed skills (sql, spark, pytorch, aws, docker).",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "senior"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "machine learning"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Senior Engineer, Bioinformatics"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Are proficient in Python"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "6e9e6dc3-61d4-47b8-91e2-557336f0e0f0",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3668,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 519,
+            "output_tokens_details": {
+              "thinking_tokens": 157
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3668,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0399208
+        },
+        "reply_file": "claude/5467083008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467092008,
+      "title": "Research Scientist, Life Sciences (Large Molecules, Antibody Design) ",
+      "location": "San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467092008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Scientist, Life Sciences (Large Molecules, Antibody Design) ",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design) \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Scientist, Life Sciences (Large Molecules, Antibody Design) ",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design) \" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "python": "… coding skills for example python for sequence and assay …"
+            },
+            "matched": {
+              "resume.skills": [
+                "python"
+              ]
+            },
+            "explanation": "posting.content contains python but no other item from resume.skills."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design) \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design) \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails: the title does not contain \"engineer\" or any focus term such as \"ai\", \"ml\", or \"data\". The title has no excluded words, the location matches \"san francisco\", and the content mentions python and ml, but the posting is still not relevant because condition 1 fails.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Research Scientist, Life Sciences (Large Molecules, Antibody Design) "
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "22ccbb02-cc36-4ddd-901e-9701c9767327",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3205,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 280,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3205,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0314368
+        },
+        "reply_file": "claude/5467092008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467099008,
+      "title": "Research Scientist, Life Sciences (Large Molecules, Process Development) ",
+      "location": "San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467099008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Scientist, Life Sciences (Large Molecules, Process Development) ",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Research Scientist, Life Sciences (Large Molecules, Process Development) \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Scientist, Life Sciences (Large Molecules, Process Development) ",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Research Scientist, Life Sciences (Large Molecules, Process Development) \" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "python": "… design of experiments or python for data analysis and …"
+            },
+            "matched": {
+              "resume.skills": [
+                "python"
+              ]
+            },
+            "explanation": "posting.content contains python but no other item from resume.skills."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Scientist, Life Sciences (Large Molecules, Process Development) \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Research Scientist, Life Sciences (Large Molecules, Process Development) \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails: the title has no \"engineer\" token and no focus term. Conditions 2 (no excluded title words) and 3 (\"san francisco\" in the location) pass, and condition 4 fails because the content mentions Python but no other résumé skill (sql, spark, pytorch, aws, docker).",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "sql"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Research Scientist, Life Sciences (Large Molecules, Process Development)"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Python for data analysis and automation"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "c3c89916-d8d5-4868-8a65-7fe8d454e1b3",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3281,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 304,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3281,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0325248
+        },
+        "reply_file": "claude/5467099008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467233008,
+      "title": "Contracts Manager, GTM",
+      "location": "San Francisco, CA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467233008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Contracts Manager, GTM",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Contracts Manager, GTM\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Contracts Manager, GTM",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "manager"
+              ]
+            },
+            "explanation": "posting.title \"Contracts Manager, GTM\" contains resume.preferences.excluded_title_words \"manager\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Contracts Manager, GTM\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Contracts Manager, GTM\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no \"engineer\" token and no focus term, and condition 2 fails because the title contains the excluded word \"manager\". Condition 3 passes (San Francisco), and condition 4 fails because \"python\" does not appear in the content.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "manager"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Contracts Manager, GTM"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "3051df15-3a88-49c9-aad5-400f18263ca4",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3066,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 303,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3066,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0307848
+        },
+        "reply_file": "claude/5467233008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467425008,
+      "title": "Business Recruiter",
+      "location": "Dublin, IE",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467425008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "location",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Business Recruiter",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Business Recruiter\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Business Recruiter",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Business Recruiter\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Dublin, IE",
+            "matched": {
+              "resume.preferences.location_terms": []
+            },
+            "explanation": "posting.location.name \"Dublin, IE\" contains none of resume.preferences.location_terms."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Business Recruiter\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Business Recruiter\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Dublin, IE\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title \"Business Recruiter\" contains neither \"engineer\" nor any focus term, and condition 3 fails because \"Dublin, IE\" matches no location term. Condition 4 also fails because the content never mentions \"python\"; condition 2 passes since the title has no excluded words.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Business Recruiter"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Dublin, IE"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "53aa0929-dc38-4933-aea9-da27b857c0df",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3047,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 283,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3047,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.030232799999999997
+        },
+        "reply_file": "claude/5467425008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5467690008,
+      "title": "Research Operations Lead, Biology",
+      "location": "Boston, MA",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5467690008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Operations Lead, Biology",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Research Operations Lead, Biology\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Research Operations Lead, Biology",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "lead"
+              ]
+            },
+            "explanation": "posting.title \"Research Operations Lead, Biology\" contains resume.preferences.excluded_title_words \"lead\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Boston, MA",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "boston"
+              ]
+            },
+            "explanation": "posting.location.name \"Boston, MA\" contains resume.preferences.location_terms \"boston\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Research Operations Lead, Biology\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Research Operations Lead, Biology\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Boston, MA\" contains resume.preferences.location_terms \"boston\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no 'engineer' and no focus term, and condition 2 fails because the title contains the excluded word 'lead'. Condition 3 passes on 'Boston', and condition 4 fails because the content never mentions 'python'.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "lead"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "boston"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Research Operations Lead, Biology"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Boston, MA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "92f3ff91-a3e3-4934-9bc7-83b8f5a39c25",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3365,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 372,
+            "output_tokens_details": {
+              "thinking_tokens": 76
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3365,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0345568
+        },
+        "reply_file": "claude/5467690008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5468266008,
+      "title": "Content Strategy Lead, Executive Programs",
+      "location": "San Francisco, CA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5468266008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "engineering_role",
+          "title_seniority",
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Content Strategy Lead, Executive Programs",
+            "matched": {
+              "resume.preferences.title_word": [],
+              "resume.preferences.focus_terms": []
+            },
+            "explanation": "posting.title \"Content Strategy Lead, Executive Programs\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": false,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Content Strategy Lead, Executive Programs",
+            "matched": {
+              "resume.preferences.excluded_title_words": [
+                "lead"
+              ]
+            },
+            "explanation": "posting.title \"Content Strategy Lead, Executive Programs\" contains resume.preferences.excluded_title_words \"lead\"."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Content Strategy Lead, Executive Programs\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Content Strategy Lead, Executive Programs\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Condition 1 fails because the title has no 'engineer' token or focus term, and condition 2 fails because the title contains the excluded word 'lead'. Condition 3 passes on 'San Francisco', and condition 4 fails because the content has no 'python' token.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.excluded_title_words",
+            "quote": "lead"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Content Strategy Lead, Executive Programs"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "57a7e794-662e-4df3-aad9-7cfcca53df89",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3563,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 305,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3563,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0348008
+        },
+        "reply_file": "claude/5468266008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5468374008,
+      "title": "Data Center Power Generation and Microgrids Engineer",
+      "location": "Remote-Friendly, United States",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5468374008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Power Generation and Microgrids Engineer",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Data Center Power Generation and Microgrids Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Power Generation and Microgrids Engineer",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Data Center Power Generation and Microgrids Engineer\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly, United States",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "united states"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed skills. posting.title \"Data Center Power Generation and Microgrids Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Data Center Power Generation and Microgrids Engineer\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Conditions 1–3 pass: the title contains \"engineer\" and \"data\", has no excluded seniority word, and the location contains \"united states\". Condition 4 fails because the content never mentions \"python\" or any other listed skill.",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Data Center Power Generation and Microgrids Engineer"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Remote-Friendly, United States"
+          },
+          {
+            "field": "posting.content",
+            "quote": "in tools such as ETAP, SKM, PSS®E, PSCAD, or EasyPower"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "13640998-0436-4fd4-9411-02a85b103fc8",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5461,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 539,
+            "output_tokens_details": {
+              "thinking_tokens": 205
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5461,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0546648
+        },
+        "reply_file": "claude/5468374008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5468380008,
+      "title": "Data Center Substation, Protection & Automation Engineer",
+      "location": "Remote-Friendly, United States",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5468380008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Substation, Protection & Automation Engineer",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Data Center Substation, Protection & Automation Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Substation, Protection & Automation Engineer",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Data Center Substation, Protection & Automation Engineer\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly, United States",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "united states"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed skills. posting.title \"Data Center Substation, Protection & Automation Engineer\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Data Center Substation, Protection & Automation Engineer\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Conditions 1-3 pass: the title contains \"engineer\" and the focus term \"data\" with no excluded words, and the location contains \"united states\". Condition 4 fails because posting.content never mentions \"python\" (or any other résumé skill).",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Data Center Substation, Protection & Automation Engineer"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "Remote-Friendly, United States"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Protection engineering and substation automation are the core of this role"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "b59cc34f-ac27-4731-8288-4e05404ddc35",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5030,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 491,
+            "output_tokens_details": {
+              "thinking_tokens": 152
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5030,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0502568
+        },
+        "reply_file": "claude/5468380008.txt"
+      },
+      "verdicts_agree": true
+    },
+    {
+      "board": "anthropic",
+      "posting_id": 5468392008,
+      "title": "Data Center Electrical Engineer – Design",
+      "location": "Remote-Friendly, United States",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5468392008,
+        "verdict": "not_relevant",
+        "failed_conditions": [
+          "skills"
+        ],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Electrical Engineer – Design",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Data Center Electrical Engineer – Design\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Center Electrical Engineer – Design",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Data Center Electrical Engineer – Design\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "Remote-Friendly, United States",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "united states"
+              ]
+            },
+            "explanation": "posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\"."
+          },
+          {
+            "condition": "skills",
+            "passed": false,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {},
+            "matched": {
+              "resume.skills": []
+            },
+            "explanation": "posting.content does not contain python as a whole word."
+          }
+        ],
+        "justification": "not_relevant: failed skills. posting.title \"Data Center Electrical Engineer – Design\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Data Center Electrical Engineer – Design\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "not_relevant",
+        "justification": "Conditions 1–3 pass: the title contains \"engineer\" and the focus term \"data\" with no excluded words, and the location contains \"united states\". Condition 4 fails because the content never mentions \"python\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "united states"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Data Center Electrical Engineer"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "United States"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "985c9e82-fe71-4a43-bfcb-c22a3d105f47",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4779,
+            "cache_read_input_tokens": 944,
+            "output_tokens": 394,
+            "output_tokens_details": {
+              "thinking_tokens": 131
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4779,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.0463088
+        },
+        "reply_file": "claude/5468392008.txt"
+      },
+      "verdicts_agree": true
+    }
+  ]
+}
