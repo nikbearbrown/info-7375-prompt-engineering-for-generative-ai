@@ -1,0 +1,502 @@
+{
+ "way": "agent",
+ "started_at": "2026-10-30T10:34:21Z",
+ "task": "Fetch the job board at https://api.ashbyhq.com/posting-api/job-board/openai. Find the posting with id 55150071-fce8-48f5-aea4-14ed78b83511 and judge whether it is relevant for the job seeker whose résumé is below, by the rules you were given. Then write a file named state.json in the current folder holding a JSON list of every posting id you saw on the board. Reply with one JSON object and nothing else, with exactly these keys: \"verdict\" (\"relevant\" or \"not_relevant\"), \"justification\" (one to three sentences), \"resume_fields\", \"posting_fields\" and \"quotes\" (as in the rules). [résumé follows]",
+ "command": [
+  "~/Library/Application Support/Claude/claude-code/2.1.309/5af865b9901c/claude.app/Contents/MacOS/claude",
+  "--print",
+  "--output-format",
+  "stream-json",
+  "--verbose",
+  "--model",
+  "claude-sonnet-5-5",
+  "--system-prompt",
+  "<the system prompt in prompts/baseline.txt>",
+  "--strict-mcp-config",
+  "--mcp-config",
+  "{\"mcpServers\":{}}",
+  "--disable-slash-commands",
+  "--safe-mode",
+  "--restricted",
+  "--permission-mode",
+  "dontAsk",
+  "--permission-prompts",
+  "none",
+  "--no-session-persistence",
+  "--tools",
+  "WebFetch,Write",
+  "--allowedTools",
+  "WebFetch(domain:api.ashbyhq.com)",
+  "Write"
+ ],
+ "claude_code": {
+  "claude_code_version": "2.1.309",
+  "model": "claude-sonnet-5-5",
+  "apiKeySource": "none",
+  "permissionMode": "dontAsk",
+  "tools": [
+   "WebFetch",
+   "Write"
+  ],
+  "mcp_servers": [],
+  "memory_paths": null
+ },
+ "tool_calls": [
+  {
+   "tool": "WebFetch",
+   "input": {
+    "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+    "prompt": "List every posting id on the board (all of them, complete). Also give for id 55150071-fce8-48f5-aea4-14ed78b83511 the full details: title, location, secondaryLocations, workplaceType, employmentType, and the full descriptionPlain text verbatim."
+   }
+  },
+  {
+   "tool": "WebFetch",
+   "input": {
+    "url": "https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=false",
+    "prompt": "List every posting id on the board. Also give full details for id 55150071-fce8-48f5-aea4-14ed78b83511."
+   }
+  }
+ ],
+ "tool_results": [
+  {
+   "is_error": true,
+   "content_head": "maxContentLength size of 10485760 exceeded",
+   "chars": 42
+  },
+  {
+   "is_error": true,
+   "content_head": "maxContentLength size of 10485760 exceeded",
+   "chars": 42
+  }
+ ],
+ "permission_denials": [],
+ "num_turns": 3,
+ "reply": "I couldn't complete this task. The job board response is larger than the fetch tool's 10 MB limit, and both attempts failed. I never saw the posting or the list of posting ids. I therefore can't judge the posting, and I haven't written state.json. A file built without the ids would be wrong.\n\n{\"verdict\":\"not_relevant\",\"justification\":\"I could not retrieve the posting because the board response exceeded the fetch tool's size limit. I can't confirm that all seven conditions hold, so I'm defaulting to not_relevant. This is not a judgment on the posting itself.\",\"resume_fields\":[\"preferences.title_includes\"],\"posting_fields\":[\"title\"],\"quotes\":[]}",
+ "exit_code": 0,
+ "seconds": 7.93,
+ "cost_usd_cli_estimate": 0.026279900000000002,
+ "files_left_in_the_folder": [],
+ "events": [
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-agent-ati3_6a_",
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "tools": [
+    "WebFetch",
+    "Write"
+   ],
+   "mcp_servers": [],
+   "model": "claude-sonnet-5-5",
+   "permissionMode": "dontAsk",
+   "slash_commands": [],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.309",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "Explore",
+    "general-purpose",
+    "Plan"
+   ],
+   "skills": [],
+   "plugins": [
+    {
+     "name": "cc-plugin-sec-default",
+     "path": "builtin",
+     "source": "cc-plugin-sec-default@builtin"
+    },
+    {
+     "name": "cc-plugin-agents-md",
+     "path": "builtin",
+     "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+     "name": "cc-plugin-plugin-authoring",
+     "path": "builtin",
+     "source": "cc-plugin-plugin-authoring@builtin"
+    }
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "interrupt_send_now_v1",
+    "interrupt_requeue_taken_v1",
+    "msg_lifecycle_v1",
+    "request_marker_lists_v1",
+    "lifecycle_wakeup_source_v1",
+    "sdk_mcp_tools_list_changed",
+    "sdk_mcp_manifests",
+    "mcp_read_resource_v1",
+    "mcp_tool_ui_meta_v1",
+    "ui_surface_v1",
+    "mcp_call_result_not_for_model_v1"
+   ],
+   "analytics_disabled": true,
+   "product_feedback_disabled": true,
+   "uuid": "9be4025f-20ba-497a-a2f3-37c49ffd447d",
+   "original_cwd": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-agent-ati3_6a_",
+   "additional_directories": [],
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "per_turn_effort_active": true,
+   "view_mode": "default"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGiPVwzL6xTHaw6n7YY",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01SK4r2V4bAL5RicQRduTgYC",
+      "name": "WebFetch",
+      "input": {
+       "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+       "prompt": "List every posting id on the board (all of them, complete). Also give for id 55150071-fce8-48f5-aea4-14ed78b83511 the full details: title, location, secondaryLocations, workplaceType, employmentType, and the full descriptionPlain text verbatim."
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4262,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4262
+     },
+     "output_tokens": 24,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "cacefd2f-1eb3-489b-a5c6-8c44f96509e6",
+   "timestamp": "2026-10-30T10:34:23.660Z",
+   "request_id": "req_011CgYGiNoXWebtAqNvYkBKH"
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "type": "tool_result",
+      "content": "maxContentLength size of 10485760 exceeded",
+      "is_error": true,
+      "tool_use_id": "toolu_01SK4r2V4bAL5RicQRduTgYC"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "f0f62359-ac2f-414b-bfa2-84d8d118ec29",
+   "timestamp": "2026-10-30T10:34:24.056Z",
+   "tool_use_result": "Error: maxContentLength size of 10485760 exceeded",
+   "tool_result_meta": [
+    {
+     "id": "toolu_01SK4r2V4bAL5RicQRduTgYC",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "ff3f9afa-c3e6-4b2f-8364-57986b2e58b2"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 241,
+   "estimated_tokens_delta": 191,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "10b68b24-b454-4a63-9af7-b4a5f4fef05c"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGiZsnHVY2SnKwCqh6F",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQSvAcKEAgTGAI4AUIIdGhpbmtpbmcSDAXKUi1MjWeEZr96ZxoMxxoVKELzcaWOUYBPIjBcWP5mGluVQjjUGrOhj7QSk0b+QGurRj8+gIoGV/szpoidZkNQylnLWcg3VvaiVVgq2QZJuo/4NUmA5bB00WHnr9qRf97mFvfgqP5FBX2jGxWRI8/KTvqN34SMbMupwi4mFxoqRNkm45P1Xkys2k/ERSRXhe4iK7/j7QoZTJG0mHH7rxkrcQ3S7y2bC2R5bdQJbMzR77PdQZ7VO8r57LU18+t3yFcZaYGCgeO8cnYRvUW4SFLlgZSKhELtP8NYwQvCv6CQ7jpSUWAtc4MGakUTsw2yJmIHDGZA+AHWwh5ZAMX07ZNoc+DqtdTRUeUZFIaqrKlamtnwtvclJb/Anc/qLuIJtvPHnvwNO5I7IxC/mvvKc9vEcYjs9yN2+Tkz2VqsLbH5c1fQetQyXCl3IBsXamF82PBxLyuhWK0MPbu2TL79XJs+cLwXTpEy9HlqboBPAFfw6QUWlDclV/Qkua19UDzsXTERk13jhNyh8YaF/cF2NdD0RnPetrCse/Er+8a0/JYBvEHoOE1D9eEZX5WcmAJdusDcH3iboaWzdBzQUwiiUB5ynes9NhBKmtdJMwYd3YtLrrNAB/a20Uo9pvw8tGZhQEIPjK1O2fYSL4U3N84aIhoMt0JRa8cmOFvFUEu2hXcx6j118VVyp8BOtvSM9NykKZL6MXH2LQSo+oDnDvyvswJMi7VPta22cKlv0ZrRFCm5Pv52cK+d0zeiz54HedPa0npEEbzzqVvBByS5+6nywU6hMYBRZY4hqzkE46dodSgBM2R/5WnS1yLr/9PAAlouWRHsvYAv9Nlej6ghf9+puA/fRZ3CiAq5tATTK6KTgcFTTBRjkarzGFekzwqQWuUqlIbepGDB4EqTjg8fjJtBmYbjueVa86TvoLDwMO1C+LWXngHhomP4oJsXUrXcDt0KHPbKAV2oL95XgR5kjhSDEAV/1dtENbhgnwH24h/lnimMXZiEYpe1SyHSXJpUOMww7lTcUtCDikeIvYlmknV7W5YreGfbWappPU/voJ2bYVBq9Qhu5pbsSHg+kLLXN2HrlQKvOFtAzH2fX3qYVyThdGoYS4jPnDC9v8sn0ZnbRnFJodTSe0mUF9VeTlTUmbDo8inUn1NN7/aiOIiPoPeNIRfmISJPtvMI6bPi17jW/PQTf3Ns8B9Lem1COJ+gCdHqUyBoL5h2JkJ5oZykmkc4/NIuUWcPdkZT6xgB"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 235,
+     "cache_read_input_tokens": 4262,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 235
+     },
+     "output_tokens": 3,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "cb32b0ee-3d99-492f-87f4-77eeb7e478f9",
+   "timestamp": "2026-10-30T10:34:25.751Z",
+   "request_id": "req_011CgYGiZJJSAM1o4ATz3gr5",
+   "thinking_duration_ms": 634,
+   "thinking_display": "updates"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGiZsnHVY2SnKwCqh6F",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01LFKnVezFYc8o9uSyVCLtRc",
+      "name": "WebFetch",
+      "input": {
+       "url": "https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=false",
+       "prompt": "List every posting id on the board. Also give full details for id 55150071-fce8-48f5-aea4-14ed78b83511."
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 235,
+     "cache_read_input_tokens": 4262,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 235
+     },
+     "output_tokens": 3,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "841b61f3-beef-45a3-9a61-b92bfb09e497",
+   "timestamp": "2026-10-30T10:34:26.462Z",
+   "request_id": "req_011CgYGiZJJSAM1o4ATz3gr5"
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "type": "tool_result",
+      "content": "maxContentLength size of 10485760 exceeded",
+      "is_error": true,
+      "tool_use_id": "toolu_01LFKnVezFYc8o9uSyVCLtRc"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "1df50725-d0e5-489e-a0a1-27e62d7a072a",
+   "timestamp": "2026-10-30T10:34:26.699Z",
+   "tool_use_result": "Error: maxContentLength size of 10485760 exceeded",
+   "tool_result_meta": [
+    {
+     "id": "toolu_01LFKnVezFYc8o9uSyVCLtRc",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGimGtQWCZPXKoaFqcY",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "text",
+      "text": "I couldn't complete this task. The job board response is larger than the fetch tool's 10 MB limit, and both attempts failed. I never saw the posting or the list of posting ids. I therefore can't judge the posting, and I haven't written state.json. A file built without the ids would be wrong.\n\n{\"verdict\":\"not_relevant\",\"justification\":\"I could not retrieve the posting because the board response exceeded the fetch tool's size limit. I can't confirm that all seven conditions hold, so I'm defaulting to not_relevant. This is not a judgment on the posting itself.\",\"resume_fields\":[\"preferences.title_includes\"],\"posting_fields\":[\"title\"],\"quotes\":[]}"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 276,
+     "cache_read_input_tokens": 4497,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 276
+     },
+     "output_tokens": 223,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "uuid": "f01f8e77-7a8d-4385-8522-0e225dde8e06",
+   "timestamp": "2026-10-30T10:34:29.319Z",
+   "request_id": "req_011CgYGikahhLA2Ft3xngzi2"
+  },
+  {
+   "duration_api_ms": 7124,
+   "stop_reason": "end_turn",
+   "session_id": "e60c8695-75ac-4332-a532-dced2eb50524",
+   "total_cost_usd": 0.026279900000000002,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 4773,
+    "cache_read_input_tokens": 8759,
+    "output_tokens": 630,
+    "output_tokens_details": {
+     "thinking_tokens": 79
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 4773,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "modelUsage": {
+    "claude-sonnet-5-5": {
+     "inputTokens": 6,
+     "outputTokens": 630,
+     "cacheReadInputTokens": 8759,
+     "cacheCreationInputTokens": 4773,
+     "webSearchRequests": 0,
+     "costUSD": 0.026279900000000002,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 79,
+     "canonicalModel": "claude-sonnet-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "safety_stops": 0,
+   "is_error": false,
+   "num_turns": 3,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "I couldn't complete this task. The job board response is larger than the fetch tool's 10 MB limit, and both attempts failed. I never saw the posting or the list of posting ids. I therefore can't judge the posting, and I haven't written state.json. A file built without the ids would be wrong.\n\n{\"verdict\":\"not_relevant\",\"justification\":\"I could not retrieve the posting because the board response exceeded the fetch tool's size limit. I can't confirm that all seven conditions hold, so I'm defaulting to not_relevant. This is not a judgment on the posting itself.\",\"resume_fields\":[\"preferences.title_includes\"],\"posting_fields\":[\"title\"],\"quotes\":[]}",
+   "ttft_ms": 2099,
+   "type": "result",
+   "duration_ms": 7766,
+   "uuid": "0dbc2510-5def-4eea-83e9-2d4c7b2d739b",
+   "ttft_stream_ms": 1056,
+   "time_to_request_ms": 17,
+   "first_content_frame_ms": 1057,
+   "queued_turn_count": 0,
+   "result_index": 0,
+   "model_usage_since_last_result": {
+    "claude-sonnet-5-5": {
+     "inputTokens": 6,
+     "outputTokens": 630,
+     "cacheReadInputTokens": 8759,
+     "cacheCreationInputTokens": 4773,
+     "webSearchRequests": 0,
+     "costUSD": 0.026279900000000002,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 79,
+     "canonicalModel": "claude-sonnet-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   }
+  }
+ ]
+}
