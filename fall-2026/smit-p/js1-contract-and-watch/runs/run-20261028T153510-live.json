@@ -1,0 +1,862 @@
+{
+ "board": "airbnb",
+ "run_at": "2026-10-28T15:35:10-04:00",
+ "label": "live",
+ "source": "https://boards-api.greenhouse.io/v1/boards/airbnb/jobs?content=true",
+ "raw_file": "runs/raw-20261028T153510-live.json",
+ "state_file": "runs/state.json",
+ "previous_run": "2026-10-24T19:25:45-04:00",
+ "baseline": false,
+ "postings_seen": 194,
+ "new": 17,
+ "removed": 14,
+ "new_ids": [
+  7662244,
+  7826337,
+  7946318,
+  8081180,
+  8167113,
+  8279606,
+  8283730,
+  8299396,
+  8306554,
+  8306555,
+  8325376,
+  8325603,
+  8325753,
+  8325813,
+  8327049,
+  8327611,
+  8329612
+ ],
+ "judged": [
+  {
+   "rule": {
+    "posting_id": 7662244,
+    "posting_title": "Senior Data Scientist, Guest & Host",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 2,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Senior Data Scientist, Guest & Host",
+      "effect": "title check FAILED — keyword absent from this title"
+     },
+     {
+      "resume_field": "skills.languages[1]",
+      "resume_value": "Python",
+      "posting_field": "content",
+      "posting_text": "Python",
+      "effect": "skill found"
+     },
+     {
+      "resume_field": "skills.languages[3]",
+      "resume_value": "SQL",
+      "posting_field": "content",
+      "posting_text": "SQL",
+      "effect": "skill found"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/7662244?gh_jid=7662244",
+   "claude": {
+    "posting_id": 7662244,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 7662244, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\", \"skills.languages[1]\", \"skills.languages[3]\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Senior Data Scientist, Guest & Host\"}, {\"field\": \"content\", \"text\": \"Writing software in Python, SQL, or R\"}], \"reason\": \"Title lacks 'Software Engineer' and contains excluded word 'Senior'. Python and SQL appear in content, but title criteria fail.\"}",
+    "session_id": "5b792d29-4810-4434-b010-fd113d4d4340",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.018446,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title",
+     "skills.languages[1]",
+     "skills.languages[3]"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Senior Data Scientist, Guest & Host"
+     },
+     {
+      "field": "content",
+      "text": "Writing software in Python, SQL, or R"
+     }
+    ],
+    "reason": "Title lacks 'Software Engineer' and contains excluded word 'Senior'. Python and SQL appear in content, but title criteria fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 7826337,
+    "posting_title": "Machine Learning Engineer, Assistance Engineering",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Machine Learning Engineer, Assistance Engineering",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/7826337?gh_jid=7826337",
+   "claude": {
+    "posting_id": 7826337,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 7826337, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Machine Learning Engineer, Assistance Engineering\"}], \"reason\": \"Title does not contain 'Software Engineer', the candidate's only role title (co-op parenthetical ignored). Condition 1 fails, so the posting is not relevant regardless of skills.\"}",
+    "session_id": "3b0d1a3d-3149-4797-bc30-233a4b31c50a",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.018842100000000004,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Machine Learning Engineer, Assistance Engineering"
+     }
+    ],
+    "reason": "Title does not contain 'Software Engineer', the candidate's only role title (co-op parenthetical ignored). Condition 1 fails, so the posting is not relevant regardless of skills."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 7946318,
+    "posting_title": "Support Specialist, Premium (English/French)",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Support Specialist, Premium (English/French)",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/7946318?gh_jid=7946318",
+   "claude": {
+    "posting_id": 7946318,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 7946318, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Support Specialist, Premium (English/French)\"}], \"reason\": \"Title doesn't contain 'Software Engineer'. The content mentions none of the candidate's listed skills as whole words, so conditions 1 and 3 fail.\"}",
+    "session_id": "0d622f66-fd7b-48fb-96f2-0afc61b5eee6",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.019208,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Support Specialist, Premium (English/French)"
+     }
+    ],
+    "reason": "Title doesn't contain 'Software Engineer'. The content mentions none of the candidate's listed skills as whole words, so conditions 1 and 3 fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8081180,
+    "posting_title": "Senior Analyst, Advanced Analytics - Gurugram",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 2,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Senior Analyst, Advanced Analytics - Gurugram",
+      "effect": "title check FAILED — keyword absent from this title"
+     },
+     {
+      "resume_field": "skills.languages[1]",
+      "resume_value": "Python",
+      "posting_field": "content",
+      "posting_text": "Python",
+      "effect": "skill found"
+     },
+     {
+      "resume_field": "skills.languages[3]",
+      "resume_value": "SQL",
+      "posting_field": "content",
+      "posting_text": "SQL",
+      "effect": "skill found"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8081180?gh_jid=8081180",
+   "claude": {
+    "posting_id": 8081180,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8081180, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\", \"skills.languages[0]\", \"skills.languages[1]\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Senior Analyst, Advanced Analytics - Gurugram\"}], \"reason\": \"Title lacks any candidate role title (Software Engineer) and contains excluded word 'Senior'. Skills like SQL and Python appear in content, but title criteria fail.\"}",
+    "session_id": "b4d7966b-311a-4327-a8dc-bd2c9e336296",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.020787,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title",
+     "skills.languages[0]",
+     "skills.languages[1]"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Senior Analyst, Advanced Analytics - Gurugram"
+     }
+    ],
+    "reason": "Title lacks any candidate role title (Software Engineer) and contains excluded word 'Senior'. Skills like SQL and Python appear in content, but title criteria fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8167113,
+    "posting_title": "Senior Manager, Intelligence & Advocacy",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Senior Manager, Intelligence & Advocacy",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8167113?gh_jid=8167113",
+   "claude": {
+    "posting_id": 8167113,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8167113, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Senior Manager, Intelligence & Advocacy\"}], \"reason\": \"Title does not contain 'Software Engineer', and it includes excluded words 'Senior' and 'Manager'. Content also shows no clear match of two listed skills.\"}",
+    "session_id": "522a8ba3-14ab-4678-951c-bc6458c96f46",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.020118,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Senior Manager, Intelligence & Advocacy"
+     }
+    ],
+    "reason": "Title does not contain 'Software Engineer', and it includes excluded words 'Senior' and 'Manager'. Content also shows no clear match of two listed skills."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8279606,
+    "posting_title": "Lead Business Process Improvement",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Lead Business Process Improvement",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8279606?gh_jid=8279606",
+   "claude": {
+    "posting_id": 8279606,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8279606, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Lead Business Process Improvement\"}], \"reason\": \"Title does not contain 'Software Engineer', the candidate's only role title. Skills overlap also appears absent, as the content lists no candidate skills as whole words.\"}",
+    "session_id": "ddcb1e76-1624-48e3-b17c-3ff29cec6823",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.0195231,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Lead Business Process Improvement"
+     }
+    ],
+    "reason": "Title does not contain 'Software Engineer', the candidate's only role title. Skills overlap also appears absent, as the content lists no candidate skills as whole words."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8283730,
+    "posting_title": "Supervisor, Hotels",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Supervisor, Hotels",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8283730?gh_jid=8283730",
+   "claude": {
+    "posting_id": 8283730,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8283730, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Supervisor, Hotels\"}], \"reason\": \"Title 'Supervisor, Hotels' contains neither 'Software Engineer' nor any other résumé role title. The content also mentions no listed technical skills, so conditions 1 and 3 fail.\"}",
+    "session_id": "df265427-b5a1-46b4-bfc4-ae0c415b0197",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.0201315,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Supervisor, Hotels"
+     }
+    ],
+    "reason": "Title 'Supervisor, Hotels' contains neither 'Software Engineer' nor any other résumé role title. The content also mentions no listed technical skills, so conditions 1 and 3 fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8299396,
+    "posting_title": "Head of Homes Supply, Thailand & Vietnam",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Head of Homes Supply, Thailand & Vietnam",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8299396?gh_jid=8299396",
+   "claude": {
+    "posting_id": 8299396,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8299396, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Head of Homes Supply, Thailand & Vietnam\"}], \"reason\": \"Title contains neither 'Software Engineer' nor any other candidate role title, and the content mentions no listed skills as whole words. Fails the title-match and skills conditions.\"}",
+    "session_id": "70321464-518d-45db-872a-dd161cb76dc1",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.016066,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Head of Homes Supply, Thailand & Vietnam"
+     }
+    ],
+    "reason": "Title contains neither 'Software Engineer' nor any other candidate role title, and the content mentions no listed skills as whole words. Fails the title-match and skills conditions."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8306554,
+    "posting_title": "AirCover Specialist, Claims Experience",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "AirCover Specialist, Claims Experience",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8306554?gh_jid=8306554",
+   "claude": {
+    "posting_id": 8306554,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8306554, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"AirCover Specialist, Claims Experience\"}], \"reason\": \"Title does not contain 'Software Engineer', the candidate's only role title. Content also lacks any listed skills as whole words, so the skills condition fails too.\"}",
+    "session_id": "81c93c83-2cf8-44f6-9a9d-5afc8976ec62",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.019218,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "AirCover Specialist, Claims Experience"
+     }
+    ],
+    "reason": "Title does not contain 'Software Engineer', the candidate's only role title. Content also lacks any listed skills as whole words, so the skills condition fails too."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8306555,
+    "posting_title": "Spécialiste AirCover, Expérience client en réclamations",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Spécialiste AirCover, Expérience client en réclamations",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8306555?gh_jid=8306555",
+   "claude": {
+    "posting_id": 8306555,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8306555, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Spécialiste AirCover, Expérience client en réclamations\"}], \"reason\": \"Title contains neither 'Software Engineer' nor any other résumé role title, and the content shows no matching listed skills. The posting is a customer-experience claims role, so criteria 1 and 3 fail.\"}",
+    "session_id": "9f6c7489-a750-47a6-af56-408b4ca73aa0",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.021958,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Spécialiste AirCover, Expérience client en réclamations"
+     }
+    ],
+    "reason": "Title contains neither 'Software Engineer' nor any other résumé role title, and the content shows no matching listed skills. The posting is a customer-experience claims role, so criteria 1 and 3 fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8325376,
+    "posting_title": "Business Process Improvement Manager ",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Business Process Improvement Manager ",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8325376?gh_jid=8325376",
+   "claude": {
+    "posting_id": 8325376,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8325376, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Business Process Improvement Manager\"}], \"reason\": \"Title does not contain any candidate role title (Software Engineer) and includes the excluded word 'Manager'. Skill overlap is not established, so the criteria fail.\"}",
+    "session_id": "159e7fd6-ea38-4bd1-8622-e6c2e2e51062",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.019521300000000002,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Business Process Improvement Manager"
+     }
+    ],
+    "reason": "Title does not contain any candidate role title (Software Engineer) and includes the excluded word 'Manager'. Skill overlap is not established, so the criteria fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8325603,
+    "posting_title": "Senior Software Engineer, Experimentation Interfaces",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "seniority check: title contains «Senior»",
+    "skills_matched": 2,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Software Engineer",
+      "effect": "title check passed"
+     },
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Senior",
+      "effect": "seniority check FAILED — excluded word in title"
+     },
+     {
+      "resume_field": "skills.languages[0]",
+      "resume_value": "TypeScript",
+      "posting_field": "content",
+      "posting_text": "TypeScript",
+      "effect": "skill found"
+     },
+     {
+      "resume_field": "skills.languages[1]",
+      "resume_value": "Python",
+      "posting_field": "content",
+      "posting_text": "Python",
+      "effect": "skill found"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8325603?gh_jid=8325603",
+   "claude": {
+    "posting_id": 8325603,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8325603, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\", \"skills.languages[0]\", \"skills.languages[1]\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Senior Software Engineer, Experimentation Interfaces\"}], \"reason\": \"Title contains 'Software Engineer' but also 'Senior', which is excluded. Skills TypeScript and Python appear in content, but the title exclusion fails condition 2.\"}",
+    "session_id": "d25be050-00d3-4416-b7c0-103fb93471e5",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.0170101,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title",
+     "skills.languages[0]",
+     "skills.languages[1]"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Senior Software Engineer, Experimentation Interfaces"
+     }
+    ],
+    "reason": "Title contains 'Software Engineer' but also 'Senior', which is excluded. Skills TypeScript and Python appear in content, but the title exclusion fails condition 2."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8325753,
+    "posting_title": "Staff Software Engineer, UI Tooling",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "seniority check: title contains «Staff»",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Software Engineer",
+      "effect": "title check passed"
+     },
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Staff",
+      "effect": "seniority check FAILED — excluded word in title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8325753?gh_jid=8325753",
+   "claude": {
+    "posting_id": 8325753,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8325753, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Staff Software Engineer, UI Tooling\"}], \"reason\": \"Title contains 'Software Engineer' (matches role title), but also contains the excluded word 'Staff', failing condition 2. Skills overlap was not evaluated since the posting is already disqualified.\"}",
+    "session_id": "e6e70b7b-ef80-47cc-b7a0-becf70d69a98",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.018888000000000002,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Staff Software Engineer, UI Tooling"
+     }
+    ],
+    "reason": "Title contains 'Software Engineer' (matches role title), but also contains the excluded word 'Staff', failing condition 2. Skills overlap was not evaluated since the posting is already disqualified."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8325813,
+    "posting_title": "Senior Software Engineer, UI Tooling (Full Stack iOS)",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "seniority check: title contains «Senior»",
+    "skills_matched": 1,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Software Engineer",
+      "effect": "title check passed"
+     },
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Senior",
+      "effect": "seniority check FAILED — excluded word in title"
+     },
+     {
+      "resume_field": "skills.languages[0]",
+      "resume_value": "TypeScript",
+      "posting_field": "content",
+      "posting_text": "Typescript",
+      "effect": "skill found"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8325813?gh_jid=8325813",
+   "claude": {
+    "posting_id": 8325813,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8325813, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[1].title\", \"experience[0].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Senior Software Engineer, UI Tooling (Full Stack iOS)\"}], \"reason\": \"Title contains 'Software Engineer' matching the résumé, but also contains the excluded word 'Senior', so it fails the title exclusion rule. Skills check is therefore moot.\"}",
+    "session_id": "33703809-32bc-43dc-a409-bf5e8fd67eab",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.019518,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[1].title",
+     "experience[0].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Senior Software Engineer, UI Tooling (Full Stack iOS)"
+     }
+    ],
+    "reason": "Title contains 'Software Engineer' matching the résumé, but also contains the excluded word 'Senior', so it fails the title exclusion rule. Skills check is therefore moot."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8327049,
+    "posting_title": "Supervisor - Trust and Safety Operations",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Supervisor - Trust and Safety Operations",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8327049?gh_jid=8327049",
+   "claude": {
+    "posting_id": 8327049,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8327049, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Supervisor - Trust and Safety Operations\"}], \"reason\": \"Title does not contain any candidate role title (Software Engineer), and the content mentions none of the candidate's listed skills as whole words, so criteria 1 and 3 fail.\"}",
+    "session_id": "df7251ab-fb95-4f1e-8291-4096b318f635",
+    "model": "claude-haiku-5-5",
+    "cost_usd": 0.0183801,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Supervisor - Trust and Safety Operations"
+     }
+    ],
+    "reason": "Title does not contain any candidate role title (Software Engineer), and the content mentions none of the candidate's listed skills as whole words, so criteria 1 and 3 fail."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8327611,
+    "posting_title": "Lead, Quality",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Lead, Quality",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8327611?gh_jid=8327611",
+   "claude": {
+    "posting_id": 8327611,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8327611, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Lead, Quality\"}], \"reason\": \"Title 'Lead, Quality' does not contain any candidate role title (Software Engineer). Also, the content has no matching skills from the résumé's skills lists.\"}",
+    "session_id": "bf6bcf31-073b-44c7-ad7c-6f1e034405df",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.018425999999999998,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Lead, Quality"
+     }
+    ],
+    "reason": "Title 'Lead, Quality' does not contain any candidate role title (Software Engineer). Also, the content has no matching skills from the résumé's skills lists."
+   }
+  },
+  {
+   "rule": {
+    "posting_id": 8329612,
+    "posting_title": "Principal, Strategic Finance & Analytics - Membership",
+    "verdict": "not_relevant",
+    "source": "rule",
+    "label": "RECORD (rule, recomputable)",
+    "failed_check": "title check: no résumé role keyword in posting title",
+    "skills_matched": 0,
+    "citations": [
+     {
+      "resume_field": "experience[0].title",
+      "resume_value": "Software Engineer",
+      "posting_field": "title",
+      "posting_text": "Principal, Strategic Finance & Analytics - Membership",
+      "effect": "title check FAILED — keyword absent from this title"
+     }
+    ]
+   },
+   "url": "https://careers.airbnb.com/positions/8329612?gh_jid=8329612",
+   "claude": {
+    "posting_id": 8329612,
+    "source": "claude",
+    "label": "JUDGMENT (model)",
+    "prompt": "baseline",
+    "raw_reply": "{\"posting_id\": 8329612, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"experience[1].title\"], \"posting_evidence\": [{\"field\": \"title\", \"text\": \"Principal, Strategic Finance & Analytics - Membership\"}], \"reason\": \"Title lacks 'Software Engineer' and contains the excluded word 'Principal'. Content also shows no matching skills from the résumé's skills lists, so all three conditions fail.\"}",
+    "session_id": "9c414f4b-dfd1-4361-9a9f-90d62f390dc1",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.019749999999999997,
+    "status": "ACCEPTED",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "experience[1].title"
+    ],
+    "posting_evidence": [
+     {
+      "field": "title",
+      "text": "Principal, Strategic Finance & Analytics - Membership"
+     }
+    ],
+    "reason": "Title lacks 'Software Engineer' and contains the excluded word 'Principal'. Content also shows no matching skills from the résumé's skills lists, so all three conditions fail."
+   }
+  }
+ ]
+}
