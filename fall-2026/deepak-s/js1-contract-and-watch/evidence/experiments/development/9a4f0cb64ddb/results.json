@@ -1,0 +1,407 @@
+{
+  "kind": "experiment",
+  "set": "development",
+  "created_at": "2026-10-30T19:47:38Z",
+  "run_dir": "evidence/runs/20261030T025837Z_stripe",
+  "run_id": "20261030T025837Z_stripe",
+  "raw_path": "evidence/raw/20261030T025837Z_stripe.raw",
+  "raw_sha256": "81de5fbf8e97a28e6b275be1289762e4ca4e3334dd82d3b669f9bdbb7a4722ce",
+  "resume_path": "examples/persona_resume.json",
+  "resume_sha256": "32813f6702aeba1bd3f3298b7c50b64d1e1db2ada86473bf7aadde30d9086e45",
+  "model": "claude-sonnet-5-5",
+  "judge_backend": "claude-cli",
+  "posting_ids": [
+    "7983456",
+    "8144196",
+    "8174963",
+    "8175828",
+    "8191708",
+    "8194283",
+    "8197886",
+    "8198323",
+    "8203220",
+    "8222149"
+  ],
+  "prompt_path": "prompts/v2.md",
+  "prompt_sha256": "9a4f0cb64ddb036ae84291dcbc302b949c2499fc4e0c2a3351c05ec77e11e9c4",
+  "prompt_shas": [
+    "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0",
+    "9a4f0cb64ddb036ae84291dcbc302b949c2499fc4e0c2a3351c05ec77e11e9c4"
+  ],
+  "complete": true,
+  "stopped": null,
+  "n": 10,
+  "counts": {
+    "accepted_correct": 3,
+    "accepted_wrong": 6,
+    "rejected": 1,
+    "error": 0
+  },
+  "pass_rate": 0.3,
+  "wilson_95": [
+    0.10779126740630107,
+    0.6032218525388545
+  ],
+  "postings": [
+    {
+      "posting_id": "7983456",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is ML engineering, which matches Riley's background, but it requires 5+ years of production ML experience. Riley has about 3 years of experience, below the stated minimum, so the level does not fit.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Radar"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of experience developing, evaluating, and deploying machine learning models in a production environment."
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:38Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/7983456.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8144196",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The AI Engineer role fits her skills and the 4+ year minimum is close to her 3 years, but the only location is Chicago. Her target locations are Boston, New York, Seattle and Remote, and the posting does not offer remote work.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/2",
+          "value": "AI Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:41Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8144196.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8174963",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is a Staff-level security/anti-abuse engineering job requiring 10+ years, far above the persona's 3 years. It is also based in Dublin, which is not among the persona's target locations, and the work is not ML engineering.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Security Engineer, Abuse Control"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of experience in security engineering"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:44Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8174963.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8175828",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "This is a quota-carrying B2B sales role requiring 5+ years of sales experience in payments/fintech, which does not match the persona's ML engineering background. The Singapore location is also not among the persona's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Currency Management"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Singapore"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:47Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8175828.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8191708",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "The role is an enterprise sales position, not machine learning engineering, and it requires 10+ years of sales experience versus the persona's 3 years in ML/software. Polish or Czech fluency is also required.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Open Issuance"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of sales experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:49Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8191708.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8194283",
+      "hand_label": "relevant",
+      "status": "rejected",
+      "reason": "value_not_found",
+      "verdict": null,
+      "citations": null,
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:52Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8194283.response.txt",
+      "outcome": "rejected"
+    },
+    {
+      "posting_id": "8197886",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is an ML engineering match and is in New York, but it requires 6+ years of industry experience. The persona has about 3 years, so the level does not fit.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "6+ years of industry experience building and shipping machine learning models in production"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Link"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:56Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8197886.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8198323",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role requires 7+ years of customer-facing solutions engineering, exceeding the persona's 3 years. The core work is customer-facing POC delivery and sales engineering, not the ML engineering the persona targets.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "7+ years of relevant experience in customer-facing technical delivery"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Solutions Engineer, AI Build Team"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:47:59Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8198323.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8203220",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "The Fraud Architect role is a customer-facing fraud and risk advisory position (Radar configuration, account prevention plans), not hands-on ML engineering. It doesn't match the persona's target roles or core skills, despite acceptable location options.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Fraud Architect"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "fraud and risk specialist embedded in strategic user relationships"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:01Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8203220.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8222149",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The title matches a target role and Seattle is acceptable, but the posting requires 5 years of data science experience plus 4 years in several skills, and the persona has about 3 years total. The role text also reads as software engineering.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/4",
+          "value": "Data Scientist"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Data Scientist"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "plus 5 years of related work experience in data science or quantitative modeling"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:04Z",
+      "raw_path": "evidence/experiments/development/9a4f0cb64ddb/claude/8222149.response.txt",
+      "outcome": "accepted_wrong"
+    }
+  ],
+  "baseline_rule": {
+    "n": 10,
+    "counts": {
+      "accepted_correct": 6,
+      "accepted_wrong": 4,
+      "rejected": 0,
+      "error": 0
+    },
+    "pass_rate": 0.6,
+    "wilson_95": [
+      0.3126737697336583,
+      0.8318196702937637
+    ],
+    "postings": [
+      {
+        "posting_id": "7983456",
+        "hand_label": "relevant",
+        "verdict": "relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8144196",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8174963",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8175828",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8191708",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8194283",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8197886",
+        "hand_label": "relevant",
+        "verdict": "relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8198323",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8203220",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8222149",
+        "hand_label": "relevant",
+        "verdict": "relevant",
+        "outcome": "accepted_correct"
+      }
+    ]
+  }
+}

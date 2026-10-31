@@ -1,0 +1,30 @@
+{
+  "status": "accepted",
+  "reason": "The role is an engineering management position requiring at least 4 years managing ML teams, but the persona is an individual-contributor ML engineer with 3 years of experience and excludes Manager titles. The Toronto location is also outside the target locations.",
+  "verdict": "not_relevant",
+  "citations": [
+    {
+      "source": "resume",
+      "path": "/targets/exclude_title_terms/4",
+      "value": "Manager"
+    },
+    {
+      "source": "resume",
+      "path": "/basics/label",
+      "value": "Machine Learning Engineer"
+    },
+    {
+      "source": "posting",
+      "path": "/title",
+      "value": "ML Engineer Manager, AI Conversation Platform"
+    },
+    {
+      "source": "posting",
+      "path": "/location/name",
+      "value": "Toronto, Canada"
+    }
+  ],
+  "model": "claude-sonnet-5-5",
+  "called_at": "2026-10-30T19:49:33Z",
+  "raw_path": "evidence/experiments/held-out/9a4f0cb64ddb/claude/8022713.response.txt"
+}

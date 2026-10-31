@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JS1 fictional persona résumé (CONTRACT.md In)",
+  "type": "object",
+  "required": ["fictional", "basics", "targets", "skills"],
+  "properties": {
+    "fictional": {"const": true},
+    "basics": {
+      "type": "object",
+      "required": ["name", "email", "phone"],
+      "properties": {
+        "name": {"type": "string"},
+        "email": {"type": "string"},
+        "phone": {"type": "string"}
+      }
+    },
+    "targets": {
+      "type": "object",
+      "required": ["roles", "locations", "exclude_title_terms"],
+      "properties": {
+        "roles": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "locations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "exclude_title_terms": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "skills": {"type": "array", "items": {"type": "string"}}
+  }
+}

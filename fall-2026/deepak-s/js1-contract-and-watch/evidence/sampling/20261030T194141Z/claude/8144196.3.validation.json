@@ -1,0 +1,30 @@
+{
+  "status": "accepted",
+  "reason": "The AI Engineer role is in Chicago, which is not among the persona's target locations (Boston, New York, Seattle, Remote). It also requires 4+ years of production engineering, while the persona has about 3 years.",
+  "verdict": "not_relevant",
+  "citations": [
+    {
+      "source": "posting",
+      "path": "/location/name",
+      "value": "Chicago"
+    },
+    {
+      "source": "resume",
+      "path": "/targets/locations/0",
+      "value": "Boston"
+    },
+    {
+      "source": "posting",
+      "path": "/content_text",
+      "value": "4+ years of experience as an engineer shipping production systems"
+    },
+    {
+      "source": "resume",
+      "path": "/basics/label",
+      "value": "Machine Learning Engineer"
+    }
+  ],
+  "model": "claude-sonnet-5-5",
+  "called_at": "2026-10-30T19:41:57Z",
+  "raw_path": "evidence/sampling/20261030T194141Z/claude/8144196.3.response.txt"
+}
