@@ -1,11 +1,23 @@
 """The fixed output format for the Claude judge. Anything that is not exactly this JSON
 object is rejected; a rejected answer is reported as rejected, never repaired or guessed."""
 import json
+import re
 
 KEYS = {"posting_id", "verdict", "failed_conditions", "resume_fields", "posting_fields", "justification"}
 VERDICTS = {"Relevant", "Not Relevant"}
 RESUME_FIELDS = {"target_roles", "experience_years", "skills", "location", "remote_ok", "exclusions"}
 POSTING_FIELDS = {"id", "title", "departments", "location", "offices", "content"}
+
+
+def names_field(field, text):
+    """True when text names the field as a whole word, case-insensitive: the field name, the name
+    with underscores as spaces, or its singular/plural ("department" for departments). Fixed
+    2026-10-31 after a TA-style review: the first version used a plain substring test, so the
+    field "id" was found inside "considered" and a generic justification passed."""
+    base = field.replace("_", " ")
+    forms = {base, base[:-1] if base.endswith("s") else base + "s"}
+    return any(re.search(r"(?<![A-Za-z0-9])" + re.escape(f).replace(r"\ ", r"[ _]") + r"(?![A-Za-z0-9])",
+                         text, re.IGNORECASE) for f in forms)
 
 
 def validate(text, expected_id):
@@ -45,8 +57,9 @@ def validate(text, expected_id):
     if not isinstance(j, str) or len(j.strip()) < 20:
         errors.append("justification must be a sentence or more")
     elif not errors:
-        cited_r = any(f in j for f in obj["resume_fields"])
-        cited_p = any(f in j for f in obj["posting_fields"])
+        cited_r = any(names_field(f, j) for f in obj["resume_fields"])
+        # "id" alone says nothing about why a posting fits, so it never counts as the citation.
+        cited_p = any(names_field(f, j) for f in obj["posting_fields"] if f != "id")
         if not (cited_r and cited_p):
             errors.append("justification does not name any of its own resume_fields and posting_fields")
     return (None, errors) if errors else (obj, [])

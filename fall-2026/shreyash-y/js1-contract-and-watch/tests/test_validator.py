@@ -61,6 +61,22 @@ class Validator(unittest.TestCase):
     def test_generic_justification_rejected(self):
         self.assertTrue(check(dict(GOOD, justification="This job is a good match."))[1])
 
+    def test_field_name_inside_another_word_does_not_count(self):
+        # Found 2026-10-31 by a TA-style review: "id" matched inside "considered".
+        generic = dict(GOOD, verdict="Relevant", failed_conditions=[], resume_fields=["skills"],
+                       posting_fields=["id"],
+                       justification="This job is a good match and should be considered for the skills.")
+        self.assertTrue(check(generic)[1])
+
+    def test_id_alone_is_not_a_posting_citation(self):
+        self.assertTrue(check(dict(GOOD, posting_fields=["id"],
+                                   justification="Posting id 8119736 fails resume.location and exclusions."))[1])
+
+    def test_singular_and_spaced_forms_count(self):
+        ok = dict(GOOD, resume_fields=["experience_years"], posting_fields=["departments"],
+                  justification="The department is Data, and the ad asks 7 years against 3 experience years.")
+        self.assertEqual(check(ok)[1], [])
+
 
 if __name__ == "__main__":
     unittest.main()

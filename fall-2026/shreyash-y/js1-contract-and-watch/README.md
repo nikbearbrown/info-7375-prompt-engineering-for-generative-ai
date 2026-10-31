@@ -24,7 +24,7 @@ git clone -b shreyash-y/js1-contract-and-watch https://github.com/shreyashyadav1
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/shreyash-y/js1-contract-and-watch
 ```
 
-Tests, offline (65 tests):
+Tests, offline (68 tests):
 
 ```bash
 python3 -m unittest discover -s tests -t . -v
@@ -77,6 +77,7 @@ All runs below happened as described. Times are Eastern.
 | 2026-10-31 | Sampling: 5 postings × 4 fresh Claude calls | 20/20 identical verdicts and failed conditions | [experiments/SAMPLING-REPORT.md](experiments/SAMPLING-REPORT.md) |
 | 2026-10-31 | Prompt experiment: baseline vs one change, 10 development then 10 held-out | 10/10 on the hand labels everywhere; the revision's quotes are word for word 112/112 | [experiments/PROMPT-EXPERIMENT.md](experiments/PROMPT-EXPERIMENT.md) |
 | 2026-10-31 | Action surface: chat paste, file read, agent with tools | way C needed curl to any host before it could work, wrote outside its folder, and misreported a count | [experiments/ACTION-SURFACE.md](experiments/ACTION-SURFACE.md) |
+| 2026-10-31 | Validator fix after a TA-style review: field citations now match whole words, and `id` alone no longer counts. Re-checked all 73 saved answers offline | 0 of 73 answers changed validity | `evidence/revalidation-2026-10-31.txt`, `tests/test_validator.py` |
 | 2026-10-31 | Seeded replay of runs 1 and 2 (`runs-replay/`) | identical to live run 2 (ids, verdicts, failed conditions, justification text) | `evidence/replay-terminal-2026-10-31.txt` |
 
 Wrong version 1 appeared in live data. Run 2's new postings include "Senior Product Manager, Marketplace" three times (Boston, LA and SF, three ids) and "Strategic Insights Associate, Data Analytics" four times. All seven were reported and judged separately.
@@ -122,7 +123,8 @@ Checked:      - New-since-last by id, baseline first, and no title dedup: tests/
 How:          Tests were written by Claude Code from CONTRACT.md and committed before the
               implementation (1ab74ec before 6d74630); they were not written by Shreyash, but
               Shreyash ran all 65 in Shreyash's own terminal on 2026-10-31: OK
-              (evidence/tests-run-by-shreyash-2026-10-31.txt). The run 2
+              (evidence/tests-run-by-shreyash-2026-10-31.txt), before 3 validator tests were
+              added later that day. The run 2
               recount and the seeded replay are recomputations. The labels are by hand (Shreyash).
               Reading the ads where the two judges disagreed was done by Claude Code, which also
               checked the quotes against the raw files; Shreyash has not re-read those five ads.
@@ -146,9 +148,17 @@ Signed or withheld: Shreyash Yadav, 10/31/2026 (signature typed by Shreyash in t
 
 | Part of the task | Claude should | Shreyash should | Why that part stays Shreyash's | Where the split shows |
 |---|---|---|---|---|
-| The contract | turn the words into code and point out ambiguous phrases | decide what counts as relevant, and write it first | it is the decision about which jobs are worth a day; a model can state a rule but has no stake in it | `7c8f9e5` contains only CONTRACT.md. The session record shows Shreyash choosing "Interview me" on 2026-10-28 and pasting the contract text. The ambiguities went to INTERPRETATIONS.md (`1ab74ec`), not into the contract. |
+| The contract | turn the words into code and point out ambiguous phrases | decide what counts as relevant, and write it first | it is the decision about which jobs are worth a day; a model can state a rule but has no stake in it | `7c8f9e5` contains only CONTRACT.md. Lines 1 and 2 below. The ambiguities went to INTERPRETATIONS.md (`1ab74ec`), not into the contract. |
 | Ground truth | build a label sheet that shows no verdicts | label the postings with a rule written first | labels made by the system being tested would only measure it against itself | `20041e3` (sheet, no verdicts) before `b3faea5` (Shreyash's rule and labels), before any Claude call on those postings |
-| Code, tests, prompts, runs | write them, run them, save everything | choose the board, the persona and the model, and say when to run | the run order and scope are Shreyash's calls; the code can be checked by the tests | Shreyash picked Oscar, Opus and the persona (2026-10-28) and asked for run 2 on 2026-10-30 ("lets do run 2"); commits `6d74630` to `a021d9c` |
+| Code, tests, prompts, runs | write them, run them, save everything | choose the board, the persona and the model, and say when to run | the run order and scope are Shreyash's calls; the code can be checked by the tests | Lines 1, 2 and 3 below; commits `6d74630` to `a021d9c` |
 | Who was right when the judges disagreed | find the disagreements, quote the ad, check the quote is real | read the ad and decide | a verdict about a job is the one thing the assignment says Claude cannot own | **Not fully done.** Claude did the reading. Shreyash has not re-read the five ads (Not checked). |
 | The one prompt change | propose options from the development results | pick one | — | **Not done as intended.** Claude picked revision-1 (PROMPT-EXPERIMENT.md says so). |
-| The sign-off | draft the lines | check them, decide what is not checked, sign or withhold | only the person who signs knows what they did not test | the signature line above |
+| The sign-off | draft the lines | check them, decide what is not checked, sign or withhold | only the person who signs knows what they did not test | Line 5 below and the signature line above |
+
+Shreyash's own lines in the session, quoted exactly (the transcript stays on Shreyash's machine, as the brief asks):
+
+1. 2026-10-28, answering the app's three questions: **"Interview me (Recommended)"**, **"Oscar Health (Recommended)"**, **"Opus 5.5"**.
+2. 2026-10-28: the persona and contract pasted under the heading **"Job Posting Agent — Specification"**, which is the text of `CONTRACT.md`.
+3. 2026-10-30: **"lets do run 2"**. Run 2 started at 19:02 EDT (`079aedb`).
+4. 2026-10-31: the labeling rule and labels pasted (`labels/LABELING-RULE.md`), and the four FRICTIONAL answers (`FRICTIONAL.md` Part 1).
+5. 2026-10-31: **"signature : Shreyash Yadav 10/31/2026"**. Then, after the TA-style review: **"Yes, fix both"**, for the validator fix and this table.

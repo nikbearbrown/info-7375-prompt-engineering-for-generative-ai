@@ -85,6 +85,12 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 - Way B, and way C, left folders in `~/.claude/projects/` despite `--no-session-persistence`.
 - I trimmed the CLI's local environment listing from the four event logs before posting. Each file says so.
 
+**2026-10-31 16:28, a bug in my validator, found by review.**
+- A separate Claude agent graded the submission as a TA, seeing only the rubric and the files. It found that my validator's citation check was a plain substring test. The posting field `id` was "found" inside the word "considered", so the justification "This job is a good match and should be considered for the skills" passed.
+- I confirmed it by running it myself. So wrong version 2 was caught for the rule judge but not for the Claude judge. My test for it only tried a justification with no field names at all.
+- Fixed with whole-word matching (singular/plural and underscore-as-space allowed), and `id` alone no longer counts. I added 3 tests, so there are 68.
+- I re-checked all 73 saved answers offline: none changed validity (`evidence/revalidation-2026-10-31.txt`). No reported result moved. The fix was made after the runs and is labeled that way.
+
 **What I would do next (for JS2).**
 - Fix the two rule defects, with tests taken from the five real postings.
 - Ask Shreyash for per-condition labels.
