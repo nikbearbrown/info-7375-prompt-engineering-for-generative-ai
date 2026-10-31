@@ -1,0 +1,174 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:57:25+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/revision-1-quote-evidence.md",
+    "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+    "posting_id": 7572045,
+    "tag": "horev1",
+    "raw_text": "{\"posting_id\": 7572045, \"verdict\": \"Not Relevant\", \"failed_conditions\": [3, 4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains Software Engineer (matching target_roles), the department is Engineering, and the title has no excluded words, so conditions 1, 2 and 6 pass. Condition 3 fails because the posting location and offices are \\\"New York, NY\\\" and the content says \\\"This position is based in our New York City office, requiring a hybrid work schedule with 3 days of in-office work per week\\\", which matches neither the résumé location (Boston, MA) nor its remote_ok preference. Condition 4 fails because none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker) appear in the content: not stated. Condition 5 fails because the content requires \\\"6+ years of professional software engineering experience\\\", which exceeds the 3-year maximum.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 7572045,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        3,
+        4,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The title contains Software Engineer (matching target_roles), the department is Engineering, and the title has no excluded words, so conditions 1, 2 and 6 pass. Condition 3 fails because the posting location and offices are \"New York, NY\" and the content says \"This position is based in our New York City office, requiring a hybrid work schedule with 3 days of in-office work per week\", which matches neither the résumé location (Boston, MA) nor its remote_ok preference. Condition 4 fails because none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker) appear in the content: not stated. Condition 5 fails because the content requires \"6+ years of professional software engineering experience\", which exceeds the 3-year maximum."
+    },
+    "session_id": "ab4b6996-752b-44e7-bf03-9b09cc248360",
+    "cost_usd": 0.038955000000000004
+  },
+  "cli_output": {
+    "duration_api_ms": 7032,
+    "stop_reason": "end_turn",
+    "session_id": "ab4b6996-752b-44e7-bf03-9b09cc248360",
+    "total_cost_usd": 0.038955000000000004,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3056,
+      "cache_read_input_tokens": 995,
+      "output_tokens": 715,
+      "output_tokens_details": {
+        "thinking_tokens": 328
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3056,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 715,
+          "cache_read_input_tokens": 995,
+          "cache_creation_input_tokens": 3056,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3056
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 715,
+        "cacheReadInputTokens": 995,
+        "cacheCreationInputTokens": 3056,
+        "webSearchRequests": 0,
+        "costUSD": 0.038955000000000004,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 328,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3056,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 7572045, \"verdict\": \"Not Relevant\", \"failed_conditions\": [3, 4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains Software Engineer (matching target_roles), the department is Engineering, and the title has no excluded words, so conditions 1, 2 and 6 pass. Condition 3 fails because the posting location and offices are \\\"New York, NY\\\" and the content says \\\"This position is based in our New York City office, requiring a hybrid work schedule with 3 days of in-office work per week\\\", which matches neither the résumé location (Boston, MA) nor its remote_ok preference. Condition 4 fails because none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker) appear in the content: not stated. Condition 5 fails because the content requires \\\"6+ years of professional software engineering experience\\\", which exceeds the 3-year maximum.\"}",
+    "ttft_ms": 4530,
+    "type": "result",
+    "duration_ms": 10055,
+    "uuid": "ebb1c6fe-ec19-481d-a5d1-b60640dff39c",
+    "ttft_stream_ms": 1344,
+    "time_to_request_ms": 212,
+    "time_to_request_phases_ms": {
+      "other": 58,
+      "system_prompt": 6,
+      "resume_other": 0,
+      "process_user_input": 9,
+      "input_attachments": 59,
+      "input_hooks": 3,
+      "tool_pool_refresh": 1,
+      "init_message": 4,
+      "engine_pickup": 10,
+      "message_prep": 31,
+      "model_config_wait": 4,
+      "autocompact": 9,
+      "query_setup": 1,
+      "model_gates": 0,
+      "tool_schema_build": 1,
+      "message_normalization": 4,
+      "client_creation": 6,
+      "request_build": 6
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 161,
+    "time_to_request_cpu_ms": 105,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 52,
+      "cpu_ms": 40,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1344,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}
