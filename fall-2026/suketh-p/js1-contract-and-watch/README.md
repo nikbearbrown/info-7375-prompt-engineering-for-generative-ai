@@ -153,7 +153,7 @@ The student reviewed these on: PENDING.
 | The yardstick (labels) | Chose the 20 postings by seed; built a sheet showing no rule or Claude output | Wrote the labeling rule, then labeled all 20 by reading | The measure can't come from the thing being measured | `7752e69` (rule), `0f312fb` (labels), both before any sampling or experiment call |
 | How the judge reaches Claude | Probed `claude -p`; found the ~800 tokens it adds; laid out both routes | Chose my Claude Code login | Cost and privacy trade-offs belong to the owner | chat, 2026-10-30 00:50–00:53; [probes](evidence/probes/2026-10-28-claude-code-probes.md) |
 | The one prompt change | Measured v1 (30/30; 0/30 traceable); proposed A and B | Chose A, for my own reason | What counts as an explanation I can trust is my standard | `b0d2a88`; my reason is quoted in [PROMPT-EXPERIMENT.md](reports/PROMPT-EXPERIMENT.md) |
-| Code, tests, runs, reports | Wrote and ran them; tests before code | Checked claims against the postings myself (PyTorch in 4616971008; "5+ years" in 5418610008); PENDING: my own test run | — | `d945f28` (failing tests) → `546fd7a` (code) |
+| Code, tests, runs, reports | Wrote and ran them; tests before code | Checked claims against the postings myself (PyTorch in 4616971008; "5+ years" in 5418610008); ran all 91 tests myself ([output](evidence/test-runs/2026-10-31-04-student-own-run.txt)) | — | `d945f28` (failing tests) → `546fd7a` (code) |
 | Whether to sign | Drafted the facts below | Decide to sign or withhold | My name goes on it | this section |
 
 ## Sign-off
@@ -177,7 +177,9 @@ How:          By hand: the 20 labels, written from my rule before any Claude cal
               By tests written before the code: Claude Code wrote them from my
               contract and committed them failing (d945f28) before any agent code.
               By recomputation: jobwatch verify and jobwatch rule.
-              With Claude's help: all code, tests and runs; PENDING my own test run.
+              With Claude's help: all code, tests and runs. I ran the 91 tests
+              myself in my own Terminal on 2026-10-31: all OK
+              (evidence/test-runs/2026-10-31-04-student-own-run.txt).
 Not checked:  What Claude Code adds to each request (~800+ tokens); asking was declined.
               Prompt injection: no posting containing instructions was tested.
               The api route never made a real call (no key); only fakes.
