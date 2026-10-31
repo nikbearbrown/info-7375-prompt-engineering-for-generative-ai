@@ -1,0 +1,6 @@
+# Independent recount of run 3, 2026-10-31, by a separate script that reads only the raw files and the state file.
+run2 214 ids, run3 214 ids; new vs run2 []; gone vs run2 []
+run3 ids not seen in run 1 or run 2: []
+state: seen_ids 232 (= run1 ∪ run2: True), last_ids == run3 ids: True, runs recorded: 3
+raw bytes identical to run 2: True; sha256 run2 e6620c3549fb, run3 e6620c3549fb
+postings whose updated_at differs from run 2: 0
