@@ -188,3 +188,6 @@ October 28, 2026 — I will consider this version a failure if it reports baseli
 ## Amendment
 
 October 31, 2026 - I will consider this version a failure if it reports a previously seen posting as new, accepts a verdict without matching résumé and posting evidence, contacts an unapproved host, or exposes private résumé information.
+
+October 31, 2026 — For future runs in this assignment, I accept the additional uninspected context supplied by the configured Claude Code route, observed at about 800 tokens in the probes, provided the application supplies only the fixed instructions, fictional résumé, and one public posting, keeps model tools and saved sessions disabled, and retains the board allow-list and strict output validator.
+This records an exception when adopted; it does not establish retroactive compliance for earlier runs.

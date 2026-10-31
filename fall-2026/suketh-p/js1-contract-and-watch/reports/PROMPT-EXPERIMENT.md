@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Postings | 20 real postings from the run-1 baseline, chosen by `experiments/select_postings.py` (seed 20261028, commit `846c35a`) before any label existed. Stratified by rule outcome to include near-misses, so **not a random sample of the board**. 10 development, 10 held-out ([selection.json](../experiments/selection.json)). |
-| Labels | The 20 labels the student supplied in chat ([hand_labels.csv](../labels/hand_labels.csv), `0f312fb`, 09:05), applying the student's [labeling rule](../labels/LABELING-RULE.md) (`7752e69`). Committed before any experiment call (the first came at 09:06), but **not independent of the rule's output** (README, "The labels are not independent"). They equal the rule records on 20/20 ([hand-vs-rule.md](../experiments/hand-vs-rule.md)). |
+| Labels | The 20 labels the student computed with their own read-only Python script applying their [labeling rule](../labels/LABELING-RULE.md) (`7752e69`), sent in chat and saved in [hand_labels.csv](../labels/hand_labels.csv) (`0f312fb`, 09:05). **Not hand labels** (README, "The labels were computed by a script"). Committed before any experiment call (the first came at 09:06). They equal the rule records on 20/20 ([hand-vs-rule.md](../experiments/hand-vs-rule.md)). |
 | Baseline | [prompts/judge_v1.md](../prompts/judge_v1.md), the prompt the agent uses |
 | Revision | [prompts/judge_v2.md](../prompts/judge_v2.md) = v1 plus **one inserted paragraph**, nothing else (diff below) |
 | Calls | every prompt × every posting × 3 fresh `claude -p` conversations; `claude-opus-5-5`, tools, settings, MCP and saved sessions off; at most 3 at once |
@@ -65,7 +65,7 @@ v2's replies were longer (about 100–125 more output tokens each) and cost abou
 - **The verdict task was at ceiling.** Both prompts got every verdict right on all 20 postings, except one reply that wasn't a verdict at all. With 10 postings × 3 calls per set, even a real difference of a few percentage points in accuracy could not have been detected. "Equal pass rates" here means "both near-perfect on these postings", not "equally good in general".
 - **The traceability effect is large and consistent** (0% → 100% of valid replies, on both sets), so it is real for these postings. But it was measured by whether the path strings appear. **Not checked:** whether each named path is used correctly. A justification could name `posting.content` and still say something wrong about it.
 - **Held-out guards against tuning to specific postings, not against change.** Both sets come from the same board, the same day, and the same strata. And the strata over-sample near-misses, so this is not a random sample of the board: 6 of the 20 are relevant, against 8 of 681 on the board.
-- **The labels equal the rule (20/20), and they were made after the rule's output had been shown.** So the pass rate measures agreement with the rule, that is, whether Claude applied the student's rule. It is not an independent measure of correctness, and it says nothing about whether the rule picks good jobs. The student's Frictional note lists two postings where it doesn't: 4616971008 and 5418610008.
+- **The labels were computed by a script applying the same rule (20/20 agreement with the code).** So the pass rate measures agreement with the rule, that is, whether Claude applied the student's rule. It is not an independent measure of correctness, and it says nothing about whether the rule picks good jobs. The brief asked for hand labels; none were made. The student's Frictional note lists two postings where it doesn't: 4616971008 and 5418610008.
 - **Everything ran on one model, one route, and one morning.** `claude -p` ran at its default effort, while the chat surface used "Max". The `api` route was never run.
 - **The held-out set was run once per prompt.** Nothing was changed after seeing it.
 
@@ -74,3 +74,9 @@ v2's replies were longer (about 100–125 more output tokens each) and cost abou
 > Switch to v2 for future runs only, keeping strict validation and leaving runs 1 and 2 recorded as v1. This is a choice for clearer explanations; v2 still missed the experiment's original acceptance condition because one held-out reply was malformed.
 
 `jobwatch.judge.DEFAULT_PROMPT` is now `judge_v2`, with a test that the prompt recorded in the results is the prompt sent. The validator is unchanged, so a malformed reply still fails the run and never becomes a verdict.
+
+## My conclusion
+
+_The student's words, 2026-10-31._
+
+V2 made the explanations easier to trace: every valid reply named all eight required field paths, while none of the v1 explanations did. Both prompts passed all thirty development calls, but v2 passed twenty-nine of thirty held-out calls because one reply was malformed. V2 therefore missed the original condition that its pass rate must not decrease, and one failure is too little evidence to establish a general reliability difference. I accept v2 for future runs because explicit field references matter to the contract, with strict validation still rejecting broken replies. The presence of those references does not prove that the explanation uses them correctly, and the historical v1 results should remain recorded as they occurred.

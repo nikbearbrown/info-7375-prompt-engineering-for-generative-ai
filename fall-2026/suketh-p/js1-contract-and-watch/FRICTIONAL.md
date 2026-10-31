@@ -1,6 +1,6 @@
 # FRICTIONAL — Job-Search Agent 1
 
-Two parts. **My entries** are in my own words, written while the work happened, and dated. **Claude Code's timeline** is a factual record of what Claude Code did, with times that the commits or saved files can prove. Nothing in the timeline is presented as my experience.
+Two parts. **My entries** are in my own words and dated; the last one is a retrospective written at sign-off. **Claude Code's timeline** is a factual record of what Claude Code did, with times that the commits or saved files can prove. Nothing in the timeline is presented as my experience.
 
 ## My entries
 
@@ -30,6 +30,24 @@ Switch to v2 for future runs only, keeping strict validation and leaving runs 1 
 
 _Then, about the corrected drafts: "All are clear, I guess", and "Sign now"._
 
+### 2026-10-31 — Retrospective written today at sign-off
+
+I am writing this entry today at sign-off, looking back over October 28–31. My aim was to build a watch for ML and data engineering jobs with a rule I could explain and clear limits on what the agent could access. The starting contract, fictional persona, and labeling rule were drafted by me. The contract was committed before implementation in 29b3a26, which establishes the order of the work. I wrote the contract myself.
+
+On October 30, I asked what to do next because I did not understand the remaining steps. The timeline records my question, “I didn’t get it,” followed by a shorter list of actions and the decision to use my Claude Code login. That route was available, but it also introduced a limitation: the application supplies the intended prompt, persona, and posting, while Claude Code adds context that I have not inspected. That exception needs to be explicit in the contract.
+
+The labeling stage also needed a more accurate description. A read-only Python script applied the written rule to the twenty postings, and a separate script recomputed the results. The labels saved in 0f312fb were six relevant and fourteen not relevant. They were not twenty independent judgments I made manually. Their agreement with the implementation checks consistency with the rule, not independent correctness or whether those jobs suit me.
+
+Reviewing the drafts exposed a problem beyond whether the program ran. The documents described the labels as independent and said they came “before any Claude call,” although earlier calls were already recorded. After my review, I withheld the sign-off and corrected those claims; 5805125 records that correction. Calling the labels “not independent” was only part of the correction: SOURCES also needs to explain their actual computation and the work I did to draft the text.
+
+My own concrete execution check was running the 91-test suite in Terminal on October 31; all tests passed, and the output is recorded in 8e58685. That supports the test-run claim, but not that I authored the tests, independently checked every result, or tested the later changes myself.
+
+I accepted the stricter fictional résumé checks, case-sensitive quotations after whitespace normalization, no retries, and compressed raw evidence with hash verification. I also accepted prompt change A, which asks the justification to name its fields while keeping the matching rules unchanged (b0d2a88). The results in d5154cd show clearer field references, but one malformed held-out reply means v2 missed the original acceptance condition. The future switch recorded in 4827519 is a choice for clearer explanations, not proof that v2 is better overall.
+
+The unresolved items still matter: the added route context remains uninspected, prompt injection was not tested, the API route had no live test, and counting field names does not establish that an explanation uses them correctly. The final sign-off needs to preserve those limits and accurately record the work I performed.
+
+_Note added by Claude Code: two sentences differ from the text the student first sent. Claude Code pointed out that the record contradicted them. A commit shows when something was written, not who wrote it, and Claude Code (not the student) wrote the tests and ran the 92nd. The student then chose the wording above. The first version said the commit "establishes the order of the work and that I wrote it independently", and that the test run supported "that I authored the tests, independently checked every result, and tested the later changes myself."_
+
 ## Claude Code's timeline (factual)
 
 All times EDT; each line points to the commit or file that shows it.
@@ -51,7 +69,7 @@ All times EDT; each line points to the commit or file that shows it.
 | 10-31 08:49 | Seeded agent demo for posting 5418610008: first real Claude call, valid reply, relevant. | — | `a516410` |
 | 10-31 08:50 | Run 2, live: 675 postings, 27 new, 27/27 valid replies, 0 disagreements. | — | `a516410` |
 | 10-31 08:53 | Surface 2 (Read tool only): relevant, validated. The home path in the saved stream was replaced with `~`. | Privacy edit, recorded in the file | `0f20222` |
-| 10-31 09:05 | The 20 labels the student sent in chat were saved verbatim (6 relevant, 14 not), before any sampling or experiment call. They came after run 2, the demo and surface 2. The commit message wrongly says they were made "by reading" the sheet; see the 09:30 row. | Student's labels | `0f312fb` |
+| 10-31 09:05 | The 20 labels the student sent in chat were saved verbatim (6 relevant, 14 not), before any sampling or experiment call. They came after run 2, the demo and surface 2. The commit message wrongly says they were made "by reading" the sheet; see the 09:30 row. They were in fact computed by a script the student wrote; see the 10:28 row. | Student's labels | `0f312fb` |
 | 10-31 09:06 | Labels vs rule records: identical on 20/20 (a consistency check; not independent, see the 09:30 row). The surface-1 reply from the student's chat passed the validator. The chat link was kept out of the repo (privacy rule). | — | `0f3b4af` |
 | 10-31 09:06 | Sampling attempt 1 crashed before making any call: the script wrote a file before creating its folder. Fixed with one line; no test was written for that script's file handling. | Claude Code's own bug | `d2db430` |
 | 10-31 09:07–09:08 | v1 on development: 30/30 pass. Sampling: 20/20, every posting unanimous. | — | `d2db430` |
@@ -64,3 +82,4 @@ All times EDT; each line points to the commit or file that shows it.
 | 10-31 09:39–09:40 | Two commits made **outside this conversation** by another Claude Code session (each carries the Claude co-author line). `406fb0a` masked the home path in three saved test logs, with a note line in each. `b12ba0c` pushed the branch to the student's fork and checked a fresh sparse clone from GitHub: 91 tests OK, both raw responses verify. This session found them before pushing, read both diffs, and found them accurate. | Accepted after checking | `406fb0a`, `b12ba0c` |
 | 10-31 09:42–09:47 | The student reviewed the corrected drafts ("All are clear, I guess"), signed ("Sign now"), switched future runs to v2 (their words are above), and approved the push. Claude Code made the switch test first (92 tests; the student's own run had covered the first 91). It also replaced a test's made-up non-555 phone number with `000-000-0000`, so the test can't contain a real person's number. | Student's decisions | the next commit |
 | 10-31 09:46–09:48 | A fresh clone of the pushed `4827519` from GitHub ran as documented: 92 tests OK, both raw responses verify, the offline replay runs. Checking the README, Claude Code found that **its own commit `4827519` had deleted `b12ba0c`'s README row** recording the 09:39 clone check. Its edits had not touched that row; the likely cause is that its edit was based on a copy of the file read before the other session changed it. Restored verbatim in the next commit, beside the new 09:46 row. | Claude Code's own mistake, caught before submission | the next commit |
+| 10-31 10:28–10:45 | **The student disclosed** in a retrospective entry that the 20 labels were computed by a read-only Python script applying the written rule, with a separate script recomputing the results. The student wrote the script; they did not say whether it reused jobwatch's rule code. Claude Code fact-checked the entry; two sentences contradicted the record, and the student chose corrected wording (see the note under the entry). Placed verbatim: the student's second contract amendment (accepting the Claude Code route's added context for future runs), their regression test `tests/test_my_cases.py` (3 saved real postings; it passes; suite now 93), and their two conclusions. The labels are re-described everywhere as script-computed. File and field names containing "hand" predate the disclosure. The student confirmed the sign-off on the corrected text ("Still signed"). | Student's disclosure and decisions; Claude Code's fact-check | the next commit |

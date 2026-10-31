@@ -43,10 +43,16 @@ The two relevant postings got nearly identical replies. The three not-relevant o
 
 **Can:**
 - On these 5 postings, with this prompt, model, and route, on this morning, Claude's verdict was repeatable: 4 of 4 agreed every time.
-- On these 5 postings, every verdict also equalled the student's label. The labels were committed before the sampling calls (`0f312fb` at 09:05; sampling at 09:08), but after other Claude calls, and they are **not independent** of the rule's output (see the README section "The labels are not independent").
+- On these 5 postings, every verdict also equalled the student's label. The labels were committed before the sampling calls (`0f312fb` at 09:05; sampling at 09:08), but after other Claude calls. They were **computed by the student's own script applying the rule, not labeled by hand** (see the README section "The labels were computed by a script").
 
 **Cannot:**
-- **Repeatability is not correctness.** Four identical answers would be just as identical if they were all wrong. The only check on correctness here is comparison with the student's labels, on 5 postings, and those labels equal the rule and were made after its output had been shown. So this is agreement with the rule, not independent correctness.
+- **Repeatability is not correctness.** Four identical answers would be just as identical if they were all wrong. The only check on correctness here is comparison with the student's labels, on 5 postings, and those labels were computed by a script applying the same rule. So this is agreement with the rule, not independent correctness.
 - **This doesn't generalize to the board.** These 5 were chosen to include near-misses, not at random, and 5 postings × 4 calls is a very small sample. A posting where the rule is a close call, like "Data Center Controls Engineer", which is relevant only because "data" is a focus term, could split, and none of those was among the 5.
 - **It doesn't hold for other settings.** Variation could differ with another effort level, model version, or route. The `api` route was never run. The chat surface used effort "Max", per the student.
 - **The labels check only one thing.** They apply the same rule the prompt describes, so agreement shows that Claude applied the student's rule, not that the rule picks good jobs. The student's Frictional note gives two counter-examples: posting 4616971008 has Python and PyTorch but fails on its title, and posting 5418610008 passes while asking for 5+ years of experience.
+
+## My conclusion
+
+_The student's words, 2026-10-31._
+
+All four calls gave the same verdict for each of the five postings, and all twenty replies passed validation. That shows repeatability under this particular prompt, model, and setup; the quotations and explanation wording still varied. The reference labels were computed by me, so matching them does not provide independent human verification. I take this as evidence that the model consistently applied the rule on these selected postings, not that the rule finds suitable jobs or that the result generalizes to the whole board.
