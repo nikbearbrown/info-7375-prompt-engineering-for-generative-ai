@@ -1,6 +1,8 @@
 # Interpretations of CONTRACT.md
 
-*Drafted by Claude Code on 2026-10-28, after CONTRACT.md was committed (commit `7c8f9e5`) and before any code was written. CONTRACT.md is Shreyash's and is not edited; this file records how each phrase in it was made computable, so a TA can apply the rule by hand and get the same verdict as `jsagent/rule.py`. Where a choice was made that the contract does not force, it is marked **choice**. Shreyash reviewed this file; see FRICTIONAL.md for what was accepted or changed.*
+*Drafted by Claude Code on 2026-10-28, after CONTRACT.md was committed (commit `7c8f9e5`) and before any code was written. CONTRACT.md is Shreyash's and is not edited; this file records how each phrase in it was made computable, so a TA can apply the rule by hand and get the same verdict as `jsagent/rule.py`. Where a choice was made that the contract does not force, it is marked **choice**. Shreyash was asked on 2026-10-28 and again on 2026-10-30 to accept or change the two main choices (the experience reading and state-limited remote) and did not answer before submission, so they stand as Claude's choices, unreviewed.*
+
+**Known defects found after run 2 (not fixed in this layer; see FRICTIONAL.md):** the experience pattern misses a requirement whose "experience" word is missing or more than 60 characters away (postings 8083703, 8319419), and condition 3 trusts a "Remote" office tag over an ad that says hybrid (6555819, 8250366) or limits remote to states without Massachusetts (8172223). In every one of these cases the verdict is still Not Relevant, because other conditions fail too.
 
 The words "posting.X" below are the Greenhouse field names the code reads. Greenhouse has no "required skills" or "minimum experience" field: both are read out of `content` (the ad text), as described in conditions 4 and 5.
 
