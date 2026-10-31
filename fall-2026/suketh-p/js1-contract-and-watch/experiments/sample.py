@@ -49,6 +49,7 @@ def main():
             sys.exit(f"{OUT / 'calls.jsonl'} already exists; refusing to mix two sampling sessions")
         postings = harness.baseline_postings()
         jobs = [(postings[i], PROMPT, k) for k in range(1, args.repeats + 1) for i in ids]
+        OUT.mkdir(parents=True, exist_ok=True)
         harness.write_json(OUT / "session.json", {"started_at": harness.now(), "judge": args.judge, "model": args.model,
                                                     "prompt": PROMPT, "repeats": args.repeats, "posting_ids": ids,
                                                     "git": harness.git_state()})
