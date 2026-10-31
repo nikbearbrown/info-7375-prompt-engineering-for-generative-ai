@@ -184,3 +184,7 @@ I will construct invalid responses covering those cases. The validator must reje
 ## What a failure looks like
 
 October 28, 2026 — I will consider this version a failure if it reports baseline postings as new, makes an unapproved request, exposes private résumé information, attaches evidence to the wrong posting, or accepts a verdict without the required supporting fields.
+
+## Amendment
+
+October 31, 2026 - I will consider this version a failure if it reports a previously seen posting as new, accepts a verdict without matching résumé and posting evidence, contacts an unapproved host, or exposes private résumé information.
