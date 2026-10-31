@@ -1,0 +1,85 @@
+{
+  "run_id": "20261031T180716Z_stripe",
+  "label": "live",
+  "board": "stripe",
+  "source": "network",
+  "from_file": null,
+  "from_file_sha256": null,
+  "generated_at": "2026-10-31T18:07:25Z",
+  "counts": {
+    "postings": 745,
+    "unique": 745,
+    "previously_seen": 744,
+    "new": 1,
+    "agree": 1,
+    "disagree": 0
+  },
+  "duplicates_dropped": 0,
+  "skipped_bad_id": [],
+  "skipped_bad_title": [],
+  "judge": {
+    "status": "run",
+    "backend": "claude-cli",
+    "model": "claude-sonnet-5-5",
+    "prompt_sha256": "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0"
+  },
+  "records": [
+    {
+      "posting_id": "8327254",
+      "title": "Product Manager, Terminal Payments",
+      "absolute_url": "https://stripe.com/jobs/search?gh_jid=8327254",
+      "location": "Toronto, Canada",
+      "record": {
+        "verdict": "not_relevant",
+        "citations": [
+          {
+            "source": "resume",
+            "path": "/targets/exclude_title_terms/4",
+            "value": "Manager"
+          },
+          {
+            "source": "posting",
+            "path": "/title",
+            "value": "Manager"
+          }
+        ]
+      },
+      "judgment": {
+        "status": "accepted",
+        "reason": "The role is a product management position in payments, not ML engineering. It requires 5+ years of PM experience versus the persona's 3 years in ML/software, and it is located in Toronto, which is not among the persona's target locations.",
+        "verdict": "not_relevant",
+        "citations": [
+          {
+            "source": "resume",
+            "path": "/targets/roles/0",
+            "value": "Machine Learning Engineer"
+          },
+          {
+            "source": "resume",
+            "path": "/basics/location/city",
+            "value": "Boston"
+          },
+          {
+            "source": "posting",
+            "path": "/title",
+            "value": "Product Manager, Terminal Payments"
+          },
+          {
+            "source": "posting",
+            "path": "/location/name",
+            "value": "Toronto, Canada"
+          },
+          {
+            "source": "posting",
+            "path": "/content_text",
+            "value": "5+ years of product management experience or equivalent experience"
+          }
+        ],
+        "model": "claude-sonnet-5-5",
+        "called_at": "2026-10-31T18:07:22Z",
+        "raw_path": "evidence/runs/20261031T180716Z_stripe/claude/8327254.response.txt"
+      },
+      "agreement": "agree"
+    }
+  ]
+}
