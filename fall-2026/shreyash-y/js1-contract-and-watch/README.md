@@ -104,7 +104,7 @@ The rule's record disagreed with Claude on condition 3 or 5 five times across ru
 - **Condition 5 (experience) undercounts** when the word "experience" is missing or more than 60 characters after the number (8083703, 8319419).
 - **Condition 3 (location) trusts an office tag.** A "Remote" tag wins over an ad that says hybrid (6555819, 8250366), and remote limited to states that exclude Massachusetts still passes (8172223).
 
-None of the five changed a verdict, because every one of those postings fails other conditions. They were left unfixed in this layer so that the record of what ran stays what ran. Fixing them is the first item for the next layer.
+None of the five changed a verdict, because every one of those postings fails other conditions. Shreyash re-read all five on 2026-10-31 and found Claude's reading supported each time. Shreyash then decided to keep this layer's results as they ran and to use a corrected rule in future runs: experience from mandatory qualifications only, and remote only if workable from Massachusetts ([labels/DISPUTED-POSTINGS-REVIEW.md](labels/DISPUTED-POSTINGS-REVIEW.md)).
 
 ## Sign-off — Job-Search Agent 1
 
@@ -126,13 +126,15 @@ How:          Tests were written by Claude Code from CONTRACT.md and committed b
               (evidence/tests-run-by-shreyash-2026-10-31.txt), before 3 validator tests were
               added later that day. The run 2
               recount and the seeded replay are recomputations. The labels are by hand (Shreyash).
-              Reading the ads where the two judges disagreed was done by Claude Code, which also
-              checked the quotes against the raw files; Shreyash has not re-read those five ads.
+              Claude Code found the five disputed ads and checked the quotes against the raw files;
+              Shreyash re-read all five on 2026-10-31 and found Claude's reading supported in each
+              (labels/DISPUTED-POSTINGS-REVIEW.md).
 Not checked:  - No real posting passed all six conditions, so the Relevant path has only been
                 exercised on constructed postings in tests, never on a real one.
-              - The three rule defects above are known and unfixed, and the two interpretation
-                choices (experience = largest N; state-limited remote passes) were never confirmed
-                by Shreyash.
+              - The rule defects above are known and unfixed. Shreyash decided on 2026-10-31 that
+                experience counts only mandatory qualifications and that remote counts only if
+                workable from Massachusetts, but JS1's code still runs the old reading; the
+                corrected rule is for future runs.
               - Redirect refusal was tested against a constructed redirect only; no live redirect
                 was seen.
               - The Claude judge's resistance to instructions hidden in a posting was not tested.
@@ -151,7 +153,7 @@ Signed or withheld: Shreyash Yadav, 10/31/2026 (signature typed by Shreyash in t
 | The contract | turn the words into code and point out ambiguous phrases | decide what counts as relevant, and write it first | it is the decision about which jobs are worth a day; a model can state a rule but has no stake in it | `7c8f9e5` contains only CONTRACT.md. Lines 1 and 2 below. The ambiguities went to INTERPRETATIONS.md (`1ab74ec`), not into the contract. |
 | Ground truth | build a label sheet that shows no verdicts | label the postings with a rule written first | labels made by the system being tested would only measure it against itself | `20041e3` (sheet, no verdicts) before `b3faea5` (Shreyash's rule and labels), before any Claude call on those postings |
 | Code, tests, prompts, runs | write them, run them, save everything | choose the board, the persona and the model, and say when to run | the run order and scope are Shreyash's calls; the code can be checked by the tests | Lines 1, 2 and 3 below; commits `6d74630` to `a021d9c` |
-| Who was right when the judges disagreed | find the disagreements, quote the ad, check the quote is real | read the ad and decide | a verdict about a job is the one thing the assignment says Claude cannot own | **Not fully done.** Claude did the reading. Shreyash has not re-read the five ads (Not checked). |
+| Who was right when the judges disagreed | find the disagreements, quote the ad, check the quote is real | read the ad and decide | a verdict about a job is the one thing the assignment says Claude cannot own | Done by Shreyash on 2026-10-31, after the experiment: [labels/DISPUTED-POSTINGS-REVIEW.md](labels/DISPUTED-POSTINGS-REVIEW.md), with a reason per posting and the two rule decisions. Line 6 below. |
 | The one prompt change | propose options from the development results | pick one | — | **Not done as intended.** Claude picked revision-1 (PROMPT-EXPERIMENT.md says so). |
 | The sign-off | draft the lines | check them, decide what is not checked, sign or withhold | only the person who signs knows what they did not test | Line 5 below and the signature line above |
 
@@ -162,3 +164,4 @@ Shreyash's own lines in the session, quoted exactly (the transcript stays on Shr
 3. 2026-10-30: **"lets do run 2"**. Run 2 started at 19:02 EDT (`079aedb`).
 4. 2026-10-31: the labeling rule and labels pasted (`labels/LABELING-RULE.md`), and the four FRICTIONAL answers (`FRICTIONAL.md` Part 1).
 5. 2026-10-31: **"signature : Shreyash Yadav 10/31/2026"**. Then, after the TA-style review: **"Yes, fix both"**, for the validator fix and this table.
+6. 2026-10-31: **"i read the 20 ads myself"**, **"change the 'agreed with its labels' line"**, **"we will go with this choice Experience: the minimum required is the largest 'N+ years' in the ad."**, then the per-posting notes and the posting review.

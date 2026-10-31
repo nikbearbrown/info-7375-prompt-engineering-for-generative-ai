@@ -15,7 +15,8 @@
 | Part | Where |
 |---|---|
 | The contract (In, Out, Refuses, the rule, wrong versions, the failure sentence, the persona). Pasted into the session on 2026-10-28; Claude changed formatting only. | `CONTRACT.md` (commit `7c8f9e5`) |
-| The labeling rule and the 20 hand labels, pasted 2026-10-31 | `labels/LABELING-RULE.md`, `labels/hand-labels.csv` (commit `b3faea5`) |
+| The labeling rule and the 20 hand labels, pasted 2026-10-31. Shreyash: "i read the 20 ads myself". | `labels/LABELING-RULE.md`, `labels/hand-labels.csv` (commit `b3faea5`) |
+| The per-posting evidence notes, the review of the five disputed postings, and the two rule decisions, all after the experiment on 2026-10-31 | `labels/hand-labels.csv` `note` column, `labels/DISPUTED-POSTINGS-REVIEW.md` |
 | Choices: Oscar as the board, Opus as the judge model, the interview route for the contract, and when to do run 2 | the session record; see the README driver's seat |
 | The sign-off signature | `README.md` |
 
@@ -23,7 +24,7 @@
 
 | Part | Notes |
 |---|---|
-| `INTERPRETATIONS.md` | Claude's reading of the contract, with its choices marked. Shreyash did not review it. |
+| `INTERPRETATIONS.md` | Claude's reading of the contract, with its choices marked. Shreyash decided the two open choices on 2026-10-31, after the experiment. |
 | All code in `jsagent/`, `experiments/` and `labels/make_label_sheet.py` | written by Claude Code |
 | All tests in `tests/`, including the wrong-version implementations | written by Claude Code from the contract, before the implementation |
 | The persona JSON | transcribed from CONTRACT.md section 1 |
