@@ -1,0 +1,39 @@
+# 2026-10-30T20:14:13Z  JS1_IMPL=agent.wrong_stub python3 -m unittest -v tests.test_wrong_versions
+test_verdict_0_belongs_to_posting_0 (tests.test_wrong_versions.WrongVersion1LabelPostingMismatch.test_verdict_0_belongs_to_posting_0) ... FAIL
+test_justification_contains_a_literal_value (tests.test_wrong_versions.WrongVersion2JustificationCitesNothing.test_justification_contains_a_literal_value) ... 
+  test_justification_contains_a_literal_value (tests.test_wrong_versions.WrongVersion2JustificationCitesNothing.test_justification_contains_a_literal_value) (posting_id=1001) ... FAIL
+  test_justification_contains_a_literal_value (tests.test_wrong_versions.WrongVersion2JustificationCitesNothing.test_justification_contains_a_literal_value) (posting_id=2002) ... FAIL
+
+======================================================================
+FAIL: test_verdict_0_belongs_to_posting_0 (tests.test_wrong_versions.WrongVersion1LabelPostingMismatch.test_verdict_0_belongs_to_posting_0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_wrong_versions.py", line 48, in test_verdict_0_belongs_to_posting_0
+    self.assertEqual(results[0]["verdict"], "not relevant")
+AssertionError: 'relevant' != 'not relevant'
+- relevant
++ not relevant
+? ++++
+
+
+======================================================================
+FAIL: test_justification_contains_a_literal_value (tests.test_wrong_versions.WrongVersion2JustificationCitesNothing.test_justification_contains_a_literal_value) (posting_id=1001)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_wrong_versions.py", line 76, in test_justification_contains_a_literal_value
+    self.assertTrue(
+AssertionError: False is not true : justification cites no resume/posting value: 'Seems like a good fit.'
+
+======================================================================
+FAIL: test_justification_contains_a_literal_value (tests.test_wrong_versions.WrongVersion2JustificationCitesNothing.test_justification_contains_a_literal_value) (posting_id=2002)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_wrong_versions.py", line 76, in test_justification_contains_a_literal_value
+    self.assertTrue(
+AssertionError: False is not true : justification cites no resume/posting value: 'Seems like a good fit.'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=3)
+exit=1
