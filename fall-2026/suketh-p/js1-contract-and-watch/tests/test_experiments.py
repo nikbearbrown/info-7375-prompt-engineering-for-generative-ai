@@ -34,6 +34,26 @@ class ScoreTest(unittest.TestCase):
         self.assertEqual(summary["postings_all_calls_passed"], 1)
 
 
+ALL_EIGHT = ("Engineering role passes (resume.preferences.title_word, resume.preferences.focus_terms, posting.title); "
+             "seniority passes (resume.preferences.excluded_title_words); location passes "
+             "(resume.preferences.location_terms, posting.location.name); skills pass (resume.skills, posting.content).")
+
+
+class TraceabilityTest(unittest.TestCase):
+    """Pre-registered secondary measure for the v2 change: does the justification itself
+    name every field path the rule reads (5 résumé + 3 posting)?"""
+
+    def test_counts_only_valid_replies_that_name_every_path(self):
+        calls = [
+            dict(call(1, "relevant"), justification=ALL_EIGHT),
+            dict(call(2, "relevant"), justification="posting.title, posting.location.name and posting.content all pass."),
+            dict(call(3, "not_relevant"), justification="The title has no engineer."),
+            call(4, valid=False),
+        ]
+        self.assertEqual(scoring.traceability(calls),
+                         {"valid": 3, "names_all_8_paths": 1, "names_all_3_posting_paths": 2})
+
+
 class HandLabelTest(unittest.TestCase):
     def write(self, rows):
         tmp = tempfile.TemporaryDirectory()

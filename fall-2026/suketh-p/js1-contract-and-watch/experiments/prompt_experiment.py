@@ -38,10 +38,13 @@ def summarize(run_dir, ids, prompt, set_name):
     calls = harness.read_calls(run_dir / "calls.jsonl")
     summary = scoring.score(calls, scoring.load_hand_labels(harness.HAND_LABELS, ids),
                             harness.rule_verdicts(resume, postings, ids))
-    summary.update(prompt=prompt, set=set_name, posting_ids=ids)
+    summary.update(prompt=prompt, set=set_name, posting_ids=ids, traceability=scoring.traceability(calls))
     harness.write_json(run_dir / "summary.json", summary)
+    trace = summary["traceability"]
     print(f"{prompt} on {set_name}: {summary['passed']}/{summary['calls']} calls pass "
-          f"({summary['valid']} valid); {summary['postings_all_calls_passed']}/{summary['postings']} postings pass every call")
+          f"({summary['valid']} valid); {summary['postings_all_calls_passed']}/{summary['postings']} postings pass every call; "
+          f"justification names all 8 paths in {trace['names_all_8_paths']}/{trace['valid']}, "
+          f"all 3 posting paths in {trace['names_all_3_posting_paths']}/{trace['valid']}")
 
 
 def main():

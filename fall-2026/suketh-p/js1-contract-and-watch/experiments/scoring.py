@@ -8,6 +8,20 @@ import csv
 from jobwatch.errors import InputError
 
 LABELS = ("relevant", "not_relevant")
+RESUME_PATHS = ("resume.preferences.title_word", "resume.preferences.focus_terms",
+                "resume.preferences.excluded_title_words", "resume.preferences.location_terms", "resume.skills")
+POSTING_PATHS = ("posting.title", "posting.location.name", "posting.content")
+
+
+def traceability(calls):
+    """Secondary measure, fixed before prompt v2 ran: valid replies whose justification text
+    names every field path the rule reads (5 résumé + 3 posting), and the 3 posting paths alone."""
+    valid = [c for c in calls if c["valid"]]
+    return {
+        "valid": len(valid),
+        "names_all_8_paths": sum(all(p in c["justification"] for p in RESUME_PATHS + POSTING_PATHS) for c in valid),
+        "names_all_3_posting_paths": sum(all(p in c["justification"] for p in POSTING_PATHS) for c in valid),
+    }
 
 
 def load_hand_labels(path, ids):
