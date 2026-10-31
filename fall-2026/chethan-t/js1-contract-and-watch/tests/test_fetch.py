@@ -1,3 +1,4 @@
+import http.client
 import io
 import json
 import urllib.request
@@ -36,3 +37,40 @@ def test_16b_greenhouse_host_is_accepted_with_network_mocked(monkeypatch, postin
 
     fetch.fetch_board(BOARD_URL)
     assert requested == [BOARD_URL]
+
+
+class FakeSocket:
+    def __init__(self, raw):
+        self.raw = raw
+
+    def makefile(self, mode):
+        return io.BytesIO(self.raw)
+
+
+def test_16c_redirect_to_other_host_is_refused(monkeypatch):
+    # Contract v2.1: a redirect off boards-api.greenhouse.io is refused
+    # before any request reaches the other host. Only the HTTPS connection
+    # is faked; urllib's real redirect handling runs.
+    contacted = []
+
+    class FakeHTTPSConnection(http.client.HTTPConnection):
+        def __init__(self, host, timeout=None, context=None):
+            contacted.append(host)
+            super().__init__(host, timeout=timeout)
+
+        def request(self, *args, **kwargs):
+            pass
+
+        def getresponse(self):
+            raw = (b"HTTP/1.1 302 Found\r\n"
+                   b"Location: https://evil.example.com/jobs\r\n"
+                   b"Content-Length: 0\r\n\r\n")
+            response = http.client.HTTPResponse(FakeSocket(raw))
+            response.begin()
+            return response
+
+    monkeypatch.setattr(http.client, "HTTPSConnection", FakeHTTPSConnection)
+
+    with pytest.raises(ValueError):
+        fetch.fetch_board(BOARD_URL)
+    assert contacted == ["boards-api.greenhouse.io"]

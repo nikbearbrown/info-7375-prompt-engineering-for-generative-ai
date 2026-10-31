@@ -104,7 +104,7 @@ def _min_years_required(text):
 
 def _check_location(name):
     for part in name.split(";"):
-        part = part.strip()
+        part = part.replace(".", "").strip()  # "U.S." counts as "US"
         m = STATE_AT_END.search(part)
         if m and m.group(1).upper() in US_STATES:
             return True

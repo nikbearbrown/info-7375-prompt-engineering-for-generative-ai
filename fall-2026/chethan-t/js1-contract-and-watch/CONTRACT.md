@@ -1,6 +1,8 @@
 # CONTRACT — Job-Search Agent 1 (v2)
 
 Written: 2026-10-31, before any code was written or run.
+v2.1 (2026-10-31): location ignores periods; redirects to other hosts
+are refused.
 Previous version: CONTRACT_v1.md (kept for reference).
 
 ## In
@@ -34,7 +36,8 @@ Printed to the screen and saved to `results/<date>.json`.
 ## Refuses
 The agent will not:
 1. **Fetch any other website.** Only `boards-api.greenhouse.io` is allowed;
-   any other host stops with an error before a request is made.
+   any other host, including redirects, stops with an error before a
+   request is made.
 2. **Use a real résumé.** It refuses to run unless the résumé's email ends
    in `@example.com` and its phone contains `555`.
 3. **Present Claude's opinion as fact.** Claude's verdict is always labeled
@@ -63,6 +66,7 @@ All text matches are case-insensitive. `content` is read after removing HTML tag
 4. **Location** (posting `location.name` vs résumé `target.locations`):
    pass if at least one location (split on ";") ends in a two-letter US
    state code, or contains "United States", "USA", or "US" as a whole word.
+   Periods are ignored, so 'U.S.' counts as 'US'.
 5. **Work authorization** (posting `content` vs résumé `work_authorization`):
    fail if `content` contains any of: "unable to sponsor", "will not sponsor",
    "not able to sponsor", "do not sponsor", "does not sponsor",

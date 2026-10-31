@@ -42,6 +42,11 @@ def test_08_one_us_location_among_several_is_relevant(postings, resume):
     assert verdict(postings, resume, "swe_boston_and_london") == "relevant"
 
 
+def test_08b_us_with_periods_is_relevant(postings, resume):
+    # Contract v2.1: periods are ignored, so "U.S." counts as "US".
+    assert verdict(postings, resume, "swe_remote_us_periods") == "relevant"
+
+
 # Work authorization
 
 def test_09_unable_to_sponsor_is_not_relevant(postings, resume):
