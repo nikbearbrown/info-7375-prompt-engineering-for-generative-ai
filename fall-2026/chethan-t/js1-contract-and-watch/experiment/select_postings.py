@@ -2,8 +2,11 @@
 
 Run from the project folder: python3 experiment/select_postings.py
 
-14 postings whose title contains "engineer" or "developer" (case-insensitive),
-6 from the rest, seed 7; then a random 10/10 split into "dev" and "heldout".
+Duplicate titles (the same role posted in several locations) are removed
+first, keeping the lowest id. Then 14 postings whose title contains
+"engineer" or "developer" (case-insensitive), 6 from the rest, seed 7;
+then a random 10/10 split into "dev" and "heldout".
+v1 (with duplicates) is kept as experiment/labels_v1_with_duplicates.csv.
 Writes experiment/labels.csv with my_label and my_note blank. No rule or
 Claude verdicts are computed or written here.
 """
@@ -27,6 +30,14 @@ def is_engineering(posting):
     return "engineer" in title or "developer" in title
 
 
+def one_per_title(jobs):
+    """Keep the lowest-id posting for each distinct title (jobs sorted by id)."""
+    kept = {}
+    for job in jobs:
+        kept.setdefault(job["title"], job)
+    return list(kept.values())
+
+
 def already_labeled():
     if not LABELS_PATH.exists():
         return False
@@ -38,7 +49,8 @@ def main():
     if already_labeled():
         sys.exit(f"refusing to overwrite {LABELS_PATH.name}: it already has labels")
 
-    jobs = sorted(json.loads(RAW_PATH.read_text())["jobs"], key=lambda j: j["id"])
+    all_jobs = sorted(json.loads(RAW_PATH.read_text())["jobs"], key=lambda j: j["id"])
+    jobs = one_per_title(all_jobs)
     engineering = [j for j in jobs if is_engineering(j)]
     other = [j for j in jobs if not is_engineering(j)]
 
@@ -60,7 +72,8 @@ def main():
                 "my_note": "",
             })
 
-    print(f"{len(jobs)} postings: {len(engineering)} engineer/developer, {len(other)} other")
+    print(f"{len(all_jobs)} postings, {len(jobs)} distinct titles: "
+          f"{len(engineering)} engineer/developer, {len(other)} other")
     print(f"Wrote {len(picked)} rows to {LABELS_PATH.relative_to(PROJECT)} (seed {SEED})")
 
 
