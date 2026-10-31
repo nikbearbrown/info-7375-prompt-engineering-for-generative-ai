@@ -16,13 +16,17 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 
 ### In my own words
 
-*Shreyash writes this part. Claude Code did not write it.*
+*Shreyash's words, pasted into the session on 2026-10-31. Claude Code did not change them.*
 
 - **2026-10-31:**
   - What I tried and expected:
+    I worked on defining a labeling rule for the 20 Oscar job postings. I expected the rule to help separate jobs that matched my fictional applicant's skills and experience from those that didn't.
   - What surprised me, or what I checked:
+    I noticed that even some software engineering jobs didn't qualify because of their experience requirements or location. I also found that a job could have a remote office tag but still require working from an office.
   - What I accepted, changed or rejected from Claude:
+    i agreed with its labels or corrected a decision after checking the job description.
   - What I still don't understand, and my next step:
+    I'm still figuring out how to handle postings with missing information without making assumptions. My next step is to compare the rule's output against my hand labels and check where they disagree.
 
 ## Part 2 — Claude Code's process log ("I" = Claude Code)
 
