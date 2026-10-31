@@ -1,5 +1,7 @@
 # Prompt experiment (Chapter 2)
 
+> **See also [experiment 2](experiment-2/EXPERIMENT-2.md)**, added on 2026-10-31 after review. It runs the same two prompts on 20 fresh Klaviyo postings, 4 of them hand-labeled Relevant, with per-condition labels committed before any call. That answers the main limit of this experiment: a set with no positives can't test finding a match.
+
 *Written by Claude Code on 2026-10-31 from the saved calls and the two score files: `experiments/prompt-experiment/score-development-2026-10-31.txt` and `score-held-out-2026-10-31.txt`.*
 
 ## Order of work, with commits

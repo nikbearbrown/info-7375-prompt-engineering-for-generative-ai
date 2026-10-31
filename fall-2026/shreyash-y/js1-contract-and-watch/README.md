@@ -77,13 +77,14 @@ All runs below happened as described. Times are Eastern.
 | 2026-10-31 16:38 | **Run 3, live, both judges set up** (Shreyash asked for it after the review) | 214 fetched, **0 new**, 0 gone; the raw response is byte-identical to run 2's, so Claude had nothing to judge | `runs/raw/oscar-20261031T203835Z.json`, `runs/report-oscar-20261031T203835Z.*`, `evidence/run3-terminal-2026-10-31.txt`, `evidence/run3-recount-2026-10-31.txt` |
 | 2026-10-31 | Sampling: 5 postings × 4 fresh Claude calls | 20/20 identical verdicts and failed conditions | [experiments/SAMPLING-REPORT.md](experiments/SAMPLING-REPORT.md) |
 | 2026-10-31 | Prompt experiment: baseline vs one change, 10 development then 10 held-out | 10/10 on the hand labels everywhere; the revision's quotes are word for word 112/112 | [experiments/PROMPT-EXPERIMENT.md](experiments/PROMPT-EXPERIMENT.md) |
+| 2026-10-31 16:56–17:08 | **Prompt experiment 2**, added after the review: 20 fresh Klaviyo postings, 4 hand-labeled Relevant, per-condition labels committed before any call, the same two prompts | both prompts 10/10 verdicts on dev and held-out; Relevant TP 4, FP 0, FN 0 across both halves; condition sets 9/10 and 8/10 | [experiments/experiment-2/EXPERIMENT-2.md](experiments/experiment-2/EXPERIMENT-2.md) |
 | 2026-10-31 | Action surface: chat paste, file read, agent with tools | way C needed curl to any host before it could work, wrote outside its folder, and misreported a count | [experiments/ACTION-SURFACE.md](experiments/ACTION-SURFACE.md) |
 | 2026-10-31 | Validator fix after a TA-style review: field citations now match whole words, and `id` alone no longer counts. Re-checked all 73 saved answers offline | 0 of 73 answers changed validity | `evidence/revalidation-2026-10-31.txt`, `tests/test_validator.py` |
 | 2026-10-31 | Seeded replay of runs 1 and 2 (`runs-replay/`) | identical to live run 2 (ids, verdicts, failed conditions, justification text) | `evidence/replay-terminal-2026-10-31.txt` |
 
 Wrong version 1 appeared in live data. Run 2's new postings include "Senior Product Manager, Marketplace" three times (Boston, LA and SF, three ids) and "Strategic Insights Associate, Data Analytics" four times. All seven were reported and judged separately.
 
-Claude use, all `claude-opus-5-5`: 73 judge calls ($2.29, including one smoke test on a constructed posting) and 4 action-surface sessions ($0.41).
+Claude use, all `claude-opus-5-5`: 73 judge calls ($2.29, including one smoke test on a constructed posting), 40 more for experiment 2 ($1.62), and 4 action-surface sessions ($0.41).
 
 ## How it works
 
@@ -141,9 +142,11 @@ Not checked:  - No real posting passed all six conditions, so the Relevant path 
               - The Claude judge's resistance to instructions hidden in a posting was not tested.
               - The React/RAG whole-word false positive was not measured on real postings.
               - Only Python 3.14.6 and one model on one day were tried.
-Not claiming: That this agent finds good jobs, that Claude's verdicts are accurate (only that they
-              were repeatable and matched 20 all-negative labels), that the rule's record is ground
-              truth (it is wrong in five places), or that it works on any board but Oscar's.
+Not claiming: That this agent finds good jobs, that Claude's verdicts are accurate (they were
+              repeatable, matched 20 all-negative Oscar labels, and found the 4 positives among 20
+              Klaviyo labels: far too few cases to measure accuracy), that the rule's record is
+              ground truth (it is wrong in five Oscar places and one Klaviyo place), or that the
+              watch works on any board but Oscar's (Klaviyo was only read for experiment 2).
 Signed or withheld: Shreyash Yadav, 10/31/2026 (signature typed by Shreyash in the session)
 ```
 

@@ -106,6 +106,15 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 - The raw response is byte-identical to run 2's (same sha256 `e6620c3549fb…`), so the board did not change in about 21.5 hours, and no Claude call was made.
 - A separate recount agreed, and the state now records 3 runs. A quiet day is a real result for a watcher too: the baseline logic and the id memory held across three runs.
 
+**2026-10-31 16:52–17:10, experiment 2.**
+- Shreyash agreed with the review that experiment 1 could not test positives.
+- I counted rule-positives on 20 Greenhouse boards (counts only) and picked Klaviyo. I committed a seeded pick of 20 with positives in both halves and a blind sheet (`c3eaff1`). Shreyash labeled all 20 with failed conditions and reasons (`8e2c92b`).
+- Both unchanged prompts then found the 4 positives with no false ones, on development and on held-out, and gave identical answers to each other on all 20.
+- The condition disagreements were more interesting than the verdicts:
+  - Two postings list San Francisco as the location but Boston as an office. Claude passed condition 3; Shreyash and the rule failed it. The contract doesn't settle it.
+  - On 7809608003 the rule and Claude both fail condition 4, with only Python in the ad. The hand label doesn't, which is probably a slip. I left the label as committed.
+- The rule's experience defect showed up once more (7783904003).
+
 **What I would do next (for JS2).**
 - Fix the two rule defects, with tests taken from the five real postings.
 - Ask Shreyash for per-condition labels.
