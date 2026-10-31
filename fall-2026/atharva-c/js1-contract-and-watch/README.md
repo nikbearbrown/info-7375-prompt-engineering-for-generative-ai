@@ -4,13 +4,25 @@ Watches Stripe's public Greenhouse board, reports only postings new since the
 last run, and judges each one against a fictional persona's résumé using the
 rule in [CONTRACT.md](CONTRACT.md).
 
-*Work in progress. Sections still to come: the Claude judge, sampling report,
-prompt experiment, action-surface comparison, sign-off, and driver's seat.*
+**Where everything is:**
+- [CONTRACT.md](CONTRACT.md) and [LABELING_RULE.md](LABELING_RULE.md)
+- the watcher and both judges: `agent/`
+- tests: `tests/`
+- runs: `runs/` and `state/`
+- [SAMPLING_REPORT.md](SAMPLING_REPORT.md) (Chapter 1)
+- [EXPERIMENT.md](EXPERIMENT.md) (Chapter 2)
+- [ACTION_SURFACE.md](ACTION_SURFACE.md) (Chapter 3)
+- [SOURCES.md](SOURCES.md) and [FRICTIONAL.md](FRICTIONAL.md)
+- the sign-off and driver's seat: the end of this file
 
 ## Language and toolchain
 
 - Python 3.12.7 (standard library only, nothing to install)
 - Tests: `unittest` (standard library)
+- Claude judge: Claude Code CLI 2.1.283 in headless mode (`claude -p`, tools
+  off), model `claude-sonnet-5-5`, signed in with a claude.ai account. Only
+  `--claude` and the study scripts need it; the tests and the plain watch do
+  not.
 - Board: `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true`
   (the only host on the allow-list)
 - Résumé: `examples/rohan-desai.resume.example.json`, a fictional persona from
@@ -60,7 +72,33 @@ is stored anywhere.
 
 Each run writes `runs/<UTC timestamp>/raw.json` (the response, byte for byte),
 `runs/<UTC timestamp>/report.json` (new postings and the rule's verdicts), and
-updates `state/seen_ids.json`.
+updates `state/seen_ids.json`. Because `state/` is committed, a run from a
+fresh clone compares against the runs below; it is not a new baseline.
+
+**How "anywhere in the US" is applied.** CONTRACT.md says a posting's location
+must be in the US. The exact list of names that count as US is in
+`agent/rule.py`:
+- `US`, `USA`, and the two-letter state codes, matched in capitals only;
+- `United States`, the state names, and a list of US cities, any case.
+
+Each place in the location string must match one of them. Plain `Remote`
+counts as US; `N/A` and `na` fail.
+
+The study scripts, as they were run (they call Claude, so each needs the
+`claude` CLI signed in):
+
+```bash
+python3 -m tools.select_labels runs/2026-10-30T063746Z/raw.json
+python3 -m tools.experiment --prompt prompts/baseline.txt --set dev
+python3 -m tools.experiment --prompt prompts/revision.txt --set dev
+python3 -m tools.experiment --prompt prompts/baseline.txt --set held-out --final
+python3 -m tools.experiment --prompt prompts/revision.txt --set held-out --final
+python3 -m tools.sample --ids 7776179 7557899 8241260 8175647 8197135 --times 4
+python3 -m tools.action_surface
+```
+
+Re-running them appends new calls to `logs/` and overwrites `results/`. The
+committed files are the record of the 2026-10-30 runs.
 
 ## What ran
 

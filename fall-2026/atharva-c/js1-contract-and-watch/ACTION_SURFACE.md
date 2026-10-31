@@ -15,6 +15,10 @@ Desai persona, answering in the revision prompt's JSON format. Each was a
 fresh `claude -p` session in its own empty temp folder. What each session
 actually did was read back from its transcript, not assumed.
 
+**Mode 1 was not run in the claude.ai chat page.** It was a tool-less
+`claude -p` session with the posting pasted into the prompt. That gives the
+same action surface as a chat: text in, text out, no tools.
+
 | | 1. Paste into a chat | 2. Give Claude a file | 3. Agent fetches and writes state |
 |---|---|---|---|
 | Tools given | none | `Read` | `WebFetch` (only `boards-api.greenhouse.io`), `Write`, `Read` |
