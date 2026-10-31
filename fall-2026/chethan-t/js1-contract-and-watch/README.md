@@ -7,7 +7,7 @@ since the last run, and judges each one against a fictional persona's résumé,
 with a rule verdict (record) and a Claude verdict (judgment).
 
 ## Status (2026-10-31)
-Contract written. **No code has been written or run yet.**
+Tests and empty function stubs written. Agent not implemented yet; no runs.
 
 ## Files so far
 - `CONTRACT.md` — the contract (v2), written before any code
