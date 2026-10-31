@@ -1,0 +1,169 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T21:06:03+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8041054003,
+    "tag": "e2devbase1",
+    "raw_text": "{\"posting_id\": 8041054003, \"verdict\": \"Relevant\", \"failed_conditions\": [], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title contains 'Software Engineer', its departments list Engineering, and its location and offices are Boston, MA, which matches the résumé location. The content mentions at least two résumé skills (Python, FastAPI, RAG) and requires 3+ years, which is within the résumé's experience_years of 3. The title has no excluded words, and the content describes a salaried role that is not an internship, not contract-only, and requires no relocation, so none of the résumé exclusions apply.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8041054003,
+      "verdict": "Relevant",
+      "failed_conditions": [],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title contains 'Software Engineer', its departments list Engineering, and its location and offices are Boston, MA, which matches the résumé location. The content mentions at least two résumé skills (Python, FastAPI, RAG) and requires 3+ years, which is within the résumé's experience_years of 3. The title has no excluded words, and the content describes a salaried role that is not an internship, not contract-only, and requires no relocation, so none of the résumé exclusions apply."
+    },
+    "session_id": "2cec6a1b-0e2e-402c-bc6f-d3b7efa9a658",
+    "cost_usd": 0.046156
+  },
+  "cli_output": {
+    "duration_api_ms": 4374,
+    "stop_reason": "end_turn",
+    "session_id": "2cec6a1b-0e2e-402c-bc6f-d3b7efa9a658",
+    "total_cost_usd": 0.046156,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 4721,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 419,
+      "output_tokens_details": {
+        "thinking_tokens": 161
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 4721,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 419,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 4721,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 4721
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 419,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 4721,
+        "webSearchRequests": 0,
+        "costUSD": 0.046156,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 161,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 4721,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8041054003, \"verdict\": \"Relevant\", \"failed_conditions\": [], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title contains 'Software Engineer', its departments list Engineering, and its location and offices are Boston, MA, which matches the résumé location. The content mentions at least two résumé skills (Python, FastAPI, RAG) and requires 3+ years, which is within the résumé's experience_years of 3. The title has no excluded words, and the content describes a salaried role that is not an internship, not contract-only, and requires no relocation, so none of the résumé exclusions apply.\"}",
+    "ttft_ms": 2657,
+    "type": "result",
+    "duration_ms": 6856,
+    "uuid": "671153e1-fe6c-4c48-97c9-0be158da4a63",
+    "ttft_stream_ms": 1355,
+    "time_to_request_ms": 246,
+    "time_to_request_phases_ms": {
+      "other": 38,
+      "system_prompt": 1,
+      "resume_other": 36,
+      "process_user_input": 39,
+      "input_attachments": 37,
+      "input_hooks": 2,
+      "tool_pool_refresh": 6,
+      "init_message": 12,
+      "engine_pickup": 1,
+      "message_prep": 1,
+      "model_config_wait": 1,
+      "autocompact": 5,
+      "query_setup": 1,
+      "model_gates": 0,
+      "tool_schema_build": 3,
+      "message_normalization": 27,
+      "client_creation": 4,
+      "request_build": 32
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 195,
+    "time_to_request_cpu_ms": 105,
+    "time_to_request_major_faults": 5,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 30,
+      "cpu_ms": 34,
+      "major_faults": 1
+    },
+    "first_content_frame_ms": 1355,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

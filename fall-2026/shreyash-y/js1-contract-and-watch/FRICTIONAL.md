@@ -33,6 +33,12 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
   For experience, I decided that the rule should use the highest minimum requirement mentioned in the mandatory qualifications because the applicant needs to meet all required experience conditions. For remote jobs, I decided that the job should only count as eligible if someone living in Massachusetts can actually work there.
   I didn't change the original experiment results because I wanted to keep a record of what went wrong. I have identified the issues, but I still need to update the code and add tests to make sure these cases are handled correctly. My next step is to make those changes and test whether they work consistently.
 
+- **2026-10-31 — Experiment 2 labeling review:**
+  Out of the 20 Klaviyo job postings, 4 were marked Relevant and 16 were Not Relevant. In the development set, 2 out of 10 jobs matched, and the held-out set also had 2 out of 10 matches.
+  I noticed that most jobs didn't qualify because they required more than 3 years of experience, were in the wrong location, or didn't match enough skills. Some jobs had software engineering titles but still failed the rule.
+  Compared to my earlier Oscar dataset, where all 20 jobs were marked Not Relevant, this dataset has both relevant and irrelevant jobs. I think this gives me a better way to test whether the agent can identify matching jobs instead of just rejecting everything.
+  These are the results from the labeling review. My next step is to compare them with the agent's predictions and check where they disagree.
+
 ## Part 2 — Claude Code's process log ("I" = Claude Code)
 
 **2026-10-28, before the contract.**

@@ -19,9 +19,11 @@ ap.add_argument("--repeats", type=int, default=1)
 ap.add_argument("--out", required=True)
 ap.add_argument("--tag", required=True)
 ap.add_argument("--workers", type=int, default=5)
+ap.add_argument("--selection", default="experiments/selected_postings.json")
+ap.add_argument("--board", default="oscar")
 a = ap.parse_args()
 
-sel = json.loads(pathlib.Path("experiments/selected_postings.json").read_text())
+sel = json.loads(pathlib.Path(a.selection).read_text())
 jobs = {j["id"]: j for j in json.loads(pathlib.Path(sel["raw_file"]).read_bytes())["jobs"]}
 view = persona.public_view(persona.load("persona/alex_morgan.json"))
 ids = [x["id"] for x in sel[a.set]][: a.first]
@@ -30,7 +32,7 @@ tasks = [(pid, k) for pid in ids for k in range(1, a.repeats + 1)]
 
 def one(task):
     pid, k = task
-    p = posting.normalize(jobs[pid], "oscar")
+    p = posting.normalize(jobs[pid], a.board)
     return claude_judge.judge(a.prompt, view, p, pathlib.Path(a.out) / "calls", f"{a.tag}{k}")
 
 
