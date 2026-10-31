@@ -25,6 +25,7 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
     I noticed that even some software engineering jobs didn't qualify because of their experience requirements or location. I also found that a job could have a remote office tag but still require working from an office.
   - What I accepted, changed or rejected from Claude:
     i agreed with its labels or corrected a decision after checking the job description.
+    *(Note by Claude Code, not Shreyash's words: the label sheet showed no verdicts, and Claude gave no labels for these 20 postings before `b3faea5`. On 2026-10-31 Claude asked what "its labels" refers to; Shreyash kept the line as written.)*
   - What I still don't understand, and my next step:
     I'm still figuring out how to handle postings with missing information without making assumptions. My next step is to compare the rule's output against my hand labels and check where they disagree.
 

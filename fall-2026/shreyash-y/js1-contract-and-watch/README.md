@@ -139,7 +139,7 @@ Not checked:  - No real posting passed all six conditions, so the Relevant path 
 Not claiming: That this agent finds good jobs, that Claude's verdicts are accurate (only that they
               were repeatable and matched 20 all-negative labels), that the rule's record is ground
               truth (it is wrong in five places), or that it works on any board but Oscar's.
-Signed or withheld: ____________ (name, date)
+Signed or withheld: Shreyash Yadav, 10/31/2026 (signature typed by Shreyash in the session)
 ```
 
 ## Driver's seat
