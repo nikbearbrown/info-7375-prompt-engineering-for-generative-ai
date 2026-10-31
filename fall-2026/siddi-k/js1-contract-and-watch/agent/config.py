@@ -6,9 +6,9 @@ import shlex
 from dataclasses import dataclass
 from pathlib import Path
 
-CONTRACT_VERSION = "v1"
+CONTRACT_VERSION = "v2"
 ALLOWED_HOSTS = ("boards-api.greenhouse.io",)
-BOARD_SLUG = "databricks"
+BOARD_SLUG = "stripe"           # v1 was "databricks"; CONTRACT.md, Contract v2
 BOARD_URL = f"https://boards-api.greenhouse.io/v1/boards/{BOARD_SLUG}/jobs?content=true"
 PROMPT_VERSION = "judge_v1"
 RESUME_FIELDS = ("target_title_keywords", "skills", "years_experience", "preferred_cities", "remote_ok",

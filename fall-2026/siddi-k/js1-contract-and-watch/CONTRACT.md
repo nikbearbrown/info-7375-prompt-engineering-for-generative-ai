@@ -1,13 +1,26 @@
 # CONTRACT.md — Job-Search Agent 1
 
-Author: Siddi Kommuri · Written: 2026-10-31 (before any implementation) · Contract version: v1
+Author: Siddi Kommuri · Written: 2026-10-31 (before any implementation) · Contract version: v2 (v1 committed in `be3b6c8`; the v2 change is dated below)
+
+## Contract v2 (2026-10-31)
+
+Drafted by Claude from Siddi's decisions; approved by Siddi before commit.
+
+* Why: the Hand-label set base-rate check ran on the v1 baseline board (live run `2026-10-31T10-42-37Z`, Databricks, 901 postings). 4 postings passed title and seniority, and 0 of the 20 selected were rule-relevant. Fewer than 3 means the slug changes. The record is in `evidence/base-rate-databricks/`.
+* Change 1, slug: `databricks` → `stripe`. Only Stripe, Samsara and Scale AI reached 3 of 20 when the same count-only check ran on 35 public Greenhouse boards. Stripe is the largest (746 postings).
+* Change 2, Appendix C: replaced with a Stripe version (`boilerplate.json` v2), each string checked against Stripe's live board on 2026-10-31:
+   * `in-office expectations` is a closing heading in 6 postings. Stripe postings otherwise end with their own requirements, so there is little to cut.
+   * `stripe is a financial infrastructure platform` opens the company blurb in 668 of 746 postings.
+   * No posting is left with empty requirements text. The v1 sentence about the Databricks blurb explains v1's Appendix C only.
+* State: the Databricks baseline (its raw run and `state.json`) moved to `evidence/base-rate-databricks/`, so the Stripe watch starts from its own baseline.
+* Unchanged: the persona, the rule, the vocab, the prompt, the Claude command, the wrong versions, and the selection code.
 
 ## In
 
 * Board: Greenhouse public Job Board API
    * Host: `boards-api.greenhouse.io`
-   * Company slug: `databricks`
-   * Endpoint: `GET https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true`
+   * Company slug: `stripe` (v2; v1 was `databricks`)
+   * Endpoint: `GET https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true`
 * Run modes:
    * `live` fetches the board.
    * `seeded` reads a saved board file passed as `--seeded-from <path>`, makes no network call, and labels every output it writes as seeded (see State and Out).
@@ -331,6 +344,18 @@ Tests never call the real `claude`. The harness puts a stub `claude` (`tests/stu
 ```
 
 ## Appendix C: `config/boilerplate.json` (verify every string against a real `board.json` before committing)
+
+v2 (Stripe), in force:
+
+```json
+{
+  "version": "v2",
+  "cut_headings": ["in-office expectations"],
+  "drop_sentence_phrases": ["stripe is a financial infrastructure platform"]
+}
+```
+
+v1 (Databricks), superseded:
 
 ```json
 {
