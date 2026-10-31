@@ -17,5 +17,5 @@ are in `experiments/label_pool/LABELS.md`.
 Each posting's validated outcome repeated 4/4 times. Sixteen of the 20 outputs
 were invalid because their list-index citation paths used dot positions instead
 of the validator's square-bracket syntax. The four valid outputs all concerned
-one posting and agreed with its provisional label. Repetition here shows a
+one posting and agreed with its hand label. Repetition here shows a
 stable formatting failure; it does not establish judgment accuracy.

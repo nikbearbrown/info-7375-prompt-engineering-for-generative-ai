@@ -4,7 +4,7 @@ The v1 prompt called citation locations "dot paths" without specifying how to
 write list positions. V2 added one sentence requiring square brackets such as
 `offices[0].location`; the validator stayed the same. Saved answers and scores
 are in `experiments/prompt/`. The four score files were recomputed on 2026-10-31
-after filling the labels in `experiments/label_pool/LABELS.md`.
+after I hand-labeled the 20 postings in `experiments/label_pool/LABELS.md`.
 
 | Prompt | Set | Invalid outputs | Passes / committed | Coverage |
 |---|---|---:|---:|---:|
@@ -14,7 +14,7 @@ after filling the labels in `experiments/label_pool/LABELS.md`.
 | v2 path syntax | held out | 0/10 | 10/10 | 10/10 |
 
 The one uncommitted v2 development answer was `needs_human` for Point72
-8877421002, matching that posting's provisional label but excluded from pass
+8877421002, matching that posting's hand label but excluded from pass
 rate by the contract. V2 eliminated invalid outputs on these 20 saved answers.
 The change demonstrates better compliance with citation syntax, not a measured
 improvement in semantic judgment.

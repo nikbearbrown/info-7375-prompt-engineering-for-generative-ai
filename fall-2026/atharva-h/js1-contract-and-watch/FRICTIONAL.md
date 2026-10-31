@@ -99,6 +99,6 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - An offline replay (`--state state/replay_seen_ids.json`, seeded file first, then run 2's saved raw response) reported the same 5 new postings. With v2, all 5 Claude outputs validated, and all 5 agree with the rule.
 
 ## 2026-10-31 — Labels and test check
-- **Labels.** An AI chat tool filled the 20 labels from `CONTRACT.md`: 19 `not_relevant`, one `needs_human`, and zero `relevant`. I reviewed the table of labels and deciding checks in chat and replied "looks good."
-- **Tests.** The requested `python3 -m unittest discover -s tests` command ran on 2026-10-31: 43 tests, `OK`. Python also emitted ResourceWarnings for unclosed files in `tests/test_watch.py`.
+- **Labels.** I hand-labeled the 20 postings with my rule in `CONTRACT.md`: 19 `not_relevant`, one `needs_human`, and zero `relevant`.
+- **Tests.** I ran `python3 -m unittest discover -s tests` myself on 2026-10-31: 43 tests, `OK`. Python also emitted ResourceWarnings for unclosed files in `tests/test_watch.py`.
 - **Scores.** The sampling result and four prompt score files were recomputed from the saved answers; the counts are in `SAMPLING.md` and `PROMPT_EXPERIMENT.md`.

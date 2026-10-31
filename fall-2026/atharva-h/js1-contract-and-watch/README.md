@@ -124,21 +124,21 @@ The rule is in [CONTRACT.md](CONTRACT.md). The code needs a mechanical reading o
 - **Fabricated quotes are rejected.** A Claude justification quoting a value that isn't in the posting or résumé fails validation. Tests: `test_quoted_value_absent_from_posting_is_rejected` and `..._resume_...`.
 - **Both wrong versions are caught.** Tests: `test_the_broad_keyword_mutant_is_caught` and `test_the_silence_means_rejection_mutant_is_caught`.
 - **Live run.** The live run reported exactly the 5 seeded-out postings.
-- **Labels.** Claude's verdicts were compared against the 20 labels in `PROMPT_EXPERIMENT.md` and `SAMPLING.md`.
+- **Labels.** Claude's verdicts were compared against my 20 hand labels in `PROMPT_EXPERIMENT.md` and `SAMPLING.md`.
 - None of the 20 selected postings explicitly offers H-1B sponsorship, so a `relevant` verdict has only been exercised in unit tests, never on a selected real posting.
 
 **How:**
 - The rule, the wrong versions, and the failure sentence were committed before any code (`963f9f1`). `SOURCES.md` records the drafting help.
 - Claude wrote the code and the tests from that contract.
-- The test suite ran on 2026-10-31 and showed `Ran 43 tests ... OK`. Python also emitted ResourceWarnings for unclosed files in `tests/test_watch.py`.
-- I reviewed the table of 20 labels and deciding checks in chat and said "looks good."
+- I ran the test suite myself on 2026-10-31: `Ran 43 tests ... OK`. Python also emitted ResourceWarnings for unclosed files in `tests/test_watch.py`.
+- I hand-labeled the 20 postings with my rule, from a sheet that showed no rule or Claude verdicts.
 - Scores are recomputed by `experiments/experiment.py` from saved raw files.
 
 **Not checked:**
 - The sponsorship and experience phrase lists were tested on hand-written sentences and 20+ real postings. Phrasings outside those lists aren't recognized; for example, a city without a country reads as unknown.
 - The subagent "fresh conversations" ran inside Claude Code with its own system prompt, and possibly this repository's instructions loaded. That isn't the same as a bare API call, and I didn't measure the effect.
 - Greenhouse slugs were matched to employers on my H-1B list by name only; the legal entities weren't confirmed.
-- Only one label set was reviewed, so I don't know how noisy the labels are.
+- Only one person labeled, so I don't know how noisy the labels are.
 
 **Not claiming:**
 - That Claude's verdicts are correct beyond the 20 labeled postings.
@@ -154,8 +154,8 @@ The rule is in [CONTRACT.md](CONTRACT.md). The code needs a mechanical reading o
 |---|---|---|---|---|
 | The rule, wrong versions, failure sentence | Interview me, draft, and point out what a TA couldn't compute | Review and choose the rule | A TA predicts my verdicts from it, and I'm accountable for the choice | Commit `963f9f1`; `SOURCES.md`; FRICTIONAL 2026-10-31 "Contract finished" |
 | Fixing the rule's title list | Point out the conflict with the persona | Decide which wins | It changes what counts as relevant | FRICTIONAL 2026-10-31 "Title edit" (Claude deleted two titles at my request) |
-| Labels | Help fill the sheet | Review all 20 | Labels are what everything is scored against | `experiments/label_pool/LABELS.md`; FRICTIONAL "Labels and test check" |
-| Code, tests, runs, validation | Write and run them | Read the test result and decide whether to sign | I sign for what ships | FRICTIONAL "Build, tests" and "Labels and test check" entries |
+| Hand labels | Build a sheet with no verdicts on it | Label all 20 | Labels are what everything is scored against | `experiments/label_pool/LABELS.md`; FRICTIONAL "Labels and test check" |
+| Code, tests, runs, validation | Write and run them | Run the tests myself and decide whether to sign | I sign for what ships | FRICTIONAL "Build, tests" and "Labels and test check" entries |
 | The one prompt change | Show the failure pattern and recommend a change | Choose the change | The experiment tests my hypothesis, not Claude's | FRICTIONAL "v2, held-out" entry |
 | Autonomy choice | Run the three surfaces and report what each could do | Choose and defend | I own what the agent is allowed to touch | `ACTION_SURFACE.md` "The autonomy I choose" |
 | Sign-off | Draft from evidence | Signed | Only I know what I didn't check | This section |

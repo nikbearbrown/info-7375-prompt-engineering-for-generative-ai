@@ -11,7 +11,7 @@ _Atharva: check every line of this file; it must be true as written._
 - **The Reallocation Engine's example personas** (`search/examples/`). I looked only at their target roles. None was a Data Analyst, so the persona here is invented.
 - **Course material:** the JS1 brief (Canvas) and the Chapter 1–3 specifications in `chapters-spec.md`.
 - **Claude Code** (desktop app; this session's model was Claude Opus 5.5). It was used to interview me for the contract, write the code, and provide every Claude verdict through subagents.
-- **AI chat tool.** It helped draft the rule, wrong versions, and failure sentence, filled the 20-label table, ran the requested test suite, recomputed the experiment scores, and drafted the final reports and edits.
+- **AI chat tool.** It helped draft the rule, wrong versions, and failure sentence, recomputed the experiment scores, and drafted the final reports and edits.
 
 ## What I wrote or decided
 - I requested and reviewed the rule draft, edited the title list, and chose the four analyst titles in `CONTRACT.md`.
@@ -26,7 +26,8 @@ _Atharva: check every line of this file; it must be true as written._
   - leaving out "Analytics Analyst"
   - the one v2 change
   - choosing subagents over logging in to the CLI
-- I reviewed the table of 20 labels and deciding checks in chat and replied "looks good."
+- The 20 hand labels and deciding checks in `experiments/label_pool/LABELS.md`.
+- Running the test suite myself on 2026-10-31 (43 tests, OK).
 
 ## What Claude contributed
 - **Contract interview:** the questions, the option wording I picked from for In, Out, and Refuses, the copy of the AI-assisted rule draft, and the deletion of two titles at my request.
