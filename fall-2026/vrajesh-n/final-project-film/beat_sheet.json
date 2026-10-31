@@ -6,7 +6,7 @@
     "concept": "Early Bird: watch my target companies' public boards, report every new SWE/AI posting, quote real blockers",
     "student": "Vrajesh Nasit",
     "course": "INFO 7375",
-    "source_script": "SCRIPT.md (v0.2)",
+    "source_script": "SCRIPT.md (v1.0, 2026-10-24)",
     "engine": "kokoro",
     "voice_kokoro": "am_onyx",
     "clock": "narration",
@@ -15,22 +15,22 @@
     "fps": 30,
     "honesty": {
       "built": false,
-      "real": "B02 and B07 show real output of evidence/probe.py, run 2026-10-14, labelled REAL RUN",
-      "mockups": "every product visual is labelled CONSTRUCTED or PLANNED",
-      "companies": "the five probe boards are example companies, not the author's private list",
-      "narration": "synthetic Kokoro am_onyx voice reading the author's script; disclosed in B00 and B09"
+      "real": "B02/B03/B06/B07: Commure snapshots saved 2026-10-14 and 2026-10-23, the ID diff and the greenhouse-watch run the author ran on 2026-10-24, and the 2026-10-14 probe; labelled REAL",
+      "mockups": "every product visual is labelled PLANNED or CONSTRUCTED",
+      "companies": "the probe boards are example companies, not the author's private list",
+      "narration": "script drafted with Claude from the author's decisions; synthetic Kokoro am_onyx voice; disclosed in B00 and B09"
     },
-    "total_estimated_duration_seconds": 262,
-    "total_actual_duration_seconds": 218.16,
+    "total_estimated_duration_seconds": 270,
+    "total_actual_duration_seconds": 227.32,
     "build": {
-      "at": "2026-10-14T15:43:30",
+      "at": "2026-10-25T00:13:04",
       "cut": "master",
       "filled": 10,
       "of": 10,
       "slates": [],
       "skin_warnings": [
-        "B00: palette=claude but the cold open is 'EbOpen' — COLD OPEN LAW wants ClaudeComposerAsk",
-        "B09: palette=claude but the outro is 'EbOutro' — OUTRO LAW wants ClaudeTitleOutro"
+        "B00: palette=claude but the cold open is 'EfOpen' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B09: palette=claude but the outro is 'EfOutro' — OUTRO LAW wants ClaudeTitleOutro"
       ]
     }
   },
@@ -38,8 +38,8 @@
     {
       "beat_id": "B00",
       "act": "OPEN",
-      "role_note": "Cold open: who is speaking, the synthetic-voice disclosure, and the need in one breath.",
-      "narration_text": "Hi, I'm Vrajesh. This is my final project pitch for Info seventy-three seventy-five, read by a synthetic voice from my own script. I graduate in December, and I'm job hunting right now. In this market, I don't want to skip a single software job. I want to see every new one, early.",
+      "role_note": "Cold open: who is speaking, how the script was made, the synthetic voice, the need.",
+      "narration_text": "Hi, I'm Vrajesh, and this is my final project pitch for Info seventy-three seventy-five. I drafted this script with Claude from my own decisions, and a synthetic voice reads it. I graduate in December, and I'm job hunting right now. In this market, I don't want to skip a single software job. I want to see every new one, early.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 20,
@@ -49,40 +49,40 @@
         "show": [
           {
             "at": 0.0,
-            "event": "title lockup 'Early Bird.' over a rising sun line"
+            "event": "title 'Early Bird.' over a rising sun"
           },
           {
             "at": "synthetic",
-            "event": "honesty chip: synthetic voice, my script"
+            "event": "disclosure pill: script drafted with Claude, synthetic voice"
           },
           {
             "at": "December",
-            "event": "chip: graduating December 2026"
+            "event": "pill: Dec 2026 grad"
           },
           {
             "at": "skip",
-            "event": "a row of job cards; none is crossed out"
+            "event": "a row of software job cards, all kept"
           },
           {
             "at": "early",
-            "event": "the newest card lifts and glows"
+            "event": "the newest card lifts: new"
           }
         ],
         "remotion": {
-          "pattern": "EbOpen",
+          "pattern": "EfOpen",
           "props": {
-            "durationSeconds": 16.09,
+            "durationSeconds": 17.64,
             "cues": {
-              "name": 0.533,
-              "voice": 5.567,
-              "december": 8.533,
-              "skip": 12.067,
-              "early": 15.133
+              "name": 0.7,
+              "voice": 8.033,
+              "december": 10.3,
+              "skip": 13.7,
+              "early": 16.667
             }
           },
           "rendered": {
             "out": "media/B00.mp4",
-            "at": "2026-10-14T19:31:50.897460+00:00"
+            "at": "2026-10-25T04:06:18.357581+00:00"
           }
         },
         "lane": "bookend"
@@ -109,21 +109,21 @@
           1
         ]
       },
-      "actual_duration_s": 16.09,
+      "actual_duration_s": 17.64,
       "audio_file": "mp3/beat-B00.mp3",
-      "render_duration_s": 16.1,
+      "render_duration_s": 17.666666666666668,
       "build": {
         "status": "VIDEO",
         "src": "media\\B00.mp4",
-        "filled_by": "remotion:EbOpen",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "remotion:EfOpen",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B01",
       "act": "WHAT",
-      "role_note": "Q1. One sentence, then the artifact and its form.",
-      "narration_text": "My project is Early Bird, a small Python agent. Each time I run it, it checks the job boards of the twenty-five to thirty companies on my list, and reports only the software, full-stack and AI postings that are new since the last run. The finished artifact is a public GitHub repository: a command-line tool with its tests, the saved board responses, and one report per run.",
+      "role_note": "Q1. One sentence, then the artifact and its form. PLANNED.",
+      "narration_text": "My project is Early Bird, a small Python agent I will build. Each time I run it, it will check the public job boards of the twenty-five to thirty companies on my list, and report only the software, full-stack and AI postings that are new since the last run. The finished artifact will be a public GitHub repository: a command-line tool, its tests, the saved board responses, and one report per run.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 24,
@@ -133,31 +133,31 @@
         "show": [
           {
             "at": "agent",
-            "event": "the agent box appears centre"
+            "event": "run station appears"
           },
           {
             "at": "boards",
-            "event": "company board chips stream in from the left"
+            "event": "my-list station: Greenhouse, Lever, Ashby"
           },
           {
             "at": "new",
-            "event": "only two cards pass through to the report"
+            "event": "report station: only new software / full-stack / AI"
           },
           {
             "at": "artifact",
-            "event": "artifact pills: repo, CLI, tests, saved responses, reports"
+            "event": "artifact pills"
           }
         ],
         "remotion": {
-          "pattern": "EbWhatItIs",
+          "pattern": "EfWhat",
           "props": {
-            "durationSeconds": 20.54,
+            "durationSeconds": 21.23,
             "cues": {
               "agent": 2.167,
-              "boards": 4.667,
-              "new": 10.533,
-              "artifact": 12.833,
-              "report": 19.033
+              "boards": 5.667,
+              "new": 11.267,
+              "artifact": 13.433,
+              "report": 19.733
             }
           }
         }
@@ -181,196 +181,220 @@
         ],
         "report": [
           "report",
-          1
+          2
         ]
       },
-      "actual_duration_s": 20.54,
+      "actual_duration_s": 21.23,
       "audio_file": "mp3/beat-B01.mp3",
-      "render_duration_s": 20.566666666666666,
+      "render_duration_s": 21.233333333333334,
       "build": {
         "status": "VIDEO",
         "src": "media\\B01.mp4",
         "filled_by": "media",
-        "at": "2026-10-14T15:43:30"
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B02",
       "act": "EXISTS",
-      "role_note": "Exists today: the real probe run of 2026-10-14, numbers from evidence/2026-10-14/summary.json.",
-      "narration_text": "The agent doesn't exist yet. What exists is one probe I ran this morning, October fourteenth, against five public job boards: Kuh-mure, Stripe, Figma, Databricks and Palantir. These are example companies, not my private list. Two thousand one hundred fifty-six postings came back, and I saved every raw response.",
+      "role_note": "Exists today, REAL: two saved Commure snapshots (2026-10-14, 2026-10-23) and the ID diff I ran on 2026-10-24.",
+      "narration_text": "The agent doesn't exist yet. What exists is real data. I saved Kuh-mure's public job board twice: on October fourteenth, and again on October twenty-third. Eighty postings, then eighty-one. I compared the posting I Ds: twelve were new, and eleven were gone. Five of the twelve new ones were software engineering roles. Seven were not software: sales, marketing, design, and one partnerships role.",
       "voice": "am_onyx",
       "engine": "kokoro",
-      "estimated_duration_s": 22,
+      "estimated_duration_s": 24,
       "shot": {
         "type": "REMOTION",
         "motion": "show-block",
         "show": [
           {
-            "at": "probe",
-            "event": "terminal plate, REAL RUN 2026-10-14 chip"
+            "at": "fourteenth",
+            "event": "dot grid, Oct 14: 80 postings"
           },
           {
-            "at": "boards",
-            "event": "five real output rows land one by one"
+            "at": "twenty-third",
+            "event": "dot grid, Oct 23: 81 postings"
           },
           {
-            "at": "example",
-            "event": "caption: example companies, not my list"
+            "at": "twelve",
+            "event": "12 new dots light"
           },
           {
-            "at": "thousand",
-            "event": "hero counter climbs to 2,156"
+            "at": "eleven",
+            "event": "11 gone dots hollow on the left"
           },
           {
-            "at": "saved",
-            "event": "raw-file chips drop into a folder"
+            "at": "Five",
+            "event": "5 software / 7 other"
           }
         ],
         "remotion": {
-          "pattern": "EbProbe",
+          "pattern": "EfExists",
           "props": {
-            "durationSeconds": 17.26,
+            "durationSeconds": 20.29,
             "cues": {
-              "probe": 2.433,
-              "boards": 5.933,
-              "example": 10.0,
-              "total": 12.667,
-              "saved": 15.133
+              "data": 2.367,
+              "fourteenth": 6.3,
+              "twentythird": 7.633,
+              "eighty": 8.0,
+              "twelve": 11.3,
+              "eleven": 12.167,
+              "five": 13.167,
+              "seven": 15.867
             }
+          },
+          "rendered": {
+            "out": "media/B02.mp4",
+            "at": "2026-10-25T04:00:20.850035+00:00"
           }
         }
       },
       "cue_words": {
-        "probe": [
-          "probe",
+        "data": [
+          "data",
           1
         ],
-        "boards": [
-          "boards",
+        "fourteenth": [
+          "fourteenth",
           1
         ],
-        "example": [
-          "example",
+        "twentythird": [
+          "twenty-third",
           1
         ],
-        "total": [
-          "thousand",
+        "eighty": [
+          "eighty",
           1
         ],
-        "saved": [
-          "saved",
+        "twelve": [
+          "twelve",
+          1
+        ],
+        "eleven": [
+          "eleven",
+          1
+        ],
+        "five": [
+          "five",
+          1
+        ],
+        "seven": [
+          "seven",
           1
         ]
       },
-      "actual_duration_s": 17.26,
+      "actual_duration_s": 20.29,
       "audio_file": "mp3/beat-B02.mp3",
-      "render_duration_s": 17.266666666666666,
+      "render_duration_s": 20.3,
       "build": {
         "status": "VIDEO",
         "src": "media\\B02.mp4",
-        "filled_by": "media",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "remotion:EfExists",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B03",
       "act": "WHY",
-      "role_note": "Q2. Two real alternatives examined (greenhouse-watch read 2026-10-14; LinkedIn Job Match from launch coverage) and the specific difference.",
-      "narration_text": "Two things already exist. The course's own greenhouse-watch tool watches one board at a time, and keeps only postings that match my resume keywords. In its demo, Figma posted eleven new jobs in four days, and it kept none. LinkedIn's Job Match compares my profile with a posting, but only for jobs on LinkedIn, and I can't re-run how it decided. Early Bird watches my whole list in one run. It keeps every software job, instead of scoring skill gaps away. It only flags hard blockers, like five years required, and it quotes the line, and code checks that the quote is really in the posting. It never applies for me.",
+      "role_note": "Q2. REAL: greenhouse-watch run by me on the same two snapshots (2026-10-24, course sample resume). LinkedIn Job Match from launch coverage. PLANNED: Early Bird's difference.",
+      "narration_text": "The closest alternative is the course's own greenhouse-watch. I ran it myself on the same two snapshots, with the course's sample resume. It found the same twelve new postings, and kept all five software roles. But it also kept Head of Performance Creative, a marketing job, because the posting mentions Python and S Q L. It watches one board per run, and keeps what passes a resume-word score. LinkedIn's Job Match only covers LinkedIn jobs, and I can't re-run how it decided. Early Bird will watch my whole list in one run, decide what counts as a software job from the role itself, not resume overlap, and keep every one, flagging only hard blockers, quoting the line from the posting.",
       "voice": "am_onyx",
       "engine": "kokoro",
-      "estimated_duration_s": 42,
+      "estimated_duration_s": 46,
       "shot": {
         "type": "REMOTION",
         "motion": "show-block",
         "show": [
           {
-            "at": "tool",
-            "event": "column: greenhouse-watch"
+            "at": "ran",
+            "event": "the 12 new titles list in"
           },
           {
-            "at": "none",
-            "event": "stat pill: Figma demo, 11 new, 0 kept"
+            "at": "kept",
+            "event": "greenhouse-watch column: 6 checks, 6 dashes"
           },
           {
-            "at": "compares",
-            "event": "column: LinkedIn Job Match"
+            "at": "marketing",
+            "event": "MARKETING stamp on Head of Performance Creative; matched words"
+          },
+          {
+            "at": "one",
+            "event": "cut to three option cards"
           },
           {
             "at": "whole",
-            "event": "column: Early Bird (planned); its unique row lights"
+            "event": "Early Bird card (planned)"
           },
           {
-            "at": "quotes",
-            "event": "a quoted blocker line with a check mark"
+            "at": "quoting",
+            "event": "example quoted blocker"
           }
         ],
         "remotion": {
-          "pattern": "EbAlternatives",
+          "pattern": "EfAlternative",
           "props": {
-            "durationSeconds": 34.6,
+            "durationSeconds": 37.86,
             "cues": {
-              "gw": 2.8,
-              "none": 11.333,
-              "linkedin": 13.233,
-              "eb": 20.667,
-              "keeps": 22.033,
-              "quotes": 29.033,
-              "never": 32.967
+              "ran": 3.433,
+              "same": 4.5,
+              "kept": 9.433,
+              "marketing": 13.8,
+              "one": 18.567,
+              "linkedin": 22.367,
+              "whole": 27.933,
+              "quoting": 35.867
             }
-          },
-          "rendered": {
-            "out": "media/B03.mp4",
-            "at": "2026-10-14T19:07:47.015866+00:00"
           }
         }
       },
       "cue_words": {
-        "gw": [
-          "tool",
+        "ran": [
+          "ran",
           1
         ],
-        "none": [
-          "none",
+        "same": [
+          "same",
+          1
+        ],
+        "kept": [
+          "kept",
+          1
+        ],
+        "marketing": [
+          "marketing",
+          1
+        ],
+        "one": [
+          "one",
           1
         ],
         "linkedin": [
-          "compares",
+          "linkedin's",
           1
         ],
-        "eb": [
+        "whole": [
           "whole",
           1
         ],
-        "keeps": [
-          "keeps",
-          2
-        ],
-        "quotes": [
-          "quotes",
-          1
-        ],
-        "never": [
-          "never",
+        "quoting": [
+          "quoting",
           1
         ]
       },
-      "actual_duration_s": 34.6,
+      "actual_duration_s": 37.86,
       "audio_file": "mp3/beat-B03.mp3",
-      "render_duration_s": 34.6,
+      "render_duration_s": 37.86666666666667,
       "build": {
         "status": "VIDEO",
         "src": "media\\B03.mp4",
-        "filled_by": "remotion:EbAlternatives",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "media",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B04",
       "act": "WHO",
-      "role_note": "Q3. The reader, and their first sixty seconds. Output is CONSTRUCTED (nothing is built).",
-      "narration_text": "Who opens it? A hiring manager for a full-stack or AI engineering role. In the first sixty seconds, they run one command on labeled sample data, and open the report: new postings, quoted blockers, and the tests that passed. The other user is me, before every application session.",
+      "role_note": "Q3. The reader and their first sixty seconds. CONSTRUCTED (nothing is built).",
+      "narration_text": "Who will open it? A hiring manager for a full-stack or AI engineering role. In the first sixty seconds, they will run one command on labeled sample data, and open the report: new postings, quoted blockers, and the tests that passed. The other user will be me, before every application session.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 20,
@@ -383,29 +407,37 @@
             "event": "reader pill"
           },
           {
+            "at": "sixty",
+            "event": "60 s ring starts to sweep"
+          },
+          {
             "at": "command",
-            "event": "the command types into a terminal plate"
+            "event": "step 1: the command"
           },
           {
             "at": "report",
-            "event": "constructed report rows appear, labelled CONSTRUCTED"
+            "event": "step 2: open the report"
+          },
+          {
+            "at": "blockers",
+            "event": "step 3: what is in it"
           },
           {
             "at": "me",
-            "event": "second reader pill: me, before applying"
+            "event": "second user: me"
           }
         ],
         "remotion": {
-          "pattern": "EbFirstMinute",
+          "pattern": "EfWho",
           "props": {
-            "durationSeconds": 15.98,
+            "durationSeconds": 16.3,
             "cues": {
-              "hiring": 0.9,
-              "command": 6.233,
-              "report": 8.6,
-              "blockers": 10.3,
-              "tests": 11.2,
-              "me": 13.433
+              "hiring": 0.933,
+              "sixty": 5.067,
+              "command": 6.4,
+              "report": 8.767,
+              "blockers": 10.467,
+              "me": 13.7
             }
           }
         }
@@ -413,6 +445,10 @@
       "cue_words": {
         "hiring": [
           "hiring",
+          1
+        ],
+        "sixty": [
+          "sixty",
           1
         ],
         "command": [
@@ -427,30 +463,26 @@
           "blockers",
           1
         ],
-        "tests": [
-          "tests",
-          1
-        ],
         "me": [
           "me",
           1
         ]
       },
-      "actual_duration_s": 15.98,
+      "actual_duration_s": 16.3,
       "audio_file": "mp3/beat-B04.mp3",
-      "render_duration_s": 16.0,
+      "render_duration_s": 16.3,
       "build": {
         "status": "VIDEO",
         "src": "media\\B04.mp4",
         "filled_by": "media",
-        "at": "2026-10-14T15:43:30"
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B05",
       "act": "PROVES",
-      "role_note": "Q4. Course topics tied to the planned evidence for each.",
-      "narration_text": "What does it prove about me? Prompt contracts: Claude must answer in a fixed format, and a validator rejects anything else. Verification: a rule anyone can recompute, next to a labeled Claude judgment. Agent loops, with budgets and honest exit statuses. And evaluation: twenty postings I label by hand, with ten held back for the final test.",
+      "role_note": "Q4. Course topics tied to the evidence I will produce. PLANNED.",
+      "narration_text": "What will it prove about me? Prompt contracts: Claude will have to answer in a fixed format, and a validator will reject anything else. Verification: a rule anyone can recompute, next to a labeled Claude judgment. Agent loops, with budgets and honest exit statuses. And evaluation: twenty postings I will label by hand, with ten held back for the final test.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 22,
@@ -460,31 +492,30 @@
         "show": [
           {
             "at": "contracts",
-            "event": "tile 1: prompt contract, a JSON shape and a red reject"
+            "event": "ledger row 1"
           },
           {
             "at": "verification",
-            "event": "tile 2: record beside judgment"
+            "event": "row 2"
           },
           {
             "at": "loops",
-            "event": "tile 3: a loop with a budget bar and exit tags"
+            "event": "row 3"
           },
           {
             "at": "evaluation",
-            "event": "tile 4: 20 label dots, 10 split off as held out"
+            "event": "row 4"
           }
         ],
         "remotion": {
-          "pattern": "EbProves",
+          "pattern": "EfProves",
           "props": {
-            "durationSeconds": 18.62,
+            "durationSeconds": 18.88,
             "cues": {
               "contracts": 1.2,
-              "verification": 6.3,
-              "loops": 10.533,
-              "evaluation": 13.267,
-              "held": 16.4
+              "verification": 6.433,
+              "loops": 10.6,
+              "evaluation": 13.267
             }
           }
         }
@@ -505,72 +536,68 @@
         "evaluation": [
           "evaluation",
           1
-        ],
-        "held": [
-          "held",
-          1
         ]
       },
-      "actual_duration_s": 18.62,
+      "actual_duration_s": 18.88,
       "audio_file": "mp3/beat-B05.mp3",
-      "render_duration_s": 18.633333333333333,
+      "render_duration_s": 18.9,
       "build": {
         "status": "VIDEO",
         "src": "media\\B05.mp4",
         "filled_by": "media",
-        "at": "2026-10-14T15:43:30"
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B06",
       "act": "SCOPE",
-      "role_note": "Q5. One deliberate exclusion, the first piece that runs, and how to verify it.",
-      "narration_text": "What's out, on purpose: auto-applying, logging in, messaging anyone, and scraping LinkedIn. Companies on their own hiring systems, like Google, will be marked unsupported, not guessed at. The first piece I'll make run is the watcher on one board, Kuh-mure. Run one is a baseline and reports zero new. A later run reports only new posting IDs, and anyone can check that by comparing the two saved files. As a second, independent check, I'll run the course's greenhouse-watch on the same saved data, and compare our lists.",
+      "role_note": "Q5. Exclusions, the first piece that runs, and how to verify it: the REAL answer key (12 new IDs) the PLANNED watcher must reproduce.",
+      "narration_text": "What's out, on purpose: auto-applying, logging in, messaging anyone, and scraping LinkedIn. Companies on their own hiring systems, like Google, will be marked unsupported. The first piece I'll make run is the watcher on Kuh-mure, and its check already has an answer key: the twelve new I Ds from my two saved files. The watcher will have to report exactly those twelve, and my greenhouse-watch run is a second, independent list.",
       "voice": "am_onyx",
       "engine": "kokoro",
-      "estimated_duration_s": 36,
+      "estimated_duration_s": 34,
       "shot": {
         "type": "REMOTION",
         "motion": "show-block",
         "show": [
           {
             "at": "out",
-            "event": "four excluded actions, struck through"
+            "event": "four exclusions struck through"
           },
           {
             "at": "unsupported",
-            "event": "Google chip greys to 'unsupported'"
+            "event": "Google greys to unsupported"
           },
           {
-            "at": "baseline",
-            "event": "run 1 file card: baseline, 0 new"
+            "at": "first",
+            "event": "answer-key card"
           },
           {
-            "at": "later",
-            "event": "run 2 file card: only new IDs highlighted"
+            "at": "key",
+            "event": "12 real ID prefixes pop in"
+          },
+          {
+            "at": "twelve",
+            "event": "watcher must report exactly these 12 (planned)"
           },
           {
             "at": "independent",
-            "event": "greenhouse-watch card joins with an equals sign"
+            "event": "greenhouse-watch also found 12 (real)"
           }
         ],
         "remotion": {
-          "pattern": "EbFirstRun",
+          "pattern": "EfScope",
           "props": {
-            "durationSeconds": 29.95,
+            "durationSeconds": 21.35,
             "cues": {
-              "out": 0.267,
-              "unsupported": 8.567,
-              "first": 10.667,
-              "baseline": 15.1,
-              "later": 17.333,
-              "comparing": 20.933,
-              "independent": 24.067
+              "out": 0.2,
+              "unsupported": 7.633,
+              "first": 8.7,
+              "key": 12.133,
+              "twelve": 17.6,
+              "recompute": 16.5,
+              "independent": 19.767
             }
-          },
-          "rendered": {
-            "out": "media/B06.mp4",
-            "at": "2026-10-14T19:38:28.085270+00:00"
           }
         }
       },
@@ -587,16 +614,16 @@
           "first",
           1
         ],
-        "baseline": [
-          "baseline",
+        "key": [
+          "key",
           1
         ],
-        "later": [
-          "later",
-          1
+        "twelve": [
+          "twelve",
+          2
         ],
-        "comparing": [
-          "comparing",
+        "recompute": [
+          "exactly",
           1
         ],
         "independent": [
@@ -604,76 +631,86 @@
           1
         ]
       },
-      "actual_duration_s": 29.95,
+      "actual_duration_s": 21.35,
       "audio_file": "mp3/beat-B06.mp3",
-      "render_duration_s": 29.966666666666665,
+      "render_duration_s": 21.366666666666667,
       "build": {
         "status": "VIDEO",
         "src": "media\\B06.mp4",
-        "filled_by": "remotion:EbFirstRun",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "media",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B07",
       "act": "RISK",
-      "role_note": "Q6. One concrete, project-specific risk (real titles from evidence/2026-10-14) and the mitigation.",
-      "narration_text": "What could break it? Keeping every software job only works if software job is decided correctly. My probe's simple keyword rule matched seven hundred eighty-nine titles, and some of them are sales jobs, like Account Executive, AI Sales, at Stripe. If the report fills with noise, I'll stop reading it. So I'll write the rule before the code, hand-label real postings, audit thirty random rejects, and only accept a Claude verdict that quotes the posting.",
+      "role_note": "Q6. The risk: deciding what counts as a software job. Three REAL titles (Commure 2026-10-23, my greenhouse-watch run, Stripe from the 2026-10-14 probe) and the mitigation.",
+      "narration_text": "What could break it? Deciding what counts as a software job. Words mislead both ways. Sales Strategy and Operations, Agents, is a sales job. greenhouse-watch kept a marketing role because the posting said Python. And across five boards, my probe's keyword rule matched seven hundred eighty-nine titles, including Account Executive, AI Sales, at Stripe. So I'll write the rule before the code, hand-label real postings, audit thirty random rejects, and only accept a Claude verdict that quotes the posting.",
       "voice": "am_onyx",
       "engine": "kokoro",
-      "estimated_duration_s": 30,
+      "estimated_duration_s": 32,
       "shot": {
         "type": "REMOTION",
         "motion": "show-block",
         "show": [
           {
+            "at": "Agents",
+            "event": "case 1 + SALES stamp"
+          },
+          {
+            "at": "Python",
+            "event": "case 2 + MARKETING stamp"
+          },
+          {
+            "at": "Account",
+            "event": "case 3 + SALES stamp"
+          },
+          {
             "at": "matched",
-            "event": "real titles fall through a keyword sieve; counter 789 of 2,156"
-          },
-          {
-            "at": "sales",
-            "event": "SALES stamp on 'Account Executive, AI Sales'"
-          },
-          {
-            "at": "noise",
-            "event": "the report card fogs over"
+            "event": "counter 789 of 2,156"
           },
           {
             "at": "rule",
-            "event": "four mitigation pills clear the fog"
+            "event": "four mitigation pills"
           }
         ],
         "remotion": {
-          "pattern": "EbRisk",
+          "pattern": "EfRisk",
           "props": {
-            "durationSeconds": 23.02,
+            "durationSeconds": 29.28,
             "cues": {
-              "matched": 6.9,
-              "sales": 9.267,
-              "noise": 13.733,
-              "rule": 15.867,
-              "hand": 16.933,
-              "audit": 18.4,
-              "quotes": 21.533
+              "deciding": 0.667,
+              "agents": 6.333,
+              "python": 11.7,
+              "account": 17.767,
+              "matched": 15.233,
+              "rule": 21.567,
+              "hand": 22.8,
+              "audit": 24.367,
+              "quotes": 27.667
             }
-          },
-          "rendered": {
-            "out": "media/B07.mp4",
-            "at": "2026-10-14T18:11:32.213365+00:00"
           }
         }
       },
       "cue_words": {
+        "deciding": [
+          "deciding",
+          1
+        ],
+        "agents": [
+          "agents",
+          1
+        ],
+        "python": [
+          "python",
+          1
+        ],
+        "account": [
+          "account",
+          1
+        ],
         "matched": [
           "matched",
-          1
-        ],
-        "sales": [
-          "sales",
-          1
-        ],
-        "noise": [
-          "noise",
           1
         ],
         "rule": [
@@ -693,14 +730,14 @@
           1
         ]
       },
-      "actual_duration_s": 23.02,
+      "actual_duration_s": 29.28,
       "audio_file": "mp3/beat-B07.mp3",
-      "render_duration_s": 23.033333333333335,
+      "render_duration_s": 29.3,
       "build": {
         "status": "VIDEO",
         "src": "media\\B07.mp4",
-        "filled_by": "remotion:EbRisk",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "media",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
@@ -717,27 +754,27 @@
         "show": [
           {
             "at": "Python",
-            "event": "chip into 'Already have': Python + FastAPI"
+            "event": "row: Python + FastAPI | repo, Duma"
           },
           {
             "at": "Chrome",
-            "event": "chip: job-listing filter (Screenr)"
+            "event": "row: Screenr"
           },
           {
             "at": "intern",
-            "event": "chip: LangGraph assistant"
+            "event": "row: LangGraph assistant"
           },
           {
             "at": "Claude",
-            "event": "chip: Claude Code test agents"
+            "event": "row: Claude Code test agents"
           },
           {
             "at": "contracts",
-            "event": "chips into 'New to me': four disciplines"
+            "event": "New to me: four pills"
           }
         ],
         "remotion": {
-          "pattern": "EbWhyMe",
+          "pattern": "EfWhyMe",
           "props": {
             "durationSeconds": 31.8,
             "cues": {
@@ -750,10 +787,6 @@
               "permissions": 27.233,
               "gate": 29.667
             }
-          },
-          "rendered": {
-            "out": "media/B08.mp4",
-            "at": "2026-10-14T18:21:44.376674+00:00"
           }
         }
       },
@@ -797,29 +830,29 @@
       "build": {
         "status": "VIDEO",
         "src": "media\\B08.mp4",
-        "filled_by": "remotion:EbWhyMe",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "media",
+        "at": "2026-10-25T00:13:04"
       }
     },
     {
       "beat_id": "B09",
       "act": "OUTRO",
-      "role_note": "Neutral student outro: title restated, no channel handle, voice disclosed again.",
-      "narration_text": "Early Bird won't apply for me. It makes sure I see every new job, early, with the evidence in front of me. Then I apply. This was Vrajesh, and this pitch was read by a synthetic voice.",
+      "role_note": "Outro: title restated, authorship and voice disclosed again.",
+      "narration_text": "Early Bird won't apply for me. It will make sure I see every new software job, early, with the evidence in front of me. Then I apply. This was Vrajesh. The script was drafted with Claude from my decisions, and read by a synthetic voice.",
       "voice": "am_onyx",
       "engine": "kokoro",
-      "estimated_duration_s": 12,
+      "estimated_duration_s": 14,
       "shot": {
         "type": "REMOTION",
         "motion": "show-block",
         "show": [
           {
             "at": 0.0,
-            "event": "title 'Early Bird.' returns"
+            "event": "title returns with the sun"
           },
           {
             "at": "see",
-            "event": "verb chips land"
+            "event": "verb pills"
           },
           {
             "at": "Vrajesh",
@@ -827,19 +860,19 @@
           }
         ],
         "remotion": {
-          "pattern": "EbOutro",
+          "pattern": "EfOutro",
           "props": {
-            "durationSeconds": 10.3,
+            "durationSeconds": 12.69,
             "cues": {
-              "see": 2.133,
-              "evidence": 3.867,
-              "apply": 5.533,
+              "see": 2.233,
+              "evidence": 4.4,
+              "apply": 6.033,
               "name": 7.067
             }
           },
           "rendered": {
             "out": "media/B09.mp4",
-            "at": "2026-10-14T19:17:54.111071+00:00"
+            "at": "2026-10-25T04:07:32.198339+00:00"
           }
         },
         "lane": "bookend"
@@ -863,14 +896,14 @@
         ]
       },
       "tail_silence_s": 1.0,
-      "actual_duration_s": 10.3,
+      "actual_duration_s": 12.69,
       "audio_file": "mp3/beat-B09.mp3",
-      "render_duration_s": 10.3,
+      "render_duration_s": 12.7,
       "build": {
         "status": "VIDEO",
         "src": "media\\B09.mp4",
-        "filled_by": "remotion:EbOutro",
-        "at": "2026-10-14T15:43:30"
+        "filled_by": "remotion:EfOutro",
+        "at": "2026-10-25T00:13:04"
       }
     }
   ]
