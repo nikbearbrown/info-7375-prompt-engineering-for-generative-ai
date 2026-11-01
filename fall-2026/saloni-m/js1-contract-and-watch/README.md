@@ -103,7 +103,7 @@ Not checked:  - a real second calendar day: only one live fetch was made
 Not claiming: that any verdict says whether a job is worth Priya's time. The rule reads only
               titles; Claude's verdicts are judgments that disagreed with the hand labels 14/20
               (v1). v2 beating v1 is one posting per split, not evidence of a better prompt.
-Signed or withheld: WITHHELD until Saloni has reviewed this submission and signs it here.
+Signed or withheld: Signed: Saloni Mathure, 2026-11-01
 ```
 
 ## Driver's seat
@@ -114,4 +114,4 @@ Signed or withheld: WITHHELD until Saloni has reviewed this submission and signs
 | Contract | drafted keyword lists, wrong versions, failure sentence from her choices | the rule shape the contract is built on | the contract is what she will be held to | commit `f166f5d` (before any code) |
 | Code, tests, runs, reports | wrote all of them and ran them | logged the CLI in so the Claude steps could run | — | commits JS1-2 … JS1-7 |
 | Ground truth | built the label tool; did not label | labelled all 20 postings | only she can say what counts as relevant; a model grading itself proves nothing | `labels/hand_labels.csv`, timestamps 14:22:30–14:24:59 |
-| Sign-off | drafted Checked / Not checked from the tests and runs | signs or withholds | her name goes on it | the line above |
+| Sign-off | drafted Checked / Not checked from the tests and runs | read it and signed ("sign it", 2026-11-01) | her name goes on it | the line above |

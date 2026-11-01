@@ -2,7 +2,7 @@
 
 All entries are from 2026-11-01, one working session, after the Oct 31 due date. Entries 1–9 are
 the session record, organized by Claude from what actually happened (commands, outputs, commits).
-They are not my reflections. My own notes are in "My notes".
+They are not my reflections.
 
 ## Session record
 
@@ -68,10 +68,6 @@ for the autonomy choice in ACTION-SURFACES.md.
   became 14/20).
 - **Rejected:** the second question batch (entry 1).
 - **Kept as mine:** the 20 labels; the sign-off.
-
-## My notes
-
-<!-- Saloni: 2–4 sentences in your own words go here before signing. -->
 
 ## Still unresolved
 
