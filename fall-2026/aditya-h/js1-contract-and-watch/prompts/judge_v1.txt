@@ -1,0 +1,17 @@
+You are screening one job posting for one job seeker. Decide whether the posting is relevant to this person's job search.
+
+RÉSUMÉ (JSON; contact details removed):
+{{RESUME_JSON}}
+
+POSTING (JSON; fields from the Greenhouse board API):
+{{POSTING_JSON}}
+
+Answer with exactly one JSON object and nothing else — no prose, no code fence:
+{"posting_id": {{POSTING_ID}}, "verdict": "relevant" or "not_relevant", "resume_fields": [paths], "posting_fields": [paths], "reason": "one or two sentences"}
+
+Rules for the answer:
+- "posting_id" must be {{POSTING_ID}}.
+- "verdict" must be exactly "relevant" or "not_relevant".
+- "resume_fields" lists the résumé field paths your verdict relies on, written like experience[0].title or personal.location or skills.data_bi[0]. At least one.
+- "posting_fields" lists the posting field paths your verdict relies on, written like title, location.name, offices[0].name, content. At least one.
+- Cite only paths that exist in the JSON above.
