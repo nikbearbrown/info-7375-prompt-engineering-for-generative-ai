@@ -1,6 +1,6 @@
 # Action-surface comparison (Chapter 3)
 
-> Draft written by Claude Code on 2026-10-31 from the runs below; reviewed and edited by me before submission.
+> Written by Claude Code on 2026-10-31 from the runs below. I did not edit it directly.
 
 **Task (same all three ways):** decide whether Figma posting `6233040004` ("Data & Integration Engineer, Business Systems") is relevant to Jack Spencer, naming the résumé and posting fields behind the verdict.
 
