@@ -16,7 +16,7 @@ def main(argv=None):
     r.add_argument("--runs-dir", default="runs")
     r.add_argument("--claude", action="store_true", help="also ask Claude (claude CLI) for a labeled judgment")
     r.add_argument("--model", default="sonnet")
-    r.add_argument("--prompt", default="prompts/judge_v1.txt")
+    r.add_argument("--prompt", default="prompts/judge_v2.txt")
     r.add_argument("--seeded-raw", help="SEEDED run: read this saved response instead of fetching")
     a = ap.parse_args(argv)
 

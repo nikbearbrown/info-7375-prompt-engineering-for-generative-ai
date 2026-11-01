@@ -1,11 +1,12 @@
 """Sampling report (Chapter 1): ask Claude the same contract about each of 5 postings, 4 times each,
-every time in a fresh `claude -p` conversation. Every reply is appended to sampling/results.jsonl.
+every time in a fresh `claude -p` conversation. Every reply is appended to sampling/results-<prompt>.jsonl.
 
 Usage: python3 experiments/run_sampling.py [--trials 4] [--prompt prompts/judge_v1.txt]
        python3 experiments/run_sampling.py --summarize
 """
 import argparse
 import collections
+import pathlib
 import sys
 
 from common import ROOT, append_jsonl, jobs_by_id, labels, maya, read_jsonl
@@ -14,12 +15,16 @@ sys.path.insert(0, str(ROOT))
 from jobwatch import claude_judge, rule  # noqa: E402
 
 IDS = [7983725, 8331124, 8195440, 8163193, 8127182]
-OUT = ROOT / "experiments" / "sampling" / "results.jsonl"
+
+
+def out_path(prompt):
+    return ROOT / "experiments" / "sampling" / f"results-{pathlib.Path(prompt).stem}.jsonl"
 
 
 def run(trials, prompt):
     jobs, resume = jobs_by_id(), maya()
     judge = claude_judge.make_judge(ROOT / prompt)
+    OUT = out_path(prompt)
     done = collections.Counter(r["posting_id"] for r in read_jsonl(OUT))
     for pid in IDS:
         for t in range(done[pid] + 1, trials + 1):
@@ -28,10 +33,11 @@ def run(trials, prompt):
             print(pid, t, out["status"])
 
 
-def summarize():
-    hand = {r["id"]: r["hand_label"] for r in labels()}
+def summarize(prompt):
+    hand = {r["id"]: r["corrected_label"] for r in labels()}
     jobs, resume = jobs_by_id(), maya()
-    rows = read_jsonl(OUT)
+    rows = read_jsonl(out_path(prompt))
+    print(f"prompt: {prompt}")
     print("| id | title | trials | relevant | not_relevant | invalid | rule (record) | hand label | Claude majority = hand? |")
     print("|---|---|---|---|---|---|---|---|---|")
     for pid in IDS:
@@ -49,4 +55,4 @@ if __name__ == "__main__":
     ap.add_argument("--prompt", default="prompts/judge_v1.txt")
     ap.add_argument("--summarize", action="store_true")
     a = ap.parse_args()
-    summarize() if a.summarize else run(a.trials, a.prompt)
+    summarize(a.prompt) if a.summarize else run(a.trials, a.prompt)
