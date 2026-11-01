@@ -15,7 +15,7 @@ from agent.resume import field_exists
 ALLOWED_KEYS = {"verdict", "resume_fields", "posting_fields", "reason"}
 VERDICTS = {"relevant", "not_relevant"}
 POSTING_FIELDS = {"title", "location.name", "content", "departments"}
-CONTENT_CHARS = 4000
+CONTENT_CHARS = 12000  # longest of the 20 experiment postings is 11,500 chars of text
 
 
 class ValidationError(ValueError):
@@ -46,8 +46,8 @@ def build_prompt(posting, resume, prompt_path):
     with open(prompt_path, encoding="utf-8") as f:
         template = f.read()
     return (template
-            .replace("{{RESUME_JSON}}", json.dumps(resume_view(resume), indent=2))
-            .replace("{{POSTING_JSON}}", json.dumps(posting_view(posting), indent=2)))
+            .replace("{{RESUME_JSON}}", json.dumps(resume_view(resume), indent=2, ensure_ascii=False))
+            .replace("{{POSTING_JSON}}", json.dumps(posting_view(posting), indent=2, ensure_ascii=False)))
 
 
 def validate_claude_output(text, resume):
