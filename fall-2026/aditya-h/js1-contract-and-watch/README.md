@@ -101,7 +101,7 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 
 ## Sign-off — Job-Search Agent 1
 
-*Drafted by Claude Code on 2026-10-31 for Aditya to edit, then sign or withhold.*
+*Drafted by Claude Code on 2026-10-31; reviewed and signed by Aditya in chat on 2026-10-31 (signature line transcribed verbatim).*
 
 **Checked**
 - **Only new ids are reported; the baseline reports none; a failed or empty fetch never touches state:** `tests/test_watch.py::RunWatch` (11 tests), the live baseline (0 new of 745), the live second run (0 new; the board was unchanged), and the SEEDED run (17 new, matching the 17 postings with `first_published` on or after Oct 30).
@@ -132,7 +132,7 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 - That the agent applies, emails, or logs in anywhere. It never does.
 - **That a second calendar day was shown.** It wasn't. The second live run happened 30 minutes after the baseline and found 0 new postings. The run with a change is SEEDED: a reconstruction from the saved response's own `first_published` dates, not an observation of the board on an earlier day.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Signed: Aditya Hasija, 2026-10-31
 
 ## Driver's seat
 

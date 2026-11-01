@@ -27,7 +27,6 @@
 
 ## Part 2 — My reflections (Aditya)
 
-*To be written by Aditya in their own words:*
-- *What surprised me:*
-- *What I would do differently:*
-- *Where I disagreed with Claude, and why:*
+*Written by Aditya in chat on 2026-10-31 and transcribed verbatim:*
+
+> My 2 labeling slips definitely caught me off guard, some roles can have different responsibilities than what is stated in the title. As for rejecting roles over experience, it somewhat makes sense bit I prefer a broader range of selection criteria, rather than missing something I could be a decent fit for. I could have added more role titles like - Growth Manager, AI Product Manager or AI Product Builder or even Business Analyst to widen the selection criteria. For the most part, I'm content with the results.
