@@ -4,7 +4,7 @@
 
 ## 1. What I tried and what happened
 
-- **The contract.** First I asked Claude to write CONTRACT.md "so it doesn't get written off as AI wrote this". Claude declined to disguise authorship and offered two options: answer one question per section, or let it draft and label the draft. I chose to answer questions (Q1–Q6). I took several of its suggestions; each one is marked in the contract. The contract was committed alone, before any code (`5ca21ed`, 19:14).
+- **The contract.** First I asked Claude to write CONTRACT.md "so it doesn't get written off as AI wrote this". Claude declined to disguise authorship and offered two options: answer one question per section, or let it draft and label the draft. I chose to answer questions (Q1–Q6). I took several of its suggestions; each one is marked in the contract. The contract was committed alone, before any code (`3632004`, 19:14).
 - **Contradictions inside my own contract.**
   - In Q1 I listed Jack's cities; in Q2 I said location "is not a matter of concern". Claude asked which I meant, and I dropped location from the rule.
   - In Q3 I chose "skip the bad item and continue" for refusals. Claude kept "a résumé that fails the check stops the run" as the one exception, because there's nothing to continue with.
@@ -21,7 +21,7 @@
   - reasons that didn't match the posting ("cybersecurity" for an HR-systems role; "design role" for an engineering internship);
   - reasons that didn't match Jack's résumé ("experience with AI tools"; "knows CRM and ERP").
 
-  After Claude flagged these, I revised 8 entries, and 3 labels flipped from `relevant` to `not_relevant` (`experiments/label_revisions.md`). The labels were committed before any experiment ran (`f3bc3e4`, 20:44).
+  After Claude flagged these, I revised 8 entries, and 3 labels flipped from `relevant` to `not_relevant` (`experiments/label_revisions.md`). The labels were committed before any experiment ran (`a4d8dd2`, 20:44).
 - **Every one of the 20 experiment labels came out `not_relevant`.** I briefly asked to broaden Jack's persona to software engineering. Claude laid out the cost (a contract revision, relabeling, re-running the sampling calls) and recommended against it. I kept the persona (option "a") and stated the limit instead.
 - **Results.**
   - Both prompts scored 10/10 on dev and on held-out.
@@ -77,16 +77,20 @@ My first few labels were no good: one was an invalid label, one was a labels wit
 | Flags on my label reasons | modified 8 entries | `experiments/label_revisions.md` |
 | Broaden the persona vs. option (a) | Claude recommended (a); I accepted | this chat |
 | Revision-prompt change (option 1 of 3) | accepted | `prompts/judge_revision.md` |
-| Drafts of README write-ups, ACTION_SURFACE, SOURCES, this log | I did not edit them directly; I gave my views and corrections in chat, and Claude inserted them in my words | git diff after `f3bc3e4` |
+| Drafts of README write-ups, ACTION_SURFACE, SOURCES, this log | I did not edit them directly; I gave my views and corrections in chat, and Claude inserted them in my words | git diff after `a4d8dd2` |
 
 ## 4. Traceability
 
 | Commit | Time | What it fixes in time |
 |---|---|---|
-| `5ca21ed` | 19:14 | CONTRACT.md alone, before code |
-| `c32d395` | 20:03 | code, tests, runs 1–2, sampling calls, action-surface runs, all before labels |
-| `f3bc3e4` | 20:44 | hand labels and the labeling rule, before any experiment run |
-| _(final)_ | | results, write-ups, this file, sign-off |
+| `3632004` | 19:14 | CONTRACT.md alone, before code |
+| `b02b212` | 20:03 | code, tests, runs 1–2, sampling calls, action-surface runs, all before labels |
+| `a4d8dd2` | 20:44 | hand labels and the labeling rule, before any experiment run |
+| `99684cb` | 21:23 | prompt experiment, sampling report, write-ups, this file, sign-off draft |
+| `b25f398` | 21:35 | sign-off signed by me |
+| `ab2f6c2` | 21:45 | my revised reflections; corrected who checked what |
+
+**About these hashes.** I made these commits in a local repository. I then replayed them, in the same order and with the same author times, into `fall-2026/akshit-v/js1-contract-and-watch/` of the course repository. Replaying changes the hashes, so the table and README cite the course-repository hashes. The original local hashes, in the same order, were `5ca21ed`, `c32d395`, `f3bc3e4`, `056563c`, `724eee5` and `5dc1637`. The folder's content at `ab2f6c2` is byte-identical to my local repository at `5dc1637` (both have git tree `77243d6`).
 
 - **Prompts:** `prompts/judge_baseline.md`, `prompts/judge_revision.md`.
 - **Tests:** `tests/`.

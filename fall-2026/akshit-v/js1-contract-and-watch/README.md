@@ -4,7 +4,7 @@ The agent watches one public Greenhouse board (Figma) for a fictional persona, *
 - a **rule** verdict, which is a record anyone can recompute by hand from `CONTRACT.md`;
 - a **Claude** verdict, which is a judgment, always labeled as model output.
 
-The contract was written and committed before any code: `CONTRACT.md`, commit `5ca21ed` (2026-10-31 19:14 ET).
+The contract was written and committed before any code: `CONTRACT.md`, commit `3632004` (2026-10-31 19:14 ET).
 
 ## Language and toolchain
 - **Python 3.12.10**, standard library only. There's nothing to `pip install`.
@@ -52,7 +52,7 @@ python -I scripts/recompute_rule.py        # failure condition #1: recompute run
 | 23:39:55 | **Run 2, live fetch.** 140 postings, 10 new, both judges. All 10 Claude replies passed the validator, and Claude agreed with the rule on 10 of 10 | `runs/20261031T233955Z_figma_run.txt`, `evidence/raw/20261031T233955Z_figma_live.json`, `state/seen_ids.json` |
 | 23:43 | Sampling: 5 postings × 4 fresh Claude sessions. 20 of 20 replies valid, 20 distinct sessions | `experiments/results/sampling_20261031T234336Z.json` |
 | 23:45 | Action-surface runs: paste, file, agent | `experiments/results/action_surface_20261031T234559Z.json` |
-| 11-01 00:45–00:48 | Prompt experiment: baseline and revision on dev, then both on held-out (`--final`), after hand labels were committed (`f3bc3e4`) | `experiments/results/judge_*_{dev,heldout}_*.json` |
+| 11-01 00:45–00:48 | Prompt experiment: baseline and revision on dev, then both on held-out (`--final`), after hand labels were committed (`a4d8dd2`) | `experiments/results/judge_*_{dev,heldout}_*.json` |
 
 **The change between runs is seeded, not a real change on the board.** The two live fetches (23:38:58 and 23:39:55) had identical id sets. Run 2's 10 new ids are exactly the 10 removed to make the seeded file. I checked this by script against the meta file and the run JSON.
 
@@ -93,7 +93,7 @@ The wrong versions themselves live in `tests/wrong_versions.py`.
 
 > Results are from the files listed. The "What I can and cannot conclude" text was drafted by Claude Code. I did not edit it directly. The line "My view…" is my own words.
 
-**Setup.** I picked 5 postings, the closest calls on the board. Claude was asked about each one in 4 fresh conversations: 20 separate sessions (`claude -p`, `claude-opus-5-5`, baseline prompt contract) on 2026-10-31 between 23:43 and 23:44 UTC. All 20 replies passed the validator. My hand labels were made blind to these replies, using `experiments/LABELING_RULE.md`, and committed (`f3bc3e4`) before I looked at them.
+**Setup.** I picked 5 postings, the closest calls on the board. Claude was asked about each one in 4 fresh conversations: 20 separate sessions (`claude -p`, `claude-opus-5-5`, baseline prompt contract) on 2026-10-31 between 23:43 and 23:44 UTC. All 20 replies passed the validator. My hand labels were made blind to these replies, using `experiments/LABELING_RULE.md`, and committed (`a4d8dd2`) before I looked at them.
 
 | id | posting | my hand label | rule | Claude, 4 fresh calls | Claude majority = my label? |
 |---|---|---|---|---|---|
@@ -118,7 +118,7 @@ Source: `experiments/results/sampling_20261031T234336Z.json` (every reply, with 
 
 > Results are from the files listed. The "Limits" text was drafted by Claude Code. I did not edit it directly.
 
-**Labels.** I labeled 20 real Figma postings (10 dev, 10 held-out) using `experiments/LABELING_RULE.md`, which was written before labeling. The labels and notes are in `experiments/labels.csv`, and the revisions are in `experiments/label_revisions.md`. They were committed in `f3bc3e4` before any experiment ran. How the 20 were drawn, including two earlier draws I discarded, is recorded in `experiments/make_label_sheet.py`.
+**Labels.** I labeled 20 real Figma postings (10 dev, 10 held-out) using `experiments/LABELING_RULE.md`, which was written before labeling. The labels and notes are in `experiments/labels.csv`, and the revisions are in `experiments/label_revisions.md`. They were committed in `a4d8dd2` before any experiment ran. How the 20 were drawn, including two earlier draws I discarded, is recorded in `experiments/make_label_sheet.py`.
 
 **The one change.** `prompts/judge_revision.md` differs from `prompts/judge_baseline.md` in exactly one paragraph, the definition of "relevant":
 - *Baseline:* "fits the job seeker's target titles, skills, and seniority, and is full-time".
@@ -150,7 +150,7 @@ A pass means the reply was valid **and** its verdict equaled my hand label. All 
 - **Both wrong versions are caught.** W1 (verdicts paired with the wrong postings, for both judges, including out-of-order replies) and W2 (substring skill matching) fail their checks (`tests/test_wrong_versions.py`).
 - **Refusals.** Off-list hosts and off-list redirects are refused (`tests/test_resume_and_fetch.py`). A non-persona résumé stops the run before anything prints (`tests/test_watch_and_run.py`). Malformed Claude output is rejected (`tests/test_claude_validator.py`).
 - **The watch.** The baseline reported 0 new. Run 2 reported exactly the 10 ids removed to make the SEEDED file, and only those.
-- **Labels.** The 25 hand labels and their notes are mine, committed (`f3bc3e4`) before any experiment ran or any sampling verdict was shown.
+- **Labels.** The 25 hand labels and their notes are mine, committed (`a4d8dd2`) before any experiment ran or any sampling verdict was shown.
 
 **How:**
 - **By hand:** the 5-posting rule check, and all 25 labels.
@@ -179,9 +179,9 @@ A pass means the reply was valid **and** its verdict equaled my hand label. All 
 
 | Part of the task | What Claude did | What I did | Why that part stays mine | Where it shows |
 |---|---|---|---|---|
-| The contract | asked one question per section and offered options; declined to write a contract disguised as mine | made every decision, accepting the suggestions marked in the file | The contract defines what counts as success. If Claude wrote it, Claude would be setting the standard it is then judged by. | commit `5ca21ed` (contract alone, before code); the marked lines in CONTRACT.md |
+| The contract | asked one question per section and offered options; declined to write a contract disguised as mine | made every decision, accepting the suggestions marked in the file | The contract defines what counts as success. If Claude wrote it, Claude would be setting the standard it is then judged by. | commit `3632004` (contract alone, before code); the marked lines in CONTRACT.md |
 | Code and tests | wrote them against the contract, and ran them | checked the rule by hand on 5 postings; did not review the code line by line | A passing test only shows what someone decided to check. The contract's rule is what decides whether the code is right. | README failure-condition row #1; `tests/` |
-| Hand labels | built a blind sheet with quoted excerpts; flagged reasons that conflicted with the posting, the résumé, or my rule; declined to suggest labels | labeled all 25 and revised 8 entries after the flags | The labels are the answer key Claude is graded against. They can't come from the thing being graded. | `experiments/labels.csv`, `experiments/label_revisions.md`, commit `f3bc3e4` |
+| Hand labels | built a blind sheet with quoted excerpts; flagged reasons that conflicted with the posting, the résumé, or my rule; declined to suggest labels | labeled all 25 and revised 8 entries after the flags | The labels are the answer key Claude is graded against. They can't come from the thing being graded. | `experiments/labels.csv`, `experiments/label_revisions.md`, commit `a4d8dd2` |
 | Is a posting worth Jack's time? | gives a judgment, labeled as model output | the record is the rule I wrote; the final call is mine | Whoever spends the day applying bears the cost of a wrong verdict, not Claude. | `runs/20261031T233955Z_figma_run.txt` (RULE vs CLAUDE lines) |
 | Sign-off | drafted the words from the record | sign or withhold after reading it | Only I can be held to what I say I checked. | this section |
 
