@@ -82,7 +82,7 @@ No real résumé, credentials or transcripts are in this folder. `.gitignore` bl
 
 ## Sign-off — Job-Search Agent 1
 
-> **DRAFT by Claude. Siddi edits every line, then signs or withholds.**
+> Lines drafted by Claude; Siddi reviewed them and chose to sign them as they stand (2026-10-31, about 23:28 ET).
 
 - **Checked:**
   - Each of the 36 contract wrong versions is caught by its own test (`tests/test_wrong_versions.py`, 36/36), and each test fails when its wrong version is put into the code (`tests/mutants.py`, 37/37).
@@ -104,7 +104,7 @@ No real résumé, credentials or transcripts are in this folder. `.gitignore` bl
   - That "relevant" means "worth applying to".
   - That Claude's verdicts are correct.
   - That any of this generalises beyond one board, one persona and one day.
-- **Signed or withheld:** ____________ (name, date)
+- **Signed or withheld:** Signed, Siddi Kommuri, 2026-10-31
 
 ## Driver's seat
 
