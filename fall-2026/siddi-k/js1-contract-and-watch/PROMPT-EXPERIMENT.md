@@ -21,8 +21,55 @@
 ## Results
 
 <!-- generated:start -->
-_No experiment runs yet._
+| prompt | split | agree with hand labels | 95% Wilson interval | invalid outputs |
+|---|---|---|---|---|
+| `judge_v1` | dev | 8/10 | 49%–94% | 0 |
+| `judge_v1` | held_out | 8/10 | 49%–94% | 0 |
+| `judge_v2` | dev | 8/10 | 49%–94% | 0 |
+
+**dev**
+
+| posting_id | title | hand | `judge_v1` | `judge_v2` |
+|---|---|---|---|---|
+| 8333122 | Master's Machine Learning Engineer, Intern | N | N | N |
+| 8113100 | Data Scientist, Fraud | N | N | N |
+| 8333074 | Master's Machine Learning Engineer, Intern | R | N ✗ | N ✗ |
+| 8224915 | Machine Learning Engineer, Growth Platform | R | R | R |
+| 8194283 | PhD Data Scientist, Intern | R | N ✗ | N ✗ |
+| 8258078 | Account Executive, Commercial Hunter, AUNZ | N | N | N |
+| 7396679 | Software Engineer, Secrets Infrastructure | N | N | N |
+| 7893199 | Account Executive, Cross Border China | N | N | N |
+| 8124304 | Staff Product Manager, Stripe Tax | N | N | N |
+| 8264421 | Engineering Manager - Support Experience | N | N | N |
+
+**held_out**
+
+| posting_id | title | hand | `judge_v1` |
+|---|---|---|---|
+| 8144196 | AI Engineer | R | N ✗ |
+| 8222149 | Data Scientist | R | N ✗ |
+| 8243617 | Machine Learning Engineer, Radar | R | R |
+| 8328664 | PhD Machine Learning Engineer, Intern | N | N |
+| 8194285 | PhD Data Scientist, Intern | N | N |
+| 8195440 | Product Manager, Connect Growth & Monetization | N | N |
+| 7392697 | Product Manager, Link - Consumer | N | N |
+| 8112043 | Staff Software Engineer, Risk Data Engineering | N | N |
+| 8224620 | Strategy & Operations Business Partner, Customer Success | N | N |
+| 7369543 | Backend/API Engineer, Money as a Service (Product) | N | N |
+
+R relevant, N not relevant; a trailing ✗ marks disagreement with the hand label.
 <!-- generated:end -->
+
+## What happened (2026-10-31, 23:19–23:22 ET)
+
+- **Dev tie.** `judge_v1` and `judge_v2` both scored **8/10 on dev**, with the same verdict on every dev posting. The added seniority sentence changed nothing on these ten.
+- **Final prompt.** Under the tie rule fixed before running, `judge_v1` stayed final.
+- **Held-out.** `judge_v1` scored **8/10**, run once.
+- **All four misses go the same way.** In every one, Siddi labelled the posting relevant and Claude said not relevant:
+   - **Two dev internships**, 8333074 and 8194283. Claude: they require current master's or PhD enrollment, and `highest_degree` is bachelors.
+   - **8144196, AI Engineer, Chicago.** Claude: 4+ years required against 2, and Chicago is not in `preferred_cities`.
+   - **8222149, Data Scientist, Seattle.** Claude: a master's + 5 years, or a bachelor's + 7, required against 2 years.
+- **Most of these are disagreements about the persona, not about Claude.** `LABELING.md` says "Anywhere in usa" and accepts master's roles and some internships. The prompt instead hands Claude the persona's `preferred_cities` and `highest_degree: bachelors`, so Claude applied the persona and Siddi applied the labelling rule. A revision that would plausibly move the score is to put the labelling rule's location and degree stance into the persona or the prompt. The seniority sentence tested here does not. That is a next experiment, not a result.
 
 ## Honest limits
 

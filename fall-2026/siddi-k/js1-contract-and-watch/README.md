@@ -48,6 +48,11 @@ python -m agent run --mode seeded --seeded-from raw/2026-11-01T02-47-55Z/board.j
 | 06:57 | Tests 36/36 pass; mutation check 37/37 caught | `evidence/tests/`, `7494886` |
 | 22:47 | **Second live run, Stripe:** 745 postings, **0 new**. Stripe posted nothing new between 06:48 and 22:47 on a Saturday; one posting was removed. The run id says 2026-11-01 because it is UTC. | `raw/2026-11-01T02-47-55Z/` |
 | 22:50 | `judge_v2` (one change) committed before any experiment result | `a6e3aac` |
+| 22:59 | Sampling: 5 dev postings × 4 fresh calls, all unanimous; the modal verdict matches the hand label on 3 of 5 | `SAMPLING.md` |
+| 22:59 | Action surface, three ways on posting 8113100. The agent surface built about 650 of 745 ids and wrote no state. | `ACTION-SURFACE.md` |
+| 23:07 | `LABELING.md` committed before any label | `45fd638` |
+| 23:19 | 20 hand labels committed (3 relevant + 7 not, in each split) | `6bd2b52` |
+| 23:20 | Prompt experiment: `judge_v1` 8/10 dev, `judge_v2` 8/10 dev (tie → v1 final), `judge_v1` 8/10 held-out (scored once) | `PROMPT-EXPERIMENT.md` |
 
 **What the live runs did not show:** neither live run reported a new posting, so the agent never judged a real new posting live. "New since last run" is shown only by:
 - the fixture tests wv19 and wv26–wv30;

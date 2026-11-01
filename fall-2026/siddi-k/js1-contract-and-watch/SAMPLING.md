@@ -16,14 +16,23 @@
 <!-- generated:start -->
 | posting_id | title | verdicts in run order (R relevant, N not, ✗ invalid) | modal share | hand label | modal = hand? |
 |---|---|---|---|---|---|
-| 8333122 | Master's Machine Learning Engineer, Intern | N N N N | 4/4 | (not labelled) | – |
-| 8224915 | Machine Learning Engineer, Growth Platform | R R R R | 4/4 | (not labelled) | – |
-| 8113100 | Data Scientist, Fraud | N N N N | 4/4 | (not labelled) | – |
-| 8194283 | PhD Data Scientist, Intern | N N N N | 4/4 | (not labelled) | – |
-| 8333074 | Master's Machine Learning Engineer, Intern | N N N N | 4/4 | (not labelled) | – |
+| 8333122 | Master's Machine Learning Engineer, Intern | N N N N | 4/4 | not_relevant | yes |
+| 8224915 | Machine Learning Engineer, Growth Platform | R R R R | 4/4 | relevant | yes |
+| 8113100 | Data Scientist, Fraud | N N N N | 4/4 | not_relevant | yes |
+| 8194283 | PhD Data Scientist, Intern | N N N N | 4/4 | relevant | no |
+| 8333074 | Master's Machine Learning Engineer, Intern | N N N N | 4/4 | relevant | no |
 
 20 calls on 5 postings, prompt `judge_v1`, model claude-sonnet-5-5, run 2026-11-01T02:59 → 2026-11-01T03:00 UTC. 5 of 5 postings got the same verdict on every call. Invalid outputs: 0.
 <!-- generated:end -->
+
+## What happened
+
+- **Spread: none.** All 5 postings got the same verdict on all 4 calls (20/20 identical within posting), with no invalid outputs.
+- **Correctness: 3 of 5.** The unanimous verdict matched Siddi's hand label for 3 postings. It disagreed, **unanimously and 4 times out of 4**, on the two internships Siddi labelled relevant:
+   - 8333074, Master's ML Engineer Intern;
+   - 8194283, PhD Data Scientist Intern.
+- **Why they differ.** Claude's justifications say both internships require *current enrollment* in a master's or PhD program, and the persona's `highest_degree` is bachelors. Siddi's `LABELING.md` counts "Masters or some internships".
+- **What that means.** This is the chapter's point in miniature: four identical answers were four identical answers to a different question than the labeller's, so the repetition carried no information about correctness.
 
 ## What this can and cannot show
 

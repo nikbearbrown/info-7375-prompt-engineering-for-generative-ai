@@ -23,7 +23,9 @@
   - Pin `claude-sonnet-5-5`.
   - Let Claude draft the vocab extension, `judge_v1`, the v2 note and `judge_v2`; approve each before commit.
   - Move the Databricks baseline into evidence.
-- **Still to come from Siddi:** `LABELING.md`, the 20 hand labels, `FRICTIONAL.md`, and the sign-off in the README.
+- **`LABELING.md`:** Siddi's answers to five questions Claude asked, typed in chat and saved verbatim (`45fd638`).
+- **The 20 hand labels and reasons**, typed in chat and saved verbatim (`6bd2b52`).
+- **`FRICTIONAL.md` and the README sign-off.**
 
 ## What Claude contributed
 
