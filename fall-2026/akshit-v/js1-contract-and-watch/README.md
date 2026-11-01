@@ -173,7 +173,7 @@ A pass means the reply was valid **and** its verdict equaled my hand label. All 
 - That the second run shows a real new posting.
 - That any of this generalizes beyond one board, one persona, and one evening.
 
-**Signed or withheld:** ____________ (Akshit Verma, date: to sign after review)
+**Signed or withheld:** Akshit Verma, date: 10/31/2026
 
 ## Driver's seat
 
