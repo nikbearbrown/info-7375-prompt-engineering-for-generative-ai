@@ -1,6 +1,6 @@
 # Labeling rule — how I hand-label a posting
 
-English translation of `LABELING_RULE.zh.md`, which was committed before any label (commit ab1e292) in my working repo (see `evidence/git-history.txt`).
+This rule was committed before any label (commit ab1e292 in my working repo; see `evidence/git-history.txt`).
 
 Author: Isaac Tai. Written before labeling any posting (R23).
 
