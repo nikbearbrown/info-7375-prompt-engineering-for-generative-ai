@@ -15,6 +15,7 @@ from agent.resume import field_exists
 ALLOWED_KEYS = {"verdict", "resume_fields", "posting_fields", "reason"}
 VERDICTS = {"relevant", "not_relevant"}
 POSTING_FIELDS = {"title", "location.name", "content", "departments"}
+NO_TOOLS = "Bash,Edit,Write,Read,Glob,Grep,WebFetch,WebSearch,NotebookEdit,Task,TodoWrite"
 CONTENT_CHARS = 12000  # longest of the 20 experiment postings is 11,500 chars of text
 
 
@@ -82,10 +83,11 @@ def call_claude(prompt):
     # Run from an empty temp dir so no project CLAUDE.md or settings leak into the conversation.
     with tempfile.TemporaryDirectory() as cwd:
         proc = subprocess.run(
-            [bin_, "-p", prompt, "--model", model, "--output-format", "json", "--tools", ""],
-            cwd=cwd, capture_output=True, text=True, timeout=300,
+            [bin_, "-p", prompt, "--model", model, "--output-format", "json", "--disallowedTools", NO_TOOLS],
+            cwd=cwd, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=300,
         )
     meta = json.loads(proc.stdout)
+    meta.setdefault("modelUsage", {})
     if meta.get("is_error"):
         raise RuntimeError(f"claude CLI error: {meta.get('result')}")
     return meta["result"], {"session_id": meta.get("session_id"), "model": model,
