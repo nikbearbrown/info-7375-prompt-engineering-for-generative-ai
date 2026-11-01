@@ -82,3 +82,11 @@ That gap is deliberate for this first layer and is listed in the README sign-off
 principal or manager gets a `relevant` verdict from the rule, if any verdict's justification
 names no résumé field, or if the second run reports a posting id that was already in the state
 file after the first run.
+
+## Amendment 2026-11-01 (after seeded run 2, before any Claude call)
+
+Seeded run 2 showed "Contracts Manager, GTM" justified only by `search.exclude_title_terms[5]`,
+although what made it `not_relevant` was that no keyword matched. Justification rule, amended:
+**when no keyword hits, the justification always cites `search.title_keywords`**, and adds the
+first level hit if there is one. Verdicts are unchanged; only the citations changed. Test:
+`test_no_keyword_always_cites_the_keyword_list`.

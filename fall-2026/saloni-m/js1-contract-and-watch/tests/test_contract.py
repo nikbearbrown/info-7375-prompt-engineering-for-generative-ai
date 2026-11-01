@@ -74,6 +74,11 @@ class TestRule(unittest.TestCase):
             self.assertEqual(v["kind"], "record")
             self.assertTrue(check_justification(v, self.resume), v)
 
+    def test_no_keyword_always_cites_the_keyword_list(self):
+        # Found by seeded run 2 (2026-11-01): "Contracts Manager, GTM" cited only the seniority term.
+        v = judge_rule(posting(8, "Contracts Manager, GTM"), self.resume)
+        self.assertEqual(v["resume_fields"], ["search.title_keywords", "search.exclude_title_terms[5]"])
+
     def test_seniority_never_relevant(self):
         for term in self.resume["search"]["exclude_title_terms"]:
             self.assertEqual(judge_rule(posting(9, f"{term} Machine Learning Engineer"), self.resume)["verdict"],

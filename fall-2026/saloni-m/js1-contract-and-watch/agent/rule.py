@@ -22,13 +22,10 @@ def judge_rule(posting, resume):
     keyword_hit = next((i for i, k in enumerate(keywords) if _contains_phrase(title_words, k)), None)
     level_hit = next((j for j, t in enumerate(excludes) if _contains_phrase(title_words, t)), None)
 
-    resume_fields = []
-    if keyword_hit is not None:
-        resume_fields.append(f"search.title_keywords[{keyword_hit}]")
+    # No keyword hit cites the whole keyword list: that absence is what decides the verdict.
+    resume_fields = [f"search.title_keywords[{keyword_hit}]" if keyword_hit is not None else "search.title_keywords"]
     if level_hit is not None:
         resume_fields.append(f"search.exclude_title_terms[{level_hit}]")
-    if not resume_fields:
-        resume_fields.append("search.title_keywords")
 
     relevant = keyword_hit is not None and level_hit is None
     if relevant:
@@ -37,6 +34,8 @@ def judge_rule(posting, resume):
         reason = "title matches no keyword in search.title_keywords"
     else:
         reason = f"title matches '{keywords[keyword_hit]}' but has seniority term '{excludes[level_hit]}'"
+    if keyword_hit is None and level_hit is not None:
+        reason += f" (it also has seniority term '{excludes[level_hit]}')"
 
     return {
         "id": posting["id"],
