@@ -1,7 +1,7 @@
 # Labeling rule for hand labels
 
 Written 2026-10-31, before any posting was hand-labeled.
-Drafted by Claude Code at my request; I reviewed it and confirmed the choices marked **[confirm]** before labeling (see SOURCES.md).
+Drafted by Claude Code at my request. I reviewed it and accepted it unchanged, including both close-call choices, on 2026-10-31, before labeling (see SOURCES.md).
 
 ## What a label means
 
@@ -26,8 +26,8 @@ Otherwise the label is `not_relevant`.
 Location, visa sponsorship, salary, and the company itself. This matches the contract.
 
 ## Close calls
-- **[confirm]** **Data scientist and ML engineer roles** are `not_relevant` unless the description says the main work is building pipelines or infrastructure. Modeling, experimentation and research are not Jack's target.
-- **[confirm]** **Backend or distributed-systems software engineer roles** are `relevant` only if the description centers on data systems (storage, streaming, pipelines). Otherwise they are `not_relevant`.
+- **Data scientist and ML engineer roles** are `not_relevant` unless the description says the main work is building pipelines or infrastructure. Modeling, experimentation and research are not Jack's target.
+- **Backend or distributed-systems software engineer roles** are `relevant` only if the description centers on data systems (storage, streaming, pipelines). Otherwise they are `not_relevant`.
 - **Anything still unclear after reading:** pick the label I'd stand behind, and write `close call:` plus the reason in the `note` column. Labels stay binary.
 
 ## Record
