@@ -31,12 +31,15 @@
 ## 2. What I checked, changed, or learned, and what is unresolved
 
 **Checked:**
-- I ran the tests (32 pass, including W1 and W2).
-- Run 2's 10 new ids equal the 10 seeded removals.
-- The agent's id list in the action-surface run was 140/140 correct.
+- By hand: I applied the rule to 5 postings (README failure-condition row #1), and my verdicts matched the code.
+- By Claude, not by me:
+  - the tests (32 pass, including W1 and W2);
+  - a second-method recomputation of all 10 run-2 verdicts (`scripts/recompute_rule.py`, 10/10);
+  - run 2's 10 new ids equal the 10 seeded removals;
+  - the action-surface agent's id list was 140/140 correct.
 
 **Not checked by me:**
-- Failure condition #1 was recomputed by Claude with a second method (`scripts/recompute_rule.py`: 10/10 match), not by hand.
+- I did not run the test suite myself, and I did not review the code line by line.
 
 **Changed:**
 - 8 hand-label entries, after the flags.
@@ -48,7 +51,11 @@
 - **Three labels are not independent of Claude.** 5551730004, 5552580004 and 6233040004 flipped after Claude's flags. For 6233040004, I had also already seen Claude's verdict.
 
 **My reflections (my own words):**
-I tested all the jobs which seemed relevant to Data Engineer on job board, I checked the skills and matched them using keywords to get accurate results, I also checked whether the experience was matching or not to judge the qualification of Jack. Some jobs didn't match where I was surprised seeing the results, it gave me a better understanding on how job platforms work when candidates apply for the jobs.
+One thing that stood out most from the results was the role of Data Platform Engineer at Figma. It looked like it was a good match for Jack by title, but by description it only identified one of his 8 skills (Python), so the rule marked it as 'not_relevant' and I marked it as 'relevant'. That demonstrated to me how to post a candidate that does not match the same skill words that a keyword rule is searching for. The rule also missed on the other side, two of its errors that it held out of both were from its 4-skill branch: Security Scientist and Data Scientist.
+
+I did not try all the jobs on the board that were relevant. I took a sample from 140 postings, and it took 3 draws to get a mix that I could use. None of the 20 labels I created for my experiments were returned; it was just that they would return `not_relevant` if none of the prompts matched.
+
+My first few labels were no good: one was an invalid label, one was a labels with no reason, one was a location reason that exceeded the rules, and reasons that did not correspond to either the posting or Jack's resume. I changed 8 entries and 3 labels from `relevant` to `not_relevant` after Claude flagged them. For that reason those three labels are not entirely independent of Claude and I had even seen Claude's verdict on one of them before.
 
 **On the labels Claude flagged (did the flags change my mind?):** Yes, it did.
 **What to do differently in Agent 2** (suggested by Claude from tonight's results; I didn't come up with my own):
