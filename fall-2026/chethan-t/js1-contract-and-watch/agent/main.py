@@ -14,7 +14,6 @@ PROJECT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = PROJECT / "config.json"
 RAW_DIR = PROJECT / "raw"
 STATE_PATH = PROJECT / "state" / "seen_ids.json"
-RESULTS_DIR = PROJECT / "results"
 BOARD_NAME = re.compile(r"^[A-Za-z0-9_-]+$")
 
 
@@ -24,21 +23,30 @@ def parse_args(argv):
     parser.add_argument("--board", default=config["board"], help="Greenhouse board name")
     parser.add_argument("--resume", default=str(PROJECT / config["resume"]), help="persona résumé JSON")
     parser.add_argument("--no-claude", action="store_true", help="skip the Claude verdict (judgment)")
+    parser.add_argument("--replay", metavar="FILE", help="judge a saved raw Greenhouse response instead of fetching")
+    parser.add_argument("--state", default=str(STATE_PATH), help="seen-postings file")
+    parser.add_argument("--out", default=str(PROJECT), help="folder for results/ and claude_responses/")
+    parser.add_argument("--label", default="", help="label stored with the run, e.g. SEEDED")
     return parser.parse_args(argv)
 
 
-def load_seen(board):
+def rel(path):
+    path = Path(path).resolve()
+    return str(path.relative_to(PROJECT)) if path.is_relative_to(PROJECT) else str(path)
+
+
+def load_seen(state_path, board):
     """Seen ids for this board, or None when this is the board's baseline run."""
-    if not STATE_PATH.exists():
+    if not state_path.exists():
         return None
-    return json.loads(STATE_PATH.read_text()).get(board)
+    return json.loads(state_path.read_text()).get(board)
 
 
-def save_seen(board, ids):
-    state = json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else {}
+def save_seen(state_path, board, ids):
+    state = json.loads(state_path.read_text()) if state_path.exists() else {}
     state[board] = ids
-    STATE_PATH.parent.mkdir(exist_ok=True)
-    STATE_PATH.write_text(json.dumps(state, indent=2) + "\n")
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(json.dumps(state, indent=2) + "\n")
 
 
 def result_for(posting, resume, use_claude=True):
@@ -84,10 +92,10 @@ def save_raw(board, raw, now):
     return path
 
 
-def save_results(run, now):
+def save_results(results_dir, run, now):
     """Append this run to results/<date>.json so same-day runs are kept."""
-    RESULTS_DIR.mkdir(exist_ok=True)
-    path = RESULTS_DIR / f"{now:%Y-%m-%d}.json"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    path = results_dir / f"{now:%Y-%m-%d}.json"
     runs = json.loads(path.read_text()) if path.exists() else []
     runs.append(run)
     path.write_text(json.dumps(runs, indent=2, ensure_ascii=False) + "\n")
@@ -103,19 +111,29 @@ def main(argv=None):
     except ValueError as e:
         sys.exit(str(e))
 
+    out = Path(args.out)
+    state_path = Path(args.state)
+    claude_judge.RESPONSES_DIR = out / "claude_responses"
+
     now = datetime.now().astimezone()
-    try:
-        raw = fetch.fetch_board(fetch.board_url(args.board))
-    except ValueError as e:
-        sys.exit(str(e))
-    raw_path = save_raw(args.board, raw, now)
+    if args.replay:
+        raw_path = Path(args.replay)
+        raw = raw_path.read_bytes()
+    else:
+        try:
+            raw = fetch.fetch_board(fetch.board_url(args.board))
+        except ValueError as e:
+            sys.exit(str(e))
+        raw_path = save_raw(args.board, raw, now)
 
     postings = json.loads(raw)["jobs"]
-    seen = load_seen(args.board)
+    seen = load_seen(state_path, args.board)
     new, updated = watch.find_new(postings, seen)
-    save_seen(args.board, updated)
+    save_seen(state_path, args.board, updated)
 
     results = [result_for(p, resume, use_claude=not args.no_claude) for p in new]
+    if args.label:
+        print(f"[{args.label}] replayed {rel(raw_path)}" if args.replay else f"[{args.label}]")
     if seen is None:
         print(f"Baseline run for {args.board}: {len(postings)} postings saved as seen, 0 new.")
     else:
@@ -124,17 +142,20 @@ def main(argv=None):
         print()
         print_result(r)
 
-    results_path = save_results({
+    results_path = save_results(out / "results", {
         "run_at": now.isoformat(timespec="seconds"),
+        "label": args.label or None,
         "board": args.board,
         "baseline": seen is None,
-        "raw_file": str(raw_path.relative_to(PROJECT)),
+        "replay": bool(args.replay),
+        "raw_file": rel(raw_path),
+        "state_file": rel(state_path),
         "postings_fetched": len(postings),
         "new_count": len(new),
         "results": results,
     }, now)
-    print(f"\nRaw response: {raw_path.relative_to(PROJECT)}")
-    print(f"Results:      {results_path.relative_to(PROJECT)}")
+    print(f"\nRaw response: {rel(raw_path)}" + (" (replayed, not fetched)" if args.replay else ""))
+    print(f"Results:      {rel(results_path)}")
 
 
 if __name__ == "__main__":
