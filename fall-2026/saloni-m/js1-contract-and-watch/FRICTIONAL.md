@@ -2,7 +2,7 @@
 
 All entries are from 2026-11-01, one working session, after the Oct 31 due date. Entries 1–9 are
 the session record, organized by Claude from what actually happened (commands, outputs, commits).
-They are not my reflections.
+They are not my reflections; those are under "My notes".
 
 ## Session record
 
@@ -60,6 +60,15 @@ PROMPT-EXPERIMENT.md.
 itself. It wrote a `state.json` with 84 of 674 ids (`"complete": false`) and reported "85". It
 gave the same verdict as surfaces 1 and 2, at 6× the cost of surface 1. That is the main evidence
 for the autonomy choice in ACTION-SURFACES.md.
+
+## My notes
+
+I chose the persona, the title + level rule and the Anthropic board, logged the CLI in, and
+labelled all 20 postings myself, quickly: about 2.5 minutes in total, going mostly by title and
+seniority. The results show that Claude rejected 14 of my "relevant" labels for reasons my own
+written labeling rule lists as disqualifying (pre-sales, IT/security operations, too many years),
+so my labels look like the weakest part of this experiment, not the prompt. Next time I would
+label slowly, reading each posting's requirements, before trusting any pass rate.
 
 ## What I accepted, changed or rejected from Claude
 
