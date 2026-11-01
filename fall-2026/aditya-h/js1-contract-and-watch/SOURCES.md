@@ -4,7 +4,7 @@
 
 | Source | Used for | Retrieved |
 |---|---|---|
-| Greenhouse Job Board API, `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true` (public, no login) | the only board the agent fetches; raw responses in `runs/raw/` | 2026-10-31 22:41 EDT (baseline); second run Nov 1 |
+| Greenhouse Job Board API, `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true` (public, no login) | the only board the agent fetches; raw responses in `runs/raw/` | 2026-10-31 22:41 EDT (baseline) and 23:11 EDT (second live run) |
 | `nikbearbrown/the-reallocation-engine`, `search/examples/maya-sehgal/resume.example.json` | the fictional persona résumé, copied unchanged to `personas/maya-sehgal.resume.json` (`@example.com`, 555 numbers) | local clone, 2026-10-31 |
 | The INFO 7375 JS1 assignment brief (Canvas) | requirements and rubric | 2026-10-31 |
 | Course repo `AGENTS.md` | the constraint "Python standard library, Claude as the only model provider" | 2026-10-31 |
@@ -27,7 +27,7 @@ The whole build happened in one Claude Code session (Claude Opus 5.5) on 2026-10
 | **Prompts** | Chose "the contract rule" as the labeling rule. | Wrote `judge_v1.txt` and `judge_v2.txt` and froze both before any experiment call. |
 | **Sampling, experiment, action-surface runs** | Asked Claude Code to run them. | Ran every call and wrote the reports. |
 | **Write-ups** (README, reports, this file, FRICTIONAL) | Reviews them, adds personal reflections to FRICTIONAL, and signs or withholds the sign-off. | Drafted all of them from the session record. |
-| **Second live run** | Runs it on 2026-11-01 (planned). | Provided the command. |
+| **Second run** | Decided to submit with a same-day live run plus a labeled SEEDED run (deadline). | Ran both, and wrote `seed_state.py`. |
 
 ## What I accepted, changed or rejected from Claude
 

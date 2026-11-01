@@ -75,7 +75,8 @@ python3 experiments/run_sampling.py --summarize --prompt prompts/judge_v2.txt
 | 2026-10-31 22:59–23:04 | Sampling, prompt v1 (20 calls), and the prompt experiment (40 calls) | `experiments/sampling/results-judge_v1.jsonl`, `experiments/prompt/results/` |
 | 2026-10-31 22:59–23:05 | Action-surface runs, three modes | `experiments/action-surface/` |
 | 2026-10-31 23:06–23:08 | Sampling, prompt v2 (20 calls) | `experiments/sampling/results-judge_v2.jsonl` |
-| **2026-11-01, after 20:00** | **Second live run (second calendar day)**, with `--claude` and prompt v2. **PENDING; not yet run.** | to be added |
+| 2026-10-31 23:11 | **Live second run**, same calendar day, 30 minutes after the baseline, with `--claude`: 745 fetched, **0 new**. Stripe posted nothing in between, and both of my earlier saved fetches (22:22 and 22:30) also matched the baseline exactly. | `runs/raw/stripe-20261101T031155Z.json`, `runs/records/run-20261101T031155Z.json`, `runs/reports/report-20261101T031155Z.md` |
+| 2026-10-31 23:12 | **SEEDED second run (labeled SEEDED, not a second calendar day).** The state was reconstructed by `experiments/seed_state.py` from the 23:11 live response: every posting with `first_published` before 2026-10-30 00:00 EDT counts as already seen (728 ids). The watch then ran on that saved response: **17 new**, 1 relevant by the rule, 1 relevant by Claude (prompt v2), **0 disagreements**, 0 invalid. | `runs-seeded/` (state, raw copy, record, report, all marked SEEDED) |
 
 **Timestamps:** filenames and records use **UTC**. The baseline file is stamped `20261101T0241Z` but ran at 22:41 EDT on **Oct 31**.
 
@@ -88,7 +89,8 @@ jobwatch/              fetch.py (allow-list), state.py, resume.py (validation + 
 prompts/               judge_v1.txt (baseline), judge_v2.txt (adds the contract rule) — the watch uses v2
 personas/              maya-sehgal.resume.json (fictional; from the-reallocation-engine)
 tests/                 test_rule.py, test_watch.py, test_claude_validator.py, wrong_versions.py
-runs/                  raw responses, state.json, run records (JSON), reports (Markdown)
+runs/                  live runs: raw responses, state.json, run records (JSON), reports (Markdown)
+runs-seeded/           the SEEDED second run (state reconstructed from first_published; labeled)
 experiments/           sampling/, prompt/, action-surface/, select_postings.py
 evidence/              Aditya's own test run, Claude smoke test
 ```
@@ -102,7 +104,7 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 *Drafted by Claude Code on 2026-10-31 for Aditya to edit, then sign or withhold.*
 
 **Checked**
-- **Only new ids are reported; the baseline reports none; a failed or empty fetch never touches state:** `tests/test_watch.py::RunWatch` (11 tests), and the live baseline (0 new of 745).
+- **Only new ids are reported; the baseline reports none; a failed or empty fetch never touches state:** `tests/test_watch.py::RunWatch` (11 tests), the live baseline (0 new of 745), the live second run (0 new; the board was unchanged), and the SEEDED run (17 new, matching the 17 postings with `first_published` on or after Oct 30).
 - **Only the allow-listed host is fetched:** `test_watch.py::AllowList`.
 - **Persona-only résumé:** `ResumeGuard` and `test_refuses_non_persona_resume_before_fetch`.
 - **The rule's verdicts match the written rule:** `tests/test_rule.py` (hand-derived cases), plus recomputation against my 20 hand labels (20/20 after two dated corrections of my own slips).
@@ -122,12 +124,13 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 4. Whether `claude -p` loaded a project `CLAUDE.md` in the action-surface runs made from inside the repo.
 5. Long-running behavior. Two runs don't test the state file over weeks, posting churn, or concurrent runs.
 6. Visa sponsorship (Maya is on H-1B). It's explicitly outside the rule.
+7. A real second calendar day. The SEEDED reconstruction misses postings that were removed before 23:11, and assumes `first_published` is accurate.
 
 **Not claiming**
 - That a Claude verdict is a fact. It's a labeled judgment.
 - That 10/10 on held-out means the agent works in general. Ten cases can't show that.
 - That the agent applies, emails, or logs in anywhere. It never does.
-- That the second-day results reflect a typical day.
+- **That a second calendar day was shown.** It wasn't. The second live run happened 30 minutes after the baseline and found 0 new postings. The run with a change is SEEDED: a reconstruction from the saved response's own `first_published` dates, not an observation of the board on an earlier day.
 
 **Signed or withheld:** ____________ (name, date)
 

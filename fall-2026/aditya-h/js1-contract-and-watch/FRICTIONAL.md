@@ -17,12 +17,13 @@
 | 9 | 23:05 | Asked Claude to "run it and finish the assignment", including the labels. | Claude would not produce my hand labels. It froze both prompts, collected all Claude replies without reading labels, and asked me to label. | I labeled all 20 in chat without seeing the experiment results. | `774c98e`, `16a72a1` |
 | 10 | ~23:10 | Scored my labels against the rule's recomputed verdicts. | **18/20 agreed.** I had labeled 8331852 (Staff PM, Risk, *Toronto*) and 8238100 (*Product Counsel*) relevant. The written rule says not_relevant for both. | **My failure sentence's second clause fired**, and the error was in my hand application, not the code. I judged both to be slips. Originals are kept, with a dated correction column; scores are reported both ways. | `4158a63`, `labels.csv` |
 | 11 | 23:00–23:05 | Action-surface mode 3: let an agent fetch the board and edit its own state file. | It reached the right verdict, but made 5 summarized fetches, counted 743 (my fetch had 745), saved no raw response, and set `last_run` to a date *earlier* than the previous run. | **Learned** why fetch and state stay in deterministic code. That backed the choice of mode 1 for Claude. | `ACTION-SURFACE.md` |
+| 12 | 23:11–23:13 | Second run. I had to submit within 30 minutes, so a second calendar day wasn't possible. | The live second run found **0 new**: Stripe hadn't changed since 22:41, and my two earlier saved fetches matched it too, so there was no real earlier response to diff against. | **SEEDED instead:** I rebuilt a "before Oct 30" state from the saved response's own `first_published` dates (`experiments/seed_state.py`). That gave 17 new, both judges agreeing on all 17. Labeled SEEDED everywhere. The planned real second day is not shown. | `runs/`, `runs-seeded/` |
 
 ### Unresolved
 
 - I didn't test the agent on a board that returns an HTTP error live. That path is only covered by unit tests with a fake fetcher.
 - The prompt experiment shows that Claude can follow my rule. It doesn't show that my rule finds good jobs for Maya; v1's seniority objections may be more useful in real life.
-- Whether the second calendar day shows real new postings depends on Stripe. If it shows none, the README will say so, and the seeded run will be labeled.
+- No second calendar day was observed. The change between runs is a SEEDED reconstruction.
 
 ## Part 2 — My reflections (Aditya)
 
