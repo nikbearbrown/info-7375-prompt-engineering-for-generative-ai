@@ -1,6 +1,6 @@
 # Test run by Aditya — 2026-10-31, about 22:50 EDT
 
-Aditya ran these two commands in their own terminal (macOS zsh) at commit `96ab08e` and pasted the output into the Claude Code chat. The output is summarized below, not edited.
+Aditya ran these two commands in their own terminal (macOS zsh) at commit `4766715` and pasted the output into the Claude Code chat. The output is summarized below, not edited.
 
 ```bash
 python3 -m unittest discover -s tests -v

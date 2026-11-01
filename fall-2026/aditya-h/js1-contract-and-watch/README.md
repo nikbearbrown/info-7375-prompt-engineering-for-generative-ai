@@ -8,7 +8,7 @@ The agent watches **one public job board** (Stripe on Greenhouse), reports **onl
 
 Every verdict cites the résumé fields and posting fields behind it. The résumé is a fictional persona, Maya Sehgal.
 
-- **Contract (written and committed before any code):** [`CONTRACT.md`](CONTRACT.md), commit `aee1aab`
+- **Contract (written and committed before any code):** [`CONTRACT.md`](CONTRACT.md), commit `7f1d0b3`
 - **Sampling report:** [`experiments/sampling/REPORT.md`](experiments/sampling/REPORT.md)
 - **Prompt experiment:** [`experiments/prompt/RESULTS.md`](experiments/prompt/RESULTS.md); plan in [`PLAN.md`](experiments/prompt/PLAN.md); labels in [`labels.csv`](experiments/prompt/labels.csv)
 - **Action-surface comparison:** [`ACTION-SURFACE.md`](ACTION-SURFACE.md)
@@ -113,7 +113,7 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 
 **How**
 - **By hand:** the 20 hand labels; reviewing the two label mismatches.
-- **By tests written before reading Claude's code:** the tests were committed before the implementation (`58f25ff` before `65ddc05`; `27702b7` before `b24d8ca`). Claude wrote both, from my contract.
+- **By tests written before reading Claude's code:** the tests were committed before the implementation (`e405c9f` before `f18c0e4`; `5f3aed3` before `abf4dc9`). Claude wrote both, from my contract.
 - **By recomputation:** rule verdicts vs hand labels; experiment scores from saved replies.
 - **With Claude's help:** all code, test code, prompts, call runs and report drafts. I ran the tests myself.
 
@@ -139,7 +139,7 @@ My real résumé is not in this repository; `.gitignore` blocks `resume.json`. C
 | Task | Claude should | I should | Why that part stays mine | Where the split shows |
 |---|---|---|---|---|
 | The contract | draft the wording, check facts against the live board, review it as a TA would | make every decision: the rule, the phrases, the location policy, the wrong versions | Only I know what "worth a day of my life" means. A TA will ask me why a posting is relevant. | CONTRACT.md provenance; I changed "matches all" to title-only after Claude's board check |
-| Hand labels | select and split the postings, recompute and compare | label every posting by hand; decide what a mismatch means | Labels are the yardstick. If Claude wrote them, it would be grading itself. | Claude refused to label ("The 20 hand labels have to be yours", Oct 31); `16a72a1`; my two slip decisions in `4158a63` |
+| Hand labels | select and split the postings, recompute and compare | label every posting by hand; decide what a mismatch means | Labels are the yardstick. If Claude wrote them, it would be grading itself. | Claude refused to label ("The 20 hand labels have to be yours", Oct 31); `6d9477d`; my two slip decisions in `c949ad6` |
 | Code and tests | write them, from the contract, tests first | run them myself; read the failures | Running them myself is the difference between "Claude says it passes" and "I saw it pass". | `evidence/test-run-by-aditya-2026-10-31.md` |
 | Attribution | draft text and mark it as drafted | own the words I sign | Misattribution is an integrity matter. | Claude declined to record the failure sentence as mine (CONTRACT.md: "drafted by Claude Code … chosen by Aditya") |
 | Credentials and publishing | stop and ask | log in myself; approve every push | Credentials and public posting are mine to authorize. | I ran `/login` myself; nothing was pushed without my approval |

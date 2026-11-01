@@ -12,10 +12,10 @@ python3 experiments/run_experiment.py --score
 
 1. Claude Code picked the 20 postings (seeded and stratified; `select_postings.py`). The first draw was discarded because it put no PM titles in dev.
 2. Aditya chose the labeling rule: "the contract rule".
-3. Both prompts were frozen (commit `774c98e`). v2 = v1 plus the contract rule text.
+3. Both prompts were frozen (commit `4c37f34`). v2 = v1 plus the contract rule text.
 4. All 40 experiment calls were collected. Collecting replies does not read the labels.
-5. Aditya hand-labeled the 20 postings in chat. Nothing from these experiment calls was shown to Aditya first. (One earlier smoke-test verdict, on 8275556, had been shown; see `evidence/`.) Labels committed in `16a72a1`.
-6. Scoring. The hand labels agreed with the rule's recomputed verdicts on **18/20**. Aditya reviewed the two mismatches, 8331852 (Toronto office) and 8238100 ("Product Counsel"), and called both **labeling slips**. The original labels are kept in `labels.csv` next to `corrected_label` and a dated note (commit `4158a63`).
+5. Aditya hand-labeled the 20 postings in chat. Nothing from these experiment calls was shown to Aditya first. (One earlier smoke-test verdict, on 8275556, had been shown; see `evidence/`.) Labels committed in `6d9477d`.
+6. Scoring. The hand labels agreed with the rule's recomputed verdicts on **18/20**. Aditya reviewed the two mismatches, 8331852 (Toronto office) and 8238100 ("Product Counsel"), and called both **labeling slips**. The original labels are kept in `labels.csv` next to `corrected_label` and a dated note (commit `c949ad6`).
 
 ## Scores
 
