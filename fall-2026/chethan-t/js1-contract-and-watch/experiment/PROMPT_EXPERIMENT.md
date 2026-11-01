@@ -54,4 +54,38 @@ Pass = Claude's verdict equals my label; an invalid reply is a fail.
 
 None.
 
+## Revision experiment: heldout (baseline, revision)
+
+<!-- heldout run -->
+
+Date: 2026-10-31T22:47:28-04:00  
+Prompt (baseline): `prompts/baseline.txt` (sha256 07ddb9d75b98), commit a904c4b  
+Prompt (revision): `prompts/revision.txt` (sha256 43c60a70afc4), commit 54d1a26  
+Raw replies: `prompt_experiment/raw/baseline_heldout/`, `prompt_experiment/raw/revision_heldout/`
+
+Pass = Claude's verdict equals my label; an invalid reply is a fail.
+
+| prompt | set | pass rate | invalid |
+|---|---|---|---|
+| baseline | heldout | 8/10 (80%) | 2/10 |
+| revision | heldout | 10/10 (100%) | 0/10 |
+
+| id | title | my label | baseline | pass | revision | pass |
+|---|---|---|---|---|---|---|
+| 7727703003 | Full Stack Software Engineer - People Systems | not_relevant | not_relevant | yes | not_relevant | yes |
+| 7989325003 | Senior Security Engineer - Detection & Response | not_relevant | not_relevant | yes | not_relevant | yes |
+| 7861843003 | Sr. Staff Engineer, Applied AI (Customer Agent) | not_relevant | not_relevant | yes | not_relevant | yes |
+| 8041054003 | Software Engineer, Conversational Products & Agent Workflows | relevant | relevant | yes | relevant | yes |
+| 7559750003 | Principal Engineer, Core Infrastructure | not_relevant | invalid | no | not_relevant | yes |
+| 8017125003 | Senior Lead AI Engineer - G&A Systems | not_relevant | not_relevant | yes | not_relevant | yes |
+| 7659972003 | Senior Security Engineer - Detection and Response | not_relevant | invalid | no | not_relevant | yes |
+| 7783904003 | Senior Software Engineer, Platform Engineering | not_relevant | not_relevant | yes | not_relevant | yes |
+| 7997133003 | Lead Security Compliance Engineer | not_relevant | not_relevant | yes | not_relevant | yes |
+| 7792539003 | Software Engineer II (Mobile Developer - Android/Kotlin) - Mobile App Growth | not_relevant | not_relevant | yes | not_relevant | yes |
+
+### Failures (heldout)
+
+- [baseline] **7559750003** Principal Engineer, Core Infrastructure: my label `not_relevant`, Claude `invalid` (no Claude verdict).  — `prompt_experiment/raw/baseline_heldout/7559750003_20261031T224827_531242.json`
+- [baseline] **7659972003** Senior Security Engineer - Detection and Response: my label `not_relevant`, Claude `invalid` (no Claude verdict).  — `prompt_experiment/raw/baseline_heldout/7659972003_20261031T224851_777556.json`
+
 ## My conclusion
