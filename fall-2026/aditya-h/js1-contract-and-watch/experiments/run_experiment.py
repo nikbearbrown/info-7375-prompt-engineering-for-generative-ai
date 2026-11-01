@@ -43,16 +43,20 @@ def run(prompt, split):
 def score():
     jobs, resume = jobs_by_id(), maya()
     lab = labels()
-    hand = {r["id"]: r["hand_label"] for r in lab}
-    rule_ok = sum(rule.judge(jobs[r["id"]], resume)["verdict"] == r["hand_label"] for r in lab)
-    print(f"rule judge (record) vs hand labels: {rule_ok}/{len(lab)} agree")
-    print("\n| prompt | set | n | valid | pass (valid and = hand label) |\n|---|---|---|---|---|")
+    for which in ("hand_label", "corrected_label"):
+        ok = sum(rule.judge(jobs[r["id"]], resume)["verdict"] == r[which] for r in lab)
+        print(f"rule judge (record) vs {which}: {ok}/{len(lab)} agree")
+    orig = {r["id"]: r["hand_label"] for r in lab}
+    corr = {r["id"]: r["corrected_label"] for r in lab}
+    print("\n| prompt | set | n | valid | pass vs original hand labels | pass vs corrected labels |"
+          "\n|---|---|---|---|---|---|")
     for path in sorted(RESULTS.glob("*.jsonl")):
         rs = read_jsonl(path)
         valid = sum(r["status"] == "valid" for r in rs)
-        ok = sum(r["status"] == "valid" and r["verdict"] == hand[r["posting_id"]] for r in rs)
+        ok_o = sum(r["status"] == "valid" and r["verdict"] == orig[r["posting_id"]] for r in rs)
+        ok_c = sum(r["status"] == "valid" and r["verdict"] == corr[r["posting_id"]] for r in rs)
         prompt, split = path.stem.rsplit("-", 1)
-        print(f"| {prompt} | {split} | {len(rs)} | {valid} | {ok}/{len(rs)} |")
+        print(f"| {prompt} | {split} | {len(rs)} | {valid} | {ok_o}/{len(rs)} | {ok_c}/{len(rs)} |")
 
 
 if __name__ == "__main__":

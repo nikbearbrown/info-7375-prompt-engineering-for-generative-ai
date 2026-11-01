@@ -20,7 +20,8 @@ def labels(require=True):
     rows = list(csv.DictReader(LABELS.open()))
     for r in rows:
         r["id"] = int(r["id"])
-        r["hand_label"] = r["hand_label"].strip()
+        r["hand_label"] = r["hand_label"].strip()  # original, as given
+        r["corrected_label"] = (r.get("corrected_label") or r["hand_label"]).strip()  # after dated corrections
     if require:
         bad = [r["id"] for r in rows if r["hand_label"] not in ("relevant", "not_relevant")]
         if bad:
