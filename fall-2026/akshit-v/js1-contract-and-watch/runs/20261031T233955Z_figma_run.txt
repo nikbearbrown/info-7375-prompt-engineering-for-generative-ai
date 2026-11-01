@@ -1,0 +1,97 @@
+# Watch run 20261031T233955Z_figma_run
+date (UTC): 2026-10-31T23:39:55+00:00
+board: figma   persona: Jack Spencer (fictional)
+input: LIVE fetch
+raw response: E:/NEUSyllabus/Fall 26/INFO 7375 Prompt Engr/Job-Search Agent 1/evidence/raw/20261031T233955Z_figma_live.json
+postings in response: 140   seen before: 130
+new since last run: 10
+Claude judge: claude-opus-5-5
+id 6233043004 | AI Engineer, Internal Tools | San Francisco, CA • New York, NY • United States
+  RULE (record, recomputable):  not_relevant
+    because: no target_titles phrase in title "AI Engineer, Internal Tools"; skills in content (1/8): AWS -> rule neither (a) nor (b)
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, resume.experience, posting.title, posting.content
+    reason: The posting is an AI Engineer role building LLM agents, RAG, and tool-calling workflow automations, and it asks for hands-on production LLM experience. The résumé targets data engineering, platform, and ETL titles, with Spark/Airflow/Kafka/dbt/Snowflake pipeline experience and no LLM or agent work, even though the full-time status and 5-year seniority match.
+  url: https://boards.greenhouse.io/figma/jobs/6233043004?gh_jid=6233043004
+
+id 6232584004 | Customer Success Manager - Figma Weave  (London, United Kingdom) | London, England
+  RULE (record, recomputable):  not_relevant
+    because: title "Customer Success Manager - Figma Weave  (London, United Kingdom)" contains disqualifying word(s): Manager
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+    reason: The posting is for a Customer Success Manager role, a customer-facing SaaS account and enablement position. The job seeker targets data engineering titles and skills (Python, Spark, Airflow, Kafka, dbt, Snowflake), and none of these appear in the posting.
+  url: https://boards.greenhouse.io/figma/jobs/6232584004?gh_jid=6232584004
+
+id 6233040004 | Data & Integration Engineer, Business Systems | San Francisco, CA • New York, NY • United States
+  RULE (record, recomputable):  relevant
+    because: no target_titles phrase in title "Data & Integration Engineer, Business Systems"; skills in content (6/8): Python, SQL, Airflow, dbt, Snowflake, AWS -> rule b: no title match but >=4 skills
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  relevant
+    cited: resume.target_titles, resume.skills, resume.seniority, resume.experience, posting.title, posting.content
+    reason: The full-time 'Data & Integration Engineer' title matches the seeker's Data Engineer and Data Integration targets, and the content's 5+ years requirement fits their 5 years of experience. The core stack (Snowflake, SQL, Python pipelines, with dbt, Airflow, and AWS as pluses) overlaps their skills, though the MuleSoft and enterprise API integration emphasis is a gap.
+  url: https://boards.greenhouse.io/figma/jobs/6233040004?gh_jid=6233040004
+
+id 6235282004 | Manager, Software Engineering - Design Systems Adherence | New York, NY; San Francisco, CA • New York, NY • United States
+  RULE (record, recomputable):  not_relevant
+    because: title "Manager, Software Engineering - Design Systems Adherence" contains disqualifying word(s): Manager
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, resume.seniority, posting.title, posting.content
+    reason: The posting is an Engineering Manager role leading a 6-8 person team on AI agent evaluation and design-system adherence, requiring 3+ years of people management and LLM/eval depth. The seeker targets individual-contributor data engineering roles built on Python, Spark, Airflow, Kafka, dbt, and Snowflake.
+  url: https://boards.greenhouse.io/figma/jobs/6235282004?gh_jid=6235282004
+
+id 6237757004 | Manager, Software Engineering - UX Platform | San Francisco, CA • New York, NY • United States
+  RULE (record, recomputable):  not_relevant
+    because: title "Manager, Software Engineering - UX Platform" contains disqualifying word(s): Manager
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, resume.seniority, posting.title, posting.content
+    reason: The posting is for an engineering manager role over a frontend/fullstack UX Platform team, requiring 2+ years of people management and 6+ years of frontend experience. The job seeker targets individual-contributor data engineering roles built on Python, Spark, Airflow, Kafka, dbt, and Snowflake.
+  url: https://boards.greenhouse.io/figma/jobs/6237757004?gh_jid=6237757004
+
+id 6238015004 | PhD Intern, Security Engineer (2027) | San Francisco, CA • New York, NY
+  RULE (record, recomputable):  not_relevant
+    because: title "PhD Intern, Security Engineer (2027)" contains disqualifying word(s): Intern, PhD
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.seniority, resume.skills, posting.title, posting.content
+    reason: The posting is a 12–16 week PhD security engineering internship. The job seeker wants full-time mid-to-senior data engineering roles and has no security PhD focus, so the role does not match on title, employment type, or skills.
+  url: https://boards.greenhouse.io/figma/jobs/6238015004?gh_jid=6238015004
+
+id 6235005004 | Product Partner Manager, Scaled | San Francisco, CA • New York, NY • United States
+  RULE (record, recomputable):  not_relevant
+    because: title "Product Partner Manager, Scaled" contains disqualifying word(s): Manager
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+    reason: The posting is a Product Partner Manager role in Business Development & Partnerships focused on partner relationships and program management, which does not match the target data engineering titles. It also does not call for the candidate's Python, SQL, Spark, Airflow, Kafka, dbt, Snowflake, or AWS skills.
+  url: https://boards.greenhouse.io/figma/jobs/6235005004?gh_jid=6235005004
+
+id 6235320004 | Sales Operations Manager | New York, NY • United States
+  RULE (record, recomputable):  not_relevant
+    because: title "Sales Operations Manager" contains disqualifying word(s): Manager
+    cited: resume.seniority, posting.title
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.experience, posting.title, posting.content
+    reason: The posting is for a Sales Operations Manager. It requires 5+ years of sales operations experience and Salesforce/Sigma expertise, while the job seeker targets data engineering roles and has pipeline and ETL experience, not sales operations work.
+  url: https://boards.greenhouse.io/figma/jobs/6235320004?gh_jid=6235320004
+
+id 6238252004 | Sales Recruiter (London, United Kingdom) | London, England
+  RULE (record, recomputable):  not_relevant
+    because: no target_titles phrase in title "Sales Recruiter (London, United Kingdom)"; skills in content (0/8): none -> rule neither (a) nor (b)
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+    reason: The posting is for a full-cycle Sales Recruiter requiring 6+ years of in-house recruiting experience, which doesn't match the seeker's data engineering target titles or skills like Python, Spark, Airflow, and Snowflake.
+  url: https://boards.greenhouse.io/figma/jobs/6238252004?gh_jid=6238252004
+
+id 6233207004 | Technical Quality Specialist - Figma Weave (Singapore) | Singapore
+  RULE (record, recomputable):  not_relevant
+    because: no target_titles phrase in title "Technical Quality Specialist - Figma Weave (Singapore)"; skills in content (0/8): none -> rule neither (a) nor (b)
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+  CLAUDE (judgment, model output, not verified; claude-opus-5-5, 2026-10-31):  not_relevant
+    cited: resume.target_titles, resume.skills, posting.title, posting.content
+    reason: The posting is a Technical Quality Specialist role in QA and product support (bug triage and customer troubleshooting), not a data engineering, platform, or ETL role. It asks for none of the résumé's skills such as Spark, Airflow, Kafka, dbt, or Snowflake.
+  url: https://boards.greenhouse.io/figma/jobs/6233207004?gh_jid=6233207004
