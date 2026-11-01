@@ -105,4 +105,4 @@ before any Claude run (`d91854d`, `0531149`).
 - that any job is a good fit for anyone
 - that the revision prompt is reliably better
 
-**Signed or withheld**: ____ (name, date)
+**Signed or withheld**: Chethan Gowda GT, 2026-10-31

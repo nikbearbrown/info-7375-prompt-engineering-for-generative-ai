@@ -8,7 +8,7 @@ Draft, 2026-10-31.
 - Python 3.13.9 standard library; pytest 8.4.2
 - Claude Code CLI 2.1.316 (`claude -p --output-format json`), my existing login
 - claude.ai chat (contract questions, persona draft, way 1 of the action surface)
-- INFO 7375 assignment brief: ____ (add link)
+- INFO 7375 assignment brief: INFO7375 JS1 assignment brief (Canvas) (add link)
 
 ## What I wrote or decided
 - Contract decisions in `CONTRACT.md` (`046b749`, v2.1 `5893443`)
