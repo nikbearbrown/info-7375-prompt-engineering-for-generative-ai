@@ -1,0 +1,30 @@
+Run 2026-10-31T212433_live  [LIVE]  boards=1 ok, 0 failed  postings=323  raw=evidence/raw/2026-10-31T212433_live_2
+New since last run: 6 (5 with a data title, judged below; 1 others counted only)
+
+- [samsara 8250423] Data Engineer — Remote - Canada
+    Rule verdict (record): not_relevant  (failed: R3✗; skills matched: Python, SQL, Spark, Airflow, Databricks, AWS, GCP, Git)
+    Claude judgment (claude-sonnet-5-5), not a fact: not_relevant — Title and skills fit a data engineer role, but the role is remote only for candidates residing in Canada, with no relocation assistance. The candidate is in Boston and relocation/remote scope is limited to the United States, so the location is a mismatch.
+      cites résumé ['search.locations', 'search.open_to_relocate', 'search.relocation_scope', 'search.open_to_remote'] / posting ['location.name', 'content']
+
+- [samsara 8141959] Data Engineer — Remote - US
+    Rule verdict (record): relevant  (failed: none; skills matched: Python, SQL, Spark, Airflow, Databricks, AWS, GCP, Git; PREFERRED years)
+    Claude judgment (claude-sonnet-5-5), not a fact: relevant — Data Engineer title matches target titles; Remote - US fits remote openness. Requires 4+ years, within the 5-year max. Spark, Airflow, SQL, Python, Git, Databricks and AWS/GCP experience match the requirements. MS degree meets the education requirement.
+      cites résumé ['search.target_titles', 'search.open_to_remote', 'search.max_required_years', 'experience[0].bullets', 'skills.data_tools', 'skills.languages'] / posting ['title', 'location.name', 'content']
+
+- [samsara 8281491] Senior AI Data & Analytics Engineer II — Remote - MA
+    Rule verdict (record): not_relevant  (failed: R5✗; skills matched: Python, SQL, Databricks, Snowflake, BigQuery)
+    Claude judgment (claude-sonnet-5-5), not a fact: not_relevant — Posting requires 8+ years of experience versus the candidate's 4 (max acceptable 5). It is a senior role with senior technical lead duties and architecting responsibilities, which conflicts with the candidate's excluded terms (lead, architect). Location (Remote - MA) would fit.
+      cites résumé ['search.max_required_years', 'search.years_experience', 'search.excluded_title_terms'] / posting ['title', 'content']
+
+- [samsara 8039914] Senior Data Engineer II — Remote - US
+    Rule verdict (record): not_relevant  (failed: R5✗; skills matched: Python, SQL, Spark, Databricks, Snowflake, PostgreSQL, BigQuery, AWS, GCP)
+    Claude judgment (claude-sonnet-5-5), not a fact: not_relevant — Posting requires 10+ years experience, 8+ in pipelines and 5+ Spark, far above the candidate's ~4 years and max_required_years of 5. The Senior II title with architect/lead duties also sits outside the target level, though the remote US location fits.
+      cites résumé ['search.max_required_years', 'search.years_experience', 'search.excluded_title_terms', 'search.target_titles'] / posting ['title', 'content']
+
+- [samsara 7922530] Software Engineer - Data Platform — Remote - US
+    Rule verdict (record): relevant  (failed: none; skills matched: Python, SQL, Scala, Spark, Airflow, Databricks, AWS, Docker, Terraform; PREFERRED years)
+    Claude judgment (claude-sonnet-5-5), not a fact: relevant — A US-remote Data Platform role that matches the 'data platform' target title and the 4+ years requirement. Spark on EMR, Kafka and Airflow ingestion, Databricks, AWS and Terraform overlap well. Risk: the posting disfavors dbt/BI-heavy backgrounds, and Go and DynamoDB experience is missing.
+      cites résumé ['search.target_titles', 'search.years_experience', 'search.open_to_remote', 'skills.data_tools', 'skills.database_cloud', 'experience[0].bullets'] / posting ['title', 'location.name', 'content']
+
+Audit: 5 rule verdict(s) recomputed and citations verified.
+Report: evidence/runs/2026-10-31T212433_live.json   State: state/seen_ids.json
