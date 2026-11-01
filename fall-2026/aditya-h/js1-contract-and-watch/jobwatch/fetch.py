@@ -1,6 +1,8 @@
 """Allow-listed fetch of one public Greenhouse board (CONTRACT: Refuses 1, 4)."""
 import json
+import os
 import re
+import ssl
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -29,12 +31,20 @@ def check_url(url):
         raise HostNotAllowed(f"refusing to fetch {url!r}: host not on allow-list {sorted(ALLOWED_HOSTS)}")
 
 
+def _tls_context():
+    """Verified TLS. python.org macOS builds ship no CA bundle, so fall back to the system one."""
+    ctx = ssl.create_default_context()
+    if not ctx.get_ca_certs() and os.path.exists("/etc/ssl/cert.pem"):
+        ctx = ssl.create_default_context(cafile="/etc/ssl/cert.pem")
+    return ctx
+
+
 def http_get(url, timeout=30):
     """Default fetcher: one GET request to an allow-listed URL, returns the raw body bytes."""
     check_url(url)
     req = urllib.request.Request(url, headers={"User-Agent": "info7375-js1-jobwatch (student project)"})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with urllib.request.urlopen(req, timeout=timeout, context=_tls_context()) as resp:
             return resp.read()
     except urllib.error.HTTPError as e:
         raise FetchError(f"HTTP {e.code} from {url}") from e

@@ -3,7 +3,7 @@ import argparse
 import pathlib
 import sys
 
-from . import watch
+from . import fetch, resume, state, watch
 
 
 def main(argv=None):
@@ -25,8 +25,12 @@ def main(argv=None):
         from . import claude_judge
         judge = claude_judge.make_judge(pathlib.Path(a.prompt), model=a.model)
     seeded = pathlib.Path(a.seeded_raw).read_bytes() if a.seeded_raw else None
-    rec = watch.run(a.board, a.resume, a.state, a.runs_dir, claude_judge=judge,
-                    seeded_raw=seeded, seeded_from=a.seeded_raw)
+    try:
+        rec = watch.run(a.board, a.resume, a.state, a.runs_dir, claude_judge=judge,
+                        seeded_raw=seeded, seeded_from=a.seeded_raw)
+    except (fetch.FetchError, fetch.HostNotAllowed, resume.ResumeError, state.StateError) as e:
+        print(f"run refused/failed, state file not changed: {type(e).__name__}: {e}", file=sys.stderr)
+        return 2
     c = rec["counts"]
     kind = "SEEDED " if rec["seeded"] else ""
     kind += "baseline " if rec["baseline"] else ""
