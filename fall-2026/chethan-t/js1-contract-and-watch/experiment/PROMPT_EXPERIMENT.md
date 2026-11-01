@@ -89,3 +89,5 @@ Pass = Claude's verdict equals my label; an invalid reply is a fail.
 - [baseline] **7659972003** Senior Security Engineer - Detection and Response: my label `not_relevant`, Claude `invalid` (no Claude verdict).  — `prompt_experiment/raw/baseline_heldout/7659972003_20261031T224851_777556.json`
 
 ## My conclusion
+
+The revision changed one thing: no code fences. On held-out it scored 10/10 against the baseline's 8/10, and both baseline failures were fenced replies with otherwise correct verdicts. Every valid verdict from either prompt matched my labels. With only 3 broken replies in 40 baseline calls and 1 relevant posting in held-out, I can't claim the revision is reliably better or that either prompt avoids missed opportunities.

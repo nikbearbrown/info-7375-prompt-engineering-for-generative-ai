@@ -55,3 +55,5 @@ Postings: first 5 dev rows of labels.csv, 4 fresh `claude -p` calls each
 
 ## My conclusion
 
+
+All 5 sampled postings got the same verdict in every valid run, and 19 of 20 replies were valid. All 5 matched my hand label. But all 5 were clear negatives, so this shows Claude is repeatable on easy cases, not that it is correct on hard ones. The one invalid reply had the right verdict wrapped in code fences.
