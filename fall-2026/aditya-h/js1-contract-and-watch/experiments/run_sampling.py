@@ -25,7 +25,7 @@ def run(trials, prompt):
         for t in range(done[pid] + 1, trials + 1):
             out = judge(jobs[pid], resume)
             append_jsonl(OUT, {"posting_id": pid, "trial": t, **out})
-            print(pid, t, out["status"], out.get("verdict"))
+            print(pid, t, out["status"])
 
 
 def summarize():
