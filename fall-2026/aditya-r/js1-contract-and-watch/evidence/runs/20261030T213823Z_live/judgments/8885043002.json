@@ -1,0 +1,53 @@
+{
+ "posting_id": 8885043002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8885043002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "lead",
+    "architect"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Proficient in Python and SQL"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Proficient in Python and SQL"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "Apache Spark, Delta Lake and Databricks experience is a strong plus"
+    }
+   ]
+  },
+  "explanation": "The title has no eligible role phrase and contains the excluded words 'lead' and 'architect', so the posting fails conditions A and B. The description does share python and sql with skills.languages and databricks with skills.data_bi, so condition C passes."
+ },
+ "attempt_files": [
+  "8885043002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "70dace40-050a-44cd-a069-84cec4ee542b",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

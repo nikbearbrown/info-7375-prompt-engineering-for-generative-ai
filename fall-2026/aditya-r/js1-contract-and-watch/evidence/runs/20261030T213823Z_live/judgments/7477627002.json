@@ -1,0 +1,46 @@
+{
+ "posting_id": 7477627002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 7477627002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "software engineer"
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "sr"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "traditional SQL query engines"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we are passionate"
+    }
+   ]
+  },
+  "explanation": "The title contains the role phrase \"software engineer\" but also the excluded word \"sr\" (from \"Sr.\"), so condition B fails. The description shares SQL (skills.languages) and Databricks (skills.data_bi) with the résumé; \"Apache Spark\" appears in the description, but spark is not in any of the four résumé skill arrays, so it does not count."
+ },
+ "attempt_files": [
+  "7477627002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "c1586ed3-3505-4338-9d79-0079d8626992",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

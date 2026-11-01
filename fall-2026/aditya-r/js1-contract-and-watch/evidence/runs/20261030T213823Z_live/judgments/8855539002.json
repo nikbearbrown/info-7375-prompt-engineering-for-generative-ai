@@ -1,0 +1,46 @@
+{
+ "posting_id": 8855539002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8855539002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "manager"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "advanced Excel, SQL, BI platforms"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "Databricks is the Data and AI company"
+    }
+   ]
+  },
+  "explanation": "The title contains none of the eligible role phrases and includes the excluded word 'manager', so conditions A and B fail. The description shares sql (skills.languages) and databricks (skills.data_bi) with the résumé, so C passes, but the verdict is still not_relevant."
+ },
+ "attempt_files": [
+  "8855539002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "de00c8fd-1bc5-4031-aeee-5fa473b2da32",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

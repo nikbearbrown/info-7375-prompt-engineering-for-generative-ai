@@ -1,0 +1,46 @@
+{
+ "posting_id": 8842963002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8842963002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "software engineer"
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "staff"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Strong Python programming skills"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we are obsessed with enabling data teams"
+    }
+   ]
+  },
+  "explanation": "The title contains the role phrase \"software engineer\" but also the excluded word \"staff\", so condition B fails. The description shares python (skills.languages) and databricks (skills.data_bi) with the résumé, so condition C passes."
+ },
+ "attempt_files": [
+  "8842963002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "9fbf7fbb-526d-49a7-88a7-837310211b6e",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

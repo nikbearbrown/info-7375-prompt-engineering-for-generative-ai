@@ -1,0 +1,25 @@
+$ python -m experiment.run_experiment --prompt contract_v1.txt --split held-out
+  11 hand=not_relevant claude=not_relevant valid   ✓  BI Analyst III
+  12 hand=not_relevant claude=not_relevant valid   ✓  Sales Finance Analyst II
+  13 hand=not_relevant claude=not_relevant valid   ✓  Analyst, Global Operations Center
+  14 hand=relevant     claude=not_relevant valid   ✗  Finance & Strategy Analyst, Product
+  15 hand=relevant     claude=None         invalid ✗  Master's University Grad Data Scientist (USA)
+  16 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst
+  17 hand=not_relevant claude=not_relevant valid   ✓  Senior Marketing Insights Analyst 
+  18 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst II
+  19 hand=not_relevant claude=not_relevant valid   ✓  GTM Technical Solutions Analyst II
+  20 hand=not_relevant claude=not_relevant valid   ✓  Senior Business Intelligence Analyst – Product Ana
+✓ contract_v1.txt on held-out: 8/10 match my hand labels · invalid 1
+
+$ python -m experiment.run_experiment --prompt contract_v2.txt --split held-out
+  11 hand=not_relevant claude=not_relevant valid   ✓  BI Analyst III
+  12 hand=not_relevant claude=not_relevant valid   ✓  Sales Finance Analyst II
+  13 hand=not_relevant claude=not_relevant valid   ✓  Analyst, Global Operations Center
+  14 hand=relevant     claude=not_relevant valid   ✗  Finance & Strategy Analyst, Product
+  15 hand=relevant     claude=relevant     valid   ✓  Master's University Grad Data Scientist (USA)
+  16 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst
+  17 hand=not_relevant claude=not_relevant valid   ✓  Senior Marketing Insights Analyst 
+  18 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst II
+  19 hand=not_relevant claude=not_relevant valid   ✓  GTM Technical Solutions Analyst II
+  20 hand=not_relevant claude=not_relevant valid   ✓  Senior Business Intelligence Analyst – Product Ana
+✓ contract_v2.txt on held-out: 9/10 match my hand labels · invalid 0

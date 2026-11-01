@@ -1,0 +1,52 @@
+{
+ "posting_id": 8855171002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8855171002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "architect"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Production programming experience in SQL and Python"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "relational databases, SQL, data analytics"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "cloud data warehousing transformation with Databricks"
+    }
+   ]
+  },
+  "explanation": "The title 'Specialist Solutions Architect (Data Warehousing)' contains no eligible role phrase and contains the excluded word 'architect', so the posting fails conditions A and B. The description shares python and sql with skills.languages and databricks with skills.data_bi, so condition C passes, but the verdict is still not_relevant."
+ },
+ "attempt_files": [
+  "8855171002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "7d574fc9-c7e0-4024-b715-d69f9859eadd",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

@@ -1,0 +1,133 @@
+{
+ "asked_at": "2026-10-27T17:06:52Z",
+ "envelope": {
+  "duration_api_ms": 2323,
+  "stop_reason": "end_turn",
+  "session_id": "ae46da6d-72af-431e-be79-87fa676e6e80",
+  "total_cost_usd": 0.027425,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6316,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 205,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6316,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 205,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6316,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6316
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 205,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6316,
+    "webSearchRequests": 0,
+    "costUSD": 0.027425,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"7989990003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\", \"education[].degree\"], \"posting_fields\": [\"title\", \"departments\", \"content\"], \"reason\": \"Role is Senior CS Compensation Analyst in Finance & Accounting, requiring 3-5 years in sales/finance compensation, Salesforce, Tableau/Looker. Candidate's background is software engineering (Software Engineer co-op, Java/TypeScript services, MS Information Systems) with no compensation or sales-ops experience.\"}",
+  "ttft_ms": 2345,
+  "type": "result",
+  "duration_ms": 3920,
+  "uuid": "8b46fe70-a389-422d-8d9b-773b3e91940f",
+  "ttft_stream_ms": 1169,
+  "time_to_request_ms": 53,
+  "time_to_request_phases_ms": {
+   "other": 9,
+   "system_prompt": 20,
+   "resume_other": 0,
+   "process_user_input": 2,
+   "input_attachments": 4,
+   "input_hooks": 1,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "autocompact": 0,
+   "query_setup": 1,
+   "model_gates": 4,
+   "tool_schema_build": 0,
+   "message_normalization": 2,
+   "client_creation": 2,
+   "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 3,
+  "time_to_request_cpu_ms": 87,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "queued_commands",
+   "slowest_producer_ms": 2,
+   "cpu_ms": 5,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1169,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

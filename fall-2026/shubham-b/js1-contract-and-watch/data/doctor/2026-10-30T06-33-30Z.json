@@ -1,0 +1,53 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "available": true,
+  "backend_error": null,
+  "checked_at_et": "2026-10-30T02:33:30.866216-04:00",
+  "checked_at_utc": "2026-10-30T06:33:30.866216Z",
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 1907,
+  "env_added": {
+    "CLAUDE_CODE_DISABLE_CLAUDE_MDS": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
+  },
+  "env_removed": [
+    "ANTHROPIC_API_KEY",
+    "ANTHROPIC_AUTH_TOKEN",
+    "ANTHROPIC_BASE_URL",
+    "CLAUDE_CODE_USE_BEDROCK",
+    "CLAUDE_CODE_USE_VERTEX"
+  ],
+  "exit_code": 0,
+  "is_error": false,
+  "kind": "probe-model",
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "prompt": "Reply with exactly the two letters OK and nothing else.",
+  "reply_is_ok": true,
+  "result_text": "OK",
+  "session_id": "58f15605-e24f-4cf1-9650-df75792a8f5e",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":1337,\"stop_reason\":\"end_turn\",\"session_id\":\"58f15605-e24f-4cf1-9650-df75792a8f5e\",\"total_cost_usd\":0.007908,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":1966,\"cache_read_input_tokens\":0,\"output_tokens\":4,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":1966,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":4,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":1966,\"webSearchRequests\":0,\"costUSD\":0.007908,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":1966,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"OK\",\"ttft_ms\":1381,\"type\":\"result\",\"duration_ms\":1389,\"uuid\":\"922b49c3-fd17-482d-b5d1-10e1b72c408b\",\"ttft_stream_ms\":1381,\"time_to_request_ms\":53,\"first_content_frame_ms\":1381,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.007908,
+  "unavailable_reason": null
+}

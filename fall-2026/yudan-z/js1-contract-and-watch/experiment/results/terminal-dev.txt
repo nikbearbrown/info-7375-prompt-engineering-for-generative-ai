@@ -1,0 +1,25 @@
+$ python -m experiment.run_experiment --prompt contract_v1.txt --split dev
+   1 hand=not_relevant claude=not_relevant valid   ✓  Analyst, Early Career (Full Stack)
+   2 hand=not_relevant claude=not_relevant valid   ✓  Analytics Engineer
+   3 hand=relevant     claude=relevant     valid   ✓  Data Analyst, Intern
+   4 hand=relevant     claude=not_relevant valid   ✗  Fraud Investigations Analyst
+   5 hand=not_relevant claude=not_relevant valid   ✓  Risk Analyst
+   6 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst, NYC 
+   7 hand=not_relevant claude=not_relevant valid   ✓  Senior Business Analyst, TPRM
+   8 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst II
+   9 hand=relevant     claude=relevant     valid   ✓  Software Engineer II, Data Analytics & Engineering
+  10 hand=relevant     claude=relevant     valid   ✓  Data Analyst, In-Store
+✓ contract_v1.txt on dev: 9/10 match my hand labels · invalid 0
+
+$ python -m experiment.run_experiment --prompt contract_v2.txt --split dev
+   1 hand=not_relevant claude=not_relevant valid   ✓  Analyst, Early Career (Full Stack)
+   2 hand=not_relevant claude=not_relevant valid   ✓  Analytics Engineer
+   3 hand=relevant     claude=relevant     valid   ✓  Data Analyst, Intern
+   4 hand=relevant     claude=not_relevant valid   ✗  Fraud Investigations Analyst
+   5 hand=not_relevant claude=not_relevant valid   ✓  Risk Analyst
+   6 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst, NYC 
+   7 hand=not_relevant claude=not_relevant valid   ✓  Senior Business Analyst, TPRM
+   8 hand=not_relevant claude=not_relevant valid   ✓  Data Analyst II
+   9 hand=relevant     claude=not_relevant valid   ✗  Software Engineer II, Data Analytics & Engineering
+  10 hand=relevant     claude=None         invalid ✗  Data Analyst, In-Store
+✓ contract_v2.txt on dev: 7/10 match my hand labels · invalid 1

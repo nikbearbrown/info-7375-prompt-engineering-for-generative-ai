@@ -1,0 +1,52 @@
+{
+ "posting_id": 8823193002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8823193002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "director"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Hands-on proficiency with SQL, Python"
+    },
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "SQL, Python, or notebook environments"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "notebook environments (especially Databricks)"
+    }
+   ]
+  },
+  "explanation": "The title has no eligible role phrase and contains the excluded word 'director', so the posting is not relevant. The description does share sql, python (skills.languages) and databricks (skills.data_bi) with the résumé, but that does not make up for the title failures."
+ },
+ "attempt_files": [
+  "8823193002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "f21eb388-7668-40e0-811c-fadc62d8510d",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

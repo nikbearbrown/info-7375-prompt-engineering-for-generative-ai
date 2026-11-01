@@ -1,0 +1,158 @@
+{
+  "surface": "a_paste",
+  "started": "2026-10-31T18:46:49-04:00",
+  "cwd": "experiments/action_surface/out/a_workdir",
+  "tools": [],
+  "allowedTools": [],
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "duration_api_ms": 3097,
+    "stop_reason": "end_turn",
+    "session_id": "c921b83f-6883-4344-98f6-417c2a070922",
+    "total_cost_usd": 0.027384099999999998,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 6140,
+      "cache_read_input_tokens": 2087,
+      "output_tokens": 195,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 6140,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 195,
+          "cache_read_input_tokens": 2087,
+          "cache_creation_input_tokens": 6140,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 6140
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-haiku-5-5": {
+        "inputTokens": 6499,
+        "outputTokens": 23,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.0006614,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 0,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 0,
+        "canonicalModel": "claude-haiku-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      },
+      "claude-sonnet-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 195,
+        "cacheReadInputTokens": 2087,
+        "cacheCreationInputTokens": 6140,
+        "webSearchRequests": 0,
+        "costUSD": 0.0267227,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 0,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 6140,
+        "canonicalModel": "claude-sonnet-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "extra_usage_disabled",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": \"8141959\", \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_remote\", \"search.years_experience\", \"search.max_required_years\", \"skills.data_tools\", \"skills.languages\"], \"posting_fields\": [\"title\", \"location.name\", \"content\"], \"reason\": \"Data Engineer title matches target titles. Remote - US fits open_to_remote. Requires 4+ years, matching 4 years experience and under the 5-year cap. Spark, Airflow, Databricks, Python and SQL line up with the stack in the posting.\"}",
+    "ttft_ms": 2382,
+    "type": "result",
+    "duration_ms": 2398,
+    "uuid": "04e8084b-93ea-4cf9-92db-cdfae8e798ac",
+    "ttft_stream_ms": 1282,
+    "time_to_request_ms": 88,
+    "time_to_request_phases_ms": {
+      "other": 5,
+      "system_prompt": 25,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 13,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 2,
+      "engine_pickup": 1,
+      "message_prep": 1,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 31,
+      "tool_schema_build": 3,
+      "message_normalization": 0,
+      "client_creation": 2,
+      "request_build": 1
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 2,
+    "time_to_request_cpu_ms": 96,
+    "time_to_request_major_faults": 0,
+    "input_attachments_detail": {
+      "slowest_producer": "nested_memory",
+      "slowest_producer_ms": 6,
+      "cpu_ms": 20,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1282,
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "files_after": []
+}

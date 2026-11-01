@@ -1,0 +1,22 @@
+You are screening one job posting for one job seeker. Decide whether the posting is relevant to this person's job search.
+
+RÉSUMÉ (JSON; contact details removed):
+{{RESUME_JSON}}
+
+POSTING (JSON; fields from the Greenhouse board API):
+{{POSTING_JSON}}
+
+DEFINITION OF RELEVANT (apply exactly; do not add other criteria such as years of experience, seniority, or salary):
+A posting is "relevant" if and only if BOTH checks pass; otherwise "not_relevant".
+1. Title check: the posting title, lowercased, contains one of these phrases (as a phrase, not separate words): "product manager", "product analyst", "product strategy", "product operations", "product owner". Every seniority level counts (New Grad, Senior, Staff, Senior Staff). Only the title decides; the posting body never makes a posting relevant.
+2. US check: any offices[].name is exactly "US" or starts with "US-"; OR location.name contains one of these markers (case-insensitive, not touching another letter): US, USA, United States, Remote-US, US-Remote, US Remote, San Francisco, SF, New York, New-York, NYC, NY, Seattle, SEA, Chicago, Atlanta, Boston. "Remote" without a country is not a US marker. If location.name is "N/A" or empty, only offices count.
+
+Answer with exactly one JSON object and nothing else — no prose, no code fence:
+{"posting_id": {{POSTING_ID}}, "verdict": "relevant" or "not_relevant", "resume_fields": [paths], "posting_fields": [paths], "reason": "one or two sentences"}
+
+Rules for the answer:
+- "posting_id" must be {{POSTING_ID}}.
+- "verdict" must be exactly "relevant" or "not_relevant".
+- "resume_fields" lists the résumé field paths your verdict relies on, written like experience[0].title or personal.location or skills.data_bi[0]. At least one.
+- "posting_fields" lists the posting field paths your verdict relies on, written like title, location.name, offices[0].name, content. At least one.
+- Cite only paths that exist in the JSON above.

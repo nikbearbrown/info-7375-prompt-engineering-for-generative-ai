@@ -1,0 +1,52 @@
+{
+ "posting_id": 8896139002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8896139002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "manager"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Python/Scala"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "executive-credible expertise in SQL"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "on the Databricks Data Intelligence Platform"
+    }
+   ]
+  },
+  "explanation": "The title contains no eligible role phrase and does contain the excluded word \"manager\" (\"architects\" is not the whole word \"architect\"). The description does share python and sql (skills.languages) and databricks (skills.data_bi), but the title checks fail, so the posting is not relevant."
+ },
+ "attempt_files": [
+  "8896139002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "7017e0b9-78cf-4e9d-aaf7-281295737f44",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

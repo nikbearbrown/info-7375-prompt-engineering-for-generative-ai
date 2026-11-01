@@ -1,0 +1,188 @@
+{
+ "invoked_at_utc": "2026-10-30T21:39:07+00:00",
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "model_requested": "claude-opus-5-5",
+ "effort": "medium",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8863018002,\n \"title\": \"Digital Natives Hunter Account Executive, Nordics\",\n \"location\": \"Stockholm, Sweden\",\n \"departments\": [\n  \"Commercial & Mid-Market Sales\"\n ],\n \"description\": \"SLSQ427R715 Want to help solve the world's toughest problems with data and AI? This is what we do every day at Databricks. Databricks operates at the leading edge of the Data and AI space. Our customers turn to us to lead the accelerated innovation their businesses need to gain first-mover advantage in today's ultra-competitive landscape. As an Digital Natives Hunter Account Executive for the Nordics, you are an enterprise sales professional experienced in selling to Digital Native accounts across the Nordics. You know how to sell innovation and change through customer vision expansion and can guide deals forward to compress decision cycles. You love understanding a product in depth and are passionate about communicating its value to Customers and Partners. Always looking for new opportunities, you will close new accounts and expand them. Along with the chance to close exciting deals and solve meaningful problems, we also offer accelerators above 100% quota attainment. You will report to the Senior Sales Manager for Digital Natives. The impact you will have: Assess your territory and develop a successful execution strategy Use a solution-based approach to selling and creating value for new logo accounts Identify and close quick, small wins while managing longer, complex sales cycles Track all customer details including use case, purchase time frames, next steps, and forecasting in Salesforce Exceed activity and quarterly revenue targets Promote the value of the Databricks' Data Intelligence Platform Ensure 100% satisfaction among all customers What we look for: Understanding of the data platform and cloud ecosystems Some exposure to the software industry and some basic concepts of selling SaaS, Data and Business Value Basic understanding on how to research company information and identifying key stakeholders Competent with prospecting research and ability to map out key stakeholders Adept in selling to technical buyers Understanding of MEDDPICC Experience exceeding sales targets/quotas Bachelor's Degree or relevant work experience Fluency in English and Swedish (or another Nordic language) is required About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "a12e87fcd7a6dadf5a82e5897f2d714bb78137af1ea117e1eb057982be4dc167",
+ "returncode": 0,
+ "stderr_tail": "",
+ "cli_json": {
+  "duration_api_ms": 4707,
+  "stop_reason": "end_turn",
+  "session_id": "afc6048e-b9dd-443f-8cd9-4ede7ac3c51b",
+  "total_cost_usd": 0.026410899999999998,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2299,
+   "cache_read_input_tokens": 1054,
+   "output_tokens": 376,
+   "output_tokens_details": {
+    "thinking_tokens": 97
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2299,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 376,
+     "cache_read_input_tokens": 1054,
+     "cache_creation_input_tokens": 2299,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2299
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 2656,
+    "outputTokens": 29,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.00028010000000000003,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 376,
+    "cacheReadInputTokens": 1054,
+    "cacheCreationInputTokens": 2299,
+    "webSearchRequests": 0,
+    "costUSD": 0.0261308,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 97,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": 8863018002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"This is what we do every day at Databricks.\"}]}, \"explanation\": \"The title 'Digital Natives Hunter Account Executive, Nordics' contains no eligible role phrase and no excluded terms. Only 'databricks' (skills.data_bi) appears as a whole word in the description, and python, sql, spark and langgraph do not appear in the title or description ('SLSQ427R715' does not contain 'sql'), so fewer than 2 shared skills match.\"}",
+  "ttft_ms": 2013,
+  "type": "result",
+  "duration_ms": 3951,
+  "uuid": "f3eeb9e1-3ccf-4cd5-a003-38550604d21c",
+  "ttft_stream_ms": 1308,
+  "time_to_request_ms": 152,
+  "time_to_request_phases_ms": {
+   "other": 8,
+   "system_prompt": 0,
+   "resume_other": 1,
+   "process_user_input": 1,
+   "input_attachments": 9,
+   "input_hooks": 1,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 0,
+   "message_prep": 1,
+   "model_config_wait": 0,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 120,
+   "tool_schema_build": 4,
+   "message_normalization": 0,
+   "client_creation": 2,
+   "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 1,
+  "time_to_request_cpu_ms": 94,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 8,
+   "cpu_ms": 18,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1309,
+  "queued_turn_count": 0,
+  "result_index": 0
+ },
+ "finished_at_utc": "2026-10-30T21:39:12+00:00",
+ "wall_seconds": 4.89,
+ "response_text": "{\"posting_id\": 8863018002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"This is what we do every day at Databricks.\"}]}, \"explanation\": \"The title 'Digital Natives Hunter Account Executive, Nordics' contains no eligible role phrase and no excluded terms. Only 'databricks' (skills.data_bi) appears as a whole word in the description, and python, sql, spark and langgraph do not appear in the title or description ('SLSQ427R715' does not contain 'sql'), so fewer than 2 shared skills match.\"}",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "afc6048e-b9dd-443f-8cd9-4ede7ac3c51b",
+ "transport_ok": true,
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "posting_id_requested": 8863018002,
+ "attempt": 1,
+ "valid": true,
+ "validation_errors": []
+}

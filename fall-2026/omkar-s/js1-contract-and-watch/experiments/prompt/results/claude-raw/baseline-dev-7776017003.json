@@ -1,0 +1,133 @@
+{
+ "asked_at": "2026-10-27T17:03:58Z",
+ "envelope": {
+  "duration_api_ms": 3712,
+  "stop_reason": "end_turn",
+  "session_id": "d46a82c0-4158-4bd6-b15e-cad3f3db4486",
+  "total_cost_usd": 0.028877,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6694,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 199,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6694,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 199,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6694,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6694
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 199,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6694,
+    "webSearchRequests": 0,
+    "costUSD": 0.028877,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"7776017003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\", \"education[].degree\"], \"posting_fields\": [\"title\", \"departments\", \"content\"], \"reason\": \"Posting is a Sales (Commercial Account Executive) role requiring Portuguese fluency and 1+ years each of business development and AE closing experience. Candidate is a software engineer (Dassault co-op, Infosys) with TypeScript/Java/Kubernetes skills, no sales experience, and no Portuguese listed.\"}",
+  "ttft_ms": 3744,
+  "type": "result",
+  "duration_ms": 5104,
+  "uuid": "c4a9e049-8fa8-477f-9748-21069e474074",
+  "ttft_stream_ms": 2716,
+  "time_to_request_ms": 53,
+  "time_to_request_phases_ms": {
+   "other": 9,
+   "system_prompt": 21,
+   "resume_other": 0,
+   "process_user_input": 2,
+   "input_attachments": 4,
+   "input_hooks": 1,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 3,
+   "tool_schema_build": 1,
+   "message_normalization": 1,
+   "client_creation": 3,
+   "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 3,
+  "time_to_request_cpu_ms": 85,
+  "time_to_request_major_faults": 1,
+  "input_attachments_detail": {
+   "slowest_producer": "model",
+   "slowest_producer_ms": 2,
+   "cpu_ms": 5,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 2716,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

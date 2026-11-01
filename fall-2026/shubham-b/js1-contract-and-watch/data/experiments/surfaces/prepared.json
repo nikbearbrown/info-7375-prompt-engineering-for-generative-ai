@@ -1,0 +1,132 @@
+{
+  "code_commit": "7188965fbb3a9f0d172261372559489a392b24aa",
+  "model_requested": "claude-sonnet-5-5",
+  "prepared_at_utc": "2026-10-30T07:11:54.374561+00:00",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "repo_before": {
+    "content_sha256": "6314721d8224e32bd536f5878c8b53e395c043adeafe181d992581f9ae7df778",
+    "files": 165
+  },
+  "surfaces": {
+    "a": {
+      "argv": [
+        "claude",
+        "-p",
+        "--no-session-persistence",
+        "--strict-mcp-config",
+        "--disallowedTools",
+        "mcp__*",
+        "--setting-sources",
+        "project",
+        "--safe-mode",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-sonnet-5-5",
+        "--max-budget-usd",
+        "0.50",
+        "--tools",
+        ""
+      ],
+      "granted": {
+        "read": [],
+        "send": [],
+        "tools": [],
+        "write": []
+      },
+      "prompt_sha256": "121903b06727ef62bd1afa8a954916339732bbc0772c454f46c89d72e0b4f4eb",
+      "sandbox": "data/experiments/surfaces/a/sandbox"
+    },
+    "b": {
+      "argv": [
+        "claude",
+        "-p",
+        "--no-session-persistence",
+        "--strict-mcp-config",
+        "--disallowedTools",
+        "mcp__*",
+        "--setting-sources",
+        "project",
+        "--safe-mode",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-sonnet-5-5",
+        "--max-budget-usd",
+        "0.50",
+        "--restricted",
+        "--tools",
+        "Read",
+        "--allowedTools",
+        "Read(./posting.json)",
+        "Read(./resume.payload.json)",
+        "--permission-mode",
+        "dontAsk"
+      ],
+      "granted": {
+        "read": [
+          "./posting.json",
+          "./resume.payload.json"
+        ],
+        "send": [],
+        "tools": [
+          "Read"
+        ],
+        "write": []
+      },
+      "prompt_sha256": "4c993480791447d1ca9b076edd2c6e4373476a6db2134a528f34f418612c5def",
+      "sandbox": "data/experiments/surfaces/b/sandbox"
+    },
+    "c": {
+      "argv": [
+        "claude",
+        "-p",
+        "--no-session-persistence",
+        "--strict-mcp-config",
+        "--disallowedTools",
+        "mcp__*",
+        "--setting-sources",
+        "project",
+        "--safe-mode",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-sonnet-5-5",
+        "--max-budget-usd",
+        "0.50",
+        "--restricted",
+        "--tools",
+        "WebFetch,Read,Edit,Write",
+        "--allowedTools",
+        "WebFetch(domain:boards-api.greenhouse.io)",
+        "Read(./state.json)",
+        "Edit(./state.json)",
+        "--permission-mode",
+        "dontAsk"
+      ],
+      "granted": {
+        "read": [
+          "./state.json"
+        ],
+        "send": [
+          "boards-api.greenhouse.io (WebFetch)"
+        ],
+        "tools": [
+          "WebFetch",
+          "Read",
+          "Edit",
+          "Write"
+        ],
+        "write": [
+          "./state.json"
+        ]
+      },
+      "prompt_sha256": "acf16930ecc2eb278eb160b02495c7caabd1b4ad0d12d1359e140f0184a8c91c",
+      "sandbox": "data/experiments/surfaces/c/sandbox"
+    }
+  }
+}

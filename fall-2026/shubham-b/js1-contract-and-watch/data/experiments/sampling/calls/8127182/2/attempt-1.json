@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6059,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "5a1211a20b5482354790b2a5c14d43d0e2443254be3ae5dae084204d4b6443e9",
+  "posting_id": "8127182",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "d4cfcf49-6d23-41c0-b756-8f57bfe4fa5b",
+  "started_at_et": "2026-10-30T23:39:47.805122-04:00",
+  "started_at_utc": "2026-10-31T03:39:47.805122Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5771,\"stop_reason\":\"end_turn\",\"session_id\":\"d4cfcf49-6d23-41c0-b756-8f57bfe4fa5b\",\"total_cost_usd\":0.0092082,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":372,\"cache_read_input_tokens\":4362,\"output_tokens\":728,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":372,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":728,\"cacheReadInputTokens\":4362,\"cacheCreationInputTokens\":372,\"webSearchRequests\":0,\"costUSD\":0.0092082,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":372,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a backend software engineer position in the US (US-Remote is listed), and the stack overlaps with Kiran's skills (Java, event-driven systems, backend services). However, the posting requires 5-12+ years of experience and asks for mentoring and leadership, which is well above Kiran's New Grad / Entry Level / SWE I-II targets. The title carries no level marker, but the stated minimum experience makes it a poor fit.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets New Grad, Entry Level, SWE I and SWE II roles, while the posting's minimum requirements call for 5-12+ years of experience and mentoring of other engineers.\\\"},{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title is a Software Engineer role, which matches a target role, but the seniority in the description does not match the targeted levels.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"US-Remote and several US cities are listed, which matches Kiran's United States and Remote (US) preferences.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is named among the acceptable languages, so the language requirement overlaps with Kiran's skills.\\\"},{\\\"resume_path\\\":\\\"$.experience[1].bullets[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran's experience with Spring Boot services publishing events to RabbitMQ relates to the preferred familiarity with event-driven architectures, but this is a bonus rather than a requirement.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting does not say whether U.S. citizenship or a security clearance is required, so the exclusion cannot be fully checked.\\\",\\\"It is unclear how strictly the 5-12+ years requirement is applied in practice, since the posting says only the minimum requirements are needed to be considered.\\\",\\\"The posting does not state compensation or whether the role is paid, though this is unlikely to be an issue for a company of this type.\\\"]}\",\"ttft_ms\":5810,\"type\":\"result\",\"duration_ms\":5825,\"uuid\":\"a2326f0c-57ef-4fa6-a9d1-66d619adc965\",\"ttft_stream_ms\":1481,\"time_to_request_ms\":51,\"first_content_frame_ms\":1481,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0092082,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

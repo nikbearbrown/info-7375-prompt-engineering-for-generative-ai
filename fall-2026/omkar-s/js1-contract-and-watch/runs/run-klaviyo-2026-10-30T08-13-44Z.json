@@ -1,0 +1,89 @@
+{
+ "run_id": "2026-10-30T08-13-44Z",
+ "board": "klaviyo",
+ "baseline": false,
+ "source": {
+  "type": "live",
+  "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+  "http_status": 200
+ },
+ "raw_response": "raw-klaviyo-2026-10-30T08-13-44Z.json",
+ "postings_in_response": 154,
+ "new_since_last_run": 1,
+ "removed_since_last_run": [
+  7737707003,
+  7774822003,
+  7774823003,
+  7774824003,
+  7783906003,
+  7821524003,
+  7835654003,
+  7859960003,
+  7893998003,
+  7991137003,
+  8000680003,
+  8003262003,
+  8041055003
+ ],
+ "resume": "aarav-patel.example.json",
+ "records": [
+  {
+   "posting_id": 8011546003,
+   "title": "Sr. Product Manager, Growth (PLG)",
+   "absolute_url": "https://www.klaviyo.com/careers/jobs/8011546003?gh_jid=8011546003",
+   "rule": {
+    "kind": "record",
+    "verdict": "not_relevant",
+    "clauses": {
+     "A": {
+      "pass": false,
+      "posting_field": "title",
+      "value": "Sr. Product Manager, Growth (PLG)"
+     },
+     "B": {
+      "pass": true,
+      "posting_field": "location.name",
+      "value": "Boston, MA",
+      "resume_field": "personal.location"
+     },
+     "C": {
+      "pass": false,
+      "posting_field": "content",
+      "found": [],
+      "resume_fields": []
+     }
+    },
+    "justification": [
+     "A role: posting.title=\"Sr. Product Manager, Growth (PLG)\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+     "B location (US): posting.location.name=\"Boston, MA\" vs resume.personal.location=\"Boston, MA\" -> PASS (Boston)",
+     "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+     "verdict: not_relevant (A FAIL, B PASS, C FAIL)"
+    ]
+   },
+   "claude": {
+    "kind": "judgment",
+    "label": "Claude judgment - not a fact",
+    "asked_at": "2026-10-30T08:13:44Z",
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "session_id": "778f7b2d-3220-4592-a15f-65ee5dc25580",
+    "raw_path": "runs/claude-raw/2026-10-30T08-13-44Z-8011546003.json",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[].title",
+     "experience[].bullets",
+     "skills.languages",
+     "education[].degree"
+    ],
+    "posting_fields": [
+     "title",
+     "departments",
+     "content"
+    ],
+    "reason": "Posting is a Sr. Product Manager, Growth (PLG) in the Product department requiring 3-5+ years of product management, start-up, consulting, or banking experience. Candidate's titles are Software Engineer (Co-op, Infosys) with engineering bullets and an MS Information Systems; no product management experience."
+   }
+  }
+ ]
+}

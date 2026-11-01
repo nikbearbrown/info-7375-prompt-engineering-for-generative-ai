@@ -1,0 +1,47 @@
+{
+ "posting_id": 8612865002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8612865002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "software engineer"
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "sr",
+    "staff"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Exceptional fluency in Python"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "enables every Databricks security function AI-native"
+    }
+   ]
+  },
+  "explanation": "The title contains the role phrase \"software engineer\" but also the excluded words \"sr\" and \"staff\", so condition B fails. The description shares python (skills.languages) and databricks (skills.data_bi) with the résumé, which passes condition C."
+ },
+ "attempt_files": [
+  "8612865002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "1b37ad6d-dd19-42a3-bb3a-c87d70df8729",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

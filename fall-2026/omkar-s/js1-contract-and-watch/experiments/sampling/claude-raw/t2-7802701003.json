@@ -1,0 +1,102 @@
+{
+ "asked_at": "2026-10-26T01:36:11Z",
+ "envelope": {
+  "duration_api_ms": 2916,
+  "stop_reason": "end_turn",
+  "session_id": "91cf7db8-28db-4e15-99f4-1b2b0155420b",
+  "total_cost_usd": 0.026649000000000003,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6172,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 185,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6172,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 185,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6172,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6172
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 185,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6172,
+    "webSearchRequests": 0,
+    "costUSD": 0.026649000000000003,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"7802701003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"projects[]\", \"education[].degree\"], \"posting_fields\": [\"title\", \"content\"], \"reason\": \"Lead Engineer role requires having built, scaled and supported production agentic systems and owned technical/product direction for a significant area. Candidate has a 2026 co-op (multi-agent triage workflow), ~2 years as a Java engineer (one of six), and a solo project; no lead or production agent ownership.\"}",
+  "ttft_ms": 2944,
+  "type": "result",
+  "duration_ms": 4413,
+  "uuid": "8da27718-fcc8-4019-a48e-0120c1b0f411",
+  "ttft_stream_ms": 1844,
+  "time_to_request_ms": 48,
+  "first_content_frame_ms": 1845,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

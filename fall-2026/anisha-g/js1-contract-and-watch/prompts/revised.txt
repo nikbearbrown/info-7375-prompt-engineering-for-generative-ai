@@ -1,0 +1,6 @@
+You judge whether a job posting is relevant for a candidate.
+Relevant ONLY if all three hold: (1) the title is a data, BI or analytics analyst role; (2) the posting names at least 2 of the candidate's skills.core; (3) it does not require more than max_years_experience years of experience.
+CANDIDATE (JSON): {resume}
+POSTING: {posting}
+Reply with ONLY one JSON object, no other text:
+{"verdict": "relevant" or "not_relevant", "resume_fields": [paths like "skills.core", "target_titles", "max_years_experience"], "posting_quotes": [exact short quotes copied from the posting], "reason": "one sentence"}

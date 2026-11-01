@@ -1,0 +1,165 @@
+{
+  "surface": "b_file",
+  "started": "2026-10-31T18:46:52-04:00",
+  "cwd": "experiments/action_surface/out/b_workdir",
+  "tools": [
+    "Read"
+  ],
+  "allowedTools": [
+    "Read"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "duration_api_ms": 5128,
+    "stop_reason": "end_turn",
+    "session_id": "c4c90004-4af1-4a26-b0ae-15a421c33ca1",
+    "total_cost_usd": 0.0320888,
+    "usage": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 6701,
+      "cache_read_input_tokens": 8254,
+      "output_tokens": 428,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 6701,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 221,
+          "cache_read_input_tokens": 4443,
+          "cache_creation_input_tokens": 6069,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 6069
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-haiku-5-5": {
+        "inputTokens": 1619,
+        "outputTokens": 19,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.0001714,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 0,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 0,
+        "canonicalModel": "claude-haiku-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      },
+      "claude-sonnet-5-5": {
+        "inputTokens": 4,
+        "outputTokens": 428,
+        "cacheReadInputTokens": 8254,
+        "cacheCreationInputTokens": 6701,
+        "webSearchRequests": 0,
+        "costUSD": 0.0319174,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 0,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 6701,
+        "canonicalModel": "claude-sonnet-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "extra_usage_disabled",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 3,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": \"8141959\", \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_remote\", \"search.max_required_years\", \"skills.data_tools\", \"skills.languages\", \"experience[0].bullets\"], \"posting_fields\": [\"title\", \"location.name\", \"content\"], \"reason\": \"The title is Data Engineer, which is a target title. The role is remote in the US, which fits the candidate's openness to remote work. It asks for 4+ years, within the 5-year maximum. Required skills are Spark, Airflow, SQL, Python, Git and cloud, and the r\u00e9sum\u00e9 shows all of them, including Databricks as a plus.\"}",
+    "ttft_ms": 2266,
+    "type": "result",
+    "duration_ms": 4721,
+    "uuid": "02479b27-f204-451e-8b16-2b725d4b829f",
+    "ttft_stream_ms": 1196,
+    "time_to_request_ms": 311,
+    "time_to_request_phases_ms": {
+      "other": 6,
+      "system_prompt": 25,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 3,
+      "input_hooks": 1,
+      "tool_pool_refresh": 0,
+      "init_message": 2,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 262,
+      "tool_schema_build": 5,
+      "message_normalization": 1,
+      "client_creation": 1,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 7,
+    "time_to_request_cpu_ms": 147,
+    "time_to_request_major_faults": 0,
+    "input_attachments_detail": {
+      "slowest_producer": "queued_commands",
+      "slowest_producer_ms": 1,
+      "cpu_ms": 3,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1196,
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "files_after": [
+    "posting.json",
+    "resume.json"
+  ]
+}

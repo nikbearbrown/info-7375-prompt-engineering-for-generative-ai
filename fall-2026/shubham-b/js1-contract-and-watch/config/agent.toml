@@ -1,0 +1,36 @@
+# Job-Search Agent configuration (PLAN §1.5). Loaded by job_search_agent.config.
+# Relative paths resolve against the project root (the parent of this config/ folder).
+
+[data]
+# The only directory the program writes to (CONTRACT §3, §12).
+dir = "data"
+# State files, relative to [data].dir. Both must resolve inside it.
+state_file = "live/state.json"
+seeded_state_file = "seeded/state.json"
+
+[board]
+provider = "greenhouse"
+token = "stripe"
+
+[http]
+# The agent's own requests may only reach these hosts, over HTTPS (CONTRACT §11).
+allowed_hosts = ["boards-api.greenhouse.io"]
+timeout_s = 30.0
+max_bytes = 50_000_000
+max_redirects = 3
+user_agent = "job-search-agent/0.1 (discovery only; INFO 7375 coursework)"
+
+[resume]
+path = "persona/kiran-joshi.resume.example.json"
+# Pinned from the committed fixture bytes before the first run (CONTRACT §12.5).
+# Never recompute this at runtime.
+pinned_sha256 = "562a9d607213564c5291520f375ba69a7d407894c5803a995bad5b2d8f810532"
+
+[model]
+# "claude-cli" uses the subscription-authenticated claude executable; "none" marks
+# every judgment UNAVAILABLE without attempting a call (CONTRACT §3, §11).
+backend = "claude-cli"
+executable = "claude"
+model_id = "claude-sonnet-5-5"
+timeout_s = 180.0
+prompt_version = "v1"

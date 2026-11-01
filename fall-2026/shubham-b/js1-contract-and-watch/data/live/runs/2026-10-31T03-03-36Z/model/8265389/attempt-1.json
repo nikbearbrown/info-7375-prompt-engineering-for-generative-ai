@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4440,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "63aaa5e817b278b1e7093c169ac2507c4774bd648888d99f1f7154b460561576",
+  "posting_id": "8265389",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "ef8c3520-4c22-4476-bdd7-d0493ce95459",
+  "started_at_et": "2026-10-30T23:04:40.862788-04:00",
+  "started_at_utc": "2026-10-31T03:04:40.862788Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4151,\"stop_reason\":\"end_turn\",\"session_id\":\"ef8c3520-4c22-4476-bdd7-d0493ce95459\",\"total_cost_usd\":0.0212818,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4171,\"cache_read_input_tokens\":1138,\"output_tokens\":448,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4171,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":448,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":4171,\"webSearchRequests\":0,\"costUSD\":0.0212818,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4171,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a Motion Designer (3D illustration and animation) role on Stripe's Brand Studio in Barcelona. It requires 6+ years of design and art direction experience. Kiran is targeting software engineering roles at new grad to SWE II level in the United States or remote US. The role, level and location all differ, and none of Kiran's engineering skills apply.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"A Motion Designer role is not among Kiran's target software engineering roles.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting asks for 6+ years of design and art direction experience, well above Kiran's new grad to SWE II target levels.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Barcelona is outside Kiran's target of the United States or Remote (US).\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"The Brand Studio department is a creative design team and does not use Kiran's frontend or backend engineering skills.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting does not say whether the role can be done remotely or from the US.\\\"]}\",\"ttft_ms\":4181,\"type\":\"result\",\"duration_ms\":4206,\"uuid\":\"53de5bfd-fc92-4813-926b-e117e7c60149\",\"ttft_stream_ms\":1284,\"time_to_request_ms\":50,\"first_content_frame_ms\":1284,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0212818,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

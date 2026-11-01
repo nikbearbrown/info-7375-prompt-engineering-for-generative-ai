@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4067,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "bff175e562c895e2cc1174a5d0ea645e1c9b0bcde783aee090cb9f13ae0e333b",
+  "posting_id": "8318509",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "ae06f668-4d1d-403e-8a31-a686b716ea05",
+  "started_at_et": "2026-10-31T14:34:39.500009-04:00",
+  "started_at_utc": "2026-10-31T18:34:39.500009Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":3780,\"stop_reason\":\"end_turn\",\"session_id\":\"ae06f668-4d1d-403e-8a31-a686b716ea05\",\"total_cost_usd\":0.0239529,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4987,\"cache_read_input_tokens\":1109,\"output_tokens\":389,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4987,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":389,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4987,\"webSearchRequests\":0,\"costUSD\":0.0239529,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4987,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title passes the title gate and no exclusion phrases appear, but the location is Taiwan, which has no US signal and is a listed non-US signal, so the US location gate fails. The posting also names almost no specific skills from the resume, so the skill gate likely fails too.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran targets the United States, but the posting location is Taiwan, which fails the US-based location gate.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title 'Software Engineer' matches the target role family with no excluded markers, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The content only mentions generic APIs, not a REST API/RESTful API/REST services phrase, so this skill does not match and the skill gate appears to fail.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting does not say whether remote or US-based work is possible for this Taiwan location.\\\"]}\",\"ttft_ms\":3825,\"type\":\"result\",\"duration_ms\":3834,\"uuid\":\"301aa579-cfee-432c-a85d-30bdceb63192\",\"ttft_stream_ms\":1255,\"time_to_request_ms\":53,\"first_content_frame_ms\":1255,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0239529,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

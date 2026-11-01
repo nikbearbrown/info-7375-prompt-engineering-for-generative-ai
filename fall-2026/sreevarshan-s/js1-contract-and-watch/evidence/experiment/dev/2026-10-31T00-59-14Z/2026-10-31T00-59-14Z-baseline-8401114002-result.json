@@ -1,0 +1,33 @@
+{
+  "label": "judgment",
+  "status": "valid",
+  "model": "claude-sonnet-4-6",
+  "prompt": "baseline",
+  "attempts": 2,
+  "posting_id": 8401114002,
+  "verdict": "not relevant",
+  "skills_cited": [
+    {
+      "skill": "Python",
+      "resume_field": "skills.languages"
+    },
+    {
+      "skill": "Databricks",
+      "resume_field": "skills.data_bi"
+    },
+    {
+      "skill": "MLflow",
+      "resume_field": "skills.backend_automation"
+    }
+  ],
+  "explanation": "The title 'Staff Machine Learning Engineer' signals a seniority level that effectively exceeds Priya's 3-year experience cap; despite the description stating a 2–8-year range, a Staff-level role at the posted $190K–$285K band in practice targets engineers well above 3 years of ML experience. More critically, the description explicitly requires 'Proficiency in Python, TensorFlow/PyTorch, and scalable ML architectures' — neither TensorFlow nor PyTorch appears in any of Priya's resume skill fields. Python (skills.languages), Databricks (skills.data_bi), and MLflow (skills.backend_automation) do surface as partial matches, but the absence of the required ML framework proficiency combined with the Staff title makes this posting not relevant.",
+  "validation_errors": [
+    {
+      "attempt": 1,
+      "error": "resume_field 'resume_experience_tools' is not a field given in the input",
+      "exit_code": 0,
+      "stdout": "{\"posting_id\": 8401114002, \"verdict\": \"not relevant\", \"skills_cited\": [{\"skill\": \"Python\", \"resume_field\": \"skills.languages\"}, {\"skill\": \"Databricks\", \"resume_field\": \"skills.data_bi\"}, {\"skill\": \"LangGraph\", \"resume_field\": \"skills.backend_automation\"}, {\"skill\": \"MLflow\", \"resume_field\": \"skills.backend_automation\"}, {\"skill\": \"Delta Lake\", \"resume_field\": \"skills.database_cloud\"}, {\"skill\": \"Databricks Genie API\", \"resume_field\": \"resume_experience_tools\"}], \"explanation\": \"The description states '2-8 years of machine learning engineering experience,' and the title 'Staff Machine Learning Engineer' signals a senior seniority level. The upper bound of 8 required years far exceeds Priya's experience cap of 3 maximum required years, disqualifying the role regardless of other factors. Skill alignment is otherwise strong — the description's calls for Python, Databricks platform expertise, Genie (matching the Genie API experience), MLflow-compatible ML pipelines, LangGraph-relevant agent work, and Delta Lake all map to Priya's profile — but the experience-level mismatch in the description makes the posting not relevant.\"}\n",
+      "stderr": ""
+    }
+  ]
+}

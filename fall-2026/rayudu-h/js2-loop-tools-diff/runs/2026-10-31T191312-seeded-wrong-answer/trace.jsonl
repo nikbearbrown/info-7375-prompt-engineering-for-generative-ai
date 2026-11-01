@@ -1,0 +1,10 @@
+{"t": "2026-10-31T19:13:12-04:00", "event": "run-start", "boards": ["greenhouse:anthropic", "ashby:notion", "ashby:perplexity"], "budgets": {"max_boards": 6, "max_requests": 10, "max_seconds": 120, "request_timeout": 30, "max_claude": 25, "retry_delay": 2.0}}
+{"t": "2026-10-31T19:13:12-04:00", "event": "request", "board": "greenhouse:anthropic", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:13:13-04:00", "event": "response", "board": "greenhouse:anthropic", "bytes": 9855349, "sha256": "2cc748f7fe5d4945a56c75670919d2b6e96da970371e1ae172a1b4bae3799e1b"}
+{"t": "2026-10-31T19:13:14-04:00", "event": "board-ok", "board": "greenhouse:anthropic", "postings": 675, "baseline": false, "new": 0}
+{"t": "2026-10-31T19:13:14-04:00", "event": "read-seeded", "board": "ashby:notion", "file": "evidence/seeded/notion-empty.json", "bytes": 32}
+{"t": "2026-10-31T19:13:14-04:00", "event": "board-ok", "board": "ashby:notion", "postings": 0, "baseline": false, "new": 0}
+{"t": "2026-10-31T19:13:14-04:00", "event": "request", "board": "ashby:perplexity", "url": "https://api.ashbyhq.com/posting-api/job-board/perplexity", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:13:14-04:00", "event": "response", "board": "ashby:perplexity", "bytes": 1200281, "sha256": "e8e04b29c763d1390e94dc7523d4da10413120d4c63d80e126f18b8e756f2359"}
+{"t": "2026-10-31T19:13:14-04:00", "event": "board-ok", "board": "ashby:perplexity", "postings": 138, "baseline": false, "new": 0}
+{"t": "2026-10-31T19:13:14-04:00", "event": "exit", "status": "finished", "requests_sent": 2, "seconds": 2.23}

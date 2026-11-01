@@ -1,0 +1,43 @@
+{
+  "kind": "judgment (Claude, prompt contract)",
+  "at": "2026-10-31T17:42:48Z",
+  "job_id": 7832348,
+  "surface": "file (Claude Code, Read tool only)",
+  "command": [
+    "claude",
+    "-p",
+    "--output-format",
+    "json",
+    "--tools",
+    "Read",
+    "--allowedTools",
+    "Read",
+    "--system-prompt",
+    "You judge job postings for a candidate. Follow the user's instructions exactly and reply with one JSON object only.",
+    "--model",
+    "claude-sonnet-5-5",
+    "--no-session-persistence",
+    "--strict-mcp-config",
+    "--setting-sources",
+    ""
+  ],
+  "models_used": [
+    "claude-sonnet-5-5"
+  ],
+  "num_turns": 3,
+  "reply": "{\"verdict\": \"Not Relevant\", \"posting_fields\": [\"title\", \"description\", \"location\"], \"resume_fields\": [\"skills.languages\"], \"reason\": \"Title has \\\"Staff\\\", which is excluded. The description also asks for a minimum of 6 years of experience. The title and location (US) pass, and Java and Python match, but the experience rule fails.\"}",
+  "valid": true,
+  "error": null,
+  "parsed": {
+    "verdict": "Not Relevant",
+    "posting_fields": [
+      "title",
+      "description",
+      "location"
+    ],
+    "resume_fields": [
+      "skills.languages"
+    ],
+    "reason": "Title has \"Staff\", which is excluded. The description also asks for a minimum of 6 years of experience. The title and location (US) pass, and Java and Python match, but the experience rule fails."
+  }
+}

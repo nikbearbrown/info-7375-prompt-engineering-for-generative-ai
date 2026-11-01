@@ -1,0 +1,50 @@
+{
+ "posting_id": 8886384002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8886384002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": true,
+   "found": []
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Hands-on experience with Python, Java, or Scala"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "proficiency in SQL"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, our core values drive everything we do"
+    }
+   ]
+  },
+  "explanation": "The title \"Solutions Engineer\" contains no eligible role phrase, so condition A fails, even though the title has no excluded words. The description shares python and sql with skills.languages and databricks with skills.data_bi. Spark appears in the description but not in any résumé array, so it does not count."
+ },
+ "attempt_files": [
+  "8886384002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "26aa5482-5bad-4ad5-a685-570b023a818d",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

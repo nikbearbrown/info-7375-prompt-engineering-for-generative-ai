@@ -1,0 +1,47 @@
+{
+ "posting_id": 8403943002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8403943002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "lead",
+    "architect"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Proficiency in Python and the ML ecosystem"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "deep learning workloads on Databricks"
+    }
+   ]
+  },
+  "explanation": "The title has no eligible role phrase and contains the excluded words 'lead' and 'architect'. Python (skills.languages) and Databricks (skills.data_bi) both appear in the description, so shared_skills passes, but the verdict is not_relevant."
+ },
+ "attempt_files": [
+  "8403943002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "adf53ba1-f036-4ec3-aa41-286c773d514b",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

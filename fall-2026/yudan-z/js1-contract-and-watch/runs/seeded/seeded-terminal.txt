@@ -1,0 +1,7 @@
+# SEEDED runs: run 1 uses a constructed "earlier" response (5 real ids removed: 8213988, 8140389, 7507652, 6659114, 8162539); run 2 uses the real 2026-10-30 response.
+$ python -m agent.run --workdir runs/seeded --from-file runs/seeded/earlier-response.SEEDED.json
+✓ BASELINE 20261030T230315Z (SEEDED): 165 ids seen in total · 0 new · rule relevant 0 · claude valid 0/0
+
+$ python -m agent.run --workdir runs/seeded --from-file runs/live/evidence/20261030T230135Z-pinterest.json
+✓ run 20261030T230315Z-2 (SEEDED): 170 ids seen in total · 5 new · rule relevant 1 · claude valid 5/5
+exit=0

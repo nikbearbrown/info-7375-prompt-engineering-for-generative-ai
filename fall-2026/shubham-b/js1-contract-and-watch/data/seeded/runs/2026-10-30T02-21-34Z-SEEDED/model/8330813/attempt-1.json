@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4618,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "a103ce4d90a0fcee5cee11bf36f2c64ce8167caadeec5ee64a7b1b6feb5b46eb",
+  "posting_id": "8330813",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": true,
+  "session_id": "0d0f390f-5851-40b7-9e60-d0f7711e2827",
+  "started_at_et": "2026-10-29T22:21:41.718433-04:00",
+  "started_at_utc": "2026-10-30T02:21:41.718433Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4347,\"stop_reason\":\"end_turn\",\"session_id\":\"0d0f390f-5851-40b7-9e60-d0f7711e2827\",\"total_cost_usd\":0.0197058,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3702,\"cache_read_input_tokens\":1138,\"output_tokens\":478,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3702,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":478,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3702,\"webSearchRequests\":0,\"costUSD\":0.0197058,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3702,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a sales role (Account Executive, SMB Grower) based in Sydney or Melbourne, Australia. Kiran is targeting software engineering roles at entry to SWE II level in the United States or remote (US). The role type, the location and the required sales experience all fail to match. The only overlap is a preferred SQL skill, which is not enough to make the posting worth considering.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The posting is a sales Account Executive role, not any of the software engineering roles Kiran targets.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The posting is located in Sydney or Melbourne, Australia, outside the United States and Remote (US).\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"The department is an APAC account executive team, which confirms a non-US sales focus.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"SQL is only a preferred qualification in a sales role, so this overlap is incidental and does not offset the mismatch.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting does not say whether remote work is possible, though the listed location is a Sydney office address.\\\",\\\"The posting gives no salary information.\\\"]}\",\"ttft_ms\":4380,\"type\":\"result\",\"duration_ms\":4394,\"uuid\":\"5e5c9937-4d89-4841-b502-c6e993b09853\",\"ttft_stream_ms\":1280,\"time_to_request_ms\":45,\"first_content_frame_ms\":1280,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0197058,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

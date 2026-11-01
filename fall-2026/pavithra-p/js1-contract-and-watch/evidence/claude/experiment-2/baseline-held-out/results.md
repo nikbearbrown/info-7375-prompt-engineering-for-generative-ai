@@ -1,0 +1,18 @@
+## `baseline.md` on the held-out set (2026-10-31T22:50:38Z)
+
+- Pass rate (Claude's verdict = my hand label): **8/10**
+- Invalid replies (rejected by the validator, counted as a fail): 0
+- For comparison: answering "Not Relevant" every time would score 6/10; the written rule (record) matches my labels on 6/10
+
+| Job ID | Company | Title | Claude (judgment) | My hand label | Pass | Rule (record) | Claude's reason |
+|---|---|---|---|---|---|---|---|
+| 7819445003 | Affirm | Software Engineer II, Fullstack (App Experience) | Not Relevant | Relevant | no | Not Relevant | Title (Software Engineer II, Fullstack), location (Remote US) and 1.5+ years pass, but only one candidate skill, Python, appears as a whole word in the description. The skills rule needs at least two. |
+| 8003020003 | Affirm | Software Engineer II, Backend (Streaming) | Relevant | Relevant | yes | Not Relevant | Title has Engineer + Software/Backend, no excluded seniority words. Description matches Python, Kafka, AWS, Kubernetes. It asks for 1.5+ years, under 3. Location 'Remote US' contains US. |
+| 8139781 | Reddit | Software Engineer, Content Platform | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer' and location 'United States' pass, and skills match (Python, Java, Redis, Postgres, Kubernetes, AWS), but description requires '3+ years of software engineering experience', failing the experience rule. |
+| 8172457 | Reddit | Software Engineer, Consumer Engineering | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer' and 'Remote - United States' pass, and Python, Java, Redis, PostgreSQL match, but the description requires '3+ years of hands-on backend development experience', failing the experience rule. |
+| 7292520 | Stripe | Backend Engineer, Developer & End-user Experience Platform | Relevant | Relevant | yes | Not Relevant | Title 'Backend Engineer' has no seniority term; 'Remote in US' matches location; Docker, Kubernetes, AWS match skills; minimum is 2 years ('2–12+' is a range), and the candidate has about 2 years of experience. |
+| 8089353 | Stripe | Software Engineer, Vulnerability Management | Not Relevant | Relevant | no | Not Relevant | Title, location (US - Remote) and 2+ years requirement pass, but the description names none of the candidate's skills (no Python, Java, SQL, AWS, Docker, Kubernetes, etc.), so the two-skill match fails. |
+| 8606845002 | Brex | AI Engineer, Workbench | Not Relevant | Not Relevant | yes | Not Relevant | Title 'AI Engineer' and location 'United States' pass, but the description requires '5+ years' (3+ rule fails) and mentions none of the candidate's skills (e.g., Python, AWS) as whole words. |
+| 5790627004 | Figma | Software Engineer - Developer Experience | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer' and location 'United States' pass, and TypeScript, Python, AWS match, but the description requires 5+ years of engineering experience (4+ on platform teams), failing the under-3-years rule. |
+| 6233043004 | Figma | AI Engineer, Internal Tools | Not Relevant | Not Relevant | yes | Not Relevant | Title (AI Engineer) and location (United States) pass, but only one candidate skill (AWS) appears in the description, and it asks for 5+ years of software engineering experience, which is 3 or more. |
+| 8829039002 | Databricks | Software Engineer, Infrastructure | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer, Infrastructure' and US location pass; skills Python, AWS, Kubernetes, Docker match. But the description requires '3+ years of hands-on software engineering experience', failing the experience rule. |

@@ -1,0 +1,37 @@
+{
+  "label": "judgment",
+  "status": "valid",
+  "model": "claude-sonnet-4-6",
+  "prompt": "revised",
+  "attempts": 2,
+  "posting_id": 8921476002,
+  "verdict": "not relevant",
+  "skills_cited": [
+    {
+      "skill": "Python",
+      "resume_field": "skills.languages"
+    },
+    {
+      "skill": "SQL",
+      "resume_field": "skills.languages"
+    },
+    {
+      "skill": "Databricks",
+      "resume_field": "skills.data_bi"
+    },
+    {
+      "skill": "Unity Catalog",
+      "resume_field": "skills.data_bi"
+    }
+  ],
+  "explanation": "Three independent disqualifiers apply. First, the title 'Forward Deployed Engineer' is a customer-facing field/solutions engineering role; it does not map to Priya's target roles of 'AI Engineer / ML Engineer' or 'Data Engineer'. Second, the location is 'London, United Kingdom' and Priya needs sponsorship; the posting contains no statement that UK visa sponsorship is offered, making eligibility uncertain and not clearable on the face of the posting. Third, the description explicitly requires proficiency in 'Java/Scala, JavaScript/TypeScript, and modern frameworks' and the ability to deliver 'frontend' applications and integrations—none of which appear in Priya's permitted resume skill fields. The description also calls for up to 50% travel and 'proven track record' of enterprise delivery, language consistent with seniority exceeding the 3-year experience cap. Although Python, SQL, Databricks, and Unity Catalog are genuine matches between Priya's resume and the description, they are insufficient to overcome the role-type mismatch, sponsorship uncertainty, and missing full-stack skill requirements.",
+  "validation_errors": [
+    {
+      "attempt": 1,
+      "error": "resume_field 'resume_experience_tools' is not a field given in the input",
+      "exit_code": 0,
+      "stdout": "{\"posting_id\": 8921476002, \"verdict\": \"not relevant\", \"skills_cited\": [{\"skill\": \"Python\", \"resume_field\": \"skills.languages\"}, {\"skill\": \"SQL\", \"resume_field\": \"skills.languages\"}, {\"skill\": \"Databricks\", \"resume_field\": \"skills.data_bi\"}, {\"skill\": \"Unity Catalog\", \"resume_field\": \"skills.data_bi\"}, {\"skill\": \"MLflow\", \"resume_field\": \"skills.backend_automation\"}, {\"skill\": \"LangGraph\", \"resume_field\": \"skills.backend_automation\"}, {\"skill\": \"Databricks Genie API\", \"resume_field\": \"resume_experience_tools\"}], \"explanation\": \"Three independent disqualifiers make this posting not relevant. (1) Target-role mismatch: the title 'Forward Deployed Engineer' and description frame this as a customer-facing, full-stack application-delivery role (50 % travel, stakeholder engagement from ICs to C-suite, owning UI through backend); Priya's target roles are AI Engineer / ML Engineer (primary) and Data Engineer (secondary) — neither maps to this profile. (2) Missing required skills: the description explicitly lists proficiency in Java/Scala and JavaScript/TypeScript as requirements; neither appears in any of Priya's valid resume skill fields (skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud, or resume_experience_tools), and Ray/Kubeflow are excluded from consideration per the familiar_with_not_shipped rule. (3) Sponsorship risk in an unsponsored UK location: the location is London, United Kingdom and the posting makes no mention of visa sponsorship; Priya's profile flags needs_sponsorship = true, making eligibility to work in the UK unresolved. Partial skill overlaps (Python, SQL, Databricks, Unity Catalog, MLflow, LangGraph, Databricks Genie API) are noted but do not overcome these disqualifiers.\"}\n",
+      "stderr": ""
+    }
+  ]
+}

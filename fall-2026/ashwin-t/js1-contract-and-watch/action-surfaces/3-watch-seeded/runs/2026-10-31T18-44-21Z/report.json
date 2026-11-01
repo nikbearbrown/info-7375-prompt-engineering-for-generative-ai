@@ -1,0 +1,154 @@
+{
+  "run": {
+    "board": "klaviyo",
+    "run_timestamp": "2026-10-31T18:44:21Z",
+    "mode": "SEEDED REPLAY",
+    "source": {
+      "fixture": "runs/2026-10-31T16-09-43Z/raw-response.json",
+      "sha256": "79ac81247d2b186636f068069582ac400e1f7b541c832bcd3b0447e3446ec908",
+      "collected_at": "2026-10-31T16:09:43Z",
+      "network": false
+    },
+    "baseline": false,
+    "previous_run": "2026-10-31T16:09:43Z",
+    "postings_observed": 156,
+    "previously_seen": 155,
+    "new_ids": 1,
+    "rule_relevant": 1,
+    "ai_judge": "revision-v2",
+    "ai_valid": 1,
+    "ai_validation_failed": 0,
+    "ai_call_failed": 0,
+    "disagreements": 0,
+    "failures": []
+  },
+  "results": [
+    {
+      "posting_id": "7855793003",
+      "title": "Software Engineer II, Test Frameworks & Tooling",
+      "location": "Boston, MA",
+      "offices": [
+        "Boston"
+      ],
+      "url": "https://www.klaviyo.com/careers/jobs/7855793003?gh_jid=7855793003",
+      "rule_record": {
+        "label": "RULE RECORD",
+        "posting_id": "7855793003",
+        "title": "Software Engineer II, Test Frameworks & Tooling",
+        "verdict": "RELEVANT",
+        "checks": {
+          "title": true,
+          "seniority": true,
+          "location": true,
+          "skills": true
+        },
+        "details": {
+          "title": {
+            "pass": true,
+            "matched": "software engineer",
+            "line": "posting.title=\"Software Engineer II, Test Frameworks & Tooling\" contains \"software engineer\" (title_check PASS)"
+          },
+          "seniority": {
+            "pass": true,
+            "excluded_terms": [],
+            "line": "posting.title=\"Software Engineer II, Test Frameworks & Tooling\" contains no excluded seniority term (seniority_check PASS)"
+          },
+          "location": {
+            "pass": true,
+            "field": "posting.location.name",
+            "value": "Boston, MA",
+            "matched": "boston",
+            "line": "posting.location.name=\"Boston, MA\" contains \"boston\", meeting resume.preferred_locations[0]=\"Boston\" (location_check PASS)"
+          },
+          "skills": {
+            "pass": true,
+            "count": 3,
+            "threshold": 2,
+            "matched": [
+              {
+                "resume_field": "skills[0]",
+                "skill": "Python",
+                "posting_field": "content",
+                "snippet": "n an e2e test or optimizing a python integration test, you are rea"
+              },
+              {
+                "resume_field": "skills[3]",
+                "skill": "Redis",
+                "posting_field": "content",
+                "snippet": "helm, buildkite data: mysql, redis, kafka ai tools: integration"
+              },
+              {
+                "resume_field": "skills[5]",
+                "skill": "Kubernetes",
+                "posting_field": "content",
+                "snippet": "t infrastructure and ci: aws, kubernetes, terraform, helm, buildkite d"
+              }
+            ],
+            "lines": [
+              "resume.skills[0]=\"Python\" matched posting.content=\"n an e2e test or optimizing a python integration test, you are rea\"",
+              "resume.skills[3]=\"Redis\" matched posting.content=\"helm, buildkite data: mysql, redis, kafka ai tools: integration\"",
+              "resume.skills[5]=\"Kubernetes\" matched posting.content=\"t infrastructure and ci: aws, kubernetes, terraform, helm, buildkite d\"",
+              "3 distinct résumé skill(s) found in posting.content; 2 required (skills_check PASS)"
+            ]
+          }
+        },
+        "justification": [
+          "posting.title=\"Software Engineer II, Test Frameworks & Tooling\" contains \"software engineer\" (title_check PASS)",
+          "posting.title=\"Software Engineer II, Test Frameworks & Tooling\" contains no excluded seniority term (seniority_check PASS)",
+          "posting.location.name=\"Boston, MA\" contains \"boston\", meeting resume.preferred_locations[0]=\"Boston\" (location_check PASS)",
+          "resume.skills[0]=\"Python\" matched posting.content=\"n an e2e test or optimizing a python integration test, you are rea\"",
+          "resume.skills[3]=\"Redis\" matched posting.content=\"helm, buildkite data: mysql, redis, kafka ai tools: integration\"",
+          "resume.skills[5]=\"Kubernetes\" matched posting.content=\"t infrastructure and ci: aws, kubernetes, terraform, helm, buildkite d\"",
+          "3 distinct résumé skill(s) found in posting.content; 2 required (skills_check PASS)"
+        ]
+      },
+      "ai_judgment": {
+        "label": "AI JUDGMENT",
+        "posting_id": "7855793003",
+        "prompt": "revision-v2",
+        "called_at": "2026-10-31T18:44:21Z",
+        "model": "claude-opus-5-5",
+        "raw_reply": "{\"posting_id\": \"7855793003\", \"verdict\": \"RELEVANT\", \"reason\": \"This is a Boston-based Software Engineer II role that asks for 2+ years of experience, which is within reach for a New Grad. The backend stack includes Python, Kubernetes and Redis, all on the résumé.\", \"evidence\": [{\"resume_field\": \"experience_level\", \"posting_field\": \"title\", \"posting_quote\": \"Software Engineer II, Test Frameworks & Tooling\"}, {\"resume_field\": \"experience_level\", \"posting_field\": \"content\", \"posting_quote\": \"you have 2+ years of software engineering experience\"}, {\"resume_field\": \"preferred_locations[0]\", \"posting_field\": \"location.name\", \"posting_quote\": \"Boston, MA\"}, {\"resume_field\": \"skills[0]\", \"posting_field\": \"content\", \"posting_quote\": \"backend: python, django, go\"}, {\"resume_field\": \"skills[5]\", \"posting_field\": \"content\", \"posting_quote\": \"aws, kubernetes, terraform, helm, buildkite\"}, {\"resume_field\": \"skills[3]\", \"posting_field\": \"content\", \"posting_quote\": \"data: mysql, redis, kafka\"}]}",
+        "status": "VALID",
+        "verdict": "RELEVANT",
+        "reason": "This is a Boston-based Software Engineer II role that asks for 2+ years of experience, which is within reach for a New Grad. The backend stack includes Python, Kubernetes and Redis, all on the résumé.",
+        "evidence": [
+          {
+            "resume_field": "experience_level",
+            "posting_field": "title",
+            "posting_quote": "Software Engineer II, Test Frameworks & Tooling"
+          },
+          {
+            "resume_field": "experience_level",
+            "posting_field": "content",
+            "posting_quote": "you have 2+ years of software engineering experience"
+          },
+          {
+            "resume_field": "preferred_locations[0]",
+            "posting_field": "location.name",
+            "posting_quote": "Boston, MA"
+          },
+          {
+            "resume_field": "skills[0]",
+            "posting_field": "content",
+            "posting_quote": "backend: python, django, go"
+          },
+          {
+            "resume_field": "skills[5]",
+            "posting_field": "content",
+            "posting_quote": "aws, kubernetes, terraform, helm, buildkite"
+          },
+          {
+            "resume_field": "skills[3]",
+            "posting_field": "content",
+            "posting_quote": "data: mysql, redis, kafka"
+          }
+        ],
+        "errors": []
+      },
+      "disagreement": false,
+      "run_timestamp": "2026-10-31T18:44:21Z",
+      "run_mode": "SEEDED REPLAY"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6055,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "7fb257eb8ba3bad0eb5dd80b420ef8b85641ccb842ad9eea332dd19850e3847b",
+  "posting_id": "8198280",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "7838a47a-c75e-4da5-bfcd-737bd000cd3f",
+  "started_at_et": "2026-10-31T14:22:35.809178-04:00",
+  "started_at_utc": "2026-10-31T18:22:35.809178Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5749,\"stop_reason\":\"end_turn\",\"session_id\":\"7838a47a-c75e-4da5-bfcd-737bd000cd3f\",\"total_cost_usd\":0.0211429,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3467,\"cache_read_input_tokens\":1109,\"output_tokens\":716,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3467,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":716,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3467,\"webSearchRequests\":0,\"costUSD\":0.0211429,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3467,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a backend engineer position in Seattle, which matches Kiran's target role and location. However, the posting requires a Master's degree plus six years of software development experience and four years in each of several areas. That is far above Kiran's entry-level and SWE I/II targets, and the résumé does not show that much experience. The skills overlap (Java, Python, REST, microservices, CI/CD), but the seniority mismatch outweighs it.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets New Grad, Entry Level, SWE I and SWE II, but the posting's minimum requirements call for a Master's degree plus six years of experience and four years in each of several areas.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title is a backend software engineer role, which matches Kiran's Backend Engineer target.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is in the United States, which fits the target location, though the posting mentions only 50% telecommuting rather than fully remote.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java and Python are among the languages the posting accepts, and RESTful microservices work overlaps with Kiran's Spring Boot and REST experience, but this does not offset the experience gap.\\\"},{\\\"resume_path\\\":\\\"$.experience[1].bullets[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran's microservices experience is real but limited, and it falls well short of four years in distributed systems and scalable high-performance services.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The résumé gives no dates or durations, so the total years of experience cannot be established from the supplied text.\\\",\\\"The posting does not say whether the Master's degree requirement could be met with equivalent experience, and the résumé lists no education.\\\",\\\"It is unclear whether the posting is open to candidates working fully remotely, since it says only that 50% telecommuting is permitted.\\\"]}\",\"ttft_ms\":5789,\"type\":\"result\",\"duration_ms\":5803,\"uuid\":\"2c93ee97-9984-42e5-b422-c56bf082bcc1\",\"ttft_stream_ms\":1112,\"time_to_request_ms\":51,\"first_content_frame_ms\":1112,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0211429,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

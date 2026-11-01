@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6746,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "7e1b85202640131d92f9d9fa2c00e44c2c4ebc22a45f66ffeb5ab44f975c71d2",
+  "posting_id": "8202299",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "a01c3adf-df1c-43f9-b2e3-3a36aa4be94f",
+  "started_at_et": "2026-10-31T14:34:50.370319-04:00",
+  "started_at_utc": "2026-10-31T18:34:50.370319Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6453,\"stop_reason\":\"end_turn\",\"session_id\":\"a01c3adf-df1c-43f9-b2e3-3a36aa4be94f\",\"total_cost_usd\":0.0301369,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5498,\"cache_read_input_tokens\":1109,\"output_tokens\":803,\"output_tokens_details\":{\"thinking_tokens\":338},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5498,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":803,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5498,\"webSearchRequests\":0,\"costUSD\":0.0301369,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":338,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5498,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title gate and exclusion gate pass, but the posting fails two gates. The location is Taiwan, which has no US signal and is a listed non-US signal. The content also names no eligible resume skills as whole words: it mentions only the general areas frontend, backend and programming, so it does not reach the two-skill minimum.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains 'Software Engineer' and no excluded marker ('New Grad' is not excluded), so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location is Taiwan, a non-US signal with no US signal, so the US location gate fails.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content names no specific eligible language or tool from the resume, so the skill gate (at least two matches) fails.\\\"},{\\\"resume_path\\\":\\\"$.target.excluded[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"No citizenship, clearance or unpaid-work exclusion phrase appears, so the exclusion gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"Whether the role can be done remotely from the US is not stated; the location field says only Taiwan.\\\"]}\",\"ttft_ms\":3733,\"type\":\"result\",\"duration_ms\":6508,\"uuid\":\"93ddb5a2-3ae6-42c8-b697-398cb552a974\",\"ttft_stream_ms\":1318,\"time_to_request_ms\":52,\"first_content_frame_ms\":1318,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0301369,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

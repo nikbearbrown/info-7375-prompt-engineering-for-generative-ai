@@ -1,0 +1,191 @@
+{
+ "invoked_at_utc": "2026-10-30T21:47:21+00:00",
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=93d4f3c0f201361699f9b446b6e68a5207c9da0d0928db040bee883991093ab3>"
+ ],
+ "model_requested": "claude-opus-5-5",
+ "effort": "medium",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8029666002,\n \"title\": \"Software Engineer - Backend\",\n \"location\": \"Amsterdam, Netherlands\",\n \"departments\": [\n  \"Engineering - Pipeline\"\n ],\n \"description\": \"P-1317 At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to solve technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started. As a software engineer with a backend focus, you will work with your team to build infrastructure and products for the Databricks platform at scale. The impact you'll have: Our backend teams span many domains across our essential service platforms. For instance, you might work on challenges such as: Problems that span from product to infrastructure including: distributed systems, at-scale service architecture and monitoring, workflow orchestration, and developer experience. Deliver reliable and high performance services and client libraries for storing and accessing humongous amount of data on cloud storage backends, e.g., AWS S3, Azure Blob Store. Build reliable, scalable services, e.g. Scala, Kubernetes, and data pipelines, e.g. Spark, Databricks, to power the pricing infrastructure that serves millions of cluster-hours per day and develop product features that empower customers to easily view and control platform usage. What we look for: BS (or higher) in Computer Science, or a related field 2+ years of production level experience in one of: Java, Scala, C++, or similar language. Experience developing large-scale distributed systems. Experience working on a SaaS platform or with Service-Oriented Architectures. Good knowledge of SQL. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "162f127a6245f75d83e35fd7e7997be4b3f9722ea77c14ad4b8224b8d50a3ece",
+ "returncode": 0,
+ "stderr_tail": "",
+ "cli_json": {
+  "duration_api_ms": 4486,
+  "stop_reason": "end_turn",
+  "session_id": "1e7c9bff-999a-4342-b06c-86363db2b036",
+  "total_cost_usd": 0.0241239,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2200,
+   "cache_read_input_tokens": 1135,
+   "output_tokens": 297,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2200,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 297,
+     "cache_read_input_tokens": 1135,
+     "cache_creation_input_tokens": 2200,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2200
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 2564,
+    "outputTokens": 185,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.00034889999999999997,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 164,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 297,
+    "cacheReadInputTokens": 1135,
+    "cacheCreationInputTokens": 2200,
+    "webSearchRequests": 0,
+    "costUSD": 0.023775,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": 8029666002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Good knowledge of SQL.\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"for the Databricks platform at scale\"}]}, \"explanation\": \"The title contains the phrase \\\"software engineer\\\" and none of the excluded words. The description mentions SQL and Databricks, which match skills.languages (\\\"SQL\\\") and skills.data_bi (\\\"Databricks\\\"); Spark is also in the description but not on the résumé, so it is not counted.\"}",
+  "ttft_ms": 3195,
+  "type": "result",
+  "duration_ms": 3222,
+  "uuid": "74d969f4-6ed8-4d6d-b242-b309cd5db202",
+  "ttft_stream_ms": 905,
+  "time_to_request_ms": 142,
+  "time_to_request_phases_ms": {
+   "other": 7,
+   "system_prompt": 0,
+   "resume_other": 1,
+   "process_user_input": 0,
+   "input_attachments": 7,
+   "input_hooks": 1,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 0,
+   "message_prep": 1,
+   "model_config_wait": 0,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 115,
+   "tool_schema_build": 3,
+   "message_normalization": 1,
+   "client_creation": 1,
+   "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 1,
+  "time_to_request_cpu_ms": 80,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 6,
+   "cpu_ms": 13,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 905,
+  "queued_turn_count": 0,
+  "result_index": 0
+ },
+ "finished_at_utc": "2026-10-30T21:47:25+00:00",
+ "wall_seconds": 4.24,
+ "response_text": "{\"posting_id\": 8029666002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Good knowledge of SQL.\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"for the Databricks platform at scale\"}]}, \"explanation\": \"The title contains the phrase \\\"software engineer\\\" and none of the excluded words. The description mentions SQL and Databricks, which match skills.languages (\\\"SQL\\\") and skills.data_bi (\\\"Databricks\\\"); Spark is also in the description but not on the résumé, so it is not counted.\"}",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "1e7c9bff-999a-4342-b06c-86363db2b036",
+ "transport_ok": true,
+ "prompt_version": "v2",
+ "prompt_sha256": "93d4f3c0f201361699f9b446b6e68a5207c9da0d0928db040bee883991093ab3",
+ "posting_id": 8029666002,
+ "valid": true,
+ "validation_errors": [],
+ "verdict": "relevant",
+ "transport_failures_before_success": [],
+ "experiment": "prompt",
+ "split": "heldout"
+}

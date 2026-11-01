@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 7958982002,
+    "title": "Staff Software Engineer - Machine Learning (Search)",
+    "location": "Bengaluru, India",
+    "description": "The Applied AI team at Databricks sits at the forefront of advancing AI/ML-powered products . Databricks’ customers are continuously creating new assets (tables, notebooks, dashboards, datarooms, pipelines, sql queries, ml models etc.) on the platform. Some of them can have hundreds of millions of assets. Finding an asset is a critical user journey for Databricks’ customers which helps them accomplish their tasks. As our Search product continues to evolve, we are seeking a Staff Engineer to lead enhancements to our Search Quality. In 2025, we will focus on enhancing search ranking, improving query understanding, building robust evals and growing the coverage of assets to enable seamless search at scale. Key Responsibilities Drive the development and deployment of ML based search and discovery relevance models and systems integrated with Databricks' products and services. Design and implement automated ML and NLP pipelines for data preprocessing, query understanding and rewrite, ranking and retrieval, and model evaluation, enabling rapid experimentation and iteration. Collaborate with product managers and cross-functional teams to drive technology-first initiatives that enable novel business strategies and product roadmaps for the search and discovery experience. Contribute to building a robust framework for evaluating search ranking improvements - both offline and online. What We’re Looking For BS+ (M.S. or PhD preferred) in Computer Science, or a related field. 10+ years experience developing search relevance systems at scale in production or in high-impact research environments. Experience applying LLM to search relevance Experience in one or more of the following: Query understanding NLP Text mining Recommendations Personalization Discovery Conversational AI Strong understanding of computer science fundamentals. Contributions to well-used open-source projects. Why Join Us? At Databricks, we are building state-of-the-art AI solutions that redefine how users interact with data and our products. You’ll have the opportunity to shape the future of AI-driven products at Databricks, work with cutting-edge models, and collaborate with a world-class team of AI and ML experts. If you're excited about pushing the boundaries of AI in real-world applications, we’d love to hear from you! About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. P-1408 Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

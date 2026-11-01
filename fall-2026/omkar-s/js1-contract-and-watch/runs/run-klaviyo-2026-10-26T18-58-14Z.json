@@ -1,0 +1,144 @@
+{
+ "run_id": "2026-10-26T18-58-14Z",
+ "board": "klaviyo",
+ "baseline": false,
+ "source": {
+  "type": "live",
+  "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+  "http_status": 200
+ },
+ "raw_response": "raw-klaviyo-2026-10-26T18-58-14Z.json",
+ "postings_in_response": 160,
+ "new_since_last_run": 2,
+ "removed_since_last_run": [
+  7821524003,
+  8000680003
+ ],
+ "resume": "aarav-patel.example.json",
+ "records": [
+  {
+   "posting_id": 8044834003,
+   "title": "Senior Lead AI Engineer - G&A Systems",
+   "absolute_url": "https://www.klaviyo.com/careers/jobs/8044834003?gh_jid=8044834003",
+   "rule": {
+    "kind": "record",
+    "verdict": "not_relevant",
+    "clauses": {
+     "A": {
+      "pass": false,
+      "posting_field": "title",
+      "value": "Senior Lead AI Engineer - G&A Systems"
+     },
+     "B": {
+      "pass": true,
+      "posting_field": "location.name",
+      "value": "San Francisco, CA",
+      "resume_field": "personal.location"
+     },
+     "C": {
+      "pass": true,
+      "posting_field": "content",
+      "found": [
+       "Python",
+       "SQL"
+      ],
+      "resume_fields": [
+       "skills.languages"
+      ]
+     }
+    },
+    "justification": [
+     "A role: posting.title=\"Senior Lead AI Engineer - G&A Systems\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+     "B location (US): posting.location.name=\"San Francisco, CA\" vs resume.personal.location=\"Boston, MA\" -> PASS (US city (San Francisco, CA; posting.offices[] has a United States office))",
+     "C skills: resume.skills.languages[Python, SQL] found in posting.content -> 2 of 15, need 2 -> PASS",
+     "verdict: not_relevant (A FAIL, B PASS, C PASS)"
+    ]
+   },
+   "claude": {
+    "kind": "judgment",
+    "label": "Claude judgment - not a fact",
+    "asked_at": "2026-10-26T18:58:15Z",
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "session_id": "35eb03be-86e7-4f9d-8fd8-c207fabe729a",
+    "raw_path": "runs/claude-raw/2026-10-26T18-58-14Z-8044834003.json",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[].title",
+     "experience[].bullets",
+     "personal.location",
+     "skills.languages"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "content"
+    ],
+    "reason": "Senior Lead role requires 5+ years engineering with 2+ years building LLM products, 0\u21921 technical direction, React, and Finance SaaS (NetSuite/Zip) integration, at $180-270K. Candidate has ~2 years Infosys plus a 5-month co-op, no React or finance systems, and is based in Boston vs San Francisco."
+   }
+  },
+  {
+   "posting_id": 8017125003,
+   "title": "Senior Lead AI Engineer - G&A Systems",
+   "absolute_url": "https://www.klaviyo.com/careers/jobs/8017125003?gh_jid=8017125003",
+   "rule": {
+    "kind": "record",
+    "verdict": "not_relevant",
+    "clauses": {
+     "A": {
+      "pass": false,
+      "posting_field": "title",
+      "value": "Senior Lead AI Engineer - G&A Systems"
+     },
+     "B": {
+      "pass": true,
+      "posting_field": "location.name",
+      "value": "Boston, MA",
+      "resume_field": "personal.location"
+     },
+     "C": {
+      "pass": true,
+      "posting_field": "content",
+      "found": [
+       "Python",
+       "SQL"
+      ],
+      "resume_fields": [
+       "skills.languages"
+      ]
+     }
+    },
+    "justification": [
+     "A role: posting.title=\"Senior Lead AI Engineer - G&A Systems\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+     "B location (US): posting.location.name=\"Boston, MA\" vs resume.personal.location=\"Boston, MA\" -> PASS (Boston)",
+     "C skills: resume.skills.languages[Python, SQL] found in posting.content -> 2 of 15, need 2 -> PASS",
+     "verdict: not_relevant (A FAIL, B PASS, C PASS)"
+    ]
+   },
+   "claude": {
+    "kind": "judgment",
+    "label": "Claude judgment - not a fact",
+    "asked_at": "2026-10-26T18:58:21Z",
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "session_id": "642a8a6c-4e5c-4e9b-aa20-0cdea5a7c95a",
+    "raw_path": "runs/claude-raw/2026-10-26T18-58-14Z-8017125003.json",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[].title",
+     "experience[].bullets",
+     "skills.languages"
+    ],
+    "posting_fields": [
+     "title",
+     "content"
+    ],
+    "reason": "Senior Lead role requiring 5+ years engineering with 2+ years building LLM products, setting technical direction, and Finance systems (NetSuite, Zip) integration. Candidate has about 2 years of Infosys Java work plus a co-op (Dassault multi-agent AI workflow), no senior/lead title, no finance SaaS experience."
+   }
+  }
+ ]
+}

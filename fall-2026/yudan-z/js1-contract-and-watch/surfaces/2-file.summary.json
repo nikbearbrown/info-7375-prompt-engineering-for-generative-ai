@@ -1,0 +1,26 @@
+{
+ "surface": "2-file",
+ "returncode": 0,
+ "tool_calls": [
+  {
+   "tool": "Read",
+   "input": {
+    "file_path": "C:\\neu is\\26fall\\INFO7375\\js1-contract-and-watch\\surfaces\\box-file\\CONTRACT.md"
+   }
+  },
+  {
+   "tool": "Read",
+   "input": {
+    "file_path": "C:\\neu is\\26fall\\INFO7375\\js1-contract-and-watch\\surfaces\\box-file\\posting.json"
+   }
+  },
+  {
+   "tool": "Read",
+   "input": {
+    "file_path": "C:\\neu is\\26fall\\INFO7375\\js1-contract-and-watch\\surfaces\\box-file\\resume.json"
+   }
+  }
+ ],
+ "final": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"work_authorization\", \"education\", \"skills\"], \"posting_fields\": [\"title\", \"location.name\", \"content\"], \"justification\": \"The title contains the target_roles entry 'Analytics' and no senior word ('II' is not 'III'). location.name has 'US'. content asks for a 'Minimum of 2 years' (under 3), has no citizenship, sponsorship, PhD or graduation-date limit, and names skills 'SQL' and 'Python', so R1-R9 all pass.\"}",
+ "stderr": ""
+}

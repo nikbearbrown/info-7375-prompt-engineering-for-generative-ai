@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8824171002,
+    "title": "AI Sales Director",
+    "location": "San Francisco, California; United States; West Coast - United States",
+    "description": "The impact you will have Deliver assigned AI consumption, bookings, and activation goals by prioritizing high-potential strategic accounts and converting underserved or unactivated demand into production usage. Increase the number of enterprise AI opportunities that achieve executive-backed technical validation and progress from experimentation to repeatable production workloads. Build and scale field plays around priority AI platform capabilities including AI Gateway, AI/ML training and serving infrastructure, Agent Bricks for custom agent development, etc. Creating measurable pipeline and consumption growth. Improve field execution by equipping and enabling account teams and specialists with repeatable guidance on AI use-case discovery, qualification, value articulation, pricing, sizing, and opportunity progression. Establish a scalable engagement model across sales, solutions architecture, business-unit enablement, and partners that increases specialist-influenced pipeline and accelerates customer decisions. Turn customer, field, and competitive feedback into clear product and go-to-market recommendations that strengthen Databricks’ position in the enterprise AI market. Build internal and external executive credibility for Databricks AI, increasing strategic sponsorship and expanding adoption across priority accounts. What we look for Highly motivated enterprise sales or consulting experience in AI platforms, AI infrastructure, machine learning, developer platforms, or related technical software, with a track record of delivering growth against measurable goals. Experience creating go-to-market strategy in an emerging or ambiguous technical market, including the ability to prioritize across a broad, changing account and opportunity landscape. Deep working knowledge of enterprise AI architecture and the platform capabilities required to build, deploy, govern, and scale models, agents, and AI applications. Demonstrated ability to earn technical approval and executive sponsorship through workshops, onsite engagements, business cases, and clearly defined validation paths. Experience creating field enablement and repeatable GTM plays that improve how sellers qualify, position, price, size, and advance complex technical opportunities. Ability to influence internally as well as externally, aligning sales, solutions architecture, business-unit leaders, enablement teams, and partners around a common AI growth strategy. Self-directed, credible, and comfortable operating without a predefined account list or fully formed playbook while maintaining disciplined prioritization and execution. Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. SLSQ427R457 We are looking for a Director, AI Sales (IC) to grow Databricks’ enterprise AI business and shape how we take AI to market. You will work directly with executives and technical teams to win strategic opportunities, get AI applications into production, and expand customer usage. You will also turn what works with customers into sales plays the broader field can execute, with direct influence on our AI product priorities and go-to-market strategy. Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected base salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipated utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Zone 1 Pay Range $272,000 — $374,000 USD Zone 2 Pay Range $272,000 — $374,000 USD Zone 3 Pay Range $272,000 — $374,000 USD Zone 4 Pay Range $272,000 — $374,000 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

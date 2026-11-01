@@ -1,0 +1,60 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Check every mandatory eligibility condition before giving the verdict.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8829033002,
+    "title": "AI Automation Engineer",
+    "location": "Costa Rica",
+    "description": "What you will do Build AI agents and automations: Design, deploy, and run AI agents that support all of our employees. The agents interpret natural-language requests, gather context, select tools, execute actions, and communicate outcomes. Maintain MCP servers across our AI tools portfolio. Build agentic workflows that decompose goals into steps, handle failures, pause for human approval as needed, and resume their workflows. Ground agents in trusted internal knowledge (policies, runbooks, system documentation, SOPs, etc). Turn high-volume support CUJs into self-service experiences: Identify repetitive, high-friction IT interactions and convert them into reliable AI automation experiences. Instrument AI automations with logs, metrics, and feedback loops. Design and implement AI automations with identity governance, tools RBAC, human-in-the-loop approvals where applicable, audit trails, and failure handling. Create shared automation infrastructure (credential vaults, event ingestion, scheduling, approval workflows, cache/state stores) that other teams can build on. Work with IT Support, Employee Experience, Security, IAM, Infrastructure, and Engineering to identify automation opportunities and take solutions from prototype to production. Write and maintain high-quality technical/engineering documentation that clearly communicates system designs, operational procedures, and architectural decisions. What we are looking for Proficiency in Python or Go [3yrs]. Experience with Git-based development, automated testing, and CI/CD. Strong experience with REST APIs, OAuth2/authentication frameworks, event-driven integrations, and enterprise system integrations. Shipped production LLM-powered applications or AI agents. Experience with agent patterns: tool/function calling, multi-step workflows, context management, RAG, structured outputs, and plan decomposition. Understanding of LLM failure modes: hallucination, incorrect tool use, ambiguous intent, prompt injection, excessive permissions, and non-deterministic behavior. Experience evaluating and improving AI systems using automated evals, traces, test datasets, human feedback, or similar approaches. Ability to translate ambiguous employee friction problems into simple, reliable technical solutions. Strong judgment around security, privacy, least privilege, and safe automation in an enterprise environment. Strong collaboration and communication skills. You will work cross-functionally to plan, design, and implement automation together. Experience with automation or integration platforms (Tines, MuleSoft, Workato, etc.). Experience with MCP (Model Context Protocol) server development. Nice to have Experience building agents on Databricks (Agent Bricks) or with frameworks such as OpenAI Agents SDK or LangGraph/LangChain. Experience with MLflow tracing/evaluation, vector search, and LLM observability. Experience integrating IT platforms: Okta/Microsoft Entra ID, Google Workspace, Jira, Slack, Jamf, GitHub, Workday, or SaaS administration APIs. Familiarity with identity lifecycle, access management, device management, and software provisioning. About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. GAQ427R224 We're hiring an AI Automation Engineer to build the next generation of IT automations to improve the employee experience at Databricks. You'll be building production-grade AI agents and automation services that understand employee requests, retrieve enterprise context, reason across systems, invoke tools and APIs, and take action safely. The goal isn't to automate existing workflows the same way we've done it for the past decade. It's to reimagine how employees interact with IT through intelligent, contextual, and increasingly agentic experiences and to do it on Databricks. Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

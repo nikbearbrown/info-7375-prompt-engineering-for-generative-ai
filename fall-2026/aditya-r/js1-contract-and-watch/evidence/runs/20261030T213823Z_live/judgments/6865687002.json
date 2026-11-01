@@ -1,0 +1,44 @@
+{
+ "posting_id": 6865687002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 6865687002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": true,
+   "found": []
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "such as Python, Java, or C++"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we are passionate"
+    }
+   ]
+  },
+  "explanation": "The title normalizes to \"software engineering intern 2027\". It has no excluded words, but it also lacks any eligible role phrase as whole words, because \"engineering\" is not \"engineer\". The description shares python (skills.languages) and databricks (skills.data_bi), but failing the role-phrase condition makes the posting not relevant."
+ },
+ "attempt_files": [
+  "6865687002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "2a82c301-b09e-45ec-af48-0c20858d8607",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

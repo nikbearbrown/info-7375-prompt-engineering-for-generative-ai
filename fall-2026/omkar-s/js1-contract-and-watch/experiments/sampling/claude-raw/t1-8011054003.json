@@ -1,0 +1,102 @@
+{
+ "asked_at": "2026-10-26T01:35:43Z",
+ "envelope": {
+  "duration_api_ms": 2748,
+  "stop_reason": "end_turn",
+  "session_id": "ba1f74ef-d217-4e37-82a6-526e8e35a54a",
+  "total_cost_usd": 0.029153,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6698,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 225,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6698,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 225,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6698,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6698
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 225,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6698,
+    "webSearchRequests": 0,
+    "costUSD": 0.029153,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"8011054003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"education[].degree\", \"skills.backend_automation\"], \"posting_fields\": [\"title\", \"content\"], \"reason\": \"Posting is an L5 Principal IC role requiring 10+ years building distributed data systems (Flink/Spark, Iceberg, Airflow, Snowflake) and $244k-$366k pay. Candidate has about 2 years at Infosys plus a 2026 co-op, an MS degree, and Kafka/Redis only, with no lakehouse or stream-processing depth. Seniority gap is too large.\"}",
+  "ttft_ms": 2768,
+  "type": "result",
+  "duration_ms": 4167,
+  "uuid": "973e9372-9ec7-42d9-8319-a55a9fb94bce",
+  "ttft_stream_ms": 1296,
+  "time_to_request_ms": 49,
+  "first_content_frame_ms": 1297,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

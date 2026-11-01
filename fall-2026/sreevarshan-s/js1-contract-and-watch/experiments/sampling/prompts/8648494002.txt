@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8648494002,
+    "title": "Forward Deployed Engineer",
+    "location": "Belgrade, Serbia; Berlin, Germany; Munich, Germany",
+    "description": "CSQ427R35 The impact you will have: Production Solution Delivery: Lead impactful customer technical projects by delivering production-grade systems, designing and building reference architectures, custom applications and data ingestion and ML/AI model integration Transformational Impact: Guide strategic customers as they implement transformational big data projects including end-to-end design, build and deployment of industry-leading big data and AI applications. Work with engagement managers to scope technical delivery work with input from the customer Empower Customers: Guide customers on architecture and design; bootstrap or implement customer projects which leads to a customers' successful understanding, evaluation and adoption of Databricks. Own the Architecture: Lead architecture and design decisions, ensuring solutions are secure, scalable, and aligned with both customer needs and Databricks best practices. Work with the Databricks technical team, Project Manager, Architect and Customer team to ensure the technical components of the engagement are delivered to meet customer's needs. Work with Engineering and Databricks Customer Support to provide product and implementation feedback and to guide rapid resolution for engagement specific product and support issues. Customer Immersion: Embed with customer teams, engaging with stakeholders from technical ICs to executives to deeply understand challenges and deliver impact. Reusable Assets & Scale: Contribute accelerators, frameworks, and best practices that scale impact across accounts and influence the Databricks product roadmap. What we look for: 6+ years experience in data engineering, data platforms & analytics, or software engineering Comfortable writing code in either Python, Scala, JavaScript/TypeScript, and modern frameworks Working knowledge of two or more common Cloud ecosystems (AWS, Azure, GCP) with expertise in at least one Deep experience with distributed computing with Apache Spark™ and knowledge of Spark runtime internals Familiarity with CI/CD for production deployments Working knowledge of MLOps, ML/AI models and AI APIs Design and deployment of performant production end-to-end data architectures and applications that combine data pipelines, ML/AI models, and user-facing interfaces. Experience with technical project delivery - managing scope, timelines and measurable outcomes, translating complex concepts into actionable solutions. Documentation and white-boarding skills. Experience working with enterprise clients and managing conflicts across a broad stakeholder range Build skills in technical areas, and demonstrate curiosity, adaptability, and eagerness to explore new technologies which support the deployment and integration of Databricks-based solutions to complete customer projects. Travel to customers 20% of the time Databricks Certification About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. As a Forward Deployed Engineer (FDE) you will work with customers to build and productionize solutions to their data & AI challenges using the Databricks platform. You will own the architecture, lead design decisions, and implement end-to-end systems spanning data engineering, AI, and application development. We work cross-functionally to shape long-term strategic priorities and initiatives alongside engineering, product, and developer relations. FDEs deliver with customer empathy, integrating with client systems, training, and other technical needs to help customers get most value out of their data. This is a hands-on, customer-facing role for builders who thrive at the intersection of technology and business impact. The ideal candidate combines engineering expertise with adaptability, curiosity, and a passion for working with customers and teammates to solve complex problems that drive measurable outcomes. FDEs are billable and know how to complete projects according to specification with exceptional customer empathy. Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

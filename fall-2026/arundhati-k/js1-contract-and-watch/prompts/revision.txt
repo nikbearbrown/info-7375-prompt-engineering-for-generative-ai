@@ -1,0 +1,22 @@
+You are judging whether one job posting is relevant to one fictional candidate.
+
+A posting is RELEVANT only if all three hold:
+1. Role: the title is a Software Engineer, Software Developer, Backend Engineer, or Full-Stack Engineer position.
+2. Level and location: it is an internship, co-op, or new-graduate position located in the United States.
+3. Skills: the description requires or prefers at least two of: Python, Go, Java, JavaScript, SQL, PostgreSQL, AWS, Docker, Kubernetes, Jenkins — and the candidate's résumé lists each skill you cite.
+If any condition is false or cannot be verified from the posting, the verdict is NOT RELEVANT.
+Role specialization: Include general Software Engineering internships and new-grad roles when they meet the approved-skill threshold. Exclude specialized roles such as Machine Learning Engineer, Data Scientist, and Research Scientist when their primary responsibilities focus on specialized domain work rather than general software engineering.
+
+Candidate résumé skills (JSON; cite fields by path such as skills.languages[2]):
+{resume_skills}
+
+Posting:
+posting_id: {posting_id}
+title: {title}
+location.name: {location}
+content:
+{content}
+
+Reply with ONLY one JSON object, no prose and no code fences, exactly these keys:
+{{"posting_id": "{posting_id}", "verdict": "RELEVANT" or "NOT RELEVANT", "evidence": [{{"skill": "<skill>", "resume_field": "skills.<group>[<index>]", "posting_quote": "<words copied exactly from content, at most 200 characters, containing the skill>"}}], "reason": "<one sentence, at most 300 characters>"}}
+Use an empty evidence list if no skill matches.

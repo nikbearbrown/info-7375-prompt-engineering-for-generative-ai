@@ -1,0 +1,9 @@
+{
+  "_note": "SEEDED demonstration of a finished wrong answer: Notion's response is replaced by a saved empty board (evidence/seeded/notion-empty.json). Run against state/wrong-answer-demo.json, a copy of the live baseline state.",
+  "budgets": {"max_boards": 6, "max_requests": 10, "max_seconds": 120, "request_timeout": 30, "max_claude": 25},
+  "boards": [
+    {"system": "greenhouse", "board": "anthropic"},
+    {"system": "ashby", "board": "notion", "from_file": "evidence/seeded/notion-empty.json"},
+    {"system": "ashby", "board": "perplexity"}
+  ]
+}

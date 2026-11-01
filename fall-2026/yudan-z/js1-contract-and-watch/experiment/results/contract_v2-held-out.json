@@ -1,0 +1,121 @@
+{
+ "prompt": "contract_v2.txt",
+ "split": "held-out",
+ "run_at": "2026-10-30T23:38:13+00:00",
+ "model_via": "Claude Code CLI `claude -p`, one fresh conversation per posting",
+ "passed": 9,
+ "total": 10,
+ "invalid": 0,
+ "rows": [
+  {
+   "n": 11,
+   "title": "BI Analyst III",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R2: the title has 'III'. Fails R4: the content asks for '3+ years of work experience' and experience_years is 0. Also, title+content describe a mid-level data analyst role, not entry-level (R1). Location 'Remote, United States' passes R3. Skills overlap (SQL, Tableau, Excel, A/B testing, statistics, Python) passes R8.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"experience_years\", \"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\", \"location\"], \"justification\": \"Fails R2: the title has 'III'. Fails R4: the content asks for '3+ years of work experience' and experience_years is 0. Also, title+content describe a mid-level data analyst role, not entry-level (R1). Location 'Remote, United States' passes R3. Skills overlap (SQL, Tableau, Excel, A/B testing, statistics, Python) passes R8.\"}\n"
+  },
+  {
+   "n": 12,
+   "title": "Sales Finance Analyst II",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R1. Title 'Sales Finance Analyst II' and content describe a level-II FP&A role: revenue forecasting, P&L partnering, financial models for executives, and 'expert in Finance & Strategy'. That is not entry-level data or analytics work from target_roles. Location is US (R3 ok), no sponsorship ban (R6 ok), and SQL/Excel/Tableau appear (R8 ok).",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"work_authorization\", \"experience_years\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R1. Title 'Sales Finance Analyst II' and content describe a level-II FP&A role: revenue forecasting, P&L partnering, financial models for executives, and 'expert in Finance & Strategy'. That is not entry-level data or analytics work from target_roles. Location is US (R3 ok), no sponsorship ban (R6 ok), and SQL/Excel/Tableau appear (R8 ok).\"}\n"
+  },
+  {
+   "n": 13,
+   "title": "Analyst, Global Operations Center",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "R1 fails: title plus content describe a security operations center job (live incident monitoring, triage, SOP escalation, rotating shifts), not data or analytics work. R4 fails: content requires 3+ years in a GSOC/GOC/SOC. R8 fails: none of the candidate's listed skills (Python, SQL, Tableau, etc.) appear by name in the posting.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: title plus content describe a security operations center job (live incident monitoring, triage, SOP escalation, rotating shifts), not data or analytics work. R4 fails: content requires 3+ years in a GSOC/GOC/SOC. R8 fails: none of the candidate's listed skills (Python, SQL, Tableau, etc.) appear by name in the posting.\"}\n"
+  },
+  {
+   "n": 14,
+   "title": "Finance & Strategy Analyst, Product",
+   "hand_label": "relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": false,
+   "justification": "Fails R1: title+content describe FP&A finance work (revenue forecasting, OpEx budgets, leading month-end close with Accounting) at a 2-4 yr level, not entry-level data/analytics work from target_roles. Other rules pass: title has no banned words, 'Remote - USA' is in the US, min 2 yrs is under 3, no sponsorship or citizenship limits, skills Excel and SQL match.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\"], \"posting_fields\": [\"title\", \"content\", \"location\"], \"justification\": \"Fails R1: title+content describe FP&A finance work (revenue forecasting, OpEx budgets, leading month-end close with Accounting) at a 2-4 yr level, not entry-level data/analytics work from target_roles. Other rules pass: title has no banned words, 'Remote - USA' is in the US, min 2 yrs is under 3, no sponsorship or citizenship limits, skills Excel and SQL match.\"}\n"
+  },
+  {
+   "n": 15,
+   "title": "Master's University Grad Data Scientist (USA)",
+   "hand_label": "relevant",
+   "claude_verdict": "relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Title+content: new-grad DS doing product analytics (metrics, A/B tests, exploratory SQL/Python) fits target_roles; no seniority word; US locations; no years minimum; 'US based applicants only' is not citizenship; no sponsorship denial; Master's, not PhD; skills SQL, Python, statistics, A/B testing; no graduation window stated.",
+   "error": null,
+   "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"work_authorization\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Title+content: new-grad DS doing product analytics (metrics, A/B tests, exploratory SQL/Python) fits target_roles; no seniority word; US locations; no years minimum; 'US based applicants only' is not citizenship; no sponsorship denial; Master's, not PhD; skills SQL, Python, statistics, A/B testing; no graduation window stated.\"}\n"
+  },
+  {
+   "n": 16,
+   "title": "Data Analyst",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R3: posting location is Canada, not the US. Also fails R1: content requires MS + 2 yrs or BS + 3 yrs of full-time experience, which is not entry-level for a candidate with 0 experience_years. Title passes R2. Skills (SQL, Python, statistics) satisfy R8. No sponsorship, citizenship or graduation window stated.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"skills\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R3: posting location is Canada, not the US. Also fails R1: content requires MS + 2 yrs or BS + 3 yrs of full-time experience, which is not entry-level for a candidate with 0 experience_years. Title passes R2. Skills (SQL, Python, statistics) satisfy R8. No sponsorship, citizenship or graduation window stated.\"}\n"
+  },
+  {
+   "n": 17,
+   "title": "Senior Marketing Insights Analyst ",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R2: the title contains 'Senior'. Fails R1 by title+content: the role requires proven experience, ad tech industry expertise and independent ownership of externally published research, which is not entry-level work for a candidate with 0 experience_years. Location (US) and skills (SQL, Python, Tableau) would pass.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"Fails R2: the title contains 'Senior'. Fails R1 by title+content: the role requires proven experience, ad tech industry expertise and independent ownership of externally published research, which is not entry-level work for a candidate with 0 experience_years. Location (US) and skills (SQL, Python, Tableau) would pass.\"}\n"
+  },
+  {
+   "n": 18,
+   "title": "Data Analyst II",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R4: content requires '3+ years of experience in data analytics' (minimum of 3), and the candidate has experience_years 0. Other checks pass: the title Data Analyst II has no banned words, the location is New York, United States, the content shows SQL, Python and Tableau, and it says nothing against sponsorship, nothing about citizenship or a PhD, and no graduation window.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"experience_years\", \"target_roles\", \"skills\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R4: content requires '3+ years of experience in data analytics' (minimum of 3), and the candidate has experience_years 0. Other checks pass: the title Data Analyst II has no banned words, the location is New York, United States, the content shows SQL, Python and Tableau, and it says nothing against sponsorship, nothing about citizenship or a PhD, and no graduation window.\"}\n"
+  },
+  {
+   "n": 19,
+   "title": "GTM Technical Solutions Analyst II",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R3: posting location is Bengaluru, India, not the US. Fails R4: content requires 4+ years of experience, and the candidate has 0 experience_years. Fails R1: title and content describe technical support and escalation work, not entry-level analytics work from target_roles. R8 fails too: only SQL appears, as a preferred skill.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"location\", \"skills\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R3: posting location is Bengaluru, India, not the US. Fails R4: content requires 4+ years of experience, and the candidate has 0 experience_years. Fails R1: title and content describe technical support and escalation work, not entry-level analytics work from target_roles. R8 fails too: only SQL appears, as a preferred skill.\"}\n"
+  },
+  {
+   "n": 20,
+   "title": "Senior Business Intelligence Analyst – Product Analytics",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R1/R2/R3/R4. The title contains 'Senior'. The location is plain 'Remote' with no country (#LI-Remote; a US salary is listed, but no US location is stated). The content requires 5+ years of experience, which conflicts with the candidate's experience_years of 0. The work is not entry-level analytics, so it does not match target_roles.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R1/R2/R3/R4. The title contains 'Senior'. The location is plain 'Remote' with no country (#LI-Remote; a US salary is listed, but no US location is stated). The content requires 5+ years of experience, which conflicts with the candidate's experience_years of 0. The work is not entry-level analytics, so it does not match target_roles.\"}\n"
+  }
+ ]
+}

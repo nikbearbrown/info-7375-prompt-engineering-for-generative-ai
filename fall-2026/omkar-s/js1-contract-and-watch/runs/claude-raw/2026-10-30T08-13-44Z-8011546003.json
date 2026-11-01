@@ -1,0 +1,133 @@
+{
+ "asked_at": "2026-10-30T08:13:44Z",
+ "envelope": {
+  "duration_api_ms": 3976,
+  "stop_reason": "end_turn",
+  "session_id": "778f7b2d-3220-4592-a15f-65ee5dc25580",
+  "total_cost_usd": 0.030569,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 7127,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 195,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 7127,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 195,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 7127,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 7127
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 195,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 7127,
+    "webSearchRequests": 0,
+    "costUSD": 0.030569,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"8011546003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\", \"education[].degree\"], \"posting_fields\": [\"title\", \"departments\", \"content\"], \"reason\": \"Posting is a Sr. Product Manager, Growth (PLG) in the Product department requiring 3-5+ years of product management, start-up, consulting, or banking experience. Candidate's titles are Software Engineer (Co-op, Infosys) with engineering bullets and an MS Information Systems; no product management experience.\"}",
+  "ttft_ms": 4561,
+  "type": "result",
+  "duration_ms": 6192,
+  "uuid": "56aaf693-0bc3-47dd-93fb-9e6023a8e86a",
+  "ttft_stream_ms": 3317,
+  "time_to_request_ms": 601,
+  "time_to_request_phases_ms": {
+   "other": 14,
+   "system_prompt": 19,
+   "resume_other": 0,
+   "process_user_input": 3,
+   "input_attachments": 4,
+   "input_hooks": 2,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 2,
+   "model_config_wait": 1,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 541,
+   "tool_schema_build": 1,
+   "message_normalization": 2,
+   "client_creation": 3,
+   "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 34,
+  "time_to_request_cpu_ms": 208,
+  "time_to_request_major_faults": 336,
+  "input_attachments_detail": {
+   "slowest_producer": "queued_commands",
+   "slowest_producer_ms": 2,
+   "cpu_ms": 5,
+   "major_faults": 13
+  },
+  "first_content_frame_ms": 3317,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

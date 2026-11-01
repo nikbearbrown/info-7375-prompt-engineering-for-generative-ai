@@ -1,0 +1,77 @@
+# klaviyo — WATCH run 2026-10-27T16-48-05Z
+
+> Live fetch of `https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true` (HTTP 200).
+
+- Raw response saved: `raw-klaviyo-2026-10-27T16-48-05Z.json`
+- Postings in response: 161
+- New since last run: **4**
+- Removed since last run: 5
+
+## Lead Integrations Engineer - G&A Systems (`8017124003`)
+<https://www.klaviyo.com/careers/jobs/8017124003?gh_jid=8017124003>
+
+**Record — written rule (recomputable): not_relevant**
+
+- A role: posting.title="Lead Integrations Engineer - G&A Systems" does not contain "Software Engineer" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL
+- B location (US): posting.location.name="Boston, MA" vs resume.personal.location="Boston, MA" -> PASS (Boston)
+- C skills: resume.skills.languages[Python, SQL] found in posting.content -> 2 of 15, need 2 -> PASS
+- verdict: not_relevant (A FAIL, B PASS, C PASS)
+
+**Judgment — Claude judgment - not a fact (claude-sonnet-5-5, asked 2026-10-27T16:48:05Z): not_relevant**
+
+- cites résumé: experience[].title, experience[].bullets, skills.languages, skills.backend_automation
+- cites posting: title, departments, content
+- reason (Claude's words): Lead role needing 5+ years engineering with 2+ years Workato/AI-LLM delivery, SOX audits, and NetSuite/Finance systems (IT & Security dept). Candidate has ~2 years Java at Infosys plus a 4-month co-op; no Workato, ERP, SOX or Finance-systems experience. Seniority and domain gap too large.
+- agrees with the record: yes
+
+## Lead Integrations Engineer - G&A Systems (`8045184003`)
+<https://www.klaviyo.com/careers/jobs/8045184003?gh_jid=8045184003>
+
+**Record — written rule (recomputable): not_relevant**
+
+- A role: posting.title="Lead Integrations Engineer - G&A Systems" does not contain "Software Engineer" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL
+- B location (US): posting.location.name="San Francisco, CA" vs resume.personal.location="Boston, MA" -> PASS (US city (San Francisco, CA; posting.offices[] has a United States office))
+- C skills: resume.skills.languages[Python, SQL] found in posting.content -> 2 of 15, need 2 -> PASS
+- verdict: not_relevant (A FAIL, B PASS, C PASS)
+
+**Judgment — Claude judgment - not a fact (claude-sonnet-5-5, asked 2026-10-27T16:48:11Z): not_relevant**
+
+- cites résumé: experience[].title, experience[].bullets, skills.languages, personal.location
+- cites posting: title, location.name, departments, content
+- reason (Claude's words): Lead role in G&A FinTech/IT needing 5+ years with 2+ years on Workato, Finance systems (NetSuite, SOX audits), based in San Francisco. Candidate has ~2 years total experience (Infosys banking Java maintenance, Dassault co-op), no Workato or finance-systems work, and is in Boston.
+- agrees with the record: yes
+
+## Senior Director, Customer Success, APJ (`8044444003`)
+<https://www.klaviyo.com/careers/jobs/8044444003?gh_jid=8044444003>
+
+**Record — written rule (recomputable): not_relevant**
+
+- A role: posting.title="Senior Director, Customer Success, APJ" does not contain "Software Engineer" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL
+- B location (US): posting.location.name="Sydney, AU" vs resume.personal.location="Boston, MA" -> FAIL (state-like suffix but no United States office in posting.offices[])
+- C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL
+- verdict: not_relevant (A FAIL, B FAIL, C FAIL)
+
+**Judgment — Claude judgment - not a fact (claude-sonnet-5-5, asked 2026-10-27T16:48:17Z): not_relevant**
+
+- cites résumé: experience[].title, experience[].bullets, personal.location
+- cites posting: title, location.name, content
+- reason (Claude's words): Senior Director, Customer Success in Sydney requires 12+ years experience including 7+ years managing managers in SaaS Customer Success. Candidate is an early-career software engineer (Co-op, Infosys engineer, ~2.5 years) based in Boston with no people-management or CS background.
+- agrees with the record: yes
+
+## Sr. Payroll Specialist (`8044445003`)
+<https://www.klaviyo.com/careers/jobs/8044445003?gh_jid=8044445003>
+
+**Record — written rule (recomputable): not_relevant**
+
+- A role: posting.title="Sr. Payroll Specialist" does not contain "Software Engineer" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL
+- B location (US): posting.location.name="Dublin, IE" vs resume.personal.location="Boston, MA" -> FAIL (state-like suffix but no United States office in posting.offices[])
+- C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL
+- verdict: not_relevant (A FAIL, B FAIL, C FAIL)
+
+**Judgment — Claude judgment - not a fact (claude-sonnet-5-5, asked 2026-10-27T16:48:22Z): not_relevant**
+
+- cites résumé: experience[].title, experience[].bullets, skills.languages, personal.location
+- cites posting: title, departments, location.name, content
+- reason (Claude's words): Posting is a Sr. Payroll Specialist in Finance & Accounting, Dublin, requiring 5+ years of UK/Ireland payroll, Workday and CloudPay experience. Candidate is a software engineer (TypeScript, Java, Kubernetes) in Boston with no payroll experience; Infosys payment API work is not payroll.
+- agrees with the record: yes
+

@@ -1,0 +1,26 @@
+# klaviyo — WATCH run 2026-10-30T08-13-44Z
+
+> Live fetch of `https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true` (HTTP 200).
+
+- Raw response saved: `raw-klaviyo-2026-10-30T08-13-44Z.json`
+- Postings in response: 154
+- New since last run: **1**
+- Removed since last run: 13
+
+## Sr. Product Manager, Growth (PLG) (`8011546003`)
+<https://www.klaviyo.com/careers/jobs/8011546003?gh_jid=8011546003>
+
+**Record — written rule (recomputable): not_relevant**
+
+- A role: posting.title="Sr. Product Manager, Growth (PLG)" does not contain "Software Engineer" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL
+- B location (US): posting.location.name="Boston, MA" vs resume.personal.location="Boston, MA" -> PASS (Boston)
+- C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL
+- verdict: not_relevant (A FAIL, B PASS, C FAIL)
+
+**Judgment — Claude judgment - not a fact (claude-sonnet-5-5, asked 2026-10-30T08:13:44Z): not_relevant**
+
+- cites résumé: experience[].title, experience[].bullets, skills.languages, education[].degree
+- cites posting: title, departments, content
+- reason (Claude's words): Posting is a Sr. Product Manager, Growth (PLG) in the Product department requiring 3-5+ years of product management, start-up, consulting, or banking experience. Candidate's titles are Software Engineer (Co-op, Infosys) with engineering bullets and an MS Information Systems; no product management experience.
+- agrees with the record: yes
+

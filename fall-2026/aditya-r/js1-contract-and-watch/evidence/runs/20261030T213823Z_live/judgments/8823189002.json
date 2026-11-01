@@ -1,0 +1,52 @@
+{
+ "posting_id": 8823189002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8823189002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "director"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Hands-on proficiency with SQL, Python, or notebook environments"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Hands-on proficiency with SQL, Python"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "Databricks is right at the center of it"
+    }
+   ]
+  },
+  "explanation": "The title contains no eligible role phrase and includes the excluded word \"director\", so the posting fails conditions A and B. Condition C passes: python and sql (skills.languages) and databricks (skills.data_bi) all appear in the description."
+ },
+ "attempt_files": [
+  "8823189002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "d662391c-b642-4686-a956-6fe6d246e7c6",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

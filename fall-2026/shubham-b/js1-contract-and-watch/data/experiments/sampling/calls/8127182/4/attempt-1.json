@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6347,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "5a1211a20b5482354790b2a5c14d43d0e2443254be3ae5dae084204d4b6443e9",
+  "posting_id": "8127182",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "dab40e3a-ea0a-4609-bfd7-62e29894da58",
+  "started_at_et": "2026-10-30T23:40:48.731141-04:00",
+  "started_at_utc": "2026-10-31T03:40:48.731141Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6050,\"stop_reason\":\"end_turn\",\"session_id\":\"dab40e3a-ea0a-4609-bfd7-62e29894da58\",\"total_cost_usd\":0.0089722,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":368,\"cache_read_input_tokens\":4362,\"output_tokens\":706,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":368,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":706,\"cacheReadInputTokens\":4362,\"cacheCreationInputTokens\":368,\"webSearchRequests\":0,\"costUSD\":0.0089722,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":368,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a backend software engineering job with a US-Remote option, and the stack and domain overlap with Kiran's experience (Java, event-driven work, billing flows). However, it asks for 5-12+ years of experience, which is well above Kiran's New Grad to SWE II target levels. It also expects large-scale distributed systems experience and mentoring, which points to a senior-level role.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Posting requires 5-12+ years of backend or platform experience, which does not fit the New Grad, Entry Level, SWE I and SWE II target levels.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title is a Software Engineer role that is backend-leaning, matching the target roles, but the seniority in the content outweighs this.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[1]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"US-Remote is listed, so the location matches Kiran's Remote (US) preference.\\\"},{\\\"resume_path\\\":\\\"$.experience[1].bullets[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java and event-publishing microservice experience aligns with the Java and event-driven architecture mentioned, but does not offset the experience requirement.\\\"},{\\\"resume_path\\\":\\\"$.experience[0].bullets[1]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran has built appointment and billing REST APIs, which is loosely related to the revenue and billing domain of the team.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so the exclusion cannot be fully ruled out from the text.\\\",\\\"The posting does not state compensation, so it is unclear whether the role is paid, though this is very likely.\\\",\\\"It is unclear how strictly the 5-12+ years minimum is applied, since the posting says to apply if the minimum requirements are met.\\\",\\\"The posting does not give a specific level such as SWE I or SWE II.\\\"]}\",\"ttft_ms\":6088,\"type\":\"result\",\"duration_ms\":6104,\"uuid\":\"9740da40-7172-4e2a-a698-ad7db25881f3\",\"ttft_stream_ms\":1374,\"time_to_request_ms\":52,\"first_content_frame_ms\":1374,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0089722,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

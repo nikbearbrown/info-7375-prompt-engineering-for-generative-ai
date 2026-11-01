@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8922120002,
+    "title": "Sr. Counsel, Employment",
+    "location": "Bellevue, Washington; Seattle, Washington; Washington, D.C.",
+    "description": "What we look for: Responsibilities Advise on cash compensation programs, bonus and incentive plans, clawback policies, equal-pay requirements, pay equity reviews, compensation governance, and related internal and external disclosures. Lead or support pay equity projects, including scoping, data and process review, coordination with stakeholders, review of analyses, and development of remediation or communication plans. Provide legal advice on employee benefits, including retirement plans, welfare and wrap plans, severance plans, leave-related benefits, and country-specific benefits and protections, partnering with benefits counsel and regional employment legal team members as appropriate. Draft, review, and update employment-related plans, policies, agreements, templates, and employee communications with exceptional precision and attention to detail. Advise recruiting and talent acquisition teams on candidate-facing issues, offer letters, employment agreements, compensation terms, background checks, hiring practices, and negotiations, often on time-sensitive matters. Advise on global mobility and immigration matters, including employee transfers, international assignments, work authorization, permanent residence processes, employer-of-record and professional-employer-organization arrangements, cross-border moves, and related onboarding or exit issues. Support the employment-related aspects of mergers, acquisitions, and strategic investments, including employment and benefits diligence, workforce mapping, employee-related deal terms, retention and vesting arrangements, transition and separation arrangements, and post-closing workforce integration. Advise on employee privacy and data-use issues, including employee and candidate data, access and disclosure requests, workforce technology, monitoring, data transfers, and the employment implications of business and HR systems. Review and advise on HR AI tools and workflows, including vendor diligence, recruiting, use-case design, employment-law and privacy risks, bias and discrimination considerations, governance controls, documentation, and responsible implementation. Lead global employment-related projects, including international expansions, from scoping through implementation, including developing workplans, identifying stakeholders and dependencies, coordinating regional counsel and outside advisors, managing timelines and budgets, documenting decisions, and driving issues to resolution. Monitor legal developments affecting compensation, benefits, pay equity, recruiting, mobility, privacy, AI, and other relevant employment areas, and translate those developments into practical guidance, process changes, and training for internal clients. Identify and implement process improvements that help the Legal and People Teams scale, including playbooks, decision frameworks, repeatable workflows, knowledge-management practices, and automated or AI-enabled solutions. Serve as a hands-on problem solver for sensitive, high-priority, and cross-functional issues, exercising sound judgment about when to escalate matters to legal leadership or engage specialized counsel. Respond to U.S. demand letters, administrative charges, and other disputes, including investigating claims, communicating with opposing counsel, negotiating resolutions, and drafting separation and settlement agreements. Qualifications & Experience Required JD from a top-tier law school; member of a state bar in good standing. 10+ years of relevant employment-law experience, with substantial experience advising sophisticated organizations; in-house experience, including firm secondee experience, strongly preferred. Experience with compensation, benefits, pay equity, executive compensation, recruiting, global mobility, and immigration. Experience supporting mergers, acquisitions, and strategic investments, including employment and benefits diligence, employee-related deal terms, and workforce integration. Experience leading multi-jurisdictional or global projects and coordinating stakeholders across regions, functions, and levels of seniority. Experience advising on employee privacy, workforce data, HR technology, and AI tools is strongly preferred. Exceptional drafting skills, including the ability to produce precise, clear, audience-appropriate agreements, policies, memoranda, guidance, and executive communications. Strong project-management skills, including the ability to define scope, create structure from ambiguity, manage dependencies, maintain momentum, and deliver high-quality work on deadline. Ability to quickly and independently assess unfamiliar or time-sensitive situations, identify the material risks, and develop practical options to resolve them. Ability to build strong relationships quickly and work effectively with executive stakeholders. Demonstrated ability to operate effectively in a fast-moving, high-growth technology company and to make progress with incomplete information. Genuine enthusiasm for AI and emerging technology. Client-service orientation, a bias for action, and the highest level of integrity and business ethics. Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. GAQ427R247 Primary location(s) preferred, but candidates based in SF, Mountain View, NYC, Boston, Chicago, or Denver will also be considered. The Senior Counsel, Employment will provide sophisticated, practical legal advice to the Databricks People Team and business leaders, with a particular focus on HR AI adoption, compensation and benefits, pay equity, global mobility, employee privacy, and M&A (diligence, employee-related deal terms, and workforce integration). This person will be based in the U.S. and advise directly on U.S. matters, but will also lead and project-manage complex global projects. Regular cross-functional partners will include recruiting, privacy and product legal, security, tax, people operations, comp and benefits, and corporate development. The successful candidate will be a pragmatic and resourceful advisor and an enthusiastic AI user, with strong project-management discipline and the ability to move quickly while maintaining a high standard of legal and operational precision. In addition to the focus areas above, this person will collaborate to resolve U.S. disputes. This is a full-time position reporting to Databricks' Senior Director and Associate General Counsel of Global Employment Legal and working closely with a team of employment lawyers and legal professionals across multiple regions. Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Zone 2 Pay Range $197,800 — $272,050 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

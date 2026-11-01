@@ -1,0 +1,133 @@
+{
+ "asked_at": "2026-10-27T17:06:10Z",
+ "envelope": {
+  "duration_api_ms": 2470,
+  "stop_reason": "end_turn",
+  "session_id": "717e5617-8216-423b-b39e-7b353a2c36c8",
+  "total_cost_usd": 0.026285000000000003,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6086,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 183,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6086,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 183,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6086,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6086
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 183,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6086,
+    "webSearchRequests": 0,
+    "costUSD": 0.026285000000000003,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"8009591003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\"], \"posting_fields\": [\"title\", \"departments\", \"content\"], \"reason\": \"Title is 'Large Enterprise Sales Manager' in the Sales department, not a software engineering role. It requires 4+ years leading enterprise AEs plus 8+ years of enterprise selling, far above the candidate's ~2 years plus co-op, and none of the sales skills match their engineering background.\"}",
+  "ttft_ms": 2505,
+  "type": "result",
+  "duration_ms": 3654,
+  "uuid": "7de78064-1017-4da5-ae79-d002978c6fae",
+  "ttft_stream_ms": 1297,
+  "time_to_request_ms": 55,
+  "time_to_request_phases_ms": {
+   "other": 9,
+   "system_prompt": 21,
+   "resume_other": 0,
+   "process_user_input": 2,
+   "input_attachments": 4,
+   "input_hooks": 2,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "autocompact": 0,
+   "query_setup": 1,
+   "model_gates": 4,
+   "tool_schema_build": 1,
+   "message_normalization": 1,
+   "client_creation": 3,
+   "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 5,
+  "time_to_request_cpu_ms": 90,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "model",
+   "slowest_producer_ms": 2,
+   "cpu_ms": 6,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1297,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

@@ -1,0 +1,1 @@
+cd ~/Downloads/Eng_job && for f in 8546367002 8921476002 8401114002 8648494002 8847738002; do for n in 1 2 3 4; do pbcopy < experiments/sampling/prompts/$f.txt; read "?[$f run $n] Prompt copied. Paste it into a NEW incognito chat, send, copy the reply, then press Enter here... "; pbpaste > experiments/sampling/replies/$f-$n.txt; echo "saved $f-$n"; done; done

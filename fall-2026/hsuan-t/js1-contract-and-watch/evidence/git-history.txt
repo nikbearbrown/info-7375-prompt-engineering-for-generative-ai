@@ -1,0 +1,378 @@
+# Full history of my working repo (exported 2026-11-01T00:05Z from commit 5f80297)
+# The course repo has this folder as one commit; the commit ids cited in README, SOURCES and the reports are these.
+
+commit a0d895e (a0d895e07007d5c9257b1a5920820d366aac123a)
+Date:   2026-10-30 23:40:13 -0400
+Author: Isaac T
+
+    Add CONTRACT.md (written before any code)
+
+CONTRACT.md: In / Out / Refuses / rule (6 checks) / wrong versions / dated failure sentence.
+No agent code exists yet; this commit marks the contract-first order.
+
+
+ .gitignore    |  14 +++
+ CONTRACT.md   | 345 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Frictional.md | 321 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 680 insertions(+)
+commit 34c1deb (34c1deb9a1693033921a2deeafc620177c4b3591)
+Date:   2026-10-31 13:30:13 -0400
+Author: Isaac T
+
+    Add 2026-10-29 Stripe raw snapshot (before any code)
+
+
+
+ evidence/raw/2026-10-30T033237Z/README.md          | 24 ++++++++++++++++++++++
+ .../2026-10-30T033237Z/stripe_content.headers.txt  | 21 +++++++++++++++++++
+ .../raw/2026-10-30T033237Z/stripe_content.json     |  1 +
+ .../raw/2026-10-30T033237Z/stripe_list.headers.txt | 21 +++++++++++++++++++
+ evidence/raw/2026-10-30T033237Z/stripe_list.json   |  1 +
+ 5 files changed, 68 insertions(+)
+commit a1f0ee6 (a1f0ee6e48aef9f51c4fe7429deef4d2f03368b8)
+Date:   2026-10-31 13:56:14 -0400
+Author: Isaac T
+
+    feat(inputs): add fictional persona and built-in word lists so the rule has data to judge
+
+- Add Aarav Patel résumé in JSON Resume format (validated against the official schema, 0 errors)
+- Add Aarav's job profile with the demo values from CONTRACT.md Examples
+- Add built-in skill spelling table (10 aliases) used by check 3
+- Add 13 "no sponsorship" phrases used by check 5 (whole-phrase matching)
+- Add README in personas/ and data/ explaining why each file exists EOF
+
+
+ data/README.md                    |  9 ++++++
+ data/no_sponsorship_phrases.json  |  3 ++
+ data/skill_aliases.json           | 12 +++++++
+ personas/README.md                | 11 +++++++
+ personas/aarav-patel.profile.json | 10 ++++++
+ personas/aarav-patel.resume.json  | 67 +++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 112 insertions(+)
+commit e920328 (e9203287ad7dbfc893af9460fcdcbe83bdf0420a)
+Date:   2026-10-31 13:57:33 -0400
+Author: Isaac T
+
+    docs(friction): log plan approval, test cap, and Step 1 decisions
+
+
+
+ Frictional.md | 80 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
+commit 587d361 (587d3613561ab540fa841cc8f7eac3a7dfc020ce)
+Date:   2026-10-31 14:23:42 -0400
+Author: Isaac T
+
+    feat(watch): fetch one allow-listed board and report only postings not seen before
+
+- Refuse any host outside the allow-list before a request is made
+- Save the raw board response byte-for-byte with its headers under evidence/raw/<UTC>/
+- Keep seen posting ids in a state file; first run is a baseline that reports 0 new
+- Stop with an error on a broken state file or a non-JSON response, without moving state forward
+- Support replaying a saved response (--from-raw) for a seeded run
+
+
+ job_agent/__init__.py |   5 ++
+ job_agent/__main__.py |  41 ++++++++++++++
+ job_agent/watch.py    | 148 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 194 insertions(+)
+commit 72e442e (72e442eebf97702d88841ccf6212e8e5d059f0ca)
+Date:   2026-10-31 14:24:48 -0400
+Author: Isaac T
+
+    docs(friction): log Step 2 explanation and the two-step fetch idea
+
+
+
+ Frictional.md | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+commit 58a93ee (58a93ee1ebb400f55a393e74dd94505566f5b509)
+Date:   2026-10-31 15:55:14 -0400
+Author: Isaac T
+
+    feat(rule): judge new postings with the six contract checks in a modular pipeline
+
+- Add one check function per contract rule, run in order from a CHECKS registry
+- Share one verdict builder between judges so judge/kind labels come only from code
+- Validate résumé, profile and built-in lists before fetching; refuse résumés without an @example.com email
+- Run inputs -> watch -> judge -> output -> state in one pipeline, saving state only after verdicts are written
+- Write runs/<UTC>/verdicts.json and summary.md with per-check counts and the alias hint line
+
+
+ .gitignore                           |   4 +
+ Frictional.md                        |  59 ++++++++++++++
+ job_agent/__main__.py                |  34 ++++----
+ job_agent/common/__init__.py         |   1 +
+ job_agent/common/errors.py           |  17 ++++
+ job_agent/common/net.py              |  35 +++++++++
+ job_agent/common/paths.py            |  53 +++++++++++++
+ job_agent/common/posting.py          |  17 ++++
+ job_agent/inputs.py                  | 109 ++++++++++++++++++++++++++
+ job_agent/judges/__init__.py         |   5 ++
+ job_agent/judges/checks.py           | 129 ++++++++++++++++++++++++++++++
+ job_agent/judges/rule.py             |  36 +++++++++
+ job_agent/judges/verdict.py          |  41 ++++++++++
+ job_agent/judges/words.py            |  50 ++++++++++++
+ job_agent/pipeline.py                |  46 +++++++++++
+ job_agent/report.py                  |  73 +++++++++++++++++
+ job_agent/watch.py                   | 148 -----------------------------------
+ job_agent/watch/__init__.py          |   8 ++
+ job_agent/watch/boards/__init__.py   |   5 ++
+ job_agent/watch/boards/greenhouse.py |  37 +++++++++
+ job_agent/watch/state.py             |  48 ++++++++++++
+ job_agent/watch/watcher.py           |  71 +++++++++++++++++
+ 22 files changed, 858 insertions(+), 168 deletions(-)
+commit fcc0376 (fcc037667a276831f0aabfc47bd4acf75512755a)
+Date:   2026-10-31 16:30:04 -0400
+Author: Isaac T
+
+    test: catch each contract wrong version, the allow-list, and the résumé guard
+
+- One pytest file per CONTRACT wrong version (1-6) plus test_refuses.py
+- Fake board and fetcher; runs write only to tmp_path, never to repo state/ or runs/
+- Claude-judge halves of wrong versions 2 and 5 skipped until Step 5
+- pytest.ini, requirements-dev.txt (pytest 8.4.2), .venv/ ignored
+- evidence/tests: Isaac's run output
+
+
+ .gitignore                                  |  3 +
+ Frictional.md                               | 23 +++++++
+ evidence/tests/2026-10-31_pytest.txt        | 66 ++++++++++++++++++++
+ pytest.ini                                  |  6 ++
+ requirements-dev.txt                        |  2 +
+ tests/conftest.py                           | 21 +++++++
+ tests/fakes.py                              | 65 +++++++++++++++++++
+ tests/test_refuses.py                       | 96 +++++++++++++++++++++++++++++
+ tests/test_wrong_version_1_label_mixup.py   | 24 ++++++++
+ tests/test_wrong_version_2_justification.py | 94 ++++++++++++++++++++++++++++
+ tests/test_wrong_version_3_state.py         | 83 +++++++++++++++++++++++++
+ tests/test_wrong_version_4_splitter.py      | 55 +++++++++++++++++
+ tests/test_wrong_version_5_judge_label.py   | 38 ++++++++++++
+ tests/test_wrong_version_6_visa_phrase.py   | 51 +++++++++++++++
+ 14 files changed, 627 insertions(+)
+commit ce9d196 (ce9d196fd3ead34b2f0badd3f0f26a08824adcb7)
+Date:   2026-10-31 17:37:22 -0400
+Author: Isaac T
+
+    feat(claude): judge new postings with Claude under a prompt contract and validator
+
+- Claude judge via claude -p (Claude Code subscription) by default; --claude-via api optional (D18)
+- claude -p runs with no tools, no MCP, no session, no settings/CLAUDE.md, fresh temp folder
+- Validator rejects any reply that breaks a CONTRACT validator row; judge/kind set by code
+- TEST-ONLY cap: Claude judges only the first 2 new postings (D14, remove before submission)
+- runs/<UTC>/claude_raw.jsonl keeps every reply, rejected ones too
+
+
+ CONTRACT.md                                 |  16 ++--
+ Frictional.md                               |  77 +++++++++++++++++-
+ evidence/tests/2026-10-31_pytest_step5.txt  | 107 ++++++++++++++++++++++++
+ job_agent/__main__.py                       |   8 +-
+ job_agent/common/errors.py                  |   9 +++
+ job_agent/common/paths.py                   |   4 +
+ job_agent/inputs.py                         |   1 +
+ job_agent/judges/checks.py                  |   5 +-
+ job_agent/judges/claude.py                  | 107 ++++++++++++++++++++++++
+ job_agent/judges/claude_api.py              |  55 +++++++++++++
+ job_agent/judges/claude_cli.py              |  80 ++++++++++++++++++
+ job_agent/judges/validator.py               |  73 +++++++++++++++++
+ job_agent/pipeline.py                       |  54 +++++++++++--
+ job_agent/report.py                         |  42 ++++++++--
+ prompts/claude_judge.v1.md                  |  52 ++++++++++++
+ requirements-dev.txt                        |   3 +-
+ requirements.txt                            |   3 +
+ tests/conftest.py                           |   9 +++
+ tests/fakes.py                              |  38 +++++++--
+ tests/test_claude_cli.py                    |  91 +++++++++++++++++++++
+ tests/test_claude_judge.py                  | 121 ++++++++++++++++++++++++++++
+ tests/test_claude_validator.py              |  61 ++++++++++++++
+ tests/test_wrong_version_2_justification.py |  28 +++++--
+ tests/test_wrong_version_5_judge_label.py   |  32 +++++---
+ 24 files changed, 1028 insertions(+), 48 deletions(-)
+commit ac9a2ee (ac9a2ee2b93f6eb3a16702eb3ab049231ee1ea35)
+Date:   2026-10-31 17:40:26 -0400
+Author: Isaac T
+
+    fix(claude): judge every new posting by removing the test-only cap
+
+- R18: each new posting gets a rule and a Claude verdict (D14 resolved)
+- grep TEST-ONLY now finds nothing; test checks every new posting is sent to Claude
+
+
+ Frictional.md                             | 19 +++++++++++++++++++
+ job_agent/judges/claude.py                | 18 ++++++------------
+ job_agent/pipeline.py                     |  8 ++------
+ job_agent/report.py                       |  3 ---
+ tests/test_claude_judge.py                | 12 ++++--------
+ tests/test_wrong_version_5_judge_label.py |  4 +---
+ 6 files changed, 32 insertions(+), 32 deletions(-)
+commit 7b63b89 (7b63b8938f6bffdd0dc878cb406e8974aa4b0a53)
+Date:   2026-10-31 17:56:54 -0400
+Author: Isaac T
+
+    chore(runs): record two watch runs as evidence that only new postings get judged
+
+- Run 1 (runs/2026-10-31T214040Z): 10/29 snapshot replayed as seeded baseline, 0 new
+- Run 2 (runs/2026-10-31T214118Z): live fetch, 745 postings, 20 new, 12 closed since 10/29
+- Each new posting has a rule and a Claude verdict: 40 total, all not_relevant, 0 rejected
+- state/stripe.state.json keeps 757 seen ids from both runs
+
+
+ Frictional.md                                      |  20 +
+ .../2026-10-31T214118Z/stripe_content.headers.txt  |  21 +
+ .../raw/2026-10-31T214118Z/stripe_content.json     |   1 +
+ evidence/runs/run1_terminal.txt                    |  22 +
+ evidence/runs/run2_terminal.txt                    |  45 +
+ runs/2026-10-31T214040Z/summary.md                 |  21 +
+ runs/2026-10-31T214040Z/verdicts.json              |   8 +
+ runs/2026-10-31T214118Z/claude_raw.jsonl           |  20 +
+ runs/2026-10-31T214118Z/summary.md                 |  44 +
+ runs/2026-10-31T214118Z/verdicts.json              | 972 +++++++++++++++++++++
+ state/stripe.state.json                            | 763 ++++++++++++++++
+ 11 files changed, 1937 insertions(+)
+commit ab1e292 (ab1e292fa81f7a518ba2f91ecb5ac348c8db0b79)
+Date:   2026-10-31 18:16:35 -0400
+Author: Isaac T
+
+    docs(labels): write the labeling rule and pick 20 postings before any labeling
+
+- labels/LABELING_RULE.md: my six steps for judging a posting as Aarav, nice to have counts as must have
+- labels/select_postings.py picks 20 from Run 2 raw by a fixed seed, mixing easy and hard cases
+- postings_to_label.md shows text only (no verdicts); labels.csv is empty
+
+
+ Frictional.md               |  26 ++
+ labels/LABELING_RULE.md     |  19 +
+ labels/labels.csv           |  21 ++
+ labels/postings_to_label.md | 895 ++++++++++++++++++++++++++++++++++++++++++++
+ labels/select_postings.py   |  81 ++++
+ 5 files changed, 1042 insertions(+)
+commit 7cca07d (7cca07dba7189fe465554c480d2e92d7d5cf88b3)
+Date:   2026-10-31 18:58:17 -0400
+Author: Isaac T
+
+    fix(rule): let postings with no location pass the location check
+
+- check 2: empty, N/A, na or a bare Remote now passes (skipped), same lean as checks 4-6
+- CONTRACT Examples re-run on 10/29: relevant 3 -> 5, location cuts 55 -> 49
+- labeling rule step 2 gets the same line, noted as added after rows 1-3
+
+
+ CONTRACT.md                            |  8 ++++++--
+ job_agent/judges/checks.py             | 15 +++++++++++++--
+ labels/LABELING_RULE.md                |  2 +-
+ labels/select_postings.py              |  4 ++++
+ tests/test_wrong_version_4_splitter.py | 14 ++++++++++++++
+ 5 files changed, 38 insertions(+), 5 deletions(-)
+commit 926f9e6 (926f9e6def0e3d38deffb7289daabdbf0cf6b467)
+Date:   2026-10-31 18:58:26 -0400
+Author: Isaac T
+
+    docs(labels): hand-label 20 postings as the answer key for the prompt experiment
+
+- 12 relevant, 8 not_relevant, each with a one-line reason naming the step
+
+
+ Frictional.md     | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ labels/labels.csv | 40 ++++++++++++++++++++--------------------
+ 2 files changed, 74 insertions(+), 20 deletions(-)
+commit cb2291e (cb2291ee68cafbb15f16c24d0e3b9631e184ec76)
+Date:   2026-10-31 19:05:58 -0400
+Author: Isaac T
+
+    chore(runs): re-run both watches with the location fix and split labels for the experiment
+
+- Run 1 (runs/2026-10-31T225859Z): seeded baseline, 0 new
+- Run 2 (runs/2026-10-31T225910Z): live, 745 fetched, 20 new, all not_relevant for both judges
+- old runs removed from the tree (kept in history); raw 2026-10-31T214118Z kept for the labels
+- labels/split.json: 10 dev + 10 held-out, 6 relevant each, seed 7375
+
+
+ Frictional.md                                      |  37 +----
+ .../2026-10-31T225910Z/stripe_content.headers.txt  |  21 +++
+ .../raw/2026-10-31T225910Z/stripe_content.json     |   1 +
+ evidence/runs/run1_terminal.txt                    |   6 +-
+ evidence/runs/run2_terminal.txt                    |   8 +-
+ labels/split.json                                  |  28 ++++
+ labels/split.py                                    |  42 +++++
+ runs/2026-10-31T214118Z/claude_raw.jsonl           |  20 ---
+ .../summary.md                                     |   4 +-
+ .../verdicts.json                                  |   2 +-
+ runs/2026-10-31T225910Z/claude_raw.jsonl           |  20 +++
+ .../summary.md                                     |   6 +-
+ .../verdicts.json                                  | 170 +++++++++++----------
+ state/stripe.state.json                            |   2 +-
+ 14 files changed, 218 insertions(+), 149 deletions(-)
+commit 74db17f (74db17f3485a9af55671d6f211649e6820d5476a)
+Date:   2026-10-31 19:36:55 -0400
+Author: Isaac T
+
+    docs(experiment): compare a strict and a lenient prompt against my labels, correcting one label
+
+- sampling: 5 dev postings x 4 fresh calls, all stable, 4 of 5 match my labels
+- prompt v2 changes one paragraph: relevant unless clearly a bad fit
+- v1 8/10 dev, 7/10 held-out; v2 9/10 dev, 9/10 held-out (held-out run once after v2 was fixed)
+- label 8128744 corrected to not_relevant after the held-out run (18-month new-grad cap I missed); both scores reported
+
+
+ Frictional.md                                      |  75 ++-
+ labels/labels.csv                                  |   4 +-
+ prompts/claude_judge.v2.md                         |  52 ++
+ reports/experiment.py                              |  75 +++
+ reports/experiment/claude_judge.v1.dev.json        | 414 ++++++++++++
+ reports/experiment/claude_judge.v1.dev.raw.jsonl   |  10 +
+ reports/experiment/claude_judge.v1.held_out.json   | 420 ++++++++++++
+ .../experiment/claude_judge.v1.held_out.raw.jsonl  |  10 +
+ reports/experiment/claude_judge.v2.dev.json        | 438 +++++++++++++
+ reports/experiment/claude_judge.v2.dev.raw.jsonl   |  10 +
+ reports/experiment/claude_judge.v2.held_out.json   | 462 +++++++++++++
+ .../experiment/claude_judge.v2.held_out.raw.jsonl  |  10 +
+ reports/prompt_experiment.md                       |  80 +++
+ reports/sampling.py                                |  63 ++
+ reports/sampling/raw.jsonl                         |  20 +
+ reports/sampling/results.json                      | 724 +++++++++++++++++++++
+ reports/sampling_report.md                         |  56 ++
+ 17 files changed, 2920 insertions(+), 3 deletions(-)
+commit 93abb22 (93abb221f60f06a46a225a75f286542736b30a43)
+Date:   2026-10-31 19:48:31 -0400
+Author: Isaac T
+
+    docs(surface): choose the agent after comparing chat, file and agent access
+
+- same prompt and posting (8336819) three ways: pasted text, Read-only files, the agent's Run 2
+- all three not_relevant for the same reason; what differs is what each can read, write and send
+- my choice: the agent, since its permissions are fixed in code and tested
+
+
+ Frictional.md                       | 24 +++++++++++
+ reports/action_surface.md           | 44 +++++++++++++++++++++
+ reports/action_surface.py           | 79 +++++++++++++++++++++++++++++++++++++
+ reports/action_surface/results.json | 73 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 220 insertions(+)
+commit 5f80297 (5f80297c4f9e4cc4feafb64aa16b7a19139c690c)
+Date:   2026-10-31 20:04:28 -0400
+Author: Isaac T
+
+    docs(readme): add the README, sources and sign-off, and translate the contract to English
+
+- README: toolchain, exact commands, what ran, test map, sign-off, driver's seat
+- SOURCES.md: what I used, what I wrote, what Claude contributed
+- CONTRACT.md and labels/LABELING_RULE.md in English; Chinese originals kept as .zh.md
+- Frictional.md renamed to FRICTIONAL.md; commit ids point to evidence/git-history.txt
+
+
+ CONTRACT.md                                | 329 +++++++++++++--------------
+ CONTRACT.zh.md                             | 353 +++++++++++++++++++++++++++++
+ Frictional.md => FRICTIONAL.md             |  53 +----
+ README.md                                  | 150 ++++++++++++
+ SOURCES.md                                 |  32 +++
+ data/README.md                             |   4 +-
+ evidence/tests/2026-10-31_pytest_final.txt | 117 ++++++++++
+ job_agent/judges/checks.py                 |   2 +-
+ labels/LABELING_RULE.md                    |  24 +-
+ labels/LABELING_RULE.zh.md                 |  19 ++
+ labels/select_postings.py                  |   2 +-
+ reports/action_surface.md                  |   2 +-
+ reports/prompt_experiment.md               |   4 +-
+ reports/sampling_report.md                 |   4 -
+ tests/test_claude_validator.py             |   2 +-
+ 15 files changed, 854 insertions(+), 243 deletions(-)

@@ -1,0 +1,38 @@
+{
+ "posting_id": 6865704002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 6865704002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "software engineer"
+  },
+  "excluded_terms": {
+   "pass": true,
+   "found": []
+  },
+  "shared_skills": {
+   "pass": false,
+   "skills": [
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we are obsessed"
+    }
+   ]
+  },
+  "explanation": "The title contains \"software engineer\" and no excluded words. Of the target skills, only databricks appears in both the description and the résumé (skills.data_bi); python and sql are listed in skills.languages and langgraph in skills.backend_automation, but none of them appear in the title or description, so the shared-skill minimum of 2 is not met."
+ },
+ "attempt_files": [
+  "6865704002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "4c0882ce-57c0-4735-8cda-47717f5afb74",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6766,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "50b44b294e33917aba240edbea022b71817a91c862d8a9e33ac13b49708b2c0e",
+  "posting_id": "8249901",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "d42db66d-4f32-411a-98b4-d735ff604932",
+  "started_at_et": "2026-10-30T23:40:00.194387-04:00",
+  "started_at_utc": "2026-10-31T03:40:00.194387Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6479,\"stop_reason\":\"end_turn\",\"session_id\":\"d42db66d-4f32-411a-98b4-d735ff604932\",\"total_cost_usd\":0.009805700000000002,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":370,\"cache_read_input_tokens\":4217,\"output_tokens\":790,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":370,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":790,\"cacheReadInputTokens\":4217,\"cacheCreationInputTokens\":370,\"webSearchRequests\":0,\"costUSD\":0.009805700000000002,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":370,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title matches Kiran's target role and Seattle is in the US, but the posting asks for 3+ years of experience in several areas, including AWS and Azure, Go/Python/Java, distributed systems, Linux, NoSQL, and critical production incidents. It also requires a degree plus 3 years of software engineering experience. That is above the entry-level, SWE I and SWE II targets. The work is tier-0 infrastructure, AMI hardening and on-call, which is more infrastructure/operations than the full-stack and backend product work in Kiran's experience. Kiran has no Azure experience and Go is listed only as familiar, not shipped.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets New Grad, Entry Level, SWE I and SWE II, but the posting requires 3+ years of experience in multiple areas.\\\"},{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title Software Engineer matches a target role, but the content describes infrastructure-heavy work.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is in the United States, so the location fits.\\\"},{\\\"resume_path\\\":\\\"$.skills.familiar_with_not_shipped\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Go is only familiar, not shipped, and Azure is not listed in the résumé, while the posting requires 3 years in each.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran lists AWS but not Azure, and the posting asks for both plus AMI and EC2 infrastructure work.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is uncertain.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so the exclusion cannot be fully checked.\\\",\\\"The résumé gives no years of experience, so how Kiran's experience compares with the 3-year requirements is not established.\\\",\\\"The posting says 50% telecommuting is permitted, which suggests hybrid rather than fully remote work. The Seattle location is within the US target either way.\\\",\\\"The salary range is shown, but whether the role is paid is not in doubt; the unpaid-role exclusion does not apply.\\\"]}\",\"ttft_ms\":6517,\"type\":\"result\",\"duration_ms\":6531,\"uuid\":\"7ac8035f-0cfe-4e3f-a723-2728f9a3c8b6\",\"ttft_stream_ms\":1484,\"time_to_request_ms\":51,\"first_content_frame_ms\":1485,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.009805700000000002,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

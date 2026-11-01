@@ -1,0 +1,238 @@
+{
+ "prompt": "contract_v1.txt",
+ "times": 4,
+ "model_via": "Claude Code CLI `claude -p`, fresh conversation per try",
+ "postings": [
+  {
+   "n": 1,
+   "title": "Analyst, Early Career (Full Stack)",
+   "hand_label": "not_relevant",
+   "counts": {
+    "not_relevant": 4
+   },
+   "runs": [
+    {
+     "try": 1,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "R6 fails: content says 'visa sponsorship is not available for this position' and work_authorization needs_sponsorship=true. Also fails R9: content requires degree completion by Aug 2027 or earlier, but education graduation window is 2027-05 to 2027-12, which overlaps, so R9 holds. Title has 'Analyst', location is US, skills SQL/Python match.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"work_authorization\", \"education\", \"target_roles\", \"skills\"], \"posting_fields\": [\"content\", \"title\", \"location\"], \"justification\": \"R6 fails: content says 'visa sponsorship is not available for this position' and work_authorization needs_sponsorship=true. Also fails R9: content requires degree completion by Aug 2027 or earlier, but education graduation window is 2027-05 to 2027-12, which overlaps, so R9 holds. Title has 'Analyst', location is US, skills SQL/Python match.\"}\n",
+     "at": "2026-10-30T23:38:19+00:00"
+    },
+    {
+     "try": 2,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "Fails R6: content says 'visa sponsorship is not available' and work_authorization needs sponsorship. R9 also fails: content requires graduation by August 2027 or earlier, but education window is 2027-05 to 2027-12 (overlaps, so R9 passes). R1 passes via 'Analyst' in title, R3 US location, and R8 skills SQL+Python pass. R6 alone decides it.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails R6: content says 'visa sponsorship is not available' and work_authorization needs sponsorship. R9 also fails: content requires graduation by August 2027 or earlier, but education window is 2027-05 to 2027-12 (overlaps, so R9 passes). R1 passes via 'Analyst' in title, R3 US location, and R8 skills SQL+Python pass. R6 alone decides it.\"}\n",
+     "at": "2026-10-30T23:38:24+00:00"
+    },
+    {
+     "try": 3,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "title 'Analyst, Early Career' has no target_roles phrase (R1 fails); content says 'visa sponsorship is not available' and work_authorization needs sponsorship (R6 fails); content requires graduation by Aug 2027, which overlaps education 2027-05..2027-12 (R9 ok); location US, skills SQL/Python/data visualization ok.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"work_authorization\", \"education\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Analyst, Early Career' has no target_roles phrase (R1 fails); content says 'visa sponsorship is not available' and work_authorization needs sponsorship (R6 fails); content requires graduation by Aug 2027, which overlaps education 2027-05..2027-12 (R9 ok); location US, skills SQL/Python/data visualization ok.\"}\n",
+     "at": "2026-10-30T23:38:31+00:00"
+    },
+    {
+     "try": 4,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "R6 fails: the posting content says 'visa sponsorship is not available for this position', but work_authorization shows the candidate needs sponsorship (F-1/OPT). R1 also likely fails: the title 'Analyst, Early Career (Full Stack)' contains 'Analyst' but none of the full target_roles, such as 'Data Analyst'.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"work_authorization\", \"target_roles\"], \"posting_fields\": [\"content\", \"title\"], \"justification\": \"R6 fails: the posting content says 'visa sponsorship is not available for this position', but work_authorization shows the candidate needs sponsorship (F-1/OPT). R1 also likely fails: the title 'Analyst, Early Career (Full Stack)' contains 'Analyst' but none of the full target_roles, such as 'Data Analyst'.\"}\n",
+     "at": "2026-10-30T23:38:37+00:00"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "Data Analyst, Intern",
+   "hand_label": "relevant",
+   "counts": {
+    "relevant": 4
+   },
+   "runs": [
+    {
+     "try": 1,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "title 'Data Analyst, Intern' has a target role and no excluded words; location lists US cities. content: no years minimum, no citizenship/clearance or sponsorship limit, no PhD. Skills in content: SQL, A/B testing, statistics. Graduation window Dec 2027-summer 2028 overlaps education window 2027-05 to 2027-12 at Dec 2027.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"work_authorization\", \"experience_years\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Data Analyst, Intern' has a target role and no excluded words; location lists US cities. content: no years minimum, no citizenship/clearance or sponsorship limit, no PhD. Skills in content: SQL, A/B testing, statistics. Graduation window Dec 2027-summer 2028 overlaps education window 2027-05 to 2027-12 at Dec 2027.\"}\n",
+     "at": "2026-10-30T23:38:45+00:00"
+    },
+    {
+     "try": 2,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "Title 'Data Analyst, Intern' matches target_roles, no seniority word. Location is NY/Seattle/S. San Francisco (US cities). Content: no years minimum, no citizenship/clearance or no-sponsorship line, no PhD. Skills SQL and A/B testing appear. Grad window Dec 2027–summer 2028 overlaps education's 2027-05 to 2027-12 at Dec 2027.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"work_authorization\", \"location\", \"experience_years\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Title 'Data Analyst, Intern' matches target_roles, no seniority word. Location is NY/Seattle/S. San Francisco (US cities). Content: no years minimum, no citizenship/clearance or no-sponsorship line, no PhD. Skills SQL and A/B testing appear. Grad window Dec 2027–summer 2028 overlaps education's 2027-05 to 2027-12 at Dec 2027.\"}\n",
+     "at": "2026-10-30T23:38:53+00:00"
+    },
+    {
+     "try": 3,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "title 'Data Analyst, Intern' matches target_roles, no seniority word (R1,R2). location: New York/Seattle/South San Francisco are US cities (R3). content: no 3+ yrs minimum, no citizenship/clearance, no sponsorship denial, no PhD (R4-R7). skills SQL and A/B testing appear (R8). education window 2027-05..2027-12 overlaps posting's Dec 2027-summer 2028 (R9).",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"experience_years\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Data Analyst, Intern' matches target_roles, no seniority word (R1,R2). location: New York/Seattle/South San Francisco are US cities (R3). content: no 3+ yrs minimum, no citizenship/clearance, no sponsorship denial, no PhD (R4-R7). skills SQL and A/B testing appear (R8). education window 2027-05..2027-12 overlaps posting's Dec 2027-summer 2028 (R9).\"}\n",
+     "at": "2026-10-30T23:39:01+00:00"
+    },
+    {
+     "try": 4,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "title 'Data Analyst, Intern' matches target_roles, no seniority word; location New York/Seattle/South San Francisco are US cities; content: no years minimum, no citizenship/clearance/PhD, no sponsorship denial; skills SQL and A/B testing appear; graduation Dec 2027–summer 2028 overlaps education window 2027-05 to 2027-12.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"experience_years\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Data Analyst, Intern' matches target_roles, no seniority word; location New York/Seattle/South San Francisco are US cities; content: no years minimum, no citizenship/clearance/PhD, no sponsorship denial; skills SQL and A/B testing appear; graduation Dec 2027–summer 2028 overlaps education window 2027-05 to 2027-12.\"}\n",
+     "at": "2026-10-30T23:39:14+00:00"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title": "Fraud Investigations Analyst",
+   "hand_label": "relevant",
+   "counts": {
+    "not_relevant": 3,
+    "invalid": 1
+   },
+   "runs": [
+    {
+     "try": 1,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "R1 fails: the title 'Fraud Investigations Analyst' contains none of target_roles. 'Analyst' alone is not one of them. R8 also fails: the content names none of the candidate's skills (no Python, SQL, pandas, Tableau, Excel, statistics, A/B testing or data visualization). The location is in the US, the posting asks for 0–2 years, and it says nothing about sponsorship.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: the title 'Fraud Investigations Analyst' contains none of target_roles. 'Analyst' alone is not one of them. R8 also fails: the content names none of the candidate's skills (no Python, SQL, pandas, Tableau, Excel, statistics, A/B testing or data visualization). The location is in the US, the posting asks for 0–2 years, and it says nothing about sponsorship.\"}\n",
+     "at": "2026-10-30T23:39:21+00:00"
+    },
+    {
+     "try": 2,
+     "verdict": null,
+     "status": "invalid",
+     "justification": null,
+     "error": "justification empty or over 400 characters",
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: the title 'Fraud Investigations Analyst' contains none of the target_roles. 'Analyst' alone does not match 'Data Analyst', 'Business Analyst' or 'Product Analyst'. R8 also fails: the content names none of the candidate's skills (no Python, SQL, pandas, Tableau, Excel, statistics, A/B testing or data visualization). The location is in the US and the content asks for only 0–2 years of experience, so those rules pass.\"}\n",
+     "at": "2026-10-30T23:39:27+00:00"
+    },
+    {
+     "try": 3,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "R1 fails: the title 'Fraud Investigations Analyst' contains none of the target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). R8 also fails: the content names none of the candidate's skills (Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). The location is in the US and 0–2 years is under 3, so R3 and R4 pass.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: the title 'Fraud Investigations Analyst' contains none of the target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). R8 also fails: the content names none of the candidate's skills (Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). The location is in the US and 0–2 years is under 3, so R3 and R4 pass.\"}\n",
+     "at": "2026-10-30T23:39:34+00:00"
+    },
+    {
+     "try": 4,
+     "verdict": "not_relevant",
+     "status": "valid",
+     "justification": "R1 fails: title 'Fraud Investigations Analyst' contains none of target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). R8 also fails: content names none of the skills (Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). Location (US), 0-2 yrs, no sponsorship/citizenship limits are fine.",
+     "error": null,
+     "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: title 'Fraud Investigations Analyst' contains none of target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). R8 also fails: content names none of the skills (Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). Location (US), 0-2 yrs, no sponsorship/citizenship limits are fine.\"}\n",
+     "at": "2026-10-30T23:39:41+00:00"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "title": "Software Engineer II, Data Analytics & Engineering",
+   "hand_label": "relevant",
+   "counts": {
+    "relevant": 4
+   },
+   "runs": [
+    {
+     "try": 1,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "R1: title contains 'Analytics' (target_roles). R2: 'II' is not a banned word. R3: location is San Francisco, CA, US / Remote, US. R4: content asks for a minimum of 2 years (<3). R5/R6: no citizenship, clearance or no-sponsorship language. R7: needs a bachelor's, not a PhD. R8: SQL and Python appear (skills). R9: content states no graduation window.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"work_authorization\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1: title contains 'Analytics' (target_roles). R2: 'II' is not a banned word. R3: location is San Francisco, CA, US / Remote, US. R4: content asks for a minimum of 2 years (<3). R5/R6: no citizenship, clearance or no-sponsorship language. R7: needs a bachelor's, not a PhD. R8: SQL and Python appear (skills). R9: content states no graduation window.\"}\n",
+     "at": "2026-10-30T23:39:49+00:00"
+    },
+    {
+     "try": 2,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "All 9 rules pass. R1: title has 'Analytics'. R2: 'II' isn't a listed seniority word. R3: location is US. R4: content asks for at least 2 years, under 3. R5/R6: no citizenship, clearance or no-sponsorship line ('US based applicants only' is about location). R7: Bachelor's only. R8: content names SQL and Python, both in skills. R9: no graduation window stated.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"work_authorization\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"All 9 rules pass. R1: title has 'Analytics'. R2: 'II' isn't a listed seniority word. R3: location is US. R4: content asks for at least 2 years, under 3. R5/R6: no citizenship, clearance or no-sponsorship line ('US based applicants only' is about location). R7: Bachelor's only. R8: content names SQL and Python, both in skills. R9: no graduation window stated.\"}\n",
+     "at": "2026-10-30T23:39:57+00:00"
+    },
+    {
+     "try": 3,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "R1: title contains target role 'Analytics'. R2: no excluded words ('II' is not 'III'). R3: location San Francisco, CA, US / Remote, US. R4: content says minimum 2 years (<3). R5/R6: no citizenship, clearance, or no-sponsorship statement. R7: Bachelor's only. R8: content names SQL and Python. R9: no graduation window stated.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"work_authorization\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1: title contains target role 'Analytics'. R2: no excluded words ('II' is not 'III'). R3: location San Francisco, CA, US / Remote, US. R4: content says minimum 2 years (<3). R5/R6: no citizenship, clearance, or no-sponsorship statement. R7: Bachelor's only. R8: content names SQL and Python. R9: no graduation window stated.\"}\n",
+     "at": "2026-10-30T23:40:04+00:00"
+    },
+    {
+     "try": 4,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "Title has target_role 'Analytics' with no banned seniority word ('II' is not 'III'). Location is US. Content asks for a minimum of 2 years, under 3. It has no citizenship, clearance or no-sponsorship requirement and no PhD requirement. Skills SQL and Python appear. No graduation window is stated, so all of R1-R9 hold.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"education\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Title has target_role 'Analytics' with no banned seniority word ('II' is not 'III'). Location is US. Content asks for a minimum of 2 years, under 3. It has no citizenship, clearance or no-sponsorship requirement and no PhD requirement. Skills SQL and Python appear. No graduation window is stated, so all of R1-R9 hold.\"}\n",
+     "at": "2026-10-30T23:40:12+00:00"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "title": "Data Analyst, In-Store",
+   "hand_label": "relevant",
+   "counts": {
+    "relevant": 4
+   },
+   "runs": [
+    {
+     "try": 1,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "R1: title contains 'Data Analyst'. R2: no seniority word in title ('Manager' is only in content). R3: all locations are US cities. R4: content asks for 2+ years, under 3. R5-R7: content has no citizenship, clearance, no-sponsorship or PhD requirement. R8: content names SQL, Tableau and statistics from skills. R9: no graduation window stated.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"education\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1: title contains 'Data Analyst'. R2: no seniority word in title ('Manager' is only in content). R3: all locations are US cities. R4: content asks for 2+ years, under 3. R5-R7: content has no citizenship, clearance, no-sponsorship or PhD requirement. R8: content names SQL, Tableau and statistics from skills. R9: no graduation window stated.\"}\n",
+     "at": "2026-10-30T23:40:22+00:00"
+    },
+    {
+     "try": 2,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "title 'Data Analyst, In-Store' matches target_roles and has no seniority word; location lists US cities; content asks for 2+ years (minimum below 3); no citizenship/clearance or no-sponsorship statement; no PhD; content names SQL and Tableau (2 skills); no graduation window stated.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"education\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Data Analyst, In-Store' matches target_roles and has no seniority word; location lists US cities; content asks for 2+ years (minimum below 3); no citizenship/clearance or no-sponsorship statement; no PhD; content names SQL and Tableau (2 skills); no graduation window stated.\"}\n",
+     "at": "2026-10-30T23:40:30+00:00"
+    },
+    {
+     "try": 3,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "Title 'Data Analyst, In-Store' contains a target_role with no seniority word. Location lists US cities. Content asks for 2+ years (under 3), with no citizenship/clearance requirement, no statement that sponsorship is unavailable, no PhD and no graduation window. Skills SQL, Tableau and Statistics appear in content (at least 2). All of R1-R9 hold.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"education\", \"work_authorization\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Title 'Data Analyst, In-Store' contains a target_role with no seniority word. Location lists US cities. Content asks for 2+ years (under 3), with no citizenship/clearance requirement, no statement that sponsorship is unavailable, no PhD and no graduation window. Skills SQL, Tableau and Statistics appear in content (at least 2). All of R1-R9 hold.\"}\n",
+     "at": "2026-10-30T23:40:39+00:00"
+    },
+    {
+     "try": 4,
+     "verdict": "relevant",
+     "status": "valid",
+     "justification": "R1/R2: title contains 'Data Analyst' and no barred words. R3: location lists US cities. R4: content asks 2+ years (<3). R5/R6/R7: no citizenship, clearance, no-sponsorship or PhD requirement. R8: content names SQL and Tableau from skills. R9: no graduation window stated.",
+     "error": null,
+     "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"work_authorization\", \"education\", \"experience_years\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1/R2: title contains 'Data Analyst' and no barred words. R3: location lists US cities. R4: content asks 2+ years (<3). R5/R6/R7: no citizenship, clearance, no-sponsorship or PhD requirement. R8: content names SQL and Tableau from skills. R9: no graduation window stated.\"}\n",
+     "at": "2026-10-30T23:40:45+00:00"
+    }
+   ]
+  }
+ ]
+}

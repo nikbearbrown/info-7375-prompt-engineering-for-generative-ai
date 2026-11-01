@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8860646002,
+    "title": "Analyst Relations Manager",
+    "location": "United States",
+    "description": "The impact you will have Improve Databricks’ placement and movement in priority Gartner Magic Quadrants, Forrester Waves, IDC MarketScapes and similar evaluations through complete, differentiated submissions, compelling demonstrations and credible customer evidence. Increase the team’s evaluation capacity without sacrificing quality by delivering priority questionnaires, RFIs, briefings, demonstrations, references and fact checks on time and in full as evaluation volume grows. Improve the quality and consistency of Databricks’ analyst-facing content by developing clear, scoreable proof points and narratives that product and product marketing experts can reuse across evaluations and briefings. Increase analyst advocacy and market visibility , measured by the frequency with which analysts cite or quote Databricks, reference its experts and customers, and invite the company to participate in relevant industry and analyst-firm events. Improve executive and technical-expert effectiveness in high-stakes analyst conversations by ensuring leaders are aligned on narrative, differentiation and proof points before inquiries, briefings, demonstrations and advisory sessions. Scale AR with AI. Build and run AI-assisted workflows for RFI drafting and review, analyst outreach and follow-up, research summaries, and finding analyst quotes and stats. Enable product marketing, product and field teams to complete repeatable research, drafting and follow-up work with less direct AR support. Turn analyst research, inquiry feedback and evaluation results into recommendations that influence product roadmap decisions, messaging, positioning, field plays, campaigns, deals and executive narratives. What we look for 4–7 years of experience in analyst relations, or in product or technical marketing with direct responsibility for major analyst evaluations, ideally in data, analytics, AI/ML or cloud platforms. A track record of improving analyst evaluation placement, market perception or coverage, with results you can clearly describe. Hands-on experience using AI tools to improve research, writing or program workflows, with the ability to identify and implement practical opportunities for scale. Strong technical writing skills and the ability to turn complex product capabilities into differentiated, evidence-based narratives that analysts and senior executives can evaluate quickly. Strong program management skills, including the ability to run multiple detailed, deadline-driven workstreams while maintaining quality and meeting commitments. Experience preparing executives and technical experts for analyst conversations and aligning them on strategy, messaging and proof points. The ability to influence product, marketing and sales partners, move work forward with limited support and collaborate effectively on a small, fast-moving team. Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. MKTQ327R47 Databricks is hiring an Analyst Relations Manager to strengthen its position as the category leader in AI, data management, security, business intelligence and emerging markets. You will lead priority analyst evaluations, create the evidence and narratives that differentiate Databricks, and scale the team’s impact through AI-assisted workflows. Working across product, product marketing, sales and executive teams, you will turn analyst insight into better product decisions, positioning and field execution. Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected base salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipated utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Zone 1 Pay Range $128,800 — $177,100 USD Zone 2 Pay Range $115,900 — $159,400 USD Zone 3 Pay Range $109,500 — $150,600 USD Zone 4 Pay Range $103,000 — $141,700 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

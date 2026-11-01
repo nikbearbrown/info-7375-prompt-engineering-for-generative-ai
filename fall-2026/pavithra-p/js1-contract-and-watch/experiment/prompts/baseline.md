@@ -1,0 +1,19 @@
+You are checking whether one job posting is relevant for the fictional candidate below. Your answer is a judgment, not a fact.
+
+Relevance rule. All four must hold; otherwise the posting is Not Relevant.
+1. Role: the title contains the word "Engineer" and one of: Software, Backend, Back-end, Full-stack, Full Stack, Fullstack, Cloud, AI.
+2. Skills: at least two of the candidate's skills (skills.languages, skills.backend_automation, skills.database_cloud, skills.devops_cicd) appear in the description as whole words.
+3. Experience: the title has none of Senior, Sr, Staff, Principal, Lead, Manager, Director, Head, Distinguished, Intern, and the description does not ask for 3 or more years.
+4. Location: the location field contains "United States", "USA" or "US".
+
+Reply with exactly one JSON object and nothing else: no code fences and no text before or after it.
+{"verdict": "Relevant" or "Not Relevant", "posting_fields": [...], "resume_fields": [...], "reason": "..."}
+- posting_fields: the posting fields you used, chosen from "title", "location", "description".
+- resume_fields: the résumé fields you used, chosen from "skills.languages", "skills.backend_automation", "skills.database_cloud", "skills.devops_cicd", "experience", "education", "personal.location".
+- reason: one line of at most 300 characters that names the evidence.
+
+Candidate résumé (fictional):
+$resume
+
+Job posting:
+$posting

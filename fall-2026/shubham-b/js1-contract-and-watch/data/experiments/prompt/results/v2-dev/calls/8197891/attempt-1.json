@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 7994,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "2c937477e1c55ef2c9a549b40ee669b34dd35770f867f23253632b5f90fec839",
+  "posting_id": "8197891",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "ab98ccf0-7685-48cd-bfec-ea85a1f47fa0",
+  "started_at_et": "2026-10-31T14:32:19.285623-04:00",
+  "started_at_utc": "2026-10-31T18:32:19.285623Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":7699,\"stop_reason\":\"end_turn\",\"session_id\":\"ab98ccf0-7685-48cd-bfec-ea85a1f47fa0\",\"total_cost_usd\":0.0298209,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4854,\"cache_read_input_tokens\":1109,\"output_tokens\":1029,\"output_tokens_details\":{\"thinking_tokens\":394},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4854,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":1029,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4854,\"webSearchRequests\":0,\"costUSD\":0.0298209,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":394,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4854,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title contains 'Software Engineer' and no excluded marker. The posting names Python, Java, AWS and GCP, which are eligible skills on the résumé. It has no citizenship, clearance or unpaid-work phrase. The location is 'Seattle, WA' with no non-US signal. The 5-year experience requirement and degree requirement are not gates, though they may make this a stretch for an entry-level target.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains 'Software Engineer' and none of the excluded level markers.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Python is an eligible résumé skill and appears as a whole word in the posting's language requirements.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is an eligible résumé skill and appears as a whole word in the posting's language requirements.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"AWS appears in the posting's cloud-experience requirement (GCP does as well), giving more than the two skill matches needed.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"'Seattle, WA' has US signals (Seattle and ', WA') and no non-US signal.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting asks for 5 years of experience and a Bachelor's degree, which is above Kiran's entry-level targets; this is not a rule gate, so it does not change the label.\\\",\\\"The posting says '50 % Telecommuting Permitted', so it is unclear how much of the role is on-site in Seattle.\\\"]}\",\"ttft_ms\":3908,\"type\":\"result\",\"duration_ms\":7754,\"uuid\":\"59223cb1-5359-4c1c-ae99-fa03c226b280\",\"ttft_stream_ms\":1166,\"time_to_request_ms\":52,\"first_content_frame_ms\":1166,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0298209,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

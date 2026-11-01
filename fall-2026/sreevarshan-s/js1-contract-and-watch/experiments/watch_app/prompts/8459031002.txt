@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8459031002,
+    "title": "Sr. Counsel, Regulatory",
+    "location": "Bellevue, Washington; Seattle, Washington; Washington, D.C.",
+    "description": "Location: We're looking to hire for this role locally to our offices based in Washington D.C., Bellevue, or Seattle. This will be a hybrid role with in-office expectations. Databricks is looking for a talented Senior Counsel, Regulatory to join our expanding Legal team to lead our response to the rapidly evolving global regulatory landscape. This position will sit on our Corporate Legal team and is a unique opportunity to build and own a new, cross-functional regulatory practice while providing business-focused legal advice to stakeholders throughout Databricks on a daily basis. The global regulatory environment has expanded outside of privacy and trade compliance with a wave of complex directives emerging across the US, EU, UK, Australia and other jurisdictions. You will serve as our primary internal subject matter expert on regulatory matters outside of privacy and export controls—orchestrating advice and contributions across Engineering, Product, Security, Commercial Legal, Product Legal, GTM Legal, Corporate Operations, and Finance. You will be agile, highly organized, and have the skills, drive, and flexibility to support and accelerate a leading technology company, addressing cutting-edge legal issues and organizational challenges. A successful candidate will be a resourceful self-starter, comfortable working in a fast-paced and dynamic environment, and excellent at building strong relationships. What you’ll do: Serve as the primary internal subject matter expert on emerging global regulatory frameworks outside of privacy and export controls—including DORA, NIS-2, CSR, EU Data Act, EU AI Act, CRA, DMA, and DSA—as well as various global antitrust and competition regimes and payments regulation Lead and drive the strategic implementation of these complex legislative requirements, taking ownership of the centralized regulatory roadmap, triage process, and incident response playbooks Partner cross-functionally to embed regulatory compliance by design into the architecture of the Data Intelligence Platform, Lakehouse, and agentic AI workflows, providing early visibility into regulatory blocker issues before they derail product launches or customer deployments Partner closely with Product Legal, Commercial Legal and GTM Legal to unblock high-stakes enterprise deals and partnerships, draft specialized negotiation fallbacks, and build scalable, customer-facing collateral to accelerate the sales cycle Act as the empowered regulatory point of contact on customer calls for white-glove and highly regulated customers (e.g., financial services and public sector), making decisions and proactively implementing new playbook fallbacks to maintain deal velocity Work directly with Corporate Operations to operationalize regulatory compliance controls, bridging the gap between legal advice and business execution Support strategic international expansion efforts, including navigating local AI and data regulations proactively and future-proofing for EU data sovereignty Stay current on relevant legal developments and industry trends to offer proactive advice, training, and support to the business, while leading OKRs to continuously improve and scale processes related to regulatory compliance Build strong relationships with internal stakeholders across multiple geographical locations to ensure effective communication and collaboration What we look for: At least 8 years of experience at a nationally recognized law firm and / or in-house legal department, with substantial focus on technology, data, or regulatory matters J.D. from a top-tier law school Member of a state bar in good standing for U.S. candidates You have demonstrated experience advising on global data, digital, and / or technology regulation; familiarity with frameworks such as the EU AI Act, EU Data Act, DORA, NIS-2, the DSA, or the DMA, or analogous regimes, is strongly preferred You have experience supporting SaaS, cloud, or data-platform products, and comfort partnering directly with Engineering, Product, and Security teams to operationalize regulatory requirements You have experience supporting commercial and go-to-market teams in customer-facing negotiations, including with enterprise customers in highly regulated sectors You are able to understand challenging and novel issues, assess risk, and provide concise, actionable, business-focused legal advice and counsel You can build strong and deep working relationships with internal stakeholders over multiple geographical locations You can coordinate, prioritize, and manage deadlines, workflow, and execute in a fast-paced and demanding work environment You are a self-starter with the capability to operate independently and to interact confidently with senior management when required You have a strong work ethic, excellent organizational skills, and can manage many cross-functional projects simultaneously with minimal supervision Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. GAQ227R179 Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Zone 2 Pay Range $197,800 — $272,050 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

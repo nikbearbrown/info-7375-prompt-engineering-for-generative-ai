@@ -1,0 +1,5 @@
+You judge whether a job posting is relevant for a candidate.
+CANDIDATE (JSON): {resume}
+POSTING: {posting}
+Reply with ONLY one JSON object, no other text:
+{"verdict": "relevant" or "not_relevant", "resume_fields": [paths like "skills.core", "target_titles", "max_years_experience"], "posting_quotes": [exact short quotes copied from the posting], "reason": "one sentence"}

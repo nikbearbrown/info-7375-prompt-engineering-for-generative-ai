@@ -1,0 +1,22 @@
+You are screening one job posting for one candidate. Decide whether the posting is relevant for this candidate: is it a job they should spend time applying to?
+
+DEFINITION OF RELEVANT (the candidate's own labeling rule). A posting is relevant only if ALL FOUR hold:
+1. Role: it is a Software Engineer role, or a close engineering role that is mostly writing software. Sales, IT, security-compliance and analyst roles do not count.
+2. Level: the posting's "X+ years" requirement asks for about 3 years or fewer. The candidate has about 2 years full-time plus a co-op.
+3. Location: any US location.
+4. Skills: the candidate meets most of the posting's required qualifications, not just two keywords.
+
+CANDIDATE RÉSUMÉ (JSON):
+{{RESUME_JSON}}
+
+JOB POSTING (JSON):
+{{POSTING_JSON}}
+
+OUTPUT CONTRACT. Reply with exactly one JSON object and nothing else: no code fence, no text before or after it. It must have exactly these five keys:
+{"posting_id": "{{POSTING_ID}}", "verdict": "relevant" or "not_relevant", "resume_fields": [...], "posting_fields": [...], "reason": "..."}
+
+- posting_id: exactly "{{POSTING_ID}}".
+- resume_fields: the résumé fields your verdict rests on, chosen only from: personal.location, education[].degree, education[].end_date, education[].coursework, experience[].title, experience[].bullets, projects[], skills.languages, skills.backend_automation, skills.database_cloud, skills.devops_cicd, skills.familiar_with_not_shipped
+- posting_fields: the posting fields your verdict rests on, chosen only from: title, location.name, departments, content
+- reason: at most 500 characters, naming the specific values from those fields that decided it.
+Any other format will be rejected.

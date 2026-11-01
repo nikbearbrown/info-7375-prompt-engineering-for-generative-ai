@@ -1,0 +1,188 @@
+{
+ "invoked_at_utc": "2026-10-30T21:41:14+00:00",
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "model_requested": "claude-opus-5-5",
+ "effort": "medium",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8849669002,\n \"title\": \"Senior Scale Solution Engineer (Korean-speaking; English required)\",\n \"location\": \"Tokyo, Japan\",\n \"departments\": [\n  \"Customer Success Operations \"\n ],\n \"description\": \"Req ID: CSQ327R200 Location: Tokyo, Japan Senior Scale Solution Engineer At Databricks, we aim to empower our customers to solve the world's most challenging problems using the Data + AI Platform while putting trusted data and AI in the hands of every business user. As a Senior Scale Solution Engineer, you are a technical anchor for our scaled customer motion, advising customers across many stages of their lifecycle: from pre-sales evaluation through onboarding and into production. You independently take on complex engagements and build and improve AI-augmented workflows that enable the whole team to deliver high-quality guidance at scale. The impact you will have: You will ensure customers have an excellent experience by independently owning engagements across their lifecycle. You will be the go-to expert on the Databricks Data + AI Platform, owning technical direction and building reusable AI-augmented workflows. You will work directly with multiple customers concurrently and set the quality bar for the team. What we look for: Excellent communication and interpersonal skills, with the ability to assess customer needs, foster relationships, address objections, and effectively showcase the value of the Databricks platform. Undergraduate degree or higher in Computer Science, Information Systems, or similar relevant experience. 4+ years of experience in a technical role, preferably in the Data, AI, or Cloud field. Deep knowledge of at least one of the following cloud platforms, AWS, Azure, or GCP; familiarity with more than one is a plus. Knowledge of AI-driven development with programming languages like Python or SQL, including building and extending AI-augmented workflows. Understanding of the end-to-end data analytics and data engineering workflow, and their trade-offs. Excellent time management and prioritization skills. Excellent written and verbal communication in Korean and English Nice to have: Databricks Certification Bonus: Experience building AI tooling and automation, consulting or pre-sales, or with agentic solutions. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "e11c38d9256e4dc3f1f57ae4e01dcefa40eef0adb8fd68841761e69130db3d5a",
+ "returncode": 0,
+ "stderr_tail": "",
+ "cli_json": {
+  "duration_api_ms": 5248,
+  "stop_reason": "end_turn",
+  "session_id": "50a15da9-c318-47a5-9bbf-235b8620f1c8",
+  "total_cost_usd": 0.0282092,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2284,
+   "cache_read_input_tokens": 1054,
+   "output_tokens": 472,
+   "output_tokens_details": {
+    "thinking_tokens": 116
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2284,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 472,
+     "cache_read_input_tokens": 1054,
+     "cache_creation_input_tokens": 2284,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2284
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 2644,
+    "outputTokens": 28,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.00027840000000000005,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 472,
+    "cacheReadInputTokens": 1054,
+    "cacheCreationInputTokens": 2284,
+    "webSearchRequests": 0,
+    "costUSD": 0.0279308,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 116,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": 8849669002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"senior\"]}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"programming languages like Python or SQL\"}, {\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"programming languages like Python or SQL\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we aim to empower our customers\"}]}, \"explanation\": \"The title contains no eligible role phrase ('solution engineer' is not on the list) and includes the excluded word 'senior', so A and B fail. Python and SQL (skills.languages) and Databricks (skills.data_bi) all appear in the description, so C passes, but the verdict is still not_relevant.\"}",
+  "ttft_ms": 2119,
+  "type": "result",
+  "duration_ms": 4456,
+  "uuid": "e4afb596-c372-43a3-a240-c02f46f2c6bc",
+  "ttft_stream_ms": 1152,
+  "time_to_request_ms": 81,
+  "time_to_request_phases_ms": {
+   "other": 8,
+   "system_prompt": 0,
+   "resume_other": 1,
+   "process_user_input": 1,
+   "input_attachments": 8,
+   "input_hooks": 1,
+   "tool_pool_refresh": 0,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 0,
+   "model_config_wait": 0,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 52,
+   "tool_schema_build": 3,
+   "message_normalization": 1,
+   "client_creation": 1,
+   "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 0,
+  "time_to_request_cpu_ms": 84,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 6,
+   "cpu_ms": 15,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1152,
+  "queued_turn_count": 0,
+  "result_index": 0
+ },
+ "finished_at_utc": "2026-10-30T21:41:20+00:00",
+ "wall_seconds": 5.53,
+ "response_text": "{\"posting_id\": 8849669002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"senior\"]}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"programming languages like Python or SQL\"}, {\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"programming languages like Python or SQL\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we aim to empower our customers\"}]}, \"explanation\": \"The title contains no eligible role phrase ('solution engineer' is not on the list) and includes the excluded word 'senior', so A and B fail. Python and SQL (skills.languages) and Databricks (skills.data_bi) all appear in the description, so C passes, but the verdict is still not_relevant.\"}",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "50a15da9-c318-47a5-9bbf-235b8620f1c8",
+ "transport_ok": true,
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "posting_id_requested": 8849669002,
+ "attempt": 1,
+ "valid": true,
+ "validation_errors": []
+}

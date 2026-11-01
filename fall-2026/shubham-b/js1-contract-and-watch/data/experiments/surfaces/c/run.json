@@ -1,0 +1,50 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--strict-mcp-config",
+    "--disallowedTools",
+    "mcp__*",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--model",
+    "claude-sonnet-5-5",
+    "--max-budget-usd",
+    "0.50",
+    "--restricted",
+    "--tools",
+    "WebFetch,Read,Edit,Write",
+    "--allowedTools",
+    "WebFetch(domain:boards-api.greenhouse.io)",
+    "Read(./state.json)",
+    "Edit(./state.json)",
+    "--permission-mode",
+    "dontAsk"
+  ],
+  "cwd": "data/experiments/surfaces/c/sandbox",
+  "duration_ms": 50064,
+  "env_added_or_set": [
+    "CLAUDE_CODE_DISABLE_CLAUDE_MDS",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC",
+    "ENABLE_CLAUDEAI_MCP_SERVERS"
+  ],
+  "env_removed": [],
+  "exit_code": 0,
+  "independent_check": {
+    "bytes": 460688,
+    "error": null,
+    "fetched_at_utc": "2026-10-30T07:13:15.825870+00:00",
+    "http_status": 200,
+    "sha256": "57a532aabd8b4bbe88f76074fad18143ec3696ca05d00b54214e8bf663d876f8",
+    "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+  },
+  "started_at_utc": "2026-10-30T07:12:25.638088+00:00",
+  "stderr": "",
+  "surface": "c",
+  "timed_out": false
+}

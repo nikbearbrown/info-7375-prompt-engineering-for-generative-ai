@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6800,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "0d229366981b1777ee61a283f8908ce3426d265048fdd35f5cba82811c3f14c5",
+  "posting_id": "8265763",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "39593cd3-5c03-48fc-9754-dd006618369c",
+  "started_at_et": "2026-10-31T14:32:27.285490-04:00",
+  "started_at_utc": "2026-10-31T18:32:27.285490Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6506,\"stop_reason\":\"end_turn\",\"session_id\":\"39593cd3-5c03-48fc-9754-dd006618369c\",\"total_cost_usd\":0.028668900000000004,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5021,\"cache_read_input_tokens\":1109,\"output_tokens\":847,\"output_tokens_details\":{\"thinking_tokens\":381},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5021,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":847,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5021,\"webSearchRequests\":0,\"costUSD\":0.028668900000000004,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":381,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5021,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title passes: it is a Software Engineer role with no excluded marker. The exclusion gate also passes, since no citizenship, clearance or unpaid phrase appears. Two gates fail. Skill gate: only Java matches an eligible skill (Go is not eligible), so there is one match and two are required. Location gate: the location name is \\\\\\\"na\\\\\\\", which has no US signal, and the content has no US-only rescue phrase. The Seattle mention in the content is not a rescue phrase.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains \\\\\\\"software engineer\\\\\\\" and no excluded marker, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is the only eligible skill found, in the preferred qualifications. One match is below the required two, so the skill gate fails.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location \\\\\\\"na\\\\\\\" has no US signal and no rescue phrase appears in the content, so the location gate fails.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting's actual work location or remote eligibility cannot be established; the location is \\\\\\\"na\\\\\\\" and the content only mentions a small in-person presence in Seattle.\\\"]}\",\"ttft_ms\":3770,\"type\":\"result\",\"duration_ms\":6559,\"uuid\":\"d9b2ad42-1d8e-4c7a-bcdf-68b92e052517\",\"ttft_stream_ms\":1163,\"time_to_request_ms\":50,\"first_content_frame_ms\":1163,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.028668900000000004,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

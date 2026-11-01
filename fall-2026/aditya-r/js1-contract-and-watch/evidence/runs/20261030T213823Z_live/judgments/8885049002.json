@@ -1,0 +1,53 @@
+{
+ "posting_id": 8885049002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8885049002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "senior",
+    "architect"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Expert-level coding proficiency — Python, SQL"
+    },
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Python, SQL, and ideally Spark/PySpark"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, our core values"
+    }
+   ]
+  },
+  "explanation": "The title 'Senior Solutions Architect - Digital Natives' contains no eligible role phrase and includes the excluded words 'senior' and 'architect', so it fails conditions A and B. The description shares python and sql (skills.languages) and databricks (skills.data_bi) with the résumé, so condition C passes, but the verdict is still not_relevant."
+ },
+ "attempt_files": [
+  "8885049002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "9fb466db-3c4c-4555-a972-30fdf2deb41e",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

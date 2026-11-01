@@ -1,0 +1,19 @@
+You are judging whether one job posting is relevant for a job-seeking candidate.
+
+Candidate (fictional persona "Priya Nair"):
+- Target roles: AI Engineer / ML Engineer; secondary: Data Engineer.
+- Excluded: roles requiring a security clearance.
+- Skills (shipped): Python, SQL, Databricks, Unity Catalog, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.
+- Familiar with but not shipped: Ray, Kubeflow.
+- Education: MS, Information Systems (completed 2025-12). Experience: one AI Engineer co-op (2025-01 to 2025-08).
+
+Posting:
+- posting_id: <<POSTING_ID>>
+- title: <<TITLE>>
+- location: <<LOCATION>>
+- content:
+<<CONTENT>>
+
+Return ONLY a JSON object, with no code fences and no other text, in exactly this shape:
+{"posting_id": <<POSTING_ID>>, "verdict": "relevant" or "not_relevant", "resume_fields": ["..."], "posting_fields": ["..."], "reason": "..."}
+resume_fields must name the candidate fields you relied on (e.g. "skills.languages", "target.excluded_terms"). posting_fields must name posting fields (e.g. "posting.title", "posting.location", "posting.content"). Both lists must be non-empty.

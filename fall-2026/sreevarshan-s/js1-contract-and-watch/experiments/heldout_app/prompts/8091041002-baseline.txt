@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8091041002,
+    "title": "Applied AI Engineer",
+    "location": "Belgrade, Serbia",
+    "description": "Build agentic end-to-end systems in a small, highly international team of experienced engineers in a flat and agile organization. Build solutions for people like you: software engineers, ML engineers, data engineers, data scientists and MLOps engineers. Own our applied ML investment by engaging with engineering and product teams across the company. Drive the development and deployment of state-of-the-art ML/AI models and systems that directly impact the capabilities and performance of Databricks’ products, infrastructure, and services. Architect and implement robust, scalable ML infrastructure, including model training and serving components to support seamless integration of AI/ML models into production environments. Work on novel forecasting techniques. Possibilities to contribute to the broader AI community by presenting at conferences and actively participating in open source projects, enhancing Databricks’ reputation as an industry leader. 2-8 years of engineering experience in high-velocity, high-growth companies. Infrastructure and system engineers with no ML background and willingness to excel in personal growth are welcome to apply. Strong software engineering skills, and familiarity with software engineering principles around testing and deployment. Experience developing AI/ML systems at scale in production and a strong track record of ML modeling that goes beyond using standard libraries is a plus. Nice to have: experience deploying, scaling, and monitoring models in production; understanding of the unique infrastructure challenges posed by training and serving predictions in Tier 0 environments. Why Join Us? About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. P-1439 As Applied ML/AI Engineer at Databricks, you will define and create the Agentic Machine Learning revolution. You will help world’s largest companies build and deploy massive classical machine learning solutions (such as personalized recommendations, fraud detection, dynamic pricing, forecasting) fully using Databricks’ agents and harnesses. After 30 years of painfully slow progress, expensive knowledge acquisition and tedious processes in classical ML, the agentic era has ushered innovation, scale and visibility for all: from the most junior data scientists and machine learning engineers to the world class experts. You will work on Databricks’ Genie Code, an agent and an ML “exoskeleton” that is authoring ML, training and deploying models, monitoring and self-healing production ML, all at the top-expert level. Additionally, you will develop ML solutions that under the hood address the most pressing questions non-technical business people have today: predictive and what-if questions. Your work is a top priority for Databricks and you will report to a Principal Software Engineer (a Director level position). The impact you will have: What we look for: At Databricks, we are building state-of-the-art AI solutions that redefine how users interact with data and our products. You’ll have the opportunity to shape the future of AI-driven products at Databricks, work with cutting-edge models, and collaborate with a world-class team of AI and ML experts. If you're excited about pushing the boundaries of AI in real-world applications, we’d love to hear from you! Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

@@ -1,0 +1,1390 @@
+{
+  "run": {
+    "stamp": "2026-10-30T23-59-22Z",
+    "board": "databricks",
+    "raw_evidence": "evidence/raw/2026-10-30T23-59-22Z.json",
+    "fetched": 901,
+    "new": 10,
+    "removed": 14,
+    "removed_ids": [
+      8073294002,
+      8301830002,
+      8438767002,
+      8569524002,
+      8629997002,
+      8641466002,
+      8642499002,
+      8717004002,
+      8747434002,
+      8755666002,
+      8778009002,
+      8826872002,
+      8873053002,
+      8899659002
+    ],
+    "previous_run": "2026-10-29T22-15-02Z",
+    "previous_state_backup": "seen_ids.2026-10-29T22-15-02Z.json"
+  },
+  "records": [
+    {
+      "label": "record",
+      "posting_id": 8824171002,
+      "title": "AI Sales Director",
+      "company": "Databricks",
+      "location": "San Francisco, California; United States; West Coast - United States",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8824171002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "reason": "title contains seniority term(s) ['director']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "director"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": false,
+          "reason": "title contains seniority term(s) ['director']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "director"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": true,
+          "reason": "no mandatory minimum stated",
+          "evidence": []
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement onsite",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": "not specified",
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "onsite",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 2 failed: title contains seniority term(s) ['director']; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8860646002,
+      "title": "Analyst Relations Manager",
+      "company": "Databricks",
+      "location": "United States",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8860646002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "reason": "title contains seniority term(s) ['manager']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "manager"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "reason": "highest mandatory minimum is 4 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "4–7 years",
+              "minimum": 4,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "4–7 years of experience in analyst relations, or in product or technical marketing with direct responsibility for major analyst evaluations, ideally in data, analytics, AI/ML or cloud platforms."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": false,
+          "reason": "title contains seniority term(s) ['manager']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "manager"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": false,
+          "reason": "highest mandatory minimum is 4 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "4–7 years",
+              "minimum": 4,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "4–7 years of experience in analyst relations, or in product or technical marketing with direct responsibility for major analyst evaluations, ideally in data, analytics, AI/ML or cloud platforms."
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": 4,
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 2 failed: title contains seniority term(s) ['manager']; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']; check 4 failed: highest mandatory minimum is 4 years. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8924302002,
+      "title": "Business Development Representative (German-speaking, DACH)",
+      "company": "Databricks",
+      "location": "Munich, Germany",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8924302002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": true,
+          "reason": "no seniority term in title",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": true,
+          "reason": "no mandatory minimum stated",
+          "evidence": []
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement hybrid",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": "not specified",
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "hybrid",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8917482002,
+      "title": "Business Development Representative (UKI)",
+      "company": "Databricks",
+      "location": "London, United Kingdom",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8917482002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": true,
+          "reason": "no seniority term in title",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": true,
+          "reason": "no mandatory minimum stated",
+          "evidence": []
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement hybrid",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": "not specified",
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "hybrid",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8569528002,
+      "title": "Lakebase Sales Specialist, Benelux",
+      "company": "Databricks",
+      "location": "Amsterdam, Netherlands",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8569528002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": true,
+          "reason": "no seniority term in title",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": true,
+          "reason": "2 matching résumé skill(s): ['Unity Catalog', 'AWS']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            },
+            {
+              "skill": "AWS",
+              "resume_fields": [
+                "skills.database_cloud[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": true,
+          "reason": "no mandatory minimum stated",
+          "evidence": []
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        },
+        {
+          "skill": "AWS",
+          "resume_fields": [
+            "skills.database_cloud[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "AWS"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": "not specified",
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase. Skills cited from résumé: Unity Catalog (skills.data_bi[1]), AWS (skills.database_cloud[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8924844002,
+      "title": "Lakebase Sales Specialist (Greater China Region)",
+      "company": "Databricks",
+      "location": "China",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8924844002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "reason": "highest mandatory minimum is 7 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "7+ years",
+              "minimum": 7,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "7+ years of enterprise SaaS sales experience, consistently exceeding quota in complex, multi-stakeholder deals in Greater China region."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": true,
+          "reason": "no seniority term in title",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": true,
+          "reason": "2 matching résumé skill(s): ['Unity Catalog', 'AWS']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            },
+            {
+              "skill": "AWS",
+              "resume_fields": [
+                "skills.database_cloud[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": false,
+          "reason": "highest mandatory minimum is 7 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "7+ years",
+              "minimum": 7,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "7+ years of enterprise SaaS sales experience, consistently exceeding quota in complex, multi-stakeholder deals in Greater China region."
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        },
+        {
+          "skill": "AWS",
+          "resume_fields": [
+            "skills.database_cloud[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "AWS"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": 7,
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 4 failed: highest mandatory minimum is 7 years. Skills cited from résumé: Unity Catalog (skills.data_bi[1]), AWS (skills.database_cloud[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8569578002,
+      "title": "Lakebase Sales Specialist (Greater China Region)",
+      "company": "Databricks",
+      "location": "Singapore",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8569578002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "reason": "highest mandatory minimum is 7 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "7+ years",
+              "minimum": 7,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "7+ years of enterprise SaaS sales experience, consistently exceeding quota in complex, multi-stakeholder deals in Greater China region."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": true,
+          "reason": "no seniority term in title",
+          "evidence": []
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": true,
+          "reason": "2 matching résumé skill(s): ['Unity Catalog', 'AWS']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            },
+            {
+              "skill": "AWS",
+              "resume_fields": [
+                "skills.database_cloud[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": false,
+          "reason": "highest mandatory minimum is 7 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "7+ years",
+              "minimum": 7,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "7+ years of enterprise SaaS sales experience, consistently exceeding quota in complex, multi-stakeholder deals in Greater China region."
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        },
+        {
+          "skill": "AWS",
+          "resume_fields": [
+            "skills.database_cloud[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "AWS"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": 7,
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 4 failed: highest mandatory minimum is 7 years. Skills cited from résumé: Unity Catalog (skills.data_bi[1]), AWS (skills.database_cloud[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8922730002,
+      "title": "Sr. Collections Analyst",
+      "company": "Databricks",
+      "location": "Bengaluru, India",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922730002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "reason": "highest mandatory minimum is 10 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "10+ years",
+              "minimum": 10,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "10+ years of collections experience, ideally with both public/private technology companies."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": false,
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": false,
+          "reason": "highest mandatory minimum is 10 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "10+ years",
+              "minimum": 10,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "10+ years of collections experience, ideally with both public/private technology companies."
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": 10,
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 2 failed: title contains seniority term(s) ['sr']; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']; check 4 failed: highest mandatory minimum is 10 years. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8922120002,
+      "title": "Sr. Counsel, Employment",
+      "company": "Databricks",
+      "location": "Bellevue, Washington; Seattle, Washington; Washington, D.C.",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922120002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": false,
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": true,
+          "reason": "no mandatory minimum stated",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "10+ years",
+              "minimum": 10,
+              "optional": true,
+              "under_preferred_heading": false,
+              "sentence": "10+ years of relevant employment-law experience, with substantial experience advising sophisticated organizations; in-house experience, including firm secondee experience, strongly preferred."
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement not specified",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": "not specified",
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "not specified",
+      "work_arrangement_conflict": null,
+      "explanation": "check 1 failed: title contains no approved role phrase; check 2 failed: title contains seniority term(s) ['sr']; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    },
+    {
+      "label": "record",
+      "posting_id": 8459031002,
+      "title": "Sr. Counsel, Regulatory",
+      "company": "Databricks",
+      "location": "Bellevue, Washington; Seattle, Washington; Washington, D.C.",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8459031002",
+      "verdict": "not relevant",
+      "failed_checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "reason": "highest mandatory minimum is 8 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "At least 8 years",
+              "minimum": 8,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "Location: We're looking to hire for this role locally to our offices based in Washington D.C., Bellevue, or Seattle. This will be a hybrid role with in-office expectations. Databricks is looking for a talented Senior Counsel, Regulatory to join our expanding Legal team to lead our response to the rapidly evolving global regulatory landscape. This position will sit on our Corporate Legal team and is a unique opportunity to build and own a new, cross-functional regulatory practice while providing business-focused legal advice to stakeholders throughout Databricks on a daily basis. The global regulatory environment has expanded outside of privacy and trade compliance with a wave of complex directives emerging across the US, EU, UK, Australia and other jurisdictions. You will serve as our primary internal subject matter expert on regulatory matters outside of privacy and export controls—orchestrating advice and contributions across Engineering, Product, Security, Commercial Legal, Product Legal, GTM Legal, Corporate Operations, and Finance. You will be agile, highly organized, and have the skills, drive, and flexibility to support and accelerate a leading technology company, addressing cutting-edge legal issues and organizational challenges. A successful candidate will be a resourceful self-starter, comfortable working in a fast-paced and dynamic environment, and excellent at building strong relationships. What you’ll do: Serve as the primary internal subject matter expert on emerging global regulatory frameworks outside of privacy and export controls—including DORA, NIS-2, CSR, EU Data Act, EU AI Act, CRA, DMA, and DSA—as well as various global antitrust and competition regimes and payments regulation Lead and drive the strategic implementation of these complex legislative requirements, taking ownership of the centralized regulatory roadmap, triage process, and incident response playbooks Partner cross-functionally to embed regulatory compliance by design into the architecture of the Data Intelligence Platform, Lakehouse, and agentic AI workflows, providing early visibility into regulatory blocker issues before they derail product launches or customer deployments Partner closely with Product Legal, Commercial Legal and GTM Legal to unblock high-stakes enterprise deals and partnerships, draft specialized negotiation fallbacks, and build scalable, customer-facing collateral to accelerate the sales cycle Act as the empowered regulatory point of contact on customer calls for white-glove and highly regulated customers (e.g., financial services and public sector), making decisions and proactively implementing new playbook fallbacks to maintain deal velocity Work directly with Corporate Operations to operationalize regulatory compliance controls, bridging the gap between legal advice and business execution Support strategic international expansion efforts, including navigating local AI and data regulations proactively and future-proofing for EU data sovereignty Stay current on relevant legal developments and industry trends to offer proactive advice, training, and support to the business, while leading OKRs to continuously improve and scale processes related to regulatory compliance Build strong relationships with internal stakeholders across multiple geographical locations to ensure effective communication and collaboration What we look for: At least 8 years of experience at a nationally recognized law firm and / or in-house legal department, with substantial focus on technology, data, or regulatory matters J.D. from a top-tier law school Member of a state bar in good standing for U.S. candidates You have demonstrated experience advising on global data, digital, and / or technology regulation; familiarity with frameworks such as the EU AI Act, EU Data Act, DORA, NIS-2, the DSA, or the DMA, or analogous regimes, is strongly preferred You have experience supporting SaaS, cloud, or data-platform products, and comfort partnering directly with Engineering, Product, and Security teams to operationalize regulatory requirements You have experience supporting commercial and go-to-market teams in customer-facing negotiations, including with enterprise customers in highly regulated sectors You are able to understand challenging and novel issues, assess risk, and provide concise, actionable, business-focused legal advice and counsel You can build strong and deep working relationships with internal stakeholders over multiple geographical locations You can coordinate, prioritize, and manage deadlines, workflow, and execute in a fast-paced and demanding work environment You are a self-starter with the capability to operate independently and to interact confidently with senior management when required You have a strong work ethic, excellent organizational skills, and can manage many cross-functional projects simultaneously with minimal supervision Pay Range Transparency"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "check": 1,
+          "name": "role phrase in title",
+          "passed": false,
+          "reason": "title contains no approved role phrase",
+          "evidence": []
+        },
+        {
+          "check": 2,
+          "name": "no seniority term in title",
+          "passed": false,
+          "reason": "title contains seniority term(s) ['sr']",
+          "evidence": [
+            {
+              "posting_field": "title",
+              "phrase": "sr"
+            }
+          ]
+        },
+        {
+          "check": 3,
+          "name": "at least 2 matching résumé skills",
+          "passed": false,
+          "reason": "1 matching résumé skill(s): ['Unity Catalog']",
+          "evidence": [
+            {
+              "skill": "Unity Catalog",
+              "resume_fields": [
+                "skills.data_bi[1]"
+              ]
+            }
+          ]
+        },
+        {
+          "check": 4,
+          "name": "minimum experience not above 3 years",
+          "passed": false,
+          "reason": "highest mandatory minimum is 8 years",
+          "evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "At least 8 years",
+              "minimum": 8,
+              "optional": false,
+              "under_preferred_heading": false,
+              "sentence": "Location: We're looking to hire for this role locally to our offices based in Washington D.C., Bellevue, or Seattle. This will be a hybrid role with in-office expectations. Databricks is looking for a talented Senior Counsel, Regulatory to join our expanding Legal team to lead our response to the rapidly evolving global regulatory landscape. This position will sit on our Corporate Legal team and is a unique opportunity to build and own a new, cross-functional regulatory practice while providing business-focused legal advice to stakeholders throughout Databricks on a daily basis. The global regulatory environment has expanded outside of privacy and trade compliance with a wave of complex directives emerging across the US, EU, UK, Australia and other jurisdictions. You will serve as our primary internal subject matter expert on regulatory matters outside of privacy and export controls—orchestrating advice and contributions across Engineering, Product, Security, Commercial Legal, Product Legal, GTM Legal, Corporate Operations, and Finance. You will be agile, highly organized, and have the skills, drive, and flexibility to support and accelerate a leading technology company, addressing cutting-edge legal issues and organizational challenges. A successful candidate will be a resourceful self-starter, comfortable working in a fast-paced and dynamic environment, and excellent at building strong relationships. What you’ll do: Serve as the primary internal subject matter expert on emerging global regulatory frameworks outside of privacy and export controls—including DORA, NIS-2, CSR, EU Data Act, EU AI Act, CRA, DMA, and DSA—as well as various global antitrust and competition regimes and payments regulation Lead and drive the strategic implementation of these complex legislative requirements, taking ownership of the centralized regulatory roadmap, triage process, and incident response playbooks Partner cross-functionally to embed regulatory compliance by design into the architecture of the Data Intelligence Platform, Lakehouse, and agentic AI workflows, providing early visibility into regulatory blocker issues before they derail product launches or customer deployments Partner closely with Product Legal, Commercial Legal and GTM Legal to unblock high-stakes enterprise deals and partnerships, draft specialized negotiation fallbacks, and build scalable, customer-facing collateral to accelerate the sales cycle Act as the empowered regulatory point of contact on customer calls for white-glove and highly regulated customers (e.g., financial services and public sector), making decisions and proactively implementing new playbook fallbacks to maintain deal velocity Work directly with Corporate Operations to operationalize regulatory compliance controls, bridging the gap between legal advice and business execution Support strategic international expansion efforts, including navigating local AI and data regulations proactively and future-proofing for EU data sovereignty Stay current on relevant legal developments and industry trends to offer proactive advice, training, and support to the business, while leading OKRs to continuously improve and scale processes related to regulatory compliance Build strong relationships with internal stakeholders across multiple geographical locations to ensure effective communication and collaboration What we look for: At least 8 years of experience at a nationally recognized law firm and / or in-house legal department, with substantial focus on technology, data, or regulatory matters J.D. from a top-tier law school Member of a state bar in good standing for U.S. candidates You have demonstrated experience advising on global data, digital, and / or technology regulation; familiarity with frameworks such as the EU AI Act, EU Data Act, DORA, NIS-2, the DSA, or the DMA, or analogous regimes, is strongly preferred You have experience supporting SaaS, cloud, or data-platform products, and comfort partnering directly with Engineering, Product, and Security teams to operationalize regulatory requirements You have experience supporting commercial and go-to-market teams in customer-facing negotiations, including with enterprise customers in highly regulated sectors You are able to understand challenging and novel issues, assess risk, and provide concise, actionable, business-focused legal advice and counsel You can build strong and deep working relationships with internal stakeholders over multiple geographical locations You can coordinate, prioritize, and manage deadlines, workflow, and execute in a fast-paced and demanding work environment You are a self-starter with the capability to operate independently and to interact confidently with senior management when required You have a strong work ethic, excellent organizational skills, and can manage many cross-functional projects simultaneously with minimal supervision Pay Range Transparency"
+            }
+          ]
+        },
+        {
+          "check": 5,
+          "name": "no explicit security clearance requirement",
+          "passed": true,
+          "reason": "no clearance requirement",
+          "evidence": []
+        },
+        {
+          "check": 6,
+          "name": "sponsorship not denied (profile.needs_sponsorship)",
+          "passed": true,
+          "reason": "sponsorship unknown; profile.needs_sponsorship is True",
+          "evidence": []
+        },
+        {
+          "check": 7,
+          "name": "location reported (never rejects)",
+          "passed": true,
+          "reason": "work arrangement conflict",
+          "evidence": []
+        }
+      ],
+      "matched_skills": [
+        {
+          "skill": "Unity Catalog",
+          "resume_fields": [
+            "skills.data_bi[1]"
+          ],
+          "posting_evidence": [
+            {
+              "posting_field": "content",
+              "phrase": "Unity Catalog"
+            }
+          ]
+        }
+      ],
+      "familiar_not_counted": [],
+      "min_years_required": 8,
+      "entry_level_phrases": [],
+      "sponsorship": {
+        "value": "unknown",
+        "evidence": [],
+        "profile_field": "profile.needs_sponsorship"
+      },
+      "work_arrangement": "conflict",
+      "work_arrangement_conflict": {
+        "location.name": [],
+        "content": [
+          "hybrid",
+          "onsite"
+        ]
+      },
+      "explanation": "check 1 failed: title contains no approved role phrase; check 2 failed: title contains seniority term(s) ['sr']; check 3 failed: 1 matching résumé skill(s): ['Unity Catalog']; check 4 failed: highest mandatory minimum is 8 years. Skills cited from résumé: Unity Catalog (skills.data_bi[1])"
+    }
+  ]
+}

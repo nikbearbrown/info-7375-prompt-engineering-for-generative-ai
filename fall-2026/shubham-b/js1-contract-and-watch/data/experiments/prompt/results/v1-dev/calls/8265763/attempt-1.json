@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6943,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "0d229366981b1777ee61a283f8908ce3426d265048fdd35f5cba82811c3f14c5",
+  "posting_id": "8265763",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "30202a69-ccce-4e91-b292-3a1c54b6ff6b",
+  "started_at_et": "2026-10-31T14:22:28.860431-04:00",
+  "started_at_utc": "2026-10-31T18:22:28.860431Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6655,\"stop_reason\":\"end_turn\",\"session_id\":\"30202a69-ccce-4e91-b292-3a1c54b6ff6b\",\"total_cost_usd\":0.022724900000000003,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3635,\"cache_read_input_tokens\":1109,\"output_tokens\":807,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3635,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":807,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3635,\"webSearchRequests\":0,\"costUSD\":0.022724900000000003,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3635,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a Software Engineer position on a security and authorization infrastructure team, which matches Kiran's target role title. However, it asks for 2-5 years of professional experience and experience in the security domain, which does not fit well with the New Grad/Entry/SWE I-II targets and Kiran's background (patient-portal and order-service work, with only a redaction layer touching security). The location is not stated, with only a note about a distributed team and a small Seattle presence, so US or remote eligibility cannot be confirmed. Kiran's Java skills match a preferred qualification, but that is a bonus only.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 2-5 years of professional experience and security-domain experience, which sits above or outside Kiran's New Grad/Entry/SWE I-II target levels.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title Software Engineer matches Kiran's target role, but the team focus is internal identity and authorization infrastructure.\\\"},{\\\"resume_path\\\":\\\"$.experience[0].bullets[2]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran's only security-adjacent experience is a Sentry redaction layer, which is thin against a Security Infrastructure department requiring security-domain experience.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is listed as a preferred language in the posting and Kiran knows it, but preferred qualifications are only a bonus.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The posting location is given only as 'na', so it cannot be matched to United States or Remote (US).\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is unknown.\\\",\\\"The location is given as 'na'; the text mentions a distributed team and a small in-person presence in Seattle, but does not confirm US-remote eligibility.\\\",\\\"The posting does not say whether it requires U.S. citizenship or a security clearance, so Kiran's exclusion cannot be checked.\\\",\\\"The level is not explicitly named; the 2-5 years requirement suggests mid-level but does not rule out SWE II.\\\",\\\"The posting does not state whether the role is paid, although this is very likely for a full-time position.\\\"]}\",\"ttft_ms\":6695,\"type\":\"result\",\"duration_ms\":6708,\"uuid\":\"2c05f0e1-2247-460a-a01c-d643c4b569b7\",\"ttft_stream_ms\":1257,\"time_to_request_ms\":52,\"first_content_frame_ms\":1257,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.022724900000000003,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

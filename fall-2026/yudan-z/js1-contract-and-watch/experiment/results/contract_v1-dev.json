@@ -1,0 +1,121 @@
+{
+ "prompt": "contract_v1.txt",
+ "split": "dev",
+ "run_at": "2026-10-30T23:34:21+00:00",
+ "model_via": "Claude Code CLI `claude -p`, one fresh conversation per posting",
+ "passed": 9,
+ "total": 10,
+ "invalid": 0,
+ "rows": [
+  {
+   "n": 1,
+   "title": "Analyst, Early Career (Full Stack)",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "R6 fails: content says 'Please note that visa sponsorship is not available for this position', and work_authorization shows needs_sponsorship=true (F-1/OPT). R1 also fails on the title: 'Analyst, Early Career' does not contain any full target role, such as 'Data Analyst'.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"work_authorization\", \"target_roles\"], \"posting_fields\": [\"content\", \"title\"], \"justification\": \"R6 fails: content says 'Please note that visa sponsorship is not available for this position', and work_authorization shows needs_sponsorship=true (F-1/OPT). R1 also fails on the title: 'Analyst, Early Career' does not contain any full target role, such as 'Data Analyst'.\"}\n"
+  },
+  {
+   "n": 2,
+   "title": "Analytics Engineer",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Title 'Analytics Engineer' contains target role 'Analytics' (R1 passes) and no seniority words (R2 passes). However, the content requires '3+ years of experience working with large-scale ETL systems'. That is a minimum of 3 years, so R4 fails. The candidate has experience_years 0.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"Title 'Analytics Engineer' contains target role 'Analytics' (R1 passes) and no seniority words (R2 passes). However, the content requires '3+ years of experience working with large-scale ETL systems'. That is a minimum of 3 years, so R4 fails. The candidate has experience_years 0.\"}\n"
+  },
+  {
+   "n": 3,
+   "title": "Data Analyst, Intern",
+   "hand_label": "relevant",
+   "claude_verdict": "relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Title 'Data Analyst, Intern' matches target_roles and has no seniority word. New York, Seattle and South San Francisco are US cities. Content has no minimum years, no citizenship, clearance or PhD requirement, and no 'no sponsorship' statement. It names SQL and A/B testing from skills. Grad window Dec 2027 to summer 2028 overlaps education 2027-05 to 2027-12.",
+   "error": null,
+   "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"education\", \"work_authorization\", \"experience_years\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Title 'Data Analyst, Intern' matches target_roles and has no seniority word. New York, Seattle and South San Francisco are US cities. Content has no minimum years, no citizenship, clearance or PhD requirement, and no 'no sponsorship' statement. It names SQL and A/B testing from skills. Grad window Dec 2027 to summer 2028 overlaps education 2027-05 to 2027-12.\"}\n"
+  },
+  {
+   "n": 4,
+   "title": "Fraud Investigations Analyst",
+   "hand_label": "relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": false,
+   "justification": "R1 fails: title 'Fraud Investigations Analyst' contains none of the target_roles phrases (e.g. 'Data Analyst', 'Business Analyst'). R8 also fails: content names none of the candidate's skills (no Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). Location (US) and 0-2 yrs experience would pass.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"R1 fails: title 'Fraud Investigations Analyst' contains none of the target_roles phrases (e.g. 'Data Analyst', 'Business Analyst'). R8 also fails: content names none of the candidate's skills (no Python, SQL, pandas, Tableau, Excel, statistics, A/B testing, data visualization). Location (US) and 0-2 yrs experience would pass.\"}\n"
+  },
+  {
+   "n": 5,
+   "title": "Risk Analyst",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "Fails R1: the title 'Risk Analyst' contains none of the target_roles (Data Analyst, Business Analyst, Product Analyst, Analytics, Business Intelligence). Fails R4: the content requires a minimum of 4 years of P&C experience, and experience_years is 0. Fails R8: none of the candidate's skills appear in the content.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"Fails R1: the title 'Risk Analyst' contains none of the target_roles (Data Analyst, Business Analyst, Product Analyst, Analytics, Business Intelligence). Fails R4: the content requires a minimum of 4 years of P&C experience, and experience_years is 0. Fails R8: none of the candidate's skills appear in the content.\"}\n"
+  },
+  {
+   "n": 6,
+   "title": "Data Analyst, NYC ",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "R4 fails: the posting content requires '6+ years of full-time experience', which is above the 3-year limit (the candidate has 0). The title 'Data Analyst' matches target_roles and has no seniority words (R1, R2 pass). The New York location is in the US (R3). Skills SQL and Python appear in the content (R8). R4 alone makes it not_relevant.",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R4 fails: the posting content requires '6+ years of full-time experience', which is above the 3-year limit (the candidate has 0). The title 'Data Analyst' matches target_roles and has no seniority words (R1, R2 pass). The New York location is in the US (R3). Skills SQL and Python appear in the content (R8). R4 alone makes it not_relevant.\"}\n"
+  },
+  {
+   "n": 7,
+   "title": "Senior Business Analyst, TPRM",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "title 'Senior Business Analyst, TPRM' contains 'Business Analyst' (R1 ok) but also 'Senior' (fails R2). content requires 4+ years of experience vs experience_years 0 (fails R4). content names none of the candidate's skills (Python, SQL, Tableau, etc.) beyond generic 'analytical' (fails R8).",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\"], \"posting_fields\": [\"title\", \"content\"], \"justification\": \"title 'Senior Business Analyst, TPRM' contains 'Business Analyst' (R1 ok) but also 'Senior' (fails R2). content requires 4+ years of experience vs experience_years 0 (fails R4). content names none of the candidate's skills (Python, SQL, Tableau, etc.) beyond generic 'analytical' (fails R8).\"}\n"
+  },
+  {
+   "n": 8,
+   "title": "Data Analyst II",
+   "hand_label": "not_relevant",
+   "claude_verdict": "not_relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "title 'Data Analyst II' contains target role 'Data Analyst' with no excluded word (R1, R2 pass). location is São Paulo, Brazil, not the US, so R3 fails. content requires '4+ years of experience', so R4 fails against experience_years 0. skills Python, SQL, pandas, Tableau appear (R8 passes).",
+   "error": null,
+   "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"location\", \"experience_years\", \"skills\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title 'Data Analyst II' contains target role 'Data Analyst' with no excluded word (R1, R2 pass). location is São Paulo, Brazil, not the US, so R3 fails. content requires '4+ years of experience', so R4 fails against experience_years 0. skills Python, SQL, pandas, Tableau appear (R8 passes).\"}\n"
+  },
+  {
+   "n": 9,
+   "title": "Software Engineer II, Data Analytics & Engineering",
+   "hand_label": "relevant",
+   "claude_verdict": "relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "R1: the title contains 'Analytics' (a target role). R2: none of the excluded words; 'II' is not 'III'. R3: location is San Francisco, CA, US / Remote, US. R4: content asks for at least 2 years, under 3. R5-R7: no citizenship, clearance, no-sponsorship or PhD requirement. R8: SQL and Python appear in content. R9: no graduation window.",
+   "error": null,
+   "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\", \"work_authorization\", \"skills\", \"education\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1: the title contains 'Analytics' (a target role). R2: none of the excluded words; 'II' is not 'III'. R3: location is San Francisco, CA, US / Remote, US. R4: content asks for at least 2 years, under 3. R5-R7: no citizenship, clearance, no-sponsorship or PhD requirement. R8: SQL and Python appear in content. R9: no graduation window.\"}\n"
+  },
+  {
+   "n": 10,
+   "title": "Data Analyst, In-Store",
+   "hand_label": "relevant",
+   "claude_verdict": "relevant",
+   "status": "valid",
+   "match": true,
+   "justification": "R1-R2: title 'Data Analyst, In-Store' matches a target role and has no seniority words ('Manager' is only in the content). R3: all locations are US cities. R4: content asks for 2+ years, under 3. R5-R7: no citizenship, clearance, sponsorship or PhD limits. R8: content names SQL and Tableau. R9: no graduation window stated.",
+   "error": null,
+   "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"work_authorization\", \"education\", \"experience_years\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1-R2: title 'Data Analyst, In-Store' matches a target role and has no seniority words ('Manager' is only in the content). R3: all locations are US cities. R4: content asks for 2+ years, under 3. R5-R7: no citizenship, clearance, sponsorship or PhD limits. R8: content names SQL and Tableau. R9: no graduation window stated.\"}\n"
+  }
+ ]
+}

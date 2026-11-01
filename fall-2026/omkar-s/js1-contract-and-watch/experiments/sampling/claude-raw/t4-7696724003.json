@@ -1,0 +1,102 @@
+{
+ "asked_at": "2026-10-26T01:35:36Z",
+ "envelope": {
+  "duration_api_ms": 4057,
+  "stop_reason": "end_turn",
+  "session_id": "3402dc2a-2124-44e1-8076-fb96dcac9b08",
+  "total_cost_usd": 0.029003,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6173,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 420,
+   "output_tokens_details": {
+    "thinking_tokens": 190
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6173,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 420,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 6173,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6173
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 420,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 6173,
+    "webSearchRequests": 0,
+    "costUSD": 0.029003,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 190,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"7696724003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\", \"skills.database_cloud\", \"personal.location\"], \"posting_fields\": [\"title\", \"content\", \"location.name\"], \"reason\": \"Posting is 'Senior Software Engineer' requiring an 'extensive background in full stack' engineering, technical leadership and mentoring. The candidate has about 2 years as a Java engineer at Infosys (one of six engineers) plus a 5-month co-op. Boston location and the A/B feature-flag work fit, but there is no React/Django/MySQL and the seniority gap is too large.\"}",
+  "ttft_ms": 2865,
+  "type": "result",
+  "duration_ms": 5500,
+  "uuid": "bed5bc93-a7ff-4990-acfc-06a60989ca13",
+  "ttft_stream_ms": 1454,
+  "time_to_request_ms": 52,
+  "first_content_frame_ms": 1454,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

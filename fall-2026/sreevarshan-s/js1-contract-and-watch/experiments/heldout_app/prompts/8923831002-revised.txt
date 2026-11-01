@@ -1,0 +1,60 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Check every mandatory eligibility condition before giving the verdict.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8923831002,
+    "title": "Staff Machine Learning Engineer, CustomerLake (ML/LLM)",
+    "location": "New York City, New York",
+    "description": "The impact you'll have: Evaluate ML and LLM approaches for CustomerLake's personalization use cases, push the models and algorithms forward, and continuously improve quality over time Go deep on how models behave in production: inspect individual traces, understand how the models reason, and tune and improve from there Build the platform and evaluation framework that let CustomerLake customers optimize for real business value such as purchases, retention, and product usage, not vanity metrics like email opens and clicks Push the team toward new directions and novel methods worth tackling, not just optimizing what already exists Partner closely with product management, engineering, and design to turn ambiguous customer problems into scalable, trustworthy solutions Set the technical foundation and best practices for our ML/AI personalization work as we grow this into several roles across our products over the next 1-2 years What we look for: 10+ years of engineering experience, with a strong foundation across the full loop of shipping and improving ML/AI products Hands-on experience building and evaluating ML models and/or LLM systems for real product or business use cases; your understanding is practical, not purely academic, and you can make models work well inside a product Experience with personalization based on customer behavior (ideal) or transactions (acceptable), such as recommendations, targeting, churn, or lifetime-value modeling Proficiency in Python and modern ML frameworks (e.g., PyTorch), with hands-on experience in model evaluation and monitoring AI quality in production Familiarity with LLMs and generative AI, including techniques like retrieval-augmented generation (RAG), prompt design, fine-tuning, and evaluation A demonstrated product mindset, with the ability to translate ambiguous customer problems into scrappy MVPs and iterate quickly based on data and user feedback High ownership and bias for action in 0-to-1 environments: comfortable making pragmatic trade-offs, operating with incomplete information, and driving projects from idea through launch and adoption Nice to have: Experience in martech, ideally a go-to-market or business use case with an analytical (rather than purely transactional) angle An academic or research background that can help us innovate and develop novel methods Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. P-1607 At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best Data Intelligence Platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started. As one of the first engineers in the NYC Engineering office, you'll join a small, nimble team building new products from the ground up. We're building CustomerLake, the Customer Data Platform on Databricks, to bring enterprise-grade ML and AI personalization to every company whose data already lives on Databricks. The best B2C and B2B brands have historically relied on in-house ML/AI teams to power personalization, recommendations, churn and lifetime-value modeling, and audience targeting. Our goal is to deliver that same capability to companies that don't have an in-house team but already have their data in order on Databricks. This is a true 0-to-1 environment, combining the excitement of a startup with the resources of a tech leader like Databricks. Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Local Pay Range $190,000 — $253,400 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

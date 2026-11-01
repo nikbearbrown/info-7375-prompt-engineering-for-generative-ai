@@ -1,0 +1,188 @@
+{
+ "invoked_at_utc": "2026-10-30T21:42:56+00:00",
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "model_requested": "claude-opus-5-5",
+ "effort": "medium",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8872760002,\n \"title\": \"Sr. Recruiter\",\n \"location\": \"Belgrade, Serbia; London, United Kingdom\",\n \"departments\": [\n  \"Recruiting\"\n ],\n \"description\": \"We're looking for a Recruiter or Senior Recruiter with experience driving recruitment in the EMEA region for our Field Engineering & Forward Deployed Engineering teams, to help us identify and hire great people for Databricks as we continue our expansion. You will conceive practical and creative ways to identify leading talent and invest considerable time activating and engaging passive candidates. You will use data to set benchmarks and metrics to create targeted recruiting strategies while partnering with leadership to build inspired teams. You will report directly to the Manager, EMEA Talent Acquisition. This is a fixed-term position for a period of 12 months, with the possibility of extension. The impact you will have: Apply your knowledge to meet our hiring needs within Field Engineering and develop unique full-cycle hiring strategies. Build engaged talent pipelines for roles across Field Engineering, with active and passive candidates which can sustain long-term hiring goals. Act as a trusted advisor to Field Engineering leaders across EMEA — running intake and calibration sessions, challenging assumptions on role design and seniority, and holding hiring managers to a consistently high bar. Create closing approaches to manage partner expectations through market data Lead the business with data to promote future workforce planning decisions and accurate forecasting Help Databricks to provide a positive interview experience for all and periodically review experiential data to enhance our offering and drive Diversity and Inclusion in our hiring What we look for: Experience with recruiting for Go To Market professionals, specifically Pre-sales Engineers and Post-sales engineers from Entry level to Director within the software industry. Experience building strategic partnerships within the business and cross-functionally, and influencing senior stakeholders with data rather than opinion. Experience recruiting across multiple EMEA markets and navigating the local nuances that come with it. You will have had success in scaling a high-growth software/Data/AI company and be able to bring your learning from your success to our team. Experience serving as a mentor and expert regarding all recruiting-related activities and be comfortable sharing your knowledge within the business and our wider team Significant experience in a recruiting environment, ideally in-house, focussed on the SaaS software, ideally within the Data and AI space. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "17817587fbe8156cc648ae49787626b3eadbf71338d8f3188e7e3784d67acd0a",
+ "returncode": 0,
+ "stderr_tail": "",
+ "cli_json": {
+  "duration_api_ms": 16959,
+  "stop_reason": "end_turn",
+  "session_id": "857aa53e-c0ba-477e-91f3-47a0caa8edd4",
+  "total_cost_usd": 0.025908999999999998,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2368,
+   "cache_read_input_tokens": 1054,
+   "output_tokens": 318,
+   "output_tokens_details": {
+    "thinking_tokens": 91
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2368,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 318,
+     "cache_read_input_tokens": 1054,
+     "cache_creation_input_tokens": 2368,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2368
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 2727,
+    "outputTokens": 227,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.0003862,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 200,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 318,
+    "cacheReadInputTokens": 1054,
+    "cacheCreationInputTokens": 2368,
+    "webSearchRequests": 0,
+    "costUSD": 0.0255228,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 91,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": 8872760002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"sr\"]}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"hire great people for Databricks\"}]}, \"explanation\": \"The normalized title 'sr recruiter' has no eligible role phrase and contains the excluded word 'sr'. Only one target skill, databricks, appears in both the description and skills.data_bi, so the shared-skills check fails.\"}",
+  "ttft_ms": 1891,
+  "type": "result",
+  "duration_ms": 15434,
+  "uuid": "b8c661af-ed84-4d4e-a35d-d60c9ef946ea",
+  "ttft_stream_ms": 1154,
+  "time_to_request_ms": 40,
+  "time_to_request_phases_ms": {
+   "other": 11,
+   "system_prompt": 1,
+   "resume_other": 0,
+   "process_user_input": 1,
+   "input_attachments": 13,
+   "input_hooks": 2,
+   "tool_pool_refresh": 0,
+   "init_message": 1,
+   "engine_pickup": 4,
+   "message_prep": 1,
+   "model_config_wait": 1,
+   "autocompact": 0,
+   "query_setup": 0,
+   "model_gates": 0,
+   "tool_schema_build": 1,
+   "message_normalization": 0,
+   "client_creation": 3,
+   "request_build": 1
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 0,
+  "time_to_request_cpu_ms": 71,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 11,
+   "cpu_ms": 26,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1154,
+  "queued_turn_count": 0,
+  "result_index": 0
+ },
+ "finished_at_utc": "2026-10-30T21:43:30+00:00",
+ "wall_seconds": 18.09,
+ "response_text": "{\"posting_id\": 8872760002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"sr\"]}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"hire great people for Databricks\"}]}, \"explanation\": \"The normalized title 'sr recruiter' has no eligible role phrase and contains the excluded word 'sr'. Only one target skill, databricks, appears in both the description and skills.data_bi, so the shared-skills check fails.\"}",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "857aa53e-c0ba-477e-91f3-47a0caa8edd4",
+ "transport_ok": true,
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "posting_id_requested": 8872760002,
+ "attempt": 1,
+ "valid": true,
+ "validation_errors": []
+}

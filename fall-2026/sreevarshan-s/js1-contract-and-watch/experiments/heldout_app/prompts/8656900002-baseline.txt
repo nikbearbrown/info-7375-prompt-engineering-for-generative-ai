@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8656900002,
+    "title": "Senior Applied ML Engineer - ML4Sys ",
+    "location": "San Francisco, California",
+    "description": "Accelerate Serverless Growth: Drive the scaling and efficiency of Databricks serverless compute products through advanced optimization techniques. Build Systems: Design end-to-end ML4Sys solutions from the ground up within a lean team of domain experts to support Shape Strategy: Define the roadmap for applied ML investments by collaborating with engineering and product leaders across Databricks. Drive Deployment: Architect, train, and deploy state-of-the-art models that directly improve product performance and cost efficiency. Scale Infrastructure: Build robust ML pipelines, data processing layers, model serving components, and production monitoring systems to help scale Innovate: Research and implement novel modeling techniques tailored specifically to computer systems and distributed environments. Education: Background in Computer Science and Master's degree in Machine Learning, Data Science, or a related computational field (AI, Bioinformatics, EE, Physics, etc). ML Experience: Strong background in building, training, and deploying machine learning models in production. Infrastructure Knowledge: Practical familiarity with cloud computing, distributed systems, and modern data processing frameworks. Core Coding: Proficiency in Python, Scala, or Java. Advanced Education: PhD in AI, Data Science, or a related technical discipline. Industry Experience: 4+ years of machine learning engineering experience in high-velocity, high-growth environment. Systems Domain: Strong understanding of computer architecture, distributed computing, cloud compute, database internals, or networking. Optimization: Experience with operations research, forecasting, markov decision processes, or other optimization algorithms for sequential decision making. Scale: Proven track record of optimizing large-scale distributed systems or cloud infrastructure via data-driven approaches. Pay Range Transparency About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. RDQ127R59 Summary As a Senior Applied ML Engineer on the Applied AI team at Databricks, you will use machine learning, scheduling, and optimization algorithms to maximize the efficiency and performance of our infrastructure. Your work will span the entire stack—from cluster management down to query compilation. You will solve complex, high-impact engineering problems to deliver highly optimized, cost-effective workloads for our customers. Impact You Will Have Minimum Qualifications Preferred Skills Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Local Pay Range $166,000 — $210,250 USD Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

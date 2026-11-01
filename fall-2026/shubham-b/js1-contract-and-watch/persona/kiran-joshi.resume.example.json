@@ -1,0 +1,109 @@
+{
+  "_comment": "FICTIONAL PERSONA - safe to commit. Kiran Joshi is not a real person. Every name, employer, school, project, date, metric, and contact below is invented. Contacts use @example.com and 555 numbers. Modeled only on the *shape* of the author's job search (new-grad / SWE I-II, full-stack and backend, F-1 student) so the agent's verdicts are realistic; no real résumé content is copied. Drafted by Claude on 2026-10-29; schema follows the Reallocation Engine personas (search/examples/*/resume.example.json).",
+  "fictional": true,
+  "personal": {
+    "name": "Kiran Joshi",
+    "location": "Boston, MA",
+    "phone": "(617) 555-0143",
+    "email": "kiran.joshi@example.com",
+    "linkedin": "linkedin.com/in/kiranjoshi-example",
+    "github": "github.com/kiranjoshi-example"
+  },
+  "work_authorization": {
+    "status": "F-1 student; post-completion OPT expected after graduation, STEM OPT extension eligible",
+    "needs_sponsorship": true
+  },
+  "target": {
+    "roles": [
+      "Software Engineer",
+      "Full-Stack Software Engineer",
+      "Backend Engineer",
+      "Frontend Engineer"
+    ],
+    "levels": ["New Grad", "Entry Level", "SWE I", "SWE II"],
+    "locations": ["United States", "Remote (US)"],
+    "excluded": ["roles requiring U.S. citizenship or security clearance", "unpaid roles"]
+  },
+  "education": [
+    {
+      "institution": "Northbridge University (fictional)",
+      "location": "Boston, MA",
+      "degree": "MS, Software Engineering Systems",
+      "start_date": "2025-01",
+      "end_date": "2026-12",
+      "status": "expected",
+      "coursework": [
+        "Distributed Systems",
+        "Web Design and User Experience",
+        "Database Management and Design",
+        "Prompt Engineering for Generative AI"
+      ]
+    },
+    {
+      "institution": "Western Ghats Institute of Technology (fictional)",
+      "location": "Pune, India",
+      "degree": "BTech, Computer Engineering",
+      "start_date": "2016-08",
+      "end_date": "2020-06",
+      "status": "completed"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Fernleaf Health (fictional)",
+      "title": "Software Engineer",
+      "location": "Pune, India",
+      "start_date": "2022-09",
+      "end_date": "2024-12",
+      "bullets": [
+        "Migrated a patient-portal front end from server-rendered pages to React and TypeScript, one route at a time behind feature flags.",
+        "Built Node.js and Express REST APIs backed by PostgreSQL for appointment and billing flows.",
+        "Added Sentry error tracking with a redaction layer so health data never left the service.",
+        "Cut median page load on the busiest route by roughly a third by caching reference data in Redis."
+      ]
+    },
+    {
+      "company": "Copperline Commerce (fictional)",
+      "title": "Associate Software Engineer",
+      "location": "Pune, India",
+      "start_date": "2020-08",
+      "end_date": "2022-08",
+      "bullets": [
+        "Maintained Java and Spring Boot order-service microservices that published events to RabbitMQ.",
+        "Made order-event consumers idempotent and added a dead-letter queue after a duplicate-charge incident.",
+        "Wrote integration tests with Testcontainers and ran them in a GitHub Actions pipeline."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "relaybox",
+      "type": "personal, public",
+      "start_date": "2025-09",
+      "end_date": "2025-12",
+      "bullets": [
+        "Event-ingestion service in TypeScript on Node.js with a RabbitMQ work queue and retry with backoff.",
+        "Load-tested with k6 and documented the throughput ceiling and where it broke."
+      ]
+    },
+    {
+      "name": "plan-registry",
+      "type": "course, public",
+      "start_date": "2025-02",
+      "end_date": "2025-04",
+      "bullets": [
+        "Spring Boot REST API with JSON Schema validation, ETag caching, and asynchronous indexing into Elasticsearch."
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["TypeScript", "JavaScript", "Java", "Python", "SQL", "C#"],
+    "frontend": ["React", "Next.js", "HTML", "CSS"],
+    "backend": ["Node.js", "Express", "Spring Boot", "REST", "GraphQL"],
+    "data": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch"],
+    "messaging": ["RabbitMQ", "Kafka"],
+    "cloud_devops": ["AWS", "GCP", "Docker", "Kubernetes", "GitHub Actions"],
+    "observability": ["Sentry", "Prometheus", "Grafana"],
+    "familiar_with_not_shipped": ["Go", "Terraform"]
+  }
+}

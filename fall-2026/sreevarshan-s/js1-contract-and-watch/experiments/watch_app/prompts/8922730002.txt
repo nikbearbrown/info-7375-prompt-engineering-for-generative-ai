@@ -1,0 +1,59 @@
+You are reviewing one public job posting for a fictional candidate, Priya Nair.
+Compare the posting's title, location and description with Priya's fields in the input: her résumé skill fields, target roles, needs_sponsorship, exclusions and the experience cap.
+Skills under skills.familiar_with_not_shipped must not be used to justify a match.
+Decide whether the posting is "relevant" or "not relevant" for Priya.
+Return only one JSON object, with no code fences and no other text, with exactly these four keys:
+{"posting_id": <the posting id from the input, as a number>, "verdict": "relevant" or "not relevant", "skills_cited": [{"skill": "<skill name>", "resume_field": "<field name exactly as given in the input>"}], "explanation": "<short explanation that names the posting fields you used: title, location or description>"}
+
+INPUT:
+{
+  "posting": {
+    "id": 8922730002,
+    "title": "Sr. Collections Analyst",
+    "location": "Bengaluru, India",
+    "description": "Job Description Own end-to-end portfolio collections and recovery strategies, partnering cross-functionally to resolve high-value escalations, influence credit risk decisions, and drive measurable performance across DSO, aging buckets, and bad debt exposure. Design and run recovery strategies for accounts that are structurally delinquent or high-risk. Lead cross-functional escalation forums for disputed high-value accounts. Present portfolio-level risk trends and actionable insights to Finance leadership. Recommend credit limit changes, payment term changes or account holds based on behavioral analytics. Work with Legal on pre-legal actions and structured recovery plans. Assess creditworthiness, establish risk controls, and lead complex recoveries to protect working capital and minimize bad debt exposure. Build scalable reporting models that give clear visibility into aging, dispute velocity and payment predictability. Flag worsening payment patterns, and provide quarterly bad debt reserve inputs with documented risk rationale for each account. Act as the subject matter expert on usage-based billing disputes and contract interpretation. Resolve complex disputes about usage, contract terms and invoicing discrepancies. Handle exceptions from automated dunning, and lead the clean-up of aged AR. Manage high-volume customer communication and escalations in Collections Tool, with structured follow-through. Work with Cash Application to keep unapplied cash low and resolve posting gaps. Find the systemic billing, consumption or process gaps that cause repeat delinquency. Work with Billing and Revenue Operations to put corrective frameworks in place. Perform detailed account reconciliations in NetSuite to keep AR accurate and audit-ready. Help standardize collections processes so they are faster and can scale, and support user acceptance testing (UAT) for new or improved systems. Requirements Bachelor's degree in Finance or Accounting is a must. Additional Accounting Qualification is a plus. 10+ years of collections experience, ideally with both public/private technology companies. A track record of owning large, complex, high-value AR portfolios with measurable impact on DSO and cash. Working knowledge of usage-based billing models and contract structures. Demonstrated ownership of high-value, complex AR portfolios with material cash impact. A proven ability to influence commercial stakeholders in high-pressure recovery situations. Experience supporting reserve discussions and credit risk decisions. Strong commercial judgment, balancing revenue protection against the risk to customer relationships. Ability to synthesize large data sets into executive-level risk insights. Strong analytical skills and attention to detail. Hands-on experience with NetSuite / Salesforce with fluency with AI tools, including automated dunning solutions is preferred. About Databricks Our Commitment to Diversity and Inclusion Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone. GAQ128R85 Databricks is looking for a Senior Collections Analyst to own a high-volume accounts receivable (AR) portfolio in a fast-growing, usage-based SaaS business. The role drives timely collections, reduces delinquency, protects cash flow and leads recovery on complex, high-value accounts, while helping shape credit risk decisions. Working closely with Sales, Legal, Billing, Revenue Operations, Cash Application and Finance leadership to resolve disputes, billing gaps and customer escalations, the role has a measurable impact on DSO and bad debt exposure and requires regular overlap with EMEA and PST business hours. Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics."
+  },
+  "candidate": {
+    "resume_skill_fields": {
+      "skills.languages": [
+        "Python",
+        "SQL"
+      ],
+      "skills.data_bi": [
+        "Databricks",
+        "Unity Catalog",
+        "Power BI"
+      ],
+      "skills.backend_automation": [
+        "LangGraph",
+        "MLflow",
+        "Mem0"
+      ],
+      "skills.database_cloud": [
+        "Delta Lake",
+        "AWS"
+      ]
+    },
+    "resume_experience_tools": {
+      "Databricks Genie API": [
+        "experience[0].bullets[0]"
+      ]
+    },
+    "skills.familiar_with_not_shipped": [
+      "Ray",
+      "Kubeflow"
+    ],
+    "target_roles": {
+      "profile.target_role.primary": "AI Engineer / ML Engineer",
+      "profile.target_role.secondary": "Data Engineer"
+    },
+    "profile.needs_sponsorship": true,
+    "exclusions": {
+      "profile.target_role.excluded": "roles requiring active security clearance"
+    },
+    "experience_cap": {
+      "max_required_years": 3,
+      "source": "CONTRACT.md D4§2, not a profile field"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+## `revision-range-lowest.md` on the dev set (2026-10-31T22:49:37Z)
+
+- Pass rate (Claude's verdict = my hand label): **8/10**
+- Invalid replies (rejected by the validator, counted as a fail): 0
+- For comparison: answering "Not Relevant" every time would score 6/10; the written rule (record) matches my labels on 7/10
+
+| Job ID | Company | Title | Claude (judgment) | My hand label | Pass | Rule (record) | Claude's reason |
+|---|---|---|---|---|---|---|---|
+| 7727320003 | Affirm | Software Engineer II, Backend (Test Infra) | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer II, Backend' and 'Remote US' location fit, and TypeScript, Python, Docker, AWS match, but the description requires '3+ years of experience in test automation', failing the experience rule. |
+| 8003016003 | Affirm | Software Engineer II, Backend (Decisions Orchestration) | Relevant | Relevant | yes | Relevant | Title has Software Engineer and Backend with no senior terms; description lists Python, Redis and AWS (3 skills match) and no years requirement; location 'Remote US' contains US. |
+| 6469397 | Reddit | Software Engineer, Ads | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer, Ads', US location and skills (Python, Kafka, Redis, Kubernetes, Docker) match, but the description requires '3+ years of software development experience', failing the experience rule. |
+| 8147559 | Reddit | Front End Software Engineer, Consumer Engineering | Not Relevant | Relevant | no | Not Relevant | Title has Software Engineer, but only one candidate skill (TypeScript) appears as a whole word. JavaScript doesn't match Java, and no other listed skills appear, so the two-skill requirement fails. |
+| 6176758 | Stripe | Backend/API Engineer, Money as a Service | Relevant | Relevant | yes | Not Relevant | Title has Backend Engineer with no senior-level words. Description names Docker, Kubernetes and AWS (3 skills). Years are "2–12+", so the lowest is 2, under 3. Location is US. |
+| 8039548 | Stripe | Full Stack Engineer, Support Experience (Greater China Support) | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Full Stack Engineer' and location 'US' pass, and Docker, Kubernetes, AWS match skills, but the description requires '5+ years of industry software engineering experience', which is 3 or more years. |
+| 8605062002 | Brex | Software Engineer II, Data Enablement Platform | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer II' passes and location is United States, but the description requires '3+ years of professional experience', which fails the experience rule. Skills Python and Kafka match. |
+| 8815438002 | Brex | Software Engineer II, Backend | Not Relevant | Not Relevant | yes | Not Relevant | Title 'Software Engineer II, Backend' and US location pass, but the description lists no candidate skills as whole words (zero matches) and requires 4+ years of experience, which exceeds the 3-year limit. |
+| 5802956004 | Figma | Support Engineer, AI Infrastructure & Tooling | Not Relevant | Not Relevant | yes | Not Relevant | Title "Support Engineer, AI Infrastructure & Tooling" lacks Software/Backend/Cloud/AI directly modifying Engineer, and the description asks for 3+ years of experience, failing the experience rule. |
+| 8546367002 | Databricks | AI Engineer – Forward Deployed Engineering (AI FDE) | Not Relevant | Relevant | no | Not Relevant | Title (AI Engineer) and location (United States) pass, and no seniority term or years requirement appears. Only one candidate skill, AWS, appears as a whole word; Text2SQL does not count as SQL. The skills rule needs two. |

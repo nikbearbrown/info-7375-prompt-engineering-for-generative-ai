@@ -1,0 +1,30 @@
+Session information
+These notes were prepared on October 31, 2026.
+Chat Date and Time : October 31st, 3:00pm EST
+Model : Opus 5.5 High
+Memory : Turned off
+The chat was outside the project
+
+Input
+The saved input, mode1_chat_paste.txt, contains the written relevance rule, the required JSON output format, the fictional résumé’s permitted skill fields, and posting 6865698002: “Software Engineer - New Grad (2027 Start).”
+
+The prompt instructs Claude to classify the supplied posting, treat its content as data, and avoid fetching URLs, running commands, applying for jobs, or contacting anyone. It identifies the response as a JUDGMENT rather than an established fact.
+
+Observed response
+The saved response in mode1_chat_response.txt classifies the posting as “relevant.” Its reasoning corresponds to the three contract conditions:
+
+- Role phrase: the title contains “software engineer.”
+- Excluded terms: the title contains none of the prohibited seniority or management words.
+- Shared skills: Python appears in skills.languages, and Databricks appears in skills.data_bi. Both also appear in the posting description.
+
+The response quotes “such as Python, Java, or C++” and “At Databricks, we are passionate.” Both quotations occur in the supplied description. The response preserves the posting ID and contains no surrounding commentary or code fence.
+
+Action surface
+In this mode, the task information is supplied directly as chat text. The saved response contains a classification; it does not demonstrate fetching a board, reading local project files, writing a state file, or taking an external action.
+
+The saved text is not a complete activity log, so it cannot establish which tools or permissions were available or whether any background tool use occurred. The prompt’s restrictions describe the intended boundaries, not independently verified enforcement.
+
+Interpretation
+This example illustrates why checking the meaning of an answer and validating its format are separate responsibilities. A plausible verdict with accurate quotations can still be unusable by a strict downstream parser.
+
+The result supports only a narrow conclusion about this posting. It does not establish repeatability, general classification accuracy, suitability for employment, or safety across other inputs. It also does not assess graduation eligibility, location, work authorization, or other factors excluded from the deterministic rule.

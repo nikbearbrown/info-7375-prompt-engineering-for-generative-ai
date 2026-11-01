@@ -1,0 +1,102 @@
+{
+ "asked_at": "2026-10-26T01:36:37Z",
+ "envelope": {
+  "duration_api_ms": 2537,
+  "stop_reason": "end_turn",
+  "session_id": "8eda5038-250c-4c81-aa37-f4bccd524d27",
+  "total_cost_usd": 0.026130999999999998,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 5885,
+   "cache_read_input_tokens": 535,
+   "output_tokens": 248,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 5885,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 248,
+     "cache_read_input_tokens": 535,
+     "cache_creation_input_tokens": 5885,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 5885
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-sonnet-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 248,
+    "cacheReadInputTokens": 535,
+    "cacheCreationInputTokens": 5885,
+    "webSearchRequests": 0,
+    "costUSD": 0.026130999999999998,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-sonnet-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": \"7806010003\", \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[].title\", \"experience[].bullets\", \"skills.languages\", \"skills.backend_automation\", \"skills.database_cloud\", \"skills.devops_cicd\"], \"posting_fields\": [\"title\", \"content\", \"departments\"], \"reason\": \"Role is a Senior Salesforce GTM systems engineer needing Apex, Lightning Web Components, Flow and Salesforce integrations, plus mentoring juniors. R\u00e9sum\u00e9 has TypeScript/Java/Python, Kafka, Kubernetes, but no Salesforce/Apex/LWC experience and only ~2.5 years of professional experience, so it's a poor fit for a senior role.\"}",
+  "ttft_ms": 2565,
+  "type": "result",
+  "duration_ms": 4046,
+  "uuid": "9ac452a1-bf46-4336-8957-d7435fe4cddc",
+  "ttft_stream_ms": 1186,
+  "time_to_request_ms": 49,
+  "first_content_frame_ms": 1187,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

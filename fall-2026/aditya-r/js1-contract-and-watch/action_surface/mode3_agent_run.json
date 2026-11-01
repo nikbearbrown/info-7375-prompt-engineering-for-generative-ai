@@ -1,0 +1,721 @@
+{
+ "mode": "mode3_agent",
+ "started_at_utc": "2026-10-30T21:40:12+00:00",
+ "tools_enabled": [
+  "WebFetch",
+  "Read",
+  "Write"
+ ],
+ "allowed_rules": [
+  "WebFetch(domain:boards-api.greenhouse.io)",
+  "Read",
+  "Write"
+ ],
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "task": "Fetch the posting at https://boards-api.greenhouse.io/v1/boards/databricks/jobs/6865698002?content=true yourself, read ./resume_skills.json, apply the rule, then write ./state.json recording the posting id as seen together with your JSON judgment. Finally reply with the JSON judgment object only.",
+ "input_files": [
+  "resume_skills.json"
+ ],
+ "returncode": 0,
+ "files_created_by_claude": {
+  "state.json": "{\n  \"seen_posting_ids\": [6865698002],\n  \"judgments\": {\n    \"6865698002\": {\n      \"posting_id\": 6865698002,\n      \"verdict\": \"relevant\",\n      \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"},\n      \"excluded_terms\": {\"pass\": true, \"found\": []},\n      \"shared_skills\": {\n        \"pass\": true,\n        \"skills\": [\n          {\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"},\n          {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}\n        ]\n      },\n      \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"\n    }\n  }\n}\n"
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "init",
+   "tools": [
+    "Read",
+    "WebFetch",
+    "Write"
+   ],
+   "model": "claude-opus-5-5",
+   "permissionMode": "default",
+   "mcp_servers": []
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1793409600,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.08,
+      "resetsAt": 1793409600,
+      "status": "allowed"
+     }
+    }
+   },
+   "uuid": "3b63fe6b-59a7-4a75-9d71-d9184ee05917",
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "969edbaa-b482-485a-8544-f7c43a682619"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 220,
+   "estimated_tokens_delta": 170,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "f76cc58a-c514-4b9d-afe1-69cfacd9f643"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9VPosjJNLgxGhcGdBH",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQS5wYKEAgTGAI4AUIIdGhpbmtpbmcSDLpuO1gt/7/iJw9BlBoMblpEjHwgH7Mil0gUIjCeh56o3gk5bWJstYVFwH4I5qTePSpYIvvtBXvPKs1RrN6HlynY54ZF/kpwYM9grVMqhAZX6qshdcr2LNJJxXPTPJEty23fGVF2wVc+YEPR6eNml4JSB9FA1O4RjkuwV8GswLaZ5XfOx/V115Wk+xjgcNQzjARBSN9NoLeZybOcSM6S9zYc07sLWaoZrBZ3axI2vSDJybGiLAT6CKcRG8wX64WYfZe6Lod00qvnT9wq+Eka3/1l19YM8b81t52fetUpqXIuDdQHlEbQCdAKf1veil0Y6bXWctCftQYkIV57iEqnlatO6DrQF4UA0SPtNW5g8VELOHx+Dy6G84s64RyHgiY2fNCdL2sQ6PBSaQU+nqL7+AbGwZ/cVIaKH25YQrpxKgEtrrknchivA5hjEpCni1hl9stDnINYJf1JtueCQbA/GqzH0WmQ7AY/1EBArU9cRvs8ZkFUkCCXpfGe9p6g+JcdJOzP1NM/+LI2cKp8uGq4CN512+FoZ//UjIFdBttExQb+p7ToiGmTB14SBg4hCuqAcLV08gULe1xUsZD0y+Sv1bDF4fWvq2TvmOOX0fxCLU3thwbrBS15r0xT0XXJ20ttWZO6ys7SAuRYxluq86KPzmYcEo1rRu/g4K+Go+H2LKcKJMLV3brgIvWoaj5cvRI1vw8U0MlDEHH+zdcFz8FKryKTTrc6l0L/RNfkLYmP8OkQk5uQB02vZ7fSARqfOCJrf+q8mhaOudb7Z4B6dGZGWXJbCwYjFd8gfPK7xcJOC+TbtUaz7prFF8yqxsReEVQ1A0ho6jd4tBKGG1LpqBnR3kKPnWx/aEmtv9TFaHVeKpbGrahe5ZQTU+DxzDSc0oyPP9297WDBpB8tpl41yvBsa+vcdS1VqxJU/ZyXPT7+zrdiOZ5daw4lhNhNsbbNorH/Ztn4p0z+k9K1zVCxTyEwFwWsYcm22MViQYpCg4a7B+FFNTZyCCAfwQJpU/nmd1YjZSf+jy9uMe9aorgSNQkxhbK1dZ04UPZgD1AA3GHCOSds0kREVrnIqmNxl2oGM1W3iUOh/MMomTshWkT95wHRGDGD2fYe/P7cY6/TXf2yM79DYjONGAE="
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3706,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3706
+     },
+     "output_tokens": 8,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "43bfc238-31df-4810-8fe6-5c129bedfb3e",
+   "timestamp": "2026-10-30T21:40:15.922Z",
+   "request_id": "req_011CgZ9VPDub3E6tUfQj8omL",
+   "thinking_duration_ms": 1127,
+   "thinking_display": "updates"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9VPosjJNLgxGhcGdBH",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_018vjR1DFi4j8Msm97gLC9TU",
+      "name": "WebFetch",
+      "input": {
+       "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs/6865698002?content=true",
+       "prompt": "Return the job id, the exact title, and the full description text verbatim (decode HTML). Specifically quote verbatim any sentences containing the words python, sql, spark, databricks, langgraph."
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3706,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3706
+     },
+     "output_tokens": 8,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "0313c7f9-9236-4dae-84d4-3a0bc680d0c6",
+   "timestamp": "2026-10-30T21:40:17.025Z",
+   "request_id": "req_011CgZ9VPDub3E6tUfQj8omL",
+   "wire_tool_inputs": {
+    "toolu_018vjR1DFi4j8Msm97gLC9TU": {
+     "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs/6865698002?content=true",
+     "prompt": "Return the job id, the exact title, and the full description text verbatim (decode HTML). Specifically quote verbatim any sentences containing the words python, sql, spark, databricks, langgraph."
+    }
+   }
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9VPosjJNLgxGhcGdBH",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01C59oMdDtRMWJUcaQ8iA7vo",
+      "name": "Read",
+      "input": {
+       "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/resume_skills.json"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3706,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3706
+     },
+     "output_tokens": 8,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "8d2fde5f-0bc7-4acc-831d-dec927ffd078",
+   "timestamp": "2026-10-30T21:40:17.715Z",
+   "request_id": "req_011CgZ9VPDub3E6tUfQj8omL",
+   "wire_tool_inputs": {
+    "toolu_01C59oMdDtRMWJUcaQ8iA7vo": {
+     "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/resume_skills.json"
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01C59oMdDtRMWJUcaQ8iA7vo",
+      "type": "tool_result",
+      "content": "1\t{\n2\t \"skills.languages\": [\n3\t  \"Python\",\n4\t  \"SQL\"\n5\t ],\n6\t \"skills.data_bi\": [\n7\t  \"Databricks\",\n8\t  \"Unity Catalog\",\n9\t  \"Power BI\"\n10\t ],\n11\t \"skills.backend_automation\": [\n12\t  \"LangGraph\",\n13\t  \"MLflow\",\n14\t  \"Mem0\"\n15\t ],\n16\t \"skills.database_cloud\": [\n17\t  \"Delta Lake\",\n18\t  \"AWS\"\n19\t ]\n20\t}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "28881397-bc0a-476c-8de8-2c332a07d96f",
+   "timestamp": "2026-10-30T21:40:18.161Z",
+   "tool_use_result": {
+    "type": "text",
+    "file": {
+     "filePath": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/resume_skills.json",
+     "content": "{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}",
+     "numLines": 20,
+     "startLine": 1,
+     "totalLines": 20
+    }
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_01C59oMdDtRMWJUcaQ8iA7vo",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_018vjR1DFi4j8Msm97gLC9TU",
+      "type": "tool_result",
+      "content": "**Job ID:** 6865698002 (requisition P-964)\n\n**Title:** Software Engineer - New Grad (2027 Start)\n\nI can't reproduce the full description verbatim because quotes from this source are limited to 125 characters. Here is a summary and the relevant excerpts:\n\n**Summary:** Databricks is hiring new graduates to work on backend, full stack, infrastructure, databases, systems, tools, cloud, and customer-facing products. The role covers the full software development lifecycle, with mentorship and a cohort-based onboarding program. Locations are Bellevue, WA; Mountain View, CA; San Francisco, CA; and Vancouver, Canada. Candidates should apply to only one location, and only one application is considered per 30 days.\n\n**Qualifications:** Graduation in fall 2026 or spring 2027 with a degree in Computer Science, Engineering, or a related field, plus knowledge of algorithms, data structures, and OOP principles.\n\n**Pay ranges (USD):** Zone 1: $145,000–$155,000; Zone 2: $137,750–$147,450; Canada: $125,000–$130,000.\n\n**Relevant excerpts:**\n- Python: \"You have implementation skills with a general purpose program language, such as Python, Java, or C++\"\n- Databricks: \"At Databricks, we are passionate about helping data teams solve the world's toughest problems\"\n- Databricks: \"start contributing to impactful projects soon after starting here at Databricks!\"\n\nThe description does not contain the words SQL, Spark, or LangGraph."
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "c2a092bb-8c00-4851-af06-0f13722d79e3",
+   "timestamp": "2026-10-30T21:40:26.486Z",
+   "tool_use_result": {
+    "bytes": 12978,
+    "code": 200,
+    "codeText": "OK",
+    "result": "**Job ID:** 6865698002 (requisition P-964)\n\n**Title:** Software Engineer - New Grad (2027 Start)\n\nI can't reproduce the full description verbatim because quotes from this source are limited to 125 characters. Here is a summary and the relevant excerpts:\n\n**Summary:** Databricks is hiring new graduates to work on backend, full stack, infrastructure, databases, systems, tools, cloud, and customer-facing products. The role covers the full software development lifecycle, with mentorship and a cohort-based onboarding program. Locations are Bellevue, WA; Mountain View, CA; San Francisco, CA; and Vancouver, Canada. Candidates should apply to only one location, and only one application is considered per 30 days.\n\n**Qualifications:** Graduation in fall 2026 or spring 2027 with a degree in Computer Science, Engineering, or a related field, plus knowledge of algorithms, data structures, and OOP principles.\n\n**Pay ranges (USD):** Zone 1: $145,000–$155,000; Zone 2: $137,750–$147,450; Canada: $125,000–$130,000.\n\n**Relevant excerpts:**\n- Python: \"You have implementation skills with a general purpose program language, such as Python, Java, or C++\"\n- Databricks: \"At Databricks, we are passionate about helping data teams solve the world's toughest problems\"\n- Databricks: \"start contributing to impactful projects soon after starting here at Databricks!\"\n\nThe description does not contain the words SQL, Spark, or LangGraph.",
+    "durationMs": 9336,
+    "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs/6865698002?content=true"
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_018vjR1DFi4j8Msm97gLC9TU",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "b1543b11-7213-4ac4-9923-f5a709f746ee"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 226,
+   "estimated_tokens_delta": 176,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "d8c26461-0c5d-442d-9d01-7379f4b8c101"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9WPfxx78ctbCoLoo5B",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQSgAcKEAgTGAI4AUIIdGhpbmtpbmcSDNayPsRpce5V1tejjxoMeXRT6raYJP94rr3DIjA0OK07JvE7XH6ol2cLJ1QbV4g8IzAhmxdcBPndRg94Se+LU6j70jnN4OjiTOKU57wqnQZxBlGzBTbFOSgKt00PTpNLKXSzdUbpyOw3JnhlPtZ+w3Z60BagyLX5QkxpDP9+qkUgUKcYw4fyCBTksKvFcLO30blwYzagxztW557OuywdzGLXK4TZuX0ab4rAmATl0XRVcLQ19efg/IsWTbLfdf901jgjDEc2q4nSEotoHQpqOOW8hV7wKuzU0E5QcUM/Eh1F1T3A+wb8gfMgbjCTw3387BipbTfI3SZV3MHkKDJDHXgd8V+cyv8VOtQdb6RbwCpvzqmy4BSsX4isJKh2wDNSJwCEFhtmICWbB2foRVFnpWwMv8TYz7Sf5z8vnPz++WYVNF7FzT5bi6hJ69ZCtDqJ+Xyv+dH41Z52xY97zMd9vKt0lydwFW2lkyJdzh/waS9JRKylaO4B9dhCn/U6BLrToSzetFFgGRZV3G5hsYFnjR1gBgpKlgM5bVnbTFh5MMTMtpmJ1yyI4o4MU51bhTJaommk1GNUvZ/IwAzWv/LRA83xuDtcv16JDtG21hASoEjoEqpI+EPSSD+M/rca1MRVbsZl/GddHrytAnztBkfIxMXy/Ao1C769tclaYwahfNju7tMTtk/UT5Gp3DD7jeRjclkvG13D5yo/iWx+6kStbG4a24kG0c6MwTz3NTiFuS6zdw7Yw8IIG3Bm8Qw5zqEV+g70MJB+dSIwe7TKWFLlORAy0TKyh5qNaMOS0EAf87EBBzWBc+YjaViBMaBbJ6AhSi6O41Dk+NT0+Q/38rXeovcdRsnvA5RC9TH5yM0Uw5XrqU6W+N1l2oncEh30wHR/pGWW7WqH5VmRv+Ip7aKBuN2cnbj/Lf7biyb/HLHNHMqIcnrssX3+ey4fLE/ZVfFCH1rImzQ9tkyMMW7T88nBIIcImirIiqA2ix/2iGEJv1kNponmj/cDzuJAgnlsiN6e57ycnHWHlSmDs1ofmrPcd+EKASYKHMYT5pQzQP3lTnnra5qB3CcWd1AukPuzlEqS2o0klHlaXEvkqp386hxo5uLY1bz6fU5Mb9zkRYA35mZpGcIj8exeZdFg2C7HhPK8E5xSAQ0IVDrzmBlbSxgB"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 1099,
+     "cache_read_input_tokens": 3706,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 1099
+     },
+     "output_tokens": 8,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "773f4af6-cdcb-462e-a648-d1dbbeab117a",
+   "timestamp": "2026-10-30T21:40:29.871Z",
+   "request_id": "req_011CgZ9WNupYobvk4r9gjfP7",
+   "thinking_duration_ms": 1428,
+   "thinking_display": "updates"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9WPfxx78ctbCoLoo5B",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_014pnManrrgQW7rJozNA7PuL",
+      "name": "Write",
+      "input": {
+       "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/state.json",
+       "content": "{\n  \"seen_posting_ids\": [6865698002],\n  \"judgments\": {\n    \"6865698002\": {\n      \"posting_id\": 6865698002,\n      \"verdict\": \"relevant\",\n      \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"},\n      \"excluded_terms\": {\"pass\": true, \"found\": []},\n      \"shared_skills\": {\n        \"pass\": true,\n        \"skills\": [\n          {\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"},\n          {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}\n        ]\n      },\n      \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"\n    }\n  }\n}\n"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 1099,
+     "cache_read_input_tokens": 3706,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 1099
+     },
+     "output_tokens": 8,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "b538c8f8-4114-4d5f-8b1e-a21db97f8c64",
+   "timestamp": "2026-10-30T21:40:32.499Z",
+   "request_id": "req_011CgZ9WNupYobvk4r9gjfP7",
+   "wire_tool_inputs": {
+    "toolu_014pnManrrgQW7rJozNA7PuL": {
+     "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/state.json",
+     "content": "{\n  \"seen_posting_ids\": [6865698002],\n  \"judgments\": {\n    \"6865698002\": {\n      \"posting_id\": 6865698002,\n      \"verdict\": \"relevant\",\n      \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"},\n      \"excluded_terms\": {\"pass\": true, \"found\": []},\n      \"shared_skills\": {\n        \"pass\": true,\n        \"skills\": [\n          {\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"},\n          {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}\n        ]\n      },\n      \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"\n    }\n  }\n}\n"
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_014pnManrrgQW7rJozNA7PuL",
+      "type": "tool_result",
+      "content": "File created successfully at: /private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/state.json (file state is current in your context — no need to Read it back)"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "7c9b22fc-168a-4065-aa90-8a97adbc8758",
+   "timestamp": "2026-10-30T21:40:32.509Z",
+   "tool_use_result": {
+    "type": "create",
+    "filePath": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode3_agent-wh21vmcq/state.json",
+    "content": "{\n  \"seen_posting_ids\": [6865698002],\n  \"judgments\": {\n    \"6865698002\": {\n      \"posting_id\": 6865698002,\n      \"verdict\": \"relevant\",\n      \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"},\n      \"excluded_terms\": {\"pass\": true, \"found\": []},\n      \"shared_skills\": {\n        \"pass\": true,\n        \"skills\": [\n          {\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"},\n          {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}\n        ]\n      },\n      \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"\n    }\n  }\n}\n",
+    "structuredPatch": [],
+    "originalFile": null,
+    "userModified": false
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_014pnManrrgQW7rJozNA7PuL",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9Wp6ttNfNjBQXZVDXg",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "text",
+      "text": "{\"posting_id\": 6865698002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}]}, \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"}"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 639,
+     "cache_read_input_tokens": 4805,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 639
+     },
+     "output_tokens": 279,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "uuid": "f5a425bf-6499-43ff-94b8-031ecdd93039",
+   "timestamp": "2026-10-30T21:40:35.840Z",
+   "request_id": "req_011CgZ9WoKGw53vE6Q1dDboV"
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1793409600,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.09,
+      "resetsAt": 1793409600,
+      "status": "allowed"
+     }
+    }
+   },
+   "uuid": "f252c2f2-bd78-40cf-a4d3-0f9288da4038",
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a"
+  },
+  {
+   "duration_api_ms": 22569,
+   "stop_reason": "end_turn",
+   "session_id": "b309207b-c731-4148-99c4-787fd864253a",
+   "total_cost_usd": 0.07023170000000001,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 5444,
+    "cache_read_input_tokens": 8511,
+    "output_tokens": 1167,
+    "output_tokens_details": {
+     "thinking_tokens": 141
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 5444,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 279,
+      "cache_read_input_tokens": 4805,
+      "cache_creation_input_tokens": 639,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 639
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 7575,
+     "outputTokens": 1712,
+     "cacheReadInputTokens": 0,
+     "cacheCreationInputTokens": 0,
+     "webSearchRequests": 0,
+     "costUSD": 0.0016135,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 1174,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+     "inputTokens": 6,
+     "outputTokens": 1167,
+     "cacheReadInputTokens": 8511,
+     "cacheCreationInputTokens": 5444,
+     "webSearchRequests": 0,
+     "costUSD": 0.0686182,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 141,
+     "canonicalModel": "claude-opus-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "extra_usage_disabled",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "safety_stops": 0,
+   "is_error": false,
+   "num_turns": 4,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"posting_id\": 6865698002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate\"}]}, \"explanation\": \"The title 'Software Engineer - New Grad (2027 Start)' contains 'software engineer' and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in skills.data_bi).\"}",
+   "ttft_ms": 2724,
+   "type": "result",
+   "duration_ms": 22032,
+   "uuid": "f4e189b7-a7ca-4f35-80b9-4b11eda21726",
+   "ttft_stream_ms": 1591,
+   "time_to_request_ms": 56,
+   "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 0,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 10,
+    "input_hooks": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 0,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 0,
+    "model_gates": 25,
+    "tool_schema_build": 4,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 1
+   },
+   "turn_start_resume_kind": "none",
+   "process_turn_index": 0,
+   "time_to_request_loop_lag_ms": 6,
+   "time_to_request_cpu_ms": 79,
+   "time_to_request_major_faults": 0,
+   "input_attachments_detail": {
+    "slowest_producer": "session_settings",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 17,
+    "major_faults": 0
+   },
+   "first_content_frame_ms": 1591,
+   "queued_turn_count": 0,
+   "result_index": 0,
+   "model_usage_since_last_result": {
+    "claude-haiku-5-5": {
+     "inputTokens": 7575,
+     "outputTokens": 1712,
+     "cacheReadInputTokens": 0,
+     "cacheCreationInputTokens": 0,
+     "webSearchRequests": 0,
+     "costUSD": 0.0016135,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 1174,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+     "inputTokens": 6,
+     "outputTokens": 1167,
+     "cacheReadInputTokens": 8511,
+     "cacheCreationInputTokens": 5444,
+     "webSearchRequests": 0,
+     "costUSD": 0.0686182,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 141,
+     "canonicalModel": "claude-opus-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   }
+  }
+ ],
+ "stderr_tail": "",
+ "validation_of_final_answer": {
+  "valid": true,
+  "errors": []
+ },
+ "validation_of_state_file_judgment": {
+  "valid": true,
+  "errors": []
+ },
+ "usage_summary": {
+  "duration_ms": 22032,
+  "num_turns": 4,
+  "total_cost_usd": 0.07023170000000001,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 7575,
+    "outputTokens": 1712,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.0016135,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 1174,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 6,
+    "outputTokens": 1167,
+    "cacheReadInputTokens": 8511,
+    "cacheCreationInputTokens": 5444,
+    "webSearchRequests": 0,
+    "costUSD": 0.0686182,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 141,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  }
+ }
+}

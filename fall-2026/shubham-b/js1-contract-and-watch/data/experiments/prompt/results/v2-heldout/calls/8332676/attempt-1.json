@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 8321,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "9478c1b4981f172a1075826c53be2092cc284df0871df5cd4eca5e7b148661da",
+  "posting_id": "8332676",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "bd83c8d6-f939-4ac8-8914-f4280239f132",
+  "started_at_et": "2026-10-31T14:34:04.195997-04:00",
+  "started_at_utc": "2026-10-31T18:34:04.195997Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":8026,\"stop_reason\":\"end_turn\",\"session_id\":\"bd83c8d6-f939-4ac8-8914-f4280239f132\",\"total_cost_usd\":0.0312549,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4940,\"cache_read_input_tokens\":1109,\"output_tokens\":1138,\"output_tokens_details\":{\"thinking_tokens\":396},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4940,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":1138,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4940,\"webSearchRequests\":0,\"costUSD\":0.0312549,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":396,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4940,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title \\\\\\\"Software Engineer - Full stack\\\\\\\" contains the target phrase \\\\\\\"software engineer\\\\\\\" and no excluded marker. The content names React, TypeScript, Java and SQL, which are four eligible resume skills (the rule needs two). No citizenship, clearance or unpaid-work phrase appears. The location \\\\\\\"Seattle, WA\\\\\\\" has US signals and no non-US signal. The 2-years-of-experience requirements, the Ruby and Golang asks, the degree requirement and the on-call duty are not gates.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title matches the Full-Stack Software Engineer target role and has no excluded seniority or intern marker.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content lists React, an eligible frontend skill.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content lists TypeScript, an eligible language skill.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content lists Java, an eligible language skill.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content mentions SQL, an eligible language skill.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is a US location with no non-US signal.\\\"},{\\\"resume_path\\\":\\\"$.target.excluded[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"No citizenship or security-clearance exclusion phrase appears in the content.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not say whether the employer sponsors work visas.\\\",\\\"The posting asks for 2 years of experience in Ruby, React, TypeScript, Java and Golang. Kiran has no Ruby or shipped Go experience, and this is not a gate, so how well Kiran would fit in practice is unclear.\\\",\\\"The posting does not state the level (new grad vs. mid-level), so fit with Kiran's target levels cannot be established beyond the 2-year requirement.\\\"]}\",\"ttft_ms\":3816,\"type\":\"result\",\"duration_ms\":8079,\"uuid\":\"c4c72bf0-0b52-49cc-8272-62268cda2398\",\"ttft_stream_ms\":1265,\"time_to_request_ms\":51,\"first_content_frame_ms\":1265,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0312549,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

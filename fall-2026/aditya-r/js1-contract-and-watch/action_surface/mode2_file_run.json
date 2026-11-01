@@ -1,0 +1,550 @@
+{
+ "mode": "mode2_file",
+ "started_at_utc": "2026-10-30T21:40:05+00:00",
+ "tools_enabled": [
+  "Read"
+ ],
+ "allowed_rules": [
+  "Read"
+ ],
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "task": "Read ./posting.json (a Greenhouse posting object; the description is in the HTML-escaped `content` field) and ./resume_skills.json, apply the rule, and reply with the JSON object only.",
+ "input_files": [
+  "posting.json",
+  "resume_skills.json"
+ ],
+ "returncode": 0,
+ "files_created_by_claude": {},
+ "events": [
+  {
+   "type": "system",
+   "subtype": "init",
+   "tools": [
+    "Read"
+   ],
+   "model": "claude-opus-5-5",
+   "permissionMode": "default",
+   "mcp_servers": []
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9Up8L3NDso9s71WoHg",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01JLNm97SgWFueiWwY73havu",
+      "name": "Read",
+      "input": {
+       "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/posting.json"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3020,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3020
+     },
+     "output_tokens": 16,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "2580cd9f-0b34-4bc5-b940-c2cf6a607ba6",
+   "timestamp": "2026-10-30T21:40:07.086Z",
+   "request_id": "req_011CgZ9UoLwqDzNrLsVeHtUd",
+   "wire_tool_inputs": {
+    "toolu_01JLNm97SgWFueiWwY73havu": {
+     "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/posting.json"
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01JLNm97SgWFueiWwY73havu",
+      "type": "tool_result",
+      "content": "1\t{\"absolute_url\": \"https://databricks.com/company/careers/open-positions/job?gh_jid=6865698002\", \"data_compliance\": [{\"type\": \"gdpr\", \"requires_consent\": false, \"requires_processing_consent\": false, \"requires_retention_consent\": false, \"retention_period\": null, \"demographic_data_consent_applies\": false}], \"education\": \"education_required\", \"internal_job_id\": 5607980002, \"location\": {\"name\": \"Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada\"}, \"metadata\": [{\"id\": 9740521002, \"name\": \"Company Assignment\", \"value\": \"Databricks, Inc.\", \"value_type\": \"single_select\"}, {\"id\": 24059030002, \"name\": \"Career Page Posting Category\", \"value\": [\"Engineering\", \"University Recruiting\"], \"value_type\": \"multi_select\"}], \"id\": 6865698002, \"updated_at\": \"2026-10-27T16:02:08-04:00\", \"requisition_id\": \"P-964\", \"title\": \"Software Engineer - New Grad (2027 Start)\", \"company_name\": \"Databricks\", \"first_published\": \"2023-08-04T12:20:33-04:00\", \"language\": \"en\", \"application_deadline\": null, \"content\": \"&lt;p&gt;P-964&lt;/p&gt;\\n&lt;p&gt;At Databricks, we are passionate about helping data teams solve the world&#39;s toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world&#39;s best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers and dedicated to our customers, we leap at every opportunity to solve technical challenges, from designing next-gen UI/UX for working with data to scaling our services and infrastructure across millions of virtual machines. And we&#39;re only getting started.&lt;/p&gt;\\n&lt;p&gt;As a software engineer, you will work with our engineering team to build infrastructure and products for the Databricks platform. We&#39;re hiring across all of our teams, including backend, full stack, infrastructure, databases, systems, tools, cloud, and customer-facing products You will join a cohort of engineers who will build their careers through collaborative projects and learning opportunities. With a dedicated mentor and supportive team, you&#39;ll onboard quickly and start contributing to impactful projects soon after starting here at Databricks!&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;The impact you will have:&lt;/strong&gt;&lt;/p&gt;\\n&lt;ul&gt;\\n&lt;li&gt;Work with a team to build features and improve architecture for the Databricks platform&lt;/li&gt;\\n&lt;li&gt;Develop and extend the Databricks product&lt;/li&gt;\\n&lt;li&gt;Own full software development lifecycle: design, development, testing, and operating in production&lt;/li&gt;\\n&lt;li&gt;Build solutions with a high level of reliability, scalability, and security&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;p&gt;&lt;strong&gt;What we look for:&lt;/strong&gt;&lt;/p&gt;\\n&lt;ul&gt;\\n&lt;li&gt;You will graduate in fall 2026 or spring 2027 with a degree in Computer Science, Engineering, or related subject&lt;/li&gt;\\n&lt;li&gt;You have implementation skills with a general purpose program language, such as Python, Java, or C++&lt;/li&gt;\\n&lt;li&gt;You have knowledge of algorithms, data structures, and OOP principles&lt;/li&gt;\\n&lt;li&gt;You have experience managing end-to-end projects&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;p&gt;We are hiring Software Engineer - New Grads across multiple offices. Please apply for the single location that you&#39;re the most interested in, and we will discuss more with you as you move through the process. We can only consider one application in 30 days.&amp;nbsp;&lt;/p&gt;&lt;div class=&quot;content-pay-transparency&quot;&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page &lt;a href=&quot;https://www.databricks.com/sites/default/files/2024-08/us-pay-zone-mapping.pdf&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 1 Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$145,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$155,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page &lt;a href=&quot;https://www.databricks.com/sites/default/files/2024-08/us-pay-zone-mapping.pdf&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 2 Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$137,750&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$147,450 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticpates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above.&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Canada Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$125,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$130,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;&lt;strong&gt;About Databricks&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-family: arial, sans-serif;&quot;&gt;Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on &lt;a href=&quot;https://www.linkedin.com/company/databricks&quot;&gt;LinkedIn&lt;/a&gt;, &lt;a href=&quot;https://x.com/databricks&quot;&gt;X&lt;/a&gt;, &lt;a href=&quot;https://www.youtube.com/@Databricks&quot;&gt;YouTube&lt;/a&gt;, and &lt;a href=&quot;https://www.instagram.com/databricksinc/?hl=en&quot;&gt;Instagram&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Benefits&lt;br&gt;&lt;br&gt;&lt;/strong&gt;&lt;/span&gt;At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click &lt;a href=&quot;https://docs.google.com/document/d/154un3e8Xav4BceOSlcYFZRGEuQI54xMxVydRwQn54eQ/edit?usp=sharing&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Our Commitment to Diversity and Inclusion&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics.&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Compliance&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;If access to export-controlled technology or source code is required for performance of job duties, it is within Employer&#39;s discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;\", \"departments\": [{\"id\": 4143128002, \"name\": \"University Recruiting - Engineering\", \"child_ids\": [], \"parent_id\": 4001023002}], \"offices\": [{\"id\": 4056362002, \"name\": \"Mountain View, California\", \"location\": \"Mountain View, California\", \"child_ids\": [], \"parent_id\": 4033534002}], \"ai_disclaimer\": null, \"include_ai_disclaimer\": null, \"ai_opt_out_request_url\": null}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "9d65574f-25e6-4d71-be21-febc86546df4",
+   "timestamp": "2026-10-30T21:40:07.100Z",
+   "tool_use_result": {
+    "type": "text",
+    "file": {
+     "filePath": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/posting.json",
+     "content": "{\"absolute_url\": \"https://databricks.com/company/careers/open-positions/job?gh_jid=6865698002\", \"data_compliance\": [{\"type\": \"gdpr\", \"requires_consent\": false, \"requires_processing_consent\": false, \"requires_retention_consent\": false, \"retention_period\": null, \"demographic_data_consent_applies\": false}], \"education\": \"education_required\", \"internal_job_id\": 5607980002, \"location\": {\"name\": \"Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada\"}, \"metadata\": [{\"id\": 9740521002, \"name\": \"Company Assignment\", \"value\": \"Databricks, Inc.\", \"value_type\": \"single_select\"}, {\"id\": 24059030002, \"name\": \"Career Page Posting Category\", \"value\": [\"Engineering\", \"University Recruiting\"], \"value_type\": \"multi_select\"}], \"id\": 6865698002, \"updated_at\": \"2026-10-27T16:02:08-04:00\", \"requisition_id\": \"P-964\", \"title\": \"Software Engineer - New Grad (2027 Start)\", \"company_name\": \"Databricks\", \"first_published\": \"2023-08-04T12:20:33-04:00\", \"language\": \"en\", \"application_deadline\": null, \"content\": \"&lt;p&gt;P-964&lt;/p&gt;\\n&lt;p&gt;At Databricks, we are passionate about helping data teams solve the world&#39;s toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world&#39;s best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers and dedicated to our customers, we leap at every opportunity to solve technical challenges, from designing next-gen UI/UX for working with data to scaling our services and infrastructure across millions of virtual machines. And we&#39;re only getting started.&lt;/p&gt;\\n&lt;p&gt;As a software engineer, you will work with our engineering team to build infrastructure and products for the Databricks platform. We&#39;re hiring across all of our teams, including backend, full stack, infrastructure, databases, systems, tools, cloud, and customer-facing products You will join a cohort of engineers who will build their careers through collaborative projects and learning opportunities. With a dedicated mentor and supportive team, you&#39;ll onboard quickly and start contributing to impactful projects soon after starting here at Databricks!&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;The impact you will have:&lt;/strong&gt;&lt;/p&gt;\\n&lt;ul&gt;\\n&lt;li&gt;Work with a team to build features and improve architecture for the Databricks platform&lt;/li&gt;\\n&lt;li&gt;Develop and extend the Databricks product&lt;/li&gt;\\n&lt;li&gt;Own full software development lifecycle: design, development, testing, and operating in production&lt;/li&gt;\\n&lt;li&gt;Build solutions with a high level of reliability, scalability, and security&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;p&gt;&lt;strong&gt;What we look for:&lt;/strong&gt;&lt;/p&gt;\\n&lt;ul&gt;\\n&lt;li&gt;You will graduate in fall 2026 or spring 2027 with a degree in Computer Science, Engineering, or related subject&lt;/li&gt;\\n&lt;li&gt;You have implementation skills with a general purpose program language, such as Python, Java, or C++&lt;/li&gt;\\n&lt;li&gt;You have knowledge of algorithms, data structures, and OOP principles&lt;/li&gt;\\n&lt;li&gt;You have experience managing end-to-end projects&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;p&gt;We are hiring Software Engineer - New Grads across multiple offices. Please apply for the single location that you&#39;re the most interested in, and we will discuss more with you as you move through the process. We can only consider one application in 30 days.&amp;nbsp;&lt;/p&gt;&lt;div class=&quot;content-pay-transparency&quot;&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page &lt;a href=&quot;https://www.databricks.com/sites/default/files/2024-08/us-pay-zone-mapping.pdf&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 1 Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$145,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$155,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page &lt;a href=&quot;https://www.databricks.com/sites/default/files/2024-08/us-pay-zone-mapping.pdf&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 2 Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$137,750&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$147,450 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Pay Range Transparency&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-size: 14px;&quot;&gt;Databricks is committed to fair and equitable compensation practices. The pay range for this role is listed below and represents the expected salary range for non-commissionable roles or on-target earnings for commissionable roles.&amp;nbsp; Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticpates utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above.&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;\\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Canada Pay Range&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$125,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$130,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;&lt;strong&gt;About Databricks&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;span style=&quot;font-family: arial, sans-serif;&quot;&gt;Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on &lt;a href=&quot;https://www.linkedin.com/company/databricks&quot;&gt;LinkedIn&lt;/a&gt;, &lt;a href=&quot;https://x.com/databricks&quot;&gt;X&lt;/a&gt;, &lt;a href=&quot;https://www.youtube.com/@Databricks&quot;&gt;YouTube&lt;/a&gt;, and &lt;a href=&quot;https://www.instagram.com/databricksinc/?hl=en&quot;&gt;Instagram&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Benefits&lt;br&gt;&lt;br&gt;&lt;/strong&gt;&lt;/span&gt;At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click &lt;a href=&quot;https://docs.google.com/document/d/154un3e8Xav4BceOSlcYFZRGEuQI54xMxVydRwQn54eQ/edit?usp=sharing&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Our Commitment to Diversity and Inclusion&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics.&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;Compliance&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;&lt;strong&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;If access to export-controlled technology or source code is required for performance of job duties, it is within Employer&#39;s discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;\", \"departments\": [{\"id\": 4143128002, \"name\": \"University Recruiting - Engineering\", \"child_ids\": [], \"parent_id\": 4001023002}], \"offices\": [{\"id\": 4056362002, \"name\": \"Mountain View, California\", \"location\": \"Mountain View, California\", \"child_ids\": [], \"parent_id\": 4033534002}], \"ai_disclaimer\": null, \"include_ai_disclaimer\": null, \"ai_opt_out_request_url\": null}",
+     "numLines": 1,
+     "startLine": 1,
+     "totalLines": 1
+    }
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_01JLNm97SgWFueiWwY73havu",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1793409600,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.08,
+      "resetsAt": 1793409600,
+      "status": "allowed"
+     }
+    }
+   },
+   "uuid": "f5fc206b-7215-4c1e-8888-76d52e82aa93",
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9Up8L3NDso9s71WoHg",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01VCJN3DcsyQWwtT1Ge4Wfgm",
+      "name": "Read",
+      "input": {
+       "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/resume_skills.json"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3020,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3020
+     },
+     "output_tokens": 16,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "daf8b596-d49d-404e-b680-c06af51a05ee",
+   "timestamp": "2026-10-30T21:40:07.827Z",
+   "request_id": "req_011CgZ9UoLwqDzNrLsVeHtUd",
+   "wire_tool_inputs": {
+    "toolu_01VCJN3DcsyQWwtT1Ge4Wfgm": {
+     "file_path": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/resume_skills.json"
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01VCJN3DcsyQWwtT1Ge4Wfgm",
+      "type": "tool_result",
+      "content": "1\t{\n2\t \"skills.languages\": [\n3\t  \"Python\",\n4\t  \"SQL\"\n5\t ],\n6\t \"skills.data_bi\": [\n7\t  \"Databricks\",\n8\t  \"Unity Catalog\",\n9\t  \"Power BI\"\n10\t ],\n11\t \"skills.backend_automation\": [\n12\t  \"LangGraph\",\n13\t  \"MLflow\",\n14\t  \"Mem0\"\n15\t ],\n16\t \"skills.database_cloud\": [\n17\t  \"Delta Lake\",\n18\t  \"AWS\"\n19\t ]\n20\t}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "9fcb59b4-8e3f-4653-b377-f8ddda8aaa78",
+   "timestamp": "2026-10-30T21:40:07.847Z",
+   "tool_use_result": {
+    "type": "text",
+    "file": {
+     "filePath": "/private/var/folders/26/wj7ysvd95bj1zcvv43gx0j0h0000gn/T/js1-mode2_file-u9d4fpma/resume_skills.json",
+     "content": "{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}",
+     "numLines": 20,
+     "startLine": 1,
+     "totalLines": 20
+    }
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_01VCJN3DcsyQWwtT1Ge4Wfgm",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "d73df6b6-95b2-406b-b4a2-8a673c225916"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 150,
+   "estimated_tokens_delta": 100,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "b15cacb5-0790-4923-b125-45fcf3e9cf7e"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 285,
+   "estimated_tokens_delta": 135,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "86666871-4d26-493f-ac67-d4335b199684"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9UzTvbk7TsoeNqSP5f",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQS6wgKEAgTGAI4AUIIdGhpbmtpbmcSDIt2QQYFQg+N4lE3XBoM/znFtmhYSzPqg1SWIjA7k1EnjxLjEgW9E6fFwNCFQlkSTU9mduL+AB4l/jw2l8t59cvWNadrEVH6AdE+VlgqiAhQo32Uhq9P6p2egyAbIbeujDNkgdL+L/R+hQnaGyzbwZUf+IRI8jvde/qwI11Djv25PZ/bJJcLN0iRYjc2vrGcwCR3FjvL6M3HY7OdBbCChEM9ApZkjLrv5jLyUZsZv5gGKqdIqSb0XHTGqdfiKzKxRF1Y/BaDCEGflWXIbk1aMxRaGLPf/ROuYbDylnqkPm6ikdZEpEf4q1rmEgOT+8XwI3IPEjEzK+ipv91dixky+2FpDO7LZ+hPCp67Ar2zRv5xYM8xIgO3JctqRkfoIVc5p8fJq1innAGEANF98wLmFiMK4ADVdnHSFGzIyLvqYaZKbxkIF4CFtSavWliNxmvvAiHHel3RGDspZnQrbJi10htl4J6RvaTlu7Nu9jl+EeRCMUQ//meCp4+89TwC6SXWpMDHBd9ewRi5R3Ay48fPxlKU5LbaKrmhSgDG2mbtGKaZAPQuyIttgYNpZdp3sba1G4SfrUpXCexERpfxDcgf7o8Qa64jcLzZlDnhhV0O8MG2PnufELlaT4gKsJY5zOErzLunAjkldnbxTtKhZSQbB62EQ5tq5N2y6twVpAFuFf05OeHumHOwziGczFKD2uRgl1orMpqcCCTHNk0oQY+yQCZqBzn9GLT9iX9QBuk8DGBBSgahNbRxpEDbRaWMPNNfc9pG+KXCFCtCHuLjhTrOl/meBfTsXpAINAJJD3Dxpbcxu6Vy2UbF1+LRq6GOwiI2C+3p4xhNtaqAFiecm1NPIIO1yO90rmY2OO6DzH6bgDcx7XnkE6L40SlyA4XXaFb0/Ovjzvxi/yZOPe+Nj4VWYYDYAKvbIEKISlIHmTsbbngnp0rjEXGSzN2eI7FM+yG0KX9a6HPud9Xy6WT9uyTqI9X86KEobHXsMNhEsdkHr+S8IQN/PdskqZ+ZX6sGT/fZ9xMOdA0OgN0Mz4h0iV9YZln4iirZmfUwlKGmfV/nM4pPbOb0QqOwuQTJKjsce4u6zyBwENf3in4V1oHSH4IJ1YmBHibNyo1F5DC+Uafs0EWZ8teb7IxuYzYKVSDFxEiHvaGVTAbAH/1BeU9nWQsKfoSTB8+/bSJvqhpMcycXVKceQXcCSxWWGiQS85HUPB9lk7k2h5PdEcMGSu4f14x5W2pMQBNsFVFEJWvnXmgBVEQTBo1U8dRvhnfEo/lf74CD/8Po8+I+eXRSkrXvdKKosSr43QraLmESjqyUAI42g8FsETcm4zTfC3U1DYEN06xPmvJwU+34qcfKLaXzLxIPeDYbaLydUWR+/z16Ert0FcDbBvu3nGMOPcnp2LT0WBjq/03Ib3Mukn2uCr/aoKIkWHrWwMM3QIp6rtnsG0FSEYkZLsoVAmWgZ5TZFhIoU/au2fH4CcadplUYAQ=="
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 5288,
+     "cache_read_input_tokens": 3020,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 5288
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "445a9dd4-9485-4f87-a691-248c6ca34be1",
+   "timestamp": "2026-10-30T21:40:12.240Z",
+   "request_id": "req_011CgZ9UynkuV3Wu76BbmUJM",
+   "thinking_duration_ms": 3759,
+   "thinking_display": "updates"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-opus-5-5",
+    "id": "msg_011CgZ9UzTvbk7TsoeNqSP5f",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "text",
+      "text": "{\"posting_id\": 6865698002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"build infrastructure and products for the Databricks platform\"}]}, \"explanation\": \"The title contains \\\"software engineer\\\" and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in résumé skills.data_bi), so 2 skills are shared.\"}"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 5288,
+     "cache_read_input_tokens": 3020,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 5288
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "uuid": "d3b778c1-5c6a-4eca-b801-46873c2db510",
+   "timestamp": "2026-10-30T21:40:12.242Z",
+   "request_id": "req_011CgZ9UynkuV3Wu76BbmUJM"
+  },
+  {
+   "duration_api_ms": 9187,
+   "stop_reason": "end_turn",
+   "session_id": "3d8e19ec-7f87-435d-9f49-54eeec153bde",
+   "total_cost_usd": 0.0807279,
+   "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 8308,
+    "cache_read_input_tokens": 3020,
+    "output_tokens": 667,
+    "output_tokens_details": {
+     "thinking_tokens": 177
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 8308,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 453,
+      "cache_read_input_tokens": 3020,
+      "cache_creation_input_tokens": 5288,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 5288
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 1229,
+     "outputTokens": 362,
+     "cacheReadInputTokens": 0,
+     "cacheCreationInputTokens": 0,
+     "webSearchRequests": 0,
+     "costUSD": 0.0003039,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 340,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+     "inputTokens": 4,
+     "outputTokens": 667,
+     "cacheReadInputTokens": 3020,
+     "cacheCreationInputTokens": 8308,
+     "webSearchRequests": 0,
+     "costUSD": 0.080424,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 177,
+     "canonicalModel": "claude-opus-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "extra_usage_disabled",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "safety_stops": 0,
+   "is_error": false,
+   "num_turns": 3,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"posting_id\": 6865698002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"such as Python, Java, or C++\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"build infrastructure and products for the Databricks platform\"}]}, \"explanation\": \"The title contains \\\"software engineer\\\" and none of the excluded words. The description mentions Python (found in résumé skills.languages) and Databricks (found in résumé skills.data_bi), so 2 skills are shared.\"}",
+   "ttft_ms": 1785,
+   "type": "result",
+   "duration_ms": 6956,
+   "uuid": "a596af74-785c-4f83-8487-f20506118166",
+   "ttft_stream_ms": 810,
+   "time_to_request_ms": 51,
+   "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 0,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 9,
+    "input_hooks": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 1,
+    "engine_pickup": 0,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 1,
+    "model_gates": 21,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 1
+   },
+   "turn_start_resume_kind": "none",
+   "process_turn_index": 0,
+   "time_to_request_loop_lag_ms": 1,
+   "time_to_request_cpu_ms": 87,
+   "time_to_request_major_faults": 12,
+   "input_attachments_detail": {
+    "slowest_producer": "session_settings",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 16,
+    "major_faults": 8
+   },
+   "first_content_frame_ms": 810,
+   "queued_turn_count": 0,
+   "result_index": 0,
+   "model_usage_since_last_result": {
+    "claude-haiku-5-5": {
+     "inputTokens": 1229,
+     "outputTokens": 362,
+     "cacheReadInputTokens": 0,
+     "cacheCreationInputTokens": 0,
+     "webSearchRequests": 0,
+     "costUSD": 0.0003039,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 340,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+     "inputTokens": 4,
+     "outputTokens": 667,
+     "cacheReadInputTokens": 3020,
+     "cacheCreationInputTokens": 8308,
+     "webSearchRequests": 0,
+     "costUSD": 0.080424,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 177,
+     "canonicalModel": "claude-opus-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   }
+  }
+ ],
+ "stderr_tail": "",
+ "validation_of_final_answer": {
+  "valid": true,
+  "errors": []
+ },
+ "usage_summary": {
+  "duration_ms": 6956,
+  "num_turns": 3,
+  "total_cost_usd": 0.0807279,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 1229,
+    "outputTokens": 362,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.0003039,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 340,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 4,
+    "outputTokens": 667,
+    "cacheReadInputTokens": 3020,
+    "cacheCreationInputTokens": 8308,
+    "webSearchRequests": 0,
+    "costUSD": 0.080424,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 177,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  }
+ }
+}

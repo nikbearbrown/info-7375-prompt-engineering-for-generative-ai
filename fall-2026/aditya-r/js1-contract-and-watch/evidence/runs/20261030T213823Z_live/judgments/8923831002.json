@@ -1,0 +1,46 @@
+{
+ "posting_id": 8923831002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8923831002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "machine learning engineer"
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "staff"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "python",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "Proficiency in Python and modern ML frameworks"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we are passionate about enabling data teams"
+    }
+   ]
+  },
+  "explanation": "The title contains the role phrase 'machine learning engineer' but also the excluded word 'staff', so the excluded_terms check fails. The description shares python (skills.languages) and databricks (skills.data_bi) with the résumé, so the shared_skills check passes."
+ },
+ "attempt_files": [
+  "8923831002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "c0cc6e66-aba7-4c3f-b266-90705f9e0b3d",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

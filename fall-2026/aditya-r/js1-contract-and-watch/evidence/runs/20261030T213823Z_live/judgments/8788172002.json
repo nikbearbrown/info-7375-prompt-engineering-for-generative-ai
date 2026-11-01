@@ -1,0 +1,47 @@
+{
+ "posting_id": 8788172002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8788172002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": false,
+   "matched": null
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "director",
+    "lead"
+   ]
+  },
+  "shared_skills": {
+   "pass": true,
+   "skills": [
+    {
+     "skill": "sql",
+     "resume_field": "skills.languages",
+     "posting_field": "description",
+     "quote": "SQL data analysis"
+    },
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "Mission Databricks is seeking a senior finance leader"
+    }
+   ]
+  },
+  "explanation": "The title has none of the eligible role phrases and contains the excluded words \"director\" and \"lead\", so the posting fails. In the description, sql (from skills.languages) and databricks (from skills.data_bi) both match, but the title failures decide the verdict."
+ },
+ "attempt_files": [
+  "8788172002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "0bb6b589-c9e5-4e8b-adfc-5d79792c2c83",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

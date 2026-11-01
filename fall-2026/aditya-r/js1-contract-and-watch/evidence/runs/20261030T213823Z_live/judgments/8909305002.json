@@ -1,0 +1,41 @@
+{
+ "posting_id": 8909305002,
+ "valid": true,
+ "judgment": {
+  "posting_id": 8909305002,
+  "verdict": "not_relevant",
+  "role_phrase": {
+   "pass": true,
+   "matched": "software engineer"
+  },
+  "excluded_terms": {
+   "pass": false,
+   "found": [
+    "senior",
+    "staff"
+   ]
+  },
+  "shared_skills": {
+   "pass": false,
+   "skills": [
+    {
+     "skill": "databricks",
+     "resume_field": "skills.data_bi",
+     "posting_field": "description",
+     "quote": "At Databricks, we run the world's largest AI platform."
+    }
+   ]
+  },
+  "explanation": "The title contains the role phrase \"software engineer\" but also the excluded words \"senior\" and \"staff\". Only databricks is shared between the description and skills.data_bi, since python, sql, spark and langgraph do not appear in the title or description, so the shared-skills check also fails."
+ },
+ "attempt_files": [
+  "8909305002.attempt1.json"
+ ],
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "73ed4177-63ab-4606-933c-b6c33999a4b2",
+ "prompt_version": "v1",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15"
+}

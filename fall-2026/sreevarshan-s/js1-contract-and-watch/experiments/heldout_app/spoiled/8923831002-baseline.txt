@@ -1,0 +1,1 @@
+cd ~/Downloads/Eng_job && for f in experiments/heldout_app/replies/*.txt; do printf '%s: ' "$(basename $f)"; head -c 60 "$f" | tr '\n' ' '; echo; done

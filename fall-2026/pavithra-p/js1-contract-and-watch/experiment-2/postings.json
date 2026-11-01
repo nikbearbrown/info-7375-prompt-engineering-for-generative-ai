@@ -1,0 +1,236 @@
+{
+  "frozen_at": "2026-10-31T22:38:41Z",
+  "sources": [
+    {
+      "file": "evidence/raw/affirm-20261031T223828Z.json",
+      "sha256": "76b7a667c5338e1d2f5ba7e1cc26943225e2e561deaf708f74fd43d3d78f3981"
+    },
+    {
+      "file": "evidence/raw/airbnb-20261031T223828Z.json",
+      "sha256": "760a9c86218ab2b808fa5e17ce569bcacad5e9b429b2542a70588534d3fbb8b2"
+    },
+    {
+      "file": "evidence/raw/brex-20261031T223828Z.json",
+      "sha256": "4adc7c41d0ac9b78e15d7dc39b19d4d8cb5730cf30ac6f846f5f8a567888ab3f"
+    },
+    {
+      "file": "evidence/raw/databricks-20261031T223829Z.json",
+      "sha256": "8ce05794c6fbc6e432c5b31e01aa6c6bc8f64d66e2042c644133ed45c37af68d"
+    },
+    {
+      "file": "evidence/raw/figma-20261031T223829Z.json",
+      "sha256": "9abb6eac29130a79bdbce32b87f97f46421d9e5b57b56f8da3e62d4a08f2d314"
+    },
+    {
+      "file": "evidence/raw/reddit-20261031T223830Z.json",
+      "sha256": "3b0bb7aeaca1fb12936efc63ca803e78b5e032b66c7b2005697c2d211cfe35c8"
+    },
+    {
+      "file": "evidence/raw/stripe-20261031T223830Z.json",
+      "sha256": "b8615ebd7d9da5204a1b7edd7786f8b3b0826d108ff235d6245c14ce6ace7dbf"
+    }
+  ],
+  "selection": "Selection for experiment 2 (written 2026-10-31, before any label or Claude answer for these postings):\n  1. From each saved raw response, keep the same candidates as experiment 1 (is_candidate), drop the\n     20 postings of experiment 1, and keep only the lowest job ID of postings with the same title.\n  2. Order the boards by how many candidates they have, most first (ties by company name), and take up to\n     4 candidates from each board, lowest job ID first, until there are 20.\n  3. Walk that list in order and alternate dev, held-out.\nNo verdict is computed or saved here: the hand labels come first.",
+  "postings": [
+    {
+      "id": 7727320003,
+      "split": "dev",
+      "company": "Affirm",
+      "title": "Software Engineer II, Backend (Test Infra)",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/7727320003",
+      "first_published": "2026-07-10T09:25:07-04:00",
+      "description_sha256": "b3e98c5675766d62f86db5d019fa966837afcf3a97353180dde2ec914e81e837"
+    },
+    {
+      "id": 7819445003,
+      "split": "held-out",
+      "company": "Affirm",
+      "title": "Software Engineer II, Fullstack (App Experience)",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/7819445003",
+      "first_published": "2026-08-21T13:28:15-04:00",
+      "description_sha256": "c7bad4ed63437bd0ae0a987c0446c784e0b9464f0b47dfd243601e4622677bb0"
+    },
+    {
+      "id": 8003016003,
+      "split": "dev",
+      "company": "Affirm",
+      "title": "Software Engineer II, Backend (Decisions Orchestration)",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/8003016003",
+      "first_published": "2026-10-06T09:57:14-04:00",
+      "description_sha256": "bfdd5b97d91cbf18e6a6ce9f6f4ef33a194266e31dc99c6259e7e5260ae6e7e8"
+    },
+    {
+      "id": 8003020003,
+      "split": "held-out",
+      "company": "Affirm",
+      "title": "Software Engineer II, Backend (Streaming)",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/8003020003",
+      "first_published": "2026-09-30T18:27:01-04:00",
+      "description_sha256": "4374a8c5ed8b35c9248493104b0c33eafad55f2aeae187adbdacbd67ee1a02b5"
+    },
+    {
+      "id": 6469397,
+      "split": "dev",
+      "company": "Reddit",
+      "title": "Software Engineer, Ads",
+      "location": "Remote - United States",
+      "url": "https://job-boards.greenhouse.io/reddit/jobs/6469397",
+      "first_published": "2025-01-06T18:59:24-05:00",
+      "description_sha256": "9bbdd4ccc92be6382b200974745d847cc00b9f409847e7799d34f5799ad9c6df"
+    },
+    {
+      "id": 8139781,
+      "split": "held-out",
+      "company": "Reddit",
+      "title": "Software Engineer, Content Platform",
+      "location": "Remote - United States",
+      "url": "https://job-boards.greenhouse.io/reddit/jobs/8139781",
+      "first_published": "2026-08-18T15:43:32-04:00",
+      "description_sha256": "dc318c30ad45efbed6d7cc3bda9fadfbb9d6593164abfa5c41942829f2fcc60d"
+    },
+    {
+      "id": 8147559,
+      "split": "dev",
+      "company": "Reddit",
+      "title": "Front End Software Engineer, Consumer Engineering",
+      "location": "Remote - United States",
+      "url": "https://job-boards.greenhouse.io/reddit/jobs/8147559",
+      "first_published": "2026-09-17T13:07:34-04:00",
+      "description_sha256": "aca6ab228fb952e79592abd26248df1e3100766134a7239864ec6238d52e057c"
+    },
+    {
+      "id": 8172457,
+      "split": "held-out",
+      "company": "Reddit",
+      "title": "Software Engineer, Consumer Engineering",
+      "location": "Remote - United States",
+      "url": "https://job-boards.greenhouse.io/reddit/jobs/8172457",
+      "first_published": "2026-09-09T19:48:17-04:00",
+      "description_sha256": "4ac0e0bad19360b50aef44c5088767002726dae337af8ba7582c3176b9fbe108"
+    },
+    {
+      "id": 6176758,
+      "split": "dev",
+      "company": "Stripe",
+      "title": "Backend/API Engineer, Money as a Service",
+      "location": "US",
+      "url": "https://stripe.com/jobs/search?gh_jid=6176758",
+      "first_published": "2024-08-25T08:36:49-04:00",
+      "description_sha256": "61a9134afb0ffdaa92224c7f7dffba26f0d90d987cdef8cfc8f4abd776879314"
+    },
+    {
+      "id": 7292520,
+      "split": "held-out",
+      "company": "Stripe",
+      "title": "Backend Engineer, Developer & End-user Experience Platform",
+      "location": "Toronto Canada, San Francisco, Remote in US, Remote in Canada",
+      "url": "https://stripe.com/jobs/search?gh_jid=7292520",
+      "first_published": "2025-11-06T20:48:57-05:00",
+      "description_sha256": "ec219a30e627263d5176222633b7a6ff35630c41d730b540693e9ec6504da8c4"
+    },
+    {
+      "id": 8039548,
+      "split": "dev",
+      "company": "Stripe",
+      "title": "Full Stack Engineer, Support Experience (Greater China Support)",
+      "location": "US",
+      "url": "https://stripe.com/jobs/search?gh_jid=8039548",
+      "first_published": "2026-06-30T16:36:05-04:00",
+      "description_sha256": "7c47f943e5a15ffdbec19137aa11825a5886e5498f73c51faeb4f8811dd0a421"
+    },
+    {
+      "id": 8089353,
+      "split": "held-out",
+      "company": "Stripe",
+      "title": "Software Engineer, Vulnerability Management",
+      "location": "US - Remote",
+      "url": "https://stripe.com/jobs/search?gh_jid=8089353",
+      "first_published": "2026-08-04T20:01:19-04:00",
+      "description_sha256": "5d22e4148ed7f29c1ec20f18171fb818d5fb10dec107e48bfe97666842cdc606"
+    },
+    {
+      "id": 8605062002,
+      "split": "dev",
+      "company": "Brex",
+      "title": "Software Engineer II, Data Enablement Platform",
+      "location": "New York, New York, United States",
+      "url": "https://www.brex.com/careers/8605062002?gh_jid=8605062002",
+      "first_published": "2026-06-23T18:18:32-04:00",
+      "description_sha256": "5083484951b6de433826e8e547cb523a589e688d6d5b8ec146e509058702a2fa"
+    },
+    {
+      "id": 8606845002,
+      "split": "held-out",
+      "company": "Brex",
+      "title": "AI Engineer, Workbench",
+      "location": "San Francisco, California, United States",
+      "url": "https://www.brex.com/careers/8606845002?gh_jid=8606845002",
+      "first_published": "2026-06-24T17:03:04-04:00",
+      "description_sha256": "5144d4f1a11a73e8f68e581a0c7914620a6c9dbc22e507959856ce2f81e3aff8"
+    },
+    {
+      "id": 8815438002,
+      "split": "dev",
+      "company": "Brex",
+      "title": "Software Engineer II, Backend",
+      "location": "San Francisco, California, United States",
+      "url": "https://www.brex.com/careers/8815438002?gh_jid=8815438002",
+      "first_published": "2026-09-16T17:36:00-04:00",
+      "description_sha256": "047fe6bc2a463e33f8bd7da9a50639e6048b94f8e858891512f98ce47c38a799"
+    },
+    {
+      "id": 5790627004,
+      "split": "held-out",
+      "company": "Figma",
+      "title": "Software Engineer - Developer Experience",
+      "location": "San Francisco, CA • New York, NY • United States",
+      "url": "https://boards.greenhouse.io/figma/jobs/5790627004?gh_jid=5790627004",
+      "first_published": "2026-02-03T23:28:07-05:00",
+      "description_sha256": "31ed8810811b0c52164bbb6cd70fca054fc678907bf59c58dea36acb59d43ac6"
+    },
+    {
+      "id": 5802956004,
+      "split": "dev",
+      "company": "Figma",
+      "title": "Support Engineer, AI Infrastructure & Tooling",
+      "location": "San Francisco, CA • New York, NY • United States",
+      "url": "https://boards.greenhouse.io/figma/jobs/5802956004?gh_jid=5802956004",
+      "first_published": "2026-02-12T19:52:24-05:00",
+      "description_sha256": "5f5d3578fec63fd2ac8ed388baab3fc474161e71592c1c1e98afed831fed0502"
+    },
+    {
+      "id": 6233043004,
+      "split": "held-out",
+      "company": "Figma",
+      "title": "AI Engineer, Internal Tools",
+      "location": "San Francisco, CA • New York, NY • United States",
+      "url": "https://boards.greenhouse.io/figma/jobs/6233043004?gh_jid=6233043004",
+      "first_published": "2026-10-27T14:11:12-04:00",
+      "description_sha256": "e134f8df6e539d9720b59a04baed0494749f259b269925eb6aff85caca59e56a"
+    },
+    {
+      "id": 8546367002,
+      "split": "dev",
+      "company": "Databricks",
+      "title": "AI Engineer – Forward Deployed Engineering (AI FDE)",
+      "location": "United States",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8546367002",
+      "first_published": "2026-05-13T08:21:01-04:00",
+      "description_sha256": "82e4f82cc9e965c436e776ccf481d5ea55636ed25507686c20fe03ed7619ec8f"
+    },
+    {
+      "id": 8829039002,
+      "split": "held-out",
+      "company": "Databricks",
+      "title": "Software Engineer, Infrastructure",
+      "location": "United States",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8829039002",
+      "first_published": "2026-10-28T17:46:24-04:00",
+      "description_sha256": "30954c2af628d7d046d0d5383e3416c39d52d6280710240e7e2f9b643a22a3af"
+    }
+  ]
+}

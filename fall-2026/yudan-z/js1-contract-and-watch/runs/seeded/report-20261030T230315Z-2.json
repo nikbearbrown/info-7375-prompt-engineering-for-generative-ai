@@ -1,0 +1,417 @@
+{
+ "board": "pinterest",
+ "run": "20261030T230315Z-2",
+ "seeded": true,
+ "baseline": false,
+ "seen_total": 170,
+ "new": [
+  {
+   "posting_id": 8140389,
+   "title": "Master's University Grad Data Scientist (USA)",
+   "location": "San Francisco, CA, US; Palo Alto, CA, US; Seattle, WA, US; New York, NY, US",
+   "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8140389",
+   "rule_verdict": "not_relevant",
+   "rule_label": "record",
+   "rule_reasons": [
+    {
+     "check": "R1",
+     "resume_field": "target_roles",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Master's University Grad Data Scientist (USA)' contains no target role"
+    },
+    {
+     "check": "R2",
+     "resume_field": "experience_years",
+     "posting_field": "title",
+     "result": "pass",
+     "evidence": "title 'Master's University Grad Data Scientist (USA)' senior words: none"
+    },
+    {
+     "check": "R3",
+     "resume_field": "work_authorization.country",
+     "posting_field": "location.name",
+     "result": "pass",
+     "evidence": "location 'San Francisco, CA, US; Palo Alto, CA, US; Seattle, WA, US; New York, NY, US' is in US"
+    },
+    {
+     "check": "R4",
+     "resume_field": "experience_years",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "stated minimum years: none"
+    },
+    {
+     "check": "R5",
+     "resume_field": "work_authorization.us_citizen",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "citizenship/clearance phrases: none"
+    },
+    {
+     "check": "R6",
+     "resume_field": "work_authorization.needs_sponsorship",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "no-sponsorship phrases: none"
+    },
+    {
+     "check": "R7",
+     "resume_field": "education[].degree",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "PhD-required sentences: 0"
+    },
+    {
+     "check": "R8",
+     "resume_field": "skills",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "résumé skills found in content: ['Python', 'SQL', 'statistics']"
+    }
+   ],
+   "claude": {
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "target_roles"
+    ],
+    "posting_fields": [
+     "title"
+    ],
+    "justification": "R1 fails: the title 'Master's University Grad Data Scientist (USA)' does not contain any target_roles phrase (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). 'Data Scientist' is not one of them. The other rules don't matter because every rule must hold.",
+    "label": "model-judgment",
+    "status": "valid",
+    "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\"], \"posting_fields\": [\"title\"], \"justification\": \"R1 fails: the title 'Master's University Grad Data Scientist (USA)' does not contain any target_roles phrase (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). 'Data Scientist' is not one of them. The other rules don't matter because every rule must hold.\"}\n"
+   }
+  },
+  {
+   "posting_id": 7507652,
+   "title": "Sales Finance Analyst II",
+   "location": "New York, NY, USA; Hybrid",
+   "url": "https://www.pinterestcareers.com/jobs/?gh_jid=7507652",
+   "rule_verdict": "not_relevant",
+   "rule_label": "record",
+   "rule_reasons": [
+    {
+     "check": "R1",
+     "resume_field": "target_roles",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Sales Finance Analyst II' contains no target role"
+    },
+    {
+     "check": "R2",
+     "resume_field": "experience_years",
+     "posting_field": "title",
+     "result": "pass",
+     "evidence": "title 'Sales Finance Analyst II' senior words: none"
+    },
+    {
+     "check": "R3",
+     "resume_field": "work_authorization.country",
+     "posting_field": "location.name",
+     "result": "pass",
+     "evidence": "location 'New York, NY, USA; Hybrid' is in US"
+    },
+    {
+     "check": "R4",
+     "resume_field": "experience_years",
+     "posting_field": "content",
+     "result": "fail",
+     "evidence": "stated minimum years: [3]"
+    },
+    {
+     "check": "R5",
+     "resume_field": "work_authorization.us_citizen",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "citizenship/clearance phrases: none"
+    },
+    {
+     "check": "R6",
+     "resume_field": "work_authorization.needs_sponsorship",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "no-sponsorship phrases: none"
+    },
+    {
+     "check": "R7",
+     "resume_field": "education[].degree",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "PhD-required sentences: 0"
+    },
+    {
+     "check": "R8",
+     "resume_field": "skills",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "résumé skills found in content: ['SQL', 'Tableau', 'Excel']"
+    }
+   ],
+   "claude": {
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "target_roles",
+     "skills"
+    ],
+    "posting_fields": [
+     "title",
+     "location",
+     "content"
+    ],
+    "justification": "R1 fails: the title 'Sales Finance Analyst II' contains none of the target_roles ('Data Analyst', 'Business Intelligence', 'Analytics', 'Business Analyst', 'Product Analyst'). It has the word 'Analyst' but none of the full role phrases. Other rules pass: the location is New York, USA; the content lists SQL, Excel and Tableau (R8); the 3-year minimum is only an alternative to a bachelor's degree.",
+    "label": "model-judgment",
+    "status": "valid",
+    "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"skills\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"R1 fails: the title 'Sales Finance Analyst II' contains none of the target_roles ('Data Analyst', 'Business Intelligence', 'Analytics', 'Business Analyst', 'Product Analyst'). It has the word 'Analyst' but none of the full role phrases. Other rules pass: the location is New York, USA; the content lists SQL, Excel and Tableau (R8); the 3-year minimum is only an alternative to a bachelor's degree.\"}\n"
+   }
+  },
+  {
+   "posting_id": 8213988,
+   "title": "Software Engineer II, Data Analytics & Engineering",
+   "location": "San Francisco, CA, US; Remote, US",
+   "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8213988",
+   "rule_verdict": "relevant",
+   "rule_label": "record",
+   "rule_reasons": [
+    {
+     "check": "R1",
+     "resume_field": "target_roles",
+     "posting_field": "title",
+     "result": "pass",
+     "evidence": "title 'Software Engineer II, Data Analytics & Engineering' contains ['Analytics']"
+    },
+    {
+     "check": "R2",
+     "resume_field": "experience_years",
+     "posting_field": "title",
+     "result": "pass",
+     "evidence": "title 'Software Engineer II, Data Analytics & Engineering' senior words: none"
+    },
+    {
+     "check": "R3",
+     "resume_field": "work_authorization.country",
+     "posting_field": "location.name",
+     "result": "pass",
+     "evidence": "location 'San Francisco, CA, US; Remote, US' is in US"
+    },
+    {
+     "check": "R4",
+     "resume_field": "experience_years",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "stated minimum years: [2]"
+    },
+    {
+     "check": "R5",
+     "resume_field": "work_authorization.us_citizen",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "citizenship/clearance phrases: none"
+    },
+    {
+     "check": "R6",
+     "resume_field": "work_authorization.needs_sponsorship",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "no-sponsorship phrases: none"
+    },
+    {
+     "check": "R7",
+     "resume_field": "education[].degree",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "PhD-required sentences: 0"
+    },
+    {
+     "check": "R8",
+     "resume_field": "skills",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "résumé skills found in content: ['Python', 'SQL', 'statistics']"
+    }
+   ],
+   "claude": {
+    "verdict": "relevant",
+    "resume_fields": [
+     "target_roles",
+     "skills",
+     "experience_years",
+     "education",
+     "work_authorization",
+     "location"
+    ],
+    "posting_fields": [
+     "title",
+     "location",
+     "content"
+    ],
+    "justification": "title contains 'Analytics' with no seniority word ('II' is not 'III'); location is US (SF, CA / Remote, US); content asks for minimum 2 yrs (<3); no citizenship, clearance or sponsorship restriction ('US based applicants only' refers to location); Bachelor's only; skills SQL and Python appear.",
+    "label": "model-judgment",
+    "status": "valid",
+    "raw": "{\"verdict\": \"relevant\", \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"education\", \"work_authorization\", \"location\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"title contains 'Analytics' with no seniority word ('II' is not 'III'); location is US (SF, CA / Remote, US); content asks for minimum 2 yrs (<3); no citizenship, clearance or sponsorship restriction ('US based applicants only' refers to location); Bachelor's only; skills SQL and Python appear.\"}\n"
+   }
+  },
+  {
+   "posting_id": 6659114,
+   "title": "Sr. Data Scientist",
+   "location": "Toronto, ON, CA",
+   "url": "https://www.pinterestcareers.com/jobs/?gh_jid=6659114",
+   "rule_verdict": "not_relevant",
+   "rule_label": "record",
+   "rule_reasons": [
+    {
+     "check": "R1",
+     "resume_field": "target_roles",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Sr. Data Scientist' contains no target role"
+    },
+    {
+     "check": "R2",
+     "resume_field": "experience_years",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Sr. Data Scientist' senior words: ['Sr.']"
+    },
+    {
+     "check": "R3",
+     "resume_field": "work_authorization.country",
+     "posting_field": "location.name",
+     "result": "pass",
+     "evidence": "location 'Toronto, ON, CA' is in US"
+    },
+    {
+     "check": "R4",
+     "resume_field": "experience_years",
+     "posting_field": "content",
+     "result": "fail",
+     "evidence": "stated minimum years: [5]"
+    },
+    {
+     "check": "R5",
+     "resume_field": "work_authorization.us_citizen",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "citizenship/clearance phrases: none"
+    },
+    {
+     "check": "R6",
+     "resume_field": "work_authorization.needs_sponsorship",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "no-sponsorship phrases: none"
+    },
+    {
+     "check": "R7",
+     "resume_field": "education[].degree",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "PhD-required sentences: 0"
+    },
+    {
+     "check": "R8",
+     "resume_field": "skills",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "résumé skills found in content: ['Python', 'SQL', 'statistics']"
+    }
+   ],
+   "claude": {
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "target_roles",
+     "experience_years"
+    ],
+    "posting_fields": [
+     "title",
+     "location",
+     "content"
+    ],
+    "justification": "Fails several rules. R1: title 'Sr. Data Scientist' matches none of target_roles. R2: title contains 'Sr.'. R3: location is Toronto, ON, CA, not the US. R4: content asks for 5+ years of experience and the candidate has experience_years 0.",
+    "label": "model-judgment",
+    "status": "valid",
+    "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\", \"experience_years\"], \"posting_fields\": [\"title\", \"location\", \"content\"], \"justification\": \"Fails several rules. R1: title 'Sr. Data Scientist' matches none of target_roles. R2: title contains 'Sr.'. R3: location is Toronto, ON, CA, not the US. R4: content asks for 5+ years of experience and the candidate has experience_years 0.\"}\n"
+   }
+  },
+  {
+   "posting_id": 8162539,
+   "title": "Staff Software Engineer, Infrastructure Data Engineering   ",
+   "location": "New York, NY, US; Remote, US",
+   "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162539",
+   "rule_verdict": "not_relevant",
+   "rule_label": "record",
+   "rule_reasons": [
+    {
+     "check": "R1",
+     "resume_field": "target_roles",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Staff Software Engineer, Infrastructure Data Engineering   ' contains no target role"
+    },
+    {
+     "check": "R2",
+     "resume_field": "experience_years",
+     "posting_field": "title",
+     "result": "fail",
+     "evidence": "title 'Staff Software Engineer, Infrastructure Data Engineering   ' senior words: ['Staff']"
+    },
+    {
+     "check": "R3",
+     "resume_field": "work_authorization.country",
+     "posting_field": "location.name",
+     "result": "pass",
+     "evidence": "location 'New York, NY, US; Remote, US' is in US"
+    },
+    {
+     "check": "R4",
+     "resume_field": "experience_years",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "stated minimum years: none"
+    },
+    {
+     "check": "R5",
+     "resume_field": "work_authorization.us_citizen",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "citizenship/clearance phrases: none"
+    },
+    {
+     "check": "R6",
+     "resume_field": "work_authorization.needs_sponsorship",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "no-sponsorship phrases: none"
+    },
+    {
+     "check": "R7",
+     "resume_field": "education[].degree",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "PhD-required sentences: 0"
+    },
+    {
+     "check": "R8",
+     "resume_field": "skills",
+     "posting_field": "content",
+     "result": "pass",
+     "evidence": "résumé skills found in content: ['Python', 'SQL']"
+    }
+   ],
+   "claude": {
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "target_roles"
+    ],
+    "posting_fields": [
+     "title"
+    ],
+    "justification": "Fails R1 and R2 based on title. The title 'Staff Software Engineer, Infrastructure Data Engineering' contains none of the target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). It also contains the excluded word 'Staff'.",
+    "label": "model-judgment",
+    "status": "valid",
+    "raw": "{\"verdict\": \"not_relevant\", \"resume_fields\": [\"target_roles\"], \"posting_fields\": [\"title\"], \"justification\": \"Fails R1 and R2 based on title. The title 'Staff Software Engineer, Infrastructure Data Engineering' contains none of the target_roles (Data Analyst, Business Intelligence, Analytics, Business Analyst, Product Analyst). It also contains the excluded word 'Staff'.\"}\n"
+   }
+  }
+ ]
+}

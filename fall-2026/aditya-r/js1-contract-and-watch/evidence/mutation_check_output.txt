@@ -1,0 +1,8 @@
+CAUGHT: M1 validator ignores posting_id mismatch (wrong version 1, association)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-association]
+CAUGHT: M2 watch joins judgments by completion order instead of id (wrong version 1)
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_keeps_association_under_out_of_order_completion
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_rejects_a_swapped_response
+    FAILED tests/test_wrong_versions.py::test_wv2_unsupported_response_is_not_reported_as_evaluated
+CAUGHT: M3 validator skips quote and résumé-evidence checks (wrong version 2)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-quote not found]

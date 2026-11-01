@@ -1,0 +1,191 @@
+{
+ "invoked_at_utc": "2026-10-30T21:47:16+00:00",
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=93d4f3c0f201361699f9b446b6e68a5207c9da0d0928db040bee883991093ab3>"
+ ],
+ "model_requested": "claude-opus-5-5",
+ "effort": "medium",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8012650002,\n \"title\": \"Software Engineer - Backend\",\n \"location\": \"Belgrade, Serbia\",\n \"departments\": [\n  \"Engineering - Pipeline\"\n ],\n \"description\": \"P-1414 At Databricks, we are passionate about helping data teams solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers, Databricks has started a multi-year journey to build the best Data Intelligence Platform. For this we are building on top of a great foundation but our goal is to go further to build dramatically better products. We want to revisit every component to provide our customers with the fastest, easiest to use and most secure data platform for all their data workloads. As a software engineer, you will join as a founding member of not only the Belgrade site, but really as a founding team for our multi-year journey to achieve our Lakehouse vision. You will be involved in the entire development cycle and exemplify all core Databricks values. The impact you'll have: Our backend teams span many domains across our essential service platforms. For instance, you might work on challenges such as: Problems that span from product to infrastructure including: distributed systems, at-scale service architecture and monitoring, workflow orchestration, and developer experience. Build reliable, secure and high performance services and client libraries for storing and accessing humongous amount of data on cloud storage backends, e.g., AWS S3, GCS, Azure Blob Store. Develop product features that empower our customers to easily store and access their data. What we look for: BS (or higher) in Computer Science, or a related field 3+ years of production level experience in one of: Java, Scala, C++, or similar language Experience developing large-scale distributed systems Experience working on a SaaS platform or with Service-Oriented Architectures Knowledge of SQL About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "c97cbb2b2877f4bbad693d40fb1f828dadcf5b89aab53825bdcf02d6f51fa7c8",
+ "returncode": 0,
+ "stderr_tail": "",
+ "cli_json": {
+  "duration_api_ms": 5331,
+  "stop_reason": "end_turn",
+  "session_id": "517bae50-e18d-4d8e-b2bc-2c93ca1192bf",
+  "total_cost_usd": 0.025998199999999996,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2192,
+   "cache_read_input_tokens": 1135,
+   "output_tokens": 398,
+   "output_tokens_details": {
+    "thinking_tokens": 131
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2192,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 398,
+     "cache_read_input_tokens": 1135,
+     "cache_creation_input_tokens": 2192,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2192
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 2552,
+    "outputTokens": 24,
+    "cacheReadInputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "webSearchRequests": 0,
+    "costUSD": 0.00026720000000000004,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   },
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 398,
+    "cacheReadInputTokens": 1135,
+    "cacheCreationInputTokens": 2192,
+    "webSearchRequests": 0,
+    "costUSD": 0.025730999999999997,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 131,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"posting_id\": 8012650002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Knowledge of SQL\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate about helping data teams\"}]}, \"explanation\": \"The title contains \\\"software engineer\\\" and no excluded words. The description mentions SQL (in skills.languages) and Databricks (in skills.data_bi), giving 2 shared skills.\"}",
+  "ttft_ms": 2911,
+  "type": "result",
+  "duration_ms": 4578,
+  "uuid": "3edb0b2c-d728-47b6-8cb3-9a24041ff918",
+  "ttft_stream_ms": 1549,
+  "time_to_request_ms": 139,
+  "time_to_request_phases_ms": {
+   "other": 9,
+   "system_prompt": 1,
+   "resume_other": 0,
+   "process_user_input": 1,
+   "input_attachments": 10,
+   "input_hooks": 1,
+   "tool_pool_refresh": 1,
+   "init_message": 1,
+   "engine_pickup": 1,
+   "message_prep": 0,
+   "model_config_wait": 0,
+   "autocompact": 1,
+   "query_setup": 0,
+   "model_gates": 107,
+   "tool_schema_build": 3,
+   "message_normalization": 0,
+   "client_creation": 2,
+   "request_build": 1
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 1,
+  "time_to_request_cpu_ms": 108,
+  "time_to_request_major_faults": 0,
+  "input_attachments_detail": {
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 9,
+   "cpu_ms": 20,
+   "major_faults": 0
+  },
+  "first_content_frame_ms": 1549,
+  "queued_turn_count": 0,
+  "result_index": 0
+ },
+ "finished_at_utc": "2026-10-30T21:47:22+00:00",
+ "wall_seconds": 5.71,
+ "response_text": "{\"posting_id\": 8012650002, \"verdict\": \"relevant\", \"role_phrase\": {\"pass\": true, \"matched\": \"software engineer\"}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Knowledge of SQL\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are passionate about helping data teams\"}]}, \"explanation\": \"The title contains \\\"software engineer\\\" and no excluded words. The description mentions SQL (in skills.languages) and Databricks (in skills.data_bi), giving 2 shared skills.\"}",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "session_id": "517bae50-e18d-4d8e-b2bc-2c93ca1192bf",
+ "transport_ok": true,
+ "prompt_version": "v2",
+ "prompt_sha256": "93d4f3c0f201361699f9b446b6e68a5207c9da0d0928db040bee883991093ab3",
+ "posting_id": 8012650002,
+ "valid": true,
+ "validation_errors": [],
+ "verdict": "relevant",
+ "transport_failures_before_success": [],
+ "experiment": "prompt",
+ "split": "heldout"
+}
