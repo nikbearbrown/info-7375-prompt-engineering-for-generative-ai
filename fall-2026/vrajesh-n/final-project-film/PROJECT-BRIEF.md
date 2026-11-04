@@ -1,8 +1,8 @@
 # PROJECT-BRIEF — Early Bird
 
-**Vrajesh N. · INFO 7375 · Fall 2026 · written 2026-10-14**
+**Vrajesh N. · INFO 7375 · Fall 2026 · written 2026-10-14 · revised 2026-10-24** (drafted with Claude from my decisions and my own runs)
 Target role: **full-stack software engineer / AI engineer.** Stack: **Python 3.13 (standard library first) + Claude API.**
-Status: **proposed.** Only the one-off probe in `evidence/` has run (2026-10-14). Everything else below is future tense.
+Status: **proposed.** What has run: the one-off probe (2026-10-14), a second Commure snapshot (2026-10-23), my new-ID diff and my greenhouse-watch runs (2026-10-24), all in `evidence/`. Everything else below is future tense.
 
 ## 1. What is it?
 Early Bird **will be** a small Python agent that, each time I run it, checks the public job boards of the 25–30 companies on my list and reports only the **new** software, full-stack and AI postings since the last run, with any hard blocker quoted from the posting and the GitHub project of mine that best fits each one.
@@ -10,10 +10,10 @@ Early Bird **will be** a small Python agent that, each time I run it, checks the
 
 ## 2. Why would anyone care?
 In a tight market I want to apply to **every** software role I can reach, and early. What I examined:
-- **The course's own `greenhouse-watch` skill** (Reallocation Engine, read 2026-10-14): watches **one** Greenhouse, Ashby or SmartRecruiters board per run, reports new postings, and keeps only those whose résumé-keyword score passes a threshold. In its Figma demo, 11 new postings in four days produced **0** kept, and its README itself notes the keyword scheme misses roles a person would want.
+- **The course's own `greenhouse-watch` skill** (Reallocation Engine): watches **one** Greenhouse, Ashby or SmartRecruiters board per run, reports new postings, and keeps only those whose résumé-keyword score passes a threshold (3.0). **I ran it on 2026-10-24** on my two Commure snapshots with the course's fictional sample resume: it found the same 12 new postings as my diff and kept 6, all 5 software roles plus "Head of Performance Creative", a marketing job that scored 3.5 because the posting mentions Python and SQL and is remote (`evidence/gw/`). So on this data it did not miss a software job; its weakness is that what it keeps depends on résumé-word overlap, one board at a time.
 - **LinkedIn job alerts / Job Match**: compares a profile with a posting's qualifications, inside LinkedIn. It only covers what is posted on LinkedIn, and I cannot re-run or inspect how it decided.
 
-**Difference:** Early Bird watches **my whole list** (25–30 boards, adding Lever) in one bounded run with a status per board; it **keeps every software, full-stack and AI posting** instead of scoring skill gaps away, and only flags hard blockers, each quoted from the posting and checked by code; it names which of my real GitHub projects fits; it never applies or messages anyone. `greenhouse-watch` will also serve as an **independent check**: same saved snapshot, compare its new-posting list with mine. I do **not** yet know whether Early Bird sees postings earlier than LinkedIn alerts; I will log when each source first shows the same postings (JS2).
+**Difference:** Early Bird will watch **my whole list** (25–30 boards, adding Lever) in one bounded run with a status per board; it will decide **whether a posting is a software job from the role itself**, not from résumé overlap, and keep every software, full-stack and AI posting; it will only flag hard blockers, each quoted from the posting and checked by code; it will name which of my real GitHub projects fits; it will never apply or message anyone. My greenhouse-watch run is already an **independent list** to compare the first watcher against. I do **not** yet know whether Early Bird sees postings earlier than LinkedIn alerts; I will log when each source first shows the same postings (JS2).
 
 ## 3. Who opens it, and what do they do?
 **Reader:** a hiring manager for a full-stack or AI-engineer role. In the first 60 seconds they will read the README's one-paragraph summary, run `python -m earlybird run --fixtures` (offline, seeded data, labeled), and open the report it writes: new postings, quoted blockers, the tests that passed. **User:** me, before each application session.
@@ -30,10 +30,10 @@ In a tight market I want to apply to **every** software role I can reach, and ea
 ## 5. What is in, out, and first?
 **In:** public Greenhouse, Lever and Ashby boards; new-posting detection; quoted blockers; project matching; an ordered list (referral, then freshness, then fit) I approve.
 **Out (deliberate):** auto-applying, logging in, messaging, and scraping LinkedIn. Companies on their own hiring systems (e.g. Google, Amazon) will be listed as **unsupported**, not guessed at.
-**First:** the watcher on one board (Commure, Ashby). **How to verify it ran:** run 1 saves the raw response and reports zero new (baseline); a second run on a later calendar day reports only IDs absent from run 1, and anyone can recompute that list by diffing the two saved raw files.
+**First:** the watcher on one board (Commure, Ashby). **How to verify it ran:** the answer key already exists. Fed my two saved files (2026-10-14, 2026-10-23), the watcher must report a baseline of zero new and then exactly the 12 new IDs in `evidence/commure-new-ids-2026-10-14_to_2026-10-23.txt`; anyone can recompute that list from the two raw files, and greenhouse-watch found the same 12.
 
 ## 6. What could sink it?
-**Keyword matching sends me the wrong jobs.** Today's probe matched 789 of 2,156 titles across five boards with a naive keyword rule, and the matches include sales roles such as "Account Executive, AI Sales" (Stripe). If the filter trusts words, the report fills with noise and I stop reading it. **Mitigation:** write the relevance rule before the code, hand-label 20 real postings (10 held out), audit 30 random rejects, and let Claude judge only with a quote the validator can find in the posting.
+**Deciding what counts as a software job.** Words mislead both ways: "Sales Strategy & Operations, Agents" (Commure, 2026-10-23) is a sales job; greenhouse-watch kept a marketing role because its posting said Python; my 2026-10-14 probe's naive keyword rule matched 789 of 2,156 titles across five boards, including "Account Executive, AI Sales" (Stripe). If the filter trusts words, the report fills with noise and I stop reading it. **Mitigation:** write the relevance rule before the code, hand-label 20 real postings (10 held out), audit 30 random rejects, and let Claude judge only with a quote the validator can find in the posting.
 Second risk, already met once: **board access differs by platform.** Ashby returned HTTP 403 to Python's default user agent today; sending an identifying user agent fixed it. Each board gets its own failure status, never a silent "no new jobs."
 
 ## 7. Why this project?
@@ -46,8 +46,11 @@ Second risk, already met once: **board access differs by platform.** Ashby retur
 **New for me:** writing the contract and tests *before* the code, held-out evaluation, permission policy enforced in code, versioned memory that rejects stale writes, and an approval gate bound to the exact list I reviewed. **Why it matters:** I graduate in December 2026 and I am job hunting now; I will be the first user.
 
 ---
-**Exists today (2026-10-14)**
+**Exists today (2026-10-24)**
 - `evidence/probe.py` and `evidence/2026-10-14/`: one run against five public boards (Commure, Stripe, Figma, Databricks, Palantir; example companies, not my private list). Raw responses + `summary.json`.
+- `evidence/2026-10-23/`: the same five boards saved again (my run).
+- `evidence/commure-new-ids-2026-10-14_to_2026-10-23.txt`: my diff: 80 → 81 postings, 12 new IDs (5 software), 11 gone.
+- `evidence/gw/`: my greenhouse-watch baseline and run on the same two Commure files: 12 new, 6 kept.
 - Public repos: `Screenr`, `Market-Data-Service`, `cli_project`, `ai-study-assistant`.
 
 **Will exist**

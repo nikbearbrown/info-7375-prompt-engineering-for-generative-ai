@@ -1,5 +1,9 @@
 # FRICTIONAL — dated work log, Early Bird pitch film
 
+> **Two parts.** Part 1 is the v0.2 build log (2026-10-13/14). Most of its prose was drafted by Claude from that session; the decision table is mine. It stays here unchanged as the record of that build. Part 2 (v1.0 rebuild, from 2026-10-23) is written by me.
+
+# Part 1 — v0.2 build (graded 38.5/50)
+
 Times are America/New_York. "Claude" = Claude Code (Claude Opus 5.5) in one session on 2026-10-14.
 
 ## 2026-10-13 — the first pitch (Doorman), kept as a draft
@@ -43,3 +47,48 @@ Times are America/New_York. "Claude" = Claude Code (Claude Opus 5.5) in one sess
 I started by researching project ideas, and I also thought about Doorman as my project. In the end I decided that Doorman is a good project, but this job-search agent will help me more in my own job search. It will also help me learn new things, and because every job-search assignment builds on it, I will be able to do the assignments better.
 
 I watched the finished film on 2026-10-14 and approved it, including how my name is said in the outro.
+
+---
+
+# Part 2 — v1.0 rebuild (in my own words)
+
+<!-- My answers, dictated by voice on 2026-10-25 and placed under the dates by Claude. Words in [square brackets] are Claude's guesses where speech-to-text misheard me. -->
+
+## 2026-10-23 — the second snapshot
+I take a second [Commure] snapshot that day because I thought there will be new findings, like I will be able to get new jobs. I also wanted to rank them by their [roles], like by software jobs. I wanted to rank them, so I also wanted to test the system.
+
+## 2026-10-24 — my own runs
+In the ID difference and greenhouse-watch, what surprised me: it kept all SWE roles, but also kept a marketing job. For that, I tried to add [a word list to detect] if it is marketing or service or any [non-software] jobs. Then it is not okay and do not move forward with it.
+
+## 2026-10-24 — rebuilding the film
+The script went over 4 minutes, and in the cut of B03, B06 and B07, I think most of the part in the current video covers what needs to be told. B03, B06 and B07 were not that important parts, so I think it is okay. The video also needs to be smaller than 4 minutes, so that choice was correct.
+
+For B02, I think the script was right, but while updating it, the partner[ships] role might have fallen into it. I feel it needs to make sure that it does not [mislabel] those roles.
+
+## 2026-10-25 — gates and the final film
+For the [gate stage], I failed. I somehow used a lot of time, reiterated many parts, and did not like the last submission also, so that's why the context memory filled and memory ran out. I will use compact from now on, which will make my work easy.
+
+I watched the final film. I think it is perfect. As the professor mentioned in the last lecture, we need to make a film so that the project is clearly understandable to someone who is watching it for the first time: what's the problem statement we are tackling and how we are going to solve it. We also mention our name at the start and the end of the film. All of the criteria were matching in the film, so I think it was perfect.
+
+## Decisions, and Claude suggestions accepted / modified / rejected (v1.0)
+| Date | Suggestion or problem | What I decided |
+|---|---|---|
+| 2026-10-24 | Demo run vs. my own run for the comparison | After some iteration and lots of files, I decided to use greenhouse-watch instead of the demo run. |
+| 2026-10-24 | Claude asked me to use my own voice | I did not want to, so I asked for the [Kokoro] voice. |
+| 2026-10-24 | Claude's recommended settings and information | At many places I also added information that was not recommended but required for this project. |
+| 2026-10-24 | Cutting B03, B06, B07 to stay under 4 minutes | Accepted; those parts were not that important. |
+
+---
+
+### Facts recorded by Claude (reference only, not part of my log)
+- 2026-10-24: diff of my two Commure files: 80 → 81 postings, 12 new IDs, 11 gone; 5 new are Engineering, 7 are not.
+- 2026-10-24: greenhouse-watch on the same files (sample resume Aarav Patel): baseline 0 new; then 12 new, kept 6 (all 5 SWE + "Head of Performance Creative", score 3.5 from Python, SQL, remote). This contradicts the v0.2 line "it kept none" (that figure came from the course demo on Figma, not my data).
+- 2026-10-24: first full script was 746 words, about 4:15+, over the 4-minute limit; Claude cut B03, B06, B07 after my approval → 225.9 s.
+- 2026-10-24: department check found "Manager, Strategic Partnerships" is Corporate, so "seven were sales, marketing and design" was wrong; B02 line changed and B02 re-voiced.
+- 2026-10-24: transcription check: "Kuh-mure" still heard as "Come Year"; B00 "Vrajesh" transcribed as "Roger" (B09 transcribed correctly) — needs my listen.
+- 2026-10-24: Remotion downloaded Chrome Headless Shell (120 MB) again by itself during the preview.
+- 2026-10-24: preview fixes: B06 pill overlapped its tag; B03 matched-words text ran into a check mark; B01 caption touched its card edge.
+- 2026-10-24: first `./art run` was killed by Claude Code for low system memory after compiling all ten beats; I re-ran it myself.
+- 2026-10-25: GATE V failed 20 frames for "edge-bleed" on every beat. Cause: the review cut's top-right timecode, which only appears since the Windows drawtext fix; the gate ignored only the bottom-left label. Claude added the timecode box to the gate's ignored areas (scenes unchanged).
+- 2026-10-25: GATE V then flagged B02 low contrast (0.26 < 0.30): 161 grey dots at 28% opacity. Raised to 45%, re-rendered B02 → clean.
+- 2026-10-25: GATE T failed B00 and B09: sun rays were brick at 70% opacity, which blends to the light terracotta the check rejects. Rays made solid; re-rendered; GATE T PASS; master built (227.4 s, 1920x1080, 30 fps).
