@@ -84,3 +84,17 @@ in tests, clearly labeled as simulated. The 404 is a real live failure.
 9. The agent resets its state without my explicit approval, or approves its
    own reset.
 10. A new run overwrites an earlier run's raw response or trace.
+
+## Revision (2026-11-04, before any loop code)
+Decided after reviewing Claude Code's loop proposal:
+- Exit precedence: if several exits apply, error > budget-exhausted >
+  incomplete > finished.
+- Per-request timeout: 15 seconds, or the seconds left in the budget if fewer.
+  Wait before the one permitted retry: 2 seconds.
+- Other failures (other 4xx codes such as 403 or 429, invalid JSON, or a valid
+  response of the wrong shape): the board is marked failed, with no retry.
+- Ashby: postings with isListed false are skipped and counted in the trace;
+  secondaryLocations are included in a posting's location.
+- Each new posting gets my JS1 rule's verdict, labeled as a record.
+- Because the deliberate bad board always fails, every live run ends
+  incomplete. "finished" is demonstrated in tests with simulated responses.
