@@ -1,0 +1,32 @@
+# SEEDED RUN - constructed input, not live board data. See evidence/seeded-run-note.md
+# 2026-10-30T20:18:12Z  python3 -m agent.watch --board gitlab --resume resume.json --from-file evidence/gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json --state state/gitlab_seen_SEEDED.json
+[2026-10-30T20:18:12+00:00] board=gitlab  SEEDED WATCH RUN - constructed input, NOT live board data
+  source: file:gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json
+  evidence: evidence/gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json
+  postings in response: 239  seen ids after run: 239  new: 1
+
+  - id 9999999002: Senior Machine Learning Engineer, RAG Platform [SEEDED - not a real GitLab posting]
+    https://example.invalid/SEEDED-not-a-real-gitlab-posting
+    RECORD verdict: relevant
+    RECORD justification: record (rule): relevant - 2 of 6 resume.key_skills matched in posting.title/posting.content (need >=2): "Python" in posting.content: "ground answers in customer code, written in Python and deployed on Kubernetes."; "RAG" in posting.title: "Senior Machine Learning Engineer, RAG Platform [SEEDED - not a real GitLab posting]"
+exit=0
+
+# state/gitlab_seen_SEEDED.json last run entry:
+239 seen ids
+{
+ "at": "2026-10-30T20:18:12+00:00",
+ "url": "file:gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json",
+ "evidence_file": "evidence/gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json",
+ "baseline": false,
+ "seeded": true,
+ "postings_in_response": 239,
+ "new_ids": [
+  9999999002
+ ]
+}
+# live state untouched:
+91258bbb03ca7ff8cd75bcad0830477eb68a467a  state/gitlab_seen.json
+gitlab_jobs_20261030T201528Z.json
+gitlab_jobs_20261030T201530Z.json
+gitlab_jobs_SEEDED_20261030T201528Z_plus-one-fake-posting.json
+seeded-run-note.md

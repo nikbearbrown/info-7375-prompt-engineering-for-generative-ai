@@ -1,0 +1,52 @@
+{
+  "surface": "agent-fetch",
+  "at": "2026-10-30T22:31:55+00:00",
+  "posting_id": 8730125002,
+  "prompt_version": "judge-dev-v0",
+  "evidence_file": "evidence/gitlab_jobs_20261030T223155Z.json",
+  "state_file": "state/action_surface_seen.json",
+  "watch_baseline": true,
+  "postings_in_live_response": 237,
+  "record": {
+    "id": 8730125002,
+    "title": "Senior Release Engineer",
+    "absolute_url": "https://job-boards.greenhouse.io/gitlab/jobs/8730125002",
+    "kind": "record",
+    "verdict": "not relevant",
+    "matched_skills": [
+      "Python"
+    ],
+    "justification": "record (rule): not relevant - 1 of 6 resume.key_skills matched in posting.title/posting.content (need >=2): \"Python\" in posting.content: \"automation using scripting languages such as Python to reduce manual release activities and\""
+  },
+  "judgment": {
+    "id": 8730125002,
+    "kind": "judgment",
+    "prompt_version": "judge-dev-v0",
+    "requested_model": "claude-opus-5-5",
+    "at": "2026-10-30T22:31:56+00:00",
+    "status": "ok",
+    "verdict": "not relevant",
+    "justification": "posting.content lists release engineering responsibilities such as \"Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications\" and \"Define and implement CI/CD patterns for platforms such as Salesforce, Zuora, and other Business Systems.\" Its AI references only require using AI tools as a productivity aid, not building, integrating, or operating AI systems: \"Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation\" and \"Mandatory hands-on experience using AI-assisted development and automation tools such as Claude or comparable enterprise-approved tools as part of day-to-day DevOps and release engineering work.\" No duty involves training or fine-tuning models, RAG pipelines, building AI agents, or developing LLM applications. The company statement \"we embrace AI as a core productivity multiplier\" is general and does not count.",
+    "raw_output": "{\"verdict\": \"not relevant\", \"justification\": \"posting.content lists release engineering responsibilities such as \\\"Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications\\\" and \\\"Define and implement CI/CD patterns for platforms such as Salesforce, Zuora, and other Business Systems.\\\" Its AI references only require using AI tools as a productivity aid, not building, integrating, or operating AI systems: \\\"Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation\\\" and \\\"Mandatory hands-on experience using AI-assisted development and automation tools such as Claude or comparable enterprise-approved tools as part of day-to-day DevOps and release engineering work.\\\" No duty involves training or fine-tuning models, RAG pipelines, building AI agents, or developing LLM applications. The company statement \\\"we embrace AI as a core productivity multiplier\\\" is general and does not count.\"}",
+    "served_model": "claude-opus-5-5",
+    "message_id": "msg_011CgZDSB1ZZMubbu2S8bW6o",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 3653,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 473,
+      "output_tokens_details": {
+        "thinking_tokens": 121
+      },
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "error": null
+  }
+}

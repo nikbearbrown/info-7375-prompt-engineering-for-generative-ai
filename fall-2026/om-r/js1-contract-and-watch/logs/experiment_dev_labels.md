@@ -1,0 +1,16 @@
+Labeled by: Om Raut
+
+Review basis: All ten posting descriptions reviewed; replaces the earlier title-only pass.
+Labeling rule used: Same as before—"I label a job relevant when its specific responsibilities or requirements involve building, integrating, or operating AI systems; general company statements about AI or selling an AI-powered product do not count."
+These labels assess AI work relevance, not fit for Priya's experience, location, or sponsorship needs.
+
+1. 8773028002 (Intermediate Backend Engineer, Pipeline Authoring): Not relevant — Builds CI/CD components, the Component Catalog, and pipeline creation functionality using Ruby/Rails. The responsibilities and requirements specify no AI systems work.
+2. 8730125002 (Senior Release Engineer): Not relevant — Mandatory daily Claude and other AI tool use is substantive, but supports release engineering, scripting, testing, and troubleshooting. The posting does not assign responsibility for developing, integrating, or operating the AI systems themselves.
+3. 8895511002 (Strategic Account Executive - Chicago): Not relevant — Owns enterprise account plans, sales cycles, pipeline generation, and revenue expansion. AI describes the platform being sold.
+4. 8891301002 (Backend Engineer (Ruby), Create: Change Record): Relevant — Builds records tracking what AI agents changed, why, and who or what made each change, plus workflows for developers working with agents. Production agent-building experience is explicitly a bonus. This is specific engineering support for integrating agents into software development.
+5. 8806017002 (Director of Product Management, Agentic Software Delivery): Relevant — Owns the strategy for agent-driven build, deployment, and monitoring workflows, including which decisions agents can safely make. Partners with Engineering on architecture and investment to develop these capabilities; this goes beyond using AI productivity tools.
+6. 8623592002 (Principal Site Reliability Engineer): Not relevant — Leads GitLab Dedicated's reliability, failover, tenant orchestration, and platform architecture. These are production infrastructure responsibilities without a specified AI systems component.
+7. 8860127002 (Strategic Account Executive): Not relevant — Manages German enterprise accounts, prospecting, proposals, quotas, and product adoption. Coordinates technical resources but has no specific AI development or operations responsibility.
+8. 8592555002 (Commercial Account Executive, Named - West): Not relevant — Focuses on prospecting, closing business, forecasting, retention, and sales methodology. The responsibilities do not include AI systems work.
+9. 8706202002 (Strategic Account Executive - Seattle): Not relevant — Leads enterprise sales strategy, negotiations, account expansion, and forecasting. References to AI-powered solutions concern selling and adoption rather than building or operating AI.
+10. 8731996002 (Senior Solutions Architect): Not relevant — Runs technical discovery, demonstrations, proofs of value, and DevSecOps solution evaluations. Although AI expertise and guidance are mentioned, no specific responsibility for building, integrating, or operating AI systems is established.

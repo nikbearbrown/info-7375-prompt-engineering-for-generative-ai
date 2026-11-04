@@ -1,0 +1,226 @@
+# 2026-10-30T20:25:12Z  JS1_JUDGE_IMPL=agent.wrong_validator_stub python3 -m unittest -v tests.test_judge   (after grounding fix)
+test_api_error_logged_and_unavailable (tests.test_judge.JudgeFailureHandling.test_api_error_logged_and_unavailable) ... skipped 'judge() tests target agent.judge only'
+test_invalid_output_logged_and_unavailable_no_retry_no_fallback (tests.test_judge.JudgeFailureHandling.test_invalid_output_logged_and_unavailable_no_retry_no_fallback) ... skipped 'judge() tests target agent.judge only'
+test_missing_api_key_refuses_instead_of_faking (tests.test_judge.JudgeFailureHandling.test_missing_api_key_refuses_instead_of_faking) ... skipped 'judge() tests target agent.judge only'
+test_model_pinned_no_fallback_requested (tests.test_judge.JudgeFailureHandling.test_model_pinned_no_fallback_requested) ... skipped 'judge() tests target agent.judge only'
+test_other_served_model_is_invalid (tests.test_judge.JudgeFailureHandling.test_other_served_model_is_invalid) ... skipped 'judge() tests target agent.judge only'
+test_truncated_output_is_invalid (tests.test_judge.JudgeFailureHandling.test_truncated_output_is_invalid) ... skipped 'judge() tests target agent.judge only'
+test_valid_output_accepted_and_not_logged (tests.test_judge.JudgeFailureHandling.test_valid_output_accepted_and_not_logged) ... skipped 'judge() tests target agent.judge only'
+test_absent_skill_alongside_present_one_accepted (tests.test_judge.ValidAccepted.test_absent_skill_alongside_present_one_accepted) ... ok
+test_judge_may_disagree_with_rule (tests.test_judge.ValidAccepted.test_judge_may_disagree_with_rule) ... ok
+test_key_skill_named (tests.test_judge.ValidAccepted.test_key_skill_named) ... ok
+test_skill_matching_uses_rules_whole_word_standard (tests.test_judge.ValidAccepted.test_skill_matching_uses_rules_whole_word_standard) ... FAIL
+test_verbatim_posting_quote_without_key_skill (tests.test_judge.ValidAccepted.test_verbatim_posting_quote_without_key_skill) ... ok
+test_capitalized_verdict_rejected (tests.test_judge.WrongVersionsRejected.test_capitalized_verdict_rejected) ... FAIL
+test_duplicate_key_rejected (tests.test_judge.WrongVersionsRejected.test_duplicate_key_rejected) ... FAIL
+test_extra_confidence_key_rejected (tests.test_judge.WrongVersionsRejected.test_extra_confidence_key_rejected) ... FAIL
+test_fabricated_quote_rejected (tests.test_judge.WrongVersionsRejected.test_fabricated_quote_rejected) ... FAIL
+test_markdown_fences_rejected (tests.test_judge.WrongVersionsRejected.test_markdown_fences_rejected) ... FAIL
+test_missing_key_rejected (tests.test_judge.WrongVersionsRejected.test_missing_key_rejected) ... FAIL
+test_non_object_rejected (tests.test_judge.WrongVersionsRejected.test_non_object_rejected) ... FAIL
+test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) ... 
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='RELEVANT') ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='irrelevant') ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='not_relevant') ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='relevant ') ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='maybe') ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict=True) ... FAIL
+  test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict=None) ... FAIL
+test_posting_word_not_in_key_skills_rejected (tests.test_judge.WrongVersionsRejected.test_posting_word_not_in_key_skills_rejected) ... FAIL
+test_prose_around_json_rejected (tests.test_judge.WrongVersionsRejected.test_prose_around_json_rejected) ... FAIL
+test_skills_absent_from_posting_rejected (tests.test_judge.WrongVersionsRejected.test_skills_absent_from_posting_rejected) ... FAIL
+test_ungrounded_justification_rejected (tests.test_judge.WrongVersionsRejected.test_ungrounded_justification_rejected) ... FAIL
+
+======================================================================
+FAIL: test_skill_matching_uses_rules_whole_word_standard (tests.test_judge.ValidAccepted.test_skill_matching_uses_rules_whole_word_standard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 118, in test_skill_matching_uses_rules_whole_word_standard
+    with self.assertRaises(impl.JudgmentInvalid):
+AssertionError: JudgmentInvalid not raised
+
+======================================================================
+FAIL: test_capitalized_verdict_rejected (tests.test_judge.WrongVersionsRejected.test_capitalized_verdict_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 49, in test_capitalized_verdict_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": "Relevant"}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "Relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_duplicate_key_rejected (tests.test_judge.WrongVersionsRejected.test_duplicate_key_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 64, in test_duplicate_key_rejected
+    self.assertRejected('{"verdict": "relevant", "verdict": "not relevant", '
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant", "verdict": "not relevant", "justification": "Python"}'
+
+======================================================================
+FAIL: test_extra_confidence_key_rejected (tests.test_judge.WrongVersionsRejected.test_extra_confidence_key_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 46, in test_extra_confidence_key_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "confidence": 0.9}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services.", "confidence": 0.9}'
+
+======================================================================
+FAIL: test_fabricated_quote_rejected (tests.test_judge.WrongVersionsRejected.test_fabricated_quote_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 88, in test_fabricated_quote_rejected
+    self.assertRejected(json.dumps({"verdict": "relevant",
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant", "justification": "posting.content says \\"deep expertise in Kubernetes\\""}'
+
+======================================================================
+FAIL: test_markdown_fences_rejected (tests.test_judge.WrongVersionsRejected.test_markdown_fences_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 43, in test_markdown_fences_rejected
+    self.assertRejected("```json\n" + GOOD + "\n```")
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '```json\n{"verdict": "relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}\n```'
+
+======================================================================
+FAIL: test_missing_key_rejected (tests.test_judge.WrongVersionsRejected.test_missing_key_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 61, in test_missing_key_rejected
+    self.assertRejected(json.dumps({"verdict": "relevant"}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant"}'
+
+======================================================================
+FAIL: test_non_object_rejected (tests.test_judge.WrongVersionsRejected.test_non_object_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 68, in test_non_object_rejected
+    self.assertRejected(json.dumps([json.loads(GOOD)]))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '[{"verdict": "relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}]'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='RELEVANT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "RELEVANT", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='irrelevant')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "irrelevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='not_relevant')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "not_relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='relevant ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant ", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict='maybe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "maybe", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": true, "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_other_verdict_strings_rejected (tests.test_judge.WrongVersionsRejected.test_other_verdict_strings_rejected) (verdict=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 54, in test_other_verdict_strings_rejected
+    self.assertRejected(json.dumps({**json.loads(GOOD), "verdict": v}))
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": null, "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_posting_word_not_in_key_skills_rejected (tests.test_judge.WrongVersionsRejected.test_posting_word_not_in_key_skills_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 83, in test_posting_word_not_in_key_skills_rejected
+    self.assertRejected(json.dumps({"verdict": "relevant",
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant", "justification": "posting.content mentions retrieval work"}'
+
+======================================================================
+FAIL: test_prose_around_json_rejected (tests.test_judge.WrongVersionsRejected.test_prose_around_json_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 57, in test_prose_around_json_rejected
+    self.assertRejected("Here is my answer:\n" + GOOD)
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: 'Here is my answer:\n{"verdict": "relevant", "justification": "resume.key_skills lists Python; posting.content asks for Python services."}'
+
+======================================================================
+FAIL: test_skills_absent_from_posting_rejected (tests.test_judge.WrongVersionsRejected.test_skills_absent_from_posting_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 77, in test_skills_absent_from_posting_rejected
+    self.assertRejected(json.dumps({"verdict": "not relevant",
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "not relevant", "justification": "resume.key_skills has LangGraph and SQL; posting.title is ML platform work"}'
+
+======================================================================
+FAIL: test_ungrounded_justification_rejected (tests.test_judge.WrongVersionsRejected.test_ungrounded_justification_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 71, in test_ungrounded_justification_rejected
+    self.assertRejected(json.dumps({"verdict": "relevant",
+  File "/Users/omraut/Desktop/js1-contract-and-watch/tests/test_judge.py", line 39, in assertRejected
+    with self.assertRaises(impl.JudgmentInvalid, msg=f"accepted: {raw!r}"):
+AssertionError: JudgmentInvalid not raised : accepted: '{"verdict": "relevant", "justification": "Seems like a good fit."}'
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.002s
+
+FAILED (failures=19, skipped=7)
+exit=1

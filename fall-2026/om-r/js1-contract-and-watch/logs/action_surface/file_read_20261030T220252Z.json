@@ -1,0 +1,20 @@
+{
+  "surface": "file-read",
+  "at": "2026-10-30T22:02:52+00:00",
+  "how": "fresh Claude Code subagent (general-purpose, inherited this session's model; exact model string not exposed to me), given only the judge-dev-v0 task text and one file path; told to read that file only",
+  "file_given": "action_surface/posting_8730125002.txt",
+  "tools_used_self_reported": [
+    "Read: /Users/omraut/Desktop/js1-contract-and-watch/action_surface/posting_8730125002.txt"
+  ],
+  "harness_tool_use_count": 2,
+  "note": "tool list is the subagent's own report; the harness count of 2 = that Read + its report hand-back. Individual calls not independently visible.",
+  "raw_output": "{\"verdict\": \"not relevant\", \"justification\": \"In posting.content, the listed responsibilities are release and CI/CD engineering, not building, integrating, or operating AI systems: \\\"Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications, including validation, testing, packaging, deployment, promotion, rollback, and post-release verification.\\\" The only AI duties cover using AI tools as an aid to productivity: \\\"Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation, release analysis, and operational automation.\\\" Nothing in the posting involves training or fine-tuning models, building RAG pipelines, building agents, or developing LLM applications. The company-wide line \\\"we embrace AI as a core productivity multiplier\\\" is a general statement and does not count.\"}",
+  "validator": "passed",
+  "verdict": "not relevant",
+  "justification": "In posting.content, the listed responsibilities are release and CI/CD engineering, not building, integrating, or operating AI systems: \"Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications, including validation, testing, packaging, deployment, promotion, rollback, and post-release verification.\" The only AI duties cover using AI tools as an aid to productivity: \"Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation, release analysis, and operational automation.\" Nothing in the posting involves training or fine-tuning models, building RAG pipelines, building agents, or developing LLM applications. The company-wide line \"we embrace AI as a core productivity multiplier\" is a general statement and does not count.",
+  "quotes_exact": [
+    true,
+    true,
+    true
+  ]
+}
