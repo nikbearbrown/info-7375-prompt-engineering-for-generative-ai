@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.6 — 2026-11-06. Amends v0.5 (JS2-CP4); see §9 and the v0.5 and v0.6 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
+**Version:** v0.7 — 2026-11-06. Amends v0.6 (JS2-CP5a-v0.6); see §9 and the v0.5, v0.6 and v0.7 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
 **Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. Everything else in §§1–8 stands as v0.4 left it.  
 **Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
@@ -68,6 +68,17 @@
   JS2 folder, and nothing in the two reference folders, is ever
   written, even with approval; fetch checks the URL form and that the
   board is configured; D1–D11 accepted; two known limits recorded.]
+- **2026-11-06 — v0.7.** Written after CP5b (the loop) and before
+  run 1. While building CP5b, Claude Code stopped on five open
+  points, which I decided, and made twenty smaller decisions on its
+  own, which I reviewed and accepted (v0.7, E1–E20). Claude
+  (Claude.ai) typed this entry and the v0.7 section at my request;
+  the decisions are mine. Main changes: [evidence saved per attempt;
+  unlisted statuses fail with no retry, 429 included; a retry stopped
+  by a budget is "not completed"; a duplicate board is an invalid
+  config; "judge code unchanged" means agent/replies.py, and rule.py
+  gets Ashby's step-4-only path; a first run with zero jobs saves
+  nothing; seeded runs; E1–E20 accepted; three known limits recorded.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -468,6 +479,14 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-11-06 | v0.5 items 1, 2, 5 (with GATE.md §5) | URL form and board not checked; approval's reach not bounded → fetch checks the URL form and that the board is configured for that host; no approval opens a write outside the JS2 folder or into `evidence/gate_probes/` or `evidence/snapshots/` (v0.6, item 3) | Claude Code's four questions in CP5a, and my answers | 64/64 (JS2-CP5a) |
 | 2026-11-06 | §1–§5, implementation details | unspecified → D1–D11, decided by Claude Code in CP5a and accepted by me (v0.6, item 4) | found unsettled while building the permission layer | 64/64 (JS2-CP5a) |
 | 2026-11-06 | §4 timeout, §5 | not stated → two known limits recorded (v0.6, item 5) | found on review of CP5a | none: recorded, not tested |
+| 2026-11-06 | v0.5 item 5 | one evidence file per board per run → one file per attempt, with a sidecar; a timeout attempt gets a sidecar only (v0.7, item 1) | a retried board can get two responses with a status, and every one is evidence | 106/106 (JS2-CP5b) |
+| 2026-11-06 | GATE.md §4 table, extended here | statuses other than 200, 3xx, 404 and 5xx unspecified → failed — HTTP <status>, no retry, 429 and 204 included (v0.7, item 2) | Claude Code's question in CP5b | 106/106 (JS2-CP5b) |
+| 2026-11-06 | GATE.md §1–§2 | a retry stopped by a budget unspecified → the board is "not completed", not a §4 failure (v0.7, item 3) | Claude Code's question in CP5b | 106/106 (JS2-CP5b) |
+| 2026-11-06 | §1 item 4 (config) | a board listed twice unspecified → invalid config, error before any fetch (v0.7, item 4) | Claude Code's question in CP5b | 106/106 (JS2-CP5b) |
+| 2026-11-06 | v0.5 items 3 and 7, §4 | "judge code unchanged" read as covering rule.py → it means agent/replies.py; rule.py gets Ashby's step-4-only path (v0.7, item 5) | v0.5 item 3 and item 7 conflicted as worded | 106/106 (JS2-CP5b) |
+| 2026-11-06 | §1 item 3, §2 baseline rule | a first run with zero jobs saved an empty list (JS1) → saves nothing, so the next run is a baseline (v0.7, item 6) | on a board never seen, an empty first answer is more likely a problem than a truth | 106/106 (JS2-CP5b) |
+| 2026-11-06 | §1–§6, implementation details | unspecified → E1–E20, decided by Claude Code in CP5b and accepted by me; seeded runs, my decision (v0.7, items 7–8) | found unsettled while building the loop | 106/106 (JS2-CP5b) |
+| 2026-11-06 | §2 outputs | not stated → three known limits recorded (v0.7, item 9) | found on review of CP5b | none: recorded, not tested |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -649,3 +668,104 @@ before the loop (CP5b).
    - The read-only folders are not protected through a hard link the way
      GATE.md is: if output/x were a hard link to a snapshot file and an
      overwrite of output/x were approved, the snapshot would change.
+
+## v0.7 — 2026-11-06 (JS2, between CP5b and run 1)
+Amends v0.6. Written after the loop (JS2-CP5b) was built and before run 1.
+
+1. Evidence per attempt (replaces "one file per board per run" in v0.5
+   item 5): every response with a status is saved, one file per attempt,
+   named <ats>_<name>_<UTC>_a<N>.json, with a sidecar note
+   <same name>.sidecar.json giving the status, URL and UTC time. A timeout
+   attempt has no body, so it gets a sidecar only. A seeded board saves no
+   evidence, as in JS1 (v0.4 decision 8).
+2. Statuses GATE.md §4's table does not list (extends it): any status
+   other than 200, 3xx, 404 or 5xx — 400, 403, 410, 429 and 204 included —
+   is "failed — HTTP <status>", with no retry. The body is saved and never
+   read as jobs, and the run continues. 429 is not retried: a quick second
+   request ignores what the server just asked, and waiting for its
+   Retry-After could break the 60 s budget.
+3. A retry stopped by a budget (GATE.md §1–§2): the board's line reads
+   "not completed — <reason> on attempt 1; retry not started: <budget>
+   exhausted". It is not a §4 failure, because §4's second attempt never
+   happened. The board's ids are unchanged, and the run's exit is
+   budget-exhausted, naming the budget and this board.
+4. A board listed twice in the config is an invalid config: the run ends as
+   error (GATE.md §1) before any fetch. The repeat rule (GATE.md §3) is
+   still built and tested at the loop level.
+5. "JS1's judge code, unchanged" (GATE.md §1, v0.5 item 7) means the Claude
+   judge, agent/replies.py. The rule, agent/rule.py, takes the input v0.5
+   item 3 asks for: a posting marked as Ashby gets §4 step 4 only on
+   descriptionPlain; a Greenhouse posting goes through JS1's code
+   unchanged, and every JS1 rule test is unchanged. Pinned by
+   test_ashby_content_gets_step_4_only.
+6. Zero jobs on a board's first run: nothing is saved for that board, so
+   its next run is a baseline again. On a board never seen, an empty first
+   answer is more likely a problem than a truth, and saving an empty
+   section would turn every later posting into "new". This differs from
+   JS1, which saved an empty list; JS1's S07 rule (an existing empty
+   section is not a baseline) is unchanged.
+7. Claude Code's decisions in CP5b, reviewed and accepted by me:
+   - E1. The config has exactly six keys: boards, allow_list,
+     resume_path, state_dir, evidence_dir, output_dir. Any other key is
+     an invalid config, so budgets can never live in the config.
+   - E2. An allow_list other than the two hosts is refused.
+   - E3. The boards in config.json follow GATE.md §0's order.
+   - E4. A persona that fails §3 item 2 ends the run as refused.
+   - E5. A refused run writes nothing; its report is only printed and
+     returned.
+   - E6. An error before the loop (config, persona, state) writes a
+     report but no state; an invalid config's report goes to output/.
+   - E7. Before any fetch: every board URL is checked against the policy,
+     the persona path as a read, and the state, evidence and output
+     folders for writing a new file; seed files are read.
+   - E8. A board with no section in the state file is at its baseline; a
+     section that exists, even an empty one, is not.
+   - E9. The state file is an object of board key → ids; sections for
+     boards no longer configured are carried over.
+   - E10. Write order: state to a temporary file, then the report, then
+     the move into place. If the report cannot be written, the state stays
+     a temporary file, and the next run re-reports those postings instead
+     of losing them. The move checks that the target does not exist, then
+     renames. Temporary files are never deleted: there is no delete tool.
+   - E11. Two runs started in the same second collide on their file
+     names; the write is refused and the run ends as incomplete.
+   - E12. The clock starts when the run starts. The request and time
+     budgets are checked before each attempt. A seeded board uses no
+     request, but counts as a board and is under the time budget.
+   - E13. After two attempts, the failure reason comes from the last
+     attempt: "timeout after 2 attempts", or "5xx / connection error after
+     2 attempts".
+   - E14. An unexpected shape is: a Greenhouse id that is neither a
+     number nor a non-empty string; an Ashby id that is not a non-empty
+     string; or a body that is not JSON or has no jobs list. Every other
+     field is optional.
+   - E15. An Ashby location part that is not a string, or is empty after
+     trimming, is dropped.
+   - E16. Board lines read: "ok — N jobs, M new" (with "(baseline)" on a
+     first run); "failed — <reason>; attempts: n", with no job or id
+     fields; "not completed — …"; "not attempted".
+   - E17. Each new posting carries claude_verdict "rejected" and
+     claude_line, the exact sentence of v0.5 item 7.
+   - E18. Exit codes: 0 finished (with or without failures), 1 error,
+     2 refused, 3 incomplete, 4 budget-exhausted.
+   - E19. The tool layer gains list_dir (checked as a read), move (target
+     checked as a write, never overwriting) and the GATE.md §3 write-repeat
+     ledger; the policy gains a public resolve(), with no rule changes.
+   - E20. Every direct network and file call in the loop goes through the
+     tool layer. The persona is read through it; persona.py's own reader
+     and replies.py are not used by the loop. The JS1 helpers in tools/
+     still write directly; they are outside the agent.
+8. Seeded runs (my decision): --seed <board_key>=<path under evidence/>,
+   repeatable, with the path relative to the project folder. A seeded
+   board reads that file as a 200 response body; unseeded boards are
+   fetched live; the report marks each board live or seeded. A seed
+   outside evidence/ is refused; a seed for a board that is not configured
+   is an error.
+9. Known limits, recorded and not tested:
+   - If the state move fails after the report is written, the report on
+     disk still says the state was written; only the printed and returned
+     report records state_error.
+   - Between the check that the target does not exist and the rename there
+     is a small race window. It is harmless for a single run at a time.
+   - The JS1 helpers in tools/ write files directly, outside the policy.
+     The agent never calls them.
