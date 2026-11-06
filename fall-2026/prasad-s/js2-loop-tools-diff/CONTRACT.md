@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.5 — 2026-11-06. Amends v0.4 (`bff5356`) for JS2; see §9 and the v0.5 section at the end of this file. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
+**Version:** v0.6 — 2026-11-06. Amends v0.5 (JS2-CP4); see §9 and the v0.5 and v0.6 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
 **Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. Everything else in §§1–8 stands as v0.4 left it.  
 **Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
@@ -58,6 +58,16 @@
   absolute_url; where a run writes, with a failed board's response
   saved; a 10 s timeout; the Claude judge is not run in JS2; seven
   new known consequences, each pinned by a test.]
+- **2026-11-06 — v0.6.** Written after CP5a (the permission layer)
+  and before CP5b (the loop). While building CP5a, Claude Code
+  stopped on four rule conflicts and made eleven smaller decisions
+  on its own; I decided the four, and reviewed and accepted the
+  eleven (v0.6, D1–D11). Claude (Claude.ai) typed this entry and the
+  v0.6 section at my request; the decisions are mine. Main changes:
+  [state is a new file per run, written safely; nothing outside the
+  JS2 folder, and nothing in the two reference folders, is ever
+  written, even with approval; fetch checks the URL form and that the
+  board is configured; D1–D11 accepted; two known limits recorded.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -454,6 +464,10 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-11-06 | §6 (and §1 item 5) | I run Claude on each new posting and save each reply → in JS2 the Claude judge is not run and no replies are collected; every new posting's Claude line is "rejected — no saved reply (judge not run in JS2)" (v0.5, item 7) | JS2 is graded on the loop, not the judge (GATE.md §1); JS1's code and verdict meanings are unchanged | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
 | 2026-11-06 | §1 item 7 (fetch) | no timeout stated in the contract (JS1's code used 30 s) → 10 s per request, one retry, then the board is failed (v0.5, item 6) | GATE.md §4 sets the timeout; the contract now states it too | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
 | 2026-11-06 | §4 known consequences, §5 pinned tests | JS1's quirks only → seven more, each pinned by a test (v0.5, item 8) | two ATSs and five boards bring new edge cases, seen in the 2026-11-02 probes and the 2026-11-05 snapshot | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | v0.5 item 4 (§1 item 3) | one state file, `state/state.json`, updated each run → a new file per run, `state/state_<UTC>.json`; the newest by name is read; written to a temporary file first, then moved into place (v0.6, items 1–2) | updating one file each run is an overwrite, which GATE.md §5 puts behind approval; a new file per run needs no exception, and each run's state becomes evidence | 64/64 after JS2-CP5a; state itself is built in CP5b |
+| 2026-11-06 | v0.5 items 1, 2, 5 (with GATE.md §5) | URL form and board not checked; approval's reach not bounded → fetch checks the URL form and that the board is configured for that host; no approval opens a write outside the JS2 folder or into `evidence/gate_probes/` or `evidence/snapshots/` (v0.6, item 3) | Claude Code's four questions in CP5a, and my answers | 64/64 (JS2-CP5a) |
+| 2026-11-06 | §1–§5, implementation details | unspecified → D1–D11, decided by Claude Code in CP5a and accepted by me (v0.6, item 4) | found unsettled while building the permission layer | 64/64 (JS2-CP5a) |
+| 2026-11-06 | §4 timeout, §5 | not stated → two known limits recorded (v0.6, item 5) | found on review of CP5a | none: recorded, not tested |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -485,8 +499,6 @@ with a dated comment.
     first posting is judged.
 12. §2: each condition's compared value is the cleaned value; the
     record's `title` and `location.name` stay raw copies.
-
----
 
 ## v0.5 — 2026-11-06 (JS2)
 Amends v0.4 (JS1, bff5356) for JS2. Exits, budgets, repeats, errors and
@@ -580,3 +592,60 @@ permissions live in GATE.md v0.2; this contract does not repeat them.
      is plain text with no jobs in it, and it is reported as failed —
      not found (404), never as an empty board. Pinned by a constructed
      plain-text 404 response, and by every js2nosuchboard run.
+
+## v0.6 — 2026-11-06 (JS2, between CP5a and CP5b)
+Amends v0.5. Written after the permission layer (JS2-CP5a) was built and
+before the loop (CP5b).
+
+1. State (replaces the file layout in v0.5 item 4): each run writes a new
+   file, state/state_<UTC>.json, with the UTC time written like
+   2026-11-06T201500Z. A state file is never overwritten. The next run
+   reads the newest one by name; leftover temporary files are ignored. If
+   state/ holds no state file, every board's run is a baseline. If the
+   newest state file cannot be read or parsed, the run ends as error
+   (GATE.md §1) and writes no new state. The (board, id) key and the board
+   keys of v0.5 item 4 are unchanged.
+2. Safe state writes: the new state file is written to a temporary file in
+   state/ first, then moved into place, so a crash can never leave a
+   half-written newest file.
+3. Permission answers (Claude Code's questions in CP5a; my decisions):
+   - Nothing that resolves outside the JS2 folder is ever written, even
+     with --approve. GATE.md §5's "inside this folder only" wins over the
+     approval clause, which covers writes outside the working subfolders
+     but inside the folder.
+   - evidence/gate_probes/ and evidence/snapshots/ are never written, even
+     with --approve.
+   - Fetch checks the URL form of v0.5 item 1, and that the board in the
+     URL is configured for that host. Either failure is refused under its
+     own named rule.
+4. Claude Code's decisions in CP5a, reviewed and accepted by me:
+   - D1. A board name is letters, digits, "_" and "-" only, so no "..",
+     "/" or encoded character can reach the server's path.
+   - D2. An explicit :443 is allowed, since it is the default port.
+   - D3. A URL with spaces, control characters or non-ASCII characters is
+     refused.
+   - D4. An --approve path is relative to the project folder and compared
+     resolved, so ./config.json counts as config.json.
+   - D5. Protected names (GATE.md, the two read-only folders, config.json,
+     CONTRACT.md) are compared ignoring case, because the Mac's disk
+     ignores case: a write to gate.md is refused.
+   - D6. GATE.md is also protected through a hard link.
+   - D7. The writable folders are matched exactly, case-sensitive, so
+     case can only make the policy stricter, never looser.
+   - D8. A refusal lists every approval condition the write broke.
+   - D9. A write that names a folder instead of a file is refused.
+   - D10. The tool layer creates missing parent folders below a path the
+     check has already allowed.
+   - D11. The host in each configured board is lowercased, as in GATE.md
+     §5; the board name is compared exactly, as the config writes it, so
+     Stripe is refused when the config lists stripe.
+5. Known limits, recorded and not tested:
+   - The 10 s timeout limits each wait on the socket, not the whole
+     request: a server that sends one byte every 9 s never times out. The
+     60 s run budget (GATE.md §2) is checked between requests, not during
+     one.
+   - The read-only folders are not protected through a hard link the way
+     GATE.md is: if output/x were a hard link to a snapshot file and an
+     overwrite of output/x were approved, the snapshot would change.
+
+---
