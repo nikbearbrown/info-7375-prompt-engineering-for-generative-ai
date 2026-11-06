@@ -1,9 +1,10 @@
-# CONTRACT.md — Job-Search Agent 1: The Contract and the Watch
+# CONTRACT.md — Job-Search Agent 1: The Contract and the Watch (amended for JS2 in v0.5)
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.4 — 2026-10-27. Amends v0.3 (`13f40e9`); see §9. v0.2 was `5cd4c28`, v0.1 was `b27b1a8`. No run of the agent has happened at any version.
-**Board:** Greenhouse — token: `stripe`  
+**Version:** v0.5 — 2026-11-06. Amends v0.4 (`bff5356`) for JS2; see §9 and the v0.5 section at the end of this file. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
+**Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. Everything else in §§1–8 stands as v0.4 left it.
+**Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
 
 ## Changelog
@@ -45,6 +46,18 @@
   ["New York", "NYC", "Remote"]; the changelog keeps my own wording
   for v0.1 and v0.2. I reviewed the rest of the points and accepted
   them. Main changes: [§1.3 locations updated to the final list.]
+- **2026-11-06 — v0.5.** Written before any JS2 code. Claude
+  (Claude.ai) reviewed two drafts; after the second review it typed
+  the fixes into the file at my request. I made every decision and
+  ran the evidence checks myself on the 2026-11-05 snapshot. Main
+  changes: [five boards and the two fetch URL forms; the allow-list
+  grows to two hosts; state keyed by (board, id), the board key
+  being the ATS plus the name, in state/state.json; Ashby's fields
+  mapped into §2 and §4 — descriptionPlain for C3 with §4 step 4
+  only, location plus secondaries joined for C2, jobUrl for
+  absolute_url; where a run writes, with a failed board's response
+  saved; a 10 s timeout; the Claude judge is not run in JS2; seven
+  new known consequences, each pinned by a test.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -433,6 +446,14 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-10-26 | §1 state item | "created empty … baseline" → an existing empty `state.json` is not a baseline; state written only after a successful run | watch case S07 | none yet (no code exists) |
 | 2026-10-26 | §3 item 3 | "a `555-` number" → contains `555-01` plus two digits, area code allowed | refusal case P04 | none yet (no code exists) |
 | 2026-10-27 | §1, §2, §3, §6 | unspecified → the 12 CP3 decisions listed below the table | found unclear while implementing v0.3 | yes: 5/5 tests pass on 2026-10-27, after the decisions were coded |
+| 2026-11-06 | §1 item 1 | one board (Greenhouse `stripe`), one fetch URL → five boards (GATE.md §0) and two fetch URL forms, Greenhouse and Ashby (v0.5, item 1) | JS2 watches several boards on two ATSs; the loop is what JS2 builds | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §3 item 1 (and §1 item 4) | allow-list exactly `boards-api.greenhouse.io`, an Ashby board refused → `boards-api.greenhouse.io` and `api.ashbyhq.com`, exact match, https only (v0.5, item 2) | Ashby boards cannot be fetched under the JS1 list; the refusal rule itself is unchanged | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §1 item 3 | `state.json` holds one board's ids as a list of strings → `state/state.json`, one section per board, board key = ATS plus name (`greenhouse:stripe`), ids keyed by (board, id) (v0.5, item 4) | five boards share one state file, and an id is only unique inside its board (GATE.md §3) | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §2, §4 | posting fields are Greenhouse's (`content`, `location.name`, `absolute_url`) → Ashby's fields mapped in v0.5, item 3: `descriptionPlain` for C3 (§4 step 4 only), `location` plus secondaries joined for C2, `jobUrl` for `absolute_url` | Ashby's response shape differs from Greenhouse's; the rule in §4 does not change | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §1 item 7, §2 | writes are the raw-evidence directory, the state file and the run report → state to `state/state.json`, raw responses to `evidence/` (a failed board's response is saved too, with its status in the sidecar note; a timeout gets a sidecar note only), reports to `output/`; never `evidence/gate_probes/` or `evidence/snapshots/` (v0.5, item 5) | the JS2 folder layout (GATE.md §5); a failed board leaves evidence, not silence | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §6 (and §1 item 5) | I run Claude on each new posting and save each reply → in JS2 the Claude judge is not run and no replies are collected; every new posting's Claude line is "rejected — no saved reply (judge not run in JS2)" (v0.5, item 7) | JS2 is graded on the loop, not the judge (GATE.md §1); JS1's code and verdict meanings are unchanged | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §1 item 7 (fetch) | no timeout stated in the contract (JS1's code used 30 s) → 10 s per request, one retry, then the board is failed (v0.5, item 6) | GATE.md §4 sets the timeout; the contract now states it too | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
+| 2026-11-06 | §4 known consequences, §5 pinned tests | JS1's quirks only → seven more, each pinned by a test (v0.5, item 8) | two ATSs and five boards bring new edge cases, seen in the 2026-11-02 probes and the 2026-11-05 snapshot | none yet, since no JS2 code has changed; 45/45 on the copied JS1 code (CP3) |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -464,6 +485,98 @@ with a dated comment.
     first posting is judged.
 12. §2: each condition's compared value is the cleaned value; the
     record's `title` and `location.name` stay raw copies.
+
 ---
 
+## v0.5 — 2026-11-06 (JS2)
+Amends v0.4 (JS1, bff5356) for JS2. Exits, budgets, repeats, errors and
+permissions live in GATE.md v0.2; this contract does not repeat them.
 
+1. Boards (§1 item 1): the five boards in GATE.md §0 — Greenhouse: stripe,
+   duolingo, robinhood (watched); Ashby: notion (watched), js2nosuchboard
+   (fails on purpose). The loop reads the board list from the config; no
+   board is wired into the code.
+   Fetch URLs, exactly:
+   - Greenhouse: https://boards-api.greenhouse.io/v1/boards/<token>/jobs?content=true
+   - Ashby: https://api.ashbyhq.com/posting-api/job-board/<name>?includeCompensation=true
+     (pattern from Lectern, collect.py:52)
+2. Allow-list (§1 item 4, §3 item 1): exact match, https only —
+   boards-api.greenhouse.io and api.ashbyhq.com. The rule is GATE.md §5's:
+   the whole host, lowercased; no subdomains, no suffix or prefix matches,
+   no userinfo, no non-default port, no http. Anything else is refused
+   before a request is sent.
+3. Ashby fields (§2, §4):
+   - id → id. Ashby ids are UUID strings already, so JS1's string
+     comparison applies with no conversion at the boundary.
+   - title → title.
+   - location.name → location, with secondaryLocations[].location joined
+     after it. Trimming: each part — the main location and each
+     secondary — is trimmed, then the parts are joined with "; ", so the
+     C2 input reads like Greenhouse's own strings, e.g. "San Francisco,
+     California; New York, New York". isRemote: not used, because in
+     evidence/snapshots/notion_2026-11-05T194458Z.json, 87 of 150
+     postings are isRemote: true, and 86 of those are workplaceType:
+     "Hybrid"; 0 of 150 location strings, secondaries included, contain
+     "remote". So the flag does not mean remote, and C2 reads only text.
+     workplaceType: not used either, with the same reason: §4 checks
+     text.
+   - content (C3) → descriptionPlain. Cleanup: only §4 step 4 — collapse
+     every run of whitespace into a single space — so a skill that wraps
+     onto a new line still matches. §4 steps 2 and 3 (unescape, remove
+     tags) are not applied: they exist for Greenhouse's escaped HTML. In
+     the posting checked on 2026-11-05, descriptionPlain was plain text
+     with line breaks and no tags, while descriptionHtml carried real
+     tags; that is why descriptionHtml is not the C3 input. With the
+     cleanup cut down to step 4, a TA can still check C3 by hand.
+   - absolute_url → jobUrl.
+4. State (§1 item 3): seen ids are keyed by (board, id), as GATE.md §3
+   says, and the board key is the ATS plus the name: greenhouse:stripe,
+   greenhouse:duolingo, greenhouse:robinhood, ashby:notion,
+   ashby:js2nosuchboard. File: state/state.json in this folder — one
+   file, one section per board key. It starts empty in JS2: each board's
+   first run is its baseline, and JS1's state.json is not read, copied,
+   or written.
+5. Where a run writes: state → state/state.json; raw responses →
+   evidence/, one file per board per run, named for the board and the
+   UTC time; reports → output/. A failed board's response is saved too:
+   any response that has a status — including the 404 body from
+   js2nosuchboard — is saved in evidence/ with its status in the sidecar
+   note. A timeout has no body, so it gets a sidecar note only. Never:
+   evidence/gate_probes/ or evidence/snapshots/ — both are read-only
+   reference, and a run never writes there (GATE.md §5).
+6. Timeout: 10 s per request (GATE.md §4). A request with no answer in
+   10 s is a timeout: one retry, then the board is failed — timeout after
+   2 attempts. The 60 s run budget is GATE.md §2.
+7. The judge in JS2: JS1's judge code, unchanged, and no new replies. The
+   rule judge runs on every new posting, as in JS1. The Claude judge is
+   not run: every new posting's Claude line reads "rejected — no saved
+   reply (judge not run in JS2)", JS1's verdict for a missing reply. JS2
+   reports no Claude verdicts and claims none (GATE.md §1).
+8. New known consequences, each pinned by a test:
+   - C2 can pass on a secondary location alone: main location
+     "San Francisco, California", secondary "New York, New York" → C2
+     true, because the secondaries are joined into the C2 input. Pinned
+     by a constructed Ashby case: main fails, secondary matches, expect
+     C2 true.
+   - isRemote alone never passes C2: isRemote true, location
+     "San Francisco, California", no secondaries → C2 false, because the
+     boolean adds no text. Pinned by a constructed Ashby case.
+   - The one workplaceType: "Remote" posting fails C2, because its
+     location text never says Remote. That is a known false negative,
+     accepted: C2 reads location text only. Pinned by a constructed
+     Ashby case: workplaceType "Remote", location a city, expect C2
+     false.
+   - "Remote - California" passes C2 by substring, as seen on Duolingo.
+     Pinned by a constructed Greenhouse case: location "Remote -
+     California", expect C2 true.
+   - A skill split across a line break in descriptionPlain still matches
+     after whitespace is collapsed (§4 step 4 turns the break into a
+     space before C3 runs). Pinned by a constructed Ashby case: expect
+     the skill found.
+   - The same id string on two boards is two postings: seen is
+     (board, id), so neither copy is dropped as already seen. Pinned by
+     the W4 test in GATE.md §6.
+   - On Ashby, the status is checked before the body is read: a 404 body
+     is plain text with no jobs in it, and it is reported as failed —
+     not found (404), never as an empty board. Pinned by a constructed
+     plain-text 404 response, and by every js2nosuchboard run.
