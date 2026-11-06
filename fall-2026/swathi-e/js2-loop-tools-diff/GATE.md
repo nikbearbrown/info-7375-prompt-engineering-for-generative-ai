@@ -98,3 +98,7 @@ Decided after reviewing Claude Code's loop proposal:
 - Each new posting gets my JS1 rule's verdict, labeled as a record.
 - Because the deliberate bad board always fails, every live run ends
   incomplete. "finished" is demonstrated in tests with simulated responses.
+
+## Revision (2026-11-05, before the Plaid fix)
+- Ashby: each location and secondaryLocation is followed by its address's addressCountry in parentheses when the response gives one (e.g. "San Francisco HQ (United States)"), because office names like "San Francisco HQ" name no US state.
+- Evidence: in my Nov 4 and Nov 5 live runs, 41 Plaid postings failed my rule's location check because of office-only names; for 2 of them it was the only failing check.
