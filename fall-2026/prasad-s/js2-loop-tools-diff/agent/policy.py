@@ -92,13 +92,15 @@ class Policy:
         # relative to the project folder; both sides are compared resolved.
         self._approvals = []
         for flag in approvals:
-            self._approvals.append({"flag": str(flag), "path": self._resolve(flag), "used": False})
+            self._approvals.append({"flag": str(flag), "path": self.resolve(flag), "used": False})
 
-    def _resolve(self, target):
+    def resolve(self, target):
+        """The resolved real path a target names, relative to the project folder."""
         path = Path(target)
         if not path.is_absolute():
             path = self.root / path
         return path.resolve()
+
 
     def approval_record(self):
         """Every --approve flag of this run, for the run report (§5)."""
@@ -149,13 +151,13 @@ class Policy:
         return real == self.root or real.is_relative_to(self.root)
 
     def _check_read(self, target):
-        real = self._resolve(target)
+        real = self.resolve(target)
         if not self._inside(real):
             raise PolicyRefusal("read", target, [(R_READ_INSIDE, f"resolves to {real}")])
         return Permit("read", str(target), path=real)
 
     def _check_write(self, target):
-        real = self._resolve(target)
+        real = self.resolve(target)
         if not self._inside(real):
             raise PolicyRefusal("write", target, [(R_WRITE_INSIDE, f"resolves to {real}")])
         rel = real.relative_to(self.root).parts

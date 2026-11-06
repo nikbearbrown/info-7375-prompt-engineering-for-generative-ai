@@ -8,9 +8,17 @@ raises makes the test error, never pass.
 Inputs: rule cases R01 (relevant) and R14 (not_relevant) from
 tests/expected/rule_cases.json, and the §1 persona. Everything runs offline
 in a temporary folder; the real agent runs in seeded mode there.
+
+JS2 changes, each required by CONTRACT v0.5/v0.6: the workspace config has
+the v0.5 shape and state is state/state_<UTC>.json (v0.5 items 1, 4, 5;
+v0.6 item 1); the persona is copied into the workspace, since reads stay
+inside the project folder (GATE.md §5, adopted by v0.5); the real agent is
+the loop, seeded per board; and Claude's leg is the fixed line of v0.5 item 7,
+because the Claude judge is not run in JS2.
 """
 
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -18,7 +26,7 @@ from pathlib import Path
 from support import JS1, load_table, persona
 
 from agent.rule import judge, posting_field
-from agent.run import run
+from agent.run import JUDGE_LINE, run
 from agent.state import parse_board_response
 from wrong_versions import w1_pairing, w2_justification
 
@@ -88,23 +96,24 @@ def write_workspace(tmp, order):
         }
     (outputs / "metadata.json").write_text(json.dumps(metadata), encoding="utf-8")
     # An existing [] is not a baseline (v0.3), so both postings are new.
-    (tmp / "state.json").write_text("[]", encoding="utf-8")
+    (tmp / "state").mkdir()
+    (tmp / "state" / "state_2026-11-01T000000Z.json").write_text('{"greenhouse:stripe": []}', encoding="utf-8")
+    shutil.copy(JS1 / "resume_persona.json", tmp / "resume_persona.json")
     config = {
-        "board_token": "stripe",
-        "allow_list": ["boards-api.greenhouse.io"],
-        "resume_path": str(JS1 / "resume_persona.json"),
-        "state_path": "state.json",
+        "boards": [{"ats": "greenhouse", "name": "stripe"}],
+        "allow_list": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+        "resume_path": "resume_persona.json",
+        "state_dir": "state",
         "evidence_dir": "evidence",
-        "claude_outputs_dir": "claude_outputs",
+        "output_dir": "output",
     }
     (tmp / "config.json").write_text(json.dumps(config), encoding="utf-8")
     return tmp
 
 
 def real_agent(workspace):
-    report = run(workspace / "config.json", seed_path=workspace / "evidence" / "board.json",
-                 report_path=workspace / "run_report.json")
-    return report["new_postings"]
+    report = run(workspace / "config.json", seeds={"greenhouse:stripe": "evidence/board.json"})
+    return report["boards"][0]["new_postings"]
 
 
 def wrong_pipeline(variant):
@@ -139,14 +148,11 @@ def w1_record_failures(records):
         for entry in rule_justification.get("posting_fields") or []:
             if entry.get("field") == "title" and str(entry.get("matched")).lower() not in own_title.lower():
                 failures.append(f"{posting_id}: rule justification cites title {entry.get('matched')!r}, not in its own title")
-        # The constructed replies agree with the hand labels, so Claude's expected verdict is the hand label.
-        if record["claude_verdict"] != row["expect_verdict"]:
-            failures.append(f"{posting_id}: judgment (Claude) {record['claude_verdict']}, its own saved reply says {row['expect_verdict']}")
-            continue
-        parsed = (record.get("claude_justification") or {}).get("parsed") or {}
-        for entry in parsed.get("posting_fields") or []:
-            if entry.get("field") == "title" and str(entry.get("value")).lower() not in own_title.lower():
-                failures.append(f"{posting_id}: Claude's reply cites title {entry.get('value')!r}, not in its own title")
+        # v0.5 item 7: the Claude judge is not run in JS2, so every record carries the fixed line;
+        # a verdict taken from a saved reply, by posting_id or by file order, is a failure.
+        if record["claude_verdict"] != "rejected" or record.get("claude_line") != JUDGE_LINE:
+            failures.append(f"{posting_id}: judgment (Claude) {record['claude_verdict']!r}, "
+                            f"line {record.get('claude_line')!r}; JS2 runs no Claude judge")
     return failures
 
 

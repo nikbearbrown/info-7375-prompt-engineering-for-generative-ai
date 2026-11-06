@@ -1,85 +1,75 @@
-"""Live fetch, raw evidence and seeded mode (CONTRACT.md §1 items 1, 6, 7; §2; §3.1)."""
+"""Raw evidence and seeded boards (CONTRACT.md §1 item 6, §2; v0.5 item 5; GATE.md §4).
+
+The request itself is agent/tool_layer.py's fetch. This module saves what
+came back, through the tool layer's write, and reads seed files through its
+read. Neither ever overwrites a file.
+"""
 
 import hashlib
 import json
-import urllib.request
-from datetime import datetime, timezone
 from pathlib import Path
 
-from .config import BOARD_TOKEN, require_fetch_url
 from .errors import Refusal, RunError
 
 SIDECAR_SUFFIX = ".sidecar.json"
 
 
-class _RefuseRedirects(urllib.request.HTTPRedirectHandler):
-    """§3.1: a redirect is refused and logged, not followed.
+def utc_stamp(moment):
+    """UTC time written like 2026-11-06T201500Z (v0.6 item 1)."""
+    return moment.strftime("%Y-%m-%dT%H%M%SZ")
 
-    Decision 2026-10-27: every redirect, even to the same host, since §1 allows one URL only.
+
+def save_evidence(tools, evidence_dir, board, attempt, fetched_at, url, result=None, error=None):
+    """One attempt's evidence (v0.5 item 5; Prasad, CP5b: one file per attempt).
+
+    A response with a status is saved byte-for-byte, with a sidecar note; a
+    timeout or connection error has no body, so it gets the sidecar only.
+    Returns the sidecar note.
     """
-
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        raise Refusal(f"server answered {code} with a redirect to {newurl!r}; redirects are not followed (§3.1)")
-
-
-def fetch_live(url, allow_list, timeout=30):
-    """Fetch the one §1 URL. Returns (raw response bytes, UTC fetch time)."""
-    require_fetch_url(url, allow_list)
-    opener = urllib.request.build_opener(_RefuseRedirects)
-    request = urllib.request.Request(url, headers={"Accept": "application/json"})
-    fetched_at = datetime.now(timezone.utc)
-    try:
-        with opener.open(request, timeout=timeout) as response:
-            status = response.status
-            final_url = response.geturl()
-            raw = response.read()
-    except OSError as exc:  # includes urllib.error.URLError and HTTPError
-        raise RunError(f"fetch of {url} failed: {exc}") from exc
-    if final_url != url:
-        raise Refusal(f"response came from {final_url!r}, not {url!r} (§3.1)")
-    if status != 200:
-        raise RunError(f"fetch of {url} returned HTTP {status}")
-    return raw, fetched_at
-
-
-def save_evidence(raw, url, fetched_at, evidence_dir):
-    """Save the raw bytes unchanged plus a sidecar note (§2). Never overwrites a file."""
-    stamp = fetched_at.strftime("%Y-%m-%dT%H%M%SZ")
-    name = f"{BOARD_TOKEN}_jobs_content_true_{stamp}.json"
+    name = f"{board.ats}_{board.name}_{utc_stamp(fetched_at)}_a{attempt}.json"
     note = {
+        "board": board.key,
+        "attempt": attempt,
         "url": url,
         "fetched_at": fetched_at.isoformat(timespec="seconds"),
-        "file": name,
-        "bytes": len(raw),
-        "sha256": hashlib.sha256(raw).hexdigest(),
     }
-    evidence_dir = Path(evidence_dir)
-    evidence_dir.mkdir(parents=True, exist_ok=True)
-    try:
-        with open(evidence_dir / name, "xb") as fh:
-            fh.write(raw)
-        with open(evidence_dir / (name + SIDECAR_SUFFIX), "x", encoding="utf-8") as fh:
-            json.dump(note, fh, indent=2)
-            fh.write("\n")
-    except FileExistsError as exc:
-        raise RunError(f"evidence file already exists, not overwriting: {exc.filename}") from exc
+    if result is not None:
+        tools.write(f"{evidence_dir}/{name}", result.body)
+        note.update({
+            "status": result.status,
+            "content_type": result.content_type,
+            "file": name,
+            "bytes": len(result.body),
+            "sha256": hashlib.sha256(result.body).hexdigest(),
+        })
+        if result.location:
+            note["location"] = result.location
+    else:
+        note.update({"status": None, "error": str(error), "error_kind": getattr(error, "kind", None), "file": None})
+    sidecar = f"{evidence_dir}/{name}{SIDECAR_SUFFIX}"
+    tools.write(sidecar, json.dumps(note, indent=2) + "\n")
+    note["sidecar"] = name + SIDECAR_SUFFIX
     return note
 
 
-def load_seed(seed_path, evidence_dir):
-    """§1 item 6: a seeded run reads one saved board response from evidence/ only."""
-    seed = Path(seed_path).resolve()
-    evidence = Path(evidence_dir).resolve()
+def load_seed(tools, seed_path, evidence_dir):
+    """§1 item 6: a seeded board reads one saved board response from evidence/ only.
+
+    Decision 2026-11-06: the seed path is relative to the project folder, like
+    every other path the agent is given.
+    """
+    seed = tools.policy.resolve(seed_path)
+    evidence = tools.policy.resolve(evidence_dir)
     if seed == evidence or not seed.is_relative_to(evidence):
-        raise Refusal(f"seed file {seed_path!r} is not inside {evidence_dir} (§1 item 6)")
+        raise Refusal(f"seed file {str(seed_path)!r} is not inside {evidence_dir} (§1 item 6)")
     if seed.name.endswith(SIDECAR_SUFFIX):
         raise Refusal(f"{seed.name} is a sidecar note, not a saved board response")
     try:
-        raw = seed.read_bytes()
+        raw = tools.read(seed_path)
     except OSError as exc:
-        raise RunError(f"cannot read seed file {seed}: {exc}") from exc
+        raise RunError(f"cannot read seed file {seed_path}: {exc}") from exc
     source = {
-        "file": seed.relative_to(evidence).as_posix(),
+        "file": Path(seed.relative_to(evidence)).as_posix(),
         "bytes": len(raw),
         "sha256": hashlib.sha256(raw).hexdigest(),
     }

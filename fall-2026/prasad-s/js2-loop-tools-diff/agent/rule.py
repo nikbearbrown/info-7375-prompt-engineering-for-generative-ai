@@ -25,7 +25,14 @@ def posting_field(posting, name):
     """The cleaned value of a §6 posting field name, or None when the posting lacks it."""
     if name == "content":
         raw = posting.get("content")
-        return clean_content(raw) if isinstance(raw, str) else None
+        if not isinstance(raw, str):
+            return None
+        # Decision 2026-11-06 (Prasad, CP5b; CONTRACT v0.5 item 3): Ashby's
+        # descriptionPlain gets §4 step 4 only. Greenhouse postings carry no
+        # "ats": "ashby" mark and take JS1's path, unchanged.
+        if posting.get("ats") == "ashby":
+            return _WHITESPACE.sub(" ", raw)
+        return clean_content(raw)
     if name == "title":
         raw = posting.get("title")
     elif name == "location.name":

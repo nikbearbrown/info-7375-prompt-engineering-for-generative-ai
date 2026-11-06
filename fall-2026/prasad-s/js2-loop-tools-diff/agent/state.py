@@ -1,11 +1,19 @@
-"""Board response parsing, the id rule, and state.json (CONTRACT.md §1 item 3, §2)."""
+"""Board response parsing, the id rule, and the state files (CONTRACT.md §1 item 3, §2;
+v0.5 item 4; v0.6 items 1-2).
+
+State is one JSON object per run, keyed by board key, each holding that
+board's seen ids as strings. All file access goes through the tool layer.
+"""
 
 import json
-import os
+import re
 from dataclasses import dataclass
-from pathlib import Path
 
 from .errors import RunError
+
+# v0.6 item 1: state/state_<UTC>.json, the UTC time written like 2026-11-06T201500Z.
+STATE_NAME = re.compile(r"state_\d{4}-\d{2}-\d{2}T\d{6}Z\.json")
+TMP_SUFFIX = ".tmp"
 
 
 def parse_board_response(raw):
@@ -31,21 +39,42 @@ def parse_board_response(raw):
     return postings
 
 
-def load_state(path):
-    """None if state.json does not exist (baseline); otherwise its list of string ids.
+def newest_state_file(tools, state_dir):
+    """The newest state file by name, or None. Temporary and other files are ignored (v0.6 item 1)."""
+    names = sorted(name for name in tools.list_dir(state_dir) if STATE_NAME.fullmatch(name))
+    return f"{state_dir}/{names[-1]}" if names else None
 
-    An existing file is never a baseline, even when it holds [] (v0.3).
+
+def load_state(tools, state_dir):
+    """(path, sections). Both are None when state/ holds no state file: every board is a baseline.
+
+    An unreadable or malformed newest file is a RunError: the run ends as error
+    and writes no new state (v0.6 item 1).
     """
-    path = Path(path)
-    if not path.exists():
-        return None
+    path = newest_state_file(tools, state_dir)
+    if path is None:
+        return None, None
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(tools.read(path))
     except (OSError, ValueError) as exc:
-        raise RunError(f"cannot read {path}: {exc}") from exc
-    if not isinstance(data, list) or not all(isinstance(item, str) for item in data):
-        raise RunError(f"{path} must be a JSON list of string ids (§1 item 3)")
-    return data
+        raise RunError(f"cannot read state file {path}: {exc}") from exc
+    if not isinstance(data, dict) or not all(
+        isinstance(key, str) and isinstance(ids, list) and all(isinstance(i, str) for i in ids)
+        for key, ids in data.items()
+    ):
+        raise RunError(f"{path} must be a JSON object of board key -> list of string ids (v0.5 item 4)")
+    return path, data
+
+
+def board_ids(sections, board_key):
+    """That board's saved ids, or None when it has none yet: its next valid run is its baseline.
+
+    Decision 2026-11-06: a board with no section is a baseline, like JS1's
+    missing state.json; a section that exists, even [], is not (JS1 v0.3).
+    """
+    if sections is None:
+        return None
+    return sections.get(board_key)
 
 
 @dataclass(frozen=True)
@@ -72,9 +101,18 @@ def compute_watch(state_before, response_ids):
     return Watch(baseline=False, new_ids=new_ids, state_after=list(dict.fromkeys(state_before)) + new_ids)
 
 
-def write_state(path, ids):
-    """Write state.json in one step, so a crash mid-write cannot leave a partial file."""
-    path = Path(path)
-    tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(json.dumps(list(ids), indent=2) + "\n", encoding="utf-8")
-    os.replace(tmp, path)
+def state_paths(state_dir, stamp):
+    final = f"{state_dir}/state_{stamp}.json"
+    return final + TMP_SUFFIX, final
+
+
+def write_state_tmp(tools, state_dir, stamp, sections):
+    """v0.6 item 2, first half: the new state goes to a temporary file in state/."""
+    tmp, final = state_paths(state_dir, stamp)
+    tools.write(tmp, json.dumps(sections, indent=2, sort_keys=True) + "\n")
+    return tmp, final
+
+
+def commit_state(tools, tmp, final):
+    """v0.6 item 2, second half: move the temporary file into place. Never overwrites."""
+    tools.move(tmp, final)

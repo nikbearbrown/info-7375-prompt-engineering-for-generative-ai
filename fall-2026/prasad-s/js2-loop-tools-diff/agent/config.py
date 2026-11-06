@@ -1,71 +1,111 @@
-"""Config file and allow-list (CONTRACT.md §1 items 1 and 4, §3.1)."""
+"""Config file (CONTRACT.md v0.5 items 1, 2, 5; v0.6 item 1; GATE.md §0, §2, §5).
+
+The board list comes from here; no board is wired into the code. Shape
+problems are a RunError (GATE.md §1: error, invalid config). An allow-list
+that differs from GATE.md §5's is a Refusal (GATE.md §1: refused).
+"""
 
 import json
-from pathlib import Path
-from urllib.parse import urlsplit
+from dataclasses import dataclass
 
 from .errors import Refusal, RunError
+from .policy import ALLOWED_HOSTS
 
-# §1 item 1: the one fetch URL. There is no other URL form.
-FETCH_URL = "https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true"
-BOARD_TOKEN = "stripe"
-# §1 item 4 / §3.1: the allow-list is exactly this.
-ALLOW_LIST = ["boards-api.greenhouse.io"]
+# v0.5 item 1: the two fetch URL forms, one per ATS.
+ATS_HOSTS = {"greenhouse": "boards-api.greenhouse.io", "ashby": "api.ashbyhq.com"}
+URL_FORMS = {
+    "greenhouse": "https://boards-api.greenhouse.io/v1/boards/{name}/jobs?content=true",
+    "ashby": "https://api.ashbyhq.com/posting-api/job-board/{name}?includeCompensation=true",
+}
+PATH_KEYS = ("resume_path", "state_dir", "evidence_dir", "output_dir")
+CONFIG_KEYS = ("boards", "allow_list") + PATH_KEYS
+BOARD_KEYS = ("ats", "name")
 
-PATH_KEYS = ("resume_path", "state_path", "evidence_dir", "claude_outputs_dir")
-CONFIG_KEYS = ("board_token", "allow_list") + PATH_KEYS
+
+@dataclass(frozen=True)
+class Board:
+    ats: str
+    name: str
+
+    @property
+    def key(self):
+        """v0.5 item 4: the board key is the ATS plus the name, e.g. greenhouse:stripe."""
+        return f"{self.ats}:{self.name}"
+
+    @property
+    def host(self):
+        return ATS_HOSTS[self.ats]
+
+    @property
+    def url(self):
+        return URL_FORMS[self.ats].format(name=self.name)
 
 
-def load_config(path):
-    """Read config.json. Path values are resolved against the config file's folder."""
-    path = Path(path)
+@dataclass(frozen=True)
+class Config:
+    boards: tuple
+    allow_list: tuple
+    resume_path: str
+    state_dir: str
+    evidence_dir: str
+    output_dir: str
+
+    @property
+    def board_pairs(self):
+        """(host, name) pairs for Policy (v0.6 item 3)."""
+        return [(board.host, board.name) for board in self.boards]
+
+
+def parse_config(raw, label="config.json"):
+    """Parse config bytes. Paths stay relative to the project folder, as written."""
     try:
-        config = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as exc:
-        raise RunError(f"cannot read config {path}: {exc}") from exc
-    if not isinstance(config, dict):
-        raise RunError(f"{path} is not a JSON object")
-    missing = [key for key in CONFIG_KEYS if key not in config]
+        data = json.loads(raw)
+    except ValueError as exc:
+        raise RunError(f"invalid config {label}: not JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise RunError(f"invalid config {label}: not a JSON object")
+    missing = [key for key in CONFIG_KEYS if key not in data]
     if missing:
-        raise RunError(f"{path} is missing {', '.join(missing)} (§1 item 4)")
-    if config["board_token"] != BOARD_TOKEN:
-        raise Refusal(f"board_token must be {BOARD_TOKEN!r}; the agent reads one board only (§1 item 1)")
-    if config["allow_list"] != ALLOW_LIST:
-        raise Refusal(f"allow_list must be exactly {ALLOW_LIST} (§1 item 4, §3.1)")
+        raise RunError(f"invalid config {label}: missing {', '.join(missing)}")
+    # Decision 2026-11-06: any key outside the v0.5 shape is invalid, which is
+    # how GATE.md §5's "the config holds no budget values" is enforced.
+    unknown = sorted(set(data) - set(CONFIG_KEYS))
+    if unknown:
+        raise RunError(f"invalid config {label}: unknown key(s) {', '.join(unknown)} "
+                       "(GATE.md §5: budgets live in GATE.md §2, never in the config)")
     for key in PATH_KEYS:
-        if not isinstance(config[key], str) or not config[key]:
-            raise RunError(f"{path}: {key} must be a non-empty path string")
-    base = path.resolve().parent
-    resolved = dict(config)
-    for key in PATH_KEYS:
-        resolved[key] = base / config[key]
-    return resolved
+        if not isinstance(data[key], str) or not data[key]:
+            raise RunError(f"invalid config {label}: {key} must be a non-empty path string")
 
+    boards = data["boards"]
+    if not isinstance(boards, list) or not boards:
+        raise RunError(f"invalid config {label}: boards must be a non-empty list")
+    parsed, seen = [], set()
+    for index, entry in enumerate(boards):
+        if not isinstance(entry, dict) or sorted(entry) != sorted(BOARD_KEYS):
+            raise RunError(f"invalid config {label}: board #{index} must have exactly {', '.join(BOARD_KEYS)}")
+        ats, name = entry["ats"], entry["name"]
+        if ats not in ATS_HOSTS:
+            raise RunError(f"invalid config {label}: board #{index} ats {ats!r} is not one of {', '.join(ATS_HOSTS)}")
+        if not isinstance(name, str) or not name:
+            raise RunError(f"invalid config {label}: board #{index} name must be a non-empty string")
+        board = Board(ats, name)
+        # Decision 2026-11-06 (Prasad, CP5b): a board listed twice is an invalid config.
+        if board.key in seen:
+            raise RunError(f"invalid config {label}: board {board.key} is listed twice")
+        seen.add(board.key)
+        parsed.append(board)
 
-def fetch_url_for(board_token):
-    return f"https://boards-api.greenhouse.io/v1/boards/{board_token}/jobs?content=true"
-
-
-def url_refusal_reasons(url, allow_list):
-    """Every reason §1/§3.1 refuses this URL. An empty list means it may be fetched."""
-    reasons = []
-    parts = urlsplit(url)
-    if parts.scheme != "https":
-        reasons.append(f"scheme is {parts.scheme!r}, not 'https'")
-    try:
-        host = parts.hostname
-    except ValueError:
-        host = None
-    # Exact host equality: a prefix, suffix or query-string mention is not a match.
-    if host not in allow_list:
-        reasons.append(f"host {host!r} is not on the allow-list {list(allow_list)}")
-    if url != FETCH_URL:
-        reasons.append(f"not the one §1 fetch URL {FETCH_URL}")
-    return reasons
-
-
-def require_fetch_url(url, allow_list):
-    """Called before every fetch (§1 item 4). Raises Refusal; nothing is fetched."""
-    reasons = url_refusal_reasons(url, allow_list)
-    if reasons:
-        raise Refusal(f"refused to fetch {url!r}: " + "; ".join(reasons))
+    allow_list = data["allow_list"]
+    if not isinstance(allow_list, list) or not all(isinstance(host, str) for host in allow_list):
+        raise RunError(f"invalid config {label}: allow_list must be a list of host names")
+    if sorted(allow_list) != sorted(ALLOWED_HOSTS):
+        raise Refusal(f"allow_list must be exactly {list(ALLOWED_HOSTS)} (GATE.md §5), not {allow_list}")
+    return Config(
+        boards=tuple(parsed),
+        allow_list=tuple(allow_list),
+        resume_path=data["resume_path"],
+        state_dir=data["state_dir"],
+        evidence_dir=data["evidence_dir"],
+        output_dir=data["output_dir"],
+    )

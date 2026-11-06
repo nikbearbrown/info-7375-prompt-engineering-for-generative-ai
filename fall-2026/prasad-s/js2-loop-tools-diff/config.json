@@ -1,8 +1,14 @@
 {
-  "board_token": "stripe",
-  "allow_list": ["boards-api.greenhouse.io"],
+  "boards": [
+    {"ats": "greenhouse", "name": "stripe"},
+    {"ats": "ashby", "name": "notion"},
+    {"ats": "greenhouse", "name": "duolingo"},
+    {"ats": "greenhouse", "name": "robinhood"},
+    {"ats": "ashby", "name": "js2nosuchboard"}
+  ],
+  "allow_list": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
   "resume_path": "resume_persona.json",
-  "state_path": "state.json",
+  "state_dir": "state",
   "evidence_dir": "evidence",
-  "claude_outputs_dir": "claude_outputs"
+  "output_dir": "output"
 }

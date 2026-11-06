@@ -5,10 +5,14 @@ This module is the only JS2 code meant to open the network or write a file;
 the loop is wired to it in CP5b. There is no delete tool (§5 Never).
 """
 
+import hashlib
+import os
 import socket
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+
+from .policy import R_WRITE_APPROVAL, R_WRITE_FILE, PolicyRefusal
 
 TIMEOUT_SECONDS = 10  # GATE.md §4, CONTRACT v0.5 item 6
 
@@ -49,6 +53,10 @@ class ToolLayer:
     def __init__(self, policy, timeout=TIMEOUT_SECONDS):
         self.policy = policy
         self.timeout = timeout
+        # GATE.md §3: a write already done with the same path and content is not re-run.
+        self._written = {}  # resolved path -> (sha256 of content, permit)
+        self.repeats = []  # report lines for repeats noticed
+        self._temporaries = set()  # files this run wrote that move() may move
 
     def fetch(self, url):
         """One GET attempt. Retries belong to the loop, which counts each attempt (§2)."""
@@ -78,13 +86,41 @@ class ToolLayer:
         permit = self.policy.check("read", path)
         return permit.path.read_bytes()
 
+    def list_dir(self, path):
+        """Names in a folder, sorted; [] when it does not exist. Checked as a read."""
+        permit = self.policy.check("read", path)
+        if not permit.path.is_dir():
+            return []
+        return sorted(entry.name for entry in permit.path.iterdir())
+
     def write(self, path, data):
         """Write bytes to the resolved path. A new file is created exclusively, so a
         file that appears after the check is never overwritten without approval."""
-        permit = self.policy.check("write", path)
         if isinstance(data, str):
             data = data.encode("utf-8")
+        digest = hashlib.sha256(data).hexdigest()
+        recorded = self._written.get(self.policy.resolve(path))
+        if recorded and recorded[0] == digest:
+            self.repeats.append({"tool": "write", "path": str(path), "note": "repeat — not re-run"})
+            return recorded[1]
+        permit = self.policy.check("write", path)
         permit.path.parent.mkdir(parents=True, exist_ok=True)
         with open(permit.path, "wb" if permit.overwrite else "xb") as fh:
             fh.write(data)
+        self._written[permit.path] = (digest, permit)
+        self._temporaries.add(permit.path)
+        return permit
+
+    def move(self, source, target):
+        """Move a file this run wrote to a new path (v0.6 item 2). target passes the
+        write check; a target that exists is refused, approval or not."""
+        source_path = self.policy.resolve(source)
+        if source_path not in self._temporaries:
+            raise PolicyRefusal("write", target, [(R_WRITE_FILE, f"{source} was not written by this run")])
+        permit = self.policy.check("write", target)
+        if permit.overwrite:
+            raise PolicyRefusal("write", target, [(R_WRITE_APPROVAL, f"{target} already exists; a move never overwrites")])
+        os.rename(source_path, permit.path)
+        self._temporaries.discard(source_path)
+        self._written.pop(source_path, None)
         return permit
