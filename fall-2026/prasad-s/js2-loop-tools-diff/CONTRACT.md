@@ -500,6 +500,8 @@ with a dated comment.
 12. §2: each condition's compared value is the cleaned value; the
     record's `title` and `location.name` stay raw copies.
 
+---
+
 ## v0.5 — 2026-11-06 (JS2)
 Amends v0.4 (JS1, bff5356) for JS2. Exits, budgets, repeats, errors and
 permissions live in GATE.md v0.2; this contract does not repeat them.
@@ -647,5 +649,3 @@ before the loop (CP5b).
    - The read-only folders are not protected through a hard link the way
      GATE.md is: if output/x were a hard link to a snapshot file and an
      overwrite of output/x were approved, the snapshot would change.
-
----
