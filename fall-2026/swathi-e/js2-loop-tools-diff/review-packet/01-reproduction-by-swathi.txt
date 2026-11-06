@@ -1,0 +1,11 @@
+Reproduction of the Plaid office-name defect, run by Swathi in her own Terminal.
+Date: 2026-11-05 (America/New_York).
+Commit checked out: ae284caf4dfde74b4ce8f92e9d5ca67c862206f7 (branch js2-loop-tools-diff-swathi-e).
+The two files the command uses, parsers.py and rule.py, are unchanged from e6a70a4 through ae284ca.
+Input: the REAL Nov 5 live Plaid response, runs/2026-11-05T23-11-48-228373-0500/005-plaid-request.json.
+Swathi pasted the terminal text below into the Claude Code chat; Claude Code saved it verbatim, below the line.
+----------------------------------------------------------------------
+(base) swathibabaeswarappa@Swathis-MacBook-Air js2-loop-tools-diff % python3 -B -c 'import json,parsers,rule; b=open("runs/2026-11-05T23-11-48-228373-0500/005-plaid-request.json","rb").read(); i="1bcfe93d-97bd-4618-b81e-dc308ef69d30"; p=next(p for p in parsers.parse_ashby(b)[0] if p["id"]==i); a=next(j for j in json.loads(b)["jobs"] if j["id"]==i)["address"]["postalAddress"]; print("raw address:",a["addressLocality"],a["addressRegion"],a["addressCountry"]); print("parsed location:",p["location"]); print(rule.judge(p["title"],p["location"])["justification"])'
+raw address: San Francisco California United States
+parsed location: San Francisco HQ
+NOT RELEVANT. posting.title='Fraud Intelligence Analyst': check 1 passes via 1(a) on 'Analyst'; check 2 passes: no seniority or internship term. Compared with targets.target_role.primary='AI Engineer / ML Engineer' and targets.target_role.secondary='Data Engineer'. posting.location.name='San Francisco HQ': check 3 fails: names neither the United States, a US state, nor Remote. Compared with targets.geography.current_location='Boston, MA' and targets.geography.open_to_remote=true.
