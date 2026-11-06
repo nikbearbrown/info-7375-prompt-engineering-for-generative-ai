@@ -15,6 +15,11 @@ from dataclasses import dataclass
 from .policy import R_WRITE_APPROVAL, R_WRITE_FILE, PolicyRefusal
 
 TIMEOUT_SECONDS = 10  # GATE.md §4, CONTRACT v0.5 item 6
+# JS2-CP5c, 2026-11-06: api.ashbyhq.com (behind Cloudflare) answers urllib's default
+# "Python-urllib/3.13" with 403, error 1010 "browser_signature_banned", for every board.
+# Every request names this project honestly; it imitates no browser or other client.
+# Not a config key: config.json's six keys are fixed (CONTRACT v0.7 E1).
+USER_AGENT = "js2-loop-tools-diff/0.7 (INFO 7375 course project)"
 
 
 class _RefuseRedirects(urllib.request.HTTPRedirectHandler):
@@ -61,7 +66,8 @@ class ToolLayer:
     def fetch(self, url):
         """One GET attempt. Retries belong to the loop, which counts each attempt (§2)."""
         permit = self.policy.check("fetch", url)
-        request = urllib.request.Request(permit.url, headers={"Accept": "application/json"}, method="GET")
+        request = urllib.request.Request(permit.url, headers={"Accept": "application/json", "User-Agent": USER_AGENT},
+                                         method="GET")
         try:
             with _send(request, self.timeout) as response:
                 status, headers, body = response.status, response.headers, response.read()
