@@ -49,26 +49,38 @@ def parse_greenhouse(body):
     return postings, 0
 
 
+def _address_country(holder):
+    """addressCountry from holder["address"]["postalAddress"], or None."""
+    address = holder.get("address") if isinstance(holder, dict) else None
+    postal = address.get("postalAddress") if isinstance(address, dict) else None
+    country = postal.get("addressCountry") if isinstance(postal, dict) else None
+    return country.strip() if isinstance(country, str) and country.strip() else None
+
+
 def parse_ashby(body):
     """isListed false postings are skipped and counted; secondaryLocations are
-    joined after the primary location with "; " (GATE.md Revision). Shape of
-    secondaryLocations items checked against Plaid's live board on 2026-11-04:
-    objects with a "location" string (and an "address" object, not used)."""
+    joined after the primary location with "; " (GATE.md Revision 2026-11-04).
+    Each place is followed by its own address's addressCountry in parentheses
+    when the response gives one (GATE.md Revision 2026-11-05), because office
+    names like "San Francisco HQ" name no US state. Shape checked against
+    Plaid's live board on 2026-11-04: the posting and each secondaryLocations
+    item may carry {"address": {"postalAddress": {"addressCountry": ...}}}."""
     postings, unlisted = [], 0
     for i, job in enumerate(_load_jobs(body, "ashby")):
         job_id, title = _id_and_title(job, i, "ashby")
         if job.get("isListed") is False:
             unlisted += 1
             continue
-        places = []
-        primary = job.get("location")
-        if isinstance(primary, str) and primary.strip():
-            places.append(primary)
+        names, places = [], []
+        candidates = [(job.get("location"), job)]
         secondary = job.get("secondaryLocations")
         for item in secondary if isinstance(secondary, list) else []:
-            place = item.get("location") if isinstance(item, dict) else None
-            if isinstance(place, str) and place.strip() and place not in places:
-                places.append(place)
+            candidates.append((item.get("location") if isinstance(item, dict) else None, item))
+        for name, holder in candidates:
+            if isinstance(name, str) and name.strip() and name not in names:
+                names.append(name)
+                country = _address_country(holder)
+                places.append(f"{name} ({country})" if country else name)
         postings.append({"id": job_id, "title": title, "location": "; ".join(places),
                          "url": job.get("jobUrl")})
     return postings, unlisted
