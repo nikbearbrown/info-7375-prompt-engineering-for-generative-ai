@@ -1,0 +1,174 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-30T23:03:28+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8250129,
+    "tag": "watch",
+    "raw_text": "{\"posting_id\": 8250129, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases, so it fails Condition 1 for the target_roles. The department 'Member Programs' is not on the allowed list, so it fails Condition 2. The location (Tempe, AZ, hybrid with 3 in-office days; office listed as New York, NY) is neither Boston, MA nor US remote, so it fails Condition 3 against the résumé location and remote_ok. The content mentions SQL and Python from the skills and requires 3+ years, which is within experience_years, and the title and content trigger no exclusions, so Conditions 4, 5 and 6 pass.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8250129,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3
+      ],
+      "resume_fields": [
+        "target_roles",
+        "skills",
+        "experience_years",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases, so it fails Condition 1 for the target_roles. The department 'Member Programs' is not on the allowed list, so it fails Condition 2. The location (Tempe, AZ, hybrid with 3 in-office days; office listed as New York, NY) is neither Boston, MA nor US remote, so it fails Condition 3 against the résumé location and remote_ok. The content mentions SQL and Python from the skills and requires 3+ years, which is within experience_years, and the title and content trigger no exclusions, so Conditions 4, 5 and 6 pass."
+    },
+    "session_id": "10efbdb9-05e0-429c-ad62-aa89a75d2c9e",
+    "cost_usd": 0.0337774
+  },
+  "cli_output": {
+    "duration_api_ms": 5283,
+    "stop_reason": "end_turn",
+    "session_id": "10efbdb9-05e0-429c-ad62-aa89a75d2c9e",
+    "total_cost_usd": 0.0337774,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2870,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 531,
+      "output_tokens_details": {
+        "thinking_tokens": 194
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 2870,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 531,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 2870,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 2870
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 531,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 2870,
+        "webSearchRequests": 0,
+        "costUSD": 0.0337774,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 194,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 2870,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8250129, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Strategic Insights Associate, Data Analytics' contains none of the required phrases, so it fails Condition 1 for the target_roles. The department 'Member Programs' is not on the allowed list, so it fails Condition 2. The location (Tempe, AZ, hybrid with 3 in-office days; office listed as New York, NY) is neither Boston, MA nor US remote, so it fails Condition 3 against the résumé location and remote_ok. The content mentions SQL and Python from the skills and requires 3+ years, which is within experience_years, and the title and content trigger no exclusions, so Conditions 4, 5 and 6 pass.\"}",
+    "ttft_ms": 2715,
+    "type": "result",
+    "duration_ms": 7701,
+    "uuid": "99452290-1cb5-4135-a1e1-7ed97e06b848",
+    "ttft_stream_ms": 1129,
+    "time_to_request_ms": 78,
+    "time_to_request_phases_ms": {
+      "other": 7,
+      "system_prompt": 0,
+      "resume_other": 1,
+      "process_user_input": 1,
+      "input_attachments": 15,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 4,
+      "engine_pickup": 0,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 40,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 2,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 1,
+    "time_to_request_cpu_ms": 108,
+    "time_to_request_major_faults": 2,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 13,
+      "cpu_ms": 25,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1130,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

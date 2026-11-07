@@ -1,0 +1,109 @@
+{
+  "raw_file": "experiments/experiment-2/raw/klaviyo-20261031T205553Z.json",
+  "procedure": "Experiment 2 (added 2026-10-31 after the TA-style review): pick 20 real Klaviyo postings for\nhand labeling, from the saved raw response. Committed, with its output, before Shreyash labeled\nanything and before any Claude call on Klaviyo.\n\nProcedure, fixed in advance:\n1. Pool = postings whose title passes condition 1 (22 of 156). Repeated titles in other cities are\n   kept, because the city changes condition 3.\n2. So that both halves can test positives, the pool is split by the rule v1 record: Relevant (4)\n   and the rest (18). random.Random(7376) shuffles each part.\n3. Development = 2 Relevant + 8 others; held-out = the other 2 Relevant + the next 8 others.\n   2 of the 18 others are left out.\nThe output file does not say which postings the rule marks Relevant, and neither does the label\nsheet. Shreyash labels without seeing any verdict.",
+  "pool_size": 22,
+  "development": [
+    {
+      "id": 8041054003,
+      "title": "Software Engineer, Conversational Products & Agent Workflows",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7801047003,
+      "title": "Sr. Lead Software Engineer",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7783904003,
+      "title": "Senior Software Engineer, Platform Engineering",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7696724003,
+      "title": "Senior Software Engineer - Growth",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 8006729003,
+      "title": "Software Engineer II - SMS International",
+      "location": "London, UK"
+    },
+    {
+      "id": 7597868003,
+      "title": "Senior Software Engineer - Profiles, Lists and Segments",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7855798003,
+      "title": "Software Engineer II - Recommendations",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7822352003,
+      "title": "Full Stack Software Engineer - People Systems",
+      "location": "San Francisco, CA"
+    },
+    {
+      "id": 7986459003,
+      "title": "Senior Software Engineer - Identity and Access Management",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7855802003,
+      "title": "Senior Machine Learning Engineer",
+      "location": "Palo Alto, CA"
+    }
+  ],
+  "held_out": [
+    {
+      "id": 7727703003,
+      "title": "Full Stack Software Engineer - People Systems",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7695230003,
+      "title": "Senior Software Engineer, Applied AI (Customer Agent)",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7809608003,
+      "title": "Senior Lead Software Engineer - Data Platform",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7777369003,
+      "title": "Senior Software Engineer - Infrastructure Security",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7780009003,
+      "title": "Senior Software Engineer, Applied AI (Customer Agent)",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7855793003,
+      "title": "Software Engineer II, Test Frameworks & Tooling",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 8044834003,
+      "title": "Senior Lead AI Engineer - G&A Systems",
+      "location": "San Francisco, CA"
+    },
+    {
+      "id": 7792539003,
+      "title": "Software Engineer II (Mobile Developer - Android/Kotlin) - Mobile App Growth",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 8012938003,
+      "title": "Senior Software Engineer - Data Automation",
+      "location": "Boston, MA"
+    },
+    {
+      "id": 7990569003,
+      "title": "Lead Software Engineer, CICD",
+      "location": "Boston, MA"
+    }
+  ]
+}

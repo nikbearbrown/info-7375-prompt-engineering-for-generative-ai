@@ -1,0 +1,171 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T21:06:12+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 7855798003,
+    "tag": "e2devbase1",
+    "raw_text": "{\"posting_id\": 7855798003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 4 fails: of the ten résumé skills, only Python appears in the posting content as a complete term. SQL appears only inside MySQL and NoSQL, and Docker, PyTorch, RAG and the other skills are absent. The title ('Software Engineer II'), department (Engineering), location and offices (Boston, MA), and experience requirement (2+ years, within the résumé's experience_years of 3) all pass. The title has no excluded seniority word, and the content shows no unpaid, contract-only or relocation terms.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 7855798003,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        4
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "Condition 4 fails: of the ten résumé skills, only Python appears in the posting content as a complete term. SQL appears only inside MySQL and NoSQL, and Docker, PyTorch, RAG and the other skills are absent. The title ('Software Engineer II'), department (Engineering), location and offices (Boston, MA), and experience requirement (2+ years, within the résumé's experience_years of 3) all pass. The title has no excluded seniority word, and the content shows no unpaid, contract-only or relocation terms."
+    },
+    "session_id": "93732268-33cc-444b-b9d9-8d47cdafb9bc",
+    "cost_usd": 0.043141399999999996
+  },
+  "cli_output": {
+    "duration_api_ms": 5163,
+    "stop_reason": "end_turn",
+    "session_id": "93732268-33cc-444b-b9d9-8d47cdafb9bc",
+    "total_cost_usd": 0.043141399999999996,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 4098,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 508,
+      "output_tokens_details": {
+        "thinking_tokens": 227
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 4098,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 508,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 4098,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 4098
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 508,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 4098,
+        "webSearchRequests": 0,
+        "costUSD": 0.043141399999999996,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 227,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 4098,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 7855798003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 4 fails: of the ten résumé skills, only Python appears in the posting content as a complete term. SQL appears only inside MySQL and NoSQL, and Docker, PyTorch, RAG and the other skills are absent. The title ('Software Engineer II'), department (Engineering), location and offices (Boston, MA), and experience requirement (2+ years, within the résumé's experience_years of 3) all pass. The title has no excluded seniority word, and the content shows no unpaid, contract-only or relocation terms.\"}",
+    "ttft_ms": 2882,
+    "type": "result",
+    "duration_ms": 7129,
+    "uuid": "79a14f64-6fcc-4105-931a-e67bfa296a2a",
+    "ttft_stream_ms": 721,
+    "time_to_request_ms": 89,
+    "time_to_request_phases_ms": {
+      "other": 10,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 2,
+      "input_attachments": 10,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 3,
+      "engine_pickup": 0,
+      "message_prep": 1,
+      "model_config_wait": 1,
+      "autocompact": 0,
+      "query_setup": 2,
+      "model_gates": 49,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 4,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 9,
+    "time_to_request_cpu_ms": 143,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 8,
+      "cpu_ms": 18,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 722,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

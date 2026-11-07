@@ -1,0 +1,27 @@
+{
+ "cmd": [
+  "claude",
+  "-p",
+  "--model",
+  "opus",
+  "--no-session-persistence",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--output-format",
+  "stream-json",
+  "--verbose",
+  "--tools",
+  "Bash,Read,Write",
+  "--allowedTools",
+  "Read",
+  "Write",
+  "Bash(curl *)"
+ ],
+ "files_given": [
+  "resume.json",
+  "rule.md",
+  "state.json"
+ ],
+ "returncode": 0
+}

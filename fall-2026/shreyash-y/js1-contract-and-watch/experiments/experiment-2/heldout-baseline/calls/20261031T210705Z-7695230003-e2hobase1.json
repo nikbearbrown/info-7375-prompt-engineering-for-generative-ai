@@ -1,0 +1,171 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T21:07:05+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 7695230003,
+    "tag": "e2hobase1",
+    "raw_text": "{\"posting_id\": 7695230003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer' and none of the excluded words, which matches target_roles and exclusions. The department is 'Engineering' and the location and offices are Boston, MA, which matches the résumé's location. The content mentions the skills Python and React. However, the content requires '7+ years of experience in a software engineering role', which exceeds the 3-year maximum allowed by Condition 5 (résumé experience_years is 3), so Condition 5 fails.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 7695230003,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The title contains 'Software Engineer' and none of the excluded words, which matches target_roles and exclusions. The department is 'Engineering' and the location and offices are Boston, MA, which matches the résumé's location. The content mentions the skills Python and React. However, the content requires '7+ years of experience in a software engineering role', which exceeds the 3-year maximum allowed by Condition 5 (résumé experience_years is 3), so Condition 5 fails."
+    },
+    "session_id": "a39fc4ad-5d57-4ec9-ac45-dfffcadb045d",
+    "cost_usd": 0.0373614
+  },
+  "cli_output": {
+    "duration_api_ms": 3870,
+    "stop_reason": "end_turn",
+    "session_id": "a39fc4ad-5d57-4ec9-ac45-dfffcadb045d",
+    "total_cost_usd": 0.0373614,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3688,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 383,
+      "output_tokens_details": {
+        "thinking_tokens": 126
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3688,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 383,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 3688,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3688
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 383,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 3688,
+        "webSearchRequests": 0,
+        "costUSD": 0.0373614,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 126,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3688,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 7695230003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer' and none of the excluded words, which matches target_roles and exclusions. The department is 'Engineering' and the location and offices are Boston, MA, which matches the résumé's location. The content mentions the skills Python and React. However, the content requires '7+ years of experience in a software engineering role', which exceeds the 3-year maximum allowed by Condition 5 (résumé experience_years is 3), so Condition 5 fails.\"}",
+    "ttft_ms": 2159,
+    "type": "result",
+    "duration_ms": 5876,
+    "uuid": "a30aa2bb-aace-4ba2-b0d5-5bb2ac80a165",
+    "ttft_stream_ms": 971,
+    "time_to_request_ms": 183,
+    "time_to_request_phases_ms": {
+      "other": 41,
+      "system_prompt": 1,
+      "resume_other": 1,
+      "process_user_input": 2,
+      "input_attachments": 39,
+      "input_hooks": 19,
+      "tool_pool_refresh": 1,
+      "init_message": 26,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 1,
+      "query_setup": 1,
+      "model_gates": 0,
+      "tool_schema_build": 1,
+      "message_normalization": 0,
+      "client_creation": 38,
+      "request_build": 10
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 133,
+    "time_to_request_cpu_ms": 100,
+    "time_to_request_major_faults": 2,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 35,
+      "cpu_ms": 25,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 972,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

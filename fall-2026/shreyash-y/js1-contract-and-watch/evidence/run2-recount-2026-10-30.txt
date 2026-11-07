@@ -1,0 +1,24 @@
+# Independent recount, 2026-10-30, by a separate script that reads only the two raw files (not jsagent).
+run1 220 ids, run2 214 ids, new 12, gone 18
+matches agent's new list: True
+matches agent's gone list: True
+new ids whose exact title was already on the board in run 1 (a title-dedup watcher would drop these):
+  8334296 Senior Product Manager, Marketplace | Los Angeles, California, United States
+  8334297 Senior Product Manager, Marketplace | Boston, Massachusetts, United States
+  8334311 Senior Product Manager, Marketplace | San Francisco, California, United States
+  8334493 Director of Product, Claims Design | New York, New York, United States
+
+rule vs Claude, failed conditions:
+  8334493  rule [1, 2, 3, 4, 5, 6]  Claude [1, 2, 3, 4, 5, 6]  same
+  8335644  rule [1, 2, 4]  Claude [1, 2, 4]  same
+  8334717  rule [1, 2, 4, 6]  Claude [1, 2, 4, 6]  same
+  8334720  rule [1, 2, 4]  Claude [1, 2, 4]  same
+  8334297  rule [1, 2, 4, 5, 6]  Claude [1, 2, 4, 5, 6]  same
+  8334296  rule [1, 2, 3, 4, 5, 6]  Claude [1, 2, 3, 4, 5, 6]  same
+  8334311  rule [1, 2, 3, 4, 5, 6]  Claude [1, 2, 3, 4, 5, 6]  same
+  8250197  rule [1, 2, 3]  Claude [1, 2, 3]  same
+  8250129  rule [1, 2, 3]  Claude [1, 2, 3]  same
+  8249773  rule [1, 2, 3]  Claude [1, 2, 3]  same
+  8250195  rule [1, 2, 3]  Claude [1, 2, 3]  same
+  8172223  rule [1, 2, 4]  Claude [1, 2, 3, 4]  DIFFERENT
+all Claude outputs passed the validator: True | total cost USD 0.410
