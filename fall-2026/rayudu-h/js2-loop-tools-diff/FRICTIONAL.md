@@ -1,6 +1,6 @@
 # FRICTIONAL.md — Job-Search Agent 2
 
-> **How this was written.** Claude Code organized these entries from the working session on Oct 31, 2026 (ET). Every fact comes from that session, a file or a command output. Quotations are Hemanth's words; where Hemanth gave no words, there is no entry for Hemanth's experience.
+> **How this was written.** Claude Code organized these entries from the working sessions on Oct 31 and Nov 7, 2026 (ET). Every fact comes from that session, a file or a command output. Quotations are Hemanth's words; where Hemanth gave no words, there is no entry for Hemanth's experience.
 
 ## Oct 31, about 6:40–7:07 PM: from "watch every company" to a gate
 
@@ -34,7 +34,17 @@
 - **What happened:** pushing required catching up with classmates' commits, and the rebase rewrote the hashes of the 6 unpushed JS2 commits. Their author times were kept, so the order is still provable.
 - **What changed:** after that, every step was pushed immediately, and with a merge instead of a rebase.
 
+## Nov 7, evening (run at 6:42 PM EST): checking against Canvas, then the second live run
+
+- **What happened:** Hemanth pasted the Canvas assignment text and asked where JS2 stood. Claude compared it item by item. One gap: the driver's seat had "—" in the loop row, where the assignment asks what Hemanth should do and why it stays Hemanth's.
+- **What Hemanth decided:** "1 yes, 2 yes do the live run". That meant: replace the driver's seat table with Claude's proposed rows, and run the loop live a week after the baseline.
+- **The run** (`runs/2026-11-07T184247-live/`, 6:42 PM): **incomplete**. The deliberate failures were handled exactly as on Oct 31. There were 84 new postings; the rule marks 11 relevant; Claude judged 25 and agreed with the rule on all 25.
+- **What it exposed, which no Oct 31 run could** (README, "The Nov 7 run"):
+  - the Claude budget ran out after 25, so 59 new postings, 5 of them rule-relevant, got no judgment and are now marked seen;
+  - the 120 s budget is checked only between boards, and this run used 119.4 s;
+  - 61 Anthropic ids changed while the count stayed at 675.
+
 ## Still open
 
-- Sign-off: Hemanth accepted Claude's drafted list and asked Claude to type the signature (Oct 31, 2026).
-- No JS2 run has had a new posting yet. A live run on a later day would be the first.
+- Sign-off: Hemanth accepted Claude's drafted list and asked Claude to type the signature (Oct 31, 2026). The Nov 7 run changes the "Not checked" list, so the sign-off needs Hemanth's confirmation again.
+- The three Nov 7 findings are recorded, not fixed. Each would change the gate's budgets or exits, which only Hemanth decides.

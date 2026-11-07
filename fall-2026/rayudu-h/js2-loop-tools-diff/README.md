@@ -46,13 +46,14 @@ cp evidence/seeded/state-before-wrong-answer-demo.json state/try-demo.json
 
 **Exit codes:** 0 finished · 1 incomplete · 2 budget-exhausted · 3 error · 4 refused.
 
-## What ran (Oct 31, 2026, ET)
+## What ran (Oct 31 and Nov 7, 2026, ET)
 
 | Run | What | Exit |
 |---|---|---|
 | `runs/2026-10-31T191245-live/` | **live**: Anthropic, Notion, Perplexity, plus failure (a), a bad Ashby name, and failure (b), the OpenAI board with a 0.001 s limit | **incomplete**: three baselines (675 / 148 / 138 postings, none reported as new); (a) HTTP 404, **not retried**; (b) timed out, **retried once** after 2 s, then failed; 6 requests, 4.5 s |
 | `runs/2026-10-31T191312-seeded-wrong-answer/` | **SEEDED** failure (c): Notion's response replaced by `{"jobs": []}`, before the patch | **finished**, "Notion: 0 new". **Wrong**, and caught by `scripts/check_run.py` (0 postings vs 148) |
 | `runs/2026-10-31T193432-seeded-after-patch/` | the same SEEDED scenario after the reviewed patch | **incomplete**; Notion **unverified**; state kept at 148 |
+| `runs/2026-11-07T184247-live/` | **live, a week later**, against `state/seen.json` from Oct 31, with the Claude judge | **incomplete** (the same two deliberate failures, handled the same way); **84 new postings** (Anthropic 61, Notion 18, Perplexity 5); 25 Claude calls; 6 requests, 119.4 s |
 
 **The trace of the live run,** with the deliberate failures (`runs/2026-10-31T191245-live/trace.jsonl`, abridged):
 
@@ -70,7 +71,17 @@ cp evidence/seeded/state-before-wrong-answer-demo.json state/try-demo.json
 19:12:49 exit         incomplete             6 requests, 4.53 s
 ```
 
-**No JS2 run has had a new posting yet.** Every live run so far was a baseline, so no Claude judgment appears in a JS2 run. A later live run against `state/seen.json` would be the first real "new since last time" across all three boards.
+**The Nov 7 run: the first with real new postings** (`runs/2026-11-07T184247-live/report.md`):
+- **Rule:** 11 of the 84 new postings are relevant (Anthropic 9, Notion 1, Perplexity 1).
+- **Claude:** judged 25, which is the budget, all on Anthropic, the first board. All 25 passed the validator, with no ungrounded quotes, and every one agreed with the rule (6 relevant, 19 not relevant).
+- **Independent check:** `scripts/check_run.py` flagged no board (Anthropic 675 → 675, Notion 148 → 154, Perplexity 138 → 137).
+
+What this run showed that the Oct 31 runs couldn't:
+- **59 new postings got no Claude judgment** ("Claude budget used up"), including 5 the rule calls relevant. They are now in the state file as seen, so no later run will judge them. The exit status looks only at boards, so without the deliberate failures this run would have said **finished**.
+- **The time budget is checked only between boards.** The 25 Claude calls took about 110 s inside the Anthropic board, and Notion started 117 s into a 120 s budget. A slightly slower Claude would have left Notion and Perplexity untried; and inside one board, a run can pass 120 s without stopping.
+- **"New" means a new id, not a new job.** Anthropic still has 675 postings, but 61 ids changed, and 16 of the new ids carry a title that was already on the board on Oct 31.
+
+These are recorded, not fixed. Each one is a change to the gate's budgets or exits, which only Hemanth decides (`GATE.md`).
 
 ## Sign-off — Job-Search Agent 2
 
@@ -100,9 +111,7 @@ Signed or withheld: Hemanth Rayudu, Oct 31, 2026
 
 ## Driver's seat
 
-| Part | Claude did | I did | Why it stays mine | Where it shows |
+| Part | Claude should do | I should do | Why it stays mine | Evidence |
 |---|---|---|---|---|
-| Boards and failures | listed public boards with live counts | chose Anthropic, Notion and Perplexity, plus all three failure kinds | what the agent watches is my call | `GATE.md`, Boards |
-| The rest of the gate | proposed exits, budgets, repeat rule, error and permission policy | delegated ("do whatever is best"), then accepted it, and accepted amendments A1 and A2 | budgets change only by my written decision | `GATE.md` status lines |
-| The loop | wrote it, the tests, and the live and seeded runs | — | — | commits `d8e6b95`, `bde5f0e` |
-| The review | reproduced the defect, wrote the test first, wrote the patch, showed the diff | ran the failing test and the full suite myself; decided **accept**; chose the case the test misses | I'm accountable for what's merged | `REVIEW-PACKET.md`, sections 5–7 |
+| The loop | write the loop, the policy and the tests from `GATE.md`; run the live and seeded runs; propose gate changes, never make them | choose the boards and the failures; set the exits and budgets by accepting the gate; decide on amendments (accepted A1 and A2); run the test suite myself | budgets and what counts as "finished" decide when the agent's answer can be trusted, so only my written decision changes them | `GATE.md` status lines; commits `92b5c77`, `eb85a9a` |
+| The review | reproduce the defect, write the failing test first, write the smallest patch, show the diff | run the failing test and the full suite myself; decide accept, revise or reject; name the case the test misses | I'm accountable for what gets merged | `REVIEW-PACKET.md` §5–7; commits `998e487`, `bd2bc05` |
