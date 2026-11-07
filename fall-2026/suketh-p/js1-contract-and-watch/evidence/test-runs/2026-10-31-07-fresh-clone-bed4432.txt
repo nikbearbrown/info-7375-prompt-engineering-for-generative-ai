@@ -1,0 +1,22 @@
+# Run by Claude Code against the pushed commit, cloned fresh from GitHub into an empty scratch folder (not the working copy).
+# Fresh clone from GitHub, 2026-10-31 10:33:48 EDT
+$ git clone --depth 1 --filter=blob:none --sparse --branch js1-contract-and-watch https://github.com/sukethrp/info-7375-prompt-engineering-for-generative-ai.git repo
+$ git -C repo sparse-checkout set fall-2026/suketh-p/js1-contract-and-watch
+$ git -C repo rev-parse --short HEAD
+bed4432
+$ python3 -m unittest
+Ran 93 tests in 0.486s
+
+OK
+$ python3 -m unittest tests.test_my_cases -v
+test_saved_real_postings (tests.test_my_cases.RealPostingCases.test_saved_real_postings) ... ok
+Ran 1 test in 0.083s
+OK
+$ python3 -m jobwatch verify runs/20261028T102612Z-live
+OK runs/20261028T102612Z-live/raw_response.json.gz: 9889784 bytes, sha256 5f74dcc8cdb11ed84ba808a693fd63539ce8fc78bf46fbedf2dcaf91acf99ae5 m
+$ python3 -m jobwatch verify runs/20261031T125015Z-live
+OK runs/20261031T125015Z-live/raw_response.json.gz: 9855369 bytes, sha256 1e5b62fec42a5b1d83e1c491da70215c5b8f77776097b2ef26e1fb4e7b0a7e88 m
+$ python3 -m jobwatch run --from-file runs/20261028T102612Z-live/raw_response.json.gz --resume persona/alex_morgan.json --state /tmp/js1-ta/state.json --out /tmp/js1-ta/runs   (run here with a scratch path in place of /tmp/js1-ta)
+20261031T143352Z-seeded: SEEDED replay, 681 postings, baseline (first run): 0 reported as new
+  evidence: <scratch>/ta/runs/20261031T143352Z-seeded
+exit code: 0
