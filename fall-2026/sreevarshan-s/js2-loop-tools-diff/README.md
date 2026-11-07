@@ -6,7 +6,7 @@ A bounded loop that checks public job boards on Greenhouse and Lever under a fix
 
 - **Language:** Python 3.13.9, standard library only (urllib, json, time, os, argparse, unittest).
 - **GitHub folder:** `fall-2026/sreevarshan-s/js2-loop-tools-diff/`
-- **Final commit:** [FINAL_COMMIT]
+- **Final commit:** 9ecc0574
 
 ## Run commands
 
