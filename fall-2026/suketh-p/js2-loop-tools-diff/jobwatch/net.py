@@ -29,9 +29,23 @@ class ConnectionFailed(Exception):
     """No HTTP response: the connection or the protocol failed."""
 
 
+def _time_left(deadline, clock, sock):
+    """Seconds left before the deadline; the socket is told to wait no longer than that."""
+    remaining = deadline - clock()
+    if remaining <= 0:
+        raise Timeout("the full response had not arrived by the deadline")
+    if sock is not None:
+        try:
+            sock.settimeout(remaining)
+        except OSError:
+            pass
+    return remaining
+
+
 def https_get(url, deadline, *, clock=time.monotonic, connection_factory=None):
-    """One GET. `deadline` is a clock() value; the socket never waits past it, and a body
-    still arriving at the deadline is abandoned with Timeout."""
+    """One GET. `deadline` is a clock() value. Every receive is bounded by the time left
+    and the body is read one receive at a time (read1), so a body that trickles in or
+    stalls is abandoned with Timeout at the deadline, not after it."""
     parts = urlsplit(url)
     if parts.scheme != "https" or not parts.hostname:
         raise ValueError(f"not an https URL: {url}")
@@ -44,17 +58,17 @@ def https_get(url, deadline, *, clock=time.monotonic, connection_factory=None):
         connection = factory(parts.hostname, timeout=remaining)
     except OSError as error:
         raise ConnectionFailed(f"connection failed: {error}") from None
+    response = None
     try:
         connection.request("GET", target, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
+        # Keep our own reference: with "Connection: close", http.client drops connection.sock.
+        sock = getattr(connection, "sock", None)
+        _time_left(deadline, clock, sock)
         response = connection.getresponse()
         chunks = []
         while True:
-            remaining = deadline - clock()
-            if remaining <= 0:
-                raise Timeout("the full response had not arrived by the deadline")
-            if getattr(connection, "sock", None) is not None:
-                connection.sock.settimeout(remaining)
-            chunk = response.read(CHUNK_BYTES)
+            _time_left(deadline, clock, sock)
+            chunk = response.read1(CHUNK_BYTES)
             if not chunk:
                 break
             chunks.append(chunk)
@@ -63,6 +77,8 @@ def https_get(url, deadline, *, clock=time.monotonic, connection_factory=None):
     except (OSError, http.client.HTTPException) as error:
         raise ConnectionFailed(f"connection failed: {error}") from None
     finally:
+        if response is not None:
+            response.close()
         connection.close()
     return Response(response.status, b"".join(chunks), response.getheader("Content-Type", "") or "",
                     response.getheader("Location"))

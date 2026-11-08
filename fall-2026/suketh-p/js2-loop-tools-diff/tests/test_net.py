@@ -34,6 +34,12 @@ class FakeResponse:
         self.clock.advance(self.seconds_per_chunk)
         return self.chunks.pop(0)
 
+    # Like http.client's read1: at most one receive per call (here, one chunk).
+    read1 = read
+
+    def close(self):
+        pass
+
 
 class FakeConnectionFactory:
     def __init__(self, clock, status=200, chunks=(b"{}",), seconds_per_chunk=0.1, headers=None, error=None):
