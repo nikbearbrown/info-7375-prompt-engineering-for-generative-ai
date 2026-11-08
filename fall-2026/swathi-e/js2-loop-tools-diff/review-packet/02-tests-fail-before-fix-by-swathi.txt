@@ -1,0 +1,89 @@
+The new Plaid address tests (A1-A5) failing before the fix, run by me in my own Terminal.
+Date: 2026-11-05 (America/New_York).
+Commit checked out: 16da6145a5989b704660d1f05b367703b82da819 (branch js2-loop-tools-diff-swathi-e), before any change to parsers.py.
+Swathi pasted the terminal text below into the Claude Code chat; Claude Code saved it verbatim, below the line.
+Username and home path redacted by me for privacy; nothing else changed.
+----------------------------------------------------------------------
+(base) <user>@<mac> js2-loop-tools-diff % python3 -B -m unittest -v tests.test_ashby_address
+test_A1_office_name_gets_its_us_country (tests.test_ashby_address.AshbyAddressCountry.test_A1_office_name_gets_its_us_country)
+A1, GATE.md Revision (2026-11-05, before the Plaid fix). SIMULATED, modeled on real posting ... FAIL
+test_A2_real_nov5_plaid_postings_are_relevant (tests.test_ashby_address.AshbyAddressCountry.test_A2_real_nov5_plaid_postings_are_relevant)
+A2, GATE.md Revision (2026-11-05, before the Plaid fix), Evidence line. The REAL Nov 5 ...
+  test_A2_real_nov5_plaid_postings_are_relevant (tests.test_ashby_address.AshbyAddressCountry.test_A2_real_nov5_plaid_postings_are_relevant) (id='1bcfe93d-97bd-4618-b81e-dc308ef69d30')
+A2, GATE.md Revision (2026-11-05, before the Plaid fix), Evidence line. The REAL Nov 5 ... FAIL
+  test_A2_real_nov5_plaid_postings_are_relevant (tests.test_ashby_address.AshbyAddressCountry.test_A2_real_nov5_plaid_postings_are_relevant) (id='4d2f0d16-863d-46c5-bc86-2780a34eff44')
+A2, GATE.md Revision (2026-11-05, before the Plaid fix), Evidence line. The REAL Nov 5 ... FAIL
+test_A3_secondary_location_gets_its_country (tests.test_ashby_address.AshbyAddressCountry.test_A3_secondary_location_gets_its_country)
+A3, GATE.md Revision (2026-11-05, before the Plaid fix): each secondaryLocation is followed ... FAIL
+test_A4_control_no_address_leaves_location_unchanged (tests.test_ashby_address.AshbyAddressCountry.test_A4_control_no_address_leaves_location_unchanged)
+A4, control for GATE.md Revision (2026-11-05, before the Plaid fix): "when the response gives ... ok
+test_A5_control_non_us_country_still_fails_location_check (tests.test_ashby_address.AshbyAddressCountry.test_A5_control_non_us_country_still_fails_location_check)
+A5, control for GATE.md Revision (2026-11-05, before the Plaid fix). SIMULATED: an office ... FAIL
+
+======================================================================
+FAIL: test_A1_office_name_gets_its_us_country (tests.test_ashby_address.AshbyAddressCountry.test_A1_office_name_gets_its_us_country)
+A1, GATE.md Revision (2026-11-05, before the Plaid fix). SIMULATED, modeled on real posting
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/fall-2026/swathi-e/js2-loop-tools-diff/tests/test_ashby_address.py", line 66, in test_A1_office_name_gets_its_us_country
+    self.assertEqual(posting["location"], "San Francisco HQ (United States)")
+AssertionError: 'San Francisco HQ' != 'San Francisco HQ (United States)'
+- San Francisco HQ
++ San Francisco HQ (United States)
+
+
+======================================================================
+FAIL: test_A2_real_nov5_plaid_postings_are_relevant (tests.test_ashby_address.AshbyAddressCountry.test_A2_real_nov5_plaid_postings_are_relevant) (id='1bcfe93d-97bd-4618-b81e-dc308ef69d30')
+A2, GATE.md Revision (2026-11-05, before the Plaid fix), Evidence line. The REAL Nov 5
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/fall-2026/swathi-e/js2-loop-tools-diff/tests/test_ashby_address.py", line 79, in test_A2_real_nov5_plaid_postings_are_relevant
+    self.assertEqual(posting["location"], "San Francisco HQ (United States)")
+AssertionError: 'San Francisco HQ' != 'San Francisco HQ (United States)'
+- San Francisco HQ
++ San Francisco HQ (United States)
+
+
+======================================================================
+FAIL: test_A2_real_nov5_plaid_postings_are_relevant (tests.test_ashby_address.AshbyAddressCountry.test_A2_real_nov5_plaid_postings_are_relevant) (id='4d2f0d16-863d-46c5-bc86-2780a34eff44')
+A2, GATE.md Revision (2026-11-05, before the Plaid fix), Evidence line. The REAL Nov 5
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/fall-2026/swathi-e/js2-loop-tools-diff/tests/test_ashby_address.py", line 79, in test_A2_real_nov5_plaid_postings_are_relevant
+    self.assertEqual(posting["location"], "San Francisco HQ (United States)")
+AssertionError: 'San Francisco HQ' != 'San Francisco HQ (United States)'
+- San Francisco HQ
++ San Francisco HQ (United States)
+
+
+======================================================================
+FAIL: test_A3_secondary_location_gets_its_country (tests.test_ashby_address.AshbyAddressCountry.test_A3_secondary_location_gets_its_country)
+A3, GATE.md Revision (2026-11-05, before the Plaid fix): each secondaryLocation is followed
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/fall-2026/swathi-e/js2-loop-tools-diff/tests/test_ashby_address.py", line 89, in test_A3_secondary_location_gets_its_country
+    self.assertEqual(posting["location"], "Toronto Hub; Seattle Office (United States)")
+AssertionError: 'Toronto Hub; Seattle Office' != 'Toronto Hub; Seattle Office (United States)'
+- Toronto Hub; Seattle Office
++ Toronto Hub; Seattle Office (United States)
+?                            ++++++++++++++++
+
+
+======================================================================
+FAIL: test_A5_control_non_us_country_still_fails_location_check (tests.test_ashby_address.AshbyAddressCountry.test_A5_control_non_us_country_still_fails_location_check)
+A5, control for GATE.md Revision (2026-11-05, before the Plaid fix). SIMULATED: an office
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/fall-2026/swathi-e/js2-loop-tools-diff/tests/test_ashby_address.py", line 103, in test_A5_control_non_us_country_still_fails_location_check
+    self.assertEqual(posting["location"], "Toronto Office (Canada)")
+AssertionError: 'Toronto Office' != 'Toronto Office (Canada)'
+- Toronto Office
++ Toronto Office (Canada)
+?               +++++++++
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+FAILED (failures=5)
+(base) <user>@<mac> js2-loop-tools-diff %

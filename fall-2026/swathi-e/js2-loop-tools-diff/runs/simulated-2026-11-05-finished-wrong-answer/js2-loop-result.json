@@ -1,0 +1,55 @@
+{
+  "run_id": "SIMULATED-empty-databricks",
+  "exit": "incomplete",
+  "error": null,
+  "budgets": {
+    "boards_used": 1,
+    "requests_used": 1,
+    "seconds_used": 0.001823,
+    "exhausted": null
+  },
+  "boards": {
+    "databricks": {
+      "system": "greenhouse",
+      "status": "empty, unverified",
+      "reason": "200 with 0 postings",
+      "attempts": 1,
+      "new_ids": [],
+      "new": [],
+      "baseline": null,
+      "postings_count": 0
+    }
+  },
+  "trace": [
+    {
+      "seq": 1,
+      "t": 0.001205,
+      "board": "databricks",
+      "action": "request",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs",
+      "timeout": 15,
+      "status": 200,
+      "bytes": 30,
+      "sha256": "09aefc0c2d96e9c065aab057f04eaa352d63f19114f01783cfa12c890427f7f8",
+      "raw_file": "runs/SIMULATED-empty-databricks/001-databricks-request.json",
+      "outcome": "0 postings"
+    },
+    {
+      "seq": 2,
+      "t": 0.001814,
+      "board": "databricks",
+      "action": "parsed",
+      "postings": 0,
+      "unlisted_skipped": 0
+    },
+    {
+      "seq": 3,
+      "t": 0.001819,
+      "board": null,
+      "action": "state left unchanged",
+      "outcome": "no board was ok with changed ids"
+    }
+  ],
+  "label": "SIMULATED: the JS2 loop given the SIMULATED empty Databricks response by a fake transport",
+  "databricks_ids_kept_in_state": 923
+}

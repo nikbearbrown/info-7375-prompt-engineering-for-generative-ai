@@ -1,0 +1,138 @@
+{
+  "run_id": "2026-11-04T22-44-47-181789-0500",
+  "exit": "incomplete",
+  "error": null,
+  "budgets": {
+    "boards_used": 4,
+    "requests_used": 4,
+    "seconds_used": 3.071008,
+    "exhausted": null
+  },
+  "boards": {
+    "databricks": {
+      "system": "greenhouse",
+      "status": "ok",
+      "reason": null,
+      "attempts": 1,
+      "new_ids": [],
+      "new": [],
+      "baseline": true,
+      "postings_count": 926
+    },
+    "stripe": {
+      "system": "greenhouse",
+      "status": "ok",
+      "reason": null,
+      "attempts": 1,
+      "new_ids": [],
+      "new": [],
+      "baseline": true,
+      "postings_count": 759
+    },
+    "plaid": {
+      "system": "ashby",
+      "status": "ok",
+      "reason": null,
+      "attempts": 1,
+      "new_ids": [],
+      "new": [],
+      "baseline": true,
+      "postings_count": 144
+    },
+    "deliberate-bad-name": {
+      "system": "greenhouse",
+      "status": "failed",
+      "reason": "HTTP 404 (board not found): no retry",
+      "attempts": 1,
+      "new_ids": [],
+      "new": [],
+      "baseline": null,
+      "postings_count": 0
+    }
+  },
+  "trace": [
+    {
+      "seq": 1,
+      "t": 0.000669,
+      "board": "databricks",
+      "action": "request",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs",
+      "timeout": 15,
+      "status": 200,
+      "bytes": 796596,
+      "sha256": "470b2359bcc547b55c9ce12b44ab551cf0042d31ebb8f6c5074bb07b671f5b54",
+      "raw_file": "runs/2026-11-04T22-44-47-181789-0500/001-databricks-request.json",
+      "outcome": "926 postings"
+    },
+    {
+      "seq": 2,
+      "t": 0.900997,
+      "board": "databricks",
+      "action": "parsed",
+      "postings": 926,
+      "unlisted_skipped": 0
+    },
+    {
+      "seq": 3,
+      "t": 0.901384,
+      "board": "stripe",
+      "action": "request",
+      "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+      "timeout": 15,
+      "status": 200,
+      "bytes": 473576,
+      "sha256": "8f60987dcb09d1ebfd20b83e27283546a401faca0c082552da9944723c52741d",
+      "raw_file": "runs/2026-11-04T22-44-47-181789-0500/003-stripe-request.json",
+      "outcome": "759 postings"
+    },
+    {
+      "seq": 4,
+      "t": 2.003294,
+      "board": "stripe",
+      "action": "parsed",
+      "postings": 759,
+      "unlisted_skipped": 0
+    },
+    {
+      "seq": 5,
+      "t": 2.003651,
+      "board": "plaid",
+      "action": "request",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/plaid",
+      "timeout": 15,
+      "status": 200,
+      "bytes": 1968793,
+      "sha256": "23da13a8e8e7366000fc7f73a37a6d37ba3306068d490f6ec7f618e4bb41f90c",
+      "raw_file": "runs/2026-11-04T22-44-47-181789-0500/005-plaid-request.json",
+      "outcome": "144 postings"
+    },
+    {
+      "seq": 6,
+      "t": 2.671258,
+      "board": "plaid",
+      "action": "parsed",
+      "postings": 144,
+      "unlisted_skipped": 0
+    },
+    {
+      "seq": 7,
+      "t": 2.671369,
+      "board": "deliberate-bad-name",
+      "action": "request",
+      "url": "https://boards-api.greenhouse.io/v1/boards/js2-nonexistent-board-swathi/jobs",
+      "timeout": 15,
+      "status": 404,
+      "bytes": 38,
+      "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe",
+      "raw_file": "runs/2026-11-04T22-44-47-181789-0500/007-deliberate-bad-name-request.json",
+      "outcome": "HTTP 404 (board not found): no retry"
+    },
+    {
+      "seq": 8,
+      "t": 3.070989,
+      "board": null,
+      "action": "state updated",
+      "outcome": "boards ok this run: databricks, stripe, plaid"
+    }
+  ]
+}
