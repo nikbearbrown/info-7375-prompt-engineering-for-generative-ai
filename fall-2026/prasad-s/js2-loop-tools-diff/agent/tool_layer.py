@@ -1,4 +1,4 @@
-"""The three tools: fetch, read, write (GATE.md v0.2 §4, §5).
+"""The three tools: fetch, read, write (GATE.md v0.3 §4, §5).
 
 Each one calls Policy.check first and acts only on what the Permit names.
 This module is the only JS2 code meant to open the network or write a file;

@@ -1,4 +1,4 @@
-"""The JS2 loop and its run report (GATE.md v0.2 §1-§4; CONTRACT.md v0.5, v0.6).
+"""The JS2 loop and its run report (GATE.md v0.3 §1-§4; CONTRACT.md v0.8).
 
 run() reads the config, checks the run's own instructions against §5 before
 anything is fetched or written, visits each configured board in order, then
@@ -25,7 +25,7 @@ from .rule import judge
 from .state import board_ids, commit_state, compute_watch, load_state, write_state_tmp
 from .tool_layer import FetchError, ToolLayer
 
-GATE_VERSION = "v0.2"
+GATE_VERSION = "v0.3"
 # GATE.md §2. Budgets live there and here; never in the config (§5).
 MAX_BOARDS = 5
 MAX_REQUESTS = 10

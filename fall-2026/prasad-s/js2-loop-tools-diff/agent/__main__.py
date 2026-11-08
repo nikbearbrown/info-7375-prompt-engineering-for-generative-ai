@@ -33,7 +33,7 @@ def print_summary(report):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog="python3.13 -m agent", description="JS2 loop (GATE.md v0.2, CONTRACT.md v0.6)")
+    parser = argparse.ArgumentParser(prog="python3.13 -m agent", description="JS2 loop (GATE.md v0.3, CONTRACT.md v0.8)")
     parser.add_argument("--config", default="config.json", help="config file (default: config.json)")
     parser.add_argument("--seed", type=seed_arg, action="append", default=[], metavar="BOARD_KEY=PATH",
                         help="read this board from a saved response under evidence/ instead of fetching it (repeatable)")

@@ -1,4 +1,4 @@
-"""The permission check every fetch, read and write passes first (GATE.md v0.2 §5).
+"""The permission check every fetch, read and write passes first (GATE.md v0.3 §5).
 
 Also CONTRACT.md v0.5 items 1, 2 and 5. One function, Policy.check, decides;
 agent/tool_layer.py calls it before it touches the network or a file. A

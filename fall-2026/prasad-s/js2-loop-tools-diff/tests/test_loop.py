@@ -494,7 +494,8 @@ class ZeroJobs(LoopCase):
         self.assertEqual(report["exit"]["line"], "finished — with failures: greenhouse:stripe")
 
     def test_zero_jobs_at_baseline_saves_nothing(self):
-        """§4 as written, no empty-board guard: no ids to keep, so the board stays without a section."""
+        """GATE.md v0.3 §4, zero jobs on a board with no saved ids: ok, not an empty-board failure;
+        no ids to keep, so the board stays without a section."""
         self.on(GH, "stripe", ok(gh_body()))
         self.go()
         self.assertEqual(self.newest_state(), {})
