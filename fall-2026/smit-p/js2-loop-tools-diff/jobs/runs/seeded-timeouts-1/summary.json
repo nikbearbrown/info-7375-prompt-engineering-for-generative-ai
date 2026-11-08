@@ -1,0 +1,61 @@
+{
+  "run_id": "seeded-timeouts-1",
+  "seeded": true,
+  "exit": "incomplete",
+  "exit_code": 2,
+  "requests": 5,
+  "elapsed_s": 4.02,
+  "boards": [
+    {
+      "name": "figma",
+      "ats": "greenhouse",
+      "slug": "figma",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+      "attempts": 2,
+      "count": 145,
+      "raw_files": [
+        "jobs/runs/seeded-timeouts-1/raw/figma-2.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": true,
+      "new_ids": [],
+      "new": []
+    },
+    {
+      "name": "spotify",
+      "ats": "lever",
+      "slug": "spotify",
+      "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+      "attempts": 2,
+      "count": null,
+      "raw_files": [],
+      "http_status": null,
+      "status": "failed:unreachable",
+      "reason": "timeout"
+    },
+    {
+      "name": "linear",
+      "ats": "ashby",
+      "slug": "linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "attempts": 1,
+      "count": 32,
+      "raw_files": [
+        "jobs/runs/seeded-timeouts-1/raw/linear-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": true,
+      "new_ids": [],
+      "new": []
+    }
+  ],
+  "budget_stop": null,
+  "error": null,
+  "needs_human": [
+    "spotify: failed:unreachable (timeout)"
+  ]
+}
