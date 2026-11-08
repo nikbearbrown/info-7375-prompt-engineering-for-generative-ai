@@ -19,7 +19,7 @@ Flow:
  1. Agent posts proposal P-17: "Delete old staging databases".
     It attaches an action list (currently: delete db-stg-2, db-stg-5).
  2. Reviewer Sam clicks Approve ->
-    decision record {proposal_id: "P-17", approver: "sam",
+    decision record {proposal_id: "P-17", approver: "vikram",
                      status: "approved"}.
  3. Executor looks up P-17 and runs whatever action list is
     currently attached to it.

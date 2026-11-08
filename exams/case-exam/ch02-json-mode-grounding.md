@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Dr. Kim directs a university library. She wants a web page where students ask questions about three library policy documents (policy-A, policy-B, policy-C) and get back a short answer with the sources it relied on. The page reads Claude's reply as JSON with the fields `answer` and `citations`, and Dr. Kim will tell the provost that answers are "traceable to policy". You wrote the prompt and a Python check.
+Professor Bear directs a university library and wants a web page where students ask questions about three library policy documents (policy-A, policy-B, policy-C) and get back a short answer with the sources it relied on. The page reads Claude's reply as JSON with the fields `answer` and `citations`, and Professor Bear will tell the provost that answers are "traceable to policy". You wrote the prompt and a Python check.
 
 ### The instruction (what you sent)
 > Use Claude's JSON mode so every reply has `answer` and `citations`. Write a validator that checks the reply parses, has both keys, and that every citation id exists in the source list. Run it on 100 test questions and report whether the answers are grounded.
@@ -35,7 +35,7 @@ provost that answers are traceable to policy.
 1. **(5 pts)** What is wrong with the agent's conclusion, and what is the exact term for the distinction it ignores?
 2. **(2 pts)** What single check would show whether the answers are grounded?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Dr. Kim what the report does and does not show.
+4. **(1 pt)** In two sentences, with no jargon, tell Professor Bear what the report does and does not show.
 
 ---
 

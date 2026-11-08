@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Luis manages support at an online bookstore. A customer says a refund for her order never arrived, and a support rep is waiting for an answer before replying. The order system stores order ids in the form `ORD-88213`. You asked a Claude agent, which has read-only lookup tools, to find out whether the refund was issued.
+Wei manages support at an online bookstore. A customer says a refund for her order never arrived, and a support rep is waiting for an answer before replying. The order system stores order ids in the form `ORD-88213`. You asked a Claude agent, which has read-only lookup tools, to find out whether the refund was issued.
 
 ### The instruction (what you sent)
 > Look up order 88213 in the orders system and tell the support rep whether the refund has been issued. Stop when you have the answer.

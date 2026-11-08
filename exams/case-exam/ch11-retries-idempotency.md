@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Hamid runs finance operations at a software company. A Claude agent creates customer invoices through a Python tool `create_invoice(customer_id, amount)`, which calls the billing service over a flaky network; some calls time out. Hamid wants the tool to retry on timeouts, and he will tell finance that "customers never get billed twice".
+Rohan runs finance operations at a software company. A Claude agent creates customer invoices through a Python tool `create_invoice(customer_id, amount)`, which calls the billing service over a flaky network; some calls time out. Rohan wants the tool to retry on timeouts, and he will tell finance that "customers never get billed twice".
 
 ### The instruction (what you sent)
 > Make `create_invoice` robust to timeouts. Retry when the call fails. Add a test and tell me whether retries are safe.
@@ -39,7 +39,7 @@ and no errors were observed. Ready to ship.
 1. **(5 pts)** What is wrong with "retries are safe", and what is the exact term for the missing protection?
 2. **(2 pts)** What single test would turn "safe" into evidence?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, explain to Hamid how a customer could be billed twice.
+4. **(1 pt)** In two sentences, with no jargon, explain to Rohan how a customer could be billed twice.
 
 ---
 

@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Ines is a data engineer at a clinic. The appointments table must move to a new layout, and the old table holds the only copy of three years of bookings. She asked for a written plan as a dependency graph, with a Python validator, so she can approve it and let an agent run the steps in batches. The old table must not be dropped until the data is safely copied *and* checked.
+Ananya is a data engineer at a clinic. The appointments table must move to a new layout, and the old table holds the only copy of three years of bookings. She asked for a written plan as a dependency graph, with a Python validator, so she can approve it and let an agent run the steps in batches. The old table must not be dropped until the data is safely copied *and* checked.
 
 ### The instruction (what you sent)
 > Plan the migration as a dependency graph: steps with ids and prerequisites. Check the graph with a validator, compute the order, and run the steps in ready batches. Tell me whether the plan is executable.
@@ -38,7 +38,7 @@ The validator passes, so the plan is executable. Ready to run.
 1. **(5 pts)** What is wrong with the claim that the plan is executable, and what is the exact term for the problem in the graph?
 2. **(2 pts)** What single check would show whether the plan is safe to run?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Ines what could go wrong on the day.
+4. **(1 pt)** In two sentences, with no jargon, tell Ananya what could go wrong on the day.
 
 ---
 

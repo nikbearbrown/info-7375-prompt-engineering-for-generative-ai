@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Marcus is a compliance lead at a small insurer. Adjusters write short claim notes, and he wants Claude to label each note as water damage, fire or theft so claims route to the right team. Auditors will ask him whether the labels can be trusted, and he wants to say they need no manual checking. You run the job with the Claude API from a Python script.
+Arjun is a compliance lead at a small insurer. Adjusters write short claim notes, and he wants Claude to label each note as water damage, fire or theft so claims route to the right team. Auditors will ask him whether the labels can be trusted, and he wants to say they need no manual checking. You run the job with the Claude API from a Python script.
 
 ### The instruction (what you sent)
 > Make the classifier deterministic: set temperature to 0 and label all 500 claim notes in `notes.csv`. Run it twice and report whether the labels are reliable.
@@ -33,7 +33,7 @@ spot check is needed; the 20-note human review in the plan can be skipped.
 1. **(5 pts)** What is wrong with the agent's conclusion, and what is the exact term for the distinction it ignores?
 2. **(2 pts)** What single check would turn "reliable and correct" into evidence?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Marcus what he can and cannot tell the auditors.
+4. **(1 pt)** In two sentences, with no jargon, tell Arjun what he can and cannot tell the auditors.
 
 ---
 

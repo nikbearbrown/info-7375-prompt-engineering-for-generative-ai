@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Professor Okafor lets a Claude agent read course files through a Python `read_file` tool. The agent must only read inside `/data/course`. Next to it, on the same server, is `/data/course-private`, which holds the gradebook. The professor asked you to add a path check and to prove the agent cannot reach anything outside the course folder.
+Professor Bear lets a Claude agent read course files through a Python `read_file` tool. The agent must only read inside `/data/course`. Next to it, on the same server, is `/data/course-private`, which holds the gradebook. The professor asked you to add a path check and to prove the agent cannot reach anything outside the course folder.
 
 ### The instruction (what you sent)
 > Add a path check so `read_file` only reads inside /data/course. Handle `..` and symbolic links. Add tests and tell me whether the tool is safe.
@@ -42,7 +42,7 @@ The tool is safe. Deny rules fail closed on error.
 1. **(5 pts)** What is wrong with the agent's claim that the tool is safe, and what is the exact term for the flaw?
 2. **(2 pts)** What single test or check would turn "safe" into evidence?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, explain the risk to Professor Okafor.
+4. **(1 pt)** In two sentences, with no jargon, explain the risk to Professor Bear.
 
 ---
 

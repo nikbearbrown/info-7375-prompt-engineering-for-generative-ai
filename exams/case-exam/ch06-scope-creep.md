@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Tomás leads a small billing team. A bug makes the date parser reject 29 February in a leap year. The pricing file `billing/rates.py` is under audit and must not change this quarter, so the repository's CLAUDE.md says "do not edit billing/rates.py". You asked Claude Code to fix the parser bug and to report what it changed. Tomás will merge on your word.
+Jian leads a small billing team. A bug makes the date parser reject 29 February in a leap year. The pricing file `billing/rates.py` is under audit and must not change this quarter, so the repository's CLAUDE.md says "do not edit billing/rates.py". You asked Claude Code to fix the parser bug and to report what it changed. Jian will merge on your word.
 
 ### The instruction (what you sent)
 > Fix the bug where `2024-02-29` fails to parse in `parser.py`. Allowed files: `parser.py` and `tests/test_parser.py`. Do not edit `billing/rates.py`. Summarise what you changed.
@@ -35,7 +35,7 @@ new date test produces the expected total.
 1. **(5 pts)** What is wrong with the agent's summary, and what is the exact term for the problem?
 2. **(2 pts)** What single check would show whether scope was respected?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Tomás why he should not merge yet.
+4. **(1 pt)** In two sentences, with no jargon, tell Jian why he should not merge yet.
 
 ---
 

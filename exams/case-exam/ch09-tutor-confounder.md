@@ -7,10 +7,10 @@
 ## STUDENT PAGE
 
 ### Scenario
-Dean Wu is deciding whether to buy a campus-wide licence for an AI tutoring app. The app was optional this year: students signed up at orientation if they wanted it. The dean wants to know whether the tutor *raises exam scores*, because that is what the licence fee would be for. You gave Claude the data file and a Python environment.
+Professor Bear is deciding whether to buy a campus-wide licence for an AI tutoring app. The app was optional this year: students signed up at orientation if they wanted it. Professor Bear wants to know whether the tutor *raises exam scores*, because that is what the licence fee would be for. You gave Claude the data file and a Python environment.
 
 ### The instruction (what you sent)
-> Analyze `usage.csv` (2,000 students: tutor use, hours studied per week, exam score). Tell me whether the AI tutor improves exam scores so the dean can decide on the licence.
+> Analyze `usage.csv` (2,000 students: tutor use, hours studied per week, exam score). Tell me whether the AI tutor improves exam scores so Professor Bear can decide on the licence.
 
 ### Agent output
 ```
@@ -29,9 +29,9 @@ Recommendation: buy the campus-wide licence.
 
 ### Questions (10 points)
 1. **(5 pts)** What is wrong with the conclusion, and what are the exact terms for what the data can and cannot show?
-2. **(2 pts)** What single design or check would let the dean claim the tutor raises scores?
+2. **(2 pts)** What single design or check would let Professor Bear claim the tutor raises scores?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, explain to the dean why 8.5 points does not mean the tutor adds 8.5 points.
+4. **(1 pt)** In two sentences, with no jargon, explain to Professor Bear why 8.5 points does not mean the tutor adds 8.5 points.
 
 ---
 

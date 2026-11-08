@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Ms. Alvarez directs a county benefits office. Claude drafts eligibility letters that staff review and send. The office's AI-use register sets the pause rule: "Pause the workflow if the monthly error rate exceeds 2%", and the register also names an incident contact who must acknowledge any harm alert. Ms. Alvarez asked you to check last month against the register and tell her whether to pause.
+Deepa directs a county benefits office. Claude drafts eligibility letters that staff review and send. The office's AI-use register sets the pause rule: "Pause the workflow if the monthly error rate exceeds 2%", and the register also names an incident contact who must acknowledge any harm alert. Deepa asked you to check last month against the register and tell her whether to pause.
 
 ### The instruction (what you sent)
 > Review last month's letters against the thresholds in the AI-use register. Tell me whether the workflow needs to be paused or escalated.
@@ -33,7 +33,7 @@ RECOMMENDATION: no action. Continue the workflow.
 1. **(5 pts)** What is wrong with "no pause or escalation is required", and what is the exact term for what the percentage hides?
 2. **(2 pts)** What single check would show whether the register requires action?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, explain to Ms. Alvarez why 1.5% is not the whole story.
+4. **(1 pt)** In two sentences, with no jargon, explain to Deepa why 1.5% is not the whole story.
 
 ---
 

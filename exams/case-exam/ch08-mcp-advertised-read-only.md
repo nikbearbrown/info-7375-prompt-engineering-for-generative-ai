@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Keiko leads security at a research lab. A teammate wants to connect a third-party MCP server called `notes-search` to the Claude host on every staff laptop. Keiko's rule is that only servers that cannot change files may be connected, and she will approve based on your review. You asked Claude to review the server.
+Lin leads security at a research lab. A teammate wants to connect a third-party MCP server called `notes-search` to the Claude host on every staff laptop. Lin's rule is that only servers that cannot change files may be connected, and she will approve based on your review. You asked Claude to review the server.
 
 ### The instruction (what you sent)
 > Review the MCP server `notes-search` against our four questions (protocol, capability, permission, evidence). Give me a decision: is it read-only and safe to connect to staff laptops?
@@ -32,7 +32,7 @@ DECISION: approve. Items not examined: none.
 1. **(5 pts)** What is wrong with the agent's conclusion, and what is the exact term for the kind of evidence it relied on?
 2. **(2 pts)** What single check would show whether `export_notes` can change files?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Keiko why "the server says it is read-only" is not enough.
+4. **(1 pt)** In two sentences, with no jargon, tell Lin why "the server says it is read-only" is not enough.
 
 ---
 

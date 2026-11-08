@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Gwen runs a research group where two Claude agents, a reader and a summarizer, share one notes store. Last week the reader's update to a note silently erased the summarizer's update to the same note. Gwen asked for a fix and will tell the group that "two agents can no longer overwrite each other". The store is a Python object used by several threads in one process.
+Professor Bear runs a research group where two Claude agents, a reader and a summarizer, share one notes store. Last week the reader's update to a note silently erased the summarizer's update to the same note. Professor Bear asked for a fix and will tell the group that "two agents can no longer overwrite each other". The store is a Python object used by several threads in one process.
 
 ### The instruction (what you sent)
 > Fix the lost-update bug in the shared notes store: when two agents write the same note, the later write must not silently replace the earlier one. Add a test and tell me whether the bug is fixed.
@@ -38,7 +38,7 @@ fix is atomic and thread-safe. Lost updates can no longer occur.
 1. **(5 pts)** What is wrong with the claim that the fix is atomic and thread-safe, and what is the exact term for the flaw?
 2. **(2 pts)** What single test would turn the claim into evidence?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, explain to Gwen how both agents could still overwrite each other.
+4. **(1 pt)** In two sentences, with no jargon, explain to Professor Bear how both agents could still overwrite each other.
 
 ---
 
@@ -78,7 +78,7 @@ fix is atomic and thread-safe. Lost updates can no longer occur.
 **Strong (9/10).**
 > 1. The version check and the write are two separate steps. Two threads can both see version 3, both pass the `if`, and both write, so one update is lost. It is a check-then-act race condition: compare-and-set only works if check and update are one atomic operation. The test runs A then B in order, so it cannot show this. 2. Stress test: two threads released at once, or a sleep between check and write, run 1,000 times; assert no lost update. 3. "Make check-and-bump atomic with a lock or a conditional update; add the concurrent stress test; run it on the old code to see it fail." 4. "Both agents can ask at the same instant and both be told yes, so one note replaces the other. The check and the save must happen as one step."
 
-Score: C3 T2 E2 F2 P0 = **9**. Reason: complete; Q4 is plain but "one step" restates the technical idea; scope point withheld since the claim about the agents' overlap is not tied to Gwen's group.
+Score: C3 T2 E2 F2 P0 = **9**. Reason: complete; Q4 is plain but "one step" restates the technical idea; scope point withheld since the claim about the agents' overlap is not tied to Professor Bear's group.
 
 **Typical (6/10).**
 > 1. The check and write are separate so two writers could both get through. 2. Test with two threads at once. 3. Tell the agent to use a lock. 4. They might save at the same time and one gets lost.

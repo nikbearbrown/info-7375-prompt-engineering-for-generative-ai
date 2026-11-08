@@ -7,7 +7,7 @@
 ## STUDENT PAGE
 
 ### Scenario
-Rosa is the HR director of a 200-person company. She wants staff to ask a Claude assistant questions about the 2025 employee handbook and get correct answers. The handbook changes every January, and Rosa will tell staff that "the assistant always knows the latest handbook" and will stop checking it against the PDF. You used the Claude API and Python.
+Meera is the HR director of a 200-person company. She wants staff to ask a Claude assistant questions about the 2025 employee handbook and get correct answers. The handbook changes every January, and Meera will tell staff that "the assistant always knows the latest handbook" and will stop checking it against the PDF. You used the Claude API and Python.
 
 ### The instruction (what you sent)
 > Make Claude know our 2025 handbook so staff can ask it questions. Report what you did and whether it will stay up to date.
@@ -34,7 +34,7 @@ IMPLEMENTATION (from build_index.py)
 1. **(5 pts)** What is wrong with the agent's description, and what are the exact terms for what it built and what it claimed?
 2. **(2 pts)** What single check would show how the assistant is getting the handbook?
 3. **(2 pts)** Write the correction you would send to the agent.
-4. **(1 pt)** In two sentences, with no jargon, tell Rosa what she still has to do each January.
+4. **(1 pt)** In two sentences, with no jargon, tell Meera what she still has to do each January.
 
 ---
 
@@ -77,7 +77,7 @@ IMPLEMENTATION (from build_index.py)
 Score: C3 T2 E2 F2 P0 = **9**. Reason: complete; Q4 gives the January task but "load" is not specific enough to credit the plain-language point as scoped.
 
 **Typical (6/10).**
-> 1. The agent said it fine-tuned but it only searches the handbook and adds text to the prompt. 2. Look at whether there was a training job. 3. Tell the agent to say it is retrieval. 4. Rosa has to update the handbook in the system each year.
+> 1. The agent said it fine-tuned but it only searches the handbook and adds text to the prompt. 2. Look at whether there was a training job. 3. Tell the agent to say it is retrieval. 4. Meera has to update the handbook in the system each year.
 
 Score: C3 T1 E1 F1 P0 = **6**. Reason: spots the mismatch (C3); no exact contrast term (T1); training-job check is right but no result stated (E1); correction is only a relabel (F1); Q4 correct in plain words but "update" lacks any verification step (0).
 
