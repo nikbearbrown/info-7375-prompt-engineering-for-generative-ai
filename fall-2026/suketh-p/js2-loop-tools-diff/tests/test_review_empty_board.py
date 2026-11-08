@@ -67,6 +67,26 @@ class EmptyBoardReviewTest(loop_cases.LoopCase):
         self.assertTrue(databricks["provisional"])
         self.assertEqual(self.project.state_bytes(), before)
 
+    def test_all_empty_boards_end_in_error_without_creating_state(self):
+        greenhouse_body = b'{"jobs":[]}'
+        ashby_body = b'{"apiVersion":"1","jobs":[]}'
+        script = {
+            ANTHROPIC_URL: Reply(200, greenhouse_body),
+            DATABRICKS_URL: Reply(200, greenhouse_body),
+            LINEAR_URL: Reply(200, ashby_body),
+        }
+        result = self.run_loop("R1", NORMAL, script)
+
+        self.assertEqual(
+            self.transport.urls(), [ANTHROPIC_URL, DATABRICKS_URL, LINEAR_URL]
+        )
+        self.assertEqual(result["status"], "error")
+        self.assertFalse(result["state_advanced"])
+        self.assertIsNone(self.project.state_bytes())
+        for board in result["boards"]:
+            with self.subTest(board=board["board"]):
+                self.assertEqual(board["outcome"], "unverified")
+
     def test_nonempty_boards_with_no_new_postings_still_finish(self):
         self.baseline("R1")
         result = self.run_loop("R2", NORMAL, loop_cases.normal_script())
