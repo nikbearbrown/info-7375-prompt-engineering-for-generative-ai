@@ -1,0 +1,86 @@
+{
+  "run_id": "2026-11-08-failure-1",
+  "status": "incomplete",
+  "reason": "not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional",
+  "state_advanced": false,
+  "started_at": "2026-11-08T10:45:43Z",
+  "ended_at": "2026-11-08T10:45:45Z",
+  "requested": [
+    "greenhouse/anthropic",
+    "greenhouse/databricks",
+    "ashby/linear",
+    "greenhouse/jobwatch-no-such-board-js2"
+  ],
+  "plan": [
+    "greenhouse/anthropic",
+    "greenhouse/databricks",
+    "ashby/linear",
+    "greenhouse/jobwatch-no-such-board-js2"
+  ],
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 30.0,
+    "max_request_seconds": 5.0
+  },
+  "used": {
+    "boards": 4,
+    "requests": 4,
+    "seconds": 2.246
+  },
+  "approval": {
+    "given": null,
+    "problem": "no approval was given for this run"
+  },
+  "boards": [
+    {
+      "board": "greenhouse/anthropic",
+      "role": "normal",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "outcome": "usable",
+      "jobs": 675,
+      "baseline": true,
+      "new_keys": [],
+      "new_postings": [],
+      "reason": null,
+      "provisional": true
+    },
+    {
+      "board": "greenhouse/databricks",
+      "role": "normal",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "outcome": "usable",
+      "jobs": 922,
+      "baseline": true,
+      "new_keys": [],
+      "new_postings": [],
+      "reason": null,
+      "provisional": true
+    },
+    {
+      "board": "ashby/linear",
+      "role": "normal",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "outcome": "usable",
+      "jobs": 32,
+      "baseline": true,
+      "new_keys": [],
+      "new_postings": [],
+      "reason": null,
+      "provisional": true
+    },
+    {
+      "board": "greenhouse/jobwatch-no-such-board-js2",
+      "role": "failure-control",
+      "url": "https://boards-api.greenhouse.io/v1/boards/jobwatch-no-such-board-js2/jobs?content=true",
+      "outcome": "failed-as-expected",
+      "jobs": null,
+      "baseline": null,
+      "new_keys": null,
+      "new_postings": null,
+      "reason": "HTTP 404, as expected for the failure control",
+      "provisional": true
+    }
+  ],
+  "trace": "trace.json"
+}
