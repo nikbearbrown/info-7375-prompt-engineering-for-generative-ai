@@ -1,0 +1,270 @@
+{
+  "contract_version": "v0.8",
+  "gate_version": "v0.3",
+  "run_at": "2026-11-08T01:54:37+00:00",
+  "exit": {
+    "kind": "finished",
+    "line": "finished — with failures: ashby:js2nosuchboard",
+    "completed_boards": [
+      "greenhouse:stripe",
+      "ashby:notion",
+      "greenhouse:duolingo",
+      "greenhouse:robinhood",
+      "ashby:js2nosuchboard"
+    ],
+    "failed_boards": [
+      "ashby:js2nosuchboard"
+    ],
+    "not_completed_boards": [],
+    "not_attempted_boards": []
+  },
+  "boards": [
+    {
+      "board": "greenhouse:stripe",
+      "mode": "live",
+      "attempts": 1,
+      "status": "ok",
+      "jobs_fetched": 766,
+      "new_ids": [
+        "8250475"
+      ],
+      "already_seen": 765,
+      "baseline": false,
+      "new_postings": [
+        {
+          "posting_id": "8250475",
+          "title": "Account Executive, SMB Grower (French speaking)",
+          "absolute_url": "https://stripe.com/jobs/search?gh_jid=8250475",
+          "location.name": "Toronto, Canada ",
+          "rule_verdict": "not_relevant",
+          "rule_justification": {
+            "resume_fields": [
+              {
+                "field": "target_titles",
+                "value": "Associate Product Manager"
+              },
+              {
+                "field": "target_titles",
+                "value": "Product Manager"
+              },
+              {
+                "field": "target_titles",
+                "value": "Product Analyst"
+              },
+              {
+                "field": "locations",
+                "value": "New York"
+              },
+              {
+                "field": "locations",
+                "value": "NYC"
+              },
+              {
+                "field": "locations",
+                "value": "Remote"
+              },
+              {
+                "field": "skills",
+                "value": "Python"
+              },
+              {
+                "field": "skills",
+                "value": "SQL"
+              },
+              {
+                "field": "skills",
+                "value": "A/B testing"
+              },
+              {
+                "field": "skills",
+                "value": "roadmapping"
+              },
+              {
+                "field": "skills",
+                "value": "user research"
+              }
+            ],
+            "posting_fields": [
+              {
+                "field": "content",
+                "matched": "SQL"
+              }
+            ],
+            "conditions": {
+              "C1": {
+                "result": false,
+                "resume_field": "target_titles",
+                "resume_values": [
+                  "Associate Product Manager",
+                  "Product Manager",
+                  "Product Analyst"
+                ],
+                "matched_resume_values": [],
+                "posting_field": "title",
+                "posting_value": "Account Executive, SMB Grower (French speaking)"
+              },
+              "C2": {
+                "result": false,
+                "resume_field": "locations",
+                "resume_values": [
+                  "New York",
+                  "NYC",
+                  "Remote"
+                ],
+                "matched_resume_values": [],
+                "posting_field": "location.name",
+                "posting_value": "Toronto, Canada"
+              },
+              "C3": {
+                "result": false,
+                "resume_field": "skills",
+                "resume_values": [
+                  "Python",
+                  "SQL",
+                  "A/B testing",
+                  "roadmapping",
+                  "user research"
+                ],
+                "matched_resume_values": [
+                  "SQL"
+                ],
+                "posting_field": "content",
+                "content_present": true,
+                "distinct_skills_found": 1,
+                "distinct_skills_needed": 2
+              }
+            },
+            "failing_conditions": [
+              "C1",
+              "C2",
+              "C3"
+            ]
+          },
+          "claude_verdict_label": "judgment (Claude)",
+          "claude_verdict": "rejected",
+          "claude_line": "rejected — no saved reply (judge not run in JS2)",
+          "claude_justification": {
+            "reply": null,
+            "reasons": [
+              "no saved reply (judge not run in JS2)"
+            ],
+            "note": "no saved reply was read"
+          }
+        }
+      ],
+      "line": "ok — 766 jobs, 1 new"
+    },
+    {
+      "board": "ashby:notion",
+      "mode": "live",
+      "attempts": 1,
+      "status": "ok",
+      "jobs_fetched": 154,
+      "new_ids": [],
+      "already_seen": 154,
+      "baseline": false,
+      "new_postings": [],
+      "line": "ok — 154 jobs, 0 new"
+    },
+    {
+      "board": "greenhouse:duolingo",
+      "mode": "live",
+      "attempts": 1,
+      "status": "ok",
+      "jobs_fetched": 59,
+      "new_ids": [],
+      "already_seen": 59,
+      "baseline": false,
+      "new_postings": [],
+      "line": "ok — 59 jobs, 0 new"
+    },
+    {
+      "board": "greenhouse:robinhood",
+      "mode": "live",
+      "attempts": 1,
+      "status": "ok",
+      "jobs_fetched": 150,
+      "new_ids": [],
+      "already_seen": 150,
+      "baseline": false,
+      "new_postings": [],
+      "line": "ok — 150 jobs, 0 new"
+    },
+    {
+      "board": "ashby:js2nosuchboard",
+      "mode": "live",
+      "attempts": 1,
+      "status": "failed",
+      "reason": "not found (404)",
+      "line": "failed — not found (404); attempts: 1"
+    }
+  ],
+  "trace": [
+    {
+      "board": "greenhouse:stripe",
+      "attempt": 1,
+      "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true",
+      "elapsed_s": 0.396,
+      "status": 200,
+      "saved": "greenhouse_stripe_2026-11-08T015437Z_a1.json",
+      "sidecar": "greenhouse_stripe_2026-11-08T015437Z_a1.json.sidecar.json"
+    },
+    {
+      "board": "ashby:notion",
+      "attempt": 1,
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true",
+      "elapsed_s": 0.219,
+      "status": 200,
+      "saved": "ashby_notion_2026-11-08T015438Z_a1.json",
+      "sidecar": "ashby_notion_2026-11-08T015438Z_a1.json.sidecar.json"
+    },
+    {
+      "board": "greenhouse:duolingo",
+      "attempt": 1,
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "elapsed_s": 0.188,
+      "status": 200,
+      "saved": "greenhouse_duolingo_2026-11-08T015438Z_a1.json",
+      "sidecar": "greenhouse_duolingo_2026-11-08T015438Z_a1.json.sidecar.json"
+    },
+    {
+      "board": "greenhouse:robinhood",
+      "attempt": 1,
+      "url": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true",
+      "elapsed_s": 0.223,
+      "status": 200,
+      "saved": "greenhouse_robinhood_2026-11-08T015438Z_a1.json",
+      "sidecar": "greenhouse_robinhood_2026-11-08T015438Z_a1.json.sidecar.json"
+    },
+    {
+      "board": "ashby:js2nosuchboard",
+      "attempt": 1,
+      "url": "https://api.ashbyhq.com/posting-api/job-board/js2nosuchboard?includeCompensation=true",
+      "elapsed_s": 0.097,
+      "status": 404,
+      "saved": "ashby_js2nosuchboard_2026-11-08T015438Z_a1.json",
+      "sidecar": "ashby_js2nosuchboard_2026-11-08T015438Z_a1.json.sidecar.json"
+    }
+  ],
+  "budgets": {
+    "boards": {
+      "used": 5,
+      "max": 5
+    },
+    "requests": {
+      "used": 5,
+      "max": 10
+    },
+    "seconds": {
+      "used": 1.236,
+      "max": 60
+    }
+  },
+  "approvals": [],
+  "repeats": [],
+  "state": {
+    "read": "state/state_2026-11-07T000611Z.json",
+    "written": "state/state_2026-11-08T015437Z.json"
+  },
+  "report_file": "output/run_report_2026-11-08T015437Z.json"
+}
