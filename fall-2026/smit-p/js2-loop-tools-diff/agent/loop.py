@@ -67,6 +67,7 @@ def validate_config(boards, budgets):
 def run(base, boards, budgets, fetcher, run_id, clock=time.monotonic, sleep=time.sleep,
         seeded=False):
     run_dir = os.path.join("jobs", "runs", run_id)
+    state_dir = state_dir_for(run_id, seeded)
     trace = Trace(base, os.path.join(run_dir, "trace.jsonl"))
     trace.log("run_start", run_id=run_id, seeded=seeded, budgets=budgets,
               boards=[b.get("name") for b in boards] if isinstance(boards, list) else None)
@@ -127,7 +128,7 @@ def run(base, boards, budgets, fetcher, run_id, clock=time.monotonic, sleep=time
     if status != ERROR:
         for r in results:
             if r["status"] == "ok":
-                new_by_board[r["name"]] = _update_state(base, r, run_id, trace)
+                new_by_board[r["name"]] = _update_state(base, state_dir, r, run_id, trace)
     error = {"step": "all boards", "problems": ["every board failed"]} if status == ERROR else None
     return _finish(base, trace, run_dir, run_id, status, results, new_by_board, seeded,
                    budget=budget, stop=stop, error=error)
@@ -206,19 +207,27 @@ def _watch_board(base, board, budgets, budget, fetcher, trace, identical, run_di
     return result
 
 
-def _state_path(name):
-    return os.path.join("jobs", "state", f"{name}.state.json")
+def state_dir_for(run_id, seeded):
+    """Live runs share jobs/state. A seeded run never touches it: each scenario family
+    (the run id without its last "-part") keeps its own baseline under jobs/seeded-state."""
+    if not seeded:
+        return os.path.join("jobs", "state")
+    return os.path.join("jobs", "seeded-state", run_id.rsplit("-", 1)[0])
 
 
-def load_state(base, name):
-    path = _state_path(name)
+def _state_path(state_dir, name):
+    return os.path.join(state_dir, f"{name}.state.json")
+
+
+def load_state(base, name, state_dir=os.path.join("jobs", "state")):
+    path = _state_path(state_dir, name)
     if not os.path.exists(os.path.join(base, path)):
         return None
     return json.loads(policy.guarded_read(base, path))
 
 
-def _update_state(base, result, run_id, trace):
-    previous = load_state(base, result["name"])
+def _update_state(base, state_dir, result, run_id, trace):
+    previous = load_state(base, result["name"], state_dir)
     if previous is None:
         new_ids, baseline = [], True
     else:
@@ -226,7 +235,8 @@ def _update_state(base, result, run_id, trace):
         new_ids, baseline = [i for i in result["ids"] if i not in known], False
     state = {"board": result["name"], "ats": result["ats"], "slug": result["slug"],
              "count": result["count"], "ids": result["ids"], "updated_by_run": run_id}
-    policy.guarded_write(base, _state_path(result["name"]), json.dumps(state, indent=2) + "\n")
+    policy.guarded_write(base, _state_path(state_dir, result["name"]),
+                         json.dumps(state, indent=2) + "\n")
     trace.log("state_write", board=result["name"], baseline=baseline,
               previous_count=None if previous is None else previous["count"],
               count=result["count"], new=len(new_ids))

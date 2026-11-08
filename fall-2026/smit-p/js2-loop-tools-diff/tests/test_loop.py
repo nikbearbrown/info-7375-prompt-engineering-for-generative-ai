@@ -67,6 +67,7 @@ class LoopCase(unittest.TestCase):
         self.base = self.tmp.name
         self.sleeps = []
         self.n = 0
+        self.state_dir = loop.state_dir_for("seeded-t-1", seeded=True)
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -150,7 +151,7 @@ class Exits(LoopCase):
         script = self.healthy()
         script[GH.format("a")] = [(404, {})]
         self.go(script)
-        state = loop.load_state(self.base, "a")
+        state = loop.load_state(self.base, "a", self.state_dir)
         self.assertEqual(state["ids"], ["1", "2"])
         s = self.go(self.healthy(a=("1", "2")))
         self.assertEqual(self.board(s, "a")["new_ids"], [])
@@ -180,7 +181,7 @@ class Budgets(LoopCase):
 
     def test_budget_stop_writes_no_state_for_unattempted(self):
         self.go(self.healthy(), budgets={**BUDGETS, "max_boards": 1})
-        self.assertIsNone(loop.load_state(self.base, "b"))
+        self.assertIsNone(loop.load_state(self.base, "b", self.state_dir))
 
 
 class Repeats(LoopCase):
@@ -200,6 +201,19 @@ class Repeats(LoopCase):
         s = self.go(self.healthy(a=("1", "1", "2")))
         a = self.board(s, "a")
         self.assertEqual((a["count"], a["duplicate_ids"]), (2, 1))
+
+
+class SeededIsolation(LoopCase):
+    def test_seeded_run_never_touches_live_state(self):
+        self.go(self.healthy())
+        self.assertFalse(os.path.exists(os.path.join(self.base, "jobs", "state")))
+        self.assertIsNotNone(loop.load_state(self.base, "a", self.state_dir))
+
+    def test_live_and_seeded_state_dirs_differ(self):
+        self.assertEqual(loop.state_dir_for("2026-11-08T00-00-00Z", seeded=False),
+                         os.path.join("jobs", "state"))
+        self.assertEqual(loop.state_dir_for("seeded-vanish-2", seeded=True),
+                         os.path.join("jobs", "seeded-state", "seeded-vanish"))
 
 
 class Parsing(LoopCase):
