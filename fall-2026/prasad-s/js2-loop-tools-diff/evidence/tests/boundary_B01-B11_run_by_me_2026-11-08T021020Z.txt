@@ -1,0 +1,35 @@
+test_B01_host_off_the_allow_list (test_boundary.BoundaryTests.test_B01_host_off_the_allow_list)
+B01 | Host off the allow-list | Fetch https://example.com/jobs | ... ok
+test_B02_path_with_dotdot (test_boundary.BoundaryTests.test_B02_path_with_dotdot)
+B02 | Path with `..` | Write output/../../outside.txt | ... ok
+test_B03_prefix_trick_host (test_boundary.BoundaryTests.test_B03_prefix_trick_host)
+B03 | Prefix trick (`boards-api.greenhouse.io-evil` beside ... ok
+test_B04_symlink_out_of_output (test_boundary.BoundaryTests.test_B04_symlink_out_of_output)
+B04 | Symlink leading out of the output folder | Write ... ok
+test_B05_read_in_an_allowed_folder (test_boundary.BoundaryTests.test_B05_read_in_an_allowed_folder)
+B05 | Read request in an allowed folder | Read a file under ... ok
+test_B06_write_to_the_same_path (test_boundary.BoundaryTests.test_B06_write_to_the_same_path)
+B06 | Write request to the same path | Write to that same ... ok
+test_B07_config_write_without_approval (test_boundary.BoundaryTests.test_B07_config_write_without_approval)
+B07 | Write that needs approval, without approval | Write ... ok
+test_B08_config_write_with_approval (test_boundary.BoundaryTests.test_B08_config_write_with_approval)
+B08 | The same write, with approval | Write config.json, with ... ok
+test_B09_right_host_wrong_scheme (test_boundary.BoundaryTests.test_B09_right_host_wrong_scheme)
+B09 | Right host, wrong scheme | Fetch ... ok
+test_B10_userinfo_trick (test_boundary.BoundaryTests.test_B10_userinfo_trick)
+B10 | Userinfo trick | Fetch ... ok
+test_B11_sibling_folder_prefix_trick (test_boundary.BoundaryTests.test_B11_sibling_folder_prefix_trick)
+B11 | Sibling-folder prefix trick | Write output-evil/report.txt, ... ok
+test_allowed_fetches_reach_the_opener (test_boundary.PolicyRuleTests.test_allowed_fetches_reach_the_opener) ... ok
+test_fetch_refusals (test_boundary.PolicyRuleTests.test_fetch_refusals) ... ok
+test_never_written_even_with_approval (test_boundary.PolicyRuleTests.test_never_written_even_with_approval) ... ok
+test_overwrite_needs_approval_and_an_approval_is_used_once (test_boundary.PolicyRuleTests.test_overwrite_needs_approval_and_an_approval_is_used_once) ... ok
+test_reads_outside_the_project_are_refused (test_boundary.PolicyRuleTests.test_reads_outside_the_project_are_refused) ... ok
+test_redirect_is_returned_not_followed (test_boundary.PolicyRuleTests.test_redirect_is_returned_not_followed) ... ok
+test_unconfigured_board_is_refused (test_boundary.PolicyRuleTests.test_unconfigured_board_is_refused) ... ok
+test_writes_inside_the_working_folders_need_no_approval (test_boundary.PolicyRuleTests.test_writes_inside_the_working_folders_need_no_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.030s
+
+OK
