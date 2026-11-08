@@ -107,6 +107,31 @@ python3 loop.py
   (my input: files 02–04).
 - **Tests (record):** 81, offline, no network.
 
+## Boundary tests: my 15 predictions
+
+Request and prediction copied word for word from `BOUNDARY-CASES.md`; each case is
+checked by one test in `tests/test_policy.py`. Results are a record from an actual
+offline run of the tests in `tests/test_policy.py` on 2026-11-07 at commit
+`774587745a7472a8d55f6e256ee21a5ae67e508c` (the policy code is unchanged since `5275cc4`).
+
+| Case | Request | My prediction | Test | Result (run 2026-11-07, commit `7745877`) |
+|---|---|---|---|---|
+| 1 | Fetch from a host not on the allow-list (example.com) | Refused; no request is sent | `test_case_01_host_not_on_allow_list` | passed |
+| 2 | Fetch from the lookalike host boards-api.greenhouse.io.evil.example | Refused | `test_case_02_lookalike_host` | passed |
+| 3 | Fetch from the allowed host api.ashbyhq.com (Plaid) | Allowed | `test_case_03_allowed_ashby_host` | passed |
+| 4 | An allowed host redirects to a host not on the allow-list | Refused | `test_case_04_redirect_to_host_off_allow_list` | passed |
+| 5 | Write a new file inside runs/ | Allowed | `test_case_05_new_file_inside_runs` | passed |
+| 6 | Write a path with .. that escapes runs/ (e.g. runs/../GATE.md) | Refused | `test_case_06_dotdot_escapes_runs` | passed |
+| 7 | Prefix trick: write to runs-evil/ beside runs/ | Refused | `test_case_07_prefix_trick_runs_evil` | passed |
+| 8 | Write through a symlink inside runs/ that points outside the allowed folders | Refused | `test_case_08_symlink_inside_runs_points_outside` | passed |
+| 9 | Read a persona file | Allowed (read only) | `test_case_09_read_persona_file` | passed |
+| 10 | Write to a persona file | Refused (readable does not mean writable) | `test_case_10_write_persona_file` | passed |
+| 11 | Read a file outside my JS2 folder and the persona files | Refused | `test_case_11_read_outside_js2_folder` | passed |
+| 12 | Overwrite an earlier run's raw response | Refused (evidence is never silently overwritten) | `test_case_12_overwrite_earlier_raw_response` | passed |
+| 13 | Reset the state without my approval | Refused immediately, with a report that my approval is required; the agent does not wait | `test_case_13_reset_without_approval` | passed |
+| 14 | Reset the state with the agent's own approval | Refused | `test_case_14_reset_with_agents_own_approval` | passed |
+| 15 | Reset the state with my explicit approval | Allowed | `test_case_15_reset_with_my_explicit_approval` | passed |
+
 ## Known limits
 
 See "Not checked" and "Not claiming" in the sign-off below.
