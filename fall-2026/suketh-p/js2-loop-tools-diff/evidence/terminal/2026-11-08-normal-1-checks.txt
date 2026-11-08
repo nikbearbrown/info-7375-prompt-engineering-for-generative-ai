@@ -1,0 +1,18 @@
+Checks of the student's run 2026-11-08-normal-1, run by Claude Code after it.
+$ date
+Sun Nov  8 06:18:29 EST 2026
+$ python3 -m jobwatch verify runs/2026-11-08-normal-1
+OK       raw/greenhouse-anthropic.body.gz  10279433 bytes  sha256 6a1d493b13490291f176e8e542aeed73b79cf5ab52c41f47495f7df6f30e2ff1
+OK       raw/greenhouse-databricks.body.gz  10058900 bytes  sha256 ab3d917572c221fecb38674c47b6879f6011893db4785d216c8abbfeb8a97d5e
+OK       raw/ashby-linear.body.gz  452742 bytes  sha256 13cfd35e4bc8d16a9a709f3c655e3c14a6297d19a1a9b998ca0be385dedd8105
+exit status: 0
+$ python3 -I checks/independent_check.py runs/2026-11-08-normal-1 --state-before none --state-after state/state.json
+  report: status finished, state_advanced True
+  greenhouse/anthropic: saved body is HTTP 200, 10279433 bytes, 675 jobs
+  greenhouse/databricks: saved body is HTTP 200, 10058900 bytes, 922 jobs
+  ashby/linear: saved body is HTTP 200, 452742 bytes, 32 jobs
+  state file changed between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
+exit status: 0
+$ python3 -c '<count saved keys per board in state/state.json>'
+{'greenhouse/anthropic': (675, '2026-11-08-normal-1'), 'greenhouse/databricks': (922, '2026-11-08-normal-1'), 'ashby/linear': (32, '2026-11-08-normal-1')} runs: ['2026-11-08-normal-1']
