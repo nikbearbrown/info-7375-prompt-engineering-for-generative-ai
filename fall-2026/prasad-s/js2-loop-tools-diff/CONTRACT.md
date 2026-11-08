@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.7 — 2026-11-06. Amends v0.6 (JS2-CP5a-v0.6); see §9 and the v0.5, v0.6 and v0.7 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
+**Version:** v0.8 — 2026-11-07. Amends v0.7 (JS2-CP5b-v0.7); see §9 and the v0.5 to v0.8 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
 **Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. Everything else in §§1–8 stands as v0.4 left it.  
 **Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
@@ -79,6 +79,15 @@
   config; "judge code unchanged" means agent/replies.py, and rule.py
   gets Ashby's step-4-only path; a first run with zero jobs saves
   nothing; seeded runs; E1–E20 accepted; three known limits recorded.]
+- **2026-11-07 — v0.8.** Written after CP8 (the reviewed W5 change)
+  and before run 2. Records what run 2 relies on: the honest
+  User-Agent (JS2-CP5c), GATE.md v0.3's empty-board rule (JS2-CP8a to
+  CP8c) and the version labels. No new decisions: each was decided and
+  committed earlier, and this entry records them. Claude (Claude.ai)
+  typed this entry and the v0.8 section at my request; the decisions
+  are mine. Main changes: [an honest identity on every request; an
+  empty board with saved ids is a failure, its line per W5; labels to
+  GATE v0.3 and CONTRACT v0.8; two known limits.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -487,6 +496,10 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-11-06 | §1 item 3, §2 baseline rule | a first run with zero jobs saved an empty list (JS1) → saves nothing, so the next run is a baseline (v0.7, item 6) | on a board never seen, an empty first answer is more likely a problem than a truth | 106/106 (JS2-CP5b) |
 | 2026-11-06 | §1–§6, implementation details | unspecified → E1–E20, decided by Claude Code in CP5b and accepted by me; seeded runs, my decision (v0.7, items 7–8) | found unsettled while building the loop | 106/106 (JS2-CP5b) |
 | 2026-11-06 | §2 outputs | not stated → three known limits recorded (v0.7, item 9) | found on review of CP5b | none: recorded, not tested |
+| 2026-11-07 | §1 item 7 (fetch) | Python's default User-Agent → an honest project identity on every request (v0.8, item 1) | Ashby's Cloudflare refused Python's default with 403, error 1010; found by my smoke run, fixed test-first | 108/108 (JS2-CP5c) |
+| 2026-11-07 | §4, v0.7 item 6 and E16 | zero jobs on a board with saved ids was ok → "failed — empty board", its line in W5's wording (GATE.md v0.3; v0.8, item 2) | the CP7 demo; the W5 test failed first (JS2-CP8b); the patch was reviewed and accepted (JS2-CP8c) | 109/109 (JS2-CP8c) |
+| 2026-11-07 | §2 outputs | the report labeled gate v0.2 and contract v0.6 → gate v0.3 and contract v0.8, from JS2-CP8e (v0.8, item 3) | run 1's report carried a stale label | the suite, after JS2-CP8e |
+| 2026-11-07 | §4 | not stated → two more known limits recorded (v0.8, item 4) | found on review of JS2-CP8c | none: recorded, not tested |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -769,3 +782,39 @@ Amends v0.6. Written after the loop (JS2-CP5b) was built and before run 1.
      is a small race window. It is harmless for a single run at a time.
    - The JS1 helpers in tools/ write files directly, outside the policy.
      The agent never calls them.
+     
+## v0.8 — 2026-11-07 (JS2, after CP8, before run 2)
+Amends v0.7. Written after the W5 patch (JS2-CP8c) and before run 2.
+
+1. An identity on every request (JS2-CP5c): every request carries
+   User-Agent: js2-loop-tools-diff/0.7 (INFO 7375 course project).
+   On 2026-11-06 a smoke run found api.ashbyhq.com, which sits behind
+   Cloudflare, answering Python's default "Python-urllib/3.13" with 403,
+   error 1010, for every board. curl confirmed it, and an honest project
+   identity gets 200 for notion and 404 for js2nosuchboard. The agent
+   names itself and imitates no browser or other client; if an honest
+   identity were refused, the refusal would be accepted and recorded, not
+   evaded. It is not a config key (v0.7 E1). Lectern does the same
+   (collect.py:42). The "0.7" names the agent build that introduced it; it
+   is an identity, not this contract's version, and it does not change
+   with each amendment.
+2. An empty board with saved ids (GATE.md v0.3 §4, W5) is adopted: a 200
+   with zero jobs on a board whose saved state holds at least one id is
+   "failed — empty board: 0 jobs, N ids saved before", with no retry, the
+   saved ids unchanged and a live response saved as evidence. The line
+   follows W5's exact wording, without the "; attempts: n" suffix of
+   v0.7 E16's other failed lines; the attempts count is in the line's
+   attempts field. The "0 jobs" is part of the failure reason, not the
+   board's value: the line carries no jobs_fetched field, so GATE.md §4's
+   "never 0 jobs" holds.
+3. Version labels: from JS2-CP8e on, the agent and its report name
+   GATE.md v0.3 and CONTRACT.md v0.8. Run 1's report (2026-11-07T00:06:11Z)
+   is labeled contract v0.6 although the contract was v0.7 at the time;
+   v0.7 recorded decisions the code already implemented, so run 1 behaved
+   as v0.7 says. Run 1's report is not edited.
+4. Known limits, added:
+   - A board whose saved section exists but is empty, [], and which
+     returns zero jobs is ok under GATE.md v0.3, since it holds no ids.
+     That is correct, but no test pins it.
+   - A partial drop, such as 59 jobs falling to 3, is not caught (GATE.md
+     v0.3 changelog).
