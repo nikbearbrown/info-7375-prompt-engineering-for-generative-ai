@@ -58,6 +58,7 @@ recorded.
 |---|---|---|---|
 | HTTP 404 (bad board name) | No | The name is wrong; asking again returns the same answer. | `failed:not_found`, `count: null` |
 | Other HTTP 4xx (403, 429, …) | No | The server refused us; retrying would ignore the refusal. | `failed:http_<code>`, `count: null` |
+| HTTP 3xx redirect | No, and not followed | Following it would reach a URL the permission policy never checked. (Added 2026-11-08, see Decisions.) | `failed:http_<code>`, `count: null` |
 | Timeout, connection error, or HTTP 5xx | Once, after a 2 s wait | The request is a read-only GET, so repeating it cannot change anything on the server, and these failures are often transient. One retry fits the request budget. | Success on retry: normal result, with both attempts in the trace. Second failure: `failed:unreachable`, `count: null` |
 | 200 but the body is not valid JSON or lacks the expected shape | No | A broken body is not transient in a way a retry would fix. | `failed:bad_response`, `count: null` |
 | 200 with zero postings when the previous baseline had postings | No | It might be real (hiring paused) or a fault (outage, migration). The agent cannot tell which. | `suspect:empty_after_nonempty`, `count: null` with `observed_count: 0` kept beside it, baseline kept, escalated to Smit (wording changed 2026-11-08, see Decisions) |
@@ -103,6 +104,8 @@ config file asks for them.
 7. **Baseline overwritten by a failure.** A failed or suspect board replaces the good baseline,
    so the next run reports every old posting as new.
 8. **Ashby unlisted postings counted.** Counting Ashby jobs without checking `isListed`.
+9. **Redirect followed.** Python's default `urlopen` follows a 3xx to any host, so the policy
+   checks the first URL and the agent reads a second one. (Added 2026-11-08.)
 
 ## Decisions
 
@@ -110,3 +113,4 @@ config file asks for them.
 |---|---|---|
 | 2026-11-08 | Initial budgets and policy as above. | Smit (drafted with Claude Code) |
 | 2026-11-08 | A suspect board reports `count: null` and keeps the observed zero as `observed_count`. The first draft of this file said `count: null` in the Exits table but `count: 0` in the error-policy table; the independent check caught the conflict during review (see REVIEW_PACKET.md). | Proposed by Claude Code during review; **Smit to confirm** |
+| 2026-11-08 | Redirects are refused, not followed. Found while writing POLICY.md's "not shown" list; reproduced by `tests/test_redirect.py` before the fix (`evidence/redirect-test-before-fix.txt`). | Proposed by Claude Code; **Smit to confirm** |

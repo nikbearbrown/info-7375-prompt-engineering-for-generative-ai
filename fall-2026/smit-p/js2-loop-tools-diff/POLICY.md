@@ -40,5 +40,59 @@ folder. "Approval" means an explicit approval passed in by Smit, never one the a
 
 ## Results
 
-Filled in after running `python3 -m unittest tests.test_policy -v`; see the section below the
-table once it exists.
+Ran `python3 -m unittest tests.test_policy -v` on 2026-11-08 (raw output in
+`evidence/policy-tests.txt`). **25 of 25 predictions matched; no prediction was edited after
+the run.** One extra case (`jobsx`, a file named like the root) was added while writing the
+tests and also passed.
+
+| # | Predicted | Observed | Match |
+|---|---|---|---|
+| P1 | allow | allow | yes |
+| P2 | deny: host | deny: host 'evil.example.com' not allowed | yes |
+| P3 | deny: host | deny: host 'boards-api.greenhouse.io.evil.com' not allowed | yes |
+| P4 | deny: host | deny: host 'evilgreenhouse.io' not allowed | yes |
+| P5 | deny: scheme | deny: scheme 'http' not allowed | yes |
+| P6 | deny: credentials | deny: credentials in URL | yes |
+| P7 | deny: port | deny: port 8443 not allowed | yes |
+| P8 | deny: method | deny: method POST not allowed | yes |
+| P9 | deny: apply path | deny: apply path | yes |
+| P10 | deny: host | deny: host '127.0.0.1' not allowed | yes |
+| P11 | allow | allow | yes |
+| P12 | deny: credentials | deny: credential header Authorization | yes |
+| P13 | allow | allow | yes |
+| P14 | deny | deny: outside write root | yes |
+| P15 | deny | deny: outside write root | yes |
+| P16 | deny | deny: outside write root, and nothing landed in the symlink target | yes |
+| P17 | deny | deny: outside write root | yes |
+| P18 | allow | allow | yes |
+| P19 | needs approval | needs approval, and the guarded write left no file | yes |
+| P20 | allow | allow (approved config write) | yes |
+| P21 | deny | deny: outside read roots | yes |
+| P22 | deny | deny: outside read roots | yes |
+| P23 | needs approval | needs approval; allow with approval | yes |
+| P24 | deny | deny for apply, email, message, login, Apply | yes |
+| P25 | deny: invalid path | deny: invalid path | yes |
+
+**Do these tests catch a wrong policy?** A suite that passes proves little unless it fails on
+wrong code. `tests/mutation_check.py` plants each wrong version from GATE.md into a scratch
+copy and runs the suite. On 2026-11-08 it caught all three policy mutants (prefix path check,
+path check without resolving symlinks, suffix host check), the redirect mutant, and all six
+loop mutants (10 of 10):
+`evidence/mutation-check.txt`.
+
+**Policy in the loop, not only in the unit tests.** `GuardedFetcher.get` calls
+`check_request` before the transport is touched, and the loop writes only through
+`guarded_write`. `tests/test_loop.py::PolicyInTheLoop` shows that an off-list URL ends the run
+as `error` with zero requests sent, and that a whole run leaves nothing outside `jobs/`.
+
+**A gap found while writing this page.** The first draft of this paragraph listed "a redirect
+to another host" as untested, because Python's `urlopen` follows 3xx responses on its own and
+the policy only sees the first URL. Rather than leave it listed, `tests/test_redirect.py` was
+written first and failed (`evidence/redirect-test-before-fix.txt`: the transport returned the
+redirected page's 200), then `LiveTransport` was changed to an opener that refuses redirects.
+A 3xx now ends that board as `failed:http_3xx` with `count: null`. Mutant W9 confirms the test
+catches the old behavior.
+
+**What these tests still do not show.** DNS rebinding (an allowed name resolving to an
+unexpected address); a symlink created between the check and the write (a time-of-check
+race); and anything about Windows paths. These are listed under "Not checked" in SIGNOFF.md.

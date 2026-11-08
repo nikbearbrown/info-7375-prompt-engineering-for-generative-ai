@@ -28,6 +28,16 @@ class Response:
     seeded: bool = False
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Hand a 3xx back to the loop instead of following it to a host the policy never saw."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+_OPENER = urllib.request.build_opener(_NoRedirect)
+
+
 class LiveTransport:
     seeded = False
 
@@ -35,7 +45,7 @@ class LiveTransport:
         start = time.monotonic()
         req = urllib.request.Request(url, headers=headers, method="GET")
         try:
-            with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
+            with _OPENER.open(req, timeout=TIMEOUT_S) as r:
                 body = r.read()
                 return Response(r.status, body, None, _ms(start))
         except urllib.error.HTTPError as e:

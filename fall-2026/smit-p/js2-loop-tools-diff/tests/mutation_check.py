@@ -43,6 +43,9 @@ MUTANTS = [
      '            if r["status"] == "ok":\n                new_by_board',
      '            if r.setdefault("ids", []) is not None and r.setdefault("titles", {}) is not None:\n'
      '                r["count"] = r["count"] or 0\n                new_by_board'),
+    ("W9 redirect followed to an unchecked host", "agent/fetch.py",
+     "            with _OPENER.open(req, timeout=TIMEOUT_S) as r:",
+     "            with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:"),
     ("W8 Ashby unlisted postings counted", "agent/adapters.py",
      "        if job.get(\"isListed\") is False:  # unlisted postings are not public openings\n"
      "            continue\n",
