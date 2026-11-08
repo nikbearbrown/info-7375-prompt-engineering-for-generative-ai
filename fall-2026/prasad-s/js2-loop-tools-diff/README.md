@@ -53,9 +53,8 @@ git clone https://github.com/nikbearbrown/info-7375-prompt-engineering-for-gener
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff
 ```
 
-Every command below runs from that folder. The JS2 commits reach a fresh
-clone only once they are pushed: on 2026-11-08 the local branch was ahead of
-`origin/main` (`git status`). The test commands make no network request
+Every command below runs from that folder. The JS2 commits were pushed to the course repository on 2026-11-08, so a fresh clone has them.
+ The test commands make no network request
 ("Offline only: no test touches the network", `tests/support.py`; the loop
 tests replace the tool layer's one network function, and any socket fails the
 test, `tests/test_loop.py` docstring).
