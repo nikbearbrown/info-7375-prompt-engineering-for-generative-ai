@@ -484,14 +484,14 @@ class ErrorPolicy(LoopCase):
 class ZeroJobs(LoopCase):
     boards = [(GH, "stripe")]
 
-    def test_zero_jobs_is_ok_and_keeps_saved_ids(self):
+    def test_zero_jobs_with_saved_ids_is_failed_and_keeps_saved_ids(self):
         self.write_state("state_2026-11-01T000000Z.json", {"greenhouse:stripe": ["1", "2"]})
         self.on(GH, "stripe", ok(gh_body()))
         report = self.go()
         line = self.line(report, "greenhouse:stripe")
-        self.assertEqual((line["status"], line["line"]), ("ok", "ok — 0 jobs, 0 new"))
+        self.assertEqual((line["status"], line["line"]), ("failed", "failed — empty board: 0 jobs, 2 ids saved before"))
         self.assertEqual(self.newest_state(), {"greenhouse:stripe": ["1", "2"]})
-        self.assertEqual(report["exit"]["line"], "finished")
+        self.assertEqual(report["exit"]["line"], "finished — with failures: greenhouse:stripe")
 
     def test_zero_jobs_at_baseline_saves_nothing(self):
         """§4 as written, no empty-board guard: no ids to keep, so the board stays without a section."""

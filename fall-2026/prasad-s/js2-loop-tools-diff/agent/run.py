@@ -213,15 +213,23 @@ class Loop:
         return line
 
     def _ok(self, line, board, postings):
+        before = board_ids(self.sections_before, board.key)
         if not postings:
-            # §4 as written: zero is a real answer, and the board's saved ids are unchanged.
+            if before:
+                # GATE.md v0.3 §4: zero jobs on a board whose saved state holds ids is a failure,
+                # not an empty board. No retry; saved ids unchanged; a live response is already
+                # saved as evidence by fetch_board. W5 pins this exact line (no attempts suffix;
+                # the attempts are in the line's "attempts" field).
+                reason = f"empty board: 0 jobs, {len(before)} ids saved before"
+                line.update(status="failed", reason=reason, line=f"failed — {reason}")
+                return line
+            # GATE.md v0.3 §4: no saved ids, so zero is a real answer; the board's saved ids are unchanged.
             line.update(status="ok", jobs_fetched=0, new_ids=[], already_seen=0, baseline=False,
                         new_postings=[], line="ok — 0 jobs, 0 new")
             return line
         by_id = {}
         for posting in postings:
             by_id.setdefault(posting["posting_id"], posting)  # JS1 v0.4 decision 11
-        before = board_ids(self.sections_before, board.key)
         watch = compute_watch(before, [posting["posting_id"] for posting in postings])
         self.sections_after[board.key] = watch.state_after
         seen = set(before or [])
