@@ -62,8 +62,11 @@ def new_keys_with_one_global_seen_set(current_state, board_name, keys):
 
 
 # ... or a returning posting is marked new (history replaced by the latest snapshot).
+_REAL_ADVANCED = state.advanced
+
+
 def advanced_keeping_only_the_latest_snapshot(current_state, run_id, finished_at, snapshots):
-    after = state.advanced(current_state, run_id, finished_at, snapshots)
+    after = _REAL_ADVANCED(current_state, run_id, finished_at, snapshots)
     for name, (_ats, _slug, keys) in snapshots.items():
         after["boards"][name]["seen"] = {k: after["boards"][name]["seen"][k] for k in keys}
     return after
@@ -99,10 +102,13 @@ def check_request_ignoring_method(self, method, url):
 
 
 # ... a redirect gets through (the transport follows Location, as urllib does by default) ...
+_REAL_HTTPS_GET = net.https_get
+
+
 def https_get_following_redirects(url, deadline, *, clock=None, connection_factory=None):
     connection_factory = connection_factory or http.client.HTTPSConnection
     for _ in range(5):
-        response = net.https_get(url, deadline, clock=clock, connection_factory=connection_factory)
+        response = _REAL_HTTPS_GET(url, deadline, clock=clock, connection_factory=connection_factory)
         if 300 <= response.status < 400 and response.location:
             url = response.location
             if urlsplit(url).scheme != "https":

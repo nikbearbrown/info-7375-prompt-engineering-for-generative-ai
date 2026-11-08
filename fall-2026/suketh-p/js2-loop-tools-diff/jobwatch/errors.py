@@ -1,29 +1,24 @@
-"""Every way a run can stop. A run that raises one of these leaves the state file as it was."""
+"""Errors that carry a reason. The loop turns them into an exit status (jobwatch/loop.py);
+an expected exit is a status, never an unhandled exception."""
 
 
 class AgentError(Exception):
-    """Base class: the run stopped without advancing the state."""
+    """Base class."""
 
 
 class InputError(AgentError):
-    """The résumé or the board response broke the input contract."""
+    """The résumé or a board response broke its input contract."""
 
 
 class StateError(AgentError):
     """The state file exists but is damaged. The agent will not start another baseline."""
 
 
-class FetchError(AgentError):
-    """The board could not be fetched."""
+class PolicyDenied(AgentError):
+    """The permission policy refused a request or a file operation (GATE.md 'Permission
+    policy'). `rule` names the check that fired."""
 
-
-class RefusedError(AgentError):
-    """A request the allow-list does not permit."""
-
-
-class JudgeError(AgentError):
-    """The model call failed, or its reply broke the output contract."""
-
-    def __init__(self, message, reply=None):
-        super().__init__(message)
-        self.reply = reply
+    def __init__(self, rule, detail):
+        super().__init__(f"refused by the permission policy ({rule}): {detail}")
+        self.rule = rule
+        self.detail = detail
