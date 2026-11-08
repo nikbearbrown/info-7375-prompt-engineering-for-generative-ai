@@ -380,8 +380,52 @@ See REVIEW_PACKET.md: the empty-board change (W5), from the CP7 defect through m
 
 ## Sign-off
 
-(written by Prasad)
+## Sign-off — Job-Search Agent 2
+
+Checked:
+- The permission layer holds at its boundaries: boundary tests B01–B11 (off-list host, `..` path, prefix-trick host, symlink out of output/, read allowed in gate_probes/, write to the same path refused, config write refused without --approve (B07) and allowed with it (B08), http scheme, userinfo trick, sibling-folder prefix trick) — predicted by me before any code (2026-11-05), and run by me on 2026-11-07 (JS2-CP9b); results table written from that saved output (JS2-CP11).
+- W3: in both live runs js2nosuchboard is reported as failed — "failed — not found (404)" — and never as an empty board, and both runs end finished — with failures naming it (run 1, JS2-CP6; run 2, JS2-CP9). That a failed board keeps its saved ids is covered by the W3 test (constructed, written by Claude Code): js2nosuchboard itself never held ids, since it failed both times, so the live runs cannot show it.
+- W5: a board with saved ids returning zero jobs is a failure, not an empty board — the test holds saved state with 59 ids for greenhouse:duolingo, as after run 1, delivers the empty 200 through the live path (network patched), and checks the board line ("failed — empty board: 0 jobs, 59 ids saved before"), the unchanged saved ids, the saved evidence, and the exit. The test was written before the patch and failed on the unpatched code (JS2-CP8b); the patch followed (JS2-CP8c).
+- The User-Agent: every request carries the honest identity — tests/test_user_agent.py, written failing before the fix, after Ashby answered the smoke run 403 (Cloudflare 1010) (JS2-CP5c).
+- Run 1 is a true baseline: five boards visited, nothing reported new, state saved for the four boards that answered (the failed board has no section) (state/state_2026-11-07T000611Z.json). Run 2, a new day, diffs against it: 1 new posting (Stripe, 8250475) and 0 on the other three watched boards.
+- The CP7 demo and its independent check: a seeded empty response against saved ids produced a finished run with the wrong answer under GATE v0.2 §4, and the check — not the loop's own report — is what caught it (evidence/demo_finished_wrong_answer/).
+- 109/109 tests pass — the copied JS1 suite (three of its test files adapted in CP5b, per CONTRACT v0.5–v0.7) plus the JS2 tests — run by me after JS2-CP8e.
+
+How:
+- B01–B11: predictions mine, made before any code; the suite typed by Claude Code (JS2-CP5a) and run by me (JS2-CP9b); the results table was typed by Claude.ai from my saved output and I checked each row.
+- W5: by a test required before the patch existed — assertions mine (GATE §6), code typed by Claude Code — which failed first (JS2-CP8b), which is what makes its passing now mean anything.
+- W3 and the exits: by reading both live run reports against GATE §1; the ids-kept property by the constructed W3 test.
+- Run 2's diff: by recomputation — I recounted the new ids from the raw responses of runs 1 and 2, with no agent code (evidence/terminal/run2_recount_by_me_2026-11-08T020756Z.txt), and the recount agrees with the report: 1 new, Stripe 8250475.
+- The User-Agent: checked twice — by my own curl checks (200 for Notion, 404 for the bad name) and by the test, which failed first.
+- The demo: by an independent check whose commands Claude.ai wrote and I ran.
+- This sign-off: drafted with Claude.ai's help from my checkpoint log; its numbers come from my own runs and recount, not from the reports alone.
+
+Not checked:
+- A partial drop: a board falling from 59 jobs to 3 is reported as a smaller board, not a failure — the v0.3 rule does not cover it, by design, and no test says otherwise.
+- An empty first run: a board with no saved ids reporting zero jobs is "ok" under §4 (CONTRACT v0.7 item 6); if a board were empty from the start, nothing here would flag it.
+- Real network failures: the timeout and 5xx paths were exercised with the network patched, never against a real outage; no live board has yet returned zero jobs against saved ids, so W5's rule has only been met in the constructed test.
+- I did not read every line of Claude Code's code; the 31 build decisions (D1–D11, E1–E20) I reviewed and accepted at the decision level, not line by line. Tests run on my machine and Python only.
+
+Not claiming:
+- That any posting on any board is relevant or worth applying to: the judge was not run in JS2, and every new posting carries "rejected — no saved reply (judge not run in JS2)", which is a missing judgment, not a verdict.
+- That the loop works for boards or ATSs beyond the five in GATE §0, or for a persona other than JS1's.
+- That "new" in run 2 means newly posted — it means new to the agent since run 1's state.
+- That the budgets (5 boards, 10 requests, 60 s) are the right budgets — only that the runs stayed inside them.
+
+Signed or withheld: Prasad Shinde, 2026-11-08
+
 
 ## Driver's seat
 
-(written by Prasad)
+Written by me. The evidence column points to commits and files anyone can check.
+
+| Part | What Claude should do | What I should do | Why that part stays mine | Evidence |
+|---|---|---|---|---|
+| Loop: the rules | Review my rules and flag what they leave open; never originate or quietly change a rule | Write GATE.md and decide every rule in it, before any code exists | The gate is the assignment. A rule Claude wrote and Claude's code then obeyed would prove nothing | GATE.md v0.1, written before any code (JS2-CP1); the review fixes I decided (JS2-CP2, GATE v0.2 changelog) |
+| Loop: the build | Claude Code builds the permission layer and then the loop, to GATE.md and CONTRACT.md as written | Hand over the files as the only spec; review its 31 decisions (D1–D11, E1–E20) and accept or reject each | The code is the labor; the spec and the acceptance are the accountability. If I don't decide what gets built, I'm reporting Claude's agent, not mine | JS2-CP5a and JS2-CP5b commit messages |
+| Loop: open questions | Claude Code stops and asks when the files don't pin something down — 4 questions in CP5a, 5 in CP5b — instead of deciding silently | Decide each question myself; the decisions enter CONTRACT.md as dated amendments | A decision the builder takes silently never reaches the record. Decided by me, it is an amendment anyone can check | Claude Code's 4 + 5 questions; CONTRACT v0.6 item 3, v0.7 items 1–5 |
+| Loop: running and checking | Claude.ai writes the check commands I run — the recount script, the bypass grep, the curl checks; Claude Code runs the probes and snapshots at my instruction; Claude.ai types the results table from my output | Run the smoke run, runs 1 and 2, the recount, and the bypass grep myself | A run I didn't perform is a report I'm repeating. The checks count only if they're independent of the code being checked | Runs 1 and 2 (JS2-CP6, JS2-CP9); the recount; the bypass grep; the smoke run (JS2-CP5c) |
+| Review: the defect | Claude.ai writes the demo's commands and the independent check's commands | Run the demo, read the finished-but-wrong answer, and decide the defect is in my rule, not the code | The loop had obeyed §4 as written. Calling my own rule wrong — and amending it before touching code — is the judgment this review exists for | The CP7 demo and independent check (JS2-CP7) |
+| Review: the test | Claude Code types the W5 test code | Write the assertions (GATE §6), require the test before any patch, and watch it fail on the current code | Assertions are the rule stated as a test. If Claude writes them, the test checks Claude's reading of my rule, not the rule | W5 (JS2-CP8a); the failing test (JS2-CP8b) |
+| Review: the patch | Claude Code writes the patch; Claude.ai helps me read the diff as a change in behavior, and I check its reading against the code | Read the diff and accept or reject it | The patch changes what the agent does. Accepting a diff I haven't read is how a fix becomes the next defect | The JS2-CP8c diff |
+| Review: reading and deciding | Assemble REVIEW_PACKET.md from the evidence, with nothing in it I can't trace | Read the packet and after_patch_terminal.txt, and make the final call | The packet is evidence, organized. The decision on it is mine because I'm the one who signs for it | REVIEW_PACKET.md; after_patch_terminal.txt |
