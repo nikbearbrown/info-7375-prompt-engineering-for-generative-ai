@@ -356,11 +356,27 @@ From GATE.md v0.3's changelog, "Not covered":
 
 ## Boundary tests: predicted vs actual
 
-(written by Prasad)
+| ID | Case | Predicted (GATE.md §7, 2026-11-05, before any code) | Actual (my run, JS2-CP9b) | Match |
+|---|---|---|---|---|
+| B01 | Host off the allow-list | Refused; no request is sent; the refusal names the host | Refused under the host rule; no request was sent; the refusal named example.com (test_B01 ok) | Yes |
+| B02 | Path with `..` | Refused; nothing is written | Refused under "inside the project folder only"; outside.txt was not created and nothing changed (test_B02 ok) | Yes |
+| B03 | Prefix trick on the host | Refused; no request is sent | Refused under the host rule; no request was sent (test_B03 ok) | Yes |
+| B04 | Symlink out of the output folder | Refused; nothing is written | Refused under "inside the project folder only", after the symlink was resolved; nothing was written outside or changed (test_B04 ok) | Yes |
+| B05 | Read in an allowed folder | Allowed; the content is returned | Allowed; the file's exact bytes were returned (test_B05 ok) | Yes |
+| B06 | Write to that same path | Refused; nothing is written | Refused under the read-only rule for evidence/gate_probes/; nothing changed (test_B06 ok) | Yes |
+| B07 | Config write without approval | Refused; the file is unchanged | Refused; every reason cited the approval rule; config.json's bytes were unchanged (test_B07 ok) | Yes |
+| B08 | Config write with approval | Allowed; the file is written, and the report records the flag | Allowed; the file was written, and the policy's approval record lists the flag as used (test_B08 ok). No real run writes config.json, so the flag's record is checked there rather than in a run report | Yes |
+| B09 | Right host, wrong scheme | Refused; no request is sent | Refused under "https only", the only rule cited; no request was sent (test_B09 ok) | Yes |
+| B10 | Userinfo trick | Refused; no request is sent | Refused under the userinfo and host rules; no request was sent; the refusal named evil.example (test_B10 ok) | Yes |
+| B11 | Sibling-folder prefix trick | Refused; nothing is written | Refused, because output-evil/ is outside state/, evidence/ and output/ and no approval was given; nothing changed (test_B11 ok) | Yes |
+
+All 11 match. The same file has eight more policy-rule tests, which Claude
+Code added beyond my rows; they also passed, but they carry no prediction
+of mine and are not part of this table.
 
 ## Review packet
 
-(written by Prasad)
+See REVIEW_PACKET.md: the empty-board change (W5), from the CP7 defect through my test written before the patch (JS2-CP8b) to the accepted patch (JS2-CP8c).
 
 ## Sign-off
 
