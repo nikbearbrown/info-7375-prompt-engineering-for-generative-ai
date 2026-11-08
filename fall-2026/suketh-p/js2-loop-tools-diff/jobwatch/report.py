@@ -50,8 +50,10 @@ def trace_md(trace):
         "|---:|---|---|---|---:|---:|---:|---|---:|---|---|",
     ]
     for e in trace["events"]:
-        lines.append(f"| {e['seq']} | {e['at']} | {e['event']} | {_cell(e.get('board'))} | {_cell(e.get('status'))} | "
-                     f"{_cell(e.get('elapsed_s'))} | {_cell(e.get('bytes'))} | {_cell(e.get('outcome'))} | "
+        # On the exit event, "status" is the run's status, not an HTTP code.
+        http, outcome = (None, e.get("status")) if e["event"] == "exit" else (e.get("status"), e.get("outcome"))
+        lines.append(f"| {e['seq']} | {e['at']} | {e['event']} | {_cell(e.get('board'))} | {_cell(http)} | "
+                     f"{_cell(e.get('elapsed_s'))} | {_cell(e.get('bytes'))} | {_cell(outcome)} | "
                      f"{_cell(e.get('jobs'))} | {_cell(e.get('raw'))} | "
                      f"{_cell(e.get('reason') or e.get('detail'))} |")
     lines.append("")
