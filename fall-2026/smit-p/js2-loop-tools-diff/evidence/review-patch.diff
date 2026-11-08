@@ -1,0 +1,37 @@
+diff --git a/fall-2026/smit-p/js2-loop-tools-diff/agent/loop.py b/fall-2026/smit-p/js2-loop-tools-diff/agent/loop.py
+index 16d4894..15250a4 100644
+--- a/fall-2026/smit-p/js2-loop-tools-diff/agent/loop.py
++++ b/fall-2026/smit-p/js2-loop-tools-diff/agent/loop.py
+@@ -102,7 +102,7 @@ def run(base, boards, budgets, fetcher, run_id, clock=time.monotonic, sleep=time
+             break
+         try:
+             result = _watch_board(base, board, budgets, budget, fetcher, trace, identical,
+-                                  run_dir, sleep)
++                                  run_dir, sleep, state_dir)
+         except policy.PolicyDenied as e:
+             trace.log("policy_denied", board=board["name"], reason=str(e))
+             return _finish(base, trace, run_dir, run_id, ERROR, results, {}, seeded,
+@@ -134,7 +134,8 @@ def run(base, boards, budgets, fetcher, run_id, clock=time.monotonic, sleep=time
+                    budget=budget, stop=stop, error=error)
+ 
+ 
+-def _watch_board(base, board, budgets, budget, fetcher, trace, identical, run_dir, sleep):
++def _watch_board(base, board, budgets, budget, fetcher, trace, identical, run_dir, sleep,
++                 state_dir):
+     url = adapters.board_url(board["ats"], board["slug"])
+     key = ("GET", policy.normalize_url(url))
+     result = {"name": board["name"], "ats": board["ats"], "slug": board["slug"], "url": url,
+@@ -199,6 +200,13 @@ def _watch_board(base, board, budgets, budget, fetcher, trace, identical, run_di
+                 dups += 1
+             else:
+                 ids.append(p["id"])
++        previous = load_state(base, board["name"], state_dir)
++        if not ids and previous and previous["count"] > 0:
++            # GATE.md error policy: empty after a non-empty baseline is not "no news".
++            result.update(status="suspect:empty_after_nonempty", count=None, observed_count=0,
++                          duplicate_ids=0, previous_count=previous["count"],
++                          reason=f"0 postings now, {previous['count']} in the baseline")
++            break
+         result.update(status="ok", count=len(ids), ids=ids, duplicate_ids=dups,
+                       titles={p["id"]: p["title"] for p in postings})
+         break

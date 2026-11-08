@@ -18,6 +18,9 @@ import tempfile
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MUTANTS = [
+    ("W1 empty means no news", "agent/loop.py",
+     'if not ids and previous and previous["count"] > 0:',
+     "if False:"),
     ("W2 failure becomes zero", "agent/loop.py",
      'reason="board name not found (404)")',
      'reason="board name not found (404)", count=0)'),

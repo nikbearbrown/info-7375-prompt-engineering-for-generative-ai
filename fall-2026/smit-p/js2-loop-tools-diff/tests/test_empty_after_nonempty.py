@@ -28,6 +28,12 @@ class EmptyAfterNonEmpty(LoopCase):
         self.assertEqual(a["status"], "suspect:empty_after_nonempty")
         self.assertEqual(a["previous_count"], 3)
 
+    def test_W1_untrusted_zero_is_not_reported_as_count(self):
+        # Added in the revise step: GATE.md's Exits table says a suspect board reports
+        # count null; the observed zero is kept separately so nothing is hidden.
+        a = self.board(self.vanish(), "a")
+        self.assertEqual((a["count"], a["observed_count"]), (None, 0))
+
     def test_W1_escalated_to_human(self):
         s = self.vanish()
         self.assertTrue(any(line.startswith("a: suspect:empty_after_nonempty")

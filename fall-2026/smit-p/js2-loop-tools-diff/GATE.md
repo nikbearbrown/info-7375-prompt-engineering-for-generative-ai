@@ -60,7 +60,7 @@ recorded.
 | Other HTTP 4xx (403, 429, …) | No | The server refused us; retrying would ignore the refusal. | `failed:http_<code>`, `count: null` |
 | Timeout, connection error, or HTTP 5xx | Once, after a 2 s wait | The request is a read-only GET, so repeating it cannot change anything on the server, and these failures are often transient. One retry fits the request budget. | Success on retry: normal result, with both attempts in the trace. Second failure: `failed:unreachable`, `count: null` |
 | 200 but the body is not valid JSON or lacks the expected shape | No | A broken body is not transient in a way a retry would fix. | `failed:bad_response`, `count: null` |
-| 200 with zero postings when the previous baseline had postings | No | It might be real (hiring paused) or a fault (outage, migration). The agent cannot tell which. | `suspect:empty_after_nonempty`, `count: 0` recorded as observed but not trusted, baseline kept, escalated to Smit |
+| 200 with zero postings when the previous baseline had postings | No | It might be real (hiring paused) or a fault (outage, migration). The agent cannot tell which. | `suspect:empty_after_nonempty`, `count: null` with `observed_count: 0` kept beside it, baseline kept, escalated to Smit (wording changed 2026-11-08, see Decisions) |
 
 Escalation means a `NEEDS HUMAN:` line in the run output and in `summary.json`. The agent never
 fills in a missing value: no previous count, no guessed count, no zero for a failed board.
@@ -109,3 +109,4 @@ config file asks for them.
 | Date | Decision | By |
 |---|---|---|
 | 2026-11-08 | Initial budgets and policy as above. | Smit (drafted with Claude Code) |
+| 2026-11-08 | A suspect board reports `count: null` and keeps the observed zero as `observed_count`. The first draft of this file said `count: null` in the Exits table but `count: 0` in the error-policy table; the independent check caught the conflict during review (see REVIEW_PACKET.md). | Proposed by Claude Code during review; **Smit to confirm** |
