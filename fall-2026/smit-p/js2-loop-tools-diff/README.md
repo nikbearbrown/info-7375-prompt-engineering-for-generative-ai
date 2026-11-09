@@ -98,9 +98,12 @@ means saved responses replayed and labeled as such.
 | `seeded-vanish-1..3` | seeded | v1 | **`finished` while Figma was empty**; then 145 old postings reported as new | **failed** run 2 |
 | `seeded-vanishfix-1..4` | seeded | patched | run 2 (first patch) failed the check on count 0; run 3 (revised) `incomplete`, NEEDS HUMAN; run 4: 0 new | run 2 failed, run 3 passed |
 | `seeded-timeouts-1` | seeded | patched | figma timed out then succeeded on retry; spotify timed out twice → `failed:unreachable`, null | — |
+| `2026-11-09T20-19-03Z` | live, run by Smit on Smit's Mac | patched + no-redirect | figma 146 (**2 new**), bad name 404 → null, spotify 85 (**4 new**), linear 32; `incomplete` | passed |
 
-No posting changed during the minutes between the live runs, so "new posting" detection is
-shown on seeded and unit-test data only. That is listed under "Not checked" in SIGNOFF.md.
+The three 2026-11-08 live runs were minutes apart and saw no changes. Smit's 2026-11-09 run,
+a day later, found 6 real new postings
+(`evidence/smit-mac-run-2026-11-09.txt`). Its trace and raw files are on Smit's Mac; the
+console output and the independent check's output are saved in that evidence file.
 
 ### The trace of one real run, with the deliberate failure
 

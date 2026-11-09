@@ -44,8 +44,12 @@ Not checked:
   - A symlink swapped in between the policy check and the write (time-of-check race).
   - Windows paths. Original tests ran on Linux, Python 3.13; the full suite also
     passed locally on macOS, Python 3.14.5. Filesystem case behavior was not separately audited.
-  - Live behavior across days. The three live runs were minutes apart and saw no
-    posting changes; "new posting" detection is shown only on seeded and unit-test data.
+  - Live behavior over more than one day. Smit's run 2026-11-09T20-19-03Z, a day after the
+    baseline, detected 6 real new postings and passed the independent check
+    (evidence/smit-mac-run-2026-11-09.txt). Longer gaps and many runs were not tried.
+  - Removed postings. That run shows Figma 145 -> 146 with 2 new (so 1 removed) and
+    Spotify 85 -> 85 with 4 new (so 4 removed). The agent reports only new postings,
+    and nothing checks that removals are tracked.
   - A real live timeout or 5xx. Retry is shown with seeded timeouts only.
   - Whether the boards' terms of use allow this polling rate over weeks; robots.txt was
     read for each host on 2026-11-08 (Lever: Crawl-delay 1; Greenhouse: /embed/ disallowed;

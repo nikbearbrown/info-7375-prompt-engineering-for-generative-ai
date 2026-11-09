@@ -148,12 +148,15 @@ The assignment asks for "the commands you ran yourself". The table above records
 Code ran. Before you decide, run these from a fresh clone and fill in the right-hand column
 with what you saw:
 
-| Command | What you saw |
+Run by Smit P on Smit's own Mac on 2026-11-09, in the extracted folder. Output saved verbatim
+in `evidence/smit-mac-run-2026-11-09.txt`.
+
+| Command | What Smit saw |
 |---|---|
-| `python3 -m unittest discover -s tests -t .` | |
-| `git checkout 66d0cbc -- agent/loop.py; python3 -m unittest tests.test_empty_after_nonempty; git checkout HEAD -- agent/loop.py` (v1 code; expect `FAILED (failures=5, errors=1)`, the error being the revise-step assertion reading a field v1 never sets) | |
-| `python3 tests/mutation_check.py` | |
-| `python3 run_agent.py` then `python3 verify_run.py <run-id>` | |
+| `python3 -m unittest discover -s tests -t .` | `Ran 59 tests in 0.640s`, `OK` |
+| `git checkout 66d0cbc -- agent/loop.py; python3 -m unittest tests.test_empty_after_nonempty; git checkout HEAD -- agent/loop.py` (v1 code; expect `FAILED (failures=5, errors=1)`) | Not run: the extracted ZIP has no Git history. The W1 mutant in the next row plants the same defect and gave the same result, `FAILED (failures=5, errors=1)`. |
+| `python3 tests/mutation_check.py` | `10/10 wrong versions caught`. W3b gave `failures=5, errors=30` on macOS, against 1 failure on Linux. |
+| `python3 run_agent.py` then `python3 verify_run.py <run-id>` | Live run `2026-11-09T20-19-03Z`, a day after the baseline: Figma 146 (2 new), bad name `failed:not_found` with `null`, Spotify 85 (4 new), Linear 32 (0 new), exit `incomplete` (code 2). Independent check passed. |
 | Read `evidence/review-patch.diff` and say in your own words what line 3 of section 3 means | |
 
 ## 8. Decision
