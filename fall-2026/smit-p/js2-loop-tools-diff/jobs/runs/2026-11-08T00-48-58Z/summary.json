@@ -1,0 +1,80 @@
+{
+  "run_id": "2026-11-08T00-48-58Z",
+  "seeded": false,
+  "exit": "incomplete",
+  "exit_code": 2,
+  "requests": 4,
+  "elapsed_s": 2.91,
+  "boards": [
+    {
+      "name": "figma",
+      "ats": "greenhouse",
+      "slug": "figma",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+      "attempts": 1,
+      "count": 145,
+      "raw_files": [
+        "jobs/runs/2026-11-08T00-48-58Z/raw/figma-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": false,
+      "new_ids": [],
+      "new": []
+    },
+    {
+      "name": "deliberate-bad-name",
+      "ats": "greenhouse",
+      "slug": "figma-no-such-board-js2",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma-no-such-board-js2/jobs",
+      "attempts": 1,
+      "count": null,
+      "raw_files": [
+        "jobs/runs/2026-11-08T00-48-58Z/raw/deliberate-bad-name-1.json"
+      ],
+      "http_status": 404,
+      "status": "failed:not_found",
+      "reason": "board name not found (404)"
+    },
+    {
+      "name": "spotify",
+      "ats": "lever",
+      "slug": "spotify",
+      "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+      "attempts": 1,
+      "count": 85,
+      "raw_files": [
+        "jobs/runs/2026-11-08T00-48-58Z/raw/spotify-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": false,
+      "new_ids": [],
+      "new": []
+    },
+    {
+      "name": "linear",
+      "ats": "ashby",
+      "slug": "linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "attempts": 1,
+      "count": 32,
+      "raw_files": [
+        "jobs/runs/2026-11-08T00-48-58Z/raw/linear-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": false,
+      "new_ids": [],
+      "new": []
+    }
+  ],
+  "budget_stop": null,
+  "error": null,
+  "needs_human": [
+    "deliberate-bad-name: failed:not_found (board name not found (404))"
+  ]
+}

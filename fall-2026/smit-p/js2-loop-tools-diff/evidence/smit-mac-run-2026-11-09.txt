@@ -1,0 +1,63 @@
+Commands run by Smit P on Smit's own MacBook Pro (macOS, conda "base" Python), in the
+extracted js2-loop-tools-diff/ folder, 2026-11-09. Output pasted by Smit into the Claude
+Code session and saved here verbatim. The first line of the unittest dots was cut off in
+the paste.
+
+$ python3 -m unittest discover -s tests -t .
+...........................................................
+----------------------------------------------------------------------
+Ran 59 tests in 0.640s
+
+OK
+
+$ python3 tests/mutation_check.py
+unmutated code                                suite passes  (OK)
+W1 empty means no news                        caught  (FAILED (failures=5, errors=1))
+W2 failure becomes zero                       caught  (FAILED (failures=1))
+W3a prefix check for paths                    caught  (FAILED (failures=2))
+W3b path check without resolving symlinks     caught  (FAILED (failures=5, errors=30))
+W4 suffix check for hosts                     caught  (FAILED (failures=1))
+W5 retry everything                           caught  (FAILED (failures=3))
+W6 stop means success                         caught  (FAILED (failures=3))
+W7 baseline overwritten by a failure          caught  (FAILED (failures=7))
+W9 redirect followed to an unchecked host     caught  (FAILED (failures=1))
+W8 Ashby unlisted postings counted            caught  (FAILED (failures=1))
+10/10 wrong versions caught
+
+$ python3 run_agent.py
+run 2026-11-09T20-19-03Z  [LIVE]  requests=4  elapsed=3.02s
+  figma                  greenhouse ok                         count=146  new=2
+      + 6232528004  Director, Creative Brand Expression
+      + 6242701004  Researcher, AI Evaluations
+  deliberate-bad-name    greenhouse failed:not_found           count=null
+  spotify                lever      ok                         count=85  new=4
+      + a4651332-6400-40e8-8c22-5491e7a34161  Analyst, Royalty Operations
+      + ea20d13d-aedc-4d02-a4aa-b6d6b1400aed  Machine Learning Engineering Manager II
+      + 9057bb9b-3aa2-49ba-9fd0-a9395018d0ea  Retention & Engagement Marketing Lead
+      + 3616d255-dd0f-4771-a0c8-92bdc2abdccd  Senior Accountant, General Ledger Accounting
+  linear                 ashby      ok                         count=32  new=0
+  NEEDS HUMAN: deliberate-bad-name: failed:not_found (board name not found (404))
+exit: incomplete (code 2)
+
+$ python3 verify_run.py 2026-11-09T20-19-03Z
+PASS  hosts                                               4 requests, off-list: none
+PASS  request count                                       trace has 4, summary says 4
+PASS  figma: recount from raw                             agent 146, recount 146
+PASS  figma: greenhouse meta.total                        meta.total 146, jobs 146
+PASS  figma: compared with earlier raw                    145 in 2026-11-08T00-48-58Z, 146 now
+PASS  deliberate-bad-name: failure has no invented value  status failed:not_found, count None
+PASS  spotify: recount from raw                           agent 85, recount 85
+PASS  spotify: compared with earlier raw                  85 in 2026-11-08T00-48-58Z, 85 now
+PASS  linear: recount from raw                            agent 32, recount 32
+PASS  linear: compared with earlier raw                   32 in 2026-11-08T00-48-58Z, 32 now
+verify 2026-11-09T20-19-03Z: agent said 'incomplete'; independent check passed
+
+Notes (Claude Code, reading the output above):
+- First live run a calendar day after the baseline; it detected 6 real new postings.
+- Figma 145 -> 146 with 2 new means 1 posting was removed; Spotify 85 -> 85 with 4 new
+  means 4 were removed. The agent reports new postings only, not removed ones.
+- W3b produced 30 errors on macOS against 1 failure on Linux, likely because macOS temp
+  folders sit behind a symlink (/var -> /private/var), so skipping symlink resolution
+  breaks many more paths there.
+- The run's own trace, summary, and raw files are on Smit's Mac and are not yet in this
+  folder.

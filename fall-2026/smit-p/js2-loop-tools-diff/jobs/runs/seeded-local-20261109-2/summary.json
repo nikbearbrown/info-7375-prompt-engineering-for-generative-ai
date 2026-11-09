@@ -1,0 +1,66 @@
+{
+  "run_id": "seeded-local-20261109-2",
+  "seeded": true,
+  "exit": "incomplete",
+  "exit_code": 2,
+  "requests": 3,
+  "elapsed_s": 0.01,
+  "boards": [
+    {
+      "name": "figma",
+      "ats": "greenhouse",
+      "slug": "figma",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+      "attempts": 1,
+      "count": null,
+      "raw_files": [
+        "jobs/runs/seeded-local-20261109-2/raw/figma-1.json"
+      ],
+      "http_status": 200,
+      "status": "suspect:empty_after_nonempty",
+      "observed_count": 0,
+      "duplicate_ids": 0,
+      "previous_count": 145,
+      "reason": "0 postings now, 145 in the baseline"
+    },
+    {
+      "name": "spotify",
+      "ats": "lever",
+      "slug": "spotify",
+      "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+      "attempts": 1,
+      "count": 85,
+      "raw_files": [
+        "jobs/runs/seeded-local-20261109-2/raw/spotify-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": false,
+      "new_ids": [],
+      "new": []
+    },
+    {
+      "name": "linear",
+      "ats": "ashby",
+      "slug": "linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "attempts": 1,
+      "count": 32,
+      "raw_files": [
+        "jobs/runs/seeded-local-20261109-2/raw/linear-1.json"
+      ],
+      "http_status": 200,
+      "status": "ok",
+      "duplicate_ids": 0,
+      "baseline": false,
+      "new_ids": [],
+      "new": []
+    }
+  ],
+  "budget_stop": null,
+  "error": null,
+  "needs_human": [
+    "figma: suspect:empty_after_nonempty (0 postings now, 145 in the baseline)"
+  ]
+}

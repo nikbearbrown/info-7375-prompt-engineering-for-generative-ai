@@ -1,0 +1,15 @@
+run seeded-vanishfix-3  [SEEDED (replayed saved responses, not a live run)]  requests=3  elapsed=0.01s
+  figma                  greenhouse suspect:empty_after_nonempty count=null
+  spotify                lever      ok                         count=85  new=0
+  linear                 ashby      ok                         count=32  new=0
+  NEEDS HUMAN: figma: suspect:empty_after_nonempty (0 postings now, 145 in the baseline)
+exit: incomplete (code 2)
+PASS  hosts                                 3 requests, off-list: none
+PASS  request count                         trace has 3, summary says 3
+PASS  seeded label                          replayed responses must be labeled
+PASS  figma: failure has no invented value  status suspect:empty_after_nonempty, count None
+PASS  spotify: recount from raw             agent 85, recount 85
+PASS  spotify: compared with earlier raw    85 in seeded-vanishfix-2, 85 now
+PASS  linear: recount from raw              agent 32, recount 32
+PASS  linear: compared with earlier raw     32 in seeded-vanishfix-2, 32 now
+verify seeded-vanishfix-3: agent said 'incomplete'; independent check passed
