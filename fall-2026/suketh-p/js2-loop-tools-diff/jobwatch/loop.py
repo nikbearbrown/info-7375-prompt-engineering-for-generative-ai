@@ -91,6 +91,8 @@ def classify_response(board, response):
         postings = ats.parse(board.ats, response.body)
     except InputError as error:
         return "unverified", None, f"malformed payload: {error}"
+    if not postings:
+        return "unverified", None, "empty jobs list: the board answered 200 with no postings, so it could not be verified"
     return "usable", postings, None
 
 
