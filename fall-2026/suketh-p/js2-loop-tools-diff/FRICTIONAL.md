@@ -16,6 +16,18 @@ November 8, 2026 — After the failure run
 
 I compared the state file with the copy I saved before the run, then ran the independent checker against the saved responses and both state files. The bad board returned a 404, its job count showed as unknown, and the run ended incomplete with the state file unchanged, just as I expected. I still need to check whether the loop handles a 200 response with an empty jobs list the same way.
 
+### 2026-11-09, final retrospective
+
+November 9, 2026 — Final retrospective
+
+The live 404 run gave me a reference point. The board showed an unknown job count, the run ended incomplete, and cmp confirmed the saved state stayed byte-for-byte the same. The harder case was an HTTP 200 with an empty jobs list. The parser could read it, and the loop treated that as enough to mark the board usable and update state.
+
+My first attempt to run the review tests stopped at ModuleNotFoundError. Once the file was in the project’s tests/ folder, I could see the actual defect. Both empty-board tests got usable where I expected unverified, while the nonempty replay passed. That made the failure specific enough to review a small change.
+
+I accepted 4e39762 for the empty-board fix. It adds the check in classify_response, where the loop decides whether a board is usable. All four focused tests passed in my Terminal run. One empty board left the run incomplete and preserved state, three empty boards produced an error without creating state, and three nonempty boards with zero new postings still finished.
+
+One thing I’d change about my process is when I save the audit. My Terminal command started at 00:35:50 EST and the audit copy was saved at 00:36:08 EST. Next time I’ll save the audit before starting the command so the order is clear from the record. One case I still haven’t checked is a board returning a valid but partial list. Even a response with just one posting can count as usable under this rule.
+
 ## Claude Code's timeline (factual)
 
 Times are EST. Unmarked times come from commits, file save times, or the runs' own clocks. **Times marked ~ are approximate**, placed from the conversation, which stays on the student's machine (brief, "Privacy and boundaries"). "Decided by" names who settled each item.
