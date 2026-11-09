@@ -71,6 +71,7 @@ class Session:
         self.policy, self.get, self.clock, self.sleep = policy, get, clock, sleep
         self.trace = policy.log  # policy decisions and loop events share one ordered trace
         self.t0 = clock()
+        policy.clock = self.elapsed
         self.requests = 0
         self.sent = {}  # (method, url) -> times sent; the repeat rule
 
@@ -186,6 +187,7 @@ def run(config, out_dir, fixtures=None, label="live", empty_guard=True, approve=
     out = Path(out_dir)
     read_roots = [ROOT] + ([Path(fixtures)] if fixtures else []) + [Path(r) for r in extra_read_roots]
     policy = Policy(out, read_roots, approve=approve)
+    policy.display_root = ROOT
     s = Session(policy, get or live_get, clock, sleep)
     now = now or datetime.now(timezone.utc)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")

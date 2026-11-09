@@ -33,10 +33,23 @@ class Policy:
         self.read_roots = [Path(r) for r in read_roots]
         self.approve = approve
         self.log = []
+        self.clock = None  # set by the loop's Session so policy decisions carry the same run time as other events
+        self.display_root = None  # paths under this root are logged relative to it (no home-folder paths in traces)
+
+    def _show(self, target):
+        if self.display_root is not None and isinstance(target, Path):
+            try:
+                return str(Path(os.path.abspath(target)).relative_to(os.path.abspath(self.display_root)))
+            except ValueError:
+                pass
+        return str(target)
 
     def _decide(self, kind, target, allowed, reason):
-        self.log.append({"kind": kind, "target": str(target), "decision": "allow" if allowed else "refuse",
-                         "reason": reason})
+        entry = {"kind": kind, "target": self._show(target), "decision": "allow" if allowed else "refuse",
+                 "reason": reason}
+        if self.clock:
+            entry = {"t": self.clock(), **entry}
+        self.log.append(entry)
         if not allowed:
             raise PolicyError(f"refused {kind} {target}: {reason}")
 
