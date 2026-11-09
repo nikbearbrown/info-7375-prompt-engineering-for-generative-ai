@@ -23,7 +23,7 @@ Times are EST. Unmarked times come from commits, file save times, or the runs' o
 | When | What happened | Decided by | Trace |
 |---|---|---|---|
 | 11-08 04:20 | Before any gate existed, Claude Code probed 12 board URLs (read-only). 9 answered; made-up names got 404 on both systems; Greenhouse `hubspot`, an empty board in Lectern's notes, now got 404 | — | [evidence/probes/](evidence/probes/2026-11-08-board-probe.txt) |
-| 11-08 04:22 | Gave the student a worksheet of the brief's questions and the probe's facts, with no answers | — | [sheets](evidence/sheets-given-to-the-student/README.md) |
+| 11-08 04:22 | Gave the student a worksheet: the brief's questions, the probe's facts, and "cases to decide" posed as questions | — | [sheets](evidence/sheets-given-to-the-student/README.md) |
 | 11-08 04:51 | Timed the downloads the gate's 5 s limit applies to: Anthropic and Databricks (about 10 MB each) in 0.50–0.59 s; Linear (0.45 MB) in 0.13–0.24 s | — | [timing](evidence/probes/2026-11-08-board-timing.txt) |
 | 11-08 04:52 | Before any code: the student's GATE.md committed byte-for-byte, and their first entry verbatim | Student | `b55d2a5` |
 | 11-08 ~04:55 | Two readings of the gate put to the student. Wrong-run or wrong-file approval → **incomplete**. Later (~05:21): a redirect → **unverified, keep going** | Student | `7db4ab4` message |
