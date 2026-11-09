@@ -9,3 +9,10 @@
 * **What Claude did / what I accepted:** I made all the core operational decisions: the two systems (Greenhouse + Lever), the budget numbers, the single-retry rule, treating empty boards as incomplete, requiring `--approve`, and going with Option A for `out/seen.json`. Claude asked the guiding questions, caught inconsistencies and padded text in my drafts, and synthesized a few sentences directly from my choices, which I kept as written (including the other-4xx bullet, the out/seen.json sentence, the `--approve` sentences, and the exception in the error exit). Claude also caught the contradiction between the strict "writes only in out/" rule and modifying protected files, which led me to add the explicit `--approve` exception.
 * **What’s still open:** Selecting and verifying 3 real boards plus 1 deliberately bad board to test the 404 path, and writing tests for the 2-second retry wait, which hasn't been tested yet.
 * **Reference commit:** `777cef4`
+
+## Nov 8, 2026 (Step 6)
+
+* **What happened:** I ran the boundary test suite locally against `agent/policy.py`, and all 12 of 12 tests passed on the first run. The complete output log is saved in `evidence/policy-tests-20261108.txt`, matching policy commit `f357831`.
+* **What Claude did / what I accepted:** Claude generated the initial implementations for `agent/policy.py` and `tests/test_policy.py` based on the predicted cases in my boundary table, then filled in the `Actual Result` and `Pass/Fail` columns directly from the test run results in my evidence file.
+* **What's still open:** These unit tests verify that the policy functions raise the expected exceptions, but the "run exits error" behavior—where a policy violation actually halts the entire agent loop and writes the fatal exit report—still needs to be verified during the Step 7 loop integration tests.
+* **Reference commit:** `f357831`
