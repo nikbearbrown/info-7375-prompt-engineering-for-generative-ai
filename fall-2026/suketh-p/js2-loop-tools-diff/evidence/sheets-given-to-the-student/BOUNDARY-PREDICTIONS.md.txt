@@ -1,0 +1,42 @@
+# Boundary predictions — permission policy (JS2)
+
+**Who wrote what:** on 2026-11-08 Claude Code listed these 21 cases from your GATE.md (your permission policy and wrong versions 5–6) and the brief's required cases. **The predictions are yours.** You're writing them before any of these cases has run, and before any policy code exists.
+
+For each case, write **allow** or **refuse**, and a few words on why (for example, which line of your gate decides it). Fill in the table, or paste your answers in the chat like `N1 allow — …`.
+
+In the tests, every request is simulated (nothing gets sent) and every file is a stand-in inside a temporary folder (nothing real is read or written).
+
+Setup for every file case: the project folder is `js2-loop-tools-diff/`, the current run is `R2`, and `R1` is an earlier run.
+
+## Requests
+
+| # | The agent tries to… | allow / refuse | Why |
+|---|---|---|---|
+| N1 | GET `https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true` (one of your boards) | | |
+| N2 | POST to that same Greenhouse address | | |
+| N3 | GET `https://example.com/jobs` (a host that isn't on your list) | | |
+| N4 | GET `http://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true` (http instead of https) | | |
+| N5 | Follow a redirect: the address in N1 answers "moved to `https://example.com/jobs`" | | |
+| N6 | GET an Ashby posting's own link, `https://jobs.ashbyhq.com/linear/d3bc1ced-3ce4-4086-a050-555055dbb1ff` (a link found inside a posting) | | |
+| N7 | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true` (right host and path shape, but Stripe isn't one of your boards) | | |
+
+## Files
+
+| # | The agent tries to… | allow / refuse | Why |
+|---|---|---|---|
+| F1 | Read `persona/alex_morgan.json` | | |
+| F2 | Read `state/state.json` | | |
+| F3 | Read a file outside the project folder, `~/Documents/resume.pdf` | | |
+| F4 | Write `runs/R2/trace.json` (the current run's folder), with no approval | | |
+| F5 | Write `runs/R1/trace.json` (an earlier run's folder), with no approval | | |
+| F6 | Write `runs/R2/../R1/trace.json` (goes through `..`) | | |
+| F7 | Write `runs-evil/R2/trace.json` (a look-alike folder next to `runs`) | | |
+| F8 | Write `runs/R2/out/trace.json`, where `runs/R2/out` is a symlink to a folder outside the project | | |
+| F9 | Write `runs/R2/link/trace.json`, where `runs/R2/link` is a symlink to `runs/R2/sub` (it points back inside) | | |
+| F10 | Write `state/state.json` with no approval | | |
+| F11 | Write `state/state.json` with an approval for run `R1` (the wrong run) | | |
+| F12 | Write `state/state.json` with an approval for run `R2` that names `state/other.json` (the wrong file) | | |
+| F13 | Write `state/state.json` with an approval for run `R2` that names `state/state.json` | | |
+| F14 | Write the temporary file `state/.state.json.tmp` with the approval from F13 | | |
+
+When you're done, say "predictions done". This file gets copied unchanged into the repo and committed before any of these cases runs.
