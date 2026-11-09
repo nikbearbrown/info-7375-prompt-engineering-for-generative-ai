@@ -1,0 +1,33 @@
+Seeded: demo/finished_wrong/out/evidence/raw/seeded/stripe_missing_new_postings.json · 680 of 766 real jobs kept · meta.total still 766
+State: 10/31 (demo/finished_wrong/input/stripe.state.2026-10-31.json), so the 86 removed postings were the new ones
+
+Run 2026-11-09T00:13:54Z · exit: **finished** (all 1 boards ok)
+Budget used: boards 1/4 · requests 0/10 · seconds 0.0/120
+Claude judge: off (turn on with --claude)
+Trace: demo/finished_wrong/out/runs/2026-11-09T001354Z/trace.jsonl
+
+| board | ats | status | code | reason | fetched | new | attempts |
+|---|---|---|---|---|---|---|---|
+| stripe | greenhouse | ok |  |  | 680 | 0 | 0 |
+
+## stripe · seeded (replayed saved response)
+State file: demo/finished_wrong/out/state/stripe.state.json · Raw response: demo/finished_wrong/out/evidence/raw/seeded/stripe_missing_new_postings.json
+
+| | rule (record) | Claude (judgment) |
+|---|---|---|
+| fetched postings | 680 | — |
+| new postings | 0 | — |
+| cut at 1a exclude words | 0 | — |
+| cut at 1b title | 0 | — |
+| cut at 2 location | 0 | — |
+| cut at 3 skills | 0 | — |
+| cut at 4 years | 0 | — |
+| cut at 5 visa | 0 | — |
+| cut at 6 salary | 0 | — |
+| not sent: Claude budget used up | — | — |
+| error | 0 | — |
+| **relevant** | **0** | — |
+| judges disagree | — | |
+
+Missed a skill written another way? Add it under "skill_aliases" in personas/aarav-patel.profile.json
+Run output: demo/finished_wrong/out/runs/2026-11-09T001354Z/ · exit: finished

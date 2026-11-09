@@ -1,0 +1,73 @@
+{
+ "posting_id": 8336819,
+ "title": "Blockchain Security Engineer, Bridge",
+ "prompt": "claude_judge.v1",
+ "chat": {
+  "result": "{\"posting_id\":8336819,\"verdict\":\"not_relevant\",\"justification\":[{\"posting_field\":\"content\",\"compared_to\":\"profile.years_experience\",\"result\":\"Posting requires 8+ years, far above the 2 years of experience plus 2 stretch (4 max).\",\"quote\":\"8+ years of experience in Security engineering.\"},{\"posting_field\":\"location.name\",\"compared_to\":\"profile.locations[]\",\"result\":\"Luxembourg is not in Boston, US remote, or US, so the candidate cannot work there.\",\"quote\":\"Luxembourg\"},{\"posting_field\":\"title\",\"compared_to\":\"profile.target_roles[]\",\"result\":\"A security engineer role is not among the target roles (software engineer, backend, platform, devops, SRE).\",\"quote\":\"Blockchain Security Engineer, Bridge\"}]}",
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "permission_denials": [],
+  "model": [
+   "claude-sonnet-5-5"
+  ]
+ },
+ "file": {
+  "result": "{\"posting_id\":8336819,\"verdict\":\"not_relevant\",\"justification\":[{\"posting_field\":\"content\",\"compared_to\":\"profile.years_experience\",\"result\":\"The posting requires 8+ years of experience. The candidate has 2 years, and the limit with stretch is 4.\",\"quote\":\"8+ years of experience in Security engineering.\"},{\"posting_field\":\"location.name\",\"compared_to\":\"profile.locations[]\",\"result\":\"The posting is in Luxembourg. The candidate can work in Boston or the US only.\",\"quote\":\"Luxembourg\"},{\"posting_field\":\"title\",\"compared_to\":\"profile.target_roles[]\",\"result\":\"This is a security engineer role. It is not clearly one of the candidate's target roles (software, backend, platform, devops or SRE).\",\"quote\":\"Blockchain Security Engineer, Bridge\"}]}",
+  "stop_reason": "end_turn",
+  "num_turns": 4,
+  "permission_denials": [],
+  "model": [
+   "claude-sonnet-5-5"
+  ]
+ },
+ "agent": [
+  {
+   "posting_id": 8336819,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ]
+  },
+  {
+   "posting_id": 8336819,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A security engineering role is not among the target roles (software engineer, backend, platform, devops, SRE).",
+     "quote": "Blockchain Security Engineer, Bridge"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Luxembourg is not in Boston, US remote, or US.",
+     "quote": "Luxembourg"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 8+ years, far above the 2 years of experience plus 2 stretch years (4 max).",
+     "quote": "8+ years of experience in Security engineering."
+    }
+   ]
+  }
+ ]
+}
