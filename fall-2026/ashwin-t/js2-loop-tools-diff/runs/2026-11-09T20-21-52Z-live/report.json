@@ -1,0 +1,221 @@
+{
+  "run": {
+    "run_id": "2026-11-09T20-21-52Z-live",
+    "run_dir": "runs/2026-11-09T20-21-52Z-live",
+    "mode": "LIVE",
+    "label": null,
+    "status": "incomplete",
+    "exit_code": 1,
+    "reasons": [
+      "greenhouse/klaviyo-nonexistent-js2: failed (HTTP 404: board not found (bad board name?))"
+    ],
+    "started_utc": "2026-11-09T20:21:52Z",
+    "ended_utc": "2026-11-09T20:21:58Z",
+    "elapsed_seconds": 5.112,
+    "budget": {
+      "max_boards": 6,
+      "max_attempts": 12,
+      "max_seconds": 120.0,
+      "request_timeout": 10.0,
+      "max_retries_per_board": 1,
+      "retry_delay": 1.0
+    },
+    "attempts_used": 6,
+    "boards_configured": 6,
+    "state_update": "not-allowed: run status is incomplete",
+    "deliberate_failure": [
+      "greenhouse/klaviyo-nonexistent-js2: deliberate failure observed and handled: HTTP 404: board not found (bad board name?)"
+    ],
+    "replay_source": null
+  },
+  "boards": [
+    {
+      "provider": "greenhouse",
+      "board": "klaviyo",
+      "purpose": "watch",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "outcome": "observed",
+      "reason": "HTTP 200, 151 postings",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+          "status": 200,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/greenhouse__klaviyo__attempt-1.json",
+          "sha256": "47d4b625b927280a31f37b2487e6c9825e3811b901e9c829d2637ba08aa12484",
+          "bytes": 2829228,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:52 GMT",
+            "content-type": "application/json"
+          },
+          "elapsed": 0.408,
+          "kind": "ok",
+          "detail": "HTTP 200, 151 postings"
+        }
+      ],
+      "postings_observed": 151,
+      "baseline": true,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    },
+    {
+      "provider": "greenhouse",
+      "board": "hubspotjobs",
+      "purpose": "watch",
+      "url": "https://boards-api.greenhouse.io/v1/boards/hubspotjobs/jobs?content=true",
+      "outcome": "observed",
+      "reason": "HTTP 200, 126 postings",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://boards-api.greenhouse.io/v1/boards/hubspotjobs/jobs?content=true",
+          "status": 200,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/greenhouse__hubspotjobs__attempt-1.json",
+          "sha256": "2fd017a3782c98082bc33e6b9732232458f1b6181b81fecb0c64a16dd06b21db",
+          "bytes": 2136833,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:53 GMT",
+            "content-type": "application/json"
+          },
+          "elapsed": 0.401,
+          "kind": "ok",
+          "detail": "HTTP 200, 126 postings"
+        }
+      ],
+      "postings_observed": 126,
+      "baseline": true,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    },
+    {
+      "provider": "ashby",
+      "board": "notion",
+      "purpose": "watch",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+      "outcome": "observed",
+      "reason": "HTTP 200, 153 postings",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+          "status": 200,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/ashby__notion__attempt-1.json",
+          "sha256": "dd39d62159b1b608826c93427ee5b4084af65730557053513dcfd328112e4434",
+          "bytes": 2816005,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:53 GMT",
+            "content-type": "application/json; charset=utf-8"
+          },
+          "elapsed": 0.214,
+          "kind": "ok",
+          "detail": "HTTP 200, 153 postings"
+        }
+      ],
+      "postings_observed": 153,
+      "baseline": true,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    },
+    {
+      "provider": "ashby",
+      "board": "supabase",
+      "purpose": "watch",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/supabase",
+      "outcome": "observed",
+      "reason": "HTTP 200, 71 postings",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://api.ashbyhq.com/posting-api/job-board/supabase",
+          "status": 200,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/ashby__supabase__attempt-1.json",
+          "sha256": "beb2d86f6abf58159972f051b2d1243a4d24d187a94c234eb20a53f15dbb4f8e",
+          "bytes": 977451,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:54 GMT",
+            "content-type": "application/json; charset=utf-8"
+          },
+          "elapsed": 0.277,
+          "kind": "ok",
+          "detail": "HTTP 200, 71 postings"
+        }
+      ],
+      "postings_observed": 71,
+      "baseline": true,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    },
+    {
+      "provider": "lever",
+      "board": "palantir",
+      "purpose": "watch",
+      "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+      "outcome": "observed",
+      "reason": "HTTP 200, 304 postings",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+          "status": 200,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/lever__palantir__attempt-1.json",
+          "sha256": "900ed27b9d19a3fa52394216c06ed325be42248503e2eb14c594ef2cc2808297",
+          "bytes": 5927545,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:54 GMT",
+            "content-type": "application/json; charset=utf-8"
+          },
+          "elapsed": 3.634,
+          "kind": "ok",
+          "detail": "HTTP 200, 304 postings"
+        }
+      ],
+      "postings_observed": 304,
+      "baseline": true,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    },
+    {
+      "provider": "greenhouse",
+      "board": "klaviyo-nonexistent-js2",
+      "purpose": "deliberate-failure",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo-nonexistent-js2/jobs?content=true",
+      "outcome": "failed",
+      "reason": "HTTP 404: board not found (bad board name?)",
+      "attempts": [
+        {
+          "attempt": 1,
+          "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo-nonexistent-js2/jobs?content=true",
+          "status": 404,
+          "raw_file": "runs/2026-11-09T20-21-52Z-live/raw/greenhouse__klaviyo-nonexistent-js2__attempt-1.json",
+          "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe",
+          "bytes": 38,
+          "headers": {
+            "date": "Mon, 09 Nov 2026 20:21:57 GMT",
+            "content-type": "application/json"
+          },
+          "elapsed": 0.121,
+          "kind": "failed",
+          "detail": "HTTP 404: board not found (bad board name?)"
+        }
+      ],
+      "postings_observed": null,
+      "baseline": null,
+      "previously_seen": null,
+      "new": null,
+      "rule_relevant": null
+    }
+  ],
+  "attention_required": [
+    {
+      "board": "greenhouse/klaviyo-nonexistent-js2",
+      "attempt": 1,
+      "failure": "failed: HTTP 404: board not found (bad board name?)",
+      "next_check": "Expected: this board is the deliberate failure. Confirm the reason matches GATE.md section 4."
+    }
+  ]
+}
