@@ -64,4 +64,5 @@ Times are EST. Unmarked times come from commits, file save times, or the runs' o
 | 11-09 01:23 | The student's final retrospective, verbatim | Student | `b90cebd` |
 | 11-09 01:39 | The student's sign-off: **withheld**, "because the audit was saved after verification started and the contribution record needs correction" | Student | `dfe7203` |
 | 11-09 01:41 | At the student's request, the driver's seat and SOURCES now separate Claude Code's drafting help from the student's decisions and own verification. Asked which help the sign-off meant, the student answered "Claude's drafts only" | Student | `b6de749` |
-| 11-09 ~01:45 | Branch pushed to the student's fork (the student's "Yes, push to my fork"). The student chose "Sign it now" and sent their name and date; the sign-off is **signed**, and the withheld version is kept | Student | this commit |
+| 11-09 01:41–01:43 | Branch pushed to the student's fork (the student's "Yes, push to my fork"). The student chose "Sign it now" and sent their name and date; the sign-off is **signed**, and the withheld version is kept | Student | `d6ff91b` |
+| 11-09 01:44 | Fresh sparse clone of `d6ff91b` from GitHub, by Claude Code: 164 tests OK; `verify` OK; independent check PASS; boundary rows identical; the seeded demonstration as documented | — | [output](evidence/test-runs/2026-11-09-09-fresh-clone-d6ff91b.txt) |

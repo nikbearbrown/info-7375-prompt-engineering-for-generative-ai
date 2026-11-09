@@ -79,7 +79,7 @@ Times are EST; "Code" is the commit the run used.
 | 11-08 06:19 | `2026-11-08-failure-2`, **the trace** | live | **the student** | **incomplete**: 0 new on each board; 404 as expected. The student's `cmp`: state unchanged. Check PASS | [trace](runs/2026-11-08-failure-2/trace.md), [terminal](evidence/terminal/2026-11-08-failure-2-run-by-student.txt) | `0507a83` |
 | 11-09 00:41 | finished-wrong-answer, after the fix | **SEEDED** | Claude Code | The same empty Linear body now ends **incomplete**, with Linear `unverified`. Check PASS | [summary](demos/finished-wrong-answer/at-4e39762-after-fix/SUMMARY.md) | `4e39762` |
 
-Test runs, RED and GREEN, are in [evidence/test-runs/](evidence/test-runs/), in order. No live run so far has found a new posting: all were within three hours of the baseline.
+Test runs, RED and GREEN, are in [evidence/test-runs/](evidence/test-runs/), in order. The last is a fresh clone from GitHub of `d6ff91b`, the signed version: 164 tests OK, `verify` OK, the independent check PASS, and the boundary rows identical ([output](evidence/test-runs/2026-11-09-09-fresh-clone-d6ff91b.txt)). No live run so far has found a new posting: all were within three hours of the baseline.
 
 ## How one run works
 
