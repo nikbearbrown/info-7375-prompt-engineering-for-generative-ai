@@ -239,3 +239,26 @@ def test_p20_approval_reused_in_new_run_denied(tmp_path, monkeypatch):
     assert opens.calls == []
     assert protected_path(root).read_bytes() == data  # OpenSpy passes reads through
     assert sorted(os.listdir(root / "protected")) == ["shortlist.json"]
+
+# ---------- Review packet: User-Agent (GATE v0.4) ----------
+
+AGENT_UA = "info7375-js2-watch/0.1 (student project; tushar-js2@example.com)"
+
+
+class HeaderCapturingHandler(FakeHTTPSHandler):
+    """Records the headers urllib would put on the wire for each request."""
+
+    def https_open(self, req):
+        self.seen_headers = {k.lower(): v for k, v in req.header_items()}
+        return super().https_open(req)
+
+
+def test_ua01_request_sends_agent_user_agent():
+    """GATE v0.4: every request sends the agent's own User-Agent, never urllib's default.
+    Written by me before the patch; expected to FAIL on commit <step-2 build>."""
+    handler = HeaderCapturingHandler(200, "OK", {}, b'{"jobs": []}')
+    spy = TransportSpy(inner=UrllibTransport(build_opener(https_handler=handler)))
+    send(STRIPE, "GET", P01_URL, transport=spy, timeout=TIMEOUT)
+    ua = handler.seen_headers.get("user-agent")
+    assert ua == AGENT_UA
+    assert "python-urllib" not in " ".join(handler.seen_headers.values()).lower()
