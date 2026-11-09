@@ -163,7 +163,25 @@ Drafted by Claude Code from the record, for the student to correct.
 
 ## Sign-off
 
-**Pending: the student writes it.** Chapters 4–6 ask that it be written from the record, not from a fluent draft. The facts Claude Code can state for it:
+**Withheld by the student on 2026-11-09.** The student wrote it and pasted it in chat, and it is reproduced verbatim:
+
+```text
+Sign-off — Job-Search Agent 2
+
+Checked — On 4e39762, I ran four tests and all passed: test_empty_greenhouse_board_does_not_create_a_baseline, test_empty_ashby_board_leaves_saved_state_byte_identical, test_all_empty_boards_end_in_error_without_creating_state, and test_nonempty_boards_with_no_new_postings_still_finish. In my live failure run, 2026-11-08-failure-2, the bad board returned 404 with an unknown count, the run ended incomplete, and the state stayed byte-for-byte identical. I recorded 21 allow/refuse predictions before implementation. All 21 matched the separate boundary run.
+
+How — I ran the four regression cases in my Terminal using tests prepared before the patch with drafting help. I used cmp to compare the state files and ran the independent checker to recompute counts from the saved responses. With Claude’s help, the broader suite, boundary cases, raw-response verification, and seeded demonstrations were run separately. Claude also wrote the independent checker I used.
+
+Not checked — A board returning a valid but partial list, detection of new postings on live data, who typed a state approval, and what happens if a path changes between the permission check and the file operation.
+
+Not claiming — A finished run establishes that the results are correct, a saved response contains every posting, or the permission policy provides a sandbox.
+
+Signed or withheld — Withheld — Suketh Produtoor, November 9, 2026. I accepted the empty-board fix based on the four focused tests. I’m withholding the overall sign-off because the audit was saved after verification started and the contribution record needs correction.
+```
+
+### The facts Claude Code listed before the student wrote it
+
+Chapters 4–6 ask that the sign-off be written from the record, not from a fluent draft, so Claude Code listed facts only:
 
 - **The student's own tests and checks:**
   - `tests/test_review_empty_board.py`, 4 cases, written before the patch, RED in the student's run (v1) and in Claude Code's (v2), passing in the student's run on `4e39762`.
