@@ -159,11 +159,13 @@ Revised on 2026-11-09 at the student's request. The student asked the table to "
 | **Running the loop for real** | Ran the first failure run; wrote `verify` and the independent check; wrote the command lines | The command lines Claude Code gave | Typed their own approval for the first finished run | Ran `2026-11-08-normal-1` (finished). Ran `2026-11-08-failure-2` and, **themselves**, `cmp` against their own copy of the state (unchanged) and the independent checker (PASS) | Approving a state write is theirs, and so is checking their own claim | `0507a83`, `72195da`; [their output](evidence/terminal/2026-11-08-failure-2-run-by-student.txt) |
 | **The finished wrong answer** | Wrote and ran the seeded demonstration, before and after the fix, and the independent check | — | Named the check's criterion in GATE.md wrong version 1 | — (the demonstrations were Claude Code's runs) | The check must fail differently from the agent; the criterion is the student's standard | `ecd83b7`, `11bd1f6` |
 | **The review** | Wrote the review-gate sheet (one candidate change and its rule, `classify_response` among four places, example reproductions, the file name); proposed the all-empty case; pointed to test helpers and model tests; wrote the plan (with the partial-board gap), the patch, and the audit and decision templates; ran test v2 and, after the decision, the full suite | The candidate change and its rule; the example reproductions; the file name; `LoopCase`, `tests/fakes.py` and the model tests; the all-empty case; the templates | Chose the change; limited the patch to `classify_response`; wrote the rule, both reproductions, the comparison case and the wrong-patch sentence; wrote test v1 and v2 before the patch; checked the plan; wrote the request, the audit and the decision (**accept**) | Test v1 RED in their run (2 FAIL, 1 ok); **their four focused tests passed on `4e39762`**. The audit was saved at 00:36:08, **18 s after their test command started** (00:35:50) | The requirement, the test and the decision are where understanding goes on record | [review-packet/README.md](review-packet/README.md) |
-| **The sign-off** | Listed the facts below | The list of facts (the sign-off's items match it) | Wrote it, from the record, and **withheld** it | — | Their name goes on it | below |
+| **The sign-off** | Listed the facts below; made the correction the student asked for | The list of facts (the sign-off's items match it) | Wrote it, from the record; **withheld** it; after the correction, **signed** it | — | Their name goes on it | below |
 
 ## Sign-off
 
-**Withheld by the student on 2026-11-09.** The student wrote it and pasted it in chat, and it is reproduced verbatim:
+**Signed by the student on 2026-11-09, after first withholding it.** Both versions are kept.
+
+**1. As first written: withheld** (`dfe7203`). The student wrote it and pasted it in chat, and it is reproduced verbatim:
 
 ```text
 Sign-off — Job-Search Agent 2
@@ -178,6 +180,14 @@ Not claiming — A finished run establishes that the results are correct, a save
 
 Signed or withheld — Withheld — Suketh Produtoor, November 9, 2026. I accepted the empty-board fix based on the four focused tests. I’m withholding the overall sign-off because the audit was saved after verification started and the contribution record needs correction.
 ```
+
+**2. Signed, after the correction the student asked for** (`b6de749`). Asked whether to keep it withheld or sign it now, the student chose "Sign it now". They sent their name and the date ("Name : Suketh Produtoor", "Date : 11/09/2026") and changed no other line. The signed version keeps the four lines above unchanged; only the last line is replaced, in the brief's form, from the name and date the student sent:
+
+```text
+Signed or withheld — Signed — Suketh Produtoor, 11/09/2026.
+```
+
+The audit's timing, one of the two reasons for withholding, is unchanged history: the audit file was saved 18 s after the student's test command started ([review-packet/README.md](review-packet/README.md)).
 
 ### The facts Claude Code listed before the student wrote it
 
