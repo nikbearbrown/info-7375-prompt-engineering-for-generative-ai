@@ -438,7 +438,9 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
                                   f"achieved (outcome {e['outcome']}: {e['reason']})")
 
     # The one state write: only after a finished run, only with the command-line approval.
-    if not state_update_allowed(status):
+    if replay is not None:
+        state_update = "not-allowed: a SEEDED REPLAY never writes state"
+    elif not state_update_allowed(status):
         state_update = f"not-allowed: run status is {status}"
     elif not approve_state_write:
         d = policy.check_write(state_path, root=root, approve_state_write=False, run_status=status)
