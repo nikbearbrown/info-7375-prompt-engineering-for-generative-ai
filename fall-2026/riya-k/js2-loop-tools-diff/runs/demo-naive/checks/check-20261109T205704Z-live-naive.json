@@ -1,0 +1,33 @@
+{
+  "report": "runs/demo-naive/report-20261109T205704Z-live-naive.json",
+  "report_exit": "finished",
+  "requests_made": 1,
+  "verdict": "CONTRADICTED",
+  "findings": [
+    {
+      "check": "recount",
+      "board": "greenhouse:anthropic",
+      "result": "agrees",
+      "detail": "676 postings in raw"
+    },
+    {
+      "check": "recount",
+      "board": "smartrecruiters:hubspot",
+      "result": "agrees",
+      "detail": "0 postings in raw (totalFound 0)"
+    },
+    {
+      "check": "second_source",
+      "board": "smartrecruiters:hubspot",
+      "result": "CONTRADICTED",
+      "detail": "report says 0; greenhouse:hubspotjobs has 126 postings (HTTP 200)",
+      "raw": "runs/demo-naive/checks/raw/20261109T205704Z-live-naive-greenhouse-hubspotjobs.json"
+    },
+    {
+      "check": "exit",
+      "board": "smartrecruiters:hubspot",
+      "result": "CONTRADICTED",
+      "detail": "report says finished, but these boards have 0 or no postings"
+    }
+  ]
+}
