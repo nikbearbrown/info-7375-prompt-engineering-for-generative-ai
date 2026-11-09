@@ -60,6 +60,17 @@ class CliTest(unittest.TestCase):
         self.assertEqual(code, 1, out)
         self.assertIn("greenhouse-anthropic", out)
 
+    def test_an_invalid_run_id_never_makes_the_cli_look_outside_the_project(self):
+        # Found by Claude Code's coverage audit on 2026-11-09: the CLI checked
+        # (root / "runs" / run_id).exists() directly, without the policy.
+        # runs/ must exist (as after any earlier run) for runs/../../x to resolve at all;
+        # without it the first version of this test passed on the old code.
+        (self.project.root / "runs").mkdir()
+        (self.project.base / "outside-folder").mkdir()
+        code, out = self.main("run", "--run-id", "../../outside-folder")
+        self.assertEqual(code, 1, out)
+        self.assertNotIn("evidence:", out)
+
     def test_boards_lists_every_configured_endpoint(self):
         code, out = self.main("boards")
         self.assertEqual(code, 0)

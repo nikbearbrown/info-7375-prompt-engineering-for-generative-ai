@@ -67,9 +67,17 @@ def main(argv=None, *, root=None, fetch=None, clock=None, wall=None):
     used = result["used"]
     print(f"  used {used['boards']} boards, {used['requests']} requests, {used['seconds']} s; "
           f"state advanced: {result['state_advanced']}")
-    if result["status"] != "error" or (root / "runs" / result["run_id"]).exists():
+    if result["status"] != "error" or _run_folder_exists(root, result["run_id"]):
         print(f"  evidence: runs/{result['run_id']}/ (results.md, trace.md, raw/)")
     return EXIT_CODES[result["status"]]
+
+
+def _run_folder_exists(root, run_id):
+    """Asked through the policy, so a run id like ../../x never makes the CLI look outside."""
+    try:
+        return Files(Policy(root, None, set(), None)).exists(f"runs/{run_id}")
+    except PolicyDenied:
+        return False
 
 
 def _verify(root, run_dir):
