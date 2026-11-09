@@ -1,0 +1,29 @@
+diff --git a/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py b/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
+index f9a86a7..658de42 100644
+--- a/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
++++ b/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
+@@ -64,11 +64,8 @@ class FileGate:
+         if not p.is_absolute():
+             p = Path.cwd() / p
+         for base in (self.root, self.root_given):
+-            try:
+-                rel = p.relative_to(base)
+-            except ValueError:
+-                continue
+-            return rel.parts
++            if str(p).startswith(str(base)):
++                return Path(os.path.relpath(p, base)).parts
+         return None
+ 
+     def _check_components(self, parts: tuple[str, ...], error) -> None:
+@@ -159,8 +156,8 @@ class FileGate:
+             st = os.lstat(parent)
+             if stat.S_ISLNK(st.st_mode) or not stat.S_ISDIR(st.st_mode):
+                 raise WriteDenied(f"refused {parent}: not a real directory")
+-        if os.path.realpath(parent) != str(parent):
+-            raise WriteDenied(f"refused {parent}: resolves outside the expected location")
++        # if os.path.realpath(parent) != str(parent):
++        #     raise WriteDenied(f"refused {parent}: resolves outside the expected location")
+ 
+         dest = parent / parts[-1]
+         tmp = parent / f".{parts[-1]}.{secrets.token_hex(8)}.tmp"
