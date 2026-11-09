@@ -1,4 +1,4 @@
-# Full history of my working repo (exported 2026-11-09T04:29Z from commit e477407)
+# Full history of my working repo (exported 2026-11-09T04:52Z from commit 3f72e7e)
 # The course repo has this folder as one commit; the commit ids cited in README, SOURCES, GATE and REVIEW_PACKET are these.
 
 commit a0d895e (a0d895e07007d5c9257b1a5920820d366aac123a)
@@ -911,3 +911,22 @@ Author: Isaac T
  REVIEW_PACKET.md   |   2 +-
  SOURCES.md         |  33 +++++-----
  5 files changed, 132 insertions(+), 115 deletions(-)
+commit 3f72e7e (3f72e7e91654017db6217a90f25fa44f90d99bde)
+Date:   2026-11-08 23:52:11 -0500
+Author: Isaac T
+
+    docs(review): make the submitted docs checkable from the course repo, where this folder is one commit
+    
+    - REVIEW_PACKET: check that the test came before the patch in evidence/git-history.txt, since git log in the course repo can't show it
+    - Demo README: say out/ is already included, why run_demo.py refuses, and that a re-run now fails with 203
+    - README: the sign-off row says signed, not "signed (or withheld)"
+    - FRICTIONAL: fill the sign-off entry's next step
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+
+ FRICTIONAL.md                 | 1 +
+ README.md                     | 2 +-
+ REVIEW_PACKET.md              | 5 +++--
+ demo/finished_wrong/README.md | 5 +++++
+ 4 files changed, 10 insertions(+), 3 deletions(-)

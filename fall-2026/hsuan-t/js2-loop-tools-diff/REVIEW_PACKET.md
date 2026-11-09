@@ -43,8 +43,9 @@ Before any test was written, I chose the expected behaviour (D21):
 Red run: `evidence/step8_test_red.txt` → **4 failed, 3 passed**, each failure for the reason above, not an
 import or fixture error. Committed alone as **3c4aa5a**, before any change under `job_agent/`.
 
-Check the order: `git log --oneline -- tests/test_meta_total.py job_agent/watch/boards/greenhouse.py`
-(the test commit is older than the patch commit).
+Check the order in `evidence/git-history.txt` (in the course repo this folder is a single commit, so
+`git log` there can't show it): commit 3c4aa5a (the test, 2026-11-08 19:32 -0500) comes before ee3018e
+(the patch, 19:56), and 3c4aa5a changes no file under `job_agent/`.
 
 What went wrong on the way: my first commit of the test (e4b2aa0, never pushed) had the test file and
 `FRICTIONAL.md` overwritten with pytest output, because a pasted `tee` line ran together with the `git add`

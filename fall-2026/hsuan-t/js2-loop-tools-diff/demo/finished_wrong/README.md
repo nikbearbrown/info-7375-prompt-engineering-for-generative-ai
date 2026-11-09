@@ -39,6 +39,11 @@ jobs" when there are some. A real partial list would more likely lose postings a
 .venv/bin/python checks/total_check.py demo/finished_wrong/out/evidence/raw evidence/raw/2026-11-08T234257Z 2>&1 | tee demo/finished_wrong/total_check_output.txt
 ```
 
+`out/` is already included with the results below, and `run_demo.py` refuses to run while it exists, so the
+recorded run can't be overwritten. To run it again, move `out/` aside first. The check needs no re-run of the
+demo. With today's code the re-run no longer ends `finished`: the Step 8 patch makes Stripe fail with `203`
+(see "After the Step 8 patch" at the end).
+
 `run_demo.py` builds the seeded input and then runs the agent's own command line
 (`python -m job_agent --board stripe --from-raw <seeded file>`) with its output moved to
 `demo/finished_wrong/out/`, so the repo's real `runs/` and `state/` are not touched.

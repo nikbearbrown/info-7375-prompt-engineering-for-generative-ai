@@ -805,3 +805,4 @@ Trace: README.md, SOURCES.md
 
 **What's next**
 
+Export, push and submit on Canvas. After a review of the submission, fix three wording points (sign-off row, the commit-order check in the review packet, the demo's rerun note) and push again.
