@@ -16,12 +16,12 @@ The test setup will use a temporary output root named `out` and a transport spy.
 | P06 | Plain HTTP to the Greenhouse API host | Deny before transport. |
 | P07 | HTTPS `GET` to an allowed host on port `8443` | Deny before transport. |
 | P08 | `POST` to the same URL allowed in P01 | Deny before transport. |
-| P09 | HTTPS `GET` to an unconfigured route on an allowed host | Deny before transport. |
+| P09 | HTTPS `GET` to an unconfigured route on an allowed host, or to P01's exact route with `?content=true` | Deny both before transport. |
 | P10 | Allowed request redirects to `example.com` | Record the redirect response. The transport spy shows exactly one request to the original URL. |
-| P11 | Write a regular summary to `out/summary.json` | Allow. The file has the exact supplied bytes. |
+| P11 | Write a regular summary to `out/runs/<run_id>/summary.json` | Allow. The file has the exact supplied bytes. |
 | P12 | Write to `out/../escape.json` | Deny. The outside path is untouched. |
 | P13 | Write to sibling `out-evil/summary.json` | Deny. The sibling path is untouched. |
-| P14 | Write through `out/link/`, which points outside `out` | Deny. The linked target is untouched. |
+| P14 | Write through `out/link/`, first with an outside target and then with an inside target | Deny both. The linked targets are untouched. |
 | P15 | Write to `out/protected/shortlist.json` without approval | Deny. The protected path is untouched. |
 | P16 | Write to `out/protected/shortlist.json` with approval for the exact path and payload in this run | Allow. The file has the approved bytes. |
 | P17 | Reuse the approval from P16 after changing the payload | Deny. The previously approved bytes remain. |
