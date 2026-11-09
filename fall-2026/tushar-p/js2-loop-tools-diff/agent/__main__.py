@@ -1,4 +1,7 @@
-"""CLI: python -m agent --config <path> [--out <dir>]
+"""CLI: python -m agent --config <path> [--out <dir>] [--fixture <path> [--seed-wrong-empty]]
+
+--fixture runs offline against a saved response (one-board config only, F18).
+--seed-wrong-empty (requires --fixture) is the labeled "Finished with the wrong answer" demo.
 
 Prints one result line and exits with the F15 code: finished 0, error 2, incomplete 3,
 budget-exhausted 4. If the output folder is unavailable, the summary goes to stderr.
@@ -19,6 +22,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     parser.add_argument("--config", type=Path, required=True, metavar="PATH", help="board config JSON")
     parser.add_argument("--out", type=Path, default=DEFAULT_ROOT, metavar="DIR",
                         help="output folder (default: out/ in the project folder)")
+    parser.add_argument("--fixture", type=Path, metavar="PATH",
+                        help="offline mode: answer the single configured board with this saved response")
+    parser.add_argument("--seed-wrong-empty", action="store_true",
+                        help="DELIBERATELY WRONG demo: save the fixture as raw evidence, then count an empty jobs list")
     return parser.parse_args(argv)
 
 
@@ -35,7 +42,12 @@ def result_line(result: loop.RunResult) -> str:
 
 def main(argv=None, *, transport=None, clock=time.monotonic, sleep=time.sleep, run_id=None) -> int:
     args = parse_args(argv)
-    result = loop.run(args.config, args.out, transport=transport, clock=clock, sleep=sleep, run_id=run_id)
+    if args.seed_wrong_empty and args.fixture is None:
+        print(f"{loop.ERROR} (exit {loop.EXIT_CODES[loop.ERROR]}): --seed-wrong-empty requires --fixture; nothing was run")
+        print("error: --seed-wrong-empty requires --fixture", file=sys.stderr)
+        return loop.EXIT_CODES[loop.ERROR]
+    result = loop.run(args.config, args.out, transport=transport, clock=clock, sleep=sleep, run_id=run_id,
+                      fixture_path=args.fixture, seed_wrong_empty=args.seed_wrong_empty)
     print(result_line(result))
     if result.message:
         print(f"error: {result.message}", file=sys.stderr)

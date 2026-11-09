@@ -16,8 +16,9 @@ from datetime import datetime, timezone
 from . import config as board_config
 from . import limits, providers, state
 from .budget import Budget
-from .errors import (ConfigError, EvidenceError, MalformedResponse, PermissionDenied,
+from .errors import (ConfigError, EvidenceError, MalformedResponse, PermissionDenied, ReadDenied,
                      RequestDenied, StateError, TransportError, TransportTimeout)
+from .fixture import SEEDED_EMPTY_BODY, FixtureTransport
 from .fsio import STATE_NAME, FileGate
 from .policy import check_request
 from .trace import TRACE_NAME, Trace
@@ -30,6 +31,11 @@ BUDGET_EXHAUSTED = "budget-exhausted"
 EXIT_CODES = {FINISHED: 0, ERROR: 2, INCOMPLETE: 3, BUDGET_EXHAUSTED: 4}  # F15
 
 NEXT_BOARD = "record failure; next board"
+
+MODE_LIVE = "live"
+MODE_INJECTED = "injected-transport"
+MODE_FIXTURE = "fixture"
+MODE_SEEDED_WRONG = "SEEDED-WRONG-EMPTY (deliberately wrong)"
 
 
 def resolve_exit(*, fatal: bool, budget_limit: str | None, any_failed: bool) -> str:
@@ -114,9 +120,12 @@ class RunResult:
 
 
 class Runner:
-    def __init__(self, config_path, out_dir, *, transport, clock, sleep, run_id, mode):
+    def __init__(self, config_path, out_dir, *, transport, clock, sleep, run_id, mode,
+                 fixture_path=None, seed_wrong_empty=False):
         self.budget = Budget(clock, sleep)  # the run clock starts here
         self.config_path = config_path
+        self.fixture_path = fixture_path
+        self.seed_wrong_empty = seed_wrong_empty
         self.out_dir = out_dir
         self.transport = transport
         self.run_id = run_id
@@ -135,7 +144,8 @@ class Runner:
 
     def run(self) -> RunResult:
         try:
-            self.gate = FileGate(self.out_dir, self.run_id, config_path=self.config_path)
+            self.gate = FileGate(self.out_dir, self.run_id, config_path=self.config_path,
+                                 fixture_path=self.fixture_path)  # F18: exact resolved path only
         except (PermissionDenied, OSError) as err:
             return self._unavailable(f"output folder unavailable: {err}")
         self.run_dir = self.gate.root / "runs" / self.run_id
@@ -165,6 +175,8 @@ class Runner:
             self.duplicates.append(entry)
             self.trace.event("config-duplicate", "skip duplicate", board=dup.board.key,
                              config_index=dup.index, kept_index=dup.first_index)
+        if self.fixture_path is not None and not self._load_fixture(cfg):
+            return
 
         try:
             loaded = state.load_state(self.gate)
@@ -182,6 +194,25 @@ class Runner:
         for result in self.results:
             if not self._visit(result):
                 break
+
+    def _load_fixture(self, cfg) -> bool:
+        """F18 offline mode: one board only; read the fixture through the FileGate grant."""
+        if len(cfg.boards) != 1:
+            message = f"--fixture needs a config with exactly one board; this one has {len(cfg.boards)}"
+            self.fatal = {"stage": "fixture", "message": message}
+            self.trace.event("fixture", "stop: exit error before any transport call", error=message)
+            return False
+        try:
+            body = self.gate.read(self.fixture_path)
+        except ReadDenied as err:
+            self.fatal = {"stage": "fixture", "message": f"cannot read fixture: {err}"}
+            self.trace.event("fixture", "stop: exit error before any transport call", error=str(err))
+            return False
+        board = cfg.boards[0]
+        self.transport = FixtureTransport(providers.listing_url(board), body)
+        self.trace.event("fixture", "load state", board=board.key, status="loaded",
+                         fixture=str(self.fixture_path), fixture_bytes=len(body))
+        return True
 
     # ---------- one board ----------
 
@@ -276,8 +307,16 @@ class Runner:
         status = response.status
         found = dict(status=status, raw_path=raw_path, timeout=timeout)
         if status == 200:
+            counted_body = response.body
+            if self.seed_wrong_empty:
+                # "Finished with the wrong answer": the original bytes are already saved as raw
+                # evidence; the normal counting step now gets an empty jobs list on purpose.
+                counted_body = SEEDED_EMPTY_BODY
+                self.trace.event("seed-wrong-empty", "count the substituted empty jobs list (deliberately wrong)",
+                                 board=board.key, attempt=attempt, status="SUBSTITUTED", raw_path=raw_path,
+                                 original_bytes=len(response.body), substituted=SEEDED_EMPTY_BODY.decode())
             try:
-                parsed = providers.parse_ids(board.provider, response.body)
+                parsed = providers.parse_ids(board.provider, counted_body)
             except MalformedResponse as err:
                 return Outcome("malformed", error=str(err), **found)
             return Outcome("ok", parsed=parsed, **found)
@@ -322,6 +361,7 @@ class Runner:
         return {
             "run_id": self.run_id,
             "mode": self.mode,
+            "fixture": str(self.fixture_path) if self.fixture_path is not None else None,
             "exit": exit_name,
             "exit_code": EXIT_CODES[exit_name],
             "config": str(self.config_path),
@@ -394,10 +434,20 @@ class Runner:
         return RunResult(ERROR, EXIT_CODES[ERROR], summary, None, None, message)
 
 
-def run(config_path, out_dir, *, transport=None, clock=time.monotonic, sleep=time.sleep, run_id=None) -> RunResult:
-    """Run the agent once. With no transport given, it uses the live urllib transport."""
-    mode = "live" if transport is None else "injected-transport"
-    if transport is None:
-        transport = UrllibTransport(clock=clock)
+def run(config_path, out_dir, *, transport=None, clock=time.monotonic, sleep=time.sleep, run_id=None,
+        fixture_path=None, seed_wrong_empty=False) -> RunResult:
+    """Run the agent once. With no transport and no fixture, it uses the live urllib transport.
+    With a fixture, the FixtureTransport is built after the config is validated (one board)."""
+    if seed_wrong_empty and fixture_path is None:
+        raise ValueError("--seed-wrong-empty requires --fixture")
+    if fixture_path is not None:
+        if transport is not None:
+            raise ValueError("fixture mode supplies its own transport")
+        mode = MODE_SEEDED_WRONG if seed_wrong_empty else MODE_FIXTURE
+    elif transport is None:
+        mode, transport = MODE_LIVE, UrllibTransport(clock=clock)
+    else:
+        mode = MODE_INJECTED
     return Runner(config_path, out_dir, transport=transport, clock=clock, sleep=sleep,
-                  run_id=run_id or new_run_id(), mode=mode).run()
+                  run_id=run_id or new_run_id(), mode=mode, fixture_path=fixture_path,
+                  seed_wrong_empty=seed_wrong_empty).run()
