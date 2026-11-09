@@ -1,0 +1,19 @@
+[
+ {"id":"B01","kind":"url","method":"GET","url":"https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs","expect":"ALLOW"},
+ {"id":"B02","kind":"url","method":"GET","url":"https://api.lever.co/v0/postings/palantir?mode=json","expect":"ALLOW"},
+ {"id":"B03","kind":"url","method":"GET","url":"https://api.ashbyhq.com/posting-api/job-board/acme","expect":"DENY"},
+ {"id":"B04","kind":"url","method":"GET","url":"https://boards-api.greenhouse.io.evil.com/v1/boards/x/jobs","expect":"DENY"},
+ {"id":"B05","kind":"url","method":"GET","url":"https://boards-api.greenhouse.io@evil.com/v1/boards/x/jobs","expect":"DENY"},
+ {"id":"B06","kind":"url","method":"POST","url":"https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs","expect":"DENY"},
+ {"id":"B07","kind":"url","method":"GET","url":"http://boards-api.greenhouse.io/v1/boards/x/jobs","expect":"DENY"},
+ {"id":"B08","kind":"redirect","url":"https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs","to":"https://evil.com/","expect":"DENY"},
+ {"id":"B09","kind":"write","path":"{OUT}/run-1.json","expect":"ALLOW"},
+ {"id":"B10","kind":"write","path":"{OUT}/../../agent.py","expect":"DENY"},
+ {"id":"B11","kind":"write","path":"{SIB}/x.json","expect":"DENY"},
+ {"id":"B12","kind":"write","path":"{LINK}/x.json","expect":"DENY"},
+ {"id":"B13","kind":"write","path":"/etc/x.json","expect":"DENY"},
+ {"id":"B14","kind":"write","path":"{OUT}/run-2.json","expect":"NEEDS_APPROVAL"},
+ {"id":"B15","kind":"write","path":"{OUT}/run-2.json","approve":["{OUT}/run-2.json"],"expect":"ALLOW"},
+ {"id":"B16","kind":"read","path":"{OUT}/run-2.json","expect":"ALLOW"},
+ {"id":"B17","kind":"delete","path":"{OUT}/run-2.json","expect":"DENY"}
+]
