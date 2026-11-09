@@ -4,17 +4,20 @@ Claude Code drafted this file from the commit record and the student's answers. 
 
 The student's answers were given in chat, mostly as choices among options Claude Code wrote. The brief keeps conversation transcripts on the student's machine ("Privacy and boundaries"), so this file quotes only the short answers, and **they cannot be checked from this repository.**
 
-## The student's files
+## The student's files, and the Claude Code drafts each one builds on
 
-| File | Written by | Record |
-|---|---|---|
-| [GATE.md](GATE.md) | The student. Asked whether they wrote it or an AI tool helped, they answered "I wrote it myself" (2026-11-08) | Committed byte-for-byte before any new code, `b55d2a5` |
-| Predictions in [policy/BOUNDARY-PREDICTIONS.md](policy/BOUNDARY-PREDICTIONS.md) | The student, pasted in chat. **The 21 cases themselves are Claude Code's list** | `f871ccb`, before any policy code |
-| [review-packet/REVIEW-GATE.md](review-packet/REVIEW-GATE.md) | The student, who answered "I wrote both myself" (this file and Frictional entry 2). It builds on Claude Code's review-gate sheet; see "What the sheets suggested" below | `64357fe`, before any test or patch |
-| [tests/test_review_empty_board.py](tests/test_review_empty_board.py) | The student, who answered "I wrote it myself". It uses Claude Code's test helpers (`tests/test_loop.py` `LoopCase`, `tests/fakes.py`), which Claude Code pointed to. The all-empty case was Claude Code's proposal, which the student adopted | v1 `2eb4a5f`, v2 `a61f07e`, both before the patch |
-| [review-packet/REQUEST.md](review-packet/REQUEST.md) | The student's chat message, verbatim | `4dccaee` |
-| [review-packet/AUDIT-RECORD.md](review-packet/AUDIT-RECORD.md), [review-packet/DECISION.md](review-packet/DECISION.md) | The student. Asked who wrote them, they answered "I wrote both myself" (2026-11-09) | `82739cd` |
-| The student's entries in [FRICTIONAL.md](FRICTIONAL.md) | The student (see the next paragraph) | Verbatim, under headings Claude Code added |
+| File | Written by | Claude Code drafts it builds on | Record |
+|---|---|---|---|
+| [GATE.md](GATE.md) | The student. Asked whether they wrote it or an AI tool helped, they answered "I wrote it myself" (2026-11-08) | The GATE worksheet: the brief's questions, the probe's board facts, "cases to decide" posed as questions | Committed byte-for-byte before any new code, `b55d2a5` |
+| Predictions in [policy/BOUNDARY-PREDICTIONS.md](policy/BOUNDARY-PREDICTIONS.md) | The student, pasted in chat | **The 21 cases are Claude Code's list**; the predictions are the student's | `f871ccb`, before any policy code |
+| [review-packet/REVIEW-GATE.md](review-packet/REVIEW-GATE.md) | The student, who answered "I wrote both myself" (this file and Frictional entry 2) | The review-gate sheet: the candidate change and its rule, `classify_response` among four places, example reproductions, the file name | `64357fe`, before any test or patch |
+| [tests/test_review_empty_board.py](tests/test_review_empty_board.py) | The student, who answered "I wrote it myself" | Claude Code's test helpers (`tests/test_loop.py` `LoopCase`, `tests/fakes.py`) and the two model tests it pointed to; the all-empty case, Claude Code's proposal, which the student adopted | v1 `2eb4a5f`, v2 `a61f07e`, both before the patch |
+| [review-packet/REQUEST.md](review-packet/REQUEST.md) | The student's chat message, verbatim | Claude Code's plan, which the student checked against their scope | `4dccaee` |
+| [review-packet/AUDIT-RECORD.md](review-packet/AUDIT-RECORD.md), [review-packet/DECISION.md](review-packet/DECISION.md) | The student. Asked who wrote them, they answered "I wrote both myself" (2026-11-09) | Claude Code's two templates (Chapter 6's audit record; the decision questions with the verb ladder). The decision's missed case is the gap PLAN.md named | `82739cd` |
+| The student's entries in [FRICTIONAL.md](FRICTIONAL.md) | The student (see the next paragraph) | The final retrospective answers the four questions on Claude Code's FINAL-STEPS sheet | Verbatim, under headings Claude Code added |
+| The sign-off in [README.md](README.md) (withheld) | The student | Claude Code's list of facts, which the sign-off's items match | `dfe7203` |
+
+**Correction at sign-off, 2026-11-09.** The student's sign-off says the review tests were "prepared before the patch with drafting help", and the student asked for "the authorship correction" to be carried into this file. Asked which drafting help they meant, the student answered: "Claude's drafts only". So "Written by: the student" in the table means written by the student, with the Claude Code drafts named in the same row. Per the student, no other tool or person helped. The student's earlier answers are kept as given.
 
 On 2026-11-08 Claude Code asked once more. The question named the folder outside this repository that the student's files had come from, and the student's remark that the new test was "verified on a local copy". It said that using an AI tool is allowed when it's disclosed, and asked whether SOURCES.md was accurate in saying the student wrote GATE.md, REVIEW-GATE.md, the test and the Frictional entries themselves. The student answered: "Yes, all written by me".
 

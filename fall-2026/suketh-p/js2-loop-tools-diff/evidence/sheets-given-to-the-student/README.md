@@ -12,6 +12,7 @@ The sheets hold the brief's or a chapter's questions and the facts the student n
 | `REVIEW-GATE.md.txt` | 2026-11-08 05:48 | Chapter 6's review-gate questions; one candidate change; the files where the behavior lived; example reproductions | [review-packet/REVIEW-GATE.md](../../review-packet/REVIEW-GATE.md) |
 | `AUDIT-RECORD.md.txt` | 2026-11-09 00:10 | Chapter 6's audit-record template | [review-packet/AUDIT-RECORD.md](../../review-packet/AUDIT-RECORD.md) |
 | `DECISION.md.txt` | 2026-11-09 00:10 | The brief's and Chapter 6's decision questions, with the chapter's verb ladder | [review-packet/DECISION.md](../../review-packet/DECISION.md) |
+| `FINAL-STEPS.md.txt` | 2026-11-09 00:51 | The Frictional rubric's four points turned into four questions for a retrospective; the sign-off and push steps | The final entry in [FRICTIONAL.md](../../FRICTIONAL.md); the sign-off in [README.md](../../README.md) |
 
 **Suggestions that later appear in the student's work:**
 

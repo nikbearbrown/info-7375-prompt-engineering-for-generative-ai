@@ -40,8 +40,8 @@ The "why" column is Claude Code's draft, following Chapter 6's driver's seat; th
 
 | Task | Claude Code did | The student did | Why it stays the student's |
 |---|---|---|---|
-| The rule and the reproductions | Listed where the behavior lived; reproduced the defect in a seeded run; proposed the all-empty case | Wrote the rule, the two reproductions, the comparison case and the wrong-patch sentence; adopted the all-empty case | The requirement is the student's: Claude could implement a wrong rule perfectly |
-| The regression test | Pointed to helpers and a model test; copied the file into place; ran version 2 | Wrote both versions before the patch; ran version 1 | A test written after the patch tends to bless it |
+| The rule and the reproductions | Wrote the review-gate sheet: the candidate change and its rule, the places the behavior lived, example reproductions. Reproduced the defect in a seeded run; proposed the all-empty case | Wrote the rule; wrote the two reproductions, which combine the sheet's examples; wrote the comparison case and the wrong-patch sentence; adopted the all-empty case | The requirement is the student's: Claude could implement a wrong rule perfectly |
+| The regression test | Pointed to `LoopCase`, `tests/fakes.py` and two model tests; copied the file into place; ran version 2 | Wrote both versions before the patch, with those helpers; ran version 1 (RED) | A test written after the patch tends to bless it |
 | The scope | Kept the plan and the patch inside the allowed list | Chose `classify_response` only; checked the plan and then the diff against it | The student owns what this change is for |
 | The patch | Wrote it; ran no test on it before the review | Asked for it in their own words | — |
-| Checks and decision | Ran the full suite and the demo after the decision | Ran the focused tests; decided accept, with the verb "show" | Their name is on the decision |
+| Checks and decision | Wrote the audit and decision templates; ran the full suite and the demo after the decision | Ran the four focused tests (4/4 passed) on `4e39762`; saved the audit 18 s after that test command started; decided accept, with the verb "show" | Their name is on the decision |
