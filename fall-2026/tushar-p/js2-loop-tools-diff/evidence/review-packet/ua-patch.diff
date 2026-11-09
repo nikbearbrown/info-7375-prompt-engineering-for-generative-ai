@@ -1,0 +1,24 @@
+diff --git a/fall-2026/tushar-p/js2-loop-tools-diff/agent/transport.py b/fall-2026/tushar-p/js2-loop-tools-diff/agent/transport.py
+index 9d27725..850af33 100644
+--- a/fall-2026/tushar-p/js2-loop-tools-diff/agent/transport.py
++++ b/fall-2026/tushar-p/js2-loop-tools-diff/agent/transport.py
+@@ -26,6 +26,9 @@ from dataclasses import dataclass
+ 
+ BODY_CHUNK_BYTES = 64 * 1024
+ 
++# GATE v0.4: every request identifies the watch honestly; it never impersonates a browser.
++AGENT_USER_AGENT = "info7375-js2-watch/0.1 (student project; tushar-js2@example.com)"
++
+ from .errors import TransportError, TransportTimeout
+ from .policy import check_request
+ 
+@@ -196,7 +199,8 @@ class UrllibTransport:
+         deadline = self.clock() + timeout
+         if self._https is not None:
+             self._https.begin_attempt(deadline)
+-        request = urllib.request.Request(url, method=method)
++        # Set on the Request itself so urllib's default "Python-urllib/x.y" is never added.
++        request = urllib.request.Request(url, method=method, headers={"User-Agent": AGENT_USER_AGENT})
+         try:
+             with self.opener.open(request, timeout=timeout) as response:
+                 if self.clock() >= deadline:
