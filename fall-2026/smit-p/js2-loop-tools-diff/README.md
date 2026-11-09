@@ -17,11 +17,16 @@ Python 3, standard library only. Developed and run on Python 3.13.17 on Linux; o
 versions were not tried. No
 `pip install`, no API keys, no model calls. The tests run offline.
 
-From a fresh clone:
+From a fresh course-repository clone:
 
 ```bash
 cd fall-2026/smit-p/js2-loop-tools-diff
 ```
+
+When using the ZIP, open a terminal in the extracted `js2-loop-tools-diff/` folder instead.
+The ZIP contains no `.git` history, so historical checkout commands and commit verification
+require the original course clone. See [LOCAL_VERIFICATION.md](LOCAL_VERIFICATION.md)
+for the local verification results and remaining submission steps.
 
 Run the offline test suite (59 tests):
 

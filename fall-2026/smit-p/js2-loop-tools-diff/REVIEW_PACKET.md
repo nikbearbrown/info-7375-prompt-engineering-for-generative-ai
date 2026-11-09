@@ -137,7 +137,12 @@ passed (`evidence/review-4-seeded-rerun.txt`).
 | `python3 tests/mutation_check.py` | W1 mutant (`if False:` in place of the check) caught; 10 of 10 overall (`evidence/mutation-check.txt`) |
 | live run `2026-11-08T00-48-58Z` + `verify_run.py` | `incomplete` (deliberate bad name only); independent check passed |
 
-## 7. Commands to run yourself (Smit)
+## 7. Commands to run yourself (Smit P)
+
+**ZIP note:** This archive has no Git history. Do not run the historical checkout row
+below in the extracted folder. It requires the original clone and the named commits.
+Current local verification is recorded separately in [LOCAL_VERIFICATION.md](LOCAL_VERIFICATION.md);
+it does not fill in the personal-review column.
 
 The assignment asks for "the commands you ran yourself". The table above records what Claude
 Code ran. Before you decide, run these from a fresh clone and fill in the right-hand column
@@ -162,8 +167,13 @@ mutation check shows the test would catch a regression (6).
 Claude's recommendation: **accept the revised version**, and decide separately on the
 all-suspect → `error` side effect in section 3, item 5.
 
-**Smit's decision (accept / revise / reject), with the evidence you relied on:**
-`____________________________________________`  date: `__________`
+**Review disposition — Smit P — 2026-11-09:** Personal acceptance withheld.
+The technical recommendation is to accept the revised empty-after-nonempty patch:
+59 current tests pass, all 10 mutants are caught, and the fresh baseline/empty/restored
+replay preserves the baseline and reports zero old postings as new on recovery.
+See LOCAL_VERIFICATION.md and evidence/local-replay-2026-11-09.txt.
+These automated results do not establish personal review. The all-suspect exit policy,
+large nonzero drop threshold, and GATE.md confirmations remain unresolved decisions.
 
 ## 9. A case this test would still miss
 

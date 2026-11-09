@@ -1,0 +1,17 @@
+Date: 2026-11-09
+Environment: macOS-27.2-arm64-arm-64bit-Mach-O; Python 3.14.5
+Command: /opt/homebrew/opt/python@3.14/bin/python3.14 tests/mutation_check.py
+Exit code: 0
+
+unmutated code                                suite passes  (OK)
+W1 empty means no news                        caught  (FAILED (failures=5, errors=1))
+W2 failure becomes zero                       caught  (FAILED (failures=1))
+W3a prefix check for paths                    caught  (FAILED (failures=2))
+W3b path check without resolving symlinks     caught  (FAILED (failures=5, errors=30))
+W4 suffix check for hosts                     caught  (FAILED (failures=1))
+W5 retry everything                           caught  (FAILED (failures=3))
+W6 stop means success                         caught  (FAILED (failures=3))
+W7 baseline overwritten by a failure          caught  (FAILED (failures=7))
+W9 redirect followed to an unchecked host     caught  (FAILED (failures=1))
+W8 Ashby unlisted postings counted            caught  (FAILED (failures=1))
+10/10 wrong versions caught

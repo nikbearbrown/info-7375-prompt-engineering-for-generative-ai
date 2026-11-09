@@ -1,6 +1,6 @@
 # Sign-off and driver's seat
 
-> **Draft by Claude Code, 2026-11-08. Not signed.** The "Checked" and "Not checked" lists
+> **Original draft by Claude Code, 2026-11-08. Sign-off withheld, 2026-11-09.** The "Checked" and "Not checked" lists
 > below say what the tests and runs in this folder show. They do not say what Smit verified,
 > because Claude Code cannot know that. Before signing, Smit should run the commands in
 > REVIEW_PACKET.md section 7, rewrite the "How" line to match what Smit actually did, and
@@ -30,17 +30,20 @@ Checked:
   - Live counts match an independent recount from the saved raw bytes
       verify_run.py on runs 2026-11-08T00-43-54Z, T00-47-30Z, T00-48-58Z
 
-How:  [SMIT TO WRITE. Be exact: which of these did you run yourself, which did you read,
-       which did you take on Claude's word? The tests and the checker were written by
-       Claude Code in this session, so "by a test I wrote before reading Claude's code"
-       is not true for any of them unless you write one.]
+How: Original tests and runs were produced by Claude Code. The extracted archive was
+       subsequently checked automatically on macOS with Python 3.14.5: all 59 tests
+       passed, all 10 mutants were caught, and a fresh three-step replay passed its
+       independent checks. See LOCAL_VERIFICATION.md and the local-* evidence files.
+       Smit P supplied the archive and requested completion; no personal command
+       execution or independent code review has been reported.
 
 Not checked:
   - A board that collapses but does not reach zero (145 -> 3). Not flagged; the suite
     even asserts that shrinking is fine. (REVIEW_PACKET.md section 9)
   - DNS rebinding: an allow-listed name resolving to an unexpected address.
   - A symlink swapped in between the policy check and the write (time-of-check race).
-  - Windows paths and case-insensitive filesystems; tested only on Linux, Python 3.13.
+  - Windows paths. Original tests ran on Linux, Python 3.13; the full suite also
+    passed locally on macOS, Python 3.14.5. Filesystem case behavior was not separately audited.
   - Live behavior across days. The three live runs were minutes apart and saw no
     posting changes; "new posting" detection is shown only on seeded and unit-test data.
   - A real live timeout or 5xx. Retry is shown with seeded timeouts only.
@@ -56,7 +59,9 @@ Not claiming:
   - That a seeded run shows live behavior. Every seeded run is labeled in its output,
     its trace, and its summary.
 
-Signed or withheld: ____________ (name, date)
+Signed or withheld: WITHHELD — Smit P — 2026-11-09
+Reason: Personal review and policy confirmations have not been established.
+This entry records the withheld status; it is not a signature or approval.
 ```
 
 ## Driver's seat
