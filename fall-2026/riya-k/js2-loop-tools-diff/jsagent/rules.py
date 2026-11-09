@@ -6,6 +6,8 @@ import re
 TITLE_WORDS = ["AI", "LLM", "GenAI", "Generative AI", "ML", "Machine Learning", "Data Engineer",
                "Data Platform", "Data Scientist", "Data Science", "Analytics"]
 SENIORITY_WORDS = ["Senior", "Sr", "Staff", "Principal", "Director", "VP", "Vice President", "Head", "Manager"]
+# Amendment 3: internship titles are excluded (whole word only, so "Internal"/"International"/"Internals" stay).
+INTERN_WORDS = ["Intern", "Internship"]
 # Skills that never count (CONTRACT.md, rule 2 and amendment 1).
 NOT_COUNTED = {"databricks", "unity catalog"}  # amendment 1: Unity Catalog is boilerplate
 SKIP_GROUPS = {"familiar_with_not_shipped", "agent_note"}
@@ -68,10 +70,11 @@ def judge(posting, resume):
 
     title_hits = [w for w in TITLE_WORDS if find_word(w, title)]
     senior_hits = [w for w in SENIORITY_WORDS if find_word(w, title)]
+    intern_hits = [w for w in INTERN_WORDS if find_word(w, title)]
     skill_hits = [(g, s) for g, s in resume_skills(resume) if find_word(s, body)]
     us = is_us_location(location)
 
-    relevant = bool(title_hits) and len(skill_hits) >= MIN_SKILLS and us and not senior_hits
+    relevant = bool(title_hits) and len(skill_hits) >= MIN_SKILLS and us and not senior_hits and not intern_hits
     skills_cited = "; ".join(f"skills.{g}: {s}" for g, s in skill_hits) or "skills.*: none matched"
     reasons = [
         f"title '{title}' " + (f"has title word(s) {title_hits}" if title_hits else "has no title word"),
@@ -80,6 +83,8 @@ def judge(posting, resume):
     ]
     if senior_hits:
         reasons.append(f"title has seniority word(s) {senior_hits}")
+    if intern_hits:
+        reasons.append(f"title has intern word(s) {intern_hits}")
     return {
         "id": posting["id"],
         "title": title,
