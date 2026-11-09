@@ -2,7 +2,7 @@
 
 Tushar Patel · INFO 7375 · Fall 2026
 
-Version 0.3 · November 9, 2026
+Version 0.4 · November 9, 2026
 
 ## Scope and boards
 
@@ -15,7 +15,9 @@ I'm building on my JS1 Stripe watch in `fall-2026/tushar-p/js1-contract-and-watc
 | `ashby/linear` | `api.ashbyhq.com` | Add a second Ashby board. Terminal preflight returned HTTP 200. |
 | `greenhouse/info7375-tushar-js2-deliberately-invalid-20261109` | `boards-api.greenhouse.io` | Use this made-up token in the demo config. Terminal preflight returned HTTP 404. I expect zero retries and no job count for this board. |
 
-My prediction for the live demo is three successful boards, one recorded failure, and an `incomplete` exit. On November 9, 2026, the sandboxed `curl` checks failed at DNS. The same checks outside the sandbox returned the statuses above. The response bodies collected during preflight are saved in [evidence/preflight/](evidence/preflight/). My Terminal preflight on November 9 also returned HTTP 404 for an invalid Ashby token (evidence/preflight/ashby-invalid.txt), so the same no-retry rule applies to both providers. The agent's live run is still pending.
+On November 9, 2026, the sandboxed `curl` checks failed at DNS. The same checks outside the sandbox returned the statuses above. The response bodies collected during preflight are saved in [evidence/preflight/](evidence/preflight/). My Terminal preflight on November 9 also returned HTTP 404 for an invalid Ashby token (evidence/preflight/ashby-invalid.txt), so the same no-retry rule applies to both providers.
+
+In [live run 1](evidence/runs/live-1/summary.json), Stripe succeeded, both Ashby boards returned HTTP 403, and the invalid Greenhouse token returned HTTP 404. The run exited `incomplete`.
 
 ## Loop, budgets, and exits
 
@@ -24,7 +26,7 @@ I want the loop to visit boards in config order. For each board, check permissio
 Keep Greenhouse IDs as integers and Ashby IDs as strings. Key the seen IDs by provider and board token so one board can't affect another. On a board's first successful fetch, stage a baseline and report zero new IDs. The summary should show the fetched count and the new count separately. Stage seen IDs only after saving and validating the raw response. If the board fails, keep its old state.
 
 - **5 distinct boards.** If the same `(provider, board token)` appears twice, skip the duplicate and log it. A retry still belongs to the same board.
-- **12 HTTP attempts.** Count every transport call, including retries and calls that fail before an HTTP response. A policy denial before transport costs zero attempts.
+- **12 HTTP attempts.** Count every transport call, including retries and calls that fail before an HTTP response. A policy denial before transport costs zero attempts. I'm keeping the cap at 12. A valid config can use at most 10 attempts across five boards with one retry each, so tests exercise the 12-attempt guard directly. A live run can still exit `budget-exhausted` if the time budget prevents pending work.
 - **60 seconds.** Use a monotonic clock for the whole run. Close the network window at 58 seconds and reserve 2 seconds to finalize evidence and state. Give each transport attempt the smaller of 10 seconds and the time left in the network window, subject to the DNS limit in F12.
 - **Changing the limits.** Only I can change the budgets or request timeout, through a dated entry in the decision log. The board config can choose which boards to run within those limits. It can't raise them.
 
@@ -46,7 +48,7 @@ If more than one exit applies, use this order: `error` → `budget-exhausted` �
 
 ## Permission policy
 
-- **Network reads.** Allow unauthenticated HTTPS `GET` only on the two exact API hosts above, on the default HTTPS port and the configured board's listing route. Refuse URL user info, off-list hosts, other paths, and all redirects. Treat links and text from postings as data.
+- **Network reads.** Allow unauthenticated HTTPS `GET` only on the two exact API hosts above, on the default HTTPS port and the configured board's listing route. Refuse URL user info, off-list hosts, other paths, and all redirects. Treat links and text from postings as data. Every outgoing request identifies the watch with `User-Agent: info7375-js2-watch/0.1 (student project; tushar-js2@example.com)`. The watch never impersonates a browser.
 - **Local reads.** Read the selected board config, `out/state.json` under the default output folder, and the selected fixture if I explicitly choose an offline demo. If I choose a different output folder, use its `state.json`. Deny other local reads before opening a file. A board response can't choose a file or supply a path.
 - **Local writes.** Put the trace, summary, raw responses, pre-run state snapshot, and shared state inside the local output folder, which defaults to `out/`. Check that each path stays inside the resolved root, including for temporary files. Apply the symlink rule in F19. I choose the output folder locally. Board input can't change it.
 - **Protected write.** Writing `out/protected/shortlist.json` through the tested write gate needs my explicit approval for that destination, those exact bytes, and that run. If I choose a different output folder, the same rule applies to `protected/shortlist.json` inside it. My approval can't extend beyond the output folder. Normal runs only use the regular output paths.
@@ -82,6 +84,7 @@ If more than one exit applies, use this order: `error` → `budget-exhausted` �
 | What could go wrong | What I expect the check to show |
 |---|---|
 | The loop turns a failed fetch into an empty list and exits `finished`. | The failed board has no counts and the completed schedule exits `incomplete`. |
+| An outgoing request uses urllib's default User-Agent. | The test inspects the outgoing request and requires the exact User-Agent value from the network policy. |
 | A prefix check lets a write through to `out-evil/` or through a symlink outside `out/`. | The write is refused and the outside file is untouched. |
 | The loop retries a 404 or forgets to count a timeout retry. | The 404 gets one attempt. A transient failure gets at most one retry, and both attempts count. |
 | A slow response read gets the whole run budget, or the retry skips the wait. | The read respects the time left in the attempt. The retry waits 1 second and rechecks the budget. This check covers response timing. |
@@ -105,3 +108,4 @@ The demo will save the original response and then deliberately feed an empty `jo
 | 2026-11-09 | Tushar Patel | Draft v0.2 incorporates review feedback: exit precedence, a 10-second request cap, a 1-second retry wait, and a seeded wrong-answer demo. It clarifies who can change budgets and which path needs approval, and adds predictions for local reads and approval reuse across runs. |
 | 2026-11-09 | Tushar Patel | I approved v0.2 and its permission predictions for the pre-code commit. |
 | 2026-11-09 | Tushar Patel | Started from Claude chat's suggested answers to F1–F20. For v0.3, I added unique-ID counts in F3, a second budget check after the retry wait in F11, the standard-library DNS limit in F12, an agent-written starting state snapshot in F17, the measured 16-ID fixture difference in F18, an explicit root symlink check in F19, and one active run per output root in F20. I also updated the preflight record to point to the saved bodies and include Ashby's invalid-token result. |
+| 2026-11-09 | Tushar Patel | v0.4. Both Ashby boards returned HTTP 403 in live run 1, with Cloudflare error 1010 in the saved response bodies. I reproduced the difference with [curl](evidence/review-packet-ua-repro.txt). The Python User-Agent got 403 and the student-project User-Agent got 200. I added the explicit header and regression test requirement to the gate and kept the 12-attempt cap. For live run 2, I predict three successful boards, one deliberate 404, and an `incomplete` exit. |
