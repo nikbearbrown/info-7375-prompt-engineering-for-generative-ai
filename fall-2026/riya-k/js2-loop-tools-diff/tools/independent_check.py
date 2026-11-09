@@ -98,7 +98,14 @@ def check(report_path, config_path, offline=False):
     contradicted = [f for f in findings if f["result"] in ("CONTRADICTED", "UNREADABLE")]
     result = {"report": str(report_path), "report_exit": report["exit"], "requests_made": requests,
               "verdict": "CONTRADICTED" if contradicted else "no contradiction found", "findings": findings}
-    policy.write_text(out / "checks" / f"check-{report['run_id']}.json", json.dumps(result, indent=2) + "\n")
+    # Never overwrite an earlier check (it is evidence): offline checks get their own name, repeats get -2, -3, ...
+    name = out / "checks" / f"check-{report['run_id']}{'-offline' if offline else ''}.json"
+    n, target = 1, name
+    while target.exists():
+        n += 1
+        target = name.with_name(f"{name.stem}-{n}{name.suffix}")
+    policy.write_text(target, json.dumps(result, indent=2) + "\n")
+    result["written_to"] = str(target)
     return result
 
 
