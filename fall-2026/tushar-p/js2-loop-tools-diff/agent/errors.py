@@ -31,3 +31,15 @@ class TransportError(AgentError):
 
 class TransportTimeout(TransportError):
     """The transport call timed out."""
+
+
+class StateError(AgentError):
+    """out/state.json exists but cannot be used. The run exits error before any transport call."""
+
+
+class MalformedResponse(AgentError):
+    """A board response fails F3: not JSON, not an object, no jobs list, or a job without a valid id."""
+
+
+class EvidenceError(AgentError):
+    """Run evidence (raw response, trace, summary, snapshot, or state) could not be saved."""
