@@ -35,7 +35,7 @@ Two of the student's later decisions belong to this policy (2026-11-08, each a c
 | 4 | No existing component between the project folder and the target is a symlink, even one that points inside | `symlink` |
 | 5 | The resolved path is still inside the project folder | `outside-project` |
 | 6 | A read is the persona, the state, or something under `runs/` | `not-readable` |
-| 7 | A write is inside `runs/<this run>/`. Otherwise it is `state/state.json`, its temporary file `state/.state.json.*.tmp`, or the `state` folder | `not-writable` |
+| 7 | A write is inside `runs/<this run>/` (or creates the `runs` folder itself). Otherwise it is `state/state.json`, its temporary file `state/.state.json.*.tmp`, or the `state` folder | `not-writable` |
 | 8 | A write from row 7's second list needs an approval naming this run and `state/state.json` | `approval` |
 
 **The approval** is given on the command line before the run starts: `--approve-state RUN_ID:state/state.json` ([jobwatch/__main__.py](jobwatch/__main__.py)). Only a `finished` run tries the state write. Every approval in the tests is a SIMULATED fixture. The one real approval in this repository is the student's: they typed it for the run `2026-11-08-normal-1` ([their terminal output](evidence/terminal/2026-11-08-normal-1-run-by-student.txt)).
@@ -64,5 +64,5 @@ Chapter 5's five limits, each tied to what was done here:
 | **Coverage:** it protects nothing that bypasses it | Checked by search on 2026-11-09 (above), not by a test. A new file or network call added later would need the same check. |
 | **Authentication:** who supplied the approval? | Not checked. `--approve-state` is a string; nothing proves who typed it. In the one real case, the student's own pasted terminal output is the evidence. |
 | **Time of check vs. time of use** | Not tested. `files.py` uses the path the policy resolved, but a folder swapped for a link between the check and the write is not defended against. |
-| **Meaning:** an approved write can still be wrong | Shown, not prevented, by the policy. Before the review-packet patch, a run with an empty board finished and wrote state with full approval ([demos/finished-wrong-answer/](demos/finished-wrong-answer/)). The independent check, not the policy, caught it. |
+| **Meaning:** an approved write can still be wrong | Shown, not prevented, by the policy. Before the review-packet patch, in a SEEDED demonstration in a temporary folder, a run with an empty board finished and wrote state with a matching (SIMULATED) approval ([demos/finished-wrong-answer/](demos/finished-wrong-answer/)). The independent check, not the policy, caught it. |
 | **Data beyond location** | The saved bodies are public job postings. Nothing classifies content, and nothing stops a later step from copying a saved file elsewhere. |

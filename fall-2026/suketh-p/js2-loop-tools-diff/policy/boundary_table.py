@@ -108,6 +108,14 @@ def outcome(call):
         return f"refuse ({error.rule})"
 
 
+def symlinked_state_case(base):
+    """X8: state/state.json itself is a symlink (to a file outside the project)."""
+    root = base / "symlinked-state-project"
+    (root / "state").mkdir(parents=True)
+    os.symlink(base / "outside" / "resume.pdf", root / "state" / "state.json")
+    return outcome(lambda: Policy(root, "R2", APPROVED).check_file("read", "state/state.json"))
+
+
 def redirect_case(base):
     """N5: the Anthropic endpoint answers 301 to example.com. Simulated; nothing is sent."""
     root = base / "redirect-project"
@@ -148,6 +156,9 @@ def main():
         for case, what, operation, path, approval in FILES:
             target = path.replace("<outside>", str(base / "outside"))
             rows.append((case, what, outcome(lambda: Policy(root, "R2", APPROVED, approval).check_file(operation, target)), ""))
+        x7 = next(i for i, row in enumerate(rows) if row[0] == "X7")
+        rows.insert(x7 + 1, ("X8", "read state/state.json when it is a symlink to a file outside",
+                             symlinked_state_case(base), "built in its own temporary folder"))
 
     lines = [
         "# Boundary results — the permission policy, run",

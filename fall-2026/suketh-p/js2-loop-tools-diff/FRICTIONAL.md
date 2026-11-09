@@ -18,14 +18,14 @@ I compared the state file with the copy I saved before the run, then ran the ind
 
 ## Claude Code's timeline (factual)
 
-Times are EST and come from commits, file save times, or the runs' own clocks. "Decided by" names who settled each item.
+Times are EST. Unmarked times come from commits, file save times, or the runs' own clocks. **Times marked ~ are approximate**, placed from the conversation, which stays on the student's machine (brief, "Privacy and boundaries"). "Decided by" names who settled each item.
 
 | When | What happened | Decided by | Trace |
 |---|---|---|---|
 | 11-08 04:20 | Before any gate existed, Claude Code probed 12 board URLs (read-only). 9 answered; made-up names got 404 on both systems; Greenhouse `hubspot`, an empty board in Lectern's notes, now got 404 | — | [evidence/probes/](evidence/probes/2026-11-08-board-probe.txt) |
 | 11-08 04:22 | Gave the student a worksheet of the brief's questions and the probe's facts, with no answers | — | [sheets](evidence/sheets-given-to-the-student/README.md) |
-| 11-08 04:51 | Timed the downloads the gate's 5 s limit applies to: about 10 MB each in 0.50–0.59 s | — | [timing](evidence/probes/2026-11-08-board-timing.txt) |
-| 11-08 04:52 | The student's GATE.md and first entry committed byte-for-byte, before any code | Student | `b55d2a5` |
+| 11-08 04:51 | Timed the downloads the gate's 5 s limit applies to: Anthropic and Databricks (about 10 MB each) in 0.50–0.59 s; Linear (0.45 MB) in 0.13–0.24 s | — | [timing](evidence/probes/2026-11-08-board-timing.txt) |
+| 11-08 04:52 | Before any code: the student's GATE.md committed byte-for-byte, and their first entry verbatim | Student | `b55d2a5` |
 | 11-08 ~04:55 | Two readings of the gate put to the student. Wrong-run or wrong-file approval → **incomplete**. Later (~05:21): a redirect → **unverified, keep going** | Student | `7db4ab4` message |
 | 11-08 05:20 | The student's 21 predictions committed before any policy code or test | Student | `f871ccb` |
 | 11-08 05:22 | 12 JS1 files copied unchanged (identical blobs). One JS1 test pins an empty board as valid | — | `d133453` |
@@ -40,7 +40,7 @@ Times are EST and come from commits, file save times, or the runs' own clocks. "
 | 11-08 06:19 | The student's failure run against the saved state: incomplete, `cmp` unchanged, check PASS | — | `72195da` |
 | 11-08 06:23–06:50 | The student's review gate and second entry committed before any test or patch | Student | `64357fe` |
 | 11-08 ~06:52 | Claude Code proposed a third reproduction (all boards empty) | Student: **adopted** | `a61f07e` message |
-| 11-08 ~06:55 | The student's first test run failed to import: the file was not in the JS2 folder. `find` showed a same-named file only in another student's folder (not opened) | — | [SOURCES.md](SOURCES.md) |
+| 11-08 06:53 on | The student's first two test runs failed to import: the file was not in the JS2 folder. `find` showed a same-named file only in another student's folder (not opened) | — | [their output](evidence/test-runs/2026-11-08-04x-student-review-test-not-found.txt), [SOURCES.md](SOURCES.md) |
 | 11-08 07:16–07:29 | The student's test, v1 (their own RED run), then v2 with the adopted case (Claude Code's RED run) | Student | `2eb4a5f`, `a61f07e` |
 | 11-08 07:30 | Claude Code's plan, before any edit | Student checked it against the scope | `231c4cf` |
 | 11-09 00:09–00:10 | The student's request; Claude Code's 2-line patch; no test run on it by Claude Code | Student asked | `4dccaee`, `4e39762` |

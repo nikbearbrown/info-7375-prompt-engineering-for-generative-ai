@@ -74,7 +74,7 @@ Times are EST; "Code" is the commit the run used.
 | When | Run | Mode | Run by | Result | Evidence | Code |
 |---|---|---|---|---|---|---|
 | 11-08 05:45 | `2026-11-08-failure-1` | live | Claude Code | **incomplete**: anthropic 675, databricks 922, linear 32 usable (provisional baselines, since no state existed); the failure control answered 404 as expected and its count is unknown. No state written. Check PASS | [run](runs/2026-11-08-failure-1/results.md), [terminal](evidence/terminal/2026-11-08-failure-1.txt) | `5d8bc8c` |
-| 11-08 05:47 | finished-wrong-answer, before the fix | **SEEDED** | Claude Code | With Linear emptied, the run ended **finished**, reporting Linear "usable, 0 jobs". Check **FAIL**: it caught the wrong finish | [summary](demos/finished-wrong-answer/at-8020acb-before-fix/SUMMARY.md) | `8020acb` |
+| 11-08 05:47 | finished-wrong-answer, before the fix | **SEEDED** | Claude Code | With Linear emptied, the run ended **finished**, reporting Linear as usable with 0 jobs. Check **FAIL**: it caught the wrong finish | [summary](demos/finished-wrong-answer/at-8020acb-before-fix/SUMMARY.md) | `8020acb` |
 | 11-08 06:17 | `2026-11-08-normal-1` | live | **the student**, with their own approval | **finished**: baselines of 675, 922 and 32 postings; `state/state.json` created. Check PASS | [run](runs/2026-11-08-normal-1/results.md), [terminal](evidence/terminal/2026-11-08-normal-1-run-by-student.txt) | `ecd83b7` |
 | 11-08 06:19 | `2026-11-08-failure-2`, **the trace** | live | **the student** | **incomplete**: 0 new on each board; 404 as expected. The student's `cmp`: state unchanged. Check PASS | [trace](runs/2026-11-08-failure-2/trace.md), [terminal](evidence/terminal/2026-11-08-failure-2-run-by-student.txt) | `0507a83` |
 | 11-09 00:41 | finished-wrong-answer, after the fix | **SEEDED** | Claude Code | The same empty Linear body now ends **incomplete**, with Linear `unverified`. Check PASS | [summary](demos/finished-wrong-answer/at-4e39762-after-fix/SUMMARY.md) | `4e39762` |
@@ -114,12 +114,12 @@ Every run that has a folder writes `results.json`, `results.md`, `trace.json` an
 | No model calls | no model code in `jobwatch/` (JS1's judge and transports were not carried) | a search of `jobwatch/` on 2026-11-09 ([POLICY.md](POLICY.md)) |
 | The six wrong versions | [tests/wrong_versions.py](tests/wrong_versions.py) | [tests/test_wrong_versions_caught.py](tests/test_wrong_versions_caught.py) swaps each in. Wrong version 1's empty-list half is caught by the student's test instead |
 
-The tests were committed and seen failing before the agent code existed (`7db4ab4`, then GREEN `208d1e3`).
+The tests were committed and seen failing before any new agent code existed (`7db4ab4`, then GREEN `208d1e3`). The six JS1 modules copied in `d133453` were already there, and their 30 carried tests passed in the RED run.
 
 ## The deliberate failure, and a finished wrong answer
 
 - **The deliberate failure** is the failure control, `jobwatch-no-such-board-js2`. In both live failure runs it answered 404. The loop recorded the raw 38-byte body, reported the count as unknown rather than 0, checked the other boards, and ended `incomplete`. In the student's run against saved history, the state file came out byte-identical ([trace](runs/2026-11-08-failure-2/trace.md)).
-- **A finished wrong answer** (SEEDED). Before the review-packet patch, an empty Linear response ended `finished` and was reported as "usable, 0 jobs, no new postings". The run saved the empty snapshot as checked. The agent's own report gave no sign of it. The **independent check**, which reads the saved body and the two state copies and does not import the agent, flagged it: *"ashby/linear: reported usable, but its saved response has 0 jobs"*. After the patch, the same input ends `incomplete` and the check passes. Its criterion is the student's (GATE.md, wrong version 1): "check the saved body and before-and-after state separately from the loop's report."
+- **A finished wrong answer** (SEEDED). Before the review-packet patch, an empty Linear response ended `finished`. The agent's report listed Linear as usable with 0 jobs and no new postings, and the run saved the empty snapshot as checked. The report raised no flag. The **independent check**, which reads the saved body and the two state copies and does not import the agent, flagged it: *"ashby/linear: reported usable, but its saved response has 0 jobs"*. After the patch, the same input ends `incomplete` and the check passes. Its criterion is the student's (GATE.md, wrong version 1): "check the saved body and before-and-after state separately from the loop's report."
 
 ## The permission policy, and the review packet
 
@@ -136,7 +136,7 @@ These were not put to the student one by one. The two exits the student did deci
 - **The board list lives in code**, because the read policy allows only the persona, the state and run evidence.
 - **Ashby for JS1's rule**: `title` → title, `location` (a string) → `location.name`, `descriptionHtml` → content. `secondaryLocations` are ignored.
 - **Storage**: keys are stored as strings. The state schema is new (`jobwatch-state/2`). JS1's state is not imported, and a JS1 state file is refused as damaged rather than used. Raw bodies are stored gzip-compressed, with the sha256 of the uncompressed bytes (JS1's practice, checked by `verify`).
-- **Order of writes**: results and trace are written even after the time budget runs out. Only the state update is blocked. They are written before the state, so a crash between the two would leave a report saying `finished` beside the old state. The independent check would flag that; it was not tested.
+- **Order of writes**: results and trace are written even after the time budget runs out. Only the state update is blocked. They are written before the state, so a crash between the two would leave a report saying `finished` beside the old state. The independent check flags that combination; its test uses a constructed run (`tests/test_independent_check.py`). A crash itself was not tested.
 - **Run ids** are letters, digits, `.`, `_` and `-`, at most 64 characters. A run never reuses an existing folder.
 
 ## Known limits
