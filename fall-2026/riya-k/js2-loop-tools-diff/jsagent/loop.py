@@ -129,9 +129,13 @@ def read_board(s, system, board, out, stamp, label, empty_guard=True):
                 continue  # GATE.md: timeouts and connection errors get one retry
             break
         res["http_status"] = status
-        raw_path = out / "raw" / f"{system}-{board.replace(' ', '_')}-{stamp}-{label}-a{attempt}.json"
-        s.policy.write_bytes(raw_path, body)
-        res["raw_responses"].append(rel(raw_path))
+        replayed = getattr(s.get, "files", {}).get(url)
+        if replayed:  # seeded: point at the saved response it replayed instead of copying it
+            res["raw_responses"].append(rel(replayed))
+        else:
+            raw_path = out / "raw" / f"{system}-{board.replace(' ', '_')}-{stamp}-{label}-a{attempt}.json"
+            s.policy.write_bytes(raw_path, body)
+            res["raw_responses"].append(rel(raw_path))
         if 500 <= status < 600 and attempt == 1:
             res["reason"] = f"HTTP {status}"
             continue  # GATE.md: 5xx gets one retry
@@ -178,7 +182,7 @@ def load_config(policy, path):
 
 
 def run(config, out_dir, fixtures=None, label="live", empty_guard=True, approve=False,
-        get=None, clock=time.monotonic, sleep=time.sleep, now=None, extra_read_roots=()):
+        get=None, clock=time.monotonic, sleep=time.sleep, now=None, extra_read_roots=(), fixture_tag=None):
     out = Path(out_dir)
     read_roots = [ROOT] + ([Path(fixtures)] if fixtures else []) + [Path(r) for r in extra_read_roots]
     policy = Policy(out, read_roots, approve=approve)
@@ -194,7 +198,7 @@ def run(config, out_dir, fixtures=None, label="live", empty_guard=True, approve=
         cfg = load_config(policy, Path(config))
         resume = validate_resume(json.loads(policy.read_bytes(ROOT / cfg.get("persona", "persona/arya-sahni.json"))))
         if fixtures:
-            s.get = fixture_get(policy, Path(fixtures), cfg)
+            s.get = fixture_get(policy, Path(fixtures), cfg, fixture_tag)
         boards, seen_keys = [], set()
         for b in cfg["boards"]:
             key = f"{b['system']}:{b['board']}"
@@ -269,18 +273,25 @@ def compare_and_judge(policy, out, key, postings, resume, run_id):
             "removed_since_last": len(seen - set(ids)), "new_postings": verdicts}
 
 
-def fixture_get(policy, folder, cfg):
-    """Seeded mode: answer each board URL from a saved response file. Still goes through the policy and budget."""
+def fixture_get(policy, folder, cfg, tag=None):
+    """Seeded mode: answer each board URL from a saved response file. Still goes through the policy and budget.
+
+    File per board: <folder>/<system>-<board>.json, or with tag: the one file <folder>/<system>-<board>-*<tag>*.json
+    (so a seeded run can replay a saved live run's raw responses by its run id).
+    """
     files = {}
     for b in cfg["boards"]:
         url = ats.SYSTEMS[b["system"]][0](b["board"])
-        files[url] = folder / f"{b['system']}-{b['board'].replace(' ', '_')}.json"
+        stem = f"{b['system']}-{b['board'].replace(' ', '_')}"
+        found = sorted(folder.glob(f"{stem}-*{tag}*.json")) if tag else [folder / f"{stem}.json"]
+        files[url] = found[-1] if len(found) == 1 else None
 
     def get(url, timeout):
         f = files.get(url)
         if f is None or not f.exists():
             raise Transient(f"no saved response for {url}")
         return 200, policy.read_bytes(f)
+    get.files = files
     return get
 
 
@@ -337,6 +348,7 @@ def main(argv=None):
     r.add_argument("--config", default=str(ROOT / "boards.json"))
     r.add_argument("--out", default=str(ROOT / "runs"))
     r.add_argument("--fixtures", help="answer from saved responses instead of the network (label the run 'seeded')")
+    r.add_argument("--fixture-tag", help="with --fixtures: replay the saved raw responses whose name contains this run id")
     r.add_argument("--label")
     r.add_argument("--no-empty-guard", action="store_true",
                    help="DEMONSTRATION ONLY: GATE.md wrong version 1, treat a 0-posting board as fine")
@@ -354,7 +366,7 @@ def main(argv=None):
     label = a.label or ("seeded" if a.fixtures else "live")
     if a.no_empty_guard:
         label += "-naive"
-    rep = run(a.config, a.out, a.fixtures, label, empty_guard=not a.no_empty_guard)
+    rep = run(a.config, a.out, a.fixtures, label, empty_guard=not a.no_empty_guard, fixture_tag=a.fixture_tag)
     print(markdown(rep))
     sys.exit(EXIT_CODES[rep["exit"]])
 
