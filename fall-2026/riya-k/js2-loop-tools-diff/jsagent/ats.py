@@ -1,7 +1,8 @@
 """One adapter per applicant-tracking system: the public board URL, and a parser into one common posting shape.
 
 Common shape (what jsagent.rules.judge already reads, from JS1):
-    {"id": str, "title": str, "content": str (HTML or text), "location": {"name": str}, "absolute_url": str}
+    {"id": str, "title": str, "content": str (HTML or text), "location": {"name": str}, "absolute_url": str,
+     "employment": "FullTime" | other type | None (Greenhouse: the board does not say)}
 
 A parser raises ParseError on a body with the wrong shape. It never fills in a missing value.
 """
@@ -64,7 +65,8 @@ def ashby_parse(raw, board=""):
         out.append({"id": str(j["id"]), "title": j["title"],
                     "content": j.get("descriptionHtml") or j.get("descriptionPlain") or "",
                     "location": {"name": "; ".join(p for p in places if p)},
-                    "absolute_url": j.get("jobUrl") or ""})
+                    "absolute_url": j.get("jobUrl") or "",
+                    "employment": j.get("employmentType")})
     return out
 
 
@@ -80,7 +82,10 @@ def smartrecruiters_parse(raw, board=""):
         loc = j.get("location") or {}
         parts = [loc.get("city"), loc.get("region"), (loc.get("country") or "").upper()]
         name = ", ".join(p for p in parts if p) + ("; Remote" if loc.get("remote") else "")
+        label = (j.get("typeOfEmployment") or {}).get("label")
+        employment = "FullTime" if label and label.lower().replace("-", " ") == "full time" else label
         out.append({"id": str(j["id"]), "title": j["name"], "content": "",  # list endpoint has no description
+                    "employment": employment,
                     "location": {"name": name},
                     "absolute_url": f"https://jobs.smartrecruiters.com/{_q(board)}/{j['id']}"})
     return out

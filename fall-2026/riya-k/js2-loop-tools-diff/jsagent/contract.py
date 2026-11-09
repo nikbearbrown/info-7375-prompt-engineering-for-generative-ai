@@ -4,7 +4,7 @@ import json
 import re
 
 VERDICTS = {"relevant", "not_relevant"}
-POSTING_FIELDS = {"title", "content", "location.name"}
+POSTING_FIELDS = {"title", "content", "location.name", "employmentType"}
 CLAUDE_KEYS = {"id", "verdict", "resume_fields", "posting_fields", "justification"}
 RESUME_FIELD = re.compile(r"^(skills(\.\w+)?|experience|projects|education)$")
 
