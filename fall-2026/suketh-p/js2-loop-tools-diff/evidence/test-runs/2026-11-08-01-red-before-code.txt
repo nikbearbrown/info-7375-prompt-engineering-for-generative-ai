@@ -1,0 +1,225 @@
+$ python3 --version
+Python 3.12.7
+$ date
+Sun Nov  8 05:34:03 EST 2026
+$ python3 -m unittest -v   (2026-11-08, RED: tests written from GATE.md before any new agent code)
+tests.test_ats (unittest.loader._FailedTest.tests.test_ats) ... ERROR
+tests.test_cli (unittest.loader._FailedTest.tests.test_cli) ... ERROR
+test_a_board_saved_with_an_empty_history_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_board_saved_with_an_empty_history_is_flagged) ... FAIL
+test_a_consistent_finished_baseline_passes (tests.test_independent_check.IndependentCheckTest.test_a_consistent_finished_baseline_passes) ... FAIL
+test_a_finished_run_that_left_the_state_unchanged_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_finished_run_that_left_the_state_unchanged_is_flagged) ... FAIL
+test_a_raw_file_that_does_not_match_its_hash_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_raw_file_that_does_not_match_its_hash_is_flagged) ... FAIL
+test_a_state_change_by_a_run_that_did_not_finish_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_state_change_by_a_run_that_did_not_finish_is_flagged) ... FAIL
+test_an_empty_board_reported_as_checked_is_flagged (tests.test_independent_check.IndependentCheckTest.test_an_empty_board_reported_as_checked_is_flagged) ... FAIL
+test_wrongly_reported_new_keys_are_flagged (tests.test_independent_check.IndependentCheckTest.test_wrongly_reported_new_keys_are_flagged) ... FAIL
+test_accepts_an_empty_jobs_array (tests.test_inputs.BoardValidationTest.test_accepts_an_empty_jobs_array) ... ok
+test_accepts_an_empty_location_name (tests.test_inputs.BoardValidationTest.test_accepts_an_empty_location_name) ... ok
+test_conflicting_records_sharing_an_id_are_an_error (tests.test_inputs.BoardValidationTest.test_conflicting_records_sharing_an_id_are_an_error) ... ok
+test_identical_duplicate_ids_produce_one_posting (tests.test_inputs.BoardValidationTest.test_identical_duplicate_ids_produce_one_posting) ... ok
+test_rejects_a_response_without_a_jobs_array (tests.test_inputs.BoardValidationTest.test_rejects_a_response_without_a_jobs_array) ... ok
+test_rejects_ids_that_are_not_positive_integers (tests.test_inputs.BoardValidationTest.test_rejects_ids_that_are_not_positive_integers) ... ok
+test_rejects_malformed_json (tests.test_inputs.BoardValidationTest.test_rejects_malformed_json) ... ok
+test_rejects_missing_or_empty_required_fields (tests.test_inputs.BoardValidationTest.test_rejects_missing_or_empty_required_fields) ... ok
+test_returns_postings_with_the_contract_fields (tests.test_inputs.BoardValidationTest.test_returns_postings_with_the_contract_fields) ... ok
+test_accepts_the_fictional_persona (tests.test_inputs.ResumeValidationTest.test_accepts_the_fictional_persona) ... ok
+test_error_message_does_not_repeat_the_rejected_value (tests.test_inputs.ResumeValidationTest.test_error_message_does_not_repeat_the_rejected_value) ... ok
+test_rejects_a_missing_preference (tests.test_inputs.ResumeValidationTest.test_rejects_a_missing_preference) ... ok
+test_rejects_a_non_string_skill (tests.test_inputs.ResumeValidationTest.test_rejects_a_non_string_skill) ... ok
+test_rejects_a_phone_without_the_555_exchange (tests.test_inputs.ResumeValidationTest.test_rejects_a_phone_without_the_555_exchange) ... ok
+test_rejects_a_resume_not_marked_fictional (tests.test_inputs.ResumeValidationTest.test_rejects_a_resume_not_marked_fictional) ... ok
+test_rejects_a_term_that_normalizes_to_nothing (tests.test_inputs.ResumeValidationTest.test_rejects_a_term_that_normalizes_to_nothing) ... ok
+test_rejects_an_email_outside_example_com (tests.test_inputs.ResumeValidationTest.test_rejects_an_email_outside_example_com) ... ok
+test_rejects_an_empty_skill_list (tests.test_inputs.ResumeValidationTest.test_rejects_an_empty_skill_list) ... ok
+test_rejects_fields_the_contract_does_not_name (tests.test_inputs.ResumeValidationTest.test_rejects_fields_the_contract_does_not_name) ... ok
+tests.test_loop (unittest.loader._FailedTest.tests.test_loop) ... ERROR
+tests.test_net (unittest.loader._FailedTest.tests.test_net) ... ERROR
+test_phrase_needs_consecutive_tokens (tests.test_normalize.ContainsPhraseTest.test_phrase_needs_consecutive_tokens) ... ok
+test_single_word_matches_a_whole_token_only (tests.test_normalize.ContainsPhraseTest.test_single_word_matches_a_whole_token_only) ... ok
+test_keeps_case_and_collapses_whitespace (tests.test_normalize.PlainTextTest.test_keeps_case_and_collapses_whitespace) ... ok
+test_adjacent_text_blocks_are_separated (tests.test_normalize.TokensTest.test_adjacent_text_blocks_are_separated) ... ok
+test_characters_outside_a_to_z_split_words (tests.test_normalize.TokensTest.test_characters_outside_a_to_z_split_words) ... ok
+test_digits_stay_inside_their_token (tests.test_normalize.TokensTest.test_digits_stay_inside_their_token) ... ok
+test_entities_are_decoded_until_nothing_changes_then_markup_removed (tests.test_normalize.TokensTest.test_entities_are_decoded_until_nothing_changes_then_markup_removed) ... ok
+test_lowercases_and_splits_on_non_alphanumerics (tests.test_normalize.TokensTest.test_lowercases_and_splits_on_non_alphanumerics) ... ok
+tests.test_policy (unittest.loader._FailedTest.tests.test_policy) ... ERROR
+test_negative_record_names_the_failed_condition_and_its_fields (tests.test_rule.RuleRecordTest.test_negative_record_names_the_failed_condition_and_its_fields) ... ok
+test_record_shows_every_condition_with_fields_and_matches (tests.test_rule.RuleRecordTest.test_record_shows_every_condition_with_fields_and_matches) ... ok
+test_hand_worked_cases (tests.test_rule.RuleTableTest.test_hand_worked_cases) ... ok
+tests.test_state (unittest.loader._FailedTest.tests.test_state) ... ERROR
+tests.test_wrong_versions_caught (unittest.loader._FailedTest.tests.test_wrong_versions_caught) ... ERROR
+
+======================================================================
+ERROR: tests.test_ats (unittest.loader._FailedTest.tests.test_ats)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_ats
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_ats.py", line 10, in <module>
+    from jobwatch import ats, rule
+ImportError: cannot import name 'ats' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/__init__.py)
+
+
+======================================================================
+ERROR: tests.test_cli (unittest.loader._FailedTest.tests.test_cli)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_cli
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_cli.py", line 12, in <module>
+    from jobwatch.__main__ import main
+ModuleNotFoundError: No module named 'jobwatch.__main__'
+
+
+======================================================================
+ERROR: tests.test_loop (unittest.loader._FailedTest.tests.test_loop)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_loop
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_loop.py", line 17, in <module>
+    from jobwatch import boards, loop
+ImportError: cannot import name 'boards' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/__init__.py). Did you mean: 'board'?
+
+
+======================================================================
+ERROR: tests.test_net (unittest.loader._FailedTest.tests.test_net)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_net
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_net.py", line 9, in <module>
+    from jobwatch import net
+ImportError: cannot import name 'net' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/__init__.py)
+
+
+======================================================================
+ERROR: tests.test_policy (unittest.loader._FailedTest.tests.test_policy)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_policy
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_policy.py", line 14, in <module>
+    from jobwatch.errors import PolicyDenied
+ImportError: cannot import name 'PolicyDenied' from 'jobwatch.errors' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/errors.py)
+
+
+======================================================================
+ERROR: tests.test_state (unittest.loader._FailedTest.tests.test_state)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_state
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_state.py", line 12, in <module>
+    from jobwatch import state
+ImportError: cannot import name 'state' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/__init__.py)
+
+
+======================================================================
+ERROR: tests.test_wrong_versions_caught (unittest.loader._FailedTest.tests.test_wrong_versions_caught)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_wrong_versions_caught
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_wrong_versions_caught.py", line 8, in <module>
+    from tests import wrong_versions
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/wrong_versions.py", line 14, in <module>
+    from jobwatch import net, policy, state
+ImportError: cannot import name 'net' from 'jobwatch' (/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/__init__.py)
+
+
+======================================================================
+FAIL: test_a_board_saved_with_an_empty_history_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_board_saved_with_an_empty_history_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 122, in test_a_board_saved_with_an_empty_history_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_a_consistent_finished_baseline_passes (tests.test_independent_check.IndependentCheckTest.test_a_consistent_finished_baseline_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 73, in test_a_consistent_finished_baseline_passes
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_a_finished_run_that_left_the_state_unchanged_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_finished_run_that_left_the_state_unchanged_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 114, in test_a_finished_run_that_left_the_state_unchanged_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_a_raw_file_that_does_not_match_its_hash_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_raw_file_that_does_not_match_its_hash_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 97, in test_a_raw_file_that_does_not_match_its_hash_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_a_state_change_by_a_run_that_did_not_finish_is_flagged (tests.test_independent_check.IndependentCheckTest.test_a_state_change_by_a_run_that_did_not_finish_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 90, in test_a_state_change_by_a_run_that_did_not_finish_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_an_empty_board_reported_as_checked_is_flagged (tests.test_independent_check.IndependentCheckTest.test_an_empty_board_reported_as_checked_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 81, in test_an_empty_board_reported_as_checked_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_wrongly_reported_new_keys_are_flagged (tests.test_independent_check.IndependentCheckTest.test_wrongly_reported_new_keys_are_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_independent_check.py", line 106, in test_wrongly_reported_new_keys_are_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : /opt/anaconda3/bin/python3: can't open file '/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/checks/independent_check.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.074s
+
+FAILED (failures=7, errors=7)
+exit status: 1

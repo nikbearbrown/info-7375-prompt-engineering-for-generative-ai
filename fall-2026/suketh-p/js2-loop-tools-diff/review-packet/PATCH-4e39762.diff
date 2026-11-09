@@ -1,0 +1,20 @@
+commit 4e39762953ee5d8f0afd9f04bee4ff833944ce25
+Author: Suketh Produtoor
+Date:   2026-11-09 00:10:07 -0500
+
+    js2: proposed patch for the review packet: an empty jobs list is unverified
+
+
+diff --git a/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/loop.py b/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/loop.py
+index b9447ca..7a14444 100644
+--- a/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/loop.py
++++ b/fall-2026/suketh-p/js2-loop-tools-diff/jobwatch/loop.py
+@@ -91,6 +91,8 @@ def classify_response(board, response):
+         postings = ats.parse(board.ats, response.body)
+     except InputError as error:
+         return "unverified", None, f"malformed payload: {error}"
++    if not postings:
++        return "unverified", None, "empty jobs list: the board answered 200 with no postings, so it could not be verified"
+     return "usable", postings, None
+ 
+ 

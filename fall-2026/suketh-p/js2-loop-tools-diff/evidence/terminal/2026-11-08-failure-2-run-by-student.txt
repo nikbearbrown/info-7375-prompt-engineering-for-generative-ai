@@ -1,0 +1,23 @@
+Run by the student in their own Terminal on 2026-11-08 (06:19 EST by the run's trace), at commit
+0507a83, and pasted in chat: the before-and-after comparison the student planned in their first
+Frictional entry ("compare the posting history before and after a run where one board fails").
+The copy of the state was taken by the student's own `cp`, outside runs/, before the run.
+Privacy: the "Last login" line and the shell prompts (user and machine name) were replaced by "$";
+the command and every output line are verbatim.
+---
+$ cd "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff" && cp state/state.json evidence/state-before-2026-11-08-failure-2.json && python3 -m jobwatch run --run-id 2026-11-08-failure-2 --failure-control; cmp state/state.json evidence/state-before-2026-11-08-failure-2.json && echo "state file unchanged"; python3 -I checks/independent_check.py runs/2026-11-08-failure-2 --state-before evidence/state-before-2026-11-08-failure-2.json --state-after state/state.json
+run 2026-11-08-failure-2: incomplete — not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional
+  greenhouse/anthropic                     usable                 jobs=675 new=0
+  greenhouse/databricks                    usable                 jobs=922 new=0
+  ashby/linear                             usable                 jobs=32 new=0
+  greenhouse/jobwatch-no-such-board-js2    failed-as-expected     jobs=unknown (HTTP 404, as expected for the failure control)
+  used 4 boards, 4 requests, 2.045 s; state advanced: False
+  evidence: runs/2026-11-08-failure-2/ (results.md, trace.md, raw/)
+state file unchanged
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 10279433 bytes, 675 jobs
+  greenhouse/databricks: saved body is HTTP 200, 10058900 bytes, 922 jobs
+  ashby/linear: saved body is HTTP 200, 452742 bytes, 32 jobs
+  greenhouse/jobwatch-no-such-board-js2: saved body is HTTP 404, 38 bytes, no jobs list
+  state file unchanged between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
