@@ -1,0 +1,14 @@
+{"t": 0.0, "event": "start", "run": "2026-11-09T205756Z", "budgets": {"boards": 5, "requests": 10, "seconds": 60}, "config": "config/boards.json", "state": "state/seen.json"}
+{"t": 0.0, "event": "request", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/abacusinsights/jobs?content=true", "attempt": 1, "timeout": 15}
+{"t": 0.211, "event": "response", "url": "https://boards-api.greenhouse.io/v1/boards/abacusinsights/jobs?content=true", "status": 200, "bytes": 308345, "elapsed": 0.209, "saved": "raw/greenhouse_abacusinsights.json"}
+{"t": 0.212, "event": "board ok", "board": "greenhouse/abacusinsights", "count": 15, "baseline": true, "new": 0, "closed": 0}
+{"t": 0.212, "event": "request", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/valon", "attempt": 1, "timeout": 15}
+{"t": 0.477, "event": "response", "url": "https://api.ashbyhq.com/posting-api/job-board/valon", "status": 200, "bytes": 554483, "elapsed": 0.264, "saved": "raw/ashby_valon.json"}
+{"t": 0.479, "event": "board ok", "board": "ashby/valon", "count": 31, "baseline": true, "new": 0, "closed": 0}
+{"t": 0.48, "event": "request", "method": "GET", "url": "https://api.lever.co/v0/postings/xsolla?mode=json", "attempt": 1, "timeout": 15}
+{"t": 1.629, "event": "response", "url": "https://api.lever.co/v0/postings/xsolla?mode=json", "status": 200, "bytes": 3169230, "elapsed": 1.144, "saved": "raw/lever_xsolla.json"}
+{"t": 1.643, "event": "board ok", "board": "lever/xsolla", "count": 185, "baseline": true, "new": 0, "closed": 0}
+{"t": 1.643, "event": "request", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/valonn", "attempt": 1, "timeout": 15}
+{"t": 1.73, "event": "response", "url": "https://api.ashbyhq.com/posting-api/job-board/valonn", "status": 404, "bytes": 9, "elapsed": 0.086, "saved": "raw/ashby_valonn.http404.txt"}
+{"t": 1.73, "event": "board failed", "board": "ashby/valonn", "reason": "HTTP 404 (not retried: a wrong name won't fix itself)"}
+{"t": 1.732, "event": "exit", "status": "incomplete", "reason": null}

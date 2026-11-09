@@ -44,3 +44,23 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **No overwrite.** A run never overwrites an earlier run's folder or report, and a normal run only adds seen ids.
 - **A pre-submit check** will fail if a TODO is still open or the README claims a run with no saved trace. It's a submission tool, not part of the gate.
 - **Gate committed first.** `GATE.md` and this log were committed on branch `js2-loop-tools-diff` before any JS2 code existed.
+
+## 2026-11-09 — Build, day 1 live, finished wrong answer
+- **Commit order:** the gate (`1f00955`), then the boundary-case predictions (`159adc2`), then the code (`350a997`).
+- **Predictions.** `PERMISSIONS.md` lists 23 cases with their predicted outcomes and was committed before any test or policy code existed.
+- **What Claude wrote,** starting from my JS1 code: `policy.py` (the gate's permission policy in code), `tools.py` (GET, read, write, new run folder, delete, each checked by the policy), `adapters.py` (Greenhouse, Ashby, Lever), `loop.py`, `agent.py`, `check_identity.py`, and `precheck.py`.
+- **Bugs Claude caught in its own code before anything ran:**
+  - The first `loop.py` state-update block had dead code and a helper that read a key nothing set, so it would have crashed on the first successful board.
+  - Network tests needed to script responses without skipping the policy. `http_get` now always runs the policy check before handing the request to a separate send step, and tests replace only that send step.
+- **Tests: 54, all passing on the first run.**
+  - All 23 boundary cases came out as predicted.
+  - All four wrong versions are run as mutants, and each test checks both that the mutant really gives the wrong result and that the real code doesn't.
+- **Day 1, live** (`runs/2026-11-09T205756Z`).
+  - Exit `incomplete`: 4 requests in 1.7 s.
+  - Baselines: Abacus 15 postings, Valon 31, Xsolla 185.
+  - `valonn` got a real 404 with the 9-byte plain-text body `Not Found`. It wasn't retried, its body was saved, and its state wasn't invented.
+- **Finished wrong answer** (`runs/2026-11-09T205807Z_WRONG-BOARD-demo`).
+  - The loop, pointed at Greenhouse `abacus` as Abacus Insights, exited `finished` (code 0) with 46 postings from a different employer.
+  - The independent check (`runs/2026-11-09T205808Z_identity-check`) asked Greenhouse for the board's own name, got "ABACUS", and reported MISMATCH (code 1). It doesn't read any run report.
+  - On the real config, Abacus Insights matched. Ashby and Lever have no name endpoint, so their boards were reported "not checkable", not as passing.
+- **Unresolved:** the identity check only covers Greenhouse. A wrong Ashby or Lever board would still finish cleanly.
