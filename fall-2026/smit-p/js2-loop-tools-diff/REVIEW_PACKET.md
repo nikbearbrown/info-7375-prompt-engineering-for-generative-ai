@@ -170,13 +170,20 @@ mutation check shows the test would catch a regression (6).
 Claude's recommendation: **accept the revised version**, and decide separately on the
 all-suspect → `error` side effect in section 3, item 5.
 
-**Review disposition — Smit P — 2026-11-09:** Personal acceptance withheld.
-The technical recommendation is to accept the revised empty-after-nonempty patch:
-59 current tests pass, all 10 mutants are caught, and the fresh baseline/empty/restored
-replay preserves the baseline and reports zero old postings as new on recovery.
-See LOCAL_VERIFICATION.md and evidence/local-replay-2026-11-09.txt.
-These automated results do not establish personal review. The all-suspect exit policy,
-large nonzero drop threshold, and GATE.md confirmations remain unresolved decisions.
+**Decision — Smit P — 2026-11-09: ACCEPT the revised patch.**
+
+In Smit's words: "I accept the revised patch because it flags an unexpectedly empty board
+as suspect, reports `null` instead of a misleading zero, and preserves the previous baseline."
+
+Evidence relied on: the commands Smit ran on Smit's own Mac on 2026-11-09 (section 7 and
+`evidence/smit-mac-run-2026-11-09.txt`): 59 tests OK, 10/10 mutants caught including W1, and
+a live run plus independent check that passed. Also LOCAL_VERIFICATION.md and
+`evidence/local-replay-2026-11-09.txt`.
+
+An earlier entry the same day recorded this decision as withheld, before Smit had run the
+commands. Still open and not decided by this acceptance: the all-suspect → `error` exit
+(section 3, item 5), a threshold for large nonzero drops (section 9), and the two GATE.md
+Decisions rows marked "Smit to confirm".
 
 ## 9. A case this test would still miss
 

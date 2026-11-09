@@ -34,8 +34,12 @@ How: Original tests and runs were produced by Claude Code. The extracted archive
        subsequently checked automatically on macOS with Python 3.14.5: all 59 tests
        passed, all 10 mutants were caught, and a fresh three-step replay passed its
        independent checks. See LOCAL_VERIFICATION.md and the local-* evidence files.
-       Smit P supplied the archive and requested completion; no personal command
-       execution or independent code review has been reported.
+       Later on 2026-11-09 Smit ran these personally on Smit's own Mac: the full suite
+       (59 OK), tests/mutation_check.py (10/10 caught), and a live run plus
+       verify_run.py (passed). See evidence/smit-mac-run-2026-11-09.txt. Smit made no
+       prediction beforehand and did not write any of the tests; Claude Code wrote them
+       all. Smit read the review evidence and accepted the revised patch
+       (REVIEW_PACKET.md section 8).
 
 Not checked:
   - A board that collapses but does not reach zero (145 -> 3). Not flagged; the suite

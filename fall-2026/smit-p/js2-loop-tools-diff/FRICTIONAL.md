@@ -1,8 +1,8 @@
 # FRICTIONAL — Job-Search Agent 2
 
 > Author: Smit P. Part A preserves the original session record. Part B records
-> the file-transfer experience documented in this chat and distinguishes it from automated
-> technical review. No personal test execution or pre-test prediction is claimed.
+> Smit's entries. Entries 1–3 were written before Smit ran anything; Entry 4 records the
+> commands Smit then ran personally. No pre-test prediction is claimed.
 
 ## Part A — Session record (written by Claude Code, 2026-11-08)
 
@@ -102,3 +102,27 @@ boundary test alongside agent/policy.py. I cannot claim to have completed that e
 
 Evidence: SOURCES.md; LOCAL_VERIFICATION.md; agent/fetch.py;
 tests/test_redirect.py; tests/test_policy.py; and REVIEW_PACKET.md section 9.
+
+### Entry 4 — Running it myself and deciding — 2026-11-09 (later the same day)
+
+- What I was working on: re-running the review commands on my own Mac and making the
+  review decision that Entries 2 and 3 had left open.
+- I tried / expected: I ran the full test suite, `tests/mutation_check.py`, a live
+  `run_agent.py`, and `verify_run.py` on that run. I did not record a prediction before
+  seeing the test results.
+- What happened: 59 tests OK; 10/10 wrong versions caught; the live run
+  `2026-11-09T20-19-03Z`, a day after the baseline, found 2 new Figma postings and 4 new
+  Spotify postings, handled the deliberate bad board as `failed:not_found` with `null`, and
+  ended `incomplete`; the independent check passed. W3b showed 30 errors on macOS.
+- What I did: I accepted the revised patch "because it flags an unexpectedly empty board as
+  suspect, reports `null` instead of a misleading zero, and preserves the previous
+  baseline."
+- What Claude contributed: Claude Code wrote all the code and tests, and recorded my
+  pasted output in the evidence file. The decision is mine.
+- What I understand now: "I was surprised that the first patch passed all 57 tests but was
+  still wrong. I learned that passing tests can miss a requirement, so comparing the output
+  with the specification and an independent checker matters."
+- Still open: removed postings are not reported (Figma 145 → 146 with 2 new means 1 was
+  removed); the all-suspect → `error` exit and a threshold for large nonzero drops are
+  undecided; I have not yet confirmed the two GATE.md Decisions rows.
+- Evidence: `evidence/smit-mac-run-2026-11-09.txt`; REVIEW_PACKET.md sections 7 and 8.
