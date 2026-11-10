@@ -120,7 +120,36 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code from the record. Each line is for me to check, change, and then sign or withhold.*
+*Written by me, Varnika M, and pasted in word for word by Claude Code.*
+
+**Checked:**
+- The agent watches Greenhouse, Lever and Ashby.
+- The agent records its results and handles a failed board.
+- The permission rules are checked through boundary tests.
+- The independent check can identify an incorrect result.
+- The socket guard test passes when the socket is found and fails when `_sock` is missing.
+
+**How I checked:**
+- I ran tests in my own terminal.
+- I ran the live agent and checked its reports.
+- I read the code diff.
+- I checked the results from the independent checker.
+- Claude Code helped write the code and tests. I reviewed the results and made the final decisions.
+
+**Not checked:**
+- I did not test every possible response from all three job-board providers.
+- I did not test every possible Python version.
+- I did not test every possible network failure or slow response.
+- I did not test the macOS system proxy settings.
+
+**Not claiming:**
+This agent does not guarantee that every matching job will be found. It does not apply for jobs, send emails or messages, or log in to any website. Its results are limited to the boards and tests included in this project.
+
+**Signed or withheld:** Signed, Varnika M, 2026-11-10
+
+### The detailed draft behind it (Claude Code's, not signed)
+
+*Claude Code's draft, written from the record before I wrote my own sign-off above. I did not sign it. It is kept because it names the tests and the specific gaps.*
 
 **Checked**
 
@@ -171,7 +200,6 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 - That the policy would stop a determined local attacker (item 7), or that the reviewer found every defect.
 - That any result holds for other boards, another day or another persona.
 
-**Signed or withheld:** ____________ (name, date)
 
 ## Driver's seat
 
