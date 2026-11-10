@@ -3,9 +3,14 @@
 Greenhouse and Ashby return {"jobs": [...]}; Lever returns a top-level list.
 """
 
-from agent.watch import _usable_id  # JS1's id rule, reused unchanged on purpose (see FRICTIONAL.md)
-
 SYSTEMS = ("greenhouse", "lever", "ashby")
+
+
+def _usable_posting_id(value) -> bool:
+    """JS2 loop id rule: a non-boolean int, or a non-empty string (Lever/Ashby use UUID strings)."""
+    if isinstance(value, bool):
+        return False
+    return isinstance(value, int) or (isinstance(value, str) and value != "")
 
 
 class BadResponse(ValueError):
@@ -68,8 +73,8 @@ def parse(system, data):
 
 
 def posting_key(board_key, posting):
-    """'<system>:<board>:<id>', or None when JS1's _usable_id rejects the id."""
+    """'<system>:<board>:<id>', or None when _usable_posting_id rejects the id."""
     pid = posting.get("id")
-    if not _usable_id(pid):
+    if not _usable_posting_id(pid):
         return None
     return f"{board_key}:{pid}"

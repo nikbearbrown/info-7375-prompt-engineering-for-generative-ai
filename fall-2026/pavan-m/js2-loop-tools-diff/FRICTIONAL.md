@@ -38,3 +38,7 @@ Missed my plan to run before midnight on Nov 9, so agent runs are all on Nov 10.
 Reproduced the defect twice before any fix: live in run 1 (Palantir 304/304, OpenAI 826/826 ids unusable), and on identical saved input with config/replay_nov9.json (Palantir 0/304 usable, OpenAI 0/825 usable; evidence/review/1_replay_BEFORE_patch.txt). The agent's exit code for that replay was 0 (finished), checked without tee this time.
 Wrote tests/test_string_ids.py: string ids are kept and new ones detected; empty or missing ids still unusable. Both fail before the patch (assert 0 == 1; evidence/review/2_test_FAILS_before_patch.txt).
 Changed my first draft of the second test after review with Claude: the bad postings now have the same shape as real ones except for the id, so they can only fail for the id reason.
+
+## Entry 9 — November 10, 2026: Review packet, patch revised then accepted
+Claude Code's first patch fixed the id rule in JS1's shared _usable_id (watch.py). Tests passed, but reading the diff as behavior, it also changed JS1's code path and (as Claude Code itself reported) could crash JS1's state write on mixed int/str ids. I rejected that scope and asked for a revision: same rule, applied only in the JS2 loop path. v2 changed only agent/adapters.py; watch.py is back to JS1. 40 tests pass. On identical Nov 9 input, usable ids went from 0/304 and 0/825 to 304/304 and 825/825. Accepted v2.
+Still missed by my tests: whitespace-only ids, and no UUID format check.
