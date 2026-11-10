@@ -1,0 +1,33 @@
+$ python3 -m unittest tests.test_js2_wrong_versions.TestNetworkWrongVersions -v   # before the patch
+test_W3_lookalike_host (tests.test_js2_wrong_versions.TestNetworkWrongVersions) ... ok
+test_W4_port_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) ... FAIL
+test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) ... test_W5_redirect_hops_count (tests.test_js2_wrong_versions.TestNetworkWrongVersions) ... ok
+
+======================================================================
+FAIL: test_W4_port_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 97, in test_W4_port_refused
+    self.policy.check_url("https://boards-api.greenhouse.io:8443/v1/boards/samsara/jobs", HOSTS)
+AssertionError: PolicyViolation not raised
+
+======================================================================
+FAIL: test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) (url='https://user:pw@boards-api.greenhouse.io/v1/boards/samsara/jobs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 103, in test_W4_userinfo_refused
+    self.policy.check_url(url, HOSTS)
+AssertionError: PolicyViolation not raised
+
+======================================================================
+FAIL: test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) (url='https://user@api.lever.co/v0/postings/palantir?mode=json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 103, in test_W4_userinfo_refused
+    self.policy.check_url(url, HOSTS)
+AssertionError: PolicyViolation not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.005s
+
+FAILED (failures=3)
