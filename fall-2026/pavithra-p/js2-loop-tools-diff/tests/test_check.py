@@ -23,6 +23,26 @@ class CheckTests(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertEqual(notes, [], "the earlier raw file was there, so new IDs were recomputed")
 
+    def test_a_finished_report_with_a_failed_board_fails(self):
+        bad = {"name": "no-such-board", "system": "lever"}
+        net = FakeNet({url("greenhouse", "acme"): [(200, greenhouse(1, 2))], url("lever", "no-such-board"): [(404, b"{}")]})
+        _, _, run_dir = self.p.run([GH, bad], net, state=self.state, now=DAY2)
+        report = json.loads((run_dir / "report.json").read_text())
+        report["status"] = "finished"
+        (run_dir / "report.json").write_text(json.dumps(report))
+        problems, _ = check.check(run_dir, self.p.root)
+        self.assertTrue(any("lever:no-such-board: the run ended `finished`, but this board failed" in p for p in problems))
+
+    def test_a_finished_report_that_drops_a_configured_board_fails(self):
+        bad = {"name": "no-such-board", "system": "lever"}
+        net = FakeNet({url("greenhouse", "acme"): [(200, greenhouse(1, 2))], url("lever", "no-such-board"): [(404, b"{}")]})
+        _, _, run_dir = self.p.run([GH, bad], net, state=self.state, now=DAY2)
+        report = json.loads((run_dir / "report.json").read_text())
+        report["status"], report["boards"] = "finished", report["boards"][:1]
+        (run_dir / "report.json").write_text(json.dumps(report))
+        problems, _ = check.check(run_dir, self.p.root)
+        self.assertTrue(any("missing: ['lever:no-such-board']" in p for p in problems))
+
     def test_a_report_whose_counts_do_not_match_the_raw_file_fails(self):
         _, _, run_dir = self.p.run([GH], FakeNet({url("greenhouse", "acme"): [(200, greenhouse(1, 2, 3))]}),
                                    state=self.state, now=DAY2)

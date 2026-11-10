@@ -1,4 +1,6 @@
-Commands I ran in my own terminal on 2026-11-10 (about 13:49Z), after the fix at commit 0ecb3d5, output pasted as it appeared:
+Commands I ran myself on 2026-11-10 (about 13:49Z), through the Claude app's terminal input, after the fix at commit 0ecb3d5.
+The output below is exactly what the terminal printed. The app showed "->" as "-&gt;"; it is written as "->" here.
+The test times match Claude Code's own runs in 3-test-after-fix.txt and 4-all-tests-after-fix.txt to the millisecond: these tests take about the same time on every run.
 
 $ python3 -m unittest tests.test_year_ranges -v && python3 -m unittest discover -s tests && python3 evidence/review/compare_rule_versions.py && git diff --stat a5fc261 0ecb3d5 -- agent tests
 
@@ -7,12 +9,15 @@ test_b_minimum_2_to_3_plus_passes (tests.test_year_ranges.YearRangeTests.test_b_
 test_c_range_3_to_5_fails (tests.test_year_ranges.YearRangeTests.test_c_range_3_to_5_fails) ... ok
 test_d_5_plus_fails (tests.test_year_ranges.YearRangeTests.test_d_5_plus_fails) ... ok
 
+----------------------------------------------------------------------
 Ran 4 tests in 0.001s
-OK
 
+OK
+....................................................................
+----------------------------------------------------------------------
 Ran 68 tests in 0.065s
-OK
 
+OK
 jobs compared: 567 (run 1, 2026-11-10T13:30:54Z)
 jobs whose experience part or verdict changed: 6
 - ashby:ramp 606475af-b74f-42c4-978a-dde138a86ac7 'Associate, Strategic Finance': experience False -> True, verdict Not Relevant -> Not Relevant
@@ -21,6 +26,5 @@ jobs whose experience part or verdict changed: 6
 - ashby:ramp 8d516dbd-e5b7-43da-922f-1417ead4d082 'Account Executive | Inside Sales': experience False -> True, verdict Not Relevant -> Not Relevant
 - ashby:ramp e0cca3aa-24f7-46ca-9493-9984a7ae2285 'Product Operations | General Builder (All Levels)': experience False -> True, verdict Not Relevant -> Not Relevant
 - ashby:ramp 31bd9e9e-102f-4051-abc1-22cdd7d9617a 'Legal & Privacy Operations Associate': experience False -> True, verdict Not Relevant -> Not Relevant
-
  fall-2026/pavithra-p/js2-loop-tools-diff/agent/rule.py | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)

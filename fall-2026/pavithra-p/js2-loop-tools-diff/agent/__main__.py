@@ -22,7 +22,7 @@ def main(argv=None):
 
     policy = Policy()
     if args.command == "check":
-        problems, notes = check.check(Path(args.run_dir).resolve(), config.ROOT)
+        problems, notes = check.check(Path(args.run_dir).resolve(), config.ROOT, policy)
         for note in notes:
             print(f"note: {note}")
         if problems:
@@ -42,7 +42,9 @@ def main(argv=None):
     state = json.loads(policy.check_read(state_path).read_text(encoding="utf-8")) if state_path.exists() else {}
     hooks = wrong_versions.VERSIONS[args.wrong_version] if args.wrong_version else None
 
-    result = loop.run(config.load("boards"), config.load("budgets"), policy, persona, state, config.RAW_DIR,
+    boards, budgets = (json.loads(policy.check_read(config.CONFIG_DIR / f"{n}.json").read_text(encoding="utf-8"))
+                       for n in ("boards", "budgets"))
+    result = loop.run(boards, budgets, policy, persona, state, config.RAW_DIR,
                       now=now, hooks=hooks, tag=tag)
 
     run_dir = config.RUNS_DIR / f"{now.strftime('%Y%m%dT%H%M%SZ')}{tag}"

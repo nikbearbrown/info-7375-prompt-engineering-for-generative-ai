@@ -15,5 +15,8 @@ APPROVAL_PATHS = ("config", "agent/rule.py", "CONTRACT-JS1.md")
 
 
 def load(name):
-    """One of config/boards.json, config/budgets.json, config/hosts.json."""
-    return json.loads((CONFIG_DIR / f"{name}.json").read_text(encoding="utf-8"))
+    """One of config/boards.json, config/budgets.json, config/hosts.json; nothing outside config/ is read."""
+    path = (CONFIG_DIR / f"{name}.json").resolve()
+    if not path.is_relative_to(CONFIG_DIR.resolve()):
+        raise ValueError(f"refused: {name!r} is not a file in config/")
+    return json.loads(path.read_text(encoding="utf-8"))

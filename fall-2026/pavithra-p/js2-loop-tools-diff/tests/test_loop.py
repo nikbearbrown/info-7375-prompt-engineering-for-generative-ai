@@ -94,6 +94,12 @@ class ErrorPolicyTests(unittest.TestCase):
         result, _, _ = self.p.run([GH], net)
         self.assertEqual(result.status, "finished")
 
+    def test_any_5xx_is_retried(self):
+        net = net_for(**{"greenhouse:acme": [(501, b"not implemented"), (200, greenhouse(1))]})
+        result, _, _ = self.p.run([GH], net)
+        self.assertEqual(len(result.boards[0]["attempts"]), 2)
+        self.assertEqual(result.status, "finished")
+
     def test_other_4xx_is_not_retried(self):
         net = net_for(**{"greenhouse:acme": [(403, b"no")]})
         self.p.run([GH], net)
@@ -123,6 +129,16 @@ class BudgetAndRepeatTests(unittest.TestCase):
         result, _, _ = self.p.run([GH, LV, AS], net_for(), clock=FakeClock(step=25))
         self.assertEqual(result.status, "budget-exhausted")
         self.assertIn("seconds", result.reason)
+
+    def test_seconds_budget_counts_the_next_request(self):
+        from agent import loop
+        clock = FakeClock(step=0)
+        r = loop._Run(BUDGETS, self.p.policy, None, {}, self.p.root, "x", None, clock, clock.sleep, loop.Hooks())
+        clock.now = r.t0 + 49  # 49 s used + a 10 s timeout = 59 s: still inside 60 s
+        r.check_budgets(1)
+        clock.now = r.t0 + 51  # 51 s used + 10 s = 61 s: the next request could break the budget
+        with self.assertRaisesRegex(loop.BudgetExhausted, "seconds"):
+            r.check_budgets(1)
 
     def test_repeated_board_stops_with_error(self):
         net = net_for()

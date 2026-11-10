@@ -45,6 +45,12 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 
 - Ran the watch again: `incomplete` again and 0 new. This time the check recomputed the new IDs from run 1's saved raw files and passed (`99bd578`).
 
+## 2026-11-10: A strict review of my draft
+
+- A separate strict TA-style review (a Claude Code agent) graded the draft 87–89 and found real gaps: the check passed a report changed to `finished` with a failed board; the code checked only the time already used, not the next request, and retried only some 5xx answers, unlike `GATE.md`; some reads skipped the policy; and my pasted command output had lost unittest's dot and dash lines.
+- All of these were fixed, with 4 new tests (73 in all). The saved runs' checks gave the same results after the fix.
+- One finding stays as it is: Claude Code drafted the 18 predictions, and I checked them after the tests had run. That is written in `BOUNDARY-TESTS.md`.
+
 ## What is unresolved
 
 - The parser still does not correctly handle verbal ranges such as “2 to 4 years” or shorthand such as “3 yrs.” I left those unresolved because my request was limited to numeric ranges and I did not want to change other behavior without new expected cases. Next time, I would define those formats in the written rule first, add held-out tests before changing the code, and rerun the full evaluation and fresh-clone check after the fix.
@@ -52,7 +58,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 ## Human and AI contributions
 
 - I did: wrote the GATE draft, chose the boards, checked the boundary predictions, ran run 1, the wrong-version demo and run 2, chose the four test cases and their answers, wrote the request for the fix, ran the review commands and decided to accept it.
-- Claude Code: tightened the gate, wrote the loop, the policy, the check and the tests, made the fix I asked for, and drafted the reports.
-- Accepted: the tightened gate, the invalid-data clarification, the third wrong version, the year-range fix.
+- Claude Code: tightened the gate, wrote the loop, the policy, the check and the tests, made the fix I asked for, ran a strict review of my draft and fixed what it found, and drafted the reports.
+- Accepted: the tightened gate, the invalid-data clarification, the third wrong version, the year-range fix, the fixes from the strict review.
 - Changed: my draft's `error` example (invalid data became a failed board).
 - Rejected: widening the year-range fix to "2 to 4 years" and "3 yrs", because my request was to change nothing else.

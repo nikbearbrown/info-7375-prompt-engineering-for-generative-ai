@@ -13,7 +13,6 @@ from datetime import datetime, timezone
 from . import ats, rule, tools
 from .policy import PolicyRefused
 
-TRANSIENT_STATUSES = {429, 500, 502, 503, 504}
 
 
 class RepeatedAction(Exception):
@@ -38,7 +37,7 @@ def classify(outcome):
     if isinstance(outcome, int):
         if outcome == 200:
             return "ok"
-        return "transient" if outcome in TRANSIENT_STATUSES else "permanent"
+        return "transient" if outcome == 429 or 500 <= outcome <= 599 else "permanent"
     return "permanent"
 
 
@@ -93,8 +92,9 @@ class _Run:
             raise BudgetExhausted("boards", f"{b['max_boards']} boards per run")
         if self.requests >= b["max_requests"]:
             raise BudgetExhausted("requests", f"{self.requests} of {b['max_requests']} requests used")
-        if self.elapsed() >= b["max_seconds"]:
-            raise BudgetExhausted("seconds", f"{self.elapsed():.1f} of {b['max_seconds']} s used")
+        if self.elapsed() + b["request_timeout_seconds"] > b["max_seconds"]:
+            raise BudgetExhausted("seconds", f"{self.elapsed():.1f} of {b['max_seconds']} s used, and the next request "
+                                  f"could take {b['request_timeout_seconds']} s more")
 
     def fetch_board(self, board, boards_started):
         """One board: at most one retry, and only after a transient failure."""

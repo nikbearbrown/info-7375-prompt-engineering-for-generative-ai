@@ -27,6 +27,7 @@
 - Checked which public boards answer on each system, and drafted the 18 boundary predictions before the policy code.
 - Wrote all the code in `agent/` except the files copied from JS1, and all the tests except `test_rule.py` and `test_resume.py` (from JS1). `tests/test_year_ranges.py` holds my cases, typed by Claude Code.
 - Wrote the year-range fix I asked for (`0ecb3d5`), the before-and-after comparison on real jobs, and the escaped-title fix (`a18ab88`).
+- Ran a strict TA-style review of my draft with a separate Claude Code agent, then made the fixes it found (the check, the seconds budget, the 5xx retry, reads through the policy, my exact pasted output).
 - Drafted `README.md`, `TRACE.md`, `FINISHED-WRONG.md`, `BOUNDARY-TESTS.md`, `REVIEW-PACKET.md`, this file and the factual entries in `FRICTIONAL.md`. The checks in the sign-off, the decision in the review packet and the reflections are mine.
 
 ## Other AI

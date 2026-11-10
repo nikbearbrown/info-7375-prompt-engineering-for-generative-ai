@@ -13,7 +13,7 @@ My JS1 agent watched one board. This layer makes it a bounded loop: one run chec
 | `GATE.md` | exits, budgets, repeat rule, error policy, permission policy, wrong versions, the "truth" line. My draft `034c127`, tightened `72cc186`, both before any code |
 | `agent/` | `loop.py` (the bounded loop), `policy.py` (the permission policy in code), `tools.py` (the one network tool), `ats.py` (Greenhouse, Lever, Ashby), `check.py` (the independent check), `wrong_versions.py`, `rule.py` and `resume.py` (from JS1), `__main__.py` (commands) |
 | `config/` | the board list, the budgets and the allowed hosts. Changing them needs my approval (`GATE.md`) |
-| `tests/` | 69 offline tests (list below). Every fixture is labelled CONSTRUCTED |
+| `tests/` | 73 offline tests (list below). Every fixture is labelled CONSTRUCTED |
 | `TRACE.md`, `runs/20261110T133054Z/` | the trace of one real run, including the deliberate failure |
 | `FINISHED-WRONG.md`, `runs/*WRONG-V3/` | the finished wrong answer and the independent check that catches it |
 | `BOUNDARY-TESTS.md` | the permission policy's 18 boundary cases, predicted before the policy code |
@@ -27,7 +27,7 @@ My JS1 agent watched one board. This layer makes it a bounded loop: one run chec
 
 * Python 3.13.1, standard library only. Nothing to install.
 * The loop makes no Claude call: each verdict comes from my written rule (a record). Claude Code 2.1.294 wrote most of the code and tests (`SOURCES.md`).
-* Tested on macOS (Darwin 25.5), and from a fresh clone of this branch: 69 tests passed and both real runs' checks passed again.
+* Tested on macOS (Darwin 25.5), and from a fresh clone of this branch (69 tests at that point) with both real runs' checks passing again.
 
 ## The boards
 
@@ -74,16 +74,17 @@ All times are UTC, in my own terminal unless noted.
 | 2026-11-10 13:31:00 and 13:31:22 | Wrong version 3, twice (the second by accident) | ended `finished`; the check failed both runs | `FINISHED-WRONG.md` |
 | 2026-11-10 13:36:50 | My year-range test, before the fix (run by Claude Code) | 2 of 4 fail | `a5fc261`, `evidence/review/1-test-before-fix.txt` |
 | 2026-11-10 13:46 | The fix (Claude Code), then my review commands | 4 of 4 pass; 6 of 567 jobs change their experience part, no verdict changes; I accepted | `0ecb3d5`, `REVIEW-PACKET.md` |
+| 2026-11-10 | A strict TA-style review of my draft (a separate Claude Code agent), then the fixes: the check now fails a `finished` run with a failed or missing board; the seconds budget counts the next request's timeout and any 5xx is retried, as `GATE.md` says; every read goes through the policy | 73 tests pass; the four saved runs' checks give the same results as before | the commit after `99b6ed9` |
 | 2026-11-10 13:56:16 | Run 2 | `incomplete` again, 0 new; the check recomputed the new IDs from run 1's raw files and passed | `runs/20261110T135616Z/` |
 
-No run was seeded. The two wrong-version runs are labelled `WRONG-V3` in every file name.
+No run was seeded. The two wrong-version runs are labelled `WRONG-V3` in every file name. Both real runs were made before the review fixes; those fixes change the check, the seconds budget and the 5xx retry, none of which either run reached.
 
-## Tests (69, offline)
+## Tests (73, offline)
 
 * `test_policy.py` (18): the boundary cases in `BOUNDARY-TESTS.md`, in the same order.
-* `test_loop.py` (19): each exit; a 404 asked for once; a failed board never reported as 0 jobs; invalid data a failed board, not an error; a crash reported with the last action; one retry after a timeout, a 429 or a 5xx, none after another 4xx; the request, board and seconds budgets; a repeated board stops the loop; a host off the allow-list stops it before any request; every attempt in the trace and every body saved; the state unchanged for a failed board; the rule's relevant count.
+* `test_loop.py` (21): each exit; a 404 asked for once; a failed board never reported as 0 jobs; invalid data a failed board, not an error; a crash reported with the last action; one retry after a timeout, a 429 or any 5xx, none after another 4xx; the request, board and seconds budgets, the seconds budget counting the next request's timeout; a repeated board stops the loop; a host off the allow-list stops it before any request; every attempt in the trace and every body saved; the state unchanged for a failed board; the rule's relevant count.
 * `test_wrong_versions.py` (3): each wrong version in `GATE.md` is caught.
-* `test_check.py` (2): the independent check passes a true report and recomputes new IDs; it fails a report whose counts do not match the raw file.
+* `test_check.py` (4): the independent check passes a true report and recomputes new IDs; it fails a report whose counts do not match the raw file, a `finished` report with a failed board, and a report that drops a configured board.
 * `test_ats.py` (6): the three systems' answers become jobs the rule can read; a Lever 404 body is bad data, not an empty list; escaped titles are shown as written.
 * `test_year_ranges.py` (4): my review-packet test.
 * `test_rule.py` (13) and `test_resume.py` (4): carried from JS1.
@@ -109,8 +110,8 @@ Checked:      1. The exits and the error policy: in run 1 and run 2, no-such-boa
               5. The year-range fix: my test (test_year_ranges, cases a to d) failed 2 of 4 before
                  the fix and passed 4 of 4 after; compare_rule_versions.py showed 6 of 567 jobs
                  changed their experience part and no verdict changed.
-              6. The full suite: 68 tests passed in my terminal after the fix. A 69th
-                 (test_escaped_titles_are_shown_as_written) was added after that run.
+              6. The full suite: 68 tests passed in my terminal after the fix. Five more
+                 (escaped titles, and the review fixes to the check and the budgets) came after.
 How:          By hand (1, 2: reading the reports and the check's output), by recomputation (3, 5),
               by a test I wrote before the fix (5), and with Claude's help: Claude Code wrote the
               loop, the policy, the check and every other test. I ran them in my own terminal on

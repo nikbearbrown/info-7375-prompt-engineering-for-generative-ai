@@ -73,6 +73,7 @@ class Project:
         self.policy = Policy(root=self.root, hosts=HOSTS)
 
     def run(self, boards, net, state=None, budgets=None, clock=None, hooks=None, now=None, tag=""):
+        (self.root / "config" / "boards.json").write_text(json.dumps(boards))  # test setup, not an agent write
         clock = clock or FakeClock()
         state = {} if state is None else state
         result = loop.run(boards, budgets or BUDGETS, self.policy, PERSONA, state, self.root / "evidence" / "raw",
