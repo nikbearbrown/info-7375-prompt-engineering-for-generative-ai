@@ -59,6 +59,10 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 - Predicted five more boundary cases myself before their tests existed (`898afe3`): 19 allowed, 20 refused, 21 allowed, 22 refused, 23 allowed. For 21, my GATE allows an HTTPS request to an approved hostname and does not restrict ports. All five matched (`test_19` to `test_23`).
 - The check now flags the brief's own example, a board that answers with 0 jobs after having jobs, as "suspicious, needs review" (`26ec385`, `test_an_empty_board_after_a_full_one_is_flagged_suspicious`). I chose that wording because zero alone does not prove the response is wrong.
 
+## 2026-11-10: Run 3, on the final code
+
+- Ran the watch again: `incomplete` again, and 2 new Spotify jobs had appeared since run 2. The check recomputed them from run 2's saved raw files and passed.
+
 ## What is unresolved
 
 - The parser still does not correctly handle verbal ranges such as “2 to 4 years” or shorthand such as “3 yrs.” I left those unresolved because my request was limited to numeric ranges and I did not want to change other behavior without new expected cases. Next time, I would define those formats in the written rule first, add held-out tests before changing the code, and rerun the full evaluation and fresh-clone check after the fix.

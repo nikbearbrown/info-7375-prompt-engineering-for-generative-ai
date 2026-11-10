@@ -74,13 +74,14 @@ All times are UTC, in my own terminal unless noted.
 | 2026-11-10 13:31:00 and 13:31:22 | Wrong version 3, twice (the second by accident) | ended `finished`; the check failed both runs | `FINISHED-WRONG.md` |
 | 2026-11-10 13:36:50 | My year-range test, before the fix (run by Claude Code) | 2 of 4 fail | `a5fc261`, `evidence/review/1-test-before-fix.txt` |
 | 2026-11-10 13:46 | The fix (Claude Code), then my review commands | 4 of 4 pass; 6 of 567 jobs change their experience part, no verdict changes; I accepted | `0ecb3d5`, `REVIEW-PACKET.md` |
+| 2026-11-10 13:56:16 | Run 2 | `incomplete` again, 0 new; the check recomputed the new IDs from run 1's raw files and passed | `runs/20261110T135616Z/` |
 | 2026-11-10 | A strict TA-style review of my draft (a separate Claude Code agent), then the fixes: the check now fails a `finished` run with a failed or missing board; the seconds budget counts the next request's timeout and any 5xx is retried, as `GATE.md` says; every read goes through the policy | 73 tests pass; the four saved runs' checks give the same results as before | `2382628` |
 | 2026-11-10 | A ChatGPT review of the same draft: a single slow request could run past 60 seconds and still end `finished`. Fixed: the run now ends `budget-exhausted` | 74 tests pass; the review's tampered-report probe (run 2 changed to `finished`) now fails the check | `17f4e77` |
-| 2026-11-10 | The check flags a board that answers with 0 jobs after having jobs as "suspicious, needs review" (my wording: zero alone does not prove the response is wrong) | the brief's own example, an empty board reported as "no new jobs", is now flagged | `26ec385` and the commit after `898afe3` |
+| 2026-11-10 | The check flags a board that answers with 0 jobs after having jobs as "suspicious, needs review" (my wording: zero alone does not prove the response is wrong) | the brief's own example, an empty board reported as "no new jobs", is now flagged | `26ec385`, `c76fd5f` |
 | 2026-11-10 | Boundary cases 19 to 23, predicted by me before their tests existed | 5 of 5 as predicted | `898afe3`, `BOUNDARY-TESTS.md` |
-| 2026-11-10 13:56:16 | Run 2 | `incomplete` again, 0 new; the check recomputed the new IDs from run 1's raw files and passed | `runs/20261110T135616Z/` |
+| 2026-11-10 15:44:07 | Run 3, on the final code | `incomplete` again; 2 new Spotify jobs since run 2 (not relevant: London roles); the check recomputed them from run 2's raw files and passed | `runs/20261110T154407Z/` |
 
-No run was seeded. The two wrong-version runs are labelled `WRONG-V3` in every file name. Both real runs were made before the review fixes; those fixes change the check, the seconds budget and the 5xx retry, none of which either run reached.
+No run was seeded. The two wrong-version runs are labelled `WRONG-V3` in every file name. Runs 1 and 2 were made before the review fixes; those fixes change the check, the seconds budget and the 5xx retry, none of which either run reached. Run 3 used the final code.
 
 ## Tests (80, offline)
 
@@ -108,8 +109,8 @@ Checked:      1. The exits and the error policy: in run 1 and run 2, no-such-boa
                  python3 -m agent check failed it from the saved 404 (FINISHED-WRONG.md).
               3. The new jobs: I recomputed run 1's 17 new Pinterest jobs from its saved response
                  and the 173 IDs carried from JS1 (a one-line Python set difference) and got the
-                 same 17 IDs as the report. After run 2, the check recomputed the new IDs from
-                 run 1's raw files and agreed (0 new).
+                 same 17 IDs as the report. After run 2 and run 3, the check recomputed the new
+                 IDs from the earlier runs' raw files and agreed (0 new, then 2 new on Spotify).
               4. The permission policy: 23 boundary tests, all as predicted (BOUNDARY-TESTS.md):
                  test_01 to test_18 against predictions Claude Code drafted and I checked, and
                  test_19 to test_23 against predictions I wrote myself before the tests existed.
