@@ -4,7 +4,7 @@
 // tree with a stubbed fetch; nothing here touches the network or the real out/.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, symlinkSync, readdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, symlinkSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { runLoop } from '../src/loop.mjs';
@@ -174,7 +174,9 @@ test('pre-run and post-run state snapshots are saved read-only for the checker',
   assert.deepEqual(strs(json(root, b.state_before).ids), ['1']);
   assert.deepEqual(strs(json(root, b.state_after).ids), ['1', '2']);
   assert.deepEqual(strs(b.new_ids), ['2']);
-  assert.throws(() => writeFileSync(join(root, b.state_before), 'x'), /EACCES|EPERM/);
+  // Check the permission bits, not a failed write: an administrator account can write a
+  // read-only file, so a write attempt would pass or fail depending on who runs the test.
+  for (const p of [b.state_before, b.state_after]) assert.equal(statSync(join(root, p)).mode & 0o222, 0, `${p} has no write bits`);
 });
 
 // ---- boundary rows 38-41 at the loop level: real zero-network assertions ----------
