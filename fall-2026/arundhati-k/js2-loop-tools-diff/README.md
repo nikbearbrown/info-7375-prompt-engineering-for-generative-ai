@@ -8,7 +8,7 @@ No Lectern or Reallocation Engine code was copied.
 
 ## Order of work (each step committed before the next)
 
-Hashes below are the ones on GitHub. Before pushing, my 14 commits were rebased onto 136 newer classmates'
+Hashes below are the ones on GitHub. Before pushing, my first 14 commits were rebased onto 136 newer classmates'
 commits, which changed every hash (author dates and order unchanged). Commit messages may still quote the
 old hashes:
 
@@ -46,17 +46,19 @@ old hashes:
 | review: patch + decision | `0067080`, `2d4842e` | patch accepted on evidence; my reason and the case my test misses |
 | my writing | `bab2b29`, `b3d2ddb`, `178afab` | FRICTIONAL, SIGNOFF, SOURCES look-up |
 | fix: raw evidence was git-ignored | `4e65c62` | `.gitignore` `out/` matched `evidence/**/out/`; found by a fresh-clone check; now `/out/` |
+| audit: tests first | `0c75774e` | pre-submission recheck of code vs GATE.md: 2 gaps + 1 untested wrong version; `tests/test_gate_audit.py` fails ([log](evidence/logs/03-audit-tests-before-fix.txt)) |
+| audit: fix | `af1babf9` | repeat rule normalises URLs (GATE §3); a policy refusal ends `error` (GATE §1); 48 tests pass, none edited ([log](evidence/logs/04-tests-after-audit-fix.txt)) |
 
 ## Language and toolchain
 
-- Python 3, standard library only (developed on Python 3.15.0, macOS). Nothing to install.
+- Python 3, standard library only (developed on Python 3.15.0, macOS; the 48 tests also pass on Python 3.9.6). Nothing to install.
 - Network: only `boards-api.greenhouse.io` and `api.ashbyhq.com`, GET only (`jsagent2/policy.py`).
 - Claude Code (`claude` CLI) was used to write code and docs. The agent itself calls no model.
 
 ## Exact commands (from this folder, fresh clone)
 
 ```bash
-python3 -m unittest discover -s tests -t .        # 43 tests, offline
+python3 -m unittest discover -s tests -t .        # 48 tests, offline
 python3 run.py                                    # live run; the state write is HELD
 python3 run.py --approve-state-write              # live run; I approve writing out/state/seen.json
 python3 check.py out/runs/<run-id>/trace.json --previous out/runs/<earlier-id>/trace.json   # independent check
@@ -76,6 +78,9 @@ a correct run exits 1 (`incomplete`).
 | `20261110T214205Z` | 2026-11-10 16:42 EST | **live**, run **by me** in my own terminal with `--approve-state-write` (patch applied, uncommitted) | exit `incomplete`, same counts (775 / 143 / 155, all baseline: `live-1` had not written state), deliberate 404 again `—`, 4/8 requests, state write **written** (3 boards, failed board not marked seen). `check.py`: no findings. [report](evidence/run-live-2-approved/report.md) · [trace](evidence/run-live-2-approved/trace.json) · state: `evidence/run-live-2-approved/root/out/state/seen.json` · my terminal output: [review/02-my-commands.txt](review/02-my-commands.txt) |
 | A, B, C, D | 2026-11-10 | **SEEDED** replay of `live-1`; Figma replaced by a **constructed** empty board | B (wrong version 1) ends `finished`, "Figma 0 new"; C `check.py` flags `finished-with-empty-board` and `drop-to-zero` (143 → 0); D real agent: `incomplete`, Figma `empty-unverified`. [log](evidence/logs/02-finished-wrong-answer-demo.txt) · traces: `evidence/finished-wrong-answer/` |
 
+The two live runs were made before the audit fix (`af1babf9`). It changes nothing for them: neither run had a
+policy refusal or a repeated board, and `check.py` (unchanged) still passes both from a fresh clone.
+
 ## Where each requirement is
 
 | requirement | where |
@@ -85,7 +90,7 @@ a correct run exits 1 (`incomplete`).
 | record of every observation | `trace.json` → `observations` (policy decision, response with sha256 + raw file, retry, budget, state write, exit); `tests/test_loop.py::Trace` |
 | finished wrong answer + independent check | `demo_wrong_answer.py`, `jsagent2/check.py`, `tests/test_check.py` |
 | permission policy in code, 16 predicted cases | `jsagent2/policy.py`, [BOUNDARY-PREDICTIONS.md](BOUNDARY-PREDICTIONS.md), `tests/test_policy.py` |
-| wrong versions caught | GATE.md §6 → `tests/test_wrong_versions.py` (each wrong version turns named tests red) |
+| wrong versions caught | GATE.md §6 → `tests/test_wrong_versions.py` (1, 2+7 exit, 3, 4, 5, 6) + `tests/test_gate_audit.py::WrongVersion2` (2): each turns named tests red |
 | review packet | [review/REVIEW.md](review/REVIEW.md) |
 | sign-off, driver's seat | [SIGNOFF.md](SIGNOFF.md) |
 | sources, honest log | [SOURCES.md](SOURCES.md), [FRICTIONAL.md](FRICTIONAL.md) |

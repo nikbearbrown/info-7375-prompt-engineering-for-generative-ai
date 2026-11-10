@@ -12,6 +12,7 @@ files, times); everything under *My words* is mine.
 exits, budgets, repeat rule, error and permission policy. I accepted the draft without edits.
 *Accepted / modified / rejected from Claude:* accepted the whole draft, unmodified.
 *Pointer:* commit `3055907` (GATE.md, before any code).
+*My prompts to Claude:* "start assignment"; chose "Claude drafts, I edit" when asked who writes GATE.md; "Reviewed, commit it".
 
 *My words:*
 - I chose Claude to draft because I knew the basic idea but wasn't fully sure about all the rules and edge cases.
@@ -27,6 +28,7 @@ policy; #12 (write `config/boards.json`) and #14 (state file without the flag) d
 change them after seeing the results.
 *Pointer:* commit `b5381cf` (predictions), `tests/test_policy.py::BoundaryCases.test_all_16_cases`,
 [BOUNDARY-PREDICTIONS.md](BOUNDARY-PREDICTIONS.md).
+*My prompts to Claude:* "what you can do from it?" (Claude then asked the 16 cases as Allow/Refuse/Hold questions; I clicked each).
 
 *My words:*
 - I thought config/boards.json was part of the project, so writing to it seemed safe. I overlooked that writes
@@ -44,6 +46,7 @@ the wrong version said `finished`, Figma 0 new; `check.py` flagged `finished-wit
 *Accepted / modified / rejected from Claude:* accepted the demo and the check as built.
 *Pointer:* `056f7b8` (live-1 + demo), `402ac73` (my approved run), `evidence/logs/02-finished-wrong-answer-demo.txt`,
 `tests/test_check.py`.
+*My command:* `python3 run.py --approve-state-write` (my terminal, 16:42 EST).
 
 *My words:*
 - Incomplete feels right because one board failed. It shouldn't say finished when not all boards were checked.
@@ -63,12 +66,24 @@ Jasper fetch myself.
 *Accepted / modified / rejected from Claude:* accepted the patch unmodified, including the Greenhouse
 newline tightening that was outside the Ashby scope.
 *Pointer:* `1d4bbbf`, `0067080`, `2d4842e`, [review/REVIEW.md](review/REVIEW.md), `tests/test_providers.py`.
+*My prompts to Claude:* "accept"; then my reason, typed in chat: "Jasper AI worked after the patch, 3 requests went through, and all 43 tests passed."
 
 *My words:*
 - Running the commands myself helped me see the actual results and errors. Reading Claude's log wasn't enough
   to verify everything.
 - I accepted it because the newline change didn't break anything, but next time I'd review unrelated changes
   separately.
+
+## Entry 5 — pre-submission recheck (2026-11-10, ~17:00 EST)
+
+*What happened:* I asked Claude Code to recheck everything against the brief before I submit. Reading the code
+against GATE.md, it found two places the code did not do what the gate says (the repeat rule compared raw URLs
+instead of normalised ones; a permission-policy refusal ended `incomplete`, GATE §1 says `error`) and one GATE §6
+wrong version with no test. Tests first (`0c75774e`, failing), then the fix (`af1babf9`): 48 tests pass, no test
+edited. It also found that `.gitignore` had hidden the raw evidence from git (fresh-clone check, `4e65c62`).
+*My prompt to Claude:* "this time i wish no deduction in marks so can you receheck if evrything is on place".
+*Accepted / modified / rejected from Claude:* accepted the fixes.
+*Pointer:* `0c75774e`, `af1babf9`, `tests/test_gate_audit.py`, `evidence/logs/03-…`, `04-…`.
 
 ## Unresolved
 

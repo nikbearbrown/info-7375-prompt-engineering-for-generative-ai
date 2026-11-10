@@ -1,14 +1,18 @@
 # Sign-off — Job-Search Agent 2
 
 ```text
-Checked:      (the properties, by which of my own tests — names below)
-How:          by hand / by a test I wrote before reading Claude's code / by recomputation / with Claude's help
-Not checked:  at least three real items
-Not claiming: what this agent does not show
-Signed or withheld: ____________ (name, date)
+Sign-off — Job-Search Agent 2
+Checked:      exits, budgets, repeat rule, error policy, 16 permission cases, the independent check,
+              the Ashby board-name fix — by the named tests below (48, all passing)
+How:          tests written from GATE.md before the code, with Claude's help (Claude wrote them);
+              recomputation of raw files by check.py; I ran the suite, the reproduction and an
+              approved live run myself (review/02-my-commands.txt)
+Not checked:  3 items below
+Not claiming: 4 items below
+Signed or withheld: Signed — Arundhati Kandelkar, 2026-11-10
 ```
 
-## Checked (facts Claude Code can point to; confirm or remove each)
+## Checked
 
 | property | test / evidence | how |
 |---|---|---|
@@ -20,6 +24,7 @@ Signed or withheld: ____________ (name, date)
 | finished wrong answer caught by an independent check | `demo_wrong_answer.py` (SEEDED), `tests/test_check.py` | recomputation from raw files, not the agent's report |
 | saved raw bytes match the trace | `check.py evidence/run-live-1/trace.json --root evidence/run-live-1/root` → no findings | recomputation (sha256) |
 | Ashby names with spaces | `tests/test_providers.py` (before patch, `1d4bbbf`) | test before patch |
+| repeat rule normalises URLs; a policy refusal ends `error`; wrong version 2 caught | `tests/test_gate_audit.py` (pre-submission audit, before the fix `0c75774e`) | test before fix |
 
 How, for all rows: the tests and code were written by Claude Code (with Claude's help); the tests were written from GATE.md before the code (`0d932b1` before `76f4137`). I ran the full suite (43 OK), the reproduction and an approved live run myself: `review/02-my-commands.txt`.
 
