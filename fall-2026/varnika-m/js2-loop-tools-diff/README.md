@@ -41,9 +41,11 @@ The exit codes are `finished` 0, `error` 1, `incomplete` 2 and `budget_exhausted
 
 ```bash
 python3 -m agent.loop --max-requests 2         # lower a budget (raising one is refused)
-python3 -m agent.loop --fixture ashby/linear=fixtures/FILE   # a seeded run from a saved response
 python3 -m agent.loop --approve-state-reset lever/palantir   # my approval for one state reset, this run only
 ```
+
+- **The state-reset approval.** The loop itself only ever adds ids, so no run so far has needed a reset. The approval rule is enforced by the policy and tool that every state write goes through, and is shown by boundary tests B24–B26 and `test_state_reset_through_the_tool_needs_approval`.
+- **Seeded runs.** `--fixture KEY=FILE` replaces a board's response with a saved one, read from `fixtures/` or `jobs/`. Give one for **every** board in `config/boards.json`: a board without one is treated as a connection error, and is retried. Run them in a copy, as the demonstration below does, because a seeded run in this folder would write seeded data into the live state.
 
 To replay the finished-wrong demonstration without network, in a copy, because it refuses to overwrite `finished-wrong/`:
 
@@ -51,8 +53,9 @@ To replay the finished-wrong demonstration without network, in a copy, because i
 cp -R . /tmp/js2-copy && cd /tmp/js2-copy && rm -rf finished-wrong && python3 scripts/finished_wrong_demo.py
 ```
 
-**Checked on 2026-11-10 from a fresh clone** of `02e3655` in a scratch folder:
-- 113 tests OK.
+**Checked on 2026-11-10 from a fresh clone** of `263953b` in a scratch folder:
+- 121 tests OK.
+- No file contains my username.
 - `check_run.py` gave the same verdicts on all three saved live runs.
 - The demonstration replayed with the same exits (A `finished`, C `incomplete`, B `finished`, and check_run exit 1 on B).
 
@@ -182,7 +185,7 @@ This agent does not guarantee that every matching job will be found. It does not
   - I read the diff.
   - I ran live run 2 myself.
   - I made the REVISE decision, ran the revision's guard test (3 OK), and accepted the revised patch.
-- **By a test written before the code it tests:** the review test (`8ddfec0`) was committed before the patch (`91bfbda`), and every review-finding test before its fix (`7e09390`, `9a2179e`, `3e48c6c`). **Claude Code wrote these tests, not me.** I saw the review test fail on my machine before the patch.
+- **By a test written before the code it tests:** the review test (`8ddfec0`) was committed before the patch (`91bfbda`); every review-finding test before its fix (`7e09390`, `9a2179e`, `3e48c6c`); the time-budget tests (`304b599`) and the privacy tests (`4afa0b8`) before their changes. **Claude Code wrote these tests, not me.** I saw the review test fail on my machine before the patch.
 - **By recomputation:** `check_run.py` recomputes counts, new ids and gone from the raw bytes. Claude Code wrote it.
 - **With Claude's help:** everything else. Claude Code drafted GATE.md, which I kept unchanged ("ok"), and wrote all the code, tests, documents and runs 1 and 3. A separate Claude reviewer found 8 defects.
 

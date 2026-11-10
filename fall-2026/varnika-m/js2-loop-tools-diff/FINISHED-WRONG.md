@@ -6,7 +6,7 @@
 
 Wrong version W5 (GATE.md section 6) treats a `200` with zero postings as a good board with nothing new. It is plausible: the board answered, the JSON parsed, and "no ids I haven't seen" really is "no new ids".
 
-Run B gave it Linear's real live response from 2026-11-10 with only the `jobs` list emptied (`fixtures/linear-CONSTRUCTED-empty.json`, keys `apiVersion` and `jobs`, SHA-256 `5e344d1d…`). That is what an outage, a renamed board or an API change can look like. The run ended cleanly and was wrong:
+Run B gave it Linear's real live response from 2026-11-10 with only the `jobs` list emptied (`finished-wrong/fixtures/linear-CONSTRUCTED-empty.json`, keys `apiVersion` and `jobs`, SHA-256 `5e344d1d…`). That is what an outage, a renamed board or an API change can look like. The run ended cleanly and was wrong:
 
 | | Run B: wrong version W5 | Run C: the real agent, same responses |
 |---|---|---|

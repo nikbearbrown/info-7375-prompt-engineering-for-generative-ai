@@ -67,3 +67,18 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - **Still unresolved:** 8b and 8c. And a reviewer that is also Claude may share the first Claude's blind spots.
 - **From Claude, accepted / changed / rejected:** Accepted the fixes. Rejected nothing.
 - **Trace:** `7e09390` → `9ab582c`; `3e48c6c` → `f51b6c8`; REVIEW-FINDINGS.md.
+
+### 2026-11-10 — My two decisions at the end: the time budget and my username
+- **What I tried:**
+  - I wrote a time-budget decision for GATE.md: an invalid or unreliable time budget must stop the run, and the independent check must enforce the same time budget as the agent.
+  - I also asked for my macOS username to be removed from the saved files.
+- **What happened:**
+  - Claude Code checked the code against my decision before changing it. A NaN budget flag was already refused, but **a clock giving NaN let a run end `finished` with no time limit**.
+  - The checker allowed 5 s past the budget for each request, and it accepted a total time of NaN.
+  - The tests failed first (`304b599`, 5 of 6), then were fixed (`71491b1`). My decision is under GATE.md Decisions, November 10, 2026.
+  - For my username: the folder path was replaced with `<js2-folder>` in 8 files. The code was changed first, so future runs write relative paths (`4afa0b8` → `c10af62`, then `263953b`). Every check verdict stayed the same.
+- **What I checked, changed, or learned:**
+  - **Still unresolved:** The earlier commits still contain the unredacted files, because the git history was not rewritten, so that the commit ids cited in this folder stay valid.
+  - The 5 s allowance for work after the last request is Claude Code's choice. I have not written a decision about it.
+- **From Claude, accepted / changed / rejected:** Accepted the tests and changes.
+- **Trace:** `304b599`, `71491b1`, `f5abb31`, `4afa0b8`, `c10af62`, `263953b`; GATE.md Decisions; SOURCES.md "Redaction".
