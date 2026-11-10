@@ -66,8 +66,7 @@
 
 ## Driver's seat
 
-For each part: what Claude should do, what I should do, why my part stays mine, and the evidence of what actually happened. The
-prompts quoted are my real messages, listed with their dates in [evidence/PROMPTS.md](evidence/PROMPTS.md).
+For each part: what Claude should do, what I should do, why my part stays mine, and the evidence of what actually happened.
 
 ### The loop
 
