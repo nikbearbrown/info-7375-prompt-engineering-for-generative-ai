@@ -213,29 +213,32 @@ export async function runLoop({
         rawPath = rel(replay.path);
         trace('replay_read', { board: b.id, raw_path: rawPath, network_requests: 0 });
       } else {
-        const o = await provider.observe(session, b.token);
-        const sent = o.attempts.filter(a => a.request !== undefined);
-        if (sent.length === 0 && o.attempts[0].kind === 'budget') {
+        // Each attempt and the retry decision are written to the trace (and the raw body
+        // to out/raw/) the moment they happen, not after the board is done.
+        let k = 0;
+        const onAttempt = a => {
+          k += 1;
+          if (a.request === undefined) {
+            if (a.kind !== 'budget' || k > 1) trace('request_refused', { board: b.id, outcome: a.kind, reason: a.reason ?? a.budget });
+            return;
+          }
+          let p = null;
+          if (a.body !== undefined) { p = `out/raw/${runId}/${b.id}.attempt${k}.json`; writeChecked(p, a.body); rawPath = p; }
+          trace('request', {
+            at: a.at, completed_at: a.completedAt, board: b.id, request: a.request, method: 'GET', url: a.url, permission: 'allow',
+            status: a.status ?? null, outcome: a.kind, error: a.error ?? null, location: a.location ?? null, timeout_ms: a.timeoutMs, raw_path: p,
+          });
+        };
+        const onRetry = (d, first) => trace('retry', { board: b.id, after: first.kind, status: first.status ?? null, wait_ms: d.waitMs });
+        const o = await provider.observe(session, b.token, { onAttempt, onRetry });
+        if (o.attempts.length === 1 && o.attempts[0].kind === 'budget') {
           unattempted.push({ board: b.id, budget: o.attempts[0].budget });
           trace('board_not_attempted', { board: b.id, budget: o.attempts[0].budget });
           hit(o.attempts[0].budget);
           continue;
         }
-        for (const [k, a] of o.attempts.entries()) {
-          let p = null;
-          if (a.body !== undefined) { p = `out/raw/${runId}/${b.id}.attempt${k + 1}.json`; writeChecked(p, a.body); }
-          if (a.request !== undefined) {
-            trace('request', {
-              board: b.id, request: a.request, method: 'GET', url: a.url, permission: 'allow', status: a.status ?? null,
-              outcome: a.kind, error: a.error ?? null, location: a.location ?? null, timeout_ms: a.timeoutMs, raw_path: p,
-            });
-          } else {
-            trace('request_refused', { board: b.id, outcome: a.kind, reason: a.reason ?? a.budget });
-          }
-          rawPath = p ?? rawPath;
-        }
-        if (o.retry.retry) trace('retry', { board: b.id, after: o.attempts[0].kind, status: o.attempts[0].status ?? null, wait_ms: o.retry.waitMs });
-        else if (o.retry.reason !== 'not retryable' && o.attempts[0].kind !== 'ok') trace('no_retry', { board: b.id, reason: o.retry.reason });
+        // The decision not to retry is recorded once the first attempt has failed, right here.
+        if (!o.retry.retry && o.retry.reason !== 'not retryable' && o.attempts[0].kind !== 'ok') trace('no_retry', { board: b.id, reason: o.retry.reason });
         if (o.retry.budgetExhausted) hit(o.retry.budgetExhausted);
         final = o.kind === 'budget' ? o.attempts[0] : o; // a retry the budget refused: the board failed on its first attempt
         if (o.kind === 'budget') hit(o.budget);

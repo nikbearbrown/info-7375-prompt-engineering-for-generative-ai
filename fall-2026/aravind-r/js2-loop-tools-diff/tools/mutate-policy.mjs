@@ -32,8 +32,8 @@ const MUTANTS = [
   [7, 'wv07-no-retry-cap', 'retries until success or 5 attempts',
     [
       ["    if (n >= 1 + LIMITS.retriesPerBoard) return { kind: 'denied', reason: 'repeat: retry already used' };\n", ''],
-      ['    await sleep(decision.waitMs);\n    const second = await attempt(req, { retry: true });\n    return { ...second, attempts: [first, second], retry: decision };',
-        '    const attempts = [first];\n    let last = first;\n    for (let d = decision; d.retry && attempts.length < 5; d = retryDecision(last, { nowMs: now(), deadline, requests, maxRequests })) {\n      await sleep(d.waitMs);\n      last = await attempt(req, { retry: true });\n      attempts.push(last);\n    }\n    return { ...last, attempts, retry: decision };'],
+      ['    await sleep(decision.waitMs);\n    const second = await attempt(req, { retry: true });\n    onAttempt(second);\n    return { ...second, attempts: [first, second], retry: decision };',
+        '    const attempts = [first];\n    let last = first;\n    for (let d = decision; d.retry && attempts.length < 5; d = retryDecision(last, { nowMs: now(), deadline, requests, maxRequests })) {\n      await sleep(d.waitMs);\n      last = await attempt(req, { retry: true });\n      onAttempt(last);\n      attempts.push(last);\n    }\n    return { ...last, attempts, retry: decision };'],
     ]],
   [8, 'wv08-budget-after-request', 'request budget checked as if after sending (N + 1 sent)',
     [["    if (requests >= maxRequests) return { kind: 'budget', budget: 'requests' };", "    if (requests > maxRequests) return { kind: 'budget', budget: 'requests' };"]]],

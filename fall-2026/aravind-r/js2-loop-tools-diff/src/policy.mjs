@@ -158,30 +158,37 @@ export function createNetSession({
     const timeoutMs = Math.min(LIMITS.attemptTimeoutMs, remaining);
     requests += 1;
     sent.set(key, n + 1);
+    // at = when the request was sent; completedAt = when its response, error or timeout came.
     const base = { url: p.canonical, request: requests, timeoutMs, at: new Date(now()).toISOString() };
+    const done = o => ({ ...base, ...o, completedAt: new Date(now()).toISOString() });
     const controller = new AbortController();
     let timedOut = false;
     const timer = setTimer(() => { timedOut = true; controller.abort(); }, timeoutMs);
     try {
       const res = await fetchImpl(p.canonical, { method: 'GET', redirect: 'manual', headers: req.headers ?? {}, signal: controller.signal });
       const body = await res.text();
-      if (res.status >= 300 && res.status < 400) return { ...base, kind: 'redirect', status: res.status, location: res.headers.get('location'), body };
-      if (res.status >= 200 && res.status < 300) return { ...base, kind: 'ok', status: res.status, body };
-      return { ...base, kind: 'http', status: res.status, retryAfter: res.headers.get('retry-after'), body };
+      if (res.status >= 300 && res.status < 400) return done({ kind: 'redirect', status: res.status, location: res.headers.get('location'), body });
+      if (res.status >= 200 && res.status < 300) return done({ kind: 'ok', status: res.status, body });
+      return done({ kind: 'http', status: res.status, retryAfter: res.headers.get('retry-after'), body });
     } catch (e) {
-      return timedOut ? { ...base, kind: 'timeout' } : { ...base, kind: 'transport', error: String(e?.message ?? e) };
+      return timedOut ? done({ kind: 'timeout' }) : done({ kind: 'transport', error: String(e?.message ?? e) });
     } finally {
       clearTimer(timer);
     }
   }
 
   // One logical GET: first attempt, plus at most the one retry the error policy allows.
-  async function get(req) {
+  // onAttempt(outcome) runs as soon as each attempt ends and onRetry(decision, first)
+  // before the retry wait, so a caller can record events as they happen, in order.
+  async function get(req, { onAttempt = () => {}, onRetry = () => {} } = {}) {
     const first = await attempt(req);
+    onAttempt(first);
     const decision = retryDecision(first, { nowMs: now(), deadline, requests, maxRequests });
     if (!decision.retry) return { ...first, attempts: [first], retry: decision };
+    onRetry(decision, first);
     await sleep(decision.waitMs);
     const second = await attempt(req, { retry: true });
+    onAttempt(second);
     return { ...second, attempts: [first, second], retry: decision };
   }
 

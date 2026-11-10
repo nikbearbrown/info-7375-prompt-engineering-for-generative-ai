@@ -244,27 +244,42 @@ test('--replay with a multi-board config is an error before any action', async (
 
 // ---- timeouts, on an injected clock: no test waits on a real timer -------------------
 
-// A fake clock and timer. The stub fetch never answers; when it is called, the most
-// recent timer "fires" on the next microtask, moving the clock forward by that timer's
-// delay, so the policy's abort runs exactly as it would at the deadline.
-function hangingNetwork(startAt, laterAt = startAt) {
+// A fake clock and timer. By default the stub fetch never answers; when it is called,
+// the most recent timer "fires" on the next microtask, moving the clock forward by that
+// timer's delay, so the policy's abort runs exactly as it would at the deadline.
+// answers[i], if given, is the response to call i instead. At each call the stub also
+// records the trace lines already on disk, to show events are written as they happen.
+function hangingNetwork(startAt, laterAt = startAt, { root, answers = [] } = {}) {
   let reads = 0;
   let t = laterAt;
   const timers = [];
   const calls = [];
+  const traceAtCall = [];
+  const traceNow = () => {
+    if (!root || !existsSync(join(root, 'out/traces'))) return [];
+    const [file] = readdirSync(join(root, 'out/traces'));
+    return readFileSync(join(root, 'out/traces', file), 'utf8').trim().split('\n').map(l => JSON.parse(l).event);
+  };
   return {
-    calls, timers,
+    calls, timers, traceAtCall,
     now: () => (reads++ === 0 ? startAt : t), // the run starts at startAt; later reads see laterAt onward
     setTimer: (fn, ms) => { const h = { fn, ms }; timers.push(h); return h; },
     clearTimer: h => { h.cleared = true; },
     sleep: async ms => { t += ms; },
-    fetchImpl: (url, init) => new Promise((_, reject) => {
+    fetchImpl: (url, init) => {
       calls.push(url);
-      init.signal.addEventListener('abort', () => reject(new Error('aborted')));
-      queueMicrotask(() => { const h = timers.at(-1); if (!h.cleared) { t += h.ms; h.fn(); } });
-    }),
+      traceAtCall.push(traceNow());
+      const a = answers[calls.length - 1];
+      if (a) return Promise.resolve({ status: a.status, headers: new Headers(a.headers ?? {}), text: async () => a.body });
+      return new Promise((_, reject) => {
+        init.signal.addEventListener('abort', () => reject(new Error('aborted')));
+        queueMicrotask(() => { const h = timers.at(-1); if (!h.cleared) { t += h.ms; h.fn(); } });
+      });
+    },
   };
 }
+const iso = ms => new Date(ms).toISOString();
+const boardEvents = events => events.filter(e => !['run_start', 'config', 'failures_written', 'run_end'].includes(e.event));
 
 test('timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10', async () => {
   const root = project([FOUR[0]]);
@@ -277,6 +292,15 @@ test('timeout (injected clock): a hanging board times out at 15 s, retries once 
   const events = readFileSync(join(root, r.trace), 'utf8').trim().split('\n').map(l => JSON.parse(l));
   assert.deepEqual(events.filter(e => e.event === 'request').map(e => e.outcome), ['timeout', 'timeout']);
   assert.equal(events.find(e => e.event === 'retry').wait_ms, 2000);
+  // Order and time: request 1 (sent at T) -> retry (at the 15 s timeout) -> request 2 (sent 2 s later).
+  const seq = boardEvents(events);
+  assert.deepEqual(seq.map(e => e.event), ['board_start', 'request', 'retry', 'request', 'board_result']);
+  const [, req1, retry, req2] = seq;
+  assert.equal(req1.at, iso(T));
+  assert.equal(Date.parse(retry.at) - Date.parse(req1.at), 15_000, 'retry written when request 1 timed out, 15 s of injected time later');
+  assert.equal(Date.parse(req2.at) - Date.parse(retry.at), 2_000, 'request 2 sent after the 2 s wait');
+  assert.equal(req1.completed_at, iso(T + 15_000));
+  assert.equal(req2.completed_at, iso(T + 32_000));
   assert.equal(board(r, 'gh-stripe').disposition, 'error: timeout');
   assert.equal(board(r, 'gh-stripe').raw_count, null);
   assert.ok(!existsSync(join(root, 'out/state/gh-stripe.json')));
@@ -291,7 +315,33 @@ test('timeout (injected clock): begun with 3 s left, the request is aborted at t
   assert.ok(performance.now() - started < 2000, 'no real wait');
   assert.deepEqual(net.timers.map(h => h.ms), [3000], 'min(15 s, remaining)');
   assert.equal(net.calls.length, 1, 'no overrun-inducing second action');
+  const seq = boardEvents(readFileSync(join(root, r.trace), 'utf8').trim().split('\n').map(l => JSON.parse(l)));
+  assert.deepEqual(seq.map(e => e.event), ['board_start', 'request', 'no_retry', 'board_result']);
+  assert.equal(seq[1].at, iso(T + 57_000));
+  assert.equal(seq[1].completed_at, iso(T + 60_000));
+  assert.equal(seq[2].at, iso(T + 60_000), 'the no-retry decision is recorded at the deadline');
   assert.equal(board(r, 'gh-stripe').disposition, 'error: timeout');
   assert.equal(r.status, 'budget-exhausted');
   assert.equal(r.exitCode, 11);
+});
+
+test('timeout then 200 (the shape of the pre-fix baseline): events are appended as they happen, in order', async () => {
+  const root = project(LV_ONLY);
+  const net = hangingNetwork(T, T, { root, answers: [undefined, { status: 200, body: lv(UUIDS) }] });
+  const r = await runLoop({ argv: ['--config', 'boards.json', '--label', 'timeout-then-ok'], root, cwd: root, log: () => {}, ...net });
+  assert.equal(net.calls.length, 2);
+  // When request 2 is sent, request 1 and the retry are already on disk: not buffered.
+  assert.deepEqual(net.traceAtCall[1].slice(-3), ['board_start', 'request', 'retry']);
+  const events = readFileSync(join(root, r.trace), 'utf8').trim().split('\n').map(l => JSON.parse(l));
+  const seq = boardEvents(events);
+  assert.deepEqual(seq.map(e => [e.event, e.outcome ?? null]), [['board_start', null], ['request', 'timeout'], ['retry', null], ['request', 'ok'], ['board_result', null]]);
+  const [, req1, retry, req2] = seq;
+  assert.equal(Date.parse(retry.at) - Date.parse(req1.at), 15_000);
+  assert.equal(Date.parse(req2.at) - Date.parse(retry.at), 2_000);
+  const ats = events.map(e => Date.parse(e.at));
+  assert.deepEqual(ats, [...ats].sort((a, b) => a - b), 'trace times never go backwards');
+  assert.equal(req1.raw_path, null, 'a timed-out attempt has no body');
+  assert.equal(req2.raw_path, `out/raw/${r.run}/lv-spotify.attempt2.json`);
+  assert.equal(board(r, 'lv-spotify').raw_path, req2.raw_path);
+  assert.equal(r.exitCode, 0);
 });

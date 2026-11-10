@@ -10,8 +10,9 @@ export function url(token) {
   return boardUrl(system, token);
 }
 
-export function observe(session, token) {
-  return session.get({ method: 'GET', url: url(token), headers: { accept: 'application/json' } });
+// hooks: { onAttempt, onRetry }, passed to the session so events are recorded as they happen.
+export function observe(session, token, hooks) {
+  return session.get({ method: 'GET', url: url(token), headers: { accept: 'application/json' } }, hooks);
 }
 
 // Raw body -> { ok: true, jobs } or { ok: false, error: 'malformed', reason }.
