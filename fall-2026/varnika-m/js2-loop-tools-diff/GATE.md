@@ -156,3 +156,17 @@ The loop's own report can be wrong and still say `finished`. So `check_run.py` c
 Budgets and policies change only by a new dated entry here.
 
 - **2026-11-10:** First version (this file).
+- **November 10, 2026 — the time budget (my decisions, after review findings 2 and 5).** These are separate from findings 8b and 8c (503 retries and redirects to another board), which are still open.
+  1. **Invalid time budget:** If the time budget is invalid, such as NaN, or cannot be checked reliably, the agent should fail safely. It must not continue running without a valid time limit.
+  2. **Independent check:** Yes, the independent checker should enforce the same time budget as the agent. It should independently verify the total time and that no request was allowed to exceed the remaining budget.
+
+  *How the code follows them (Claude Code's note; tests `304b599`, changes `71491b1`):*
+  - A NaN budget flag is refused before the run starts (finding 2).
+  - If the clock gives a time that is not a finite number, the run stops at the next budget check with exit `error`, reason `time_budget_invalid`. No further request is made, and the record and trace write `null`, never a guessed number.
+  - Each fetch line in the trace now records `started_t` and `seconds_left_at_start`, measured at the same moment the time left was computed.
+  - `check_run.py` checks every request against GATE.md's own numbers, with no slack beyond rounding (0.01 s):
+    - it must not start after the budget is spent;
+    - its timeout must not be more than the seconds left at its start.
+  - For the total time, it allows 5 s for work done after the last request (parsing and writing files, which no request's timeout covers).
+  - A total or start time that is not a number fails the check.
+  - Traces written before this decision do not record `started_t`, so for those the check estimates each start and allows 5 s.
