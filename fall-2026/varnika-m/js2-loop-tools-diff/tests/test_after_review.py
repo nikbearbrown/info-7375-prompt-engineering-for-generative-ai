@@ -91,6 +91,38 @@ class Finding7GoneSinceLastRun(unittest.TestCase):
         self.assertEqual(gone, [0, 1, 0])
 
 
+class Finding7bGoneWithoutLastIds(unittest.TestCase):
+    """Found in live run 2 (2026-11-10T214509Z), not by the reviewer: my fix for finding 7 fell back to
+    every id ever seen when a state file had no last_ids, and reported Anthropic gone 78 instead of 0."""
+
+    def state_without_last_ids(self):
+        root, clock = make_root(self, [ANTHROPIC]), FakeClock()
+        run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(1), gh_job(2)))]}), clock, run_id="run-1")
+        run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(2), gh_job(3)))]}), clock, run_id="run-2")
+        path = root / "jobs" / "state" / "greenhouse-anthropic.json"
+        state = json.loads(path.read_text())
+        del state["last_ids"]  # as written by the code before 9ab582c
+        path.write_text(json.dumps(state))
+        return root, clock
+
+    def test_gone_is_unknown_not_invented_when_the_last_ids_are_not_recorded(self):
+        root, clock = self.state_without_last_ids()
+        record = run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(2), gh_job(3)))]}), clock,
+                          run_id="run-3")
+        self.assertIsNone(record["boards"][0]["counts"]["gone"])  # it was 1: ids 1, 2, 3 seen minus 2, 3
+
+    def test_check_run_recomputes_gone_from_the_last_raw_response(self):
+        root, clock = make_root(self, [ANTHROPIC]), FakeClock()
+        run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(1), gh_job(2)))]}), clock, run_id="run-1")
+        record = run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(2)))]}), clock, run_id="run-2")
+        path = root / record["files"]["record"]
+        self.assertEqual(failed(check_run.check(path)), [])
+        data = json.loads(path.read_text())
+        data["boards"][0]["counts"]["gone"] = 78
+        path.write_text(json.dumps(data))
+        self.assertIn("gone_recomputed", failed(check_run.check(path)))
+
+
 class Finding8aRedirectRepeats(unittest.TestCase):
     def test_redirect_to_the_same_url_is_not_sent_again(self):
         root, clock = make_root(self, [ANTHROPIC]), FakeClock()
