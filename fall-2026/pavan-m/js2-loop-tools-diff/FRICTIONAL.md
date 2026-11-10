@@ -38,3 +38,18 @@ Missed my plan to run before midnight on Nov 9, so agent runs are all on Nov 10.
 Reproduced the defect twice before any fix: live in run 1 (Palantir 304/304, OpenAI 826/826 ids unusable), and on identical saved input with config/replay_nov9.json (Palantir 0/304 usable, OpenAI 0/825 usable; evidence/review/1_replay_BEFORE_patch.txt). The agent's exit code for that replay was 0 (finished), checked without tee this time.
 Wrote tests/test_string_ids.py: string ids are kept and new ones detected; empty or missing ids still unusable. Both fail before the patch (assert 0 == 1; evidence/review/2_test_FAILS_before_patch.txt).
 Changed my first draft of the second test after review with Claude: the bad postings now have the same shape as real ones except for the id, so they can only fail for the id reason.
+
+## Entry 9 — November 10, 2026: Review packet, patch revised then accepted
+Claude Code's first patch fixed the id rule in JS1's shared _usable_id (watch.py). Tests passed, but reading the diff as behavior, it also changed JS1's code path and (as Claude Code itself reported) could crash JS1's state write on mixed int/str ids. I rejected that scope and asked for a revision: same rule, applied only in the JS2 loop path. v2 changed only agent/adapters.py; watch.py is back to JS1. 40 tests pass. On identical Nov 9 input, usable ids went from 0/304 and 0/825 to 304/304 and 825/825. Accepted v2.
+Still missed by my tests: whitespace-only ids, and no UUID format check.
+
+## Entry 10 — November 10, 2026: Removed the two empty state files by hand
+Run 1 (before the string-id fix) wrote state for lever:palantir and ashby:openai with seen_ids: [], because every id was dropped. After the fix, the next live run would have reported all ~1,130 postings on those boards as new. An approved reset wouldn't help, since it also writes seen_ids: []. I removed both files myself with `git rm`, so their next run is a fresh baseline. GATE.md forbids the agent from deleting files; this was my own action, done in a separate commit so it is visible. Glean's state was kept.
+
+## Entry 11 — November 10, 2026: Real run #2 (live), real new postings found
+Ran live at 1:12 PM EST (out/runs/2026-11-10T131257/; evidence/run2_terminal_2026-11-10.txt). Status incomplete, agent exit code 1, this time checked properly without tee. 4 requests.
+Glean: compared with run 1's state, 125 postings, 2 new:Designated Technical Support Engineer; Designated Technical Support Engineer. This is the first time my agent detected a real new posting on live data, which JS1 never did.
+Palantir: fresh baseline, 304/304 ids usable. OpenAI: fresh baseline, 829/829 usable (826 at 10:25 AM). Bad board: failed, bad_board, HTTP 404, postings null.
+
+## Entry 12 — November 10, 2026: Finished-wrong-answer demo
+Built a CONSTRUCTED empty Glean response from my real Nov 9 capture and a demo config with three replayed boards (no bad board). The loop ended finished, exit 0, reporting Glean as ok with 0 postings: clean and wrong. check_run.py flagged it as a suspicious empty board (exit 1), and found 0 problems on real run 2 (exit 0). Limit noted: the checker flags any empty board and doesn't catch a large drop that isn't to zero.

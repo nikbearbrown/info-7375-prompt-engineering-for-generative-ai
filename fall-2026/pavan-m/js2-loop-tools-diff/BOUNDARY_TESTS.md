@@ -21,3 +21,27 @@ Written November 9, 2026, before any test or implementation exists. Each predict
 | B16 | Reset `lever:palantir` with `--approve reset:lever:palantir` | matching approval | Allowed |
 
 Results are recorded after running, in the "Actual" column added later. They are never edited into the "Predicted" column.
+
+## Actual results (added November 10, 2026, after running; predictions above unchanged)
+Command: `python -m pytest tests/test_policy.py -v` → 16 passed (evidence/boundary_tests_run_2026-11-10.txt).
+
+| # | Test | Actual | Matches prediction? |
+|---|---|---|---|
+| B1 | test_B1_host_off_allow_list_refused | PolicyError; no request sent | Yes |
+| B2 | test_B2_lookalike_host_refused | PolicyError; no request sent | Yes |
+| B3 | test_B3_redirect_off_allow_list_refused | PolicyError; evil.example.org never contacted | Yes |
+| B4 | test_B4_post_refused | PolicyError; no request sent | Yes |
+| B5 | test_B5_allowed_host_get_allowed | 200; exactly 1 request sent | Yes |
+| B6 | test_B6_write_inside_out_allowed | Allowed; resolved path inside out/ | Yes |
+| B7 | test_B7_dotdot_traversal_refused | PolicyError; GATE.md unchanged | Yes |
+| B8 | test_B8_absolute_path_outside_refused | PolicyError | Yes |
+| B9 | test_B9_prefix_trick_refused | PolicyError | Yes |
+| B10 | test_B10_symlink_escape_refused | PolicyError; outside folder still empty | Yes |
+| B11 | test_B11_read_evidence_allowed | Allowed | Yes |
+| B12 | test_B12_write_to_read_only_evidence_refused | PolicyError | Yes |
+| B13 | test_B13_read_outside_project_refused | PolicyError | Yes |
+| B14 | test_B14_reset_without_approval_refused | PolicyError; state unchanged | Yes |
+| B15 | test_B15_reset_with_wrong_approval_refused | PolicyError; state unchanged | Yes |
+| B16 | test_B16_reset_with_matching_approval_allowed | Reset; seen_ids == [] | Yes |
+
+All 16 matched. Caveat: these run against a fake network (httpx MockTransport) and temporary folders; the live runs only exercised B5-style allowed GETs and a real 404, not a real redirect or a real symlink attack.

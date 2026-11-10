@@ -1,0 +1,15 @@
+diff --git a/fall-2026/pavan-m/js2-loop-tools-diff/agent/watch.py b/fall-2026/pavan-m/js2-loop-tools-diff/agent/watch.py
+index 2993985..9a4ef6b 100644
+--- a/fall-2026/pavan-m/js2-loop-tools-diff/agent/watch.py
++++ b/fall-2026/pavan-m/js2-loop-tools-diff/agent/watch.py
+@@ -42,7 +42,9 @@ def _load_seen_ids(state_path: Path):
+ 
+ 
+ def _usable_id(value) -> bool:
+-    return isinstance(value, int) and not isinstance(value, bool)
++    if isinstance(value, bool):
++        return False
++    return isinstance(value, int) or (isinstance(value, str) and value != "")
+ 
+ 
+ def _write_state_atomic(state_path: Path, seen_ids) -> None:
