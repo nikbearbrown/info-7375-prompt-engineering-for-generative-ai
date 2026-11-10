@@ -28,6 +28,15 @@ def check_url(url, allow):
     parts = urlsplit(url)
     if parts.scheme != "https":
         raise HostNotAllowed(f"refusing non-https URL: {url}")
+    # JS2 review-packet fix (GATE.md section 5): JS1 compared only the hostname, so a port or user information passed.
+    if "@" in parts.netloc:
+        raise HostNotAllowed(f"refusing URL with user information (host {parts.hostname})")  # credentials kept out of logs
+    try:
+        port = parts.port
+    except ValueError:
+        raise HostNotAllowed(f"refusing URL with an invalid port (host {parts.hostname})") from None
+    if port not in (None, 443):
+        raise HostNotAllowed(f"refusing port {port}: only 443 is allowed (host {parts.hostname})")
     if parts.hostname not in allow:
         raise HostNotAllowed(f"refusing host not on allow-list: {parts.hostname}")
 
