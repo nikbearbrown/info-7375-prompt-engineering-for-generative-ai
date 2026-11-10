@@ -2,6 +2,20 @@
 
 *Assembled by Claude Code on 2026-11-09 from the files in `review/` and the commit history. The decisions and the command runs marked as Shreyash's are Shreyash's, quoted word for word in `review/05`, `review/18`, `review/04` and `review/17`.*
 
+## What I understood from the diffs
+
+*Shreyash's words, typed into the session on 2026-11-10. Claude Code did not change them.*
+
+The main thing I learned from reviewing these revisions is that passing tests does not always mean the code is making the right decisions.
+
+In revision 1, the code treated a benefit as an experience requirement. The phrase "based on country requirements" appeared inside the benefits section, but the parser interpreted it as the start of a requirements section. Because of that, 16 Linear postings were incorrectly flagged for the four-year paid-time-off benefit. All 84 tests passed, but the behavior was still wrong.
+
+Revision 2 fixed that problem but introduced another one. When the parser encountered words such as "preferred" within a bullet point, it sometimes treated later mandatory requirements as optional. Around 37 genuine experience requirements were missed.
+
+Revision 3 took a more focused approach by evaluating each experience phrase within its own sentence instead of applying one heading to everything that followed.
+
+Before accepting the final revision, I considered the test results, the changes in failure reasons across 685 saved postings, whether the patch stayed within scope, and the remaining limitations. I accepted revision 3 because the specific problem was corrected, not because the tests were simply green.
+
 ## Index of review/ (read in this order)
 
 | File | What it is | Whose |
