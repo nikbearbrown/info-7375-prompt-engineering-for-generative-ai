@@ -19,7 +19,7 @@ Signed or withheld: TODO(Ashwin) (name, date)
 | Boundary predictions B01-B18 | Ashwin | committed `6c1c5b3`, before the tests existed |
 | `tests/test_boundaries.py` (B01-B18 + wrong versions 11, 12, 14, 15) | Claude Code, after the predictions | 8 tests OK, 18/18 matched predictions |
 | `tests/test_loop.py`, `test_providers.py`, `test_independent_check.py`, `test_wrong_versions.py` | Claude Code | OK on 3.9.6 and 3.12.15 |
-| Review-packet test | TODO(Ashwin) | TODO |
+| `tests/test_review_interrupt.py` (review-packet test) | Codex draft, added by Ashwin before the patch | red 3/3 at `279c10f`; TODO after the decision |
 | `independent_check.py` on the live run / the wrong-version run | Claude Code | PASS (exit 0) / FAIL (exit 1) |
 | Things a human could recompute by hand | — | posting counts in `runs/*/raw/` vs `report.md`; the 404 body; attempts in `trace.jsonl` |
 

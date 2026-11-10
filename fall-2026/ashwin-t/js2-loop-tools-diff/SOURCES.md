@@ -24,7 +24,10 @@
 - The decision to keep the gate's state rule after Claude Code pointed out that no run with the
   deliberate-failure board can finish.
 - The Predicted and Why columns of `policy/BOUNDARY-TABLE.md` (my own, `6c1c5b3`).
-- TODO(Ashwin): the review-packet test, prompt, diff reading, decision; the sign-off; FRICTIONAL lines.
+- The choice to add the Codex-drafted test before the patch, and sending the review-packet prompt to Claude
+  Code (quoted in `review-packet/REVIEW-PACKET.md`). TODO(Ashwin): say whether I wrote that prompt or Codex
+  drafted it.
+- TODO(Ashwin): diff reading, decision; the sign-off; FRICTIONAL lines.
 
 ## What Claude Code contributed
 
@@ -41,4 +44,7 @@
 
 ## What Codex contributed
 
-TODO(Ashwin): what Codex drafted or reviewed, with dates.
+- 2026-11-10: Codex drafted `tests/test_review_interrupt.py` (the review-packet regression test) using the
+  existing reproduction and test helpers. I added it to the project and committed it, red, before the patch
+  (`279c10f`).
+- TODO(Ashwin): anything else Codex drafted or reviewed, with dates.
