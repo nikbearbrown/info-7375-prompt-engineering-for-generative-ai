@@ -1,6 +1,6 @@
 # Sign-off — Job-Search Agent 2
 
-**DRAFT by Claude Code, 2026-11-09. Not signed until I have read every line below and signed at the bottom.**
+Drafted by Claude Code on 2026-11-09 and updated after the day-2 run. I read every line and signed it on 2026-11-10 (my reply in the Claude Code chat).
 
 ## Checked: which properties, by which of my own tests
 
@@ -57,4 +57,4 @@ and the mutation check myself. Claude's help: writing all code and tests; runnin
 
 ## Signed or withheld
 
-Signed or withheld: ____________ (name, date)
+Signed: Riya Kapadnis, 2026-11-10
