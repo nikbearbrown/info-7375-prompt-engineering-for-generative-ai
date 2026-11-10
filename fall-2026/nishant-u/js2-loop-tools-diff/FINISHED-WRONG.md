@@ -125,3 +125,5 @@ check (`out/demo/check-2026-11-10-1.json`) raised the same two flags.
   `unverified-empty` and the run ends `incomplete`.
 
 _Nishant: edit, then sign or withhold._
+
+After the patch (commit cd15d19), the same live demo ended incomplete, with Greenhouse poshmark marked unverified-empty (out/demo-postpatch/runs/2026-11-10-1).
