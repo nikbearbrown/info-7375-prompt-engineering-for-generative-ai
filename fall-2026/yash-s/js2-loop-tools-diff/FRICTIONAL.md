@@ -110,3 +110,37 @@ After that, I will ask Claude to implement the loop and permission checks accord
 I will run the tests myself and record the actual results next to my original predictions.
 
 I will keep the original decisions in Git history if I need to revise them later.
+
+## 2026-11-09: First Offline Tests
+
+### What I did
+
+After committing my gate and boundary-test predictions, I asked Claude Code to implement the multi-board loop, the permission policy, and the automated tests.
+
+I ran all 63 tests myself, and all of them passed.
+
+I also ran `wrong_versions.py`, which tested three intentionally incorrect implementations.
+
+All three wrong versions were caught by the tests.
+
+### What I checked
+
+The tests covered the exit statuses, request and time budgets, retries, saved evidence, state updates, and my 15 permission-boundary predictions.
+
+The planted-bug checks confirmed that the tests caught a failed board being treated as zero new jobs, an incorrect folder-prefix check, and retries not being counted.
+
+### What I learned
+
+Passing the normal tests is useful, but I also want to know whether the tests can detect incorrect behavior.
+
+The wrong-version check gave me more confidence in the tests because each deliberately broken implementation caused a failure.
+
+I have not run the live JS2 agent yet, so I cannot claim that the three real job boards work successfully.
+
+### Evidence
+
+- `tests/`
+- `wrong_versions.py`
+- `GATE.md`
+- `BOUNDARY-TESTS.md`
+
