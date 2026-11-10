@@ -96,3 +96,4 @@
     * Falsely matches "Go" when used as a capitalized sentence-starting verb (e.g., *"Go build something people love"*).
     * The docstring in `agent/skills.py` still references the old behavior.
   * These trade-offs are acceptable because they resolve the primary defect on real postings without overcomplicating the pattern logic.
+  * **Cases My Tests Would Still Miss:** No test covers "Go build something people love" (a sentence-starting verb that currently triggers a false positive) or "Go-based services" (a hyphenated variant that is missed). A change breaking or altering behavior on either phrase would pass our test suite unnoticed.
