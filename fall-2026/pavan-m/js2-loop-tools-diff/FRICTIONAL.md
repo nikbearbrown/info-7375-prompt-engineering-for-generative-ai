@@ -42,3 +42,6 @@ Changed my first draft of the second test after review with Claude: the bad post
 ## Entry 9 — November 10, 2026: Review packet, patch revised then accepted
 Claude Code's first patch fixed the id rule in JS1's shared _usable_id (watch.py). Tests passed, but reading the diff as behavior, it also changed JS1's code path and (as Claude Code itself reported) could crash JS1's state write on mixed int/str ids. I rejected that scope and asked for a revision: same rule, applied only in the JS2 loop path. v2 changed only agent/adapters.py; watch.py is back to JS1. 40 tests pass. On identical Nov 9 input, usable ids went from 0/304 and 0/825 to 304/304 and 825/825. Accepted v2.
 Still missed by my tests: whitespace-only ids, and no UUID format check.
+
+## Entry 10 — November 10, 2026: Removed the two empty state files by hand
+Run 1 (before the string-id fix) wrote state for lever:palantir and ashby:openai with seen_ids: [], because every id was dropped. After the fix, the next live run would have reported all ~1,130 postings on those boards as new. An approved reset wouldn't help, since it also writes seen_ids: []. I removed both files myself with `git rm`, so their next run is a fresh baseline. GATE.md forbids the agent from deleting files; this was my own action, done in a separate commit so it is visible. Glean's state was kept.
