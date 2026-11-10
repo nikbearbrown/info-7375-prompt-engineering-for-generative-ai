@@ -42,7 +42,7 @@ Claude Code (Opus 5.5, model `claude-opus-5-5`) in one Claude Code session in VS
 | Finding 7b | Its own fix for finding 7 caused the wrong `gone` in my live run 2. It found that, wrote the tests, fixed it, and added `gone_recomputed` to `check_run.py` | My run 2 is the run that showed it |
 | `README.md`, `FINISHED-WRONG.md`, this file | Drafted them from the record | |
 | The sign-off and driver's seat | Drafted them in README.md | Check, change, and sign or withhold |
-| `FRICTIONAL.md` | Drafted the factual lines of each entry | The "What I learned" lines are for me to write |
+| `FRICTIONAL.md` | Drafted the factual lines of each entry; pasted my six "What I learned" lines in unchanged | Wrote the six "What I learned" lines |
 
 **Claude responses shown in this folder.** The independent reviewer's report, which I received on 2026-11-10, is summarized in `REVIEW-FINDINGS.md`. Its scratch scripts are not included. Everything in `jobs/`, `finished-wrong/` and `review/` is program output, not Claude's words. The agent itself makes no call to Claude.
 
@@ -56,5 +56,5 @@ Claude Code (Opus 5.5, model `claude-opus-5-5`) in one Claude Code session in VS
 | Review packet, before the patch | Ran `python3 -m unittest tests.test_transport_deadline -v` in my own terminal: 1 FAIL, 2 ok, 6.027 s ([review/2-before-patch-varnika-run.txt](review/2-before-patch-varnika-run.txt)) |
 | Review packet, after the patch | Ran `python3 -m unittest discover -s tests -t .` (96 OK), read `git diff 8ddfec0 91bfbda -- agent/tools.py`, and ran live run 2, `python3 -m agent.loop`, at 21:45:09 UTC ([review/6-after-patch-varnika-run.txt](review/6-after-patch-varnika-run.txt)) |
 | Review decision | REVISE: "The test should explicitly verify that the socket is found through ._sock and fail immediately if that attribute is missing, rather than allowing the code to silently continue." |
-| FRICTIONAL "What I learned" lines | *(to write)* |
+| FRICTIONAL "What I learned" lines | Wrote all six. Claude Code pasted them in word for word |
 | Sign-off | *(to sign or withhold)* |
