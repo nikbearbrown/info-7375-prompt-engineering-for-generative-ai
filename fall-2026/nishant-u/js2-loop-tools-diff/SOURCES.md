@@ -1,108 +1,88 @@
-# SOURCES — Job-Search Agent 1 (nishant-u)
+# SOURCES — Job-Search Agent 2 (nishant-u)
+
+JS1's own sources list is in `fall-2026/nishant-u/js1-contract-and-watch/SOURCES.md` at `d63ee48`. This
+file covers JS2.
 
 ## Sources used
 
 - **Greenhouse Job Board API.** Endpoint used, GET only, no login:
-  `https://boards-api.greenhouse.io/v1/boards/faire/jobs?content=true`. Documentation:
-  <https://docs.greenhouse.io/job-board.html>, opened by Claude Code during setup on 2026-10-29. It says
-  authentication isn't required for GET endpoints (`FRICTIONAL.md`).
-- **Faire's board** on Greenhouse (board token `faire`): 68 postings in the baseline response of
-  2026-10-29, saved verbatim as `runs/2026-10-29-1/raw.json` (sha256
-  `3c10b536e3805bb5a4fca46800ac5caf4c521fa84c9beec30a8ab0beb995c2b7`). I haven't read Faire's own
-  careers-site terms (`FRICTIONAL.md`). The raw.json files are Faire's public board responses saved verbatim; they include contact details Faire itself published in its postings (e.g. an accommodations contact). They are kept unedited so their recorded sha256 hashes stay valid.
-- **The Reallocation Engine** (<https://github.com/nikbearbrown/the-reallocation-engine>), for the
-  fictional persona Priya Nair: `search/examples/priya-nair/resume.example.json`, repo commit
-  `d08afddc` (2026-08-17), copied unchanged to `data/resume.example.json`, sha256
-  `a4fdbc960457ba911b9d3b8593400d17ea77f35a33ce2a508128c1694c4493c1`. Her `profile.yml` was read for
-  her target roles.
-- **Course chapters** in this repository:
-  - Chapter 1, `chapters/01-next-token-prediction-and-sampling.md`: the sampling report and the
-    sign-off template.
-  - Chapter 2, `chapters/02-prompt-contracts-and-evaluation.md`: the contract, the validator, the
-    dev / held-out split and the one-change prompt experiment.
-  - Chapter 3, `chapters/03-chat-assistant-agent.md`: the action-surface comparison.
-- **The JS1 brief**, `assignments/assignment-js1-the-contract-and-the-watch.md`.
-- **The course AI policy:** `prerequisites/ai-policy.md`
-  (<https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai/blob/main/prerequisites/ai-policy.md>)
-  and the video [AI Policy for Professor Bear's Courses | Using AI Responsibly in Class](https://youtu.be/8Ut0Cdl6vMw?si=9w3aEpt1ZyAR4Kiz).
+  `https://boards-api.greenhouse.io/v1/boards/<board>/jobs?content=true`. Documentation:
+  <https://developers.greenhouse.io/job-board.html> (it redirects to
+  <https://docs.greenhouse.io/job-board.html>), read 2026-11-10. It says "authentication is not required
+  for any GET endpoints". It states no rate limit and links to no API terms page.
+- **Ashby public job posting API.** Endpoint used, GET only, no login:
+  `https://api.ashbyhq.com/posting-api/job-board/<board>`. Documentation:
+  <https://developers.ashbyhq.com/docs/public-job-posting-api>, read 2026-11-10. It shows no
+  authentication for this GET and states no rate limit or terms.
+- **The boards**, all public: Greenhouse `faire`, `instacart`, `poshmark` and the deliberately wrong
+  `no-such-board-js2-test`, and Ashby `poshmark`. Each was chosen from a GET-only probe on 2026-11-10.
+  Every response the agent received is saved verbatim under `out/*/runs/*/raw/` with its sha256.
+  - Faire's Greenhouse bodies include a contact address Faire itself published in its postings, an
+    accommodations contact at `faire.com`. As in JS1, the bodies are kept unedited so their recorded
+    sha256 hashes stay valid. No other email address appears in any saved body.
+  - I haven't read the companies' own careers-site terms.
+- **Lectern**, the instructor's collector, `fall-2026/nik-bear-brown/lectern/` in this repository
+  (`collect.py`, `ATS.md`, `sources.json`). Used for the endpoint formats and the lesson that an empty
+  200 board can mean a wrong slug (HubSpot in `ATS.md`). No code was copied.
+- **The Reallocation Engine** (<https://github.com/nikbearbrown/the-reallocation-engine>, local checkout
+  at `95f2545`): `scripts/ats/providers/*.mjs` and `.claude/skills/greenhouse-watch/` for the endpoint
+  formats and Ashby's response shape. No code was copied. The fictional persona Priya Nair
+  (`data/resume.example.json`) comes from it through JS1.
+- **My JS1** (`nishant-u-js1`, `d63ee48`): copied unchanged in `ca43940`. JS2 reuses its rule judge,
+  validator, résumé check and optional Claude judge.
+- **Course chapters** in this repository: Chapter 4, `chapters/04-the-agent-loop.md` (exits, budgets,
+  the finished wrong answer, the separate outcome check); Chapter 5,
+  `chapters/05-tools-and-permissions.md` (the permission gate, containment, boundary matrix); and
+  Chapter 6, `chapters/06-claude-code-and-diff-review.md` (reproduce first, test first, scope, accept or
+  revise or reject).
+- **The JS2 brief**, `assignments/assignment-js2-the-loop-the-tools-and-the-diff.md`, and the course AI
+  policy, `prerequisites/ai-policy.md`, with the video
+  [AI Policy for Professor Bear's Courses | Using AI Responsibly in Class](https://youtu.be/8Ut0Cdl6vMw?si=9w3aEpt1ZyAR4Kiz).
 
 ## What I wrote or decided
 
-- **The contract** (`CONTRACT.md`, commit `3deb719`) and its rule choices: the title terms and
-  exclusions, R3's US-location test, counting only Priya's shipped skill lists for R4, allowing Senior
-  and Staff titles, the three wrong versions, and the failure statement. I approved the amendments: the
-  empty-quote fix and revision-1's `failed_check`.
-- **The board choice:** Faire, with Instacart as the backup (`FRICTIONAL.md`).
-- **The labeling rule** (`LABELING-RULE.md`, commit `dd83c2e`), written before any posting was chosen.
-- **All 20 hand labels** (`experiment/labeling/labels.csv`, commit `8e2fa73`), labeled by hand in Excel
-  before any Claude judge call.
-- **The one prompt change:** adding `failed_check` in revision 1, and why (`PROMPT-EXPERIMENT.md`).
-- **The freeze** (commit `37fd62f`) before the held-out evaluation, which ran once (commit `8a53c80`).
-- **The gate decisions:** the declared pass rule (valid AND verdict equals my hand label), declaring
-  failed_check agreement as a second measure before the revision ran, and when to move from dev to
-  freeze to held-out.
-- **Accepting or rejecting Claude Code's suggestions:** for example, keeping the 50-state R3 list without
-  `, DC`, keeping `resume_field: null` for R1–R3, fixing empty quotes through a contract amendment, and
-  having the safety tests added. Two choices are still undecided: absence citations, and the judge's
-  empty folder (`FRICTIONAL.md`, "My decisions").
-- **The sign-off and the driver's seat** (`README.md`): approved and signed by me, 2026-10-30.
-- **The limits on the agent surface** (no push, no seeded run without asking), and catching that the
-  agent still used the baseline prompt and that a missing `failed_check` was misread as null
-  (`FRICTIONAL.md`, 2026-10-30).
+- **The gate decisions** (`GATE.md`, `58d6431`): the five boards, including the empty Greenhouse
+  poshmark board and the deliberate 404; the exits; the budgets (5 boards, 10 requests, 60 seconds); the
+  repeat rule; the error policy; the permission policy; the 14 boundary predictions; the five wrong
+  versions; and the failure statement.
+- **Every amendment:** before code (`c5ee0fe`: the profiles, `read_file`, merge-only `update_state`,
+  case 15, wrong version 6); after implementation (`d5640de`: I accepted the 8 decisions Claude Code
+  made); and before the patch (`4ba8bd3`: an empty 200 board is `unverified-empty`).
+- **The order of work:** gate, then tests, then code, then live runs, then the review packet.
+- **The limits on Claude Code:** no push until the end, a separate state per live run, every run
+  reported verbatim, and no patch before the regression test failed in my own run.
+- **The review:** the scope widened before the patch (`bccbc41`), and the decision to ACCEPT on evidence
+  (`REVIEW-PACKET.md`, `cd15d19`).
+- **My test runs:** the regression test before the patch (2 failures on `bccbc41`) and after (3 ok), the
+  full suite (131 tests, 1 skip), and `git diff --stat`, in my own Git Bash (recorded verbatim in
+  `REVIEW-PACKET.md`).
+- **The sign-off and driver's seat** in `README.md`: approved and signed by me, 2026-11-10.
 
 ## What Claude contributed
 
-### claude.ai (chat), 2026-10-29
+### claude.ai (chat), 2026-11-10
 
-- Drafted the contract text with me; I reviewed and approved it (`CONTRACT.md`, first line).
-- Drafted the prompts with me (`prompts/baseline.md`, `prompts/revision-1.md`).
-- Explained how the rule's wording reads while I labeled, for example that "AI/ML" contains ML and
-  that "Leader" isn't "lead". I shared the 20 titles and locations, including the held-out ones. It
-  didn't label any posting (`FRICTIONAL.md`, `experiment/SPLIT.md` exposure log).
-- The two action-surface replies (chat and file surfaces) in `experiment/action-surface/` are claude.ai
-  output, saved byte for byte, observed 2026-10-29.
+- Drafted with me the gate text, the prompts I gave Claude Code, the sign-off and the driver's seat.
+- Checked the boundary-case table against GATE.md. I reviewed it.
 
-### claude.ai (chat), 2026-10-30
+### Claude Code, 2026-11-10
 
-- Drafted the sign-off and the driver's seat in `README.md` with me; I approved them.
+- **Research:** the summaries of Chapters 4–6; the Lectern and Reallocation Engine endpoint survey; the
+  GET-only board probe; reading the API docs.
+- **Gate review:** found three gaps before any code. The finished-wrong-answer demo couldn't happen in a
+  run that includes the failing board; boundary case 9 didn't fit the operation list; and nothing
+  distinguished a merging `update_state` from a replacing one. These became `c5ee0fe`.
+- **Tests:** `tests/test_js2_*.py`, `tests/js2_helpers.py` and `tests/js2_mutants.py`, written from my
+  gate before the implementation (`e666f6e`), and the regression test `tests/test_js2_review.py`
+  (`4ba8bd3`).
+- **Code:** `agent2/`, written against the gate (`5e3e3d0`), and the patch (`cd15d19`).
+- **Decisions it made while implementing,** listed for me and accepted in `d5640de`.
+- **Its own weak first regression test:** the first draft constructed a board the state had never seen,
+  so it would have passed without the fix. It caught this before the commit and split the test into
+  "seen" and "fresh" cases (`FRICTIONAL.md`).
+- **Ran the live runs** (`6399099`, `c050acd`, `c51b1af`, `98ae593`), the outcome checks, the offline
+  replay smoke test and the fresh-clone check.
+- **Drafted** `FINISHED-WRONG.md`, `REVIEW-PACKET.md`, `POLICY.md`, this file, `FRICTIONAL.md` and
+  `README.md`. I edited and approved them.
 
-### Claude Code, 2026-10-29
-
-- **Code:** `agent/`, written against my contract.
-- **Tests:** `tests/`, including the constructed fixtures and the three mutants in `tests/mutants.py`,
-  and the safety tests added after the implementation (commit `3d397ae`).
-- **Scripts:** `experiment/make_split.py`, `claude_dev.py`, `report_dev.py`, `rule_vs_hand.py`,
-  `hand_labels.py`, and `action-surface/check_surface_replies.py`.
-- **Report drafts:** `SAMPLING-REPORT.md`, `BASELINE-DEV.md`, `PROMPT-EXPERIMENT.md`,
-  `ACTION-SURFACE.md`, the `FRICTIONAL.md` entries, and this file and `README.md`.
-- **Bugs it found:**
-  - The empty-quote hole: an empty quote passed the validator and counted as supported. Found during
-    implementation; fixed by the contract amendment.
-  - The `skills.agent_note` letter split, a bug Claude Code both made and caught. On 2026-10-29, before
-    the contract was written, its read-only skills check read the string letter by letter, so single
-    letters counted as skills. I didn't write that code. I then made it wrong version 3 in my contract.
-  - The safety claims in the `ACTION-SURFACE.md` draft were broader than the tests.
-- **The fresh-clone check** in `README.md` (2026-10-29).
-
-### Claude Code, 2026-10-30 (the agent surface)
-
-- **Operated the watch** as the agent surface (`experiment/ACTION-SURFACE.md`, "Results, 2026-10-30"):
-  the live second run (`e4d3cae`) and, with my permission, the seeded runs (`14cf874`, `2eb62a9`),
-  including `seeded/select_ids.py`.
-- **Fixed the agent** after I pointed out the baseline-prompt default (`2eb62a9`): revision-1 as the
-  default, seeded labels kept, the printed path, the null rendering, and `tests/test_agent_fixes.py`.
-- **Its own mistakes** in that session, logged in `ACTION-SURFACE.md` and `FRICTIONAL.md`: a
-  `git stash -u` blocked by the auto-mode classifier, a wrong exit code reported for
-  `scripts/validate_course.py`, and a missing `failed_check` read as null.
-- **Drafted** the 2026-10-30 updates to `ACTION-SURFACE.md`, `README.md`, this file and `FRICTIONAL.md`.
-
-### `claude -p` (the judge), 2026-10-29
-
-- Every Claude verdict in this folder: the sampling calls, both dev runs and the held-out evaluation.
-  Each was a separate `claude -p --output-format json --tools ""` call on my Claude Code login (CLI
-  2.1.312, model `claude-opus-5-5`, no API key). Each saved prompt, raw reply, date and session_id is
-  under `experiment/sampling/` and `experiment/runs/`.
-- 2026-10-30: the six judge calls in the seeded runs (`seeded/runs/` and `seeded/rev1/runs/`, three
-  each), the same command run in an empty temporary folder, model `claude-opus-5-5`. Each prompt, raw
-  reply and meta (date, session_id) is saved under that run's `claude/` folder. The live second run
-  made no judge call.
+No Claude judge call (`claude -p`) was made in JS2. Every JS2 run was without `--claude`.

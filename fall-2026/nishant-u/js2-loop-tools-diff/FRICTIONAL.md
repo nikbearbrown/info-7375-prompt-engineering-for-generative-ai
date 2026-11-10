@@ -1,153 +1,92 @@
-# FRICTIONAL — Job-Search Agent 1 (nishant-u)
+# FRICTIONAL — Job-Search Agent 2 (nishant-u)
 
-An honest log of what I tried and what happened. Entries drafted with Claude Code from my instructions and decisions; I reviewed them on 2026-10-30.
+An honest log of what went wrong, what I checked, and what I accepted, changed or rejected. JS1's log
+is in `fall-2026/nishant-u/js1-contract-and-watch/FRICTIONAL.md` at `d63ee48`.
 
-## 2026-10-29 — Board choice: Faire, not the retailers in my pitch
+## 2026-11-10 — The gate had three gaps before any code
 
-**Tried.** My pitch named retail and e-commerce companies. I sent GET requests (no login) to the public
-JSON endpoints of Greenhouse, Lever and Ashby for ten names: wayfair, chewy, etsy, warbyparker,
-instacart, faire, stitchfix, thredup, glossier, peloton.
+After I committed `GATE.md` (`58d6431`), Claude Code's review found three problems in it:
 
-**Happened.** Lever and Ashby returned 404 for all ten. Greenhouse returned postings for five: instacart
-(93 postings, 13 data-like titles), faire (68, 25), peloton (58, 4), glossier (19, 0), stitchfix
-(14, 0). **Wayfair, Chewy, Etsy, Warby Parker and thredUp had no public board on any of the three
-systems** under those names. "Data-like" was a title keyword count, not a label.
+1. **The demo couldn't happen.** `finished` required every planned board to parse, and board 5 always
+   returns 404, so a full run could never show a finished wrong answer.
+2. **Case 9 didn't fit.** Boundary case 9 was a read, but there was no read operation in the vocabulary.
+3. **Merge vs replace.** Nothing distinguished a merging `update_state` from a replacing one.
 
-**Decided.** Faire on `boards-api.greenhouse.io`, with Instacart as the backup: enough postings, and a
-real mix of data and non-data roles. Faire is a wholesale marketplace (B2B e-commerce), not a classic
-retailer, so this departs from my pitch.
+I fixed all three in an amendment before any code (`c5ee0fe`): the `full` and `demo` profiles with the
+outcome-check thresholds, a `read_file` operation, merge-only `update_state`, wrong version 6 and
+boundary case 15. **What I learned:** I had written the exits and the demo plan separately and never
+checked them against each other.
 
-**Unresolved.** I didn't look for other board tokens or other applicant systems for the five missing
-companies. Greenhouse's Job Board API docs say GET endpoints need no authentication; I found no rate
-limit or terms of use for public API readers there, and I have not yet read Faire's own careers-site
-terms.
+## 2026-11-10 — Eight implementation decisions accepted after the code
 
-## 2026-10-29 — Persona mismatch: Priya Nair is ML-infra, not data analytics
+While implementing (`5e3e3d0`), Claude Code made 8 decisions the gate didn't cover:
 
-I remembered Priya Nair as a data-analytics persona. Her `profile.yml` actually targets "LLM-platform
-and ML-infrastructure roles; Databricks/LangGraph stack." I kept her as the fictional résumé. The
-rule's title terms (data, analytics, analyst, scientist, machine learning, ML) cover both readings,
-but the mismatch with my pitch is still there and I need to address it in the write-up.
+1. https only, and no username or password in a URL;
+2. a retry blocked by a budget means `budget-exhausted`;
+3. other HTTP codes fail with no retry;
+4. refused or repeated boards count against the board budget and make the run `incomplete`;
+5. the baseline is per board;
+6. redirects are re-checked up to 3 hops, but the hops are not counted against the budget;
+7. the Claude judge doesn't run on Ashby postings;
+8. the check matches companies by the profile's `company` field.
 
-## 2026-10-29 — A read-only check that was wrong: agent_note split into letters
+It listed them instead of hiding them. I reviewed them and accepted all 8 in a dated amendment
+(`d5640de`), marked as coming after the implementation. **Unresolved:** decision 6 means the request
+budget doesn't bound redirect hops (it's in the sign-off's "Not checked").
 
-**Happened.** On 2026-10-29, before the contract was written, Claude Code ran a read-only check of how
-many of Priya's skills appear in Faire postings. Claude Code wrote that script; I didn't. Its first
-version took every value under `skills` and iterated it. `skills.agent_note` is a string ("No
-certification claims - none exist for this persona."), so it was read letter by letter, and single
-letters such as `a` and `s` counted as matched skills. Every posting appeared to match 16–28 skills.
+## 2026-11-10 — Boundary case 8 skipped; a junction check instead
 
-**Caught by.** Claude Code itself, in the same check. The numbers were implausible (a non-data posting "matched" as many skills as a data
-one), and the printed match list was mostly single characters and spaces. The rerun, using only the
-list-valued fields, gave 0–4 skills per posting.
+The real-symlink test (case 8) is skipped on my machine. Windows refused to create the symlink with
+WinError 1314 ("A required privilege is not held by the client"), and the test records that reason.
+Claude Code ran a one-off check with a directory junction, which needs no privilege: the policy refused
+the write through it, and nothing reached the outside folder. That check is not a committed test, so
+case 8 is still "not checked" in my sign-off. **What would settle it:** Windows Developer Mode, or
+running the suite on macOS or Linux.
 
-**Changed.** I made this wrong version 3 in my contract, `CONTRACT.md`, and the mutant `string_skills` in
-`tests/mutants.py`, caught by `test_3_skills_read_from_string_is_caught`.
+## 2026-11-10 — The first regression test was too weak
 
-## 2026-10-29 — Allowing Senior and Staff titles
+For the review packet, Claude Code's first draft of `tests/test_js2_review.py` built a state in which
+Greenhouse poshmark had never been seen. On the unpatched code that board is reported as "baseline",
+not "0 new", so the assertion `"0 new" not in report.md` would have passed without any fix. Claude Code
+caught this itself, by printing what the unpatched code did for each property before committing. It then
+split the test into a "seen" case (like my second live demo run, which said "0 new") and a "fresh" case
+(like the first, which saved the empty board as seen), plus the control. Both regression cases failed in
+my own run on `bccbc41`. **What I learned:** a test that fails for one reason (the exit) can still have
+assertions that would pass on broken code. Check what each assertion sees on the old code.
 
-On Faire's board (live, 2026-10-29), every data, analytics or scientist title that is not a manager,
-director, head, lead or intern role is Senior or Staff. Excluding seniority would leave no relevant
-postings at all, so relevance would be trivially all-no. The contract says it outright: "Seniority fit
-is **not** judged." That is a limit of this rule, not a claim that Priya is a fit for Staff roles.
+## 2026-11-10 — Scope widened before the patch
 
-## 2026-10-29 — Failures and surprises while building
+The allowed-file list for the patch was `agent2/loop.py` and the new test file. Before the patch, Claude
+Code predicted that 4 existing tests encoded the old behaviour (an empty 200 board counted as clean) and
+would fail. I widened the scope before the patch (`bccbc41`) to those 4 tests only, and wrote down for
+each the exact planned change and why it isn't a weakening. After the patch, the 4 changes matched the
+table and the prediction held: 131 tests, 1 skip.
 
-- **Tests before implementation failed as expected.** At commit A, all 35 tests errored with
-  `ModuleNotFoundError: No module named 'agent'`, because nothing was implemented yet.
-- **A tool check was blocked.** Checking whether `ANTHROPIC_API_KEY` was set, the first command used
-  `${ANTHROPIC_API_KEY:-no}`, which would have printed the key's value if one existed. Claude Code's
-  safety check blocked it; the rewritten command printed only "set" or "unset". It was unset, and
-  `claude -p` ran on my login.
-- **`python -I -m agent.run` failed** with `No module named 'agent'`: isolated mode leaves the current
-  folder off `sys.path`. The tests had passed only because `unittest discover -t .` adds that folder.
-  The documented command, `python3 -m agent.run` from this folder, works.
-- **Line endings.** Git on this machine converts line endings, which would change the bytes of saved
-  responses and break their sha256. `.gitattributes` marks `runs/**/raw.json` and Claude replies as
-  `-text` so they are stored exactly.
+## 2026-11-10 — An unplanned docstring edit
 
-## 2026-10-29 — Hand-labeling the 20 postings
+The patch also changed the module docstring of `agent2/loop.py`, which wasn't in my table. The old text
+called the demo profile "the finished-wrong-answer run", which the patch made false. Claude Code flagged
+the edit when it showed me the diff. I accepted it because it is inside the allowed file and corrects a
+false statement (`REVIEW-PACKET.md`, Scope check).
 
-2026-10-29: I hand-labeled all 20 postings in Excel by applying R1–R4 in order (title, title, location, then Ctrl+F for the 10 shipped skills in the .txt files). While labeling I asked Claude (claude.ai) how the rule reads on word forms (e.g. that 'AI/ML' contains ML, that 'Leader' is not 'lead', that 'ML models' in the text is not a skill for R4). I shared the 20 titles and locations with claude.ai, including the held-out ones; Claude explained rule wording and did not label any posting.
+## 2026-11-10 — The CLI has no state flag
 
-## 2026-10-29 — Tests added after the implementation for three safety claims
+To give each live run its own state, I expected a `--state` flag. There isn't one: the state lives
+inside the output root. Separate `--out` roots were used instead (`out/demo`, `out/full`,
+`out/demo-postpatch`), with no code change. **Accepted** rather than adding a flag mid-assignment.
 
-The draft of `experiment/ACTION-SURFACE.md` said the watch and state were "handled by tested code".
-Claude Code pointed out that the claim was broader than the tests: only the host allow-list had a
-test. The redirect re-check, the atomic state write and `--tools ""` were in the code but untested. I
-had `tests/test_safety.py` added after the implementation:
-- a redirect to a non-allow-listed host is refused before any request to it;
-- a state write that fails after the temp file is written, or partway through writing, leaves the old
-  `seen_ids.json` unchanged;
-- the judge's command always includes `--tools ""`, and the judge runs in an empty folder.
+## 2026-11-10 — Instacart changed during the day
 
-Each test failed against a deliberately broken version before passing against the real code.
+Instacart's Greenhouse board had 88 postings in the morning runs and 92 at 18:02 UTC. The second full
+run (`98ae593`) reported 4 new ids against the morning's state. All four were judged `not_relevant` by
+the JS1 rule: two failed R1 (no title term) and two failed R3 (no US location part). That is a real new
+posting being detected, not a constructed one. It also means the board counts in my docs are snapshots,
+not constants.
 
-## 2026-10-29 — Sampling-report conclusion: a wrong claim caught before commit
+## 2026-11-10 — After the patch, the demo no longer reproduces the wrong answer
 
-My sampling-report conclusion (drafted with Claude in claude.ai) said the not-relevant calls were decided by title or location; Claude Code checked it against results.json and found none were decided by location (three by title, one by R4). Corrected before commit.
-
-## 2026-10-29 — Prompt-experiment conclusion: a wrong claim caught before commit
-
-My prompt-experiment conclusion (drafted with Claude in claude.ai) said all my failed-check mistakes were R1/R2 swaps; Claude Code found one was an R2 given where R3 failed (8618151002). Corrected before commit.
-
-## 2026-10-29 — Action-surface conclusion: a wrong claim caught before commit
-
-My action-surface conclusion (drafted with Claude in claude.ai) blamed both claude.ai failures on copy-paste; Claude Code pointed out the chat reply also used bracket notation for resume_field, an error inside the JSON. Corrected before commit. It also corrected my call count from 50 to 60.
-
-## 2026-10-29 — Fixtures provenance corrected
-
-The fixtures README said the expected verdicts were mine, predicted by hand; Claude Code wrote them. Claude in claude.ai checked all 8 against R1–R4 (all correct) and I reviewed that; the wording is corrected.
-
-## Open: implementation choices I have not reviewed yet
-
-Claude Code made these choices while implementing my contract. They are listed so I can accept,
-change or reject each one; none had been reviewed when this list was written. My decisions are below it.
-
-- R3 markers: entries starting with `, ` must end a location part; `Remote - US` must equal it. Only
-  the 50 state codes are listed: `, DC` is not.
-- Rule citations for R1–R3 have `resume_field: null`, because those checks don't read the résumé.
-- Absence is cited with `quote: null` plus `absent_terms`, and the support check re-verifies the
-  absence.
-- The validator accepts an empty string as `quote`, and the support check would mark it supported,
-  since `""` is a substring of every field. The contract doesn't rule this out.
-- The Claude judge runs with `--tools ""` in an empty temporary folder, so this repository's
-  CLAUDE.md is not in its context.
-
-### My decisions, 2026-10-29
-
-- R3 markers: keep the 50-state list. `, DC` is not counted; it goes under "Not checked" in the sign-off.
-- `resume_field: null` for R1–R3: keep.
-- Empty quotes: fixed by the 2026-10-29 contract amendment (`CONTRACT.md`, Amendments). The validator
-  now rejects an empty or blank quote, and the support check marks it not supported.
-- Not decided yet: absence cited with `quote: null` plus `absent_terms`; the judge running with
-  `--tools ""` in an empty temporary folder.
-
-## 2026-10-30 — Seeded run: three agent bugs and a misread field
-
-- **The agent still used the baseline prompt.** The prompt experiment chose revision-1 and froze it on
-  2026-10-29, but `agent.run` kept calling `prompts/baseline.md` with the baseline schema. The first
-  seeded run (`seeded/runs/`) showed it. Fixed: revision-1 and its schema are the default, `--prompt
-  baseline` keeps the old one, and each report names the prompt file and its sha256 (`seeded/rev1/`).
-- **A missing field reported as "null".** Claude Code told me Claude's `failed_check` was null on both
-  not-relevant postings. I thought the replies had no such field, because the baseline schema doesn't
-  have one; Claude Code checked the saved replies and confirmed the key was absent. Its report had read
-  it with `.get()`, which turns a missing key into None.
-- **The seeded label was lost.** `save_seen` rewrote the state as only `last_run` and `seen_ids`, so the
-  seeded state copy lost `"seeded": true` and its note and looked like a real state. Fixed: a seeded run
-  writes the label, and a state once labeled seeded keeps it.
-- **The printed path was wrong.** The run's summary line always said `runs/<run>/report.md`, even with
-  `--runs seeded/runs`. Fixed: it prints the real `--runs` folder.
-
-Tests for the three code fixes are in `tests/test_agent_fixes.py`.
-
-## 2026-10-30 — Report renderer printed "None" for a null failed_check
-
-The report renderer printed a null `failed_check` as Python's `None` instead of `null`. Fixed in the
-renderer, with a test in `tests/test_agent_fixes.py`. The committed
-`seeded/rev1/runs/2026-10-30-1/report.md` still shows "None" for 8828560002, because it was rendered
-before this fix; its `report.json` has `null`. It wasn't regenerated.
-
-## 2026-10-30 — Pre-submission email check
-
-The pre-submission email check found a Faire employee contact inside the verbatim raw responses (published by Faire in a public posting) and a gmail address in my constructed refusal fixture. I kept the raw responses verbatim and documented it, and changed the fixture to a reserved .test domain.
+The post-patch live demo (`c51b1af`) ended `incomplete`, with Greenhouse poshmark `unverified-empty`.
+That is the fix working, but it means the finished-wrong-answer can no longer be shown by running the
+current code. The evidence is the pre-patch runs `out/demo/runs/2026-11-10-1` and `-2`, made by
+`5e3e3d0` and quoted in `FINISHED-WRONG.md`. **Unresolved:** the patch also makes a company that
+genuinely isn't hiring end every run `incomplete`, and the agent can't tell that apart from a wrong board.

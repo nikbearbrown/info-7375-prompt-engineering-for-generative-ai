@@ -1,173 +1,164 @@
-# Job-Search Agent 1 — The Contract and the Watch (nishant-u)
-
-<!-- data/resume.example.json is copied unchanged from the Reallocation Engine,
-     search/examples/priya-nair/resume.example.json (repo commit d08afddc, 2026-08-17).
-     sha256 a4fdbc960457ba911b9d3b8593400d17ea77f35a33ce2a508128c1694c4493c1.
-     Priya Nair is a FICTIONAL persona (@example.com, 555 phone). -->
+# Job-Search Agent 2 — The Loop, the Tools, and the Diff (nishant-u)
 
 ## What this is
 
-A watch over one public job board, Faire on Greenhouse (`boards-api.greenhouse.io`, the only allowed
-host), for one fictional résumé, Priya Nair. Each run saves the raw board response and its sha256,
-compares posting ids with `state/seen_ids.json`, and reports only postings new since the last run;
-the first run is a baseline that reports none as new. Each new posting gets a rule verdict labeled
-**record**, which anyone can recompute from the rule in `CONTRACT.md`, and, with `--claude`, a Claude
-verdict labeled **judgment**, checked by a validator, with every quote checked against the field it
-cites. The contract came first: see `CONTRACT.md` and its commit. The agent never applies, emails,
-messages or logs in anywhere.
+A bounded loop that watches five public job boards across two applicant-tracking systems, Greenhouse
+and Ashby, for one fictional résumé (Priya Nair). It works under a permission policy enforced in code,
+and it changed only through a reviewed diff.
+
+- **Gate first.** The exits, budgets, repeat rule, error policy and permission policy were written in
+  `GATE.md` before any code.
+- **The loop** (`agent2/loop.py`) ends in exactly one of `finished`, `incomplete`, `budget-exhausted` or
+  `error`. It saves every raw response verbatim with its sha256, writes a trace line per observation,
+  and reports only postings new since the last run, judged by my JS1 rule.
+- **The outcome check** (`agent2/check.py`) is separate from the loop and reads only the saved raw
+  responses.
+- **What the agent never does:** apply, email, message anyone, log in, POST or delete anything. It only
+  sends GET requests to `boards-api.greenhouse.io` and `api.ashbyhq.com`.
+
+| # | System | Board | Why it's in the plan |
+|---|---|---|---|
+| 1 | Greenhouse | `faire` | Wholesale e-commerce; my JS1 board |
+| 2 | Greenhouse | `instacart` | Grocery e-commerce |
+| 3 | Ashby | `poshmark` | Resale e-commerce, the second system |
+| 4 | Greenhouse | `poshmark` | A real board that returns HTTP 200 with 0 jobs: the finished-wrong-answer case |
+| 5 | Greenhouse | `no-such-board-js2-test` | Fails on purpose (HTTP 404) |
+
+Profiles: `full` runs boards 1–5 and ends `incomplete` because of board 5. `demo` runs boards 1–4.
+
+## What I started from
+
+- **My JS1**, branch `nishant-u-js1`, final commit `d63ee48`. It was copied unchanged into this folder
+  in `ca43940`. JS1's files (`agent/`, `CONTRACT.md`, `experiment/`, `runs/`, `seeded/`, `state/` and
+  JS1's tests) are kept as they were. JS2 reuses JS1's rule judge (`agent/rules.py`), validator, résumé
+  check and the optional Claude judge.
+- **Endpoint formats** checked against the instructor's collector Lectern
+  (`fall-2026/nik-bear-brown/lectern/collect.py`) and the Reallocation Engine's providers
+  (`scripts/ats/providers/*.mjs` and `.claude/skills/greenhouse-watch/`). The Greenhouse URL is
+  `https://boards-api.greenhouse.io/v1/boards/<board>/jobs?content=true`. The Ashby URL is
+  `https://api.ashbyhq.com/posting-api/job-board/<board>`.
+- I wrote no code from Lectern or the Reallocation Engine. `agent2/` is new.
 
 ## Language and toolchain
 
 - **Python 3.12, standard library only.** Nothing to install. Tested on Python 3.12.10.
-- **Tests:** `unittest`.
-- **Optional:** the Claude Code CLI (`claude`), logged in, for `--claude` and the experiment scripts that
-  call the judge. Without it, the Claude judge records "not run" and everything else still works. No API
-  key is used; the judge calls ran on my Claude Code login.
-- **Tested on:** Windows 11 with Git Bash. In Git Bash both `python3` and `python` ran Python 3.12.10.
-  On Windows, use `python` (on this machine the `py` launcher failed to start, so it isn't used here).
-- **macOS:** with a python.org install, HTTPS may fail with a certificate error until you run the bundled
-  "Install Certificates.command" in the Python folder. This only matters for live runs. It hasn't been
-  tested here.
+- **Tests:** `unittest`. No test touches the network: they use fakes and constructed fixtures.
+- **Tested on:** Windows 11 with Git Bash. The commands below use `python`; in Git Bash `python3` also
+  worked for JS1.
 - **Windows clone:** other folders in this course repository have paths longer than Windows' default
   limit. Clone with `git clone -c core.longpaths=true ...`, or checkout fails before this folder is
-  reached. This folder itself has no long paths.
+  reached.
+- **Optional:** the Claude Code CLI (`claude`), logged in, only for `--claude`. Without it the Claude
+  judge records "not run".
+- **macOS:** with a python.org install, HTTPS may need the bundled "Install Certificates.command" before
+  live runs. This hasn't been tested here.
 
-## Commands for a fresh clone
+## Commands
 
-Run everything from this folder (`fall-2026/nishant-u/js1-contract-and-watch/`). The commands below use
-`python3`; on Windows, use `python`.
+Run everything from this folder (`fall-2026/nishant-u/js2-loop-tools-diff/`).
 
-**Tests (offline, no Claude):**
-
-```bash
-python3 -m unittest discover -s tests -t . -v
-```
-
-**Replay the baseline response (no network, no Claude).** Point `--state` and `--runs` at a scratch
-folder, so the committed state file and runs are left alone:
+**Tests** (offline; JS1's 66 and JS2's 65):
 
 ```bash
-python3 -m agent.run --replay runs/2026-10-29-1/raw.json --state /tmp/js1-replay/seen_ids.json --runs /tmp/js1-replay/runs
+python -m unittest discover -s tests -t . -v
 ```
 
-Expected: `68 postings, baseline`, and a report under `/tmp/js1-replay/runs/<date>-1/` whose
-`meta.json` has sha256 `3c10b536e3805bb5a4fca46800ac5caf4c521fa84c9beec30a8ab0beb995c2b7`. Running the
-same command again reports `68 postings, 0 new`. The printed line says `report in runs/...`; the
-report is in the `--runs` folder you gave. In PowerShell, use a Windows path such as
-`$env:TEMP\js1-replay\...` instead of `/tmp`.
+Expected: `Ran 131 tests`, `OK (skipped=1)`. The skip is boundary case 8 if your OS refuses to create a
+symlink (see `POLICY.md`).
 
-**A seeded run** (an edited response, labeled seeded in its report):
+**Replay a saved run, no network.** Use a scratch `--out` so the committed runs and states are left alone:
 
 ```bash
-python3 -m agent.run --replay <edited.json> --seeded --state /tmp/js1-replay/seen_ids.json --runs /tmp/js1-replay/runs
+python -m agent2.loop --profile full --replay-dir out/full/runs/2026-11-10-1 --out /tmp/js2-replay
+python -m agent2.check /tmp/js2-replay/runs/<run printed above>
 ```
 
-**Live watch** (network GET to the Faire board; updates `state/seen_ids.json` and adds `runs/<date>-<n>/`):
+Expected: `exit incomplete; 5 requests` (board 5 fails with 404 and board 4 is `unverified-empty`), and
+the check flags `zero-postings greenhouse:poshmark` and `cross-system poshmark`. In PowerShell, use a
+path such as `$env:TEMP\js2-replay`.
+
+**Live runs** (GET only, 5 requests at most per run):
 
 ```bash
-python3 -m agent.run
+python -m agent2.loop --profile full --out out/full     # boards 1-5; ends incomplete (the 404 board)
+python -m agent2.loop --profile demo --out out/demo     # boards 1-4
+python -m agent2.check out/full/runs/<run>              # the outcome check, separate from the loop
 ```
 
-**Live watch with the Claude judge** (also needs `claude` logged in; one fresh `claude -p` call per new
-posting, run with `--tools ""` in an empty temporary folder):
-
-```bash
-python3 -m agent.run --claude
-```
-
-**Experiment scripts.** These read only saved files, need no network and no Claude, and reproduce the
-tables in the reports:
-
-```bash
-python3 experiment/report_dev.py sampling            # SAMPLING-REPORT.md tables
-python3 experiment/report_dev.py baseline-dev        # BASELINE-DEV.md table
-python3 experiment/report_dev.py revision1-dev       # PROMPT-EXPERIMENT.md dev tables
-python3 experiment/report_dev.py baseline-heldout    # held-out tables
-python3 experiment/report_dev.py revision1-heldout
-python3 experiment/rule_vs_hand.py                   # rewrites experiment/rule_vs_hand.md
-python3 experiment/action-surface/check_surface_replies.py   # prints the action-surface check
-```
-
-These call Claude and were each run once. They are listed for the record, not for a TA to re-run:
-
-```bash
-python3 experiment/make_split.py                 # the sealed 20-posting split (no Claude call)
-python3 experiment/claude_dev.py sampling        # 5 dev postings x 4 fresh calls
-python3 experiment/claude_dev.py baseline-dev    # 10 dev postings, baseline prompt
-python3 experiment/claude_dev.py revision1-dev   # 10 dev postings, revision-1 prompt
-python3 experiment/claude_dev.py heldout         # held-out, once only; refuses a second run
-```
-
-### Fresh-clone check, 2026-10-29
-
-Claude Code cloned this local repository into a temporary folder outside the repo (with
-`core.longpaths=true`), checked out `nishant-u-js1` at `3d397ae`, and ran the commands above from this
-folder in Git Bash on Windows 11:
-
-| Command | Exit | Result |
-|---|---|---|
-| `python3 --version` / `python --version` | 0 / 0 | Python 3.12.10 / Python 3.12.10 |
-| `python3 -m unittest discover -s tests -t . -v` | 0 | Ran 56 tests, OK |
-| replay of `runs/2026-10-29-1/raw.json` into a scratch folder | 0 | 68 postings, baseline; sha256 matched the live run |
-| the same replay again | 0 | 68 postings, 0 new |
-| `report_dev.py` (all five modes), `rule_vs_hand.py`, `check_surface_replies.py` | 0 | ran; the action-surface output matched `check-output.txt` |
-
-After the runs, the clone's only change was `experiment/rule_vs_hand.md`, with line endings only: Git
-checked it out with CRLF, and the script writes LF. No content changed. The live commands and the
-scripts that call Claude were not run in this check. The temporary clone was then deleted.
+Each output root holds its own `state/seen_ids.json`. The CLI has no state-path flag, so separate states
+mean separate `--out` roots.
 
 ## What actually ran
 
-All on 2026-10-29 (Eastern time) unless marked.
+| Commit | What it is |
+|---|---|
+| `ca43940` | JS1 `d63ee48` copied unchanged into this folder |
+| `58d6431` | `GATE.md`, written before any code |
+| `c5ee0fe` | Gate amendment before code: the two profiles, `read_file`, merge-only `update_state` (Claude Code found the 3 gaps) |
+| `e666f6e` | 62 JS2 tests written from the gate before any implementation; all failed (`ModuleNotFoundError: agent2`) |
+| `5e3e3d0` | The implementation: loop, providers, policy, outcome check; 128 tests OK, 1 skip |
+| `d5640de` | Gate amendment after implementation: the 8 decisions Claude Code made, accepted by me |
+| `6399099` | Live runs: `out/demo/runs/2026-11-10-1` (finished) and `out/full/runs/2026-11-10-1` (incomplete, the 404 board), plus `FINISHED-WRONG.md` |
+| `c050acd` | Second live demo run, `out/demo/runs/2026-11-10-2`: finished, "0 new" on the empty board |
+| `4ba8bd3` | Review packet: gate amendment, reproduction, regression test failing before the patch |
+| `bccbc41` | Review packet: scope widened before the patch (4 planned test changes) |
+| `cd15d19` | The accepted patch: an empty 200 board is `unverified-empty` and the run is `incomplete` |
+| `c51b1af` | Post-patch live demo run, `out/demo-postpatch/runs/2026-11-10-1`: incomplete |
+| `98ae593` | Second live full run, `out/full/runs/2026-11-10-2`: incomplete, 4 real new Instacart postings |
+| this commit | Final docs: README, POLICY, SOURCES, FRICTIONAL, sign-off and driver's seat |
 
-| Step | Commit | What it shows |
-|---|---|---|
-| Contract, before any code | `3deb719` | `CONTRACT.md`: in, out, refusals, rule R1–R4, Claude schema, three wrong versions |
-| Tests first | `771bb15` | tests and constructed fixtures written from the contract; all errored before implementation |
-| Implementation | `4b9e88e` | `agent/` |
-| Baseline run | `f0bddac` | `runs/2026-10-29-1/`: live fetch, 68 postings, all ids saved, 0 reported as new |
-| Hand labels | `8e2fa73` | my 20 labels, blind, before any Claude judge call |
-| Freeze | `37fd62f` | both prompts frozen by sha256 before the held-out evaluation |
-| Held-out evaluation | `8a53c80` | run once: baseline and revision 1, 10/10 pass each |
-| Safety tests | `3d397ae` | redirect refusal, atomic state write, `--tools ""` |
-| Second watch run (2026-10-30) | `e4d3cae` | `runs/2026-10-30-1/`: live fetch by Claude Code with `--claude` (the agent surface in `ACTION-SURFACE.md`); 67 postings, 0 new, 1 removed (8580854002); the Claude judge wasn't called |
-| Seeded run, baseline prompt (2026-10-30) | `14cf874` | `seeded/runs/`: labeled seeded; a state copy with 3 ids removed; all 3 detected; rule and Claude verdicts match 3/3 |
-| Agent fixes and seeded rerun (2026-10-30) | `2eb62a9` | the agent defaults to the frozen revision-1 (`--prompt baseline` keeps the old one); seeded states keep their label; the printed report path is the real `--runs` folder; `seeded/rev1/`: verdicts and failed_check match the rule 3/3 |
+**The finished-wrong-answer evidence** is the two pre-patch live demo runs, `out/demo/runs/2026-11-10-1`
+and `out/demo/runs/2026-11-10-2`, made by the code at `5e3e3d0`. Both ended `finished`. The second
+reported Greenhouse poshmark as "0 postings, 0 new", while the independent check flagged it from the raw
+responses (`FINISHED-WRONG.md`). The post-patch run `out/demo-postpatch/runs/2026-11-10-1` shows the
+fix: the same live boards end `incomplete`, with Greenhouse poshmark `unverified-empty`. After the
+patch, the demo profile no longer reproduces the wrong answer.
 
-The full list of commits is in `git log -- .`.
+**The live runs, all on 2026-11-10:**
+
+| Run | Code | Exit | Notes |
+|---|---|---|---|
+| `out/demo/runs/2026-11-10-1` | pre-patch | `finished` | fresh state; every board a baseline |
+| `out/full/runs/2026-11-10-1` | pre-patch | `incomplete` | the 404 board failed, not retried, "unknown", not "0 new" |
+| `out/demo/runs/2026-11-10-2` | pre-patch | `finished` | the wrong answer: Greenhouse poshmark "0 postings, 0 new" |
+| `out/demo-postpatch/runs/2026-11-10-1` | post-patch | `incomplete` | Greenhouse poshmark `unverified-empty` |
+| `out/full/runs/2026-11-10-2` | post-patch | `incomplete` | Instacart 88 → 92: 4 new ids, all judged `not_relevant` by the rule (R1 or R3) |
+
+Every live run contacted only `boards-api.greenhouse.io` and `api.ashbyhq.com` (the trace's `host`
+column and the raw sidecars' URLs).
 
 ## Where each required artifact is
 
-| Required artifact | Where |
+| Required | Where |
 |---|---|
-| Contract | `CONTRACT.md` (amendments at the end); labeling rule in `LABELING-RULE.md` |
-| Code | `agent/`: `watch` (allow-listed fetch, state), `rules` (record), `claude_judge` (judgment), `validator`, `resume`, `run` |
-| Tests | `tests/`; constructed fixtures in `tests/fixtures/` (see its `README.md`); the three wrong versions in `tests/mutants.py` |
-| Raw responses and state | `runs/2026-10-29-1/` (`raw.json` verbatim, `meta.json` with time and sha256, `report.md`, `report.json`); `state/seen_ids.json`. The second run: `runs/2026-10-30-1/`. Seeded runs, labeled seeded: `seeded/` (see its `README.md`). The raw.json files are Faire's public board responses saved verbatim; they include contact details Faire itself published in its postings (e.g. an accommodations contact). They are kept unedited so their recorded sha256 hashes stay valid. |
-| Sampling report | `experiment/SAMPLING-REPORT.md`; replies in `experiment/sampling/` |
-| Prompt experiment | `experiment/PROMPT-EXPERIMENT.md` (with `BASELINE-DEV.md`, `SPLIT.md`, `rule_vs_hand.md`); prompts in `prompts/`; labels in `experiment/labeling/labels.csv`; replies and results in `experiment/runs/` |
-| Action-surface comparison | `experiment/ACTION-SURFACE.md`; kit, prompts, saved replies and check output in `experiment/action-surface/` |
-| Sources | `SOURCES.md` |
-| Frictional | `FRICTIONAL.md` |
+| README (language, toolchain, commands, what ran) | this file |
+| `GATE.md` | `GATE.md`, with all amendments, dated |
+| The code and tests | `agent2/` (`loop.py`, `providers.py`, `policy.py`, `check.py`); `tests/test_js2_*.py`, `tests/js2_helpers.py`, `tests/js2_mutants.py` |
+| The agent trace of a real run, with the deliberate failure | `out/full/runs/2026-11-10-2/trace.jsonl` and `report.md` (post-patch); `out/full/runs/2026-11-10-1/` (pre-patch) |
+| The finished-wrong-answer demonstration | `FINISHED-WRONG.md` |
+| The permission policy and boundary-test table | `POLICY.md` |
+| The review packet | `REVIEW-PACKET.md` |
+| The sign-off and driver's seat | below |
+| Saved raw responses | `out/*/runs/*/raw/` (each `.body` verbatim, with a `.meta.json` holding the URL, HTTP status, time and sha256); check outputs `out/*/check-*.json`; states `out/*/state/seen_ids.json` |
+| `SOURCES.md`, `FRICTIONAL.md` | `SOURCES.md`, `FRICTIONAL.md` |
 
 ## Sign-off
 
 ```text
-Sign-off — Job-Search Agent 1
-Checked: the contract came before any code (3deb719); each rule branch (tests/test_rules.py); the three wrong versions are caught (tests/test_mutants.py); a baseline reports 0 new and a later run only new IDs (tests/test_watch.py; live runs 2026-10-29 and 2026-10-30; seeded runs 2026-10-30); allow-list, redirect refusal, atomic state write and --tools "" (tests/test_watch.py, tests/test_safety.py); a non-fictional résumé is refused (tests/test_resume.py); the validator rejects malformed or empty-quote replies (tests/test_validator*.py); the agent uses the frozen revision-1 and keeps seeded labels (tests/test_agent_fixes.py); the held-out set was sealed and run once (SPLIT.md hash, freeze 37fd62f).
-How: by hand: my 20 blind labels. By recomputation: the rule judge on my 20 labels (20/20 labels, 14/20 failed checks; my 6 mistakes are logged). Tests written before Claude's code existed: 771bb15, written by Claude Code from my contract, all erroring before the implementation. Added after the implementation: test_implementation.py, test_validator_revision.py, test_safety.py, test_agent_fixes.py. With Claude's help: the 8 test fixtures (written by Claude Code, checked by Claude in claude.ai, reviewed by me), and the code, scripts and report drafts.
-Not checked: a real new posting on the live board (day 2 had 0 new; new-posting detection is shown only by labeled seeded runs); DC and other non-state US locations; macOS and Linux, and the live commands in the fresh-clone check; Faire's and Greenhouse's full terms of use; whether Claude cites the right résumé field (only that the quote exists); seniority fit; harder or borderline postings.
-Not claiming: that the Claude judge is accurate in general (10/10 on 10 held-out cases, 95% interval 69–100%); that "relevant" means Priya should apply, qualifies, or would be sponsored; that it works on other boards, personas or models; that the claude.ai formatting failures came from the model.
-Signed: Nishant U, 2026-10-30.
+Sign-off — Job-Search Agent 2
+Checked: the gate came before code (58d6431; amendment c5ee0fe before the tests in e666f6e); the four exits (test_js2_loop Exits); budgets, including a retry blocked by the budget (test_js2_loop); the repeat rule and the error policy per HTTP outcome (test_js2_loop ErrorPolicy); no invented value for a failed board (the live full run: the 404 board shows "unknown", not "0 new"); all 15 boundary cases, predicted in GATE.md before code (test_js2_policy); the six wrong versions are caught (test_js2_mutants); the outcome check reads only the raw responses (test_js2_check, plus the live runs); the review fix (test_js2_review).
+How: by hand: none. Commands I ran myself: the regression test before the patch (2 failures on bccbc41) and after (3 ok), the full suite (131 tests, 1 skip), and git diff --stat. Tests written before Claude's code existed: e666f6e (62 tests, written by Claude Code from my gate, all failing before the implementation) and the regression test 4ba8bd3 (before the patch). With Claude's help: the boundary-case table was checked against GATE.md by Claude in claude.ai and reviewed by me; the code, the tests and the doc drafts were written by Claude Code.
+Not checked: boundary case 8 (a real symlink) on this machine, which was skipped (a junction was refused, but that isn't a committed test); an empty Ashby board (every empty-board test uses Greenhouse); telling a company that truly isn't hiring from a wrong board (both now end incomplete); the Claude judge on Ashby postings (not run); redirect hops counted against the budget (they aren't); macOS and Linux; each host's terms beyond its API docs, and any rate limit.
+Not claiming: that the outcome check catches every wrong answer (it catches only zero-posting boards and cross-system zero vs non-zero); that the policy is a sandbox (it's a preflight, and JS1's claude_judge writes inside an approved folder without going through policy.py); that "finished" means correct.
+Signed: Nishant U, 2026-11-10.
 ```
 
 ## Driver's seat
 
 | Task | Claude did | I did | Why it stays mine | Evidence |
 |---|---|---|---|---|
-| Contract and rule | Drafted the wording | Chose the rule: allow Senior/Staff, at least 1 shipped skill, narrow title terms | What's "worth Priya's time" is a judgment | 3deb719; FRICTIONAL decisions |
-| Hand labels | Explained rule wording only | Labeled all 20 blind | The answer key must be independent of Claude | 8e2fa73; rule_vs_hand.md shows my own mistakes |
-| Code and tests | Claude Code wrote them | Set the order (contract, then tests, then code), decided the open choices | I'm responsible for what's built | commit order 3deb719, 771bb15, 4b9e88e |
-| Prompt experiment | Ran the calls, drafted reports | Chose the one change; froze it before held-out | Tuning choices decide what the result means | 570deba, 37fd62f |
-| Operating the agent | Claude Code ran the live and seeded runs | Set limits (no push, no seeded run without asking), caught the baseline-prompt and missing-field errors | Authority over my repo stays with me | e4d3cae, 2eb62a9; FRICTIONAL 2026-10-30 |
-| Conclusions and sign-off | Drafted; Claude Code caught 4 errors across 3 of my drafted conclusions | Reviewed, approved, signed | My name goes on the claims | FRICTIONAL "wrong claim caught" entries |
+| Gate (exits, budgets, policy) | Drafted it; Claude Code found 3 gaps | Approved it and its amendments before code | The loop's limits are commitments I'm accountable for | 58d6431, c5ee0fe, d5640de |
+| Boundary predictions | Drafted the 15 cases | Approved them before any code; checked the test table against them | A prediction only counts if it comes before the result | GATE.md; POLICY.md |
+| Loop, tests and code | Claude Code wrote the tests, then the code | Set the order; chose the boards and the deliberate failure | What runs against real hosts is my responsibility | e666f6e then 5e3e3d0 |
+| The review | Claude Code wrote the regression test and the patch | Widened the scope before the patch, ran the tests myself before and after, decided to accept | Accepting a change is a judgment on evidence | bccbc41 run; REVIEW-PACKET.md Decision; cd15d19 |
+| Live runs | Claude Code ran them | Set limits: no push, separate states, each run reported verbatim | Authority over my repo and over live requests stays with me | out/ runs; FRICTIONAL |

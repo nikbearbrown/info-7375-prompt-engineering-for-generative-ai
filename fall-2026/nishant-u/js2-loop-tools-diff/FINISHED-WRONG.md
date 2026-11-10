@@ -1,7 +1,7 @@
 # A finished wrong answer — JS2 demo run 2026-11-10-2
 
-> **DRAFT by Claude Code for Nishant to edit.** Every quote below is copied from files saved by the runs
-> and the check. Nothing here is constructed or seeded: both runs were live.
+Every quote below is copied from files saved by the runs and the check. Nothing here is constructed
+or seeded: all runs were live.
 
 ## The runs
 
@@ -124,6 +124,6 @@ check (`out/demo/check-2026-11-10-1.json`) raised the same two flags.
 - **Next:** the review packet (`REVIEW-PACKET.md`) changes the loop so that an empty board becomes
   `unverified-empty` and the run ends `incomplete`.
 
-_Nishant: edit, then sign or withhold._
-
 After the patch (commit cd15d19), the same live demo ended incomplete, with Greenhouse poshmark marked unverified-empty (out/demo-postpatch/runs/2026-11-10-1).
+
+Reviewed and approved by Nishant, 2026-11-10.
