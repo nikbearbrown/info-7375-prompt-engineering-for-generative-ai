@@ -174,3 +174,16 @@ test('a passing run and a no-observation run together still exit non-passing', (
   const none = noObservationTrace();
   assert.equal(exitCodeFor([checkTrace(ok.trace, { root: ok.root }), checkTrace(none.trace, { root: none.root })]), 1);
 });
+
+test('Greenhouse id 0 is invalid, as a number or a string, raw or persisted', () => {
+  assert.equal(canonicalRawId('greenhouse', 0), null);
+  assert.equal(canonicalRawId('greenhouse', '0'), null);
+  assert.equal(validPersistedId('greenhouse', '0'), false);
+  assert.equal(canonicalRawId('greenhouse', 1), '1', 'the smallest positive id is still valid');
+  const { root, trace } = fixture({ system: 'greenhouse', raw: gh([0, 1]), pre: null, post: ['0', '1'], claim: [0, 1] });
+  const r = checkTrace(trace, { root });
+  assert.equal(rule(r, 1).pass, false);
+  assert.match(rule(r, 1).detail, /1 invalid id\(s\)/);
+  assert.equal(rule(r, 3).pass, false);
+  assert.match(rule(r, 3).detail, /post-run state has 1 invalid id\(s\), e\.g\. "0"/);
+});

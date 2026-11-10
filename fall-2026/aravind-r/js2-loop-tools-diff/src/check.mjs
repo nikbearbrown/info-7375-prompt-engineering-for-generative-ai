@@ -23,16 +23,16 @@ import { parseArgs } from 'node:util';
 
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const DECIMAL = /^(0|[1-9]\d*)$/;
+const DECIMAL = /^[1-9]\d*$/; // positive, no leading zeros (GATE.md: gh- ids are positive)
 const SUCCESS = new Set(['observed', 'unchanged (no new IDs)']);
 
 class EvidenceError extends Error {}
 
-// The checker's own id canonicalization (GATE.md rule 1): Greenhouse numeric (safe
-// integer) or decimal-string ids -> decimal string; Lever ids must be UUID strings.
+// The checker's own id canonicalization (GATE.md rule 1): Greenhouse positive safe-integer
+// or positive decimal-string ids -> decimal string; Lever ids must be UUID strings.
 export function canonicalRawId(system, id) {
   if (system === 'greenhouse') {
-    if (Number.isSafeInteger(id) && id >= 0) return String(id);
+    if (Number.isSafeInteger(id) && id > 0) return String(id);
     if (typeof id === 'string' && DECIMAL.test(id)) return id;
     return null;
   }
