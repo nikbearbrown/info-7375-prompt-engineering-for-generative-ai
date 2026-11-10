@@ -79,3 +79,12 @@ These rules are enforced in the program, not in a prompt.
 2. **Failed board = no new jobs.** A 404 or timeout is treated as an empty board. The run looks fine, a value is invented, the board's state can be wiped, and the run exits `finished`.
 3. **Substring host check.** Hosts are checked with `"greenhouse.io" in url`, so `boards-api.greenhouse.io.evil.example` and `http://` URLs pass.
 4. **Retries not counted.** The budget counts boards rather than requests, so retries go uncounted and a run can exceed 10 requests and still report `finished`.
+
+## Decisions after the gate
+
+### 2026-11-10 — Greenhouse board identity (accepted in review)
+- **The rule.** Before fetching a Greenhouse board's job list, the loop asks Greenhouse for the board's own name (`/v1/boards/{token}`). If that name does not match the employer in the config (case and punctuation ignored), the board fails: its job list is not fetched, its state is not touched, and the run exits `incomplete`.
+- **Error policy and budgets.** The name request follows the same error policy as a job-list request. It costs one request per Greenhouse board, which fits within the budgets above.
+- **Why.** The wrong-board run (`runs/2026-11-09T205807Z_WRONG-BOARD-demo`) ended `finished` on another employer's board.
+- **Evidence.** My test `tests/test_review_identity.py` was committed before the patch (`a81c572`) and failed on the old code. After the patch, the same real wrong board (`runs/2026-11-10T170122Z_WRONG-BOARD-after-patch`) ended `incomplete` after one request, saved no ids, and gave this reason: `identity mismatch: the board calls itself 'ABACUS', but the config says 'Abacus Insights'`.
+- **Limit.** Ashby and Lever have no public name endpoint, so the check covers Greenhouse only. A valid Ashby (or Lever) board for the wrong employer could still finish cleanly.
