@@ -38,7 +38,7 @@ def numeric_keys(obj, path=""):
             yield from numeric_keys(v, f"{path}[{i}]")
 
 
-print("Résumé dict keys made only of digits (would now be read as an index):",
+print("Résumé dict keys made only of digits (patch 7044eaf would misread them as indexes):",
       list(numeric_keys(resume)) or "none")
 
 files = sorted((JS1 / "evidence").rglob("*.json"))
