@@ -205,6 +205,21 @@ class LoopTests(unittest.TestCase):
         self.assertEqual(len(fetch.calls), 3)
         self.assertIn("stopped mid-board", self.board(report, "b")["reason"])
 
+    def test_request_budget_used_up_between_boards(self):
+        # Found in the Nov 9 demo run (run-20261110-025634Z): with 2 requests and
+        # 2 boards already fetched, the 3rd board was reported "stopped mid-board"
+        # and counted as used, although no request was ever sent to it.
+        tight = dict(BUDGET, max_requests=2)
+        boards = [gh("a"), gh("b"), lv("c")]
+        script = {GH.format("a"): [Response(200, gh_jobs(1))],
+                  GH.format("b"): [Response(200, gh_jobs(1))],
+                  LV.format("c"): [Response(200, lv_jobs(1))]}
+        report, fetch, _ = self.run_loop(boards, script, budget=tight)
+        self.assertEqual(report["exit"], BUDGET_EXHAUSTED)
+        self.assertNotIn(LV.format("c"), fetch.calls)
+        self.assertIn("not reached", self.board(report, "c")["reason"])
+        self.assertEqual(report["budget"]["used"]["boards"], 2)
+
     # --- policy inside the loop (BOUNDARY_TABLE "run exits error") ----------
 
     def test_off_list_host_ends_run_with_error_before_any_request(self):
