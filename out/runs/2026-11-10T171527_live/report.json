@@ -1,0 +1,221 @@
+{
+ "run_id": "2026-11-10T171527_live",
+ "started": "2026-11-10T17:15:27-05:00",
+ "source": "live",
+ "seeded_note": null,
+ "boards_file": "config/boards_no_failure.json",
+ "out_root": "out",
+ "claude": "off",
+ "exit": {
+  "status": "finished",
+  "code": 0,
+  "reasons": []
+ },
+ "requests_used": 9,
+ "seconds_used": 25.9,
+ "steps_used": 9,
+ "budgets": {
+  "max_boards": 12,
+  "max_requests": 100,
+  "max_seconds": 420,
+  "request_timeout_s": 15,
+  "max_redirect_hops": 3,
+  "max_loop_steps": 200
+ },
+ "plan": [
+  "greenhouse:samsara",
+  "greenhouse:databricks",
+  "greenhouse:toast",
+  "greenhouse:klaviyo",
+  "greenhouse:datadog",
+  "lever:palantir",
+  "lever:spotify",
+  "lever:zoox",
+  "lever:kraken"
+ ],
+ "duplicates_removed": [],
+ "approvals_refused": [],
+ "state_update": "after this report is written: 9 board(s) observed successfully",
+ "boards": [
+  {
+   "key": "greenhouse:samsara",
+   "provider": "greenhouse",
+   "board": "samsara",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 313,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_samsara_list.json"
+   ]
+  },
+  {
+   "key": "greenhouse:databricks",
+   "provider": "greenhouse",
+   "board": "databricks",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 917,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_databricks_list.json"
+   ]
+  },
+  {
+   "key": "greenhouse:toast",
+   "provider": "greenhouse",
+   "board": "toast",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 331,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_toast_list.json"
+   ]
+  },
+  {
+   "key": "greenhouse:klaviyo",
+   "provider": "greenhouse",
+   "board": "klaviyo",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 148,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_klaviyo_list.json"
+   ]
+  },
+  {
+   "key": "greenhouse:datadog",
+   "provider": "greenhouse",
+   "board": "datadog",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 394,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_datadog_list.json"
+   ]
+  },
+  {
+   "key": "lever:palantir",
+   "provider": "lever",
+   "board": "palantir",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 304,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/lever_palantir_list.json"
+   ]
+  },
+  {
+   "key": "lever:spotify",
+   "provider": "lever",
+   "board": "spotify",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 85,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/lever_spotify_list.json"
+   ]
+  },
+  {
+   "key": "lever:zoox",
+   "provider": "lever",
+   "board": "zoox",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 231,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/lever_zoox_list.json"
+   ]
+  },
+  {
+   "key": "lever:kraken",
+   "provider": "lever",
+   "board": "kraken",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 0,
+   "baseline": false,
+   "history": "state",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/lever_kraken_list.json"
+   ]
+  }
+ ]
+}

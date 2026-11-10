@@ -1,0 +1,47 @@
+$ python3 scripts/verify_run.py out/runs/2026-11-10T171500_live
+[ok]   greenhouse:samsara: planned board has a record
+[ok]   greenhouse:databricks: planned board has a record
+[ok]   greenhouse:toast: planned board has a record
+[ok]   greenhouse:klaviyo: planned board has a record
+[ok]   greenhouse:datadog: planned board has a record
+[ok]   lever:palantir: planned board has a record
+[ok]   lever:spotify: planned board has a record
+[ok]   lever:zoox: planned board has a record
+[ok]   lever:kraken: planned board has a record
+[ok]   greenhouse:samsara-does-not-exist: planned board has a record
+[ok]   greenhouse:samsara: recount from raw 314 = report count 314
+[ok]   greenhouse:samsara: meta.total 314 = jobs in the list 314
+[ok]   greenhouse:samsara: 314 postings
+[ok]   greenhouse:samsara: new ids recomputed 80 = reported 80
+[ok]   greenhouse:samsara: 314 now vs 323 in baseline 2026-10-31 (drop check: not more than half)
+[ok]   greenhouse:databricks: recount from raw 917 = report count 917
+[ok]   greenhouse:databricks: meta.total 917 = jobs in the list 917
+[ok]   greenhouse:databricks: 917 postings
+[ok]   greenhouse:databricks: new ids recomputed 0 = reported 0
+[ok]   greenhouse:toast: recount from raw 331 = report count 331
+[ok]   greenhouse:toast: meta.total 331 = jobs in the list 331
+[ok]   greenhouse:toast: 331 postings
+[ok]   greenhouse:toast: new ids recomputed 0 = reported 0
+[ok]   greenhouse:klaviyo: recount from raw 148 = report count 148
+[ok]   greenhouse:klaviyo: meta.total 148 = jobs in the list 148
+[ok]   greenhouse:klaviyo: 148 postings
+[ok]   greenhouse:klaviyo: new ids recomputed 0 = reported 0
+[ok]   greenhouse:datadog: recount from raw 394 = report count 394
+[ok]   greenhouse:datadog: meta.total 394 = jobs in the list 394
+[ok]   greenhouse:datadog: 394 postings
+[ok]   greenhouse:datadog: new ids recomputed 0 = reported 0
+[ok]   lever:palantir: recount from raw 304 = report count 304
+[ok]   lever:palantir: 304 postings
+[ok]   lever:palantir: new ids recomputed 0 = reported 0
+[ok]   lever:spotify: recount from raw 85 = report count 85
+[ok]   lever:spotify: 85 postings
+[ok]   lever:spotify: new ids recomputed 0 = reported 0
+[ok]   lever:zoox: recount from raw 231 = report count 231
+[ok]   lever:zoox: 231 postings
+[ok]   lever:zoox: new ids recomputed 0 = reported 0
+[ok]   lever:kraken: recount from raw 0 = report count 0
+[FAIL] lever:kraken: 0 postings (empty, needs review)
+[ok]   lever:kraken: new ids recomputed 0 = reported 0
+[ok]   greenhouse:samsara-does-not-exist: failed board's count is null (unknown, not zero)
+[ok]   sha256 of 10 raw file(s) match the trace
+verifier: FAIL (lever:kraken: 0 postings (empty, needs review)) (drop check not applicable: greenhouse:databricks, greenhouse:toast, greenhouse:klaviyo, greenhouse:datadog, lever:palantir, lever:spotify, lever:zoox — no history)

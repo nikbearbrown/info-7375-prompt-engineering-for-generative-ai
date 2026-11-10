@@ -1,0 +1,53 @@
+$ python3 scripts/verify_run.py out/runs/2026-11-10T171527_live
+[ok]   greenhouse:samsara: planned board has a record
+[ok]   greenhouse:databricks: planned board has a record
+[ok]   greenhouse:toast: planned board has a record
+[ok]   greenhouse:klaviyo: planned board has a record
+[ok]   greenhouse:datadog: planned board has a record
+[ok]   lever:palantir: planned board has a record
+[ok]   lever:spotify: planned board has a record
+[ok]   lever:zoox: planned board has a record
+[ok]   lever:kraken: planned board has a record
+[ok]   greenhouse:samsara: recount from raw 313 = report count 313
+[ok]   greenhouse:samsara: meta.total 313 = jobs in the list 313
+[ok]   greenhouse:samsara: 313 postings
+[ok]   greenhouse:samsara: new ids recomputed 0 = reported 0
+[ok]   greenhouse:samsara: 313 now vs 314 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   greenhouse:databricks: recount from raw 917 = report count 917
+[ok]   greenhouse:databricks: meta.total 917 = jobs in the list 917
+[ok]   greenhouse:databricks: 917 postings
+[ok]   greenhouse:databricks: new ids recomputed 0 = reported 0
+[ok]   greenhouse:databricks: 917 now vs 917 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   greenhouse:toast: recount from raw 331 = report count 331
+[ok]   greenhouse:toast: meta.total 331 = jobs in the list 331
+[ok]   greenhouse:toast: 331 postings
+[ok]   greenhouse:toast: new ids recomputed 0 = reported 0
+[ok]   greenhouse:toast: 331 now vs 331 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   greenhouse:klaviyo: recount from raw 148 = report count 148
+[ok]   greenhouse:klaviyo: meta.total 148 = jobs in the list 148
+[ok]   greenhouse:klaviyo: 148 postings
+[ok]   greenhouse:klaviyo: new ids recomputed 0 = reported 0
+[ok]   greenhouse:klaviyo: 148 now vs 148 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   greenhouse:datadog: recount from raw 394 = report count 394
+[ok]   greenhouse:datadog: meta.total 394 = jobs in the list 394
+[ok]   greenhouse:datadog: 394 postings
+[ok]   greenhouse:datadog: new ids recomputed 0 = reported 0
+[ok]   greenhouse:datadog: 394 now vs 394 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   lever:palantir: recount from raw 304 = report count 304
+[ok]   lever:palantir: 304 postings
+[ok]   lever:palantir: new ids recomputed 0 = reported 0
+[ok]   lever:palantir: 304 now vs 304 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   lever:spotify: recount from raw 85 = report count 85
+[ok]   lever:spotify: 85 postings
+[ok]   lever:spotify: new ids recomputed 0 = reported 0
+[ok]   lever:spotify: 85 now vs 85 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   lever:zoox: recount from raw 231 = report count 231
+[ok]   lever:zoox: 231 postings
+[ok]   lever:zoox: new ids recomputed 0 = reported 0
+[ok]   lever:zoox: 231 now vs 231 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   lever:kraken: recount from raw 0 = report count 0
+[FAIL] lever:kraken: 0 postings (empty, needs review)
+[ok]   lever:kraken: new ids recomputed 0 = reported 0
+[ok]   lever:kraken: 0 now vs 0 in 2026-11-10T171500_live (drop check: not more than half)
+[ok]   sha256 of 9 raw file(s) match the trace
+verifier: FAIL (lever:kraken: 0 postings (empty, needs review))

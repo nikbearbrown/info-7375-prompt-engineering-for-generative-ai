@@ -1,0 +1,53 @@
+{
+ "run_id": "2026-11-10T171605_seeded",
+ "started": "2026-11-10T17:16:05-05:00",
+ "source": "seeded",
+ "seeded_note": "constructed: Samsara's list replaced by tests/fixtures/seeded/empty-samsara.json ({\"jobs\": [], \"meta\": {\"total\": 0}}); no network",
+ "boards_file": "config/boards_seeded.json",
+ "out_root": "evidence/seeded/empty-samsara",
+ "claude": "off",
+ "exit": {
+  "status": "finished",
+  "code": 0,
+  "reasons": []
+ },
+ "requests_used": 1,
+ "seconds_used": 0.0,
+ "steps_used": 1,
+ "budgets": {
+  "max_boards": 12,
+  "max_requests": 100,
+  "max_seconds": 420,
+  "request_timeout_s": 15,
+  "max_redirect_hops": 3,
+  "max_loop_steps": 200
+ },
+ "plan": [
+  "greenhouse:samsara"
+ ],
+ "duplicates_removed": [],
+ "approvals_refused": [],
+ "state_update": "after this report is written: 1 board(s) observed successfully",
+ "boards": [
+  {
+   "key": "greenhouse:samsara",
+   "provider": "greenhouse",
+   "board": "samsara",
+   "status": "ok",
+   "reason": "observed",
+   "attempts": 1,
+   "http_status": 200,
+   "count": 0,
+   "baseline": false,
+   "history": "baseline 2026-10-31",
+   "new_ids": [],
+   "new_judged": [],
+   "new_unjudged": [],
+   "new_other_ids": [],
+   "detail_failures": [],
+   "raw_paths": [
+    "raw/greenhouse_samsara_list.json"
+   ]
+  }
+ ]
+}
