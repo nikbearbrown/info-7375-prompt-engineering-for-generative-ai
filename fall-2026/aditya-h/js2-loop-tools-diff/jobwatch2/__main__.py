@@ -5,6 +5,7 @@ import pathlib
 import sys
 
 from . import loop
+from .policy import Policy
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
@@ -14,6 +15,7 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="one bounded loop over boards.json")
     r.add_argument("--boards", default="boards.json")
+    r.add_argument("--approve-reset", action="append", default=[], help="pre-approve resetting this board")
     s = sub.add_parser("reset", help="delete one board's state (needs your explicit approval)")
     s.add_argument("board")
     s.add_argument("--approve-reset", action="append", default=[])
@@ -26,8 +28,13 @@ def main(argv=None):
             return 3
         print(f"state for {a.board} reset")
         return 0
-    boards = json.loads((ROOT / a.boards).read_text())["boards"]
-    res = loop.run(ROOT, boards)
+    d = Policy(ROOT).read(a.boards)
+    if not d.allowed:
+        print(f"refused: {d.reason}", file=sys.stderr)
+        return 3
+    path = pathlib.Path(a.boards) if pathlib.Path(a.boards).is_absolute() else ROOT / a.boards
+    boards = json.loads(path.read_text())["boards"]
+    res = loop.run(ROOT, boards, approvals=a.approve_reset)
     print(f"exit: {res['exit']}  budget used: {res['budget_used']}")
     for e in res["boards"]:
         print(f"  {e['key']:<28} {e['status']:<17} http={e['http_status']} attempts={e['attempts']} "

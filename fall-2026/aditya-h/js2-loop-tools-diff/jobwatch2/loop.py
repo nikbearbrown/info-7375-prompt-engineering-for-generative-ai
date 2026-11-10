@@ -149,9 +149,9 @@ def run(root, boards, fetcher=http_get, now=time.monotonic, sleep=time.sleep, ap
                 r.trace("request", key, "allow", url=url, attempt=e["attempts"], retry=retry,
                         http_status=status, error=err, bytes=len(body) if body is not None else None)
                 if body is not None:
-                    raw = r.dir / "raw" / f"{key.replace('/', '__')}.attempt{e['attempts']}.json"
-                    r.write(raw, body, key)
-                    e["raw_path"] = str(raw)
+                    rel = f"raw/{key.replace('/', '__')}.attempt{e['attempts']}.json"
+                    r.write(r.dir / rel, body, key)
+                    e["raw_path"] = rel  # relative to the run folder, so a clone elsewhere can re-check it
                 transient = err is not None or (status is not None and (status >= 500 or status == 429))
                 if transient and e["attempts"] == 1:
                     r.trace("retry-wait", key, None, seconds=RETRY_DELAY, why=err or f"HTTP {status}")

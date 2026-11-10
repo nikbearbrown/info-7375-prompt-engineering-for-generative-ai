@@ -257,7 +257,7 @@ class TraceAndRecords(LoopCase):
         observed = {t["board"] for t in trace if t["step"] == "observation"}
         self.assertEqual(observed, {b["key"] for b in res["boards"]})
         for b in res["boards"]:
-            self.assertTrue(pathlib.Path(b["raw_path"]).exists(), b["key"])
+            self.assertTrue((pathlib.Path(res["run_dir"]) / b["raw_path"]).exists(), b["key"])
 
     def test_ids_namespaced_per_board(self):
         res, _ = self.run_loop(BOARDS, OK)

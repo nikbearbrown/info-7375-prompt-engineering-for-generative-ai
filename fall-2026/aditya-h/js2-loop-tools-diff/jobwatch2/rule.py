@@ -11,6 +11,11 @@ def phrase_match(phrase, text):
     return re.search(r"(?<![A-Za-z])" + re.escape(phrase) + r"(?![A-Za-z])", text, re.IGNORECASE) is not None
 
 
+def verdict(p):
+    """The rule's verdict alone; the résumé only supplies the cited fields, not the decision."""
+    return judge(p, None)["verdict"]
+
+
 def judge(p, resume):
     title = " ".join(p["title"].lower().split())
     t_hit = next((ph for ph in TITLE_PHRASES if phrase_match(ph, title)), None)
@@ -20,7 +25,8 @@ def judge(p, resume):
     verdict = "relevant" if t_hit and us else "not_relevant"
     reason = (f"title {'contains ' + repr(t_hit) if t_hit else 'has no product-family phrase'}; "
               f"location {'US (office/country)' if p['us_office'] else ('US marker ' + repr(m_hit)) if m_hit else 'not US / unknown'}")
+    cited = {} if resume is None else {"experience[0].title": resume["experience"][0]["title"],
+                                       "personal.location": resume["personal"]["location"]}
     return {"verdict": verdict, "reason": reason,
-            "resume_fields": {"experience[0].title": resume["experience"][0]["title"],
-                              "personal.location": resume["personal"]["location"]},
+            "resume_fields": cited,
             "posting_fields": {"title": p["title"], "location_name": p["location_name"], "us_office": p["us_office"]}}
