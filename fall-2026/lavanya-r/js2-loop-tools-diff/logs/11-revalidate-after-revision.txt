@@ -1,0 +1,13 @@
+# After the revision (54b5602). Command: python3 -B review/revalidate.py   Ran: 2026-11-10T22:33:03Z
+Résumé dict keys made only of digits (would now be read as an index): none
+Saved real Claude replies checked: 73 (from js1-contract-and-watch/evidence)
+Replies whose result changed: 3
+  evidence/action-surface/1-paste.json  posting 6865698002: INVALID -> VALID
+      old errors: ["resume_fields names fields that do not exist: ['education.0.end_date', 'education.0.status']"]
+      new errors: []
+  evidence/action-surface/2-file.json  posting 6865698002: INVALID -> VALID
+      old errors: ["resume_fields names fields that do not exist: ['education.0.end_date', 'education.0.status']"]
+      new errors: []
+  evidence/claude/experiment/revision-dev/6865698002.json  posting 6865698002: INVALID -> VALID
+      old errors: ["resume_fields names fields that do not exist: ['education.0.end_date', 'education.0.status']"]
+      new errors: []
