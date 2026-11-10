@@ -1,0 +1,118 @@
+# Rule v1, rev 1, rev 2 and rev 3 on the 685 REAL postings from JS2 live run 1, computed offline by Claude Code on 2026-11-09.
+v1 -> rev3: 101 postings change; verdict changes 0; conditions moved {3: 53, 5: 50}
+rev2 -> rev3: 31 postings change; verdict changes 0; conditions moved {5: 31}
+rev3 postings whose condition 5 quotes the 'thereafter' perk: 0
+
+## Conditions that FAIL under v1 and PASS under rev 3 (possible loosening), each with rev 3's reason:
+count: 16 ({'C5': 8, 'C3': 8})
+  C5 klaviyo  Senior Lead Technical Program Manager - Infr v1:  8 years ('8+ years of experience in technical program management  | rev3 classes of N>3: [('pref', 8, '8+ years of experience in technical program m')]
+  C5 klaviyo  Senior Lead Technical Program Manager - Infr v1:  8 years ('8+ years of experience in technical program management  | rev3 classes of N>3: [('pref', 8, '8+ years of experience in technical program m')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Custom v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Custom v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Custom v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Global v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Global v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C5 klaviyo  Sr. AI Systems & Solutions Architect, Global v1:  4 years ('4+ years of experience in AI solutions, solutions archi | rev3 classes of N>3: [('pref', 4, '4+ years of experience in AI solutions, solut')]
+  C3 oscar    Associate Director, Market Strategy Advisory rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Director, Insurance Product Filing & Lifecyc rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Manager, Insurance Product and Benefit Desig rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Manager, Insurance Product Market Research   rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Senior Director, Markets Strategic Advisory  rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Senior Manager, Insurance Product and Benefi rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Senior Manager, Insurance Product Intelligen rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+  C3 oscar    Senior Manager, Market Strategy Advisory     rev3: posting.location 'Remote' / posting.offices ['New York, NY'] is remote within the United States and resume.remote_ok is 
+
+## Conditions that PASS under v1 and FAIL under rev 3 (new failures), grouped by reason:
+count: 87 ({'C5': 42, 'C3': 45})
+  C5 linear   Solutions Engineer, APAC                     | posting.content requires 8 years ('8+ years in a Solutions Engineering, Pre-Sales, or similar r'); resume.experience_yea
+  C3 linear   Account Executive, Growth                    | posting.location/offices say Remote but workplace type is 'Hybrid', and it is not in Boston
+  C3 linear   Account Executive, Enterprise                | posting.location/offices say Remote but workplace type is 'Hybrid', and it is not in Boston
+  C5 linear   Account Executive, Enterprise                | posting.content requires 7 years ('7+ years in a quota-carrying sales role'); resume.experience_years is 3
+  C5 linear   Senior / Staff Security Engineer             | posting.content requires 5 years ('5+ years across security engineering, with real depth in at'); resume.experience_year
+  C3 linear   Account Executive, Growth (EMEA)             | posting.location/offices say Remote but workplace type is 'Hybrid', and it is not in Boston
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Account Executive, Large Enterprise          | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Director, Mid Enterprise Sales               | posting.content requires 8 years ('8+ years leading Mid-Enterprise or Large Enterprise sales te'); resume.experience_yea
+  C5 klaviyo  Global Mobility and Immigration Program Lead | posting.content requires 8 years ('8+ years in corporate immigration and/or global mobility.'); resume.experience_years 
+  C5 klaviyo  Global Mobility and Immigration Program Lead | posting.content requires 8 years ('8+ years in corporate immigration and/or global mobility.'); resume.experience_years 
+  C5 klaviyo  Head of Sales, ANZ                           | posting.content requires 8 years ('8+ years leading sales teams , including leading leaders — m'); resume.experience_yea
+  C5 klaviyo  Large Enterprise Account Executive           | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Large Enterprise Account Executive           | posting.content requires 10 years ('10+ years in enterprise software sales, with 7+ years sellin'); resume.experience_ye
+  C5 klaviyo  Large Enterprise Sales Manager               | posting.content requires 8 years ('8+ years of enterprise selling with a record of personal ove'); resume.experience_yea
+  C5 klaviyo  Large Enterprise Sales Manager               | posting.content requires 8 years ('8+ years of enterprise selling with a record of personal ove'); resume.experience_yea
+  C5 klaviyo  Large Enterprise Sales Manager               | posting.content requires 8 years ('8+ years of enterprise selling with a record of personal ove'); resume.experience_yea
+  C5 klaviyo  Lead, Customer Experience Strategy and Opera | posting.content requires 5 years ('5-8 years in Customer Success, CS Operations, strategy, or p'); resume.experience_yea
+  C5 klaviyo  Order to Cash Track Lead, Finance Engineerin | posting.content requires 10 years ('10+ years in enterprise or business systems, with meaningful'); resume.experience_ye
+  C5 klaviyo  Order to Cash Track Lead, Finance Engineerin | posting.content requires 10 years ('10+ years in enterprise or business systems, with meaningful'); resume.experience_ye
+  C5 klaviyo  Principal Engineer, Core Infrastructure      | posting.content requires 10 years ('10+ years building and operating cloud platforms (compute, n'); resume.experience_ye
+  C5 klaviyo  Principal Software Engineer                  | posting.content requires 10 years ('10+ years building and operating distributed data systems (e'); resume.experience_ye
+  C5 klaviyo  Principal Tech Partner Manager II            | posting.content requires 8 years ('8+ years in technology partnerships or sales within SaaS, id'); resume.experience_yea
+  C5 klaviyo  Senior Customer Success Manager - Enterprise | posting.content requires 5 years ('5+ years of customer success or account management with a tr'); resume.experience_yea
+  C5 klaviyo  Senior Onboarding Specialist, Mandarin Speak | posting.content requires 4 years ('4+ years of customer onboarding, implementation, or related'); resume.experience_year
+  C5 klaviyo  Senior Software Engineer, Platform Engineeri | posting.content requires 5 years ('5+ years of responsibility operating and scaling complex dis'); resume.experience_yea
+  C3 oscar    1099 Supervising Physician - APP Supervision | remote work is limited to ['Georgia']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Associate, Actuarial                         | posting.location/offices say Remote but posting.content says 'commutable distance', and it is not in Boston
+  C3 oscar    Associate Director, Actuarial                | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Associate, Health System Contracting         | remote work is limited to ['Georgia', 'New York', 'North Carolina', 'South Carolina']; Massachusetts is not one of them,
+  C3 oscar    Associate Medical Director, Regulatory Manag | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Associate, National Provider Contracting     | remote work is limited to ['Alabama', 'Arizona', 'California', 'Florida', 'Illinois', 'Iowa', 'Kansas', 'Michigan', 'Mis
+  C3 oscar    Associate, Network Contracting (Northeast Re | remote work is limited to ['Georgia']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Case Manager                                 | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Case Manager (CCM)                           | remote work is limited to ['Arizona', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Kansas', 'Michigan', 'Missouri', 'Nebra
+  C3 oscar    Clinical Pharmacist Supervisor - Prior Autho | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Contract Load Representative                 | remote work is limited to ['Arizona', 'Florida', 'Georgia', 'Texas']; Massachusetts is not one of them, so it cannot be 
+  C3 oscar    Customer Service Representative              | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Customer Service Representative              | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Customer Service Representative              | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Customer Service Representative              | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Director, Actuarial                          | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Manager, Actuarial                           | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Market Medical Officer, Atlantic             | remote work is limited to ['Georgia']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Market Medical Officer, Central              | remote work is limited to ['Texas']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Market Medical Officer, Texas + West         | remote work is limited to ['Texas']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Medical Director Scientific Affairs          | remote work is limited to ['Florida']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Network Contracting & Services Associate     | remote work is limited to ['Arizona', 'Georgia', 'Illinois', 'Iowa', 'Kansas', 'Michigan', 'Missouri', 'Nebraska', 'New 
+  C3 oscar    Physician Reviewer - Utilization Management  | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C5 oscar    Physician Reviewer - Utilization Management  | posting.content requires 6 years ('6+ years of clinical practice Bonus points'); resume.experience_years is 3
+  C3 oscar    Provider Data Operations Lead                | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Provider Data Operations Supervisor          | remote work is limited to ['Texas']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Provider Network Associate                   | remote work is limited to ['Alabama', 'Arizona', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Kansas', 'Michigan', 'Missis
+  C3 oscar    Risk Adjustment Coder Specialist             | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Senior Analyst, Credentialing Quality & Data | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Senior Analyst, SIU Investigator             | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C5 oscar    Senior Data Scientist                        | posting.content requires 4 years ('4+ years of industry or other quantitative technical fields'); resume.experience_year
+  C5 oscar    Senior Data Scientist, AI Enablement         | posting.content requires 4 years ('4+ years of industry or other quantitative technical fields'); resume.experience_year
+  C5 oscar    Senior Data Scientist, Lucie                 | posting.content requires 4 years ('4+ years of industry or other quantitative technical fields'); resume.experience_year
+  C3 oscar    Senior Director, Actuarial - Risk Adjustment | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Senior Manager, Actuarial - Risk Adjustment  | remote work is limited to ['New York']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Senior Manager, Network Contracting          | posting.location/offices say Remote but posting.content says 'hybrid work', and it is not in Boston
+  C3 oscar    Senior Manager, Network Contracting (Central | remote work is limited to ['Illinois', 'Iowa', 'Kansas', 'Michigan', 'Nebraska', 'Ohio']; Massachusetts is not one of th
+  C3 oscar    Senior Specialist, Provider Network Recruitm | remote work is limited to ['Alabama', 'Arizona', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Kansas', 'Michigan', 'Missis
+  C3 oscar    Sr. Analyst, Actuarial - Reserving           | posting.location/offices say Remote but posting.content says 'hybrid work', and it is not in Boston
+  C3 oscar    Staff Product Manager                        | posting.location/offices say Remote but posting.content says 'hybrid work', and it is not in Boston
+  C3 oscar    Staff Product Manager                        | posting.location/offices say Remote but posting.content says 'hybrid work', and it is not in Boston
+  C3 oscar    Staff Software Engineer, Backend             | posting.location/offices say Remote but posting.content says 'hybrid position', and it is not in Boston
+  C3 oscar    Supervisor, Member and Provider Services     | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Supervisor, Member and Provider Services     | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Supervisor, Member and Provider Services     | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C3 oscar    Supervisor, Member and Provider Services     | remote work is limited to ['Arizona']; Massachusetts is not one of them, so it cannot be done from resume.location
+  C5 oscar    Technical Program Manager, Data              | posting.content requires 5 years ('5+ years of technical program or project management/process-'); resume.experience_yea
+  C5 palantir Deal Team - Business Affairs                 | posting.content requires 5 years ('5+ years of commercial contracting, drafting or partnership'); resume.experience_year
+  C5 palantir Deal Team - Business Affairs                 | posting.content requires 5 years ('5+ years of commercial contracting, drafting or partnership'); resume.experience_year
+  C5 palantir Deal Team - Business Affairs                 | posting.content requires 5 years ('5+ years of commercial contracting, drafting or partnership'); resume.experience_year
+  C5 palantir Regulatory Attorney                          | posting.content requires 5 years ('5+ years of providing legal and/or regulatory advice at a la'); resume.experience_yea
+  C5 palantir Regulatory Attorney                          | posting.content requires 5 years ('5+ years of providing legal and/or regulatory advice at a la'); resume.experience_yea
+  C5 palantir Regulatory Attorney                          | posting.content requires 5 years ('5+ years of providing legal and/or regulatory advice at a la'); resume.experience_yea
+
+experiment-2 hand labels vs v1: verdict 20/20, failed set 18/20; misses [('7783904003', [4, 5], [4]), ('7809608003', [5, 6], [4, 5, 6])]
+experiment-2 hand labels vs rev1: verdict 20/20, failed set 19/20; misses [('7809608003', [5, 6], [4, 5, 6])]
+experiment-2 hand labels vs rev2: verdict 20/20, failed set 19/20; misses [('7809608003', [5, 6], [4, 5, 6])]
+experiment-2 hand labels vs rev3: verdict 20/20, failed set 19/20; misses [('7809608003', [5, 6], [4, 5, 6])]

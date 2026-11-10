@@ -30,12 +30,6 @@ RELOCATION_RE = re.compile(r"must relocate|required to relocate|requires relocat
 # Experience: count only mandatory qualifications, and any "N years" there, not only phrases with
 # the word "experience". Location: hybrid or in-office ads fail unless in Boston, even with a
 # "Remote" tag; remote must be workable from Massachusetts.
-MANDATORY_RE = re.compile(r"\b(requirements?|qualifications|what you(?:'|’)?ll (?:need|bring)|what you (?:need|bring)|"
-                          r"who you are|you have|must[- ]haves?|minimum qualifications|basic qualifications)\b", re.IGNORECASE)
-PREFERRED_RE = re.compile(r"\b(preferred|nice[- ]to[- ]haves?|nice to have|bonus(?: points)?|pluses|a plus|ideally|desired)\b",
-                          re.IGNORECASE)
-END_RE = re.compile(r"\b(benefits|compensation|salary|pay range|base pay|perks|what we offer|"
-                    r"equal (?:employment )?opportunity)\b", re.IGNORECASE)
 ANY_YEARS_RE = re.compile(NUM + r"\s*\+?\s*(?:(?:-|–|to)\s*" + NUM + r"\s*\+?\s*)?years?\b", re.IGNORECASE)
 NOT_A_REQUIREMENT_BEFORE = re.compile(r"(founded|over the (?:past|last)|in the (?:past|last)|for (?:the )?(?:past|last)|history)\W*$",
                                       re.IGNORECASE)
@@ -148,39 +142,72 @@ def to_int(s):
     return int(s) if s.isdigit() else NUMBER_WORDS[s.lower()]
 
 
-def looks_like_heading(content, m):
-    """Rev 2 (review packet, 2026-11-09): a requirements-type word opens a section only when it reads
-    like a heading, capitalized or followed by ':', and is not inside parentheses. Rev 1 took any
-    match, so "Health coverage (based on country requirements)" in a benefits list turned the perks
-    after it into requirements (review/03-finding-rev1.txt)."""
-    before = content[max(0, m.start() - 80):m.start()]
-    if before.count("(") > before.count(")"):
-        return False
-    return m.group(0)[0].isupper() or content[m.end():m.end() + 3].lstrip().startswith(":")
+PREF_CUE = re.compile(r"\b(preferred|preferably|nice[- ]to[- ]haves?|nice to have|bonus|pluses|a plus|ideally|desired)\b", re.IGNORECASE)
+PREF_AT_END = re.compile(r"\b(preferred|a plus|nice[- ]to[- ]have|a bonus)\W*$", re.IGNORECASE)
+PERK_CUE = re.compile(r"\b(thereafter|months? off|sabbatical|vacation|parental leave|time off|vest(?:ing|s)?)\b", re.IGNORECASE)
+PERK_HEADING = re.compile(r"\b(benefits|perks|what we offer|compensation|salary|pay|why join|what you get)\b", re.IGNORECASE)
+PIECE_SPLIT = re.compile(r"(?<=[.;!?])\s+|\n+|\s*\u2022\s*|(?<=:)\s*|\s+-\s+")
 
 
-def mandatory_text(content):
-    """The parts of the ad under a requirements-type heading; without one, the text before the first
-    preferred-type or benefits-type heading."""
-    marks = sorted([(m.start(), "need") for m in MANDATORY_RE.finditer(content) if looks_like_heading(content, m)] +
-                   [(m.start(), "pref") for m in PREFERRED_RE.finditer(content)] +
-                   [(m.start(), "end") for m in END_RE.finditer(content)])
-    bounds = [(0, "intro")] + marks + [(len(content), "stop")]
-    segments = [(kind, content[start:bounds[i + 1][0]]) for i, (start, kind) in enumerate(bounds[:-1])]
-    # Rev 2: without a requirements heading, read only the text before any preferred or benefits
-    # heading (rev 1 also kept the benefits section).
-    wanted = ("need",) if any(k == "need" for k, _ in segments) else ("intro",)
-    return " ".join(text for kind, text in segments if kind in wanted)
+SMALL_WORDS = {"and", "to", "of", "for", "the", "a", "an", "in", "on", "with", "we", "you", "we're", "we\u2019re",
+               "you'll", "you\u2019ll", "will", "have", "are", "is", "what"}
+
+
+def split_heading(piece):
+    """Rev 3 (review packet, 2026-11-09). Returns (body, kind). A piece is, or ends in, a heading
+    when it ends with ':' or is a short line with no digits. A heading of five words or fewer is the
+    whole piece. In a longer piece (flattened ad text, or Lever list items joined with no
+    punctuation) the heading is only the last run of capitalized words before the ':', and the text
+    before it is body: "...CPA preferred What We Require:" has the heading "What We Require", and
+    "7+ years of ... environment Hybrid schedule:" keeps its requirement as body. kind is 'pref',
+    'perk' or 'other', or None when there is no heading."""
+    text = piece.strip()
+    colon = text.endswith(":")
+    words = text.rstrip(":").split()
+    if not words or (not colon and (len(words) > 6 or any(ch.isdigit() for ch in text) or text[-1] in ".;!?,")):
+        return text, None
+    if len(words) <= 5:
+        head, body = words, []
+    else:
+        cut = len(words)
+        while cut > 0 and (words[cut - 1][:1].isupper() or words[cut - 1].lower().strip("()") in SMALL_WORDS):
+            cut -= 1
+        while cut < len(words) and words[cut].lower() in SMALL_WORDS:
+            cut += 1
+        head, body = words[cut:], words[:cut]
+    head_text = " ".join(head)
+    kind = "pref" if PREF_CUE.search(head_text) else "perk" if PERK_HEADING.search(head_text) else "other"
+    return " ".join(body), kind
+
+
+def year_phrases(content):
+    """Every 'N years' phrase with its class: 'mandatory', 'pref' or 'perk'. Rev 1 and rev 2 cut the
+    ad into sections and lost requirements after an inline 'preferred' or an unknown heading
+    (review/11-finding-rev2.txt). Rev 3 judges each phrase in its own sentence or bullet, under the
+    last heading seen."""
+    section, out = "other", []
+    for piece in PIECE_SPLIT.split(content):
+        if not piece or not piece.strip():
+            continue
+        body, kind = split_heading(piece)
+        for m in ANY_YEARS_RE.finditer(body):
+            after = body[m.end():m.end() + 8].lower()
+            if re.match(r"\W*(ago|old)\b", after) or NOT_A_REQUIREMENT_BEFORE.search(body[max(0, m.start() - 30):m.start()]):
+                continue
+            if section == "perk" or PERK_CUE.search(body):
+                cls = "perk"
+            elif section == "pref" or PREF_CUE.search(body[:m.start()]) or PREF_AT_END.search(body[m.end():]):
+                cls = "pref"
+            else:
+                cls = "mandatory"
+            out.append((cls, to_int(m.group(1)), body[m.start():m.start() + 60].strip()))
+        if kind:
+            section = kind
+    return out
 
 
 def required_years(content):
-    found = []
-    text = mandatory_text(content)
-    for m in ANY_YEARS_RE.finditer(text):
-        after = text[m.end():m.end() + 8].lower()
-        if re.match(r"\W*(ago|old)\b", after) or NOT_A_REQUIREMENT_BEFORE.search(text[max(0, m.start() - 30):m.start()]):
-            continue
-        found.append((to_int(m.group(1)), text[m.start():m.start() + 60].strip()))
+    found = [(n, phrase) for cls, n, phrase in year_phrases(content) if cls == "mandatory"]
     return max(found) if found else None
 
 
