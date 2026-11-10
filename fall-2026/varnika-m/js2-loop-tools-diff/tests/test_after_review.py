@@ -123,6 +123,22 @@ class Finding7bGoneWithoutLastIds(unittest.TestCase):
         self.assertIn("gone_recomputed", failed(check_run.check(path)))
 
 
+class MissingEarlierRawFile(unittest.TestCase):
+    """Found in the final check (2026-11-10): with an earlier raw file missing (the Canvas zip has no JS1 folder),
+    check_run must say it cannot recompute, not report a made-up recomputed count."""
+
+    def test_a_missing_earlier_raw_file_is_reported_as_cannot_recompute(self):
+        root, clock = make_root(self, [ANTHROPIC]), FakeClock()
+        first = run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(1)))]}), clock, run_id="run-1")
+        record = run_loop(root, FakeNet(clock, {GH % "anthropic": [ok(gh_body(gh_job(1), gh_job(2)))]}), clock,
+                          run_id="run-2")
+        (root / first["boards"][0]["attempts"][0]["raw_file"]).unlink()
+        checks = {c.name: c for c in check_run.check(root / record["files"]["record"])}
+        self.assertFalse(checks["new_ids_recomputed"].passed)
+        self.assertIn("is missing", checks["new_ids_recomputed"].detail)
+        self.assertNotIn("recomputed", checks["new_ids_recomputed"].detail)
+
+
 class Finding8aRedirectRepeats(unittest.TestCase):
     def test_redirect_to_the_same_url_is_not_sent_again(self):
         root, clock = make_root(self, [ANTHROPIC]), FakeClock()
