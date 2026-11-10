@@ -1,0 +1,105 @@
+# Commands I (Arundhati) ran myself, in my own terminal (macOS Terminal, not the Claude Code session),
+# 2026-11-10, pasted into the Claude Code session at ~16:41 EST. Copied here unchanged.
+# The patch (jsagent2/providers.py) was applied but not yet committed when I ran these.
+# git diff output was cut off by the pager (I quit it with q); the full diff is review/patch.diff.
+
+arundhati@Arundhatis-MacBook-Pro js2-loop-tools-diff % python3 review/reproduce_defect.py
+url_for('ashby', 'Jasper AI') -> https://api.ashbyhq.com/posting-api/job-board/Jasper%20AI
+run with Stripe + Notion + Jasper AI -> exit='finished' reason='' requests sent=3
+DEFECT FIXED
+arundhati@Arundhatis-MacBook-Pro js2-loop-tools-diff % python3 -m unittest discover -s tests -t . -v
+test_clean_run_has_no_findings (tests.test_check.IndependentCheck.test_clean_run_has_no_findings) ... ok
+test_drop_to_zero_against_previous_run (tests.test_check.IndependentCheck.test_drop_to_zero_against_previous_run) ... ok
+test_failed_board_with_a_number_is_flagged (tests.test_check.IndependentCheck.test_failed_board_with_a_number_is_flagged) ... ok
+test_finished_with_empty_board_is_flagged (tests.test_check.IndependentCheck.test_finished_with_empty_board_is_flagged) ... ok
+test_raw_file_tampered_is_flagged (tests.test_check.IndependentCheck.test_raw_file_tampered_is_flagged) ... ok
+test_reported_count_differs_from_raw (tests.test_check.IndependentCheck.test_reported_count_differs_from_raw) ... ok
+test_board_budget_leaves_rest_unvisited (tests.test_loop.Budgets.test_board_budget_leaves_rest_unvisited) ... ok
+test_budget_never_reported_as_finished (tests.test_loop.Budgets.test_budget_never_reported_as_finished) ... ok
+test_request_budget_counts_retries (tests.test_loop.Budgets.test_request_budget_counts_retries) ... ok
+test_seconds_budget (tests.test_loop.Budgets.test_seconds_budget) ... ok
+test_5xx_retried_once (tests.test_loop.ErrorPolicy.test_5xx_retried_once) ... ok
+test_not_json_is_bad_shape_no_retry (tests.test_loop.ErrorPolicy.test_not_json_is_bad_shape_no_retry) ... ok
+test_other_4xx_no_retry (tests.test_loop.ErrorPolicy.test_other_4xx_no_retry) ... ok
+test_timeout_retried_once_then_ok (tests.test_loop.ErrorPolicy.test_timeout_retried_once_then_ok) ... ok
+test_timeout_twice_gives_up_without_value (tests.test_loop.ErrorPolicy.test_timeout_twice_gives_up_without_value) ... ok
+test_all_boards_fail_is_error (tests.test_loop.Exits.test_all_boards_fail_is_error) ... ok
+test_all_ok_is_finished (tests.test_loop.Exits.test_all_ok_is_finished) ... ok
+test_empty_board_is_incomplete_not_zero_new (tests.test_loop.Exits.test_empty_board_is_incomplete_not_zero_new) ... ok
+test_one_404_is_incomplete_with_no_count (tests.test_loop.Exits.test_one_404_is_incomplete_with_no_count) ... ok
+test_unknown_ats_is_error_and_nothing_fetched (tests.test_loop.Exits.test_unknown_ats_is_error_and_nothing_fetched) ... ok
+test_board_listed_twice_fetched_once (tests.test_loop.RepeatRule.test_board_listed_twice_fetched_once) ... ok
+test_failed_board_ids_not_marked_seen (tests.test_loop.State.test_failed_board_ids_not_marked_seen) ... ok
+test_first_run_is_baseline_and_state_held_without_approval (tests.test_loop.State.test_first_run_is_baseline_and_state_held_without_approval) ... ok
+test_state_written_with_approval_and_second_run_finds_new (tests.test_loop.State.test_state_written_with_approval_and_second_run_finds_new) ... ok
+test_every_request_is_an_observation_and_raw_saved (tests.test_loop.Trace.test_every_request_is_an_observation_and_raw_saved) ... ok
+test_all_16_cases (tests.test_policy.BoundaryCases.test_all_16_cases) ... ok
+test_refusal_has_a_reason (tests.test_policy.BoundaryCases.test_refusal_has_a_reason) ... ok
+test_credentials_in_url_refused (tests.test_policy.ExtraPolicy.test_credentials_in_url_refused) ... ok
+test_delete_needs_approval (tests.test_policy.ExtraPolicy.test_delete_needs_approval) ... ok
+test_read_outside_via_dotdot_refused (tests.test_policy.ExtraPolicy.test_read_outside_via_dotdot_refused) ... ok
+test_symlinked_file_inside_out_refused (tests.test_policy.ExtraPolicy.test_symlinked_file_inside_out_refused) ... ok
+test_write_outside_with_approval_flag_still_refused (tests.test_policy.ExtraPolicy.test_write_outside_with_approval_flag_still_refused) ... ok
+test_encoded_url_still_passes_policy (tests.test_providers.AshbyBoardNames.test_encoded_url_still_passes_policy) ... ok
+test_name_cannot_change_the_path_or_query (tests.test_providers.AshbyBoardNames.test_name_cannot_change_the_path_or_query) ... ok
+test_name_with_space_and_capitals_is_encoded (tests.test_providers.AshbyBoardNames.test_name_with_space_and_capitals_is_encoded) ... ok
+test_plain_names_unchanged (tests.test_providers.AshbyBoardNames.test_plain_names_unchanged) ... ok
+test_greenhouse_rule_unchanged (tests.test_providers.GreenhouseBoardNames.test_greenhouse_rule_unchanged) ... ok
+test_empty_as_zero_caught (tests.test_wrong_versions.WrongLoops.test_empty_as_zero_caught) ... ok
+test_finished_always_caught (tests.test_wrong_versions.WrongLoops.test_finished_always_caught) ... ok
+test_retry_404_caught (tests.test_wrong_versions.WrongLoops.test_retry_404_caught) ... ok
+test_no_symlink_policy_caught (tests.test_wrong_versions.WrongPolicies.test_no_symlink_policy_caught) ... ok
+test_startswith_policy_caught (tests.test_wrong_versions.WrongPolicies.test_startswith_policy_caught) ... ok
+test_substring_host_policy_caught (tests.test_wrong_versions.WrongPolicies.test_substring_host_policy_caught) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.052s
+
+OK
+arundhati@Arundhatis-MacBook-Pro js2-loop-tools-diff % git diff -- jsagent2/providers.py
+diff --git a/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py b/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py
+index ee04331..4727135 100644
+--- a/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py
++++ b/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py
+@@ -2,9 +2,16 @@
+ 
+ import json
+ import re
+-
+-# Reused from JS1 (jsagent/fetch.py BOARD_SLUG).
+-BOARD_SLUG = re.compile(r"^[a-z0-9-]{1,64}$")
++from urllib.parse import quote
++
++# Greenhouse: reused from JS1 (jsagent/fetch.py BOARD_SLUG).
++# Ashby: board names may contain capitals and spaces (Lectern ATS.md: "Jasper AI"), so they get their own rule.
++# It must start with a letter or digit (so ".", "..", " " are out) and may not contain / ? # % \ or control
++# characters, so the name can only ever be one URL path segment. It is then percent-encoded.
++BOARD_SLUG = {
++    "greenhouse": re.compile(r"^[a-z0-9-]{1,64}$"),
++    "ashby": re.compile(r"^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$"),
++}
+ 
+ URLS = {
+     "greenhouse": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs",
+@@ -19,9 +26,10 @@ class BadShape(Exception):
+ def url_for(ats, slug):
+     if ats not in URLS:
+         raise ValueError(f"unknown applicant-tracking system {ats!r}; known: {sorted(URLS)}")
+arundhati@Arundhatis-MacBook-Pro js2-loop-tools-diff %
+
+# Pasted ~16:43 EST: the approved live run, which I ran myself (run id 20261110T214205Z = 16:42:05 EST).
+arundhati@Arundhatis-MacBook-Pro js2-loop-tools-diff % python3 run.py --approve-state-write
+# Run 20261110T214205Z
+
+**Exit: `incomplete`**
+
+| board | status | postings | new since last run |
+|---|---|---|---|
+| Stripe | ok (HTTP 200) | 775 | baseline (first run for this board) |
+| Figma | ok (HTTP 200) | 143 | baseline (first run for this board) |
+| Notion | ok (HTTP 200) | 155 | baseline (first run for this board) |
+| Deliberate failure | not-found (HTTP 404) | — | — |
+
+Requests used: 4 / 8 · state write: written
+
+trace: out/runs/20261110T214205Z/trace.json

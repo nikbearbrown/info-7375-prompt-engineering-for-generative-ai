@@ -1,0 +1,22 @@
+# python3 -m unittest tests.test_transport_deadline -v   (run by Claude Code, 2026-11-10T21:31:40Z, before the patch, at commit 3f9c1c0)
+# Redacted 2026-11-10: the absolute folder path (it contains my username) is shown as <js2-folder>.
+test_byte_budget_on_a_real_socket (tests.test_transport_deadline.TransportDeadline)
+Predicted before the patch: passes. ... ok
+test_quick_body_is_returned_byte_for_byte (tests.test_transport_deadline.TransportDeadline)
+Predicted before the patch: passes. The patch must not break a normal response. ... ok
+test_slow_trickle_body_stops_at_the_timeout (tests.test_transport_deadline.TransportDeadline)
+Predicted before the patch: FAILS. The call is still running after 6 s, with a 1 s timeout. ... FAIL
+
+======================================================================
+FAIL: test_slow_trickle_body_stops_at_the_timeout (tests.test_transport_deadline.TransportDeadline)
+Predicted before the patch: FAILS. The call is still running after 6 s, with a 1 s timeout.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<js2-folder>/tests/test_transport_deadline.py", line 83, in test_slow_trickle_body_stops_at_the_timeout
+    self.assertFalse(thread.is_alive(), "http_transport was still reading after 6 s with timeout=1.0")
+AssertionError: True is not false : http_transport was still reading after 6 s with timeout=1.0
+
+----------------------------------------------------------------------
+Ran 3 tests in 6.025s
+
+FAILED (failures=1)
