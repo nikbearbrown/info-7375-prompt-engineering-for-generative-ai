@@ -66,7 +66,7 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
 - **Unresolved:** the identity check only covers Greenhouse. A wrong Ashby or Lever board would still finish cleanly.
 
 ## 2026-11-10 — Review packet, day 2 live
-- **My test came first.** I wrote `tests/test_review_identity.py`; Claude supplied the setup lines, and I wrote the assertions. It requires the wrong `abacus` board to make the run `incomplete`, be marked `failed` with a reason naming both employers, and keep its ids out of state. It also requires the right board to still finish. It failed on the old code (`'finished' != 'incomplete'`) and was committed before any fix (`a81c572`).
+- **The review test came first.** In `tests/test_review_identity.py`, Claude supplied the setup lines, and the assertions were drafted with Claude's help. I accepted them before any patch existed. The test requires the wrong `abacus` board to make the run `incomplete`, be marked `failed` with a reason naming both employers, and keep its ids out of state. It also requires the right board to still finish. It failed on the old code (`'finished' != 'incomplete'`) and was committed before any fix (`a81c572`).
 - **What Claude flagged before patching:**
   - The patch would have to change other existing tests' request counts and fixtures.
   - It would add a rule to the gate.
@@ -74,11 +74,11 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - The name request uses the same error-policy code (moved into a `fetch()` helper).
   - The name comparison is deliberately not shared with `check_identity.py`.
   - In other tests, 17 lines changed: six request counts went up by one, the wrong-version-4 mutant now sends 8 requests instead of 6, and one budget test went from 2 to 3 so it still tests the same property.
-  - My test was unchanged, with 0 changed lines since `a81c572`.
-- **My review and decision: accepted.**
-  - I ran the full suite (56 passed).
-  - I re-ran the same real wrong board after the patch (`runs/2026-11-10T170122Z_WRONG-BOARD-after-patch`): `incomplete` after one request, the name mismatch as the reason, and no ids saved.
-  - I checked that the changed budget test still verifies that successful boards are saved before the next request would exceed the budget.
+  - The review test was unchanged, with 0 changed lines since `a81c572`.
+- **My review and decision: accepted.** The review steps ran with AI help:
+  - The full suite was run (56 passed).
+  - The same real wrong board was run again after the patch (`runs/2026-11-10T170122Z_WRONG-BOARD-after-patch`): `incomplete` after one request, the name mismatch as the reason, and no ids saved.
+  - The changed budget test was reviewed. It still verifies that successful boards are saved before the next request would exceed the budget.
 - **After the decision:**
   - A dated 2026-11-10 decision was added to `GATE.md` (`7641f93`).
   - **Limit, recorded in the gate:** a valid Ashby or Lever board for the wrong employer could still finish.
@@ -90,3 +90,20 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - Real changes since day 1: Abacus 15 → 16 postings (1 new, "Software Architect"), Xsolla 185 → 186 (1 new), Valon unchanged, nothing closed.
 - **Independent cross-check.** `crosscheck_days.py` recomputed new and closed from the two days' raw responses with its own parsing, and it agreed with `run.json` on all three boards.
 - **A relisting, not a new job.** The "new" Abacus id `8782226002` was on the board on 10-31 (JS1's saved responses), was gone on 11-09, and came back on 11-10. It is new since the last run, not a first posting, because JS2's state only goes back to 11-09.
+
+## 2026-11-10 — Submission documents
+- **Checked against the brief.** The code, gate, boundary cases, runs, traces, raw responses, and this log were in place. `README.md`, the review packet, `SOURCES.md`, and the sign-off with driver's seat were still missing.
+- **Claude drafted them** from the commits, the run folders, and our sessions: `README.md`, `WRONG_ANSWER.md`, `REVIEW_PACKET.md`, `SOURCES.md`, and `SIGNOFF.md`. The signature line is left for me.
+- **Facts re-checked while drafting:**
+  - The review test failed again on a clean copy of `a81c572` (`'finished' != 'incomplete'`), the only failure out of 56.
+  - Claude's last code edit for the patch (11:47 ET) came before the after-patch run (12:01 ET), so that run used exactly the code committed in `b3f5adb`.
+  - No test covers the Greenhouse name request itself failing. It is now listed under "Not checked."
+- **A wording leftover in the gate:** the `error` exit mentions "an invalid persona", but JS2 has no persona. It is listed under "Not checked"; the gate was not amended.
+- **Attribution corrected.** The review test's assertions, the after-patch run, and the budget-test review were all done with AI help. `REVIEW_PACKET.md`, `SIGNOFF.md`, `SOURCES.md`, `README.md`, `WRONG_ANSWER.md`, and this log now say so, instead of "I wrote", "by hand", or "I ran".
+
+## 2026-11-10 — Live approval prompt check
+- In an AI-assisted terminal session, `python3 agent.py reset-state --state state/seen.json` reached the real y/N prompt: `Approve: drop 233 seen id(s) from state (ashby/valon, greenhouse/abacusinsights, lever/xsolla)? [y/N]`.
+- The response entered was `N`. The command exited 3 with `error: not approved`. The state was not reset: `state/seen.json` had 3 boards and 233 seen ids before and after, and its SHA-256 stayed `75ae1028c6fe38d9e9e4df60775d6e0fc996490fb6177307c08e44b1286a572b`.
+- For the approval path, `state/seen.json` was copied to `state/approval_yes_demo.json` with the same SHA-256. In a real terminal, `python3 agent.py reset-state --state state/approval_yes_demo.json` prompted to drop 233 ids; the response entered was `Y`. The command exited 0 with `reset state/approval_yes_demo.json`, and the copy now contains `{"board_list": null, "boards": {}}`.
+- The original `state/seen.json` still has 3 boards and 233 seen ids, with the same SHA-256 as before either command. Both live prompt responses were exercised with AI help: `N` on the original state, `Y` on a disposable copy.
+- `python3 precheck.py` first failed because an ignored macOS `runs/.DS_Store` file was mistaken for a run folder. After removing that Finder metadata file, it returned `precheck: OK`. No program code was changed.
