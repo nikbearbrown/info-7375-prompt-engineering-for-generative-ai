@@ -82,3 +82,5 @@ The same action is the same (method, host, path and query) within one run. A rep
 6. **Redirects:** a redirect is checked again, up to 3 hops. Each redirect hop does not count as a separate request against the budget.
 7. **Claude judge (`--claude`):** it runs only on Greenhouse postings. Ashby postings are marked "not run" because the JS1 validator requires integer IDs. JS1's `claude_judge` writes its own files inside a folder the policy approved, but those individual writes don't go through `policy.py`.
 8. **Same company across systems:** the check uses the `company` field in the profile.
+
+2026-11-10, before the review-packet patch: a board that returns HTTP 200 with 0 postings is not a clean result. Its status becomes unverified-empty, it is never reported as '0 new', its IDs (none) are not merged into state, and the run's exit is incomplete. Reason: today's Greenhouse poshmark board is empty while Poshmark's Ashby board has 22 postings (FINISHED-WRONG.md).
