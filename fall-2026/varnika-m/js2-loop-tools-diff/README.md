@@ -56,6 +56,8 @@ cp -R . /tmp/js2-copy && cd /tmp/js2-copy && rm -rf finished-wrong && python3 sc
 **Checked on 2026-11-10 from a fresh clone** of `263953b` in a scratch folder:
 - 121 tests OK.
 - No file contains my username.
+
+**From the Canvas zip alone** (without the rest of the repo), the tests and `check_run.py` on runs 2 and 3 and the demonstration behave the same. On **run 1**, `check_run.py` says NOT SUPPORTED, and the reason it gives is that the earlier raw files are missing: run 1's new and gone counts for Anthropic are recomputed from JS1's saved 2026-10-31 responses in `../js1-contract-and-watch/`, which a clone of the repo has and the zip does not. The check refuses to pass what it cannot recompute.
 - `check_run.py` gave the same verdicts on all three saved live runs.
 - The demonstration replayed with the same exits (A `finished`, C `incomplete`, B `finished`, and check_run exit 1 on B).
 

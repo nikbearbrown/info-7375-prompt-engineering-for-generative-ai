@@ -153,13 +153,13 @@ def check(record_path, root=None):
         if not earlier:
             expected = set()
         else:
-            seen = set()
+            seen, missing = set(), [e["raw_file"] for e in earlier if not (root / e["raw_file"]).resolve().exists()]
+            if missing:
+                cannot.append("%s: earlier raw file %s is missing, so new ids cannot be recomputed"
+                              % (b["key"], ", ".join(missing)))
+                continue
             for entry in earlier:
-                path = (root / entry["raw_file"]).resolve()
-                if not path.exists():
-                    cannot.append("%s: earlier raw file %s is missing" % (b["key"], entry["raw_file"]))
-                    break
-                seen |= set(ids_in(b["system"], gzip.decompress(path.read_bytes())))
+                seen |= set(ids_in(b["system"], gzip.decompress((root / entry["raw_file"]).resolve().read_bytes())))
             expected = set(final.get(b["key"], [])) - seen
         if reported != expected:
             wrong_new.append("%s: loop %d new, recomputed %d" % (b["key"], len(reported), len(expected)))

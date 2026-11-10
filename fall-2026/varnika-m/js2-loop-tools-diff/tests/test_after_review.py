@@ -136,7 +136,7 @@ class MissingEarlierRawFile(unittest.TestCase):
         checks = {c.name: c for c in check_run.check(root / record["files"]["record"])}
         self.assertFalse(checks["new_ids_recomputed"].passed)
         self.assertIn("is missing", checks["new_ids_recomputed"].detail)
-        self.assertNotIn("recomputed", checks["new_ids_recomputed"].detail)
+        self.assertNotRegex(checks["new_ids_recomputed"].detail, r"recomputed \d")  # no made-up count
 
 
 class Finding8aRedirectRepeats(unittest.TestCase):
