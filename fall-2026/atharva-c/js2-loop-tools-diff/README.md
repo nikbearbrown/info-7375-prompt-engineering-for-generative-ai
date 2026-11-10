@@ -96,6 +96,7 @@ Times are from the UTC run IDs; Eastern time in brackets.
 | `SIGNOFF.md` | Sign-off and driver's seat |
 | `SOURCES.md` | What I started from and what Claude Code contributed |
 | `FRICTIONAL.md` | Dated log |
+| `COMMIT_MAP.md` | Local commit hashes cited in the docs → the hashes on the GitHub branch |
 | `boards.json`, `budget.json` | The 4 boards and the real budget (protected: writable only with `--approve`) |
 | `agent/policy.py` | Permission policy in code |
 | `agent/loop.py` | The bounded loop, live and replay |
