@@ -14,15 +14,15 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 
 ### In my own words
 
-*Shreyash's words, typed into the session on 2026-11-09. Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-09 (a second version replacing the first). Claude Code did not change them.*
 
 - **2026-11-09:**
   - **What I tried and expected:**
-    I tried building a loop that checks multiple job boards and handles failures without giving incorrect results. I expected it to stop safely when needed and report the actual status of each board.
+    I tried building a loop that checks six job boards and handles failures without giving incorrect results. I expected it to report the actual status of each board and not claim success when something was missing.
   - **What surprised me, or what I checked:**
     I was surprised that revision 1 passed all 84 tests but still had 16 cases where perks were treated as requirements. I also checked the finished-wrong demo and saw that the agent could report success even when it missed most of the postings.
   - **What I accepted, changed, or rejected from Claude:**
-    I chose the boards, budgets, and error-handling rules for the loop. I rejected revision 1 because the behavior was still wrong, and accepted revision 3 because the perk issue was fixed, while keeping the remaining limitations documented.
+    I decided the boards, budgets, and error-handling rules for the loop. I sent revision 1 back for revision because the behavior was still wrong, and later accepted revision 3 with its known limitations documented.
   - **What I still don't understand, and my next step:**
     I'm still not fully sure how the rule should decide between a remote tag and the actual location requirements in a job description. My next step is to improve those checks and test whether the loop can detect incomplete responses from Ashby and Lever.
 
