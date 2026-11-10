@@ -15,3 +15,4 @@ symlink-follow: OK
 # first (2b8ed44). It writes through a symlink inside runs/ that points to a not-yet-existing
 # file inside runs/. The same 'symlink-follow' mutation was re-run on the full suite:
 symlink-follow (re-run with row 21): FAILED (failures=1)   <- now caught, by test_21 only
+symlink-follow (re-run, strengthened row 21): FAILED (failures=1)

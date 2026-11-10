@@ -23,6 +23,9 @@ class SymlinkInsideRuns(unittest.TestCase):
                 policy.Files(project, runs).write(runs / "alias.json", b"{}")
             self.assertIn("symlink", str(cm.exception))
             self.assertFalse(target.exists(), "nothing may be written through the link")
+            # Added 2026-11-10 at review: the link itself must be left as it was, too.
+            self.assertTrue((runs / "alias.json").is_symlink())
+            self.assertEqual(os.readlink(runs / "alias.json"), str(target))
 
 
 if __name__ == "__main__":
