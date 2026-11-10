@@ -90,6 +90,6 @@ Shreyash's own run on rev 3, `git diff 6f4ae08 ba0a5b0 --stat -- jsagent tests`,
 
 ## Cases the tests would still miss
 
-1. **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* has the office "Remote (Arizona)", but the ad says "reside in the United States". Rev 3 trusts the tag and fails condition 3. The verdict is unchanged because the title fails condition 1, but a software job written the same way would be wrongly rejected. No test has a state-tagged office with a nationwide ad.
+1. **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* has the office "Remote (Arizona)", but the ad says "reside in the United States". Rev 3 trusts the tag and fails condition 3. The verdict is unchanged because the title fails condition 1, but a software job written the same way would be wrongly rejected. Since 2026-11-10 this case has a test: `tests/test_shreyash_physician_reviewer.py`. Shreyash wrote its expectation; it runs as an expected failure on the real posting.
 2. **Location field against office list.** Klaviyo lists postings with location "San Francisco, CA" and office "Boston". Rev 3 reads the location field only. Shreyash has not decided which field wins.
 3. **The reading is pattern-based.** A requirement written with no number ("several years"), or a preferred heading the cue list does not know ("Extra credit:"), is read wrong. The tests cover only the phrasings seen in these 685 postings.

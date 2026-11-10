@@ -45,7 +45,7 @@ git clone -b shreyash-y/js2-loop-tools-diff https://github.com/shreyashyadav1/in
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/shreyash-y/js2-loop-tools-diff
 ```
 
-All tests, offline (95):
+All tests, offline (100; one is an expected failure, Shreyash's Physician Reviewer test):
 
 ```bash
 python3 -m unittest discover -s tests -t . -v
@@ -104,7 +104,7 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 
 The rule is **not** correct in general. Rule v2 revision 3 was accepted with these open, and they stay open:
 
-- **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* carries the office "Remote (Arizona)", but its ad says "reside in the United States". The rule trusts the tag and fails condition 3. That verdict is still Not Relevant on other grounds, but a software job written the same way would be wrongly rejected. Not fixed, and not covered by any test.
+- **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* carries the office "Remote (Arizona)", but its ad says "reside in the United States". The rule trusts the tag and fails condition 3. That verdict is still Not Relevant on other grounds, but a software job written the same way would be wrongly rejected. **Not fixed, but now tested:** `tests/test_shreyash_physician_reviewer.py`, whose expectation Shreyash wrote, runs it on the real posting as an *expected failure*.
 - **Location field against office list.** Some Klaviyo postings list location "San Francisco, CA" with the office "Boston". The rule reads the location field only, and which one should win has not been decided.
 - **Department labels.** Palantir's Lever department `Dev` is not on the contract's department list, so its "Software Engineer, Intern" postings fail condition 2. **Decided on 2026-11-10, not built** (`review/19`): count `Dev` as engineering for Palantir only, through a documented provider-specific reading, never for every board. Those postings would still fail on location.
 - **One hand label was wrong.** On Klaviyo 7809608003, Shreyash's JS1 hand label left out condition 4. The ad names only one of Alex's skills, Python, so the rule's skills failure is right (`review/19`). The "19 of 20" against the hand labels is really 20 of 20 on the corrected label; the label itself is left as it was committed in JS1.
@@ -148,6 +148,10 @@ Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py
                 symlinks (tests/test_policy_nested_symlink.py).
               - The time budget as a deadline: tests/test_loop_deadline.py, committed failing
                 before the loop change (325e98c6), passing after.
+              - My own test: tests/test_shreyash_physician_reviewer.py. I wrote the expectation
+                (condition 3 should pass, because the ad says "reside in the United States", and
+                the verdict must still follow the other conditions). Claude Code wrote the code.
+                It runs as an expected failure until the rule is fixed.
               - Six real new postings in live run 3, judged in the loop and recounted from the raw
                 files (evidence/run3-recount-2026-11-10.txt).
               - A finished wrong answer caught by a check that does not use the agent's code:

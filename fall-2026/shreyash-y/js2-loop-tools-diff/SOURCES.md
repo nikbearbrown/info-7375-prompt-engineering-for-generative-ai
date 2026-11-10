@@ -20,6 +20,7 @@
 | The JS1 rule decisions (mandatory experience only; remote must be workable from Massachusetts) and the JS1 hand labels used as expectations | JS1 `labels/DISPUTED-POSTINGS-REVIEW.md`, JS1 experiment-2 `hand-labels.csv` |
 | "What I understood from the diffs" | the top of `REVIEW-PACKET.md` |
 | Three open items settled after reading the ads (7809608003, the two Linear ads, Palantir `Dev`) | `review/19-open-items-decided-2026-11-10.md` |
+| The expectation for `tests/test_shreyash_physician_reviewer.py` (quoted in its docstring); Claude Code wrote the code | `tests/test_shreyash_physician_reviewer.py` |
 | Commands run in Shreyash's own terminal on 2026-11-10 (the `2b8ed44` check, the full suite, the frozen hashes) | `evidence/commands-run-by-shreyash-2026-11-10.txt` |
 | The README summary, Part 1 of FRICTIONAL.md (including the three entries added 2026-11-10), and the signature | `README.md`, `FRICTIONAL.md` |
 
