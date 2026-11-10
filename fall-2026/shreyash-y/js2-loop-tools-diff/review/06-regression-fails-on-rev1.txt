@@ -1,0 +1,8 @@
+# Run by Claude Code on 2026-11-09 19:33 EST, on patch revision 1 (b0498a5), BEFORE revision 2.
+# Command: python3 -m unittest tests.test_rule_v2_regression -v
+test_constructed_requirement_word_inside_benefits (tests.test_rule_v2_regression.PerkIsNotARequirement.test_constructed_requirement_word_inside_benefits) ... FAIL
+test_sixteen_real_postings (tests.test_rule_v2_regression.PerkIsNotARequirement.test_sixteen_real_postings) ... FAIL
+AssertionError: 5 unexpectedly found in [5]
+AssertionError: 'thereafter' unexpectedly found in "posting.content requires 4 years ('4 years & every 2 years thereafter\\n\\n - Regular team events a'); resume.experience_years is 3" : Product Engineer
+Ran 2 tests in 0.015s
+FAILED (failures=2)
