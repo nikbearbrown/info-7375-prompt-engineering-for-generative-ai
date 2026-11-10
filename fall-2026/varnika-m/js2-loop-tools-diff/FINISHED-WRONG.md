@@ -19,7 +19,7 @@ Its own report gives one hint, which is easy to miss: the Gone column says Linea
 
 ## The independent check
 
-`check_run.py` does not import the agent and does not believe its report. It reads the trace, the saved raw responses, the board's state history and GATE.md, and recomputes things itself. On run B (`finished-wrong/jobs/runs/demo-B-WRONG-VERSION-W5-linear-empty.check.txt`, re-run with `check_run.py` at commit `9ab582c` after the review fixes added the `boards_match_config` check; the verdict is the same as at `3f9c1c0`):
+`check_run.py` does not import the agent and does not believe its report. It reads the trace, the saved raw responses, the board's state history and GATE.md, and recomputes things itself. On run B (`finished-wrong/jobs/runs/demo-B-WRONG-VERSION-W5-linear-empty.check.txt`, re-run with `check_run.py` at commit `c47736c`, after the review fixes added the `gone_recomputed` and `boards_match_config` checks; the verdict is the same as at `3f9c1c0`):
 
 ```text
 Independent check of run demo-B-WRONG-VERSION-W5-linear-empty (the loop said: finished)
@@ -28,6 +28,7 @@ Independent check of run demo-B-WRONG-VERSION-W5-linear-empty (the loop said: fi
   FAIL  finished_needs_postings_on_every_board   ashby/linear has 0 postings in its raw response
   FAIL  no_drop_to_zero                          ashby/linear reported ok with 0 postings (last good run had 33)
   PASS  new_ids_recomputed                       every ok board's new ids match a recomputation from the earlier raw responses
+  PASS  gone_recomputed                          every ok board's gone count matches its last good run's raw response (or is unknown)
   PASS  budgets_and_hosts                        3 requests, all to GATE.md hosts, within budget
   PASS  boards_match_config                      the record's boards are config/boards.json's, and each was fetched or truly a repeat
   PASS  exit_consistent                          exit finished agrees with the boards and the trace
@@ -36,7 +37,7 @@ Verdict: the run's claim is NOT SUPPORTED.
 
 On run C, the real agent on the same bytes, every check passes and the verdict is SUPPORTED, because the real agent claimed `incomplete`, which is true.
 
-Six of the eight checks **pass** on the wrong run. The hashes match, the counts are counted right, and the exit agrees with the statuses the loop wrote. A check that only re-did the loop's own arithmetic would have said yes. Only the two checks that compare against the outside (the raw bytes and the board's own history) catch it.
+Seven of the nine checks **pass** on the wrong run. The hashes match, the counts are counted right, and the exit agrees with the statuses the loop wrote. A check that only re-did the loop's own arithmetic would have said yes. Only the two checks that compare against the outside (the raw bytes and the board's own history) catch it.
 
 ## The three runs
 
