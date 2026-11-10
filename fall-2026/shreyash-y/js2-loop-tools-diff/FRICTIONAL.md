@@ -62,8 +62,13 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 - Shreyash asked for it straight away, about 50 minutes after run 1. It came out `incomplete` with 0 new on every working board, and all six responses were byte-identical to run 1's.
 - A quiet run is a real result, but it means a real new posting was never judged inside the loop.
 
+**2026-11-10 15:47, live run 3.**
+- A day later, there were 6 real new postings: 2 Oscar, 1 Linear, 3 Palantir. All were judged in the loop by rev 3, and all came out Not Relevant. The recount from the raw files matched.
+- The closest calls were Palantir's software engineering intern postings, failing only on the department label `Dev` and on location. The contract's department list does not settle whether `Dev` is engineering.
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.
 - The check cannot catch a partial Ashby or Lever response.
 - A real timeout or redirect never happened, so those paths were only tested with constructed inputs.
+- Whether a Lever department label like `Dev` should count as an engineering department.

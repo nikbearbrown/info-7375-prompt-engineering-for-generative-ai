@@ -29,6 +29,19 @@ Command: `python3 -m jsagent run`. Evidence: `evidence/run2-terminal-2026-11-09.
 - **Independent check:** no findings.
 - **What this leaves untested.** Neither live run saw a new posting, so the loop's step of judging new postings with rule v2 has run only in tests, on constructed postings.
 
+## Live run 3: 2026-11-10 15:47 EST, the same six boards, a day later
+
+Command: `python3 -m jsagent run`. Evidence: `evidence/run3-terminal-2026-11-10.txt`, `evidence/run3-recount-2026-11-10.txt`, `runs/20261110T204749Z/`.
+
+- **Result.** Exit `incomplete` again: the same 404, WHOOP `empty` again, 6/12 requests, 3.8 s.
+- **Six real new postings, each judged in the loop by rule v2 revision 3**, all Not Relevant:
+  - **Oscar 8227025**, Associate Director, Appeals & Grievances (Remote): failed 1–6; remote limited to listed states without Massachusetts; "7+ years of progressive experience…".
+  - **Oscar 8224080**, Staff User Experience Researcher (New York): failed 1–6.
+  - **Linear**, Field Marketing Manager, Europe: failed 1, 2, 3, 4, 6.
+  - **Palantir**, two *Software Engineer, Intern – Connectivity Platform and Product* postings (New York, Denver) and *Software Engineer, Internship – Data Connectors* (New York): failed only **2 and 3**. Palantir's Lever department is `Dev`, which is not on the contract's list, and neither city is Boston or remote. These are the closest calls in any live run.
+- **Recount.** From the raw files, against run 2: the new ids match the agent's list on every board (1 Linear, 2 Oscar, 3 Palantir). 9 Oscar, 2 Klaviyo and 3 Palantir postings closed since run 2. The loop does not report closed postings.
+- **Independent check:** no findings.
+
 ## The finished wrong answer: SEEDED, and labeled as such
 
 The full output is in `evidence/finished-wrong-SEEDED-2026-11-09.txt`; the builder is `demo/make_finished_wrong.py`.
