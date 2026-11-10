@@ -24,5 +24,6 @@
 | 18 | Append to own trace | append to `runs/<run>/trace.jsonl` created in this run | allowed | not saved evidence from an earlier run || as predicted |
 | 19 | Read inside the folder | read `GATE.md` | allowed | reads are allowed in the folder || as predicted |
 | 20 | Read outside the folder | read `~/.ssh/config` | refused: read outside folder | || as predicted |
+| 21 | Symlink that stays inside runs/ (added 2026-11-10 after review) | write `runs/alias.json`, a symlink to a not-yet-existing `runs/r1/target.json` | refused: symlink, and no file appears at the target | the real path is inside runs/ and the target does not exist yet, so only the explicit no-symlink rule can stop the write through the link | |
 
-**What row 11 does and does not prove.** It passes because the resolved real path is outside `runs/`. The separate "never write through a symlink" line in `Files._writable` is not what makes it pass: deleting that line in a scratch copy left every test green (`evidence/mutation-check-2026-11-09.txt`). That line is a second layer that no test exercises on its own.
+**What row 11 does and does not prove** (written 2026-11-09, before row 21 existed). It passes because the resolved real path is outside `runs/`. The separate "never write through a symlink" line in `Files._writable` is not what makes it pass: deleting that line in a scratch copy left every test green (`evidence/mutation-check-2026-11-09.txt`). That line is a second layer that no test exercises on its own.
