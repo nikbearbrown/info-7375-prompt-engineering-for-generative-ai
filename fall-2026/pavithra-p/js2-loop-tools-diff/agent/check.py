@@ -3,7 +3,8 @@
 For every board the report calls "checked", the last saved response must be a real job list whose size and new IDs
 match the report. The boards in the report must be the boards in config/boards.json, and a run that says `finished`
 may not have a failed or missing board. New IDs are recomputed from the raw files of earlier runs, not from the
-agent's state file. Every file is opened through the permission policy's read check.
+agent's state file, and a board that answers with 0 jobs after having jobs before is flagged, not trusted.
+Every file is opened through the permission policy's read check.
 """
 import json
 from pathlib import Path
@@ -68,6 +69,10 @@ def check(run_dir, root, policy=None):
         if len(ids) != b["jobs"]:
             problems.append(f"{b['board']}: report says {b['jobs']} jobs, the saved response has {len(ids)}")
         before = earlier_ids(policy, root / "evidence" / "raw", stamp, system, name)
+        if not ids and before:
+            problems.append(f"{b['board']}: the saved response has 0 jobs, but earlier saved responses had {len(before)}; "
+                            f"an empty answer is not taken as \"no new jobs\" without a look")
+            continue
         if not before:
             notes.append(f"{b['board']}: new IDs not recomputed (no earlier raw file in evidence/raw/)")
             continue
