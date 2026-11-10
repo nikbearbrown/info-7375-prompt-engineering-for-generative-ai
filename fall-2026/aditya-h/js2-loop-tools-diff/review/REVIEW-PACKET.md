@@ -17,7 +17,8 @@
 
 | **8. post-acceptance defect** | `a08f363` (tests), v3 below | found by an independent TA-style review (a Claude Code subagent, 2026-11-10) | **v2 broke re-checking committed runs on any other machine**: records stored absolute `raw_path`s from my Mac, and v2 compares the real directory, so on a TA's clone `check_run.py` raised `PermissionError`. My own review, and Claude Code's "the real runs still check the same way", happened only on my machine and missed it. 7 new tests fail on v2. |
 | 9. patch v3 | see `git log` | Claude Code | the loop stores `raw_path` relative to the run (`raw/<name>`); `_raw_for` accepts that, or an older absolute path whose last parts are `<this run>/raw/<name>`, and always reads `<run_dir>/raw/<name>` on this machine. It also includes the review's other fixes (the check's own trace, recomputing `new`/`relevant`, the CLI `--boards` read through the policy, `run --approve-reset`). |
-| **10. decision on v3** | — | **Aditya** | see the README sign-off |
+| 9a. patch v3 commit | `e6a9cb8` | Claude Code | 67 tests pass; wrong versions caught by 5, 4 and 5 tests |
+| **10. decision on v3** | — | **Aditya**, in chat on 2026-11-10 | **ACCEPT**: "Accept v3 and push". The signature in the README was confirmed for the v3 version. |
 
 ## The diff, read as a change in behavior
 

@@ -91,7 +91,7 @@ personas/              maya-sehgal.resume.json (fictional)
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code on 2026-11-10; reviewed and signed by Aditya in chat on 2026-11-10 (signature transcribed verbatim).*
+*Drafted by Claude Code on 2026-11-10; reviewed and signed by Aditya in chat on 2026-11-10 (signature transcribed verbatim), and confirmed after patch v3 ("Accept v3 and push").*
 
 **Checked**
 - **Exits are honest:** a failed board gives `incomplete` and an exhausted budget gives `budget-exhausted`, never `finished`. Shown by `test_loop.py::WrongVersion1_*` and `Exits`, the live 15:45 and 13:47 runs (`incomplete` with the 404), and `wrong_versions.py` (the 3 wrong versions are caught by 5, 4 and 5 of 67 tests).
