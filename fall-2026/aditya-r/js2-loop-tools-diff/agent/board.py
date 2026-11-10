@@ -94,9 +94,13 @@ def parse_jobs(data):
         if job_id in seen:
             raise BoardError(f"duplicate posting id {job_id}")
         seen.add(job_id)
-    meta = data.get("meta")
+    meta, observed = data.get("meta"), len(data["jobs"])
+    if "meta" in data and not isinstance(meta, dict):  # a missing meta is permitted; a present one must be an object
+        shown = repr(meta) if len(repr(meta)) <= 60 else repr(meta)[:57] + "..."
+        raise BoardInconsistentError(
+            f"inconsistent acquisition: meta is {shown}, not an object (observed jobs list length {observed})")
     if isinstance(meta, dict) and "total" in meta:  # validated only when supplied; never invented
-        total, observed = meta["total"], len(data["jobs"])
+        total = meta["total"]
         if not isinstance(total, int) or isinstance(total, bool) or total < 0:
             raise BoardInconsistentError(
                 f"inconsistent acquisition: meta.total is {total!r}, not a nonnegative integer "
