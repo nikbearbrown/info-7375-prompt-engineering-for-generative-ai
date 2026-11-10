@@ -65,6 +65,8 @@ checker PASS means the claims match the raw data, not that the run finished.
 
 ## What ran
 
+The final `node --test` execution after the duplicate-ID fix (`42c9bc52`) and the administrator-safe snapshot test (`ea5e0198`) is recorded in `evidence/node-test-final.txt`: **123 tests passed, 0 failed**. This is a separate, later run from `evidence/node-test-post-patch.txt`, which is retained as historical patch evidence.
+
 Every run below is a trace in `out/traces/`. "Requests" counts `request` events in the trace. All runs were on 2026-11-10 (UTC timestamps in the run ids).
 
 | Run id | Mode | Command flags | End | Requests | Boards |

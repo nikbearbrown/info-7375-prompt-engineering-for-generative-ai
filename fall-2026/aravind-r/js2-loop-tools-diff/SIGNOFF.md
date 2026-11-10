@@ -13,8 +13,7 @@
   then 200 in 215021538Z.
 - Exits: test 29 (incomplete, exit 10), WV9, rows 31–32; live runs ended 10, 11 and 12.
 - Repeat rule: WV11. Append-only state: WV17; live, Stripe 776 jobs / 777 ids.
-- Id handling: state-regression cases 1–5, failing first (17c9225a), passing after
-  (c04d1ecf).
+- ID handling: state-regression cases 1–5 failed first (`17c9225a`) and passed after the `src/state.mjs` patch (`c04d1ecf`). The duplicate-raw-ID provider/loop regression tests failed before `42c9bc52` and passed after it: a repeated ID is now a board-level `error: malformed` with no state write. Final test record: `evidence/node-test-final.txt` (123/123).
 - Checker: rules 1–3 tests, the no-observations test, the Greenhouse-0 test; pre-fix
   rule 3 FAIL (evidence/check-pre-fix.txt) vs post-patch PASS (evidence/check-post-patch.txt).
 - Judge disabled: row 33, WV12.
@@ -28,8 +27,7 @@
 - By hand: every live run, the mutant check, node --test, and the checker runs in evidence/.
 
 ## Not checked
-- A null or invalid raw id ends the whole run as error instead of failing one board
-  (interim, 377fd51c); per-board raw-id validation is deferred.
+- **Per-board null raw-ID handling remains unimplemented.** A null raw ID reaches `saveState` and ends the **entire run** as `error` (exit 12), instead of making only that board `error: malformed`/`incomplete` (interim `377fd51c`). This exception has not been resolved. **Duplicate raw IDs are no longer part of this gap**: providers reject them per board since `42c9bc52`.
 - The checker rejects the legacy numeric pre-state on the migration run
   (224942910Z-post-patch-integrity): it doesn't know about the migration Decision.
 - State is loaded after the fetch, so a corrupt state file still costs a request; on an
