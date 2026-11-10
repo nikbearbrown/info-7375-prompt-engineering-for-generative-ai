@@ -1,0 +1,39 @@
+test_console_does_not_print_new_0_for_the_failed_board (tests.test_review_failed_board_count.FailedBoardCount.test_console_does_not_print_new_0_for_the_failed_board) ... FAIL
+test_summary_does_not_report_zero_new_for_the_failed_board (tests.test_review_failed_board_count.FailedBoardCount.test_summary_does_not_report_zero_new_for_the_failed_board) ... FAIL
+
+======================================================================
+FAIL: test_console_does_not_print_new_0_for_the_failed_board (tests.test_review_failed_board_count.FailedBoardCount.test_console_does_not_print_new_0_for_the_failed_board)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/saket/Desktop/Prompt Engineering Course/info-7375-prompt-engineering-for-generative-ai/fall-2026/yash-s/js2-loop-tools-diff/tests/test_review_failed_board_count.py", line 95, in test_console_does_not_print_new_0_for_the_failed_board
+    self.assertIn(
+    ~~~~~~~~~~~~~^
+        "new=unknown",
+        ^^^^^^^^^^^^^^
+        self.failed_console_line,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+        "The console should display new=unknown for a failed board."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 'new=unknown' not found in '  Deliberate failure       failed       postings=None  new=0  (HTTP 404)' : The console should display new=unknown for a failed board.
+
+======================================================================
+FAIL: test_summary_does_not_report_zero_new_for_the_failed_board (tests.test_review_failed_board_count.FailedBoardCount.test_summary_does_not_report_zero_new_for_the_failed_board)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/saket/Desktop/Prompt Engineering Course/info-7375-prompt-engineering-for-generative-ai/fall-2026/yash-s/js2-loop-tools-diff/tests/test_review_failed_board_count.py", line 85, in test_summary_does_not_report_zero_new_for_the_failed_board
+    self.assertIsNone(
+    ~~~~~~~~~~~~~~~~~^
+        self.failed_board["new_count"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "A failed board should have new_count=null, not 0."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 0 is not None : A failed board should have new_count=null, not 0.
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.038s
+
+FAILED (failures=2)

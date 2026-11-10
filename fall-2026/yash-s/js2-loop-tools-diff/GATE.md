@@ -320,3 +320,19 @@ I am responsible for reviewing the rules, running the tests, checking the saved 
 I will not change the gate afterward just to make a failing test pass.
 
 If I need to change a rule, I will add a dated explanation before testing the new behavior.
+
+## Additional Decision — 2026-11-09: Review Packet Defect
+
+My original plan was to investigate the empty-board limitation in my Chapter 6 review packet.
+
+However, my first real JS2 run revealed a different problem.
+
+The deliberately failing board returned HTTP 404. The agent correctly marked the overall run incomplete, but its console output showed `new=0`, and `summary.json` contained `new_count: 0` for that failed board.
+
+This breaks my gate because the agent never successfully observed that board and cannot know how many new postings it has.
+
+I decided to use this real defect for my review packet instead of the empty-board limitation.
+
+I will write a failing test for both incorrect outputs before asking Claude Code to fix the implementation.
+
+The empty-board limitation remains documented, and my independent checker demonstrates that a finished run can still be wrong.
