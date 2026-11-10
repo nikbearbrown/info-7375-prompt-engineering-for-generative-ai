@@ -44,6 +44,7 @@ stops with `error (3)` rather than overwrite the first. Wait a second between ru
 | `BOUNDARY_TESTS.md` | Boundary cases B01–B20, predicted before the policy code, with actual results |
 | `REVIEW_PACKET.md` | Review of the `empty_after_nonempty` patch: defect, test before patch, scope, diff, decision |
 | `FRICTIONAL.md` | Dated learning log |
+| `SIGNOFF.md` | Driver's-seat table and my sign-off |
 | `SOURCES.md` | Sources and contribution statement |
 | `JS1_CONTRACT.md` | JS1 contract, carried over unchanged |
 | `agent/` | `loop.py` (bounded loop), `policy.py` (network, path and approval checks), `adapters.py` (Greenhouse, Ashby), `transport.py` (real and replay), plus JS1 modules |
