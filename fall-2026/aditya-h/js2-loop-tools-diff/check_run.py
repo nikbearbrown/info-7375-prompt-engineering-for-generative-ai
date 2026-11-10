@@ -11,7 +11,9 @@ Usage: python3 check_run.py runs/<run-id>
 """
 import datetime as dt
 import json
+import os
 import pathlib
+import re
 import sys
 
 from jobwatch2 import ats
@@ -37,13 +39,26 @@ def _read(policy, path):
     return pathlib.Path(path).read_bytes()
 
 
+def _raw_for(run_dir, key, raw_path):
+    """A record may only point a board at THIS run's raw response for THAT board:
+    <run_dir>/raw/<ats>__<slug>.attempt<N>.json, judged on the resolved path. Anything else, even a
+    file the policy may read (another run, another board, a persona), stops the check."""
+    raw_dir = os.path.realpath(pathlib.Path(run_dir) / "raw")
+    real = os.path.realpath(raw_path)
+    name_ok = re.fullmatch(re.escape(key.replace("/", "__")) + r"\.attempt\d+\.json", os.path.basename(real))
+    if os.path.dirname(real) != raw_dir or not name_ok:
+        raise PermissionError(f"check refused raw_path {raw_path} for {key}: not this run's raw file for this board")
+    return real
+
+
 def check(root, run_dir, fetcher=http_get, today=None):
     root, run_dir = pathlib.Path(root), pathlib.Path(run_dir)
     today = today or dt.date.today()
     policy = Policy(root)
     cfg = json.loads(_read(policy, root / "checks.json"))
     record = json.loads(_read(policy, run_dir / "record.json"))
-    raws = {b["key"]: _read(policy, b["raw_path"]) for b in record["boards"] if b["status"] == "ok"}
+    raws = {b["key"]: _read(policy, _raw_for(run_dir, b["key"], b["raw_path"]))
+            for b in record["boards"] if b["status"] == "ok"}
     flags, requests = [], 0
     for b in record["boards"]:
         if b["status"] != "ok":
