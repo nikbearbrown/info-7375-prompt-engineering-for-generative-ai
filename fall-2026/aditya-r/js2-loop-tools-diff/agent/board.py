@@ -22,6 +22,11 @@ class BoardError(ValueError):
     """The board response is unusable; state must not change."""
 
 
+class BoardInconsistentError(BoardError):
+    """The response's own count metadata is invalid or contradicts its jobs list (GATE §4).
+    A board-level acquisition failure: the run is incomplete and state must not change."""
+
+
 def board_url(board):
     if not isinstance(board, str) or not BOARD_TOKEN_RE.match(board):
         raise RefusedError(f"refused: invalid board token {board!r}")
@@ -89,6 +94,17 @@ def parse_jobs(data):
         if job_id in seen:
             raise BoardError(f"duplicate posting id {job_id}")
         seen.add(job_id)
+    meta = data.get("meta")
+    if isinstance(meta, dict) and "total" in meta:  # validated only when supplied; never invented
+        total, observed = meta["total"], len(data["jobs"])
+        if not isinstance(total, int) or isinstance(total, bool) or total < 0:
+            raise BoardInconsistentError(
+                f"inconsistent acquisition: meta.total is {total!r}, not a nonnegative integer "
+                f"(observed jobs list length {observed})")
+        if total != observed:
+            raise BoardInconsistentError(
+                f"inconsistent acquisition: meta.total declares {total} postings "
+                f"but the jobs list contains {observed}")
     return data["jobs"]
 
 

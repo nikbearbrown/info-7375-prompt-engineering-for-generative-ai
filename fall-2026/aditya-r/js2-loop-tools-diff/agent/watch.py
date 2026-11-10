@@ -16,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from . import judge as judge_mod
-from .board import BoardError, RefusedError, board_url, decode_body, fetch, parse_jobs
+from .board import BoardError, BoardInconsistentError, RefusedError, board_url, decode_body, fetch, parse_jobs
 from .resume import ResumeError, load_resume
 from .rules import evaluate
 from .state import StateError, load_state, new_and_retry_ids, save_state
@@ -119,6 +119,10 @@ def run(args, judge_fn=None):
     try:
         body = acquire(args, run_dir)
         jobs = parse_jobs(decode_body(body))
+    except BoardInconsistentError as e:  # board-level acquisition failure (GATE §1, §4): incomplete, not error
+        print(f"INCOMPLETE: {e}. Board response rejected; state unchanged.", file=sys.stderr)
+        (run_dir / "error.txt").write_text(str(e) + "\n")
+        return EXIT_INCOMPLETE
     except (RefusedError, BoardError) as e:
         print(f"ERROR: {e}. State unchanged.", file=sys.stderr)
         (run_dir / "error.txt").write_text(str(e) + "\n")
