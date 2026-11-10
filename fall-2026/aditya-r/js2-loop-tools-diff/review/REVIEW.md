@@ -15,7 +15,10 @@ Sections marked **[Claude]** are factual drafts by Claude Code. Sections marked 
 | `b0e3fb4` | 17:20:30 | **Reproduction:** P2 output (run 16:38), `INVESTIGATION.md`, `tests/test_aditya_total_mismatch.py`, `prepatch_failure.txt` (run 17:04), `CHANGE_REQUEST.md` | **Aditya** wrote and ran all of them; Claude committed them, with one disclosed redaction (`EVIDENCE_REDACTIONS.md`) |
 | `3ce2b1d` | 17:20:37 | Claude's rerun of Aditya's unchanged test against the unchanged baseline: `assert 0 == 3`, pytest status 1 (`claude_prepatch_rerun.txt`) | Claude |
 | `0007bbd` | 17:21:53 | **Patch** (`agent/board.py`, `agent/watch.py`) plus Claude's focused tests `tests/test_total_validation.py` | Claude, as requested by Aditya |
-| this commit | — | Post-patch evidence and this packet | Claude |
+| `654fff6` | 17:22:56 | Post-patch evidence and this packet | Claude |
+| `6d37618` | 17:58:35 | Aditya's own round-1 review run (17:30:08–17:30:10) and his **REVISE** decision, verbatim | Aditya ran it and decided; Claude committed it, with one disclosed redaction |
+| `41c342d` | 17:59:01 | Revision tests `tests/test_meta_object.py`, **failing** before the revision: 18 failed, 2 passed (`claude_prerevision_failure.txt`) | Claude |
+| `d58682c` | 17:59:22 | **Revision:** `agent/board.py` only (+6/−2) | Claude, as requested by Aditya |
 
 Route: guided probe P2. The issue was **flagged by Claude; Aditya reproduced and characterized it.** It was not discovered independently by Aditya.
 
@@ -94,6 +97,17 @@ This rejects Claude's interpretation 2 in §3, under which a non-object `meta` w
 ## 9. A case the test would still miss [Aditya]
 
 _(CHANGE_REQUEST §6 names one; confirm it or replace it)_
+
+## 11. Revision round 1 [Claude: facts]
+
+- **Request:** Aditya's REVISE (§8). A present non-object `meta` must give exit 3.
+- **Tests first:** `tests/test_meta_object.py` was committed in `41c342d` before any production change.
+  - Against the unrevised patch, 18 failed on behavior: the parser case gives `DID NOT RAISE BoardInconsistentError`, and the watch and first-run cases give `assert 0 == 3`.
+  - The 2 permitted cases (missing `meta`; a `meta` object without `total`) passed.
+  - Output: `review/claude_prerevision_failure.txt`, pytest status 1.
+- **Revision** (`d58682c`, from `git diff 0007bbd d58682c -- agent/`): when `"meta"` is in the response but is not a dict, `parse_jobs` raises `BoardInconsistentError` with `meta is <repr, max 60 chars>, not an object (observed jobs list length N)`. The existing `watch.py` clause maps it to exit 3, before any state write, with `error.txt` and the raw response kept. Nothing else changed.
+- **After:** checks were run on committed HEAD `d58682c` (`review/claude_postrevision_checks.txt`). Revision tests 20 passed; Aditya's unchanged test 1 passed; full suite 113 passed; mutation check 3/3 CAUGHT.
+- **Behavior table update (§3):** the row "a `meta` value that is not an object" changes from *accepted* to *exit 3, state not written, raw + `error.txt` kept*. Interpretation 2 is withdrawn.
 
 ## 10. Remaining limitations [Claude]
 
