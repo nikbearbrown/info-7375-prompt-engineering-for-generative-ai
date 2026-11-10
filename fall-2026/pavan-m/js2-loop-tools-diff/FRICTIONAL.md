@@ -33,3 +33,8 @@ Ran the loop live at 10:25 AM EST (out/runs/2026-11-10T102543/; terminal saved a
 Defect reproduced on real data: Palantir (Lever) 304 of 304 ids unusable, OpenAI (Ashby) 826 of 826 ids unusable. JS1's _usable_id accepts only integers, and these ids are string UUIDs. The loop still wrote state for those boards with no ids, so after a fix, their next run would report every posting as new.
 Mistake in my own check: I printed `$?` after `| tee`, so "exit code: 0" was tee's exit code, not the agent's. summary.json says exit_code 1; still to verify properly.
 Missed my plan to run before midnight on Nov 9, so agent runs are all on Nov 10. The Nov 8 and Nov 9 manual captures are the earlier days.
+
+## Entry 8 — November 10, 2026: Review packet, defect reproduced and test written before the patch
+Reproduced the defect twice before any fix: live in run 1 (Palantir 304/304, OpenAI 826/826 ids unusable), and on identical saved input with config/replay_nov9.json (Palantir 0/304 usable, OpenAI 0/825 usable; evidence/review/1_replay_BEFORE_patch.txt). The agent's exit code for that replay was 0 (finished), checked without tee this time.
+Wrote tests/test_string_ids.py: string ids are kept and new ones detected; empty or missing ids still unusable. Both fail before the patch (assert 0 == 1; evidence/review/2_test_FAILS_before_patch.txt).
+Changed my first draft of the second test after review with Claude: the bad postings now have the same shape as real ones except for the id, so they can only fail for the id reason.
