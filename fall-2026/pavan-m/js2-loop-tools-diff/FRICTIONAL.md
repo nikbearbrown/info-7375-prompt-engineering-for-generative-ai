@@ -12,3 +12,6 @@ On Nov 8, I ran curl (commands suggested by Claude Code) and saved OpenAI (Ashby
 - OpenAI, Ashby: 200, 825 postings
 - pavan-js2-no-such-board, Greenhouse: 404, {"status", "error"}: the deliberate failure
 Chose these 3 real boards on 3 systems plus 1 deliberate bad name. The counts changed between Nov 8 and Nov 9, so the boards do change from day to day.
+
+## Entry 3 — November 9, 2026: GATE.md written before any code change
+Wrote GATE.md: boards, exits, budgets, repeat rule, error policy, permission policy, 12 wrong versions. Review with Claude found three gaps I fixed before committing: the finished-wrong demo could never end "finished" while the bad board is in the config (added a separate demo config); the write policy allowed only out/ but JS1 writes state/ and evidence/ (added an explicit out/ layout); and two outcomes were undecided (a retry blocked by the budget, and a refused redirect from a remote board). Also changed "normalized URL" to "identical URL string", made 429 an explicit no-retry row, and replaced a claim I couldn't test (symlink swap between check and write) with a stated known limit.
