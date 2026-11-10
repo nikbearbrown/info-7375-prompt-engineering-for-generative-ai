@@ -18,3 +18,7 @@ Wrote GATE.md: boards, exits, budgets, repeat rule, error policy, permission pol
 
 ## Entry 4 — November 9, 2026: Policy tests written before implementation
 Wrote the asserts for 16 policy tests (tests/test_policy.py), one per row of BOUNDARY_TESTS.md, before agent/policy.py exists. Network tests check that refused requests were never sent (not only that an error appeared); write and reset tests check that files are unchanged after a refusal; B5 checks that an allowed GET still works, so a block-everything client can't pass. First run: ModuleNotFoundError for agent.policy (expected).
+
+## Entry 5 — November 9, 2026: Loop tests written before implementation
+Wrote the asserts for 13 loop tests (tests/test_loop.py) before agent/loop.py or check_run.py exist: exits (finished vs incomplete), no invented zero for a failed board, no retry on 404, exactly one retry with a 2-second wait on 5xx, request and time budgets stop before sending, a retry blocked by the budget, duplicate board repeat_blocked, failed board's state unchanged, baseline then only new ids with no collision across boards, raw + trace saved inside out/runs/, and the independent checker flagging an empty board the loop reported as finished.
+Decision: no string-id test yet. I want the JS1 integer-only id bug to surface on real Lever/Ashby data first, so it can be reproduced and fixed test-first in the review packet.
