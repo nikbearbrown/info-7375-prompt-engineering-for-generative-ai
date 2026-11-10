@@ -1,0 +1,15 @@
+# Commands run by Shreyash in Shreyash's own terminal on 2026-11-10, after commit 603c62d.
+# Output pasted back into the session unchanged; Claude Code only saved it here.
+
+$ git show 2b8ed44 --stat && git show 2b8ed44:fall-2026/shreyash-y/js2-loop-tools-diff/BOUNDARY-TESTS.md | grep "^| 21"
+commit 2b8ed444151dc17948db81613c32bc97c59cbbc7
+Date:   Tue Nov 10 15:59:59 2026 -0500
+    JS2-CP20: boundary row 21 and its test, predicted and committed before running (review issue 4)
+ .../js2-loop-tools-diff/BOUNDARY-TESTS.md          |  3 ++-
+ .../js2-loop-tools-diff/tests.frozen.sha256        |  1 +
+ .../tests/test_policy_symlink.py                   | 29 ++++++++++++++++++++++
+| 21 | Symlink that stays inside runs/ (added 2026-11-10 after review) | write `runs/alias.json`, a symlink to a not-yet-existing `runs/r1/target.json` | refused: symlink, and no file appears at the target | the real path is inside runs/ and the target does not exist yet, so only the explicit no-symlink rule can stop the write through the link | |
+
+$ python3 -m unittest discover -s tests -t . 2>&1 | tail -1 && shasum -a 256 -c tests.frozen.sha256 | grep -c ": OK"
+OK
+12

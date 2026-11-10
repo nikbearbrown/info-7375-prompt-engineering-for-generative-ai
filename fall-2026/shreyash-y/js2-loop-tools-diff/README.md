@@ -9,9 +9,9 @@
 
 ## Summary, in my own words
 
-*Shreyash's words, typed into the session on 2026-11-09 (a second version replacing the first, which had said "four boards" and "rejected"). Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-10, replacing the 2026-11-09 summary, which predated run 3. Claude Code did not change them.*
 
-The loop checks six job boards across Greenhouse, Ashby, and Lever, including four working boards, one deliberate 404, and one empty WHOOP board. If a board fails or is empty, the loop records what happened instead of making up job counts or reporting everything as successful. Both live runs ended as `incomplete`, with the 404 attempted only once, WHOOP flagged as empty, and 0 new postings found. In the finished-wrong demo, the agent reported `finished` even though it only received 20 Oscar postings out of 199, and the independent check caught this using `meta.total`. The review packet showed me that passing tests doesn't always mean the code is correct, because revision 1 passed all 84 tests but still treated perks as requirements in 16 postings. I sent revision 1 back for revision, and later accepted revision 3 after all 93 tests passed, the perk issue was fixed, and 19 out of 20 results matched my hand labels. I still don't fully trust how remote location tags are handled, especially the Physician Reviewer case, or whether partial Ashby and Lever responses would always be detected.
+The agent checks six boards across two applicant-tracking systems: four working boards, one deliberately broken board returning HTTP 404, and one empty WHOOP board. All three recorded live runs ended `incomplete` because the failed board was handled according to the error policy, without inventing a posting count. Run 1 established the baseline, Run 2 found zero new postings, and Run 3 identified six new postings, all classified as Not Relevant. The finished-wrong demonstration showed that a run can report `finished` despite receiving incomplete data; an independent checker detected the discrepancy.
 
 ## Language and toolchain
 
