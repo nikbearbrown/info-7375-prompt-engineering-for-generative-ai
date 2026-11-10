@@ -127,4 +127,4 @@ Each is built as a mutant in `tests/mutants.py`; `tests/test_mutants.py` must fa
 | W10 | Duplicate posting ID counted twice | 3 |
 | W11 | `config/budgets.json` differs from the values in section 2 | 2 |
 
-Decided by: Rithika Sankar Rajeswari (10/11/2026)
+Decided by: Rithika Sankar Rajeswari 2026-11-10
