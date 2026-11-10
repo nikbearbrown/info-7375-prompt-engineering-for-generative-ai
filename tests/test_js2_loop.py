@@ -108,11 +108,15 @@ class TestLoop(unittest.TestCase):
     def test_reset_state_needs_approval(self):
         alpha = [("greenhouse", "alpha")]
         self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})
-        before = self.sb.state()
-        res, _ = self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]}, reset_state=True)
+        # Corrected after the first build run: the original assertion compared last_run, which the gate expects to change
+        # (the run still updates boards it observed). What matters is that the refused reset did not happen.
+        res, _ = self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1), gh_job(2)]))]}, reset_state=True)
         self.assertEqual(res["status"], "incomplete")
         self.assertTrue(res["report"]["approvals_refused"])
-        self.assertEqual(self.sb.state()["boards"], before["boards"])
+        board = res["report"]["boards"][0]
+        self.assertEqual(board["history"], "state")  # compared with the old state: not reset
+        self.assertEqual(board["new_ids"], ["2"])     # a reset would have baselined it and reported nothing
+        self.assertEqual(self.sb.state()["boards"]["greenhouse:alpha"]["seen"], ["1", "2"])
 
     def test_samsara_first_run_compares_with_the_oct31_baseline(self):
         jobs = json.loads(BASELINE_RAW.read_bytes())["jobs"] + [gh_job(99999999, "Recruiter")]

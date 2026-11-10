@@ -1,7 +1,45 @@
 {
- "host": "boards-api.greenhouse.io",
- "note": "The one public job board this layer watches (brief: 'one public job board'). The 131-board list in boards_all.json is an optional extension.",
- "boards": [
-  "samsara"
- ]
+  "note": "Run A (GATE.md run plan): all ten boards, including the live empty board (kraken) and the deliberate 404.",
+  "boards": [
+    {
+      "provider": "greenhouse",
+      "board": "samsara"
+    },
+    {
+      "provider": "greenhouse",
+      "board": "databricks"
+    },
+    {
+      "provider": "greenhouse",
+      "board": "toast"
+    },
+    {
+      "provider": "greenhouse",
+      "board": "klaviyo"
+    },
+    {
+      "provider": "greenhouse",
+      "board": "datadog"
+    },
+    {
+      "provider": "lever",
+      "board": "palantir"
+    },
+    {
+      "provider": "lever",
+      "board": "spotify"
+    },
+    {
+      "provider": "lever",
+      "board": "zoox"
+    },
+    {
+      "provider": "lever",
+      "board": "kraken"
+    },
+    {
+      "provider": "greenhouse",
+      "board": "samsara-does-not-exist"
+    }
+  ]
 }

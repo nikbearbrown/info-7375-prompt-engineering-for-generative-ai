@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 ALLOWLIST_PATH = ROOT / "config" / "allowlist.json"
-BOARDS_PATH = ROOT / "config" / "boards.json"
+BOARDS_PATH = ROOT / "config" / "boards_js1.json"  # JS2: config/boards.json is the JS2 plan
 JOB_ID_RE = re.compile(r"^\d+$")
 MAX_WORKERS = 8
 BOARD_RE = re.compile(r"^[a-z0-9-]+$")
