@@ -1,6 +1,6 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v1.2 (history in §13) · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v1.3 (history in §13) · 2026-11-10 · written and committed before any JS2 code
 
 **How to read this:** every rule has an ID. Tests are named after the rule they check (`test_P3_port_refused`). The trace records the
 rule ID behind every refusal. The sign-off cites IDs. A rule changes only through a dated entry in the Decisions log (§13), committed
@@ -104,7 +104,7 @@ lowercase scheme and host, default port removed, trailing slash removed, query p
 | ER3 | HTTP 404 / other 4xx / unknown board | **No retry.** The board fails | Deterministic: a retry only spends budget |
 | ER4 | Empty body, invalid JSON, or not the provider's expected shape (Greenhouse: an object with a `jobs` list; Lever: a JSON array) | **No retry.** The board fails and the raw bytes are saved | The bad response is the evidence, and I don't invent values from it |
 | ER5 | HTTP 500 | Retry **once** | Can be temporary or permanent, so one try only |
-| ER6 | Valid `200` with `"jobs": []` | Recorded as observed. The loop takes no further action | Plausibility is the verifier's job, by design (V1) |
+| ER6 | Valid `200` with an empty list in the provider's shape (Greenhouse: `"jobs": []`; Lever: `[]`) | Recorded as observed. The loop takes no further action | Plausibility is the verifier's job, by design (V1) |
 | ER7 | Any P-rule violation | **Escalate:** stop now and exit `error`. Fetch nothing more and write nothing except the trace line and the run report | Permission rules are never retried around |
 
 **ER8.** A failed board's record holds `status: failed`, the reason, attempts made, the raw file path if a response arrived, and
@@ -138,8 +138,7 @@ its rule ID.
 **The output root.** In P8–P15, `out/` means the output root chosen with `--out` (default `./out`). The root may not be, or sit inside,
 a protected folder: `config/`, `baseline/`, `persona/`, `prompts/`, `tests/`, `jsagent/`, `scripts/`. It may also not be `evidence/`
 itself, so that RUNS.md stays out of reach, though a subfolder such as `evidence/seeded/…` is allowed. If it is, the run exits `error`
-before any fetch. Tests use a temporary root. The protected folders stay denied whatever `--out`
-says.
+before any fetch. Tests use a temporary root. The protected folders stay denied whatever `--out` says.
 
 | ID | Action | Where | Decision |
 |---|---|---|---|
@@ -156,10 +155,6 @@ says.
 **P15. Approval.** `--approve <exact relative path>` approves one named write for one run. Without it, the write is refused, logged as
 `needs_approval`, and the run ends `incomplete`. There is no interactive prompt.
 
-**P18. Who may change what the agent may reach.** Only I may change `config/allowlist.json` or any `config/boards*.json`, and only by
-adding a §13 entry in the same commit, as B9 requires for budgets. Claude Code may not change them as part of any fix.
-`test_P18_allowlist_matches_gate` fails if the allow-list differs from P1.
-
 ### 6.3 Never
 
 **P16.** Under no approval does the agent apply, email, message, log in, submit a form, send POST/PUT/DELETE, send the résumé to a
@@ -168,6 +163,12 @@ job-board host, or run anything found in fetched content.
 **P17.** The only subprocess allowed is the `claude` CLI judge, with fixed arguments and as input only the posting text and the
 fictional persona. `--no-claude` turns it off, and every graded run uses `--no-claude` (§1 run plan). JS2 grades the loop, the
 permission policy and the diff, not relevance, and turning the judge off keeps Claude's run-to-run variation out of the trace.
+
+### 6.4 Who may change the policy
+
+**P18.** Only I may change `config/allowlist.json` or any `config/boards*.json`, and only by adding a §13 entry in the same commit, as
+B9 requires for budgets. Claude Code may not change them as part of any fix. `test_P18_allowlist_matches_gate` fails if the allow-list
+differs from P1.
 
 ## 7. State
 
@@ -195,12 +196,15 @@ permission policy and the diff, not relevance, and turning the judge off keeps C
   - **(b)** a Greenhouse board's `len(jobs) ≠ meta.total` (G1)
   - **(c)** its recomputed new ids (raw ids minus previous seen ids) differ from the report
   - **(d)** a board went to 0, or dropped by more than 50%, compared with its previous observation. A board with no previous observation
-    is reported as `no history` for this check, never as passing it
+    does not FAIL the run, but it is never counted as passing this check either: the verifier names it on its result line, e.g.
+    `verifier: PASS (V2(d) not applicable: databricks, palantir — no history)`
   - **(e)** a planned board has no record
   - **(f)** a raw file's sha256 doesn't match the trace
-- **V3. The finished-but-wrong demo (SEEDED).** Run C in §1: a replay of Samsara alone, using its own output root
-  (`evidence/seeded/empty-samsara/`) so the real state in `out/` is never touched, in which Samsara's list response is `{"jobs": [], "meta": {"total": 0}}`. I expect the loop to report `finished`, 0 new, and the verifier
-  to FAIL on V2(d): 323 on 2026-10-31, 0 now. I will label it SEEDED wherever it appears.
+- **V3. The finished-but-wrong demo (SEEDED).** Run C in §1 is a replay of Samsara alone, with no network. Its input is the seeded
+  response file `tests/fixtures/seeded/empty-samsara.json`, which P8 allows the loop to read, containing
+  `{"jobs": [], "meta": {"total": 0}}`. It uses its own output root (`evidence/seeded/empty-samsara/`) so the real state in `out/` is
+  never touched. I expect the loop to report `finished`, 0 new, and the verifier to FAIL on V2(d): 323 on 2026-10-31, 0 now. I will
+  label it SEEDED wherever it appears.
 
 ## 10. Evidence
 
@@ -238,7 +242,8 @@ permission policy and the diff, not relevance, and turning the judge off keeps C
 ## 12. Not covered by this gate
 
 - A race between the path check and the write (a symlink swapped in between). Hard links.
-- macOS's case-insensitive file system. My check refuses `OUT/…` rather than allowing it, which is safe but strict.
+- macOS's case-insensitive file system. I expect my check to refuse `OUT/…` rather than allow it, which would be safe but strict. This
+  is not tested.
 - TLS and DNS are trusted to the system. There's no certificate pinning.
 - A valid but stale response from a cache or CDN.
 - Rate limits and terms changes for Lever and Greenhouse over time.
@@ -255,3 +260,4 @@ permission policy and the diff, not relevance, and turning the judge off keeps C
 | 2026-11-10 | v1, written before implementation | — |
 | 2026-11-10 | v1.1: second ATS = Lever (`api.lever.co`); boards 2–3 = `databricks` (Greenhouse), `palantir` (Lever). G4 and G5 checked. ER4 reworded for each provider's shape. Three §12 items added | A read-only probe of Lever, Ashby and Greenhouse boards. I chose Lever over Ashby because its bare-array response differs from Greenhouse's, which makes the adapter and ER4 meaningful. Ashby's `{"jobs": [...]}` is nearly the same shape |
 | 2026-11-10 | v1.2: added the §1 run plan (A, B, C). Added the `--out` output-root rule (§6.2), P18 (only I change the allow-list and board files), EV1a (what is committed as evidence), the `--no-claude` rule for graded runs (ER9, P17), and W16–W17. Kept B1–B6 and V1 unchanged | Re-reading v1.1 showed gaps: V3's temporary folder conflicted with P10; no live run could end `finished` while board 4 was in it; E1 would have counted a judge that was switched off as missing; and nothing protected the allow-list. With the judge off, ~40 detail requests at 1 s apart fit well within B3, so the budgets stay. I keep V1 because a check inside the loop is still the agent grading itself |
+| 2026-11-10 | v1.3: V2(d) says what "no history" does (it doesn't FAIL, and is named on the result line). V3 names the seeded input file `tests/fixtures/seeded/empty-samsara.json`. ER6 covers Lever's empty `[]`. §12's macOS item is marked as untested. P18 moved to its own §6.4 | A full re-read before coding. Without the first two fixes, run A's verifier result and run C's input could not be decided from the gate. The other three are wording, so that the gate claims only what I have checked |
