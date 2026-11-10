@@ -68,4 +68,3 @@ are listed in SOURCES.md; personal feelings and unrecorded checks are not inferr
 - No new posting was demonstrated across two live runs, and the deliberate-failure run saves no state.
 - JS1 prompt-default and held-out-experiment limits remain.
 - The course validator exits 1; passing project tests do not make that validator pass.
-- Final personal sign-off remains pending.

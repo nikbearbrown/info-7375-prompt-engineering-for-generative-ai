@@ -22,7 +22,7 @@
 - Approved the gate on 2026-11-09; Claude Code changed its Status line before commit `c9ff312`.
 - Kept the gate's state rule, including no state update after the deliberate failure.
 - Sent the patch request and accepted the scoped patch on 2026-11-10, as recorded in the review packet.
-- Final submission sign-off remains pending. Successful post-patch checks recorded in the packet
+- Signed the sign-off on 2026-11-10 (my answer to Claude Code: "Sign it"). Successful post-patch checks recorded in the packet
   were run by Claude Code; personal command attempts failed because of the working directory.
 
 ## What Claude Code contributed

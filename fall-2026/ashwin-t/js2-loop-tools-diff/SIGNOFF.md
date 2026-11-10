@@ -16,7 +16,7 @@ Not checked:  Real slow-server deadline enforcement; concurrent symlink replacem
 Not claiming: Independently authored tests or successful personal post-patch execution;
               complete live coverage; proof of new-job detection; all interruption paths fixed;
               a passing repository-wide validator.
-Signed or withheld: Pending Ashwin's final decision. No signature entered by this draft.
+Signed or withheld: Signed, Ashwin Thankachan, 2026-11-10
 ```
 
 ### Facts to choose from (organized by Claude Code; who wrote each test matters for "my own tests")
