@@ -458,3 +458,64 @@ The seeded demonstration also shows that an agent can finish normally while givi
 I learned that it is important to preserve predictions, tests, run evidence and review decisions separately.
 
 This makes it possible to see what I expected, what happened, what Claude changed, and what I personally verified.
+
+## 2026-11-09: Second Live Run After the Review Patch
+
+### Why I decided to run it again
+
+During my final review, I noticed that my only live run had happened before Claude fixed the failed-board count problem.
+
+Although my regression tests passed after the patch, I wanted evidence that the corrected behavior also worked during a real network run.
+
+I asked Claude Code to perform a second live run with the same four boards and verify the saved evidence.
+
+### What happened
+
+Claude ran:
+
+`python3 agent.py --config config/live.json`
+
+The agent finished as `INCOMPLETE`, using 4 requests in 2.805 seconds.
+
+The results were:
+
+| Board | Postings | New postings |
+|---|---:|---:|
+| Databricks | 915 | 1 |
+| Anthropic | 677 | 2 |
+| OpenAI | 825 | 0 |
+| Deliberate failure | HTTP 404 | Unknown |
+
+The important difference was the deliberately failing board.
+
+This time, the console displayed `new=unknown`, and `summary.json` recorded `"new_count": null`.
+
+OpenAI also showed a genuine zero new postings, so the patch did not incorrectly replace every zero with an unknown value.
+
+### What was verified
+
+Claude checked the raw-response fingerprints, posting counts, saved state, and trace.
+
+The SHA-256 hashes matched the trace, and the independent checker found no posting-count inconsistencies.
+
+The run found three new postings across Databricks and Anthropic. The RECORD rule marked all three as not relevant.
+
+I kept the first live run unchanged because it documents the original defect before the patch.
+
+### What is still not checked
+
+Neither live run triggered a timeout retry, HTTP 5xx response, or budget exhaustion. Those paths were tested offline.
+
+My regression tests also do not separately check every unsuccessful board status through the JSON and console outputs.
+
+### What I learned
+
+I learned that a passing regression test is useful, but checking the corrected behavior with real responses provides stronger evidence.
+
+Keeping the original run and the second run separately makes the before-and-after behavior clear.
+
+### Evidence
+
+- Original live run: `runs/run-2026-11-10T025118Z/`
+- Post-patch live run: `runs/run-2026-11-10T043813Z/`
+- Review packet: `review/REVIEW-PACKET.md`

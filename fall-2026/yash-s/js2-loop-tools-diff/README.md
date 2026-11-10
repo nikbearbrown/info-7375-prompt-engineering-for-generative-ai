@@ -23,8 +23,9 @@ My JS1 agent watched one board. This agent watches several boards in one **bound
 | [`wrong_versions.py`](wrong_versions.py) | Plants my three wrong versions in a scratch copy and confirms that the tests catch each one |
 | [`config/`](config/) | `live.json` (the four planned boards) and `demo-finished-wrong.json` (three boards, for the seeded demonstration) |
 | [`persona/`](persona/) | `priya-nair.resume.example.json`, copied unchanged from JS1 (sha256 `a4fdbc96…`) |
-| [`state/`](state/) | One state file per board after the live run. Databricks started from my JS1 state (924 ids). |
-| [`runs/run-2026-11-10T025118Z/`](runs/run-2026-11-10T025118Z/) | **The real run:** four raw responses (including the 404), `trace.jsonl`, `summary.json` and `report.md` |
+| [`state/`](state/) | One state file per board after the second live run. Databricks started from my JS1 state (924 ids). |
+| [`runs/run-2026-11-10T025118Z/`](runs/run-2026-11-10T025118Z/) | **The first live run** (before the patch): four raw responses (including the 404), `trace.jsonl`, `summary.json` and `report.md`. Its `summary.json` still shows the "new_count: 0" defect. |
+| [`runs/run-2026-11-10T043813Z/`](runs/run-2026-11-10T043813Z/) | **The second live run** (after the patch), with the same files. The 404 board shows `new_count: null` and `new=unknown`. Claude ran it at my request. |
 | [`demo/`](demo/) | **The finished-wrong-answer demonstration (SEEDED):** replayed responses, its run, and the independent check's output |
 | [`review/`](review/) | **The review packet** ([`REVIEW-PACKET.md`](review/REVIEW-PACKET.md)), with the test outputs from before and after the patch, and the diff |
 | [`tests/`](tests/) | 65 offline tests |
@@ -86,8 +87,9 @@ Files are named in UTC. Eastern Time is my local date.
 | Mon Nov 9, 10:31 pm | 2026-11-10T03:31:21Z | Review packet: my failing test committed before the patch | commit `bca5bb6`, `review/test-before-patch.txt` |
 | Mon Nov 9, 10:49 pm | 2026-11-10T03:49:37Z | After the patch: 65 tests pass, and all three wrong versions are caught | `review/tests-after-patch.txt`, `review/wrong-versions-after-patch.txt` |
 | Mon Nov 9, 10:57 pm | 2026-11-10T03:57:08Z | **Patch accepted:** the patch and the review packet committed together | commit `630b99a` |
+| Mon Nov 9, 11:38 pm | 2026-11-10T04:38:13Z | **Second live run, after the patch** (Claude ran it at my request): incomplete, 4 requests, 2.8 s | `runs/run-2026-11-10T043813Z/` |
 
-## The real run, step by step
+## The first live run, step by step
 
 From [`trace.jsonl`](runs/run-2026-11-10T025118Z/trace.jsonl). The time `t` is seconds since the run started.
 
@@ -109,9 +111,14 @@ From [`trace.jsonl`](runs/run-2026-11-10T025118Z/trace.jsonl). The time `t` is s
 
 Each saved raw file's SHA-256 matches the one recorded in the trace. The posting counts in `summary.json` match a recount from the raw files, and `independent_check.py` reported no mismatch.
 
+**The second live run, after the patch** ([`trace.jsonl`](runs/run-2026-11-10T043813Z/trace.jsonl)) followed the same steps: 4 requests, 4 observations, 3 state updates, then the exit, in 2.805 seconds.
+- **Deliberate failure:** HTTP 404 again, not retried. This time **`summary.json` holds `"new_count": null`** and the console printed **`new=unknown`**. The failure is now reported without inventing a value.
+- **OpenAI:** observed with nothing new, and it kept its genuine `new_count: 0`.
+- **Checks:** the raw files' SHA-256 values match the trace, the counts match a recount, and `independent_check.py` found every board consistent with the first run.
+
 ## Results
 
-**The live run** ([`report.md`](runs/run-2026-11-10T025118Z/report.md)):
+**The first live run** ([`report.md`](runs/run-2026-11-10T025118Z/report.md)):
 
 | Board | ATS | Status | Postings | New |
 |---|---|---|---|---|
@@ -121,6 +128,17 @@ Each saved raw file's SHA-256 matches the one recorded in the trace. The posting
 | Deliberate failure | Greenhouse | failed (HTTP 404) | - | unknown |
 
 My predictions came true for the 404, the incomplete exit and the two baselines. I predicted about 10 new Databricks postings, and there were 80. My JS1 RECORD rule marked 3 of the 80 as relevant. All three are Senior, Sr. or Staff roles, or based in Bengaluru, so my fuller labeling rule would reject them. RECORD does not look at seniority or location.
+
+**The second live run, after the patch** ([`report.md`](runs/run-2026-11-10T043813Z/report.md)):
+
+| Board | ATS | Status | Postings | New |
+|---|---|---|---|---|
+| Databricks | Greenhouse | ok | 915 | 1 |
+| Anthropic | Greenhouse | ok | 677 | 2 |
+| OpenAI | Ashby | ok | 825 | 0 |
+| Deliberate failure | Greenhouse | failed (HTTP 404) | - | unknown |
+
+The 3 new postings were a Staff Technical Instructor role (Singapore), an Enterprise Account Executive role (Tokyo) and a Global Head of Renewals role (San Francisco and New York). RECORD marked all three "not relevant." Anthropic's and OpenAI's counts are now real new-since-last counts, not baselines.
 
 **The finished-wrong-answer demonstration (SEEDED).** Databricks and OpenAI were replayed from exact copies of my real responses. Anthropic was replaced by a **constructed** `{"jobs": []}`.
 - The agent reported **finished**: 3 boards ok, 0 new.
@@ -136,11 +154,11 @@ My predictions came true for the 404, the incomplete exit and the two baselines.
 
 - **The agent accepts a well-formed empty board** as a real observation. Only the separate independent check catches a sudden drop to zero (GATE.md).
 - **My regression tests for the review patch cover only the 404 case.** Unavailable, not-checked and stopped-by-error boards use the same rule but are not tested through the outputs.
-- **The live run ran once, before the patch.** There has been no live run since.
+- **Two live runs, one before the patch and one after.** Nothing went wrong in either that would have exercised a retry, a 5xx response or a budget limit, so those paths are tested only offline.
 - **Redirect refusal is tested at the handler.** No real server sent a redirect.
 - **The approval flag** proves that the flag was given, not who gave it.
 - **RECORD has no seniority or location rule,** so its 3 "relevant" postings would fail my labeling rule.
-- **Size:** the folder is about 80 MB. The live run's raw responses are 33 MB. The demonstration is 47 MB: 23 MB of replay copies, plus 23 MB that its own run saved again, because evidence is never shared or overwritten.
+- **Size:** the folder is about 113 MB. The two live runs hold 66 MB of raw responses, 33 MB each. The demonstration is 47 MB: 23 MB of replay copies, plus 23 MB that its own run saved again, because evidence is never shared or overwritten.
 
 ## Driver's seat
 
@@ -151,7 +169,7 @@ The loop and the review, and who did what. The evidence column points to commits
 | **Loop:** exits, budgets, repeat rule, error and permission policy | Reviewed GATE.md and pointed out two unclear rules | Wrote GATE.md and decided every rule and limit | I chose the limits and stopping rules before Claude wrote the code. | `e18f63c`, before any code |
 | **Loop:** boundary predictions | Wrote the tests for my cases, plus 10 extras | Predicted all 15 outcomes before any code, and checked the results | I predicted all 15 results before implementation and checked them against the tests. | `e18f63c`; BOUNDARY-TESTS.md results |
 | **Loop:** implementation | Wrote `agent.py`, `policy.py`, `providers.py`, `independent_check.py`, `wrong_versions.py` and the tests | Ran the tests and the wrong-version check myself before committing | I ran the tests myself and checked the deliberately broken versions before accepting the implementation. | `841dbce` |
-| **Loop:** the live run | Checked the run files afterwards (fingerprints, recounts, state) | Ran it, compared it with my predictions, and found the "new=0" defect | I ran the real agent, compared the results with my predictions, and identified the misleading count. | `dd8e287`; FRICTIONAL entry of 2026-11-09 |
+| **Loop:** the live run | Checked the run files afterwards (fingerprints, recounts, state). Ran the second, post-patch live run at my request. | Ran it, compared it with my predictions, and found the "new=0" defect | I ran the real agent, compared the results with my predictions, and identified the misleading count. | `dd8e287`; FRICTIONAL entry of 2026-11-09; `runs/run-2026-11-10T043813Z/` |
 | **Loop:** the finished wrong answer | Built the replay files and rehearsed the demonstration in a scratch copy | Ran the demonstration and the independent check myself | I ran the seeded demonstration and verified that the independent checker caught the wrong answer. | `9e757cb`; `demo/independent-check-output.txt` |
 | **Review:** the test before the patch | Wrote the test setup only | Wrote the assertions, which decide the correct behavior, and committed them failing | 	I wrote the assertions and committed the failing tests before asking for the fix. | `bca5bb6`; `review/test-before-patch.txt` |
 | **Review:** the patch | Wrote the two-line patch I asked for, and pointed out the "stopped by error" scope | Wrote the request and its limits | I defined the expected behavior, limited Claude's changes, and reviewed the diff. | `review/REVIEW-PACKET.md` §3–4; `review/agent-patch.diff` |
@@ -176,7 +194,7 @@ For the review patch, Claude prepared the test setup, and I wrote the assertions
 I also checked the live run's raw responses, trace and posting counts. I used the independent checker to examine the seeded demonstration.
 
 **Not checked:**
-1. I did not repeat the live network run after the review patch.
+1. The retry, HTTP 5xx, and budget-exhausted paths were tested offline, but neither live run triggered these conditions.
 2. I did not encounter a real HTTP redirect during the live run. Redirect refusal was tested offline.
 3. My new regression tests do not separately verify console and JSON output for unavailable, not-checked or stopped-by-error boards.
 4. I did not test a filesystem race in which a symlink changes between the permission check and file write.

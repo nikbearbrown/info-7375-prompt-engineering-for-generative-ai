@@ -8,8 +8,8 @@ Yash Saraf · INFO 7375 · 2026-11-10
 |---|---|---|---|
 | **My JS1 project**, `fall-2026/yash-s/js1-contract-and-watch/` | commit `73260d2` | mine | **Copied unchanged:** `persona/priya-nair.resume.example.json` (sha256 `a4fdbc96…`) and my JS1 final state, which became `state/greenhouse-databricks.state.json` before the first JS2 run (924 ids, sha256 `7265577c…`). `record.py` is the RECORD rule extracted word for word from JS1's `judge.py`. **Ideas carried over, re-implemented:** the host allow-list, refusing redirects, saving raw responses before parsing, create-only evidence (the JS1 overwrite fix), atomic state writes, and the persona check. |
 | **Lectern**, the instructor's collector, `fall-2026/nik-bear-brown/lectern/` | course repo, pulled 2026-11-09 | per the course repo | **The Ashby URL and fields** from `collect.py`: `posting-api/job-board/{slug}?includeCompensation=true`, and `id`, `title`, `descriptionHtml` / `descriptionPlain`, `location`, `secondaryLocations` and `jobUrl`. One line in `providers.py`, combining `location` with `secondaryLocations`, closely follows Lectern's `normalise()`. **Board names** `anthropic` and `openai` came from its `sources.json`. |
-| **Greenhouse Job Board API**, public, no login | fetched 2026-11-10T02:51Z | Databricks' and Anthropic's public postings | `https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true` for `databricks`, `anthropic` and the misspelled `databricks-misspelled` (which returned 404). The raw responses are saved unmodified in `runs/`. |
-| **Ashby Posting API**, public, no login | fetched 2026-11-10T02:51Z | OpenAI's public postings | `https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=true`, saved unmodified in `runs/` |
+| **Greenhouse Job Board API**, public, no login | fetched 2026-11-10T02:51Z and 04:38Z | Databricks' and Anthropic's public postings | `https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true` for `databricks`, `anthropic` and the misspelled `databricks-misspelled` (which returned 404). The raw responses are saved unmodified in `runs/`. |
+| **Ashby Posting API**, public, no login | fetched 2026-11-10T02:51Z and 04:38Z | OpenAI's public postings | `https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=true`, saved unmodified in `runs/` |
 | **Python** | 3.13.5 (Anaconda, my runs) and 3.9.6 (macOS system, Claude's runs) | PSF | All code and tests; standard library only |
 | **Claude Code** | Claude Opus 5.5, 2026-11-09 to 2026-11-10 | Anthropic terms | Writing code and drafts under my review (below). The agent itself calls no model. |
 
@@ -43,6 +43,7 @@ Claude Code, in this session.
 
 **Checks:**
 - checking my live run's files (fingerprints, recounts, state growth) and finding where the "new=0" came from in the code;
+- **running the second live run** (`runs/run-2026-11-10T043813Z/`) at my request, after the patch, and checking its files the same way;
 - reviewing GATE.md, which pointed out two unclear rules that I then decided.
 
 **Drafts:** README.md, this file, `review/REVIEW-PACKET.md`, `demo/README.md`, and the results section of BOUNDARY-TESTS.md, all written from the commits and saved outputs.

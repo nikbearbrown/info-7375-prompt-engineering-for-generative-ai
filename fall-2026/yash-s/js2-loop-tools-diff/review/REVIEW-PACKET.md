@@ -161,3 +161,15 @@ This reran the planted-bug check after a change, as my TA asked after JS1. My ne
 ## 8. A case my test would still miss
 
 My two regression tests reproduce only the **HTTP 404** case. They do not separately check the count or the console line for a board that is **unavailable** after two timeouts, **not checked** because a budget was reached, or **stopped by error**. The patch uses the same condition for all of them, but no test of mine runs those paths through `summary.json` and the console. I have also not repeated the live network run since the patch.
+
+## Addendum, 2026-11-10: a live run after the patch
+
+Added after this review, by Claude at my request. The sections above stay as written.
+
+Section 8 says I had not repeated the live network run since the patch. At 2026-11-10T04:38:13Z, Claude ran it at my request (`runs/run-2026-11-10T043813Z/`). It used the same four boards and ended **incomplete**, with 4 requests in 2.8 seconds.
+
+- **The 404 board's console line:** `Deliberate failure       failed       postings=None  new=unknown  (HTTP 404)`
+- **Its `summary.json` entry:** `"status": "failed"`, `"new_count": null`
+- **OpenAI**, observed with nothing new, kept its genuine `"new_count": 0`.
+
+This is the patched behavior on real data. It does not change the gap in section 8: no test of mine runs unavailable, not-checked or stopped-by-error boards through the outputs.

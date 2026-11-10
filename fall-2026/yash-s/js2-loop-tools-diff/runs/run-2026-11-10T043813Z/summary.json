@@ -1,0 +1,113 @@
+{
+  "agent": "agent.py",
+  "gate": "GATE.md (2026-11-09)",
+  "run": "run-2026-11-10T043813Z",
+  "started_at": "2026-11-10T04:38:13Z",
+  "source": "live",
+  "config": "config/live.json",
+  "exit_status": "incomplete",
+  "exit_code": 1,
+  "budget_hit": null,
+  "problems": [
+    "Deliberate failure: failed (HTTP 404)"
+  ],
+  "budgets": {
+    "boards": 4,
+    "requests": 6,
+    "seconds": 120.0,
+    "retries_per_board": 1
+  },
+  "used": {
+    "boards": 4,
+    "requests": 4,
+    "seconds": 2.805
+  },
+  "boards": [
+    {
+      "name": "Databricks",
+      "ats": "greenhouse",
+      "slug": "databricks",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-greenhouse-databricks-attempt1-http200.json"
+      ],
+      "postings": 915,
+      "baseline": false,
+      "new_count": 1
+    },
+    {
+      "name": "Anthropic",
+      "ats": "greenhouse",
+      "slug": "anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-greenhouse-anthropic-attempt1-http200.json"
+      ],
+      "postings": 677,
+      "baseline": false,
+      "new_count": 2
+    },
+    {
+      "name": "OpenAI",
+      "ats": "ashby",
+      "slug": "openai",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-ashby-openai-attempt1-http200.json"
+      ],
+      "postings": 825,
+      "baseline": false,
+      "new_count": 0
+    },
+    {
+      "name": "Deliberate failure",
+      "ats": "greenhouse",
+      "slug": "databricks-misspelled",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks-misspelled/jobs?content=true",
+      "status": "failed",
+      "error": "HTTP 404",
+      "attempts": 1,
+      "raw_files": [
+        "raw-greenhouse-databricks-misspelled-attempt1-http404.json"
+      ],
+      "postings": null,
+      "baseline": false,
+      "new_count": null
+    }
+  ],
+  "new_postings": [
+    {
+      "id": 8931267002,
+      "title": "Staff Technical Instructor",
+      "location": "Singapore",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931267002",
+      "record": "not relevant",
+      "board": "Databricks"
+    },
+    {
+      "id": 5477774008,
+      "title": "Enterprise Account Executive",
+      "location": "Tokyo, Japan",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5477774008",
+      "record": "not relevant",
+      "board": "Anthropic"
+    },
+    {
+      "id": 5237923008,
+      "title": "Global Head of Renewals, Product & Engineering",
+      "location": "San Francisco, CA | New York City, NY",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5237923008",
+      "record": "not relevant",
+      "board": "Anthropic"
+    }
+  ]
+}
