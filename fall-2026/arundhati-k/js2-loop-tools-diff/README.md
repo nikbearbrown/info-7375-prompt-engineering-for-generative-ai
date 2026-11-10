@@ -16,7 +16,10 @@ No Lectern or Reallocation Engine code was copied.
 | code | `21db57c` | `jsagent2/`, `run.py`, `check.py`; the same 38 tests pass, unedited ([log](evidence/logs/01-tests-after-code.txt)) |
 | live run + demo | `a15cbef` | [evidence/run-live-1](evidence/run-live-1/report.md), [finished-wrong-answer](evidence/logs/02-finished-wrong-answer-demo.txt) |
 | review: reproduce + test | `772af22` | [review/](review/REVIEW.md): defect reproduced, test written, before the patch |
-| review: patch + decision | see [review/REVIEW.md](review/REVIEW.md) | |
+| my commands + approved run | `9bb4241` | [review/02-my-commands.txt](review/02-my-commands.txt): reproduction, 43 tests, diff, `run.py --approve-state-write`, run by me |
+| review: patch + decision | `34ed521`, `c9f0653` | patch accepted on evidence; my reason and the case my test misses |
+| my writing | `52f2202`, `7815661`, `d2a3609` | FRICTIONAL, SIGNOFF, SOURCES look-up |
+| fix: raw evidence was git-ignored | (this commit) | `.gitignore` `out/` matched `evidence/**/out/`; found by a fresh-clone check; now `/out/` |
 
 ## Language and toolchain
 
