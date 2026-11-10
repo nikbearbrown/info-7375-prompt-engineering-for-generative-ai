@@ -1,12 +1,34 @@
 # Three open items, settled by Shreyash after reading the saved ads
 
-## Decided (Shreyash, 2026-11-10)
+## My review of the remaining open items, November 10, 2026
 
-*Shreyash's words, typed into the session on 2026-11-10 as the decision on `Dev`, after the table and notes below. Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-10. This replaces a shorter decision paragraph on `Dev` given earlier the same day (in commit `5ed5159`). Claude Code did not change them.*
 
-I decided that `Dev` should count as an engineering department for these Palantir postings because their titles and responsibilities clearly describe software engineering work. However, I would only apply this interpretation to Palantir rather than treating `Dev` as engineering on every Lever board.
+**1. Klaviyo — Posting 7809608003**
 
-This interpretation would remove the department failure for the three internships, but the postings would still fail my location condition because they are in New York or Denver. I documented this decision without changing the implementation, since I have not tested the same interpretation across other Lever boards.
+I checked the posting against my original label and found a mistake in my manual review. The job description mentions Python, but I could not find a second skill that matched my rule. The posting also requires 12+ years of experience.
+
+My original hand-label missed the skills condition. After comparing the description with the rule, I decided the rule was correct and my manual label needed to be corrected. I kept this distinction clear rather than changing working code to match an incorrect label.
+
+**2. Linear — Two Experience Requirements**
+
+I checked the two Linear postings referenced in `review/08`. The Solutions Engineer, APAC posting explicitly requires 8+ years of relevant experience, while the Account Executive, Enterprise posting requires 7+ years in a quota-carrying sales role.
+
+I decided that both are genuine experience requirements, not optional preferences. This helped me confirm that the parser should evaluate the actual requirement text instead of relying only on section headings.
+
+**3. Palantir — `Dev` Department**
+
+I decided that `Dev` should count as an engineering department for the three Palantir software engineering internships because their titles and responsibilities clearly involve software development.
+
+However, I would not automatically treat `Dev` as engineering for every company using Lever. Different companies may use the same department label differently.
+
+Even if I accept `Dev` as engineering for these Palantir postings, they still fail my location condition because they are based in New York or Denver rather than Boston or an accepted remote location.
+
+For now, I documented this interpretation without changing the implementation. I would need additional evidence before introducing a broader department-mapping rule.
+
+**What I learned**
+
+These checks showed me that my manual judgments also need verification. Not every mismatch means the code is wrong. Sometimes the rule is correct, and the mistake is in my original label or interpretation. I kept these decisions separate from code changes so the review record shows exactly what I concluded and what remains unresolved.
 
 ## The findings that led to it (written first)
 
