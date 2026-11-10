@@ -64,14 +64,14 @@ no run can finish (see "Limits").
 
 | What | When (UTC) | Result | Evidence |
 |---|---|---|---|
-| Offline test suite | 2026-11-10 | 51 tests OK, exit 0, on 3.9.6 and 3.12.15 | `tests/` |
+| Offline test suite, after the accepted patch `be7a54a` | 2026-11-10 | 54 tests OK, exit 0, on 3.9.6 and 3.12.15 (run by Claude Code) | `tests/`, `review-packet/checks-run-by-claude-code.txt` |
 | **Live run** of 6 boards, code at `e270605` | 2026-11-09 20:21:52 | 5 boards observed (klaviyo 151, hubspotjobs 126, notion 153, supabase 71, palantir 304 postings); `greenhouse/klaviyo-nonexistent-js2` HTTP 404, **not retried**; 6 of 12 attempts, 5.1 s; status **incomplete, exit 1**; state not written; every board a **baseline** (no state existed) | [`runs/2026-11-09T20-21-52Z-live/`](runs/2026-11-09T20-21-52Z-live/report.md): `trace.jsonl`, `raw/`, `report.md`, `console.txt` |
 | Independent check of the live run | 2026-11-09 | PASS, exit 0 | `runs/2026-11-09T20-21-52Z-live/independent-check.txt` |
 | **Finished wrong answer** (SEEDED REPLAY, wrong version w01) | 2026-11-09 20:23:30 | **FINISHED, exit 0**, and reported a hand-made empty hubspotjobs board as "0 new" | [`finished-wrong-answer/`](finished-wrong-answer/README.md) |
 | Independent check of that run | 2026-11-09 | **FAIL, exit 1**: C4, C5, C6 on hubspotjobs | `finished-wrong-answer/check-wrong-version.txt` |
 | Same seeded replay, real code | 2026-11-09 20:23:30 | incomplete, exit 1, hubspotjobs `empty-needs-review`; check PASS | `finished-wrong-answer/check-real-code.txt` |
 | Boundary tests B01-B18, first run after my predictions (`6c1c5b3`) | 2026-11-10 | 8 tests OK; all 18 outcomes matched my predictions | [`policy/BOUNDARY-TABLE.md`](policy/BOUNDARY-TABLE.md) |
-| Review packet | see packet | TODO: fill after the patch decision | [`review-packet/REVIEW-PACKET.md`](review-packet/REVIEW-PACKET.md) |
+| Review packet: interrupted request not counted | 2026-11-10 | reproduced (`fb35380`, exit 1); review test red 3/3 (`279c10f`); patch to `jobloop/loop.py` only (`be7a54a`); test 3/3, suite 54 OK, reproduction exit 0; **accepted** by me | [`review-packet/REVIEW-PACKET.md`](review-packet/REVIEW-PACKET.md) |
 | `python3 scripts/validate_course.py` (repo root) | 2026-11-10 | **exit 1** on both Pythons, not passing. 3.9.6 crashed on another student's 3.12-only syntax (`fall-2026/shubham-b/.../ports.py`); 3.12.15 listed 66 diagnostics, none under `fall-2026/ashwin-t/` | this table |
 
 No new posting was observed live in JS2 either: the only live run was the first observation of every board.
@@ -103,7 +103,7 @@ seeded/                 the labeled seeded replay and the script that built it f
 runs/                   one live run and two seeded runs, each with trace, raw, report
 policy/                 boundary table, first test run output, actuals
 review-packet/          reproduction, my test, the diff, my decision
-tests/                  51 offline tests
+tests/                  54 offline tests
 drafting/               the questions Claude Code drafted before I wrote GATE.md
 ```
 
