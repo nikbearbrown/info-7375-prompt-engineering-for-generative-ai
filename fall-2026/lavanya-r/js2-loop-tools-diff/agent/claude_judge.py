@@ -57,14 +57,19 @@ def run_claude(prompt, model=MODEL, timeout=300):
 def path_exists(data, path):
     """True if a dotted path such as "skills.languages" or
     "experience.title" resolves in data (a list matches if any item does).
-    "[0]"-style indexes are accepted and ignored."""
-    keys = [k for k in re.sub(r"\[\d+\]", "", path).split(".") if k]
+    An index picks item N of a list and may be written "[N]" or ".N"; it
+    must exist, and an index on something that is not a list fails."""
+    keys = [k for k in re.sub(r"\[(\d+)\]", r".\1", path).split(".") if k]
     if not keys:
         return False
     level = [data]
     for key in keys:
         nxt = []
         for node in level:
+            if key.isdigit():
+                if isinstance(node, list) and int(key) < len(node):
+                    nxt.append(node[int(key)])
+                continue
             items = node if isinstance(node, list) else [node]
             nxt += [i[key] for i in items if isinstance(i, dict) and key in i]
         if not nxt:
