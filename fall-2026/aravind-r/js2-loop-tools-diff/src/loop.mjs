@@ -14,8 +14,9 @@
 // out/reports/<run>.json. src/check.mjs recomputes from raw bodies and snapshots; it
 // never trusts the report.
 //
-// Seen-id state is read and written by JS1's src/state.mjs, unchanged. Its Lever UUID
-// defect is the GATE.md finished-but-wrong demonstration and the review-packet target.
+// Seen-id state is read and written by src/state.mjs: JS1's module, patched in c04d1ecf
+// (canonical string ids, STATE_INTEGRITY). Its pre-patch Lever UUID defect is the GATE.md
+// finished-but-wrong demonstration (TRACE.md) and the review-packet target (REVIEW.md).
 import { readFileSync, writeFileSync, appendFileSync, mkdirSync, renameSync, copyFileSync, chmodSync, existsSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
