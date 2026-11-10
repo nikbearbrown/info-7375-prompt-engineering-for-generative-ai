@@ -1,0 +1,13 @@
+# Command: python3 -B check.py runs/2026-11-10T222859Z-live/report.json
+PASS  greenhouse/databricks recount: report says 917 jobs, raw bytes say 917
+PASS  ashby/notion recount: report says 155 jobs, raw bytes say 155
+PASS  lever/palantir recount: report says 304 jobs, raw bytes say 304
+PASS  greenhouse/no-such-board-js2 failed board has no invented count: status=not_found, jobs=None, new=None
+PASS  greenhouse/no-such-board-js2 404 not retried: attempts=1
+PASS  greenhouse/Databricks failed board has no invented count: status=skipped_repeat, jobs=None, new=None
+PASS  total: report total 1376, recount of ok boards 1376
+PASS  exit honesty: exit=incomplete with 2 board(s) not fully ok
+PASS  request budget: 4 requests in trace, report says 4, limit 20
+
+9 passed, 0 failed
+# exit 0

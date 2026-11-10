@@ -1,0 +1,8 @@
+{"seq": 1, "t": 0.0, "event": "run_start", "kind": "live", "boards_planned": 5, "limits": {"boards": 10, "requests": 20, "seconds": 120, "request_timeout_seconds": 20, "retry_wait_seconds": 2}, "source": null}
+{"seq": 2, "t": 0.225, "event": "request", "ats": "greenhouse", "board": "databricks", "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs", "attempt": 1, "outcome": "ok", "reason": "917 jobs", "seconds": 0.213, "http_status": 200, "bytes": 788735, "sha256": "4d4b1623ea3709ec0753484b104d5fd9e5142da78a3d2854e54898fb74c9aa5e", "raw": "runs/2026-11-10T224443Z-live/raw/greenhouse-databricks-attempt1-http200.body.gz", "jobs": 917}
+{"seq": 3, "t": 727.596, "event": "state_written", "path": "state/greenhouse-databricks.json", "overwrite": true}
+{"seq": 4, "t": 727.597, "event": "budget_exhausted", "which": "seconds", "ats": "ashby", "board": "notion"}
+{"seq": 5, "t": 727.597, "event": "board_not_visited", "ats": "lever", "board": "palantir", "reason": "run stopped: seconds budget exhausted (727.6/120)"}
+{"seq": 6, "t": 727.597, "event": "board_not_visited", "ats": "greenhouse", "board": "no-such-board-js2", "reason": "run stopped: seconds budget exhausted (727.6/120)"}
+{"seq": 7, "t": 727.597, "event": "board_not_visited", "ats": "greenhouse", "board": "Databricks", "reason": "run stopped: seconds budget exhausted (727.6/120)"}
+{"seq": 8, "t": 727.597, "event": "run_end", "exit": "budget_exhausted", "reason": "seconds budget exhausted (727.6/120)"}
