@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import {
   LIMITS, checkRequest, createNetSession, createFilePolicy, checkCliOptions, validToken, boardUrl, PolicyError,
 } from '../src/policy.mjs';
+import { runLoop } from '../src/loop.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -23,6 +24,7 @@ const PREDICTED = {
   27: 'allow', 28: 'allow', 29: 'allow', 30: 'ask', 31: 'allow', 32: 'deny', 33: 'deny',
   34: 'deny retry', 35: 'allow one retry', 36: 'allow, capped at 3 s', 37: 'ask',
   38: 'allow', 39: 'deny', 40: 'deny', 41: 'deny',
+  42: 'deny', 43: 'deny retry',
 };
 
 const covered = new Set();
@@ -413,6 +415,34 @@ row(41, '--replay out/raw/missing.json', () => {
   assert.equal(d.reason, 'replay file missing');
 });
 
+// ---- rows 42-43: added 2026-11-10 after mutants wv01-host-endsWith and wv07-404-retried survived
+
+row(42, 'GET https://evilboards-api.greenhouse.io/...: a host ending in an allowed host', async () => {
+  const p = await netRow(42, { method: 'GET', url: 'https://evilboards-api.greenhouse.io/v1/boards/stripe/jobs' });
+  assert.match(p.reason, /host evilboards-api\.greenhouse\.io not on the allow-list/);
+});
+
+row(43, 'stubbed HTTP 404 on an allow-listed board: exactly one request, board error: not found', async () => {
+  assert.equal(PREDICTED[43], 'deny retry');
+  // Policy session: one request, no retry.
+  const f = stubFetch([{ status: 404, body: '{"status":404,"error":"Job not found"}' }, OK]);
+  const s = session(f);
+  const o = await s.get({ method: 'GET', url: 'https://boards-api.greenhouse.io/v1/boards/no-such-board-js2/jobs?content=true' });
+  assert.equal(o.kind, 'http');
+  assert.equal(o.status, 404);
+  assert.equal(o.retry.retry, false);
+  assert.equal(f.calls.length, 1);
+  assert.deepEqual(s.waits, []);
+  // Through the loop: the board is error: not found, still one request.
+  const root = mkdtempSync(join(tmpdir(), 'js2-policy-row43-'));
+  writeFileSync(join(root, 'boards.json'), JSON.stringify([{ id: 'gh-broken', system: 'greenhouse', token: 'no-such-board-js2' }]));
+  const f2 = stubFetch([{ status: 404, body: '{}' }, OK]);
+  const r = await runLoop({ argv: ['--config', 'boards.json', '--label', 'row43'], root, cwd: root, fetchImpl: f2, now: () => T0, sleep: async () => {}, log: () => {} });
+  assert.equal(f2.calls.length, 1);
+  assert.equal(r.boards[0].disposition, 'error: not found');
+  assert.equal(r.exitCode, 10);
+});
+
 // ---- the table itself ---------------------------------------------------------------
 
 test('every row of test/boundary-cases.md has a test, with its prediction copied verbatim', () => {
@@ -424,7 +454,7 @@ test('every row of test/boundary-cases.md has a test, with its prediction copied
     const cells = line.split('|').map(c => c.trim());
     fromTable[Number(m[1])] = cells[4];
   }
-  assert.equal(Object.keys(fromTable).length, 41);
+  assert.equal(Object.keys(fromTable).length, 43);
   assert.deepEqual(fromTable, PREDICTED);
   assert.deepEqual([...covered].sort((a, b) => a - b), Object.keys(fromTable).map(Number));
 });
