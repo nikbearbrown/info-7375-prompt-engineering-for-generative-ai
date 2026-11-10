@@ -20,7 +20,7 @@ My JS1 agent watched one board. This layer makes it a bounded loop: one run chec
 | `REVIEW-PACKET.md`, `evidence/review/` | the review of the one change I asked Claude Code to make |
 | `evidence/raw/` | every response body, saved before parsing |
 | `runs/state/seen_ids.json` | the state file: job IDs seen per board, and a log of the runs |
-| `CONTRACT-JS1.md` | my JS1 contract, copied unchanged for the relevance rule this agent still uses; the file paths inside it refer to the JS1 folder |
+| `CONTRACT-JS1.md` | my JS1 contract, for the relevance rule this agent still uses: copied unchanged, with one dated JS2 note at the end about year ranges; the file paths inside it refer to the JS1 folder |
 | `SOURCES.md`, `FRICTIONAL.md` | what I used and what Claude contributed; my dated log |
 
 ## Toolchain
@@ -103,8 +103,10 @@ Checked:      1. The exits and the error policy: in run 1 and run 2, no-such-boa
                  (TRACE.md, runs/20261110T133054Z/, runs/20261110T135616Z/).
               2. The finished wrong answer is caught: wrong version 3 ended finished, and
                  python3 -m agent check failed it from the saved 404 (FINISHED-WRONG.md).
-              3. The new jobs: after run 2, the check recomputed the new IDs from run 1's raw
-                 files and agreed (0 new).
+              3. The new jobs: I recomputed run 1's 17 new Pinterest jobs from its saved response
+                 and the 173 IDs carried from JS1 (a one-line Python set difference) and got the
+                 same 17 IDs as the report. After run 2, the check recomputed the new IDs from
+                 run 1's raw files and agreed (0 new).
               4. The permission policy: the 18 boundary tests, test_01 to test_18, all matched
                  the predictions I checked (BOUNDARY-TESTS.md).
               5. The year-range fix: my test (test_year_ranges, cases a to d) failed 2 of 4 before
@@ -133,7 +135,7 @@ Not claiming: that the agent finds every relevant job (five boards only); that "
               nothing is worth applying to; that the policy protects anything the agent does not
               route through agent/policy.py; that the reviewed fix handles every way years are
               written.
-Signed or withheld: [PAVITHRA-SIGN]
+Signed or withheld: Signed, Pavithra Prasad, 2026-11-10
 ```
 
 ## Driver's seat

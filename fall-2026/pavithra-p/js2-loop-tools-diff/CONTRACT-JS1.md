@@ -57,3 +57,7 @@ The tests should catch:
 ## Note added 2026-10-31, after the experiment
 
 My 20 hand labels in experiment 1 did not follow this rule: they agree with it on 7 of 20 (`experiment/label-audit.md`). In experiment 2 my labels agree with it on 16 of 20 (`PROMPT-EXPERIMENT.md`). The rule above is unchanged, and the agent's rule judge still applies it as written.
+
+## Note added 2026-11-10 (JS2)
+
+A dashed experience range uses its lowest number: "2–12+ years" is 2 years, and "3-5 years" is 3. The JS1 rule above is unchanged; this note records the JS2 change, which I approved (`0ecb3d5`, `REVIEW-PACKET.md`).

@@ -55,6 +55,8 @@ python3 -m unittest tests.test_year_ranges -v && python3 -m unittest discover -s
 
 Result: my test 4 of 4, all 68 tests OK, 6 jobs with a changed experience part and no changed verdict, one file changed.
 
+The written rule records the change too: a dated JS2 note at the end of `CONTRACT-JS1.md`, added with my approval, with the JS1 rule above it left unchanged. `GATE.md` makes the written rule the truth, so the rule and the code now say the same thing.
+
 ## 7. My decision
 
 **Accept.** The evidence: my test went from 2 failures to 4 passes, the diff touches only the rule file, every other test still passes, and on 567 real jobs no final verdict changed.

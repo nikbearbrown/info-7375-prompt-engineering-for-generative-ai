@@ -30,6 +30,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 
 ## 2026-11-10: Run 1 and the finished wrong answer
 
+- Expected before run 1: I expected four real boards to return jobs, the deliberately wrong board to return 404 without a retry, and the run to end `incomplete` with that failure recorded. I did not know the job counts in advance.
 - Ran the watch in my own terminal: `incomplete`, with `no-such-board` failed after one request (HTTP 404, not retried) and 17 new Pinterest jobs since JS1 (`3700113`, `TRACE.md`).
 - Ran wrong version 3: it ended `finished` and called the missing board "checked, 0 jobs". The independent check failed it from the saved 404 (`FINISHED-WRONG.md`, `test_catches_wrong_version_3_failed_board_reported_as_empty`). I ran it twice by accident; both runs are kept.
 - Wrong version 3 showed me that a loop can finish its work and still produce a wrong result. It reported the missing board as checked with zero jobs, even though the saved response was HTTP 404. The independent check caught that contradiction. I learned that “finished” must describe both completion and a valid result, not only the fact that the loop stopped.
