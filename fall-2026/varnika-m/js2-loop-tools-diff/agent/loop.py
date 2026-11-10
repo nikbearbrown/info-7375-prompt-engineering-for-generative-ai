@@ -158,19 +158,34 @@ class Loop:
         self.trace_started = False
 
     # --- bookkeeping -------------------------------------------------------------------------------
+    def elapsed(self):
+        """Seconds since the run started, or None if the clock gives something that is not a finite number."""
+        seconds = self.clock() - self.start
+        return seconds if math.isfinite(seconds) else None
+
+    def since(self, started):
+        seconds = self.clock() - started
+        return round(seconds, 3) if math.isfinite(seconds) else None
+
     def seconds_left(self):
-        return self.limits["seconds"] - (self.clock() - self.start)
+        """GATE.md Decisions, 2026-11-10: without a valid time limit the run stops, it does not go on."""
+        elapsed = self.elapsed()
+        if elapsed is None:
+            raise Stop("time_budget_invalid", "the clock gave a time that is not a finite number, so the "
+                       "%s s budget cannot be checked" % self.limits["seconds"])
+        return self.limits["seconds"] - elapsed
 
     def rel(self, path):
         return Path(os.path.relpath(path, self.root)).as_posix()
 
     def trace(self, action, **fields):
         self.step += 1
-        line = {"step": self.step, "t": round(self.clock() - self.start, 3), "action": action}
+        elapsed = self.elapsed()  # the trace never raises: it must still record the error exit
+        line = {"step": self.step, "t": None if elapsed is None else round(elapsed, 3), "action": action}
         line.update(fields)
         line["budget"] = {"boards_attempted": self.attempted, "requests_used": self.requests,
                           "requests_left": self.limits["requests"] - self.requests,
-                          "seconds_left": round(self.seconds_left(), 3)}
+                          "seconds_left": None if elapsed is None else round(self.limits["seconds"] - elapsed, 3)}
         text = json.dumps(line, ensure_ascii=False) + "\n"
         if self.trace_started:
             tools.append_text(self.policy, self.trace_path, text)
@@ -207,29 +222,33 @@ class Loop:
         if left <= 0:
             raise OutOfBudget("seconds")
         timeout = request_timeout(left)
+        started_t = self.limits["seconds"] - left  # the same instant the time left was measured
         decision = self.policy.check_fetch("GET", url)
         if not decision.allowed:
             self.trace("policy_refused", board=key, url=url, decision=decision.as_dict())
             raise tools.Refused(decision)
         self.requests += 1
-        attempt = {"n": self.requests, "url": url, "timeout": round(timeout, 3)}
+        attempt = {"n": self.requests, "url": url, "timeout": round(timeout, 3), "started_t": round(started_t, 3),
+                   "seconds_left_at_start": round(left, 3)}
         started = self.clock()
         try:
             response = tools.fetch(self.policy, url, self.transport, timeout=timeout,
                                    max_bytes=self.limits["bytes_per_response"])
         except tools.FetchError as error:
-            attempt.update(error=error.kind, detail=error.detail, seconds=round(self.clock() - started, 3))
+            attempt.update(error=error.kind, detail=error.detail, seconds=self.since(started))
             self.trace("fetch", board=key, url=url, policy="allow", timeout=attempt["timeout"],
+                       started_t=attempt["started_t"], seconds_left_at_start=attempt["seconds_left_at_start"],
                        result={"error": error.kind, "detail": error.detail}, seconds=attempt["seconds"])
             return attempt, None
         raw_path = self.root / "jobs" / "raw" / ("%s--%s--r%d.body.gz" % (self.run_id, key.replace("/", "-"),
                                                                           self.requests))
         tools.write_new(self.policy, raw_path, gzip.compress(response.body, mtime=0))  # saved before parsing
         attempt.update(http_status=response.status, bytes=len(response.body), raw_file=self.rel(raw_path),
-                       raw_sha256=hashlib.sha256(response.body).hexdigest(), seconds=round(self.clock() - started, 3))
+                       raw_sha256=hashlib.sha256(response.body).hexdigest(), seconds=self.since(started))
         if "x-seeded-from" in response.headers:
             attempt["seeded_from"] = response.headers["x-seeded-from"]
         self.trace("fetch", board=key, url=url, policy="allow", timeout=attempt["timeout"],
+                   started_t=attempt["started_t"], seconds_left_at_start=attempt["seconds_left_at_start"],
                    result={k: attempt[k] for k in ("http_status", "bytes", "raw_file", "raw_sha256")},
                    seconds=attempt["seconds"])
         if response.status == 200:
@@ -424,7 +443,8 @@ class Loop:
             "exit": exit_, "exit_code": EXIT_CODES[exit_], "exit_reason": reason, "error_detail": error_detail,
             "meaning": MEANING[exit_],
             "budget": {"limits": self.limits, "used": {"boards": self.attempted, "requests": self.requests,
-                                                       "seconds": round(self.clock() - self.start, 3)}},
+                                                       "seconds": None if self.elapsed() is None
+                                                       else round(self.elapsed(), 3)}},
             "boards": boards, "not_attempted": not_attempted, "approvals": self.approvals,
             "files": {"record": self.rel(self.runs_dir / (self.run_id + ".json")),
                       "report": self.rel(self.runs_dir / (self.run_id + ".md")),
@@ -452,9 +472,9 @@ def report(record):
              "- **Exit:** `%s` (code %d)%s" % (record["exit"], record["exit_code"],
                                               (": " + record["exit_reason"]) if record["exit_reason"] else ""),
              "- **What that means:** %s" % record["meaning"],
-             "- **Budget used:** %d of %d boards, %d of %d requests, %.1f of %d seconds"
-             % (used["boards"], limits["boards"], used["requests"], limits["requests"], used["seconds"],
-                limits["seconds"]),
+             "- **Budget used:** %d of %d boards, %d of %d requests, %s of %d seconds"
+             % (used["boards"], limits["boards"], used["requests"], limits["requests"],
+                "unknown" if used["seconds"] is None else "%.1f" % used["seconds"], limits["seconds"]),
              "- **Rules:** %s" % record["gate"]]
     if record["error_detail"]:
         lines.append("- **Error:** %s" % record["error_detail"])

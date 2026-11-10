@@ -12,6 +12,7 @@ import collections
 import gzip
 import hashlib
 import json
+import math
 import re
 import sys
 import urllib.parse
@@ -19,7 +20,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 Check = collections.namedtuple("Check", "name passed detail")
-SECONDS_SLACK = 5  # parsing and file writes between requests are not covered by any request's timeout
+SECONDS_SLACK = 5  # total time only: work after the last request (parsing, writing) is not inside any timeout
+ROUNDING = 0.01  # the trace rounds times to 3 decimals
 
 
 def gate_rules(gate_text):
@@ -28,6 +30,10 @@ def gate_rules(gate_text):
     hosts = set(re.findall(r"^\| `([a-z.-]+\.[a-z]+)` \| `/", gate_text, re.M))
     return {"boards": number("Boards"), "requests": number("Requests"), "seconds": number("Seconds"),
             "seconds_per_request": number("Seconds per request"), "hosts": hosts}
+
+
+def finite(value):
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
 def ids_in(system, body):
@@ -182,8 +188,11 @@ def check(record_path, root=None):
     # 6. Budgets and hosts, from the trace, against GATE.md.
     fetches = [line for line in trace if line["action"] == "fetch"]
     problems = []
-    if record["budget"]["used"]["seconds"] > gate["seconds"] + SECONDS_SLACK:
-        problems.append("%.1f s used, GATE.md allows %d" % (record["budget"]["used"]["seconds"], gate["seconds"]))
+    used = record["budget"]["used"]["seconds"]
+    if not finite(used):
+        problems.append("the run's total time is %r, so the time budget cannot be verified" % (used,))
+    elif used > gate["seconds"] + SECONDS_SLACK:
+        problems.append("%.1f s used, GATE.md allows %d" % (used, gate["seconds"]))
     if len(fetches) != record["budget"]["used"]["requests"]:
         problems.append("trace has %d fetches, record says %d" % (len(fetches), record["budget"]["used"]["requests"]))
     if len(fetches) > gate["requests"]:
@@ -196,8 +205,16 @@ def check(record_path, root=None):
             problems.append("request to %s" % line["url"])
         if line["timeout"] > gate["seconds_per_request"]:
             problems.append("timeout %s s > %d s" % (line["timeout"], gate["seconds_per_request"]))
-        started = line["t"] - line.get("seconds", 0)
-        if started + line["timeout"] > gate["seconds"] + SECONDS_SLACK:
+        if "started_t" in line:  # GATE.md Decisions, 2026-11-10: the same budget as the agent, no slack
+            started, allowance = line["started_t"], ROUNDING
+        else:  # traces written before that decision do not record the start; estimate it
+            started, allowance = (line["t"] - (line.get("seconds") or 0)) if finite(line["t"]) else None, SECONDS_SLACK
+        if not finite(started) or not finite(line["timeout"]):
+            problems.append("a request's start or timeout is not a number, so the time budget cannot be verified")
+            continue
+        if started >= gate["seconds"]:
+            problems.append("a request started at %.1f s, after the %d s budget was spent" % (started, gate["seconds"]))
+        elif started + line["timeout"] > gate["seconds"] + allowance:
             problems.append("a request started at %.1f s was given %s s, past the %d s budget"
                             % (started, line["timeout"], gate["seconds"]))
     checks.append(Check("budgets_and_hosts", not problems, "; ".join(problems) or
