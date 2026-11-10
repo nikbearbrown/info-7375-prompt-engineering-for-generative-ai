@@ -18,7 +18,7 @@ Run every command from this folder.
 | Deliberate failure handled without inventing a value | TRACE.md, run 1 lines 14–19 | `sed -n 14,19p runs/20261110T002501Z/trace.jsonl` |
 | Finished wrong answer caught by an independent check | TRACE.md, last section | `python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED` |
 | Permission policy in code, 21 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink -v` |
-| Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md) | `git log --oneline 6f4ae08^..ba0a5b0` |
+| Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md), opening with my own reading of the diffs | `git log --oneline 6f4ae08^..ba0a5b0` |
 | Sign-off and driver's seat | the end of this README | — |
 | All tests; no test file changed since it was written | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
 
@@ -101,7 +101,8 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 
 - **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* carries the office "Remote (Arizona)", but its ad says "reside in the United States". The rule trusts the tag and fails condition 3. That verdict is still Not Relevant on other grounds, but a software job written the same way would be wrongly rejected. Not fixed, and not covered by any test.
 - **Location field against office list.** Some Klaviyo postings list location "San Francisco, CA" with the office "Boston". The rule reads the location field only, and which one should win has not been decided.
-- **Department labels.** Palantir's Lever department `Dev` is not on the contract's department list, so its "Software Engineer, Intern" postings fail condition 2. Whether `Dev` counts as engineering has not been decided.
+- **Department labels.** Palantir's Lever department `Dev` is not on the contract's department list, so its "Software Engineer, Intern" postings fail condition 2. **Decided on 2026-11-10, not built** (`review/19`): count `Dev` as engineering for Palantir only, through a documented provider-specific reading, never for every board. Those postings would still fail on location.
+- **One hand label was wrong.** On Klaviyo 7809608003, Shreyash's JS1 hand label left out condition 4. The ad names only one of Alex's skills, Python, so the rule's skills failure is right (`review/19`). The "19 of 20" against the hand labels is really 20 of 20 on the corrected label; the label itself is left as it was committed in JS1.
 - **Phrasings not seen yet.** Experience and remote are read with patterns learned from 685 postings. "Several years", or a preferred heading the cue list does not know, would be misread.
 - **The independent check cannot see partial Ashby or Lever responses**, because neither reports a total.
 
@@ -128,7 +129,7 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10.*
+*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10. The `Dev` line was updated afterwards the same day to record Shreyash's decision in `review/19`.*
 
 ```text
 Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py (the five GATE.md
@@ -152,9 +153,9 @@ How:          The tests were written by Claude Code from GATE.md and committed b
               (OK), checked all 12 frozen test hashes, and confirmed row 21's prediction was in
               2b8ed44 before any result (evidence/commands-run-by-shreyash-2026-11-10.txt).
 Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all Not Relevant, so the
-                Relevant path inside the loop ran only in tests. Palantir's "Software Engineer,
-                Intern" postings fail on the department label "Dev"; whether that label should
-                count as engineering was not decided.
+                Relevant path inside the loop ran only in tests. I decided Palantir's "Dev"
+                department should count as engineering for Palantir only (review/19), but that
+                reading is not built or tested.
               - A real timeout or 5xx: retries were only exercised with constructed responses.
               - A real redirect: the redirect guard was tested on a constructed redirect only.
               - A partial Ashby or Lever response: the check can only catch truncation on

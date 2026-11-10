@@ -8,4 +8,4 @@
   - **Account Executive, Enterprise:** under "What we're looking for": "3+ years selling to the enterprise, and 7+ years in a quota-carrying sales role".
 - **Why both were missed before:** rule v1 missed them because the word "experience" does not follow the number. Rev 1 reported the perk's "4 years" instead, because it took the largest number and the perk was read first.
 - **The change:** the test still requires, on all 16, that the perk is never the quoted requirement. It now requires these two to fail condition 5 **with their own requirement quoted** and the ad to contain those words; the other 14 must still pass condition 5. Nothing became looser: the two now carry more assertions than before.
-- **Who checked it:** Claude Code read the two ads in the saved raw response. Shreyash has not re-read them yet.
+- **Who checked it:** Claude Code read the two ads in the saved raw response. On 2026-11-10 Shreyash re-read both and confirmed 8+ and 7+ years as mandatory requirements (`review/19`).

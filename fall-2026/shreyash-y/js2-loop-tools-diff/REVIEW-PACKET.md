@@ -30,6 +30,8 @@ Before accepting the final revision, I considered the test results, the changes 
 | 14, 15, 16 | rev 3: tests; behavior diff; reading | run, Claude Code |
 | 17, 18 | rev 3: Shreyash's three commands; the **accept** decision | **Shreyash** |
 
+| 19 | three open items settled after reading the ads: 7809608003, the two Linear ads, Palantir `Dev` | **Shreyash** |
+
 There is no 12; that check went into 16.
 
 ## The change Shreyash asked Claude Code to make
@@ -61,7 +63,7 @@ Each revision was run with the old rule and the new one over the same **685 real
 | rev 2 (`67ddba8`) | 86/86 after a test correction (`review/08`) | The perk is gone (0/685). But **about 37 real requirements vanish**: text after an unknown heading ("What We Require:", "Education and Experience:") or after an inline "preferred"/"a plus" was read as optional. | defect, `review/09`, `review/10`, `review/11` |
 | **rev 3** (`ba0a5b0`) | **93/93, no test edited** | 0 verdict changes against v1, rev 1 and rev 2. No posting quotes the perk. Against v1: experience failures moved on 50 postings (8 dropped, all under "Preferred skills" or "Preferred experience"; 42 added, all real mandatory minimums), location on 53 (8 dropped where the state list includes Massachusetts; 45 added for state-limited remote or hybrid ads). | accepted, `review/14`, `review/15`, `review/16` |
 
-**Against Shreyash's per-condition hand labels** (JS1 experiment 2, 20 Klaviyo postings), the failed-condition sets went from **18/20 (v1) to 19/20 (rev 3)**. The verdict stayed 20/20.
+**Against Shreyash's per-condition hand labels** (JS1 experiment 2, 20 Klaviyo postings), the failed-condition sets went from **18/20 (v1) to 19/20 (rev 3)**. The verdict stayed 20/20. The one remaining miss, 7809608003, turned out to be a hand-label slip: after reading the ad, Shreyash found it names only Python of Alex's skills, so the rule's condition-4 failure is right (`review/19`).
 
 **What the reading missed at first.** Rev 1's diff was only sampled, so 20 Palantir postings it had silently stopped failing were not seen until rev 2's diff showed them coming back. From rev 2 on, every condition a revision stops failing was listed and read (`review/10`, `review/15`).
 
