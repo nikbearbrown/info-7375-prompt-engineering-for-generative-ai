@@ -1,0 +1,188 @@
+{
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "board": "greenhouse:databricks",
+ "cli_json": {
+  "api_error_status": null,
+  "duration_api_ms": 4953,
+  "duration_ms": 4157,
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 1425,
+  "input_attachments_detail": {
+   "cpu_ms": 21,
+   "major_faults": 0,
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 12
+  },
+  "is_error": false,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.0003654,
+    "inputTokens": 3529,
+    "maxOutputTokens": 128000,
+    "outputTokens": 25,
+    "provider": "firstParty",
+    "thinkingTokens": 0,
+    "webSearchRequests": 0
+   },
+   "claude-opus-5-5": {
+    "cacheCreationInputTokens": 3166,
+    "cacheReadInputTokens": 1054,
+    "canonicalModel": "claude-opus-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.0331268,
+    "inputTokens": 2,
+    "maxOutputTokens": 128000,
+    "outputTokens": 379,
+    "provider": "firstParty",
+    "thinkingTokens": 117,
+    "webSearchRequests": 0
+   }
+  },
+  "num_turns": 1,
+  "permission_denials": [],
+  "process_turn_index": 0,
+  "queued_turn_count": 0,
+  "result": "{\"posting_id\": 8920618002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"manager\"]}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks we work on some of the most complex distributed processing\"}]}, \"explanation\": \"The title 'Delivery Partner Manager, FDE' contains no eligible role phrase and contains the excluded word 'manager'. Only 'databricks' appears in both the posting description and the résumé (skills.data_bi); python, sql, spark and langgraph do not appear as whole words in the title or description.\"}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "adc4dbe1-f28b-4602-becf-c98a898413e1",
+  "stop_reason": "end_turn",
+  "subagent_stats": {
+   "by_type": {},
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "system": 0,
+    "user": 0
+   },
+   "max_depth": 0,
+   "refused": {
+    "budget": 0,
+    "concurrency_limit": 0,
+    "depth_limit": 0
+   },
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "spawned": 0,
+   "spawned_by_subagents": 0,
+   "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_cpu_ms": 90,
+  "time_to_request_loop_lag_ms": 9,
+  "time_to_request_major_faults": 0,
+  "time_to_request_ms": 59,
+  "time_to_request_phases_ms": {
+   "autocompact": 1,
+   "client_creation": 3,
+   "engine_pickup": 0,
+   "init_message": 1,
+   "input_attachments": 15,
+   "input_hooks": 1,
+   "message_normalization": 0,
+   "message_prep": 1,
+   "model_config_wait": 0,
+   "model_gates": 18,
+   "other": 11,
+   "process_user_input": 1,
+   "query_setup": 0,
+   "request_build": 1,
+   "resume_other": 0,
+   "system_prompt": 1,
+   "tool_pool_refresh": 1,
+   "tool_schema_build": 4
+  },
+  "total_cost_usd": 0.0334922,
+  "ttft_ms": 2470,
+  "ttft_stream_ms": 1424,
+  "turn_start_resume_kind": "none",
+  "type": "result",
+  "usage": {
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 3166,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "cache_creation_input_tokens": 3166,
+   "cache_read_input_tokens": 1054,
+   "fallback_credit": null,
+   "inference_geo": "global",
+   "input_tokens": 2,
+   "iterations": [
+    {
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 3166,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_creation_input_tokens": 3166,
+     "cache_read_input_tokens": 1054,
+     "input_tokens": 2,
+     "output_tokens": 379,
+     "type": "message"
+    }
+   ],
+   "output_tokens": 379,
+   "output_tokens_details": {
+    "thinking_tokens": 117
+   },
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "service_tier": "standard",
+   "speed": "standard"
+  },
+  "uuid": "316fdc32-49d1-4c49-b208-c942d17ff92a"
+ },
+ "effort": "medium",
+ "finished_at_utc": "2026-11-10T23:21:45+00:00",
+ "invoked_at_utc": "2026-11-10T23:21:40+00:00",
+ "model_requested": "claude-opus-5-5",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "posting_id_requested": "8920618002",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "prompt_version": "v1",
+ "response_text": "{\"posting_id\": 8920618002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"manager\"]}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks we work on some of the most complex distributed processing\"}]}, \"explanation\": \"The title 'Delivery Partner Manager, FDE' contains no eligible role phrase and contains the excluded word 'manager'. Only 'databricks' appears in both the posting description and the résumé (skills.data_bi); python, sql, spark and langgraph do not appear as whole words in the title or description.\"}",
+ "returncode": 0,
+ "session_id": "adc4dbe1-f28b-4602-becf-c98a898413e1",
+ "stderr_tail": "",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "transport_ok": true,
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8920618002,\n \"title\": \"Delivery Partner Manager, FDE\",\n \"location\": \"Northeast - United States; San Francisco, California; Seattle, Washington; Southeast - United States\",\n \"departments\": [\n  \"Professional Services Operations\"\n ],\n \"description\": \"CSQ128R180 At Databricks we work on some of the most complex distributed processing and machine learning problems in the world and our customers challenge us with interesting new big data and AI use cases. You will shape the future of big data and the machine learning landscape for leading Fortune 500 organizations. Forward Deployed Engineering (FDE) Delivery Partner Manager supports the mission of the FDE team, which is to accelerate and de-risk our customers' business outcomes through effective enablement and delivery of Databricks platform technology. This is an individual contributor role that will oversee the Databricks Delivery Partner Program which looks to use close partnerships with key system integrators to effectively co-deliver Databricks services engagements. The impact you will have: You will work with the FDE team in order to use Databricks delivery partners to accelerate our customer project outcomes . Build and develop FDE relationships with Global System Integrators (GSIs), Regional System Integrators (RSIs), regional Partner team to support bi-directional pipeline review and bi-directional engagements (subcontracting, and advisory) for company priorities. Spearhead and lead efforts to incubate and ramp new partners with Gen AI capabilities. Drive MBRs and QBRs with priority partners , and develop long term roadmaps for PS Partner delivery priorities. Develop scorecards and feedback loops to segment partners by focus areas, regions and company priorities. Drive delivery governance to ensure partner quality and delivery on Services led and partner supported implementations. Support global programs to measure partner quality such as CSAT, Partner Survey and program governance. Lead programs that align with our FDE & Partner strategy for Assurance and advisory services. Work with our cross-functional channel teams to enable GSIs, RSIs, SIs on Assurance services, and support bi-weekly reviews and deal governance Support Partner IP efforts such as the creation of service delivery kits to better scale our ecosystem. Liaison with Delivery Partner organizations to ensure personnel have the required level of training and certification in order to achieve Databricks projects following best practices. Champion and provide thought leadership for specialization programs. You will implement and lead programs for achieving requirements and exceeding delivery quality. Build and maintain an effective onboarding process for partner resources ensuring effective utilization and quality of services across Databricks customer deliveries. Work with the Databricks resource management team to oversee the pipeline planning process with each of the delivery partners, ensuring partner resource availability in a timely manner to support Databricks services opportunities. Allocation and outsourcing of Projects to Services partners. This includes selecting the appropriate partner for the project and working with the partner closely to ensure project success. Work with our legal, people operations and other cross functional organization to support bi directional contractual negotiations Advocate for the Partner's needs internally; managing any escalations and issues on projects being delivered by partners. Develop, implement, and monitor Key Performance Indicators for each Services partner. Coach, Mentor junior members of the team, and partner resource What we look for: Extensive industry experience including resource management and demand pipeline management and record of success in navigating and driving engagements with large enterprise organizations with a focus on FDE Extensive experience within a FDE or consulting organization as a partner Manager, and/or Consulting Manager. Experience managing partner or third-party organization enablement including upskilling teams to provide delivery capabilities. Excel at working directly with Partners and customers to gather, prioritize, plan and execute solutions to customer business requirements as they relate to technology. Experience managing commercial agreements with partners including statements of works to support services management. Pay Range Transparency Databricks is committed to fair and equitable compensation practices. The pay range(s) for this role is listed below and represents the expected base salary range for non-commissionable roles or on-target earnings for commissionable roles. Actual compensation packages are based on several factors that are unique to each candidate, including but not limited to job-related skills, depth of experience, relevant certifications and training, and specific work location. Based on the factors above, Databricks anticipated utilizing the full width of the range. The total compensation package for this position may also include eligibility for annual performance bonus, equity, and the benefits listed above. For more information regarding which range your location is in visit our page here . Zone 1 Pay Range $127,000 — $174,700 USD Zone 2 Pay Range $114,300 — $157,200 USD Zone 3 Pay Range $108,000 — $148,500 USD Zone 4 Pay Range $101,600 — $139,700 USD About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "ed773ba6086b1d48b6eb022520f99561bc077154717ec1099ad74d455c21579e",
+ "valid": true,
+ "validation_errors": [],
+ "wall_seconds": 5.3
+}

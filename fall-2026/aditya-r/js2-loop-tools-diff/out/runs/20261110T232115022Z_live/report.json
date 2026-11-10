@@ -1,0 +1,5515 @@
+{
+ "approval_request": {
+  "approval_record_expected_at": "approvals/20261110T232115022Z_live.json",
+  "bytes": 374,
+  "destination": "out/approved-shortlists/20261110T232115022Z_live.json",
+  "operation": "create-shortlist-export",
+  "proposed_bytes_file": "out/pending_approval/20261110T232115022Z_live.export.json",
+  "run_id": "20261110T232115022Z_live",
+  "sha256": "df370075878e17c24f98c20e31b4108cb7daa51f60e5862b66a1b101999bbcc6",
+  "write_occurred": false
+ },
+ "boards": [
+  {
+   "attempts": [
+    {
+     "attempt": 1,
+     "bytes": 10016990,
+     "content_type": "application/json",
+     "raw": "raw/01_greenhouse_databricks_a1.json.gz",
+     "sha256": "b01c61a6e47ed60e48244cd3ed747b3a8454405010943398b0eaa5158d7f711e",
+     "status": 200,
+     "trace_seq": 5
+    }
+   ],
+   "key": "greenhouse:databricks",
+   "kind": "watch",
+   "new": 89,
+   "new_ids": [
+    "8880398002",
+    "8880402002",
+    "8927179002",
+    "8933544002",
+    "8920618002",
+    "8907990002",
+    "8742059002",
+    "8932679002",
+    "8922718002",
+    "8908544002",
+    "8899917002",
+    "8920011002",
+    "8925467002",
+    "8925472002",
+    "8910864002",
+    "8452487002",
+    "8855879002",
+    "8878946002",
+    "7827370002",
+    "8922945002",
+    "8824175002",
+    "8932854002",
+    "8937106002",
+    "8937105002",
+    "8200547002",
+    "8569533002",
+    "8903962002",
+    "8925470002",
+    "8916466002",
+    "8931269002",
+    "8936930002",
+    "8035969002",
+    "8931716002",
+    "8933236002",
+    "8927390002",
+    "8930436002",
+    "8931033002",
+    "7647294002",
+    "8829053002",
+    "8932964002",
+    "8928346002",
+    "8041698002",
+    "8133691002",
+    "6866549002",
+    "6886281002",
+    "8847747002",
+    "8934786002",
+    "8885039002",
+    "8904745002",
+    "8932117002",
+    "8929593002",
+    "8929038002",
+    "8661520002",
+    "8907735002",
+    "8922943002",
+    "8823788002",
+    "8922951002",
+    "8922941002",
+    "8693190002",
+    "8922728002",
+    "8807797002",
+    "8923866002",
+    "8924868002",
+    "8893720002",
+    "8926307002",
+    "8918565002",
+    "8893772002",
+    "8929603002",
+    "8927382002",
+    "8927749002",
+    "8922954002",
+    "8927394002",
+    "8367021002",
+    "8893780002",
+    "8869088002",
+    "8926498002",
+    "8931267002",
+    "8929492002",
+    "8929792002",
+    "8931581002",
+    "8883463002",
+    "8929498002",
+    "8895633002",
+    "8910854002",
+    "8910842002",
+    "8931264002",
+    "8870940002",
+    "8873053002",
+    "8811059002"
+   ],
+   "observed": 920,
+   "pending_not_on_board": [],
+   "retried": 0,
+   "status": "succeeded"
+  },
+  {
+   "attempts": [
+    {
+     "attempt": 1,
+     "bytes": 1674741,
+     "content_type": "application/json",
+     "raw": "raw/02_greenhouse_figma_a1.json.gz",
+     "sha256": "1bad06bb14cd51e69f8ebd090027f86ee8dd771514a6ca32bce29e74a9545769",
+     "status": 200,
+     "trace_seq": 8
+    }
+   ],
+   "key": "greenhouse:figma",
+   "kind": "baseline",
+   "new": 0,
+   "new_ids": [],
+   "note": "first successful run: baseline recorded, nothing judged",
+   "observed": 144,
+   "retried": 0,
+   "status": "succeeded"
+  },
+  {
+   "attempts": [
+    {
+     "attempt": 1,
+     "bytes": 2853960,
+     "content_type": "application/json; charset=utf-8",
+     "raw": "raw/03_ashby_notion_a1.json.gz",
+     "sha256": "7bdc96e50572b7852061c4568b08fe404d7495b85e2bc29c426f14ecd3facac1",
+     "status": 200,
+     "trace_seq": 11
+    }
+   ],
+   "key": "ashby:notion",
+   "kind": "baseline",
+   "new": 0,
+   "new_ids": [],
+   "note": "first successful run: baseline recorded, nothing judged",
+   "observed": 155,
+   "retried": 0,
+   "status": "succeeded"
+  },
+  {
+   "attempts": [
+    {
+     "attempt": 1,
+     "bytes": 38,
+     "content_type": "application/json",
+     "raw": "raw/04_greenhouse_js2-no-such-board-zzz_a1.json.gz",
+     "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe",
+     "status": 404,
+     "trace_seq": 14
+    }
+   ],
+   "key": "greenhouse:js2-no-such-board-zzz",
+   "kind": "http-404",
+   "new": null,
+   "new_ids": null,
+   "observed": null,
+   "reason": "HTTP 404 (no retry: 4xx is not transient)",
+   "retried": null,
+   "status": "failed"
+  }
+ ],
+ "budget": {
+  "elapsed_seconds": {
+   "finalization_reserve": 10.0,
+   "limit": 180,
+   "used": 58.118
+  },
+  "http_attempts": {
+   "limit": 8,
+   "used": 4
+  },
+  "model_calls": {
+   "limit": 10,
+   "used": 10
+  }
+ },
+ "budget_reasons": [
+  "greenhouse:databricks 8899917002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8920011002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8925467002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8925472002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8910864002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8452487002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8855879002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8878946002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 7827370002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922945002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8824175002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8932854002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8937106002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8937105002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8200547002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8569533002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8903962002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8925470002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8916466002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931269002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8936930002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8035969002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931716002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8933236002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8927390002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8930436002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931033002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 7647294002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8829053002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8932964002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8928346002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8041698002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8133691002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 6866549002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 6886281002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8847747002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8934786002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8885039002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8904745002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8932117002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929593002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929038002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8661520002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8907735002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922943002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8823788002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922951002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922941002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8693190002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922728002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8807797002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8923866002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8924868002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8893720002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8926307002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8918565002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8893772002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929603002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8927382002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8927749002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8922954002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8927394002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8367021002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8893780002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8869088002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8926498002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931267002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929492002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929792002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931581002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8883463002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8929498002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8895633002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8910854002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8910842002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8931264002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8870940002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8873053002: judgment not run (model_calls budget)",
+  "greenhouse:databricks 8811059002: judgment not run (model_calls budget)"
+ ],
+ "counts": {
+  "attempted": 4,
+  "configured": 4,
+  "failed": 1,
+  "judgments_valid": 10,
+  "pending": 79,
+  "succeeded": 3,
+  "unattempted": 0
+ },
+ "errors": [],
+ "exit_code": 4,
+ "finished_utc": "2026-11-10T23:22:13+00:00",
+ "incomplete_reasons": [
+  "greenhouse:js2-no-such-board-zzz: failed — HTTP 404 (no retry: 4xx is not transient)",
+  "approval requested for out/approved-shortlists/20261110T232115022Z_live.json; not yet approved"
+ ],
+ "postings": [
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Account Executive - Digital Native' has no eligible role phrase and no excluded words. Only databricks (skills.data_bi) appears in both the résumé and the posting description, so fewer than 2 skills are shared.",
+    "file": "judgments/greenhouse_databricks_8880398002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Account Executive - Digital Native' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8880398002",
+   "provider": "greenhouse",
+   "title": "Account Executive - Digital Native",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8880398002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Account Executive - Strategic Core' contains no eligible role phrase. It also contains no excluded word. Only 'databricks' appears in both the description and the résumé (skills.data_bi), so the requirement of 2 shared skills also fails.",
+    "file": "judgments/greenhouse_databricks_8880402002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Account Executive - Strategic Core ' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8880402002",
+   "provider": "greenhouse",
+   "title": "Account Executive - Strategic Core ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8880402002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The normalized title 'ai forward deployed engineer' contains no eligible role phrase ('ai engineer' is not contiguous there) and no excluded words. Only databricks is shared between skills.data_bi and the description: 'Text2SQL' does not match sql, python and langgraph do not appear, and spark is absent from all four résumé arrays.",
+    "file": "judgments/greenhouse_databricks_8927179002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'AI Forward Deployed Engineer' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8927179002",
+   "provider": "greenhouse",
+   "title": "AI Forward Deployed Engineer",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8927179002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title \"Applied AI Architect\" contains no eligible role phrase and contains the excluded word \"architect\", so conditions A and B fail. Condition C passes because python, sql and databricks appear in the description and in the résumé fields skills.languages and skills.data_bi.",
+    "file": "judgments/greenhouse_databricks_8933544002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Applied AI Architect' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United States",
+   "posting_id": "8933544002",
+   "provider": "greenhouse",
+   "title": "Applied AI Architect",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8933544002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Delivery Partner Manager, FDE' contains no eligible role phrase and contains the excluded word 'manager'. Only 'databricks' appears in both the posting description and the résumé (skills.data_bi); python, sql, spark and langgraph do not appear as whole words in the title or description.",
+    "file": "judgments/greenhouse_databricks_8920618002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Delivery Partner Manager, FDE' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Northeast - United States; San Francisco, California; Seattle, Washington; Southeast - United States",
+   "posting_id": "8920618002",
+   "provider": "greenhouse",
+   "title": "Delivery Partner Manager, FDE",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8920618002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Delivery Solutions Architect' contains none of the eligible role phrases and contains the excluded word 'architect', so conditions A and B fail. Condition C passes because the description mentions python, sql, and databricks, which match entries in skills.languages and skills.data_bi.",
+    "file": "judgments/greenhouse_databricks_8907990002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Delivery Solutions Architect' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Canada",
+   "posting_id": "8907990002",
+   "provider": "greenhouse",
+   "title": "Delivery Solutions Architect",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8907990002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Delivery Solutions Architect' contains no eligible role phrase and includes the excluded word 'architect', so the posting fails. The description does share python and sql (skills.languages) and databricks (skills.data_bi).",
+    "file": "judgments/greenhouse_databricks_8742059002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Delivery Solutions Architect ' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8742059002",
+   "provider": "greenhouse",
+   "title": "Delivery Solutions Architect ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8742059002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title contains no eligible role phrase and does contain the excluded word 'director'. Only 'databricks' is shared between skills.data_bi and the posting title. 'Spark' appears in the description but is not in any of the four résumé skill arrays, and python, sql and langgraph do not appear in the title or description.",
+    "file": "judgments/greenhouse_databricks_8932679002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "director"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.title",
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Director of Engineering - Databricks Commercialization & Marketplace' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) director. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.title, posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bellevue, Washington",
+   "posting_id": "8932679002",
+   "provider": "greenhouse",
+   "title": "Director of Engineering - Databricks Commercialization & Marketplace",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8932679002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title 'Director, Strategic Programs & Operations, CAO' has no eligible role phrase and contains the excluded word 'director'. The description shares databricks, sql, and python with résumé fields skills.data_bi and skills.languages, but the title checks fail, so the posting is not relevant.",
+    "file": "judgments/greenhouse_databricks_8922718002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "director"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Director, Strategic Programs & Operations, CAO' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) director. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "West Coast - United States",
+   "posting_id": "8922718002",
+   "provider": "greenhouse",
+   "title": "Director, Strategic Programs & Operations, CAO",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922718002"
+  },
+  {
+   "JUDGMENT": {
+    "errors": null,
+    "explanation": "The title has no eligible role phrase, though it also has no excluded words. Only databricks appears in both the description and skills.data_bi; python, sql, spark and langgraph from skills.languages and skills.backend_automation do not appear as whole words in the title or description.",
+    "file": "judgments/greenhouse_databricks_8908544002.json",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "models_used": [
+     "claude-haiku-5-5",
+     "claude-opus-5-5"
+    ],
+    "status": "valid",
+    "verdict": "not_relevant"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Emerging Enterprise Account Executive, France' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Paris, France",
+   "posting_id": "8908544002",
+   "provider": "greenhouse",
+   "title": "Emerging Enterprise Account Executive, France",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8908544002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Emerging Enterprise & Digital Native Account Executive, Iberia' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Madrid",
+   "posting_id": "8899917002",
+   "provider": "greenhouse",
+   "title": "Emerging Enterprise & Digital Native Account Executive, Iberia",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8899917002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - Illinois",
+   "posting_id": "8920011002",
+   "provider": "greenhouse",
+   "title": "Enterprise Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8920011002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Account Executive, Healthcare' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - New York; Remote - North Carolina",
+   "posting_id": "8925467002",
+   "provider": "greenhouse",
+   "title": "Enterprise Account Executive, Healthcare",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8925467002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Account Executive, Healthcare' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - California",
+   "posting_id": "8925472002",
+   "provider": "greenhouse",
+   "title": "Enterprise Account Executive, Healthcare",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8925472002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Account Executive - Hunter (New Logo)' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8910864002",
+   "provider": "greenhouse",
+   "title": "Enterprise Account Executive - Hunter (New Logo)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8910864002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Account Executive, Middle-East and Africa' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United Arab Emirates",
+   "posting_id": "8452487002",
+   "provider": "greenhouse",
+   "title": "Enterprise Account Executive, Middle-East and Africa",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8452487002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Enterprise Hunter Account Executive, Nordics' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Stockholm, Sweden",
+   "posting_id": "8855879002",
+   "provider": "greenhouse",
+   "title": "Enterprise Hunter Account Executive, Nordics",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8855879002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "ai engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'ai engineer'. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8878946002",
+   "provider": "greenhouse",
+   "title": "Evergreen - AI Engineer, AI FDE",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8878946002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Evergreen Solutions Architect' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "7827370002",
+   "provider": "greenhouse",
+   "title": "Evergreen Solutions Architect",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=7827370002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Forward Deployed Strategist' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Sydney, Australia",
+   "posting_id": "8922945002",
+   "provider": "greenhouse",
+   "title": "Forward Deployed Strategist",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922945002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "director"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Genie Sales Director (AI/BI)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) director. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United States",
+   "posting_id": "8824175002",
+   "provider": "greenhouse",
+   "title": "Genie Sales Director (AI/BI)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8824175002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Geo Core Account Executive-FINS' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - New York",
+   "posting_id": "8932854002",
+   "provider": "greenhouse",
+   "title": "Geo Core Account Executive-FINS",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8932854002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'GTM Recruiter' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "8937106002",
+   "provider": "greenhouse",
+   "title": "GTM Recruiter",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8937106002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'GTM Talent Sourcer (Contract)' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "8937105002",
+   "provider": "greenhouse",
+   "title": "GTM Talent Sourcer (Contract)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8937105002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'GTM Talent Sourcer (Contract)' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Sydney, Australia",
+   "posting_id": "8200547002",
+   "provider": "greenhouse",
+   "title": "GTM Talent Sourcer (Contract)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8200547002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Lakebase Sales Specialist' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Stockholm, Sweden",
+   "posting_id": "8569533002",
+   "provider": "greenhouse",
+   "title": "Lakebase Sales Specialist",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8569533002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Named Core Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Toronto, Canada",
+   "posting_id": "8903962002",
+   "provider": "greenhouse",
+   "title": "Named Core Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8903962002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Named Core Account Executive-Manufacturing ' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Houston, Texas; Oklahoma",
+   "posting_id": "8925470002",
+   "provider": "greenhouse",
+   "title": "Named Core Account Executive-Manufacturing ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8925470002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Named Hunter Account Executive - Singapore' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8916466002",
+   "provider": "greenhouse",
+   "title": "Named Hunter Account Executive - Singapore",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8916466002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Revenue Enablement Manager' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8931269002",
+   "provider": "greenhouse",
+   "title": "Revenue Enablement Manager",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931269002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sales Leader, Commercial' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United States",
+   "posting_id": "8936930002",
+   "provider": "greenhouse",
+   "title": "Sales Leader, Commercial",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8936930002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) senior. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Mountain View, California; San Francisco, California",
+   "posting_id": "8035969002",
+   "provider": "greenhouse",
+   "title": "Senior Backend Software Engineer- (AI Platform)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8035969002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Delivery Partner Manager, Services' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8931716002",
+   "provider": "greenhouse",
+   "title": "Senior Delivery Partner Manager, Services",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931716002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Delivery Partner Manager, Services' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Paris, France",
+   "posting_id": "8933236002",
+   "provider": "greenhouse",
+   "title": "Senior Delivery Partner Manager, Services",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8933236002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Forward Deployed Engineer' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8927390002",
+   "provider": "greenhouse",
+   "title": "Senior Forward Deployed Engineer",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8927390002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Manager, Real Estate & Workplace Services - India ' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8930436002",
+   "provider": "greenhouse",
+   "title": "Senior Manager, Real Estate & Workplace Services - India ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8930436002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) senior. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bellevue, Washington",
+   "posting_id": "8931033002",
+   "provider": "greenhouse",
+   "title": "Senior Software Engineer - Access Management",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931033002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) senior. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "7647294002",
+   "provider": "greenhouse",
+   "title": "Senior Software Engineer - Backend Infrastructure",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=7647294002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) senior. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "San Francisco, California",
+   "posting_id": "8829053002",
+   "provider": "greenhouse",
+   "title": "Senior Software Engineer, Digital Employee Experience",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8829053002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior",
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Solutions Architect - Lakebase' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior, architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Stockholm, Sweden",
+   "posting_id": "8932964002",
+   "provider": "greenhouse",
+   "title": "Senior Solutions Architect - Lakebase",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8932964002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Strategy & Execution Manager, India GTM' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior, manager. C pass: 2 shared target skill(s) (need 2): sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India; Mumbai, India",
+   "posting_id": "8928346002",
+   "provider": "greenhouse",
+   "title": "Senior Strategy & Execution Manager, India GTM",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8928346002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "senior"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Senior Technical Solutions Engineer (Platform)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) senior. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8041698002",
+   "provider": "greenhouse",
+   "title": "Senior Technical Solutions Engineer (Platform)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8041698002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "relevant — A pass: posting.title contains 'software engineer'. B pass: no excluded term in posting.title. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "relevant"
+   },
+   "board": "databricks",
+   "location": "Aarhus, Denmark",
+   "posting_id": "8133691002",
+   "provider": "greenhouse",
+   "title": "Software Engineer - New Grad (2027 Start) - Aarhus",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8133691002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "relevant — A pass: posting.title contains 'software engineer'. B pass: no excluded term in posting.title. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "relevant"
+   },
+   "board": "databricks",
+   "location": "Amsterdam, Netherlands",
+   "posting_id": "6866549002",
+   "provider": "greenhouse",
+   "title": "Software Engineer - New Grad (2027 Start) - Amsterdam",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=6866549002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "relevant — A pass: posting.title contains 'software engineer'. B pass: no excluded term in posting.title. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "relevant"
+   },
+   "board": "databricks",
+   "location": "Berlin, Germany",
+   "posting_id": "6886281002",
+   "provider": "greenhouse",
+   "title": "Software Engineer - New Grad (2027 Start) - Berlin",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=6886281002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "relevant — A pass: posting.title contains 'software engineer'. B pass: no excluded term in posting.title. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8847747002",
+   "provider": "greenhouse",
+   "title": "Software Engineer - New Grad (2027 Start) - London",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8847747002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Stockholm, Sweden",
+   "posting_id": "8934786002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8934786002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect - Banking and Capital Markets (FINS)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "New Jersey; New York City, New York; Remote - New York",
+   "posting_id": "8885039002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect - Banking and Capital Markets (FINS)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8885039002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect - Digital Native Business (Geo)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Connecticut; Remote - Massachusetts; Remote - New York; Remote - Pennsylvania",
+   "posting_id": "8904745002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect - Digital Native Business (Geo)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8904745002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect – Digital Sovereignty' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Munich, Germany",
+   "posting_id": "8932117002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect – Digital Sovereignty",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8932117002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect - Public Sector' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "8929593002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect - Public Sector",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929593002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Solutions Architect - Telco' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Denver, Colorado",
+   "posting_id": "8929038002",
+   "provider": "greenhouse",
+   "title": "Solutions Architect - Telco",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929038002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Designated Support Engineer - Spark' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8661520002",
+   "provider": "greenhouse",
+   "title": "Sr. Designated Support Engineer - Spark",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8661520002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Designated Support Engineer - Spark' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8907735002",
+   "provider": "greenhouse",
+   "title": "Sr. Designated Support Engineer - Spark",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8907735002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Engagement Manager, FDE' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8922943002",
+   "provider": "greenhouse",
+   "title": "Sr. Engagement Manager, FDE",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922943002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Forward Deployed Engineer - Public Sector' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Alabama; Berkeley, California; Connecticut; Kansas City, Missouri; Maryland; New Hampshire; New Jersey; North Carolina; Remote - California; Remote - Colorado; Remote - Illinois; Remote - Massachusetts; Remote - Missouri; Remote - New York; Remote - Pennsylvania; Remote - Virginia; Remote - Washington; Remote - Washington D.C.; Rhode Island; San Diego, California; South Carolina",
+   "posting_id": "8823788002",
+   "provider": "greenhouse",
+   "title": "Sr. Forward Deployed Engineer - Public Sector",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8823788002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Forward Deployment Strategist' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Seoul, South Korea",
+   "posting_id": "8922951002",
+   "provider": "greenhouse",
+   "title": "Sr. Forward Deployment Strategist",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922951002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Forward Deployment Strategist' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8922941002",
+   "provider": "greenhouse",
+   "title": "Sr. Forward Deployment Strategist",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922941002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr.Manager Field Engineering, Digital Natives & Emerging Enterprise France' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Paris, France",
+   "posting_id": "8693190002",
+   "provider": "greenhouse",
+   "title": "Sr.Manager Field Engineering, Digital Natives & Emerging Enterprise France",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8693190002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Manager, Payroll' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8922728002",
+   "provider": "greenhouse",
+   "title": "Sr. Manager, Payroll",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922728002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Partner Solutions Architect - Customer Lake & Lakewatch' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United States",
+   "posting_id": "8807797002",
+   "provider": "greenhouse",
+   "title": "Sr. Partner Solutions Architect - Customer Lake & Lakewatch",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8807797002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Product Designer ' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Amsterdam, Netherlands; Berlin, Germany; London, United Kingdom",
+   "posting_id": "8923866002",
+   "provider": "greenhouse",
+   "title": "Sr. Product Designer ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8923866002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.title",
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) sr. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.title, posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8924868002",
+   "provider": "greenhouse",
+   "title": "Sr. Software Engineer- Databricks AI",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8924868002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Solutions Architect - AI Natives Business' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "San Francisco, California",
+   "posting_id": "8893720002",
+   "provider": "greenhouse",
+   "title": "Sr. Solutions Architect - AI Natives Business",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8893720002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Solutions Architect (Energy)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, architect. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Sydney, Australia",
+   "posting_id": "8926307002",
+   "provider": "greenhouse",
+   "title": "Sr. Solutions Architect (Energy)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8926307002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Solutions Engineer' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Chicago, Illinois; Remote - California; Remote - New York; United States",
+   "posting_id": "8918565002",
+   "provider": "greenhouse",
+   "title": "Sr. Solutions Engineer",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8918565002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Solutions Engineer - AI Natives Business' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "West Coast - United States",
+   "posting_id": "8893772002",
+   "provider": "greenhouse",
+   "title": "Sr. Solutions Engineer - AI Natives Business",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8893772002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Solutions Engineer - Hunter (New Logo)' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "8929603002",
+   "provider": "greenhouse",
+   "title": "Sr. Solutions Engineer - Hunter (New Logo)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929603002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "architect"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.backend_automation"
+        ],
+        "skill": "langgraph"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Specialist Solutions Architect' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, architect. C pass: 4 shared target skill(s) (need 2): python [skills.languages / posting.description]; sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; langgraph [skills.backend_automation / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Zürich, Switzerland",
+   "posting_id": "8927382002",
+   "provider": "greenhouse",
+   "title": "Sr. Specialist Solutions Architect",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8927382002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.backend_automation"
+        ],
+        "skill": "langgraph"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) sr, staff. C pass: 3 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; langgraph [skills.backend_automation / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Mountain View, California",
+   "posting_id": "8927749002",
+   "provider": "greenhouse",
+   "title": "Sr. Staff Software Engineer, Agentic Applications",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8927749002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Technical Program Manager, FDE' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, manager. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Tokyo, Japan",
+   "posting_id": "8922954002",
+   "provider": "greenhouse",
+   "title": "Sr. Technical Program Manager, FDE",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922954002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "sr",
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Sr. Technical Program Manager, FDE' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) sr, manager. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "USCA",
+   "posting_id": "8927394002",
+   "provider": "greenhouse",
+   "title": "Sr. Technical Program Manager, FDE",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8927394002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) staff. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "San Francisco, California",
+   "posting_id": "8367021002",
+   "provider": "greenhouse",
+   "title": "Staff Backend Software Engineer- (AI Platform)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8367021002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "python"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Staff Forward Deployed Engineer' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) staff. C pass: 2 shared target skill(s) (need 2): python [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "USCA",
+   "posting_id": "8893780002",
+   "provider": "greenhouse",
+   "title": "Staff Forward Deployed Engineer",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8893780002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Staff People Partner, Corporate Functions' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) staff. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Mountain View, California; San Francisco, California; Seattle, Washington",
+   "posting_id": "8869088002",
+   "provider": "greenhouse",
+   "title": "Staff People Partner, Corporate Functions",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8869088002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [
+       "software engineer"
+      ],
+      "pass": true
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.title",
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A pass: posting.title contains 'software engineer'. B fail: posting.title contains excluded term(s) staff. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.title, posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8926498002",
+   "provider": "greenhouse",
+   "title": "Staff Software Engineer- Databricks AI",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8926498002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "staff"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Staff Technical Instructor' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) staff. C pass: 2 shared target skill(s) (need 2): sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8931267002",
+   "provider": "greenhouse",
+   "title": "Staff Technical Instructor",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931267002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Melbourne, Australia",
+   "posting_id": "8929492002",
+   "provider": "greenhouse",
+   "title": "Strategic Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929492002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Account Executive - Energy' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom",
+   "posting_id": "8929792002",
+   "provider": "greenhouse",
+   "title": "Strategic Account Executive - Energy",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929792002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Account Executive, Telco' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Finland",
+   "posting_id": "8931581002",
+   "provider": "greenhouse",
+   "title": "Strategic Account Executive, Telco",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931581002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Madrid",
+   "posting_id": "8883463002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8883463002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Los Angeles, California; San Francisco, California; United States",
+   "posting_id": "8929498002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929498002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "United States",
+   "posting_id": "8895633002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8895633002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive - FSI ' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8910854002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive - FSI ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8910854002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive - Public Sector' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Singapore",
+   "posting_id": "8910842002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive - Public Sector",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8910842002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Core Account Executive - Telco ' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - Washington",
+   "posting_id": "8931264002",
+   "provider": "greenhouse",
+   "title": "Strategic Core Account Executive - Telco ",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931264002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategic Enterprise Account Executive' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Remote - Texas",
+   "posting_id": "8870940002",
+   "provider": "greenhouse",
+   "title": "Strategic Enterprise Account Executive",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8870940002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [
+       "manager"
+      ],
+      "pass": false
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays"
+      },
+      "pass": true,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.languages"
+        ],
+        "skill": "sql"
+       },
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Strategy & Execution Manager' contains none of the eligible role phrases. B fail: posting.title contains excluded term(s) manager. C pass: 2 shared target skill(s) (need 2): sql [skills.languages / posting.description]; databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "London, United Kingdom; Paris, France",
+   "posting_id": "8873053002",
+   "provider": "greenhouse",
+   "title": "Strategy & Execution Manager",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8873053002"
+  },
+  {
+   "JUDGMENT": {
+    "budget": "model_calls",
+    "label": "Claude's judgment under a prompt contract — an opinion, validated for format and cited evidence, NOT for correctness",
+    "status": "not-run"
+   },
+   "RECORD": {
+    "checks": {
+     "A_role_phrase": {
+      "field": "posting.title",
+      "matched": [],
+      "pass": false
+     },
+     "B_no_excluded_term": {
+      "field": "posting.title",
+      "found": [],
+      "pass": true
+     },
+     "C_shared_skills": {
+      "not_shared": {
+       "langgraph": "absent from posting.title and posting.description",
+       "python": "absent from posting.title and posting.description",
+       "spark": "absent from the four résumé skill arrays",
+       "sql": "absent from posting.title and posting.description"
+      },
+      "pass": false,
+      "shared": [
+       {
+        "posting_fields": [
+         "posting.description"
+        ],
+        "resume_fields": [
+         "skills.data_bi"
+        ],
+        "skill": "databricks"
+       }
+      ],
+      "threshold": 2
+     }
+    },
+    "explanation": "not_relevant — A fail: posting.title 'Tech Sourcer (Contract)' contains none of the eligible role phrases. B pass: no excluded term in posting.title. C fail: 1 shared target skill(s) (need 2): databricks [skills.data_bi / posting.description]; searched résumé skills.languages, skills.data_bi, skills.backend_automation, skills.database_cloud and posting.title, posting.description.",
+    "missing": [],
+    "verdict": "not_relevant"
+   },
+   "board": "databricks",
+   "location": "Bengaluru, India",
+   "posting_id": "8811059002",
+   "provider": "greenhouse",
+   "title": "Tech Sourcer (Contract)",
+   "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8811059002"
+  }
+ ],
+ "run_id": "20261110T232115022Z_live",
+ "started_utc": "2026-11-10T23:21:15+00:00",
+ "state": {
+  "path": "out/state/seen.json",
+  "published": true,
+  "sha256": "16a8b3eb024501542d1a6f6e9a6fff5944b558e364f6ce6a5013a7a04cd8e4af"
+ },
+ "status": "budget-exhausted"
+}
