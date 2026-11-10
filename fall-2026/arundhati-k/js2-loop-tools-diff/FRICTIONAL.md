@@ -49,6 +49,9 @@ the wrong version said `finished`, Figma 0 new; `check.py` flagged `finished-wit
 - Incomplete feels right because one board failed. It shouldn't say finished when not all boards were checked.
 - I might have trusted it at first. The incomplete result and the failed board showed that the finished report
   was misleading.
+- *Later, same day (corrected after Claude pointed out that Figma was empty, not failed, in the demo):*
+  I might have trusted it at first. check.py caught the empty Figma result and the drop from 143 jobs to 0.
+  The real agent correctly reported incomplete on the same input.
 
 ## Entry 4 — the review (2026-11-10, 16:37–16:50 EST)
 
