@@ -101,7 +101,7 @@ class FakeNet:
         if not answers:
             raise AssertionError("unexpected request: %s" % url)
         answer = answers.pop(0)
-        if isinstance(answer, tuple):
+        if isinstance(answer, tuple) and not isinstance(answer, Response):
             seconds, answer = answer
             self.clock.t += seconds
         if isinstance(answer, FetchError):

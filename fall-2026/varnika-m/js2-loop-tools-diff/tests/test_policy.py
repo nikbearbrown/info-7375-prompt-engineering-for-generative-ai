@@ -116,6 +116,12 @@ class FileBoundary(unittest.TestCase):
         """refuse: jobs/../config/boards.json resolves to config/."""
         path = Path(str(self.root / "jobs") + "/../config/boards.json")
         self.assertEqual(self.plain.check_write(path).outcome, "refuse")
+        # Added 2026-11-10 after test_w3 failed: boards.json exists, so "written once" refused it
+        # and the `..` check was never needed. A file that does not exist yet needs the `..` check.
+        new = Path(str(self.root / "jobs") + "/../config/new.json")
+        decision = self.plain.check_write(new)
+        self.assertEqual(decision.outcome, "refuse")
+        self.assertIn("inside jobs/ only", decision.reason)
 
     def test_B15_prefix_trick_jobs_evil(self):
         """refuse: jobs-evil/ starts with "jobs" but is not inside jobs/."""
