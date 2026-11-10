@@ -25,6 +25,7 @@
 | 19 | Read inside the folder | read `GATE.md` | allowed | reads are allowed in the folder | as predicted |
 | 20 | Read outside the folder | read `~/.ssh/config` | refused: read outside folder | | as predicted |
 | 21 | Symlink that stays inside runs/ (added 2026-11-10 after review) | write `runs/alias.json`, a symlink to a not-yet-existing `runs/r1/target.json` | refused: symlink, and no file appears at the target | the real path is inside runs/ and the target does not exist yet, so only the explicit no-symlink rule can stop the write through the link | as predicted (`evidence/boundary-row21-run-2026-11-10.txt`) |
+| 22 | Nested symlinks (added 2026-11-10 after a second review) | write `runs/hop1/x.json`, where `runs/hop1` links to `runs/hop2` and `runs/hop2` links to a folder outside | refused: outside runs/, and nothing appears outside | each link on its own looks like it stays in runs/; only following the whole chain shows the real path is outside | |
 
 ### BOUNDARY-21: an internal dangling symlink (added 2026-11-10, after review)
 
