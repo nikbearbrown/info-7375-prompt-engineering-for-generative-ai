@@ -68,7 +68,9 @@ bash review/finished_wrong_demo.sh
 python3 -B -m agent.loop
 ```
 
-At a terminal, it asks before overwriting a file in `state/`; type `y` to approve. `--approve-state` approves for that one run. With no terminal and no flag, the state is not written and the run ends `incomplete`.
+At a terminal, it asks before overwriting a file in `state/`; type `y` to approve. `--approve-state` approves for that one run. With no terminal and no flag, the state is not written and the run ends `incomplete`. The 120 s budget includes time spent waiting at that prompt.
+
+If every board fails with `CERTIFICATE_VERIFY_FAILED`, that is the machine's Python certificate setup, not the boards (see Not checked 2). On my Mac, the app's Terminal tab, using `~/anaconda3/bin/python3`, worked.
 
 Exit codes: `finished` 0, `error` 1, `incomplete` 2, `budget_exhausted` 3.
 
@@ -83,8 +85,10 @@ Exit codes: `finished` 0, `error` 1, `incomplete` 2, `budget_exhausted` 3.
 | 17:29 | **Finished-wrong demo** (SEEDED) | JS1's watcher: exit 0, "New since last run: 0" on a 0-job board. check.py: **FAIL**. JS2: `suspicious_empty`, `incomplete`; check.py: pass | `logs/04`, `runs/finished-wrong-demo/` |
 | 17:31–17:33 | Patch, review, revision, re-review | see REVIEW-PACKET.md | `7044eaf`, `40b55f0`, `54b5602`, `logs/05`–`11` |
 | 17:31 | Boundary predictions vs actual | 13/14 matched (case 3 wrong) | `logs/08`, PREDICTIONS.md |
+| 17:38, 17:43 | **Live runs 2 and 2b, run by me** in my own Terminal window | every board failed TLS verification → exit `error`, no value invented. Cause unresolved | `runs/2026-11-10T223836Z-live/`, `runs/2026-11-10T224326Z-live/`, `logs/12`–`13` |
+| 17:44 | **Live run 3**: I approved the state overwrite by typing `y` | Databricks saved with my approval; then `budget_exhausted` (waiting for me counted against 120 s) | `runs/2026-11-10T224443Z-live/`, `logs/13` |
 
-**Seeded vs live.** Live run 1 is the only live JS2 run. The finished-wrong demo is **seeded**:
+**Seeded vs live.** Runs 1, 2, 2b and 3 are live. The finished-wrong demo is **seeded**:
 - its baseline is a real JS1 response from 2026-10-30, replayed;
 - its empty board is a constructed `{"jobs": []}`.
 
@@ -131,13 +135,17 @@ Enforcement tests also check that refused writes leave **no file** anywhere, and
 
 ## Commands I ran myself
 
-*To be filled in after I run them in my own terminal.*
+In my own terminal, 2026-11-10 (summarised in FRICTIONAL.md):
 
-| Command | When | What I saw |
+| Command | When (ET) | What I saw |
 |---|---|---|
-| `python3 -B -m unittest discover -s tests -t .` | | |
-| `python3 -B check.py runs/2026-11-10T222859Z-live/report.json` | | |
-| `python3 -B -m agent.loop` (live run 2; I type `y` or `n` at the prompt) | | |
+| `python3 -B -m unittest discover -s tests -t .` | before 17:38 | `Ran 94 tests` … `OK` |
+| `python3 -B check.py runs/2026-11-10T222859Z-live/report.json` | before 17:38 | `9 passed, 0 failed` |
+| `python3 -B -m agent.loop` (my own Terminal window) | 17:38 | **live run 2**: every board `CERTIFICATE_VERIFY_FAILED`, exit `error` (1), 8 requests, nothing invented. `runs/2026-11-10T223836Z-live/` |
+| same, again | 17:43 | **live run 2b**: the same failure. `runs/2026-11-10T224326Z-live/` |
+| `python3 -B -m agent.loop` in the app's Terminal tab (Claude typed the command; **I typed `y`** at the approval prompt) | 17:44, answered ~17:56 | **live run 3**: Databricks 917 jobs, 89 new, **state overwritten with my approval**. Then exit `budget_exhausted` (3): the 120 s budget counts the 12 minutes the run waited for my answer, so the other 4 boards were `not_visited`. `runs/2026-11-10T224443Z-live/` |
+
+`check.py` on runs 2, 2b and 3: 8/8 each (`logs/12`, `logs/13`).
 
 ## Sign-off — Job-Search Agent 2
 
@@ -150,22 +158,26 @@ Enforcement tests also check that refused writes leave **no file** anywhere, and
 - **Budgets equal GATE.md:** `test_budget_gate`.
 - **The finished wrong answer was caught by an independent check:** `logs/04` step 3.
 - **The permission policy:** 14 predicted cases plus 16 extras, with enforcement (`test_policy_boundary`). My predictions matched 13/14 (`logs/08`).
+- **A real failure, handled honestly:** live runs 2 and 2b (my own terminal) failed TLS on every board and ended `error` with no invented counts; `check.py` 8/8.
+- **Approval by a person:** in live run 3 I typed `y`, and only then was `state/greenhouse-databricks.json` overwritten (trace seq 3, `overwrite: true`). In live run 1, with no approval, it was not.
+- **The seconds budget, live:** run 3 stopped with `budget_exhausted` and listed 4 boards `not_visited`.
 - **The index fix:** reproduced on unchanged code (`review/01`); test first (`8fc4022`, failing in `logs/01`); a regression found by reading the diff and a revision (`40b55f0` then `54b5602`); 73 saved real replies re-validated (`logs/11`).
 
 **How:**
 - **By a test I wrote before reading Claude's code:** none written by me. The tests that came before their code are GATE.md (`77537ea`, my picks and my two sentences), my 14 boundary predictions (`77537ea`), and `tests/test_path_index.py` (`8fc4022`, before the patch). The expected values in that file are Claude's, under my delegation.
-- **By hand:** I picked every GATE.md rule and every prediction, and wrote the two "In my own words" paragraphs. *(Add the commands you ran yourself, from the table above.)*
+- **By hand:** I picked every GATE.md rule and every prediction, and wrote the two "In my own words" paragraphs. I ran the test suite and `check.py` myself (94 OK; 9/9), ran live runs 2 and 2b myself, and approved run 3's state overwrite myself ("Commands I ran myself").
 - **By recomputation:** `check.py` recounts every saved raw response independently of the agent's code. `review/revalidate.py` re-runs the old and new validators on saved replies.
 - **With Claude's help:** Claude Code wrote all of the code and tests, ran every command in the logs, wrote the first drafts of every document, and proposed the options I picked from. It also pointed out the conflicts in my first GATE.md picks and the regression in its own first patch.
 
 **Not checked:**
-1. **A real timeout, a real 5xx and a real empty board.** All three were exercised only with constructed responses. The only real failure was the 404.
-2. **Any posting I would label "fit".** My JS1 feedback asked for this so false negatives could be measured. JS2 does no relevance judging, and I did not label postings. It is still open.
-3. **The approval prompt with a human typing `y`.** Live run 1 had no terminal, so it only showed the no-approval path. *(Update this if you run live run 2 yourself.)*
-4. **The seconds budget against real slow responses.** It was tested with a fake clock. The real run took 2.2 s of 120.
-5. **The terms of use** of Greenhouse, Lever and Ashby, beyond using their public, documented job-board endpoints at one request per board per run.
-6. **The review's "would still miss" case** (REVIEW-PACKET.md section 7), and that `check.py --previous-count 903` was typed in from the step-1 report, not read from it.
-7. **That a posting's content changed without its id changing.** As in JS1, new means a new id only.
+1. **A real slow-server timeout, a real 5xx and a real empty board.** These were exercised only with constructed responses. The real failures were the 404 (run 1) and the TLS failures (runs 2 and 2b).
+2. **Why my own Terminal window fails TLS** while the app's terminal tabs, with the same Python, folder and code, succeed. No proxy or certificate variables were set, and the chain is the real Amazon one. That window runs a different `openssl` (its output format differs), so its `PATH` probably differs too. Unresolved.
+3. **Any posting I would label "fit".** My JS1 feedback asked for this so false negatives could be measured. JS2 does no relevance judging, and I did not label postings. It is still open.
+4. **Whether waiting for my approval should count against the seconds budget.** GATE.md says "wall clock for the whole run", so it does, and run 3 stopped because of it. That may not be the rule I want. I have not changed GATE.md.
+5. **A single run that ends `finished` live.** Run 1 was `incomplete` (on purpose), runs 2 and 2b were `error`, and run 3 was `budget_exhausted`. `finished` is shown only by `test_loop.TestExits`.
+6. **The terms of use** of Greenhouse, Lever and Ashby, beyond using their public, documented job-board endpoints at one request per board per run.
+7. **The review's "would still miss" case** (REVIEW-PACKET.md section 7), and that `check.py --previous-count 903` was typed in from the step-1 report, not read from it.
+8. **That a posting's content changed without its id changing.** As in JS1, new means a new id only.
 
 **Not claiming:**
 - That this agent finds good jobs. JS2 watches and reports; it does not judge fit.
@@ -180,7 +192,7 @@ Enforcement tests also check that refused writes leave **no file** anywhere, and
 |---|---|---|---|---|
 | The loop's rules (exits, budgets, repeats, errors) | offer options, point out conflicts, implement them exactly | pick the rules; say why "incomplete" isn't "finished" and why a 404 isn't retried | a loop's stopping rules decide what "done" means for **my** job search; the agent can't decide that for itself | GATE.md "Changes" table (3 conflicts I fixed); my two "In my own words" paragraphs in GATE.md; `77537ea` before any code |
 | The permission policy | write the enforcement and the boundary tests | predict each case **before** it runs; decide what needs my approval | an agent shouldn't set its own permissions; predictions written first show whether I understand my own policy | PREDICTIONS.md (13/14; case 3 wrong and kept); `77537ea` |
-| Approving a state overwrite | ask, and refuse when no one answers | type `y` myself, or not | it's the agent's memory of what I've already seen; overwriting it changes what counts as "new" next time | live run 1 seq 3 (`state_not_written`); "Commands I ran myself" |
+| Approving a state overwrite | ask, and refuse when no one answers | type `y` myself, or not | it's the agent's memory of what I've already seen; overwriting it changes what counts as "new" next time | live run 1 seq 3 (`state_not_written`, no approval) vs live run 3 seq 3 (`state_written`, after I typed `y`) |
 | The review: reproduce, test, patch | reproduce on unchanged code, write the test first, patch, re-run everything, read its own diff | run the commands myself; accept, revise or reject | the decision to ship a change is mine to defend, even when Claude recommends it | REVIEW-PACKET.md; `8fc4022` → `7044eaf` → `40b55f0` → `54b5602` |
 | Saying what was checked | draft this sign-off from the logs | correct it and sign it, or withhold | only I can vouch for what I submit | the signature line above |
 

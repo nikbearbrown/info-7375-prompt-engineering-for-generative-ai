@@ -59,8 +59,16 @@ What went wrong or was surprising, honestly:
   - The report labels a certificate failure `timeout`, because GATE 4 puts "timeout / connection error" in one row recorded as `failed: timeout`. The reason text says "connection failed", but the status name is misleading.
   - The one retry did not help. A certificate failure is closer to a 404 than to a slow server: retrying 2 s later is unlikely to fix it. A better rule would separate "timeout" (retry once) from "TLS or connection refused" (no retry, escalate). **I have not changed GATE.md or the code for this.** It is recorded here as a proposed change, not made.
 
+## 2026-11-10, 17:43–17:57: run 2b, the approval, and a budget surprise
+
+- **Live run 2b** (17:43, my own Terminal window again): the same TLS failure on every board, and exit `error`. Claude then ran a probe script in the app's Terminal tabs (same Python, same JS2 folder). Plain `urlopen` and the agent's own `net.get` both returned 200. In my own window, I checked for proxy and certificate variables (none) and the certificate chain (the real Amazon chain). But my window printed it in a different format from the app's tab (`C=US` vs `C = US`), so it runs a different `openssl`, and probably has a different `PATH` and Python. **Unresolved:** I did not run the `which -a python3` check.
+- **Live run 3** (17:44): Claude typed `python3 -B -m agent.loop` into the app's Terminal tab, and I answered the approval prompt there. I typed **`y`** at about 17:56, roughly 12 minutes after the prompt appeared. The state file was overwritten only then (trace seq 3, `overwrite: true`).
+- **Surprise:** right after that, the run stopped with **`budget_exhausted`** (727.6 s of 120), and listed Notion, Palantir, the bad board and the repeat as `not_visited`. GATE.md's seconds budget is "wall clock for the whole run", so my 12 minutes at the prompt counted. The loop followed my rule. Whether time waiting for me should count is a question I had not thought about when I picked the rule. **Not changed.**
+- So no live run ended `finished`. I am not re-running to get one before the deadline. `finished` is shown only by the tests.
+
 ## Unresolved
 
 - **"Fit" labels:** the JS1 feedback asked me to add postings I'd label "fit", so false negatives could be measured. Not done in JS2. Run 1 had 89 new Databricks postings, including several "Software Engineer - New Grad (2027 Start)" roles, which would be the place to start.
 - **Real failures:** the 5xx and empty-board paths are tested only with constructed responses. A real connection failure did happen in live run 2 (above), but not a real slow-server timeout.
-- **Why live run 2's TLS failure happened:** unresolved.
+- **Why live runs 2 and 2b failed TLS in my own window:** unresolved.
+- **Whether approval wait time should count against the seconds budget:** unresolved, and GATE.md is unchanged.
