@@ -1,0 +1,40 @@
+# MUTATION evidence: tests/mutation_check_js2.py run by Claude Code at 2026-11-10 18:20:43 EST on HEAD 785138a + uncommitted test/mutant edits listed in the next commit.
+# First run (same session, ~18:20 EST) reported 3 MISSED: W3-http (test gap, fixed by test_W3_http_budget_is_checked_before_each_first_attempt), W6 and W11 (each masked by a second defense; mutants strengthened to remove both layers / to self-grant approval).
+
+CAUGHT: W1 empty Greenhouse response accepted as zero new
+    FAILED tests/test_loop.py::test_W1_suspect_empty_on_a_known_board_is_not_zero_new
+CAUGHT: W1 count-inconsistent response accepted (meta.total check removed; review patch)
+    FAILED tests/test_aditya_total_mismatch.py::test_inconsistent_total_does_not_succeed_or_change_state
+CAUGHT: W1 non-object meta accepted (review revision removed)
+    FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[None]
+CAUGHT: W2 failed board omitted from the exit decision
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W3 HTTP budget checked so that a ninth attempt is sent
+    FAILED tests/test_loop.py::test_W3_http_budget_is_checked_before_each_first_attempt
+CAUGHT: W3 model budget checked so that an eleventh call starts
+    FAILED tests/test_loop.py::test_W3_tenth_model_call_allowed_eleventh_never_starts
+CAUGHT: W4 a 404 is retried
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W4 retry attempts not counted
+    FAILED tests/test_loop.py::test_W4_transient_failure_retried_once_after_wait_and_counted[first0]
+CAUGHT: W5 string-prefix containment admits a sibling
+    FAILED tests/test_boundary.py::test_b11_sibling_prefix_refused - Failed: DID ...
+CAUGHT: W6 containment ignores symlinks (both resolve() and the post-mkdir re-check removed)
+    FAILED tests/test_boundary.py::test_b12_symlink_escape_refused - Failed: DID ...
+CAUGHT: W7 substring host match admits a deceptive host
+    FAILED tests/test_boundary.py::test_b04_deceptive_suffix_refused - Failed: DI...
+CAUGHT: W8 redirect followed before policy enforcement
+    FAILED tests/test_boundary.py::test_b07_redirect_refused_destination_never_contacted
+CAUGHT: W9 state shared across boards
+    FAILED tests/test_loop.py::test_first_run_baselines_every_board_and_finishes
+CAUGHT: W10 unvalidated judgment marked completed
+    FAILED tests/test_loop.py::test_W10_invalid_judgment_stays_pending_then_completes_later
+CAUGHT: W10 failed board's state advanced (erased)
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W11 export grants its own approval (writes the record itself, bypassing policy)
+    FAILED tests/test_boundary.py::test_b16_export_without_approval_refused - Ass...
+CAUGHT: W11 approval bound only to the run id
+    FAILED tests/test_boundary.py::test_b17_export_with_mismatched_approval_refused[sha256-0000000000000000000000000000000000000000000000000000000000000000]
+CAUGHT: W12 non-finished run exits 0
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+[exit status: 0]

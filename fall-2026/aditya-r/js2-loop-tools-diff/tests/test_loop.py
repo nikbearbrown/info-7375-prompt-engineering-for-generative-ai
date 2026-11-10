@@ -111,6 +111,14 @@ def test_W3_lowered_http_budget_blocks_the_retry_and_reports_exhaustion(tmp_path
     assert rep["boards"][1]["status"] == "failed" and rep["boards"][1]["budget"] == "http_attempts"
 
 
+def test_W3_http_budget_is_checked_before_each_first_attempt(tmp_path):
+    root = make_root(tmp_path, [board("greenhouse", "alpha"), board("greenhouse", "beta")])
+    t = Transport({A: [(200, gh_body(RELEVANT))], B: [(200, gh_body(RELEVANT))]})
+    code, rep, _ = run(root, t, limits={"http_attempts": 1})
+    assert t.calls == [A] and code == 4
+    assert rep["boards"][1]["status"] == "unattempted" and rep["boards"][1]["budget"] == "http_attempts"
+
+
 def _many_new(tmp_path, n):
     root = make_root(tmp_path, [board("greenhouse", "alpha")])
     run(root, Transport({A: [(200, gh_body(RELEVANT))]}))
