@@ -13,7 +13,9 @@
 //   2 delta           expectedNew = rawUniqueIds \ preRunSeenIds, against the claim
 //   3 state integrity persisted ids are valid non-null strings; post = pre ∪ raw for a
 //                     success, post = pre for a failure; first observation count check
-// Exit 0 if every rule passes, 1 if any fails, 2 for a usage or evidence error.
+// A trace with no board observations never passes: it prints NO OBSERVATIONS (run
+// status: <status>) and exits 1. Exit 0 if every rule passes for every trace, 1 if any
+// rule fails or a run observed nothing, 2 for a usage or evidence error.
 import { readFileSync, realpathSync } from 'node:fs';
 import { join, dirname, resolve, relative, isAbsolute, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -147,8 +149,26 @@ export function checkTrace(tracePath, { root = PROJECT_ROOT } = {}) {
 
     out.boards.push({ board: b.board, system: b.system, disposition: b.disposition, rules, pass: rules.every(r => r.pass) });
   }
-  out.pass = out.boards.every(b => b.pass);
+  // A run that observed no board proves nothing: it never passes.
+  out.runStatus = events.find(e => e.event === 'run_end')?.status ?? null;
+  out.observations = out.boards.length;
+  out.pass = out.observations > 0 && out.boards.every(b => b.pass);
   return out;
+}
+
+export function formatResult(r, tracePath) {
+  const lines = [`# ${r.run} (mode: ${r.mode}) — ${tracePath}`];
+  for (const b of r.boards) {
+    for (const x of b.rules) lines.push(`${b.board} rule ${x.rule}: ${x.pass ? 'PASS' : 'FAIL'} — ${x.detail}`);
+  }
+  if (r.observations === 0) lines.push(`${r.run}: NO OBSERVATIONS (run status: ${r.runStatus ?? 'unknown'})`);
+  else lines.push(`${r.run}: ${r.pass ? 'PASS' : 'FAIL'}`);
+  return lines;
+}
+
+// 0 only if every trace passed; a FAIL or a run with no observations gives 1.
+export function exitCodeFor(results) {
+  return results.length > 0 && results.every(r => r.pass) ? 0 : 1;
 }
 
 function main() {
@@ -160,21 +180,17 @@ function main() {
     return 2;
   }
   if (!traces?.length) { console.error('usage: node src/check.mjs --trace out/traces/<run>.jsonl [--trace ...]'); return 2; }
-  let allPass = true;
+  const results = [];
   for (const t of traces) {
     let r;
     try { r = checkTrace(resolve(process.cwd(), t)); } catch (e) {
       console.error(`${t}: evidence error: ${e.message}`);
       return 2;
     }
-    console.log(`# ${r.run} (mode: ${r.mode}) — ${t}`);
-    for (const b of r.boards) {
-      for (const x of b.rules) console.log(`${b.board} rule ${x.rule}: ${x.pass ? 'PASS' : 'FAIL'} — ${x.detail}`);
-    }
-    console.log(`${r.run}: ${r.pass ? 'PASS' : 'FAIL'}`);
-    allPass &&= r.pass;
+    for (const line of formatResult(r, t)) console.log(line);
+    results.push(r);
   }
-  return allPass ? 0 : 1;
+  return exitCodeFor(results);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

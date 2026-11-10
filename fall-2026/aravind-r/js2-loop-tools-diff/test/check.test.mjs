@@ -8,7 +8,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { checkTrace, canonicalRawId, validPersistedId } from '../src/check.mjs';
+import { checkTrace, canonicalRawId, validPersistedId, formatResult, exitCodeFor } from '../src/check.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const UUIDS = ['2a55d6c9-c564-443a-be3e-a3851db5a93b', '7d1c1e0e-1111-4c2a-9a55-0f0e5a7b9c01', 'b3f0a7d2-2222-4e3b-8f66-1a2b3c4d5e6f'];
@@ -141,4 +141,36 @@ test('CLI with no --trace is a usage error, exit 2', () => {
   const r = spawnSync(process.execPath, [join(ROOT, 'src/check.mjs')], { encoding: 'utf8' });
   assert.equal(r.status, 2);
   assert.match(r.stderr, /usage/);
+});
+
+// A run that ended before observing any board (the shape of 20261110T215039252Z-prefix-lever-replay).
+function noObservationTrace(status = 'error', exitCode = 12) {
+  const root = mkdtempSync(join(tmpdir(), 'js2-check-'));
+  mkdirSync(join(root, 'out/traces'), { recursive: true });
+  const trace = 'out/traces/r0.jsonl';
+  writeFileSync(join(root, trace), [
+    { event: 'run_start', run: 'r0', mode: 'replay' },
+    { event: 'config', run: 'r0' },
+    { event: 'run_end', run: 'r0', status, exit_code: exitCode, reason: 'refused: --replay : replay file not under out/raw/' },
+  ].map(e => JSON.stringify(e)).join('\n') + '\n');
+  return { root, trace };
+}
+
+test('a run with no observations does not pass: NO OBSERVATIONS (run status: error), non-passing exit', () => {
+  const { root, trace } = noObservationTrace();
+  const r = checkTrace(trace, { root });
+  assert.equal(r.boards.length, 0);
+  assert.equal(r.pass, false, 'zero observations is not a pass');
+  assert.equal(r.runStatus, 'error', 'run status read from the trace run_end event');
+  const lines = formatResult(r, trace);
+  assert.ok(lines.includes('r0: NO OBSERVATIONS (run status: error)'), lines.join('\n'));
+  assert.ok(!lines.some(l => /\bPASS\b/.test(l)), lines.join('\n'));
+  assert.equal(exitCodeFor([r]), 1);
+  assert.equal(exitCodeFor([checkTrace(fixture({ raw: lv(UUIDS), pre: null, post: UUIDS, claim: UUIDS }).trace, { root: fixture({ raw: lv(UUIDS), pre: null, post: UUIDS, claim: UUIDS }).root })]), 0);
+});
+
+test('a passing run and a no-observation run together still exit non-passing', () => {
+  const ok = fixture({ raw: lv(UUIDS), pre: null, post: UUIDS, claim: UUIDS });
+  const none = noObservationTrace();
+  assert.equal(exitCodeFor([checkTrace(ok.trace, { root: ok.root }), checkTrace(none.trace, { root: none.root })]), 1);
 });
