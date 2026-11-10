@@ -66,8 +66,10 @@ def path_exists(data, path):
     for key in keys:
         nxt = []
         for node in level:
-            if key.isdigit():
-                if isinstance(node, list) and int(key) < len(node):
+            # an index only applies to a list, and only "0", "1", ... (ASCII,
+            # no leading zeros); on a dict, "2025" is an ordinary key
+            if isinstance(node, list) and re.fullmatch(r"0|[1-9][0-9]*", key):
+                if int(key) < len(node):
                     nxt.append(node[int(key)])
                 continue
             items = node if isinstance(node, list) else [node]
