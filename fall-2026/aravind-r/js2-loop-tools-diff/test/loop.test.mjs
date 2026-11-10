@@ -54,6 +54,9 @@ async function run(root, argv, fetchImpl, now = () => T) {
 }
 const board = (r, id) => r.boards.find(b => b.board === id);
 const json = (root, p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
+// GATE.md: ids compare as exact strings. Pre-patch state.mjs stores Greenhouse ids as
+// numbers and the patch stores decimal strings, so these tests hold under both.
+const strs = ids => ids.map(String);
 const normal = () => router({ stripe: res(200, gh([1, 2])), airbnb: res(200, gh([10])), spotify: res(200, lv(UUIDS)), 'no-such-board-js2': NOT_FOUND });
 
 test('normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10', async () => {
@@ -72,7 +75,7 @@ test('normal four-board run: three observed, the 404 recorded as an error (not 0
   assert.ok(!existsSync(join(root, 'out/state/gh-broken.json')), 'a failed board writes no state');
   assert.ok(!r.lines.some(l => /gh-broken.*0 (jobs|new)/.test(l)));
   assert.equal(board(r, 'gh-stripe').disposition, 'observed');
-  assert.deepEqual(board(r, 'gh-stripe').new_ids, [1, 2], 'first run: every id is new (S_before is empty)');
+  assert.deepEqual(strs(board(r, 'gh-stripe').new_ids), ['1', '2'], 'first run: every id is new (S_before is empty)');
   assert.equal(board(r, 'lv-spotify').new_count, 3);
   assert.equal(r.ev('request').length, 4);
   for (const q of r.ev('request')) assert.ok(existsSync(join(root, q.raw_path)), `raw body saved: ${q.raw_path}`);
@@ -168,9 +171,9 @@ test('pre-run and post-run state snapshots are saved read-only for the checker',
   await run(root, ['--config', 'boards.json', '--label', 'a'], router({ stripe: res(200, gh([1])) }));
   const r = await run(root, ['--config', 'boards.json', '--label', 'b'], router({ stripe: res(200, gh([1, 2])) }));
   const b = board(r, 'gh-stripe');
-  assert.deepEqual(json(root, b.state_before).ids, [1]);
-  assert.deepEqual(json(root, b.state_after).ids, [1, 2]);
-  assert.deepEqual(b.new_ids, [2]);
+  assert.deepEqual(strs(json(root, b.state_before).ids), ['1']);
+  assert.deepEqual(strs(json(root, b.state_after).ids), ['1', '2']);
+  assert.deepEqual(strs(b.new_ids), ['2']);
   assert.throws(() => writeFileSync(join(root, b.state_before), 'x'), /EACCES|EPERM/);
 });
 
