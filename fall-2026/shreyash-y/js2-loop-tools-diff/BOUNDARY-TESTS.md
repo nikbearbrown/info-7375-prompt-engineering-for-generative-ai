@@ -25,7 +25,7 @@
 | 19 | Read inside the folder | read `GATE.md` | allowed | reads are allowed in the folder | as predicted |
 | 20 | Read outside the folder | read `~/.ssh/config` | refused: read outside folder | | as predicted |
 | 21 | Symlink that stays inside runs/ (added 2026-11-10 after review) | write `runs/alias.json`, a symlink to a not-yet-existing `runs/r1/target.json` | refused: symlink, and no file appears at the target | the real path is inside runs/ and the target does not exist yet, so only the explicit no-symlink rule can stop the write through the link | as predicted (`evidence/boundary-row21-run-2026-11-10.txt`) |
-| 22 | Nested symlinks (added 2026-11-10 after a second review) | write `runs/hop1/x.json`, where `runs/hop1` links to `runs/hop2` and `runs/hop2` links to a folder outside | refused: outside runs/, and nothing appears outside | each link on its own looks like it stays in runs/; only following the whole chain shows the real path is outside | |
+| 22 | Nested symlinks (added 2026-11-10 after a second review) | write `runs/hop1/x.json`, where `runs/hop1` links to `runs/hop2` and `runs/hop2` links to a folder outside | refused: outside runs/, and nothing appears outside | each link on its own looks like it stays in runs/; only following the whole chain shows the real path is outside | as predicted (`evidence/boundary-row22-run-2026-11-10.txt`) |
 
 ### BOUNDARY-21: an internal dangling symlink (added 2026-11-10, after review)
 
@@ -40,5 +40,10 @@
   - **On the unchanged code:** DENY, as predicted (`evidence/boundary-row21-run-2026-11-10.txt`, recorded in `119bdb7`).
   - **Evidence that the test can fail:** with the no-symlink line deleted in a scratch copy, row 21 fails and is the only test that does (`evidence/mutation-check-2026-11-09.txt`, second part). Before row 21 existed, the same deletion left every test green.
   - **The link-unchanged assertions** were added at review, after the first run. The file's sha256 in `tests.frozen.sha256` was updated, and the new run is in the same evidence file.
+
+### What these 22 rows do not cover
+
+- **The gap between checking a path and writing it** (a time-of-check/time-of-use race). `Files.write` resolves and checks the path, then opens it. If another process swapped a folder for a symlink in between, the write could follow it. No test covers this. Closing it properly means opening with `O_NOFOLLOW` relative to an already-opened `runs/` directory, which was not built. The agent is the only writer in `runs/` during a run, but that is an assumption, not something enforced.
+- **Hard links.** A hard link inside `runs/` to a file outside is not detected.
 
 **What row 11 does and does not prove** (written 2026-11-09, before row 21 existed). It passes because the resolved real path is outside `runs/`. The separate "never write through a symlink" line in `Files._writable` is not what makes it pass: deleting that line in a scratch copy left every test green (`evidence/mutation-check-2026-11-09.txt`). That line is a second layer that no test exercises on its own. **Closed on 2026-11-10 by row 21** (`tests/test_policy_symlink.py`), which only that line can pass: with it deleted, row 21 now fails (`evidence/mutation-check-2026-11-09.txt`, second part).

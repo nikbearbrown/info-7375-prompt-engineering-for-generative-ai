@@ -17,7 +17,7 @@ Run every command from this folder.
 | Loop: 6 boards on 3 systems, budgets, exits, a record of every observation | [TRACE.md](TRACE.md), `runs/*/trace.jsonl` | `python3 -m unittest tests.test_loop -v` |
 | Deliberate failure handled without inventing a value | TRACE.md, run 1 lines 14–19 | `sed -n 14,19p runs/20261110T002501Z/trace.jsonl` |
 | Finished wrong answer caught by an independent check | TRACE.md, last section | `python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED` |
-| Permission policy in code, 21 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink -v` |
+| Permission policy in code, 22 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink tests.test_policy_nested_symlink -v` |
 | Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md), opening with my own reading of the diffs | `git log --oneline 6f4ae08^..ba0a5b0` |
 | Sign-off and driver's seat | the end of this README | — |
 | All tests; the 12 frozen test and fixture files match their recorded hashes (two disclosed changes) | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
@@ -45,7 +45,7 @@ git clone -b shreyash-y/js2-loop-tools-diff https://github.com/shreyashyadav1/in
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/shreyash-y/js2-loop-tools-diff
 ```
 
-All tests, offline (94):
+All tests, offline (95):
 
 ```bash
 python3 -m unittest discover -s tests -t . -v
@@ -95,6 +95,11 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 | 2026-11-10 | Boundary row 21 (after review): a symlink inside runs/ to a new file inside runs/ | as predicted; with the no-symlink line deleted it now fails, which closes the mutation-check gap | `evidence/boundary-row21-run-2026-11-10.txt` |
 | 2026-11-09 19:26–19:45 | Review packet: rule v2, three revisions | rev 1 revise, rev 2 rejected on reading, rev 3 accepted with known limitations | [REVIEW-PACKET.md](REVIEW-PACKET.md) |
 
+## Known limitations of the loop and the permission policy
+
+- **The time budget can be overrun by one request.** The 120-second limit is checked before each request, but a request already in flight may take up to its own 20-second timeout. A run could therefore end at about 140 s. It is bounded, but it is not a strict wall-clock deadline. The live runs took 3.4–7.8 s.
+- **Check, then write.** The path is resolved and checked, then opened. A folder swapped for a symlink in between could be followed. This is not tested and not closed (BOUNDARY-TESTS.md, "What these 22 rows do not cover"). Hard links are not detected either.
+
 ## Known limitations of the filtering rule
 
 The rule is **not** correct in general. Rule v2 revision 3 was accepted with these open, and they stay open:
@@ -139,7 +144,8 @@ Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py
               - Permission policy in code: tests/test_policy.py, 20 cases predicted in
                 BOUNDARY-TESTS.md before policy.py existed, 20 of 20 as predicted; row 21
                 (tests/test_policy_symlink.py, added after review) covers the no-symlink line,
-                which the mutation check had shown no test covered.
+                which the mutation check had shown no test covered; row 22 covers a chain of
+                symlinks (tests/test_policy_nested_symlink.py).
               - Six real new postings in live run 3, judged in the loop and recounted from the raw
                 files (evidence/run3-recount-2026-11-10.txt).
               - A finished wrong answer caught by a check that does not use the agent's code:
@@ -157,6 +163,9 @@ Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all N
                 department should count as engineering for Palantir only (review/19), but that
                 reading is not built or tested.
               - A real timeout or 5xx: retries were only exercised with constructed responses.
+              - The 120 s budget as a strict deadline: a request in flight can run past it by up
+                to its 20 s timeout.
+              - The gap between checking a path and writing it, and hard links (not tested).
               - A real redirect: the redirect guard was tested on a constructed redirect only.
               - A partial Ashby or Lever response: the check can only catch truncation on
                 Greenhouse, which reports meta.total.
