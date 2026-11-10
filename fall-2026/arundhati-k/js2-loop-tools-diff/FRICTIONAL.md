@@ -85,6 +85,11 @@ edited. It also found that `.gitignore` had hidden the raw evidence from git (fr
 *Accepted / modified / rejected from Claude:* accepted the fixes.
 *Pointer:* `0c75774e`, `af1babf9`, `tests/test_gate_audit.py`, `evidence/logs/03-…`, `04-…`.
 
+*My words:*
+- This showed me that even when Claude generates code that looks correct, it can still miss requirements
+  documented in GATE.md. I learned that I need to compare the implementation against the actual requirements
+  and verify it with tests instead of assuming the code is correct.
+
 ## Unresolved
 
 *My words:*
