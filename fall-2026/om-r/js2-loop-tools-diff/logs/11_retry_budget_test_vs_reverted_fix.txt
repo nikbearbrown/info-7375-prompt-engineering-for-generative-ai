@@ -1,0 +1,63 @@
+# 2026-11-09T23:51:34Z  python3 -m unittest -v tests.test_loop_retry_budget   (SCRATCH COPY with the meter-delta fix reverted; expected to FAIL)
+# revert applied to agent/loop.py (diff: real -> scratch):
+#   --- real/agent/loop.py
+#   +++ reverted/agent/loop.py
+#   @@ -127,6 +127,9 @@
+#            except BoardFailed as e:
+#                e.attempts += requests
+#                raise
+#   +        except BudgetExhausted as e:
+#   +            e.board_requests = requests + getattr(e, "board_requests", 0)
+#   +            raise
+#            requests += n
+#            try:
+#                items, has_more = boards_mod.parse_page(board, raw)
+#   @@ -224,19 +227,17 @@
+#                    report["budget_hit"] = {"budget": "boards", "limit": budgets["max_boards"]}
+#                    report["not_attempted"] = runnable[i:]
+#                    break
+#   -            before = meter.requests
+#                try:
+#                    meter.check()
+#                    attempted += 1
+#                    raws, postings, n = _fetch_board(meter, b, sleep)
+#                except BudgetExhausted as e:
+#                    report["budget_hit"] = {"budget": e.budget, "limit": e.limit}
+#   -                board_requests = meter.requests - before
+#   -                if board_requests:
+#   +                if getattr(e, "board_requests", 0):
+#                        # Started but cut off mid-board (pagination or retry):
+#                        # partial data is discarded, state untouched.
+#                        report["boards"][b] = {"board_status": "interrupted", "new": [],
+#   -                                           "error": f"{e} after {board_requests} request(s) for this board; "
+#   +                                           "error": f"{e} after {e.board_requests} request(s) for this board; "
+#                                                        f"partial data discarded, state unchanged"}
+#                        report["not_attempted"] = runnable[i + 1:]
+#                    else:
+test_503_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_503_then_budget_hit_during_retry_is_interrupted) ... FAIL
+test_timeout_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_timeout_then_budget_hit_during_retry_is_interrupted) ... FAIL
+
+======================================================================
+FAIL: test_503_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_503_then_budget_hit_during_retry_is_interrupted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-omraut-Desktop-js2-loop-tools-diff/51b7281d-e06d-4a50-b41e-b86222381917/scratchpad/revert/tests/test_loop_retry_budget.py", line 75, in test_503_then_budget_hit_during_retry_is_interrupted
+    self._check(http_error(GITLAB_URL, 503, "Service Unavailable"))
+  File "/private/tmp/claude-501/-Users-omraut-Desktop-js2-loop-tools-diff/51b7281d-e06d-4a50-b41e-b86222381917/scratchpad/revert/tests/test_loop_retry_budget.py", line 53, in _check
+    self.assertIsNotNone(gitlab, "gitlab made 2 requests but is missing from the report's boards")
+AssertionError: unexpectedly None : gitlab made 2 requests but is missing from the report's boards
+
+======================================================================
+FAIL: test_timeout_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_timeout_then_budget_hit_during_retry_is_interrupted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-omraut-Desktop-js2-loop-tools-diff/51b7281d-e06d-4a50-b41e-b86222381917/scratchpad/revert/tests/test_loop_retry_budget.py", line 72, in test_timeout_then_budget_hit_during_retry_is_interrupted
+    self._check(socket.timeout("timed out"))
+  File "/private/tmp/claude-501/-Users-omraut-Desktop-js2-loop-tools-diff/51b7281d-e06d-4a50-b41e-b86222381917/scratchpad/revert/tests/test_loop_retry_budget.py", line 53, in _check
+    self.assertIsNotNone(gitlab, "gitlab made 2 requests but is missing from the report's boards")
+AssertionError: unexpectedly None : gitlab made 2 requests but is missing from the report's boards
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+FAILED (failures=2)

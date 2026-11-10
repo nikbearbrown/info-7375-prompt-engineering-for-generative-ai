@@ -1,0 +1,49 @@
+{
+  "started_at": "2026-11-09T23:26:31+00:00",
+  "exit": "finished",
+  "error": null,
+  "budgets": {
+    "max_boards": 5,
+    "max_requests": 15,
+    "max_seconds": 120
+  },
+  "budget_hit": null,
+  "requests_made": 6,
+  "elapsed_s": 5.752,
+  "boards": {
+    "gitlab": {
+      "board_status": "ok",
+      "error": null,
+      "baseline": false,
+      "new": [],
+      "postings_in_response": 251,
+      "evidence_files": [
+        "evidence/gitlab_20261109T232631Z.json"
+      ],
+      "requests": 1
+    },
+    "badslug-gitlab-typo": {
+      "board_status": "failed",
+      "new": [],
+      "error": "HTTPError: HTTP Error 404: Not Found",
+      "attempts": 1,
+      "retried": false
+    },
+    "palantir": {
+      "board_status": "ok",
+      "error": null,
+      "baseline": false,
+      "new": [],
+      "postings_in_response": 304,
+      "evidence_files": [
+        "evidence/palantir_20261109T232631Z_p0.json",
+        "evidence/palantir_20261109T232631Z_p1.json",
+        "evidence/palantir_20261109T232631Z_p2.json",
+        "evidence/palantir_20261109T232631Z_p3.json"
+      ],
+      "requests": 4
+    }
+  },
+  "not_attempted": [],
+  "duplicates_skipped": []
+}

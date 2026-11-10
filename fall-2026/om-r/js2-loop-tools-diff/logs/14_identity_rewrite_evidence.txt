@@ -1,0 +1,45 @@
+# 2026-11-09T23:52:32Z  identity-rewrite evidence (FRICTIONAL entry 4), run at HEAD 3076f5c
+
+## 1. Author/committer on every commit reachable from any ref
+$ git log --all --format='%ae %ce' | sort | uniq -c
+  18 raut.om@northeastern.edu raut.om@northeastern.edu
+
+## 2. The object search as originally written - BROKEN, kept for the record
+$ git rev-list --all --objects | git cat-file --batch | grep -aci gmail
+0
+# Why the 0 above means nothing: rev-list prints '<id> <path>' for trees and blobs,
+# and cat-file --batch takes the whole line as the object name, so it reports them
+# as missing and only the commit objects (bare ids) are actually read:
+$ git rev-list --all --objects | git cat-file --batch | grep -ac ' missing$'
+72
+$ git rev-list --all --objects | wc -l
+90
+# The same pipeline (with 2>/dev/null) was used for the check right after the rewrite,
+# so that check searched only the 12 commit objects, not all 59 objects as reported.
+
+## 3. Corrected object search: object ids only, every object read
+$ git rev-list --all --objects | cut -d' ' -f1 | git cat-file --batch | grep -ac ' missing$'
+0
+$ git rev-list --all --objects | cut -d' ' -f1 | git cat-file --batch | grep -aoiE '[a-z0-9._%+-]+@gmail\.com' | wc -l   (gmail ADDRESSES)
+0
+$ git rev-list --all --objects | cut -d' ' -f1 | git cat-file --batch | grep -aci gmail   (lines containing the WORD gmail)
+4
+# Objects containing the word, with their paths:
+#   4bd0fd7cfa2fa4bb9d13d482907b9ef9a882968c FRICTIONAL.md [blob]
+# Expected: FRICTIONAL.md describes the gmail incident in words (no address).
+
+## 4. No leftover pre-rewrite objects or refs
+$ git for-each-ref
+3076f5ce4c0ddab68cbcfd580f6076c61cf9b788 commit	refs/heads/main
+$ git count-objects -v | grep -E '^(count|in-pack)'   (the gc right after the rewrite packed 59 objects; loose ones were written after it)
+count: 34
+in-pack: 59
+$ git fsck --unreachable --no-reflogs | wc -l
+3
+# The 3 unreachable objects are from amending the FRICTIONAL.md commit, after the rewrite:
+#   commit 5d91baf (raut.om@northeastern.edu | raut.om@northeastern.edu, the pre-amend FRICTIONAL.md commit),
+#   its tree 488e46c, and its FRICTIONAL.md blob bb82ffc (0 gmail addresses).
+#   None is a pre-rewrite object.
+$ git config --local --get-regexp '^user\.'
+user.name Om Raut
+user.email raut.om@northeastern.edu

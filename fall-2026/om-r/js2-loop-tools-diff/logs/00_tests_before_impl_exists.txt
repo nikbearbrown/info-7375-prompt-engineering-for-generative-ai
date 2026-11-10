@@ -1,0 +1,24 @@
+# 2026-11-09T23:13:13Z  python3 -m unittest -v tests.test_wrong_versions   (agent/loop.py does not exist yet)
+test_wrong_versions (unittest.loader._FailedTest.test_wrong_versions) ... ERROR
+
+======================================================================
+ERROR: test_wrong_versions (unittest.loader._FailedTest.test_wrong_versions)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_wrong_versions
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_wrong_versions.py", line 32, in <module>
+    impl = importlib.import_module(os.environ.get("JS2_IMPL", "agent.loop"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'agent.loop'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

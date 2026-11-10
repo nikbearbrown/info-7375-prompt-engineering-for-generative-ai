@@ -1,0 +1,36 @@
+# 2026-11-10T00:05:20Z  python3 tools/count_drift_check.py evidence/stripe_20261109T232300Z.json evidence/stripe_SEEDED_empty_20261110T000450Z.json   (independent check; before = real baseline, after = SEEDED fixture)
+independent count check (standalone; not part of the loop)
+before:
+  evidence/stripe_20261109T232300Z.json
+    shape=greenhouse  postings=771  meta.total=771  sha256=b67667ba1220abb7
+after:
+  evidence/stripe_SEEDED_empty_20261110T000450Z.json  [SEEDED - constructed, NOT live data]
+    shape=greenhouse  postings=0  meta.total=0  sha256=981899822f761f87
+
+change: 771 -> 0  (100% drop)
+SUSPICIOUS: this board's total posting count dropped from 771 to 0 between runs. Investigate by hand (re-fetch, check the board's public page) before trusting the loop's '0 new' result for this run.
+# exit code: 1
+#
+# control: the same check on two REAL consecutive stripe responses
+# python3 tools/count_drift_check.py evidence/stripe_20261109T232300Z.json evidence/stripe_20261109T232313Z.json
+independent count check (standalone; not part of the loop)
+before:
+  evidence/stripe_20261109T232300Z.json
+    shape=greenhouse  postings=771  meta.total=771  sha256=b67667ba1220abb7
+after:
+  evidence/stripe_20261109T232313Z.json
+    shape=greenhouse  postings=771  meta.total=771  sha256=b67667ba1220abb7
+
+change: 771 -> 771  (0% drop)
+OK: count change within threshold
+# exit code: 0
+#
+# independence: references to the check from agent/ (expect none)
+# grep -rn count_drift agent/
+(no matches)
+# grep -n '^import\|^from' tools/count_drift_check.py
+14:import argparse
+15:import hashlib
+16:import json
+17:import sys
+18:from pathlib import Path
