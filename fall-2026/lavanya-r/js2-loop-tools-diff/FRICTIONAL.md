@@ -66,6 +66,12 @@ What went wrong or was surprising, honestly:
 - **Surprise:** right after that, the run stopped with **`budget_exhausted`** (727.6 s of 120), and listed Notion, Palantir, the bad board and the repeat as `not_visited`. GATE.md's seconds budget is "wall clock for the whole run", so my 12 minutes at the prompt counted. The loop followed my rule. Whether time waiting for me should count is a question I had not thought about when I picked the rule. **Not changed.**
 - So no live run ended `finished`. I am not re-running to get one before the deadline. `finished` is shown only by the tests.
 
+## 2026-11-10: history rewritten before the first push
+
+- Before anything was pushed, I had Claude rebuild my 17 unpushed JS2 commits to take out text I did not want published. The order, authors, dates and code are unchanged, and the tests pass the same.
+- Commit hashes changed. Every hash cited in these documents, in commit messages and in the `logs/` headers ("at commit …") was updated to the new one, so the citations still point at the right commits.
+- One small commit became empty and was dropped. My signature is its own commit, made by me, with no Claude co-author line.
+
 ## Unresolved
 
 - **"Fit" labels:** the JS1 feedback asked me to add postings I'd label "fit", so false negatives could be measured. Not done in JS2. Run 1 had 89 new Databricks postings, including several "Software Engineer - New Grad (2027 Start)" roles, which would be the place to start.
