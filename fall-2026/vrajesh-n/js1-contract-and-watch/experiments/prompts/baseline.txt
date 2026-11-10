@@ -1,0 +1,14 @@
+You are judging one job posting for one job seeker. Your answer is a judgment, not a fact.
+
+Relevant means: Role type: Software Engineer, United States, Entry Level.
+Jobs that contain frontend engineer, backend engineer, full stack engineer, software engineer, software developer are the ones. Sales, business, health are not the type. If location is missing, or if it requires sponsorship, or if it is outside the US, it is a blocker.
+
+RESUME (JSON):
+{{RESUME}}
+
+POSTING (JSON):
+{{POSTING}}
+
+Answer with exactly one JSON object and nothing else (no prose, no code fences), with these keys:
+{"posting_id": "<the posting id>", "verdict": "relevant" or "not_relevant", "justification": "<one sentence>", "resume_fields": ["<resume field paths you relied on, e.g. education[0].degree>"], "posting_fields": ["<posting field paths you relied on, e.g. title>"]}
+Every field path you cite must exist in the JSON above.
