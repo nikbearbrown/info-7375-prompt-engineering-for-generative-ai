@@ -1,7 +1,7 @@
 # The relevance rule (JS2)
 
 The rule is my JS1 rule (`../js1-contract-and-watch/CONTRACT.md`, "The rule", with amendments 1 and 2), carried
-over unchanged in commit `3109ccd`, plus two amendments made for JS2. It is applied only to **new** postings.
+over unchanged in commit `1de52d5`, plus two amendments made for JS2. It is applied only to **new** postings.
 A rule verdict is a **record**: anyone can recompute it by hand from the posting and the persona.
 
 A posting is **RELEVANT** only if all of these hold (all matching is case-insensitive and whole-word):
@@ -20,7 +20,7 @@ A posting is **RELEVANT** only if all of these hold (all matching is case-insens
 - **Decided by:** me, in chat, after the TA's JS1 feedback asked for it.
 - **Rule:** the title has the whole word `Intern` or `Internship` → NOT RELEVANT.
 - **Made by:** a Claude Code patch I reviewed and accepted. See `review/REVIEW_PACKET.md`.
-- **Test:** `tests/test_intern.py`, committed before the patch (`fdae00e`).
+- **Test:** `tests/test_intern.py`, committed before the patch (`b86c521`).
 
 ## Amendment 4 — full-time jobs only (2026-11-09)
 
@@ -36,7 +36,7 @@ A posting is **RELEVANT** only if all of these hold (all matching is case-insens
   Manager, Public Sector", 2026-11-09; it is also excluded as senior, so no verdict changed that day).
 - **Known gap:** Greenhouse gives no employment type, so a Greenhouse part-time job whose title doesn't say so is not caught.
 - **Made by:** Claude Code in my main session (not a separately reviewed patch). **Test:** `tests/test_fulltime.py`,
-  committed red before the change (`2eb2a7c`).
+  committed red before the change (`1baeee6`).
 
 ## Effect on the day-1 data (recomputed from the saved raw responses, 2026-11-09)
 

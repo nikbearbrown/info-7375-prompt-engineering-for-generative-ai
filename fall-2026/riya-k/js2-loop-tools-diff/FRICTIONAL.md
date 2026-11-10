@@ -7,7 +7,7 @@ them (obvious typos fixed). Claude added only the "What happened" facts, the dat
 
 **What happened:** Lectern's `ATS.md` (probed 2026-09-26) says Greenhouse `hubspot` returns a valid but empty board.
 Before GATE.md, Claude curled it: it returned **HTTP 404**. I moved the empty-board trap to SmartRecruiters `hubspot`
-(200, `totalFound: 0`), which still works. Recorded in GATE.md "Board facts" (`61c093d`) and SOURCES.md.
+(200, `totalFound: 0`), which still works. Recorded in GATE.md "Board facts" (`b085753`) and SOURCES.md.
 
 **In my words:** "no i didnt expect professors notes to be outdated. this taught me to cross check all the information before using it. If I hadn't, my demo would have used a board that just errors out."
 
@@ -17,7 +17,7 @@ Before GATE.md, Claude curled it: it returned **HTTP 404**. I moved the empty-bo
 The session's tool log shows it ran a Bash `grep "intern" tests/ *.md`, which read my test file, and tried two more Bash
 commands (a python write and the test run). Those two were refused only because a headless run cannot approve them.
 Its Edits to `rules.py` were allowed and expected. Evidence: `review/patch_session_tool_calls.md` rows 2, 3, 8;
-`permission_denials` in `review/claude_patch_response.json`; REVIEW_PACKET.md §3. Commit `8449968`.
+`permission_denials` in `review/claude_patch_response.json`; REVIEW_PACKET.md §3. Commit `74cc450`.
 
 **In my words:** "that really made me think about using a setting as it is and not checking it first, because there might
 be a difference between what we think the setting will do and what it actually does, just like how in this case it searched
@@ -39,7 +39,7 @@ already inside that folder, so it failed with `no such file or directory`. Claud
 
 **What happened:** the TA asked only for an Intern exclusion. I also asked to exclude co-op and part-time jobs, and agreed
 to count Contract and Temporary as not full-time. Claude kept that as a separate change (amendment 4) so the review
-packet stayed in scope: test committed red first (`2eb2a7c`), then the change (`295f3f5`). Checking the real day-1 data
+packet stayed in scope: test committed red first (`1baeee6`), then the change (`47455bf`). Checking the real day-1 data
 turned up Notion's "Outcomes Architect [Contract]" with `employmentType: FullTime`, so the rule excludes a posting if
 either the title or the field says it is not full-time (RULE.md, amendment 4).
 
@@ -67,8 +67,8 @@ so the retry has only been seen working in the tests (`test_timeout_retried_once
 
 **What happened:** before committing GATE.md I asked whether my four choices were correct and best practice, and before the
 boundary tests ran I asked whether so many "refuse" predictions were right. Claude explained why each choice fits the brief
-(and that the five "allow" rows prove a refuse-everything policy would fail), and I kept them. GATE.md `61c093d`,
-BOUNDARY.md `2b6071e`.
+(and that the five "allow" rows prove a refuse-everything policy would fail), and I kept them. GATE.md `b085753`,
+BOUNDARY.md `c52b46b`.
 
 **In my words:** "a little of everything, because i want it to be perfect but also in order to be perfect i dont want to miss
 out on basic things or basic practices as to how it is usually done and how i am doing"

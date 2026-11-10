@@ -38,7 +38,7 @@ The empty-board trap was also caught by the agent itself: SmartRecruiters `hubsp
 `{"totalFound":0,"content":[]}` (52 bytes), and the loop marked it `suspect_empty` instead of reporting "no new jobs".
 It was not baselined (no state file was written for it), so a later real board would not have every posting hidden as "seen".
 
-Note: this trace was written before commit `8286907`, so its policy entries have no `t` and show absolute paths.
+Note: this trace was written before commit `abefe11`, so its policy entries have no `t` and show absolute paths.
 I left it as it ran.
 
 ## 2. The finished-wrong-answer (DEMONSTRATION, run by me, 2026-11-09 20:57 UTC, live)

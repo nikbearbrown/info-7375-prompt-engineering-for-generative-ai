@@ -4,7 +4,7 @@
 
 | Source | Used for | Date |
 |---|---|---|
-| **My JS1 agent**, `../js1-contract-and-watch/` (final commit `3c098e1`) | `jsagent/rules.py`, `jsagent/contract.py`, `persona/arya-sahni.json` and the rule tests (`tests/test_rules.py`), copied **unchanged** in commit `3109ccd`; the Databricks state from my JS1 runs (last 2026-11-01), carried over with ids as strings | copied 2026-11-09 |
+| **My JS1 agent**, `../js1-contract-and-watch/` (final commit `3c098e1`) | `jsagent/rules.py`, `jsagent/contract.py`, `persona/arya-sahni.json` and the rule tests (`tests/test_rules.py`), copied **unchanged** in commit `1de52d5`; the Databricks state from my JS1 runs (last 2026-11-01), carried over with ids as strings | copied 2026-11-09 |
 | The instructor's **Lectern** `fall-2026/nik-bear-brown/lectern/ATS.md` | Board slugs and the two traps it documents: Greenhouse `hubspot` empty vs `hubspotjobs`, and SmartRecruiters returning 200 + `content: []` for a company it doesn't have. **No Lectern code was copied.** I re-probed both traps by hand. The Greenhouse one is out of date (see below) | read 2026-11-09 |
 | TA feedback on JS1 (Aravind Balaji, Canvas, 2026-11-09) | Two JS2 asks: add the Intern exclusion, and run the watch on two real calendar days | 2026-11-09 |
 | Public board APIs (no login, GET only): `boards-api.greenhouse.io`, `api.ashbyhq.com`, `api.smartrecruiters.com` | The boards | 2026-11-09 and 2026-11-10 |
@@ -20,7 +20,7 @@ empty-board demo. My probes are listed in GATE.md "Board facts".
   error policy (retry only temporary errors, once, after 2 s; never retry 4xx; flag empty boards), and which write needs my
   approval (removing seen ids). I chose these in chat on 2026-11-09. I asked whether they were best practice before
   committing. Claude wrote them up, and proposed the repeat rule, the exit wording and the list of wrong versions,
-  which I agreed to. GATE.md was committed alone, before any JS2 code (`61c093d`).
+  which I agreed to. GATE.md was committed alone, before any JS2 code (`b085753`).
 - **Reviewing the 17 boundary predictions** before the policy code existed. I questioned why so many were "refuse" and kept them.
 - **Rule amendment 3** (Intern, Internship only; Co-op and Apprentice left out on purpose) and **amendment 4** (full-time only:
   "i dont want to see coops and any tpye of part time jobs i just want full time jobs", plus Contract and Temporary).

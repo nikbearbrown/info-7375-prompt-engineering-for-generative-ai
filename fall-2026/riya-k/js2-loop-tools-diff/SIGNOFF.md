@@ -12,10 +12,10 @@ Drafted by Claude Code on 2026-11-09 and updated after the day-2 run. I read eve
 | Error policy: 404 never retried; timeout/5xx retried once after a real 2 s wait | `test_wrong_version_4_404_is_never_retried`, `test_timeout_retried_once_after_wait_then_succeeds`, `test_5xx_retried_at_most_once` | test; mutations 4a/4b caught |
 | Budgets: never an 11th request, never a 7th board, no request or retry after 60 s | `test_wrong_version_5_never_an_11th_request`, `test_seventh_board_never_runs`, `test_time_budget_stops_before_next_board`, `test_retry_not_started_if_wait_would_break_time_budget`, `test_config_cannot_raise_budget` | test; mutation 5 caught |
 | Repeat rule | `test_repeat_rule_blocks_second_identical_request`, `test_duplicate_board_in_config_read_once` | test |
-| Permission policy: 17 boundary cases | `tests/test_policy.py` B01–B17 | **predicted before the code** (`2b6071e`), 17/17 as predicted; mutations 6/7/8 caught |
+| Permission policy: 17 boundary cases | `tests/test_policy.py` B01–B17 | **predicted before the code** (`c52b46b`), 17/17 as predicted; mutations 6/7/8 caught |
 | The write that needs approval | B16, B17, `test_reset_refused_without_approve_then_allowed_with_it` | test + README command 8 |
-| Intern exclusion, incl. the real posting 6866538002, and no false hits on Internal/International/Internals | `tests/test_intern.py` | **test written before the patch** (`fdae00e`), I ran it red then green |
-| Full-time only | `tests/test_fulltime.py` | test committed red before the change (`2eb2a7c`) |
+| Intern exclusion, incl. the real posting 6866538002, and no false hits on Internal/International/Internals | `tests/test_intern.py` | **test written before the patch** (`b86c521`), I ran it red then green |
+| Full-time only | `tests/test_fulltime.py` | test committed red before the change (`1baeee6`) |
 | A finished wrong answer is caught | `tools/independent_check.py` on the naive run → CONTRADICTED | by recomputation from a second source (live, 2026-11-09) |
 
 **How:** every test above ran offline. Claude Code wrote the code and the tests (see SOURCES.md). I decided what the
@@ -52,8 +52,8 @@ and the mutation check myself. Claude's help: writing all code and tests; runnin
 
 | Part | What Claude should do | What I should do | Why that part stays mine | Evidence |
 |---|---|---|---|---|
-| **The loop** | Write the loop, the adapters, the budget and exit code, the trace, and the tests; replay seeded runs; point out traps it finds (stale Lectern note, empty-200) | Decide the exits, budgets, retry policy and approval rule **before** code; run the live runs; read the trace | A budget is a promise about how hard I hit someone else's server, and "finished" is a claim about what I'll rely on. Those are my commitments, and Claude would just pick defaults | GATE.md committed alone (`61c093d`) before code (`0cd07c7`); my chat answers 2026-11-09; my day-1 run output in TRACE.md §1 |
-| **The review** | Write the patch from a fixed prompt; extract what it actually did (diff, tool calls); explain the diff as behavior | Decide what the fix must and must not do (Intern/Internship only, whole-word); commit the test before the patch; run the tests myself; accept/revise/reject | The model that wrote the patch also read my test (its `grep`), so it cannot be the one that says it passes. And the rule decides which jobs my persona sees | `fdae00e` (test) before `6e69b42` (prompt) before `8449968` (patch); `patch_session_tool_calls.md` rows 2–3, 8; my decision quoted in REVIEW_PACKET.md §5 |
+| **The loop** | Write the loop, the adapters, the budget and exit code, the trace, and the tests; replay seeded runs; point out traps it finds (stale Lectern note, empty-200) | Decide the exits, budgets, retry policy and approval rule **before** code; run the live runs; read the trace | A budget is a promise about how hard I hit someone else's server, and "finished" is a claim about what I'll rely on. Those are my commitments, and Claude would just pick defaults | GATE.md committed alone (`b085753`) before code (`de967ec`); my chat answers 2026-11-09; my day-1 run output in TRACE.md §1 |
+| **The review** | Write the patch from a fixed prompt; extract what it actually did (diff, tool calls); explain the diff as behavior | Decide what the fix must and must not do (Intern/Internship only, whole-word); commit the test before the patch; run the tests myself; accept/revise/reject | The model that wrote the patch also read my test (its `grep`), so it cannot be the one that says it passes. And the rule decides which jobs my persona sees | `b86c521` (test) before `bac3c85` (prompt) before `74cc450` (patch); `patch_session_tool_calls.md` rows 2–3, 8; my decision quoted in REVIEW_PACKET.md §5 |
 
 ## Signed or withheld
 

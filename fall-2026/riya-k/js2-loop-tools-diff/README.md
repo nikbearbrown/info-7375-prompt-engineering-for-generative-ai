@@ -15,12 +15,12 @@ went through an evidence-based review (`review/`). It never applies, emails, mes
 
 | The brief asks for | Here |
 |---|---|
-| GATE.md (exits, budgets, repeat rule, error policy, permission policy, wrong versions) | `GATE.md`, commit `61c093d`, **before any JS2 code** |
+| GATE.md (exits, budgets, repeat rule, error policy, permission policy, wrong versions) | `GATE.md`, commit `b085753`, **before any JS2 code** |
 | The loop: ≥3 boards, ≥2 systems, budget, exit status, record of every observation | `jsagent/loop.py`, `jsagent/ats.py`, `boards.json`; each run writes a report and a `trace/*.jsonl` |
 | A board that fails on purpose, handled without inventing a value | `ashby:notarealco-js2` (404 → `failed`, `postings: null`): `TRACE.md` §1 |
 | Agent trace of one real run, including the deliberate failure | `runs/trace/20261109T203203Z-live-day1.jsonl`, annotated in `TRACE.md` §1 |
 | A finished wrong answer + the independent check that catches it | `TRACE.md` §2: naive run says `finished`; `tools/independent_check.py` says `CONTRADICTED` |
-| Permission policy in code + ≥10 predicted boundary cases | `jsagent/policy.py`; `BOUNDARY.md` (17 cases, predictions committed `2b6071e` before the code); `tests/test_policy.py` |
+| Permission policy in code + ≥10 predicted boundary cases | `jsagent/policy.py`; `BOUNDARY.md` (17 cases, predictions committed `c52b46b` before the code); `tests/test_policy.py` |
 | Review packet | `review/REVIEW_PACKET.md` (+ `patch_prompt.md`, `patch.diff`, `claude_patch_response.json`, `patch_session_tool_calls.md`) |
 | Sign-off and driver's seat | `SIGNOFF.md` |
 | Saved raw responses | `runs/raw/`, `runs/demo-naive/raw/`, `runs/demo-naive/checks/raw/` |

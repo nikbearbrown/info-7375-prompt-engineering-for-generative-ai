@@ -10,9 +10,9 @@ left out on purpose (see §6, "What the test would still miss").
 
 | Step | Commit | What |
 |---|---|---|
-| 1. Defect seen on a real posting | `2b7c83d` (raw response) | live run day 1, 2026-11-09 20:32 UTC; `runs/raw/greenhouse-databricks-20261109T203203Z-live-day1-a1.json` contains 6866538002 |
-| 2. Test written **before** the patch | `fdae00e` | `tests/test_intern.py`, `tests/fixtures/databricks-6866538002.json` (the real posting, copied unchanged), `review/reproduce.py` |
-| 3. Exact prompt committed **before** running it | `6e69b42` | `review/patch_prompt.md` |
+| 1. Defect seen on a real posting | `512ad66` (raw response) | live run day 1, 2026-11-09 20:32 UTC; `runs/raw/greenhouse-databricks-20261109T203203Z-live-day1-a1.json` contains 6866538002 |
+| 2. Test written **before** the patch | `b86c521` | `tests/test_intern.py`, `tests/fixtures/databricks-6866538002.json` (the real posting, copied unchanged), `review/reproduce.py` |
+| 3. Exact prompt committed **before** running it | `bac3c85` | `review/patch_prompt.md` |
 | 4. I ran the reproduce + red test | (no file change) | output below |
 | 5. Claude Code patched it (separate headless session) | this commit | `review/claude_patch_response.json` (raw response), `review/patch.diff`, `review/patch_session_tool_calls.md` |
 | 6. I ran the tests myself and decided | this commit | output and decision below |
@@ -60,7 +60,7 @@ that has no intern word (the 45 earlier tests and the mutation check still pass)
   under `permission_denials`. They were refused because a headless run cannot grant approval, **not** because of my
   flag. `--allowedTools` is a list of tools that get auto-approved, not a fence. To actually fence it, the flag would be
   `--disallowedTools Bash` (not tested yet).
-- **What that means for test-first:** the test was committed (`fdae00e`) before the patch ran, so it was not written to
+- **What that means for test-first:** the test was committed (`b86c521`) before the patch ran, so it was not written to
   fit the patch. But the patch was written by a model that had seen the test, so passing the test is weaker evidence than
   it would be for a blind patch. That is why the look-alike cases and the mutation check matter.
 - **Claude's own report:** it said "I haven't run the tests" (true; both attempts were refused) and claimed
