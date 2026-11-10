@@ -1,5 +1,11 @@
-"""check_verdicts passes on the real rule and fails on each wrong version."""
+"""Every wrong version must make the tests fail.
 
+JS1: check_verdicts passes on the real rule and fails on each wrong version.
+JS2: the JS2 suite passes on the real agent and fails on each of W1-W11
+from GATE.md section 6 (mutants in tests/mutants.py).
+"""
+
+import io
 import unittest
 
 import fixtures
@@ -42,6 +48,48 @@ class CheckerTests(unittest.TestCase):
             "posting_fields": ["posting.content"], "matched": True})
         problems = check_verdicts([posting], [verdict])
         self.assertTrue(any("disallowed field" in p for p in problems))
+
+
+# The JS2 suite the mutants are run against.
+JS2_SUITE = ("test_policy", "test_loop", "test_budgets_config",
+             "test_independent_check")
+
+
+def run_js2_suite():
+    suite = unittest.TestSuite(
+        unittest.defaultTestLoader.loadTestsFromName(name)
+        for name in JS2_SUITE)
+    result = unittest.TextTestRunner(stream=io.StringIO(),
+                                     verbosity=0).run(suite)
+    failed = {test.id().rsplit(".", 1)[-1]
+              for test, _ in result.failures + result.errors}
+    return result, failed
+
+
+class GateMutantTests(unittest.TestCase):
+    """GATE.md section 6: the JS2 suite fails on every wrong version."""
+
+    def test_js2_suite_passes_on_real_agent(self):
+        result, failed = run_js2_suite()
+        self.assertTrue(result.wasSuccessful(), sorted(failed))
+        self.assertGreater(result.testsRun, 0)
+
+    def test_every_gate_wrong_version_has_a_mutant(self):
+        names = {key.split("-")[0] for key in mutants.GATE_MUTANTS}
+        self.assertEqual(names, {f"W{i}" for i in range(1, 12)})
+
+    def test_js2_suite_fails_on_every_mutant(self):
+        for name, (mutant, must_fail) in mutants.GATE_MUTANTS.items():
+            with self.subTest(mutant=name):
+                with mutant():
+                    result, failed = run_js2_suite()
+                self.assertFalse(result.wasSuccessful(),
+                                 f"{name} survived the JS2 suite")
+                self.assertIn(must_fail, failed,
+                              f"{name}: failing tests were {sorted(failed)}")
+        # Every patch was undone: the real agent passes again.
+        result, failed = run_js2_suite()
+        self.assertTrue(result.wasSuccessful(), sorted(failed))
 
 
 if __name__ == "__main__":
