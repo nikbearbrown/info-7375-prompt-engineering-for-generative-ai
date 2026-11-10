@@ -9,8 +9,6 @@ together with the change.
 **Built on:** my JS1 watcher, which has an allow-listed Greenhouse fetch with redirect-hop checking, per-board state, rule judge R1–R5
 and an optional Claude judge. It also has the 2026-10-31 Samsara baseline (`baseline/2026-10-31/`, sha256s in `PROVENANCE.md`).
 
-> **TODO before committing:** fill in every `<…>` placeholder (the second ATS, its host, the board names) and remove this note.
-
 ## 0. What I checked before writing this
 
 | ID | Fact | How | Status |
@@ -18,8 +16,8 @@ and an optional Claude judge. It also has the 2026-10-31 Samsara baseline (`base
 | G1 | Greenhouse's list response has `meta.total`, and it equals the number of jobs (323 = 323) | Read the Oct 31 raw file | **Checked** offline, with Claude's help |
 | G2 | JS1's `check_url` accepts port `:8443` and `user:pw@` on an allowed host | Offline probe of `check_url` | **Checked** with Claude's help. Closed by P3 |
 | G3 | JS1 checks every redirect hop against the allow-list | Read `jsagent/fetch.py` (`AllowListRedirectHandler`) | **Checked by reading the code**. I have never seen a live redirect |
-| G4 | An unknown Greenhouse board returns 404 | — | **Expected, not checked.** The first run records what actually comes back |
-| G5 | `<second ATS>` returns descriptions in its list, and some error for an unknown board | — | **Expected, not checked** |
+| G4 | An unknown Greenhouse board returns 404 with `{"status":404,"error":"Job not found"}` | Read-only probe script, 2026-11-10 (not an agent run; raw not saved) | **Checked once**, with Claude's help. The agent's own run records it again as evidence |
+| G5 | Lever returns a **bare JSON array** (no `jobs` key, no total), descriptions included; an unknown board returns 404 with `{"ok":false,"error":"Document not found"}` | Same probe, 2026-11-10: `palantir` 200 with 304 postings; `does-not-exist-js2` 404 | **Checked once**, with Claude's help |
 | G6 | Samsara's new data-titled postings since Oct 31 fit within B2 | — | **Unknown.** B2 has margin, and running out is an allowed outcome (E1) |
 
 ## 1. Boards (the plan)
@@ -27,8 +25,8 @@ and an optional Claude judge. It also has the 2026-10-31 Samsara baseline (`base
 | # | Board | ATS | Host | Purpose |
 |---|---|---|---|---|
 | 1 | `samsara` | Greenhouse | `boards-api.greenhouse.io` | Real Day-2 run against the 2026-10-31 baseline |
-| 2 | `<greenhouse-board-2>` | Greenhouse | `boards-api.greenhouse.io` | Second Greenhouse board, baselined today |
-| 3 | `<board-3>` | `<Lever / Ashby>` | `<api.lever.co / api.ashbyhq.com>` | Second ATS, baselined today |
+| 2 | `databricks` | Greenhouse | `boards-api.greenhouse.io` | Second Greenhouse board (most data roles of those probed), baselined today |
+| 3 | `palantir` | Lever | `api.lever.co` | Second ATS, a different response shape (G5), baselined today |
 | 4 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | **Fails on purpose** (G4) |
 
 Only board 1 has an earlier day. The second run of boards 2–3 happens on the same day, and I will label it that way.
@@ -94,7 +92,7 @@ lowercase scheme and host, default port removed, trailing slash removed, query p
 | ER1 | Timeout, connection error, HTTP 502/503/504 | Retry at most **2** times, after 2 s and then 4 s | A read-only GET is safe to repeat, and these failures are usually temporary |
 | ER2 | HTTP 429 | If `Retry-After` ≤ 10 s and fits B3, wait and retry **once**. Otherwise the board fails | Respects the site's rate limit, and the budget still applies |
 | ER3 | HTTP 404 / other 4xx / unknown board | **No retry.** The board fails | Deterministic: a retry only spends budget |
-| ER4 | Empty body, invalid JSON, missing `jobs` key | **No retry.** The board fails and the raw bytes are saved | The bad response is the evidence, and I don't invent values from it |
+| ER4 | Empty body, invalid JSON, or not the provider's expected shape (Greenhouse: an object with a `jobs` list; Lever: a JSON array) | **No retry.** The board fails and the raw bytes are saved | The bad response is the evidence, and I don't invent values from it |
 | ER5 | HTTP 500 | Retry **once** | Can be temporary or permanent, so one try only |
 | ER6 | Valid `200` with `"jobs": []` | Recorded as observed. The loop takes no further action | Plausibility is the verifier's job, by design (V1) |
 | ER7 | Any P-rule violation | **Escalate:** stop now and exit `error`. Fetch nothing more and write nothing except the trace line and the run report | Permission rules are never retried around |
@@ -114,7 +112,7 @@ its rule ID.
 
 ### 6.1 Network
 
-- **P1.** Hosts must match exactly: `boards-api.greenhouse.io`, `<second ATS host>`. No substring, suffix or wildcard matching.
+- **P1.** Hosts must match exactly: `boards-api.greenhouse.io`, `api.lever.co`. No substring, suffix or wildcard matching.
 - **P2.** HTTPS only.
 - **P3.** The host is compared in lowercase. The URL is refused if it has a port other than 443, any userinfo (`user@` or
   `user:pw@`), an IP-address host, or a trailing-dot host. *(This closes G2.)*
@@ -217,7 +215,10 @@ fictional persona. `--no-claude` turns it off.
 - macOS's case-insensitive file system. My check refuses `OUT/…` rather than allowing it, which is safe but strict.
 - TLS and DNS are trusted to the system. There's no certificate pinning.
 - A valid but stale response from a cache or CDN.
-- Rate limits and terms changes for `<second ATS>` over time.
+- Rate limits and terms changes for Lever and Greenhouse over time.
+- Lever gives no total count, so V2(b) cannot check a Lever board for a truncated list. Only the recount and V2(d) apply there.
+- A real board can disappear: `plaid` returned 404 on Lever on 2026-11-10. ER3 treats that the same as a bad name, so the agent cannot
+  tell "moved to another ATS" from "typo."
 - Whether the relevance verdicts are accurate on the new boards, and how much the Claude judge varies between runs (in JS1, Samsara
   7922530 was judged relevant 6 times and not relevant 3 times).
 
@@ -226,3 +227,4 @@ fictional persona. `--no-claude` turns it off.
 | Date | Change | Reason |
 |---|---|---|
 | 2026-11-10 | v1, written before implementation | — |
+| 2026-11-10 | v1.1: second ATS = Lever (`api.lever.co`); boards 2–3 = `databricks` (Greenhouse), `palantir` (Lever). G4 and G5 checked. ER4 reworded for each provider's shape. Three §12 items added | A read-only probe of Lever, Ashby and Greenhouse boards. I chose Lever over Ashby because its bare-array response differs from Greenhouse's, which makes the adapter and ER4 meaningful. Ashby's `{"jobs": [...]}` is nearly the same shape |
