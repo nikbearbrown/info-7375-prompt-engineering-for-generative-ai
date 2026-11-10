@@ -48,7 +48,7 @@ I ran these three variants on November 9 to see which check blocks the P13 sibli
 | Variant | Temporary change | P13 result | Evidence |
 |---|---|---|---|
 | M1 | Used a string-prefix containment check and kept the parent real-path check. | Pass. The parent check blocked the write. | [Diff](test-runs/mutation-M1.diff) · [Output](test-runs/mutation-M1.txt) |
-| M2 | Used the string-prefix check and disabled the parent real-path check. | Fail. No `WriteDenied` was raised, and `out-evil/summary.json` contained `overwritten`. | [Diff](test-runs/mutation-M2.diff) · [Output](test-runs/mutation-M2.txt) |
+| M2 | Used the string-prefix check and disabled the parent real-path check. | Fail. The write was not refused (`DID NOT RAISE WriteDenied`). | [Diff](test-runs/mutation-M2.diff) · [Output](test-runs/mutation-M2.txt) |
 | M3 | Kept the original containment check and disabled the parent real-path check. | Pass. The containment check blocked the write. | [Diff](test-runs/mutation-M3.diff) · [Output](test-runs/mutation-M3.txt) |
 
 Either check was enough to stop this sibling write on its own. P13 checks the final denial, so it passes if either check still works.
