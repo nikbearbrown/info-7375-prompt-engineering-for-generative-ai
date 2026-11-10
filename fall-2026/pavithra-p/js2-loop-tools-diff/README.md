@@ -93,7 +93,7 @@ No run was seeded. The two wrong-version runs are labelled `WRONG-V3` in every f
 * `test_year_ranges.py` (4): my review-packet test.
 * `test_rule.py` (13) and `test_resume.py` (4): carried from JS1.
 
-During the build, one real bug turned up: on macOS a saved file's path (`/var/...` against `/private/var/...`) did not match the project folder, so the first trial stopped with `error`. The loop's catch-all reported it instead of hiding it, and it was fixed in `agent/loop.py`. No test was weakened to get a green result.
+During the build, one real bug turned up: the first test run had 20 failures, because in a macOS temporary folder a saved file's path (`/var/...`) did not match the resolved folder (`/private/var/...`), so the loop ended with `error`. The loop's catch-all reported it instead of hiding it, and it was fixed in `agent/loop.py`. No test was weakened to get a green result.
 
 ## Credits
 
