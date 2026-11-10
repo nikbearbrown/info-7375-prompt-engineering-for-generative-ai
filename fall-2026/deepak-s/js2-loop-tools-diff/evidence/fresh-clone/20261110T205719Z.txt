@@ -1,0 +1,34 @@
+Fresh-clone test, offline steps only (no live loop). Run by Claude Code (Claude Opus 5.5), 2026-11-10 15:57:20 EST.
+$ git clone --depth 1 file://<personal repo> /tmp/js2-fresh
+exit 0
+commit: d092939 js2: presubmit email check uses an exact allow-list for 7 known userinfo strings
+$ python3.15 -m venv .venv && .venv/bin/python -m pip install -q -r requirements.txt
+exit 0
+$ .venv/bin/python -m pytest -q -p no:cacheprovider
+445 passed in 3.28s
+exit 0
+$ .venv/bin/python -m jobwatch verify runs/20261110T200748Z
+verify runs/20261110T200748Z (independent check; reads raw bytes only)
+         greenhouse:stripe: verify counts 775; summary.json says 775; prior OK run: none
+         greenhouse:stripe-js2-nonexistent: FAILED (http_404), not counted
+         lever:lever: verify counts 6; summary.json says 6; prior OK run: none
+         ashby:linear: verify counts 33; summary.json says 33; prior OK run: none
+result: CLEAN (0 flag(s))
+exit 0
+$ .venv/bin/python -m jobwatch verify runs/20261110T200830Z
+verify runs/20261110T200830Z (independent check; reads raw bytes only)
+         greenhouse:stripe: verify counts 775; summary.json says 775; prior OK run: 20261110T200748Z (775)
+         lever:lever: verify counts 0; summary.json says 0; prior OK run: 20261110T200748Z (6)
+         ashby:linear: verify counts 33; summary.json says 33; prior OK run: 20261110T200748Z (33)
+SUSPECT  lever:lever: 6 postings in prior run 20261110T200748Z, 0 now
+result: FLAGGED (1 flag(s))
+exit 2
+$ .venv/bin/python -m jobwatch replay runs/20261110T200748Z
+replay runs/20261110T200748Z (offline; JS2 loop run, label live)
+  exit INCOMPLETE (3); matches
+exit 0
+$ .venv/bin/python -m jobwatch replay runs/20261110T200830Z
+replay runs/20261110T200830Z (offline; JS2 loop run, label live)
+  exit FINISHED (0); matches
+exit 0
+Not run: python -m jobwatch loop (live), to avoid 4 extra live GETs.
