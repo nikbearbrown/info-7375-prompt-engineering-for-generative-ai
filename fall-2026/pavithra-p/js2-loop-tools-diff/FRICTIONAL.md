@@ -2,7 +2,7 @@
 
 Pavithra Prasad · INFO 7375 · JS2 The Loop, the Tools, and the Diff
 
-Commits (`fall-2026/pavithra-p/js2-loop-tools-diff/`), oldest first: `034c127` my GATE draft · `72cc186` tightened GATE · `b1b415f` start from JS1 · `5d145ac` boundary predictions · `485e75f` loop, policy and tests · `3700113` run 1 and the demo · `a5fc261` my year-range test · `0ecb3d5` the fix · `9d3c595` review packet · `a18ab88` title fix · `99bd578` run 2 · `2382628` fixes from the strict review · `17f4e77` time-budget fix · `26ec385` empty-board flag · `898afe3` my predictions 19 to 23 · `c76fd5f` tests 19 to 23 · final commit: the hash in the Canvas submission.
+Commits (`fall-2026/pavithra-p/js2-loop-tools-diff/`), oldest first: `034c127` my GATE draft · `72cc186` tightened GATE · `b1b415f` start from JS1 · `5d145ac` boundary predictions · `485e75f` loop, policy and tests · `3700113` run 1 and the demo · `a5fc261` my year-range test · `0ecb3d5` the fix · `9d3c595` review packet · `a18ab88` title fix · `99bd578` run 2 · `2382628` fixes from the strict review · `17f4e77` time-budget fix · `26ec385` empty-board flag · `898afe3` my predictions 19 to 23 · `c76fd5f` tests 19 to 23 · `b7e474b` run 3 · final commit: the hash in the Canvas submission.
 
 My main prompts and inputs to Claude Code (quotation marks show my exact words; the rest is summarised):
 
@@ -38,7 +38,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 
 ## 2026-11-10: The review packet
 
-- My four cases went in before the fix, and two failed on the old rule (`a5fc261`).
+- My JS1 TA asked for a test on the year-range reading where my record and Claude disagreed ("2–12+ years"). My four cases went in first, in `tests/test_year_ranges.py`, and two failed on the old rule (`a5fc261`).
 - Claude Code made the change I asked for in one file, `agent/rule.py` (`0ecb3d5`), and I ran the review commands myself (`evidence/review/6-commands-i-ran.txt`).
 - Claude Code pointed out that "2 to 4 years" and "3 yrs" are still misread. I kept the fix to what I asked for.
 - Writing the four expected cases before the fix turned my intended behavior into a testable contract. Two cases failed on the old rule, which proved that the defect was real. After the narrow fix, my test passed 4 of 4 and all 68 tests passed. Six of 567 real jobs changed in their experience parsing, but none changed their final relevance verdict. I accepted the fix because the evidence matched the requested scope.
@@ -64,7 +64,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 
 ## 2026-11-10: Run 3, on the final code
 
-- `incomplete` again, and 2 new Spotify jobs had appeared since run 2. The check recomputed them from run 2's saved raw files and passed.
+- `incomplete` again, and 2 new Spotify jobs had appeared since run 2. The check recomputed them from run 2's saved raw files and passed (`b7e474b`, `runs/20261110T154407Z/`).
 
 ## What is unresolved
 
