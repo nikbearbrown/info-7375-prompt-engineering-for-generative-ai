@@ -24,7 +24,7 @@ empty-board demo. My probes are listed in GATE.md "Board facts".
 - **Reviewing the 17 boundary predictions** before the policy code existed. I questioned why so many were "refuse" and kept them.
 - **Rule amendment 3** (Intern, Internship only; Co-op and Apprentice left out on purpose) and **amendment 4** (full-time only:
   "i dont want to see coops and any tpye of part time jobs i just want full time jobs", plus Contract and Temporary).
-- **Commands I ran myself:** live run day 1, [TODO after 2026-11-10 run: live run day 2,] the reproduce script and red test, the Claude Code patch
+- **Commands I ran myself:** live run day 1 (2026-11-09), live run day 2 (2026-11-10), the reproduce script and red test, the Claude Code patch
   command, the post-patch test and mutation run, and the finished-wrong-answer demo with its independent check.
   Their output is quoted in TRACE.md and review/REVIEW_PACKET.md as it appeared in my terminal.
 - **The review decision** on Claude's patch (accept), in my own words.

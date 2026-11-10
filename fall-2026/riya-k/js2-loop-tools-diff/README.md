@@ -78,7 +78,7 @@ Exit codes of `jsagent.loop run`: 0 finished · 3 incomplete · 4 budget_exhaust
 | Live day 1 | 2026-11-09 20:32 | me | **live** | incomplete | Databricks 80 new since 2026-11-01; 3 boards baseline; 404 board failed; hubspot suspect_empty. Run **before** amendments 3–4 |
 | Finished-wrong-answer | 2026-11-09 20:57 | me | **live, demonstration** (`--no-empty-guard`) | finished (wrong) | independent check: CONTRADICTED, hubspotjobs has 126 postings |
 | Seeded 4 boards | 2026-11-09 20:53 | Claude Code | **seeded** (day-1 responses replayed) | finished | shows the `finished` exit |
-| Live day 2 | 2026-11-10 (TODO) | me | **live** | | the TA's "two real calendar days" |
+| Live day 2 | 2026-11-10 19:45 | me | **live** | incomplete | the TA's "two real calendar days": new since day 1: Databricks 10, Anthropic 12, OpenAI 26, Notion 3; 1 relevant; a Notion intern posting excluded by amendments 3–4; Databricks took 34 s (`TRACE.md` §4) |
 
 Not submitted: a smoke run Claude made into a scratch folder at 20:27 UTC, before my day-1 run, to check that the code worked.
 
@@ -89,7 +89,7 @@ Not submitted: a smoke run Claude made into a scratch folder at 20:27 UTC, befor
 | `GATE.md` | exits, budgets, repeat rule, error and permission policy, wrong versions (my decisions) |
 | `RULE.md` | the relevance rule: JS1 rule + amendment 3 (no internships) + amendment 4 (full-time only) |
 | `BOUNDARY.md` | 17 boundary cases, predicted before the code, with what was observed |
-| `TRACE.md` | annotated runs: deliberate failure, finished-wrong-answer + independent check, seeded finished |
+| `TRACE.md` | annotated runs: deliberate failure, finished-wrong-answer + independent check, seeded finished, live day 2 |
 | `jsagent/loop.py` | the loop, budgets, repeat rule, error policy, exits, reports, `reset` |
 | `jsagent/policy.py` | host/method/scheme/credential checks; read/write/approval checks on real paths |
 | `jsagent/ats.py` | Greenhouse, Ashby, SmartRecruiters URL + parser into one posting shape |
