@@ -1,10 +1,11 @@
-# check_run.py at commit 9ab582c, run 2026-11-10T21:41:23Z
+# check_run.py at commit c47736c, run 2026-11-10T21:47:05Z
 Independent check of run demo-B-WRONG-VERSION-W5-linear-empty (the loop said: finished)
   PASS  raw_sha256                               3 raw responses match the trace
   PASS  independent_count                        every ok board's count matches my own count of its raw response
   FAIL  finished_needs_postings_on_every_board   ashby/linear has 0 postings in its raw response
   FAIL  no_drop_to_zero                          ashby/linear reported ok with 0 postings (last good run had 33)
   PASS  new_ids_recomputed                       every ok board's new ids match a recomputation from the earlier raw responses
+  PASS  gone_recomputed                          every ok board's gone count matches its last good run's raw response (or is unknown)
   PASS  budgets_and_hosts                        3 requests, all to GATE.md hosts, within budget
   PASS  boards_match_config                      the record's boards are config/boards.json's, and each was fetched or truly a repeat
   PASS  exit_consistent                          exit finished agrees with the boards and the trace
