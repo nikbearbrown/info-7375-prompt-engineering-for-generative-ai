@@ -92,30 +92,37 @@ class Policy:
     def check_read(self, path):
         for folder in READ_FOLDERS:
             if is_inside(os.path.join(self.root, folder), path):
-                return allow("read inside %s/" % folder, str(path))
-        return refuse("read outside config/, persona/, jobs/ and fixtures/ of this folder", str(path))
+                return allow("read inside %s/" % folder, self.show(path))
+        return refuse("read outside config/, persona/, jobs/ and fixtures/ of this folder", self.show(path))
 
     def check_write(self, path, kind="new", board=None, drops_ids=False):
         if kind == "state":
             if not is_inside(self.state, path):
-                return refuse("state files are written in jobs/state/ only", str(path))
+                return refuse("state files are written in jobs/state/ only", self.show(path))
             if drops_ids:
                 if (board or "").lower() in self.approvals:
-                    return allow("state reset approved for %s by --approve-state-reset" % board, str(path))
+                    return allow("state reset approved for %s by --approve-state-reset" % board, self.show(path))
                 return Decision("needs_approval", "this write drops seen ids for %s: a reset needs "
-                                "--approve-state-reset %s" % (board, board), str(path))
-            return allow("state update that keeps every seen id", str(path))
+                                "--approve-state-reset %s" % (board, board), self.show(path))
+            return allow("state update that keeps every seen id", self.show(path))
         if not is_inside(self.jobs, path):
-            return refuse("writes go inside jobs/ only", str(path))
+            return refuse("writes go inside jobs/ only", self.show(path))
         if kind == "append":
             if os.path.realpath(path) in self.created:
-                return allow("append to a file this run created", str(path))
-            return refuse("append only to a file this run created", str(path))
+                return allow("append to a file this run created", self.show(path))
+            return refuse("append only to a file this run created", self.show(path))
         if kind == "new":
             if os.path.lexists(path):
-                return refuse("file exists: evidence is written once", str(path))
-            return allow("new file inside jobs/", str(path))
-        return refuse("unknown write kind %r" % kind, str(path))
+                return refuse("file exists: evidence is written once", self.show(path))
+            return allow("new file inside jobs/", self.show(path))
+        return refuse("unknown write kind %r" % kind, self.show(path))
+
+    def show(self, path):
+        """How a decision names a file: relative to this folder, so no absolute path (with my username) is written."""
+        absolute = os.path.abspath(path)
+        if os.path.commonpath([self.root, absolute]) == self.root:
+            return os.path.relpath(absolute, self.root).replace(os.sep, "/")
+        return "(outside this folder)/" + os.path.basename(absolute)
 
     def note_created(self, path):
         self.created.add(os.path.realpath(path))
