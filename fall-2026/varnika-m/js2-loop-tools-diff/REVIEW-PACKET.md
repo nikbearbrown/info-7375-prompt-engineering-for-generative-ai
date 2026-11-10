@@ -51,6 +51,7 @@ It does **not** fix the slow headers case (section 5). That is outside what I as
 | after the patch, at `91bfbda` | `python3 -m unittest discover -s tests -t .` | `Ran 96 tests … OK` |
 | after the patch | `git diff 8ddfec0 91bfbda -- agent/tools.py` | read the diff (section 2) |
 | after the patch (HEAD `a852e45`) | `python3 -m agent.loop`: live run 2, `2026-11-10T214509Z` | `exit incomplete`. All three real boards `ok` over **HTTPS** through the patched code, which the test does not cover. The deliberate 404 was not retried ([review/6-after-patch-varnika-run.txt](review/6-after-patch-varnika-run.txt)). This run's Anthropic `gone: 78` is wrong, from a separate bug (REVIEW-FINDINGS.md row 7b), not from this patch |
+| after the revision (HEAD `9ef76bd`) | `python3 -m unittest tests.test_transport_socket_guard -v` | 3 tests OK, 0.019 s ([review/8-revision-guard-varnika-run.txt](review/8-revision-guard-varnika-run.txt)) |
 
 **Run by Claude Code** (outputs saved in `review/`):
 
@@ -94,7 +95,7 @@ Also not exercised by the test: HTTPS. The test server is plain HTTP on `127.0.0
 2. The same for an error response (`404`, which comes wrapped in an `HTTPError`).
 3. It checks the check itself: a response whose `fp.raw` has no `_sock` must make the guard **fail** with "`_sock` is missing on this Python", and must not pass. It also shows what the code would do in that case (`_socket_of()` returns `None` and carries on), which is the silent fallback this test now makes loud.
 
-Claude Code ran it on Python 3.9.6: 3 tests OK, and the full suite 109/109 OK ([review/7-revision-guard-claude-run.txt](review/7-revision-guard-claude-run.txt)).
+Claude Code ran it on Python 3.9.6: 3 tests OK, and the full suite 109/109 OK ([review/7-revision-guard-claude-run.txt](review/7-revision-guard-claude-run.txt)). **I ran it myself** after the revision: 3 tests OK ([review/8-revision-guard-varnika-run.txt](review/8-revision-guard-varnika-run.txt)).
 
 **What the revision does not do:** it does not make the code itself stop when `_sock` is missing. On such a Python, requests would still run with the weaker timeout until someone runs the tests. It also does not cover an HTTPS socket, because the local test server is plain HTTP.
 
