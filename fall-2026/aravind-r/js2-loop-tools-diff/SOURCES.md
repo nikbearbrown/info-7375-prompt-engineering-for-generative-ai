@@ -27,22 +27,22 @@ Claude Code ran in the Claude desktop app (model `claude-opus-5-5`). It wrote th
 | `test/policy.test.mjs` | `49c6066e`, `7ec7cccb`, `93b5130b` | one test per boundary row (rows 1–41, then 42–43), a check that each prediction matches the table, a check that `LIMITS` match GATE.md |
 | `tools/mutate-policy.mjs` | `f7a59255`, `2e8a21b1`, `85657387`, `f39a7b8e` | the mutation check: 19 broken copies of `policy.mjs`, run against the policy, loop and wrong-version tests |
 | `test/no-direct-fetch.test.mjs` | `dfe31a11` | fails if a file in `src/` other than `policy.mjs` calls `fetch(` |
-| `src/providers/greenhouse.mjs`, `src/providers/lever.mjs` | `56f98d82`, `85657387` | the two providers: URL, observe through the policy session, parse |
-| `test/providers.test.mjs` | `56f98d82` | provider URL, timeout and parse tests |
+| `src/providers/greenhouse.mjs`, `src/providers/lever.mjs` | `56f98d82`, `85657387`, `42c9bc52` | the two providers: URL, observe through the policy session, parse; a repeated id makes the response malformed |
+| `test/providers.test.mjs` | `56f98d82`, `42c9bc52` | provider URL, timeout and parse tests, including duplicate ids |
 | `boards.json` | `7bd428b6` | the four boards from GATE.md |
-| `src/loop.mjs` | `3057a332`, `85657387`, `e871e90d`, `377fd51c` | the loop: CLI, exits and exit codes, budgets, error policy, state snapshots, `out/failures.json`, `--replay`, the append-only trace |
-| `test/loop.test.mjs` | `3057a332`, `647e5633`, `677b54a8`, `85657387`, `e871e90d`, `377fd51c` | loop tests, including rows 38–41 as zero-network loop runs, timeout tests on an injected clock, trace order, replay and `failures.json`, the `saveState` error |
+| `src/loop.mjs` | `3057a332`, `85657387`, `e871e90d`, `377fd51c`, `1e698443` | the loop: CLI, exits and exit codes, budgets, error policy, state snapshots, `out/failures.json`, `--replay`, the append-only trace |
+| `test/loop.test.mjs` | `3057a332`, `647e5633`, `677b54a8`, `85657387`, `e871e90d`, `377fd51c`, `42c9bc52`, `ea5e0198` | loop tests, including rows 38–41 as zero-network loop runs, timeout tests on an injected clock, trace order, replay and `failures.json`, the `saveState` error, duplicate raw ids, snapshot permission bits |
 | `src/check.mjs` | `8f14fcd2`, `41029237`, `15ae4789` | the independent checker (rules 1–3), the no-observations result, positive Greenhouse ids |
 | `test/check.test.mjs` | `8f14fcd2`, `41029237`, `15ae4789` | checker tests on hand-built `out/` trees |
 | `test/wrong-versions.test.mjs` | `b9adc1db` | loop-level tests for GATE.md wrong versions 6, 7, 8, 9, 11, 12, 15, 17 and 19 |
 | `configs/lv-spotify-only.json` | `c7a87cf0` | the single-board config for the finished-wrong demonstration |
 | `test/state-regression.test.mjs` | `17c9225a` (committed by me) | the five-case regression test, to my specification (cases, fixture values, error code) |
 | `src/state.mjs` (the patch) | `c04d1ecf` (committed by me) | the id fix and its two revisions (see `REVIEW.md`) |
-| `README.md`, `REVIEW.md`, `SOURCES.md`, `TRACE.md`, and the "Actual result" column of `test/boundary-cases.md` | not yet committed when drafted | drafted from the commits, traces and `evidence/` files they cite |
+| `README.md`, `REVIEW.md`, `SOURCES.md`, `TRACE.md`, and the "Actual result" column of `test/boundary-cases.md` | `88c3358e`, `634489f9` (committed by me); later `SOURCES.md` corrections by Claude Code | drafted from the commits, traces and `evidence/` files they cite |
 
-Claude Code also made unsaved HTTP checks of the four boards with `curl` on 2026-11-10 (200 for `stripe`, `airbnb`, `spotify`; 404 for `no-such-board-js2`), which GATE.md cites in "Starting point and boards". It ran the checker on saved traces while drafting `REVIEW.md` and `TRACE.md`; that output is quoted in those files.
+Claude Code also made unsaved HTTP checks of the four boards with `curl` on 2026-11-10 (200 for `stripe`, `airbnb`, `spotify`; 404 for `no-such-board-js2`), which GATE.md cites in "Starting point and boards". It also ran the checker on saved traces while drafting `REVIEW.md` and `TRACE.md`, but the checker output those files quote is from my own runs, saved as `evidence/check-pre-fix.txt` and `evidence/check-post-patch.txt` (`88c3358e`).
 
-Commits I made (not Claude Code): `ce33fd8d`, `aedc7034`, `359ee568`, `b0bc86f9`, `4c7ab6b2`, `4b1336cf`, `17c9225a`, `3aae3352`, `a0dc494a`, `c04d1ecf`, `0310af25`, `c4f9b555`, `0326b046`. I also ran every live and replay run in `out/traces/`. Claude Code made no live run of the loop.
+Commits I made (not Claude Code): `ce33fd8d`, `aedc7034`, `359ee568`, `b0bc86f9`, `4c7ab6b2`, `4b1336cf`, `17c9225a`, `3aae3352`, `a0dc494a`, `c04d1ecf`, `0310af25`, `c4f9b555`, `0326b046`, `88c3358e`, `634489f9`. I also ran every live and replay run in `out/traces/`. Claude Code made no live run of the loop.
 
 ## Drafted in Claude chat
 
