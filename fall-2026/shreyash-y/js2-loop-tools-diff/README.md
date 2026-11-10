@@ -9,9 +9,9 @@
 
 ## Summary, in my own words
 
-*Shreyash writes this section; Claude Code does not.*
+*Shreyash's words, typed into the session on 2026-11-09. Claude Code did not change them.*
 
-> _To be written by Shreyash: what the loop does, what the live run and the seeded demo showed, what the review packet taught you, and what you would still not trust._
+The loop checks job postings across four boards using Greenhouse, Ashby, and Lever, and records whether each board worked, failed, or returned an empty list. If a board fails, it records the problem instead of making up job counts or saying everything finished successfully. Both live runs ended as `incomplete`, with the 404 attempted only once, WHOOP correctly flagged as empty, and 0 new postings found. In the finished-wrong demo, the agent reported `finished` even though it only received 20 Oscar postings out of 199, and the independent check caught the missing results using `meta.total`. The review packet showed me that passing tests doesn't always mean the code is correct, because revision 1 passed all 84 tests but still incorrectly treated perks as job requirements in 16 postings. I rejected revision 1 and accepted revision 3 after 93 tests passed, the perk issue was fixed, and 19 out of 20 results matched my hand labels. I still don't fully trust how the rule handles remote location tags, especially the Physician Reviewer case, or whether partial Ashby and Lever responses would always be detected.
 
 ## Language and toolchain
 
