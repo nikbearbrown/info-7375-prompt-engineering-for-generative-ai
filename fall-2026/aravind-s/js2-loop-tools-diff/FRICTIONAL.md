@@ -36,3 +36,9 @@ Evidence: the plugin decision (`8ca0d4b`); my predictions (`21f33b7`) and the bo
 - **What's next for tomorrow:** Packaging the repository, ensuring the zip matches the GitHub folder exactly, and completing the final submission.
 
 Evidence: my run and my check (`b490e1c`; MY-CHECKS.md, 4:07 PM and 4:12 PM); the fixes I approved after reading the diff (`487ab4c`, `2695e78`); the README and SOURCES I approved (`65703fe`).
+
+## Monday 11/9, later: publishing
+
+I decided to publish tonight instead of waiting until Tuesday so the project and course snapshot would be available. Before publishing, the 36 new commits were checked for private information, and none was found. My agent repo is now pushed, the course snapshot is committed and PR #41 is open. The remaining work is to create the final ZIP, verify that it exactly matches the GitHub folder, and upload it to Canvas.
+
+Evidence: the privacy scan of the 36 commits (Claude Code, before the push); this repo pushed at `5580d43`; the course snapshot `586a0f4` on my fork's branch `js2-loop-tools-diff`; [PR #41](https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai/pull/41).
