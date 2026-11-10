@@ -45,3 +45,8 @@ Still missed by my tests: whitespace-only ids, and no UUID format check.
 
 ## Entry 10 — November 10, 2026: Removed the two empty state files by hand
 Run 1 (before the string-id fix) wrote state for lever:palantir and ashby:openai with seen_ids: [], because every id was dropped. After the fix, the next live run would have reported all ~1,130 postings on those boards as new. An approved reset wouldn't help, since it also writes seen_ids: []. I removed both files myself with `git rm`, so their next run is a fresh baseline. GATE.md forbids the agent from deleting files; this was my own action, done in a separate commit so it is visible. Glean's state was kept.
+
+## Entry 11 — November 10, 2026: Real run #2 (live), real new postings found
+Ran live at 1:12 PM EST (out/runs/2026-11-10T131257/; evidence/run2_terminal_2026-11-10.txt). Status incomplete, agent exit code 1, this time checked properly without tee. 4 requests.
+Glean: compared with run 1's state, 125 postings, 2 new:Designated Technical Support Engineer; Designated Technical Support Engineer. This is the first time my agent detected a real new posting on live data, which JS1 never did.
+Palantir: fresh baseline, 304/304 ids usable. OpenAI: fresh baseline, 829/829 usable (826 at 10:25 AM). Bad board: failed, bad_board, HTTP 404, postings null.
