@@ -2,6 +2,8 @@
 
     python3 -m agent.loop                 live run (network, allow-list only)
     python3 -m agent.loop --replay DIR    SEEDED run from saved responses
+    python3 -m agent.loop --boards FILE   boards from FILE instead of
+                                          config/boards.json (same checks)
 
 Each step of the loop is observe -> decide -> act -> record, and the loop
 stops on one of four exits (GATE section 1):
@@ -157,10 +159,11 @@ class Runner:
 
     def __init__(self, root=policy.ROOT, transport=None, replay_dir=None,
                  clock=time.monotonic, sleep=time.sleep, run_id=None,
-                 mode=None):
+                 mode=None, boards_file=BOARDS_CONFIG):
         self.root = Path(root)
         self.transport = transport
         self.replay_dir = replay_dir
+        self.boards_file = Path(boards_file)
         self.mode = mode or (SEEDED if replay_dir is not None else LIVE)
         self.clock = clock
         self.sleep = sleep
@@ -223,7 +226,8 @@ class Runner:
         self.budgets = data
 
     def _load_boards(self):
-        data = self._read_json(BOARDS_CONFIG, "config")
+        # Read through the policy: outside data/, config/, out/ is refused.
+        data = self._read_json(self.boards_file, "config")
         boards = data.get("boards") if isinstance(data, dict) else None
         if not isinstance(boards, list) or not boards:
             raise RunError("config_invalid",
@@ -312,7 +316,8 @@ class Runner:
                                f"{exc.__class__.__name__}") from None
         if self.transport is None:
             raise RunError("no_transport")
-        self.trace.write("startup", budgets=self.budgets,
+        self.trace.write("startup", boards_file=str(self.boards_file),
+                         budgets=self.budgets,
                          boards=[b["name"] for b in self.boards],
                          state_dir=str(self.state_dir),
                          replay_dir=None if self.replay_dir is None
@@ -589,6 +594,7 @@ class Runner:
                       "boards_started": len(self.boards_started),
                       "elapsed_seconds": round(self.elapsed(), 3),
                       "claude_calls": 0},
+            "boards_file": str(self.boards_file),
             "state_dir": str(self.state_dir),
             "replay_dir": None if self.replay_dir is None
             else str(self.replay_dir),
@@ -661,7 +667,8 @@ class Runner:
             self.exit, self.error = ERROR, f"trace_unwritable: {exc}"
             return self.exit
         self.trace = Trace(handle, self.run_id, self.mode, self.elapsed)
-        self.trace.write("run_start", mode=self.mode)
+        self.trace.write("run_start", mode=self.mode,
+                         boards_file=str(self.boards_file))
         try:
             self._startup()
             while True:
@@ -733,6 +740,7 @@ def render_report(summary):
 
     lines += ["## Result", "",
               f"- Exit: **{summary['exit']}** (code {summary['exit_code']})",
+              f"- Boards file: `{summary['boards_file']}`",
               f"- {OWN_REPORT_NOTE} Independent check: "
               f"`python3 -m checks.independent_check "
               f"out/runs/{summary['run_id']}`",
@@ -797,6 +805,11 @@ def build_parser():
     parser.add_argument("--replay", metavar="DIR", type=Path,
                         help="serve saved responses from DIR instead of the "
                              "network; the run is labeled SEEDED")
+    parser.add_argument("--boards", metavar="FILE", type=Path,
+                        default=BOARDS_CONFIG,
+                        help="boards config to use (default: "
+                             "config/boards.json); read through the policy "
+                             "and validated exactly like the default")
     return parser
 
 
@@ -806,7 +819,8 @@ def main(argv=None, root=policy.ROOT, transport=None, clock=time.monotonic,
     if args.replay is None and transport is None:
         transport = transport_mod.UrllibTransport()
     runner = Runner(root=root, transport=transport, replay_dir=args.replay,
-                    clock=clock, sleep=sleep, run_id=run_id)
+                    clock=clock, sleep=sleep, run_id=run_id,
+                    boards_file=args.boards)
     exit_name = runner.run()
     code = EXIT_CODES[exit_name]
     if exit_name == ERROR:

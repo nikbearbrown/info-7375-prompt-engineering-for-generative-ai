@@ -593,5 +593,113 @@ class AdapterTests(unittest.TestCase):
                 self.assertEqual(ctx.exception.code, "malformed_response")
 
 
+class BoardsOptionTests(LoopCase):
+    """--boards FILE: same checks as config/boards.json, before any request."""
+
+    def run_main(self, root, argv, fake):
+        import contextlib
+        import io
+        clock = h.FakeClock()
+        with contextlib.redirect_stdout(io.StringIO()), \
+                contextlib.redirect_stderr(io.StringIO()):
+            return loop.main(argv, root=root, transport=fake, clock=clock,
+                             sleep=clock.sleep, run_id="B1")
+
+    def write_boards(self, root, name, boards):
+        path = root / "config" / name
+        path.write_text(json.dumps({"boards": boards}))
+        return f"config/{name}"
+
+    def test_no_option_uses_config_boards_json(self):
+        root = self.root()
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, [], fake)
+        self.assertEqual(code, 1)  # the deliberate 404 board
+        s = h.summary(root, "B1")
+        self.assertEqual(s["boards_file"], "config/boards.json")
+        self.assertEqual([b["name"] for b in s["boards"]],
+                         [b["name"] for b in h.BOARDS])
+        self.assertEqual(len(fake.calls), 4)
+        startup = [t for t in h.trace(root, "B1") if t["kind"] == "startup"]
+        self.assertEqual(startup[0]["boards_file"], "config/boards.json")
+        self.assertIn("Boards file: `config/boards.json`",
+                      h.report(root, "B1"))
+
+    def test_boards_demo_3_runs_only_those_boards(self):
+        root = self.root()
+        real = h.ROOT / "config" / "boards_demo_3.json"
+        (root / "config" / "boards_demo_3.json").write_bytes(
+            real.read_bytes())
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, ["--boards", "config/boards_demo_3.json"],
+                             fake)
+        self.assertEqual(code, 0)
+        s = h.summary(root, "B1")
+        self.assertEqual([b["name"] for b in s["boards"]],
+                         ["scaleai", "databricks", "openai"])
+        self.assertEqual([c["url"] for c in fake.calls],
+                         [h.SCALE, h.DATABRICKS, h.OPENAI])
+        self.assertEqual(s["boards_file"], "config/boards_demo_3.json")
+        startup = [t for t in h.trace(root, "B1") if t["kind"] == "startup"]
+        self.assertEqual(startup[0]["boards_file"],
+                         "config/boards_demo_3.json")
+        self.assertIn("Boards file: `config/boards_demo_3.json`",
+                      h.report(root, "B1"))
+
+    def test_boards_demo_3_is_an_exact_subset_of_boards_json(self):
+        full = json.loads((h.ROOT / "config" / "boards.json").read_text())
+        demo = json.loads((h.ROOT / "config" / "boards_demo_3.json")
+                          .read_text())
+        wanted = ("scaleai", "databricks", "openai")
+        self.assertEqual(demo["boards"],
+                         [b for b in full["boards"] if b["name"] in wanted])
+
+    def test_boards_file_outside_readable_folders_exits_3(self):
+        root = self.root()
+        outside = self.tmp / "elsewhere.json"
+        outside.write_text(json.dumps({"boards": h.BOARDS[:1]}))
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, ["--boards", str(outside)], fake)
+        self.assertEqual(code, 3)
+        self.assertEqual(fake.calls, [])
+        self.only_trace_written(root, "B1")
+        end = h.trace(root, "B1")[-1]
+        self.assertIn("path_outside_read_area", end["reason"])
+
+    def test_boards_file_with_duplicate_board_exits_3(self):
+        root = self.root()
+        rel = self.write_boards(root, "dup.json",
+                                [h.BOARDS[0], h.BOARDS[2], h.BOARDS[0]])
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, ["--boards", rel], fake)
+        self.assertEqual(code, 3)
+        self.assertEqual(fake.calls, [])
+        self.only_trace_written(root, "B1")
+        self.assertIn("config_duplicate_board",
+                      h.trace(root, "B1")[-1]["reason"])
+
+    def test_boards_file_with_host_off_allowlist_exits_3(self):
+        root = self.root()
+        rel = self.write_boards(root, "evil.json", [
+            h.BOARDS[0],
+            {"name": "evil", "ats": "greenhouse",
+             "url": "https://boards-api.greenhouse.io.evil.com/v1/x"}])
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, ["--boards", rel], fake)
+        self.assertEqual(code, 3)
+        self.assertEqual(fake.calls, [])
+        self.only_trace_written(root, "B1")
+        self.assertIn("host_not_allowed", h.trace(root, "B1")[-1]["reason"])
+
+    def test_boards_file_over_max_boards_exits_3(self):
+        root = self.root(budgets=dict(h.BUDGETS, max_boards=2))
+        rel = self.write_boards(root, "three.json", h.BOARDS[:3])
+        fake = h.FakeTransport(h.default_script())
+        code = self.run_main(root, ["--boards", rel], fake)
+        self.assertEqual(code, 3)
+        self.assertEqual(fake.calls, [])
+        self.assertIn("config_too_many_boards",
+                      h.trace(root, "B1")[-1]["reason"])
+
 if __name__ == "__main__":
     unittest.main()
