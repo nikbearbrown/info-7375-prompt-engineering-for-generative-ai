@@ -20,14 +20,14 @@ My JS1 agent watched one board. This layer makes it a bounded loop: one run chec
 | `REVIEW-PACKET.md`, `evidence/review/` | the review of the one change I asked Claude Code to make |
 | `evidence/raw/` | every response body, saved before parsing |
 | `runs/state/seen_ids.json` | the state file: job IDs seen per board, and a log of the runs |
-| `CONTRACT-JS1.md` | my JS1 contract, for the relevance rule this agent still uses |
+| `CONTRACT-JS1.md` | my JS1 contract, copied unchanged for the relevance rule this agent still uses; the file paths inside it refer to the JS1 folder |
 | `SOURCES.md`, `FRICTIONAL.md` | what I used and what Claude contributed; my dated log |
 
 ## Toolchain
 
 * Python 3.13.1, standard library only. Nothing to install.
 * The loop makes no Claude call: each verdict comes from my written rule (a record). Claude Code 2.1.294 wrote most of the code and tests (`SOURCES.md`).
-* Tested on macOS (Darwin 25.5).
+* Tested on macOS (Darwin 25.5), and from a fresh clone of this branch: 69 tests passed and both real runs' checks passed again.
 
 ## The boards
 
@@ -59,7 +59,7 @@ python3 -m agent watch
 |---|---|
 | `python3 -m agent check runs/<run>` | the independent check: compares a run's report with its saved raw responses |
 | `python3 -m agent watch --wrong-version 3` | runs wrong version 3 (labelled `WRONG-V3`, its own state file) for the finished-wrong-answer demonstration |
-| `python3 evidence/review/compare_rule_versions.py` | the rule before and after the reviewed change, on every job of run 1 |
+| `python3 evidence/review/compare_rule_versions.py` | the rule before and after the reviewed change, on every job of run 1 (reads the old rule with `git show`, so run it from a clone) |
 
 ## What ran
 
