@@ -92,7 +92,7 @@ All 30 behaved as predicted, though B14 first passed for the wrong reason (see i
 1. The change: the real network code ignored its timeout on a slow body.
 2. Claude Code reproduced it, and the test was committed before the patch (`8ddfec0`). **I ran it myself, before the patch, and saw it fail.**
 3. The patch is `91bfbda`. I read the diff, ran the suite, and ran live run 2 on the patched code.
-4. **My decision: REVISE.** In my words: the test should fail immediately if the private `._sock` attribute is missing. That revision is `764c262`.
+4. **My decision: REVISE, then ACCEPT.** In my words: the test should fail immediately if the private `._sock` attribute is missing. That revision is `764c262`. I ran the guard test myself (3 OK) and accepted the revised patch, without claiming every timeout problem is fixed.
 5. One case the test still misses: slow **headers**, which held a 1-second request for 21 s.
 
 ### Other reviews ([REVIEW-FINDINGS.md](REVIEW-FINDINGS.md))
@@ -148,7 +148,7 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
   - I ran the suite after it (96 OK).
   - I read the diff.
   - I ran live run 2 myself.
-  - I made the REVISE decision.
+  - I made the REVISE decision, ran the revision's guard test (3 OK), and accepted the revised patch.
 - **By a test written before the code it tests:** the review test (`8ddfec0`) was committed before the patch (`91bfbda`), and every review-finding test before its fix (`7e09390`, `9a2179e`, `3e48c6c`). **Claude Code wrote these tests, not me.** I saw the review test fail on my machine before the patch.
 - **By recomputation:** `check_run.py` recomputes counts, new ids and gone from the raw bytes. Claude Code wrote it.
 - **With Claude's help:** everything else. Claude Code drafted GATE.md, which I kept unchanged ("ok"), and wrote all the code, tests, documents and runs 1 and 3. A separate Claude reviewer found 8 defects.
@@ -181,5 +181,5 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 | **The loop:** build and run | Write the code and tests; run live runs 1 and 3; reproduce bugs before fixing them | Run a live run myself (run 2); read the trace and reports | I am the one calling real companies' endpoints, under their terms | `3bd3518`; [review/6-after-patch-varnika-run.txt](review/6-after-patch-varnika-run.txt) |
 | **The loop:** escalations | Stop, mark the board, and tell me what to check (`not_found`: the name; `empty`: the public page) | Act on the escalation. For the deliberate board, the name is invented on purpose, so nothing to fix | The agent must not guess past a failure. A person decides what a failure means | the report line for `not_found` in each run |
 | **The review:** reproduce and test | Find the defect, write the test, commit it before the patch, write the patch | Run the failing test **myself** before the patch | A test only Claude ran proves Claude's claim; my run makes it my evidence | `8ddfec0` before `91bfbda`; [review/2-before-patch-varnika-run.txt](review/2-before-patch-varnika-run.txt) |
-| **The review:** decision | Lay out the evidence for and against; suggest an option when asked | Decide, in my words: **REVISE**, the test must fail at once if `._sock` is missing | Claude reviewing Claude's patch is not independent. Accepting code into my agent is my decision | REVIEW-PACKET.md section 6; `764c262` |
+| **The review:** decision | Lay out the evidence for and against; suggest an option when asked | Decide, in my words: **REVISE**, the test must fail at once if `._sock` is missing. Then, after running that test myself, **ACCEPT** | Claude reviewing Claude's patch is not independent. Accepting code into my agent is my decision | REVIEW-PACKET.md section 6; `764c262` |
 | **The review:** independent check and reviewer | Write `check_run.py`; start a separate reviewer; turn its findings into tests first | Decide the open GATE.md questions (8b, 8c), and decide whether to sign | The open findings are policy choices. My name is the one on the sign-off | REVIEW-FINDINGS.md; the sign-off above |
