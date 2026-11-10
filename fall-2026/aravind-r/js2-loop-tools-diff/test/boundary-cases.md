@@ -47,6 +47,8 @@ These are **predictions recorded before execution**, not observed test results. 
 | 39 | read | `--replay out/raw/../state/lv-spotify.json` | deny | Replay files must be located under `out/raw/`, not merely inside the project | Not run |
 | 40 | read | `--replay out/raw/escape.json` where `escape.json` is a symlink to a file outside `out/raw/` | deny | Check canonical/real target paths; fixture symlink created during test | Not run |
 | 41 | CLI | `--replay out/raw/missing.json` with a valid single-board config | deny | Missing replay file is a run `error`, exit 12; no fallback HTTP request | Not run |
+| 42 | net | GET `https://evilboards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | **Added 2026-11-10 after mutant `wv01-host-endsWith` survived** (no prior row tested a host ending in an allowed host). Exact match required. | Not run |
+| 43 | net | Stubbed HTTP 404 on an allow-listed board | deny retry | **Added 2026-11-10 after mutant `wv07-404-retried` survived.** Exactly one request; board `error: not found`. | Not run |
 
 ## Testing setup and interpretation
 

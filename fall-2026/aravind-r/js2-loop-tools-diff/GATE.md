@@ -198,5 +198,8 @@ These are **planned predictions**, not claims that the tests were run. Fill actu
 - **2026-11-10:** Require a single-use `--approve <path>` for guarded in-scope mutation; reject budget-raising CLI arguments.
 - **2026-11-10:** Honor bounded `Retry-After` values on 429, cap per-attempt timeout at remaining wall time, and persist consecutive attempted-run failures in `out/failures.json`.
 - **2026-11-10:** Define `--replay <path>` as offline, single-board raw-response processing limited to canonical paths under `out/raw/`; never fall back to a network request. Rule 3, not rule 2 alone, detects the corrupted pre-run Lever state.
+- **2026-11-10 (after first live runs):** A `--replay` run is not an attempted run; it leaves `out/failures.json` unchanged. Recorded after its code commit e871e90d.
+- **2026-11-10 (after first live runs):** Patched `src/state.mjs` normalizes legacy numeric Greenhouse ids to decimal strings on load (migration). Invalid Lever ids in persisted state (`null`, `0`, any non-UUID) are an integrity `error`; recovery requires an approved, guarded rewrite via `--approve`.
+- **2026-11-10 (after mutant check):** Boundary rows 42–43 added after mutants `wv01-host-endsWith` and `wv07-404-retried` survived; they are post-implementation tests, not original predictions.
 
 Behavior is verified only by the tests, traces, and reviewed diff listed in the sign-off.
