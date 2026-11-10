@@ -13,19 +13,29 @@ test or policy code existed. The "why" column is for my own words; blank means I
 
 | # | request | kind | I predict | why (my words) | result after run |
 |---|---|---|---|---|---|
-| 1 | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs` | network | **allow** | | |
-| 2 | GET `https://api.ashbyhq.com/posting-api/job-board/notion` | network | **allow** | | |
-| 3 | GET `https://www.linkedin.com/jobs/` | network | **refuse** | | |
-| 4 | GET `https://boards-api.greenhouse.io.evil.com/v1/boards/stripe/jobs` | network | **refuse** | | |
-| 5 | GET `http://boards-api.greenhouse.io/v1/boards/stripe/jobs` (http, not https) | network | **refuse** | | |
-| 6 | POST `https://boards-api.greenhouse.io/v1/boards/stripe/jobs/123` (an application) | network | **refuse** | | |
-| 7 | write `out/reports/run.md` | write | **allow** | | |
-| 8 | write `out/../GATE.md` | write | **refuse** | | |
-| 9 | write `out-evil/run.md` (a sibling folder whose name starts with `out`) | write | **refuse** | | |
-| 10 | write `out/link/x.json`, where `out/link` is a symlink to `/tmp` | write | **refuse** | | |
-| 11 | read `config/boards.json` | read | **allow** | | |
-| 12 | write `config/boards.json` | write | **allow** | | |
-| 13 | read `~/.ssh/id_rsa` (outside the folder) | read | **refuse** | | |
-| 14 | overwrite `out/state/seen.json` **without** `--approve-state-write` | write | **refuse** | | |
-| 15 | overwrite `out/state/seen.json` **with** `--approve-state-write` | write | **allow** | | |
-| 16 | write an absolute path `/tmp/x.json` | write | **refuse** | | |
+| 1 | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs` | network | **allow** | | allow ✓ |
+| 2 | GET `https://api.ashbyhq.com/posting-api/job-board/notion` | network | **allow** | | allow ✓ |
+| 3 | GET `https://www.linkedin.com/jobs/` | network | **refuse** | | refuse ✓ |
+| 4 | GET `https://boards-api.greenhouse.io.evil.com/v1/boards/stripe/jobs` | network | **refuse** | | refuse ✓ |
+| 5 | GET `http://boards-api.greenhouse.io/v1/boards/stripe/jobs` (http, not https) | network | **refuse** | | refuse ✓ |
+| 6 | POST `https://boards-api.greenhouse.io/v1/boards/stripe/jobs/123` (an application) | network | **refuse** | | refuse ✓ |
+| 7 | write `out/reports/run.md` | write | **allow** | | allow ✓ |
+| 8 | write `out/../GATE.md` | write | **refuse** | | refuse ✓ |
+| 9 | write `out-evil/run.md` (a sibling folder whose name starts with `out`) | write | **refuse** | | refuse ✓ |
+| 10 | write `out/link/x.json`, where `out/link` is a symlink to `/tmp` | write | **refuse** | | refuse ✓ |
+| 11 | read `config/boards.json` | read | **allow** | | allow ✓ |
+| 12 | write `config/boards.json` | write | **allow** | | refuse **≠ my prediction** |
+| 13 | read `~/.ssh/id_rsa` (outside the folder) | read | **refuse** | | refuse ✓ |
+| 14 | overwrite `out/state/seen.json` **without** `--approve-state-write` | write | **refuse** | | hold **≠ my prediction** |
+| 15 | overwrite `out/state/seen.json` **with** `--approve-state-write` | write | **allow** | | allow ✓ |
+| 16 | write an absolute path `/tmp/x.json` | write | **refuse** | | refuse ✓ |
+
+Results filled in by running `tests/test_policy.py::BoundaryCases.test_all_16_cases` (2026-11-10, commit `21db57c`
+onward; expected values come from GATE.md §5). 14 of my 16 predictions matched.
+Where I was wrong:
+- **#12** write `config/boards.json`: I predicted allow; the policy refuses it (writes only inside `out/`).
+- **#14** overwrite the state without the flag: I predicted refuse; the policy **holds** it (not written,
+  reported as `held-for-approval`). Seen in the real run: `evidence/run-live-1/report.md` says
+  "state write: held-for-approval".
+
+<!-- Your words: why do you think you predicted these two differently? Which one is the policy right about? -->
