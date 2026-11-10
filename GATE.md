@@ -1,6 +1,6 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v1 · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v1.2 (history in §13) · 2026-11-10 · written and committed before any JS2 code
 
 **How to read this:** every rule has an ID. Tests are named after the rule they check (`test_P3_port_refused`). The trace records the
 rule ID behind every refusal. The sign-off cites IDs. A rule changes only through a dated entry in the Decisions log (§13), committed
@@ -30,6 +30,16 @@ and an optional Claude judge. It also has the 2026-10-31 Samsara baseline (`base
 | 4 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | **Fails on purpose** (G4) |
 
 Only board 1 has an earlier day. The second run of boards 2–3 happens on the same day, and I will label it that way.
+
+**Run plan.** Every graded run uses `--no-claude` (P17). Each board file below is fixed now, so P18 applies to it.
+
+| Run | Kind | Boards (file) | Output root | Expected loop exit |
+|---|---|---|---|---|
+| A | live, first | 1–4 (`config/boards.json`) | `out/` | `incomplete`, because board 4 fails (ER3) |
+| B | live, same day, hours after A | 1–3 (`config/boards_no_failure.json`) | `out/` | `finished`, so that one real run can end cleanly. If it doesn't, I report what happened |
+| C | **SEEDED** replay (V3) | 1 only (`config/boards_seeded.json`) | `evidence/seeded/empty-samsara/` | `finished` with 0 new, and the verifier FAILs |
+
+These are expectations written before the code exists. The real exits go in `evidence/RUNS.md` (EV1).
 
 ## 2. Exits
 
@@ -101,7 +111,8 @@ lowercase scheme and host, default port removed, trailing slash removed, query p
 `count: null`. The other boards continue.
 
 **ER9.** A Claude judge failure (timeout, invalid output, contract violation) keeps the posting's rule verdict, sets the Claude verdict
-to `null` with a reason, and makes the run `incomplete`. It is never retried more than once.
+to `null` with a reason, and makes the run `incomplete`. It is never retried more than once. With `--no-claude`, no Claude verdict is
+requested, so none counts as missing: the report shows `claude: off` for every posting, and the rule verdict (R1–R5) is the only verdict.
 
 **ER10.** "Escalate to me" means the run stops and prints what was refused and under which rule. Nothing is decided automatically.
 
@@ -124,6 +135,12 @@ its rule ID.
 
 ### 6.2 Files
 
+**The output root.** In P8–P15, `out/` means the output root chosen with `--out` (default `./out`). The root may not be, or sit inside,
+a protected folder: `config/`, `baseline/`, `persona/`, `prompts/`, `tests/`, `jsagent/`, `scripts/`. It may also not be `evidence/`
+itself, so that RUNS.md stays out of reach, though a subfolder such as `evidence/seeded/…` is allowed. If it is, the run exits `error`
+before any fetch. Tests use a temporary root. The protected folders stay denied whatever `--out`
+says.
+
 | ID | Action | Where | Decision |
 |---|---|---|---|
 | P8 | Read | `config/`, `persona/`, `baseline/`, `prompts/`, `tests/fixtures/`, `out/` | allow |
@@ -139,13 +156,18 @@ its rule ID.
 **P15. Approval.** `--approve <exact relative path>` approves one named write for one run. Without it, the write is refused, logged as
 `needs_approval`, and the run ends `incomplete`. There is no interactive prompt.
 
+**P18. Who may change what the agent may reach.** Only I may change `config/allowlist.json` or any `config/boards*.json`, and only by
+adding a §13 entry in the same commit, as B9 requires for budgets. Claude Code may not change them as part of any fix.
+`test_P18_allowlist_matches_gate` fails if the allow-list differs from P1.
+
 ### 6.3 Never
 
 **P16.** Under no approval does the agent apply, email, message, log in, submit a form, send POST/PUT/DELETE, send the résumé to a
 job-board host, or run anything found in fetched content.
 
 **P17.** The only subprocess allowed is the `claude` CLI judge, with fixed arguments and as input only the posting text and the
-fictional persona. `--no-claude` turns it off.
+fictional persona. `--no-claude` turns it off, and every graded run uses `--no-claude` (§1 run plan). JS2 grades the loop, the
+permission policy and the diff, not relevance, and turning the judge off keeps Claude's run-to-run variation out of the trace.
 
 ## 7. State
 
@@ -176,14 +198,16 @@ fictional persona. `--no-claude` turns it off.
     is reported as `no history` for this check, never as passing it
   - **(e)** a planned board has no record
   - **(f)** a raw file's sha256 doesn't match the trace
-- **V3. The finished-but-wrong demo (SEEDED).** A replay, using its own temporary `out/` folder so the real state is never touched, in
-  which Samsara's list response is `{"jobs": [], "meta": {"total": 0}}`. I expect the loop to report `finished`, 0 new, and the verifier
+- **V3. The finished-but-wrong demo (SEEDED).** Run C in §1: a replay of Samsara alone, using its own output root
+  (`evidence/seeded/empty-samsara/`) so the real state in `out/` is never touched, in which Samsara's list response is `{"jobs": [], "meta": {"total": 0}}`. I expect the loop to report `finished`, 0 new, and the verifier
   to FAIL on V2(d): 323 on 2026-10-31, 0 now. I will label it SEEDED wherever it appears.
 
 ## 10. Evidence
 
 - **EV1.** Every run gets a row in `evidence/RUNS.md`: time, live / seeded / same-day, loop exit, verifier result, paths. That includes
-  failed and discarded runs.
+  failed and discarded runs. **I keep RUNS.md up to date myself. The agent never writes it**, because it is outside every output root.
+- **EV1a.** The live output root `out/` (state, raw responses, traces, reports for runs A and B) and the seeded root
+  `evidence/seeded/empty-samsara/` are committed as evidence. Test roots are temporary and not committed.
 - **EV2.** No raw file or run folder that I cite is ever deleted.
 - **EV3.** I cite only runs listed in RUNS.md, and every count I state is one I can show.
 
@@ -206,6 +230,8 @@ fictional persona. `--no-claude` turns it off.
 | W13 | State updated for a failed board | The update "ran" | S2 | `test_S2_failed_board_state_unchanged` |
 | W14 | Ids marked seen before they're reported | It saves a pass | S3 | `test_S3_unjudged_stay_new` |
 | W15 | The verifier reads the report's counts instead of the raw files | It runs and passes | V1 | `test_V1_verifier_ignores_report_counts` |
+| W16 | `--out config/` (or a root inside another protected folder) accepted, because the path checks are relative to the root | Every write *is* inside the chosen root | §6.2 output root | `test_P8_out_root_in_protected_folder_refused` |
+| W17 | A host added to `config/allowlist.json` during a fix, so the allow-list drifts from P1 | The fix "needed" it | P18 | `test_P18_allowlist_matches_gate` |
 
 `scripts/sabotage_check.py` plants each wrong version and shows that its test goes red.
 
@@ -228,3 +254,4 @@ fictional persona. `--no-claude` turns it off.
 |---|---|---|
 | 2026-11-10 | v1, written before implementation | — |
 | 2026-11-10 | v1.1: second ATS = Lever (`api.lever.co`); boards 2–3 = `databricks` (Greenhouse), `palantir` (Lever). G4 and G5 checked. ER4 reworded for each provider's shape. Three §12 items added | A read-only probe of Lever, Ashby and Greenhouse boards. I chose Lever over Ashby because its bare-array response differs from Greenhouse's, which makes the adapter and ER4 meaningful. Ashby's `{"jobs": [...]}` is nearly the same shape |
+| 2026-11-10 | v1.2: added the §1 run plan (A, B, C). Added the `--out` output-root rule (§6.2), P18 (only I change the allow-list and board files), EV1a (what is committed as evidence), the `--no-claude` rule for graded runs (ER9, P17), and W16–W17. Kept B1–B6 and V1 unchanged | Re-reading v1.1 showed gaps: V3's temporary folder conflicted with P10; no live run could end `finished` while board 4 was in it; E1 would have counted a judge that was switched off as missing; and nothing protected the allow-list. With the judge off, ~40 detail requests at 1 s apart fit well within B3, so the budgets stay. I keep V1 because a check inside the loop is still the agent grading itself |
