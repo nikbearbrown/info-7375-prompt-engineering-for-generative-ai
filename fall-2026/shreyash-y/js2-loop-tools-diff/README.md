@@ -7,6 +7,21 @@
 
 *Everything below the summary was drafted by Claude Code and checked against the files. The summary, GATE.md, the decisions in `review/` and the signature are Shreyash's.*
 
+## For the grader: where each rubric item is, and one command to check it
+
+Run every command from this folder.
+
+| Rubric item | Where | Check it |
+|---|---|---|
+| GATE written first: exits, budgets, repeat rule, error policy, permissions, wrong versions | [GATE.md](GATE.md) | `git show --stat 9fbab0d` holds GATE.md only |
+| Loop: 6 boards on 3 systems, budgets, exits, a record of every observation | [TRACE.md](TRACE.md), `runs/*/trace.jsonl` | `python3 -m unittest tests.test_loop -v` |
+| Deliberate failure handled without inventing a value | TRACE.md, run 1 lines 14–19 | `sed -n 14,19p runs/20261110T002501Z/trace.jsonl` |
+| Finished wrong answer caught by an independent check | TRACE.md, last section | `python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED` |
+| Permission policy in code, 21 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink -v` |
+| Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md) | `git log --oneline 6f4ae08^..ba0a5b0` |
+| Sign-off and driver's seat | the end of this README | — |
+| All tests; no test file changed since it was written | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
+
 ## Summary, in my own words
 
 *Shreyash's words, typed into the session on 2026-11-10, replacing the earlier versions (the 2026-11-09 summary predated run 3). Claude Code did not change them.*
@@ -104,7 +119,9 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 - `tests/`, `tests.frozen.sha256`, `BOUNDARY-TESTS.md`
 - `runs/`:
   - `20261110T002501Z/`: live run 1, with its raw responses, trace and summary.
-  - `state/`
+  - `20261110T011708Z/`: live run 2.
+  - `20261110T204749Z/`: live run 3, the 6 new postings.
+  - `state/`: one new state file per run.
   - `seeded-finished-wrong/`: SEEDED.
 - `review/`: every step of the review packet in order, with Shreyash's own runs and decisions. `REVIEW-PACKET.md` reads them in order.
 - `evidence/`, `demo/`, `persona/` (fictional Alex Morgan, from JS1)

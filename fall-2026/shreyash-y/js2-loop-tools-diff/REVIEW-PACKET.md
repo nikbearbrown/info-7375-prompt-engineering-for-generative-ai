@@ -2,6 +2,22 @@
 
 *Assembled by Claude Code on 2026-11-09 from the files in `review/` and the commit history. The decisions and the command runs marked as Shreyash's are Shreyash's, quoted word for word in `review/05`, `review/18`, `review/04` and `review/17`.*
 
+## Index of review/ (read in this order)
+
+| File | What it is | Whose |
+|---|---|---|
+| 01 | the test run before any patch: 10 of 15 fail | run |
+| 02, 03 | rev 1: behavior diff; finding (the perk read as a requirement) | Claude Code |
+| 04, 05 | rev 1: Shreyash's three commands; the **revise** decision | **Shreyash** |
+| 06 | the regression test fails on rev 1 | run |
+| 07, 08 | rev 2: tests; correction of one test's expectation | run, Claude Code |
+| 09, 10, 11 | rev 2: behavior diff; failures it drops; finding (about 37 requirements lost) | Claude Code |
+| 13 | the second regression test fails on rev 2 | run |
+| 14, 15, 16 | rev 3: tests; behavior diff; reading | run, Claude Code |
+| 17, 18 | rev 3: Shreyash's three commands; the **accept** decision | **Shreyash** |
+
+There is no 12; that check went into 16.
+
 ## The change Shreyash asked Claude Code to make
 
 GATE.md section 8 asks for a fix to the three JS1 rule defects Shreyash found on 2026-10-31:
