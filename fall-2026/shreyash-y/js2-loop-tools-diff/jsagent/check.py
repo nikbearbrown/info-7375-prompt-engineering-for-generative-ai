@@ -53,6 +53,9 @@ def check_run(run_dir, project_dir):
 
 if __name__ == "__main__":
     run_dir = pathlib.Path(sys.argv[1]).resolve()
-    found = check_run(run_dir, run_dir.parent.parent)
+    # The project folder is the nearest parent holding GATE.md (runs can be nested, e.g.
+    # runs/seeded-finished-wrong/<id>). Fixed 2026-11-09: the first version assumed runs/<id>.
+    project = next(p for p in run_dir.parents if (p / "GATE.md").exists())
+    found = check_run(run_dir, project)
     print("\n".join(found) if found else "no findings")
     sys.exit(1 if found else 0)

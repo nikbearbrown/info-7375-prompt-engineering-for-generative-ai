@@ -1,0 +1,32 @@
+SEEDED input written to runs/seeded-finished-wrong; oscar cut to 20 jobs; state copied from state-20261110T002501Z.json
+run finished-wrong-SEEDED: exit finished  (requests 4/12, seconds 0.1/120)  [SEEDED replay]
+  oscar                      greenhouse ok                fetched 20    new 0   
+  klaviyo                    greenhouse ok                fetched 150   new 0   
+  linear                     ashby      ok                fetched 32    new 0   
+  palantir                   lever      ok                fetched 304   new 0   
+summary: runs/seeded-finished-wrong/finished-wrong-SEEDED/summary.md   trace: runs/seeded-finished-wrong/finished-wrong-SEEDED/trace.jsonl
+agent exit code: 0
+--- independent check (python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED)
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/check.py", line 56, in <module>
+    found = check_run(run_dir, run_dir.parent.parent)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/check.py", line 35, in check_run
+    data = json.loads((project_dir / b["raw_files"][-1]).read_bytes())
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/runs/runs/seeded-finished-wrong/finished-wrong-SEEDED/raw/greenhouse-oscar-attempt1.json'
+check exit code: 1
+
+# Check CLI fixed (project folder = nearest parent with GATE.md); the agent run above is unchanged. Re-running only the check:
+--- python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED
+oscar: the response lists 20 jobs but its own meta.total says 199
+oscar: 179 of 199 postings disappeared since the previous run (more than half in one run is not believable without a second look)
+check exit code: 1
+--- the same check on live run 1, for comparison
+no findings
+check exit code: 0
