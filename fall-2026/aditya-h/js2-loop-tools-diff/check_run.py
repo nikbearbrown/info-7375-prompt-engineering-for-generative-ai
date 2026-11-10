@@ -3,8 +3,9 @@
 It does not trust the loop's record. It recomputes every count from the saved raw files, flags boards
 that look wrong even though the loop called them ok (too few postings, or a newest posting older than
 max_newest_age_days), and for a flagged board makes ONE read-only cross-check request to the same
-company on another allow-listed ATS (checks.json). It writes only check.json / check.md in the run
-folder, through the same permission policy, and never touches state.
+company on another allow-listed ATS (checks.json). It reads only through the permission policy
+(a refused read stops the check before any verdict is written), writes only check.json / check.md in
+the run folder through the same policy, and never touches state.
 
 Usage: python3 check_run.py runs/<run-id>
 """
@@ -27,17 +28,27 @@ def _date(s):
         return None
 
 
+def _read(policy, path):
+    """Every file the check reads is asked of the permission policy first (GATE.md: reads only
+    inside the assignment folder). A refusal stops the check: no verdict is written."""
+    d = policy.read(path)
+    if not d.allowed:
+        raise PermissionError(f"check refused to read {path}: {d.reason}")
+    return pathlib.Path(path).read_bytes()
+
+
 def check(root, run_dir, fetcher=http_get, today=None):
     root, run_dir = pathlib.Path(root), pathlib.Path(run_dir)
     today = today or dt.date.today()
     policy = Policy(root)
-    cfg = json.loads((root / "checks.json").read_text())
-    record = json.loads((run_dir / "record.json").read_text())
+    cfg = json.loads(_read(policy, root / "checks.json"))
+    record = json.loads(_read(policy, run_dir / "record.json"))
+    raws = {b["key"]: _read(policy, b["raw_path"]) for b in record["boards"] if b["status"] == "ok"}
     flags, requests = [], 0
     for b in record["boards"]:
         if b["status"] != "ok":
             continue
-        posts = ats.parse(b["ats"], pathlib.Path(b["raw_path"]).read_bytes())
+        posts = ats.parse(b["ats"], raws[b["key"]])
         if len(posts) != b["fetched"]:
             flags.append({"board": b["key"], "kind": "count-mismatch",
                           "detail": f"record says {b['fetched']}, raw file has {len(posts)}"})
