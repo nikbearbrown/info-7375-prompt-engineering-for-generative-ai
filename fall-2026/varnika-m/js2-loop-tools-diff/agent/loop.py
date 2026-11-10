@@ -12,6 +12,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import math
 import os
 import sys
 import time
@@ -20,7 +21,7 @@ from pathlib import Path
 
 from agent import tools
 from agent.boards import board_url, normalize, parse_postings, BadShape
-from agent.policy import Policy
+from agent.policy import Policy, refuse
 from agent.resume import ResumeRefused, check_resume
 from agent.rule import judge
 
@@ -122,7 +123,7 @@ def checked_limits(limits):
     for name, value in (limits or {}).items():
         if name not in LOWERABLE:
             raise ValueError("refused: %r is not a budget that can be changed per run" % name)
-        if not isinstance(value, (int, float)) or value < 0:
+        if not isinstance(value, (int, float)) or math.isnan(value) or value < 0:  # NaN compares False to all
             raise ValueError("refused: budget %s must be a non-negative number" % name)
         if value > LIMITS[name]:
             raise ValueError("refused: GATE.md allows at most %s %s per run; raising it needs a new written "
@@ -243,6 +244,7 @@ class Loop:
                   "url": url, "status": None, "reason": None, "http_status": None, "requests": 0,
                   "attempts": [], "counts": None, "run_kind": None}
         retries = redirects = 0
+        requested = {tools.normalize_url(url)}
         while True:
             got = self.request(key, url)
             if got is None:
@@ -265,6 +267,9 @@ class Loop:
             if status == "redirect":
                 target = tools.join_url(url, headers.get("location"))
                 decision = self.policy.check_fetch("GET", target)
+                if not headers.get("location") or tools.normalize_url(target) in requested:
+                    decision = refuse("a redirect with no new Location would repeat the same fetch",
+                                     target)
                 if redirects >= MAX_REDIRECTS or not decision.allowed:
                     self.trace("redirect_refused", board=key, url=target, decision=decision.as_dict())
                     result.update(status="failed", reason="refused_redirect", redirect_to=target)
@@ -273,6 +278,7 @@ class Loop:
                     result.update(status="failed", reason="out_of_budget", redirect_to=target)
                     return result
                 redirects += 1
+                requested.add(tools.normalize_url(target))
                 self.trace("redirect_followed", board=key, url=target)
                 url = target
                 continue
@@ -328,10 +334,13 @@ class Loop:
                                  "absolute_url": p["absolute_url"], "company_name": p["company_name"],
                                  "first_published": p.get("first_published"),
                                  "rule_verdict": judge(p, self.resume)})
-        counts = {"postings": len(unique), "new": len(new_postings), "gone": len(seen - set(unique)),
+        # Gone since the last good run. A state imported from JS1 has no last_ids; its seen ids are JS1's last run.
+        last = set(state.get("last_ids", state["seen_ids"])) if state else set()
+        counts = {"postings": len(unique), "new": len(new_postings), "gone": len(last - set(unique)),
                   "duplicate_ids": duplicates}
         new_state = dict(state or {"system": system, "board": key.split("/", 1)[1]})
         new_state["seen_ids"] = sorted(seen | set(unique))
+        new_state["last_ids"] = sorted(unique)
         new_state["runs"] = list((state or {}).get("runs", [])) + [{
             "run_id": self.run_id, "source": "seeded" if self.fixtures else "live",
             "postings": len(unique), "new": len(new_postings), "raw_file": attempt["raw_file"]}]

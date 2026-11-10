@@ -19,6 +19,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 Check = collections.namedtuple("Check", "name passed detail")
+SECONDS_SLACK = 5  # parsing and file writes between requests are not covered by any request's timeout
 
 
 def gate_rules(gate_text):
@@ -54,6 +55,29 @@ def history_before(root, key, run_id):
     return None  # this run is not in the board's history
 
 
+def boards_match_config(root, record, trace):
+    config = json.loads((root / "config" / "boards.json").read_text(encoding="utf-8"))["boards"]
+    keys = ["%s/%s" % (e["system"].lower(), e["board"].lower()) for e in config]
+    problems = []
+    listed = [b["key"] for b in record["boards"]] + list(record["not_attempted"])
+    if record["exit"] != "error" and listed != keys:
+        problems.append("the record lists %s, config/boards.json has %s" % (listed, keys))
+    start = next((line for line in trace if line["action"] == "start"), None)
+    if start is not None and start["boards"] != keys:
+        problems.append("the trace started with %s, config/boards.json has %s" % (start["boards"], keys))
+    fetched = {line["board"] for line in trace if line["action"] == "fetch"}
+    earlier = set()
+    for b in record["boards"]:
+        if b["status"] == "skipped_repeat":
+            if b["key"] not in earlier:
+                problems.append("%s is labelled skipped_repeat, but no earlier entry is the same board" % b["key"])
+        elif b["key"] not in fetched:
+            problems.append("%s has status %s, but the trace has no fetch for it" % (b["key"], b["status"]))
+        earlier.add(b["key"])
+    return Check("boards_match_config", not problems, "; ".join(problems) or
+                 "the record's boards are config/boards.json's, and each was fetched or truly a repeat")
+
+
 def check(record_path, root=None):
     record_path = Path(record_path).resolve()
     root = Path(root).resolve() if root else record_path.parents[2]
@@ -76,12 +100,16 @@ def check(record_path, root=None):
     checks.append(Check("raw_sha256", not bad, "mismatch: %s" % bad if bad else
                         "%d raw responses match the trace" % len(traced)))
 
-    # 2-5 look at the final answer of each board.
+    # 2-5 look at the final answer of each board the loop called ok. A failed board's body
+    # (HTML, an error document) is not a board, so it is not parsed.
     final = {}
     for b in record["boards"]:
         answered = [a for a in b.get("attempts", []) if a.get("http_status") == 200]
-        if answered:
-            final[b["key"]] = ids_in(b["system"], raw_body(root, answered[-1]["raw_file"]))
+        if b["status"] == "ok" and answered:
+            try:
+                final[b["key"]] = ids_in(b["system"], raw_body(root, answered[-1]["raw_file"]))
+            except (ValueError, KeyError, TypeError):
+                final[b["key"]] = []
 
     wrong_counts = ["%s: loop %s, raw %d" % (b["key"], b["counts"]["postings"], len(set(final.get(b["key"], []))))
                     for b in record["boards"] if b["status"] == "ok"
@@ -135,6 +163,8 @@ def check(record_path, root=None):
     # 6. Budgets and hosts, from the trace, against GATE.md.
     fetches = [line for line in trace if line["action"] == "fetch"]
     problems = []
+    if record["budget"]["used"]["seconds"] > gate["seconds"] + SECONDS_SLACK:
+        problems.append("%.1f s used, GATE.md allows %d" % (record["budget"]["used"]["seconds"], gate["seconds"]))
     if len(fetches) != record["budget"]["used"]["requests"]:
         problems.append("trace has %d fetches, record says %d" % (len(fetches), record["budget"]["used"]["requests"]))
     if len(fetches) > gate["requests"]:
@@ -147,10 +177,17 @@ def check(record_path, root=None):
             problems.append("request to %s" % line["url"])
         if line["timeout"] > gate["seconds_per_request"]:
             problems.append("timeout %s s > %d s" % (line["timeout"], gate["seconds_per_request"]))
+        started = line["t"] - line.get("seconds", 0)
+        if started + line["timeout"] > gate["seconds"] + SECONDS_SLACK:
+            problems.append("a request started at %.1f s was given %s s, past the %d s budget"
+                            % (started, line["timeout"], gate["seconds"]))
     checks.append(Check("budgets_and_hosts", not problems, "; ".join(problems) or
                         "%d requests, all to GATE.md hosts, within budget" % len(fetches)))
 
-    # 7. The exit agrees with what happened to the boards.
+    # 7. The boards in the record are the boards in config/boards.json, and each one was really fetched.
+    checks.append(boards_match_config(root, record, trace))
+
+    # 8. The exit agrees with what happened to the boards.
     statuses = [b["status"] for b in record["boards"]]
     problems = []
     if trace[-1].get("action") != "exit" or trace[-1].get("exit") != record["exit"]:
