@@ -15,3 +15,6 @@ Chose these 3 real boards on 3 systems plus 1 deliberate bad name. The counts ch
 
 ## Entry 3 — November 9, 2026: GATE.md written before any code change
 Wrote GATE.md: boards, exits, budgets, repeat rule, error policy, permission policy, 12 wrong versions. Review with Claude found three gaps I fixed before committing: the finished-wrong demo could never end "finished" while the bad board is in the config (added a separate demo config); the write policy allowed only out/ but JS1 writes state/ and evidence/ (added an explicit out/ layout); and two outcomes were undecided (a retry blocked by the budget, and a refused redirect from a remote board). Also changed "normalized URL" to "identical URL string", made 429 an explicit no-retry row, and replaced a claim I couldn't test (symlink swap between check and write) with a stated known limit.
+
+## Entry 4 — November 9, 2026: Policy tests written before implementation
+Wrote the asserts for 16 policy tests (tests/test_policy.py), one per row of BOUNDARY_TESTS.md, before agent/policy.py exists. Network tests check that refused requests were never sent (not only that an error appeared); write and reset tests check that files are unchanged after a refusal; B5 checks that an allowed GET still works, so a block-everything client can't pass. First run: ModuleNotFoundError for agent.policy (expected).
