@@ -241,3 +241,57 @@ test('--replay with a multi-board config is an error before any action', async (
   assert.equal(f.calls.length, 0);
   assert.match(r.reason, /single-board config/);
 });
+
+// ---- timeouts, on an injected clock: no test waits on a real timer -------------------
+
+// A fake clock and timer. The stub fetch never answers; when it is called, the most
+// recent timer "fires" on the next microtask, moving the clock forward by that timer's
+// delay, so the policy's abort runs exactly as it would at the deadline.
+function hangingNetwork(startAt, laterAt = startAt) {
+  let reads = 0;
+  let t = laterAt;
+  const timers = [];
+  const calls = [];
+  return {
+    calls, timers,
+    now: () => (reads++ === 0 ? startAt : t), // the run starts at startAt; later reads see laterAt onward
+    setTimer: (fn, ms) => { const h = { fn, ms }; timers.push(h); return h; },
+    clearTimer: h => { h.cleared = true; },
+    sleep: async ms => { t += ms; },
+    fetchImpl: (url, init) => new Promise((_, reject) => {
+      calls.push(url);
+      init.signal.addEventListener('abort', () => reject(new Error('aborted')));
+      queueMicrotask(() => { const h = timers.at(-1); if (!h.cleared) { t += h.ms; h.fn(); } });
+    }),
+  };
+}
+
+test('timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10', async () => {
+  const root = project([FOUR[0]]);
+  const net = hangingNetwork(T);
+  const started = performance.now();
+  const r = await runLoop({ argv: ['--config', 'boards.json', '--label', 'timeout'], root, cwd: root, log: () => {}, ...net });
+  assert.ok(performance.now() - started < 2000, 'no real 15 s wait');
+  assert.deepEqual(net.timers.map(h => h.ms), [15_000, 15_000]);
+  assert.equal(net.calls.length, 2, 'one counted retry, no more');
+  const events = readFileSync(join(root, r.trace), 'utf8').trim().split('\n').map(l => JSON.parse(l));
+  assert.deepEqual(events.filter(e => e.event === 'request').map(e => e.outcome), ['timeout', 'timeout']);
+  assert.equal(events.find(e => e.event === 'retry').wait_ms, 2000);
+  assert.equal(board(r, 'gh-stripe').disposition, 'error: timeout');
+  assert.equal(board(r, 'gh-stripe').raw_count, null);
+  assert.ok(!existsSync(join(root, 'out/state/gh-stripe.json')));
+  assert.equal(r.exitCode, 10);
+});
+
+test('timeout (injected clock): begun with 3 s left, the request is aborted at the deadline and not retried: exit 11', async () => {
+  const root = project([FOUR[0]]);
+  const net = hangingNetwork(T, T + 57_000);
+  const started = performance.now();
+  const r = await runLoop({ argv: ['--config', 'boards.json', '--label', 'deadline'], root, cwd: root, log: () => {}, ...net });
+  assert.ok(performance.now() - started < 2000, 'no real wait');
+  assert.deepEqual(net.timers.map(h => h.ms), [3000], 'min(15 s, remaining)');
+  assert.equal(net.calls.length, 1, 'no overrun-inducing second action');
+  assert.equal(board(r, 'gh-stripe').disposition, 'error: timeout');
+  assert.equal(r.status, 'budget-exhausted');
+  assert.equal(r.exitCode, 11);
+});
