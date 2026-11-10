@@ -63,6 +63,10 @@ class RepeatViolation(RuntimeError):
     """The same action was attempted again without being the one allowed retry (GATE.md section 3)."""
 
 
+class ReportWriteError(OSError):
+    """report.json or report.md could not be saved. State is never written in that case."""
+
+
 class BoardInterrupted(KeyboardInterrupt):
     """A KeyboardInterrupt that carries the attempts already made on the board it interrupted."""
 
@@ -433,14 +437,33 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
                 new = [p for p in out["postings"] if p["id"] not in seen]
                 entry["new"] = []
                 for p in new:
-                    rec = rule.classify(p, resume)
-                    entry["new"].append({"key": p["key"], "title": p["title"], "location": p["location"]["name"],
-                                         "url": p["absolute_url"], "rule_verdict": rec["verdict"],
-                                         "rule_checks": rec["checks"], "rule_justification": rec["justification"]})
+                    item = {"key": p["key"], "title": p["title"], "location": p["location"]["name"],
+                            "url": p["absolute_url"]}
+                    if r.remaining() <= 0:
+                        # GATE.md section 2: no new work starts after the deadline.
+                        if not r.budget_hit:
+                            r.event("budget-stop", board=key, reason="time budget ran out while classifying new postings")
+                        r.budget_hit = True
+                        item.update(rule_verdict="NOT CLASSIFIED (time budget exhausted)", rule_checks=None,
+                                    rule_justification=[])
+                    else:
+                        rec = rule.classify(p, resume)
+                        item.update(rule_verdict=rec["verdict"], rule_checks=rec["checks"],
+                                    rule_justification=rec["justification"])
+                    entry["new"].append(item)
                 entry["rule_relevant"] = sum(n["rule_verdict"] == rule.RELEVANT for n in entry["new"])
+                unclassified = sum(n["rule_checks"] is None for n in entry["new"])
+                if unclassified:
+                    entry["reason"] += f"; {unclassified} new posting(s) not classified: time budget exhausted"
         board_reports.append(entry)
 
+    if status is None and r.remaining() <= 0 and not r.budget_hit:
+        r.budget_hit = True
+        r.event("budget-stop", board=None, reason="time budget ran out after the boards were observed")
     if status is None:
+        if r.budget_hit and all(o["outcome"] == OBSERVED for o in outcomes):
+            reasons.append(f"time budget ({budget.max_seconds:.0f}s) ran out during processing, "
+                           f"after {round(r.elapsed(), 3)}s")
         status = overall_status(outcomes, r.budget_hit, interrupted)
         for e in board_reports:
             if e["outcome"] != OBSERVED:
@@ -457,7 +480,9 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
                 deliberate.append(f"{e['provider']}/{e['board']}: the deliberate-failure demonstration was NOT "
                                   f"achieved (outcome {e['outcome']}: {e['reason']})")
 
-    # The one state write: only after a finished run, only with the command-line approval.
+    # The one state write: only after a finished run, only with the command-line approval, and only
+    # after report.json and report.md are saved (GATE.md section 1).
+    state_planned = False
     if replay is not None:
         state_update = "not-allowed: a SEEDED REPLAY never writes state"
     elif not state_update_allowed(status):
@@ -466,15 +491,8 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
         d = policy.check_write(state_path, root=root, approve_state_write=False, run_status=status)
         state_update = f"not-approved ({d.outcome}: {d.reason}); state unchanged"
     else:
-        try:
-            state.save(state.merged(prev_state, observed_ids, _utc(started)),
-                       approve_state_write=approve_state_write, run_status=status, root=root)
-            state_update = "updated"
-        except (policy.PolicyViolation, state.StateError, OSError) as exc:
-            status = ERROR
-            reasons.append(f"state write failed: {type(exc).__name__}: {exc}")
-            state_update = f"write-failed: {exc}"
-    r.event("state", state_update=state_update)
+        state_planned = True
+        state_update = "approved: written only after this report was saved; the result is in state-result.json"
 
     attention = []
     for b, e in zip(boards, board_reports):
@@ -499,11 +517,32 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
         "boards": board_reports,
         "attention_required": attention,
     }
-    r.event("end", status=status, exit_code=EXIT_CODES[status], attempts_used=r.attempts_used)
-    r.trace.close()
-    r.save("report.json", (json.dumps(report, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     from .report import render_markdown
-    r.save("report.md", render_markdown(report).encode("utf-8"))
+    try:
+        try:
+            r.save("report.json", (json.dumps(report, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
+            r.save("report.md", render_markdown(report).encode("utf-8"))
+        except (policy.PolicyViolation, OSError) as exc:
+            r.event("error", error=f"report could not be saved: {exc}; state/seen.json was not changed")
+            raise ReportWriteError(f"{exc}; state/seen.json was not changed") from exc
+
+        if state_planned:
+            try:
+                state.save(state.merged(prev_state, observed_ids, _utc(started)),
+                           approve_state_write=approve_state_write, run_status=status, root=root)
+                state_update = "updated"
+            except (policy.PolicyViolation, state.StateError, OSError) as exc:
+                status = ERROR
+                reasons.append(f"state write failed: {type(exc).__name__}: {exc}")
+                state_update = f"write-failed: {exc}"
+            result = {"state_update": state_update, "status": status, "exit_code": EXIT_CODES[status],
+                      "reasons": reasons, "written_after": ["report.json", "report.md"]}
+            r.save("state-result.json", (json.dumps(result, indent=2) + "\n").encode("utf-8"))
+            report["run"].update(state_update=state_update, status=status, exit_code=EXIT_CODES[status])
+        r.event("state", state_update=state_update)
+        r.event("end", status=status, exit_code=EXIT_CODES[status], attempts_used=r.attempts_used)
+    finally:
+        r.trace.close()
     return report
 
 
@@ -552,6 +591,9 @@ def main(argv: Optional[list] = None) -> int:
         kwargs = {"config_path": args.config}
     try:
         report = run(budget=budget, approve_state_write=args.approve_state_write, **kwargs)
+    except ReportWriteError as exc:
+        print(f"RUN FAILED: the run's report could not be saved: {exc}", file=sys.stderr)
+        return EXIT_CODES[ERROR]
     except (policy.PolicyViolation, OSError) as exc:
         print(f"RUN FAILED: no run folder could be created: {exc}", file=sys.stderr)
         return EXIT_CODES[ERROR]
