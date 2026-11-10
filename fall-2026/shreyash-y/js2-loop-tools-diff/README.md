@@ -111,7 +111,7 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code for Shreyash to check, change and sign.*
+*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10.*
 
 ```text
 Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py (the five GATE.md
@@ -131,7 +131,9 @@ Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py
 How:          The tests were written by Claude Code from GATE.md and committed before the code
               (cef009e before f4b553d; 6f4ae08 before the rule patch). I ran the review commands
               myself. The behavior diffs are recomputations over the 685 saved postings. The
-              decisions in review/05 and review/18 are mine.
+              decisions in review/05 and review/18 are mine. On 2026-11-10 I re-ran the full suite
+              (OK), checked all 12 frozen test hashes, and confirmed row 21's prediction was in
+              2b8ed44 before any result (evidence/commands-run-by-shreyash-2026-11-10.txt).
 Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all Not Relevant, so the
                 Relevant path inside the loop ran only in tests. Palantir's "Software Engineer,
                 Intern" postings fail on the department label "Dev"; whether that label should
@@ -148,7 +150,7 @@ Not claiming: That the agent finds good jobs, that rule v2 is correct in general
               which I reviewed through the summaries in review/17), that a
               clean exit means a right answer, or that the budgets are the right size for more
               than these six boards.
-Signed or withheld: ____________ (name, date)
+Signed: Shreyash Yadav, 11/10/2026
 ```
 
 ## Driver's seat
