@@ -68,6 +68,15 @@ class _NoRedirects(urllib.request.HTTPRedirectHandler):
         return None
 
 
+def _socket_of(response):
+    """The socket under an http.client response (or under the HTTPError that wraps one), if it can be found."""
+    raw = getattr(response, "fp", None) if isinstance(response, urllib.error.HTTPError) else response
+    try:
+        return raw, raw.fp.raw._sock
+    except AttributeError:
+        return raw, None
+
+
 def http_transport(url, timeout, max_bytes):
     """GET the URL once, with no cookies or credentials. Any HTTP status comes back as a Response.
 
@@ -91,12 +100,18 @@ def http_transport(url, timeout, max_bytes):
         raise FetchError("connection", str(error))
     with response:
         headers = {key.lower(): value for key, value in response.headers.items()}
+        body, sock = _socket_of(response)
         chunks, size = [], 0
         while True:
-            if time.monotonic() > deadline:
+            left = deadline - time.monotonic()
+            if left <= 0:
                 raise FetchError("timeout", "body not finished within %s s" % timeout)
+            if sock is not None:
+                sock.settimeout(left)  # one read can no longer outlast the deadline
             try:
-                chunk = response.read(65536)
+                # read1 returns after a single read from the socket; read(65536) waited for 65536 bytes
+                # (or the whole Content-Length), so a slow body never reached the deadline check.
+                chunk = body.read1(65536)
             except socket.timeout:
                 raise FetchError("timeout", "timed out reading the body")
             except OSError as error:
