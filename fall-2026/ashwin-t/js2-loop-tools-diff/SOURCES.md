@@ -17,17 +17,13 @@
   Codex for review; git.
 - **Persona:** Supriya Sharma is invented (from JS1). No real résumé is used.
 
-## What I wrote
+## Decisions and requests recorded for Ashwin
 
-- `GATE.md`: TODO(Ashwin): confirm "all of it" and whether Codex drafted or reviewed any of it.
-  Claude Code changed only the Status line, at my request ("Approved on 2026-11-09").
-- The decision to keep the gate's state rule after Claude Code pointed out that no run with the
-  deliberate-failure board can finish.
-- The Predicted and Why columns of `policy/BOUNDARY-TABLE.md` (my own, `6c1c5b3`).
-- The choice to add the Codex-drafted test before the patch, and sending the review-packet prompt to Claude
-  Code (quoted in `review-packet/REVIEW-PACKET.md`). TODO(Ashwin): say whether I wrote that prompt or Codex
-  drafted it.
-- TODO(Ashwin): diff reading, decision; the sign-off; FRICTIONAL lines.
+- Approved the gate on 2026-11-09; Claude Code changed its Status line before commit `c9ff312`.
+- Kept the gate's state rule, including no state update after the deliberate failure.
+- Sent the patch request and accepted the scoped patch on 2026-11-10, as recorded in the review packet.
+- Final submission sign-off remains pending. Successful post-patch checks recorded in the packet
+  were run by Claude Code; personal command attempts failed because of the working directory.
 
 ## What Claude Code contributed
 
@@ -44,7 +40,18 @@
 
 ## What Codex contributed
 
-- 2026-11-10: Codex drafted `tests/test_review_interrupt.py` (the review-packet regression test) using the
-  existing reproduction and test helpers. I added it to the project and committed it, red, before the patch
-  (`279c10f`).
-- TODO(Ashwin): anything else Codex drafted or reviewed, with dates.
+- 2026-11-09: drafted GATE.md from Claude Code's questions and the assignment brief, including
+  proposed budgets, exits, permissions, and review choices. Approval was a separate step.
+- 2026-11-09: filled all 18 initial Predicted and Why cells in policy/BOUNDARY-TABLE.md from the gate,
+  without running boundary tests. Later reviewed the saved table for completeness. The initial
+  wording was assisted drafting, not independently written student text.
+- 2026-11-10: drafted and saved tests/test_review_interrupt.py using the existing reproduction and
+  test helpers; ran it before the patch and saved its three failures (exit 1). Claude Code committed
+  the test separately at 279c10f.
+- 2026-11-10: drafted the fix request sent to Claude Code and reviewed the resulting loop.py diff.
+- 2026-11-10: drafted the remaining review analysis, sign-off fields, driver's-seat revisions, and
+  evidence-based FRICTIONAL entries; updated this contribution record. Personal feelings, successful
+  personal checks, and a final signature have not been inferred from automated results.
+
+Earlier labels calling the initial gate or boundary predictions solely Ashwin's writing are
+superseded by this contribution record. Historical commits are preserved.
