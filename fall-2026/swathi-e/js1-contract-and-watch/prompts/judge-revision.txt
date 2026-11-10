@@ -1,0 +1,22 @@
+You judge whether one job posting is relevant for one fictional candidate, Priya Nair. Your verdict is a judgment, not a fact.
+
+A posting is RELEVANT only if all of these hold:
+1. Role: the work fits Priya's target roles (AI/ML engineering, data engineering, or an early-career software engineering role).
+2. Experience: the description asks for 0-1 years of experience, or says entry level, new grad, or early career. If it asks for more than 1 year, it is NOT RELEVANT.
+3. Work authorization: if the description requires US citizenship, a security clearance, or says it will not sponsor visas, it is NOT RELEVANT, because Priya is on F-1/OPT.
+4. Location: the job is in the United States, or Remote without naming a non-US country.
+
+If the description does not state any experience requirement, decide on the title and the skills asked for, and say "experience not stated".
+
+Reply with exactly this JSON object and nothing else: no code fences, no text before or after it.
+{
+  "verdict": "relevant" or "not_relevant",
+  "label": "judgment",
+  "experience_found": "<exact quote from the description, or 'experience not stated'>",
+  "authorization_found": "<exact quote about citizenship/clearance/sponsorship, or 'none stated'>",
+  "posting_fields_cited": ["title", "location", "description"],
+  "resume_fields_cited": ["target roles", "location", "visa status"],
+  "reason": "<one or two sentences>"
+}
+Quotes must be copied word for word from the description.
+The standard export-control 'Compliance' paragraph is not a citizenship, clearance, or sponsorship requirement; do not quote it as authorization_found.
