@@ -11,8 +11,12 @@ Each run folder holds:
 
 The commands came from `scripts/run_and_verify.py`. Every run used `--no-claude`.
 
-*Kept by hand (GATE.md says the agent never writes this file). Claude Code drafted it from the run outputs on 2026-11-10, and I review
-each row against the files.*
+*Who wrote this file:* the JS2 agent (the runtime) never writes it, as GATE.md requires. Claude Code wrote it at my direction from the
+run outputs on 2026-11-10.
+
+*What I checked myself:* on 2026-11-10 at 17:31 EST I reran `scripts/verify_run.py` on runs A, B and D (FAIL / FAIL / PASS, matching
+the rows below) and grepped run A's trace for the deliberate 404 (1 attempt, HTTP 404). I have **not** rechecked rows X (the
+cross-check) and C (the seeded run) by hand. Their outputs are in the folders listed.
 
 | Run | When (ET) | Kind | Boards file | Loop exit | Verifier | Requests / seconds | Folder |
 |---|---|---|---|---|---|---|---|

@@ -73,6 +73,7 @@ Exit codes: 0 finished, 1 incomplete, 2 budget-exhausted, 3 error. `scripts/run_
 | Saved raw responses | `out/runs/*/raw/`, `evidence/seeded/…/raw/`, `evidence/crosscheck/`, `baseline/2026-10-31/` |
 | Test evidence | [evidence/tests/](evidence/tests/): red before code, after the build, after the patch, sabotage |
 | SOURCES.md, FRICTIONAL.md | [SOURCES.md](SOURCES.md), [FRICTIONAL.md](FRICTIONAL.md) |
+| My prompts to Claude Code, mapped to commits | [evidence/PROMPTS.md](evidence/PROMPTS.md) |
 
 ## Commit order (the gate first, tests before code, the test before the patch)
 

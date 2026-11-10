@@ -66,10 +66,23 @@
 
 ## Driver's seat
 
-| Part | What Claude did | What I did | Why it stays mine | Evidence |
+For each part: what Claude should do, what I should do, why my part stays mine, and the evidence of what actually happened. The
+prompts quoted are my real messages, listed with their dates in [evidence/PROMPTS.md](evidence/PROMPTS.md).
+
+### The loop
+
+| Part | What Claude should do | What I should do | Why that part stays mine | Evidence (what actually happened) |
 |---|---|---|---|---|
-| **The loop's rules** (exits, budgets, repeat, errors) | Drafted GATE.md v1–v2.3 from my outline; proposed numbers and gaps | Chose the format, asked for ten boards, turned the judge off, kept Kraken over Airbnb, made my own edit, approved v2.3 before code | What counts as "done" and "too much" is my decision; a model can't raise its own budget | `82f02cb`…`6cc9e07`; my edit `a67bdbf`; GATE.md Decisions log |
-| **Boards** | Probed Greenhouse, Lever and Ashby read-only; found Kraken's `200 []` and its 92 Ashby postings | Picked Lever over Ashby and Kraken over Airbnb | Which companies I watch is a personal call | GATE.md Scope; `evidence/crosscheck/` |
-| **The loop's code** | Wrote `policy.py`, `providers.py`, `net.py`, `loop.py`, `verify_run.py` and the tests | *Ethan: what you read and reran* | I am responsible for what the agent may touch, so I have to understand the policy code, not just see green tests | `e51d208` (tests first), `6c82b59` |
-| **The review** | Reproduced the defect, wrote the 9-line patch, ran the before/after commands | *Ethan: reran the commands, decided accept, revise or reject* | Accepting a diff is a judgment about behavior I'll live with; "tests pass" isn't that judgment | `58ce031`, `afb3877`, REVIEW_PACKET.md |
-| **The finished-wrong answer** | Built the verifier and the seeded run | *Ethan: confirmed the Kraken cross-check means the answer is wrong* | Deciding an answer is wrong needs evidence from outside the agent | FINISHED_WRONG_ANSWER.md, RUNS.md |
+| **Exits and budgets** | Draft the gate's wording; find gaps and contradictions; propose numbers with the arithmetic behind them | Decide what "finished" means, the board/request/time ceilings, and who may change them; approve the gate before any code | A budget is a limit on what I let the agent spend. A model can't raise its own ceiling, and "stopped" vs "succeeded" is my definition | GATE.md v1→v2.3 (`82f02cb`…`6cc9e07`), all before code (`e51d208`). Budgets raised only with a Decisions-log row (v2.2). My own edit: `a67bdbf` |
+| **Boards and systems** | Probe read-only and report what came back, including surprises | Choose which companies and which systems the agent watches | Which jobs are worth watching is a personal call | I asked "can you include 10 boards in total?" and "Do what you think is best in adding Kraken or changing to Airbnb". The probe found Kraken's `200 []` and 92 postings on Ashby (GATE.md Scope, `evidence/crosscheck/`) |
+| **Permission policy** | Write the policy code and the boundary cases from the gate, with predictions committed before the code | Decide the hosts, the folders, what needs my approval, and what is never allowed; read the policy code | I'm responsible for what the agent can touch. Green tests aren't the same as knowing what is allowed | Predictions B01–B18 in `e51d208` before `jsagent/policy.py` existed. I reran `scripts/boundary_report.py` on 2026-11-10 17:31: 18/18 |
+| **Loop code and tests** | Write tests first, then the code; run them and report failures honestly, including its own mistakes | Rerun the tests and the sabotage check myself; check that a test means what the gate says | A passing suite only means something if I know what it tests | 59 red before code (`evidence/tests/01_…`), 5 red after the build (`02_…`). My reruns on 2026-11-10 17:31: 113 OK, sabotage 19/19 |
+| **Judging an answer wrong** | Build an independent verifier that does not import the loop, plus a labeled seeded replay | Decide, from evidence outside the agent, whether a "finished" answer is wrong | The agent can't grade itself. The Kraken call needed a source the agent isn't allowed to reach | Run B finished with kraken at 0 new; the Ashby cross-check found 92 postings. My reruns of the verifier on runs A/B/D: FAIL/FAIL/PASS |
+
+### The review
+
+| Part | What Claude should do | What I should do | Why that part stays mine | Evidence (what actually happened) |
+|---|---|---|---|---|
+| **Reproduce and test first** | Reproduce the defect before touching code; commit the failing test first | Check that the reproduction and the failing test exist before the patch, in the commit order | "Test first" is only proof if the history shows it | `58ce031` (reproduction, no code change) comes before `afb3877` (patch). The W4 tests date from `e51d208` |
+| **The patch** | Make the smallest change that meets the gate; show before/after; name what the test still misses | Read the diff myself as a change in behavior, and check its scope | I live with what the code does, not with Claude's summary of it | I ran `git show afb3877 -- jsagent/fetch.py` and `git show --stat afb3877`: +9 lines in `check_url`, code scope 1 file (REVIEW_PACKET.md section 5) |
+| **The decision** | Lay out the evidence. It should **not** decide | Rerun the commands and decide accept, revise or reject | Accepting a diff is my judgment, and "tests pass" isn't that judgment | My reruns 2026-11-10 17:31 all matched. Decision: see REVIEW_PACKET.md section 6 |

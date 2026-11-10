@@ -1,6 +1,6 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v2.3, final before implementation · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v2.3, final before implementation (v2.4: one wording fix after, see the Decisions log) · 2026-11-10 · written and committed before any JS2 code
 
 ## Scope
 
@@ -247,8 +247,8 @@ names it on its result line, e.g. `verifier: PASS (drop check not applicable: da
 because kraken is empty. For run C, I expect FAIL because the board is empty and dropped from 323 postings on 2026-10-31 to 0 now.
 
 **Evidence.**
-- Every run gets a row in `evidence/RUNS.md`, including failed and discarded runs. I keep RUNS.md up to date myself, and the agent never
-  writes it.
+- Every run gets a row in `evidence/RUNS.md`, including failed and discarded runs. I keep RUNS.md up to date, with Claude Code writing
+  it at my direction, and the agent (the runtime) never writes it.
 - `out/` (runs A, B and D) and `evidence/seeded/empty-samsara/` (run C) are committed as evidence.
 - No raw file or run folder that I cite is ever deleted. I cite only runs listed in RUNS.md, and only counts I can show.
 
@@ -288,7 +288,7 @@ Predictions, actual results, who wrote each test, the commands I ran, and the fi
 ## Decisions log
 
 This file's earlier versions are in git: v1 `82f02cb`, v1.1 `2a2e11f`, v1.2 `ef2eafc`, v1.3 `c421e28`, v2.0 `2b75002`,
-v2.1 `a67bdbf`, v2.2 `30e0f56`.
+v2.1 `a67bdbf`, v2.2 `30e0f56`, v2.3 `6cc9e07`.
 
 | Date | Decision | Reason |
 |---|---|---|
@@ -296,3 +296,4 @@ v2.1 `a67bdbf`, v2.2 `30e0f56`.
 | 2026-11-10 | v2.1 (my own edit): removed the checked-facts list and the "deliberate failure unexpectedly succeeds" rule from Scope | I made this edit myself after reading v2.0 |
 | 2026-11-10 | v2.2: ten boards instead of four. Added `toast`, `klaviyo`, `datadog` (Greenhouse), `spotify`, `zoox` (Lever), and `kraken` (Lever, live empty). Budgets raised: boards 5→12, requests 60→100, time 300→420 s, loop steps 100→200. The verifier now FAILs any empty board. Run plan A–D, with B as the live finished-wrong answer and D as the clean run. Wrong version 19 added. The review-packet paragraph now describes its defect and credits Claude for the reproduction | I wanted ten boards. A probe on 2026-11-10 found a real Lever board returning `200 []`, which gives a live finished-wrong answer instead of only a seeded one. The old budgets could not fit ten list requests, their retries and about 40 Samsara detail requests. Without the empty-board check, the verifier would have passed kraken because it has no history |
 | 2026-11-10 | v2.3, final before implementation: kept `kraken` instead of replacing it with `airbnb`. Run B now includes a cross-check of Kraken's Ashby board, run by me outside the agent (`scripts/crosscheck_kraken.py`, raw saved in `evidence/crosscheck/`), plus a fallback to run C if Kraken's Lever board is no longer empty | A read-only check on 2026-11-10 found 92 Kraken postings on Ashby (`kraken.com`), so Lever's `[]` is demonstrably wrong, not just suspicious. That makes it a real finished-wrong answer. Airbnb would only have been one more ordinary board. Ashby stays off the agent's allow-list |
+| 2026-11-10 | v2.4 (after implementation, wording only): the Evidence rule now says Claude Code writes RUNS.md at my direction. The rule that matters (the runtime agent never writes it) is unchanged | v2.3 said "I keep RUNS.md up to date myself", which was not literally true: Claude Code wrote it, and I checked rows A, B and D by rerunning the verifier. No exit, budget, policy or wrong version changed |
