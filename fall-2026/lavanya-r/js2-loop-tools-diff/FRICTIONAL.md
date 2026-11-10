@@ -72,6 +72,14 @@ What went wrong or was surprising, honestly:
 - Commit hashes changed. Every hash cited in these documents, in commit messages and in the `logs/` headers ("at commit …") was updated to the new one, so the citations still point at the right commits.
 - One small commit became empty and was dropped. My signature is its own commit, made by me, with no Claude co-author line.
 
+## 2026-11-10, after the push: four fixes from a final check against the brief
+
+- **GATE.md said something untrue.** Section 2 says "the code checks [budgets.json] match this table", but until now only a test checked. The agent now checks at start-up (`budget_mismatches` in `agent/loop.py`) and exits `error` before any request if they differ. Tests: `test_budget_gate.TestRuntimeGateCheck`. GATE.md itself is unchanged; the code now matches it.
+- **An untested claim.** GATE.md says redirects are checked against the allow-list. The code did that, but no test showed it. `test_policy_boundary.TestRedirects` now does: an off-list, plain-http or look-alike redirect is refused, and an on-list one is followed.
+- **Traceability to prompts.** My Claude Code conversation is not quoted in this folder. It stays on my machine, as the brief's privacy section says for conversation transcripts. Traceability is through the commit history, the tests and `logs/`, and every Claude reply used as data is a saved, dated file from JS1.
+- REVIEW-PACKET.md now states the review commands I ran myself.
+- Tests: 94 → 99, all passing. The earlier logs keep their 94, because that is what ran then.
+
 ## Unresolved
 
 - **"Fit" labels:** the JS1 feedback asked me to add postings I'd label "fit", so false negatives could be measured. Not done in JS2. Run 1 had 89 new Databricks postings, including several "Software Engineer - New Grad (2027 Start)" roles, which would be the place to start.

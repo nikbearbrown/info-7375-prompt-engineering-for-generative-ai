@@ -38,7 +38,7 @@ cd info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-t
 
 All commands run from this folder.
 
-**1. Tests: 94, offline, and nothing in this folder changes**
+**1. Tests: 99, offline, and nothing in this folder changes**
 ```bash
 python3 -B -m unittest discover -s tests -t . -v
 ```
@@ -99,7 +99,7 @@ Every test response is constructed and labeled as such in `tests/loop_fakes.py`.
 | GATE.md rule | Where in code | Tests |
 |---|---|---|
 | 4 exits, each with a reason and a process exit code; "finished" only if every board was fetched, non-empty and saved | `agent/loop.py` `_exit` | `test_loop.TestExits` |
-| Budgets of 10 boards, 20 requests and 120 s, checked **before** every request, with retries counted | `Budget` | `TestBudgets`, `test_budget_gate` (config must equal GATE.md's table) |
+| Budgets of 10 boards, 20 requests and 120 s, checked **before** every request, with retries counted | `Budget` | `TestBudgets`; `test_budget_gate` (the running agent refuses to start if config differs from GATE.md's table) |
 | Repeat = same ATS + same board name, ignoring case; skipped and free | `repeat_key` | `TestRepeatRule` |
 | 404: no retry. Timeout or 5xx: one retry after 2 s. 403 or bad body: no retry. 0 jobs: `suspicious_empty`. A failed board's count is `null`, never 0 | `classify`, `RETRYABLE` | `TestErrorPolicy` |
 | Every observation in `trace.jsonl`; every response body saved gzipped, byte for byte | `observe`, `raw/` | `test_raw_bodies_saved_byte_for_byte` |
@@ -118,7 +118,7 @@ Every test response is constructed and labeled as such in `tests/loop_fakes.py`.
 ## The permission policy, in code (Chapter 5)
 
 `agent/policy.py`. All network and file I/O goes through it:
-- `net.make_get` calls `check_url` before a socket opens, and again on every redirect;
+- `net.make_get` calls `check_url` before a socket opens, and again on every redirect (`TestRedirects`);
 - `write_bytes` resolves the real path (following `..` and symlinks) and compares path parts, not strings, so `runs-evil/` is not inside `runs/`.
 
 **Boundary table.** 14 predicted cases are in [PREDICTIONS.md](PREDICTIONS.md), with predictions written before the code and results filled in after. `tests/test_policy_boundary.py` has 16 more cases:
@@ -155,7 +155,8 @@ In my own terminal, 2026-11-10 (summarised in FRICTIONAL.md):
 - **The repeat rule:** live seq 9; `TestRepeatRule`.
 - **Exits:** `TestExits`, and live run 1 really ended `incomplete` with exit code 2.
 - **Budgets checked before requests, with retries counted:** `TestBudgets.test_retries_count_against_request_budget`; wrong version 3 caught.
-- **Budgets equal GATE.md:** `test_budget_gate`.
+- **Budgets equal GATE.md, checked by the agent itself at start-up:** `test_budget_gate.TestRuntimeGateCheck` (a raised budget makes it exit `error` before any request).
+- **Redirects re-checked against the allow-list:** `test_policy_boundary.TestRedirects`.
 - **The finished wrong answer was caught by an independent check:** `logs/04` step 3.
 - **The permission policy:** 14 predicted cases plus 16 extras, with enforcement (`test_policy_boundary`). My predictions matched 13/14 (`logs/08`).
 - **A real failure, handled honestly:** live runs 2 and 2b (my own terminal) failed TLS on every board and ended `error` with no invented counts; `check.py` 8/8.
@@ -206,7 +207,7 @@ In my own terminal, 2026-11-10 (summarised in FRICTIONAL.md):
   - `check.py`, the independent check;
   - `agent/claude_judge.py`, the JS1 validator plus the review fix. The other JS1 files are unchanged.
 - **Config:** `config/budgets.json` (must equal GATE.md) and `config/boards.json`.
-- **Tests (94, offline):**
+- **Tests (99, offline):**
   - `test_policy_boundary`, `test_loop`, `test_wrong_versions_js2`, `test_budget_gate`, `test_providers`, `test_path_index`, `test_path_index_review`;
   - the 43 JS1 tests, unchanged.
 - **Evidence:**
