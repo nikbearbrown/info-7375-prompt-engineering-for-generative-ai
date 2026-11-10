@@ -1,23 +1,75 @@
-// Seen-id state (CONTRACT.md, "In" and "Out"). Absent file = first run = baseline.
+// Seen-id state (CONTRACT.md, "In" and "Out"; GATE.md, "State meaning and preservation").
+// Absent file = first run = baseline. Ids are canonical strings, never passed through
+// Number(). Validation by board id prefix (GATE.md Decision 2026-11-10, after the first
+// patch attempt, and its clarification): lv- ids must be UUID strings; gh- ids positive
+// safe integers or their canonical decimal strings; any other board, non-empty strings or
+// safe integers. Safe integers become decimal strings. null, NaN, non-scalars and
+// duplicates in a persisted state file are STATE_INTEGRITY errors.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function integrityError(message) {
+  const e = new Error(message);
+  e.code = 'STATE_INTEGRITY';
+  return e;
+}
+
+function kindOf(board) {
+  if (typeof board === 'string' && board.startsWith('lv-')) return 'lever';
+  if (typeof board === 'string' && board.startsWith('gh-')) return 'greenhouse';
+  return 'generic';
+}
+
+const isPositiveSafeInteger = n => Number.isSafeInteger(n) && n > 0;
+// The canonical decimal string of a positive safe integer ("5416444", not "007" or "-5").
+const isPositiveDecimal = s => typeof s === 'string' && isPositiveSafeInteger(Number(s)) && String(Number(s)) === s;
+
+// One id -> its canonical string, or null if it is not valid for that kind of board.
+function canonicalId(kind, id) {
+  if (kind === 'lever') return typeof id === 'string' && UUID.test(id) ? id : null;
+  if (kind === 'greenhouse') {
+    if (isPositiveSafeInteger(id)) return String(id); // legacy numeric id
+    return isPositiveDecimal(id) ? id : null;
+  }
+  if (Number.isSafeInteger(id)) return String(id);
+  return typeof id === 'string' && id.length > 0 ? id : null;
+}
+
+function canonicalIds(board, ids, where) {
+  const kind = kindOf(board);
+  const out = ids.map(id => canonicalId(kind, id));
+  const bad = ids.filter((_, i) => out[i] === null);
+  const show = v => (typeof v === 'number' ? String(v) : JSON.stringify(v)); // NaN, not "null"
+  if (bad.length) throw integrityError(`${where}: ${bad.length} invalid ${kind} id(s), e.g. ${show(bad[0])}`);
+  return out;
+}
+
+// Decimal strings in numeric order (shorter first), other strings lexically.
+const byId = (a, b) => a.length - b.length || (a < b ? -1 : a > b ? 1 : 0);
 
 export function loadState(path) {
   if (!existsSync(path)) return null;
   const s = JSON.parse(readFileSync(path, 'utf8'));
   if (!Array.isArray(s.ids)) throw new Error(`state file ${path} has no ids list`);
-  return s;
+  const ids = canonicalIds(s.board, s.ids, `state file ${path}`);
+  if (new Set(ids).size !== ids.length) throw integrityError(`state file ${path} has duplicate ids`);
+  return { ...s, ids };
 }
 
+// ids is the merge of the prior state and a new response, so overlaps are expected and
+// merged; an invalid id throws before anything is written.
 export function saveState(path, { board, ids, run }) {
+  const sorted = [...new Set(canonicalIds(board, ids, `saving state for ${board}`))].sort(byId);
   mkdirSync(dirname(path), { recursive: true });
-  const sorted = [...new Set(ids.map(Number))].sort((a, b) => a - b);
   writeFileSync(path, JSON.stringify({ board, updated_by_run: run, count: sorted.length, ids: sorted }, null, 2) + '\n');
 }
 
 // Pure: which postings are new given the previous state. Baseline reports none.
+// Ids compare as exact strings.
 export function diffNew(jobs, state) {
   if (state === null) return { baseline: true, fresh: [] };
-  const seen = new Set(state.ids.map(Number));
-  return { baseline: false, fresh: jobs.filter(j => !seen.has(Number(j.id))) };
+  const seen = new Set(state.ids.map(String));
+  return { baseline: false, fresh: jobs.filter(j => !seen.has(String(j.id))) };
 }
