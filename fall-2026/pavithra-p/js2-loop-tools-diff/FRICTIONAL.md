@@ -51,6 +51,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 - A separate strict TA-style review (a Claude Code agent) graded the draft 87–89 and found real gaps: the check passed a report changed to `finished` with a failed board; the code checked only the time already used, not the next request, and retried only some 5xx answers, unlike `GATE.md`; some reads skipped the policy; and my pasted command output had lost unittest's dot and dash lines.
 - All of these were fixed, with 4 new tests (73 in all). The saved runs' checks gave the same results after the fix.
 - One finding stays as it is: Claude Code drafted the 18 predictions, and I checked them after the tests had run. That is written in `BOUNDARY-TESTS.md`.
+- A ChatGPT review of the same draft found the same two gaps and one more: a single slow request could run past 60 seconds and the run would still end `finished`. Now such a run ends `budget-exhausted` (`test_a_request_that_runs_past_the_time_budget_ends_budget_exhausted`).
 
 ## What is unresolved
 

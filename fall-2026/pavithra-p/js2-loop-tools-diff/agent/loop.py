@@ -180,6 +180,11 @@ def run(boards, budgets, policy, persona, state, raw_dir, now=None, get=None, cl
                 board_result["new"] = [] if baseline else [j for j in board_result["jobs"] if j["id"] not in before]
                 seen[board_result["board"]] = sorted(before | set(ids))
             result.boards.append(board_result)
+            if hooks.check_budgets and r.elapsed() > budgets["max_seconds"]:
+                # A request can run longer than its timeout (a slow trickle of data). Its work is kept, but the run
+                # does not claim `finished` after breaking the 60-second budget.
+                raise BudgetExhausted("seconds", f"{r.elapsed():.1f} of {budgets['max_seconds']} s used: "
+                                                 f"the last request ran past the budget")
         failed = [b for b in result.boards if b["result"] == "failed"]
         result.status = "incomplete" if failed else "finished"
         result.reason = (f"{len(failed)} of {len(result.boards)} boards failed: "

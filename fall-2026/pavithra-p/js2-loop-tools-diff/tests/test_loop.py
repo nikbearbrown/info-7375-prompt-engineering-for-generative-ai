@@ -140,6 +140,16 @@ class BudgetAndRepeatTests(unittest.TestCase):
         with self.assertRaisesRegex(loop.BudgetExhausted, "seconds"):
             r.check_budgets(1)
 
+    def test_a_request_that_runs_past_the_time_budget_ends_budget_exhausted(self):
+        clock = FakeClock(step=0)
+        def slow(url, timeout):  # CONSTRUCTED: the answer arrives after 65 seconds
+            clock.now += 65
+            return tools.Response(200, greenhouse(1), url)
+        result, _, _ = self.p.run([GH], slow, clock=clock)
+        self.assertEqual(result.status, "budget-exhausted")
+        self.assertIn("ran past the budget", result.reason)
+        self.assertEqual(result.boards[0]["result"], "checked", "the work done is still reported")
+
     def test_repeated_board_stops_with_error(self):
         net = net_for()
         result, _, _ = self.p.run([GH, GH], net)
