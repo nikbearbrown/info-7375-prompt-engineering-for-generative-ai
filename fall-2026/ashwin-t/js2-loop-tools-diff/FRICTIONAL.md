@@ -62,9 +62,19 @@ are listed in SOURCES.md; personal feelings and unrecorded checks are not inferr
   subsequently ran the checks at my request and saved the output. The packet preserves that
   distinction instead of treating those runs as personal execution.
 
+## 2026-11-10: after the first submission
+
+- **What happened:** After pushing and zipping at `dfcf112`, a review I asked for found two gaps against
+  GATE.md: processing ran past the time budget (242.6 s on a 120 s budget, still `finished`), and an
+  approved run wrote state before its report. Claude Code reproduced both at `dfcf112`, committed failing
+  tests (`e27a5cc`), then fixed `jobloop/loop.py` (`5917493`). I then ran the checks myself for the first
+  time from the right folder: all exits 0 (`review-packet/checks-run-by-ashwin.txt`).
+- **Evidence:** `e27a5cc`, `5917493`, `89013cf`, `review-packet/checks-run-by-ashwin.txt`.
+
 ## Unresolved
 
 - Interruptions during retry sleep or response processing are outside the verified patch path.
+- A single rule classification already running when the deadline passes is not interrupted.
 - No new posting was demonstrated across two live runs, and the deliberate-failure run saves no state.
 - JS1 prompt-default and held-out-experiment limits remain.
 - The course validator exits 1; passing project tests do not make that validator pass.

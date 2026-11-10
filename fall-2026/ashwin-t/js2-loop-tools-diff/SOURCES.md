@@ -19,6 +19,7 @@
 
 ## Decisions and requests recorded for Ashwin
 
+- Ran the checks myself on 2026-11-10 at `89013cf` (`review-packet/checks-run-by-ashwin.txt`, all exits 0).
 - Approved the gate on 2026-11-09; Claude Code changed its Status line before commit `c9ff312`.
 - Kept the gate's state rule, including no state update after the deliberate failure.
 - Sent the patch request and accepted the scoped patch on 2026-11-10, as recorded in the review packet.
@@ -37,8 +38,15 @@
   `review-packet/REVIEW-PACKET.md`, the facts table and driver's-seat draft in `SIGNOFF.md`, this file, and
   the "What happened" / "Evidence" lines of `FRICTIONAL.md`.
 - Its own bug, found and fixed: the misleading seeded state line (`a11a167`).
+- 2026-11-10, after the first submission: reproduced the two gaps Codex reported, wrote
+  `tests/test_gate_gaps.py` and committed it failing (`e27a5cc`), then fixed `jobloop/loop.py`
+  (`5917493`) after I said "Fix and resubmit"; wrote `review-packet/run-checks-ashwin.sh` (`89013cf`).
 
 ## What Codex contributed
+
+- 2026-11-10, after the first submission at `dfcf112`: reviewed the pushed folder and the zip, and found
+  the two GATE.md gaps (processing past the time budget; state written before the report) and the
+  missing personal checks. Its point estimates are its own judgment and are not reproduced here.
 
 - 2026-11-09: drafted GATE.md from Claude Code's questions and the assignment brief, including
   proposed budgets, exits, permissions, and review choices. Approval was a separate step.

@@ -103,8 +103,20 @@ Claude Code at my request, not by me**, via `sh review-packet/run-checks.sh` (ou
 | `python3 -m unittest discover -s tests -t .` | 54 tests OK, exit 0 |
 | `python3 review-packet/reproduce_interrupt.py` | "defect not present", exit 0 |
 
-No additional successful personal rerun is recorded here. The passing results above are Claude Code
-runs; the earlier personal attempts remain working-directory errors.
+**Later, run by me personally** (2026-11-10 20:20:36 UTC, at `89013cf`, after the two gate-gap fixes),
+with `sh review-packet/run-checks-ashwin.sh` from my own terminal; output in
+`review-packet/checks-run-by-ashwin.txt`:
+
+| Command (from `js2-loop-tools-diff/`) | Result |
+|---|---|
+| `python3 -m unittest tests.test_review_interrupt tests.test_gate_gaps -v` | 9 tests OK, exit 0 |
+| `python3 -m unittest discover -s tests -t .` | 60 tests OK, exit 0 |
+| `/opt/homebrew/bin/python3.12 -m unittest discover -s tests -t .` | 60 tests OK, exit 0 |
+| `python3 review-packet/reproduce_interrupt.py` | "defect not present", exit 0 |
+| `python3 independent_check.py runs/2026-11-09T20-21-52Z-live` | PASS, exit 0 |
+
+This personal run was after acceptance and after a later fix to the same file, so it confirms the
+current code, not the state of the code at the moment I accepted.
 
 ## 8. Decision: accept, revise, or reject
 

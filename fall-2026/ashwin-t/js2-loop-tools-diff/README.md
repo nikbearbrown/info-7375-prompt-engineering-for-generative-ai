@@ -65,6 +65,8 @@ no run can finish (see "Limits").
 | What | When (UTC) | Result | Evidence |
 |---|---|---|---|
 | Offline test suite, after the accepted patch `be7a54a` | 2026-11-10 | 54 tests OK, exit 0, on 3.9.6 and 3.12.15 (run by Claude Code) | `tests/`, `review-packet/checks-run-by-claude-code.txt` |
+| Two GATE.md gaps found after the first submission (see below) | 2026-11-10 | tests failing first (`e27a5cc`), fixed in `5917493` | `tests/test_gate_gaps.py`, `review-packet/gate-gaps-*.txt/.diff` |
+| **Checks I ran myself**, at `89013cf` | 2026-11-10 20:20:36 | review + gap tests 9 OK; full suite 60 OK on 3.9.6 and on 3.12.15; interrupt reproduction exit 0; independent check of the live run PASS; every exit 0 | `review-packet/checks-run-by-ashwin.txt` |
 | **Live run** of 6 boards, code at `e270605` | 2026-11-09 20:21:52 | 5 boards observed (klaviyo 151, hubspotjobs 126, notion 153, supabase 71, palantir 304 postings); `greenhouse/klaviyo-nonexistent-js2` HTTP 404, **not retried**; 6 of 12 attempts, 5.1 s; status **incomplete, exit 1**; state not written; every board a **baseline** (no state existed) | [`runs/2026-11-09T20-21-52Z-live/`](runs/2026-11-09T20-21-52Z-live/report.md): `trace.jsonl`, `raw/`, `report.md`, `console.txt` |
 | Independent check of the live run | 2026-11-09 | PASS, exit 0 | `runs/2026-11-09T20-21-52Z-live/independent-check.txt` |
 | **Finished wrong answer** (SEEDED REPLAY, wrong version w01) | 2026-11-09 20:23:30 | **FINISHED, exit 0**, and reported a hand-made empty hubspotjobs board as "0 new" | [`finished-wrong-answer/`](finished-wrong-answer/README.md) |
@@ -103,9 +105,29 @@ seeded/                 the labeled seeded replay and the script that built it f
 runs/                   one live run and two seeded runs, each with trace, raw, report
 policy/                 boundary table, first test run output, actuals
 review-packet/          reproduction, my test, the diff, my decision
-tests/                  54 offline tests
+tests/                  60 offline tests
 drafting/               the questions Claude Code drafted before I wrote GATE.md
 ```
+
+## Changed after the first submission (2026-11-10)
+
+I first pushed and zipped at `dfcf112`. A review I asked for afterwards found two real gaps against my
+own gate, which Claude Code reproduced at `dfcf112` before changing anything:
+
+1. **Processing was outside the time budget** (GATE.md section 2). With slow rule classification on the
+   fake clock, a run ended `finished` after 242.6 s on a 120 s budget. Now no classification starts after
+   the deadline; such a run ends `budget-exhausted` (exit 2) and never writes state. A classification
+   already running cannot be interrupted, so one can still overrun (the same case now stops at ~121.6 s).
+2. **State could advance before the report was saved** (GATE.md section 1). Now `report.json` and
+   `report.md` are saved first, the approved state write happens after, and its result goes to
+   `state-result.json`. If the report cannot be saved, state is unchanged and the CLI says so.
+
+Tests first (`e27a5cc`, 6 failing), fix second (`5917493`, only `jobloop/loop.py`). The saved runs in
+`runs/` were made with the earlier code (`e270605` / `a11a167`); neither gap affected them, because no run
+wrote state and the live run took 5.1 s. The first submission also lacked checks run by me; I ran them
+at `89013cf` (`review-packet/checks-run-by-ashwin.txt`).
+
+From the zip instead of a clone: `cd js2-loop-tools-diff && python3 -m unittest discover -s tests -t .`
 
 ## Limits (carried from JS1, and new)
 
