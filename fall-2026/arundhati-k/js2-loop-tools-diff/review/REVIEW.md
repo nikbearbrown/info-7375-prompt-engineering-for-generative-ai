@@ -84,8 +84,12 @@ the same on the real boards.
 Accepted as is, including what section 4 lists: the Greenhouse `fullmatch` tightening (outside the Ashby
 scope) and the test name `test_greenhouse_rule_unchanged`, which is no longer exactly true.
 
-Because (my words):
+Because (my words, typed in the Claude Code session 2026-11-10): Jasper AI worked after the patch, 3 requests went through, and all 43 tests passed.
 
 ## 7. One case my test would still miss
 
-<!-- A real case that tests/test_providers.py does not cover and the patch could get wrong. -->
+(my words) Ben & Jerry's — the & and apostrophe are not allowed by the new rule.
+
+Checked by Claude Code (2026-11-10): `url_for('ashby', "Ben & Jerry's")` raises
+`ValueError: ashby board name must match ^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$`, so the run would exit `error`.
+No test covers it. Not checked: whether any real Ashby board name contains `&` or `'`.
