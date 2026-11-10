@@ -148,15 +148,28 @@ def to_int(s):
     return int(s) if s.isdigit() else NUMBER_WORDS[s.lower()]
 
 
+def looks_like_heading(content, m):
+    """Rev 2 (review packet, 2026-11-09): a requirements-type word opens a section only when it reads
+    like a heading, capitalized or followed by ':', and is not inside parentheses. Rev 1 took any
+    match, so "Health coverage (based on country requirements)" in a benefits list turned the perks
+    after it into requirements (review/03-finding-rev1.txt)."""
+    before = content[max(0, m.start() - 80):m.start()]
+    if before.count("(") > before.count(")"):
+        return False
+    return m.group(0)[0].isupper() or content[m.end():m.end() + 3].lstrip().startswith(":")
+
+
 def mandatory_text(content):
-    """The parts of the ad under a requirements-type heading; without one, everything except the
-    parts under a preferred-type heading."""
-    marks = sorted([(m.start(), "need") for m in MANDATORY_RE.finditer(content)] +
+    """The parts of the ad under a requirements-type heading; without one, the text before the first
+    preferred-type or benefits-type heading."""
+    marks = sorted([(m.start(), "need") for m in MANDATORY_RE.finditer(content) if looks_like_heading(content, m)] +
                    [(m.start(), "pref") for m in PREFERRED_RE.finditer(content)] +
                    [(m.start(), "end") for m in END_RE.finditer(content)])
     bounds = [(0, "intro")] + marks + [(len(content), "stop")]
     segments = [(kind, content[start:bounds[i + 1][0]]) for i, (start, kind) in enumerate(bounds[:-1])]
-    wanted = ("need",) if any(k == "need" for k, _ in segments) else ("intro", "need", "end")
+    # Rev 2: without a requirements heading, read only the text before any preferred or benefits
+    # heading (rev 1 also kept the benefits section).
+    wanted = ("need",) if any(k == "need" for k, _ in segments) else ("intro",)
     return " ".join(text for kind, text in segments if kind in wanted)
 
 

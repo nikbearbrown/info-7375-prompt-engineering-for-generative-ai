@@ -16,6 +16,15 @@ POSTINGS = providers.parse("ashby", "linear", 200, json.dumps({"jobs": FX["jobs"
 VIEW = persona.public_view(helpers.load_persona())
 
 
+# Corrected 2026-11-09 after running rev 2 (review/08-test-correction.md): the first version
+# asserted that none of the 16 fails condition 5. Two of them state a real requirement under
+# "What we're looking for", which rule v1 had also missed. The expectation now follows each ad.
+REAL_REQUIREMENT = {
+    "Solutions Engineer, APAC": "8+ years in a Solutions Engineering",
+    "Account Executive, Enterprise": "7+ years in a quota-carrying sales role",
+}
+
+
 class PerkIsNotARequirement(unittest.TestCase):
     def test_sixteen_real_postings(self):
         self.assertEqual(len(POSTINGS), 16)
@@ -23,7 +32,12 @@ class PerkIsNotARequirement(unittest.TestCase):
             rec = rule.judge(p, VIEW)
             c5 = next(l for l in rec["conditions"] if l["n"] == 5)
             self.assertNotIn("thereafter", c5["detail"], p["title"])
-            self.assertNotIn(5, rec["failed_conditions"], p["title"])
+            if p["title"] in REAL_REQUIREMENT:
+                self.assertIn(REAL_REQUIREMENT[p["title"]], p["content"])
+                self.assertIn(5, rec["failed_conditions"], p["title"])
+                self.assertIn(REAL_REQUIREMENT[p["title"]][:8], c5["detail"])
+            else:
+                self.assertNotIn(5, rec["failed_conditions"], p["title"])
 
     def test_constructed_requirement_word_inside_benefits(self):
         # CONSTRUCTED: the same trap in a small posting.
