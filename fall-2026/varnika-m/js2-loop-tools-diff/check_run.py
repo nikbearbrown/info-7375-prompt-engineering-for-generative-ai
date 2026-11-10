@@ -160,6 +160,25 @@ def check(record_path, root=None):
     checks.append(Check("new_ids_recomputed", not wrong_new and not cannot, "; ".join(wrong_new + cannot) or
                         "every ok board's new ids match a recomputation from the earlier raw responses"))
 
+    # 5b. Recompute "gone since the last good run" from that run's raw response.
+    wrong_gone = []
+    for b in record["boards"]:
+        if b["status"] != "ok" or b["counts"].get("gone") is None:
+            continue
+        earlier = history_before(root, b["key"], record["run_id"])
+        if not earlier:
+            expected = 0
+        else:
+            path = (root / earlier[-1]["raw_file"]).resolve()
+            if not path.exists():
+                wrong_gone.append("%s: last raw file %s is missing" % (b["key"], earlier[-1]["raw_file"]))
+                continue
+            expected = len(set(ids_in(b["system"], gzip.decompress(path.read_bytes()))) - set(final.get(b["key"], [])))
+        if b["counts"]["gone"] != expected:
+            wrong_gone.append("%s: loop %d gone, recomputed %d" % (b["key"], b["counts"]["gone"], expected))
+    checks.append(Check("gone_recomputed", not wrong_gone, "; ".join(wrong_gone) or
+                        "every ok board's gone count matches its last good run's raw response (or is unknown)"))
+
     # 6. Budgets and hosts, from the trace, against GATE.md.
     fetches = [line for line in trace if line["action"] == "fetch"]
     problems = []

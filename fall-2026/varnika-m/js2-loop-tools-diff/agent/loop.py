@@ -334,10 +334,15 @@ class Loop:
                                  "absolute_url": p["absolute_url"], "company_name": p["company_name"],
                                  "first_published": p.get("first_published"),
                                  "rule_verdict": judge(p, self.resume)})
-        # Gone since the last good run. A state imported from JS1 has no last_ids; its seen ids are JS1's last run.
-        last = set(state.get("last_ids", state["seen_ids"])) if state else set()
-        counts = {"postings": len(unique), "new": len(new_postings), "gone": len(last - set(unique)),
-                  "duplicate_ids": duplicates}
+        # Gone since the last good run. A state with no last_ids (imported from JS1, or written before
+        # 9ab582c) does not say what the last run saw, so the number is unknown, not guessed.
+        if state is None:
+            gone = 0
+        elif "last_ids" in state:
+            gone = len(set(state["last_ids"]) - set(unique))
+        else:
+            gone = None
+        counts = {"postings": len(unique), "new": len(new_postings), "gone": gone, "duplicate_ids": duplicates}
         new_state = dict(state or {"system": system, "board": key.split("/", 1)[1]})
         new_state["seen_ids"] = sorted(seen | set(unique))
         new_state["last_ids"] = sorted(unique)
@@ -461,7 +466,7 @@ def report(record):
         status = b["status"] + ((": " + b["reason"]) if b.get("reason") else "")
         lines.append("| %s | %s | %s | %d | %s | %s | %s |" % (
             b["key"], status, b.get("http_status") or "—", b["requests"],
-            c["postings"] if c else "—", c["new"] if c else "—", c["gone"] if c else "—"))
+            c["postings"] if c else "—", c["new"] if c else "—", c["gone"] if c and c["gone"] is not None else "—"))
     for key in record["not_attempted"]:
         lines.append("| %s | not attempted | — | 0 | — | — | — |" % key)
     lines.append("")
