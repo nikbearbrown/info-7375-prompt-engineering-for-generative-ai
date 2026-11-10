@@ -1,6 +1,6 @@
 # Step 3 — Aditya's revision tests fail on patch v1 (2026-11-10)
 
-Aditya appended the class `CheckRefusesWrongFileInsideFolder` to `tests/test_review_check_reads.py` (the test text was drafted by Claude Code; Aditya created and ran it) and ran it in their own terminal on patch v1 (`d058733`). Output pasted into chat, abridged and verbatim:
+Aditya appended the class `CheckRefusesWrongFileInsideFolder` to `tests/test_review_check_reads.py` (the test text was drafted by Claude Code; Aditya created and ran it) and ran it in their own terminal on patch v1 (`1567edd`). Output pasted into chat, abridged and verbatim:
 
 ```text
 FAIL: test_other_runs_raw_file_refused (...CheckRefusesWrongFileInsideFolder...)
