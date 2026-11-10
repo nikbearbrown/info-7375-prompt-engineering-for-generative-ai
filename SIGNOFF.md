@@ -32,7 +32,15 @@
   - the boards probe
   - the patch (`afb3877`)
   - these documents
-- **By hand:** *Ethan: list what you reran yourself, with dates (REVIEW_PACKET.md section 5).*
+- **By hand:** on 2026-11-10 at 17:31 EST I reran these in my own terminal, and every result matched what was expected (results in
+  REVIEW_PACKET.md section 5):
+  - `git show afb3877 -- jsagent/fetch.py` and `git show --stat afb3877`: I read the patch and checked its scope myself
+  - `review/reproduce_port_userinfo.py`
+  - the full test suite (113 OK)
+  - `scripts/sabotage_check.py` (19/19 caught)
+  - `scripts/boundary_report.py` (18/18)
+  - `scripts/verify_run.py` on runs A, B and D
+  - a `grep` of run A's trace for the deliberate 404
 
 **Not checked:**
 1. **Live retries, redirects and 429s.** None happened in runs A–D. Those paths are tested only against a scripted fetcher.

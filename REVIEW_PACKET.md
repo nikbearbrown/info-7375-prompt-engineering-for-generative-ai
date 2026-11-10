@@ -77,14 +77,24 @@ Claude ran these on 2026-11-10 (outputs saved in `review/`):
 | `python3 scripts/boundary_report.py` (after) | 18/18 match |
 | `python3 scripts/sabotage_check.py` | W4 planted back means its tests turn RED |
 
-**Commands I ran myself (Ethan):** *to fill in after running them: paste the date and the last line of each.*
+**Commands I ran myself (Ethan), Tue 2026-11-10 17:31 EST, in my own terminal at commit `e065399`.** Claude transcribed the results
+from the output I pasted to it.
 
-```bash
-git show afb3877 -- jsagent/fetch.py
-python3 review/reproduce_port_userinfo.py
-python3 -m unittest discover -s tests -t .
-python3 scripts/sabotage_check.py
-```
+| Command | What I saw |
+|---|---|
+| `git show afb3877 -- jsagent/fetch.py` | 9 added lines in `check_url` and none removed: the `@` check, the port check (443 only), and the invalid-port check. The host check is still after them, unchanged. Messages show the host, never the credentials |
+| `git show --stat afb3877` | Code: only `jsagent/fetch.py \| 9 +`. Also the output files `review/03_patch.diff`, `review/04_…`, `review/05_…`, `evidence/tests/03_boundary_after_patch.txt`. 5 files, 69 insertions, 0 deletions |
+| `python3 review/reproduce_port_userinfo.py` | `0 URL(s) decided against GATE.md section 5`. `:8443`, `user:pw@` and `user@` are refused; no port and `:443` are allowed |
+| `python3 -m unittest discover -s tests -t .` | `Ran 113 tests in 0.377s` / `OK` |
+| `python3 scripts/sabotage_check.py` | `every wrong version was caught`. W1–W19 all RED, including W4 (JS1's behavior planted back) |
+| `python3 scripts/boundary_report.py` | `18/18 cases match their prediction` |
+| `python3 scripts/verify_run.py` on runs A / B / D | `FAIL (lever:kraken …)` / `FAIL (lever:kraken …)` / `PASS` |
+| `grep samsara-does-not-exist out/runs/2026-11-10T171500_live/trace.jsonl` | One line: `"http_status": 404`, `"attempt": 1`, `"outcome": "failed: HTTP 404"`. Tried once, not retried |
+
+**Something I noticed:** the unittest run prints `usage: … error: --replay needs --seeded …` partway through. That is
+`test_replay_without_seeded_label_is_refused` passing: the loop refuses a seeded replay with no label, and the argument parser prints
+the refusal before exiting. It is not a failure, but it reads like one. Capturing that output inside the test would be a reasonable
+follow-up.
 
 ## 6. Decision
 
