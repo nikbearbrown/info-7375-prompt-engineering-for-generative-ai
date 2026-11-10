@@ -59,8 +59,10 @@ const MUTANTS = [
     [["    if (!existsSync(real) || !statSync(real).isFile()) return { decision: 'deny', path: real, reason: 'replay file missing' };\n", '']]],
 ];
 
+// The copy's test file is spec/policy.mutant.mjs, a name `node --test` with no
+// arguments does not discover, so the project's own test run never picks up mutants.
 function runTests(dir) {
-  const r = spawnSync(process.execPath, ['--test', 'test/policy.test.mjs'], { cwd: dir, encoding: 'utf8' });
+  const r = spawnSync(process.execPath, ['--test', 'spec/policy.mutant.mjs'], { cwd: dir, encoding: 'utf8' });
   const failed = [...r.stdout.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => m[1]);
   const total = /^# tests (\d+)/m.exec(r.stdout)?.[1];
   return { failed, total, status: r.status };
@@ -69,8 +71,12 @@ function runTests(dir) {
 function copy(name) {
   const dir = join(OUT, name);
   rmSync(dir, { recursive: true, force: true });
-  mkdirSync(dir, { recursive: true });
-  for (const p of ['src', 'test', 'GATE.md']) cpSync(join(ROOT, p), join(dir, p), { recursive: true });
+  mkdirSync(join(dir, 'test'), { recursive: true });
+  mkdirSync(join(dir, 'spec'), { recursive: true });
+  cpSync(join(ROOT, 'src'), join(dir, 'src'), { recursive: true });
+  cpSync(join(ROOT, 'GATE.md'), join(dir, 'GATE.md'));
+  cpSync(join(ROOT, 'test/boundary-cases.md'), join(dir, 'test/boundary-cases.md'));
+  cpSync(join(ROOT, 'test/policy.test.mjs'), join(dir, 'spec/policy.mutant.mjs'));
   return dir;
 }
 
