@@ -1,0 +1,24 @@
+$ python3 scripts/sabotage_check.py   # 2026-11-10 17:14 EST
+JS1 audit sabotage: 9 of 11 JS1 wrong-version tests failed (expected 9)
+unplanted copy: the W1-W19 tests pass
+W1   RED (caught)         path check by string prefix
+W2   RED (caught)         path checked before symlinks are resolved
+W3   RED (caught)         host check by suffix
+W4   RED (caught)         only the hostname compared (JS1's behavior)
+W5   RED (caught)         redirect hops checked but not counted
+W6   RED (caught)         failed board recorded as 0
+W7   RED (caught)         a failed board still exits finished
+W8   RED (caught)         retries not charged to the request budget
+W9   RED (caught)         a 404 retried like a timeout
+W10  RED (caught)         repeat check without URL normalization
+W11  RED (caught)         writes allowed anywhere in the project
+W12  RED (caught)         existing evidence overwritten without approval
+W13  RED (caught)         state updated for a failed board
+W14  RED (caught)         ids marked seen before they are reported
+W15  RED (caught)         verifier trusts the report's count
+W16  RED (caught)         output root inside a protected folder accepted
+W17  RED (caught)         allow-list drifts from the gate
+W18  RED (caught)         a budget drifts from the gate
+W19  RED (caught)         verifier passes an empty board with no history
+every wrong version was caught
+exit code: 0
