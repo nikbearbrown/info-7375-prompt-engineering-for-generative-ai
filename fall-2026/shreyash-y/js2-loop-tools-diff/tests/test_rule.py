@@ -45,7 +45,10 @@ class Location(unittest.TestCase):
                                offices=("New York, NY",))["failed_conditions"])
 
     def test_remote_with_state_office_passes(self):
-        self.assertNotIn(3, judge(location="Remote", offices=("Remote (Florida)",))["failed_conditions"])
+        # Expectation REVERSED in JS2 (rule v2, review packet): Shreyash decided on 2026-10-31
+        # (JS1 labels/DISPUTED-POSTINGS-REVIEW.md) that remote counts only if it can be done from
+        # Massachusetts, so a Florida-only remote office now fails. JS1 asserted assertNotIn here.
+        self.assertIn(3, judge(location="Remote", offices=("Remote (Florida)",))["failed_conditions"])
 
     def test_remote_without_any_us_mention_fails(self):
         self.assertIn(3, judge(location="Remote", offices=("Remote",),

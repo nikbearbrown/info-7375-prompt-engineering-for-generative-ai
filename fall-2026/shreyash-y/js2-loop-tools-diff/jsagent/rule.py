@@ -26,6 +26,23 @@ YEARS_RE = re.compile(NUM + r"\s*\+?\s*(?:(?:-|–|to)\s*" + NUM + r"\s*\+?\s*)?
                       re.IGNORECASE)
 RELOCATION_RE = re.compile(r"must relocate|required to relocate|requires relocation|"
                            r"relocation (?:is )?required", re.IGNORECASE)
+# Rule v2 (JS2 review packet, 2026-11-09), from Shreyash's JS1 decisions of 2026-10-31.
+# Experience: count only mandatory qualifications, and any "N years" there, not only phrases with
+# the word "experience". Location: hybrid or in-office ads fail unless in Boston, even with a
+# "Remote" tag; remote must be workable from Massachusetts.
+MANDATORY_RE = re.compile(r"\b(requirements?|qualifications|what you(?:'|’)?ll (?:need|bring)|what you (?:need|bring)|"
+                          r"who you are|you have|must[- ]haves?|minimum qualifications|basic qualifications)\b", re.IGNORECASE)
+PREFERRED_RE = re.compile(r"\b(preferred|nice[- ]to[- ]haves?|nice to have|bonus(?: points)?|pluses|a plus|ideally|desired)\b",
+                          re.IGNORECASE)
+END_RE = re.compile(r"\b(benefits|compensation|salary|pay range|base pay|perks|what we offer|"
+                    r"equal (?:employment )?opportunity)\b", re.IGNORECASE)
+ANY_YEARS_RE = re.compile(NUM + r"\s*\+?\s*(?:(?:-|–|to)\s*" + NUM + r"\s*\+?\s*)?years?\b", re.IGNORECASE)
+NOT_A_REQUIREMENT_BEFORE = re.compile(r"(founded|over the (?:past|last)|in the (?:past|last)|for (?:the )?(?:past|last)|history)\W*$",
+                                      re.IGNORECASE)
+HYBRID_RE = re.compile(r"hybrid (?:position|role|work|schedule|model|arrangement)|in[- ]office (?:role|position|work|days?)|"
+                       r"\d+ days (?:a|per|each) week in (?:the|our|an)\b[^.]{0,30}office|commutable distance|"
+                       r"this (?:is an?|role is) (?:in[- ]office|on[- ]?site)", re.IGNORECASE)
+STATE_LIST_RE = re.compile(r"(?:reside|located|live|living|based|residents?) (?:in|of)\b[:\s]*([^.]{0,400})", re.IGNORECASE)
 CONTRACT_TEXT_RE = re.compile(r"contract-only|contract only|contract position|contract role|\b1099\b",
                               re.IGNORECASE)
 
@@ -74,14 +91,38 @@ def names_us(p):
     return any(remote_state.search(o) for o in p["offices"])
 
 
+def remote_states(p):
+    """States a remote job is limited to, from the ad's 'reside in ...' list or from 'Remote (State)'
+    offices; empty when the posting names no limit."""
+    states = set()
+    for m in STATE_LIST_RE.finditer(p["content"]):
+        found = {s for s in US_STATES if term_re(s).search(m.group(1))}
+        if len(found) >= 2:
+            states |= found
+    remote_offices = [o for o in p["offices"] if term_re("Remote").search(o)]
+    tagged = [re.search(r"Remote\s*\(([^)]+)\)", o) for o in remote_offices]
+    if remote_offices and all(tagged):
+        states |= {t.group(1).strip() for t in tagged if t.group(1).strip() in US_STATES}
+    return states
+
+
 def c3_location(p, r):
-    rf, pf = ["resume.location", "resume.remote_ok"], ["posting.location", "posting.offices"]
+    rf, pf = ["resume.location", "resume.remote_ok"], ["posting.location", "posting.offices", "posting.content"]
     if not p["location"] and not p["offices"]:
         return line(3, False, rf, pf, "posting.location is missing")
     if term_re("Boston").search(p["location"]):
         return line(3, True, rf, pf, f"posting.location {p['location']!r} is Boston, matching resume.location")
     remote = any(term_re("Remote").search(x) for x in [p["location"]] + p["offices"])
-    if remote and r.get("remote_ok") and names_us(p):
+    hybrid = HYBRID_RE.search(p["content"])
+    onsite_type = (p.get("workplace_type") or "").lower() in ("hybrid", "onsite", "on-site")
+    if remote and (hybrid or onsite_type):
+        why = f"posting.content says {hybrid.group(0)!r}" if hybrid else f"workplace type is {p.get('workplace_type')!r}"
+        return line(3, False, rf, pf, f"posting.location/offices say Remote but {why}, and it is not in Boston")
+    limited = remote_states(p)
+    if remote and r.get("remote_ok") and limited and "Massachusetts" not in limited:
+        return line(3, False, rf, pf, f"remote work is limited to {sorted(limited)}; Massachusetts is not one of them, "
+                                      "so it cannot be done from resume.location")
+    if remote and r.get("remote_ok") and (names_us(p) or limited):
         return line(3, True, rf, pf, f"posting.location {p['location']!r} / posting.offices {p['offices']} "
                                      "is remote within the United States and resume.remote_ok is true")
     if remote and not r.get("remote_ok"):
@@ -107,11 +148,26 @@ def to_int(s):
     return int(s) if s.isdigit() else NUMBER_WORDS[s.lower()]
 
 
+def mandatory_text(content):
+    """The parts of the ad under a requirements-type heading; without one, everything except the
+    parts under a preferred-type heading."""
+    marks = sorted([(m.start(), "need") for m in MANDATORY_RE.finditer(content)] +
+                   [(m.start(), "pref") for m in PREFERRED_RE.finditer(content)] +
+                   [(m.start(), "end") for m in END_RE.finditer(content)])
+    bounds = [(0, "intro")] + marks + [(len(content), "stop")]
+    segments = [(kind, content[start:bounds[i + 1][0]]) for i, (start, kind) in enumerate(bounds[:-1])]
+    wanted = ("need",) if any(k == "need" for k, _ in segments) else ("intro", "need", "end")
+    return " ".join(text for kind, text in segments if kind in wanted)
+
+
 def required_years(content):
     found = []
-    for m in YEARS_RE.finditer(content):
-        if "experience" in m.group(3).lower():
-            found.append((to_int(m.group(1)), m.group(0)[:60].strip()))
+    text = mandatory_text(content)
+    for m in ANY_YEARS_RE.finditer(text):
+        after = text[m.end():m.end() + 8].lower()
+        if re.match(r"\W*(ago|old)\b", after) or NOT_A_REQUIREMENT_BEFORE.search(text[max(0, m.start() - 30):m.start()]):
+            continue
+        found.append((to_int(m.group(1)), text[m.start():m.start() + 60].strip()))
     return max(found) if found else None
 
 
