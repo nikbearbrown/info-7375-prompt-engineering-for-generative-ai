@@ -43,12 +43,14 @@ class CheckTests(unittest.TestCase):
         problems, _ = check.check(run_dir, self.p.root)
         self.assertTrue(any("missing: ['lever:no-such-board']" in p for p in problems))
 
-    def test_an_empty_board_reported_as_no_new_jobs_is_caught(self):
+    def test_an_empty_board_after_a_full_one_is_flagged_suspicious(self):
         empty = json.dumps({"jobs": []}).encode()  # CONSTRUCTED: the board suddenly answers with no jobs
         result, _, run_dir = self.p.run([GH], FakeNet({url("greenhouse", "acme"): [(200, empty)]}), state=self.state, now=DAY2)
         self.assertEqual((result.status, result.new_jobs), ("finished", []), "the loop reports 'finished, no new jobs' ...")
         problems, _ = check.check(run_dir, self.p.root)
-        self.assertTrue(any("0 jobs, but earlier saved responses had 2" in p for p in problems), "... and the check catches it")
+        self.assertEqual(problems, [f"{check.SUSPICIOUS}: greenhouse:acme answered with 0 jobs, but earlier saved responses "
+                                    "had 2; zero alone does not prove the response is wrong"],
+                         "... and the check flags it for review, without calling it proven wrong")
 
     def test_a_report_whose_counts_do_not_match_the_raw_file_fails(self):
         _, _, run_dir = self.p.run([GH], FakeNet({url("greenhouse", "acme"): [(200, greenhouse(1, 2, 3))]}),

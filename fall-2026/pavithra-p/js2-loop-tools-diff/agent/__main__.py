@@ -25,11 +25,16 @@ def main(argv=None):
         problems, notes = check.check(Path(args.run_dir).resolve(), config.ROOT, policy)
         for note in notes:
             print(f"note: {note}")
-        if problems:
+        if any(not p.startswith(check.SUSPICIOUS) for p in problems):
             print("CHECK FAILED")
             for p in problems:
                 print(f"- {p}")
             return 1
+        if problems:
+            print("NEEDS REVIEW: nothing is proven wrong, but this is suspicious")
+            for p in problems:
+                print(f"- {p}")
+            return 2
         print("check passed: the report matches the saved raw responses")
         return 0
 

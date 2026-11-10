@@ -16,7 +16,8 @@
 ## What I made
 
 - The `GATE.md` draft (`034c127`): the exits, budgets, repeat rule, error policy, permission policy, wrong versions and the truth line.
-- The choice of boards, and the check of the 18 boundary predictions.
+- The choice of boards, the check of the 18 boundary predictions, and my own predictions for cases 19 to 23 (`898afe3`).
+- The decision that an empty board after a full one is reported as "suspicious, needs review", not as proven wrong.
 - Run 1, the two wrong-version runs and run 2, in my own terminal.
 - The review packet's test cases and expected answers (`a5fc261`), the request for the fix, the commands I ran, and the decision to accept.
 - The sign-off's checks and signature, and the reflections in `FRICTIONAL.md`.

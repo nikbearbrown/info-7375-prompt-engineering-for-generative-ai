@@ -39,7 +39,7 @@ Commit `0ecb3d5`, saved as `evidence/review/2-patch.diff`. One file, `agent/rule
 
 In behaviour: a posting that asks for a range now passes the experience part when its lowest number is under 3, and fails it when the lowest number is 3 or more. Nothing else in the rule changes: role, skills, location and the title words are untouched.
 
-**On real data** (`evidence/review/compare_rule_versions.py`, the rule before and after on all 567 jobs of run 1, output in `evidence/review/5-behaviour-change.txt`): 6 jobs changed, all from Ramp. They ask for "1–4", "2–4", "1-3", "2–3", "2-6" and "1–3 years". Their experience part went from not met to met. Their final verdict stayed Not Relevant, because none of them is an engineering role (finance, sales, operations, legal). No verdict changed.
+On real data (`evidence/review/compare_rule_versions.py`, the rule before and after on all 567 jobs of run 1, output in `evidence/review/5-behaviour-change.txt`): 6 jobs changed, all from Ramp. They ask for "1–4", "2–4", "1-3", "2–3", "2-6" and "1–3 years". Their experience part went from not met to met. Their final verdict stayed Not Relevant, because none of them is an engineering role (finance, sales, operations, legal). No verdict changed.
 
 ## 5. Did the change stay in scope?
 
@@ -59,7 +59,7 @@ The written rule records the change too: a dated JS2 note at the end of `CONTRAC
 
 ## 7. My decision
 
-**Accept.** The evidence: my test went from 2 failures to 4 passes, the diff touches only the rule file, every other test still passes, and on 567 real jobs no final verdict changed.
+Accept. The evidence: my test went from 2 failures to 4 passes, the diff touches only the rule file, every other test still passes, and on 567 real jobs no final verdict changed.
 
 ## 8. A case my test would still miss
 

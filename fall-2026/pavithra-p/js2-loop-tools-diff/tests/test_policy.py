@@ -1,4 +1,4 @@
-"""The 18 boundary cases of BOUNDARY-TESTS.md, one test each, in the same order.
+"""The 23 boundary cases of BOUNDARY-TESTS.md, one test each, in the same order.
 
 Writes go to a temporary folder that stands in for the project, so no test touches the real runs/ or evidence/.
 No test opens a network connection.
@@ -111,6 +111,28 @@ class BoundaryTests(unittest.TestCase):
     def test_18_rule_write_without_approval_refused(self):
         with self.assertRaisesRegex(PolicyRefused, "needs my approval"):
             self.policy.write_text("agent/rule.py", "x")
+
+    # Cases 19 to 23: my own predictions, committed before these tests (BOUNDARY-TESTS.md).
+    def test_19_ashby_get_allowed(self):
+        url = "https://api.ashbyhq.com/posting-api/job-board/ramp"
+        self.assertEqual(self.policy.check_request("GET", url), url)
+
+    def test_20_userinfo_trick_refused(self):
+        with self.assertRaises(PolicyRefused):
+            self.policy.check_request("GET", "https://api.lever.co@example.com/v0/postings/x")
+
+    def test_21_other_port_allowed(self):
+        url = "https://api.lever.co:8443/v0/postings/spotify"
+        self.assertEqual(self.policy.check_request("GET", url), url)
+
+    def test_22_dotdot_into_config_refused(self):
+        with self.assertRaisesRegex(PolicyRefused, "needs my approval"):
+            self.policy.write_text("evidence/raw/../../config/hosts.json", "{}")
+        self.assertFalse((self.root / "config" / "hosts.json").exists())
+
+    def test_23_capital_letters_host_allowed(self):
+        url = "https://BOARDS-API.GREENHOUSE.IO/v1/boards/pinterest/jobs"
+        self.assertEqual(self.policy.check_request("GET", url), url)
 
 
 if __name__ == "__main__":

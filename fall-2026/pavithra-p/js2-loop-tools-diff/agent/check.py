@@ -3,7 +3,7 @@
 For every board the report calls "checked", the last saved response must be a real job list whose size and new IDs
 match the report. The boards in the report must be the boards in config/boards.json, and a run that says `finished`
 may not have a failed or missing board. New IDs are recomputed from the raw files of earlier runs, not from the
-agent's state file, and a board that answers with 0 jobs after having jobs before is flagged, not trusted.
+agent's state file, and a board that answers with 0 jobs after having jobs before is reported as "suspicious, needs review".
 Every file is opened through the permission policy's read check.
 """
 import json
@@ -11,6 +11,9 @@ from pathlib import Path
 
 from . import ats
 from .policy import Policy
+
+
+SUSPICIOUS = "suspicious, needs review"
 
 
 def _raw_ids(policy, path, system):
@@ -70,8 +73,8 @@ def check(run_dir, root, policy=None):
             problems.append(f"{b['board']}: report says {b['jobs']} jobs, the saved response has {len(ids)}")
         before = earlier_ids(policy, root / "evidence" / "raw", stamp, system, name)
         if not ids and before:
-            problems.append(f"{b['board']}: the saved response has 0 jobs, but earlier saved responses had {len(before)}; "
-                            f"an empty answer is not taken as \"no new jobs\" without a look")
+            problems.append(f"{SUSPICIOUS}: {b['board']} answered with 0 jobs, but earlier saved responses had "
+                            f"{len(before)}; zero alone does not prove the response is wrong")
             continue
         if not before:
             notes.append(f"{b['board']}: new IDs not recomputed (no earlier raw file in evidence/raw/)")
@@ -79,6 +82,6 @@ def check(run_dir, root, policy=None):
         expected_new = sorted(set(ids) - before)
         if sorted(b["new_ids"]) != expected_new:
             problems.append(f"{b['board']}: report says {len(b['new_ids'])} new, the raw files say {len(expected_new)}")
-    if report["status"] == "finished" and problems:
+    if report["status"] == "finished" and any(not p.startswith(SUSPICIOUS) for p in problems):
         problems.insert(0, "the run ended `finished`, but its report does not match its own evidence")
     return problems, notes

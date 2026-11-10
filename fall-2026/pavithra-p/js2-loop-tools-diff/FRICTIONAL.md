@@ -10,6 +10,7 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 - 2026-11-09: Asked to include my JS1 TA's label tip in the gate, and wrote my seven GATE answers.
 - 2026-11-10: Gave my four expected answers for the year-range test before the fix.
 - 2026-11-10: "Fix experience ranges so they use the lowest number, for example, `2–12+` should count as 2 years, and don't change anything else."
+- 2026-11-10: "For the new empty-board check, report \"suspicious, needs review\" if a previously populated board returns zero jobs; zero alone does not prove the response is wrong."
 - 2026-11-10: Asked Claude Code to check every part against the TA's possible deductions before the final review.
 
 ## 2026-11-09: The gate first
@@ -53,13 +54,18 @@ My main prompts and inputs to Claude Code (quotation marks show my exact words; 
 - One finding stays as it is: Claude Code drafted the 18 predictions, and I checked them after the tests had run. That is written in `BOUNDARY-TESTS.md`.
 - A ChatGPT review of the same draft found the same two gaps and one more: a single slow request could run past 60 seconds and the run would still end `finished`. Now such a run ends `budget-exhausted` (`test_a_request_that_runs_past_the_time_budget_ends_budget_exhausted`).
 
+## 2026-11-10: More predictions, my own
+
+- Predicted five more boundary cases myself before their tests existed (`898afe3`): 19 allowed, 20 refused, 21 allowed, 22 refused, 23 allowed. For 21, my GATE allows an HTTPS request to an approved hostname and does not restrict ports. All five matched (`test_19` to `test_23`).
+- The check now flags the brief's own example, a board that answers with 0 jobs after having jobs, as "suspicious, needs review" (`26ec385`, `test_an_empty_board_after_a_full_one_is_flagged_suspicious`). I chose that wording because zero alone does not prove the response is wrong.
+
 ## What is unresolved
 
 - The parser still does not correctly handle verbal ranges such as “2 to 4 years” or shorthand such as “3 yrs.” I left those unresolved because my request was limited to numeric ranges and I did not want to change other behavior without new expected cases. Next time, I would define those formats in the written rule first, add held-out tests before changing the code, and rerun the full evaluation and fresh-clone check after the fix.
 
 ## Human and AI contributions
 
-- I did: wrote the GATE draft, chose the boards, checked the boundary predictions, ran run 1, the wrong-version demo and run 2, chose the four test cases and their answers, wrote the request for the fix, ran the review commands and decided to accept it.
+- I did: wrote the GATE draft, chose the boards, checked the boundary predictions and predicted five more myself, decided how the check reports an empty board, ran run 1, the wrong-version demo and run 2, chose the four test cases and their answers, wrote the request for the fix, ran the review commands and decided to accept it.
 - Claude Code: tightened the gate, wrote the loop, the policy, the check and the tests, made the fix I asked for, ran a strict review of my draft and fixed what it found, and drafted the reports.
 - Accepted: the tightened gate, the invalid-data clarification, the third wrong version, the year-range fix, the fixes from the strict review.
 - Changed: my draft's `error` example (invalid data became a failed board).

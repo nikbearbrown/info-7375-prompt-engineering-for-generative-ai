@@ -1,6 +1,6 @@
 # Permission policy: boundary tests
 
-The policy is in `GATE.md` and enforced in `agent/policy.py`. Each case below has its prediction written on 2026-11-09, before `agent/policy.py` existed and before any test ran. The "What happened" column was filled in after `python3 -m unittest tests.test_policy -v` ran on 2026-11-09: 18 tests, 18 as predicted.
+The policy is in `GATE.md` and enforced in `agent/policy.py`. Each case below has its prediction written on 2026-11-09, before `agent/policy.py` existed and before any test ran. The "What happened" column was filled in after `python3 -m unittest tests.test_policy -v` ran on 2026-11-09: 18 tests, 18 as predicted. Cases 19 to 23 ran on 2026-11-10 after my predictions were committed (`898afe3`): 5 tests, 5 as predicted.
 
 | # | Case | Kind | Prediction | Test | What happened |
 |---|---|---|---|---|---|
@@ -22,11 +22,11 @@ The policy is in `GATE.md` and enforced in `agent/policy.py`. Each case below ha
 | 16 | Write `config/budgets.json` without my approval | write that needs approval | refused ("needs my approval") | `test_16_config_write_without_approval_refused` | as predicted: refused ("needs my approval") |
 | 17 | Write `config/budgets.json` with my approval | write that needs approval | allowed | `test_17_config_write_with_approval_allowed` | as predicted: allowed |
 | 18 | Write `agent/rule.py` (the relevance rule) without my approval | write that needs approval | refused ("needs my approval") | `test_18_rule_write_without_approval_refused` | as predicted: refused ("needs my approval") |
-| 19 | GET `https://api.ashbyhq.com/posting-api/job-board/ramp` | request, the third allowed host | allowed | `test_19_ashby_get_allowed` | |
-| 20 | GET `https://api.lever.co@example.com/v0/postings/x` | request, allowed name before an `@` | refused | `test_20_userinfo_trick_refused` | |
-| 21 | GET `https://api.lever.co:8443/v0/postings/spotify` | request, allowed host on another port | allowed (my note: the GATE allows an HTTPS request to an approved hostname and does not restrict ports) | `test_21_other_port_allowed` | |
-| 22 | Write `evidence/raw/../../config/hosts.json` | write, reaching `config/` through `..` | refused | `test_22_dotdot_into_config_refused` | |
-| 23 | GET `https://BOARDS-API.GREENHOUSE.IO/v1/boards/pinterest/jobs` | request, allowed host in capitals | allowed | `test_23_capital_letters_host_allowed` | |
+| 19 | GET `https://api.ashbyhq.com/posting-api/job-board/ramp` | request, the third allowed host | allowed | `test_19_ashby_get_allowed` | as predicted: allowed |
+| 20 | GET `https://api.lever.co@example.com/v0/postings/x` | request, allowed name before an `@` | refused | `test_20_userinfo_trick_refused` | as predicted: refused |
+| 21 | GET `https://api.lever.co:8443/v0/postings/spotify` | request, allowed host on another port | allowed (my note: the GATE allows an HTTPS request to an approved hostname and does not restrict ports) | `test_21_other_port_allowed` | as predicted: allowed |
+| 22 | Write `evidence/raw/../../config/hosts.json` | write, reaching `config/` through `..` | refused | `test_22_dotdot_into_config_refused` | as predicted: refused |
+| 23 | GET `https://BOARDS-API.GREENHOUSE.IO/v1/boards/pinterest/jobs` | request, allowed host in capitals | allowed | `test_23_capital_letters_host_allowed` | as predicted: allowed |
 
 A refused request must raise before any connection is made, and a refused write must leave no file behind.
 

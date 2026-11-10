@@ -11,10 +11,10 @@ Run 1, `python3 -m agent watch`, in my own terminal on 2026-11-10 at 13:30:54Z. 
 | 5 | 2.73 | lever:no-such-board | 1 | HTTP 404 | 41 | — | failed: HTTP 404, not retried (permanent) |
 | 6 | 2.73 | — | — | — | — | — | exit: `incomplete` |
 
-**The deliberate failure:** `no-such-board` does not exist on Lever. Lever answered HTTP 404 with `{"ok": false, "error": "Document not found"}`, saved as `evidence/raw/20261110T133054Z-lever-no-such-board-a1.json`. Following `GATE.md`, a 404 is a wrong name, so the loop did not retry it, recorded the board as failed with its reason, gave it no job count, and went on. Because one board failed, the run ended `incomplete`, not `finished`.
+The deliberate failure: `no-such-board` does not exist on Lever. Lever answered HTTP 404 with `{"ok": false, "error": "Document not found"}`, saved as `evidence/raw/20261110T133054Z-lever-no-such-board-a1.json`. Following `GATE.md`, a 404 is a wrong name, so the loop did not retry it, recorded the board as failed with its reason, gave it no job count, and went on. Because one board failed, the run ended `incomplete`, not `finished`.
 
-**Budgets used:** 5 of 5 boards, 5 of 10 requests, 2.7 of 60 seconds. No retry was needed.
+Budgets used: 5 of 5 boards, 5 of 10 requests, 2.7 of 60 seconds. No retry was needed.
 
-**What the run found:** 567 jobs. Pinterest had 17 new jobs since my last JS1 run on 2026-10-31 (its seen IDs were carried over from JS1); none is relevant by my rule (all are senior, staff, intern or non-engineering roles). Figma, Spotify and Ramp were seen for the first time, so they are baselines with 0 new. By my rule, 7 of the 567 jobs are relevant.
+What the run found: 567 jobs. Pinterest had 17 new jobs since my last JS1 run on 2026-10-31 (its seen IDs were carried over from JS1); none is relevant by my rule (all are senior, staff, intern or non-engineering roles). Figma, Spotify and Ramp were seen for the first time, so they are baselines with 0 new. By my rule, 7 of the 567 jobs are relevant.
 
-**The independent check on this run:** `python3 -m agent check runs/20261110T133054Z` passed. It could not recompute the new IDs yet, because these were the first saved responses from these boards in this folder; it said so in four notes.
+The independent check on this run: `python3 -m agent check runs/20261110T133054Z` passed. It could not recompute the new IDs yet, because these were the first saved responses from these boards in this folder; it said so in four notes.
