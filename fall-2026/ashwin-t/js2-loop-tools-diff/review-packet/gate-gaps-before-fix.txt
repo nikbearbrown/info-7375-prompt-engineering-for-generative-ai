@@ -1,0 +1,62 @@
+test_a_run_past_its_deadline_is_not_finished (tests.test_gate_gaps.TestProcessingDeadline) ... FAIL
+test_state_is_not_written_by_an_over_budget_run (tests.test_gate_gaps.TestProcessingDeadline) ... FAIL
+test_work_stops_once_the_deadline_has_passed (tests.test_gate_gaps.TestProcessingDeadline) ... FAIL
+test_a_failed_report_write_leaves_state_unchanged (tests.test_gate_gaps.TestReportBeforeState) ... FAIL
+test_an_approved_finished_run_still_writes_state_after_its_report (tests.test_gate_gaps.TestReportBeforeState) ... FAIL
+test_cli_names_the_report_failure_not_the_run_folder (tests.test_gate_gaps.TestReportBeforeState) ... ERROR
+
+======================================================================
+ERROR: test_cli_names_the_report_failure_not_the_run_folder (tests.test_gate_gaps.TestReportBeforeState)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 94, in test_cli_names_the_report_failure_not_the_run_folder
+    with mock.patch.object(loop, "run", side_effect=loop.ReportWriteError("disk full")):
+AttributeError: module 'jobloop.loop' has no attribute 'ReportWriteError'
+
+======================================================================
+FAIL: test_a_run_past_its_deadline_is_not_finished (tests.test_gate_gaps.TestProcessingDeadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 43, in test_a_run_past_its_deadline_is_not_finished
+    self.assertEqual(self.report["run"]["status"], loop.BUDGET_EXHAUSTED)
+AssertionError: 'finished' != 'budget-exhausted'
+- finished
++ budget-exhausted
+
+
+======================================================================
+FAIL: test_state_is_not_written_by_an_over_budget_run (tests.test_gate_gaps.TestProcessingDeadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 50, in test_state_is_not_written_by_an_over_budget_run
+    self.assertFalse(self.state_changed)
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_work_stops_once_the_deadline_has_passed (tests.test_gate_gaps.TestProcessingDeadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 47, in test_work_stops_once_the_deadline_has_passed
+    self.assertEqual(self.calls, 1, "classification must not start after the deadline")
+AssertionError: 2 != 1 : classification must not start after the deadline
+
+======================================================================
+FAIL: test_a_failed_report_write_leaves_state_unchanged (tests.test_gate_gaps.TestReportBeforeState)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 70, in test_a_failed_report_write_leaves_state_unchanged
+    self.assertEqual(project.state_bytes(), before, "state advanced although no report was saved")
+AssertionError: b'{\n  "boards": {\n    "ashby/beta": {\n   [463 chars]n}\n' != b'{"schema_version": 1, "last_finished_run":[274 chars]"}}}' : state advanced although no report was saved
+
+======================================================================
+FAIL: test_an_approved_finished_run_still_writes_state_after_its_report (tests.test_gate_gaps.TestReportBeforeState)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_gate_gaps.py", line 91, in test_an_approved_finished_run_still_writes_state_after_its_report
+    self.assertLess(order.index("report.json"), order.index("state/seen.json"), order)
+AssertionError: 4 not less than 3 : ['greenhouse__alpha__attempt-1.json', 'ashby__beta__attempt-1.json', 'lever__gamma__attempt-1.json', 'state/seen.json', 'report.json', 'report.md']
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.022s
+
+FAILED (failures=5, errors=1)
