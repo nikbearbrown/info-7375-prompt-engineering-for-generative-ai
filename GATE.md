@@ -1,6 +1,6 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v2.2 · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v2.3, final before implementation · 2026-11-10 · written and committed before any JS2 code
 
 ## Scope
 
@@ -23,7 +23,7 @@ Use ten configured boards: eight with postings across two systems, one live empt
 | 6 | `palantir` | Lever | `api.lever.co` | Second ATS, with a different response shape |
 | 7 | `spotify` | Lever | `api.lever.co` | Second Lever board |
 | 8 | `zoox` | Lever | `api.lever.co` | Largest Lever response (about 2.3 MB with descriptions) |
-| 9 | `kraken` | Lever | `api.lever.co` | **A live empty board.** It returned `200` with `[]` on 2026-11-10: the brief's "empty board reported as no new jobs" case, live |
+| 9 | `kraken` | Lever | `api.lever.co` | **A live empty board that is wrong.** On 2026-11-10 its Lever board returned `200` with `[]`, while Kraken listed 92 postings on Ashby (`kraken.com`). This is the brief's "empty board reported as no new jobs" case, live |
 | 10 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | The deliberate failure (404) |
 
 Boards 2–9 were chosen from a read-only probe on 2026-11-10, run with Claude's help. Those were not agent runs and their raw responses
@@ -220,6 +220,11 @@ are expectations written before the code exists. The actual results go in `evide
 **The finished-wrong answer.** I show it twice:
 - **Run B, live.** Every board answers in its provider's shape, so the loop says finished. But kraken's `[]` is reported as "0 new," and
   nothing in the loop can tell "no openings" from "this board is no longer used." The verifier FAILs it as empty, needing review.
+  To show the answer is **wrong** and not only suspicious, I cross-check Kraken's Ashby board on the day of run B with
+  `scripts/crosscheck_kraken.py`. It is one GET to `https://api.ashbyhq.com/posting-api/job-board/kraken.com` (92 postings on
+  2026-11-10), and its raw response is saved in `evidence/crosscheck/`. The cross-check is mine and runs outside the agent: the agent's
+  allow-list does not include Ashby, and this gate does not add it. If Kraken's Lever board is no longer empty on the day of run B, I
+  report that the live demonstration was not achieved and rely on run C.
 - **Run C, SEEDED, clearly labeled.** It gives the TA an offline version that doesn't depend on Kraken staying empty. Its input is the file
   `tests/fixtures/seeded/empty-samsara.json`, which contains `{"jobs": [], "meta": {"total": 0}}`. Its output and state stay separate
   from the real run.
@@ -249,8 +254,8 @@ because kraken is empty. For run C, I expect FAIL because the board is empty and
 
 **Review packet.** My proposed Claude Code change fixes a real JS1 defect: JS1's `check_url` compares only the hostname, so it accepts
 `https://boards-api.greenhouse.io:8443/…` and `https://user:pw@boards-api.greenhouse.io/…`. It was reproduced offline, with Claude's
-help, on 2026-11-10, before this gate was written. Before the patch, I will save the
-reproduction and commit a failing regression test (wrong version 4). I am not introducing a defect just to create a review. If the
+help, on 2026-11-10, before this gate was written. Before the patch, I will save the reproduction and commit a failing regression test
+(wrong version 4). I am not introducing a defect just to create a review. If the
 reproduction stops failing before the patch, I will choose another reproduced defect.
 
 **Boundary tests.** I keep the boundary predictions separate from this gate, in `BOUNDARY_TESTS.md`. That file lists at least ten concrete
@@ -271,8 +276,8 @@ Predictions, actual results, who wrote each test, the commands I ran, and the fi
 - changes to Lever's or Greenhouse's rate limits and terms
 - Lever's missing total count, which means a truncated Lever list can only be caught by the recount and the drop check
 - a board that left Lever can look like a typo (`plaid` returned 404 on 2026-11-10) or like a board with no openings (`kraken`,
-  `wealthsimple` and `voleon` returned `200 []`). Because the verifier fails every empty board, a board that really has no openings will
-  also FAIL. I accept that false alarm.
+  `wealthsimple` and `voleon` returned `200 []`; Kraken's jobs were on Ashby). The agent cannot find where a company moved. Because the
+  verifier fails every empty board, a board that really has no openings will also FAIL. I accept that false alarm.
 - whether the relevance verdicts are accurate
 
 **JS1's limits, carried into the README:**
@@ -283,10 +288,11 @@ Predictions, actual results, who wrote each test, the commands I ran, and the fi
 ## Decisions log
 
 This file's earlier versions are in git: v1 `82f02cb`, v1.1 `2a2e11f`, v1.2 `ef2eafc`, v1.3 `c421e28`, v2.0 `2b75002`,
-v2.1 `a67bdbf`.
+v2.1 `a67bdbf`, v2.2 `30e0f56`.
 
 | Date | Decision | Reason |
 |---|---|---|
 | 2026-11-10 | v2.0: same decisions as v1.3, rewritten in a prose format, with rule IDs replaced by numbered wrong versions. Added: a preflight board cap and a zero-board error; URLs built only from fixed templates; paths resolved from the project root; reporting a deliberate failure that unexpectedly succeeds; a budget-drift test (wrong version 18) | Easier to read. The additions close small gaps found while rewriting, before any code exists |
 | 2026-11-10 | v2.1 (my own edit): removed the checked-facts list and the "deliberate failure unexpectedly succeeds" rule from Scope | I made this edit myself after reading v2.0 |
 | 2026-11-10 | v2.2: ten boards instead of four. Added `toast`, `klaviyo`, `datadog` (Greenhouse), `spotify`, `zoox` (Lever), and `kraken` (Lever, live empty). Budgets raised: boards 5→12, requests 60→100, time 300→420 s, loop steps 100→200. The verifier now FAILs any empty board. Run plan A–D, with B as the live finished-wrong answer and D as the clean run. Wrong version 19 added. The review-packet paragraph now describes its defect and credits Claude for the reproduction | I wanted ten boards. A probe on 2026-11-10 found a real Lever board returning `200 []`, which gives a live finished-wrong answer instead of only a seeded one. The old budgets could not fit ten list requests, their retries and about 40 Samsara detail requests. Without the empty-board check, the verifier would have passed kraken because it has no history |
+| 2026-11-10 | v2.3, final before implementation: kept `kraken` instead of replacing it with `airbnb`. Run B now includes a cross-check of Kraken's Ashby board, run by me outside the agent (`scripts/crosscheck_kraken.py`, raw saved in `evidence/crosscheck/`), plus a fallback to run C if Kraken's Lever board is no longer empty | A read-only check on 2026-11-10 found 92 Kraken postings on Ashby (`kraken.com`), so Lever's `[]` is demonstrably wrong, not just suspicious. That makes it a real finished-wrong answer. Airbnb would only have been one more ordinary board. Ashby stays off the agent's allow-list |
