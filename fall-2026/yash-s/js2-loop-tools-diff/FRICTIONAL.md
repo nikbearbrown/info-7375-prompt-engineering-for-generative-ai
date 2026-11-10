@@ -144,3 +144,159 @@ I have not run the live JS2 agent yet, so I cannot claim that the three real job
 - `GATE.md`
 - `BOUNDARY-TESTS.md`
 
+## 2026-11-09: First Live Run and Unexpected Results
+
+### What I did
+
+After the offline tests passed, I committed my JS2 implementation and ran the agent with:
+
+`python3 agent.py --config config/live.json`
+
+The agent checked four boards: Databricks, Anthropic, OpenAI, and the deliberately misspelled Greenhouse board.
+
+The run finished with the status `INCOMPLETE`. It used 4 requests and took 3.166 seconds, staying within my limits of 6 requests and 120 seconds.
+
+### My predictions compared with the results
+
+Before running the agent, I predicted that the three real boards would return postings, the misspelled board would return HTTP 404, and the overall run would be incomplete.
+
+Those predictions were correct.
+
+The actual results were:
+
+| Board | Result | New postings |
+|---|---|---|
+| Databricks | 915 postings | 80 new |
+| Anthropic | 675 postings | Baseline |
+| OpenAI | 825 postings | Baseline |
+| Deliberate failure | HTTP 404 | Unknown |
+
+I predicted approximately 10 new Databricks postings since October 31, but the agent found 80.
+
+This was much higher than I expected. My Databricks state grew from 924 previously seen IDs to 1,004.
+
+I kept my original prediction unchanged so the difference is visible.
+
+### What I checked
+
+I checked the saved raw responses, trace, and summary from the live run.
+
+All four raw responses were saved, including the HTTP 404 response.
+
+The SHA-256 fingerprints of the saved responses matched the values recorded in the trace.
+
+The posting counts in the successful raw responses matched the agent's reported counts.
+
+I also checked that Anthropic and OpenAI created their first baseline states.
+
+The failed board did not create a state file.
+
+I ran the independent checker on the live run, and it found no posting-count mismatches.
+
+### What went wrong
+
+The live run revealed a problem that my offline tests had missed.
+
+The deliberately failing board was correctly marked `failed`, and the overall run was correctly marked `INCOMPLETE`.
+
+However, the console displayed `new=0` for that board, and `summary.json` recorded `"new_count": 0`.
+
+This was wrong because the board returned HTTP 404. The agent never received a valid job list, so the number of new postings was unknown, not zero.
+
+My `GATE.md` specifically says that a failed board must not be reported as having zero new jobs.
+
+The Markdown report showed `-` for the failed board, but the console and JSON summary did not.
+
+This showed me that my earlier tests did not check every output format.
+
+### What I learned
+
+All 63 offline tests passed, and the three planted wrong versions were caught, but the real run still exposed a defect.
+
+The original wrong-version check tested the board status, error, posting count, and report output, but it did not catch the incorrect `new_count` field or console output.
+
+I learned that tests can pass while an important part of the program's output is still misleading.
+
+I also inspected the 80 new Databricks postings. My deterministic RECORD rule marked 3 as relevant, but those jobs had seniority or location restrictions that would make them not relevant under my fuller JS1 labeling rules.
+
+This is another limitation of my RECORD rule. I will not claim these three postings are suitable matches for the fictional persona.
+
+### Evidence
+
+- Live run: `runs/run-2026-11-10T025118Z/`
+- Raw responses, `trace.jsonl`, `summary.json`, and `report.md`
+- Implementation commit: `841dbce`
+- Live-run commit: `dd8e287`
+
+
+## 2026-11-09: Finished-Wrong-Answer Demonstration and Review Decision
+
+### What I decided
+
+The assignment requires me to show an agent that finishes normally but still gives a wrong answer.
+
+I decided to use a three-board seeded demonstration.
+
+The demonstration uses saved copies of the real Databricks and OpenAI responses, but replaces the Anthropic response with a constructed, well-formed empty job list.
+
+The real Anthropic response contained 675 postings. The constructed response contains zero.
+
+I chose this example because the original agent accepts a valid empty list without checking whether a sudden drop to zero makes sense.
+
+### What the demonstration is meant to show
+
+My expected result is that the agent will report `FINISHED` because every response is structurally valid.
+
+A separate checker should compare Anthropic's zero postings with the earlier saved response containing 675 postings and flag `DROP-TO-ZERO`.
+
+This is a seeded demonstration, not a real live result. The Anthropic empty response was constructed for this experiment.
+
+Claude prepared the replay files and rehearsed the demonstration in a scratch copy. That rehearsal reported `FINISHED`, and the independent checker flagged the Anthropic drop from 675 to zero.
+
+I will record my own execution separately after running the demonstration in my project folder.
+
+### My Chapter 6 review decision
+
+My original gate said I would investigate the empty-board limitation in the review packet.
+
+However, the real live run revealed a more direct defect: a failed board was reported as having zero new postings in two outputs.
+
+I decided to use this actual defect for my Chapter 6 review packet instead.
+
+I accepted Claude's suggestion to use the `new=0` problem because I could reproduce it with the saved live evidence and write a specific regression test.
+
+The empty-board limitation will remain documented through the separate finished-wrong-answer demonstration.
+
+### Test-first plan
+
+I asked Claude to prepare only the test setup for the failed-board count defect.
+
+Claude created temporary replay responses, a temporary state and runs directory, and console-output capture.
+
+I reserved the assertions for myself.
+
+My tests will require:
+
+1. A failed board to have `new_count: null` in `summary.json`, instead of zero.
+2. The console to display `new=unknown`, instead of `new=0`.
+
+I will run the tests against the existing implementation and save the failing output before asking Claude to patch the code.
+
+After the patch, I will inspect the diff, rerun the tests and planted-bug checks, and record whether I accept the change.
+
+### What is still not checked
+
+I have not yet verified that the patched agent handles all failure types correctly.
+
+These new tests focus on an HTTP 404 board. They may not catch the same problem for boards skipped because of budget exhaustion or other failures.
+
+I will keep this limitation in my review packet rather than claiming complete coverage.
+
+### Evidence
+
+- `demo/replay/`
+- `demo/README.md`
+- `config/demo-finished-wrong.json`
+- `independent_check.py`
+- `tests/test_review_failed_board_count.py`
+- `review/test-before-patch.txt` (to be created when I run the failing assertions)
