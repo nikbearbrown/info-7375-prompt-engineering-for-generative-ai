@@ -72,20 +72,27 @@ class OutcomeCheck(helpers.ContractTest):
 
 
 class FinishedWrongAnswer(helpers.ContractTest):
-    """The demo profile, on CONSTRUCTED responses: the loop ends `finished`, the check disagrees."""
+    """The demo profile, on CONSTRUCTED responses: the independent check flags the empty board.
+
+    REVIEW-PACKET.md scope change 4. Before the review-packet patch this test was
+    test_demo_finishes_and_the_check_flags_poshmark and asserted that the loop ended `finished`;
+    that pre-patch behaviour is kept as live evidence in out/demo/runs/2026-11-10-1 and -2.
+    """
     modules = ("agent2.loop", "agent2.policy", "agent2.check")
 
-    def test_demo_finishes_and_the_check_flags_poshmark(self):
+    def test_demo_empty_board_is_incomplete_and_the_check_still_flags_poshmark(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "out"
             clock = h.FakeClock()
             report = self.loop.Loop(self.loop.PROFILES["demo"], policy=self.policy.Policy(out),
                                     client=h.FakeClient(h.ok_responses()), clock=clock, sleep=clock.sleep).run()
-            self.assertEqual(report["exit"], "finished")
+            self.assertEqual(report["exit"], "incomplete")
             gh_posh = next(b for b in report["boards"] if (b["system"], b["board"]) == ("greenhouse", "poshmark"))
-            self.assertEqual((gh_posh["status"], gh_posh["postings"]), ("parsed", 0))
+            self.assertEqual(gh_posh["status"], "unverified-empty")
             result = self.check.check_run(out / "runs" / report["run"])
-            self.assertIn("cross-system", [f["kind"] for f in result["flags"]])
+            kinds = [(f["kind"], f.get("board") or f.get("company")) for f in result["flags"]]
+            self.assertIn(("cross-system", "poshmark"), kinds)
+            self.assertIn(("zero-postings", "greenhouse:poshmark"), kinds)
 
 
 if __name__ == "__main__":

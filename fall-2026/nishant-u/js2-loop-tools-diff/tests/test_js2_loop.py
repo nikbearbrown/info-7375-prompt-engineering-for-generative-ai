@@ -50,9 +50,16 @@ class Profiles(LoopTest):
 
 class Exits(LoopTest):
     def test_finished_when_every_board_parsed(self):
-        report = self.run_loop(self.profile("demo"), h.ok_responses())
+        # REVIEW-PACKET.md scope change 1: every board, Greenhouse poshmark included, has postings.
+        responses = h.ok_responses()
+        responses[h.URLS["gh_poshmark"]] = [(200, h.gh_body([h.gh_job(4)]))]
+        report = self.run_loop(self.profile("demo"), responses)
         self.assertEqual(report["exit"], "finished")
         self.assertEqual(report["used"]["requests"], 4)
+        # The empty board (unchanged ok_responses) is now incomplete, not finished.
+        report = self.run_loop(self.profile("demo"), h.ok_responses())
+        self.assertEqual(report["exit"], "incomplete")
+        self.assertEqual(self.entry(report, "greenhouse", "poshmark")["status"], "unverified-empty")
 
     def test_incomplete_with_a_404_board(self):
         report = self.run_loop(self.profile("full"), h.ok_responses())
@@ -150,9 +157,12 @@ class ErrorPolicy(LoopTest):
         self.assertEqual(report["used"]["requests"], 2)
 
     def test_connection_error_then_success(self):
-        report, b = self.one([self.providers.Transient("connection-error"), (200, h.gh_body([]))])
+        # REVIEW-PACKET.md scope change 3: the successful retry body has a posting.
+        report, b = self.one([self.providers.Transient("connection-error"), (200, h.gh_body([h.gh_job(1)]))])
         self.assertEqual(len(self.client.calls), 2)
         self.assertEqual(self.entry(report, "greenhouse", "faire")["status"], "parsed")
+        self.assertEqual(self.entry(report, "greenhouse", "faire")["postings"], 1)
+        self.assertEqual(self.clock.sleeps, [2])
 
     def test_invalid_json_or_wrong_shape_no_retry(self):
         for body in (b"<html>oops</html>", b'{"jobs": "x"}', b"{}"):
@@ -241,7 +251,16 @@ class Records(LoopTest):
 
     def test_baseline_then_only_new_ids(self):
         first = self.run_loop(self.profile("demo"), h.ok_responses())
-        self.assertTrue(all(b["baseline"] and b["new_ids"] == [] for b in first["boards"]))
+        # REVIEW-PACKET.md scope change 2: the three boards with postings are baselines with [];
+        # the empty Greenhouse poshmark board is unverified-empty and not merged into state.
+        with_postings = [b for b in first["boards"] if (b["system"], b["board"]) != ("greenhouse", "poshmark")]
+        self.assertEqual(len(with_postings), 3)
+        self.assertTrue(all(b["baseline"] and b["new_ids"] == [] for b in with_postings))
+        gh_posh = self.entry(first, "greenhouse", "poshmark")
+        self.assertEqual(gh_posh["status"], "unverified-empty")
+        self.assertIsNone(gh_posh["new_ids"])
+        state = json.loads((self.out / "state" / "seen_ids.json").read_text(encoding="utf-8"))
+        self.assertNotIn("greenhouse:poshmark", state["boards"])
         responses = h.ok_responses()
         relevant = helpers.posting(9000000008)
         responses[h.URLS["faire"]] = [(200, h.gh_body([h.gh_job(1), h.gh_job(2), relevant]))]

@@ -1,8 +1,5 @@
 # Review packet — Job-Search Agent 2 (Chapter 6)
 
-> **DRAFT by Claude Code for Nishant to edit.** Defect and Reproduction are filled in from saved files.
-> Every later section is empty until the patch exists and has been reviewed.
-
 ## Defect
 
 A board that returns HTTP 200 with an empty `jobs` list is treated as a clean result:
@@ -107,14 +104,233 @@ still passes unchanged.
 
 ## Regression test
 
+`tests/test_js2_review.py`, committed in `4ba8bd3` before the patch existed:
+
+- `SeenEmptyBoard.test_seen_empty_board_is_unverified_empty_not_0_new`
+- `FreshEmptyBoard.test_fresh_empty_board_is_unverified_empty_and_not_recorded_as_seen`
+- `SeenEmptyBoard.test_control_board_with_postings_reports_normally` (the control)
+
+The two regression tests failed on `bccbc41` in my own run (see "Commands I ran myself", before the
+patch), and the control passed. The test file was not changed by the patch.
+
 ## Diff
+
+The patch as reviewed: `agent2/loop.py` and the four planned test changes, against `bccbc41`.
+
+```diff
+diff --git a/fall-2026/nishant-u/js2-loop-tools-diff/agent2/loop.py b/fall-2026/nishant-u/js2-loop-tools-diff/agent2/loop.py
+index ccf93fe..f263812 100644
+--- a/fall-2026/nishant-u/js2-loop-tools-diff/agent2/loop.py
++++ b/fall-2026/nishant-u/js2-loop-tools-diff/agent2/loop.py
+@@ -2,7 +2,8 @@
+ exactly one exit status. Every network call and file write goes through agent2.policy.
+ 
+     python -m agent2.loop --profile full          # boards 1-5, live; ends incomplete (board 5 fails)
+-    python -m agent2.loop --profile demo          # boards 1-4, live; the finished-wrong-answer run
++    python -m agent2.loop --profile demo          # boards 1-4, live (the finished-wrong-answer run before
++                                                  # the review-packet patch; now ends incomplete)
+     python -m agent2.loop --profile demo --replay-dir out/runs/<run>   # no network
+     python -m agent2.loop --profile demo --claude # also the optional Claude judge (JS1)
+ 
+@@ -95,7 +96,8 @@ class Loop:
+     def exit_status(self, stopped_by_budget):
+         if stopped_by_budget:
+             return "budget-exhausted"
+-        if any(e["status"] == "failed" for e in self.entries):
++        # GATE.md amendment (before the review-packet patch): an empty 200 board is not a clean result.
++        if any(e["status"] in ("failed", "unverified-empty") for e in self.entries):
+             return "incomplete"
+         return "finished"
+ 
+@@ -238,6 +240,13 @@ class Loop:
+                 self._fail(entry, "bad-response", status)
+                 self._trace(name, b, f"failed: bad-response ({exc}; no retry)", host, status, body)
+                 return None
++            if not postings:
++                # Not a clean result: no new ids (unknown, not []), nothing merged into state.
++                entry.update(status="unverified-empty", reason="empty-200", http_status=status, postings=0,
++                             new_ids=None, baseline=None)
++                self._trace(name, b, "unverified-empty: HTTP 200 with 0 postings (not a clean result); escalated",
++                            host, status, body)
++                return None
+             entry.update(status="parsed", reason=None, http_status=status, postings=len(postings))
+             entry["_postings"] = postings
+             self._trace(name, b, f"parsed: {len(postings)} postings", host, status, body)
+@@ -309,6 +318,8 @@ class Loop:
+             "boards": self.entries,
+             "not_attempted": [f"{e['system']}:{e['board']}" for e in self.entries if e["status"] == "not-attempted"],
+             "failed": [f"{e['system']}:{e['board']}" for e in self.entries if e["status"] == "failed"],
++            "unverified_empty": [f"{e['system']}:{e['board']}" for e in self.entries
++                                 if e["status"] == "unverified-empty"],
+             "new_ids": {f"{e['system']}:{e['board']}": e["new_ids"] for e in self.entries},
+             "used": {"requests": self.requests, "boards": self.boards_attempted, "seconds": self._seconds()},
+             "trace": self.trace,
+@@ -384,6 +395,9 @@ def render_markdown(report):
+             code = f", HTTP {e['http_status']}" if e["http_status"] else ""
+             lines.append(f"- `{name}` — failed: {e['reason']}{code}. New postings: unknown (no value invented). "
+                          "Escalated to me.")
++        elif e["status"] == "unverified-empty":
++            lines.append(f"- `{name}` — unverified-empty: HTTP {e['http_status']} with an empty jobs list. "
++                         "Not a clean result; new postings: unknown, ids not saved. Escalated to me.")
+         else:
+             lines.append(f"- `{name}` — not attempted ({e['reason'] or 'run ended before it'})")
+     lines += ["", "## New postings, rule verdicts [record]", ""]
+diff --git a/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_check.py b/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_check.py
+index a9aba53..3880f7b 100644
+--- a/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_check.py
++++ b/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_check.py
+@@ -72,20 +72,27 @@ class OutcomeCheck(helpers.ContractTest):
+ 
+ 
+ class FinishedWrongAnswer(helpers.ContractTest):
+-    """The demo profile, on CONSTRUCTED responses: the loop ends `finished`, the check disagrees."""
++    """The demo profile, on CONSTRUCTED responses: the independent check flags the empty board.
++
++    REVIEW-PACKET.md scope change 4. Before the review-packet patch this test was
++    test_demo_finishes_and_the_check_flags_poshmark and asserted that the loop ended `finished`;
++    that pre-patch behaviour is kept as live evidence in out/demo/runs/2026-11-10-1 and -2.
++    """
+     modules = ("agent2.loop", "agent2.policy", "agent2.check")
+ 
+-    def test_demo_finishes_and_the_check_flags_poshmark(self):
++    def test_demo_empty_board_is_incomplete_and_the_check_still_flags_poshmark(self):
+         with tempfile.TemporaryDirectory() as tmp:
+             out = Path(tmp) / "out"
+             clock = h.FakeClock()
+             report = self.loop.Loop(self.loop.PROFILES["demo"], policy=self.policy.Policy(out),
+                                     client=h.FakeClient(h.ok_responses()), clock=clock, sleep=clock.sleep).run()
+-            self.assertEqual(report["exit"], "finished")
++            self.assertEqual(report["exit"], "incomplete")
+             gh_posh = next(b for b in report["boards"] if (b["system"], b["board"]) == ("greenhouse", "poshmark"))
+-            self.assertEqual((gh_posh["status"], gh_posh["postings"]), ("parsed", 0))
++            self.assertEqual(gh_posh["status"], "unverified-empty")
+             result = self.check.check_run(out / "runs" / report["run"])
+-            self.assertIn("cross-system", [f["kind"] for f in result["flags"]])
++            kinds = [(f["kind"], f.get("board") or f.get("company")) for f in result["flags"]]
++            self.assertIn(("cross-system", "poshmark"), kinds)
++            self.assertIn(("zero-postings", "greenhouse:poshmark"), kinds)
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_loop.py b/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_loop.py
+index ff09769..b42dd4d 100644
+--- a/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_loop.py
++++ b/fall-2026/nishant-u/js2-loop-tools-diff/tests/test_js2_loop.py
+@@ -50,9 +50,16 @@ class Profiles(LoopTest):
+ 
+ class Exits(LoopTest):
+     def test_finished_when_every_board_parsed(self):
+-        report = self.run_loop(self.profile("demo"), h.ok_responses())
++        # REVIEW-PACKET.md scope change 1: every board, Greenhouse poshmark included, has postings.
++        responses = h.ok_responses()
++        responses[h.URLS["gh_poshmark"]] = [(200, h.gh_body([h.gh_job(4)]))]
++        report = self.run_loop(self.profile("demo"), responses)
+         self.assertEqual(report["exit"], "finished")
+         self.assertEqual(report["used"]["requests"], 4)
++        # The empty board (unchanged ok_responses) is now incomplete, not finished.
++        report = self.run_loop(self.profile("demo"), h.ok_responses())
++        self.assertEqual(report["exit"], "incomplete")
++        self.assertEqual(self.entry(report, "greenhouse", "poshmark")["status"], "unverified-empty")
+ 
+     def test_incomplete_with_a_404_board(self):
+         report = self.run_loop(self.profile("full"), h.ok_responses())
+@@ -150,9 +157,12 @@ class ErrorPolicy(LoopTest):
+         self.assertEqual(report["used"]["requests"], 2)
+ 
+     def test_connection_error_then_success(self):
+-        report, b = self.one([self.providers.Transient("connection-error"), (200, h.gh_body([]))])
++        # REVIEW-PACKET.md scope change 3: the successful retry body has a posting.
++        report, b = self.one([self.providers.Transient("connection-error"), (200, h.gh_body([h.gh_job(1)]))])
+         self.assertEqual(len(self.client.calls), 2)
+         self.assertEqual(self.entry(report, "greenhouse", "faire")["status"], "parsed")
++        self.assertEqual(self.entry(report, "greenhouse", "faire")["postings"], 1)
++        self.assertEqual(self.clock.sleeps, [2])
+ 
+     def test_invalid_json_or_wrong_shape_no_retry(self):
+         for body in (b"<html>oops</html>", b'{"jobs": "x"}', b"{}"):
+@@ -241,7 +251,16 @@ class Records(LoopTest):
+ 
+     def test_baseline_then_only_new_ids(self):
+         first = self.run_loop(self.profile("demo"), h.ok_responses())
+-        self.assertTrue(all(b["baseline"] and b["new_ids"] == [] for b in first["boards"]))
++        # REVIEW-PACKET.md scope change 2: the three boards with postings are baselines with [];
++        # the empty Greenhouse poshmark board is unverified-empty and not merged into state.
++        with_postings = [b for b in first["boards"] if (b["system"], b["board"]) != ("greenhouse", "poshmark")]
++        self.assertEqual(len(with_postings), 3)
++        self.assertTrue(all(b["baseline"] and b["new_ids"] == [] for b in with_postings))
++        gh_posh = self.entry(first, "greenhouse", "poshmark")
++        self.assertEqual(gh_posh["status"], "unverified-empty")
++        self.assertIsNone(gh_posh["new_ids"])
++        state = json.loads((self.out / "state" / "seen_ids.json").read_text(encoding="utf-8"))
++        self.assertNotIn("greenhouse:poshmark", state["boards"])
+         responses = h.ok_responses()
+         relevant = helpers.posting(9000000008)
+         responses[h.URLS["faire"]] = [(200, h.gh_body([h.gh_job(1), h.gh_job(2), relevant]))]
+```
 
 ## Diff read as behavior
 
+| | Before the patch | After the patch |
+|---|---|---|
+| An HTTP 200 board with an empty jobs list | `status: "parsed"`, `new_ids: []`. Reported as "0 new" (or as a baseline on first sight) and saved in the state as a seen board | `status: "unverified-empty"`, `new_ids: null`: new postings unknown. Nothing saved to the state for that board |
+| The run's exit when that is the only problem | `finished` | `incomplete` |
+| `report.md` line for the empty board | Shown like a real board: "parsed, HTTP 200, 0 postings, 0 new" | "unverified-empty: HTTP 200 with an empty jobs list. Not a clean result; new postings: unknown, ids not saved. Escalated to me." |
+| A board with postings | Parsed, new ids, merged into the state | Unchanged (the control test) |
+
 ## Scope check
+
+Only `agent2/loop.py` changed, plus the 4 test changes planned in the table above before the patch
+(`tests/test_js2_loop.py`, `tests/test_js2_check.py`). There was one unplanned edit inside the allowed
+file: the module docstring of `agent2/loop.py`. I accepted it because it corrects a statement that the
+patch made false (the demo profile is no longer "the finished-wrong-answer run").
+
+`tests/js2_helpers.py`, `tests/test_js2_review.py`, `agent2/check.py` and `agent2/policy.py` are
+untouched (`git status`).
 
 ## Commands I ran myself
 
+### Before the patch (run by Nishant in his own Git Bash, 2026-11-10)
+
+```
+$ git log --oneline -3
+bccbc41 (HEAD -> nishant-u-js2) JS2: review packet — scope widened before patch
+4ba8bd3 JS2: review packet — gate amendment, reproduction, regression test (failing, before patch)
+c050acd JS2: second demo run — finished, 0 new on an empty board
+$ python -m unittest tests.test_js2_review -v
+test_fresh_empty_board_is_unverified_empty_and_not_recorded_as_seen ... FAIL
+test_control_board_with_postings_reports_normally ... ok
+test_seen_empty_board_is_unverified_empty_not_0_new ... FAIL
+AssertionError: 'finished' != 'incomplete' (both failures)
+Ran 3 tests in 0.143s
+FAILED (failures=2)
+```
+
+### After the patch (run by Nishant in his own Git Bash, 2026-11-10)
+
+```
+$ python -m unittest tests.test_js2_review -v
+test_fresh_empty_board_is_unverified_empty_and_not_recorded_as_seen ... ok
+test_control_board_with_postings_reports_normally ... ok
+test_seen_empty_board_is_unverified_empty_not_0_new ... ok
+Ran 3 tests in 0.129s
+OK
+$ python -m unittest discover -s tests -t .
+Ran 131 tests in 1.190s
+OK (skipped=1)
+$ git diff --stat
+ REVIEW-PACKET.md | 16 ++++++++++++++
+ agent2/loop.py   | 18 ++++++++++++++--
+ tests/test_js2_check.py | 17 ++++++++++-----
+ tests/test_js2_loop.py  | 25 +++++++++++++++++++---
+ 4 files changed, 66 insertions(+), 10 deletions(-)
+```
+
 ## Decision
 
+ACCEPT, 2026-11-10, Nishant U. Evidence: the regression tests failed before the patch (my run on bccbc41) and pass after (my run); the full suite passes, 131 tests with 1 known skip (case 8, Windows symlink privilege); the diff stays inside the allowed list; the 4 test changes match the table written before the patch, and none removes an assertion without a replacement.
+
 ## What this test would still miss
+
+1. An empty Ashby board: the fix is generic, but every test uses a Greenhouse empty body.
+2. A truly empty board, from a company that genuinely isn't hiring, now makes every run incomplete, a false alarm the agent can't tell apart from a wrong board.
+3. A board that is stale but not empty (e.g. 1 posting left) still passes.

@@ -2,7 +2,8 @@
 exactly one exit status. Every network call and file write goes through agent2.policy.
 
     python -m agent2.loop --profile full          # boards 1-5, live; ends incomplete (board 5 fails)
-    python -m agent2.loop --profile demo          # boards 1-4, live; the finished-wrong-answer run
+    python -m agent2.loop --profile demo          # boards 1-4, live (the finished-wrong-answer run before
+                                                  # the review-packet patch; now ends incomplete)
     python -m agent2.loop --profile demo --replay-dir out/runs/<run>   # no network
     python -m agent2.loop --profile demo --claude # also the optional Claude judge (JS1)
 
@@ -95,7 +96,8 @@ class Loop:
     def exit_status(self, stopped_by_budget):
         if stopped_by_budget:
             return "budget-exhausted"
-        if any(e["status"] == "failed" for e in self.entries):
+        # GATE.md amendment (before the review-packet patch): an empty 200 board is not a clean result.
+        if any(e["status"] in ("failed", "unverified-empty") for e in self.entries):
             return "incomplete"
         return "finished"
 
@@ -238,6 +240,13 @@ class Loop:
                 self._fail(entry, "bad-response", status)
                 self._trace(name, b, f"failed: bad-response ({exc}; no retry)", host, status, body)
                 return None
+            if not postings:
+                # Not a clean result: no new ids (unknown, not []), nothing merged into state.
+                entry.update(status="unverified-empty", reason="empty-200", http_status=status, postings=0,
+                             new_ids=None, baseline=None)
+                self._trace(name, b, "unverified-empty: HTTP 200 with 0 postings (not a clean result); escalated",
+                            host, status, body)
+                return None
             entry.update(status="parsed", reason=None, http_status=status, postings=len(postings))
             entry["_postings"] = postings
             self._trace(name, b, f"parsed: {len(postings)} postings", host, status, body)
@@ -309,6 +318,8 @@ class Loop:
             "boards": self.entries,
             "not_attempted": [f"{e['system']}:{e['board']}" for e in self.entries if e["status"] == "not-attempted"],
             "failed": [f"{e['system']}:{e['board']}" for e in self.entries if e["status"] == "failed"],
+            "unverified_empty": [f"{e['system']}:{e['board']}" for e in self.entries
+                                 if e["status"] == "unverified-empty"],
             "new_ids": {f"{e['system']}:{e['board']}": e["new_ids"] for e in self.entries},
             "used": {"requests": self.requests, "boards": self.boards_attempted, "seconds": self._seconds()},
             "trace": self.trace,
@@ -384,6 +395,9 @@ def render_markdown(report):
             code = f", HTTP {e['http_status']}" if e["http_status"] else ""
             lines.append(f"- `{name}` — failed: {e['reason']}{code}. New postings: unknown (no value invented). "
                          "Escalated to me.")
+        elif e["status"] == "unverified-empty":
+            lines.append(f"- `{name}` — unverified-empty: HTTP {e['http_status']} with an empty jobs list. "
+                         "Not a clean result; new postings: unknown, ids not saved. Escalated to me.")
         else:
             lines.append(f"- `{name}` — not attempted ({e['reason'] or 'run ended before it'})")
     lines += ["", "## New postings, rule verdicts [record]", ""]
