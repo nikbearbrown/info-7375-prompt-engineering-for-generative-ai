@@ -1,5 +1,15 @@
 # Three open items, settled by Shreyash after reading the saved ads
 
+## Decided (Shreyash, 2026-11-10)
+
+*Shreyash's words, typed into the session on 2026-11-10 as the decision on `Dev`, after the table and notes below. Claude Code did not change them.*
+
+I decided that `Dev` should count as an engineering department for these Palantir postings because their titles and responsibilities clearly describe software engineering work. However, I would only apply this interpretation to Palantir rather than treating `Dev` as engineering on every Lever board.
+
+This interpretation would remove the department failure for the three internships, but the postings would still fail my location condition because they are in New York or Denver. I documented this decision without changing the implementation, since I have not tested the same interpretation across other Lever boards.
+
+## The findings that led to it (written first)
+
 *Shreyash's words, typed into the session on 2026-11-10 after reading the saved ads, which a read-only helper printed (the skills found in 7809608003, the two Linear requirement lines, and the Palantir intern departments). Claude Code added only this heading and note. No code was changed: the `Dev` decision is recorded first, as it says, and is not implemented in this submission.*
 
 | Item | My finding | Proposed decision |
