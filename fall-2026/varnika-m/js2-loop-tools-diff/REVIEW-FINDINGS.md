@@ -1,0 +1,20 @@
+# Independent review findings (2026-11-10)
+
+After the code and live run 1, Claude Code started a separate Claude reviewer at my request. It was given only the folder, GATE.md and the instruction to find places where the code disagrees with GATE.md. It was told not to edit files and to contact only `127.0.0.1`. It was not given the loop's reasoning, and it was told which three transport issues were already known (the slow-trickle body, the gap between check and open, DNS time), so it would look elsewhere.
+
+It reported 8 findings and said it reproduced all of them except 8c. Its report is model output, so each finding was turned into a test **before** anything was fixed. The tests are in `tests/test_after_review.py`, committed as `7e09390`, and all 8 failed at that point ([review/5-review-findings-before-fixes.txt](review/5-review-findings-before-fixes.txt)). The fixes are commit `9ab582c`, after which 104/104 tests passed.
+
+| # | Finding (the reviewer's) | Reproduced by our test? | What was done |
+|---|---|---|---|
+| 1 | `tools.py`: `http.client` errors outside `OSError` (`IncompleteRead`, `BadStatusLine`) escape `http_transport`, and the run ends `error/unexpected` instead of `failed: transient` and the next board. A body cut short of its `Content-Length` is accepted as complete. | not yet | **Waiting.** `agent/tools.py` is the file under review in REVIEW-PACKET.md, and changes to it wait for my decision on patch `91bfbda` |
+| 2 | `--max-seconds nan` gets past "never raise a budget", because NaN compares False to everything. That switches the seconds budget off (W10) | yes: `Finding2NanBudget` | **Fixed** in `9ab582c`: NaN is refused before the run starts |
+| 3 | `check_run.py` never reads `config/boards.json`, so a board dropped from the record, or falsely labelled `skipped_repeat`, goes unnoticed | yes: `Finding3CheckReadsTheConfig` (2 tests) | **Fixed**: new check `boards_match_config`. Every config board must be in the record, and every non-skipped board must have a fetch in the trace |
+| 4 | `check_run.py` parses the 200 body of a `failed: bad_shape` board and crashes on a correct run | yes: `Finding4CheckSurvivesBadShape` | **Fixed**: only `ok` boards' bodies are parsed |
+| 5 | `check_run.py` never uses the seconds budget | yes: `Finding5CheckUsesTheSecondsBudget` | **Fixed**: it checks the total seconds, and that no request was given time past the budget (5 s slack for work between requests) |
+| 6 | `tools.py`: `build_opener` keeps urllib's default proxy handler, so an `HTTPS_PROXY` setting would route requests through a proxy and send its credentials | not yet | **Waiting**, like 1. No `*_proxy` variable is set in this machine's environment, so runs so far did not use one. I did not check the macOS system proxy settings |
+| 7 | `gone` counted every id ever seen, not "gone since last run" | yes: `Finding7GoneSinceLastRun` (runs {1,2}, {1}, {1} gave gone 0, 1, 1) | **Fixed**: the state keeps `last_ids`, and gone is counted against them (0, 1, 0). Live run 1's `gone: 78` is unchanged by this, because JS1's last run had every seen id |
+| 8a | A redirect back to the same URL, or a 3xx with no `Location`, was sent again | yes: `Finding8aRedirectRepeats` (2 tests) | **Fixed**: refused as `refused_redirect` |
+| 8b | A `503` with `Retry-After: 60` is not retried. GATE.md only names `429` for the long-`Retry-After` rule | not tested | **Open, for me to decide in GATE.md.** The code is stricter than GATE.md, not looser |
+| 8c | A redirect to a **different** board on an allowed host (for example `/v1/boards/openai/jobs`) passes the policy, and its postings would be filed under the original board's state. The reviewer did not run this one | not tested | **Open, for me to decide in GATE.md.** GATE.md section 5 allows any redirect that passes the host and path rule, so the code follows GATE.md here, and GATE.md is what is wrong. Fixing it is a policy change, which needs a dated entry under GATE.md **Decisions** |
+
+The reviewer's scratch scripts stayed in Claude Code's scratch folder and are not part of this submission. What is here is our own tests, written from its report.
