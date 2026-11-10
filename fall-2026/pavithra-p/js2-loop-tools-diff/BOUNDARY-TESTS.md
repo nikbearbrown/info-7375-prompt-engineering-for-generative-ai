@@ -24,3 +24,5 @@ The policy is in `GATE.md` and enforced in `agent/policy.py`. Each case below ha
 | 18 | Write `agent/rule.py` (the relevance rule) without my approval | write that needs approval | refused ("needs my approval") | `test_18_rule_write_without_approval_refused` | as predicted: refused ("needs my approval") |
 
 A refused request must raise before any connection is made, and a refused write must leave no file behind.
+
+Claude Code drafted the 18 predictions from `GATE.md`; on 2026-11-10 I read and checked all of them. All 18 tests matched their prediction.
