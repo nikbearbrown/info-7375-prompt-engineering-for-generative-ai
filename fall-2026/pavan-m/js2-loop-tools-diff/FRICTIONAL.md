@@ -50,3 +50,6 @@ Run 1 (before the string-id fix) wrote state for lever:palantir and ashby:openai
 Ran live at 1:12 PM EST (out/runs/2026-11-10T131257/; evidence/run2_terminal_2026-11-10.txt). Status incomplete, agent exit code 1, this time checked properly without tee. 4 requests.
 Glean: compared with run 1's state, 125 postings, 2 new:Designated Technical Support Engineer; Designated Technical Support Engineer. This is the first time my agent detected a real new posting on live data, which JS1 never did.
 Palantir: fresh baseline, 304/304 ids usable. OpenAI: fresh baseline, 829/829 usable (826 at 10:25 AM). Bad board: failed, bad_board, HTTP 404, postings null.
+
+## Entry 12 — November 10, 2026: Finished-wrong-answer demo
+Built a CONSTRUCTED empty Glean response from my real Nov 9 capture and a demo config with three replayed boards (no bad board). The loop ended finished, exit 0, reporting Glean as ok with 0 postings: clean and wrong. check_run.py flagged it as a suspicious empty board (exit 1), and found 0 problems on real run 2 (exit 0). Limit noted: the checker flags any empty board and doesn't catch a large drop that isn't to zero.
