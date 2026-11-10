@@ -1,0 +1,112 @@
+control (unmutated policy.mjs): 0 failed of 77 (policy 0/46, loop 0/20, wrong-versions 0/11 failed)
+
+WV01 wv01-host-includes (host matched with includes()): KILLED, 2 of 77 tests failed (policy 2/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 04 [deny]: GET boards-api.greenhouse.io.evil.example: suffix trick
+    not ok - [policy] row 42 [deny]: GET https://evilboards-api.greenhouse.io/...: a host ending in an allowed host
+
+WV01 wv01-host-endsWith (host matched with endsWith()): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 42 [deny]: GET https://evilboards-api.greenhouse.io/...: a host ending in an allowed host
+
+WV02 wv02-prefix-startsWith (inside-check by raw string prefix): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 12 [deny]: create out-evil/x.json beside out/
+
+WV03 wv03-no-realpath (paths resolved lexically, symlinks not resolved): KILLED, 31 of 77 tests failed (policy 4/46, loop 18/20, wrong-versions 9/11 failed)
+    not ok - [policy] row 13 [deny]: create out/link/x.json where out/link -> outside temp dir
+    not ok - [policy] row 40 [deny]: --replay out/raw/escape.json, a symlink to a file outside out/raw/
+    not ok - [policy] row 43 [deny retry]: stubbed HTTP 404 on an allow-listed board: exactly one request, board error: not found
+    not ok - [policy] an out/ that is itself a symlink to outside the project is refused
+    not ok - [loop] normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10
+    not ok - [loop] second consecutive failing run escalates gh-broken; successes reset to zero; Greenhouse ids unchanged
+    not ok - [loop] --max-requests 2: budget-exhausted, exit 11, two requests, unattempted boards listed
+    not ok - [loop] empty list, no prior state: empty (unverified), no state written, exit 10
+    not ok - [loop] empty list with prior seen ids: suspect: empty, state bytes unchanged, exit 10
+    not ok - [loop] malformed body: error: malformed, no retry, no state, raw body still saved
+    not ok - [loop] HTTP 503 then 200: one counted retry after 2 s, then observed
+    not ok - [loop] pre-run and post-run state snapshots are saved read-only for the checker
+    not ok - [loop] row 38 (loop): --replay out/raw/lv-spotify.json makes zero requests and is labeled mode: replay
+    not ok - [loop] row 39 (loop): --replay out/raw/../state/lv-spotify.json: error, exit 12, zero requests
+    not ok - [loop] row 40 (loop): --replay of a symlink escaping out/raw/: error, exit 12, zero requests
+    not ok - [loop] row 41 (loop): --replay of a missing file: error, exit 12, no fallback request
+    not ok - [loop] --replay with a multi-board config is an error before any action
+    not ok - [loop] timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10
+    not ok - [loop] timeout (injected clock): begun with 3 s left, the request is aborted at the deadline and not retried: exit 11
+    not ok - [loop] timeout then 200 (the shape of the pre-fix baseline): events are appended as they happen, in order
+    not ok - [loop] replay leaves an existing out/failures.json byte for byte
+    not ok - [loop] replay does not create out/failures.json
+    not ok - [wrong-versions] WV7: a 404 is never retried, and a failing 5xx is retried exactly once
+    not ok - [wrong-versions] WV8: the request budget is checked before each request: --max-requests N sends at most N
+    not ok - [wrong-versions] WV8: a retry the request budget cannot fit is not sent; the run is budget-exhausted
+    not ok - [wrong-versions] WV9: the run with the deliberately broken board is never finished; the controlled three-board run is
+    not ok - [wrong-versions] WV11: a duplicate configured board is fetched once and logged skipped: duplicate
+    not ok - [wrong-versions] WV6: a failed board keeps its prior state byte for byte and reports no count
+    not ok - [wrong-versions] WV17: an ordinary drop in live postings does not shrink the cumulative seen-id state
+    not ok - [wrong-versions] WV19: a request begun near the 60 s deadline gets only the time remaining as its timeout
+    not ok - [wrong-versions] wall clock: once the 60 s budget is spent, remaining boards are not attempted (exit 11)
+
+WV04 wv04-no-method-check (method not checked on an allow-listed host): KILLED, 2 of 77 tests failed (policy 2/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 06 [deny]: POST Lever .../apply
+    not ok - [policy] row 20 [deny]: POST Greenhouse jobs
+
+WV05 wv05-redirect-follow (fetch left following redirects): KILLED, 5 of 77 tests failed (policy 4/46, loop 1/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 01 [allow]: GET Greenhouse stripe jobs?content=true
+    not ok - [policy] row 02 [allow]: GET Lever spotify ?mode=json
+    not ok - [policy] row 08 [deny]: allow-listed GET answered by 301 -> evil.example is not followed
+    not ok - [policy] row 23 [allow]: GET https://BOARDS-API.GREENHOUSE.IO/...: hostname lowercased, then exact
+    not ok - [loop] normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10
+
+WV07 wv07-404-retried (404 treated as transient and retried): KILLED, 3 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 1/11 failed)
+    not ok - [policy] row 43 [deny retry]: stubbed HTTP 404 on an allow-listed board: exactly one request, board error: not found
+    not ok - [loop] normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10
+    not ok - [wrong-versions] WV7: a 404 is never retried, and a failing 5xx is retried exactly once
+
+WV07 wv07-no-retry-cap (retries until success or 5 attempts): KILLED, 3 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 1/11 failed)
+    not ok - [policy] row 35 [allow one retry]: stubbed 429 with Retry-After: 2: one retry after 2 s, and never a third attempt
+    not ok - [loop] timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10
+    not ok - [wrong-versions] WV7: a 404 is never retried, and a failing 5xx is retried exactly once
+
+WV08 wv08-budget-after-request (request budget checked as if after sending (N + 1 sent)): KILLED, 3 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 1/11 failed)
+    not ok - [policy] row 31 [allow]: --max-requests 2 with 4 distinct boards: accepted; only 2 requests sent
+    not ok - [loop] --max-requests 2: budget-exhausted, exit 11, two requests, unattempted boards listed
+    not ok - [wrong-versions] WV8: the request budget is checked before each request: --max-requests N sends at most N
+
+WV13 wv13-no-raw-guard (no raw-string guard before new URL()): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 22 [deny]: GET .../boards/%2e%2e/jobs: raw-string guard, before new URL() normalizes
+
+WV13 wv13-boardUrl-unvalidated (token interpolated into the URL without validation): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 22 [deny]: GET .../boards/%2e%2e/jobs: raw-string guard, before new URL() normalizes
+
+WV14 wv14-blind-429 (429 retried after a fixed 2 s, Retry-After ignored): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 34 [deny retry]: stubbed 429 with Retry-After: 30: rate-limited, no second request
+
+WV15 wv15-cli-raise-accepted (a flag above the hard maximum is accepted): KILLED, 2 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 32 [deny]: --max-requests 20: rejected, not clamped
+    not ok - [loop] --max-requests 20 is rejected before networking: error, exit 12, zero requests, trace says why
+
+WV15 wv15-cli-raise-clamped (a flag above the hard maximum is silently clamped): KILLED, 3 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 1/11 failed)
+    not ok - [policy] row 32 [deny]: --max-requests 20: rejected, not clamped
+    not ok - [loop] --max-requests 20 is rejected before networking: error, exit 12, zero requests, trace says why
+    not ok - [wrong-versions] WV15: a CLI flag cannot raise a budget: 9, 20, 0 and non-numbers are rejected before networking
+
+WV18 wv18-approval-reusable (an approval is never consumed): KILLED, 1 of 77 tests failed (policy 1/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 30 [ask]: second guarded delete of the same path in the same run, after row 27 consumed the approval
+
+WV18 wv18-approval-any-path (an approval for one path authorizes another): KILLED, 2 of 77 tests failed (policy 2/46, loop 0/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 30 [ask]: second guarded delete of the same path in the same run, after row 27 consumed the approval
+    not ok - [policy] row 37 [ask]: delete out/state/gh-airbnb.json with an unconsumed --approve for gh-stripe.json
+
+WV19 wv19-full-timeout (every attempt gets the full 15 s timeout): KILLED, 3 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 1/11 failed)
+    not ok - [policy] row 36 [allow, capped at 3 s]: GET begun with 3 s of wall clock left: timeout 3 s, fetch aborted at the deadline
+    not ok - [loop] timeout (injected clock): begun with 3 s left, the request is aborted at the deadline and not retried: exit 11
+    not ok - [wrong-versions] WV19: a request begun near the 60 s deadline gets only the time remaining as its timeout
+
+WV20 wv20-replay-anywhere (replay accepts any existing file, not only out/raw/): KILLED, 4 of 77 tests failed (policy 2/46, loop 2/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 39 [deny]: --replay out/raw/../state/lv-spotify.json (an existing file, but not under out/raw/)
+    not ok - [policy] row 40 [deny]: --replay out/raw/escape.json, a symlink to a file outside out/raw/
+    not ok - [loop] row 39 (loop): --replay out/raw/../state/lv-spotify.json: error, exit 12, zero requests
+    not ok - [loop] row 40 (loop): --replay of a symlink escaping out/raw/: error, exit 12, zero requests
+
+WV20 wv20-replay-missing-ok (replay accepts a missing file): KILLED, 2 of 77 tests failed (policy 1/46, loop 1/20, wrong-versions 0/11 failed)
+    not ok - [policy] row 41 [deny]: --replay out/raw/missing.json
+    not ok - [loop] row 41 (loop): --replay of a missing file: error, exit 12, no fallback request
+
+19 mutants, 19 killed, 0 survived
