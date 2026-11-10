@@ -29,6 +29,10 @@ class AtsTests(unittest.TestCase):
             with self.assertRaises(ats.BadData, msg=system):
                 ats.parse(system, body)
 
+    def test_escaped_titles_are_shown_as_written(self):
+        jobs = ats.parse("greenhouse", greenhouse(1, title="Strategy &amp; Operations Intern"))
+        self.assertEqual(jobs[0]["title"], "Strategy & Operations Intern")
+
     def test_ashby_skips_unlisted_jobs(self):
         data = json.loads(ashby("x", "y"))
         data["jobs"][1]["isListed"] = False

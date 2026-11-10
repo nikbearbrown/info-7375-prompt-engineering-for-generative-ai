@@ -25,7 +25,9 @@ def board_url(system, board):
 def _job(native_id, title, location, content, url):
     if native_id in (None, "") or not isinstance(title, str):
         raise BadData("a job without an id or a title")
-    return {"id": str(native_id), "title": title, "location": {"name": location}, "content": content or "", "url": url or ""}
+    # Greenhouse sends some titles HTML-escaped ("Strategy &amp; Operations"); the report shows them as written.
+    return {"id": str(native_id), "title": html.unescape(title), "location": {"name": location}, "content": content or "",
+            "url": url or ""}
 
 
 def _greenhouse(data):
