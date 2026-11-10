@@ -46,7 +46,21 @@ What went wrong or was surprising, honestly:
   - SOURCES.md said Lectern lists the Lever endpoint. It doesn't; the Lever URL came from Claude's own knowledge.
 - **Approval in the live run:** run 1 had no terminal and no `--approve-state`, so the imported Databricks memory was **not** overwritten. The run ended `incomplete` for that reason as well as the 404. That was intended: approving is mine.
 
+## 2026-11-10, 17:38: I ran the commands myself, and live run 2 failed for real
+
+- In my own terminal (Anaconda `python3` 3.11.5) I ran the test suite (94 OK) and `check.py` on live run 1 (9/9 pass). Both matched what Claude had logged.
+- Then I ran `python3 -B -m agent.loop` (**live run 2**, `runs/2026-11-10T223836Z-live/`). **Every board failed** with `[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate`. The loop:
+  - tried each board twice: 8 requests (GATE 4 groups "connection error" with timeout, so one retry);
+  - saved no raw body (there was none), and invented no count;
+  - left `state/` untouched and never asked for approval, because no board succeeded;
+  - ended **`error` (exit 1): every board failed**, as GATE.md says. `check.py` on this run: 8/8 pass (`logs/12`).
+- **Diagnosis (Claude, in my terminal, about 10 minutes later):** no proxy variables were set. `openssl s_client` showed the real Amazon certificate chain for `api.lever.co`, so nothing was intercepting. The same `python3` then fetched Lever with HTTP 200, with and without the `certifi` bundle. **The cause is unresolved.** It was temporary. My guess is a network change on my laptop, but I did not verify that.
+- **What this shows about my GATE.md:**
+  - The report labels a certificate failure `timeout`, because GATE 4 puts "timeout / connection error" in one row recorded as `failed: timeout`. The reason text says "connection failed", but the status name is misleading.
+  - The one retry did not help. A certificate failure is closer to a 404 than to a slow server: retrying 2 s later is unlikely to fix it. A better rule would separate "timeout" (retry once) from "TLS or connection refused" (no retry, escalate). **I have not changed GATE.md or the code for this.** It is recorded here as a proposed change, not made.
+
 ## Unresolved
 
 - **"Fit" labels:** the JS1 feedback asked me to add postings I'd label "fit", so false negatives could be measured. Not done in JS2. Run 1 had 89 new Databricks postings, including several "Software Engineer - New Grad (2027 Start)" roles, which would be the place to start.
-- **Real failures:** the timeout, 5xx and empty-board paths are tested only with constructed responses.
+- **Real failures:** the 5xx and empty-board paths are tested only with constructed responses. A real connection failure did happen in live run 2 (above), but not a real slow-server timeout.
+- **Why live run 2's TLS failure happened:** unresolved.

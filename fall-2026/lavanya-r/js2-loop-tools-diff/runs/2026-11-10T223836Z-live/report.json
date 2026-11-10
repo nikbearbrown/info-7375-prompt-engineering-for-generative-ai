@@ -1,0 +1,99 @@
+{
+  "stamp": "2026-11-10T223836Z",
+  "kind": "live",
+  "source": null,
+  "exit": "error",
+  "exit_code": 1,
+  "exit_reason": "every board failed",
+  "escalate": [
+    "greenhouse/databricks: timeout (connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002))",
+    "ashby/notion: timeout (connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002))",
+    "lever/palantir: timeout (connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002))",
+    "greenhouse/no-such-board-js2: timeout (connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002))"
+  ],
+  "budget_used": {
+    "boards": 4,
+    "requests": 8,
+    "seconds": 8.9
+  },
+  "limits": {
+    "boards": 10,
+    "requests": 20,
+    "seconds": 120,
+    "request_timeout_seconds": 20,
+    "retry_wait_seconds": 2
+  },
+  "jobs_total_ok_boards": 0,
+  "boards_counted": [],
+  "boards": [
+    {
+      "ats": "greenhouse",
+      "board": "databricks",
+      "status": "timeout",
+      "reason": "connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002)",
+      "jobs": null,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 2,
+      "raw": [],
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs"
+    },
+    {
+      "ats": "ashby",
+      "board": "notion",
+      "status": "timeout",
+      "reason": "connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002)",
+      "jobs": null,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 2,
+      "raw": [],
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion"
+    },
+    {
+      "ats": "lever",
+      "board": "palantir",
+      "status": "timeout",
+      "reason": "connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002)",
+      "jobs": null,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 2,
+      "raw": [],
+      "url": "https://api.lever.co/v0/postings/palantir?mode=json"
+    },
+    {
+      "ats": "greenhouse",
+      "board": "no-such-board-js2",
+      "status": "timeout",
+      "reason": "connection failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1002)",
+      "jobs": null,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 2,
+      "raw": [],
+      "url": "https://boards-api.greenhouse.io/v1/boards/no-such-board-js2/jobs"
+    },
+    {
+      "ats": "greenhouse",
+      "board": "Databricks",
+      "status": "skipped_repeat",
+      "reason": "same action as an earlier board ('greenhouse', 'databricks')",
+      "jobs": null,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 0,
+      "raw": []
+    }
+  ]
+}
