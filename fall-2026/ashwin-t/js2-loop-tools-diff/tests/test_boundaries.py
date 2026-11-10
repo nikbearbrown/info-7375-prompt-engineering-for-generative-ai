@@ -1,6 +1,6 @@
 """Permission-policy boundary cases B01-B18 (policy/BOUNDARY-TABLE.md) and wrong versions 11, 12, 14, 15.
 
-Written by Claude Code on 2026-11-10, after Ashwin's predictions were committed (6c1c5b3).
+Written by Claude Code on 2026-11-10, after the predictions were committed (6c1c5b3).
 Each expected outcome below comes from GATE.md section 5, not from the predictions; the table
 compares the two. `python3 -m tests.test_boundaries --table` prints the Actual column.
 """

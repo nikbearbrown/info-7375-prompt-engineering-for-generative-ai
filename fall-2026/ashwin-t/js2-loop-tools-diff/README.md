@@ -6,8 +6,8 @@
 Reallocation Engine or Lectern; Lectern's `ATS.md` was read only for which public APIs exist. JS1 is unchanged.
 
 JS2 turns the one-board watch into a **bounded loop over six boards on three applicant-tracking systems**
-(Greenhouse, Ashby, Lever), with the exits, budgets, repeat rule, error policy and permission policy that I
-wrote first in [`GATE.md`](GATE.md) (committed alone at `c9ff312`, before any code). The persona is still the
+(Greenhouse, Ashby, Lever), with the exits, budgets, repeat rule, error policy and permission policy written first in
+[`GATE.md`](GATE.md) (drafted by Codex, approved by me, committed alone at `c9ff312`, before any code). The persona is still the
 fictional Supriya Sharma (`data/supriya-sharma.resume.json`). The agent never applies, emails, messages or
 logs in. JS2 runs use the deterministic JS1 rule only; no Claude call is made by the agent (GATE.md section 5).
 
@@ -70,7 +70,7 @@ no run can finish (see "Limits").
 | **Finished wrong answer** (SEEDED REPLAY, wrong version w01) | 2026-11-09 20:23:30 | **FINISHED, exit 0**, and reported a hand-made empty hubspotjobs board as "0 new" | [`finished-wrong-answer/`](finished-wrong-answer/README.md) |
 | Independent check of that run | 2026-11-09 | **FAIL, exit 1**: C4, C5, C6 on hubspotjobs | `finished-wrong-answer/check-wrong-version.txt` |
 | Same seeded replay, real code | 2026-11-09 20:23:30 | incomplete, exit 1, hubspotjobs `empty-needs-review`; check PASS | `finished-wrong-answer/check-real-code.txt` |
-| Boundary tests B01-B18, first run after my predictions (`6c1c5b3`) | 2026-11-10 | 8 tests OK; all 18 outcomes matched my predictions | [`policy/BOUNDARY-TABLE.md`](policy/BOUNDARY-TABLE.md) |
+| Boundary tests B01-B18, first run after the committed predictions (`6c1c5b3`; Codex-drafted, see SOURCES.md) | 2026-11-10 | 8 tests OK; all 18 outcomes matched the predictions | [`policy/BOUNDARY-TABLE.md`](policy/BOUNDARY-TABLE.md) |
 | Review packet: interrupted request not counted | 2026-11-10 | reproduced (`fb35380`, exit 1); review test red 3/3 (`279c10f`); patch to `jobloop/loop.py` only (`be7a54a`); test 3/3, suite 54 OK, reproduction exit 0; **accepted** by me | [`review-packet/REVIEW-PACKET.md`](review-packet/REVIEW-PACKET.md) |
 | `python3 scripts/validate_course.py` (repo root) | 2026-11-10 | **exit 1** on both Pythons, not passing. 3.9.6 crashed on another student's 3.12-only syntax (`fall-2026/shubham-b/.../ports.py`); 3.12.15 listed 66 diagnostics, none under `fall-2026/ashwin-t/` | this table |
 
@@ -93,7 +93,7 @@ No new posting was observed live in JS2 either: the only live run was the first 
 ## Layout
 
 ```text
-GATE.md                 my exits, budgets, repeat rule, error and permission policy, wrong versions
+GATE.md                 the approved exits, budgets, repeat rule, error and permission policy, wrong versions
 config/boards.json      the six boards (one marked deliberate-failure)
 jobloop/                loop.py, policy.py, providers.py, fetch.py, state.py, report.py
                         rule.py, text.py, persona.py copied unchanged from JS1 d95f05e

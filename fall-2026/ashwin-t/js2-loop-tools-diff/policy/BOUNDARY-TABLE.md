@@ -1,15 +1,16 @@
 # Permission policy: boundary cases
 
 The policy is `jobloop/policy.py` (rules in GATE.md section 5). The cases below were listed by
-Claude Code on 2026-11-09. **The Predicted and Why columns are Ashwin's own, written on 2026-11-09
-before `tests/test_boundaries.py` existed or any of these cases was run.** (Claude Code had already
+Claude Code on 2026-11-09. **The Predicted and Why columns were drafted by Codex from GATE.md section 5 on 2026-11-09 and committed
+by Ashwin as the predictions (`6c1c5b3`) before `tests/test_boundaries.py` existed or any of these cases
+was run** (see SOURCES.md; an earlier label here called them Ashwin's own, which SOURCES.md corrects). (Claude Code had already
 written `jobloop/policy.py` at commit `e270605`; see the note at the end.) The Actual column is
 filled only from the output of `tests/test_boundaries.py`.
 
 Outcomes: `allow`, `deny`, `approval-required`, or `run error` (the loop stops before any request).
 For path cases, the path is relative to the `js2-loop-tools-diff/` folder.
 
-| ID | What is asked | Exact input | Predicted (Ashwin) | Why (Ashwin) | Actual |
+| ID | What is asked | Exact input | Predicted (Codex draft, committed by Ashwin) | Why | Actual |
 |---|---|---|---|---|---|
 | B01 | Network read, configured board | `GET https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true` | allow | GET uses HTTPS, the exact allowed host, and the configured Klaviyo listing endpoint. | **allow** (GET to a configured board endpoint on an allow-listed host); matches prediction |
 | B02 | Host off the allow-list | `GET https://evil.example/v1/boards/klaviyo/jobs?content=true` | deny | The host is not on the exact allow-list. | **deny** (host 'evil.example' is not on the allow-list); matches prediction |
@@ -46,7 +47,7 @@ it is a prediction to check, not an observed result.
 (predictions) and exited 0, 8 tests OK; output in `policy/boundary-test-run.txt`. The Actual
 column comes from `python3 -m tests.test_boundaries --table` (`policy/boundary-actuals.txt`),
 with each reason string copied from `policy.check_request` / `check_write` / `check_read`.
-**All 18 actual outcomes matched Ashwin's predictions.** The tests assert GATE.md section 5,
+**All 18 actual outcomes matched the committed predictions.** The tests assert GATE.md section 5,
 not the predictions, so a wrong prediction would have shown up here as a mismatch, not a failure.
 
 Beyond the decision, `TestBoundaryEffects` checks the real file operations: B08 writes once and

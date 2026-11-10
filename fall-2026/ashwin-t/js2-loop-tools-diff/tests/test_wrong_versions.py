@@ -3,7 +3,7 @@
 Pattern: a scenario returns a list of broken expectations. Against the real code the list is
 empty; with wrong version n applied it is not. That shows the expectation actually detects
 that wrong version, rather than passing for any implementation. The permission-policy wrong
-versions (11, 12, 14, 15) are in tests/test_boundaries.py, written after Ashwin's predictions.
+versions (11, 12, 14, 15) are in tests/test_boundaries.py, written after the predictions were committed.
 """
 from __future__ import annotations
 
