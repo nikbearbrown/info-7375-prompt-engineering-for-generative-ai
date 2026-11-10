@@ -6,6 +6,7 @@ the disk (tests/test_gate_matches_code.py checks that).
 """
 
 import collections
+import http.client
 import json
 import os
 import socket
@@ -83,7 +84,8 @@ def http_transport(url, timeout, max_bytes):
     The timeout covers the whole request, body included, and the body is not read past max_bytes.
     """
     deadline = time.monotonic() + timeout
-    opener = urllib.request.build_opener(_NoRedirects)
+    # ProxyHandler({}): never send a request (or proxy credentials) to a proxy from the environment.
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirects)
     request = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
     try:
         response = opener.open(request, timeout=timeout)
@@ -96,8 +98,8 @@ def http_transport(url, timeout, max_bytes):
         if isinstance(error.reason, socket.timeout) or "timed out" in str(error.reason):
             raise FetchError("timeout", str(error.reason))
         raise FetchError("connection", str(error.reason))
-    except OSError as error:
-        raise FetchError("connection", str(error))
+    except (OSError, http.client.HTTPException) as error:
+        raise FetchError("connection", "%s: %s" % (type(error).__name__, error))
     with response:
         headers = {key.lower(): value for key, value in response.headers.items()}
         body, sock = _socket_of(response)
@@ -114,9 +116,11 @@ def http_transport(url, timeout, max_bytes):
                 chunk = body.read1(65536)
             except socket.timeout:
                 raise FetchError("timeout", "timed out reading the body")
-            except OSError as error:
-                raise FetchError("connection", str(error))
+            except (OSError, http.client.HTTPException) as error:
+                raise FetchError("connection", "%s: %s" % (type(error).__name__, error))
             if not chunk:
+                if getattr(body, "length", None):  # bytes still owed by Content-Length
+                    raise FetchError("connection", "body ended %d bytes short of its Content-Length" % body.length)
                 break
             size += len(chunk)
             if size > max_bytes:
