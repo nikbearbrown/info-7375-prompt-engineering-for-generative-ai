@@ -23,18 +23,7 @@ Use four configured boards:
 Only Samsara has an earlier day: the 2026-10-31 state and its raw response, both copied unchanged into `baseline/2026-10-31/` with
 sha256s in `PROVENANCE.md`. Any second run of boards 2–3 happens on the same day, and I will label it that way.
 
-These choices rest on what I checked before writing, with Claude's help. They describe those responses, not a guarantee of future ones:
 
-- The Oct 31 Greenhouse response has `meta.total` equal to its job count (323 = 323).
-- JS1's `check_url` accepts port `:8443` and `user:pw@` on an allowed host (offline probe). That is the defect this gate closes.
-- JS1 checks each redirect hop against the allow-list (`AllowListRedirectHandler`). I have read the code but never seen a live redirect.
-- A read-only probe on 2026-11-10 (not an agent run; raw responses not saved) showed:
-  - an unknown Greenhouse board returns 404 `{"status":404,"error":"Job not found"}`
-  - Lever returns a bare JSON array, with descriptions and no total (`palantir`: 200, 304 postings)
-  - an unknown Lever board returns 404 `{"ok":false,"error":"Document not found"}`
-
-If the deliberate-failure board unexpectedly succeeds, I report that the deliberate-failure demonstration was not achieved. I do not
-substitute another failure.
 
 ## 1. Exits
 
