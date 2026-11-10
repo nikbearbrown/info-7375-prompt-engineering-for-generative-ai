@@ -1,6 +1,6 @@
 """Boundary tests for the permission policy (GATE.md section 5).
 
-The expected outcomes come from GATE.md, not from my predictions. BOUNDARY-PREDICTIONS.md (commit 6fed708)
+The expected outcomes come from GATE.md, not from my predictions. BOUNDARY-PREDICTIONS.md (commit b5381cf)
 holds what I predicted before these tests existed; cases 12 and 14 are where the two differ.
 """
 

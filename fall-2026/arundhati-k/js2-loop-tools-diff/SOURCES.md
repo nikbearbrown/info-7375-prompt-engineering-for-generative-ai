@@ -7,7 +7,7 @@
 | GATE.md | drafted all of it on 2026-11-10 at my request, after explaining what each section means | read it, accepted it without edits ("Reviewed, commit it"); see GATE.md header |
 | BOUNDARY-PREDICTIONS.md | listed the 16 request inputs; asked each as an Allow/Refuse/Hold question | picked all 16 predictions (2 differed from GATE) |
 | tests, `jsagent2/`, `run.py`, `check.py`, `demo_wrong_answer.py` | wrote all code and tests | ran the full suite (43 OK), `review/reproduce_defect.py` and `git diff` myself (`review/02-my-commands.txt`) |
-| live run `live-1`, demo run | ran them | ran the approved live run myself and saw its report in my terminal (`9bb4241`); Claude ran `live-1` and the demo |
+| live run `live-1`, demo run | ran them | ran the approved live run myself and saw its report in my terminal (`402ac73`); Claude ran `live-1` and the demo |
 | review packet | found the Ashby defect (from Lectern ATS.md), ran the curl check, wrote reproduction, test, patch, sections 1–4 | sections 5–7: ran the commands, decision |
 | README, SOURCES skeleton | wrote | checked |
 

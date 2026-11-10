@@ -4,7 +4,7 @@ Arundhati K · 2026-11-10 · the change I asked Claude Code to make, reviewed on
 
 Sections 1–4 are facts and Claude Code's reading, labelled as such. **Sections 5–7 are mine.**
 
-## 1. The defect, reproduced first (commit `772af22`, before any patch)
+## 1. The defect, reproduced first (commit `1d4bbbf`, before any patch)
 
 The board-name rule I carried over from JS1 (`^[a-z0-9-]{1,64}$`) rejects real Ashby board names that
 contain capitals or spaces. Lectern's `ATS.md` documents one: `Jasper AI`.
@@ -28,7 +28,7 @@ run with Stripe + Notion + Jasper AI -> exit='error' ... requests sent=0
 DEFECT PRESENT
 ```
 
-## 2. The test, written before the patch (commit `772af22`)
+## 2. The test, written before the patch (commit `1d4bbbf`)
 
 `tests/test_providers.py`, 5 tests. Before the patch: 2 errors (`test_name_with_space_and_capitals_is_encoded`,
 `test_encoded_url_still_passes_policy`), 3 pass. The 3 passing ones guard what the fix must *not* break:

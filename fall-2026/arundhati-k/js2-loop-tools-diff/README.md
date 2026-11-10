@@ -8,18 +8,44 @@ No Lectern or Reallocation Engine code was copied.
 
 ## Order of work (each step committed before the next)
 
+Hashes below are the ones on GitHub. Before pushing, my 14 commits were rebased onto 136 newer classmates'
+commits, which changed every hash (author dates and order unchanged). Commit messages may still quote the
+old hashes:
+
+<details><summary>old → new hash map</summary>
+
+| before rebase | on GitHub |
+|---|---|
+| `6833492` | `3055907` |
+| `6fed708` | `b5381cf` |
+| `40d904c` | `0d932b1` |
+| `21db57c` | `76f4137` |
+| `a15cbef` | `056f7b8` |
+| `772af22` | `1d4bbbf` |
+| `96e67d0` | `3565b04` |
+| `9bb4241` | `402ac73` |
+| `34ed521` | `0067080` |
+| `c9f0653` | `2d4842e` |
+| `52f2202` | `bab2b29` |
+| `7815661` | `b3d2ddb` |
+| `d2a3609` | `178afab` |
+| `5006a36` | `4e65c62` |
+
+</details>
+
+
 | step | commit | what |
 |---|---|---|
-| gate | `6833492` | [GATE.md](GATE.md): exits, budgets, repeat rule, error and permission policy, wrong versions (drafted by Claude Code, accepted by me, see its header) |
-| predictions | `6fed708` | [BOUNDARY-PREDICTIONS.md](BOUNDARY-PREDICTIONS.md): my 16 predictions, before any test |
-| tests first | `40d904c` | 38 tests from GATE.md; they fail, no code yet ([log](evidence/logs/00-tests-before-code.txt)) |
-| code | `21db57c` | `jsagent2/`, `run.py`, `check.py`; the same 38 tests pass, unedited ([log](evidence/logs/01-tests-after-code.txt)) |
-| live run + demo | `a15cbef` | [evidence/run-live-1](evidence/run-live-1/report.md), [finished-wrong-answer](evidence/logs/02-finished-wrong-answer-demo.txt) |
-| review: reproduce + test | `772af22` | [review/](review/REVIEW.md): defect reproduced, test written, before the patch |
-| my commands + approved run | `9bb4241` | [review/02-my-commands.txt](review/02-my-commands.txt): reproduction, 43 tests, diff, `run.py --approve-state-write`, run by me |
-| review: patch + decision | `34ed521`, `c9f0653` | patch accepted on evidence; my reason and the case my test misses |
-| my writing | `52f2202`, `7815661`, `d2a3609` | FRICTIONAL, SIGNOFF, SOURCES look-up |
-| fix: raw evidence was git-ignored | (this commit) | `.gitignore` `out/` matched `evidence/**/out/`; found by a fresh-clone check; now `/out/` |
+| gate | `3055907` | [GATE.md](GATE.md): exits, budgets, repeat rule, error and permission policy, wrong versions (drafted by Claude Code, accepted by me, see its header) |
+| predictions | `b5381cf` | [BOUNDARY-PREDICTIONS.md](BOUNDARY-PREDICTIONS.md): my 16 predictions, before any test |
+| tests first | `0d932b1` | 38 tests from GATE.md; they fail, no code yet ([log](evidence/logs/00-tests-before-code.txt)) |
+| code | `76f4137` | `jsagent2/`, `run.py`, `check.py`; the same 38 tests pass, unedited ([log](evidence/logs/01-tests-after-code.txt)) |
+| live run + demo | `056f7b8` | [evidence/run-live-1](evidence/run-live-1/report.md), [finished-wrong-answer](evidence/logs/02-finished-wrong-answer-demo.txt) |
+| review: reproduce + test | `1d4bbbf` | [review/](review/REVIEW.md): defect reproduced, test written, before the patch |
+| my commands + approved run | `402ac73` | [review/02-my-commands.txt](review/02-my-commands.txt): reproduction, 43 tests, diff, `run.py --approve-state-write`, run by me |
+| review: patch + decision | `0067080`, `2d4842e` | patch accepted on evidence; my reason and the case my test misses |
+| my writing | `bab2b29`, `b3d2ddb`, `178afab` | FRICTIONAL, SIGNOFF, SOURCES look-up |
+| fix: raw evidence was git-ignored | `4e65c62` | `.gitignore` `out/` matched `evidence/**/out/`; found by a fresh-clone check; now `/out/` |
 
 ## Language and toolchain
 

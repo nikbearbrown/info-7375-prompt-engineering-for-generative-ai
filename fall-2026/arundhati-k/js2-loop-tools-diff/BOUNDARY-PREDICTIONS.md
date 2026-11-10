@@ -1,6 +1,6 @@
 # Boundary predictions — written before any test runs
 
-Arundhati K · 2026-11-10 · against GATE.md §5 (commit `6833492`)
+Arundhati K · 2026-11-10 · against GATE.md §5 (commit `3055907`)
 
 Claude Code listed the inputs. **The "I predict" column is mine**, written before the tests or the policy
 code exist. Allowed answers: **allow**, **refuse**, or **hold for approval**, plus a few words of why.
@@ -30,7 +30,7 @@ test or policy code existed. The "why" column is for my own words; blank means I
 | 15 | overwrite `out/state/seen.json` **with** `--approve-state-write` | write | **allow** | | allow ✓ |
 | 16 | write an absolute path `/tmp/x.json` | write | **refuse** | | refuse ✓ |
 
-Results filled in by running `tests/test_policy.py::BoundaryCases.test_all_16_cases` (2026-11-10, commit `21db57c`
+Results filled in by running `tests/test_policy.py::BoundaryCases.test_all_16_cases` (2026-11-10, commit `76f4137`
 onward; expected values come from GATE.md §5). 14 of my 16 predictions matched.
 Where I was wrong:
 - **#12** write `config/boards.json`: I predicted allow; the policy refuses it (writes only inside `out/`).

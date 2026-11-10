@@ -11,7 +11,7 @@ files, times); everything under *My words* is mine.
 *What happened:* I asked Claude Code to draft GATE.md ("Claude drafts, I edit") after its explanation of
 exits, budgets, repeat rule, error and permission policy. I accepted the draft without edits.
 *Accepted / modified / rejected from Claude:* accepted the whole draft, unmodified.
-*Pointer:* commit `6833492` (GATE.md, before any code).
+*Pointer:* commit `3055907` (GATE.md, before any code).
 
 *My words:*
 - I chose Claude to draft because I knew the basic idea but wasn't fully sure about all the rules and edge cases.
@@ -25,7 +25,7 @@ exits, budgets, repeat rule, error and permission policy. I accepted the draft w
 policy; #12 (write `config/boards.json`) and #14 (state file without the flag) did not.
 *Accepted / modified / rejected from Claude:* Claude listed the cases; the predictions are mine. I did not
 change them after seeing the results.
-*Pointer:* commit `6fed708` (predictions), `tests/test_policy.py::BoundaryCases.test_all_16_cases`,
+*Pointer:* commit `b5381cf` (predictions), `tests/test_policy.py::BoundaryCases.test_all_16_cases`,
 [BOUNDARY-PREDICTIONS.md](BOUNDARY-PREDICTIONS.md).
 
 *My words:*
@@ -42,7 +42,7 @@ myself (state written). Both: Stripe 775, Figma 143, Notion 155, deliberate boar
 the wrong version said `finished`, Figma 0 new; `check.py` flagged `finished-with-empty-board` and
 `drop-to-zero` (143 → 0); the real agent said `incomplete`, Figma `empty-unverified`.
 *Accepted / modified / rejected from Claude:* accepted the demo and the check as built.
-*Pointer:* `a15cbef` (live-1 + demo), `9bb4241` (my approved run), `evidence/logs/02-finished-wrong-answer-demo.txt`,
+*Pointer:* `056f7b8` (live-1 + demo), `402ac73` (my approved run), `evidence/logs/02-finished-wrong-answer-demo.txt`,
 `tests/test_check.py`.
 
 *My words:*
@@ -57,12 +57,12 @@ the wrong version said `finished`, Figma 0 new; `check.py` flagged `finished-wit
 
 *What happened:* Claude Code found that the JS1 board-name rule rejects the real Ashby board `Jasper AI`
 (live: 200, 7 postings) and turns the whole run into `error`. It reproduced it and wrote the test before the
-patch (`772af22`); I ran the reproduction, the 43 tests, the diff and an approved live run myself
-(`review/02-my-commands.txt`) and decided **accept** (`34ed521`, reason `c9f0653`). I did not run the live
+patch (`1d4bbbf`); I ran the reproduction, the 43 tests, the diff and an approved live run myself
+(`review/02-my-commands.txt`) and decided **accept** (`0067080`, reason `2d4842e`). I did not run the live
 Jasper fetch myself.
 *Accepted / modified / rejected from Claude:* accepted the patch unmodified, including the Greenhouse
 newline tightening that was outside the Ashby scope.
-*Pointer:* `772af22`, `34ed521`, `c9f0653`, [review/REVIEW.md](review/REVIEW.md), `tests/test_providers.py`.
+*Pointer:* `1d4bbbf`, `0067080`, `2d4842e`, [review/REVIEW.md](review/REVIEW.md), `tests/test_providers.py`.
 
 *My words:*
 - Running the commands myself helped me see the actual results and errors. Reading Claude's log wasn't enough
