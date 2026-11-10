@@ -73,6 +73,26 @@ BOUNDARY.md `2b6071e`.
 **In my words:** "a little of everything, because i want it to be perfect but also in order to be perfect i dont want to miss
 out on basic things or basic practices as to how it is usually done and how i am doing"
 
+## 7. The same run took 4 s on day 1 and 41 s on day 2 (2026-11-10)
+
+**What happened:** with the same command and the same boards, day 1 took 4.03 s in total, while on day 2 the Databricks
+response alone took 34.07 s (9.96 MB, 914 postings, compared with 918 the day before). The 20 s request timeout did not fire,
+because it applies to each socket read and not to the whole download. The run still ended at 41.20 of its 60 s.
+Evidence: `runs/trace/20261110T194501Z-live-day2.jsonl` (request at t=0.001, response at t=34.067); TRACE.md §4;
+SIGNOFF "Not checked" 6.
+
+**In my words, before:** "i thought that because it took 4sec yesterday it should take the same time today too but it took
+extra time maybe because there were new job posts or yesterday the site was already opened and again to open it it took
+only 4 sec."
+
+**After Claude pointed out that both guesses don't fit the data (Databricks had fewer postings, and each run starts fresh
+with nothing remembered from the day before):** "now i understand why it was slower and it has nothing to do with our agent,
+it all depends on databricks server and internet and thats why we have budget of 60 sec to break the cycle if it takes more
+time than that to complete or else it can go on and on"
+
+**Unresolved (a fact, added by Claude):** I don't know why Databricks was slow on day 2, and nothing in my saved files can
+show it. A run stopped by the 60 s budget (`budget_exhausted`) has still never happened live.
+
 ## What I accepted, modified, or rejected from Claude (facts, compiled by Claude from the chat and commits)
 
 - **Accepted:** all four GATE.md choices I picked were the options Claude had marked "Recommended". I asked why they were
