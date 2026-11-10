@@ -1,263 +1,278 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v1.3 (history in §13) · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v2.0 · 2026-11-10 · written and committed before any JS2 code
 
-**How to read this:** every rule has an ID. Tests are named after the rule they check (`test_P3_port_refused`). The trace records the
-rule ID behind every refusal. The sign-off cites IDs. A rule changes only through a dated entry in the Decisions log (§13), committed
-together with the change.
+## Scope
 
-**Built on:** my JS1 watcher, which has an allow-listed Greenhouse fetch with redirect-hop checking, per-board state, rule judge R1–R5
-and an optional Claude judge. It also has the 2026-10-31 Samsara baseline (`baseline/2026-10-31/`, sha256s in `PROVENANCE.md`).
+I want a bounded Python 3.11 loop (standard library only) that watches public job boards on two applicant-tracking systems and compares
+each one with its saved observations. It starts from my JS1 watcher. The JS1 folder is not a git repository, so the first JS2 commit
+(`09b1056`) records exactly what was copied: `jsagent/`, `tests/`, `config/`, `persona/` (fictional only), `prompts/`, `CONTRACT.md`,
+`.gitignore` and `scripts/sabotage_check.py`. All 75 JS1 tests passed in the copy. The JS1 folder stays untouched. All work happens in
+the local JS2 repository, committed after each step and not pushed until the end. This gate is committed on its own before any
+implementation.
 
-## 0. What I checked before writing this
-
-| ID | Fact | How | Status |
-|---|---|---|---|
-| G1 | Greenhouse's list response has `meta.total`, and it equals the number of jobs (323 = 323) | Read the Oct 31 raw file | **Checked** offline, with Claude's help |
-| G2 | JS1's `check_url` accepts port `:8443` and `user:pw@` on an allowed host | Offline probe of `check_url` | **Checked** with Claude's help. Closed by P3 |
-| G3 | JS1 checks every redirect hop against the allow-list | Read `jsagent/fetch.py` (`AllowListRedirectHandler`) | **Checked by reading the code**. I have never seen a live redirect |
-| G4 | An unknown Greenhouse board returns 404 with `{"status":404,"error":"Job not found"}` | Read-only probe script, 2026-11-10 (not an agent run; raw not saved) | **Checked once**, with Claude's help. The agent's own run records it again as evidence |
-| G5 | Lever returns a **bare JSON array** (no `jobs` key, no total), descriptions included; an unknown board returns 404 with `{"ok":false,"error":"Document not found"}` | Same probe, 2026-11-10: `palantir` 200 with 304 postings; `does-not-exist-js2` 404 | **Checked once**, with Claude's help |
-| G6 | Samsara's new data-titled postings since Oct 31 fit within B2 | — | **Unknown.** B2 has margin, and running out is an allowed outcome (E1) |
-
-## 1. Boards (the plan)
+Use four configured boards:
 
 | # | Board | ATS | Host | Purpose |
 |---|---|---|---|---|
-| 1 | `samsara` | Greenhouse | `boards-api.greenhouse.io` | Real Day-2 run against the 2026-10-31 baseline |
-| 2 | `databricks` | Greenhouse | `boards-api.greenhouse.io` | Second Greenhouse board (most data roles of those probed), baselined today |
-| 3 | `palantir` | Lever | `api.lever.co` | Second ATS, a different response shape (G5), baselined today |
-| 4 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | **Fails on purpose** (G4) |
+| 1 | `samsara` | Greenhouse | `boards-api.greenhouse.io` | A real Day-2 comparison against the 2026-10-31 baseline |
+| 2 | `databricks` | Greenhouse | `boards-api.greenhouse.io` | Second Greenhouse board, baselined on its first JS2 run |
+| 3 | `palantir` | Lever | `api.lever.co` | Second ATS, with a different response shape, baselined on its first JS2 run |
+| 4 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | The deliberate failure |
 
-Only board 1 has an earlier day. The second run of boards 2–3 happens on the same day, and I will label it that way.
+Only Samsara has an earlier day: the 2026-10-31 state and its raw response, both copied unchanged into `baseline/2026-10-31/` with
+sha256s in `PROVENANCE.md`. Any second run of boards 2–3 happens on the same day, and I will label it that way.
 
-**Run plan.** Every graded run uses `--no-claude` (P17). Each board file below is fixed now, so P18 applies to it.
+These choices rest on what I checked before writing, with Claude's help. They describe those responses, not a guarantee of future ones:
+
+- The Oct 31 Greenhouse response has `meta.total` equal to its job count (323 = 323).
+- JS1's `check_url` accepts port `:8443` and `user:pw@` on an allowed host (offline probe). That is the defect this gate closes.
+- JS1 checks each redirect hop against the allow-list (`AllowListRedirectHandler`). I have read the code but never seen a live redirect.
+- A read-only probe on 2026-11-10 (not an agent run; raw responses not saved) showed:
+  - an unknown Greenhouse board returns 404 `{"status":404,"error":"Job not found"}`
+  - Lever returns a bare JSON array, with descriptions and no total (`palantir`: 200, 304 postings)
+  - an unknown Lever board returns 404 `{"ok":false,"error":"Document not found"}`
+
+If the deliberate-failure board unexpectedly succeeds, I report that the deliberate-failure demonstration was not achieved. I do not
+substitute another failure.
+
+## 1. Exits
+
+Print and save the same status, reason, per-board outcomes, requests used, seconds used, state-update outcome, and the verifier line.
+
+| Status | Process exit code | Meaning |
+|---|---|---|
+| finished | 0 | Every planned board returned a valid response in its provider's shape, no budget was reached, and nothing needing approval was refused. |
+| incomplete | 1 | The plan ran to the end, but at least one board failed, a required judgment is missing, or a write needing approval was refused. |
+| budget-exhausted | 2 | A board, request, time, or step limit stopped the plan. The report lists what was done, what was never attempted, and the new postings left unjudged. |
+| error | 3 | Invalid configuration, a permission violation, unreadable state, too many loop steps, or an output folder inside a protected folder. Nothing is fetched or written afterwards except the trace line and the run report. |
+
+Three successful boards and one failed board means incomplete, even when the failure was intentional. Reaching the end of the loop is
+not proof that every board was observed. The exit is calculated from the observation records by one function. The loop's own account
+of what happened does not decide it.
+
+Preflight, before any network access, rejects with error:
+- a configuration with zero boards or more boards than the board cap
+- a board name that fails validation
+- a host that is not on the allow-list
+- an output folder inside a protected folder
+
+Duplicate boards (names compared in lowercase) are removed before the loop starts, and the log names them. If several conditions occur,
+use error before budget-exhausted before incomplete before finished, and keep every individual reason.
+
+A failed board's count is null, never 0. Its report line says "unknown, not zero" and never says "no new jobs." Every run ends by
+printing two lines: `loop exit: <status>` and `verifier: PASS|FAIL`. I call a run good only when it is finished and PASS.
+
+State is updated only for boards observed successfully in that run. A failed board's previous state stays as it was. A posting id is
+marked seen only after it appears in the written report, so postings left unjudged by a budget stay new. On a board's first observation,
+its ids are recorded as a labeled baseline and none are reported as new. Samsara's first JS2 run reads its previous state from
+`baseline/2026-10-31/seen_ids.json`, read-only. Later comparisons use the state in `out/state/state.json`, keyed by provider and board.
+Reports and raw responses are saved separately from state. State is written to a temporary file in `out/state/` and renamed into place,
+so a crash cannot leave half a file.
+
+## 2. Budgets
+
+The ceilings live in `config/budgets.json`, which the agent may read but not write.
+
+- Maximum boards per run: 5 (four planned, one spare).
+- Maximum HTTP requests per run: 60. That covers 4 list requests, up to 6 retries, up to about 40 Samsara detail requests (new
+  data-titled postings since Oct 31; the real number is unknown), and redirect hops. Lever returns descriptions in its list, so Lever
+  boards need no detail requests.
+- Maximum wall-clock time: 300 seconds per run.
+- Per-request timeout: 15 seconds.
+- Maximum redirect hops per request: 3.
+- Maximum loop steps per run: 100. This catches a loop that cycles without sending requests, which the request budget would never see.
+
+Retries, redirect hops and detail requests all count against the request budget. Every wait (backoff, pacing, `Retry-After`) counts
+against the time budget. Limits are checked before every request and every wait. When a limit is reached, no new action starts: the file
+being written is finished, the report is written, and the run exits budget-exhausted. A board that was not observed is reported as not
+observed, never as zero jobs.
+
+Only I may change a ceiling: by editing `config/budgets.json` and adding a dated decision to this gate, with its reason, in the same
+commit. Claude Code may not change a budget as part of any fix, and nothing in a model reply can change one. A test fails if
+`config/budgets.json` and this section disagree.
+
+## 3. Repeat rule
+
+An action is identified by its HTTP method and its normalized URL within one run. Normalizing means: lowercase scheme and host, default
+port removed, trailing slash removed, query parameters sorted. Board names are validated, and URLs are built only from each provider's
+fixed template. The loop never fetches a URL taken from a posting, a configuration value, or a model reply.
+
+A repeated action is blocked before it is sent. It is logged as `repeat_blocked`, costs no budget, and does not end the run. The only
+allowed re-send is a retry under the error policy below, and the trace records the original attempt and each retry separately as
+`retry k/n`. A run that goes past the loop-step cap exits error, because it is making no progress. A separate later run may observe the
+same board again.
+
+## 4. Error policy
+
+Retry a timeout, a connection error, or HTTP 502/503/504 at most twice, waiting 2 seconds and then 4 seconds. Retry HTTP 500 once, since
+it can be temporary or permanent. For HTTP 429, wait and retry once if `Retry-After` is at most 10 seconds and fits the time budget;
+otherwise the board fails. These retries are sound because every request is a read-only GET: repeating one cannot change anything on the
+remote side, and these failures are often temporary. A retry that succeeds does not prove the board is healthy, and every retry and wait
+must fit the budgets.
+
+Do not retry a 404, another 4xx, an unknown board, an empty body, invalid JSON, or a response that is not the provider's expected shape
+(Greenhouse: an object with a `jobs` list; Lever: a JSON array). These failures are deterministic, so a retry would only spend budget.
+Save the raw bytes before parsing, so a response that won't parse is still evidence. Never replace a failed response with an empty list.
+
+A valid response with an empty list in the provider's shape (Greenhouse `"jobs": []`, Lever `[]`) is recorded as observed, and the loop
+takes no further action on it. Judging whether it is plausible is the independent verifier's job, by design. A check inside the loop
+would still be the agent grading itself.
+
+After an ordinary board failure, record the actual outcome and continue to the remaining boards within budget. The failed board's record
+holds the status, the reason, the attempts made, the raw file path if a response arrived (or "no response received"), and a null count.
+Stop the whole run for any permission violation. Escalation means the run stops with exit error and prints what was refused, under which
+rule, and which board and attempt. Nothing is decided automatically, and no message is sent.
+
+If the Claude judge is turned on and fails (timeout, invalid output, contract violation), the posting keeps its rule verdict, its Claude
+verdict becomes null with a reason, and the run is incomplete. The judge is retried at most once. With `--no-claude`, no Claude verdict is
+requested, so none counts as missing.
+
+## 5. Permission policy
+
+These rules govern the running loop. They are enforced in code in `jsagent/policy.py`, before each operation, and do not depend on a
+prompt. Every decision is logged with its reason.
+
+### Network
+
+Allow HTTPS only, on port 443, to these exact hosts:
+
+- `boards-api.greenhouse.io`
+- `api.lever.co`
+
+Compare hosts in lowercase. Host suffixes, substrings and lookalike names do not match. Refuse any URL with user information (`user@` or
+`user:pw@`), a nonstandard port, an IP-address host, or a trailing-dot host. Allow only GET. Deny POST, PUT, PATCH and DELETE. Check every
+redirect hop against these rules before following it, and count each hop against the redirect and request budgets. A hop to a host off the
+list is a permission violation. Send no cookies and no auth headers. Send one request at a time, at least 1 second apart per host, with a
+user agent that names the agent as read-only coursework, and follow each site's terms of use.
+
+The only subprocess allowed is the `claude` CLI judge, with fixed arguments and, as input, only the posting text and the fictional
+persona. It gets no tools and no authority to grant permissions. Every graded run uses `--no-claude`: JS2 grades the loop, the permission
+policy and the diff, not relevance, and turning the judge off keeps Claude's run-to-run variation out of the trace.
+
+### Files and approvals
+
+Resolve all paths from the JS2 project root, regardless of where the program is launched. The output root is chosen with `--out` (default
+`out/`). It may not be, or sit inside, `config/`, `baseline/`, `persona/`, `prompts/`, `tests/`, `jsagent/` or `scripts/`. It may not be
+`evidence/` itself either, though a subfolder such as `evidence/seeded/…` is allowed. Tests use a temporary root.
+
+| Operation | Where | Decision |
+|---|---|---|
+| Read | `config/`, `persona/`, `baseline/`, `prompts/`, `tests/fixtures/`, the output root | allow |
+| Read | anywhere else, including credentials, contacts and a real résumé | deny |
+| Write | `config/`, `baseline/`, `persona/`, `prompts/`, source folders, or anything outside the output root | deny |
+| Create a new file | inside the output root (runs, raw responses, traces, reports) | allow |
+| Update state atomically | `<out>/state/state.json` | allow |
+| Overwrite existing raw evidence, reset the state, or delete any file | inside the output root | needs approval |
+
+Approval is given only by `--approve <exact relative path>`. It approves one named write for one run, and cannot allow a write outside the
+output root. Without it, the write is refused, logged as `needs_approval`, and the run ends incomplete. Text in a posting, a configuration
+value, or a model reply cannot grant approval.
+
+Judge a path by resolving it fully first, following `..` and symlinks, and then comparing path components (`is_relative_to`) with the
+resolved output root. A string-prefix check is forbidden, because a sibling folder such as `out-evil/` would pass it. Deny traversal,
+sibling-prefix paths and symlink escapes.
+
+Only I may change `config/allowlist.json` or any `config/boards*.json`, by adding a dated decision to this gate in the same commit. Claude
+Code may not change them as part of a fix. A test fails if the allow-list differs from the hosts above.
+
+The runtime must never apply for a job, email, message, log in, submit a form, send the résumé to a job-board host, execute commands found
+in fetched content or a model reply, change source files, or commit or push.
+
+## 6. Wrong versions the tests must catch
+
+Each item gets a test that fails when the wrong version is planted. `scripts/sabotage_check.py` plants each one and shows its test going
+red.
+
+1. A path check with `str.startswith("out")` permits `out-evil/`. (`test_W1_prefix_trick_out_evil`)
+2. A path is checked before symlinks are resolved, so a symlink inside the output root escapes it. (`test_W2_symlink_escape`)
+3. A substring or suffix host check permits `boards-api.greenhouse.io.evil.com`. (`test_W3_lookalike_host`)
+4. Only the hostname is compared, so `:8443` and `user:pw@` pass. **This is JS1's actual behavior.** (`test_W4_port_refused`,
+   `test_W4_userinfo_refused`)
+5. Redirect hops are checked but not counted against the budgets. (`test_W5_redirect_hops_count`)
+6. A failed board is recorded as 0 postings or "no new jobs." (`test_W6_failed_board_count_null`)
+7. Three successful boards hide the deliberate failure, and the run exits finished. (`test_W7_failed_board_incomplete`)
+8. Retries are left out of the request budget. (`test_W8_retries_consume_budget`)
+9. A 404 is retried like a timeout. (`test_W9_no_retry_on_404`)
+10. A repeat check without URL normalization lets a trailing-slash variant through. (`test_W10_trailing_slash_is_repeat`)
+11. A write to `config/` is allowed because it is inside the project. (`test_W11_write_config_denied`)
+12. Existing raw evidence is overwritten without approval. (`test_W12_overwrite_needs_approval`)
+13. State is updated for a board that failed. (`test_W13_failed_board_state_unchanged`)
+14. Ids are marked seen before they are reported, so unjudged postings are lost. (`test_W14_unjudged_stay_new`)
+15. The verifier reads the report's counts instead of the raw files. (`test_W15_verifier_ignores_report_counts`)
+16. `--out config/` is accepted, because the path checks are relative to the chosen root. (`test_W16_out_root_in_protected_folder`)
+17. A host is added to `config/allowlist.json` during a fix, and the allow-list drifts from this gate. (`test_W17_allowlist_matches_gate`)
+18. A budget in `config/budgets.json` drifts from section 2. (`test_W18_budgets_match_gate`)
+
+## Evidence and review choices
+
+**Run plan.** Every graded run uses `--no-claude`. The board files are fixed now, so the change rule in section 5 applies to them. These
+are expectations written before the code exists. The actual results go in `evidence/RUNS.md`.
 
 | Run | Kind | Boards (file) | Output root | Expected loop exit |
 |---|---|---|---|---|
-| A | live, first | 1–4 (`config/boards.json`) | `out/` | `incomplete`, because board 4 fails (ER3) |
-| B | live, same day, hours after A | 1–3 (`config/boards_no_failure.json`) | `out/` | `finished`, so that one real run can end cleanly. If it doesn't, I report what happened |
-| C | **SEEDED** replay (V3) | 1 only (`config/boards_seeded.json`) | `evidence/seeded/empty-samsara/` | `finished` with 0 new, and the verifier FAILs |
+| A | live, first | 1–4 (`config/boards.json`) | `out/` | incomplete, because board 4 fails |
+| B | live, same day, hours after A | 1–3 (`config/boards_no_failure.json`) | `out/` | finished, so one real run can end cleanly. If it doesn't, I report what happened |
+| C | SEEDED replay | 1 only (`config/boards_seeded.json`) | `evidence/seeded/empty-samsara/` | finished, 0 new, while the verifier FAILs |
 
-These are expectations written before the code exists. The real exits go in `evidence/RUNS.md` (EV1).
+**The finished-wrong answer.** Run C is clearly labeled SEEDED. Its input is the file `tests/fixtures/seeded/empty-samsara.json`, which
+contains `{"jobs": [], "meta": {"total": 0}}`. Its output and state stay separate from the real run. I keep the report that claims
+finished as it is.
 
-## 2. Exits
+The independent check is `scripts/verify_run.py`. It is separate code that does not import the loop or reuse its decision function. It
+reads only the raw files, the trace, the baseline and the previous state, and treats the loop's report only as the thing being checked. It
+FAILs a run if:
+- its recount of postings from the raw files differs from the report
+- a Greenhouse board's job count differs from `meta.total`
+- its recomputed new ids differ from the report
+- a board fell to 0, or dropped by more than half, since its previous observation
+- a planned board has no record
+- a raw file's sha256 does not match the trace
 
-**E1.** Every run ends with exactly one exit:
+A board with no previous observation does not FAIL the run, but is never counted as passing the drop check either: the verifier names it
+on its result line, e.g. `verifier: PASS (drop check not applicable: databricks, palantir — no history)`. For run C, I expect FAIL on the
+drop check: 323 postings on 2026-10-31, 0 now.
 
-| Exit | Code | When | The report must include |
-|---|---|---|---|
-| `finished` | 0 | Every planned board gave a valid response, no budget was hit, no judgment is missing, and nothing needing approval was refused | per board: postings, new since last run, verdicts; requests and seconds used |
-| `incomplete` | 1 | The plan ran to the end, but at least one board failed, a judgment is missing (ER9), or a write needing approval was refused (P15) | which boards or postings, the reason, the attempts made |
-| `budget-exhausted` | 2 | A limit from §3 was reached before the plan was done | which limit; what was done; what was never attempted; new postings left unjudged |
-| `error` | 3 | Invalid config, a policy violation (P-rules), unreadable state, or more than B6 steps | the reason and rule ID; confirmation that nothing was fetched or written afterwards, apart from the trace line and the run report (ER7) |
+**Evidence.**
+- Every run gets a row in `evidence/RUNS.md`, including failed and discarded runs. I keep RUNS.md up to date myself, and the agent never
+  writes it.
+- `out/` (runs A and B) and `evidence/seeded/empty-samsara/` (run C) are committed as evidence.
+- No raw file or run folder that I cite is ever deleted. I cite only runs listed in RUNS.md, and only counts I can show.
 
-**E2.** If several apply, the order is `error` > `budget-exhausted` > `incomplete` > `finished`.
+**Review packet.** My proposed Claude Code change fixes the real JS1 defect above: `check_url` accepts a nonstandard port and user
+information on an allowed host. I reproduced it offline on 2026-11-10 before writing this gate. Before the patch, I will save the
+reproduction and commit a failing regression test (wrong version 4). I am not introducing a defect just to create a review. If the
+reproduction stops failing before the patch, I will choose another reproduced defect.
 
-**E3.** A failed board's count is `null`, never 0. Its report line says **"unknown, not zero"** and never says "no new jobs."
+**Boundary tests.** I keep the boundary predictions separate from this gate, in `BOUNDARY_TESTS.md`. That file lists at least ten concrete
+cases, each with its predicted result written before running, including:
+- a host off the list and a lookalike host
+- a nonstandard port and user information in the URL
+- a redirect to a host off the list
+- traversal with `..`, the sibling prefix `out-evil/`, and a symlink escape
+- read versus write on `config/`
+- an overwrite that needs approval
 
-**E4.** The exit is calculated from the observation records (§8) by one function. The loop's own narrative doesn't decide it.
+Predictions, actual results, who wrote each test, the commands I ran, and the final acceptance are kept as separate records.
 
-**E5.** Stopping is not succeeding. Every run ends by printing two lines: `loop exit: <exit>` and `verifier: PASS|FAIL` (§9). I call a
-run good only when it is **finished and PASS**.
+**This gate does not cover:**
+- a race between the path check and the write, and hard links
+- macOS's case-insensitive file system (I expect `OUT/…` to be refused, but haven't tested it)
+- TLS and DNS, which are trusted to the system, and a valid but stale cached response
+- changes to Lever's or Greenhouse's rate limits and terms
+- Lever's missing total count, which means a truncated Lever list can only be caught by the recount and the drop check
+- a board that really disappeared looks like a typo (`plaid` returned 404 on Lever on 2026-11-10)
+- whether the relevance verdicts are accurate
 
-## 3. Budgets
+**JS1's limits, carried into the README:**
+- the change between JS1 runs was a constructed seed, not a real second day
+- I deleted the evidence for several JS1 runs I cited
+- the Claude judge varied on Samsara 7922530 (relevant 6 times, not relevant 3)
 
-The values are in `config/budgets.json`. The agent can read that file but not write it (P10).
+## Decisions log
 
-| ID | Budget | Limit | Why |
-|---|---|---|---|
-| B1 | Boards per run | 5 | 4 planned plus 1 spare |
-| B2 | HTTP requests per run | 60 | 4 list requests, up to 6 retries (3 boards × 2; a 404 is never retried), up to ~40 Samsara detail requests (G6), plus redirect hops |
-| B3 | Wall-clock seconds per run | 300 | Covers B2 with pacing (P7) and timeouts |
-| B4 | Timeout per request | 15 s | |
-| B5 | Redirect hops per request | 3 | |
-| B6 | Loop steps per run | 100 | Catches a loop that cycles without making requests, which B2 never sees |
+This file's earlier versions are in git: v1 `82f02cb`, v1.1 `2a2e11f`, v1.2 `ef2eafc`, v1.3 `c421e28`.
 
-**B7.** Retries, redirect hops and detail requests all count against B2. Every wait (backoff, pacing, `Retry-After`) counts against B3.
-
-**B8.** At a limit, no new action starts. The file being written is finished, the report is written, and the run exits
-`budget-exhausted`. Unjudged new postings stay new (S3).
-
-**B9.** Only I may change a budget: by editing `config/budgets.json` and adding a §13 entry in the same commit. Claude Code may not
-change a budget as part of any fix. `test_B9_budgets_match_gate` fails if the config and this table differ.
-
-## 4. Repeat rule
-
-**RP1.** Two actions are "the same" if they have the same method and the same **normalized URL** in one run. Normalizing means
-lowercase scheme and host, default port removed, trailing slash removed, query parameters sorted.
-
-**RP2.** A repeat is blocked before it is sent, logged as `repeat_blocked` with its rule ID, costs no budget, and doesn't end the run.
-
-**RP3.** A retry under ER1, ER2 or ER5 is the only allowed re-send. It's logged as `retry k/n`, where n is the limit that rule allows.
-
-**RP4.** Duplicate boards in the config are removed before the loop starts, comparing names in lowercase, and the log names them.
-
-**RP5.** A run with more than B6 steps exits `error`. It counts as a loop without progress.
-
-## 5. Error policy
-
-| ID | Failure | Action | Why |
-|---|---|---|---|
-| ER1 | Timeout, connection error, HTTP 502/503/504 | Retry at most **2** times, after 2 s and then 4 s | A read-only GET is safe to repeat, and these failures are usually temporary |
-| ER2 | HTTP 429 | If `Retry-After` ≤ 10 s and fits B3, wait and retry **once**. Otherwise the board fails | Respects the site's rate limit, and the budget still applies |
-| ER3 | HTTP 404 / other 4xx / unknown board | **No retry.** The board fails | Deterministic: a retry only spends budget |
-| ER4 | Empty body, invalid JSON, or not the provider's expected shape (Greenhouse: an object with a `jobs` list; Lever: a JSON array) | **No retry.** The board fails and the raw bytes are saved | The bad response is the evidence, and I don't invent values from it |
-| ER5 | HTTP 500 | Retry **once** | Can be temporary or permanent, so one try only |
-| ER6 | Valid `200` with an empty list in the provider's shape (Greenhouse: `"jobs": []`; Lever: `[]`) | Recorded as observed. The loop takes no further action | Plausibility is the verifier's job, by design (V1) |
-| ER7 | Any P-rule violation | **Escalate:** stop now and exit `error`. Fetch nothing more and write nothing except the trace line and the run report | Permission rules are never retried around |
-
-**ER8.** A failed board's record holds `status: failed`, the reason, attempts made, the raw file path if a response arrived, and
-`count: null`. The other boards continue.
-
-**ER9.** A Claude judge failure (timeout, invalid output, contract violation) keeps the posting's rule verdict, sets the Claude verdict
-to `null` with a reason, and makes the run `incomplete`. It is never retried more than once. With `--no-claude`, no Claude verdict is
-requested, so none counts as missing: the report shows `claude: off` for every posting, and the rule verdict (R1–R5) is the only verdict.
-
-**ER10.** "Escalate to me" means the run stops and prints what was refused and under which rule. Nothing is decided automatically.
-
-## 6. Permission policy
-
-Every request and every file access goes through `jsagent/policy.py`. Nothing here depends on a prompt. Each decision is logged with
-its rule ID.
-
-### 6.1 Network
-
-- **P1.** Hosts must match exactly: `boards-api.greenhouse.io`, `api.lever.co`. No substring, suffix or wildcard matching.
-- **P2.** HTTPS only.
-- **P3.** The host is compared in lowercase. The URL is refused if it has a port other than 443, any userinfo (`user@` or
-  `user:pw@`), an IP-address host, or a trailing-dot host. *(This closes G2.)*
-- **P4.** GET only.
-- **P5.** Every redirect hop is checked against P1–P3 *before* it is followed, and counts against B5 and B2.
-- **P6.** No cookies, no auth headers.
-- **P7.** One request at a time, at least 1 s apart per host, with a user agent that names the agent as read-only coursework. I follow
-  each site's terms of use.
-
-### 6.2 Files
-
-**The output root.** In P8–P15, `out/` means the output root chosen with `--out` (default `./out`). The root may not be, or sit inside,
-a protected folder: `config/`, `baseline/`, `persona/`, `prompts/`, `tests/`, `jsagent/`, `scripts/`. It may also not be `evidence/`
-itself, so that RUNS.md stays out of reach, though a subfolder such as `evidence/seeded/…` is allowed. If it is, the run exits `error`
-before any fetch. Tests use a temporary root. The protected folders stay denied whatever `--out` says.
-
-| ID | Action | Where | Decision |
-|---|---|---|---|
-| P8 | Read | `config/`, `persona/`, `baseline/`, `prompts/`, `tests/fixtures/`, `out/` | allow |
-| P9 | Read | anywhere else | deny |
-| P10 | Write | `config/`, `baseline/`, `persona/`, `prompts/`, or outside `out/` | deny |
-| P11 | Create a new file | inside `out/` | allow |
-| P12 | Update the state file atomically (S4) | `out/state/state.json` | allow |
-| P13 | Overwrite an existing raw-evidence file in `out/raw/`, reset the state, or delete any file | inside `out/` | **needs approval** |
-
-**P14. How a path is judged.** Resolve the real path first, following `..` and symlinks. Then compare path components
-(`is_relative_to`) with the real path of `out/`. A text-prefix check is forbidden, because `out-evil/` would pass it.
-
-**P15. Approval.** `--approve <exact relative path>` approves one named write for one run. Without it, the write is refused, logged as
-`needs_approval`, and the run ends `incomplete`. There is no interactive prompt.
-
-### 6.3 Never
-
-**P16.** Under no approval does the agent apply, email, message, log in, submit a form, send POST/PUT/DELETE, send the résumé to a
-job-board host, or run anything found in fetched content.
-
-**P17.** The only subprocess allowed is the `claude` CLI judge, with fixed arguments and as input only the posting text and the
-fictional persona. `--no-claude` turns it off, and every graded run uses `--no-claude` (§1 run plan). JS2 grades the loop, the
-permission policy and the diff, not relevance, and turning the judge off keeps Claude's run-to-run variation out of the trace.
-
-### 6.4 Who may change the policy
-
-**P18.** Only I may change `config/allowlist.json` or any `config/boards*.json`, and only by adding a §13 entry in the same commit, as
-B9 requires for budgets. Claude Code may not change them as part of any fix. `test_P18_allowlist_matches_gate` fails if the allow-list
-differs from P1.
-
-## 7. State
-
-- **S1.** On its first JS2 run, Samsara's previous state is read from `baseline/2026-10-31/seen_ids.json`, which is read-only. Any other
-  board seen for the first time is baselined: its ids are recorded and none are reported as new.
-- **S2.** State is updated **only for boards observed successfully** in this run. A failed board's previous state stays as it was.
-- **S3.** A posting id is marked seen **only after it is in the written report**. Postings left unjudged because of a budget stay new.
-- **S4.** State is written to a temp file inside `out/state/` and renamed, so a crash can't leave half a file.
-
-## 8. Observations
-
-- **O1.** Every loop step appends one JSON line to `out/runs/<run>/trace.jsonl` with these fields: `step`, `time`, `action`, `url`
-  (normalized), `decision` (allowed / denied / needs_approval / repeat_blocked), `rule` (ID), `attempt`, `http_status`, `raw_path`,
-  `raw_sha256`, `budget_left` {requests, seconds, steps}, `outcome`.
-- **O2.** The trace is append-only and never edited after the run.
-- **O3.** Raw bytes are saved **before** parsing, so a response that won't parse is still evidence.
-
-## 9. The independent check
-
-- **V1.** `scripts/verify_run.py` is separate code that **doesn't import the loop**. It reads only the raw files, the trace, the
-  baseline and the previous state, and it uses the agent's report only as the thing being checked. I keep plausibility checks out of the
-  loop on purpose: a check inside the loop is still the agent grading itself.
-- **V2.** It FAILs a run if any of these hold:
-  - **(a)** its recount of postings from the raw files differs from the report
-  - **(b)** a Greenhouse board's `len(jobs) ≠ meta.total` (G1)
-  - **(c)** its recomputed new ids (raw ids minus previous seen ids) differ from the report
-  - **(d)** a board went to 0, or dropped by more than 50%, compared with its previous observation. A board with no previous observation
-    does not FAIL the run, but it is never counted as passing this check either: the verifier names it on its result line, e.g.
-    `verifier: PASS (V2(d) not applicable: databricks, palantir — no history)`
-  - **(e)** a planned board has no record
-  - **(f)** a raw file's sha256 doesn't match the trace
-- **V3. The finished-but-wrong demo (SEEDED).** Run C in §1 is a replay of Samsara alone, with no network. Its input is the seeded
-  response file `tests/fixtures/seeded/empty-samsara.json`, which P8 allows the loop to read, containing
-  `{"jobs": [], "meta": {"total": 0}}`. It uses its own output root (`evidence/seeded/empty-samsara/`) so the real state in `out/` is
-  never touched. I expect the loop to report `finished`, 0 new, and the verifier to FAIL on V2(d): 323 on 2026-10-31, 0 now. I will
-  label it SEEDED wherever it appears.
-
-## 10. Evidence
-
-- **EV1.** Every run gets a row in `evidence/RUNS.md`: time, live / seeded / same-day, loop exit, verifier result, paths. That includes
-  failed and discarded runs. **I keep RUNS.md up to date myself. The agent never writes it**, because it is outside every output root.
-- **EV1a.** The live output root `out/` (state, raw responses, traces, reports for runs A and B) and the seeded root
-  `evidence/seeded/empty-samsara/` are committed as evidence. Test roots are temporary and not committed.
-- **EV2.** No raw file or run folder that I cite is ever deleted.
-- **EV3.** I cite only runs listed in RUNS.md, and every count I state is one I can show.
-
-## 11. Wrong versions my tests must catch
-
-| ID | Wrong implementation | Why it looks right | Rule | Test |
-|---|---|---|---|---|
-| W1 | Path check with `str.startswith("out")` | Normal paths pass | P14 | `test_P14_prefix_trick_out_evil` |
-| W2 | Path checked before symlinks are resolved | Catches `..` in the text | P14 | `test_P14_symlink_escape` |
-| W3 | Host check by substring or `endswith` | Real hosts pass | P1 | `test_P1_lookalike_host` |
-| W4 | Only the hostname is compared, so port and userinfo are ignored. **This is JS1's actual behavior (G2)** | The host *is* allowed | P3 | `test_P3_port_refused`, `test_P3_userinfo_refused` |
-| W5 | Redirect hops checked but not counted | The check exists | P5/B5 | `test_P5_redirect_hops_count` |
-| W6 | A failed board recorded as 0 | 0 looks like a count | E3 | `test_E3_failed_board_count_null` |
-| W7 | A failed board still exits `finished` | The loop did reach the end | E1 | `test_E1_failed_board_incomplete` |
-| W8 | Retries not counted against B2 | "A retry isn't a new action" | B7 | `test_B7_retries_consume_budget` |
-| W9 | A 404 retried like a timeout | Retrying sounds safe | ER3 | `test_ER3_no_retry_on_404` |
-| W10 | A repeat check without URL normalization | Exact matches are blocked | RP1 | `test_RP1_trailing_slash_is_repeat` |
-| W11 | Writes to `config/` allowed because it's in the project | It's "our" folder | P10 | `test_P10_write_config_denied` |
-| W12 | Raw evidence overwritten without approval | It's inside `out/` | P13 | `test_P13_overwrite_needs_approval` |
-| W13 | State updated for a failed board | The update "ran" | S2 | `test_S2_failed_board_state_unchanged` |
-| W14 | Ids marked seen before they're reported | It saves a pass | S3 | `test_S3_unjudged_stay_new` |
-| W15 | The verifier reads the report's counts instead of the raw files | It runs and passes | V1 | `test_V1_verifier_ignores_report_counts` |
-| W16 | `--out config/` (or a root inside another protected folder) accepted, because the path checks are relative to the root | Every write *is* inside the chosen root | §6.2 output root | `test_P8_out_root_in_protected_folder_refused` |
-| W17 | A host added to `config/allowlist.json` during a fix, so the allow-list drifts from P1 | The fix "needed" it | P18 | `test_P18_allowlist_matches_gate` |
-
-`scripts/sabotage_check.py` plants each wrong version and shows that its test goes red.
-
-## 12. Not covered by this gate
-
-- A race between the path check and the write (a symlink swapped in between). Hard links.
-- macOS's case-insensitive file system. I expect my check to refuse `OUT/…` rather than allow it, which would be safe but strict. This
-  is not tested.
-- TLS and DNS are trusted to the system. There's no certificate pinning.
-- A valid but stale response from a cache or CDN.
-- Rate limits and terms changes for Lever and Greenhouse over time.
-- Lever gives no total count, so V2(b) cannot check a Lever board for a truncated list. Only the recount and V2(d) apply there.
-- A real board can disappear: `plaid` returned 404 on Lever on 2026-11-10. ER3 treats that the same as a bad name, so the agent cannot
-  tell "moved to another ATS" from "typo."
-- Whether the relevance verdicts are accurate on the new boards, and how much the Claude judge varies between runs (in JS1, Samsara
-  7922530 was judged relevant 6 times and not relevant 3 times).
-
-## 13. Decisions log
-
-| Date | Change | Reason |
+| Date | Decision | Reason |
 |---|---|---|
-| 2026-11-10 | v1, written before implementation | — |
-| 2026-11-10 | v1.1: second ATS = Lever (`api.lever.co`); boards 2–3 = `databricks` (Greenhouse), `palantir` (Lever). G4 and G5 checked. ER4 reworded for each provider's shape. Three §12 items added | A read-only probe of Lever, Ashby and Greenhouse boards. I chose Lever over Ashby because its bare-array response differs from Greenhouse's, which makes the adapter and ER4 meaningful. Ashby's `{"jobs": [...]}` is nearly the same shape |
-| 2026-11-10 | v1.2: added the §1 run plan (A, B, C). Added the `--out` output-root rule (§6.2), P18 (only I change the allow-list and board files), EV1a (what is committed as evidence), the `--no-claude` rule for graded runs (ER9, P17), and W16–W17. Kept B1–B6 and V1 unchanged | Re-reading v1.1 showed gaps: V3's temporary folder conflicted with P10; no live run could end `finished` while board 4 was in it; E1 would have counted a judge that was switched off as missing; and nothing protected the allow-list. With the judge off, ~40 detail requests at 1 s apart fit well within B3, so the budgets stay. I keep V1 because a check inside the loop is still the agent grading itself |
-| 2026-11-10 | v1.3: V2(d) says what "no history" does (it doesn't FAIL, and is named on the result line). V3 names the seeded input file `tests/fixtures/seeded/empty-samsara.json`. ER6 covers Lever's empty `[]`. §12's macOS item is marked as untested. P18 moved to its own §6.4 | A full re-read before coding. Without the first two fixes, run A's verifier result and run C's input could not be decided from the gate. The other three are wording, so that the gate claims only what I have checked |
+| 2026-11-10 | v2.0: same decisions as v1.3, rewritten in a prose format, with rule IDs replaced by numbered wrong versions. Added: a preflight board cap and a zero-board error; URLs built only from fixed templates; paths resolved from the project root; reporting a deliberate failure that unexpectedly succeeds; a budget-drift test (wrong version 18) | Easier to read. The additions close small gaps found while rewriting, before any code exists |
