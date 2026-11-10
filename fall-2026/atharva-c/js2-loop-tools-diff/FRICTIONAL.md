@@ -35,3 +35,20 @@
 * **Friction & The Real Bug Found:** During the budget-exhausted run, the loop correctly exited as `budget-exhausted`, but the summary report mislabeled Wealthfront as "stopped mid-board" and claimed 3 boards were used, even though zero requests had actually been dispatched to Wealthfront. I didn't spot this mislabel myself—Claude caught it in the terminal output I provided. Claude wrote the failing regression test and the patch to record untouched boards as "not reached" and accurately report 2 boards used. I re-ran the demo to confirm the fix produced "not reached" and 2 boards used.
 * **What Claude did / what I accepted:** Claude turned my skill labels into tests, wrote the skill patch, spotted the budget-exhausted reporting bug, wrote the loop bug fix, and wrote the naive demo scripts. I evaluated the skill patch trade-offs, ran the Nov 9 live run, ran both demo commands, and re-ran the fixed demo to verify the report output.
 * **Reference commits:** `e5a4ebc` (RED skill tests), `80e4fa1` (skills patch), `f982c6a` (reproduction evidence), `47a5e5d` (second live run & RED bug test), `27483af` (budget mislabel fix), `b166b17` (finished wrong answer demo)
+
+## Nov 10, 2026
+
+* **What happened:**
+  1. Closed three final audit gaps across `SIGNOFF.md` and `REVIEW_PACKET.md`: added the explicit "How" verification breakdown (distinguishing checks performed by hand, by tests written before code, by raw recomputation, and with Claude's help), expanded the driver's seat matrix with "What Claude should do" and "What I should do" columns, and documented the exact edge cases our test suite still misses ("Go build something people love" and "Go-based").
+  2. Prepared the submission branch for the course repository. The commits were applied to a feature branch on my fork (`atharva-js2-loop-tools-diff`) with a pull request targeting `nikbearbrown/info-7375-prompt-engineering-for-generative-ai#43` (`fall-2026/atharva-c: JS2 loop…`). Nothing is merged into the course repo.
+  3. Added `COMMIT_MAP.md` to map our local feature branch commit hashes to the corresponding branch commits in the course structure so all evidence and sign-off references remain traceable.
+  4. Local commits: `c33b5a8` (the three gap fixes) and `4d00a96` (the `COMMIT_MAP.md` addition). Branch head on the fork is `a86930d`.
+
+* **Friction & What went wrong:**
+  1. The initial `git push` was rejected by GitHub because GitHub's "Block command line pushes that expose my email" setting was active. All 22 original JS2 commits were already using my `users.noreply.github.com` address, but the new `COMMIT_MAP` commit created by Claude in the fresh clone picked up my global personal email. Claude updated the clone's `user.email` to the noreply address and recommitted that single commit to unblock the push.
+  2. The course GitHub Actions `validate` check failed on the pull request. Rather than ignoring the red check, I asked whether it was caused by my code. Claude read the logs: the failure was caused by another student's file (`shubham-b/.../cli.py` using Python 3.12 syntax on a Python 3.11 runner), which also fails on upstream `main` and on my JS1 PR. Claude ran the course validator's checks against my `fall-2026/atharva-c/js2-loop-tools-diff` directory specifically, and all checks passed cleanly.
+
+* **What Claude did / what I accepted:**
+  Claude reconstructed the commit series in the course monorepo layout, drafted `COMMIT_MAP.md`, resolved the Git email issue on the `COMMIT_MAP` commit, executed the push, and ran the validator checks locally against our folder. I asked for an audit against the brief, then wrote all three gap-fix sections, authorized posting the branch, inspected the opened pull request (#43) across the Conversation, Commits, and Checks tabs, and questioned the failing CI check to ensure it did not stem from our code.
+
+* **Reference:** Pull Request #43 (`nikbearbrown/info-7375-prompt-engineering-for-generative-ai#43`), fork branch head `a86930d`, local commits `c33b5a8` and `4d00a96`.
