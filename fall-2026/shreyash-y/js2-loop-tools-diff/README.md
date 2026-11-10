@@ -134,7 +134,7 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10. The `Dev` line was updated afterwards the same day to record Shreyash's decision in `review/19`.*
+*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10. Lines were added afterwards the same day (the `Dev` decision, rows 21–22, the deadline test, Shreyash's own test, the check-then-write race), and the first sentence of "Not claiming" is Shreyash's wording; Shreyash re-read the whole sign-off and kept the signature on 2026-11-10.*
 
 ```text
 Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py (the five GATE.md
@@ -178,11 +178,12 @@ Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all N
               - The rule's reading of experience and remote beyond the phrasings in these 685
                 postings; the Physician Reviewer office-tag case and the location-vs-offices
                 question are known and open.
-Not claiming: That the agent finds good jobs, that rule v2 is correct in general (it is checked
-              against 20 per-condition hand labels, and Claude Code's reading of the changed postings,
-              which I reviewed through the summaries in review/17), that a
-              clean exit means a right answer, or that the budgets are the right size for more
-              than these six boards.
+Not claiming: I am not claiming that every posting classification is correct, including
+              Claude Code's interpretation of the changed postings, which I reviewed through
+              review/17 and by reading the disputed job advertisements myself (review/19).
+              Nor that the agent finds good jobs, that rule v2 is correct in general (it is
+              checked against 20 per-condition hand labels), that a clean exit means a right
+              answer, or that the budgets are the right size for more than these six boards.
 Signed: Shreyash Yadav, 11/10/2026
 ```
 
