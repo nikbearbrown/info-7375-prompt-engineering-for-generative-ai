@@ -129,14 +129,14 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 
 ## Sign-off — Job-Search Agent 2
 
-*Written by me, Varnika M, and pasted in word for word by Claude Code.*
+*Written by me, Varnika M, and pasted in word for word by Claude Code. At my request ("use it"), Claude Code then added the test names after each Checked line; my sentences are unchanged. I ran all of these tests myself on the final code (122 OK, [review/9-final-check-varnika-run.txt](review/9-final-check-varnika-run.txt)).*
 
 **Checked:**
-- The agent watches Greenhouse, Lever and Ashby.
-- The agent records its results and handles a failed board.
-- The permission rules are checked through boundary tests.
-- The independent check can identify an incorrect result.
-- The socket guard test passes when the socket is found and fails when `_sock` is missing.
+- The agent watches Greenhouse, Lever and Ashby. Tests: `test_three_good_boards_finish`, `test_each_system_shape`; live runs 1–3.
+- The agent records its results and handles a failed board. Tests: `test_every_run_writes_a_record_a_report_and_a_trace_ending_in_the_exit`, `test_deliberate_failure_makes_the_run_incomplete_not_finished`, `test_not_found_has_null_counts_and_no_state`, `test_not_found_is_requested_exactly_once`.
+- The permission rules are checked through boundary tests. Tests: `test_B01` to `test_B28` in `tests/test_policy.py` (30 cases), for example `test_B03_host_off_the_list_with_allowed_name_as_prefix`, `test_B14_dot_dot_escapes_jobs`, `test_B15_prefix_trick_jobs_evil`, `test_B16_folder_symlink_inside_jobs_pointing_outside`, `test_B19_write_the_persona`, `test_B24_state_reset_without_approval`.
+- The independent check can identify an incorrect result. Tests: `test_finished_wrong_answer_is_caught`, `test_check_run_recomputes_gone_from_the_last_raw_response`; and `check_run.py` on my live run 2 (NOT SUPPORTED).
+- The socket guard test passes when the socket is found and fails when `_sock` is missing. Tests: `test_found_for_a_normal_response`, `test_found_for_an_error_response`, `test_the_guard_fails_when_the_attribute_is_missing`.
 
 **How I checked:**
 - I ran tests in my own terminal.
