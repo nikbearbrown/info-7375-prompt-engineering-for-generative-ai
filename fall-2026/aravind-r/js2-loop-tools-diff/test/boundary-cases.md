@@ -6,49 +6,49 @@ These are **predictions recorded before execution**, not observed test results. 
 
 | # | Kind | Request or scenario | Predicted | Why / setup | Actual result (after run) |
 |---|---|---|---|---|---|
-| 1 | net | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true` | allow | Exact HTTPS/GET/host/path/query match | Not run |
-| 2 | net | GET `https://api.lever.co/v0/postings/spotify?mode=json` | allow | Exact HTTPS/GET/host/path/query match | Not run |
-| 3 | net | GET `https://example.com/jobs` | deny | Host off-list | Not run |
-| 4 | net | GET `https://boards-api.greenhouse.io.evil.example/v1/boards/stripe/jobs` | deny | Domain suffix trick; no substring matching | Not run |
-| 5 | net | GET `http://boards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | Scheme must be HTTPS | Not run |
-| 6 | net | POST `https://api.lever.co/v0/postings/spotify/123/apply` | deny | POST prohibited; application endpoint not allow-listed | Not run |
-| 7 | net | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs/123/questions` | deny | Extra path segment | Not run |
-| 8 | net | Allow-listed GET receives 301 pointing to `https://evil.example/` | deny | Stub fetch to return HTTP 301 with `Location`; assert `redirect: 'manual'`, **no** follow-up fetch. Do not use an off-list local mock server. | Not run |
-| 9 | net | GET `https://user:pw@api.lever.co/v0/postings/spotify` | deny | URL credentials prohibited | Not run |
-| 10 | write | Create `out/traces/run.json` | allow | Inside canonical `out/`; test with fixture | Not run |
-| 11 | write | Create `out/../boards.json` | deny | `..` escapes `out/` | Not run |
-| 12 | write | Create `out-evil/x.json` alongside `out/` | deny | Sibling prefix trick | Not run |
-| 13 | write | Create `out/link/x.json` where `out/link` → an external temp directory | deny | Create test-time symlink then use `realpath` on existing ancestor. On macOS `/tmp` may resolve to `/private/tmp`; resolve the actual target. | Not run |
-| 14 | read | Read `boards.json` inside project | allow | In-project read allowed | Not run |
-| 15 | write | Overwrite `boards.json` | deny | Outside writable `out/` | Not run |
-| 16 | read | Read `path.join(os.homedir(), '.ssh', 'id_ed25519')` | deny | Absolute home path outside project; **not** literal `~/.ssh/...` (Node doesn't expand `~`) | Not run |
-| 17 | write | Delete existing `out/state/gh-stripe.json` without approval | ask | Guarded deletion; use isolated fixture state file | Not run |
-| 18 | write | Overwrite `out/state/gh-stripe.json` with a **smaller seen-ID set**, without approval | ask | Append-only invariant; seed prior ID fixture | Not run |
-| 19 | net | Open `mailto:recruiter@example.com` | deny | No email, login, or non-HTTPS protocol | Not run |
-| 20 | net | POST `https://boards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | Method restriction also covers Greenhouse | Not run |
-| 21 | net | GET `https://jobs.lever.co/spotify/123/apply` (posting `applyUrl`) | deny | Different host; posting application links forbidden | Not run |
-| 22 | net | GET `https://boards-api.greenhouse.io/v1/boards/%2e%2e/jobs` | deny | Encoded dot segment/token fails raw-token validation. Check raw path **before** URL parser can normalize it. | Not run |
-| 23 | net | GET `https://BOARDS-API.GREENHOUSE.IO/v1/boards/stripe/jobs` | allow | DNS hostnames are normalized to lowercase, then matched exactly | Not run |
-| 24 | net | GET `https://boards-api.greenhouse.io./v1/boards/stripe/jobs` | deny | Trailing-dot hostname not allowed | Not run |
-| 25 | net | GET `https://boards-api.greenhouse.io:8443/v1/boards/stripe/jobs` | deny | Non-default HTTPS port | Not run |
-| 26 | net | Allow-listed GET with `Authorization: Bearer test` | deny | Credential header prohibited; test uses fake string | Not run |
-| 27 | write | Delete `out/state/gh-stripe.json` with `--approve out/state/gh-stripe.json` | allow | Same fixture as 17; explicit single-use in-scope approval. Policy-test only, or clean isolated test file. | Not run |
-| 28 | read | Read `out/state/gh-stripe.json` | allow | In-project read; pairs with guarded write tests | Not run |
-| 29 | write | Shrink `out/state/gh-stripe.json` with matching `--approve` | allow | Explicit exceptional approval; only a dedicated disposable state fixture | Not run |
-| 30 | write | **Second guarded delete of the same canonical `out/state/gh-stripe.json` path in the same run**, after row 27 consumed its `--approve` | ask | Restore only the disposable fixture through an ordinary allowed create between the two deletes; the matching approval token has already been consumed, so it cannot authorize a second guarded mutation | Not run |
-| 31 | CLI | `--max-requests 2` with 4 distinct boards | allow | Lower hard limit; expected overall run `budget-exhausted`, exit 11, with unattempted boards | Not run |
-| 32 | CLI | `--max-requests 20` | deny | Above hard maximum 8; reject before network, exit 12 | Not run |
-| 33 | CLI | `--judge claude` | deny | JS2 allows only `--judge none`; no judge subprocess | Not run |
-| 34 | net | Stub HTTP 429 with `Retry-After: 30` | deny retry | Record `rate-limited`, no second request | Not run |
-| 35 | net | Stub HTTP 429 with `Retry-After: 2` and available budget | allow one retry | Retry delay comes from header and is limited to one attempt | Not run |
-| 36 | net | Allowed GET begun with 3 s wall-clock remaining | allow, capped at 3 s | Timeout is `min(15 s, remaining time)` and aborted at remaining deadline | Not run |
-| 37 | write | Delete `out/state/gh-airbnb.json` in a run with `--approve out/state/gh-stripe.json` | ask | Fresh isolated fixture with **unconsumed** approval for a different canonical path; proves path binding separately from row 30's single-use behavior | Not run |
-| 38 | read | `--replay out/raw/lv-spotify.json` with a valid single-board `lv-spotify` fixture | allow | Read is contained under `out/raw/`, trace must state `mode: replay`, and stubbed network counter stays at zero | Not run |
-| 39 | read | `--replay out/raw/../state/lv-spotify.json` | deny | Replay files must be located under `out/raw/`, not merely inside the project | Not run |
-| 40 | read | `--replay out/raw/escape.json` where `escape.json` is a symlink to a file outside `out/raw/` | deny | Check canonical/real target paths; fixture symlink created during test | Not run |
-| 41 | CLI | `--replay out/raw/missing.json` with a valid single-board config | deny | Missing replay file is a run `error`, exit 12; no fallback HTTP request | Not run |
-| 42 | net | GET `https://evilboards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | **Added 2026-11-10 after mutant `wv01-host-endsWith` survived** (no prior row tested a host ending in an allowed host). Exact match required. | Not run |
-| 43 | net | Stubbed HTTP 404 on an allow-listed board | deny retry | **Added 2026-11-10 after mutant `wv07-404-retried` survived.** Exactly one request; board `error: not found`. | Not run |
+| 1 | net | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true` | allow | Exact HTTPS/GET/host/path/query match | PASS: test 51, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 2 | net | GET `https://api.lever.co/v0/postings/spotify?mode=json` | allow | Exact HTTPS/GET/host/path/query match | PASS: test 52, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 3 | net | GET `https://example.com/jobs` | deny | Host off-list | PASS: test 53, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 4 | net | GET `https://boards-api.greenhouse.io.evil.example/v1/boards/stripe/jobs` | deny | Domain suffix trick; no substring matching | PASS: test 54, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 5 | net | GET `http://boards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | Scheme must be HTTPS | PASS: test 55, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 6 | net | POST `https://api.lever.co/v0/postings/spotify/123/apply` | deny | POST prohibited; application endpoint not allow-listed | PASS: test 56, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 7 | net | GET `https://boards-api.greenhouse.io/v1/boards/stripe/jobs/123/questions` | deny | Extra path segment | PASS: test 57, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 8 | net | Allow-listed GET receives 301 pointing to `https://evil.example/` | deny | Stub fetch to return HTTP 301 with `Location`; assert `redirect: 'manual'`, **no** follow-up fetch. Do not use an off-list local mock server. | PASS: test 58, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 9 | net | GET `https://user:pw@api.lever.co/v0/postings/spotify` | deny | URL credentials prohibited | PASS: test 59, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 10 | write | Create `out/traces/run.json` | allow | Inside canonical `out/`; test with fixture | PASS: test 60, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 11 | write | Create `out/../boards.json` | deny | `..` escapes `out/` | PASS: test 61, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 12 | write | Create `out-evil/x.json` alongside `out/` | deny | Sibling prefix trick | PASS: test 62, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 13 | write | Create `out/link/x.json` where `out/link` → an external temp directory | deny | Create test-time symlink then use `realpath` on existing ancestor. On macOS `/tmp` may resolve to `/private/tmp`; resolve the actual target. | PASS: test 63, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 14 | read | Read `boards.json` inside project | allow | In-project read allowed | PASS: test 64, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 15 | write | Overwrite `boards.json` | deny | Outside writable `out/` | PASS: test 65, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 16 | read | Read `path.join(os.homedir(), '.ssh', 'id_ed25519')` | deny | Absolute home path outside project; **not** literal `~/.ssh/...` (Node doesn't expand `~`) | PASS: test 66, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 17 | write | Delete existing `out/state/gh-stripe.json` without approval | ask | Guarded deletion; use isolated fixture state file | PASS: test 67, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 18 | write | Overwrite `out/state/gh-stripe.json` with a **smaller seen-ID set**, without approval | ask | Append-only invariant; seed prior ID fixture | PASS: test 68, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 19 | net | Open `mailto:recruiter@example.com` | deny | No email, login, or non-HTTPS protocol | PASS: test 69, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 20 | net | POST `https://boards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | Method restriction also covers Greenhouse | PASS: test 70, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 21 | net | GET `https://jobs.lever.co/spotify/123/apply` (posting `applyUrl`) | deny | Different host; posting application links forbidden | PASS: test 71, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 22 | net | GET `https://boards-api.greenhouse.io/v1/boards/%2e%2e/jobs` | deny | Encoded dot segment/token fails raw-token validation. Check raw path **before** URL parser can normalize it. | PASS: test 72, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 23 | net | GET `https://BOARDS-API.GREENHOUSE.IO/v1/boards/stripe/jobs` | allow | DNS hostnames are normalized to lowercase, then matched exactly | PASS: test 73, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 24 | net | GET `https://boards-api.greenhouse.io./v1/boards/stripe/jobs` | deny | Trailing-dot hostname not allowed | PASS: test 74, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 25 | net | GET `https://boards-api.greenhouse.io:8443/v1/boards/stripe/jobs` | deny | Non-default HTTPS port | PASS: test 75, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 26 | net | Allow-listed GET with `Authorization: Bearer test` | deny | Credential header prohibited; test uses fake string | PASS: test 76, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 27 | write | Delete `out/state/gh-stripe.json` with `--approve out/state/gh-stripe.json` | allow | Same fixture as 17; explicit single-use in-scope approval. Policy-test only, or clean isolated test file. | PASS: test 77, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 28 | read | Read `out/state/gh-stripe.json` | allow | In-project read; pairs with guarded write tests | PASS: test 78, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 29 | write | Shrink `out/state/gh-stripe.json` with matching `--approve` | allow | Explicit exceptional approval; only a dedicated disposable state fixture | PASS: test 79, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 30 | write | **Second guarded delete of the same canonical `out/state/gh-stripe.json` path in the same run**, after row 27 consumed its `--approve` | ask | Restore only the disposable fixture through an ordinary allowed create between the two deletes; the matching approval token has already been consumed, so it cannot authorize a second guarded mutation | PASS: test 80, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 31 | CLI | `--max-requests 2` with 4 distinct boards | allow | Lower hard limit; expected overall run `budget-exhausted`, exit 11, with unattempted boards | PASS: test 81, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 32 | CLI | `--max-requests 20` | deny | Above hard maximum 8; reject before network, exit 12 | PASS: test 82, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 33 | CLI | `--judge claude` | deny | JS2 allows only `--judge none`; no judge subprocess | PASS: test 83, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 34 | net | Stub HTTP 429 with `Retry-After: 30` | deny retry | Record `rate-limited`, no second request | PASS: test 84, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 35 | net | Stub HTTP 429 with `Retry-After: 2` and available budget | allow one retry | Retry delay comes from header and is limited to one attempt | PASS: test 85, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 36 | net | Allowed GET begun with 3 s wall-clock remaining | allow, capped at 3 s | Timeout is `min(15 s, remaining time)` and aborted at remaining deadline | PASS: test 86, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 37 | write | Delete `out/state/gh-airbnb.json` in a run with `--approve out/state/gh-stripe.json` | ask | Fresh isolated fixture with **unconsumed** approval for a different canonical path; proves path binding separately from row 30's single-use behavior | PASS: test 87, `test/policy.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 38 | read | `--replay out/raw/lv-spotify.json` with a valid single-board `lv-spotify` fixture | allow | Read is contained under `out/raw/`, trace must state `mode: replay`, and stubbed network counter stays at zero | PASS: test 88, `test/policy.test.mjs`; PASS: test 39, `test/loop.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 39 | read | `--replay out/raw/../state/lv-spotify.json` | deny | Replay files must be located under `out/raw/`, not merely inside the project | PASS: test 89, `test/policy.test.mjs`; PASS: test 40, `test/loop.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 40 | read | `--replay out/raw/escape.json` where `escape.json` is a symlink to a file outside `out/raw/` | deny | Check canonical/real target paths; fixture symlink created during test | PASS: test 90, `test/policy.test.mjs`; PASS: test 41, `test/loop.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 41 | CLI | `--replay out/raw/missing.json` with a valid single-board config | deny | Missing replay file is a run `error`, exit 12; no fallback HTTP request | PASS: test 91, `test/policy.test.mjs`; PASS: test 42, `test/loop.test.mjs` (`evidence/node-test-post-patch.txt`) |
+| 42 | net | GET `https://evilboards-api.greenhouse.io/v1/boards/stripe/jobs` | deny | **Added 2026-11-10 after mutant `wv01-host-endsWith` survived** (no prior row tested a host ending in an allowed host). Exact match required. | PASS: test 92, `test/policy.test.mjs`; added after mutant check (`evidence/node-test-post-patch.txt`) |
+| 43 | net | Stubbed HTTP 404 on an allow-listed board | deny retry | **Added 2026-11-10 after mutant `wv07-404-retried` survived.** Exactly one request; board `error: not found`. | PASS: test 93, `test/policy.test.mjs`; added after mutant check (`evidence/node-test-post-patch.txt`) |
 
 ## Testing setup and interpretation
 
