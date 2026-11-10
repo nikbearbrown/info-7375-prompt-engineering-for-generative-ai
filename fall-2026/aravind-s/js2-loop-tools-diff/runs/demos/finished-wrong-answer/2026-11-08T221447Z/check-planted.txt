@@ -1,0 +1,14 @@
+Independent check of planted-replay (reads the saved answers and report.json only)
+
+| Board | Reported | From the saved answer | Postings reported / saved |
+|---|---|---|---|
+| ashby-openai | read | read: readable | 816 / 816 |
+| greenhouse-verkada | read | read: readable | 343 / 343 |
+| lever-palantir | read | read: readable | 305 / 305 |
+| greenhouse-no-such-board-js2-test | read | unverified: the saved answer is HTTP 404 | 0 / none |
+
+Report's exit: finished (code 0)
+
+Disagreements:
+- greenhouse-no-such-board-js2-test: the report says 'read', but the saved answer is HTTP 404, so it should be 'unverified'
+- exit: the report says finished, but greenhouse-no-such-board-js2-test could not have been read

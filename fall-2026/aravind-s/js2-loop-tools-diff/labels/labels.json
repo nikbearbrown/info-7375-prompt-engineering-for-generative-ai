@@ -1,0 +1,235 @@
+{
+  "what": "My 20 hand labels, made with LABELING-RULE.md v1.0 (commit b6b2b13) before any Claude call",
+  "labeled_by": "Aravind Sundaravadivelu",
+  "selection": "labels/selection.json (seed 7375)",
+  "how": "Multiple choice in the Claude Code app on 2026-10-30, in three batches. For each of the ten postings the rule passes, I read its requirement lines (shown to me word for word, with any role line that says 'Lead') and the full posting on labels/SHEET.md, then picked a label and its reason. The ten postings the rule rejects fail part 1 of my labeling rule; I confirmed all ten as not relevant in one answer, and their 'check' field is copied from the rule's record. Claude Code prepared the excerpts and recorded my answers; it read the held-out postings while doing so.",
+  "recorded_utc": {
+    "batch 1": "2026-10-30T10:12:19Z",
+    "batches 2 and 3": "2026-10-30T10:14:45Z"
+  },
+  "counts": {
+    "development": {
+      "relevant": 3,
+      "not_relevant": 7
+    },
+    "held_out": {
+      "relevant": 3,
+      "not_relevant": 7
+    }
+  },
+  "labels": [
+    {
+      "n": 1,
+      "set": "development",
+      "id": "30a1d941-f12c-4589-a7a0-dad116b9aa33",
+      "title": "Product Reliability Engineer",
+      "label": "not_relevant",
+      "reason": "missing specialty",
+      "picked": "\"Not: missing specialty\"",
+      "batch": 1
+    },
+    {
+      "n": 2,
+      "set": "development",
+      "id": "d8ebcb30-c789-4e75-bf9b-a1e3fb09dd2f",
+      "title": "Field Engineer",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 3,
+      "set": "development",
+      "id": "a0ccedf1-2bb7-4f10-8be8-db50f9ae02c3",
+      "title": "Software Engineer, Privacy Engineering (Lawful Access)",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "2 location",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 4,
+      "set": "development",
+      "id": "770d5c3f-4e72-4b49-aec4-d444e8ad7a64",
+      "title": "Software Engineer, Compute Foundations Systems",
+      "label": "not_relevant",
+      "reason": "missing specialty",
+      "picked": "\"Not: missing specialty\"",
+      "batch": 1
+    },
+    {
+      "n": 5,
+      "set": "development",
+      "id": "88654e7f-4e23-4e75-8e54-18c10d09b093",
+      "title": "Full Stack Software Engineer, Cybersecurity Products",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 1
+    },
+    {
+      "n": 6,
+      "set": "development",
+      "id": "c8270289-d73d-4ad6-8cae-2b537f8d9062",
+      "title": "AI Support Engineer - Singapore (Korean Speaking)",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "2 location",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 7,
+      "set": "development",
+      "id": "c7bcdaec-9714-44b0-8ba8-adc824594b54",
+      "title": "Software Engineer, Implicit Signals",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 2
+    },
+    {
+      "n": 8,
+      "set": "development",
+      "id": "7649205e-20dc-4bb4-9358-69474a851132",
+      "title": "Software Engineer, Compute - Storage",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 2
+    },
+    {
+      "n": 9,
+      "set": "development",
+      "id": "295464f1-7d48-468f-afe2-87f9075b7a20",
+      "title": "Dedicated Support Engineer - Toronto",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "2 location",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 10,
+      "set": "development",
+      "id": "1dc05fc7-ceb7-4827-a905-9d1beb77a4a0",
+      "title": "Camera Software Engineer, Consumer Devices",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 11,
+      "set": "held_out",
+      "id": "d1121575-a1a7-47c9-97e6-56c70f441143",
+      "title": "Systems Software Engineer, Silicon Bringup",
+      "label": "not_relevant",
+      "reason": "missing specialty",
+      "picked": "\"Relevant\"",
+      "batch": 2,
+      "first_label": "relevant",
+      "relabeled_utc": "2026-10-30T11:31:21Z",
+      "relabel_reason": "Its required lines (bringing up or validating silicon; low-level debugging across firmware, drivers and hardware interfaces) are the same kind of specialty I used to label postings 1 and 4 not relevant. Relabeled on 2026-10-30 after the Claude calls, when an independent review pointed this out; the first label is kept here and in commit 882909e, and the experiment reports both."
+    },
+    {
+      "n": 12,
+      "set": "held_out",
+      "id": "87989505-81e5-4513-bba0-5f00bb064216",
+      "title": "Partner AI Deployment Engineer - AWS",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "2 location",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 13,
+      "set": "held_out",
+      "id": "d727cc4b-f4b6-49a0-806c-390f8a053e2f",
+      "title": "Lab Operations Engineer, Systems Integration | Consumer Devices",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 14,
+      "set": "held_out",
+      "id": "77bc0b3a-35c1-4ecf-99c7-1b3b19d959ca",
+      "title": "Full Stack Software Engineer, Growth",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 2
+    },
+    {
+      "n": 15,
+      "set": "held_out",
+      "id": "7ade7a12-845c-4e3a-af23-c028420bd181",
+      "title": "Software Engineer, Codex Core Agents",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 3
+    },
+    {
+      "n": 16,
+      "set": "held_out",
+      "id": "775240dd-6d36-401a-acca-128df0459610",
+      "title": "iOS Engineer, Applied Foundations",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 17,
+      "set": "held_out",
+      "id": "72aea491-406c-4a6f-abb4-66115f45d37c",
+      "title": "Field Service Engineer",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 18,
+      "set": "held_out",
+      "id": "5a4a52a0-2eee-4cde-8b9f-320ebff572a4",
+      "title": "Design Engineer, Power Generation",
+      "label": "not_relevant",
+      "reason": "fails a contract check",
+      "check": "4 role",
+      "picked": "\"Yes, all 10 not relevant\" (one answer for the ten postings the rule rejects)",
+      "batch": 1
+    },
+    {
+      "n": 19,
+      "set": "held_out",
+      "id": "9efcef02-0515-4672-bace-81329944b38b",
+      "title": "Software Engineer, Workload Enablement",
+      "label": "not_relevant",
+      "reason": "missing specialty",
+      "picked": "\"Not: missing specialty\"",
+      "batch": 3
+    },
+    {
+      "n": 20,
+      "set": "held_out",
+      "id": "991948b7-0305-4125-bb9a-625f5bc24189",
+      "title": "Software Engineer, Integrity Foundations",
+      "label": "relevant",
+      "reason": null,
+      "picked": "\"Relevant\"",
+      "batch": 3
+    }
+  ]
+}
