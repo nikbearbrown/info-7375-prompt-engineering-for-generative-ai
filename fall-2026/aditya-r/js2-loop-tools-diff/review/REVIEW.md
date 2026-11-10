@@ -60,7 +60,16 @@ How it works: `BoardInconsistentError` subclasses `BoardError`, so existing `exc
 
 ## 6. Commands Aditya ran himself [Aditya]
 
-_(paste the commands and their real results, with times)_
+**Round 1** (on the patch `0007bbd`, at HEAD `654fff6`). Log: [`review/aditya_postpatch_run.txt`](aditya_postpatch_run.txt), with one path redaction listed in `EVIDENCE_REDACTIONS.md`. Aditya's summary, verbatim:
+
+> - Recorded execution window: November 10, 2026, 17:30:08–17:30:10 EST.
+> - Tested HEAD: 654fff6.
+> - Regression: 1 passed; exit 0.
+> - Full suite: 93 passed; exit 0.
+> - Inherited mutation check: all three mutations caught; exit 0.
+> - The diff command comparing the designated regression test between b0e3fb4 and 0007bbd produced no output.
+
+He also ran `git log`, `git diff 3ce2b1d 0007bbd --stat` and `git diff 3ce2b1d 0007bbd -- agent/` in his own terminal. Screenshots of that session are kept locally and not published.
 
 ## 7. Scope assessment [Aditya]
 
@@ -68,7 +77,19 @@ _(did the change stay within CHANGE_REQUEST.md? evidence)_
 
 ## 8. Decision: accept / revise / reject, with evidence [Aditya]
 
-_(decision, date, time, and the evidence it rests on)_
+**Round 1: REVISE** (Aditya, 2026-11-10, after his 17:30 run). His words, verbatim:
+
+> My decision is REVISE before final acceptance. The original count-mismatch regression now passes, but I want the following narrow clarification implemented:
+>
+> 1. A missing meta field remains permitted.
+> 2. A meta object without total remains permitted.
+> 3. A present non-object meta value—including null, numbers, strings, booleans, and lists—must be rejected as inconsistent acquisition, with exit 3, unchanged state, and preserved raw evidence and diagnostics.
+>
+> Write focused tests for that behavior and capture their meaningful failure before making the revision. Commit those tests before the production change. Keep the existing regression test unchanged and avoid unrelated refactoring.
+
+This rejects Claude's interpretation 2 in §3, under which a non-object `meta` was treated as "no total supplied". The revision round is in §11.
+
+**Final decision:** _(pending — Aditya)_
 
 ## 9. A case the test would still miss [Aditya]
 
