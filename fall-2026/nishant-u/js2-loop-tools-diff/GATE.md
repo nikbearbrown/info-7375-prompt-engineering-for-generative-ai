@@ -68,4 +68,7 @@ The same action is the same (method, host, path and query) within one run. A rep
 2026-11-10, written before any run: *Failure is a run whose controller status is finished while a planned board failed, or any write that lands outside the output root.*
 
 ## Amendments
-(none yet)
+2026-11-10, before any code, after Claude Code's review of the gate:
+1. Two run profiles. full = boards 1–5 (shows the deliberate failure; ends incomplete). demo = boards 1–4 (no failing board), used for the finished-wrong-answer demonstration. Outcome-check thresholds: flag any board whose raw response has 0 postings; flag a company that has 0 postings on one system and at least 1 on another (Poshmark: Greenhouse vs Ashby).
+2. Add operation read_file (inside the output root; containment applies). Boundary case 9 is a read_file, predicted allowed.
+3. update_state is a merge: it may only add IDs and must never drop one. Replacing the set is reset_state, which needs approval. Wrong version 6: an update_state that replaces the whole set instead of merging. New boundary case 15: update_state that would drop an existing ID → refused.
