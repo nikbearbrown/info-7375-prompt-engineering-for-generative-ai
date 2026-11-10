@@ -1,0 +1,9 @@
+Independent check of run demo-A-baseline (the loop said: finished)
+  PASS  raw_sha256                               3 raw responses match the trace
+  PASS  independent_count                        every ok board's count matches my own count of its raw response
+  PASS  finished_needs_postings_on_every_board   every board in this finished run had postings
+  PASS  no_drop_to_zero                          no ok board dropped to zero
+  PASS  new_ids_recomputed                       every ok board's new ids match a recomputation from the earlier raw responses
+  PASS  budgets_and_hosts                        3 requests, all to GATE.md hosts, within budget
+  PASS  exit_consistent                          exit finished agrees with the boards and the trace
+Verdict: the run's claim is SUPPORTED.
