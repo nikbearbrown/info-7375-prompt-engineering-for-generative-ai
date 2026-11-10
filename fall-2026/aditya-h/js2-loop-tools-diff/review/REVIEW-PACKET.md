@@ -15,6 +15,10 @@
 | 6. patch v2 | `a5dc929` | Claude Code | `_raw_for()`: the resolved path must be directly in **this run's** `raw/` folder and named for **that board** |
 | **7. review v2 → ACCEPT** | `a5dc929` | **Aditya**: read `git diff check_run.py`, ran `unittest discover` (**55 OK**) and `wrong_versions.py` (3/3 caught) | "accept it" (2026-11-10) |
 
+| **8. post-acceptance defect** | `a08f363` (tests), v3 below | found by an independent TA-style review (a Claude Code subagent, 2026-11-10) | **v2 broke re-checking committed runs on any other machine**: records stored absolute `raw_path`s from my Mac, and v2 compares the real directory, so on a TA's clone `check_run.py` raised `PermissionError`. My own review, and Claude Code's "the real runs still check the same way", happened only on my machine and missed it. 7 new tests fail on v2. |
+| 9. patch v3 | see `git log` | Claude Code | the loop stores `raw_path` relative to the run (`raw/<name>`); `_raw_for` accepts that, or an older absolute path whose last parts are `<this run>/raw/<name>`, and always reads `<run_dir>/raw/<name>` on this machine. It also includes the review's other fixes (the check's own trace, recomputing `new`/`relevant`, the CLI `--boards` read through the policy, `run --approve-reset`). |
+| **10. decision on v3** | — | **Aditya** | see the README sign-off |
+
 ## The diff, read as a change in behavior
 
 | `raw_path` in the record points at… | before | after v1 | after v2 |
@@ -32,7 +36,7 @@
 **Yes.** Both patches touch only `check_run.py`: v1 was +16/−5 and v2 +16/−1.
 - The loop, `policy.py`, `GATE.md` and the existing 50 tests are unchanged (`git diff 9ff7b87 a5dc929 -- jobwatch2 GATE.md tests/test_loop.py tests/test_policy.py` is empty).
 - Five tests were added; none were removed or weakened.
-- I re-ran the check on both real Nov 9 runs with v2. Both still flag `greenhouse/ramp` `finished-wrong`, so the change didn't break the real use.
+- I re-ran the check on both real Nov 9 runs with v2. Both still flagged `greenhouse/ramp` `finished-wrong`, **but only on my machine**. Step 8 shows the change *did* break re-checking from any other folder. That was a scope effect neither review caught, found later by an independent review; fixed in v3, with a test that copies a committed run to another folder.
 
 ## Commands I ran myself (Aditya, own terminal, outputs pasted into chat)
 

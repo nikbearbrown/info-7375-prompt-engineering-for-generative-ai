@@ -50,5 +50,10 @@ Every prediction matched. There was **no case where the prediction and the obser
 ## In real runs
 
 - **Allowed:** every allowed action appears in the trace with `"decision": "allow"`. Example: `runs/20261110T184710Z-df53fd/trace.jsonl`, with 7 reads, 7 requests and 15 writes, all allowed (the writes are 7 raw files, 6 state files, the record and the report).
-- **Denials:** no denial happened in a real run. Nothing tried to leave the policy, and the policy denials are shown by the tests above.
-- **Approval:** the approval-gated reset was not used on real state.
+- **Denials:** none happened inside a real *loop* run, because nothing tried to leave the policy. Denials on the real CLI are recorded in [evidence/live-policy-refusals-2026-11-10.md](evidence/live-policy-refusals-2026-11-10.md):
+  - a board reset without approval was refused (exit 3);
+  - a reset with another board's approval was refused (exit 3);
+  - `run --boards ../../../../../../etc/hosts` was refused (exit 3) before any request.
+
+  The last was run on a copy of the folder on 2026-11-10 at 14:00.
+- **Approval:** the *approved* reset was not run on real state, because that is my decision; it is covered by tests.

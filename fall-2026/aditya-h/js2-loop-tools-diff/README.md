@@ -45,7 +45,7 @@ python3 -m jobwatch2 run
 python3 check_run.py runs/<run-id>
 ```
 
-- **The tests:** 55 of them.
+- **The tests:** 67 of them.
 - **`tests/wrong_versions.py`:** plants each of the gate's 3 wrong versions into a temporary copy of the code and shows the tests fail on each.
 - **`python3 -m jobwatch2 run`:** one live loop over `boards.json`. It prints per-board results, the trace path and the report path. The exit code is 0 for finished, 1 for incomplete, 2 for budget-exhausted and 3 for error.
 - **`check_run.py`:** the independent check of one run. It exits 1 when it judges the run **wrong**.
@@ -53,7 +53,7 @@ python3 check_run.py runs/<run-id>
 - **Reset one board's state:** this needs your explicit approval; without the flag it is refused. `python3 -m jobwatch2 reset greenhouse/stripe --approve-reset greenhouse/stripe`
 - **Review-packet reproduction:** `python3 review/repro_check_reads_outside.py`. On the accepted code it prints `OK: check refused`.
 
-**Starting from scratch:** the committed `runs/state/` holds the Nov 10 state. Delete `runs/state/` only if you want a fresh baseline; it's your decision, outside the agent.
+**To try it without changing the committed evidence:** work in a copy (`cp -R js2-loop-tools-diff /tmp/js2 && cd /tmp/js2`). A live run updates `runs/state/` and adds a run folder. Re-checking a committed run (`python3 check_run.py runs/20261109T204623Z-906e94`) works from any folder, but it rewrites that run's `check.json` and `check.md` with today's cross-check numbers. Delete `runs/state/` only if you want a fresh baseline.
 
 **Size note:** `runs/` is ~67 MB, because the raw Ashby OpenAI response is ~13 MB per run.
 
@@ -67,7 +67,9 @@ python3 check_run.py runs/<run-id>
 | Nov 10 (Aditya) | review-packet commands | — | tests failed before each patch; 55 OK after v2 | `review/` |
 | Nov 10 13:47 | `python3 -m jobwatch2 run` | **incomplete** | **second calendar day: 57 new postings**, 1 relevant (Stripe "Product Operations Manager"); the 404 handled again | `runs/20261110T184710Z-df53fd/` |
 
-**Not shown in a live run:** a retry after a real timeout or 5xx, a `budget-exhausted` exit, or a permission denial. None happened. Each is shown only by tests with a fake network (`test_loop.py`, `test_policy.py`).
+**Not shown in a live run:** a retry after a real timeout or 5xx, and a `budget-exhausted` exit. Neither happened; both are shown only by tests with a fake network (`test_loop.py`, `test_post_review.py`). Permission denials on the real CLI *were* shown: see [evidence/live-policy-refusals-2026-11-10.md](evidence/live-policy-refusals-2026-11-10.md) and POLICY.md.
+
+**After an independent TA-style review (2026-11-10):** 7 defects and doc overstatements were found and fixed test-first (`a08f363`, then patch v3). The most serious: the check could not re-check committed runs from a fresh clone. See review packet steps 8–10 and FRICTIONAL #10.
 
 ## Layout
 
@@ -89,16 +91,16 @@ personas/              maya-sehgal.resume.json (fictional)
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code on 2026-11-10 for Aditya to edit, then sign or withhold.*
+*Drafted by Claude Code on 2026-11-10; reviewed and signed by Aditya in chat on 2026-11-10 (signature transcribed verbatim).*
 
 **Checked**
-- **Exits are honest:** a failed board gives `incomplete` and an exhausted budget gives `budget-exhausted`, never `finished`. Shown by `test_loop.py::WrongVersion1_*` and `Exits`, the live 15:45 and 13:47 runs (`incomplete` with the 404), and `wrong_versions.py` (wrong version 1 caught by 4 tests).
-- **No invented values:** a failed board has `null` counts and untouched state (`WrongVersion2_*`, plus the live 404 board).
+- **Exits are honest:** a failed board gives `incomplete` and an exhausted budget gives `budget-exhausted`, never `finished`. Shown by `test_loop.py::WrongVersion1_*` and `Exits`, the live 15:45 and 13:47 runs (`incomplete` with the 404), and `wrong_versions.py` (the 3 wrong versions are caught by 5, 4 and 5 of 67 tests).
+- **No invented values:** a failed board has `null` counts and untouched state (`WrongVersion2_*`, `D7_*`, plus the live 404 board).
 - **Retries only for transient errors, and only once:** `WrongVersion3_*`. The live 404 was requested exactly once in each run.
 - **Budgets match the gate:** `BudgetsMatchGate`, plus request and board-count budget tests.
 - **The permission policy:** 19 gate cases predicted before the code, plus 3 extra, in `test_policy.py`; all observed results matched the predictions (POLICY.md).
-- **A finished-wrong run is caught:** `test_check.py::test_finished_wrong_answer_is_caught` and the live 15:46 run with its `check.md`.
-- **The review change:** `test_review_check_reads.py` (5 tests; 1 + 3 failed before their patch).
+- **A finished-wrong run is caught:** `test_check.py::test_finished_wrong_answer_is_caught`, the live 15:46 run with its `check.md`, and a re-check from a copied folder (`D1_*`, plus the live re-check on Nov 10 at 14:00).
+- **The review change:** `test_review_check_reads.py` (5 tests; 1 + 3 failed before their patch) and `test_post_review.py` (12 tests; 7 failed before v3).
 
 **How**
 - **By hand:**
@@ -116,6 +118,7 @@ personas/              maya-sehgal.resume.json (fictional)
 1. **Real transient failures:** I never saw a live timeout, 5xx or 429, so the retry path is tested only against a fake network.
 2. **The seconds budget against a slow live server:** `urllib`'s timeout applies per socket operation, so a server that drips bytes could make one request outlast its share of the 120 s. This is untested.
 3. **The wrong-attempt case:** a record could cite the wrong *attempt* file for the right board (review packet, "still miss").
+7. **Which postings were new:** the check can't recompute this from the raw files alone (it needs the prior state); it only checks that listed ids exist in the raw response.
 4. **Large-but-wrong boards:** the independent check only suspects small or stale boards.
 5. **Each site's terms of use:** beyond using the documented public endpoints, I didn't review them in detail.
 6. **Relevance quality:** the rule found 1 relevant posting among 57 new ones. I didn't hand-check the other 56.
@@ -126,7 +129,7 @@ personas/              maya-sehgal.resume.json (fictional)
 - That budgets or the policy can be changed at runtime. There is no flag or prompt for that.
 - That two days of runs show long-term behavior.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Signed: Aditya Hasija, 2026-11-10
 
 ## Driver's seat
 

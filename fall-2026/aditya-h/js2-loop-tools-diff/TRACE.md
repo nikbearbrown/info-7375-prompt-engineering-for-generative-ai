@@ -50,9 +50,10 @@ loop exit: finished -> independent check: wrong
 ```
 
 **Why the check counts as independent:**
-- It doesn't read the loop's verdicts. It recomputes counts from the saved raw files, and a test tampers with the record to prove it.
+- It doesn't trust the loop's numbers. From the saved raw files it recomputes the posting count, checks that every "new" id exists in the raw response, and re-applies the rule to recompute `relevant`. Tests tamper with each of these to prove it. It **cannot** recompute *which* postings were new, because that needs the state as it was before the run.
 - It applies its own suspicion rule: fewer than 3 postings, or the newest older than 14 days.
 - It makes its own read-only cross-check request to a second source (`api.ashbyhq.com`, also allow-listed), with a budget of 1 request per suspect board.
-- It never writes state.
+- It never writes state. It keeps its own trace (`check-trace.jsonl`) of every read, request and write decision.
+- It works from a fresh clone at any path (patch v3; `test_committed_finished_wrong_run_checks_in_another_folder`). On 2026-11-10 14:00 EST, a copy of this folder at a different path re-checked this committed run live and again said **wrong** (Ashby now lists 173 for Ramp).
 
 **What it would miss:** a wrong board that is *large and fresh*, for example a different company's board under a similar slug. It also can't cross-check a board with no second source in `checks.json`; it can only mark it `suspect`.

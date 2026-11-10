@@ -13,6 +13,8 @@
 | JS2 assignment brief (Canvas, and the repo copy `assignments/assignment-js2-…md`) | requirements | 2026-11-09 |
 | Python 3.13 standard library | everything | — |
 
+**Evidence of what I ran:** my pasted terminal outputs are quoted in `review/` and `evidence/`. The full chat transcript stays on my machine (course privacy rule), and I can show it on request.
+
 I did not open or use any other student's folder. Three commits by another student (`anisha-g`) were on `main` when I pulled; I checked only their file paths, to confirm they don't touch my folder.
 
 ## Who did what
@@ -27,6 +29,7 @@ The build took one Claude Code session (Claude Opus 5.5), on 2026-11-09 and 11-1
 | Live runs | — | Ran all three, plus the check. |
 | **Review packet** | **Decided the expected behavior** ("refuse and stop"). Created and ran both test files and watched them fail. Read both diffs. Ran the suite and the harness. **Decided REVISE on v1** after weighing the named gap. **Decided ACCEPT on v2.** | Found the defect, wrote the repro, drafted the test text, wrote patches v1 and v2, named the cases still missed. |
 | Write-ups | Reviews them, writes FRICTIONAL Part 2, signs or withholds the sign-off. | Drafted all of them. |
+| **TA-style review** | Asked for it ("review the work as a TA … fix as needed"). Decides on patch v3. | Ran an independent reviewer subagent that read the repo and ran the offline tests. Wrote the 12 post-review tests before the fixes, then patch v3, then fixed the docs. |
 
 ## Accepted, changed, rejected
 
