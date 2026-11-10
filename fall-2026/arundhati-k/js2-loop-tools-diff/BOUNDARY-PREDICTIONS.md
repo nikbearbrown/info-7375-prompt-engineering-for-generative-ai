@@ -38,4 +38,4 @@ Where I was wrong:
   reported as `held-for-approval`). Seen in the real run: `evidence/run-live-1/report.md` says
   "state write: held-for-approval".
 
-<!-- Your words: why do you think you predicted these two differently? Which one is the policy right about? -->
+Why I predicted these two differently, in my words: [FRICTIONAL.md, Entry 2](FRICTIONAL.md).
