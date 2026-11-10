@@ -72,3 +72,13 @@ The same action is the same (method, host, path and query) within one run. A rep
 1. Two run profiles. full = boards 1–5 (shows the deliberate failure; ends incomplete). demo = boards 1–4 (no failing board), used for the finished-wrong-answer demonstration. Outcome-check thresholds: flag any board whose raw response has 0 postings; flag a company that has 0 postings on one system and at least 1 on another (Poshmark: Greenhouse vs Ashby).
 2. Add operation read_file (inside the output root; containment applies). Boundary case 9 is a read_file, predicted allowed.
 3. update_state is a merge: it may only add IDs and must never drop one. Replacing the set is reset_state, which needs approval. Wrong version 6: an update_state that replaces the whole set instead of merging. New boundary case 15: update_state that would drop an existing ID → refused.
+
+2026-11-10, AFTER implementation (5e3e3d0), decisions Claude Code made while implementing, reviewed and accepted by me:
+1. **Request URLs:** only `https` is accepted, and URLs containing a username or password are refused. The gate only names hosts.
+2. **Retry blocked by a budget:** the board is marked failed with reason `budget`, and the run ends `budget-exhausted` even if every board was already attempted.
+3. **Other HTTP codes:** 403, 429 and other unlisted codes fail with reason `http-<code>` and are not retried.
+4. **Refused or repeated boards:** a board refused by the policy or by the repeat rule counts against the board budget and makes the run `incomplete`.
+5. **Baseline:** this is per board. The first time a board is seen it reports "baseline", not "N new", which carries over JS1's rule.
+6. **Redirects:** a redirect is checked again, up to 3 hops. Each redirect hop does not count as a separate request against the budget.
+7. **Claude judge (`--claude`):** it runs only on Greenhouse postings. Ashby postings are marked "not run" because the JS1 validator requires integer IDs. JS1's `claude_judge` writes its own files inside a folder the policy approved, but those individual writes don't go through `policy.py`.
+8. **Same company across systems:** the check uses the `company` field in the profile.
