@@ -64,3 +64,29 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - The independent check (`runs/2026-11-09T205808Z_identity-check`) asked Greenhouse for the board's own name, got "ABACUS", and reported MISMATCH (code 1). It doesn't read any run report.
   - On the real config, Abacus Insights matched. Ashby and Lever have no name endpoint, so their boards were reported "not checkable", not as passing.
 - **Unresolved:** the identity check only covers Greenhouse. A wrong Ashby or Lever board would still finish cleanly.
+
+## 2026-11-10 — Review packet, day 2 live
+- **My test came first.** I wrote `tests/test_review_identity.py`; Claude supplied the setup lines, and I wrote the assertions. It requires the wrong `abacus` board to make the run `incomplete`, be marked `failed` with a reason naming both employers, and keep its ids out of state. It also requires the right board to still finish. It failed on the old code (`'finished' != 'incomplete'`) and was committed before any fix (`a81c572`).
+- **What Claude flagged before patching:**
+  - The patch would have to change other existing tests' request counts and fixtures.
+  - It would add a rule to the gate.
+- **The patch** (`b3f5adb`): a Greenhouse board's own name is checked before its job list is fetched.
+  - The name request uses the same error-policy code (moved into a `fetch()` helper).
+  - The name comparison is deliberately not shared with `check_identity.py`.
+  - In other tests, 17 lines changed: six request counts went up by one, the wrong-version-4 mutant now sends 8 requests instead of 6, and one budget test went from 2 to 3 so it still tests the same property.
+  - My test was unchanged, with 0 changed lines since `a81c572`.
+- **My review and decision: accepted.**
+  - I ran the full suite (56 passed).
+  - I re-ran the same real wrong board after the patch (`runs/2026-11-10T170122Z_WRONG-BOARD-after-patch`): `incomplete` after one request, the name mismatch as the reason, and no ids saved.
+  - I checked that the changed budget test still verifies that successful boards are saved before the next request would exceed the budget.
+- **After the decision:**
+  - A dated 2026-11-10 decision was added to `GATE.md` (`7641f93`).
+  - **Limit, recorded in the gate:** a valid Ashby or Lever board for the wrong employer could still finish.
+  - **Out of scope, left as is:** `loop.run`'s broad `except KeyError` turns any `KeyError` into an "error: config or state" exit, which could hide a real bug.
+- **Something I asked during review:** whether we had planned to accept a company's other names. We hadn't. The check only ignores case and punctuation, so "Abacus Insights, Inc." would fail. I left aliases out.
+- **Day 2, live** (`runs/2026-11-10T170553Z`).
+  - Exit `incomplete`: 5 requests in 1.6 s.
+  - The name check ran first and passed. `valonn` got another real 404.
+  - Real changes since day 1: Abacus 15 → 16 postings (1 new, "Software Architect"), Xsolla 185 → 186 (1 new), Valon unchanged, nothing closed.
+- **Independent cross-check.** `crosscheck_days.py` recomputed new and closed from the two days' raw responses with its own parsing, and it agreed with `run.json` on all three boards.
+- **A relisting, not a new job.** The "new" Abacus id `8782226002` was on the board on 10-31 (JS1's saved responses), was gone on 11-09, and came back on 11-10. It is new since the last run, not a first posting, because JS2's state only goes back to 11-09.
