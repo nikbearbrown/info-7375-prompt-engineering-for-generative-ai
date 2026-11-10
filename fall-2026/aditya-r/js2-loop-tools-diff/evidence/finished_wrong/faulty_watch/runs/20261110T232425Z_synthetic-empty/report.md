@@ -1,0 +1,16 @@
+# Watch run `20261110T232425Z_synthetic-empty`
+
+- **Response:** SEEDED — replay of a saved earlier response, not a live fetch by this run — `raw_response.json` (sha256 `107e3256730ffd2a…`)
+- **run_dir:** 20261110T232425Z_synthetic-empty
+- **started_at_utc:** 2026-11-10T23:24:25+00:00
+- **label:** synthetic-empty
+- **seeded:** True
+- **postings_in_response:** 0
+- **kind:** watch
+- **new:** 0
+- **retried_pending:** 0
+- **completed:** 0
+- **pending:** 0
+- **finished_at_utc:** 2026-11-10T23:24:25+00:00
+
+No new postings reported.
