@@ -128,6 +128,10 @@ class Loop:
                     raise BudgetStop(f"time budget of {self.budget['max_seconds']} s used")
                 if self.boards_fetched >= self.budget["max_boards"]:
                     raise BudgetStop(f"board budget of {self.budget['max_boards']} used")
+                # Check requests before counting the board, so a board that never
+                # got a request is "not reached", not "stopped mid-board".
+                if self.requests >= self.budget["max_requests"]:
+                    raise BudgetStop(f"request budget of {self.budget['max_requests']} used")
                 done.add(key)
                 self.boards_fetched += 1
                 self.results.append(self._visit(board))
