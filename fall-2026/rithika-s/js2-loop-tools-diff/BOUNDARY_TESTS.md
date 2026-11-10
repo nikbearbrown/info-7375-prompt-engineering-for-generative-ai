@@ -24,3 +24,12 @@ Predictions written and committed before any policy code existed.
 | B17 | Reset `out/state/scaleai.json`, approver answers yes | approval | ALLOW | My approval given for this action | test_B17_reset_with_yes_allowed | PASS, as predicted (run by me, 2026-11-10) |
 | B18 | Reset `out/state/scaleai.json`, approver answers no | approval | REFUSE `approval_denied` | I said no | test_B18_reset_with_no_refused | PASS, as predicted (run by me, 2026-11-10) |
 | B19 | Reset `out/state/scaleai.json`, no one to answer | approval | REFUSE `approval_denied` | Default is no (W9) | test_B19_reset_with_no_one_to_answer_refused | PASS, as predicted (run by me, 2026-11-10) |
+
+## Added after the build
+
+B20 was added on 2026-11-10 after Claude Code's build summary showed that B04
+does not catch an "ends with" host check. Prediction written before I ran it.
+
+| ID | Request | Kind | Predicted | Reason (GATE §5) | Test name | Actual |
+|---|---|---|---|---|---|---|
+| B20 | GET `https://evilboards-api.greenhouse.io/v1/boards/x/jobs` | network | REFUSE `host_not_allowed` | Exact host match; "ends with" would let this through (W7) | test_extra_host_suffix_trick_refused | PASS, as predicted (run by me, 2026-11-10) |

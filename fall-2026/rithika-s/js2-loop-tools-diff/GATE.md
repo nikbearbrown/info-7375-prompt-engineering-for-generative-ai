@@ -128,3 +128,11 @@ Each is built as a mutant in `tests/mutants.py`; `tests/test_mutants.py` must fa
 | W11 | `config/budgets.json` differs from the values in section 2 | 2 |
 
 Decided by: Rithika Sankar Rajeswari 2026-11-10
+
+### Budget decisions log (continued)
+
+- 2026-11-10: max_run_seconds stays 90. Correction to the section 2 reasoning:
+  4 requests at the full 20 s plus a 2 s wait and a 20 s retry is 102 s, more
+  than 90, so in that worst case the retry is not started and the run ends
+  `budget_exhausted`. I accept that. Pointed out by Claude Code in its build
+  summary (evidence/2026-11-10_claude_code_build_summary.md).
