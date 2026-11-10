@@ -20,7 +20,7 @@ Run every command from this folder.
 | Permission policy in code, 21 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink -v` |
 | Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md), opening with my own reading of the diffs | `git log --oneline 6f4ae08^..ba0a5b0` |
 | Sign-off and driver's seat | the end of this README | — |
-| All tests; no test file changed since it was written | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
+| All tests; the 12 frozen test and fixture files match their recorded hashes (two disclosed changes) | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
 
 ## Summary, in my own words
 
@@ -51,7 +51,7 @@ All tests, offline (94):
 python3 -m unittest discover -s tests -t . -v
 ```
 
-Check that no test file changed since it was written:
+Check the 12 frozen test and fixture files against their recorded hashes. Two were changed openly after their first run (`review/08`, BOUNDARY-TESTS row 21); `test_rule.py`, copied from JS1, is not frozen:
 
 ```bash
 shasum -a 256 -c tests.frozen.sha256

@@ -1,6 +1,6 @@
 # The agent trace of a real run, and the finished wrong answer
 
-*Written by Claude Code on 2026-11-09 from the saved files. Line numbers refer to `runs/20261110T002501Z/trace.jsonl`.*
+*Written by Claude Code from the saved files: run 1 and the seeded demo on 2026-11-09, runs 2 and 3 added on 2026-11-09 and 2026-11-10. Line numbers in the run 1 table refer to `runs/20261110T002501Z/trace.jsonl`.*
 
 ## Live run 1: 2026-11-09 19:25 EST, six boards on three systems
 
