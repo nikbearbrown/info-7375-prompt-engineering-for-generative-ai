@@ -1,0 +1,22 @@
+# Three commands run by Shreyash in Shreyash's own terminal on 2026-11-09, on patch revision 3
+# (commit ba0a5b0). Output pasted back into the session unchanged; Claude Code only saved it here.
+
+$ git diff 6f4ae08 ba0a5b0 --stat -- jsagent tests
+ .../shreyash-y/js2-loop-tools-diff/jsagent/rule.py | 108 ++-
+ .../fixtures/dropped_requirement_postings.json     | 854 +++++++++++++++++++++
+ .../tests/fixtures/linear_perk_postings.json       | 407 ++++++++++
+ .../js2-loop-tools-diff/tests/test_rule.py         |   5 +-
+ .../tests/test_rule_v2_mandatory.py                |  69 ++
+ .../tests/test_rule_v2_regression.py               |  52 ++
+ 6 files changed, 1488 insertions(+), 7 deletions(-)
+
+$ python3 -m unittest discover -s tests -t . 2>&1 | tail -3
+Ran 93 tests in 0.182s
+
+OK
+
+$ grep -E "^(v1|rev2) -> rev3|perk|hand labels vs rev3" review/15-behavior-diff-rev3.txt
+v1 -> rev3: 101 postings change; verdict changes 0; conditions moved {3: 53, 5: 50}
+rev2 -> rev3: 31 postings change; verdict changes 0; conditions moved {5: 31}
+rev3 postings whose condition 5 quotes the 'thereafter' perk: 0
+experiment-2 hand labels vs rev3: verdict 20/20, failed set 19/20; misses [('7809608003', [5, 6], [4, 5, 6])]
