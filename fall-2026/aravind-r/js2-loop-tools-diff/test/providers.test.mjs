@@ -70,3 +70,17 @@ test('lever parse: UUID ids stay strings; applyUrl is not kept; malformed bodies
   assert.equal(lever.parse('{"ok":false,"error":"Document not found"}').error, 'malformed');
   assert.equal(lever.parse('nope').error, 'malformed');
 });
+
+test('duplicate ids in one raw response are malformed, not two jobs (GATE.md: error: malformed, no state update)', () => {
+  const g = greenhouse.parse(JSON.stringify({ jobs: [{ id: 101, title: 'A' }, { id: 101, title: 'A again' }] }));
+  assert.equal(g.ok, false);
+  assert.equal(g.error, 'malformed');
+  assert.match(g.reason, /duplicate id 101/);
+  const gMixed = greenhouse.parse(JSON.stringify({ jobs: [{ id: 101 }, { id: '101' }] }));
+  assert.equal(gMixed.ok, false, '101 and "101" are the same Greenhouse id');
+  const id = '2a55d6c9-c564-443a-be3e-a3851db5a93b';
+  const l = lever.parse(JSON.stringify([{ id, text: 'A' }, { id, text: 'A again' }]));
+  assert.equal(l.ok, false);
+  assert.match(l.reason, /duplicate id/);
+  assert.equal(greenhouse.parse(JSON.stringify({ jobs: [{ id: 101 }, { id: 102 }] })).ok, true, 'distinct ids still parse');
+});

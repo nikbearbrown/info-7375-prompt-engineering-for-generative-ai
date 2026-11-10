@@ -382,3 +382,17 @@ test('a raw Lever response with a null id: saveState refuses it, the run ends er
   assert.deepEqual(readdirSync(join(root, 'out/state')), [], 'no temp file left behind');
   assert.ok(existsSync(join(root, r.ev('request')[0].raw_path)), 'the raw body is still saved as evidence');
 });
+
+// ---- duplicate ids in one raw response fail that board, not the run -----------------
+
+test('a raw Greenhouse response with a duplicate id: board error: malformed, no state, run incomplete (exit 10)', async () => {
+  const root = project([FOUR[0], FOUR[1]]);
+  const f = router({ stripe: res(200, gh([101, 101])), airbnb: res(200, gh([10])) });
+  const r = await run(root, ['--config', 'boards.json', '--label', 'dup-id'], f);
+  assert.match(board(r, 'gh-stripe').disposition, /^error: malformed \(duplicate id 101\)$/);
+  assert.equal(board(r, 'gh-stripe').new_count, null);
+  assert.ok(!existsSync(join(root, 'out/state/gh-stripe.json')), 'no state update for the malformed board');
+  assert.equal(board(r, 'gh-airbnb').disposition, 'observed', 'the other board is still observed');
+  assert.equal(r.status, 'incomplete');
+  assert.equal(r.exitCode, 10);
+});
