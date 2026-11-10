@@ -2,9 +2,16 @@
 
 import json
 import re
+from urllib.parse import quote
 
-# Reused from JS1 (jsagent/fetch.py BOARD_SLUG).
-BOARD_SLUG = re.compile(r"^[a-z0-9-]{1,64}$")
+# Greenhouse: reused from JS1 (jsagent/fetch.py BOARD_SLUG).
+# Ashby: board names may contain capitals and spaces (Lectern ATS.md: "Jasper AI"), so they get their own rule.
+# It must start with a letter or digit (so ".", "..", " " are out) and may not contain / ? # % \ or control
+# characters, so the name can only ever be one URL path segment. It is then percent-encoded.
+BOARD_SLUG = {
+    "greenhouse": re.compile(r"^[a-z0-9-]{1,64}$"),
+    "ashby": re.compile(r"^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$"),
+}
 
 URLS = {
     "greenhouse": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs",
@@ -19,9 +26,10 @@ class BadShape(Exception):
 def url_for(ats, slug):
     if ats not in URLS:
         raise ValueError(f"unknown applicant-tracking system {ats!r}; known: {sorted(URLS)}")
-    if not BOARD_SLUG.match(slug):
-        raise ValueError(f"board name must match {BOARD_SLUG.pattern}: {slug!r}")
-    return URLS[ats].format(slug=slug)
+    rule = BOARD_SLUG[ats]
+    if not isinstance(slug, str) or not rule.fullmatch(slug):
+        raise ValueError(f"{ats} board name must match {rule.pattern}: {slug!r}")
+    return URLS[ats].format(slug=quote(slug, safe=""))
 
 
 def parse(ats, body):

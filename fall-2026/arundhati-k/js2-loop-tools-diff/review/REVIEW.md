@@ -59,26 +59,32 @@ and a newline; Greenhouse names stay strict.
 
 ## 5. Commands I ran myself
 
-<!-- Run these in a terminal from the js2-loop-tools-diff folder and paste the output below
-     (or into review/02-my-commands.txt). Write the date/time you ran them. -->
+2026-11-10, ~16:40–16:43 EST, in my own macOS terminal, with the patch applied but not committed.
+Full output, unchanged: [review/02-my-commands.txt](02-my-commands.txt).
 
-```bash
-python3 review/reproduce_defect.py
-python3 -m unittest discover -s tests -t . -v
-git diff -- jsagent2/providers.py
-python3 -c "from jsagent2 import providers; from jsagent2.policy import Policy; from jsagent2.transport import make_transport; p=Policy('.'); u=providers.url_for('ashby','Jasper AI'); s,b=make_transport(p)(u,30); import json; print(u, s, len(json.loads(b)['jobs']))"
-```
+| command | what it showed |
+|---|---|
+| `python3 review/reproduce_defect.py` | `Jasper%20AI` URL; run with Stripe + Notion + Jasper AI → `exit='finished'`, 3 requests; `DEFECT FIXED` |
+| `python3 -m unittest discover -s tests -t . -v` | `Ran 43 tests … OK`, including the 5 in `tests/test_providers.py` |
+| `git diff -- jsagent2/providers.py` | the diff (cut off by the pager; full diff in `review/patch.diff`) |
+| `python3 run.py --approve-state-write` | live run with the patch: exit `incomplete`, 775 / 143 / 155, 404 handled, state written (`evidence/run-live-2-approved/`) |
 
-Ran at: ____  · what I saw:
+Not run by me: the live `Jasper AI` fetch through the agent's own transport (4th command offered). The only
+live check of `Jasper AI` is Claude Code's curl in section 1.
 
 ## 6. My decision: accept / revise / reject
 
-<!-- Questions for you (answer in your words):
-     - Does the diff do what I asked, and only that? What about the Greenhouse newline change (section 4)?
-     - Is accepting `a..` / trailing spaces for Ashby a risk, or harmless? Why?
-     - Which evidence decides it: which command output or test? -->
+**Decision: accept** (my reply in the Claude Code session, 2026-11-10 ~16:45 EST: "accept").
 
-Decision: ____  · because:
+Evidence it rests on: the reproduction flips from `DEFECT PRESENT` (`01-before-patch.txt`, before the patch)
+to `DEFECT FIXED` (`02-my-commands.txt`, my run); the 2 failing tests pass and the 3 guard tests (path
+escape, Greenhouse) still pass; 38 earlier tests unchanged and green; my live run with the patch behaves
+the same on the real boards.
+
+Accepted as is, including what section 4 lists: the Greenhouse `fullmatch` tightening (outside the Ashby
+scope) and the test name `test_greenhouse_rule_unchanged`, which is no longer exactly true.
+
+Because (my words):
 
 ## 7. One case my test would still miss
 
