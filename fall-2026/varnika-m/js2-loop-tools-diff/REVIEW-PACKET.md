@@ -48,7 +48,9 @@ It does **not** fix the slow headers case (section 5). That is outside what I as
 | When | Command | Result |
 |---|---|---|
 | before the patch, at `8ddfec0` | `python3 -m unittest tests.test_transport_deadline -v` | 1 FAIL, 2 ok, 6.027 s |
-| after the patch | *(to fill in)* | |
+| after the patch, at `91bfbda` | `python3 -m unittest discover -s tests -t .` | `Ran 96 tests … OK` |
+| after the patch | `git diff 8ddfec0 91bfbda -- agent/tools.py` | read the diff (section 2) |
+| after the patch (HEAD `a852e45`) | `python3 -m agent.loop`: live run 2, `2026-11-10T214509Z` | `exit incomplete`. All three real boards `ok` over **HTTPS** through the patched code, which the test does not cover. The deliberate 404 was not retried ([review/6-after-patch-varnika-run.txt](review/6-after-patch-varnika-run.txt)). This run's Anthropic `gone: 78` is wrong, from a separate bug (REVIEW-FINDINGS.md row 7b), not from this patch |
 
 **Run by Claude Code** (outputs saved in `review/`):
 
