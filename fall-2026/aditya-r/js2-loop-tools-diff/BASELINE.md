@@ -32,3 +32,13 @@ The commands and full output are in [`evidence/baseline/baseline_checks.txt`](ev
 - JS1's `scripts/verify_evidence.py`: ALL CHECKS PASSED. It ran read-only on a temporary `git archive 819f2e9` extraction, because it needs JS1's evidence folders (REPLAY of JS1's saved evidence).
 
 These checks show that the inherited code still behaves as JS1 documented. They do **not** show that it meets the JS2 gate.
+
+## History note: redaction before the first push (2026-11-10)
+
+Before pushing, a scan found Aditya's absolute local path in one line of `evidence/baseline/baseline_checks.txt`. Following Aditya's choice, the three commits after the already-pushed `8257ffb` were replayed in the same order, with the same messages and author times. The only change is that the path was replaced by `<js2>`, and the file says so. Committer times show the replay (16:34:51 EST). The test output was not re-run or otherwise altered.
+
+| Original local commit (never pushed) | Pushed replacement |
+|---|---|
+| `6d42768` import JS1 baseline | `b86f676` |
+| `2ee0075` investigation probes | `236bebd` |
+| `9ee0c4b` GATE addendum 1 + recon evidence | `8a0ef83` |
