@@ -32,11 +32,7 @@ How the error policy handled the failure, from this trace:
 - **Escalation:** `escalate: true` because gh-broken had failed on consecutive attempted runs. `out/failures.json` holds `consecutive: 4` after the next run, `20261110T225032086Z-post-patch-2`.
 - **The run did not end `finished`:** the three real boards were observed, but the deliberate failure made the run `incomplete`.
 
-The checker passed every rule for every board of this run (output quoted in `REVIEW.md`, "Live runs after the patch"):
-
-```bash
-node src/check.mjs --trace out/traces/20261110T225022146Z-post-patch-1.jsonl
-```
+The checker passed every rule for every board of this run (`evidence/check-post-patch.txt`, quoted in `REVIEW.md`, "Live runs after the patch").
 
 ## The finished-wrong answer
 
@@ -59,11 +55,7 @@ A run that ended cleanly (`finished`, exit 0) and was wrong. All three runs belo
 
 An earlier replay attempt, `20261110T215039252Z-prefix-lever-replay`, ended `error`, exit 12, with zero requests and no observations. Its `--replay` path was empty (`argv` shows `"--replay",""`).
 
-**The independent check.** This output came from running the checker while drafting this file on 2026-11-10. The checker reads only the raw responses, snapshots and traces in `out/`, and never the loop's report.
-
-```bash
-node src/check.mjs --trace out/traces/20261110T215021538Z-prefix-lever-baseline.jsonl --trace out/traces/20261110T215313703Z-prefix-lever-replay-2.jsonl
-```
+**The independent check.** Saved in `evidence/check-pre-fix.txt`, quoted in full below. The checker reads only the raw responses, snapshots and traces in `out/`, and never the loop's report.
 
 ```
 # 20261110T215021538Z-prefix-lever-baseline (mode: live) — out/traces/20261110T215021538Z-prefix-lever-baseline.jsonl
@@ -78,7 +70,7 @@ lv-spotify rule 3: FAIL — pre-run state has 2 invalid id(s), e.g. 0; post-run 
 20261110T215313703Z-prefix-lever-replay-2: FAIL
 ```
 
-The checker exited 1.
+Both results are FAIL, so a checker run over these two traces exits 1 (`exitCodeFor` in `src/check.mjs`).
 
 - **For the replay, rule 2 agrees with the false claim** (expected 86 new, claimed 86). Rule 2 recomputes the new ids against the pre-run seen set, and that set was already corrupt (`[0, null]`), so no UUID appears seen.
 - **Rule 3 catches it.** The persisted ids are not valid Lever ids, and the post-run state does not contain the 86 raw UUIDs.

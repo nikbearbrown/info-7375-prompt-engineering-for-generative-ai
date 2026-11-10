@@ -89,11 +89,7 @@ All four steps are on 2026-11-10, after `c04d1ecf` (17:46 −0500, 22:46 UTC) an
    - The run ended `incomplete`, exit 10, after 4 requests.
 4. **`20261110T225032086Z-post-patch-2`** (`--config boards.json`): lv-spotify had 85 jobs and 0 new, its state 85 strings before and after. gh-broken got `error: not found`, escalate. The run ended `incomplete`, exit 10, after 4 requests. `out/failures.json` now holds gh-broken `consecutive: 4`, `escalate: true`, and 0 for the three real boards.
 
-**Checker output.** No checker output for these runs is saved in `evidence/`; the message of commit `0326b046` reads "checker passes". The output below came from running the checker while drafting this file on 2026-11-10. The checker reads `out/` only and makes no network requests.
-
-```bash
-node src/check.mjs --trace out/traces/20261110T224942910Z-post-patch-integrity.jsonl --trace out/traces/20261110T225022146Z-post-patch-1.jsonl --trace out/traces/20261110T225032086Z-post-patch-2.jsonl
-```
+**Checker output.** Saved in `evidence/check-post-patch.txt`, quoted in full below. The checker reads `out/` only and makes no network requests.
 
 ```
 # 20261110T224942910Z-post-patch-integrity (mode: live) — out/traces/20261110T224942910Z-post-patch-integrity.jsonl
@@ -134,7 +130,7 @@ gh-broken rule 3: PASS — 0 persisted id(s), all valid
 20261110T225032086Z-post-patch-2: PASS
 ```
 
-The command exited 1, because the integrity trace failed.
+Because the integrity trace's result is FAIL, a checker run over these three traces exits 1 (`exitCodeFor` in `src/check.mjs`).
 
 - **Post-patch-1 and post-patch-2:** every rule passed for every board.
 - **The integrity run:** rule 3 failed for gh-stripe and gh-airbnb. Their pre-run snapshots (`out/snapshots/20261110T224942910Z-post-patch-integrity/gh-*.before.json`) held the legacy numeric ids. The checker requires persisted ids to be strings, while the patched `src/state.mjs` normalizes numbers on load.
