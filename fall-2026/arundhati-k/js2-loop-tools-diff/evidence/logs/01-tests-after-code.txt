@@ -1,0 +1,44 @@
+# 2026-11-10 16:35:44 EST — python3 -m unittest discover -s tests -t . -v  (after implementation)
+test_clean_run_has_no_findings (tests.test_check.IndependentCheck.test_clean_run_has_no_findings) ... ok
+test_drop_to_zero_against_previous_run (tests.test_check.IndependentCheck.test_drop_to_zero_against_previous_run) ... ok
+test_failed_board_with_a_number_is_flagged (tests.test_check.IndependentCheck.test_failed_board_with_a_number_is_flagged) ... ok
+test_finished_with_empty_board_is_flagged (tests.test_check.IndependentCheck.test_finished_with_empty_board_is_flagged) ... ok
+test_raw_file_tampered_is_flagged (tests.test_check.IndependentCheck.test_raw_file_tampered_is_flagged) ... ok
+test_reported_count_differs_from_raw (tests.test_check.IndependentCheck.test_reported_count_differs_from_raw) ... ok
+test_board_budget_leaves_rest_unvisited (tests.test_loop.Budgets.test_board_budget_leaves_rest_unvisited) ... ok
+test_budget_never_reported_as_finished (tests.test_loop.Budgets.test_budget_never_reported_as_finished) ... ok
+test_request_budget_counts_retries (tests.test_loop.Budgets.test_request_budget_counts_retries) ... ok
+test_seconds_budget (tests.test_loop.Budgets.test_seconds_budget) ... ok
+test_5xx_retried_once (tests.test_loop.ErrorPolicy.test_5xx_retried_once) ... ok
+test_not_json_is_bad_shape_no_retry (tests.test_loop.ErrorPolicy.test_not_json_is_bad_shape_no_retry) ... ok
+test_other_4xx_no_retry (tests.test_loop.ErrorPolicy.test_other_4xx_no_retry) ... ok
+test_timeout_retried_once_then_ok (tests.test_loop.ErrorPolicy.test_timeout_retried_once_then_ok) ... ok
+test_timeout_twice_gives_up_without_value (tests.test_loop.ErrorPolicy.test_timeout_twice_gives_up_without_value) ... ok
+test_all_boards_fail_is_error (tests.test_loop.Exits.test_all_boards_fail_is_error) ... ok
+test_all_ok_is_finished (tests.test_loop.Exits.test_all_ok_is_finished) ... ok
+test_empty_board_is_incomplete_not_zero_new (tests.test_loop.Exits.test_empty_board_is_incomplete_not_zero_new) ... ok
+test_one_404_is_incomplete_with_no_count (tests.test_loop.Exits.test_one_404_is_incomplete_with_no_count) ... ok
+test_unknown_ats_is_error_and_nothing_fetched (tests.test_loop.Exits.test_unknown_ats_is_error_and_nothing_fetched) ... ok
+test_board_listed_twice_fetched_once (tests.test_loop.RepeatRule.test_board_listed_twice_fetched_once) ... ok
+test_failed_board_ids_not_marked_seen (tests.test_loop.State.test_failed_board_ids_not_marked_seen) ... ok
+test_first_run_is_baseline_and_state_held_without_approval (tests.test_loop.State.test_first_run_is_baseline_and_state_held_without_approval) ... ok
+test_state_written_with_approval_and_second_run_finds_new (tests.test_loop.State.test_state_written_with_approval_and_second_run_finds_new) ... ok
+test_every_request_is_an_observation_and_raw_saved (tests.test_loop.Trace.test_every_request_is_an_observation_and_raw_saved) ... ok
+test_all_16_cases (tests.test_policy.BoundaryCases.test_all_16_cases) ... ok
+test_refusal_has_a_reason (tests.test_policy.BoundaryCases.test_refusal_has_a_reason) ... ok
+test_credentials_in_url_refused (tests.test_policy.ExtraPolicy.test_credentials_in_url_refused) ... ok
+test_delete_needs_approval (tests.test_policy.ExtraPolicy.test_delete_needs_approval) ... ok
+test_read_outside_via_dotdot_refused (tests.test_policy.ExtraPolicy.test_read_outside_via_dotdot_refused) ... ok
+test_symlinked_file_inside_out_refused (tests.test_policy.ExtraPolicy.test_symlinked_file_inside_out_refused) ... ok
+test_write_outside_with_approval_flag_still_refused (tests.test_policy.ExtraPolicy.test_write_outside_with_approval_flag_still_refused) ... ok
+test_empty_as_zero_caught (tests.test_wrong_versions.WrongLoops.test_empty_as_zero_caught) ... ok
+test_finished_always_caught (tests.test_wrong_versions.WrongLoops.test_finished_always_caught) ... ok
+test_retry_404_caught (tests.test_wrong_versions.WrongLoops.test_retry_404_caught) ... ok
+test_no_symlink_policy_caught (tests.test_wrong_versions.WrongPolicies.test_no_symlink_policy_caught) ... ok
+test_startswith_policy_caught (tests.test_wrong_versions.WrongPolicies.test_startswith_policy_caught) ... ok
+test_substring_host_policy_caught (tests.test_wrong_versions.WrongPolicies.test_substring_host_policy_caught) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.053s
+
+OK

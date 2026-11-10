@@ -1,0 +1,46 @@
+test_budget_counts_every_sent_request (tests.test_review_interrupt.TestInterruptedRequestAccounting) ... FAIL
+test_interrupted_board_records_one_attempt (tests.test_review_interrupt.TestInterruptedRequestAccounting) ... FAIL
+test_saved_evidence_passes_independent_check (tests.test_review_interrupt.TestInterruptedRequestAccounting) ... FAIL
+
+======================================================================
+FAIL: test_budget_counts_every_sent_request (tests.test_review_interrupt.TestInterruptedRequestAccounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_review_interrupt.py", line 41, in test_budget_counts_every_sent_request
+    self.assertEqual(
+AssertionError: 1 != 2 : An interrupted request still consumes one attempt.
+
+======================================================================
+FAIL: test_interrupted_board_records_one_attempt (tests.test_review_interrupt.TestInterruptedRequestAccounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_review_interrupt.py", line 51, in test_interrupted_board_records_one_attempt
+    self.assertEqual(
+AssertionError: 0 != 1 : The board report must retain the request sent before interruption.
+
+======================================================================
+FAIL: test_saved_evidence_passes_independent_check (tests.test_review_interrupt.TestInterruptedRequestAccounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ashwinthankachan/Desktop/College/CSYE7375/info-7375-prompt-engineering-for-generative-ai/.claude/worktrees/js2/fall-2026/ashwin-t/js2-loop-tools-diff/tests/test_review_interrupt.py", line 59, in test_saved_evidence_passes_independent_check
+    self.assertEqual(findings, [], "The saved report must agree with its trace.")
+AssertionError: Lists differ: [{'invariant': 'C7', 'board': None, 'messa[151 chars] 1'}] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+{'invariant': 'C7', 'board': None, 'message': 'report says 1 attempts used; the trace shows 2'}
+
++ []
+- [{'board': None,
+-   'invariant': 'C7',
+-   'message': 'report says 1 attempts used; the trace shows 2'},
+-  {'board': 'ashby/beta',
+-   'invariant': 'C2',
+-   'message': 'report lists 0 attempts; the trace shows 1'}] : The saved report must agree with its trace.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.013s
+
+FAILED (failures=3)
+
+Process exit code: 1

@@ -1,0 +1,17 @@
+SEEDED DEMONSTRATION — replayed raw responses; Figma's B/D response is constructed (empty).
+
+A replay of evidence/run-live-1: exit=finished  Stripe=775, Figma=143, Notion=155
+
+B WRONG VERSION, Figma empty: exit=finished
+   Stripe: status=ok postings=775 new=0
+   Figma: status=ok postings=0 new=0
+   Notion: status=ok postings=155 new=0
+   ^ the agent's own report: finished, Figma 0 new. Clean, and wrong.
+
+C independent check (check.py) on B, previous=A: 2 finding(s)
+   [finished-with-empty-board] Figma: exit finished, status ok, but the raw board has 0 postings
+   [drop-to-zero] Figma: previous run's raw file had 143 postings, this one has 0
+
+D REAL AGENT, same input as B: exit=incomplete  Figma status=empty-unverified new=None
+
+sandbox: out/demo-root/out/runs/

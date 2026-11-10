@@ -1,0 +1,50 @@
+diff --git a/fall-2026/ashwin-t/js2-loop-tools-diff/jobloop/loop.py b/fall-2026/ashwin-t/js2-loop-tools-diff/jobloop/loop.py
+index e46c10b..d7f70a1 100644
+--- a/fall-2026/ashwin-t/js2-loop-tools-diff/jobloop/loop.py
++++ b/fall-2026/ashwin-t/js2-loop-tools-diff/jobloop/loop.py
+@@ -63,6 +63,14 @@ class RepeatViolation(RuntimeError):
+     """The same action was attempted again without being the one allowed retry (GATE.md section 3)."""
+ 
+ 
++class BoardInterrupted(KeyboardInterrupt):
++    """A KeyboardInterrupt that carries the attempts already made on the board it interrupted."""
++
++    def __init__(self, attempts: list):
++        super().__init__("interrupted by the user")
++        self.attempts = attempts
++
++
+ # ------------------------------------------------------------------ decisions
+ 
+ 
+@@ -278,6 +286,17 @@ def observe_board(run: Run, b: dict, allowed: set, transport: Callable, sleep: C
+             resp = fetch_once("GET", b["url"], allowed, transport, timeout)
+         except fetch.TransportFailure as exc:
+             failure = exc
++        except KeyboardInterrupt:
++            # The request was already sent: it costs an attempt and stays in this board's record.
++            count_attempt(run, got_response=False)
++            record = {"attempt": n, "url": b["url"], "status": None, "raw_file": None,
++                      "response": "no response received", "failure": "interrupted", "kind": "interrupted",
++                      "detail": "interrupted by the user while the request was in flight"}
++            attempts.append(record)
++            ledger.record(action, "interrupted")
++            run.event("result", board=f"{b['provider']}/{b['board']}", attempts_used_after=run.attempts_used,
++                      **{k: v for k, v in record.items() if k != "url"})
++            raise BoardInterrupted(attempts) from None
+         count_attempt(run, got_response=resp is not None)
+ 
+         record = {"attempt": n, "url": b["url"]}
+@@ -370,9 +389,10 @@ def run(root: Path = policy.PROJECT_ROOT, *, config_path: str = CONFIG_PATH, sta
+             else:
+                 try:
+                     out = observe_board(r, b, allowed, transport, sleep, ledger)
+-                except KeyboardInterrupt:
++                except KeyboardInterrupt as exc:
+                     interrupted = True
+-                    out = {**not_observed_outcome(b, "interrupted by the user"), "attempts": []}
++                    out = {**not_observed_outcome(b, "interrupted by the user"),
++                           "attempts": getattr(exc, "attempts", [])}
+                     r.event("interrupted", board=f"{b['provider']}/{b['board']}")
+             outcomes.append(out)
+             if interrupted:
