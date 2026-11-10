@@ -32,7 +32,7 @@ From a fresh clone:
 git clone https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai.git
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/varnika-m/js2-loop-tools-diff
 
-python3 -m unittest discover -s tests -t .     # 121 tests; no network except local servers on 127.0.0.1
+python3 -m unittest discover -s tests -t .     # 122 tests; no network except local servers on 127.0.0.1
 python3 check_run.py jobs/runs/2026-11-10T215306Z.json   # the independent check, on a saved run
 python3 -m agent.loop                          # a live run: 4 GET requests; writes jobs/; exit code 0/1/2/3
 ```
@@ -123,7 +123,7 @@ A separate Claude reviewer reported 8 findings. Each was reproduced as a test be
 | `persona/` | the fictional résumé (`@example.com`, 555 phone) |
 | `jobs/` | everything the agent writes: `raw/`, `runs/` (record, report, trace and check per run) and `state/` |
 | `scripts/` | the one-time JS1 state import and the demonstration (not the agent) |
-| `tests/` | 121 tests |
+| `tests/` | 122 tests |
 
 Left out: caches, credentials (there are none), my real résumé, and the Claude Code conversation transcripts, which stay on my machine.
 
