@@ -73,6 +73,7 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 | 2026-11-09 19:22 | Tests run before any new code | 3 new test modules fail to import | `evidence/tests-before-new-code-2026-11-09.txt` |
 | 2026-11-09 19:24 | Mutation check: break the code the way each wrong version would | 5 of 6 caught; the symlink-refusal line is untested on its own | `evidence/mutation-check-2026-11-09.txt` |
 | 2026-11-09 19:25 | **Live run 1**: 6 boards, Greenhouse + Ashby + Lever | `incomplete`: 4 ok (199/150/32/304), the deliberate 404 failed after 1 request, WHOOP flagged `empty`; 6/12 requests, 3.4 s; check: no findings | [TRACE.md](TRACE.md) |
+| 2026-11-09 20:17 | **Live run 2**, the same six boards | `incomplete` again; read run 1's state, so no baselines; 0 new on all four ok boards; all six responses byte-identical to run 1's (recount); check: no findings | [TRACE.md](TRACE.md), `evidence/run2-recount-2026-11-09.txt` |
 | 2026-11-09 | **Seeded finished wrong answer** | the agent says `finished`; the independent check flags `meta.total 199` vs 20 and 179 postings gone | [TRACE.md](TRACE.md), `evidence/finished-wrong-SEEDED-2026-11-09.txt` |
 | 2026-11-09 | Boundary tests | 20 of 20 as predicted | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) |
 | 2026-11-09 19:26–19:45 | Review packet: rule v2, three revisions | rev 1 revise, rev 2 rejected on reading, rev 3 accepted with known limitations | [REVIEW-PACKET.md](REVIEW-PACKET.md) |
@@ -115,7 +116,9 @@ How:          The tests were written by Claude Code from GATE.md and committed b
               (cef009e before f4b553d; 6f4ae08 before the rule patch). I ran the review commands
               myself. The behavior diffs are recomputations over the 685 saved postings. The
               decisions in review/05 and review/18 are mine.
-Not checked:  - A real timeout or 5xx: retries were only exercised with constructed responses.
+Not checked:  - Judging a real new posting inside the loop: neither live run saw one (run 2's
+                responses were byte-identical to run 1's), so that path ran only in tests.
+              - A real timeout or 5xx: retries were only exercised with constructed responses.
               - A real redirect: the redirect guard was tested on a constructed redirect only.
               - A partial Ashby or Lever response: the check can only catch truncation on
                 Greenhouse, which reports meta.total.

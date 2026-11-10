@@ -19,6 +19,16 @@ Command: `python3 -m jsagent run`. The terminal output is in `evidence/run1-term
 
 **The independent check** (`python3 jsagent/check.py runs/20261110T002501Z`) printed `no findings`. It recounts each saved raw file with its own parser, compares the count with Greenhouse's `meta.total`, compares it with the previous state, and confirms the exit is not `finished` while a board failed.
 
+## Live run 2: 2026-11-09 20:17 EST, the same six boards
+
+Command: `python3 -m jsagent run`. Evidence: `evidence/run2-terminal-2026-11-09.txt`, `runs/20261110T011708Z/`.
+
+- **Result.** Exit `incomplete` again: the same 404 handled the same way, WHOOP `empty` again, 6/12 requests, 7.8 s.
+- **Not a baseline.** It read run 1's state (sequence 1), so no board was a baseline, and all four working boards reported **0 new**.
+- **Recount.** `evidence/run2-recount-2026-11-09.txt` compares run 2's raw files with run 1's directly. All six responses are byte-for-byte identical, with 0 new and 0 gone ids. So "0 new" is true, not a missed change.
+- **Independent check:** no findings.
+- **What this leaves untested.** Neither live run saw a new posting, so the loop's step of judging new postings with rule v2 has run only in tests, on constructed postings.
+
 ## The finished wrong answer: SEEDED, and labeled as such
 
 The full output is in `evidence/finished-wrong-SEEDED-2026-11-09.txt`; the builder is `demo/make_finished_wrong.py`.

@@ -54,6 +54,10 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 - **Rev 3** reads each "N years" phrase in its own sentence. It needed two more fixes before its tests passed: "CPA preferred What We Require:" read as a preferred heading, and a Lever requirement list running into "Hybrid schedule:".
 - **Rev 3's result:** 93/93 with no test edited, 0 verdict changes, every dropped and new failure read. Shreyash accepted it.
 
+**20:17, live run 2.**
+- Shreyash asked for it straight away, about 50 minutes after run 1. It came out `incomplete` with 0 new on every working board, and all six responses were byte-identical to run 1's.
+- A quiet run is a real result, but it means a real new posting was never judged inside the loop.
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.
