@@ -10,3 +10,8 @@ symlink-follow: OK
 # is still refused because the resolved real path is outside. So the is_symlink line is a second
 # layer that no test exercises on its own; a symlink inside runs/ pointing at a file inside runs/
 # would still be stopped by the overwrite-approval guard. Left as found, not hidden.
+
+# 2026-11-10, after review: row 21 (tests/test_policy_symlink.py) was added, predicted and committed
+# first (2b8ed44). It writes through a symlink inside runs/ that points to a not-yet-existing
+# file inside runs/. The same 'symlink-follow' mutation was re-run on the full suite:
+symlink-follow (re-run with row 21): FAILED (failures=1)   <- now caught, by test_21 only

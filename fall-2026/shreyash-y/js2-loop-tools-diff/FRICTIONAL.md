@@ -66,6 +66,11 @@ There are two parts, kept apart on purpose. **Part 1 is Shreyash's.** Part 2 is 
 - A day later, there were 6 real new postings: 2 Oscar, 1 Linear, 3 Palantir. All were judged in the loop by rev 3, and all came out Not Relevant. The recount from the raw files matched.
 - The closest calls were Palantir's software engineering intern postings, failing only on the department label `Dev` and on location. The contract's department list does not settle whether `Dev` is engineering.
 
+**2026-11-10, after a review of the submission.**
+- The review asked for a test that only the no-symlink line can pass. I wrote boundary row 21 and its prediction, and committed them before running (`2b8ed44`): a symlink inside runs/ to a not-yet-existing file inside runs/.
+- It passes on the real code. With the line deleted, it is now the one failing test, so the mutation-check gap from 2026-11-09 is closed.
+- The review also asked that the Physician Reviewer case stay disclosed. The README now has a "Known limitations" section listing it with the other open questions.
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.

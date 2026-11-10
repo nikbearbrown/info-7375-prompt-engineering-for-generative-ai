@@ -30,7 +30,7 @@ git clone -b shreyash-y/js2-loop-tools-diff https://github.com/shreyashyadav1/in
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/shreyash-y/js2-loop-tools-diff
 ```
 
-All tests, offline (93):
+All tests, offline (94):
 
 ```bash
 python3 -m unittest discover -s tests -t . -v
@@ -77,7 +77,18 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 | 2026-11-10 15:47 | **Live run 3**, a day later | `incomplete`; **6 real new postings** (2 Oscar, 1 Linear, 3 Palantir) judged in the loop by rule v2 rev 3, all Not Relevant. Closest calls: Palantir SWE intern postings failing only department (`Dev`) and location. Recount matches; check: no findings | [TRACE.md](TRACE.md), `evidence/run3-recount-2026-11-10.txt` |
 | 2026-11-09 | **Seeded finished wrong answer** | the agent says `finished`; the independent check flags `meta.total 199` vs 20 and 179 postings gone | [TRACE.md](TRACE.md), `evidence/finished-wrong-SEEDED-2026-11-09.txt` |
 | 2026-11-09 | Boundary tests | 20 of 20 as predicted | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) |
+| 2026-11-10 | Boundary row 21 (after review): a symlink inside runs/ to a new file inside runs/ | as predicted; with the no-symlink line deleted it now fails, which closes the mutation-check gap | `evidence/boundary-row21-run-2026-11-10.txt` |
 | 2026-11-09 19:26–19:45 | Review packet: rule v2, three revisions | rev 1 revise, rev 2 rejected on reading, rev 3 accepted with known limitations | [REVIEW-PACKET.md](REVIEW-PACKET.md) |
+
+## Known limitations of the filtering rule
+
+The rule is **not** correct in general. Rule v2 revision 3 was accepted with these open, and they stay open:
+
+- **An office tag beats the ad.** Oscar's *Physician Reviewer – Utilization Management* carries the office "Remote (Arizona)", but its ad says "reside in the United States". The rule trusts the tag and fails condition 3. That verdict is still Not Relevant on other grounds, but a software job written the same way would be wrongly rejected. Not fixed, and not covered by any test.
+- **Location field against office list.** Some Klaviyo postings list location "San Francisco, CA" with the office "Boston". The rule reads the location field only, and which one should win has not been decided.
+- **Department labels.** Palantir's Lever department `Dev` is not on the contract's department list, so its "Software Engineer, Intern" postings fail condition 2. Whether `Dev` counts as engineering has not been decided.
+- **Phrasings not seen yet.** Experience and remote are read with patterns learned from 685 postings. "Several years", or a preferred heading the cue list does not know, would be misread.
+- **The independent check cannot see partial Ashby or Lever responses**, because neither reports a total.
 
 ## Folder map
 
@@ -108,7 +119,9 @@ Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py
                 count retries); in live run 1 the deliberate 404 and the empty board were handled
                 as GATE.md says (TRACE.md lines 14-19).
               - Permission policy in code: tests/test_policy.py, 20 cases predicted in
-                BOUNDARY-TESTS.md before policy.py existed, 20 of 20 as predicted.
+                BOUNDARY-TESTS.md before policy.py existed, 20 of 20 as predicted; row 21
+                (tests/test_policy_symlink.py, added after review) covers the no-symlink line,
+                which the mutation check had shown no test covered.
               - Six real new postings in live run 3, judged in the loop and recounted from the raw
                 files (evidence/run3-recount-2026-11-10.txt).
               - A finished wrong answer caught by a check that does not use the agent's code:
@@ -127,7 +140,6 @@ Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all N
               - A real redirect: the redirect guard was tested on a constructed redirect only.
               - A partial Ashby or Lever response: the check can only catch truncation on
                 Greenhouse, which reports meta.total.
-              - The symlink-refusal line alone (the mutation check left all tests green without it).
               - The rule's reading of experience and remote beyond the phrasings in these 685
                 postings; the Physician Reviewer office-tag case and the location-vs-offices
                 question are known and open.
