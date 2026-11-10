@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 // Mutation check for src/policy.mjs. Each mutant is one GATE.md "wrong implementation"
-// built as a broken copy of policy.mjs in .mutants/<name>/ (gitignored). The policy
-// tests run against each copy; a mutant is KILLED if at least one test fails, and
-// SURVIVES if every test still passes. Survivors are reported, not hidden.
+// built as a broken copy of policy.mjs in .mutants/<name>/ (gitignored). Three suites
+// run against each copy: the policy tests, the loop tests and the wrong-version loop
+// tests. A mutant is KILLED if at least one test in any suite fails, and SURVIVES if
+// every test still passes. Kills are reported per suite; survivors are not hidden.
 //
 //   node tools/mutate-policy.mjs
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -59,14 +60,24 @@ const MUTANTS = [
     [["    if (!existsSync(real) || !statSync(real).isFile()) return { decision: 'deny', path: real, reason: 'replay file missing' };\n", '']]],
 ];
 
-// The copy's test file is spec/policy.mutant.mjs, a name `node --test` with no
+const SUITES = [['policy', 'test/policy.test.mjs'], ['loop', 'test/loop.test.mjs'], ['wrong-versions', 'test/wrong-versions.test.mjs']];
+
+// Each copy's test files are spec/<suite>.mutant.mjs, names `node --test` with no
 // arguments does not discover, so the project's own test run never picks up mutants.
 function runTests(dir) {
-  const r = spawnSync(process.execPath, ['--test', 'spec/policy.mutant.mjs'], { cwd: dir, encoding: 'utf8' });
-  const failed = [...r.stdout.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => m[1]);
-  const total = /^# tests (\d+)/m.exec(r.stdout)?.[1];
-  return { failed, total, status: r.status };
+  const out = { failed: [], total: 0, status: 0, bySuite: {} };
+  for (const [suite] of SUITES) {
+    const r = spawnSync(process.execPath, ['--test', `spec/${suite}.mutant.mjs`], { cwd: dir, encoding: 'utf8' });
+    const failed = [...r.stdout.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => `[${suite}] ${m[1]}`);
+    const total = Number(/^# tests (\d+)/m.exec(r.stdout)?.[1] ?? 0);
+    out.bySuite[suite] = { failed: failed.length, total };
+    out.failed.push(...failed);
+    out.total += total;
+    out.status ||= r.status;
+  }
+  return out;
 }
+const suiteSummary = r => SUITES.map(([s]) => `${s} ${r.bySuite[s].failed}/${r.bySuite[s].total}`).join(', ');
 
 function copy(name) {
   const dir = join(OUT, name);
@@ -76,7 +87,7 @@ function copy(name) {
   cpSync(join(ROOT, 'src'), join(dir, 'src'), { recursive: true });
   cpSync(join(ROOT, 'GATE.md'), join(dir, 'GATE.md'));
   cpSync(join(ROOT, 'test/boundary-cases.md'), join(dir, 'test/boundary-cases.md'));
-  cpSync(join(ROOT, 'test/policy.test.mjs'), join(dir, 'spec/policy.mutant.mjs'));
+  for (const [suite, file] of SUITES) cpSync(join(ROOT, file), join(dir, `spec/${suite}.mutant.mjs`));
   return dir;
 }
 
@@ -84,7 +95,7 @@ const original = readFileSync(join(ROOT, 'src/policy.mjs'), 'utf8');
 
 // Control: the unmutated copy must pass, or the check means nothing.
 const control = runTests(copy('control'));
-console.log(`control (unmutated policy.mjs): ${control.failed.length} failed of ${control.total}`);
+console.log(`control (unmutated policy.mjs): ${control.failed.length} failed of ${control.total} (${suiteSummary(control)} failed)`);
 if (control.failed.length || control.status !== 0) process.exit(2);
 
 let survivors = 0;
@@ -100,7 +111,7 @@ for (const [wv, name, what, edits] of MUTANTS) {
   const r = runTests(dir);
   const verdict = r.failed.length ? 'KILLED' : 'SURVIVED';
   if (!r.failed.length) survivors += 1;
-  console.log(`\nWV${String(wv).padStart(2, '0')} ${name} (${what}): ${verdict}, ${r.failed.length} of ${r.total} tests failed`);
+  console.log(`\nWV${String(wv).padStart(2, '0')} ${name} (${what}): ${verdict}, ${r.failed.length} of ${r.total} tests failed (${suiteSummary(r)} failed)`);
   for (const f of r.failed) console.log(`    not ok - ${f}`);
 }
 console.log(`\n${MUTANTS.length} mutants, ${MUTANTS.length - survivors} killed, ${survivors} survived`);
