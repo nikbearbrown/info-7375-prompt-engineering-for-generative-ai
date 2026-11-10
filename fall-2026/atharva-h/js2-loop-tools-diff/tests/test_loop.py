@@ -4,8 +4,8 @@ import os
 import unittest
 from unittest import mock
 
-from helpers import (ASHBY, GH, LEVER, Clock, TransientError, ashby_body, board, gh_body, lever_body, make,
-                     read_state, stamp)
+from helpers import (ASHBY, GH, GH_NAME, LEVER, Clock, TransientError, ashby_body, board, gh_body, gh_name,
+                     lever_body, make, read_state, stamp)
 
 import loop
 from loop import Run
@@ -15,7 +15,8 @@ NOT_FOUND = (404, b"Not Found")
 
 
 def ok_script(gh=(1, 2), ashby=("a", "b"), lever=("x",)):
-    return {GH.format("abacusinsights"): [(200, gh_body(*gh))], ASHBY.format("valon"): [(200, ashby_body(*ashby))],
+    return {GH_NAME.format("abacusinsights"): [(200, gh_name("X"))],  # the identity check (review patch)
+            GH.format("abacusinsights"): [(200, gh_body(*gh))], ASHBY.format("valon"): [(200, ashby_body(*ashby))],
             LEVER.format("xsolla"): [(200, lever_body(*lever))]}
 
 
@@ -32,7 +33,7 @@ class ThreeBoardsTwoSystems(unittest.TestCase):
         root, tools = make(THREE, ok_script())
         run_dir, s = go(tools)
         self.assertEqual(s["exit"], "finished")
-        self.assertEqual(s["requests"], 3)
+        self.assertEqual(s["requests"], 4)  # 3 boards + the Greenhouse name check
         self.assertEqual({r["status"] for r in s["results"].values()}, {"ok"})
         self.assertTrue(all(r["baseline"] and r["new"] == [] for r in s["results"].values()))
         self.assertEqual(read_state(root)["boards"]["ashby/valon"]["seen"], ["a", "b"])
@@ -71,7 +72,7 @@ class ErrorPolicy(unittest.TestCase):
         self.assertEqual(s["exit"], "incomplete")
         self.assertEqual(s["results"]["ashby/valonn"]["status"], "failed")
         self.assertIn("HTTP 404", s["results"]["ashby/valonn"]["reason"])
-        self.assertEqual(s["requests"], 4)  # no retry of a 404
+        self.assertEqual(s["requests"], 5)  # 4 boards + name check; no retry of a 404
         self.assertEqual(s["_sleeps"], [])
         self.assertNotIn("ashby/valonn", read_state(root)["boards"])  # no value invented
         with open(os.path.join(root, run_dir, "raw/ashby_valonn.http404.txt"), "rb") as f:
@@ -93,7 +94,7 @@ class ErrorPolicy(unittest.TestCase):
         _, tools = make(THREE, script)
         _, s = go(tools)
         self.assertEqual(s["exit"], "finished")
-        self.assertEqual(s["requests"], 4)
+        self.assertEqual(s["requests"], 5)  # 3 boards + name check + 1 retry
         self.assertEqual(s["_sleeps"], [2])
 
     def test_second_timeout_fails_the_board_after_one_retry(self):
@@ -103,7 +104,7 @@ class ErrorPolicy(unittest.TestCase):
         _, s = go(tools)
         self.assertEqual(s["exit"], "incomplete")
         self.assertIn("after one retry", s["results"]["ashby/valon"]["reason"])
-        self.assertEqual(s["requests"], 4)
+        self.assertEqual(s["requests"], 5)  # 3 boards + name check + 1 retry
 
     def test_other_4xx_is_not_retried(self):
         script = ok_script()
@@ -111,7 +112,7 @@ class ErrorPolicy(unittest.TestCase):
         _, tools = make(THREE, script)
         _, s = go(tools)
         self.assertEqual(s["results"]["lever/xsolla"]["status"], "failed")
-        self.assertEqual(s["requests"], 3)
+        self.assertEqual(s["requests"], 4)  # 3 boards + name check; the 403 not retried
 
     def test_unparseable_200_is_a_failed_board(self):
         script = ok_script()
@@ -150,7 +151,7 @@ class Budgets(unittest.TestCase):
 
     def test_budget_exhausted_still_saves_the_boards_that_succeeded(self):
         root, tools = make(THREE, ok_script())
-        _, s = go(tools, budgets={"requests": 2})
+        _, s = go(tools, budgets={"requests": 3})
         self.assertEqual(s["exit"], "budget-exhausted")
         self.assertIn("ashby/valon", read_state(root)["boards"])
 
@@ -160,7 +161,7 @@ class RepeatRule(unittest.TestCase):
         boards = THREE + [board("ashby", "valon")]
         root, tools = make(boards, ok_script())
         run_dir, s = go(tools)
-        self.assertEqual(s["requests"], 3)
+        self.assertEqual(s["requests"], 4)  # 3 boards + name check; the repeat sent nothing
         with open(os.path.join(root, run_dir, "trace.jsonl")) as f:
             events = [json.loads(line)["event"] for line in f]
         self.assertIn("repeat refused", events)
@@ -254,8 +255,8 @@ class WrongVersions(unittest.TestCase):
         _, tools = make(THREE, script())
         with mock.patch.object(Run, "get", get_without_counting_retries):
             _, mutant = go(tools, budgets={"requests": 4})
-        self.assertEqual(mutant["exit"], "finished")  # 6 requests sent under a budget of 4
-        self.assertEqual(len(tools.sent), 6)
+        self.assertEqual(mutant["exit"], "finished")  # 8 requests sent under a budget of 4
+        self.assertEqual(len(tools.sent), 8)  # 4 first attempts + 4 retries (incl. name check)
         _, tools = make(THREE, script())
         _, real_run = go(tools, budgets={"requests": 4})
         self.assertEqual(real_run["exit"], "budget-exhausted")

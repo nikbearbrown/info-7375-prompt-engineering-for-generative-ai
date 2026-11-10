@@ -5,6 +5,7 @@ Only `finished` means every configured board succeeded.
 """
 import datetime as dt
 import json
+import re
 import time
 
 import adapters
@@ -58,10 +59,25 @@ class Run:
         return self.tools.http_get(url, timeout=timeout)
 
     def fetch_board(self, board, raw_dir):
-        """Error policy: 4xx never retried; timeout, dropped connection, or 5xx retried once after 2 s.
-        Returns (postings, None) or (None, reason). Never returns an invented empty list."""
-        url = adapters.board_url(board)
+        """Returns (postings, None) or (None, reason). Never returns an invented empty list.
+        Where the system can name its own board (Greenhouse), that name must match the configured
+        employer before the job list is fetched at all."""
         name = f"{board['system']}_{board['token']}"
+        identity = adapters.identity_url(board)
+        if identity:
+            actual, reason = self.fetch(identity, f"{raw_dir}/{name}_board", adapters.parse_board_name)
+            if actual is None:
+                return None, reason if reason == "repeat refused" else f"identity check: {reason}"
+            if not same_employer(actual, board["employer"]):
+                self.observe("identity mismatch", board=board_key(board), board_name=actual, employer=board["employer"])
+                return None, (f"identity mismatch: the board calls itself {actual!r}, "
+                              f"but the config says {board['employer']!r}")
+        return self.fetch(adapters.board_url(board), f"{raw_dir}/{name}", lambda body: adapters.parse(board, body))
+
+    def fetch(self, url, save_as, parse):
+        """Error policy: 4xx never retried; timeout, dropped connection, or 5xx retried once after 2 s.
+        Returns (parsed, None) or (None, reason)."""
+        saved_name = save_as.rsplit("/", 1)[-1]
         for attempt in (1, 2):
             try:
                 response = self.get(url, retry=attempt == 2)
@@ -73,12 +89,12 @@ class Run:
                     self.observe("repeat refused", url=url)
                     return None, "repeat refused"
                 ext = "json" if response.status == 200 else f"http{response.status}.txt"
-                self.tools.write_bytes(f"{raw_dir}/{name}.{ext}", response.body)
+                self.tools.write_bytes(f"{save_as}.{ext}", response.body)
                 self.observe("response", url=url, status=response.status, bytes=len(response.body),
-                             elapsed=round(response.elapsed, 3), saved=f"raw/{name}.{ext}")
+                             elapsed=round(response.elapsed, 3), saved=f"raw/{saved_name}.{ext}")
                 if response.status == 200:
                     try:
-                        return adapters.parse(board, response.body), None
+                        return parse(response.body), None
                     except adapters.ParseError as e:
                         return None, f"unparseable response: {e}"
                 if response.status < 500:
@@ -94,6 +110,14 @@ class Run:
 
 def board_key(board):
     return f"{board['system']}/{board['token']}"
+
+
+def same_employer(a, b):
+    """Case and punctuation are ignored. Deliberately not shared with check_identity.py, so the
+    independent check has no code in common with the loop it checks."""
+    def squash(s):
+        return " ".join(re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).split())
+    return bool(squash(a)) and squash(a) == squash(b)
 
 
 def load_json(tools, path, missing=None):

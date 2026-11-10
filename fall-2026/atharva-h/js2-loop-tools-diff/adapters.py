@@ -52,6 +52,24 @@ SYSTEMS = {
 }
 
 
+IDENTITY = {"greenhouse": "https://boards-api.greenhouse.io/v1/boards/{token}"}
+
+
+def identity_url(board):
+    """The board's own-name endpoint, where the system has one. Only Greenhouse does."""
+    board_url(board)  # the same validation of system and token
+    template = IDENTITY.get(board["system"])
+    return template.format(token=board["token"]) if template else None
+
+
+def parse_board_name(body):
+    data = _load(body)
+    name = data.get("name") if isinstance(data, dict) else None
+    if not isinstance(name, str) or not name.strip():
+        raise ParseError("no board name in the response")
+    return name
+
+
 def board_url(board):
     if board.get("system") not in SYSTEMS:
         raise ValueError(f"unknown system {board.get('system')!r}")

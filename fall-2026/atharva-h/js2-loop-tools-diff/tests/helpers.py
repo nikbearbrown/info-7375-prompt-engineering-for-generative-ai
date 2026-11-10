@@ -13,6 +13,11 @@ from tools import Response, Tools, TransientError  # noqa: E402
 GH = "https://boards-api.greenhouse.io/v1/boards/{}/jobs?content=true"
 ASHBY = "https://api.ashbyhq.com/posting-api/job-board/{}"
 LEVER = "https://api.lever.co/v0/postings/{}?mode=json"
+GH_NAME = "https://boards-api.greenhouse.io/v1/boards/{}"
+
+
+def gh_name(name):
+    return json.dumps({"name": name}).encode()
 
 
 def gh_body(*ids):
@@ -90,5 +95,5 @@ def read_state(root, name="state/seen.json"):
         return json.load(f)
 
 
-__all__ = ["ROOT", "GH", "ASHBY", "LEVER", "gh_body", "ashby_body", "lever_body", "ScriptedTools", "Clock",
+__all__ = ["ROOT", "GH", "ASHBY", "LEVER", "GH_NAME", "gh_name", "gh_body", "ashby_body", "lever_body", "ScriptedTools", "Clock",
            "workspace", "board", "stamp", "make", "read_state", "TransientError"]
