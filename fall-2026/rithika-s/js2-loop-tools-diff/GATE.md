@@ -136,3 +136,17 @@ Decided by: Rithika Sankar Rajeswari 2026-11-10
   than 90, so in that worst case the retry is not started and the run ends
   `budget_exhausted`. I accept that. Pointed out by Claude Code in its build
   summary (evidence/2026-11-10_claude_code_build_summary.md).
+
+### Error policy decisions log (continued)
+
+- 2026-11-10: Known limit in section 4 is withdrawn. New rule: if a board's
+  saved state has at least one posting and a 200 response now has zero
+  postings, the board FAILS with reason `empty_after_nonempty`. New jobs:
+  unknown (never 0). State file is not updated. No retry (the response was
+  received; retrying would not change it). The run cannot end `finished`.
+  A board with no saved state, or whose saved state was already empty, may
+  still return zero postings and count as a valid empty board.
+  Why: the SEEDED demo (out/runs/20261110T193722Z-SEEDED) ended `finished (0)`
+  and reported Scale AI as 0 new when it had 169 the day before; only the
+  independent check caught it.
+  Decided by: Rithika Sankar Rajeswari 2026-11-10
