@@ -40,15 +40,16 @@ class TestAllowList(unittest.TestCase):
     def setUp(self):
         self.allow = fetch.load_allowlist()
 
-    def test_allowlist_is_exactly_greenhouse(self):
-        self.assertEqual(self.allow, {"boards-api.greenhouse.io"})
+    def test_allowlist_is_exactly_the_gate_hosts(self):
+        # JS2 (GATE.md v2.3 section 5) adds Lever. Was {"boards-api.greenhouse.io"} in JS1.
+        self.assertEqual(self.allow, {"boards-api.greenhouse.io", "api.lever.co"})
 
     def test_board_url_is_on_allowlist(self):
         fetch.check_url(fetch.board_url("klaviyo"), self.allow)  # no raise
 
     def test_refuses_other_host(self):
         with self.assertRaises(fetch.HostNotAllowed):
-            fetch.check_url("https://api.lever.co/v0/postings/x", self.allow)
+            fetch.check_url("https://api.ashbyhq.com/posting-api/job-board/x", self.allow)  # JS2: Lever is allowed, Ashby is not
 
     def test_refuses_lookalike_host(self):
         with self.assertRaises(fetch.HostNotAllowed):
@@ -75,8 +76,9 @@ class TestAllowList(unittest.TestCase):
             self.assertEqual(first.read_text(), "first")
 
     def test_board_list_config(self):
-        # The layer watches ONE board (brief: "one public job board"); the 131-board list is an optional extension.
+        # JS1 watched ONE board; JS2 moved that list to config/boards_js1.json (config/boards.json is now the JS2 plan).
         self.assertEqual(fetch.load_boards(), ["samsara"])
+        self.assertEqual(fetch.BOARDS_PATH.name, "boards_js1.json")
         extension = fetch.load_boards(fetch.ROOT / "config" / "boards_all.json")
         self.assertGreaterEqual(len(extension), 100)
         self.assertEqual(len(extension), len(set(extension)))

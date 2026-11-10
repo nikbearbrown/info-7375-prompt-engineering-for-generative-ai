@@ -1,0 +1,595 @@
+..................FF...........................................EEEEEEEEEEEEEEFEEEEEEEEEEEEEEEEEEEE.............
+======================================================================
+ERROR: test_all_ok_is_finished_and_first_run_is_a_baseline (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 23, in test_all_ok_is_finished_and_first_run_is_a_baseline
+    script = {gh_url("alpha"): [ok(gh_body([gh_job(1), gh_job(2)]))],
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_duplicate_boards_removed_before_loop (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 82, in test_duplicate_boards_removed_before_loop
+    res, fetcher = self.sb.run([("greenhouse", "alpha"), ("greenhouse", "alpha")], {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_exit_precedence (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 149, in test_exit_precedence
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_http_500_retried_once_429_with_long_wait_not_retried (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 74, in test_http_500_retried_once_429_with_long_wait_not_retried
+    res, fetcher = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [http(500)]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 61, in http
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_lever_needs_no_detail_request (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 50, in test_lever_needs_no_detail_request
+    self.sb.run(beta, {lever_url("beta"): [ok(lever_body([lever_posting("a")]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_preflight_errors_before_any_fetch (tests.test_js2_loop.TestLoop) (entries=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 89, in test_preflight_errors_before_any_fetch
+    res, fetcher = self.sb.run(entries, {})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 103, in run
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_preflight_errors_before_any_fetch (tests.test_js2_loop.TestLoop) (entries=[('ashby', 'kraken')])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 89, in test_preflight_errors_before_any_fetch
+    res, fetcher = self.sb.run(entries, {})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 103, in run
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_preflight_errors_before_any_fetch (tests.test_js2_loop.TestLoop) (entries=[('greenhouse', 'Bad Name')])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 89, in test_preflight_errors_before_any_fetch
+    res, fetcher = self.sb.run(entries, {})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 103, in run
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_preflight_errors_before_any_fetch (tests.test_js2_loop.TestLoop) (entries=[('greenhouse', 'b0'), ('greenhouse', 'b1'), ('greenhouse', 'b2'), ('greenhouse', 'b3'), ('greenhouse', 'b4'), ('greenhouse', 'b5'), ('greenhouse', 'b6'), ('greenhouse', 'b7'), ('greenhouse', 'b8'), ('greenhouse', 'b9'), ('greenhouse', 'b10'), ('greenhouse', 'b11'), ('greenhouse', 'b12')])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 89, in test_preflight_errors_before_any_fetch
+    res, fetcher = self.sb.run(entries, {})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 103, in run
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_raw_saved_even_when_unparseable (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 104, in test_raw_saved_even_when_unparseable
+    res, _ = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [ok(b"<html>oops</html>")]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_replay_without_seeded_label_is_refused (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 143, in test_replay_without_seeded_label_is_refused
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_reset_state_needs_approval (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 110, in test_reset_state_needs_approval
+    self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_samsara_first_run_compares_with_the_oct31_baseline (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 119, in test_samsara_first_run_compares_with_the_oct31_baseline
+    res, _ = self.sb.run([("greenhouse", "samsara")], {gh_url("samsara"): [ok(gh_body(jobs))]},
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_second_run_reports_new_and_judges_data_titles (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 36, in test_second_run_reports_new_and_judges_data_titles
+    self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_seeded_empty_samsara_finishes_but_verifier_fails (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 127, in test_seeded_empty_samsara_finishes_but_verifier_fails
+    from jsagent import net, policy
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_trace_has_a_line_per_request_with_required_fields (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 94, in test_trace_has_a_line_per_request_with_required_fields
+    res, fetcher = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [timeout(), ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 66, in timeout
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_transient_then_success (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 69, in test_transient_then_success
+    res, fetcher = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [http(503), ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 61, in http
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_wrong_shape_fails_without_retry (tests.test_js2_loop.TestLoop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_loop.py", line 57, in test_wrong_shape_fails_without_retry
+    cases = [(("lever", "beta"), lever_url("beta"), ok(b'{"jobs": []}')),
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W18_budgets_match_gate (tests.test_js2_wrong_versions.TestConfigMatchesGate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 224, in test_W18_budgets_match_gate
+    config = json.loads((ROOT / "config" / "budgets.json").read_text())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1256, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1242, in open
+    return io.open(self, mode, buffering, encoding, errors, newline,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1110, in _opener
+    return self._accessor.open(self, flags, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/config/budgets.json'
+
+======================================================================
+ERROR: test_W11_write_config_denied (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W12_overwrite_needs_approval (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W16_loop_refuses_bad_out_root_before_any_fetch (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W16_out_root_in_protected_folder (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W1_prefix_trick_out_evil (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W2_symlink_escape (tests.test_js2_wrong_versions.TestFileWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 22, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W10_trailing_slash_is_repeat (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 157, in test_W10_trailing_slash_is_repeat
+    from jsagent import loop
+ImportError: cannot import name 'loop' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W13_failed_board_state_unchanged (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 165, in test_W13_failed_board_state_unchanged
+    first, _ = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W14_unjudged_stay_new (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 172, in test_W14_unjudged_stay_new
+    self.sb.run(alpha, {gh_url("alpha"): [ok(gh_body([gh_job(1)]))]})  # baseline
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W15_verifier_ignores_report_counts (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 185, in test_W15_verifier_ignores_report_counts
+    verifier = load_verifier()
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 18, in load_verifier
+    spec.loader.exec_module(mod)
+  File "<frozen importlib._bootstrap_external>", line 846, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 982, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1039, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/scripts/verify_run.py'
+
+======================================================================
+ERROR: test_W19_empty_board_fails_verification (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 199, in test_W19_empty_board_fails_verification
+    verifier = load_verifier()
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 18, in load_verifier
+    spec.loader.exec_module(mod)
+  File "<frozen importlib._bootstrap_external>", line 846, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 982, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1039, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/scripts/verify_run.py'
+
+======================================================================
+ERROR: test_W6_failed_board_count_null (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 125, in test_W6_failed_board_count_null
+    res, _ = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [http(404)]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 61, in http
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W7_failed_board_incomplete (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 136, in test_W7_failed_board_incomplete
+    script = {gh_url("alpha"): [ok(gh_body([gh_job(1)]))], gh_url("beta"): [ok(gh_body([gh_job(2)]))],
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 56, in ok
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W8_retries_consume_budget (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 143, in test_W8_retries_consume_budget
+    res, fetcher = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [timeout()]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 66, in timeout
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W9_no_retry_on_404 (tests.test_js2_wrong_versions.TestLoopWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 152, in test_W9_no_retry_on_404
+    res, fetcher = self.sb.run([("greenhouse", "alpha")], {gh_url("alpha"): [http(404)]})
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/js2_helpers.py", line 61, in http
+    from jsagent import net
+ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W3_lookalike_host (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 85, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W4_port_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 85, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 85, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+ERROR: test_W5_redirect_hops_count (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 85, in setUp
+    from jsagent import policy
+ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/jsagent/__init__.py)
+
+======================================================================
+FAIL: test_allowlist_is_exactly_the_gate_hosts (tests.test_contract.TestAllowList)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_contract.py", line 45, in test_allowlist_is_exactly_the_gate_hosts
+    self.assertEqual(self.allow, {"boards-api.greenhouse.io", "api.lever.co"})
+AssertionError: Items in the second set but not the first:
+'api.lever.co'
+
+======================================================================
+FAIL: test_board_list_config (tests.test_contract.TestAllowList)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_contract.py", line 81, in test_board_list_config
+    self.assertEqual(fetch.BOARDS_PATH.name, "boards_js1.json")
+AssertionError: 'boards.json' != 'boards_js1.json'
+- boards.json
++ boards_js1.json
+?       ++++
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B01', what='GET host off the list (Ashby)')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B02', what='GET lookalike host')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B03', what='GET nonstandard port 8443')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B04', what='GET with user:pw@')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B05', what='GET plain http')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B06', what='POST to an allowed host')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B07', what='redirect to a host off the list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]_Age" != 'deny'
+- error: ImportError: cannot import name 'net' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Age
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B08', what='write out/../config/allowlist.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B09', what='write out-evil/x.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B10', what='write through a symlink out of out/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B11', what='read config/allowlist.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'allow'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ allow
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B12', what='write config/allowlist.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B13', what='create a new raw file in out/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'allow'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ allow
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B14', what='overwrite an existing raw file, no approval')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'needs approval'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ needs approval
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B15', what='overwrite with --approve for that path')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'allow'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ allow
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B16', what='--out config/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B17', what='read ~/.ssh/id_rsa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'deny'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B18', what='GET uppercase allowed host')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: "error: ImportError: cannot import name '[76 chars]rch_" != 'allow'
+- error: ImportError: cannot import name 'policy' from 'jsagent' (/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_
++ allow
+
+
+======================================================================
+FAIL: test_W17_allowlist_matches_gate (tests.test_js2_wrong_versions.TestConfigMatchesGate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 213, in test_W17_allowlist_matches_gate
+    self.assertEqual(config, gate_hosts)
+AssertionError: Items in the second set but not the first:
+'api.lever.co'
+
+----------------------------------------------------------------------
+Ran 113 tests in 0.109s
+
+FAILED (failures=21, errors=38)
