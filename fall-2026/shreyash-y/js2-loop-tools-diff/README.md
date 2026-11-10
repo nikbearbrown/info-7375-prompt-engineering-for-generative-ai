@@ -9,9 +9,9 @@
 
 ## Summary, in my own words
 
-*Shreyash's words, typed into the session on 2026-11-10, replacing the 2026-11-09 summary, which predated run 3. Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-10, replacing the earlier versions (the 2026-11-09 summary predated run 3). Claude Code did not change them.*
 
-The agent checks six boards across two applicant-tracking systems: four working boards, one deliberately broken board returning HTTP 404, and one empty WHOOP board. All three recorded live runs ended `incomplete` because the failed board was handled according to the error policy, without inventing a posting count. Run 1 established the baseline, Run 2 found zero new postings, and Run 3 identified six new postings, all classified as Not Relevant. The finished-wrong demonstration showed that a run can report `finished` despite receiving incomplete data; an independent checker detected the discrepancy.
+The agent checks six boards across three applicant-tracking systems: Greenhouse (Oscar, Klaviyo), Ashby (Linear), and Lever (Palantir, WHOOP, and the deliberate 404 board). All three recorded live runs ended `incomplete` because the failed board was handled according to the error policy without inventing a posting count. Run 1 established the baseline, Run 2 found zero new postings, and Run 3 identified six new postings, all classified as Not Relevant. The finished-wrong demonstration showed that a run can report `finished` despite receiving incomplete data; an independent checker detected the discrepancy. The review packet showed that passing tests did not guarantee correct behavior: revision 1 passed all 84 tests but misread perks in 16 postings, so I sent it back for revision and later accepted revision 3 with documented limitations.
 
 ## Language and toolchain
 
