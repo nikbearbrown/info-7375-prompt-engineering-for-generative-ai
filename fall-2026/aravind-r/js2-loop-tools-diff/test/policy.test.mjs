@@ -440,3 +440,10 @@ test('LIMITS in src/policy.mjs match the GATE.md budget table and retry rules', 
   assert.match(gate, new RegExp(`after a ${LIMITS.retryWaitMs / 1000}-second wait`));
   assert.match(gate, new RegExp(`at most \\*\\*${LIMITS.retryAfterMaxSeconds} seconds\\*\\*`));
 });
+
+test('an out/ that is itself a symlink to outside the project is refused', () => {
+  const root = mkdtempSync(join(tmpdir(), 'js2-policy-root-'));
+  const outside = mkdtempSync(join(tmpdir(), 'js2-policy-outside-'));
+  symlinkSync(outside, join(root, 'out'));
+  assert.throws(() => createFilePolicy({ root }), PolicyError);
+});

@@ -232,6 +232,8 @@ const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export function createFilePolicy({ root = PROJECT_ROOT, approve = [] } = {}) {
   const rootReal = realpathSync(root);
   const outReal = canonicalPath(join(rootReal, 'out'));
+  // out/ itself must be the project's own directory, not a link to somewhere else.
+  if (!isInside(rootReal, outReal)) throw new PolicyError(`out/ resolves outside the project: ${outReal}`);
   const rawReal = canonicalPath(join(rootReal, 'out', 'raw'));
   const stateReal = canonicalPath(join(rootReal, 'out', 'state'));
   const where = p => canonicalPath(resolve(rootReal, p));
