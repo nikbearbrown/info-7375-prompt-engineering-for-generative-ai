@@ -1,0 +1,11 @@
+# python3 -m unittest tests.test_after_review -v  (Claude Code, 2026-11-10T21:40:24Z, before the fixes)
+test_nan_cannot_switch_a_budget_off (tests.test_after_review.Finding2NanBudget) ... ERROR
+test_a_board_falsely_labelled_skipped_repeat_is_caught (tests.test_after_review.Finding3CheckReadsTheConfig) ... FAIL
+test_a_board_missing_from_the_record_is_caught (tests.test_after_review.Finding3CheckReadsTheConfig) ... FAIL
+test_check_run_does_not_crash_on_a_correct_run_with_a_bad_shape_board (tests.test_after_review.Finding4CheckSurvivesBadShape) ... ERROR
+test_a_run_over_the_seconds_budget_is_caught (tests.test_after_review.Finding5CheckUsesTheSecondsBudget) ... FAIL
+test_gone_counts_against_the_last_good_run_not_every_id_ever_seen (tests.test_after_review.Finding7GoneSinceLastRun) ... FAIL
+test_redirect_to_the_same_url_is_not_sent_again (tests.test_after_review.Finding8aRedirectRepeats) ... FAIL
+test_redirect_without_a_location_is_not_sent_again (tests.test_after_review.Finding8aRedirectRepeats) ... FAIL
+Ran 8 tests in 0.047s
+FAILED (failures=6, errors=2)
