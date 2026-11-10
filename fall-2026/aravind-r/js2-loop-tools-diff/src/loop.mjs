@@ -272,7 +272,11 @@ export async function runLoop({
             const tmp = `out/state/.${b.id}.json.${runId}.tmp`;
             const t = fp.checkWrite(tmp);
             if (t.decision !== 'allow') throw new RunError(`refused: write ${tmp}: ${t.reason}`);
-            saveState(abs(tmp), { board: b.id, ids: nextIds, run: runId });
+            // saveState validates every id first and writes nothing if one is invalid; its
+            // error (e.g. STATE_INTEGRITY) ends the run as error, exit 12, not a crash.
+            try { saveState(abs(tmp), { board: b.id, ids: nextIds, run: runId }); } catch (e) {
+              throw new RunError(`state not saved for ${b.id}: ${e.code ? `${e.code}: ` : ''}${e.message}`);
+            }
             const d = fp.checkWrite(statePath, { nextIds });
             if (d.decision === 'ask') throw new RunError(`refused: needs approval: ${statePath}: ${d.reason}`);
             if (d.decision !== 'allow') throw new RunError(`refused: write ${statePath}: ${d.reason}`);

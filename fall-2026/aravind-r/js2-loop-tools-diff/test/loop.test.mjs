@@ -365,3 +365,20 @@ test('replay does not create out/failures.json', async () => {
   assert.equal(r.exitCode, 0);
   assert.ok(!existsSync(join(root, 'out/failures.json')));
 });
+
+// ---- a state write that fails ends the run as error, exit 12, never a crash ---------
+
+test('a raw Lever response with a null id: saveState refuses it, the run ends error, exit 12, run_end written', async () => {
+  const root = project(LV_ONLY);
+  const f = router({ spotify: res(200, JSON.stringify([{ id: UUIDS[0], text: 'Job' }, { id: null, text: 'Job' }])) });
+  let r;
+  await assert.doesNotReject(async () => { r = await run(root, ['--config', 'boards.json', '--label', 'null-id'], f); }, 'runLoop must not throw');
+  assert.equal(r.status, 'error');
+  assert.equal(r.exitCode, 12);
+  assert.match(r.reason, /STATE_INTEGRITY/);
+  assert.equal(r.events.at(-1).event, 'run_end');
+  assert.equal(r.events.at(-1).exit_code, 12);
+  assert.ok(!existsSync(join(root, 'out/state/lv-spotify.json')), 'no state written');
+  assert.deepEqual(readdirSync(join(root, 'out/state')), [], 'no temp file left behind');
+  assert.ok(existsSync(join(root, r.ev('request')[0].raw_path)), 'the raw body is still saved as evidence');
+});
