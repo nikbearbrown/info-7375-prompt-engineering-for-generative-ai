@@ -30,7 +30,18 @@ attempts omitted from the request budget") happening for real on one path.
 
 ## 3. My test, written before the patch
 
-TODO(Ashwin): the test file name, the commit that adds it, and its failing output before the patch.
+`tests/test_review_interrupt.py`, drafted by Codex from the reproduction and test helpers, added by me and
+committed on its own at `279c10f`, before any loop code changed. Against the unpatched loop it failed 3 of 3,
+exit 1 (`review-packet/test-review-interrupt-before-patch.txt`; Claude Code re-ran it and got the same):
+
+```text
+AssertionError: 1 != 2 : An interrupted request still consumes one attempt.
+AssertionError: 0 != 1 : The board report must retain the request sent before interruption.
+AssertionError: Lists differ: [C7 ..., C2 ...] != [] : The saved report must agree with its trace.
+FAILED (failures=3)
+```
+
+After the patch (`be7a54a`): 3 of 3 OK, exit 0.
 
 ```bash
 cd fall-2026/ashwin-t/js2-loop-tools-diff && python3 -m unittest tests.test_review_interrupt -v
