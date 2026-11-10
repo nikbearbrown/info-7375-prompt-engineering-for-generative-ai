@@ -1,6 +1,6 @@
 # GATE.md: Job-Search Agent 2
 
-Ethan Gomes · INFO 7375 · v2.0 · 2026-11-10 · written and committed before any JS2 code
+Ethan Gomes · INFO 7375 · v2.2 · 2026-11-10 · written and committed before any JS2 code
 
 ## Scope
 
@@ -11,19 +11,25 @@ each one with its saved observations. It starts from my JS1 watcher. The JS1 fol
 the local JS2 repository, committed after each step and not pushed until the end. This gate is committed on its own before any
 implementation.
 
-Use four configured boards:
+Use ten configured boards: eight with postings across two systems, one live empty board, and one deliberate failure.
 
 | # | Board | ATS | Host | Purpose |
 |---|---|---|---|---|
 | 1 | `samsara` | Greenhouse | `boards-api.greenhouse.io` | A real Day-2 comparison against the 2026-10-31 baseline |
-| 2 | `databricks` | Greenhouse | `boards-api.greenhouse.io` | Second Greenhouse board, baselined on its first JS2 run |
-| 3 | `palantir` | Lever | `api.lever.co` | Second ATS, with a different response shape, baselined on its first JS2 run |
-| 4 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | The deliberate failure |
+| 2 | `databricks` | Greenhouse | `boards-api.greenhouse.io` | Most data roles of the boards probed |
+| 3 | `toast` | Greenhouse | `boards-api.greenhouse.io` | Boston |
+| 4 | `klaviyo` | Greenhouse | `boards-api.greenhouse.io` | Boston |
+| 5 | `datadog` | Greenhouse | `boards-api.greenhouse.io` | Data roles, US |
+| 6 | `palantir` | Lever | `api.lever.co` | Second ATS, with a different response shape |
+| 7 | `spotify` | Lever | `api.lever.co` | Second Lever board |
+| 8 | `zoox` | Lever | `api.lever.co` | Largest Lever response (about 2.3 MB with descriptions) |
+| 9 | `kraken` | Lever | `api.lever.co` | **A live empty board.** It returned `200` with `[]` on 2026-11-10: the brief's "empty board reported as no new jobs" case, live |
+| 10 | `samsara-does-not-exist` | Greenhouse | `boards-api.greenhouse.io` | The deliberate failure (404) |
 
-Only Samsara has an earlier day: the 2026-10-31 state and its raw response, both copied unchanged into `baseline/2026-10-31/` with
-sha256s in `PROVENANCE.md`. Any second run of boards 2–3 happens on the same day, and I will label it that way.
-
-
+Boards 2–9 were chosen from a read-only probe on 2026-11-10, run with Claude's help. Those were not agent runs and their raw responses
+were not saved. They show that the boards responded then, not that they will respond the same way during my runs. Only Samsara has an
+earlier day: the 2026-10-31 state and its raw response, both copied unchanged into `baseline/2026-10-31/` with sha256s in
+`PROVENANCE.md`. Every other board is baselined on its first JS2 run, and any later run of it happens the same day, which I will label.
 
 ## 1. Exits
 
@@ -36,7 +42,7 @@ Print and save the same status, reason, per-board outcomes, requests used, secon
 | budget-exhausted | 2 | A board, request, time, or step limit stopped the plan. The report lists what was done, what was never attempted, and the new postings left unjudged. |
 | error | 3 | Invalid configuration, a permission violation, unreadable state, too many loop steps, or an output folder inside a protected folder. Nothing is fetched or written afterwards except the trace line and the run report. |
 
-Three successful boards and one failed board means incomplete, even when the failure was intentional. Reaching the end of the loop is
+Nine successful boards and one failed board means incomplete, even when the failure was intentional. Reaching the end of the loop is
 not proof that every board was observed. The exit is calculated from the observation records by one function. The loop's own account
 of what happened does not decide it.
 
@@ -63,14 +69,19 @@ so a crash cannot leave half a file.
 
 The ceilings live in `config/budgets.json`, which the agent may read but not write.
 
-- Maximum boards per run: 5 (four planned, one spare).
-- Maximum HTTP requests per run: 60. That covers 4 list requests, up to 6 retries, up to about 40 Samsara detail requests (new
-  data-titled postings since Oct 31; the real number is unknown), and redirect hops. Lever returns descriptions in its list, so Lever
-  boards need no detail requests.
-- Maximum wall-clock time: 300 seconds per run.
+- Maximum boards per run: 12 (ten planned, two spare).
+- Maximum HTTP requests per run: 100. That covers:
+  - 10 list requests
+  - up to 18 retries (9 boards × 2; the 404 board is never retried)
+  - up to about 40 Samsara detail requests (new data-titled postings since Oct 31; the real number is unknown)
+  - up to about 20 detail requests for same-day new postings on the other Greenhouse boards
+  - redirect hops
+
+  Lever returns descriptions in its list, so Lever boards need no detail requests.
+- Maximum wall-clock time: 420 seconds per run (about 90 requests at least 1 second apart, plus retry waits and timeouts).
 - Per-request timeout: 15 seconds.
 - Maximum redirect hops per request: 3.
-- Maximum loop steps per run: 100. This catches a loop that cycles without sending requests, which the request budget would never see.
+- Maximum loop steps per run: 200. This catches a loop that cycles without sending requests, which the request budget would never see.
 
 Retries, redirect hops and detail requests all count against the request budget. Every wait (backoff, pacing, `Retry-After`) counts
 against the time budget. Limits are checked before every request and every wait. When a limit is reached, no new action starts: the file
@@ -106,7 +117,7 @@ Save the raw bytes before parsing, so a response that won't parse is still evide
 
 A valid response with an empty list in the provider's shape (Greenhouse `"jobs": []`, Lever `[]`) is recorded as observed, and the loop
 takes no further action on it. Judging whether it is plausible is the independent verifier's job, by design. A check inside the loop
-would still be the agent grading itself.
+would still be the agent grading itself. Lever's `kraken` board returned exactly this on 2026-11-10.
 
 After an ordinary board failure, record the actual outcome and continue to the remaining boards within budget. The failed board's record
 holds the status, the reason, the attempts made, the raw file path if a response arrived (or "no response received"), and a null count.
@@ -180,7 +191,7 @@ red.
    `test_W4_userinfo_refused`)
 5. Redirect hops are checked but not counted against the budgets. (`test_W5_redirect_hops_count`)
 6. A failed board is recorded as 0 postings or "no new jobs." (`test_W6_failed_board_count_null`)
-7. Three successful boards hide the deliberate failure, and the run exits finished. (`test_W7_failed_board_incomplete`)
+7. Successful boards hide the deliberate failure, and the run exits finished. (`test_W7_failed_board_incomplete`)
 8. Retries are left out of the request budget. (`test_W8_retries_consume_budget`)
 9. A 404 is retried like a timeout. (`test_W9_no_retry_on_404`)
 10. A repeat check without URL normalization lets a trailing-slash variant through. (`test_W10_trailing_slash_is_repeat`)
@@ -192,6 +203,7 @@ red.
 16. `--out config/` is accepted, because the path checks are relative to the chosen root. (`test_W16_out_root_in_protected_folder`)
 17. A host is added to `config/allowlist.json` during a fix, and the allow-list drifts from this gate. (`test_W17_allowlist_matches_gate`)
 18. A budget in `config/budgets.json` drifts from section 2. (`test_W18_budgets_match_gate`)
+19. The verifier passes an empty board because it has no history to compare with. (`test_W19_empty_board_fails_verification`)
 
 ## Evidence and review choices
 
@@ -200,13 +212,19 @@ are expectations written before the code exists. The actual results go in `evide
 
 | Run | Kind | Boards (file) | Output root | Expected loop exit |
 |---|---|---|---|---|
-| A | live, first | 1–4 (`config/boards.json`) | `out/` | incomplete, because board 4 fails |
-| B | live, same day, hours after A | 1–3 (`config/boards_no_failure.json`) | `out/` | finished, so one real run can end cleanly. If it doesn't, I report what happened |
-| C | SEEDED replay | 1 only (`config/boards_seeded.json`) | `evidence/seeded/empty-samsara/` | finished, 0 new, while the verifier FAILs |
+| A | live, first | 1–10 (`config/boards.json`) | `out/` | incomplete, because board 10 fails. Verifier FAIL (kraken empty) |
+| B | live, same day, after A | 1–9 (`config/boards_no_failure.json`) | `out/` | **finished, but wrong**: kraken reports 0 new. Verifier FAIL |
+| C | SEEDED replay | 1 only (`config/boards_seeded.json`) | `evidence/seeded/empty-samsara/` | finished, 0 new. Verifier FAIL on the drop check |
+| D | live, same day, after B | 1–8 (`config/boards_clean.json`) | `out/` | finished and PASS, so one real run ends cleanly. If it doesn't, I report what happened |
 
-**The finished-wrong answer.** Run C is clearly labeled SEEDED. Its input is the file `tests/fixtures/seeded/empty-samsara.json`, which
-contains `{"jobs": [], "meta": {"total": 0}}`. Its output and state stay separate from the real run. I keep the report that claims
-finished as it is.
+**The finished-wrong answer.** I show it twice:
+- **Run B, live.** Every board answers in its provider's shape, so the loop says finished. But kraken's `[]` is reported as "0 new," and
+  nothing in the loop can tell "no openings" from "this board is no longer used." The verifier FAILs it as empty, needing review.
+- **Run C, SEEDED, clearly labeled.** It gives the TA an offline version that doesn't depend on Kraken staying empty. Its input is the file
+  `tests/fixtures/seeded/empty-samsara.json`, which contains `{"jobs": [], "meta": {"total": 0}}`. Its output and state stay separate
+  from the real run.
+
+In both cases I keep the report that claims finished as it is.
 
 The independent check is `scripts/verify_run.py`. It is separate code that does not import the loop or reuse its decision function. It
 reads only the raw files, the trace, the baseline and the previous state, and treats the loop's report only as the thing being checked. It
@@ -214,22 +232,24 @@ FAILs a run if:
 - its recount of postings from the raw files differs from the report
 - a Greenhouse board's job count differs from `meta.total`
 - its recomputed new ids differ from the report
-- a board fell to 0, or dropped by more than half, since its previous observation
+- a board returned 0 postings ("empty, needs review"), whether or not it has history
+- a board dropped by more than half since its previous observation
 - a planned board has no record
 - a raw file's sha256 does not match the trace
 
-A board with no previous observation does not FAIL the run, but is never counted as passing the drop check either: the verifier names it
-on its result line, e.g. `verifier: PASS (drop check not applicable: databricks, palantir — no history)`. For run C, I expect FAIL on the
-drop check: 323 postings on 2026-10-31, 0 now.
+A nonempty board with no previous observation does not FAIL the run, but is never counted as passing the drop check either: the verifier
+names it on its result line, e.g. `verifier: PASS (drop check not applicable: databricks, toast — no history)`. For run B, I expect FAIL
+because kraken is empty. For run C, I expect FAIL because the board is empty and dropped from 323 postings on 2026-10-31 to 0 now.
 
 **Evidence.**
 - Every run gets a row in `evidence/RUNS.md`, including failed and discarded runs. I keep RUNS.md up to date myself, and the agent never
   writes it.
-- `out/` (runs A and B) and `evidence/seeded/empty-samsara/` (run C) are committed as evidence.
+- `out/` (runs A, B and D) and `evidence/seeded/empty-samsara/` (run C) are committed as evidence.
 - No raw file or run folder that I cite is ever deleted. I cite only runs listed in RUNS.md, and only counts I can show.
 
-**Review packet.** My proposed Claude Code change fixes the real JS1 defect above: `check_url` accepts a nonstandard port and user
-information on an allowed host. I reproduced it offline on 2026-11-10 before writing this gate. Before the patch, I will save the
+**Review packet.** My proposed Claude Code change fixes a real JS1 defect: JS1's `check_url` compares only the hostname, so it accepts
+`https://boards-api.greenhouse.io:8443/…` and `https://user:pw@boards-api.greenhouse.io/…`. It was reproduced offline, with Claude's
+help, on 2026-11-10, before this gate was written. Before the patch, I will save the
 reproduction and commit a failing regression test (wrong version 4). I am not introducing a defect just to create a review. If the
 reproduction stops failing before the patch, I will choose another reproduced defect.
 
@@ -250,7 +270,9 @@ Predictions, actual results, who wrote each test, the commands I ran, and the fi
 - TLS and DNS, which are trusted to the system, and a valid but stale cached response
 - changes to Lever's or Greenhouse's rate limits and terms
 - Lever's missing total count, which means a truncated Lever list can only be caught by the recount and the drop check
-- a board that really disappeared looks like a typo (`plaid` returned 404 on Lever on 2026-11-10)
+- a board that left Lever can look like a typo (`plaid` returned 404 on 2026-11-10) or like a board with no openings (`kraken`,
+  `wealthsimple` and `voleon` returned `200 []`). Because the verifier fails every empty board, a board that really has no openings will
+  also FAIL. I accept that false alarm.
 - whether the relevance verdicts are accurate
 
 **JS1's limits, carried into the README:**
@@ -260,8 +282,11 @@ Predictions, actual results, who wrote each test, the commands I ran, and the fi
 
 ## Decisions log
 
-This file's earlier versions are in git: v1 `82f02cb`, v1.1 `2a2e11f`, v1.2 `ef2eafc`, v1.3 `c421e28`.
+This file's earlier versions are in git: v1 `82f02cb`, v1.1 `2a2e11f`, v1.2 `ef2eafc`, v1.3 `c421e28`, v2.0 `2b75002`,
+v2.1 `a67bdbf`.
 
 | Date | Decision | Reason |
 |---|---|---|
 | 2026-11-10 | v2.0: same decisions as v1.3, rewritten in a prose format, with rule IDs replaced by numbered wrong versions. Added: a preflight board cap and a zero-board error; URLs built only from fixed templates; paths resolved from the project root; reporting a deliberate failure that unexpectedly succeeds; a budget-drift test (wrong version 18) | Easier to read. The additions close small gaps found while rewriting, before any code exists |
+| 2026-11-10 | v2.1 (my own edit): removed the checked-facts list and the "deliberate failure unexpectedly succeeds" rule from Scope | I made this edit myself after reading v2.0 |
+| 2026-11-10 | v2.2: ten boards instead of four. Added `toast`, `klaviyo`, `datadog` (Greenhouse), `spotify`, `zoox` (Lever), and `kraken` (Lever, live empty). Budgets raised: boards 5→12, requests 60→100, time 300→420 s, loop steps 100→200. The verifier now FAILs any empty board. Run plan A–D, with B as the live finished-wrong answer and D as the clean run. Wrong version 19 added. The review-packet paragraph now describes its defect and credits Claude for the reproduction | I wanted ten boards. A probe on 2026-11-10 found a real Lever board returning `200 []`, which gives a live finished-wrong answer instead of only a seeded one. The old budgets could not fit ten list requests, their retries and about 40 Samsara detail requests. Without the empty-board check, the verifier would have passed kraken because it has no history |
