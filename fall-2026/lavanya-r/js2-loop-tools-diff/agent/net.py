@@ -29,7 +29,8 @@ def make_get(policy):
             return super().redirect_request(req, fp, code, msg, headers,
                                             newurl)
 
-    opener = urllib.request.build_opener(_CheckedRedirect)
+    handler = _CheckedRedirect()
+    opener = urllib.request.build_opener(handler)
 
     def get(url, timeout):
         policy.check_action("fetch_board")
@@ -49,4 +50,5 @@ def make_get(policy):
                 raise Timeout(f"timeout after {timeout}s") from None
             raise Timeout(f"connection failed: {e.reason}") from None
 
+    get.redirect_handler = handler        # exposed so tests can reach it
     return get

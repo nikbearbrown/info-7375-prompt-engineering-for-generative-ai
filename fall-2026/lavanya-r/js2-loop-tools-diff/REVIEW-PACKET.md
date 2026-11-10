@@ -63,7 +63,7 @@ So reading the diff, not the green tests, found three things the test-first spec
 
 The 3 replies that flipped are exactly the ones JS1 recorded as wrongly INVALID because of `.0`: the dev reply for posting 6865698002 and two action-surface replies. For the action-surface files, which store no posting id, the script uses the reply's own id, so only the field-path checks are meaningful there.
 
-**By me (Lavanya), in my own terminal:** see "Commands I ran myself" in README.md. Those were run after this packet was drafted, and the results are recorded there.
+**By me (Lavanya), in my own terminal:** after the revision, I ran the full suite myself (`python3 -B -m unittest discover -s tests -t .`: 94 tests, OK). That suite includes both `tests/test_path_index.py` and `tests/test_path_index_review.py`, so I saw the test-first spec and the reviewer's cases pass on `54b5602` myself. I also ran `check.py` on live run 1 (9/9). See "Commands I ran myself" in README.md.
 
 ## 6. Decision
 

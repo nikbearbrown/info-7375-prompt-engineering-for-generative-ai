@@ -36,6 +36,30 @@ class TestFourteenCases(Base):
                                          target), expected)
 
 
+class TestRedirects(Base):
+    """GATE 5: a redirect is checked against the same allow-list."""
+
+    def redirect(self, newurl):
+        import urllib.request
+        get = net.make_get(self.policy)
+        req = urllib.request.Request(
+            "https://api.lever.co/v0/postings/palantir?mode=json")
+        return get.redirect_handler.redirect_request(
+            req, None, 302, "Found", {}, newurl)
+
+    def test_redirect_off_the_list_is_refused(self):
+        for url in ["https://evil.example/jobs",
+                    "http://api.lever.co/v0/postings/palantir",
+                    "https://api.lever.co.evil.example/x"]:
+            with self.subTest(url=url), self.assertRaises(Refused):
+                self.redirect(url)
+
+    def test_redirect_within_the_list_is_followed(self):
+        new = self.redirect("https://api.lever.co/v0/postings/palantir2")
+        self.assertEqual(new.full_url,
+                         "https://api.lever.co/v0/postings/palantir2")
+
+
 class TestEnforcement(Base):
     def test_refused_writes_leave_nothing_behind(self):
         for target in ["runs/../GATE.md", "runs-evil/x.json",

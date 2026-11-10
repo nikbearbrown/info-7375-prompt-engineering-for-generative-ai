@@ -66,6 +66,29 @@ class Budget:
         self.requests += 1
 
 
+GATE_ROWS = [("boards", r"Boards"), ("requests", r"Requests"),
+             ("seconds", r"Seconds \(wall clock")]
+
+
+def budget_mismatches(gate_text, limits):
+    """GATE 2: the budgets the code uses must equal GATE.md's table. Returns
+    a list of problems; empty means they match."""
+    import re
+    bad = []
+    for key, label in GATE_ROWS:
+        m = re.search(rf"^\| {label}[^|]*\| \*\*(\d+)\*\*", gate_text, re.M)
+        if not m:
+            bad.append(f"GATE.md has no '{key}' row")
+        elif limits.get(key) != int(m.group(1)):
+            bad.append(f"{key}: config {limits.get(key)} != GATE.md "
+                       f"{m.group(1)}")
+    m = re.search(r"Seconds per single request \(timeout\) \| (\d+)",
+                  gate_text)
+    if not m or limits.get("request_timeout_seconds") != int(m.group(1)):
+        bad.append("request_timeout_seconds does not match GATE.md")
+    return bad
+
+
 def repeat_key(ats, board):
     """GATE 3: same ATS host + same board name, ignoring capitals."""
     return (ats, board.lower())
@@ -369,6 +392,12 @@ def main(argv=None):
     policy = Policy(ROOT)   # all paths below are relative to the JS2 folder
     limits = json.loads(policy.read_bytes(a.budgets))
     limits = {k: v for k, v in limits.items() if not k.startswith("_")}
+    bad = budget_mismatches(policy.read_bytes("GATE.md").decode(), limits)
+    if bad:
+        print("REFUSING TO RUN: config/budgets.json does not match GATE.md "
+              "section 2 (a budget changes only by a written decision):\n  "
+              + "\n  ".join(bad))
+        return EXIT_CODES["error"]
     boards = json.loads(policy.read_bytes(a.boards))["boards"]
     approver = always_approve if a.approve_state else ask_on_terminal
     if a.fixtures:
