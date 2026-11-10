@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 16 items
+
+tests/test_policy.py::test_B1_host_off_allow_list_refused PASSED         [  6%]
+tests/test_policy.py::test_B2_lookalike_host_refused PASSED              [ 12%]
+tests/test_policy.py::test_B3_redirect_off_allow_list_refused PASSED     [ 18%]
+tests/test_policy.py::test_B4_post_refused PASSED                        [ 25%]
+tests/test_policy.py::test_B5_allowed_host_get_allowed PASSED            [ 31%]
+tests/test_policy.py::test_B6_write_inside_out_allowed PASSED            [ 37%]
+tests/test_policy.py::test_B7_dotdot_traversal_refused PASSED            [ 43%]
+tests/test_policy.py::test_B8_absolute_path_outside_refused PASSED       [ 50%]
+tests/test_policy.py::test_B9_prefix_trick_refused PASSED                [ 56%]
+tests/test_policy.py::test_B10_symlink_escape_refused PASSED             [ 62%]
+tests/test_policy.py::test_B12_write_to_read_only_evidence_refused PASSED [ 68%]
+tests/test_policy.py::test_B11_read_evidence_allowed PASSED              [ 75%]
+tests/test_policy.py::test_B13_read_outside_project_refused PASSED       [ 81%]
+tests/test_policy.py::test_B14_reset_without_approval_refused PASSED     [ 87%]
+tests/test_policy.py::test_B15_reset_with_wrong_approval_refused PASSED  [ 93%]
+tests/test_policy.py::test_B16_reset_with_matching_approval_allowed PASSED [100%]
+
+============================== 16 passed in 0.07s ==============================

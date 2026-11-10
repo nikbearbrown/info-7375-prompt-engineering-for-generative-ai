@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 40 items
+
+tests/test_loop.py::test_all_boards_ok_is_finished PASSED                [  2%]
+tests/test_loop.py::test_failed_board_makes_run_incomplete_not_finished PASSED [  5%]
+tests/test_loop.py::test_no_retry_on_404 PASSED                          [  7%]
+tests/test_loop.py::test_retry_once_on_5xx_then_fail PASSED              [ 10%]
+tests/test_loop.py::test_request_budget_stops_before_sending PASSED      [ 12%]
+tests/test_loop.py::test_retry_not_sent_when_budget_runs_out PASSED      [ 15%]
+tests/test_loop.py::test_time_budget_stops_before_sending PASSED         [ 17%]
+tests/test_loop.py::test_duplicate_board_is_repeat_blocked PASSED        [ 20%]
+tests/test_loop.py::test_state_not_advanced_for_failed_board PASSED      [ 22%]
+tests/test_loop.py::test_baseline_then_only_new_ids_and_no_collision_across_boards PASSED [ 25%]
+tests/test_loop.py::test_raw_response_and_trace_are_saved PASSED         [ 27%]
+tests/test_loop.py::test_checker_flags_empty_board_that_loop_called_finished PASSED [ 30%]
+tests/test_loop.py::test_checker_finds_nothing_on_normal_board PASSED    [ 32%]
+tests/test_policy.py::test_B1_host_off_allow_list_refused PASSED         [ 35%]
+tests/test_policy.py::test_B2_lookalike_host_refused PASSED              [ 37%]
+tests/test_policy.py::test_B3_redirect_off_allow_list_refused PASSED     [ 40%]
+tests/test_policy.py::test_B4_post_refused PASSED                        [ 42%]
+tests/test_policy.py::test_B5_allowed_host_get_allowed PASSED            [ 45%]
+tests/test_policy.py::test_B6_write_inside_out_allowed PASSED            [ 47%]
+tests/test_policy.py::test_B7_dotdot_traversal_refused PASSED            [ 50%]
+tests/test_policy.py::test_B8_absolute_path_outside_refused PASSED       [ 52%]
+tests/test_policy.py::test_B9_prefix_trick_refused PASSED                [ 55%]
+tests/test_policy.py::test_B10_symlink_escape_refused PASSED             [ 57%]
+tests/test_policy.py::test_B12_write_to_read_only_evidence_refused PASSED [ 60%]
+tests/test_policy.py::test_B11_read_evidence_allowed PASSED              [ 62%]
+tests/test_policy.py::test_B13_read_outside_project_refused PASSED       [ 65%]
+tests/test_policy.py::test_B14_reset_without_approval_refused PASSED     [ 67%]
+tests/test_policy.py::test_B15_reset_with_wrong_approval_refused PASSED  [ 70%]
+tests/test_policy.py::test_B16_reset_with_matching_approval_allowed PASSED [ 72%]
+tests/test_rule_judge.py::test_verdicts_remain_associated_with_correct_posting_ids PASSED [ 75%]
+tests/test_rule_judge.py::test_every_verdict_has_resume_and_posting_field_evidence PASSED [ 77%]
+tests/test_rule_judge.py::test_skills_require_three_distinct_whole_word_matches PASSED [ 80%]
+tests/test_rule_judge.py::test_invalid_judgment_retries_once_then_marks_invalid PASSED [ 82%]
+tests/test_string_ids.py::test_string_ids_are_tracked_not_dropped PASSED [ 85%]
+tests/test_string_ids.py::test_empty_or_missing_ids_are_still_unusable PASSED [ 87%]
+tests/test_watch.py::test_first_run_baseline_reports_zero_new_postings PASSED [ 90%]
+tests/test_watch.py::test_seeded_run_uses_saved_response_without_greenhouse_request PASSED [ 92%]
+tests/test_watch.py::test_rejects_unapproved_hosts_and_redirects PASSED  [ 95%]
+tests/test_watch.py::test_rejects_nonfictional_resume_identity PASSED    [ 97%]
+tests/test_watch.py::test_failed_fetch_or_rule_preserves_previous_state PASSED [100%]
+
+============================== 40 passed in 0.12s ==============================

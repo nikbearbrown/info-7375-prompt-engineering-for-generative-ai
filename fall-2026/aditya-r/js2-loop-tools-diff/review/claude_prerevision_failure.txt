@@ -1,0 +1,44 @@
+# Claude Code: revision tests run against the UNREVISED patch (HEAD 6d37618, agent/ unchanged since 0007bbd), 2026-11-10 17:58:54 EST.
+# Paths are rewritten as they are captured: <js2> and <tmp>.
+$ .venv/bin/python -m pytest -q -p no:cacheprovider -rfE --tb=line tests/test_meta_object.py
+..FFFFFFFFFFFFFFFFFF                                                     [100%]
+=================================== FAILURES ===================================
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:32: Failed: DID NOT RAISE <class 'agent.board.BoardInconsistentError'>
+<js2>/tests/test_meta_object.py:45: AssertionError: assert 0 == 3
+<js2>/tests/test_meta_object.py:45: AssertionError: assert 0 == 3
+<js2>/tests/test_meta_object.py:45: AssertionError: assert 0 == 3
+<js2>/tests/test_meta_object.py:45: AssertionError: assert 0 == 3
+<js2>/tests/test_meta_object.py:45: AssertionError: assert 0 == 3
+<js2>/tests/test_meta_object.py:58: AssertionError: assert 0 == 3
+=========================== short test summary info ============================
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[None]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[0]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[5]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[-1]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[1.5]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser['']
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser['total']
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[True]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[False]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[[]]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[[1]]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[['total', 1]]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_makes_the_watch_incomplete_and_keeps_state_and_evidence[None]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_makes_the_watch_incomplete_and_keeps_state_and_evidence[5]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_makes_the_watch_incomplete_and_keeps_state_and_evidence['total']
+FAILED tests/test_meta_object.py::test_3_non_object_meta_makes_the_watch_incomplete_and_keeps_state_and_evidence[True]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_makes_the_watch_incomplete_and_keeps_state_and_evidence[[1]]
+FAILED tests/test_meta_object.py::test_3_non_object_meta_on_a_first_run_creates_no_baseline
+18 failed, 2 passed in 0.07s
+[pytest exit status: 1]

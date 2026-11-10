@@ -175,3 +175,6 @@ A run violates this gate if it:
 - Fails to record its observations, failures, and final exit status.
 
 This gate is the written contract for implementation and testing. Any change to these rules requires a dated revision before the code implementing that change is made.
+
+## Revisions
+- November 9, 2026 (after implementation, recorded honestly rather than before the code): the client also refuses non-https URLs (stricter than §6). An approved reset writes `seen_ids: []`, so on that board's next run every current posting is reported as new; it is not treated as a fresh baseline as §6 first said. Known gaps accepted, not fixed: redirect hops count toward the request budget but the budget is checked only before each attempt's first request (§3); a slow, trickling response can exceed the time budget; concurrent runs are not protected.

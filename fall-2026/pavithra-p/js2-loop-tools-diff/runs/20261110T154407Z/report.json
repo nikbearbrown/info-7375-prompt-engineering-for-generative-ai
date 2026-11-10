@@ -1,0 +1,129 @@
+{
+  "status": "incomplete",
+  "reason": "1 of 5 boards failed: lever:no-such-board (HTTP 404, not retried (permanent))",
+  "started_at": "2026-11-10T15:44:07Z",
+  "requests": 5,
+  "seconds": 3.442,
+  "last_action": "GET https://api.lever.co/v0/postings/no-such-board?mode=json (attempt 1): HTTP 404",
+  "all_jobs": 568,
+  "relevant_all": 7,
+  "new_jobs": [
+    {
+      "board": "lever:spotify",
+      "id": "3f78e5c3-95c2-4d32-8ad5-54a215ccee0f",
+      "title": "Client Partner - Emerging & Scaled (French Speaking)",
+      "location": "London (GB)",
+      "url": "https://jobs.lever.co/spotify/3f78e5c3-95c2-4d32-8ad5-54a215ccee0f",
+      "rule": "Not Relevant",
+      "reason": "Not Relevant. role not met: title \"Client Partner - Emerging & Scaled (French Speaking)\" lacks \"Engineer\" plus a role word; skills not met: description has 0 of the résumé's skills; experience not met (the 0–2 year limit set for the résumé's experience): title has no seniority word; description asks for 5 years; location not met: location \"London (GB)\" has no United States, USA or US."
+    },
+    {
+      "board": "lever:spotify",
+      "id": "94a10740-8d2c-430a-8ef3-2d988142541a",
+      "title": "Senior Product Manager — Subscriptions (Freemium)",
+      "location": "London; Stockholm (GB)",
+      "url": "https://jobs.lever.co/spotify/94a10740-8d2c-430a-8ef3-2d988142541a",
+      "rule": "Not Relevant",
+      "reason": "Not Relevant. role not met: title \"Senior Product Manager — Subscriptions (Freemium)\" lacks \"Engineer\" plus a role word; skills not met: description has 0 of the résumé's skills; experience not met (the 0–2 year limit set for the résumé's experience): title has Senior, Manager; location not met: location \"London; Stockholm (GB)\" has no United States, USA or US."
+    }
+  ],
+  "boards": [
+    {
+      "board": "greenhouse:pinterest",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/pinterest/jobs?content=true",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 1997421,
+          "raw": "evidence/raw/20261110T154407Z-greenhouse-pinterest-a1.json",
+          "seconds": 0.502
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 166,
+      "new_ids": []
+    },
+    {
+      "board": "greenhouse:figma",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 1660655,
+          "raw": "evidence/raw/20261110T154407Z-greenhouse-figma-a1.json",
+          "seconds": 0.391
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 143,
+      "new_ids": []
+    },
+    {
+      "board": "lever:spotify",
+      "system": "lever",
+      "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 824183,
+          "raw": "evidence/raw/20261110T154407Z-lever-spotify-a1.json",
+          "seconds": 0.925
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 87,
+      "new_ids": [
+        "3f78e5c3-95c2-4d32-8ad5-54a215ccee0f",
+        "94a10740-8d2c-430a-8ef3-2d988142541a"
+      ]
+    },
+    {
+      "board": "ashby:ramp",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/ramp",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 2890460,
+          "raw": "evidence/raw/20261110T154407Z-ashby-ramp-a1.json",
+          "seconds": 0.335
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 172,
+      "new_ids": []
+    },
+    {
+      "board": "lever:no-such-board",
+      "system": "lever",
+      "url": "https://api.lever.co/v0/postings/no-such-board?mode=json",
+      "result": "failed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 404",
+          "bytes": 41,
+          "raw": "evidence/raw/20261110T154407Z-lever-no-such-board-a1.json",
+          "seconds": 1.223
+        }
+      ],
+      "reason": "HTTP 404, not retried (permanent)",
+      "jobs": null,
+      "new_ids": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+diff --git a/fall-2026/pavithra-p/js2-loop-tools-diff/agent/rule.py b/fall-2026/pavithra-p/js2-loop-tools-diff/agent/rule.py
+index d1da33a..9335d4b 100644
+--- a/fall-2026/pavithra-p/js2-loop-tools-diff/agent/rule.py
++++ b/fall-2026/pavithra-p/js2-loop-tools-diff/agent/rule.py
+@@ -11,7 +11,8 @@ EXPERIENCE_WORDS = ("Senior", "Sr", "Staff", "Principal", "Lead", "Manager", "Di
+ US_WORDS = ("United States", "USA", "US")
+ MAX_YEARS = 3  # a description asking for 3 or more years fails rule 3
+ # Decimals are read whole: "1.5+ years" is 1.5, not 5 (fixed 2026-10-31 after experiment 2).
+-YEARS = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d+)?)\s*\+?\s*years\b", re.IGNORECASE)
++# A range counts as its lowest number: "2–12+ years" is 2, "3-5 years" is 3 (JS2 review packet, 2026-11-10).
++YEARS = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d+)?)(?:\s*[-–—]\s*(\d{1,2}(?:\.\d+)?))?\s*\+?\s*years\b", re.IGNORECASE)
+ 
+ 
+ def find_words(text, words):
+@@ -60,7 +61,7 @@ def judge(job, resume):
+     skills_ok = len(matched) >= 2
+ 
+     title_words = find_words(title, EXPERIENCE_WORDS)
+-    years = [float(n) for n in YEARS.findall(description)]
++    years = [min(float(low), float(high or low)) for low, high in YEARS.findall(description)]
+     too_many_years = [n for n in years if n >= MAX_YEARS]
+     experience_ok = not title_words and not too_many_years
+ 

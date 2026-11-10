@@ -1,0 +1,108 @@
+{
+  "status": "finished",
+  "reason": "all 5 boards checked",
+  "started_at": "2026-11-10T13:31:00Z",
+  "requests": 5,
+  "seconds": 2.776,
+  "last_action": "GET https://api.lever.co/v0/postings/no-such-board?mode=json (attempt 1): HTTP 404",
+  "all_jobs": 567,
+  "relevant_all": 7,
+  "new_jobs": [],
+  "boards": [
+    {
+      "board": "greenhouse:pinterest",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/pinterest/jobs?content=true",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 2009055,
+          "raw": "evidence/raw/20261110T133100Z-WRONG-V3-greenhouse-pinterest-a1.json",
+          "seconds": 0.334
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 167,
+      "new_ids": []
+    },
+    {
+      "board": "greenhouse:figma",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 1660655,
+          "raw": "evidence/raw/20261110T133100Z-WRONG-V3-greenhouse-figma-a1.json",
+          "seconds": 0.324
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 143,
+      "new_ids": []
+    },
+    {
+      "board": "lever:spotify",
+      "system": "lever",
+      "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 807304,
+          "raw": "evidence/raw/20261110T133100Z-WRONG-V3-lever-spotify-a1.json",
+          "seconds": 1.278
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 85,
+      "new_ids": []
+    },
+    {
+      "board": "ashby:ramp",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/ramp",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 200",
+          "bytes": 2890460,
+          "raw": "evidence/raw/20261110T133100Z-WRONG-V3-ashby-ramp-a1.json",
+          "seconds": 0.361
+        }
+      ],
+      "reason": "",
+      "baseline": false,
+      "jobs": 172,
+      "new_ids": []
+    },
+    {
+      "board": "lever:no-such-board",
+      "system": "lever",
+      "url": "https://api.lever.co/v0/postings/no-such-board?mode=json",
+      "result": "checked",
+      "attempts": [
+        {
+          "attempt": 1,
+          "outcome": "HTTP 404",
+          "bytes": 41,
+          "raw": "evidence/raw/20261110T133100Z-WRONG-V3-lever-no-such-board-a1.json",
+          "seconds": 0.379
+        }
+      ],
+      "reason": "",
+      "baseline": true,
+      "jobs": 0,
+      "new_ids": []
+    }
+  ]
+}

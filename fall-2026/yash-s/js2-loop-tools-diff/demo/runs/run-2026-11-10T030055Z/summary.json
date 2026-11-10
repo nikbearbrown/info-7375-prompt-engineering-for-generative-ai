@@ -1,0 +1,71 @@
+{
+  "agent": "agent.py",
+  "gate": "GATE.md (2026-11-09)",
+  "run": "run-2026-11-10T030055Z",
+  "started_at": "2026-11-10T03:00:55Z",
+  "source": "SEEDED: responses read from demo/replay, not fetched",
+  "config": "config/demo-finished-wrong.json",
+  "exit_status": "finished",
+  "exit_code": 0,
+  "budget_hit": null,
+  "problems": [],
+  "budgets": {
+    "boards": 4,
+    "requests": 6,
+    "seconds": 120.0,
+    "retries_per_board": 1
+  },
+  "used": {
+    "boards": 3,
+    "requests": 3,
+    "seconds": 0.117
+  },
+  "boards": [
+    {
+      "name": "Databricks",
+      "ats": "greenhouse",
+      "slug": "databricks",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-greenhouse-databricks-attempt1-http200.json"
+      ],
+      "postings": 915,
+      "baseline": false,
+      "new_count": 0
+    },
+    {
+      "name": "Anthropic",
+      "ats": "greenhouse",
+      "slug": "anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-greenhouse-anthropic-attempt1-http200.json"
+      ],
+      "postings": 0,
+      "baseline": false,
+      "new_count": 0
+    },
+    {
+      "name": "OpenAI",
+      "ats": "ashby",
+      "slug": "openai",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=true",
+      "status": "ok",
+      "error": null,
+      "attempts": 1,
+      "raw_files": [
+        "raw-ashby-openai-attempt1-http200.json"
+      ],
+      "postings": 825,
+      "baseline": false,
+      "new_count": 0
+    }
+  ],
+  "new_postings": []
+}

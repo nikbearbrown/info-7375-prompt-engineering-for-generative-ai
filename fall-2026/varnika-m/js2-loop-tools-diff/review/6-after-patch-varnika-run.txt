@@ -1,0 +1,22 @@
+# Varnika ran these herself in her own terminal on 2026-11-10, after the patch, and pasted the output to Claude
+# Code. The test run printed 96 tests, so it ran on the patched suite (91bfbda/94d9ae1), before the review tests
+# (7e09390) were added. `git diff` then opened a pager; she closed it, and `python3 -m agent.loop` started at
+# 21:45:09 UTC, when HEAD was a852e45 (the patch plus the loop/check_run review fixes 9ab582c). Shell-prompt
+# lines removed (they show her username and machine name). The diff is the one shown in REVIEW-PACKET.md.
+# Commands: python3 -m unittest discover -s tests -t .
+#           git diff 8ddfec0 91bfbda -- agent/tools.py
+#           python3 -m agent.loop
+................................................................................................
+----------------------------------------------------------------------
+Ran 96 tests in 1.415s
+
+OK
+
+Run 2026-11-10T214509Z (live): exit incomplete — greenhouse/js2-deliberately-missing-board failed not_found
+  greenhouse/anthropic                          ok                     677 postings, 0 new
+  lever/palantir                                ok                     304 postings, 0 new
+  ashby/linear                                  ok                     33 postings, 0 new
+  greenhouse/js2-deliberately-missing-board     failed:not_found       no counts
+Record: jobs/runs/2026-11-10T214509Z.json
+Report: jobs/runs/2026-11-10T214509Z.md
+Trace:  jobs/runs/2026-11-10T214509Z.trace.jsonl
