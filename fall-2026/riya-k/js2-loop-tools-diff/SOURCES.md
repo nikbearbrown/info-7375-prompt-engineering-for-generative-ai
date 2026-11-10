@@ -41,7 +41,9 @@ empty-board demo. My probes are listed in GATE.md "Board facts".
   I decided what the intern and full-time tests had to check; Claude wrote them.
 - **Drafts** of GATE.md (from my answers), BOUNDARY.md, RULE.md, TRACE.md, review/REVIEW_PACKET.md, README.md, this
   file and the sign-off / driver's-seat table, for me to check.
-- **Runs it made itself:** the smoke test into a scratch folder (not submitted), the seeded 4-board run, all test runs while building.
+- **Runs it made itself:** the smoke test into a scratch folder (not submitted), the seeded 4-board run, all test runs while building;
+  after my day-2 run, the recount of new/gone ids from the day-1 and day-2 raw files and the offline independent check of
+  the day-2 report (TRACE.md §4).
 - **Problems it found that I then decided on:** the stale `hubspot` note; the "Internal/International/Internals" look-alikes;
   that Notion's `employmentType` was wrong for "Outcomes Architect [Contract]" (so the title and field both count);
   that `--allowedTools` did not fence the patch session.

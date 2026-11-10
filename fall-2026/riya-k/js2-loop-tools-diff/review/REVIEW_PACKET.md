@@ -4,7 +4,7 @@
 **Why this change:** my JS1 hand check on Databricks posting 6866538002 showed the rule rates an internship
 as relevant, and the TA's JS1 feedback (2026-11-09) asked me to add an Intern exclusion.
 **My rule decision (2026-11-09, in chat):** whole-word `Intern` and `Internship` only. Co-op and Apprentice are
-left out on purpose (see "What the test still misses").
+left out on purpose (see §6, "What the test would still miss").
 
 ## Order of events (each step is a commit, so the order can be checked)
 

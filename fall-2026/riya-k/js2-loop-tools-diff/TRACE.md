@@ -86,7 +86,7 @@ This is labeled **seeded**: the responses are real, but they were replayed, not 
 
 Command: `python3 -m jsagent.loop run --label live-day2` (same `boards.json`, same `runs/` state as day 1, 23 h 13 min later).
 Files: `runs/report-20261110T194501Z-live-day2.{json,md}`, `runs/trace/20261110T194501Z-live-day2.jsonl`,
-`runs/raw/*-live-day2-a1.json`. This is the first live run judged by the current rule (amendments 3 and 4).
+`runs/raw/*-live-day2-a1.json`. The day-1 watch run was judged before amendments 3 and 4; this one was judged after them.
 
 | board | status | HTTP | attempts | postings | new since day 1 | gone since day 1 |
 |---|---|---|---|---|---|---|
@@ -99,8 +99,8 @@ Files: `runs/report-20261110T194501Z-live-day2.{json,md}`, `runs/trace/20261110T
 
 **Exit: `incomplete`** (the same two planted boards, escalated). Budget used: 6/6 boards, 6/10 requests, **41.20/60 s**.
 
-**Checked after the run (by recount, not by the agent):** the "new" and "gone" columns were recomputed by diffing the
-ids in the day-1 and day-2 raw files directly; all four "new" counts match the report. The report's
+**Checked after the run (by recount, not by the agent; done by Claude Code in my session, 2026-11-10):** the "new" and
+"gone" columns were recomputed by diffing the ids in the day-1 and day-2 raw files directly; all four "new" counts match the report. The report's
 `removed_since_last` for Databricks is 77, not 14, because its state also holds JS1 ids (state only grows, GATE.md), so no
 approval was needed. `tools/independent_check.py --offline` on this report: every recount agrees, "no contradiction found".
 
