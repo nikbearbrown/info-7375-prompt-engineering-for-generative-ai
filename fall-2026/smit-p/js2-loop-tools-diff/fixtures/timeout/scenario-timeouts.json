@@ -1,0 +1,8 @@
+{
+  "label": "SEEDED. Figma times out once then answers with its real 2026-11-08 response; Spotify times out twice. Linear replays its real response.",
+  "responses": {
+    "https://boards-api.greenhouse.io/v1/boards/figma/jobs": [{"error": "timeout"}, {"status": 200, "body_file": "../../jobs/runs/2026-11-08T00-47-30Z/raw/figma-1.json"}],
+    "https://api.lever.co/v0/postings/spotify?mode=json": [{"error": "timeout"}, {"error": "timeout"}],
+    "https://api.ashbyhq.com/posting-api/job-board/linear": [{"status": 200, "body_file": "../../jobs/runs/2026-11-08T00-47-30Z/raw/linear-1.json"}]
+  }
+}

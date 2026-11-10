@@ -1,0 +1,97 @@
+{
+  "status": "finished",
+  "exit_code": 0,
+  "reason": "all 3 board(s) succeeded",
+  "requests_used": 0,
+  "elapsed_seconds": 0.067,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 10,
+    "max_seconds": 60,
+    "request_timeout": 10,
+    "retry_wait": 2
+  },
+  "boards_attempted": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai"
+  ],
+  "boards_succeeded": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai"
+  ],
+  "boards_failed": [],
+  "boards_repeat_blocked": [],
+  "boards_not_attempted": [],
+  "new_counts": {
+    "greenhouse:gleanwork": 0,
+    "lever:palantir": 3,
+    "ashby:openai": 6
+  },
+  "failures": {},
+  "duplicate_entries": [],
+  "replayed": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai"
+  ],
+  "run_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T131828",
+  "trace": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T131828/trace.jsonl",
+  "raw_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T131828/raw",
+  "boards": {
+    "greenhouse:gleanwork": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 0,
+      "new": [],
+      "baseline": false,
+      "usable_ids": 0,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": false,
+      "source": "replay",
+      "http_status": null,
+      "raw_file": "raw/greenhouse_gleanwork.json"
+    },
+    "lever:palantir": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 304,
+      "new": [
+        "lever:palantir:1b694ba4-dfda-46b3-ae07-6392bcabb75c",
+        "lever:palantir:aa77156e-de75-4f36-9d2a-4ec04f97b3c6",
+        "lever:palantir:168e1345-913c-4826-a926-a07d5cf10bba"
+      ],
+      "baseline": false,
+      "usable_ids": 304,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": false,
+      "source": "replay",
+      "http_status": null,
+      "raw_file": "raw/lever_palantir.json"
+    },
+    "ashby:openai": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 825,
+      "new": [
+        "ashby:openai:31f7b3d9-eb5f-4e70-98ab-9115dd153993",
+        "ashby:openai:371afd71-386b-40a0-be0a-e90f010b7bd0",
+        "ashby:openai:dc503400-f7a8-4ad4-b50b-b33d2d12cc2d",
+        "ashby:openai:927e7c35-316f-43eb-bcf4-637c525c0d58",
+        "ashby:openai:92a3a049-f84d-4c0c-85d2-221aa58a596e",
+        "ashby:openai:76084eee-9186-4897-ae12-3445307e61be"
+      ],
+      "baseline": false,
+      "usable_ids": 825,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": false,
+      "source": "replay",
+      "http_status": null,
+      "raw_file": "raw/ashby_openai.json"
+    }
+  }
+}

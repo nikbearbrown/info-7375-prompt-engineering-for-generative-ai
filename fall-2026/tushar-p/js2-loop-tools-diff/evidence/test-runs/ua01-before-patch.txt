@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.10, pytest-9.2.0, pluggy-1.7.0 -- /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff
+configfile: pytest.ini
+collecting ... collected 21 items / 20 deselected / 1 selected
+
+tests/test_permissions.py::test_ua01_request_sends_agent_user_agent FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_ua01_request_sends_agent_user_agent ___________________
+
+    def test_ua01_request_sends_agent_user_agent():
+        """GATE v0.4: every request sends the agent's own User-Agent, never urllib's default.
+        Written by me before the patch; expected to FAIL on commit <step-2 build>."""
+        handler = HeaderCapturingHandler(200, "OK", {}, b'{"jobs": []}')
+        spy = TransportSpy(inner=UrllibTransport(build_opener(https_handler=handler)))
+        send(STRIPE, "GET", P01_URL, transport=spy, timeout=TIMEOUT)
+        ua = handler.seen_headers.get("user-agent")
+>       assert ua == AGENT_UA
+E       AssertionError: assert None == 'info7375-js2-watch/0.1 (student project; tushar-js2@example.com)'
+
+tests/test_permissions.py:263: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_permissions.py::test_ua01_request_sends_agent_user_agent - ...
+======================= 1 failed, 20 deselected in 0.05s =======================

@@ -1,0 +1,17 @@
+Date: 2026-11-09
+Environment: macOS-27.2-arm64-arm-64bit-Mach-O; Python 3.14.5
+Command: /opt/homebrew/opt/python@3.14/bin/python3.14 verify_run.py seeded-vanish-2
+Exit code: 1
+
+PASS  hosts                               3 requests, off-list: none
+PASS  request count                       trace has 3, summary says 3
+PASS  seeded label                        replayed responses must be labeled
+PASS  figma: recount from raw             agent 0, recount 0
+PASS  figma: greenhouse meta.total        meta.total 0, jobs 0
+FAIL  figma: empty after non-empty        145 postings in seeded-vanish-1, 0 now, yet reported as status ok
+PASS  spotify: recount from raw           agent 85, recount 85
+PASS  spotify: compared with earlier raw  85 in seeded-vanish-1, 85 now
+PASS  linear: recount from raw            agent 32, recount 32
+PASS  linear: compared with earlier raw   32 in seeded-vanish-1, 32 now
+FAIL  exit status earned                  finished requires every board ok and nothing suspicious
+verify seeded-vanish-2: agent said 'finished'; independent check FAILED (2)

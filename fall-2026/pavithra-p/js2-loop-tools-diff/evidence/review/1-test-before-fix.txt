@@ -1,0 +1,28 @@
+$ python3 -m unittest tests.test_year_ranges -v   # 2026-11-10T13:36:50Z, before the fix, at commit 3700113
+test_a_range_2_to_12_plus_passes (tests.test_year_ranges.YearRangeTests.test_a_range_2_to_12_plus_passes) ... FAIL
+test_b_minimum_2_to_3_plus_passes (tests.test_year_ranges.YearRangeTests.test_b_minimum_2_to_3_plus_passes) ... FAIL
+test_c_range_3_to_5_fails (tests.test_year_ranges.YearRangeTests.test_c_range_3_to_5_fails) ... ok
+test_d_5_plus_fails (tests.test_year_ranges.YearRangeTests.test_d_5_plus_fails) ... ok
+
+======================================================================
+FAIL: test_a_range_2_to_12_plus_passes (tests.test_year_ranges.YearRangeTests.test_a_range_2_to_12_plus_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pavithraprasad/Documents/MS IN IS USA/Fall 26/Prompt eng/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavithra-p/js2-loop-tools-diff/tests/test_year_ranges.py", line 21, in test_a_range_2_to_12_plus_passes
+    self.assertTrue(experience_met("2–12+ years of industry software engineering experience"))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_b_minimum_2_to_3_plus_passes (tests.test_year_ranges.YearRangeTests.test_b_minimum_2_to_3_plus_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pavithraprasad/Documents/MS IN IS USA/Fall 26/Prompt eng/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavithra-p/js2-loop-tools-diff/tests/test_year_ranges.py", line 24, in test_b_minimum_2_to_3_plus_passes
+    self.assertTrue(experience_met("Minimum 2-3+ years of hands-on experience"))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (failures=2)

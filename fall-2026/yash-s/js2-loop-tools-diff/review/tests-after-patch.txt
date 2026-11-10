@@ -1,0 +1,71 @@
+test_raw_response_saved_byte_for_byte (test_loop.Evidence.test_raw_response_saved_byte_for_byte) ... ok
+test_trace_records_every_request_retry_observation_and_the_exit (test_loop.Evidence.test_trace_records_every_request_retry_observation_and_the_exit) ... ok
+test_two_runs_in_the_same_second_keep_separate_folders (test_loop.Evidence.test_two_runs_in_the_same_second_keep_separate_folders) ... ok
+test_404_is_never_retried (test_loop.Exits.test_404_is_never_retried) ... ok
+test_a_config_cannot_set_budgets (test_loop.Exits.test_a_config_cannot_set_budgets) ... ok
+test_a_real_looking_resume_is_refused (test_loop.Exits.test_a_real_looking_resume_is_refused) ... ok
+test_board_budget (test_loop.Exits.test_board_budget) ... ok
+test_corrupted_state_is_an_error_and_is_not_overwritten (test_loop.Exits.test_corrupted_state_is_an_error_and_is_not_overwritten) ... ok
+test_every_board_ok_is_finished (test_loop.Exits.test_every_board_ok_is_finished) ... ok
+test_no_request_gets_more_time_than_is_left (test_loop.Exits.test_no_request_gets_more_time_than_is_left) ... ok
+test_policy_violation_is_an_error_and_stops (test_loop.Exits.test_policy_violation_is_an_error_and_stops) ... ok
+test_server_error_is_retried_once (test_loop.Exits.test_server_error_is_retried_once) ... ok
+test_time_budget (test_loop.Exits.test_time_budget) ... ok
+test_timeout_is_retried_once_and_counted (test_loop.Exits.test_timeout_is_retried_once_and_counted) ... ok
+test_two_timeouts_leave_the_board_unavailable (test_loop.Exits.test_two_timeouts_leave_the_board_unavailable) ... ok
+test_unknown_ats_is_an_error_before_any_request (test_loop.Exits.test_unknown_ats_is_an_error_before_any_request) ... ok
+test_wrong_version_1_failed_board_is_not_zero_new (test_loop.Exits.test_wrong_version_1_failed_board_is_not_zero_new) ... ok
+test_wrong_version_3_every_retry_counts (test_loop.Exits.test_wrong_version_3_every_retry_counts) ... ok
+test_the_same_request_is_made_once (test_loop.RepeatRule.test_the_same_request_is_made_once) ... ok
+test_a_well_formed_empty_list_is_a_valid_observation (test_loop.Responses.test_a_well_formed_empty_list_is_a_valid_observation)
+GATE.md: the agent accepts {"jobs": []}. This is the finished-wrong-answer case the ... ok
+test_invalid_json_fails_the_board_keeps_raw_and_state (test_loop.Responses.test_invalid_json_fails_the_board_keeps_raw_and_state) ... ok
+test_missing_jobs_list_fails_the_board (test_loop.Responses.test_missing_jobs_list_fails_the_board) ... ok
+test_a_failed_board_keeps_its_previous_state (test_loop.State.test_a_failed_board_keeps_its_previous_state) ... ok
+test_a_posting_that_returns_is_not_new (test_loop.State.test_a_posting_that_returns_is_not_new) ... ok
+test_ashby_string_ids_are_tracked (test_loop.State.test_ashby_string_ids_are_tracked) ... ok
+test_baseline_reports_zero_new_and_records_every_id (test_loop.State.test_baseline_reports_zero_new_and_records_every_id) ... ok
+test_only_ids_not_seen_before_are_new (test_loop.State.test_only_ids_not_seen_before_are_new) ... ok
+test_the_js1_state_format_is_accepted (test_loop.State.test_the_js1_state_format_is_accepted) ... ok
+test_06_write_inside_runs_allowed (test_policy.Files.test_06_write_inside_runs_allowed) ... ok
+test_07_dot_dot_escape_refused (test_policy.Files.test_07_dot_dot_escape_refused) ... ok
+test_08_look_alike_folder_prefix_refused (test_policy.Files.test_08_look_alike_folder_prefix_refused) ... ok
+test_09_symlink_pointing_outside_refused (test_policy.Files.test_09_symlink_pointing_outside_refused) ... ok
+test_10_read_the_persona_allowed (test_policy.Files.test_10_read_the_persona_allowed) ... ok
+test_11_write_the_persona_refused (test_policy.Files.test_11_write_the_persona_refused) ... ok
+test_12_reset_state_without_approval_refused (test_policy.Files.test_12_reset_state_without_approval_refused) ... ok
+test_13_reset_state_with_approval_allowed (test_policy.Files.test_13_reset_state_with_approval_allowed) ... ok
+test_15_absolute_path_outside_refused (test_policy.Files.test_15_absolute_path_outside_refused) ... ok
+test_extra_approval_must_be_exactly_true (test_policy.Files.test_extra_approval_must_be_exactly_true) ... ok
+test_extra_approval_never_allows_a_path_outside_the_state_folder (test_policy.Files.test_extra_approval_never_allows_a_path_outside_the_state_folder) ... ok
+test_extra_evidence_is_create_only (test_policy.Files.test_extra_evidence_is_create_only) ... ok
+test_extra_read_outside_allowed_folders_refused (test_policy.Files.test_extra_read_outside_allowed_folders_refused) ... ok
+test_extra_run_folders_are_never_reused (test_policy.Files.test_extra_run_folders_are_never_reused) ... ok
+test_extra_state_only_inside_the_state_folder (test_policy.Files.test_extra_state_only_inside_the_state_folder) ... ok
+test_01_https_greenhouse_allowed (test_policy.Network.test_01_https_greenhouse_allowed) ... ok
+test_02_https_ashby_allowed (test_policy.Network.test_02_https_ashby_allowed) ... ok
+test_03_host_off_the_allow_list_refused (test_policy.Network.test_03_host_off_the_allow_list_refused) ... ok
+test_04_look_alike_host_refused (test_policy.Network.test_04_look_alike_host_refused) ... ok
+test_05_plain_http_refused (test_policy.Network.test_05_plain_http_refused) ... ok
+test_14_http_get_installs_the_redirect_refusal (test_policy.Network.test_14_http_get_installs_the_redirect_refusal) ... ok
+test_14_redirect_refused (test_policy.Network.test_14_redirect_refused) ... ok
+test_extra_other_port_refused (test_policy.Network.test_extra_other_port_refused) ... ok
+test_extra_post_refused (test_policy.Network.test_extra_post_refused) ... ok
+test_extra_user_part_trick_refused (test_policy.Network.test_extra_user_part_trick_refused) ... ok
+test_off_list_url_refused_before_any_network (test_policy.Network.test_off_list_url_refused_before_any_network) ... ok
+test_a_report_that_disagrees_with_its_raw_response_is_flagged (test_providers_and_check.IndependentCheck.test_a_report_that_disagrees_with_its_raw_response_is_flagged) ... ok
+test_a_steady_board_is_not_flagged (test_providers_and_check.IndependentCheck.test_a_steady_board_is_not_flagged) ... ok
+test_an_empty_board_finishes_but_the_independent_check_flags_it (test_providers_and_check.IndependentCheck.test_an_empty_board_finishes_but_the_independent_check_flags_it) ... ok
+test_the_checker_does_not_use_the_agents_code (test_providers_and_check.IndependentCheck.test_the_checker_does_not_use_the_agents_code) ... ok
+test_a_well_formed_empty_list_is_valid (test_providers_and_check.Providers.test_a_well_formed_empty_list_is_valid) ... ok
+test_bad_board_names_and_systems_are_refused (test_providers_and_check.Providers.test_bad_board_names_and_systems_are_refused) ... ok
+test_board_urls (test_providers_and_check.Providers.test_board_urls) ... ok
+test_greenhouse_and_ashby_parse (test_providers_and_check.Providers.test_greenhouse_and_ashby_parse) ... ok
+test_malformed_responses_raise_and_are_never_empty (test_providers_and_check.Providers.test_malformed_responses_raise_and_are_never_empty) ... ok
+test_console_does_not_print_new_0_for_the_failed_board (test_review_failed_board_count.FailedBoardCount.test_console_does_not_print_new_0_for_the_failed_board) ... ok
+test_summary_does_not_report_zero_new_for_the_failed_board (test_review_failed_board_count.FailedBoardCount.test_summary_does_not_report_zero_new_for_the_failed_board) ... ok
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.156s
+
+OK
