@@ -300,3 +300,132 @@ I will keep this limitation in my review packet rather than claiming complete co
 - `independent_check.py`
 - `tests/test_review_failed_board_count.py`
 - `review/test-before-patch.txt` (to be created when I run the failing assertions)
+
+### Follow-up: My Own Verification
+
+After Claude's scratch rehearsal, I ran the three-board seeded demonstration myself.
+
+The agent reported `FINISHED` with a successful exit, even though the constructed Anthropic response contained zero postings.
+
+I ran the independent checker, which compared the constructed response with the earlier live Anthropic response containing 675 postings.
+
+It flagged `DROP-TO-ZERO: 675 -> 0`.
+
+I saved this output in `demo/independent-check-output.txt` and committed the demonstration separately.
+
+I also completed my regression-test assertions and ran them before the patch. Both failed as expected, and I saved the failures in `review/test-before-patch.txt`.
+
+## 2026-11-09: Reviewing and Accepting the Failed-Board Count Fix
+
+### What I did
+
+During my first live JS2 run, I found that the deliberately failing board returned HTTP 404 but was still reported as having zero new postings.
+
+The overall run correctly finished as `INCOMPLETE`, but `summary.json` contained `"new_count": 0`, and the console printed `new=0`.
+
+I wanted to fix this because my GATE.md says that a failed board must not be reported as having zero new jobs.
+
+Before asking Claude to change the implementation, I wrote two regression-test assertions.
+
+The first required the failed board's `new_count` to be `null` in `summary.json`.
+
+The second required the console to display `new=unknown` instead of `new=0`.
+
+I ran both tests against the original code, and both failed with assertion failures.
+
+I saved the output in `review/test-before-patch.txt` and committed the failing tests before Claude made the patch.
+
+### What Claude changed
+
+I asked Claude Code to make the smallest possible fix, without changing my tests or previous evidence.
+
+Claude changed two places in `agent.py`.
+
+First, `new_count` is now calculated only for boards with status `ok`. For unsuccessful boards, the value is `null`.
+
+Second, the console now displays `new=unknown` when the new-job count is not known.
+
+I asked Claude to cover all boards that were not successfully observed, not just HTTP 404 failures.
+
+This includes failed, unavailable, and not-checked boards.
+
+The patch also applies to boards stopped by an error because they do not have status `ok`.
+
+Claude did not modify my regression tests or overwrite the earlier live-run evidence.
+
+### What I checked myself
+
+I reviewed the patch using:
+
+`git diff -- agent.py`
+
+I checked that the changes were limited to the two places responsible for the JSON summary and console output.
+
+I then ran:
+
+`python3 -m unittest discover -s tests -v`
+
+All 65 tests passed, including the two new regression tests that had failed before the patch.
+
+I also reran:
+
+`python3 wrong_versions.py`
+
+The unmodified baseline passed all 65 tests.
+
+The three deliberately incorrect versions were caught again:
+
+| Wrong version | Result | Tests that caught it |
+|---|---|---|
+| WV1: Failed board reported as zero new jobs | Caught | 7 |
+| WV2: Incorrect string-prefix folder check | Caught | 1 |
+| WV3: Retries not counted toward the budget | Caught | 2 |
+
+This was important because my TA suggested rerunning planted-bug checks after code changes.
+
+### My decision
+
+I decided to accept Claude's patch.
+
+The change directly fixes the problem I found during my live run.
+
+My tests failed before the patch and passed afterward.
+
+The diff was limited to `agent.py`, and the change did not alter the request budgets, permission policy, state-update rules, or original run evidence.
+
+I also accepted the broader fix for every unsuccessful board because a board that was never successfully observed cannot have a verified new-job count.
+
+I did not ask Claude to change the tests to make them pass.
+
+### What is still not checked
+
+My two new regression tests directly reproduce the HTTP 404 case.
+
+They do not separately verify the displayed counts for timeout-exhausted, budget-skipped, or stopped-by-error boards.
+
+The patch uses the same condition for these cases, but I cannot claim that every failure status was independently tested by my new regression tests.
+
+I also have not repeated the original live network run after this patch.
+
+The old live evidence remains unchanged because it documents the original defect.
+
+### What I learned
+
+My first 63 tests passed, and the three wrong versions were caught, but the actual live run still revealed misleading output.
+
+This showed me that passing tests do not guarantee that every output is correct.
+
+Writing failing tests before Claude changed the code helped me define what the correct behavior should be.
+
+Reviewing the diff and rerunning the wrong-version checks helped me make my own decision instead of accepting Claude's patch only because it said the fix worked.
+
+### Evidence
+
+- Original live run: `runs/run-2026-11-10T025118Z/`
+- Failing regression tests: `tests/test_review_failed_board_count.py`
+- Saved failures: `review/test-before-patch.txt`
+- Full test suite: 65 passing tests
+- Wrong-version check: 3 of 3 caught
+- Failing-test commits: `bca5bb6` and `3bdca8b`
+- Patch: `agent.py` (two changed locations)
+

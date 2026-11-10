@@ -246,7 +246,8 @@ def run(config_path, runs_dir, state_dir, read_dirs, persona_path, get=http_get,
         "problems": problems, "budgets": BUDGETS,
         "used": {"boards": sum(r["status"] != "not checked" for r in boards), "requests": requests_used,
                  "seconds": elapsed},
-        "boards": [{k: v for k, v in r.items() if k != "new"} | {"new_count": len(r["new"])} for r in boards],
+        "boards": [{k: v for k, v in r.items() if k != "new"} | {"new_count": len(r["new"]) if r["status"] == "ok" else None}
+                   for r in boards],
         "new_postings": [dict(p, board=r["name"]) for r in boards if r["status"] == "ok" for p in r["new"]
                          if "repeat_of" not in r],
     }
@@ -322,7 +323,7 @@ def main(argv=None):
     s, run_dir = run(a.config, a.runs_dir, a.state_dir, read_dirs, a.persona, get=get, seeded=seeded)
     print(f"{s['exit_status'].upper()}  ({s['used']['requests']} requests, {s['used']['seconds']} s)  evidence: {run_dir}")
     for b in s["boards"]:
-        print(f"  {b['name']:24} {b['status']:12} postings={b['postings']}  new={'baseline' if b['baseline'] else b['new_count']}"
+        print(f"  {b['name']:24} {b['status']:12} postings={b['postings']}  new={'baseline' if b['baseline'] else ('unknown' if b['new_count'] is None else b['new_count'])}"
               + (f"  ({b['error']})" if b["error"] else ""))
     for p in s["problems"]:
         print(f"  problem: {p}")
