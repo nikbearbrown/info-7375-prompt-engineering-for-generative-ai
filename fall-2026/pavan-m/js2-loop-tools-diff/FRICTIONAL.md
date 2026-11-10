@@ -22,3 +22,14 @@ Wrote the asserts for 16 policy tests (tests/test_policy.py), one per row of BOU
 ## Entry 5 — November 9, 2026: Loop tests written before implementation
 Wrote the asserts for 13 loop tests (tests/test_loop.py) before agent/loop.py or check_run.py exist: exits (finished vs incomplete), no invented zero for a failed board, no retry on 404, exactly one retry with a 2-second wait on 5xx, request and time budgets stop before sending, a retry blocked by the budget, duplicate board repeat_blocked, failed board's state unchanged, baseline then only new ids with no collision across boards, raw + trace saved inside out/runs/, and the independent checker flagging an empty board the loop reported as finished.
 Decision: no string-id test yet. I want the JS1 integer-only id bug to surface on real Lever/Ashby data first, so it can be reproduced and fixed test-first in the review packet.
+
+## Entry 6 — November 9, 2026: Claude Code built the policy, adapters, loop and checker
+Claude Code wrote agent/policy.py, agent/adapters.py, agent/loop.py, check_run.py and config/. Verified myself: `python -m pytest -v` → 38 passed (9 JS1 + 16 policy + 13 loop); `git diff tests/ GATE.md BOUNDARY_TESTS.md` empty.
+Reviewed its 19 undecided choices. Accepted most. Two changed GATE.md's meaning (https-only; reset reports all postings as new instead of a fresh baseline), so I added a dated revision to GATE.md, admitting it came after the code. Accepted three known gaps instead of fixing them tonight: redirect hops vs the budget check, a slow trickling response vs the time budget, concurrent runs.
+As instructed, it reused JS1's _usable_id unchanged; postings that fail it are counted as unusable_ids.
+
+## Entry 7 — November 10, 2026: Real run #1 (live, all four boards)
+Ran the loop live at 10:25 AM EST (out/runs/2026-11-10T102543/; terminal saved as evidence/run1_terminal_2026-11-10.txt). Status incomplete, 4 requests, ~2 s. Glean: baseline, 123 postings, all usable. Deliberate bad board: failed, bad_board, HTTP 404, postings null (no invented value).
+Defect reproduced on real data: Palantir (Lever) 304 of 304 ids unusable, OpenAI (Ashby) 826 of 826 ids unusable. JS1's _usable_id accepts only integers, and these ids are string UUIDs. The loop still wrote state for those boards with no ids, so after a fix, their next run would report every posting as new.
+Mistake in my own check: I printed `$?` after `| tee`, so "exit code: 0" was tee's exit code, not the agent's. summary.json says exit_code 1; still to verify properly.
+Missed my plan to run before midnight on Nov 9, so agent runs are all on Nov 10. The Nov 8 and Nov 9 manual captures are the earlier days.
