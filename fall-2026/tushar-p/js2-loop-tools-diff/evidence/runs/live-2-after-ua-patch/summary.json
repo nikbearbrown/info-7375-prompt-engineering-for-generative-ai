@@ -1,0 +1,113 @@
+{
+  "run_id": "run-20261109T232538Z-ad6fbc",
+  "mode": "live",
+  "exit": "incomplete",
+  "exit_code": 3,
+  "config": "config/boards.json",
+  "output_root": "/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/out",
+  "limits": {
+    "max_distinct_boards": 5,
+    "max_http_attempts": 12,
+    "run_seconds": 60,
+    "network_window_seconds": 58,
+    "attempt_cap_seconds": 10,
+    "retry_wait_seconds": 1
+  },
+  "attempts_used": 4,
+  "elapsed_s": 0.911,
+  "budget_limit_hit": null,
+  "boards": [
+    {
+      "board": "greenhouse/stripe",
+      "provider": "greenhouse",
+      "token": "stripe",
+      "status": "succeeded",
+      "fetched": 771,
+      "new": 1,
+      "new_ids": [
+        8248092
+      ],
+      "jobs_in_response": 771,
+      "duplicates_removed": 0,
+      "baseline": false,
+      "attempts": 1,
+      "raw_paths": [
+        "runs/run-20261109T232538Z-ad6fbc/raw/greenhouse/stripe/attempt-1.raw"
+      ],
+      "failure": null,
+      "retry_pending": false
+    },
+    {
+      "board": "ashby/notion",
+      "provider": "ashby",
+      "token": "notion",
+      "status": "succeeded",
+      "fetched": 153,
+      "new": 0,
+      "new_ids": [],
+      "jobs_in_response": 153,
+      "duplicates_removed": 0,
+      "baseline": true,
+      "attempts": 1,
+      "raw_paths": [
+        "runs/run-20261109T232538Z-ad6fbc/raw/ashby/notion/attempt-1.raw"
+      ],
+      "failure": null,
+      "retry_pending": false
+    },
+    {
+      "board": "ashby/linear",
+      "provider": "ashby",
+      "token": "linear",
+      "status": "succeeded",
+      "fetched": 32,
+      "new": 0,
+      "new_ids": [],
+      "jobs_in_response": 32,
+      "duplicates_removed": 0,
+      "baseline": true,
+      "attempts": 1,
+      "raw_paths": [
+        "runs/run-20261109T232538Z-ad6fbc/raw/ashby/linear/attempt-1.raw"
+      ],
+      "failure": null,
+      "retry_pending": false
+    },
+    {
+      "board": "greenhouse/info7375-tushar-js2-deliberately-invalid-20261109",
+      "provider": "greenhouse",
+      "token": "info7375-tushar-js2-deliberately-invalid-20261109",
+      "status": "failed",
+      "fetched": null,
+      "new": null,
+      "new_ids": null,
+      "jobs_in_response": null,
+      "duplicates_removed": null,
+      "baseline": null,
+      "attempts": 1,
+      "raw_paths": [
+        "runs/run-20261109T232538Z-ad6fbc/raw/greenhouse/info7375-tushar-js2-deliberately-invalid-20261109/attempt-1.raw"
+      ],
+      "failure": {
+        "kind": "http-404",
+        "detail": "HTTP 404",
+        "status": 404
+      },
+      "retry_pending": false
+    }
+  ],
+  "duplicates_skipped": [],
+  "pending": [],
+  "error": null,
+  "state": {
+    "path": "state.json",
+    "pre_run_snapshot": "runs/run-20261109T232538Z-ad6fbc/pre-run-state.json",
+    "staged_boards": [
+      "ashby/linear",
+      "ashby/notion",
+      "greenhouse/stripe"
+    ],
+    "written": true
+  },
+  "trace": "runs/run-20261109T232538Z-ad6fbc/trace.jsonl"
+}

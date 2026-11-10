@@ -1,0 +1,13 @@
+{"t": 0.0, "event": "start", "run": "run-2026-11-10T043813Z", "config": "config/live.json", "budgets": {"boards": 4, "requests": 6, "seconds": 120.0, "retries_per_board": 1}, "source": "live: each listing is fetched from its board's public API"}
+{"t": 0.001, "event": "request", "board": "Databricks", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true", "attempt": 1, "requests_used": 1}
+{"t": 0.836, "event": "observation", "board": "Databricks", "attempt": 1, "http_status": 200, "bytes": 9974098, "sha256": "1250ad4bdb442cc2cd42ffd3dabb04665656c46de0221bde3cadda1c5ad568d2", "raw_file": "raw-greenhouse-databricks-attempt1-http200.json"}
+{"t": 0.887, "event": "state updated", "board": "Databricks", "postings": 915, "new": 1, "baseline": false, "seen_after": 1005}
+{"t": 0.887, "event": "request", "board": "Anthropic", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "attempt": 1, "requests_used": 2}
+{"t": 1.587, "event": "observation", "board": "Anthropic", "attempt": 1, "http_status": 200, "bytes": 10315005, "sha256": "9c705a6bd2889b36ecd08e1f7ca96cf4c385ca7a04a4804ed897aa3457a4670a", "raw_file": "raw-greenhouse-anthropic-attempt1-http200.json"}
+{"t": 1.626, "event": "state updated", "board": "Anthropic", "postings": 677, "new": 2, "baseline": false, "seen_after": 677}
+{"t": 1.626, "event": "request", "board": "OpenAI", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/openai?includeCompensation=true", "attempt": 1, "requests_used": 3}
+{"t": 2.644, "event": "observation", "board": "OpenAI", "attempt": 1, "http_status": 200, "bytes": 14440028, "sha256": "faf9491cab0106cbbddecd891edd191673534b82f08696189183cd2ac928e3f8", "raw_file": "raw-ashby-openai-attempt1-http200.json"}
+{"t": 2.702, "event": "state updated", "board": "OpenAI", "postings": 825, "new": 0, "baseline": false, "seen_after": 825}
+{"t": 2.702, "event": "request", "board": "Deliberate failure", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/databricks-misspelled/jobs?content=true", "attempt": 1, "requests_used": 4}
+{"t": 2.805, "event": "observation", "board": "Deliberate failure", "attempt": 1, "http_status": 404, "bytes": 38, "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe", "raw_file": "raw-greenhouse-databricks-misspelled-attempt1-http404.json"}
+{"t": 2.805, "event": "exit", "status": "incomplete", "budget_hit": null, "problems": ["Deliberate failure: failed (HTTP 404)"]}

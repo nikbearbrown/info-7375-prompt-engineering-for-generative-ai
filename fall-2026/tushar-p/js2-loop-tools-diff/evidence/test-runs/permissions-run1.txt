@@ -1,0 +1,29 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.10, pytest-9.2.0, pluggy-1.7.0 -- /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff
+configfile: pytest.ini
+collecting ... collected 20 items
+
+tests/test_permissions.py::test_p01_greenhouse_stripe_get_allowed PASSED [  5%]
+tests/test_permissions.py::test_p02_ashby_notion_get_allowed PASSED      [ 10%]
+tests/test_permissions.py::test_p03_example_com_denied PASSED            [ 15%]
+tests/test_permissions.py::test_p04_suffixed_host_denied PASSED          [ 20%]
+tests/test_permissions.py::test_p05_userinfo_host_confusion_denied PASSED [ 25%]
+tests/test_permissions.py::test_p06_plain_http_denied PASSED             [ 30%]
+tests/test_permissions.py::test_p07_port_8443_denied PASSED              [ 35%]
+tests/test_permissions.py::test_p08_post_denied PASSED                   [ 40%]
+tests/test_permissions.py::test_p09_unconfigured_route_and_query_denied PASSED [ 45%]
+tests/test_permissions.py::test_p10_redirect_recorded_not_followed PASSED [ 50%]
+tests/test_permissions.py::test_p11_summary_write_exact_bytes PASSED     [ 55%]
+tests/test_permissions.py::test_p12_dotdot_escape_denied PASSED          [ 60%]
+tests/test_permissions.py::test_p13_sibling_out_evil_denied PASSED       [ 65%]
+tests/test_permissions.py::test_p14_symlink_outside_and_inside_targets_denied PASSED [ 70%]
+tests/test_permissions.py::test_p15_protected_without_approval_denied PASSED [ 75%]
+tests/test_permissions.py::test_p16_protected_with_exact_approval_allowed PASSED [ 80%]
+tests/test_permissions.py::test_p17_approval_reused_with_changed_payload_denied PASSED [ 85%]
+tests/test_permissions.py::test_p18_state_read_allowed PASSED            [ 90%]
+tests/test_permissions.py::test_p19_unapproved_fixture_never_opened PASSED [ 95%]
+tests/test_permissions.py::test_p20_approval_reused_in_new_run_denied PASSED [100%]
+
+============================== 20 passed in 0.02s ==============================

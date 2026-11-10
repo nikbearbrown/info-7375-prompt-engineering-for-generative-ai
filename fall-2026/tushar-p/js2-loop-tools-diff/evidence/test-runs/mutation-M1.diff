@@ -1,0 +1,18 @@
+diff --git a/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py b/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
+index f9a86a7..6d23a42 100644
+--- a/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
++++ b/fall-2026/tushar-p/js2-loop-tools-diff/agent/fsio.py
+@@ -64,11 +64,8 @@ class FileGate:
+         if not p.is_absolute():
+             p = Path.cwd() / p
+         for base in (self.root, self.root_given):
+-            try:
+-                rel = p.relative_to(base)
+-            except ValueError:
+-                continue
+-            return rel.parts
++            if str(p).startswith(str(base)):
++                return Path(os.path.relpath(p, base)).parts
+         return None
+ 
+     def _check_components(self, parts: tuple[str, ...], error) -> None:

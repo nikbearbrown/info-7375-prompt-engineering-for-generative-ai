@@ -1,0 +1,16 @@
+Wrong-version check, 2026-11-10T03:49:37Z
+  baseline (unchanged code): 65 tests, PASS
+  WV1 failed board reported as zero new: CAUGHT by 7 failing test(s)
+      test_review_failed_board_count.FailedBoardCount.test_console_does_not_print_new_0_for_the_failed_board
+      test_loop.Responses.test_invalid_json_fails_the_board_keeps_raw_and_state
+      test_loop.Responses.test_missing_jobs_list_fails_the_board
+      test_review_failed_board_count.FailedBoardCount.test_summary_does_not_report_zero_new_for_the_failed_board
+      test_loop.Evidence.test_trace_records_every_request_retry_observation_and_the_exit
+      test_loop.Exits.test_two_timeouts_leave_the_board_unavailable
+      test_loop.Exits.test_wrong_version_1_failed_board_is_not_zero_new
+  WV2 string-prefix folder check: CAUGHT by 1 failing test(s)
+      test_policy.Files.test_08_look_alike_folder_prefix_refused
+  WV3 retries not counted: CAUGHT by 2 failing test(s)
+      test_loop.Exits.test_timeout_is_retried_once_and_counted
+      test_loop.Exits.test_wrong_version_3_every_retry_counts
+RESULT: every wrong version was caught

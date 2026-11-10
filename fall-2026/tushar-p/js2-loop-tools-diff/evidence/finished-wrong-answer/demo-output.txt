@@ -1,0 +1,31 @@
+== 1. normal fixture run ==
+finished (exit 0): 1 succeeded, 0 failed, 0 pending, 0 duplicate(s) skipped; summary: /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/out-fixture/runs/run-20261109T233553Z-ddd08a/summary.json
+exit code: 0
+== 2. SEEDED WRONG run ==
+finished (exit 0): 1 succeeded, 0 failed, 0 pending, 0 duplicate(s) skipped; summary: /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/out-seed/runs/run-20261109T233553Z-2d7977/summary.json
+exit code: 0
+== 3. independent count: fixture run ==
+run run-20261109T233553Z-ddd08a  mode: fixture  agent exit: finished
+board              agent_new  independent_new  match  agent_fetched  independent_fetched
+-----------------  ---------  ---------------  -----  -------------  -------------------
+greenhouse/stripe  16         16               yes    719            719                
+RESULT: all comparable boards match (1 compared, 0 not comparable)
+exit code: 0
+== 4. independent count: seeded wrong run ==
+run run-20261109T233553Z-2d7977  mode: SEEDED-WRONG-EMPTY (deliberately wrong)  agent exit: finished
+board              agent_new  independent_new  match     agent_fetched  independent_fetched
+-----------------  ---------  ---------------  --------  -------------  -------------------
+greenhouse/stripe  0          16               MISMATCH  0              719                
+MISMATCH greenhouse/stripe: agent reported new=0, the saved response gives 16; missing from the agent's report: [7337544, 7746721, 8040052, 8048266, 8130876, 8168550, 8175637, 8267847, 8275558, 8280266, 8284978, 8311067, 8314318, 8329718, 8329719, 8331124]; extra in the agent's report: []
+RESULT: MISMATCH on 1 of 1 board(s)
+exit code: 1
+== 5. independent count: live run 2 ==
+run run-20261109T232538Z-ad6fbc  mode: live  agent exit: incomplete
+board                                                         agent_new  independent_new                   match  agent_fetched  independent_fetched
+------------------------------------------------------------  ---------  --------------------------------  -----  -------------  -------------------
+greenhouse/stripe                                             1          1                                 yes    771            771                
+ashby/notion                                                  0          0 (baseline, no prior state)      yes    153            153                
+ashby/linear                                                  0          0 (baseline, no prior state)      yes    32             32                 
+greenhouse/info7375-tushar-js2-deliberately-invalid-20261109  null       n/a (raw is not a valid listing)  n/a    null           null               
+RESULT: all comparable boards match (3 compared, 1 not comparable)
+exit code: 0
