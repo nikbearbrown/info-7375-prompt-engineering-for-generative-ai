@@ -429,3 +429,32 @@ Reviewing the diff and rerunning the wrong-version checks helped me make my own 
 - Failing-test commits: `bca5bb6` and `3bdca8b`
 - Patch: `agent.py` (two changed locations)
 
+## 2026-11-09: Final Documentation and Boundary-Test Review
+
+### What I checked
+
+After accepting the Chapter 6 patch, I reviewed the documentation prepared by Claude Code.
+
+All 15 permission-boundary predictions matched the actual test results. I kept the original predictions unchanged and added the results separately in BOUNDARY-TESTS.md.
+
+The full test suite passed with 65 tests, and all three planted wrong versions were caught again.
+
+### My documentation decisions
+
+Claude drafted the README, SOURCES, and boundary-test results using the evidence already saved in the repository.
+
+I reviewed the documents and completed my sign-off and driver's-seat explanations myself.
+
+I also made sure to distinguish the real live run from the constructed seeded demonstration and to document how I used AI tools.
+
+### What I am not claiming
+
+I have not tested every possible failure condition. The review regression tests directly cover the HTTP 404 case, and I have not repeated the live network run after the patch.
+
+The seeded demonstration also shows that an agent can finish normally while giving an answer that needs independent checking.
+
+### What I learned
+
+I learned that it is important to preserve predictions, tests, run evidence and review decisions separately.
+
+This makes it possible to see what I expected, what happened, what Claude changed, and what I personally verified.

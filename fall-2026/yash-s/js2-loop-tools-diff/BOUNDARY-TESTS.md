@@ -75,3 +75,48 @@ My planned wrong versions are:
 I want to save a reproducible check for these wrong versions and rerun it after code changes.
 
 This addresses the feedback I received on Job-Search Agent 1 about rerunning planted-bug checks.
+
+## Results After Testing (added 2026-11-10)
+
+My predictions above are unchanged. These results come from my own test runs: all 63 tests passed before the live run, and all 65 passed after the review patch, saved in `review/tests-after-patch.txt` at 2026-11-10T03:49Z. I ran them with Python 3.13.5; Claude also ran the suite with Python 3.9.6. The tested permission code is `policy.py` from commit `841dbce`, and it has not changed since.
+
+| # | Test case | My prediction | Actual result | Matched? | Test in `tests/test_policy.py` |
+|---|---|---|---|---|---|
+| 1 | HTTPS request to `boards-api.greenhouse.io` | Allow | Allow | yes | `Network.test_01_https_greenhouse_allowed` |
+| 2 | HTTPS request to `api.ashbyhq.com` | Allow | Allow | yes | `Network.test_02_https_ashby_allowed` |
+| 3 | Request to `example.com` | Refuse | Refuse | yes | `Network.test_03_host_off_the_allow_list_refused` |
+| 4 | Request to `boards-api.greenhouse.io.evil.com` | Refuse | Refuse | yes | `Network.test_04_look_alike_host_refused` |
+| 5 | HTTP request to `boards-api.greenhouse.io` | Refuse | Refuse | yes | `Network.test_05_plain_http_refused` |
+| 6 | Write a new evidence file inside `runs/` | Allow | Allow | yes | `Files.test_06_write_inside_runs_allowed` |
+| 7 | Write to `runs/../outside.json` | Refuse | Refuse, and no file was created | yes | `Files.test_07_dot_dot_escape_refused` |
+| 8 | Write to `runs-evil/output.json` | Refuse | Refuse, and no file was created | yes | `Files.test_08_look_alike_folder_prefix_refused` |
+| 9 | Write through a symlink in `runs/` that points outside | Refuse | Refuse, for both a symlinked folder and a symlinked file; nothing was written outside | yes | `Files.test_09_symlink_pointing_outside_refused` |
+| 10 | Read the fictional résumé from `persona/` | Allow | Allow | yes | `Files.test_10_read_the_persona_allowed` |
+| 11 | Write to the résumé file in `persona/` | Refuse | Refuse, as both an evidence write and a state write; the file is unchanged | yes | `Files.test_11_write_the_persona_refused` |
+| 12 | Reset a state file without my approval | Refuse | Refuse; the state file still exists | yes | `Files.test_12_reset_state_without_approval_refused` |
+| 13 | Reset a state file with my approval, inside `state/` | Allow | Allow; the state file was removed | yes | `Files.test_13_reset_state_with_approval_allowed` |
+| 14 | Follow an HTTPS redirect to an unapproved host | Refuse | Refuse | yes | `Network.test_14_redirect_refused` and `Network.test_14_http_get_installs_the_redirect_refusal` |
+| 15 | Write to an absolute path outside the output folder | Refuse | Refuse, and no file was created | yes | `Files.test_15_absolute_path_outside_refused` |
+
+**All 15 matched my predictions.** None of them failed or behaved unexpectedly.
+
+**What these tests do not show:**
+- **#14** is tested at the redirect handler: the handler refuses, and the real `http_get` installs it. No real server sent a redirect during my tests or my live run.
+- The network tests check URLs **without making requests**. The live run is the only real network evidence, and it contacted only the two allowed hosts.
+- The folder checks run on macOS with real temporary folders and symlinks. A race, where a symlink appears between the check and the write, was not tested.
+
+**Extra tests I did not predict in advance.** Claude added these beyond my 15 cases; they also pass:
+- `test_extra_user_part_trick_refused`
+- `test_extra_other_port_refused`
+- `test_extra_post_refused`
+- `test_off_list_url_refused_before_any_network`
+- `test_extra_approval_never_allows_a_path_outside_the_state_folder`
+- `test_extra_approval_must_be_exactly_true`
+- `test_extra_evidence_is_create_only`
+- `test_extra_read_outside_allowed_folders_refused`
+- `test_extra_state_only_inside_the_state_folder`
+- `test_extra_run_folders_are_never_reused`
+
+**What Claude changed after the tests:** nothing in the permission code. The only change after testing was the review patch to `agent.py`, which changes how counts are reported, not the policy (see `review/REVIEW-PACKET.md`).
+
+**Wrong versions.** `wrong_versions.py` plants each of my three wrong versions. After the patch it reported all three caught (`review/wrong-versions-after-patch.txt`). The permission-related one, WV2 (a string-prefix folder check), is caught by `test_08_look_alike_folder_prefix_refused`.
