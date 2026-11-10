@@ -1,0 +1,14 @@
+# Notes on reading GATE.md
+
+*Written by Claude Code on 2026-11-09, after GATE.md was committed (`9fbab0d`) and before any new code. GATE.md is Shreyash's and is not edited. Each line here says how a phrase in it became code. Where GATE.md leaves a choice open, the line is marked **choice**, and Shreyash can overrule it.*
+
+- **Exit precedence.** When more than one exit applies, the most serious wins: `error`, then `budget-exhausted`, then `incomplete`, then `finished`.
+- **An empty board** (HTTP 200, valid JSON, zero postings) gets board status `empty`, `needs_review: true`, and `new: null`, not 0. **Choice:** it makes the run `incomplete`, not `finished`. GATE.md section 7 says an empty board must not count as "successfully checked with zero new jobs", and an empty list cannot be told apart from a board that broke or moved.
+- **A failed board** (a 404, any other 4xx, bad JSON or the wrong shape, a 5xx or timeout after its one retry) gets status `failed`, `fetched: null` and `new: null`, never 0. Its saved state is left as it was.
+- **Board limit.** More boards in `boards.json` than the board budget allows: the first boards up to the limit run, the rest are `skipped-budget`, and the exit is `budget-exhausted`.
+- **Request and time limits.** These are checked before every request, retries included. Once a limit is reached, the boards still waiting are `skipped-budget`.
+- **Repeat rule.** The key is (method, full URL). A second request with the same key in one run is not sent; that board is recorded as `skipped-duplicate`. A retry that the error policy allows is not a repeat.
+- **Budgets** are read from `budgets.json`, which sits outside `runs/`, so the agent's own file-writing code cannot change them. The loop refuses to start if `budgets.json` is higher than the latest dated row in GATE.md.
+- **"Overwriting or deleting saved state or raw evidence requires my approval."** **Choice:** so that a normal run never has to overwrite anything, every run writes into a new folder `runs/<run_id>/`, and state goes into a new file `runs/state/state-<run_id>.json`. A run may append to files it created itself during that run (its own trace). Writing to any file that already existed, or deleting one, raises `NeedsApproval` unless the command was given `--approve-overwrite`.
+- **Reads** are allowed inside this assignment folder only. **Writes** are allowed inside `runs/` only. The check resolves real paths (`..`, absolute paths and symlinks), compares whole path components (so `runs-evil` is not inside `runs`), and refuses to write through a symlink.
+- **Requests** are GET only, over https, to the three hosts in GATE.md section 6. Each host also has a fixed path pattern (the public job-list endpoint), so even an allowed host cannot be used for anything else. Every redirect is checked the same way.
