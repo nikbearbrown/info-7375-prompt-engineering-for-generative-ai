@@ -68,20 +68,34 @@ It does **not** fix the slow headers case (section 5). That is outside what I as
 
 Also not exercised by the test: HTTPS. The test server is plain HTTP on `127.0.0.1`, so the `_sock` path under an SSL socket was not tested by it.
 
-## 6. My decision
+## 6. My decision: REVISE
 
-*(For me to fill in: ACCEPT, REVISE or REJECT, and the evidence for it.)*
+**The evidence I weighed:**
 
-**Evidence to weigh:**
-
-- **For accepting:**
-  - The defect reproduced on my machine, before the patch, by a test committed before the patch.
+- **For the patch:**
+  - The defect reproduced on my machine before the patch, by a test committed before the patch.
   - That test passes after it, and the two guard tests still pass.
-  - The suite is 96/96.
+  - The suite was 96/96.
   - The change is one function.
-- **Against, or for revising:**
-  - It depends on a private attribute, with a silent fallback.
-  - It is not tested over HTTPS.
-  - The slow-headers gap remains: 21 s for a 1 s timeout.
+  - My live run 2 went through the patched code over HTTPS for all three real boards.
+- **Against it as it stood:**
+  - It finds the socket through `response.fp.raw._sock`, a private attribute, and if that is missing it **silently** goes back to the old behavior. No test would fail.
+- **Not reasons to reject:**
+  - The slow-headers gap (section 5) is a different problem from the one I asked to be fixed.
+  - HTTPS was covered by live run 2.
 
-**Decision:** ____________  **Why:** ____________  **Signed:** ____________ (name, date)
+**My decision, in my words (2026-11-10), after Claude Code suggested a revise:**
+
+> The test should explicitly verify that the socket is found through `._sock` and fail immediately if that attribute is missing, rather than allowing the code to silently continue.
+
+**The revision.** `tests/test_transport_socket_guard.py`, written by Claude Code at my request. The patch's code did not change. It has three tests, using a local server on `127.0.0.1`:
+
+1. For a normal `200` response, it checks that `response.fp.raw._sock` exists, and that `_socket_of()` returns exactly that socket.
+2. The same for an error response (`404`, which comes wrapped in an `HTTPError`).
+3. It checks the check itself: a response whose `fp.raw` has no `_sock` must make the guard **fail** with "`_sock` is missing on this Python", and must not pass. It also shows what the code would do in that case (`_socket_of()` returns `None` and carries on), which is the silent fallback this test now makes loud.
+
+Claude Code ran it on Python 3.9.6: 3 tests OK, and the full suite 109/109 OK ([review/7-revision-guard-claude-run.txt](review/7-revision-guard-claude-run.txt)).
+
+**What the revision does not do:** it does not make the code itself stop when `_sock` is missing. On such a Python, requests would still run with the weaker timeout until someone runs the tests. It also does not cover an HTTPS socket, because the local test server is plain HTTP.
+
+**After the revision:** ____________ (accept the revised patch, or revise again) **Signed:** ____________ (name, date)
