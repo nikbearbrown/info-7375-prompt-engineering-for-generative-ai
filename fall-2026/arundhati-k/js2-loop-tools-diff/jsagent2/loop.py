@@ -5,6 +5,7 @@ import hashlib
 import json
 import time
 from dataclasses import dataclass, field
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from jsagent2 import providers
 from jsagent2.policy import STATE_FILE
@@ -47,7 +48,18 @@ def is_retryable(status):
     return status >= 500
 
 
+def normalise_url(url):
+    """GATE §3: the same action = same method + normalised URL (scheme, host, path, sorted query).
+    Scheme and host are case-insensitive; the path is kept as is (Ashby board names are case-sensitive)."""
+    p = urlsplit(url)
+    query = urlencode(sorted(parse_qsl(p.query, keep_blank_values=True)))
+    return urlunsplit((p.scheme.lower(), (p.hostname or "") + (f":{p.port}" if p.port else ""), p.path, query, ""))
+
+
 def exit_for(boards, budget_hit):
+    # GATE §1: a permission-policy violation means the run could not run safely -> error, whatever else happened
+    if any(b["status"] == "policy-refused" for b in boards.values()):
+        return "error"
     if budget_hit:
         return "budget-exhausted"
     statuses = [b["status"] for b in boards.values() if b["status"] != "repeat-skipped"]
@@ -91,9 +103,10 @@ def run_loop(boards, budgets, policy, transport, now=time.monotonic, sleep=time.
     seen_urls, requests, visited, budget_hit, unvisited = {}, 0, 0, None, []
     for i, (b, url) in enumerate(zip(boards, urls)):
         name = b["name"]
-        if url in seen_urls:
-            observe(event="repeat-skipped", board=name, url=url, same_as=seen_urls[url])
-            report[name] = {"status": "repeat-skipped", "postings": None, "new": None, "same_as": seen_urls[url]}
+        action = ("GET", normalise_url(url))
+        if action in seen_urls:
+            observe(event="repeat-skipped", board=name, url=url, same_as=seen_urls[action])
+            report[name] = {"status": "repeat-skipped", "postings": None, "new": None, "same_as": seen_urls[action]}
             continue
         if visited >= budgets["max_boards"]:
             budget_hit = "boards"
@@ -108,7 +121,7 @@ def run_loop(boards, budgets, policy, transport, now=time.monotonic, sleep=time.
         if d.verdict != "allow":
             report[name] = {"status": "policy-refused", "postings": None, "new": None, "reason": d.reason}
             continue
-        seen_urls[url] = name
+        seen_urls[action] = name
         visited += 1
 
         status, jobs, reason = None, None, ""
@@ -178,6 +191,11 @@ def run_loop(boards, budgets, policy, transport, now=time.monotonic, sleep=time.
 
     result = RunResult(run_id, exit_for(report, budget_hit), report, obs, unvisited, budget_hit,
                        requests_used=requests)
+    refused = [n for n, e in report.items() if e["status"] == "policy-refused"]
+    if refused:
+        result.reason = f"permission-policy violation: {', '.join(refused)}"
+    elif result.exit == "error":
+        result.reason = "no board succeeded"
     if result.exit == "error":
         result.state_write = "skipped (exit error)"
     else:
