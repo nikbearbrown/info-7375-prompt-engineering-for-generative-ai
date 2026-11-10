@@ -184,7 +184,7 @@ In my own terminal, 2026-11-10 (summarised in FRICTIONAL.md):
 - That it works on boards other than the three I ran, or on Ashby or Lever responses shaped differently from the ones saved on 2026-11-10.
 - That the policy is a security boundary against a hostile machine. It protects against the agent's own mistakes in this program. Other programs on my computer are not bound by it.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed** Lavanya R, 2026-11-10
 
 ## Driver's seat
 
