@@ -97,7 +97,7 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 
 ## Known limitations of the loop and the permission policy
 
-- **The time budget can be overrun by one request.** The 120-second limit is checked before each request, but a request already in flight may take up to its own 20-second timeout. A run could therefore end at about 140 s. It is bounded, but it is not a strict wall-clock deadline. The live runs took 3.4–7.8 s.
+- **The time budget is now a deadline, but tested only with a constructed clock.** Until 2026-11-10 the 120-second limit was checked only before each request, so one slow request could run about 20 s past it. A test written first (`tests/test_loop_deadline.py`, commit `325e98c6`, failing: "20 not less than or equal to 10") was followed by the fix: each request now gets the smaller of 20 s and the time left, and no request starts with 0 s left. The three live runs (3.4–7.8 s) were made before this change and never came near the limit, and no real slow request has been seen.
 - **Check, then write.** The path is resolved and checked, then opened. A folder swapped for a symlink in between could be followed. This is not tested and not closed (BOUNDARY-TESTS.md, "What these 22 rows do not cover"). Hard links are not detected either.
 
 ## Known limitations of the filtering rule
@@ -146,6 +146,8 @@ Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py
                 (tests/test_policy_symlink.py, added after review) covers the no-symlink line,
                 which the mutation check had shown no test covered; row 22 covers a chain of
                 symlinks (tests/test_policy_nested_symlink.py).
+              - The time budget as a deadline: tests/test_loop_deadline.py, committed failing
+                before the loop change (325e98c6), passing after.
               - Six real new postings in live run 3, judged in the loop and recounted from the raw
                 files (evidence/run3-recount-2026-11-10.txt).
               - A finished wrong answer caught by a check that does not use the agent's code:
@@ -163,8 +165,8 @@ Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all N
                 department should count as engineering for Palantir only (review/19), but that
                 reading is not built or tested.
               - A real timeout or 5xx: retries were only exercised with constructed responses.
-              - The 120 s budget as a strict deadline: a request in flight can run past it by up
-                to its 20 s timeout.
+              - The strict time deadline against a real slow server: it is tested with a
+                constructed clock only, and the live runs predate it.
               - The gap between checking a path and writing it, and hard links (not tested).
               - A real redirect: the redirect guard was tested on a constructed redirect only.
               - A partial Ashby or Lever response: the check can only catch truncation on

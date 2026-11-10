@@ -133,6 +133,11 @@ Different Lever boards may use `Dev` differently. I still need to test whether a
 - It passes on the real code. With the line deleted, it is now the one failing test, so the mutation-check gap from 2026-11-09 is closed.
 - The review also asked that the Physician Reviewer case stay disclosed. The README now has a "Known limitations" section listing it with the other open questions.
 
+**2026-11-10, a second review: three deductions.**
+- **Nested symlinks.** Boundary row 22, predicted and committed first; as predicted.
+- **The time budget.** It was not a strict deadline: a request could run its full 20 s past the limit. Shreyash chose to fix it test-first. The test failed on the old loop ("20 not less than or equal to 10", `325e98c6`), and passed after a three-line change in `loop.py`. I also made the check `>=` so a request can't start with 0 s left. The live runs were made before this change.
+- **The check-then-write race and hard links.** Disclosed, not fixed: closing the race properly needs `O_NOFOLLOW` writes relative to an open `runs/` directory, which was too big to add safely on deadline day.
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.

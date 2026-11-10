@@ -11,6 +11,7 @@ from jsagent import policy, providers, rule
 
 SEVERITY = ["finished", "incomplete", "budget-exhausted", "error"]
 BUDGET_KEYS = ("max_boards", "max_requests", "max_seconds")
+REQUEST_TIMEOUT = 20  # seconds; never more than the time budget has left (see run())
 
 
 def load_budgets(budgets_path, gate_path):
@@ -77,7 +78,7 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
         attempt = 0
         while True:
             used = clock() - start
-            if requests >= budgets["max_requests"] or used > budgets["max_seconds"]:
+            if requests >= budgets["max_requests"] or used >= budgets["max_seconds"]:  # >= so no request starts with 0 s left
                 exhausted = True
                 r["status"] = "skipped-budget" if attempt == 0 else "failed"
                 r["error"] = None if attempt == 0 else "budget ran out before the allowed retry"
@@ -89,7 +90,9 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
             trace("request", board=b["name"], url=url, attempt=attempt)
             status, body, kind = None, None, None
             try:
-                status, body = transport.get(url)
+                # A request gets the smaller of its normal timeout and the time left, so the run's
+                # time budget holds as a deadline (added 2026-11-10; tests/test_loop_deadline.py).
+                status, body = transport.get(url, timeout=min(REQUEST_TIMEOUT, budgets["max_seconds"] - used))
             except TimeoutError as e:
                 kind = "timeout"
             except policy.PolicyViolation as e:
