@@ -367,18 +367,6 @@ class ErrorPolicyTests(LoopCase):
         self.assertEqual((root / "out/runs/SAME/trace.jsonl").read_bytes(),
                          trace_before)
 
-    def test_known_limit_zero_postings_accepted_as_empty_board(self):
-        # GATE section 4 known limit, kept on purpose for this version:
-        # a 200 with zero postings is a valid empty board, even if the
-        # board had postings before. The independent check catches it.
-        root = self.root(boards=[h.BOARDS[0]])
-        h.write_state(root, "scaleai", [1, 2, 3])
-        fake = h.FakeTransport({h.SCALE: [h.ok(h.gh_body([]))]})
-        exit_name, _ = h.run(root, fake)
-        self.assertEqual(exit_name, loop.FINISHED)
-        b = h.board(h.summary(root), "scaleai")
-        self.assertEqual((b["postings_seen"], b["new"]), (0, 0))
-
 
 class RepeatRuleTests(LoopCase):
 

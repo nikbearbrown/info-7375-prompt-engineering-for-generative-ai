@@ -72,6 +72,9 @@ REQUEST_HEADERS = {"User-Agent": transport_mod.USER_AGENT,
                    "Accept": "application/json"}
 
 RETRYABLE_KINDS = frozenset({"timeout", "connection", "server_error"})
+# GATE error-policy log 2026-11-10: a 200 with zero postings from a board
+# whose saved state has postings is a failed board, not a valid empty one.
+EMPTY_AFTER_NONEMPTY = "empty_after_nonempty"
 
 
 class RunError(Exception):
@@ -480,6 +483,11 @@ class Runner:
                              counted="once")
 
         unique = dedupe(postings, on_duplicate)
+        if board["_seen"] and not unique:
+            # Received, so no retry; _fail leaves new unknown and the
+            # state file untouched, and the run cannot end finished.
+            self._fail(board, EMPTY_AFTER_NONEMPTY, 200)
+            return
         ids = [p["id"] for p in unique]
         board["status"] = "ok"
         board["http_status"] = 200
@@ -791,8 +799,10 @@ def render_report(summary):
               f"{bud['max_claude_calls']}",
               "",
               "## Notes", "",
-              "- A 200 with zero postings is accepted as a valid empty board "
-              "(known limit, GATE.md section 4).",
+              "- A 200 with zero postings fails the board "
+              "(`empty_after_nonempty`) if its saved state had postings; "
+              "with no saved state, or an empty one, it is a valid empty "
+              "board (GATE.md error-policy log, 2026-11-10).",
               ""]
     return "\n".join(lines)
 

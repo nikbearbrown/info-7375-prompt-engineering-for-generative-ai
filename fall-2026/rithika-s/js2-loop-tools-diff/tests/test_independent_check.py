@@ -54,12 +54,20 @@ class IndependentCheckTests(unittest.TestCase):
         self.assertIn("PASS rithika-js2-no-such-board", text)
 
     def test_flags_board_that_had_postings_and_now_reports_zero(self):
-        # The known limit: the agent says finished, the checker flags it.
+        # GATE error-policy log 2026-11-10: the agent now fails this board
+        # (new unknown). The checker must still catch an agent that does
+        # not, so the summary is rewritten as the old agent reported it.
         h.write_state(self.root, "scaleai", [1, 2, 3])
         script = h.default_script()
         script[h.SCALE] = [h.ok(h.gh_body([]))]
         h.run(self.root, h.FakeTransport(script))
-        self.assertEqual(h.board(h.summary(self.root), "scaleai")["new"], 0)
+        self.assertIsNone(h.board(h.summary(self.root), "scaleai")["new"])
+        path = self.root / "out/runs/RUN1/summary.json"
+        data = json.loads(path.read_text())
+        h.board(data, "scaleai").update(status="ok", reason=None,
+                                        http_status=200, postings_seen=0,
+                                        new=0)
+        path.write_text(json.dumps(data))
         code, text = self.check()
         self.assertEqual(code, 1)
         self.assertIn("FLAG scaleai: board previously had 3 postings but "
