@@ -282,7 +282,7 @@ def replay_fetch_from(run_dir: Path):
 
 # ---- CLI ----------------------------------------------------------------------
 
-def main(argv=None, root: Path | None = None) -> int:
+def main(argv=None, root: Path | None = None, loop_cls=None, run_prefix: str = "") -> int:
     ap = argparse.ArgumentParser(prog="python3 -m agent.loop")
     ap.add_argument("--boards", default="boards.json")
     ap.add_argument("--budget", default="budget.json")
@@ -309,8 +309,9 @@ def main(argv=None, root: Path | None = None) -> int:
         seen = json.loads(real_seen.read_text()) if real_seen.exists() else {}
         run_id, sleep = f"run-{stamp}", time.sleep
     seen_before = json.loads(json.dumps(seen))
+    run_id = run_prefix + run_id
 
-    loop = Loop(boards, budget, policy, fetch, sleep=sleep, seen=seen)
+    loop = (loop_cls or Loop)(boards, budget, policy, fetch, sleep=sleep, seen=seen)
     report = loop.run()
     report = {"run_id": run_id, "mode": "replay" if args.replay else "live", **report}
 

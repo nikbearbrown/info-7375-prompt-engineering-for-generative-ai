@@ -1,0 +1,10 @@
+report: out/NAIVE-DEMO-replay-20261110-030157Z-of-SEEDED-empty-robinhood  (agent says: finished)
+compared with earlier real run: evidence/run-20261110-025626Z
+
+  board               agent says          raw has   earlier run  verdict
+  robinhood           ok, 0 jobs          0         153          SUSPICIOUS: dropped from 153 to 0
+  affirm              ok, 221 jobs        221       221          ok
+  wealthfront         ok, 23 jobs         23        23           ok
+
+FINISHED WRONG ANSWER: the agent reported 'finished', but:
+  - robinhood: SUSPICIOUS: dropped from 153 to 0
