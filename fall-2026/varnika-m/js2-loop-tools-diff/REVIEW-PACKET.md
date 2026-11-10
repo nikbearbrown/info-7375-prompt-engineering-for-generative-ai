@@ -69,7 +69,7 @@ It does **not** fix the slow headers case (section 5). That is outside what I as
 
 Also not exercised by the test: HTTPS. The test server is plain HTTP on `127.0.0.1`, so the `_sock` path under an SSL socket was not tested by it.
 
-## 6. My decision: REVISE
+## 6. My decision: REVISE, then ACCEPT the revised patch
 
 **The evidence I weighed:**
 
@@ -99,4 +99,10 @@ Claude Code ran it on Python 3.9.6: 3 tests OK, and the full suite 109/109 OK ([
 
 **What the revision does not do:** it does not make the code itself stop when `_sock` is missing. On such a Python, requests would still run with the weaker timeout until someone runs the tests. It also does not cover an HTTPS socket, because the local test server is plain HTTP.
 
-**After the revision:** ____________ (accept the revised patch, or revise again) **Signed:** ____________ (name, date)
+**After the revision (my words, 2026-11-10):**
+
+**Decision: ACCEPT**
+
+I accept the revised patch because the new test checks that the socket is found through `_sock` and fails if the attribute is missing. I ran the test myself, and all 3 tests passed. The slow-headers issue is still unresolved, so I am not claiming that every timeout problem is fixed.
+
+**Signed:** Varnika M, 2026-11-10
