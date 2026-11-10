@@ -34,7 +34,7 @@ Claude Code (Opus 5.5, model `claude-opus-5-5`) in one Claude Code session in VS
 | Explaining the assignment | Explained it in simple English; told me which repo to work in; explained that the assignment says I write GATE.md, and that Claude's help is allowed if it is recorded here | Asked |
 | `GATE.md` | Drafted all of it: the boards, exits, budgets, repeat rule, error and permission policy, wrong versions W1–W12 and the independent check. It chose every number | Replied "ok" to keep the draft unchanged. It was committed before any code (`040be50`) |
 | `POLICY.md` predictions | Wrote the predicted outcome of all 30 boundary cases, committed with the tests before any code existed (`76e0f89`) | — |
-| `tests/` (113 tests) | Wrote all of them. Policy, loop, boards, gate-matches-code, check and wrong-version tests came before the code (`76e0f89`). The review packet test came before the patch (`8ddfec0`). The review-finding tests came before each fix (`7e09390`, `9a2179e`, `3e48c6c`). After the code existed it fixed one test helper bug and **strengthened** B14 (`322da65`, described in the commit) | Ran the review test before the patch, and the whole suite after it |
+| `tests/` (121 tests) | Wrote all of them. Policy, loop, boards, gate-matches-code, check and wrong-version tests came before the code (`76e0f89`). The review packet test came before the patch (`8ddfec0`). The review-finding tests came before each fix (`7e09390`, `9a2179e`, `3e48c6c`). After the code existed it fixed one test helper bug and **strengthened** B14 (`322da65`, described in the commit) | Ran the review test before the patch, and the whole suite after it |
 | `agent/`, `check_run.py`, `scripts/` | Wrote all of them | — |
 | Live runs | Ran live runs 1 and 3, and the seeded demonstration | Ran live run 2 myself |
 | The review packet | Found the slow-trickle defect, wrote the test, patched (`91bfbda`), checked a 404 and the slow-headers case, drafted `REVIEW-PACKET.md`. When I asked what it thought, recommended REVISE with a guard test. Then wrote the guard test I asked for (`764c262`) | Ran the failing test before the patch; read the diff; ran the suite and live run 2; decided **REVISE**, in my own words (REVIEW-PACKET.md section 6) |
@@ -48,6 +48,12 @@ Claude Code (Opus 5.5, model `claude-opus-5-5`) in one Claude Code session in VS
 
 **Transcripts.** The Claude Code conversation transcript stays on my machine, following the assignment's privacy rule.
 
+**Redaction (2026-11-10, at my request).** Eight saved files contained the absolute path of this folder, which includes my macOS username: the six run traces (in `jobs/runs/` and `finished-wrong/jobs/runs/`, where the policy named the state file it allowed) and the tracebacks in `review/1-…` and `review/2-…`. Claude Code replaced that path with `<js2-folder>` in those files and nothing else.
+- The raw responses were not touched.
+- `check_run.py` gives the same verdict on every run after the redaction.
+- The code was changed first, so future runs name files relative to this folder (tests `4afa0b8` before the change `c10af62`).
+- **The earlier commits still contain the unredacted files, because the git history was not rewritten.** Rewriting it would change every commit id cited in this folder.
+
 ## What I wrote, ran or decided
 
 | Part | What |
@@ -56,5 +62,7 @@ Claude Code (Opus 5.5, model `claude-opus-5-5`) in one Claude Code session in VS
 | Review packet, before the patch | Ran `python3 -m unittest tests.test_transport_deadline -v` in my own terminal: 1 FAIL, 2 ok, 6.027 s ([review/2-before-patch-varnika-run.txt](review/2-before-patch-varnika-run.txt)) |
 | Review packet, after the patch | Ran `python3 -m unittest discover -s tests -t .` (96 OK), read `git diff 8ddfec0 91bfbda -- agent/tools.py`, and ran live run 2, `python3 -m agent.loop`, at 21:45:09 UTC ([review/6-after-patch-varnika-run.txt](review/6-after-patch-varnika-run.txt)) |
 | Review decision | REVISE: "The test should explicitly verify that the socket is found through ._sock and fail immediately if that attribute is missing, rather than allowing the code to silently continue." |
+| Time-budget policy | My two decisions in GATE.md, Decisions, November 10, 2026: an invalid or unreliable time budget must stop the run; the independent check must enforce the same time budget. Claude Code wrote the tests first (`304b599`) and the changes (`71491b1`) |
+| Removing my username | Asked for the folder path to be removed from saved files (see Redaction above) |
 | FRICTIONAL "What I learned" lines | Wrote all six. Claude Code pasted them in word for word |
 | Sign-off | Wrote it myself and signed it: "Signed, Varnika M, 2026-11-10" |

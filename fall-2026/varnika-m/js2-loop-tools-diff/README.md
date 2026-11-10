@@ -32,7 +32,7 @@ From a fresh clone:
 git clone https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai.git
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/varnika-m/js2-loop-tools-diff
 
-python3 -m unittest discover -s tests -t .     # 113 tests; no network except local servers on 127.0.0.1
+python3 -m unittest discover -s tests -t .     # 121 tests; no network except local servers on 127.0.0.1
 python3 check_run.py jobs/runs/2026-11-10T215306Z.json   # the independent check, on a saved run
 python3 -m agent.loop                          # a live run: 4 GET requests; writes jobs/; exit code 0/1/2/3
 ```
@@ -95,6 +95,10 @@ All 30 behaved as predicted, though B14 first passed for the wrong reason (see i
 4. **My decision: REVISE, then ACCEPT.** In my words: the test should fail immediately if the private `._sock` attribute is missing. That revision is `764c262`. I ran the guard test myself (3 OK) and accepted the revised patch, without claiming every timeout problem is fixed.
 5. One case the test still misses: slow **headers**, which held a 1-second request for 21 s.
 
+### My later decision on the time budget ([GATE.md](GATE.md), Decisions, November 10, 2026)
+
+After findings 2 and 5, I decided that an invalid or unreliable time budget must stop the run, and that `check_run.py` must enforce the same time budget as the agent. Tests came first (`304b599`, 5 of 6 failed: a clock giving NaN let a run end `finished` with no time limit). The changes are `71491b1`.
+
 ### Other reviews ([REVIEW-FINDINGS.md](REVIEW-FINDINGS.md))
 
 A separate Claude reviewer reported 8 findings. Each was reproduced as a test before any fix. 7 are fixed, and 2 are open decisions for me in GATE.md (8b, 8c). Row 7b, the wrong `gone`, was found in my own live run 2.
@@ -114,7 +118,7 @@ A separate Claude reviewer reported 8 findings. Each was reproduced as a test be
 | `persona/` | the fictional résumé (`@example.com`, 555 phone) |
 | `jobs/` | everything the agent writes: `raw/`, `runs/` (record, report, trace and check per run) and `state/` |
 | `scripts/` | the one-time JS1 state import and the demonstration (not the agent) |
-| `tests/` | 113 tests |
+| `tests/` | 121 tests |
 
 Left out: caches, credentials (there are none), my real résumé, and the Claude Code conversation transcripts, which stay on my machine.
 
