@@ -345,3 +345,23 @@ test('timeout then 200 (the shape of the pre-fix baseline): events are appended 
   assert.equal(board(r, 'lv-spotify').raw_path, req2.raw_path);
   assert.equal(r.exitCode, 0);
 });
+
+// ---- a replay is not an attempted run: out/failures.json is left alone -------------
+
+test('replay leaves an existing out/failures.json byte for byte', async () => {
+  const root = replayProject();
+  const before = `${JSON.stringify({ 'lv-spotify': { consecutive: 1, last_error: 'error: timeout', last_run: 'earlier', escalate: false } }, null, 2)}\n`;
+  writeFileSync(join(root, 'out/failures.json'), before);
+  const r = await run(root, ['--config', 'boards.json', '--label', 'replay', '--replay', 'out/raw/lv-spotify.json'], noNetwork());
+  assert.equal(r.exitCode, 0);
+  assert.equal(readFileSync(join(root, 'out/failures.json'), 'utf8'), before);
+  assert.equal(r.ev('failures_written').length, 0);
+  assert.equal(r.ev('failures_unchanged')[0].reason, 'replay is not an attempted run');
+});
+
+test('replay does not create out/failures.json', async () => {
+  const root = replayProject();
+  const r = await run(root, ['--config', 'boards.json', '--label', 'replay', '--replay', 'out/raw/lv-spotify.json'], noNetwork());
+  assert.equal(r.exitCode, 0);
+  assert.ok(!existsSync(join(root, 'out/failures.json')));
+});

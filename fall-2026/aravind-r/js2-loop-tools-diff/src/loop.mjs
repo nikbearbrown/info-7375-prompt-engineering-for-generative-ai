@@ -286,8 +286,9 @@ export async function runLoop({
       const failed = !(disposition === 'observed' || disposition === 'unchanged (no new IDs)');
       if (failed) raise('incomplete');
 
+      // A replay is not an attempted run (GATE.md Decision): it never touches the counter.
       const prev = failures[b.id] ?? { consecutive: 0 };
-      failures[b.id] = failed
+      if (mode === 'live') failures[b.id] = failed
         ? { consecutive: prev.consecutive + 1, last_error: disposition, last_run: runId, escalate: prev.consecutive + 1 >= 2 }
         : { consecutive: 0, last_error: null, last_run: runId, escalate: false };
 
@@ -295,14 +296,18 @@ export async function runLoop({
         board: b.id, system: b.system, token: b.token, disposition, raw_path: rawPath,
         raw_count: jobs ? jobs.length : null, new_count: newIds ? newIds.length : null, new_ids: newIds,
         state_path: statePath, state_before: before, state_after: after, state_updated: updated,
-        escalate: failures[b.id].escalate,
+        escalate: failures[b.id]?.escalate ?? false,
       };
       results.push(r);
       trace('board_result', r);
     }
 
-    writeAtomic(failuresPath, `${JSON.stringify(failures, null, 2)}\n`);
-    trace('failures_written', { path: failuresPath });
+    if (mode === 'replay') {
+      trace('failures_unchanged', { path: failuresPath, reason: 'replay is not an attempted run' });
+    } else {
+      writeAtomic(failuresPath, `${JSON.stringify(failures, null, 2)}\n`);
+      trace('failures_written', { path: failuresPath });
+    }
   } catch (e) {
     if (!(e instanceof RunError) && !(e instanceof PolicyError)) throw e;
     reason = e.message;
