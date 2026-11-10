@@ -37,4 +37,29 @@ review-packet patch lands.** The predictions above stay "deny" because that is w
 
 ## Actual results
 
-*(Filled in from `scripts/boundary_report.py` after the code exists. See the sections below for each run.)*
+These were added after the code existed. The predictions above were not edited. Raw outputs are in `evidence/tests/`.
+
+| ID | Predicted | Actual after the build (`6c82b59`) | Actual after the patch (`afb3877`) |
+|---|---|---|---|
+| B01 | deny | deny | deny |
+| B02 | deny | deny | deny |
+| **B03** | deny | **allow (mismatch)** | deny |
+| **B04** | deny | **allow (mismatch)** | deny |
+| B05 | deny | deny | deny |
+| B06 | deny | deny | deny |
+| B07 | deny | deny | deny |
+| B08 | deny | deny | deny |
+| B09 | deny | deny | deny |
+| B10 | deny | deny | deny |
+| B11 | allow | allow | allow |
+| B12 | deny | deny | deny |
+| B13 | allow | allow | allow |
+| B14 | needs approval | needs approval | needs approval |
+| B15 | allow | allow | allow |
+| B16 | deny | deny | deny |
+| B17 | deny | deny | deny |
+| B18 | allow | allow | allow |
+| | | **16/18** (`02_boundary_after_build.txt`) | **18/18** (`03_boundary_after_patch.txt`) |
+
+The two mismatches were the ones written down in advance: JS1's `check_url` accepted a nonstandard port and user information. They
+are the review packet's defect ([REVIEW_PACKET.md](REVIEW_PACKET.md)). No prediction was changed to make a row match.
