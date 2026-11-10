@@ -9,7 +9,7 @@ Sections 1–4 are facts and Claude Code's reading, labelled as such. **Sections
 The board-name rule I carried over from JS1 (`^[a-z0-9-]{1,64}$`) rejects real Ashby board names that
 contain capitals or spaces. Lectern's `ATS.md` documents one: `Jasper AI`.
 
-Live check (Claude Code ran it, 2026-11-10 ~16:45 EST, curl, public GET, nothing saved):
+Live check (Claude Code ran it, 2026-11-10 ~16:37 EST, curl, public GET, nothing saved):
 
 | URL | HTTP | postings |
 |---|---|---|
