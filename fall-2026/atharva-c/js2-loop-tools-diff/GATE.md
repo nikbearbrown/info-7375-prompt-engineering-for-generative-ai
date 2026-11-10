@@ -17,6 +17,8 @@ The 15-request cap allocates 1 primary request per board (5 total) plus at most 
 
 Only I change these numbers, by editing GATE.md with the date and a reason and committing that change before modifying the code.
 
+**Added Nov 9, 2026:** each request times out after 10 seconds (or less, if fewer seconds remain in the 60-second budget). A timeout counts as a timeout under the Error Policy (one retry). This number was in `budget.json` from the first loop commit (`4369abf`, Nov 8) before it was written here; I decided on Nov 9 to keep it, so one slow board cannot use most of the run's 60 seconds.
+
 ## Repeat Rule
 
 Two actions are the same if they target the same normalized URL with the same HTTP method. URLs are normalized by converting the hostname and path to lowercase and stripping any trailing slash, making `.../boards/Acme/jobs` and `.../boards/acme/jobs/` identical.
