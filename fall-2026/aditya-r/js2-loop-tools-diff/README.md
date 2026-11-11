@@ -127,7 +127,7 @@ _The items below are Aditya's: he dictated them in the session on 2026-11-10 (ab
   4. the truth of all free-text explanations;
   5. complete protection against filesystem races.
 - **Not claiming:** universal correctness, OS-level isolation, completed evaluation of every posting, or independent authorship of AI-produced work.
-- **Signed or withheld:** ____________ _(name, date)_
+- **Signed:** Aditya Raj, 2026-11-10 20:48 EST
 
 ## Privacy
 
