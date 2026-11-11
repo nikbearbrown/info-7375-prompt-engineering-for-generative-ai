@@ -48,8 +48,9 @@ def _approval_ok(approval: object, run_id: str | None) -> bool:
 
 
 def _resolve(root: Path, target: str | os.PathLike) -> Path:
-    # Ported from JS1's safeWrite: path.resolve(root, target). Cleans "." and ".." textually.
-    return Path(os.path.abspath(os.path.join(root, target)))
+    # Follow symlinks: judge a path by where the filesystem will actually put the bytes (GATE §6).
+    # JS1's safeWrite only cleaned ".." textually, so a link inside an allowed folder could point anywhere.
+    return Path(os.path.join(root, target)).resolve()
 
 
 def _inside(path: Path, base: Path) -> bool:

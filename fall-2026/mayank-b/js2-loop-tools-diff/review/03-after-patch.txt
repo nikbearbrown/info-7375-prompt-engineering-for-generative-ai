@@ -1,0 +1,31 @@
+# 2026-11-10, after the patch (02-patch.diff applied on top of JS2-CP5 f2e775e)
+$ cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write test_policy.Paths.test_B8b_returned_path_is_the_resolved_one -v
+test_B8_symlink_escape_on_write (test_policy.Paths.test_B8_symlink_escape_on_write) ... ok
+test_B8b_returned_path_is_the_resolved_one (test_policy.Paths.test_B8b_returned_path_is_the_resolved_one) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK
+[exit 0]
+
+$ python3 -m unittest discover -s tests -p "test_*.py"
+Ran 50 tests in 0.067s
+
+OK
+[exit 0]
+
+$ python3 scripts/wrong_versions.py
+wrong version                    tests run failed  result
+W1 prefix trick                          1      1  CAUGHT
+W2 symlink escape                        1      1  CAUGHT
+W3 truthy approval                       1      4  CAUGHT
+W4 empty board = fine                    1      1  CAUGHT
+W5 failure as zero                       1      1  CAUGHT
+W6 stopped = success                     1      1  CAUGHT
+W7 repeat counted as progress            1      1  CAUGHT
+W8 host check by substring               1      1  CAUGHT
+W9 state wiped on failure                1      1  CAUGHT
+
+9/9 wrong versions caught
+[exit 0]
