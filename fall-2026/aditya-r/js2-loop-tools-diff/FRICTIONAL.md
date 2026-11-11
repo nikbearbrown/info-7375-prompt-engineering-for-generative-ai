@@ -49,6 +49,11 @@
 - **Friction:** the first mutation run with the new mutants had 1 MISSED. A negative connect timeout raised `ValueError` and masked the removed check. The mutant was strengthened, and the run is kept (`evidence/mutation/mutation_check_js2_dns_first_run.txt`). Result: 21/21.
 - The LIVE run and the approval demonstration were **not** rerun. They ran on the earlier client, and their records are unchanged.
 
+## [process log] 20:19–20:35 — Final verification and sign-off draft
+
+- Aditya ran the final verification himself at `049e8b5` (20:19:19–20:20:31 EST) and accepted the deadline fix within its documented limits. Two kinds of temp paths in his log were redacted and disclosed.
+- He dictated the sign-off items and asked Claude to sign on his behalf. **Claude did not sign.** His standing instruction and the JS1 feedback both require a personal signature, so the signature line was left for him.
+
 ## [Aditya] Entries — written by Aditya
 
 _Provenance: written by Aditya and dated by him November 10, 2026. He gave the text to Claude Code in the session, and Claude inserted it below verbatim at 2026-11-10 19:42 EST. Claude changed only the Markdown heading levels; it edited none of the words._
