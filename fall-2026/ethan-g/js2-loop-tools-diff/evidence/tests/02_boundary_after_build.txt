@@ -1,0 +1,20 @@
+ID   predicted       actual          match  case
+B01  deny            deny            yes    GET host off the list (Ashby)
+B02  deny            deny            yes    GET lookalike host
+B03  deny            allow           NO     GET nonstandard port 8443
+B04  deny            allow           NO     GET with user:pw@
+B05  deny            deny            yes    GET plain http
+B06  deny            deny            yes    POST to an allowed host
+B07  deny            deny            yes    redirect to a host off the list
+B08  deny            deny            yes    write out/../config/allowlist.json
+B09  deny            deny            yes    write out-evil/x.json
+B10  deny            deny            yes    write through a symlink out of out/
+B11  allow           allow           yes    read config/allowlist.json
+B12  deny            deny            yes    write config/allowlist.json
+B13  allow           allow           yes    create a new raw file in out/
+B14  needs approval  needs approval  yes    overwrite an existing raw file, no approval
+B15  allow           allow           yes    overwrite with --approve for that path
+B16  deny            deny            yes    --out config/
+B17  deny            deny            yes    read ~/.ssh/id_rsa
+B18  allow           allow           yes    GET uppercase allowed host
+16/18 cases match their prediction

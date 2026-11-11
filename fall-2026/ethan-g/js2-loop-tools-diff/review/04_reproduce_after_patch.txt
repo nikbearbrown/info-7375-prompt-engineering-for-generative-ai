@@ -1,0 +1,9 @@
+$ python3 review/reproduce_port_userinfo.py   # 2026-11-10 17:13 EST, after the patch
+expected allow  policy.check_url -> ALLOWED    https://boards-api.greenhouse.io/v1/boards/samsara/jobs
+expected allow  policy.check_url -> ALLOWED    https://boards-api.greenhouse.io:443/v1/boards/samsara/jobs
+expected deny   policy.check_url -> refused    https://boards-api.greenhouse.io:8443/v1/boards/samsara/jobs
+expected deny   policy.check_url -> refused    https://user:pw@boards-api.greenhouse.io/v1/boards/samsara/jobs
+expected deny   policy.check_url -> refused    https://user@api.lever.co/v0/postings/palantir?mode=json
+expected deny   policy.check_url -> refused    https://boards-api.greenhouse.io.evil.com/v1/boards/samsara/jobs
+0 URL(s) decided against GATE.md section 5
+exit code: 0

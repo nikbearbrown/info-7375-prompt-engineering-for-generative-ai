@@ -1,0 +1,18 @@
+$ python3 -m jsagent.loop --boards config/boards.json --no-claude
+Run 2026-11-10T171500_live  [LIVE]  boards file: config/boards.json  output root: out  claude: off
+  greenhouse:samsara                   ok            314 postings  compared with baseline 2026-10-31; new: 80 (0 judged, 0 not judged, 80 other)
+  greenhouse:databricks                ok            917 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  greenhouse:toast                     ok            331 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  greenhouse:klaviyo                   ok            148 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  greenhouse:datadog                   ok            394 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  lever:palantir                       ok            304 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  lever:spotify                        ok             85 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  lever:zoox                           ok            231 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  lever:kraken                         ok              0 postings  baseline: first observation; new: 0 (0 judged, 0 not judged, 0 other)
+  greenhouse:samsara-does-not-exist    FAILED       count unknown, not zero: HTTP 404: deterministic, not retried
+requests 10/100  seconds 11.5/420  steps 10/200
+state update: updated for 9 board(s) observed successfully; failed or unobserved boards unchanged
+run dir: out/runs/2026-11-10T171500_live
+attention required:
+  - greenhouse:samsara-does-not-exist failed: HTTP 404: deterministic, not retried (count unknown, not zero)
+loop exit: incomplete (1)

@@ -1,0 +1,7 @@
+$ python3 -m jsagent.loop --boards config/boards_seeded.json --out evidence/seeded/empty-samsara --no-claude --replay greenhouse:samsara=tests/fixtures/seeded/empty-samsara.json --seeded constructed: Samsara's list replaced by tests/fixtures/seeded/empty-samsara.json ({"jobs": [], "meta": {"total": 0}}); no network
+Run 2026-11-10T171605_seeded  [SEEDED (constructed: Samsara's list replaced by tests/fixtures/seeded/empty-samsara.json ({"jobs": [], "meta": {"total": 0}}); no network)]  boards file: config/boards_seeded.json  output root: evidence/seeded/empty-samsara  claude: off
+  greenhouse:samsara                   ok              0 postings  compared with baseline 2026-10-31; new: 0 (0 judged, 0 not judged, 0 other)
+requests 1/100  seconds 0.0/420  steps 1/200
+state update: updated for 1 board(s) observed successfully; failed or unobserved boards unchanged
+run dir: evidence/seeded/empty-samsara/runs/2026-11-10T171605_seeded
+loop exit: finished (0)

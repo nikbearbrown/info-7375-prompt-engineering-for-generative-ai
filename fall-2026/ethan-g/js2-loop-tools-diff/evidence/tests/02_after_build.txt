@@ -1,0 +1,56 @@
+......................................................................usage: python3 -m unittest [-h] --boards BOARDS [--out OUT] [--resume RESUME]
+                           [--no-claude] [--prompt PROMPT] [--model MODEL]
+                           [--approve PATH] [--reset-state]
+                           [--replay PROVIDER:BOARD=FILE] [--seeded SEEDED]
+python3 -m unittest: error: --replay needs --seeded '<how the input was made>' so the run is labeled SEEDED
+..........................F..............
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B03', what='GET nonstandard port 8443')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: 'allow' != 'deny'
+- allow
++ deny
+
+
+======================================================================
+FAIL: test_every_case_matches_its_prediction (tests.test_js2_boundary.TestBoundary) (case='B04', what='GET with user:pw@')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_boundary.py", line 11, in test_every_case_matches_its_prediction
+    self.assertEqual(run_case(fn), predicted)
+AssertionError: 'allow' != 'deny'
+- allow
++ deny
+
+
+======================================================================
+FAIL: test_W4_port_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 97, in test_W4_port_refused
+    self.policy.check_url("https://boards-api.greenhouse.io:8443/v1/boards/samsara/jobs", HOSTS)
+AssertionError: PolicyViolation not raised
+
+======================================================================
+FAIL: test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) (url='https://user:pw@boards-api.greenhouse.io/v1/boards/samsara/jobs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 103, in test_W4_userinfo_refused
+    self.policy.check_url(url, HOSTS)
+AssertionError: PolicyViolation not raised
+
+======================================================================
+FAIL: test_W4_userinfo_refused (tests.test_js2_wrong_versions.TestNetworkWrongVersions) (url='https://user@api.lever.co/v0/postings/palantir?mode=json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ethangomes/Desktop/Prompt_Engineering/Job_Search_Agent_2/tests/test_js2_wrong_versions.py", line 103, in test_W4_userinfo_refused
+    self.policy.check_url(url, HOSTS)
+AssertionError: PolicyViolation not raised
+
+----------------------------------------------------------------------
+Ran 113 tests in 0.256s
+
+FAILED (failures=5)
