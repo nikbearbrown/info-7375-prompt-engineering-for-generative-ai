@@ -11,7 +11,9 @@
 
 - **`GATE.md`:** the boards, exits, budgets, repeat rule, error policy, permission policy and wrong versions. Typed in chat, saved verbatim (`1793a11`).
 - **Building on JS1:** the decision, and the instruction to take only field names from Lectern.
-- **Still to come:** the boundary predictions, the review decision and the commands in REVIEW-PACKET §5, FRICTIONAL.md, and the sign-off.
+- **The 15 boundary predictions** (`e769016`).
+- **Running the tests and the independent check** in Siddi's own terminal, and the **Accept** decision on the patch (`b24d512`).
+- **FRICTIONAL.md** (the timeline follows Claude's list of events; the wording and reflection are Siddi's) and the **signed sign-off**.
 
 ## What Claude contributed
 

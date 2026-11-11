@@ -35,6 +35,8 @@ The exit code is the run's exit: `finished` 0, `incomplete` 1, `budget-exhausted
 | 22:09 | Loop v0 committed | `24d6e27` |
 | 22:12 | Tests and the review test committed **before** the patch; the review test fails on v0 | `c0eea55`, `evidence/review/1-…` |
 | 22:13 | Patch (GATE §4 identity check): 8/8 tests, 5/5 mutants. The Canvaa rerun is now `incomplete`, and the independent check passed. | `ef6456a`, `evidence/review/` |
+| 22:16 | Siddi's 15 boundary predictions committed, then the boundary tests ran: **14/15 matched**. Case 12: predicted refused, code says needs approval, as GATE §5 says. | `e769016`, `0248ff2`, `BOUNDARY-TESTS.md` |
+| 22:18 | Siddi ran the tests (8/8) and the independent check (CHECK PASSED) in their own terminal, then **accepted** the patch | `b24d512`, REVIEW-PACKET §5 and §7 |
 
 **Interpretation, flagged for Siddi:** GATE §3 says "the same action" is skipped. The code treats §4's timeout retries as attempts of *one* action, not as repeats; anything else would make §3 and §4 contradict each other.
 
@@ -48,7 +50,7 @@ The exit code is the run's exit: `finished` 0, `incomplete` 1, `budget-exhausted
 
 ## Sign-off — Job-Search Agent 2
 
-> **DRAFT by Claude. Siddi edits, then signs or withholds.**
+> Lines drafted by Claude; Siddi reviewed them and chose to sign them as they stand (2026-11-10, about 22:21 ET).
 
 - **Checked:**
   - Each GATE §6 wrong version is caught by its own test (`tests/test_wrong_versions.py`, wv_1–wv_5), and each test fails with its wrong version put in (`tests/mutants.py`, 5/5).
@@ -68,7 +70,7 @@ The exit code is the run's exit: `finished` 0, `incomplete` 1, `budget-exhausted
   - That the identity rule proves a board is the right company's.
   - That "new since previous run" is anything more than an id comparison with the last saved run.
   - That the agent judges relevance at all. JS2 watches boards; it does not judge postings.
-- **Signed or withheld:** ____________ (name, date)
+- **Signed or withheld:** Signed, Siddi Kommuri, 2026-11-10
 
 ## Driver's seat
 
