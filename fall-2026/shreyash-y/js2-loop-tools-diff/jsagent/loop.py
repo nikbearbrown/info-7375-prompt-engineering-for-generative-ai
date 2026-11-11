@@ -50,6 +50,8 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
     trace("start", run_id=run_id, budgets=budgets, boards=[b["name"] for b in boards], previous_state_sequence=prev["sequence"])
     results, requests, done_urls, exhausted, fatal = [], 0, set(), False, None
 
+    if not boards:  # nothing to check is not "finished" (fixed 2026-11-10 after the regrade)
+        fatal = "no boards to check: the board list is empty"
     for b in boards:
         if b.get("ats") not in providers.ATS:
             fatal = f"board {b.get('name')!r}: unknown applicant-tracking system {b.get('ats')!r}"

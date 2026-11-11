@@ -22,13 +22,15 @@ def main(argv=None):
     r.add_argument("--approve-overwrite", action="store_true", help="your approval to overwrite or delete saved files")
     a = ap.parse_args(argv)
     budgets = loop.load_budgets(HERE / "budgets.json", HERE / "GATE.md")
-    boards = json.loads((HERE / a.boards).read_text())["boards"]
+    files = policy.Files(HERE, HERE / a.runs_dir, approve=a.approve_overwrite)
+    # Input files named on the command line go through the read rule (GATE.md section 6), so a
+    # path outside this folder is refused before anything runs. Fixed 2026-11-10 after the regrade.
+    boards = json.loads(files.read(HERE / a.boards))["boards"]
     view = persona.public_view(persona.load(HERE / "persona" / "alex_morgan.json"))
     run_id = a.run_id or datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     if a.replay:
         run_id += "-SEEDED"
-    files = policy.Files(HERE, HERE / a.runs_dir, approve=a.approve_overwrite)
-    t = transport.Replay(HERE / a.replay) if a.replay else transport.Live()
+    t = transport.Replay(HERE / a.replay, read=files.read) if a.replay else transport.Live()
     rep = loop.run(boards, budgets, t, files, run_id, view)
     print(f"run {run_id}: exit {rep['exit']}  (requests {rep['requests_used']}/{budgets['max_requests']}, "
           f"seconds {rep['seconds_used']}/{budgets['max_seconds']})" + ("  [SEEDED replay]" if a.replay else ""))

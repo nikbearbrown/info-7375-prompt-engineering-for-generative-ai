@@ -1,0 +1,22 @@
+# Regrade gaps, test run AFTER the fix, 2026-11-10 20:30 EST. Command: python3 -m unittest tests.test_regrade_gaps -v, then the full suite.
+test_boards_file_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_boards_file_outside_the_folder_is_refused) ... ok
+test_replay_map_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_replay_map_outside_the_folder_is_refused) ... ok
+test_check_flags_finished_with_no_board_checked (tests.test_regrade_gaps.EmptyBoardList.test_check_flags_finished_with_no_board_checked)
+What the old loop wrote for an empty list: exit finished, no boards. The check must not pass it. ... ok
+test_empty_board_list_is_an_error_not_finished (tests.test_regrade_gaps.EmptyBoardList.test_empty_board_list_is_an_error_not_finished) ... ok
+test_response_file_outside_the_project_is_refused (tests.test_regrade_gaps.ReplayResponseFiles.test_response_file_outside_the_project_is_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+OK
+
+# full suite
+Ran 105 tests in 0.184s
+
+OK (expected failures=1)
+
+# check on the saved live runs
+runs/20261110T002501Z: no findings
+runs/20261110T011708Z: no findings
+runs/20261110T204749Z: no findings

@@ -54,4 +54,5 @@ The full output is in `evidence/finished-wrong-SEEDED-2026-11-09.txt`; the build
 
   Exit code 1. On real run 1 the same check says `no findings`.
 - **What the check would miss.** It works for Greenhouse because Greenhouse reports `meta.total`. Ashby and Lever report no total, so a partial Ashby or Lever response that kept more than half the postings would pass the check.
+- **A second finished wrong answer, found later.** An independent regrade on 2026-11-10 ran the agent with an empty board list: it said `finished` with nothing checked, and this check said `no findings`. Now the loop exits `error` on an empty list, and the check flags any `finished` run in which no board was checked (`tests/test_regrade_gaps.py`, committed failing first in `01aaeb2`).
 - **A slip on the way.** The first attempt at this demo crashed inside the check: its command line assumed every run sits directly in `runs/`. That crash was not counted as a catch. The check's folder lookup was fixed and only the check was re-run (both recorded in the evidence file).

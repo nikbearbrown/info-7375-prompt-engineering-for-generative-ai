@@ -39,13 +39,16 @@ class Live:
 class Replay:
     """SEEDED: map file {url: {"status": int, "file": path}}; nothing touches the network."""
 
-    def __init__(self, map_path):
+    def __init__(self, map_path, read=lambda p: pathlib.Path(p).read_bytes()):
+        # read: the command line passes Files.read, so the map and every saved response it names
+        # must sit inside the project folder (fixed 2026-11-10 after the regrade).
+        self.read = read
         self.base = pathlib.Path(map_path).resolve().parent
-        self.map = json.loads(pathlib.Path(map_path).read_text())
+        self.map = json.loads(read(map_path))
 
     def get(self, url, timeout=20):
         policy.check_request("GET", url)
         entry = self.map.get(url)
         if entry is None:
             return 404, b'{"seeded": "no saved response for this url"}'
-        return entry["status"], (self.base / entry["file"]).read_bytes()
+        return entry["status"], self.read(self.base / entry["file"])

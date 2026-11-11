@@ -48,6 +48,8 @@ def check_run(run_dir, project_dir):
     bad = [b["name"] for b in s["boards"] if b["status"] in ("failed", "empty", "skipped-budget", "not-run")]
     if s["exit"] == "finished" and bad:
         findings.append(f"run says finished but these boards were not fully checked: {', '.join(bad)}")
+    if s["exit"] == "finished" and not any(b["status"] == "ok" for b in s["boards"]):
+        findings.append("run says finished but no board was checked")  # added 2026-11-10 after the regrade
     return findings
 
 

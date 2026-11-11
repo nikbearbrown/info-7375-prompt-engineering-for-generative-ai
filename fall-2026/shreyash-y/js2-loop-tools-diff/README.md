@@ -20,7 +20,8 @@ Run every command from this folder.
 | Permission policy in code, 22 predicted boundary cases | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) | `python3 -m unittest tests.test_policy tests.test_policy_symlink tests.test_policy_nested_symlink -v` |
 | Review packet: reproduce, test first, diff as behavior, scope, my commands, my decision, missed cases | [REVIEW-PACKET.md](REVIEW-PACKET.md), opening with my own reading of the diffs | `git log --oneline 6f4ae08^..ba0a5b0` |
 | Sign-off and driver's seat | the end of this README | — |
-| All tests; the 12 frozen test and fixture files match their recorded hashes (two disclosed changes) | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
+| Two gaps an independent regrade found on 2026-11-10 (CLI reads skipped the read rule; an empty board list said `finished`), tests committed failing before the fix | `tests/test_regrade_gaps.py`, `evidence/regrade-gaps-*` | `python3 -m unittest tests.test_regrade_gaps -v` |
+| All tests; the 17 frozen test and fixture files match their recorded hashes (two disclosed changes) | `tests/`, `tests.frozen.sha256` | `python3 -m unittest discover -s tests -t . && shasum -a 256 -c tests.frozen.sha256` |
 
 ## Summary, in my own words
 
@@ -45,13 +46,13 @@ git clone -b shreyash-y/js2-loop-tools-diff https://github.com/shreyashyadav1/in
 cd info-7375-prompt-engineering-for-generative-ai/fall-2026/shreyash-y/js2-loop-tools-diff
 ```
 
-All tests, offline (100; one is an expected failure, Shreyash's Physician Reviewer test):
+All tests, offline (105; one is an expected failure, Shreyash's Physician Reviewer test):
 
 ```bash
 python3 -m unittest discover -s tests -t . -v
 ```
 
-Check the 12 frozen test and fixture files against their recorded hashes. Two were changed openly after their first run (`review/08`, BOUNDARY-TESTS row 21); `test_rule.py`, copied from JS1, is not frozen:
+Check the 17 frozen test and fixture files against their recorded hashes. Two were changed openly after their first run (`review/08`, BOUNDARY-TESTS row 21); `test_rule.py`, copied from JS1, is not frozen:
 
 ```bash
 shasum -a 256 -c tests.frozen.sha256
@@ -93,11 +94,13 @@ mv runs/seeded-finished-wrong /tmp/seeded-finished-wrong-committed && PYTHONPATH
 | 2026-11-09 | **Seeded finished wrong answer** | the agent says `finished`; the independent check flags `meta.total 199` vs 20 and 179 postings gone | [TRACE.md](TRACE.md), `evidence/finished-wrong-SEEDED-2026-11-09.txt` |
 | 2026-11-09 | Boundary tests | 20 of 20 as predicted | [BOUNDARY-TESTS.md](BOUNDARY-TESTS.md) |
 | 2026-11-10 | Boundary row 21 (after review): a symlink inside runs/ to a new file inside runs/ | as predicted; with the no-symlink line deleted it now fails, which closes the mutation-check gap | `evidence/boundary-row21-run-2026-11-10.txt` |
+| 2026-11-10 20:30–20:45 | Regrade gaps: CLI reads, empty board list | 5 tests committed failing (`01aaeb2`), all 5 pass after the fix; full suite 105, OK; the three live runs still give no findings | `evidence/regrade-gaps-before-fix-2026-11-10.txt`, `evidence/regrade-gaps-after-fix-2026-11-10.txt` |
 | 2026-11-09 19:26–19:45 | Review packet: rule v2, three revisions | rev 1 revise, rev 2 rejected on reading, rev 3 accepted with known limitations | [REVIEW-PACKET.md](REVIEW-PACKET.md) |
 
 ## Known limitations of the loop and the permission policy
 
 - **The time budget is now a deadline, but tested only with a constructed clock.** Until 2026-11-10 the 120-second limit was checked only before each request, so one slow request could run about 20 s past it. A test written first (`tests/test_loop_deadline.py`, commit `325e98c6`, failing: "20 not less than or equal to 10") was followed by the fix: each request now gets the smaller of 20 s and the time left, and no request starts with 0 s left. The three live runs (3.4–7.8 s) were made before this change and never came near the limit, and no real slow request has been seen.
+- **Two gaps fixed on 2026-11-10, after an independent regrade.** (1) The command line read `--boards`, the `--replay` map and the replay's saved responses directly, not through `Files.read`, so a path outside this folder was accepted even though GATE-NOTES says reads stay inside it. They now go through `Files.read` and are refused. (2) An empty board list ran as `finished` with nothing checked, and the check said "no findings": a finished wrong answer neither caught. The loop now exits `error`, and the check flags any `finished` run with no board checked. Tests first: `tests/test_regrade_gaps.py`, failing in `01aaeb2`. `budgets.json`, `GATE.md` and the persona are still read directly, at fixed paths inside this folder. The three live runs were made before this change.
 - **Check, then write.** The path is resolved and checked, then opened. A folder swapped for a symlink in between could be followed. This is not tested and not closed (BOUNDARY-TESTS.md, "What these 22 rows do not cover"). Hard links are not detected either.
 
 ## Known limitations of the filtering rule

@@ -41,6 +41,10 @@
   - **Evidence that the test can fail:** with the no-symlink line deleted in a scratch copy, row 21 fails and is the only test that does (`evidence/mutation-check-2026-11-09.txt`, second part). Before row 21 existed, the same deletion left every test green.
   - **The link-unchanged assertions** were added at review, after the first run. The file's sha256 in `tests.frozen.sha256` was updated, and the new run is in the same evidence file.
 
+### Found after the 22 rows: the read rule at the command line (2026-11-10, Claude Code)
+
+The 22 rows test `Files.read` itself. An independent regrade on 2026-11-10 found that the command line did not call it for its own input files. Three tests in `tests/test_regrade_gaps.py` predict a refusal (`read-outside`) for a `--boards` file outside the folder, a `--replay` map outside it, and a saved response outside it named by a map inside it. They were committed failing (`01aaeb2`, `evidence/regrade-gaps-before-fix-2026-11-10.txt`) and pass after the fix. The first run of these tests, before a network guard was added, let the old code make one live GET to Oscar's public board and write throwaway run files; those files were deleted and never committed (recorded at the top of the before-fix evidence file).
+
 ### What these 22 rows do not cover
 
 - **The gap between checking a path and writing it** (a time-of-check/time-of-use race). `Files.write` resolves and checks the path, then opens it. If another process swapped a folder for a symlink in between, the write could follow it. No test covers this. Closing it properly means opening with `O_NOFOLLOW` relative to an already-opened `runs/` directory, which was not built. The agent is the only writer in `runs/` during a run, but that is an assumption, not something enforced.
