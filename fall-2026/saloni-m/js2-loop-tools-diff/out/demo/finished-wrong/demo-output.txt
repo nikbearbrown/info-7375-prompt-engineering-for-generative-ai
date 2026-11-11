@@ -1,0 +1,8 @@
+# command: cd scripts && python3 finished_wrong_demo.py --live-check
+# run by Claude Code 2026-11-11T00:59:17Z on patch v2; SIMULATED (figma emptied), other inputs = real raw from live run 1
+SIMULATED demo. Real raw responses from out/runs/20261111T004140Z-live; greenhouse:figma replaced by {"jobs": []}
+
+step 1 baseline replay (correct loop): finished, counts {'anthropic': 679, 'figma': 144, 'openai': 826}
+step 2 WRONG VERSION 1 report: FINISHED, 0 new, figma count 0
+step 3 independent check: overall CONTRADICTED; greenhouse:figma: CONTRADICTED ['agent says 0 jobs; 144 were saved before this run', 'agent says 0 jobs; a fresh GET counts 144']
+step 4 correct loop: INCOMPLETE; figma suspicious_empty (valid response with zero jobs); figma history kept: True

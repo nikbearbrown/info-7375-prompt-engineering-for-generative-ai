@@ -1,0 +1,41 @@
+# command: python3 -m unittest tests.test_migration -v  (with jsagent/loop.py temporarily = patch v1 from 08951265; fixture version of the test)
+# by Claude Code 2026-11-11T00:59:43Z
+test_board_whose_old_raw_is_missing_is_rebaselined_alone_and_logged (tests.test_migration.TestSchema1Migration.test_board_whose_old_raw_is_missing_is_rebaselined_alone_and_logged) ... FAIL
+test_real_run1_history_migrated_reports_only_the_real_new_job (tests.test_migration.TestSchema1Migration.test_real_run1_history_migrated_reports_only_the_real_new_job) ... FAIL
+
+======================================================================
+FAIL: test_board_whose_old_raw_is_missing_is_rebaselined_alone_and_logged (tests.test_migration.TestSchema1Migration.test_board_whose_old_raw_is_missing_is_rebaselined_alone_and_logged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/salonimathure/info-7375-prompt-engineering-for-generative-ai/fall-2026/saloni-m/js2-loop-tools-diff/tests/test_migration.py", line 76, in test_board_whose_old_raw_is_missing_is_rebaselined_alone_and_logged
+    self.assertEqual([n["key"] for n in a["new"]], ["greenhouse:a:2"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['greenhouse:a:2']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'greenhouse:a:2'
+
+- []
++ ['greenhouse:a:2']
+
+======================================================================
+FAIL: test_real_run1_history_migrated_reports_only_the_real_new_job (tests.test_migration.TestSchema1Migration.test_real_run1_history_migrated_reports_only_the_real_new_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/salonimathure/info-7375-prompt-engineering-for-generative-ai/fall-2026/saloni-m/js2-loop-tools-diff/tests/test_migration.py", line 57, in test_real_run1_history_migrated_reports_only_the_real_new_job
+    self.assertEqual(new, [KOREA])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['ashby:openai:76084eee-9186-4897-ae12-3445307e61be']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'ashby:openai:76084eee-9186-4897-ae12-3445307e61be'
+
+- []
++ ['ashby:openai:76084eee-9186-4897-ae12-3445307e61be']
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.281s
+
+FAILED (failures=2)

@@ -99,3 +99,9 @@ budget is checked before every request.
 
 **Raw responses** are saved byte-for-byte (gzip-compressed, with the SHA-256 of the uncompressed
 bytes) before they are parsed, so a TA can re-parse them.
+
+## Note added 2026-11-10, after the build (nothing above was changed)
+
+To be exact about §6 and §7: Claude offered seven example wrong versions (a–g) and a
+fill-in-the-blank failure sentence. Saloni picked (a) empty board, (b) silent skip and (g) id
+collision, and wrote each one in her own words. §7 is her sentence written into that template.
