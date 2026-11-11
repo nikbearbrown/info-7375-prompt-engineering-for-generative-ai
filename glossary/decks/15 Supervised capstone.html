@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supervised capstone | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: Supervised capstone">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Supervised capstone">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 15</p>
+      <h1 class="t-opening rise g2">Supervised capstone</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for a packet that shows evidence, not only ten files</p>
+      <div class="speaker-notes" hidden><p>Deck for Chapter 15. 34 terms, each used and explained in the chapter. Several numbers are illustrative and labelled so on each slide.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Thirty-four terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Thirty-four terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Structure versus substance">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The packet</p>
+      <h2 class="t-chart">Structure versus substance</h2>
+      <div class="diagram build" data-build="valid" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Tear down the packet validator”; “Worked example: missing, escaping, meaningless, and useful”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>The validator is re-implemented in the slide and run on the four fixtures from the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Ten artifacts, one argument">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The packet</p>
+      <h2 class="t-chart">Ten artifacts, one argument</h2>
+      <div class="diagram build" data-build="packet" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Three jobs, one packet”; “Ten artifacts, one argument”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Which files carry which job follows the chapter table. The five pointers are the chapter examples.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The brief and the boundaries">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Writing the gate</p>
+      <h2 class="t-chart">The brief and the boundaries</h2>
+      <div class="diagram build" data-build="brief" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “In the wild means bounded reality”; “Ten artifacts, one argument”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>The requests, sources and actions are illustrative; the four brief decisions and the non-purpose example come from the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Plan, pre-mortem, gates, authority drift">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Writing the gate</p>
+      <h2 class="t-chart">Plan, pre-mortem, gates, authority drift</h2>
+      <div class="diagram build" data-build="gate" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Ten artifacts, one argument”; “Common capstone failures”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Budget, failures and digests are illustrative; the digest is a computed hash of the proposal text.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Python constrains, a prompt requests">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">Constraining and recovering</p>
+      <h2 class="t-chart">Python constrains, a prompt requests</h2>
+      <div class="diagram build" data-build="python" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “The gate: Claude proposes, Python constrains”; “Ten artifacts, one argument”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>The 70% obedience rate is an assumption for the simulation.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Controlled failure and reviewed recovery">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Constraining and recovering</p>
+      <h2 class="t-chart">Controlled failure and reviewed recovery</h2>
+      <div class="diagram build" data-build="fail" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Controlled failure and reviewed recovery”; “Audit the reviewer”; “Common capstone failures”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>The trace is the chapter’s constructed illustration, not a recorded run. The 20% chance is an assumption.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Audit the reviewer and the Gap Account">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Judging and deciding</p>
+      <h2 class="t-chart">Audit the reviewer and the Gap Account</h2>
+      <div class="diagram build" data-build="audit" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Audit the reviewer”; “The Gap Account”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Predictions and gaps are examples in the chapter’s style.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Claims, evidence and state">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Judging and deciding</p>
+      <h2 class="t-chart">Claims, evidence and state</h2>
+      <div class="diagram build" data-build="graph" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Independent verification and outcome state”; “Build a claim-to-evidence graph”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>One minute to draft is from the chapter; 4 minutes per edge is assumed.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Sign-off, handoff and the decision">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Judging and deciding</p>
+      <h2 class="t-chart">Sign-off, handoff and the decision</h2>
+      <div class="diagram build" data-build="decide" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “Handoff that survives the author”; “The sign-off”; “Ship, narrow, defer, or stop”; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Scores and weights are illustrative; the weights are the author’s to set.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15.</p>
+      <div class="speaker-notes" hidden><p>Capability and authority, contingent and structural, reviewed recovery and repetition, defer and stop.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague request, exact instruction</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15.</p>
+      <div class="speaker-notes" hidden><p>Five requests and exact versions. Charts reuse the numbers from earlier slides.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before you sign a capstone packet">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before you sign a capstone packet</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 15, “The sign-off”; “Capabilities summary”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= Supervised capstone (Prompt Engineering, Chapter 15) ================= */
+  var DEG = Math.PI / 180, uid = 0, GREY = "#909090";
+  var T = {
+    vp: { n: "validate_packet", tag: "book", m: "A function that checks ten named files: inside the folder, present, at least 40 characters" },
+    sc: { n: "structurally_complete", tag: "book", m: "The flag that reads True when no file is missing, escaping or too short" },
+    ml: { n: "Meaningless packet", tag: "book", m: "Ten long files of repeated x that pass, showing length is not substance" },
+    sv: { n: "Structure vs substance", tag: "book", m: "A machine checks files and sizes; truth and trust need evidence and a person" },
+    cp: { n: "Capstone packet", tag: "book", m: "Ten documents that let a stranger trace the work from a real need to a decision" },
+    tj: { n: "Three jobs", tag: "book", m: "Conduct decides before building, check finds faults and signs, drive keeps the choices" },
+    xr: { n: "Cross-references", tag: "book", m: "Each artifact points to those it depends on; every pointer is a claim to open and test" },
+    br: { n: "Brief", tag: "book", m: "The first artifact: need, owner, who is affected, success, non-purpose, decision scope" },
+    np: { n: "Non-purpose", tag: "book", m: "A written line on what the workflow will not do, giving reviewers a scope-drift test" },
+    db: { n: "Data boundary", tag: "book", m: "The inventory of sources: label, origin, access, retention, deletion, exclusions" },
+    am: { n: "Action surface map", tag: "book", m: "What the workflow can read, propose, write, send or publish, outside effects flagged" },
+    pl: { n: "Plan", tag: "book", m: "Evidence-producing steps with dependencies, stop conditions, budgets and replanning triggers" },
+    pm: { n: "Pre-mortem", tag: "book", m: "Failures predicted before the run, each with a detector, owner, response and leftover risk" },
+    gt: { n: "Gates", tag: "book", m: "Each consequential proposal tied to the exact content a named person approved, with an expiry" },
+    ad: { n: "Authority drift", tag: "book", m: "A local-write approval later described as permission to publish" },
+    pc: { n: "Python constrains", tag: "book", m: "Claude drafts and proposes; code fixes what must be identical every time" },
+    pr: { n: "Prompt is a request", tag: "book", m: "A prompt is a request, not a boundary: only a missing capability stops an action" },
+    vi: { n: "Validate in Python", tag: "book", m: "Code checks the tool exists, the arguments are valid and the path stays inside the root" },
+    ca: { n: "Capability vs authority", tag: "book", m: "What the system is able to do versus what it is approved to do" },
+    cf: { n: "Controlled failure", tag: "book", m: "One safe, reproducible failure staged on purpose, predicted first and traced end to end" },
+    rr: { n: "Reviewed recovery", tag: "book", m: "A person or stated policy finds why it failed, changes the plan, rechecks independently" },
+    rp: { n: "Recovery by repetition", tag: "book", m: "Rerunning the same prompt until a wanted answer appears, with no reviewed change" },
+    fp: { n: "Forbidding prediction", tag: "book", m: "A prediction that rules outcomes out, so some result could prove it wrong" },
+    ar: { n: "Audit the reviewer", tag: "book", m: "Predict the review's findings first, judge each as genuine or false, score the match" },
+    ga: { n: "Gap Account", tag: "book", m: "The audit-note's record of what the review could not reach, and who is accountable" },
+    cm: { n: "Contingent miss", tag: "book", m: "A gap that a better prompt, a second run or more evidence would close" },
+    sg: { n: "Structural gap", tag: "book", m: "A gap owing to the reviewer's kind and access, so rerunning it will not close it" },
+    cg: { n: "Claim-to-evidence graph", tag: "book", m: "Claims broken into parts, each linked to evidence that could disagree with it" },
+    is: { n: "Inspect state", tag: "book", m: "Check what ended up true, not only that the planned calls ran" },
+    vc: { n: "Verification costs", tag: "book", m: "A graph takes a minute to draft; opening each edge takes real time, so budget for it" },
+    so: { n: "Sign-off", tag: "book", m: "A closing statement of what was checked, how, what was not, and who cleared it" },
+    ho: { n: "Handoff", tag: "book", m: "The seam where the packet passes to someone else, who must be able to run it unaided" },
+    sd: { n: "Ship/narrow/defer/stop", tag: "book", m: "The four final choices; evidence informs the choice and a named person owns it" },
+    ds: { n: "Driver's seat", tag: "book", m: "The split of work: Claude assembles and drafts; you choose, judge and sign" }
+  };
+  function note(svg, ey, text) { wrap(svg.append("g"), 800, ey + 36, text, 46, { size: 28, lh: 36, fill: INK }); }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function bar(g, x, y, w, h, fill, anim, delay) { var b = g.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", fill); if (anim) b.attr("width", 0).transition().delay(delay || 0).duration(700).attr("width", w); return b; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function fnv(s) { var h = 0x811c9dc5; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ("00000000" + h.toString(16)).slice(-8); }
+
+  /* the validator from the chapter, as code: containment, then file, then 40 characters */
+  var ARTS = ["brief", "data-boundary", "action-surface-map", "plan", "gates", "pre-mortem", "evidence", "artifact", "audit-note", "transfer-reflection"];
+  function validate(files) {
+    var issues = [];
+    ARTS.forEach(function (n) { var f = files[n]; if (f && f.link) issues.push(n + ": outside packet"); else if (!f) issues.push(n + ": missing"); else if (f.len < 40) issues.push(n + ": insufficient content"); });
+    return issues;
+  }
+  var TENX = {}; ARTS.forEach(function (n) { TENX[n] = { len: 60 }; });
+  var FIX = [["empty folder", {}], ["brief.md has 5 characters", { brief: { len: 5 } }], ["brief.md links outside", { brief: { len: 100, link: true } }], ["ten files of 60 × x", TENX]];
+  function kinds(iss) {
+    var m = iss.filter(function (s) { return /missing/.test(s); }).length, i = iss.filter(function (s) { return /insufficient/.test(s); }).length, o = iss.filter(function (s) { return /outside/.test(s); }).length, p = [];
+    if (m) p.push(m + " missing"); if (i) p.push(i + " insufficient"); if (o) p.push(o + " outside"); return p.length ? p.join(", ") : "no issues";
+  }
+  var JOB = ["conduct", "conduct", "conduct", "conduct", "conduct", "conduct", "check", "drive", "check", "drive"];
+  var EDGES = [[0, 6], [1, 2], [3, 4], [5, 8], [9, 6]];
+  var STATE = [["target path", "drafts/report.md", "drafts/report.md"], ["required sections", "3", "2"], ["publication", "pending", "pending"]];
+  var INJ = (function () { var r = rng(3), n = 0, a = []; for (var i = 0; i < 10; i++) { var pub = r() >= 0.7; a.push(pub); if (pub) n++; } return { n: n, a: a }; })();
+  var OPT = [["Ship", [5, 2, 2, 1]], ["Narrow", [4, 4, 4, 3]], ["Defer", [1, 3, 5, 4]], ["Stop", [1, 3, 5, 5]]];
+  function wscore(sc, wt) { return d3.sum(sc, function (v, i) { return v * wt[i]; }); }
+  var WA = [3, 3, 2, 2], WB = [1, 3, 2, 2];
+  var AUD = [["Data boundary does not trace deletion from exported reports", "matched"], ["Gate rollback claim ignores an external message", "partly matched"], ["Evidence matrix uses the same parser for production and checking", "missed"]];
+
+  /* ---------- map ---------- */
+  var MAPROWS = [
+    ["The packet", "validate_packet, structurally_complete, Meaningless packet, Structure vs substance, Capstone packet, Three jobs, Cross-references", "What a validator can and cannot say"],
+    ["Writing the gate", "Brief, Non-purpose, Data boundary, Action surface map, Plan, Pre-mortem, Gates, Authority drift", "The six artifacts written before Claude builds"],
+    ["Constraining and recovering", "Python constrains, Prompt is a request, Validate in Python, Capability vs authority, Controlled failure, Reviewed recovery, Recovery by repetition", "Code holds the boundary; failures are staged and reviewed"],
+    ["Judging and deciding", "Forbidding prediction, Audit the reviewer, Gap Account, Contingent miss, Structural gap, Claim-to-evidence graph, Inspect state, Verification costs, Sign-off, Handoff, Ship/narrow/defer/stop, Driver's seat", "What the record supports and who decides"]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four groups of capstone terms", "A table with four rows: group name, the terms in it, and what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "34 terms from Chapter 15. Each one is about showing that a packet is true, not only complete.", 100, { size: 28, lh: 38, fill: INK });
+    lab(g, 18, 84, "GROUP"); lab(g, 338, 84, "TERMS");
+    g.append("path").attr("d", "M0,98 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    var y = 110;
+    MAPROWS.forEach(function (r, i) {
+      var row = g.append("g"), nl = Math.ceil(r[1].length / 84), h = (nl + 1) * 30 + 22;
+      if (i + 1 <= k) {
+        box(row, 0, y, 1400, h, { stroke: FAMILIAR });
+        row.append("rect").attr("x", 0).attr("y", y).attr("width", 10).attr("height", h + 1).attr("fill", RED);
+        wrap(row, 28, y + 40, r[0], 22, { size: 26, lh: 30, weight: 700, fill: RED });
+        wrap(row, 338, y + 34, r[1], 84, { size: 24, lh: 30, fill: INK });
+        txt(row, 338, y + 34 + nl * 30, r[2], { size: 24, fill: MUTED });
+        if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+      }
+      y += h + 8;
+    });
+    if (k === 0) cap(g, 0, 430, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. validator ---------- */
+  function renderValid(el, k, anim) {
+    var svg = svgFor(el, W, H, "The packet validator checks structure only; ten files of x pass", "Three checks in order, run on four packets: an empty folder, a five-character brief, a brief that links outside, and ten files of repeated x. Then the ten passing files, then what the validator checked against what stays open.");
+    var ey = base(svg, [{ id: "vp", s: 1 }, { id: "sc", s: 2 }, { id: "ml", s: 3 }, { id: "sv", s: 4 }], k, anim, ["Presence", "the file exists and is long enough"], ["Substance", "the file does its job"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s <= 2) {
+      lab(d, 0, 30, "THREE CHECKS, IN THIS ORDER");
+      ["1 inside folder", "2 is a file", "3 40+ characters"].forEach(function (c, i) { box(d, i * 260, 46, 240, 56, { stroke: INK, sw: 2 }); cap(d, i * 260 + 120, 82, c, { size: 24, anchor: "middle", weight: 700 }); });
+      FIX.forEach(function (f, i) {
+        var iss = validate(f[1]), y = 128 + i * 106, g = d.append("g");
+        cap(g, 0, y + 26, f[0], { size: 24, weight: 700 });
+        bar(g, 0, y + 40, Math.max(iss.length * 50, 0), 28, iss.length ? RED : INK, A(anim, k, 1), i * 250);
+        if (!iss.length) g.append("rect").attr("x", 0.5).attr("y", y + 40.5).attr("width", 28).attr("height", 28).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2);
+        if (s === 1) cap(g, 0, y + 96, iss.length + " issues" + (iss.length ? ": " + kinds(iss) : ""), { size: 24, fill: MUTED });
+        else cap(g, 0, y + 96, "structurally_complete: " + (iss.length === 0 ? "True" : "False"), { size: 24, weight: 700, fill: iss.length ? INK : RED });
+      });
+    } else if (s === 3) {
+      lab(d, 0, 30, "TEN FILES, EACH 60 CHARACTERS OF x");
+      ARTS.forEach(function (n, i) {
+        var g = d.append("g"), x = (i % 5) * 152, y = 56 + Math.floor(i / 5) * 140;
+        box(g, x, y, 140, 120, { stroke: INK, sw: 2 });
+        mono(g, x + 14, y + 44, "xxxxxxx", { size: 24 }); cap(g, x + 14, y + 84, "60 > 40", { size: 24, weight: 700 }); check(g, x + 112, y + 90, 12, RED);
+        fade(g, A(anim, k, 3), i * 90);
+      });
+      var n3 = validate(TENX).length;
+      cap(d, 0, 380, "Issues: " + n3 + ", so structurally_complete: " + (n3 === 0 ? "True" : "False"), { size: 26, weight: 700 });
+      cap(d, 0, 430, "Evidence shown: none. Owner's consent: none.", { size: 26, weight: 700, fill: RED });
+    } else {
+      lab(d, 0, 30, "WHAT WAS CHECKED AGAINST WHAT STAYS OPEN");
+      box(d, 0, 56, 360, 300, { stroke: INK, sw: 3 }); lab(d, 16, 94, "CHECKED BY CODE", { fill: INK });
+      ["inside the folder", "is a file", "40+ characters"].forEach(function (c, i) { var g = d.append("g"); check(g, 34, 150 + i * 70, 12, INK); cap(g, 62, 160 + i * 70, c, { size: 24 }); fade(g, A(anim, k, 4), i * 250); });
+      box(d, 380, 56, 360, 300, { stroke: RED, sw: 3 }); lab(d, 396, 94, "STILL OPEN", { fill: RED });
+      ["evidence", "authority", "understanding", "consent"].forEach(function (c, i) { var g = d.append("g"); g.append("rect").attr("x", 398).attr("y", 128 + i * 55).attr("width", 24).attr("height", 24).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); cap(g, 440, 148 + i * 55, c, { size: 24 }); fade(g, A(anim, k, 4), 800 + i * 250); });
+      wrap(d, 0, 410, "The function returns its own warning: “Evidence, authority, and understanding must still be assessed”.", 62, { size: 24, lh: 32, fill: INK, weight: 700 });
+    }
+    note(svg, ey, ["", "Three checks in order: inside the folder, a real file, 40 or more characters.", "The flag is True only when the list of issues is empty.", "Ten files of repeated x pass. Presence and length are not substance.", "Structure is mechanical. Evidence, authority, understanding and consent stay open."][k]);
+  }
+
+  /* ---------- 2. ten artifacts ---------- */
+  function renderPacket(el, k, anim) {
+    var svg = svgFor(el, W, H, "Ten artifacts form one argument only through the lines between them", "Ten file names in validator order. Then each tagged conduct, check or drive. Then arcs for the cross-references, with the one artifact nothing links to marked as an island.");
+    var ey = base(svg, [{ id: "cp", s: 1 }, { id: "tj", s: 2 }, { id: "xr", s: 3 }], k, anim, ["Ten files", "present in the packet folder"], ["One argument", "each claim traced to evidence"]);
+    var d = svg.append("g"), s = Math.max(k, 1), RY = function (i) { return 44 + i * 52; };
+    lab(d, 0, 30, s === 1 ? "THE TEN FILES, IN VALIDATOR ORDER" : s === 2 ? "EACH FILE DOES ONE OF THREE JOBS" : "CROSS-REFERENCES: ONE ARC PER POINTER");
+    var deg = ARTS.map(function () { return 0; }); EDGES.forEach(function (e) { deg[e[0]]++; deg[e[1]]++; });
+    ARTS.forEach(function (n, i) {
+      var g = d.append("g"), y = RY(i);
+      box(g, 0, y, 300, 44, { stroke: INK, sw: 2 }); mono(g, 12, y + 31, n, { size: 24 });
+      if (s === 2) cap(g, 330, y + 32, JOB[i], { size: 24, weight: 700, fill: JOB[i] === "check" ? RED : INK });
+      if (s === 3 && deg[i] === 0) cap(g, 480, y + 32, "island: no links", { size: 24, weight: 700, fill: RED });
+      fade(g, A(anim, k, 1), i * 80);
+    });
+    if (s === 2) {
+      var cnt = { conduct: 0, check: 0, drive: 0 }; JOB.forEach(function (j) { cnt[j]++; });
+      var g2 = d.append("g"); ["conduct", "check", "drive"].forEach(function (j, i) { cap(g2, 560, 150 + i * 70, cnt[j] + " " + j, { size: 28, weight: 700, fill: j === "check" ? RED : INK }); }); fade(g2, anim, 700);
+    }
+    if (s === 3) {
+      EDGES.forEach(function (e, i) {
+        var y1 = RY(e[0]) + 23, y2 = RY(e[1]) + 23, bulge = 310 + Math.abs(e[1] - e[0]) * 42;
+        var p = d.append("path").attr("d", "M300," + y1 + " C" + bulge + "," + y1 + " " + bulge + "," + y2 + " 300," + y2).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3.5);
+        if (A(anim, k, 3)) drawIn(p, i * 300, 600);
+      });
+      var isl = deg.filter(function (v) { return v === 0; }).length;
+      cap(d, 480, 130, EDGES.length + " pointers, " + isl + " island", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "The packet is ten documents that must read as one bounded workflow.", "Six are the gate (conduct), two the sign-off (check), two the use and reflection (drive).", "Pointers turn files into an argument. Open each target to confirm it says what the pointer says."][k]);
+  }
+
+  /* ---------- 3. brief and boundaries ---------- */
+  function renderBrief(el, k, anim) {
+    var svg = svgFor(el, W, H, "The brief and the two boundary artifacts decide what the workflow is for and may reach", "The four decisions in a brief, a non-purpose check on five requests, a data inventory with in-scope labels, and a table of read, propose, write, send, publish.");
+    var ey = base(svg, [{ id: "br", s: 1 }, { id: "np", s: 2 }, { id: "db", s: 3 }, { id: "am", s: 4 }], k, anim, ["Non-purpose", "what it is not for"], ["Success state", "what you can observe when done"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "THE FOUR DECISIONS THAT FILL THE BRIEF");
+      [["Owner", "who owns the need and can authorize it"], ["Scope", "narrow enough for a person to supervise"], ["Non-purpose", "what the workflow is not for"], ["Success state", "something observable, not “the agent finished”"]].forEach(function (b, i) {
+        var g = d.append("g"), x = (i % 2) * 390, y = 56 + Math.floor(i / 2) * 170;
+        box(g, x, y, 370, 150, { stroke: i === 2 ? RED : INK, sw: 3 }); cap(g, x + 16, y + 38, b[0], { size: 26, weight: 700, fill: i === 2 ? RED : INK }); wrap(g, x + 16, y + 76, b[1], 28, { size: 24, lh: 30, fill: BODY });
+        fade(g, A(anim, k, 1), i * 250);
+      });
+    } else if (s === 2) {
+      cap(d, 0, 36, "Workflow: summarize public course notes.", { size: 24, weight: 700 });
+      var NP = [["evaluates students", /score|grade/], ["private submissions", /private/], ["publishes unreviewed", /post|publish/]];
+      ["summarize a public notes page", "score a student's essay", "read a private submission", "post the summary to the site", "list the approved sources"].forEach(function (rq, i) {
+        var hit = NP.filter(function (p) { return p[1].test(rq); })[0], g = d.append("g"), y = 70 + i * 76;
+        box(g, 0, y, 740, 62, { stroke: FAMILIAR }); cap(g, 14, y + 40, rq, { size: 24 });
+        cap(g, 400, y + 40, hit ? "refused: " + hit[0] : "in scope", { size: 24, weight: 700, fill: hit ? RED : INK });
+        fade(g, A(anim, k, 2), i * 300);
+      });
+      cap(d, 0, 500, "Two requests in scope, three refused by a written non-purpose.", { size: 24, fill: MUTED });
+    } else if (s === 3) {
+      lab(d, 0, 30, "SOURCE"); lab(d, 340, 30, "LABEL"); lab(d, 560, 30, "IN SCOPE");
+      var OK = { public: 1, synthetic: 1 }, n = 0;
+      [["course notes page", "public"], ["sample quiz", "synthetic"], ["team wiki export", "internal"], ["student roster", "personal"], ["old shared file", "unknown"]].forEach(function (r, i) {
+        var g = d.append("g"), y = 50 + i * 70, inn = !!OK[r[1]]; if (inn) n++;
+        box(g, 0, y, 740, 58, { stroke: FAMILIAR }); cap(g, 14, y + 38, r[0], { size: 24 }); cap(g, 340, y + 38, r[1], { size: 24, weight: 700 }); cap(g, 560, y + 38, inn ? "yes" : "no, excluded", { size: 24, weight: 700, fill: inn ? INK : RED });
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      cap(d, 0, 440, n + " in scope, " + (5 - n) + " excluded. Labels follow the project's real policy.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 30, "ACTION"); lab(d, 190, 30, "CAPABILITY"); lab(d, 400, 30, "AUTHORITY"); lab(d, 590, 30, "REACHES OUT");
+      [["read", "yes", "approved sources", "no"], ["propose", "yes", "yes", "no"], ["write", "yes", "local draft only", "no"], ["send", "no", "no", "external"], ["publish", "no", "no", "irreversible"]].forEach(function (r, i) {
+        var g = d.append("g"), y = 50 + i * 76, out = r[3] !== "no";
+        box(g, 0, y, 740, 64, { stroke: out ? RED : FAMILIAR, sw: out ? 2.5 : 1.5 }); cap(g, 14, y + 41, r[0], { size: 24, weight: 700 }); cap(g, 190, y + 41, r[1], { size: 24 });
+        cap(g, 400, y + 41, r[2] === "approved sources" ? "sources" : r[2] === "local draft only" ? "local only" : r[2], { size: 24 }); cap(g, 590, y + 41, r[3], { size: 24, weight: 700, fill: out ? RED : INK });
+        fade(g, A(anim, k, 4), i * 250);
+      });
+    }
+    note(svg, ey, ["", "The brief names the owner, scope, non-purpose and a success state you can observe.", "A non-purpose gives reviewers a concrete misuse test.", "Each source gets a label by the project's real policy, not the one that passes.", "Capability and authority are separate columns; outside effects are flagged."][k]);
+  }
+
+  /* ---------- 4. plan, pre-mortem, gates, authority drift ---------- */
+  function renderGate(el, k, anim) {
+    var svg = svgFor(el, W, H, "A plan has budgets, a pre-mortem predicts failures, a gate binds approval to exact content", "A plan with a call budget, a table of predicted failures with detectors, a digest check that blocks changed or expired proposals, and an approval scope that does not cover publishing.");
+    var ey = base(svg, [{ id: "pl", s: 1 }, { id: "pm", s: 2 }, { id: "gt", s: 3 }, { id: "ad", s: 4 }], k, anim, ["Capability", "what the workflow can do"], ["Authority", "what it is approved to do"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "CALLS USED AFTER EACH STEP (BUDGET 12)");
+      var P = [["1 read approved sources", 3], ["2 draft the report", 4], ["3 check claims vs sources", 3], ["4 write the local draft", 1], ["5 stop for human review", 0]], cum = 0, sc = 28, bx = 380;
+      d.append("path").attr("d", "M" + (bx + 12 * sc) + ",44 V420").attr("stroke", RED).attr("stroke-width", 3).attr("stroke-dasharray", "8 6");
+      P.forEach(function (p, i) {
+        cum += p[1]; var g = d.append("g"), y = 56 + i * 72;
+        cap(g, 0, y + 30, p[0], { size: 24, weight: i === 4 ? 700 : 400, fill: i === 4 ? RED : INK }); bar(g, bx, y + 8, cum * sc, 34, i === 4 ? RED : INK, A(anim, k, 1), i * 350);
+        if (cum >= 10) cap(g, bx + cum * sc - 8, y + 34, "" + cum, { size: 24, weight: 700, anchor: "end", fill: "#FFFFFF" }); else cap(g, bx + cum * sc + 10, y + 34, "" + cum, { size: 24, weight: 700 });
+      });
+      cap(d, 0, 470, "Used " + cum + " of 12. Going over budget triggers replanning.", { size: 24, weight: 700 });
+    } else if (s === 2) {
+      lab(d, 0, 30, "FAILURE"); lab(d, 290, 30, "HOW IT IS DETECTED");
+      [["stale state", "re-read before writing"], ["invalid call", "argument check in Python"], ["prompt injection", "sources never grant tools"], ["duplicate action", "an idempotency key"], ["privacy exposure", "classification review"], ["misleading success", "read-back of the target"]].forEach(function (r, i) {
+        var g = d.append("g"), y = 50 + i * 72; box(g, 0, y, 740, 60, { stroke: FAMILIAR }); cap(g, 14, y + 40, r[0], { size: 24, weight: 700 }); cap(g, 290, y + 40, r[1], { size: 24 });
+        fade(g, A(anim, k, 2), i * 250);
+      });
+      cap(d, 0, 500, "Each row also needs an owner, a response and a leftover risk.", { size: 24, fill: MUTED });
+    } else if (s === 3) {
+      var AP = "write drafts/report.md v3", dig = fnv(AP + "|drafts");
+      lab(d, 0, 30, "PROPOSAL"); lab(d, 400, 30, "DIGEST"); lab(d, 640, 30, "RESULT");
+      var rows = [["approved by the owner", AP, 0, null], ["same text, same day", AP, 0, 1], ["one character changed", "write drafts/report.md v4", 0, 1], ["different target", "write site/report.md v3", 0, 1], ["same text, 2 days later", AP, 2, 1]];
+      rows.forEach(function (r, i) {
+        var g = d.append("g"), y = 44 + i * 82, h = fnv(r[1] + "|drafts"), ok = h === dig && r[2] <= 1;
+        box(g, 0, y, 740, 72, { stroke: i === 0 ? INK : FAMILIAR, sw: i === 0 ? 3 : 1.5 }); mono(g, 14, y + 32, r[1].replace("write ", ""), { size: 24 }); cap(g, 14, y + 62, r[0], { size: 24, fill: MUTED });
+        mono(g, 400, y + 32, h, { size: 24 }); cap(g, 726, y + 44, r[3] === null ? "approved" : ok ? "runs" : "blocked", { size: 24, weight: 700, anchor: "end", fill: r[3] === null || ok ? INK : RED });
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      cap(d, 0, 480, "The approval expires after 1 day. A digest must match exactly.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 30, "WHAT THE APPROVAL COVERED"); box(d, 0, 46, 360, 90, { stroke: INK, sw: 3 }); mono(d, 14, 100, "write drafts/ (local)", { size: 24 });
+      lab(d, 0, 190, "WHAT THEN HAPPENED");
+      var scope = function (a) { return a.indexOf("write drafts/") === 0; };
+      ["write drafts/report.md", "write drafts/notes.md", "publish report"].forEach(function (a, i) {
+        var g = d.append("g"), y = 210 + i * 70, ok = scope(a); box(g, 0, y, 560, 58, { stroke: ok ? FAMILIAR : RED, sw: ok ? 1.5 : 3 }); mono(g, 14, y + 38, a, { size: 24 });
+        if (ok) check(g, 610, y + 30, 14, INK); else cross(g, 610, y + 30, 14, RED);
+        cap(g, 650, y + 38, ok ? "in scope" : "outside", { size: 24, weight: 700, fill: ok ? INK : RED });
+        fade(g, A(anim, k, 4), i * 400);
+      });
+      wrap(d, 0, 450, "Later described as: “approved to publish”. The approval never said so.", 62, { size: 24, lh: 32, fill: RED, weight: 700 });
+    }
+    note(svg, ey, ["", "A plan lists steps with dependencies, a budget and a stop point.", "A pre-mortem names failures first, each with a way to detect it.", "A gate binds approval to exact content; any change or expiry blocks it.", "A small approval is not permission for a larger action."][k]);
+  }
+
+  /* ---------- 5. Python constrains ---------- */
+  function resolveIn(path) { var st = []; var parts = path.split("/"); for (var i = 0; i < parts.length; i++) { var p = parts[i]; if (p === "" || p === ".") continue; if (p === "..") { if (!st.length) return null; st.pop(); } else st.push(p); } return st; }
+  function renderPython(el, k, anim) {
+    var svg = svgFor(el, W, H, "Claude proposes and Python constrains: a prompt is a request, not a boundary", "A proposal passing from Claude to Python and a recorded result; ten injected attempts with and without a publish tool; five tool calls checked in Python; and a capability box with a smaller authority box inside.");
+    var ey = base(svg, [{ id: "pc", s: 1 }, { id: "pr", s: 2 }, { id: "vi", s: 3 }, { id: "ca", s: 4 }], k, anim, ["Request", "a prompt asks Claude not to"], ["Boundary", "the capability does not exist"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "WHO DOES WHAT");
+      box(d, 0, 56, 300, 300, { stroke: INK, sw: 3 }); lab(d, 16, 94, "CLAUDE", { fill: INK });
+      ["drafts", "summarizes", "proposes a call"].forEach(function (c, i) { cap(d, 16, 150 + i * 56, c, { size: 24 }); });
+      box(d, 430, 56, 330, 300, { stroke: RED, sw: 3 }); lab(d, 446, 94, "PYTHON", { fill: RED });
+      ["which tools exist", "arguments valid", "path inside the root", "matches the approval", "what gets recorded"].forEach(function (c, i) { cap(d, 446, 140 + i * 42, c, { size: 24 }); });
+      d.append("path").attr("d", "M300,170 H430").attr("stroke", INK).attr("stroke-width", 3); cap(d, 365, 150, "proposal", { size: 24, anchor: "middle", weight: 700 });
+      d.append("path").attr("d", "M430,260 H300").attr("stroke", RED).attr("stroke-width", 3); cap(d, 365, 296, "result", { size: 24, anchor: "middle", weight: 700, fill: RED });
+      var dot = d.append("circle").attr("r", 9).attr("cy", 170).attr("fill", RED);
+      run(d, 2200, function (t) { dot.attr("cx", 300 + 130 * t); }, k === 1 && anim);
+      cap(d, 0, 410, "Python holds whatever must be the same every time.", { size: 26, weight: 700 });
+    } else if (s === 2) {
+      lab(d, 0, 30, "TEN INJECTED “PUBLISH” ATTEMPTS");
+      [["prompt says “do not publish”; the tool exists", INJ.a, 0], ["the publish tool was never built", INJ.a.map(function () { return false; }), 1]].forEach(function (r, i) {
+        var g = d.append("g"), y = 100 + i * 170, n = r[1].filter(Boolean).length;
+        cap(g, 0, y, r[0], { size: 24, weight: 700 });
+        r[1].forEach(function (p, j) { var c = g.append("circle").attr("cx", 24 + j * 70).attr("cy", y + 50).attr("r", 24).attr("fill", p ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); if (A(anim, k, 2)) c.attr("opacity", 0).transition().delay(j * 120).duration(250).attr("opacity", 1); });
+        cap(g, 0, y + 110, n + " of 10 published", { size: 26, weight: 700, fill: n ? RED : INK });
+      });
+      cap(d, 0, 470, "Assumed: Claude obeys the prompt 70% of the time (seed 3).", { size: 24, fill: MUTED });
+    } else if (s === 3) {
+      lab(d, 0, 30, "TOOL CALL"); lab(d, 480, 30, "PYTHON DECIDES");
+      var TOOLS = { read_source: 1, write_draft: 1 };
+      [["read_source", "notes/week3.md", 1], ["read_source", "../keys.txt", 1], ["write_draft", "drafts/r.md", 1], ["publish", "site", 1], ["write_draft", "", 0]].forEach(function (c, i) {
+        var g = d.append("g"), y = 50 + i * 76, res;
+        if (!TOOLS[c[0]]) res = "rejected: unknown tool"; else if (!c[2]) res = "rejected: missing path"; else if (!resolveIn(c[1])) res = "rejected: outside root"; else res = "runs";
+        box(g, 0, y, 740, 64, { stroke: FAMILIAR }); mono(g, 14, y + 40, c[0] + "(" + (c[2] ? "\"" + c[1] + "\"" : "") + ")", { size: 24 }); cap(g, 480, y + 40, res, { size: 24, weight: 700, fill: res === "runs" ? INK : RED });
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      cap(d, 0, 470, "One of five calls runs. The rest never reach a file.", { size: 24, fill: MUTED });
+    } else {
+      var IT = [["read notes", 1, 1], ["write draft", 1, 1], ["delete file", 1, 0], ["publish", 0, 0]];
+      box(d, 0, 50, 740, 330, { stroke: INK, sw: 3 }); lab(d, 16, 88, "CAPABILITY: WHAT THE CODE CAN DO", { fill: INK });
+      box(d, 20, 110, 420, 250, { stroke: RED, sw: 3 }); lab(d, 36, 148, "AUTHORITY", { fill: RED });
+      var a = 0, b = 0;
+      IT.forEach(function (t) {
+        if (t[1] && t[2]) { cap(d, 36, 200 + a * 60, t[0], { size: 24 }); a++; }
+        else if (t[1]) { var g = d.append("g"); cap(g, 470, 200 + b * 60, t[0], { size: 24, weight: 700, fill: RED }); cap(g, 470, 232 + b * 60, "can, not approved", { size: 24, fill: RED }); fade(g, A(anim, k, 4), 600); b++; }
+      });
+      var nc = IT.filter(function (t) { return !t[1]; })[0];
+      cap(d, 0, 430, nc[0] + ": not built, so it cannot happen.", { size: 24, weight: 700 });
+      cap(d, 0, 475, "Gap to close: " + IT.filter(function (t) { return t[1] && !t[2]; }).length + " action can run without approval.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "Claude does the language work. Code holds the rules that never vary.", "Telling Claude not to publish helps; removing the tool is what stops it.", "Code checks the name, the arguments and where the path ends up.", "Shrink capability to match authority, or gate the part that sticks out."][k]);
+  }
+
+  /* ---------- 6. failure and recovery ---------- */
+  var PASSAGE = "Applications are reviewed in May.";
+  function supported(claim) { var need = claim.match(/May|\d+/g) || []; var miss = need.filter(function (w) { return PASSAGE.indexOf(w) < 0; }); return { ok: !miss.length, miss: miss }; }
+  function renderFail(el, k, anim) {
+    var svg = svgFor(el, W, H, "A controlled failure is predicted, traced and recovered by review; repetition is not recovery", "A trace from prediction to stop state, the failed run beside a reviewed recovery, twelve reruns of one prompt until a lucky pass, and two predictions compared by how many outcomes they forbid.");
+    var ey = base(svg, [{ id: "cf", s: 1 }, { id: "rr", s: 2 }, { id: "rp", s: 3 }, { id: "fp", s: 4 }], k, anim, ["Reviewed recovery", "a person changes the plan, then rechecks"], ["Recovery by repetition", "same prompt rerun until it passes"]);
+    var d = svg.append("g"), s = Math.max(k, 1), c1 = "The deadline is May 1.", r1 = supported(c1);
+    if (s === 1) {
+      lab(d, 0, 26, "ONE TRACE, STAGED ON PURPOSE");
+      [["prediction, before the run", "the check rejects; nothing is published"], ["retrieved passage", PASSAGE], ["draft claim with citation", c1], ["source check", r1.ok ? "supported" : "rejected: “" + r1.miss.join("”, “") + "” not in the passage"], ["resulting state", "stopped; nothing published"]].forEach(function (r, i) {
+        var g = d.append("g"), y = 40 + i * 100;
+        box(g, 0, y, 740, 88, { stroke: i === 3 ? RED : INK, sw: i === 3 ? 3 : 2 }); lab(g, 14, y + 30, r[0].toUpperCase(), { fill: i === 3 ? RED : MUTED }); cap(g, 14, y + 66, r[1], { size: 24, weight: 700, fill: i === 3 ? RED : INK });
+        fade(g, A(anim, k, 1), i * 350);
+      });
+    } else if (s === 2) {
+      var c2 = "Applications are reviewed in May.", r2 = supported(c2);
+      lab(d, 0, 30, "FAILED RUN, KEPT"); lab(d, 400, 30, "AFTER REVIEW");
+      [[c1, r1, 0], [c2, r2, 400]].forEach(function (c, i) {
+        var g = d.append("g"); box(g, c[2], 50, 340, 260, { stroke: c[1].ok ? INK : RED, sw: 3 });
+        lab(g, c[2] + 14, 88, "CLAIM"); wrap(g, c[2] + 14, 124, c[0], 24, { size: 24, lh: 30, fill: INK, weight: 700 });
+        lab(g, c[2] + 14, 212, "CHECK"); cap(g, c[2] + 14, 248, c[1].ok ? "supported" : "rejected", { size: 26, weight: 700, fill: c[1].ok ? INK : RED });
+        fade(g, A(anim, k, 2), i * 700);
+      });
+      wrap(d, 0, 370, "A reviewer narrowed the claim, then the check ran again. The model was not simply asked again.", 62, { size: 24, lh: 32, fill: INK, weight: 700 });
+    } else if (s === 3) {
+      lab(d, 0, 30, "SAME PROMPT, SAME CHECK, NOTHING CHANGED");
+      var r = rng(103), first = -1, seq = [];
+      for (var i = 0; i < 12; i++) { var pass = r() < 0.2; seq.push(pass); if (pass && first < 0) first = i; }
+      seq.forEach(function (p, i) {
+        if (i > first && first >= 0) return;
+        var g = d.append("g"), x = (i % 6) * 120, y = 70 + Math.floor(i / 6) * 120; box(g, x, y, 100, 100, { stroke: p ? INK : RED, sw: 3 }); cap(g, x + 50, y + 28, "" + (i + 1), { size: 24, anchor: "middle", fill: MUTED });
+        if (p) check(g, x + 50, y + 62, 18, INK); else cross(g, x + 50, y + 62, 14, RED);
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      cap(d, 0, 370, "The check passes on attempt " + (first + 1) + ". Chance of a pass: 20% each, assumed.", { size: 24, weight: 700 });
+      cap(d, 0, 410, "Nothing was reviewed, so the pass shows luck, not a fix.", { size: 24, fill: RED, weight: 700 });
+    } else {
+      lab(d, 0, 30, "OF 8 POSSIBLE REVIEW FINDINGS, HOW MANY CAN IT MATCH?");
+      [["“The review will find weak integration”", function () { return true; }], ["“The data boundary does not trace deletion from exported reports”", function (j) { return j === 2; }]].forEach(function (p, i) {
+        var g = d.append("g"), y = 60 + i * 210, n = 0;
+        wrap(g, 0, y + 20, p[0], 50, { size: 24, lh: 30, fill: i ? INK : RED, weight: 700 });
+        for (var j = 0; j < 8; j++) { var m = p[1](j); if (m) n++; var sq = g.append("rect").attr("x", j * 90 + 0.5).attr("y", y + 80.5).attr("width", 70).attr("height", 50).attr("fill", m ? (i ? INK : RED) : "none").attr("stroke", INK).attr("stroke-width", 2); if (A(anim, k, 4)) sq.attr("opacity", 0).transition().delay(j * 80 + i * 500).duration(250).attr("opacity", 1); }
+        cap(g, 0, y + 170, "matches " + n + " of 8; forbids " + (8 - n), { size: 24, weight: 700 });
+      });
+    }
+    note(svg, ey, ["", "Predict the failure, stage it, and keep the whole trace.", "Recovery is a changed plan or scope, rechecked, with the original failure kept.", "Rerunning until it passes teaches nothing about the check.", "A prediction must rule something out, or any result matches it."][k]);
+  }
+
+  /* ---------- 7. audit the reviewer ---------- */
+  var GAPS = [["Deletion not traced in exported reports", true], ["Owner agreed, with an unwritten condition", false], ["A threshold fine on paper, wrong for this site", false], ["External message missed by the rollback claim", true]];
+  function renderAudit(el, k, anim) {
+    var svg = svgFor(el, W, H, "Audit the reviewer by predicting first, then record gaps as contingent or structural", "Three predicted findings scored matched, partly matched or missed; then four gaps asked whether more work would close them, sorted into contingent misses and structural gaps.");
+    var ey = base(svg, [{ id: "ar", s: 1 }, { id: "ga", s: 2 }, { id: "cm", s: 3 }, { id: "sg", s: 4 }], k, anim, ["Genuine finding", "located evidence supports it"], ["False positive", "the packet already addresses it"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "PREDICTED BEFORE THE REVIEW"); lab(d, 560, 30, "SCORE");
+      var cnt = { matched: 0, "partly matched": 0, missed: 0 };
+      AUD.forEach(function (a, i) {
+        cnt[a[1]]++; var g = d.append("g"), y = 50 + i * 110; box(g, 0, y, 740, 98, { stroke: FAMILIAR }); wrap(g, 14, y + 38, a[0], 38, { size: 24, lh: 30, fill: INK });
+        box(g, 560, y + 20, 160, 58, { stroke: a[1] === "missed" ? RED : INK, sw: 2.5 }); cap(g, 640, y + 56, a[1] === "partly matched" ? "partly" : a[1], { size: 24, anchor: "middle", weight: 700, fill: a[1] === "missed" ? RED : INK });
+        fade(g, A(anim, k, 1), i * 350);
+      });
+      cap(d, 0, 430, "Score: " + cnt.matched + " matched, " + cnt["partly matched"] + " partly, " + cnt.missed + " missed.", { size: 26, weight: 700 });
+      cap(d, 0, 470, "Credit the reasoning, not the hit rate.", { size: 24, fill: MUTED });
+    } else {
+      wrap(d, 0, 30, "Would a better prompt, a second run, another reviewer or more evidence close it?", 62, { size: 24, lh: 30, fill: INK, weight: 700 });
+      lab(d, 470, 108, "CLOSES?");
+      var nc = 0, ns = 0;
+      GAPS.forEach(function (gp, i) {
+        var g = d.append("g"), y = 124 + i * 98; box(g, 0, y, 740, 88, { stroke: FAMILIAR }); wrap(g, 14, y + 34, gp[0], 30, { size: 24, lh: 30, fill: INK });
+        var show = s === 4 ? true : s === 3 ? gp[1] : false;
+        if (gp[1]) nc++; else ns++;
+        if (show) { cap(g, 470, y + 52, gp[1] ? "yes" : "no", { size: 24, weight: 700 }); cap(g, 540, y + 52, gp[1] ? "contingent miss" : "structural gap", { size: 24, weight: 700, fill: RED }); fade(g, A(anim, k, s) && (s === 3 || !gp[1]), 200); }
+      });
+      if (s >= 3) cap(d, 0, 548, s === 3 ? "Fix it, or run the better review." : "A boundary on the claim: name who is accountable.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "Predict three findings with locations, then score the review against them.", "The Gap Account asks one question of every gap the review left.", "Yes: it is a defect the next review patches.", "No: this reviewer cannot reach it, and a person must carry it."][k]);
+  }
+
+  /* ---------- 8. graph, state, cost ---------- */
+  function renderGraph(el, k, anim) {
+    var svg = svgFor(el, W, H, "Claims map to evidence; state is checked, not only the trajectory; checking costs more than drafting", "Six claims linked to evidence plus one orphan claim; an expected and observed state table; and a bar chart of drafting time against checking time.");
+    var ey = base(svg, [{ id: "cg", s: 1 }, { id: "is", s: 2 }, { id: "vc", s: 3 }], k, anim, ["Trajectory", "the calls the agent made"], ["Resulting state", "what is true afterwards"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "CLAIM"); lab(d, 480, 30, "EVIDENCE");
+      var CE = [["local draft exists", "read-back and diff"], ["claims are supported", "claim/passage matrix"], ["nothing published", "action map and trace"], ["fixtures are public", "source ID review"], ["one-day policy ran", "pre/post inventory"], ["publish needs approval", "no-decision fixture"], ["the workflow is safe", null]];
+      CE.forEach(function (r, i) {
+        var g = d.append("g"), y = 50 + i * 72, orph = r[1] === null;
+        box(g, 0, y, 330, 56, { stroke: orph ? RED : INK, sw: 2 }); cap(g, 12, y + 37, r[0], { size: 24, fill: orph ? RED : INK, weight: orph ? 700 : 400 });
+        if (!orph) { box(g, 430, y, 310, 56, { stroke: INK, sw: 2 }); cap(g, 442, y + 37, r[1], { size: 24 }); var p = g.append("path").attr("d", "M330," + (y + 28) + " H430").attr("stroke", RED).attr("stroke-width", 4); if (A(anim, k, 1)) drawIn(p, i * 250, 400); }
+        else { cap(g, 430, y + 37, "no edge: decompose it", { size: 24, weight: 700, fill: RED }); }
+        fade(g, A(anim, k, 1), i * 250);
+      });
+    } else if (s === 2) {
+      lab(d, 0, 30, "TRAJECTORY"); box(d, 0, 46, 740, 76, { stroke: INK, sw: 2 });
+      d3.range(5).forEach(function (i) { check(d, 40 + i * 60, 90, 14, INK); }); cap(d, 360, 94, "5 of 5 planned calls ran", { size: 24, weight: 700 });
+      lab(d, 0, 170, "RESULTING STATE"); lab(d, 300, 170, "EXPECTED"); lab(d, 500, 170, "OBSERVED");
+      var bad = 0;
+      STATE.forEach(function (r, i) {
+        var g = d.append("g"), y = 188 + i * 84, ok = r[1] === r[2]; if (!ok) bad++;
+        box(g, 0, y, 740, 70, { stroke: ok ? FAMILIAR : RED, sw: ok ? 1.5 : 3 }); cap(g, 12, y + 44, r[0], { size: 24 }); mono(g, 300, y + 44, r[1].replace("drafts/", ""), { size: 24 }); mono(g, 500, y + 44, r[2].replace("drafts/", ""), { size: 24, fill: ok ? INK : RED, weight: ok ? 400 : 700 });
+        fade(g, A(anim, k, 2), i * 400);
+      });
+      cap(d, 0, 500, "Trajectory looks fine; " + bad + " of " + STATE.length + " state checks fail.", { size: 26, weight: 700, fill: RED });
+    } else {
+      lab(d, 0, 30, "MINUTES, ILLUSTRATIVE");
+      var sc = 560 / 25;
+      cap(d, 0, 90, "Claude drafts the graph", { size: 24, weight: 700 }); bar(d, 0, 104, 1 * sc, 44, "#C4C4C4", A(anim, k, 3), 0); cap(d, 1 * sc + 12, 138, "1", { size: 26, weight: 700 });
+      cap(d, 0, 220, "A person opens each of 6 edges, 4 min each", { size: 24, weight: 700 });
+      for (var i = 0; i < 6; i++) bar(d, i * 4 * sc, 234, 4 * sc - 3, 44, RED, A(anim, k, 3), 500 + i * 250);
+      cap(d, 24 * sc + 12, 268, "24", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 370, "Checking costs " + (24 / 1) + " times the drafting, in this example.", { size: 24, weight: 700 });
+      cap(d, 0, 410, "The one-minute draft is from the chapter; 4 minutes per edge is assumed.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "Each edge says this evidence bears on that claim. A claim with no edge is removed or narrowed.", "Calls that ran do not prove the destination is right. Read the state.", "Output is cheap. Budget the verification or it will not happen."][k]);
+  }
+
+  /* ---------- 9. sign-off, handoff, decision ---------- */
+  function renderDecide(el, k, anim) {
+    var svg = svgFor(el, W, H, "Sign-off, handoff and the four-way decision", "A sign-off template; a handoff rehearsal where five questions fall to one; weighted scores for ship, narrow, defer and stop under two weightings; and a table of who keeps which task.");
+    var ey = base(svg, [{ id: "so", s: 1 }, { id: "ho", s: 2 }, { id: "sd", s: 3 }, { id: "ds", s: 5 }], k, anim, ["Signed", "the record supports what is claimed"], ["Withheld", "it does not, and says why"]);
+    var d = svg.append("g"), s = Math.max(k, 1);
+    if (s === 1) {
+      lab(d, 0, 30, "THE LAST THING THE AUDIT-NOTE SAYS");
+      [["Checked", "named claims, named evidence"], ["How", "by hand, own test, recomputation"], ["Not checked", "each residual gap, live runs"], ["Not claiming", "that it is safe"], ["Cleared by", "a named person, not the team"], ["Signed or withheld", "withheld is a real outcome"]].forEach(function (r, i) {
+        var g = d.append("g"), y = 50 + i * 80; box(g, 0, y, 740, 68, { stroke: i === 2 || i === 3 ? RED : FAMILIAR, sw: i === 2 || i === 3 ? 2.5 : 1.5 }); cap(g, 14, y + 44, r[0], { size: 24, weight: 700 }); cap(g, 290, y + 44, r[1], { size: 24 });
+        fade(g, A(anim, k, 1), i * 250);
+      });
+    } else if (s === 2) {
+      lab(d, 0, 30, "RUN 1"); lab(d, 110, 30, "RUN 2");
+      var Q = ["working directory not stated", "environment variable unexplained", "dependency installed globally", "fixture at a personal path", "recovery step only in your head"], n1 = Q.length, n2 = 0;
+      Q.forEach(function (q, i) {
+        var g = d.append("g"), y = 56 + i * 76, left = i === 4; if (left) n2++;
+        box(g, 0, y, 740, 64, { stroke: FAMILIAR }); cross(g, 40, y + 32, 12, RED); cap(g, 200, y + 42, q, { size: 24 });
+        var g2 = g.append("g"); if (left) cross(g2, 150, y + 32, 12, RED); else check(g2, 150, y + 32, 12, INK);
+        fade(g2, A(anim, k, 2), 900 + i * 300);
+      });
+      cap(d, 0, 470, "Questions asked: " + n1 + ", then " + n2 + ". One persists.", { size: 26, weight: 700 });
+      cap(d, 0, 510, "Counts are illustrative; the five causes are from the chapter.", { size: 24, fill: MUTED });
+    } else if (s <= 4) {
+      lab(d, 0, 30, s === 3 ? "WEIGHTED SCORE, BENEFIT WEIGHT 3" : "SAME SCORES, BENEFIT WEIGHT 1 (RED)");
+      var sc = 15;
+      OPT.forEach(function (o, i) {
+        var g = d.append("g"), y = 44 + i * 122, a = wscore(o[1], WA), b = wscore(o[1], WB);
+        cap(g, 0, y + 26, o[0], { size: 26, weight: 700 });
+        bar(g, 0, y + 38, a * sc, 30, s === 3 ? INK : "#C4C4C4", A(anim, k, 3), i * 200); cap(g, a * sc + 10, y + 62, "" + a, { size: 24, weight: 700 });
+        if (s === 4) { bar(g, 0, y + 76, b * sc, 30, RED, A(anim, k, 4), i * 200); cap(g, b * sc + 10, y + 100, "" + b, { size: 24, weight: 700, fill: RED }); }
+      });
+    } else {
+      lab(d, 0, 30, "TASK"); lab(d, 480, 30, "VERDICT");
+      var V = [["Assemble the evidence trail", "deprioritize", "spot-check by hand"], ["Compare the four options", "supervise", ""], ["Review the packet", "supervise", ""], ["Obtain consent and authority", "protect", ""], ["Choose and sign", "protect", ""]], tally = {};
+      V.forEach(function (r, i) {
+        tally[r[1]] = (tally[r[1]] || 0) + 1; var g = d.append("g"), y = 50 + i * 86; box(g, 0, y, 740, 74, { stroke: FAMILIAR });
+        cap(g, 14, r[2] ? y + 34 : y + 46, r[0], { size: 24 }); if (r[2]) cap(g, 14, y + 62, r[2], { size: 24, fill: MUTED });
+        box(g, 480, y + 12, 240, 50, { stroke: r[1] === "protect" ? RED : INK, sw: 2.5 }); cap(g, 600, y + 46, r[1], { size: 24, anchor: "middle", weight: 700, fill: r[1] === "protect" ? RED : INK });
+        fade(g, A(anim, k, 5), i * 300);
+      });
+      cap(d, 0, 520, "deprioritize " + tally.deprioritize + ", supervise " + tally.supervise + ", protect " + tally.protect + ".", { size: 24, weight: 700 });
+    }
+    var lead = (function () { var a = OPT.map(function (o) { return wscore(o[1], WA); }), b = OPT.map(function (o) { return wscore(o[1], WB); }); return [a, b]; })();
+    var srt = function (v) { return v.slice().sort(function (x, y) { return y - x; }); };
+    var la = srt(lead[0]), lb = srt(lead[1]);
+    note(svg, ey, ["", "State what was checked and what was not. A passing test supports “tested”, not “safe”.", "Give a peer only the docs. Each question they must ask marks missing evidence.", "Score the four options on the same criteria. Someone chose the weights.", "Change one weight: narrow's lead of " + (la[0] - la[1]) + " (" + la[0] + " vs " + la[1] + ") becomes " + (lb[0] - lb[1]) + " (" + lb[0] + " vs " + lb[1] + ").", "Claude drafts and assembles. Consent, the choice and the signature stay with you."][k]);
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from the capstone", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Capability", "What the code is able to do"], ["Authority", "What a named person approved"]],
+      [["Contingent miss", "A better review would close it"], ["Structural gap", "This reviewer cannot reach it"]],
+      [["Reviewed recovery", "A change is made, then rechecked"], ["Repetition", "The same prompt is simply rerun"]],
+      [["Defer", "Wait for named evidence, with an owner"], ["Stop", "The need or consent is not there"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(60,0)"), RG = R.append("g").attr("transform", "translate(60,0)");
+      if (i === 0) {
+        d3.range(4).forEach(function (j) {
+          var on = j / 4 < t, ap = j < 2;
+          LG.append("rect").attr("x", 20 + j * 80).attr("y", 200).attr("width", 60).attr("height", 60).attr("fill", on ? INK : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+          RG.append("rect").attr("x", 20 + j * 80).attr("y", 200).attr("width", 60).attr("height", 60).attr("fill", on && ap ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+        });
+        cap(LG, 20, 330, "4 of 4 can run", { size: 24, fill: MUTED }); cap(RG, 20, 330, "2 of 4 approved", { size: 24, fill: MUTED });
+      } else if (i === 1) {
+        var h = 140 * (t < 0.5 ? 1 : 1 - (t - 0.5) * 2);
+        LG.append("rect").attr("x", 120).attr("y", 340 - h).attr("width", 90).attr("height", Math.max(h, 0)).attr("fill", INK); LG.append("path").attr("d", "M100,340 H230").attr("stroke", INK).attr("stroke-width", 3);
+        RG.append("rect").attr("x", 120).attr("y", 200).attr("width", 90).attr("height", 140).attr("fill", RED); RG.append("path").attr("d", "M100,340 H230").attr("stroke", INK).attr("stroke-width", 3);
+        cap(LG, 20, 400, t > 0.6 ? "second run closes it" : "gap before a second run", { size: 24, fill: MUTED }); cap(RG, 20, 400, "second run changes nothing", { size: 24, fill: MUTED });
+      } else if (i === 2) {
+        var r = rng(21);
+        d3.range(5).forEach(function (j) {
+          var pass = j === 4, vis = j / 5 < t;
+          LG.append("rect").attr("x", 10 + j * 66).attr("y", 200).attr("width", 54).attr("height", 54).attr("fill", pass ? INK : "#FFFFFF").attr("stroke", pass ? INK : RED).attr("stroke-width", 3).attr("opacity", vis ? 1 : 0.15);
+          if (j === 2) LG.append("path").attr("d", "M" + (10 + j * 66 + 27) + ",186 v-26").attr("stroke", INK).attr("stroke-width", 4).attr("opacity", vis ? 1 : 0.15);
+          var rp = r() < 0.3 || j === 4; RG.append("rect").attr("x", 10 + j * 66).attr("y", 200).attr("width", 54).attr("height", 54).attr("fill", rp ? INK : "#FFFFFF").attr("stroke", rp ? INK : RED).attr("stroke-width", 3).attr("opacity", vis ? 1 : 0.15);
+        });
+        cap(LG, 10, 150, "change", { size: 24, weight: 700 }); cap(LG, 10, 330, "a change, then a pass", { size: 24, fill: MUTED }); cap(RG, 10, 330, "no change, a lucky pass", { size: 24, fill: MUTED });
+      } else {
+        LG.append("path").attr("d", "M20,260 H" + (20 + 280 * t)).attr("stroke", INK).attr("stroke-width", 4); box(LG, 240, 200, 100, 120, { stroke: INK, sw: 3 }); cap(LG, 290, 270, "owner", { size: 24, anchor: "middle" });
+        RG.append("path").attr("d", "M20,260 H" + (20 + 200 * t)).attr("stroke", RED).attr("stroke-width", 4); RG.append("rect").attr("x", 220).attr("y", 215).attr("width", 36).attr("height", 90).attr("fill", RED);
+        cap(LG, 20, 360, "waits for a named condition", { size: 24, fill: MUTED }); cap(RG, 20, 360, "ends; data and access retired", { size: 24, fill: MUTED });
+      }
+    }
+    if (k === 0) { draw(0, 0.5); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  var SAY = [
+    { v: "check the packet is fine", x: "Run validate_packet, then open each claim's evidence; a pass shows only structure" },
+    { v: "tell Claude not to publish", x: "Remove the publish tool; Python rejects any tool name not on the list" },
+    { v: "make sure it worked", x: "Read back the target file; compare sections, path and publication state with what was expected" },
+    { v: "have Claude review it", x: "Predict three located findings, run one read-only review, then score each prediction" },
+    { v: "decide whether to launch", x: "Score ship, narrow, defer and stop on the same criteria, and name who set the weights" }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague capstone requests turned into precise ones", "Five rows with a vague request and an exact instruction. On the right, a chart of what the exact instruction does.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague request gets a guess. An exact one gets what you meant.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five requests into instructions.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE INSTRUCTION DOES", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    if (k === 1) {
+      var ie = validate(FIX[0][1]).length, ix = validate(FIX[3][1]).length;
+      [["empty folder: " + ie + " issues", ie, RED], ["ten files of x: " + ix + " issues", ix, "#C4C4C4"]].forEach(function (r, i) { cap(p, 14, 70 + i * 110, r[0], { size: 24 }); bar(p, 14, 84 + i * 110, Math.max(r[1] * 50, 8), 40, r[2], anim, i * 400); });
+      nt = "zero issues, zero claims checked";
+    } else if (k === 2) {
+      var n2 = INJ.n;
+      [["prompt only: " + n2 + " of 10 published", n2, RED], ["tool removed: 0 of 10 published", 0, "#C4C4C4"]].forEach(function (r, i) { cap(p, 14, 70 + i * 110, r[0], { size: 24 }); bar(p, 14, 84 + i * 110, Math.max(r[1] * 50, 8), 40, r[2], anim, i * 400); });
+      nt = "a missing capability stops all ten";
+    } else if (k === 3) {
+      STATE.forEach(function (r, i) { var ok = r[1] === r[2], g2 = p.append("g"); cap(g2, 14, 70 + i * 70, r[0], { size: 24 }); if (ok) check(g2, 580, 60 + i * 70, 14, INK); else cross(g2, 580, 60 + i * 70, 14, RED); fade(g2, anim, i * 300); });
+      nt = STATE.filter(function (r) { return r[1] === r[2]; }).length + " of 3 state checks match";
+    } else if (k === 4) {
+      [["matched", 1, INK], ["partly matched", 1, "#909090"], ["missed", 1, RED]].forEach(function (r, i) { cap(p, 14, 70 + i * 80, r[0], { size: 24 }); bar(p, 14, 84 + i * 80, 200 * r[1], 34, r[2], anim, i * 300); });
+      nt = "one each; reasoning outweighs the count";
+    } else {
+      OPT.forEach(function (o, i) { var a = wscore(o[1], WA), b = wscore(o[1], WB); cap(p, 14, 54 + i * 70, o[0], { size: 24 }); bar(p, 150, 36 + i * 70, a * 11, 20, INK, anim, i * 200); bar(p, 150, 60 + i * 70, b * 11, 20, RED, anim, i * 200 + 200); });
+      nt = "black: benefit weight 3; red: weight 1"; cap(p, 0, ph + 76, "narrow leads in black, ties stop in red", { size: 24, fill: MUTED });
+    }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Does the pass mean structure, or does it mean substance?",
+    "Is each boundary in Python, and not only in a prompt?",
+    "Did I write the gate and my prediction before Claude built?",
+    "Is every central claim mapped to evidence that could disagree?",
+    "Which gaps are contingent, and which are structural?",
+    "Who signs, who can stop it: ship, narrow, defer or stop?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before you sign a capstone packet", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 42, c, 78, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Then say it exactly: not “check the packet”, but “open each claim’s evidence”.", { size: 28, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, valid: { steps: 4, render: renderValid }, packet: { steps: 3, render: renderPacket },
+    brief: { steps: 4, render: renderBrief }, gate: { steps: 4, render: renderGate }, python: { steps: 4, render: renderPython },
+    fail: { steps: 4, render: renderFail }, audit: { steps: 4, render: renderAudit }, graph: { steps: 3, render: renderGraph },
+    decide: { steps: 5, render: renderDecide }, pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay },
+    closing: { steps: 6, render: renderClosing }
+  };
+
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

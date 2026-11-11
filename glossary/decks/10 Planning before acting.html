@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Planning before acting | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: Chapter 10, Planning before acting">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Planning before acting">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 10</p>
+      <h1 class="t-opening rise g2">Planning before acting</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for settling the problem, the order and the approval before Claude changes anything</p>
+      <div class="speaker-notes" hidden><p>30 terms from Chapter 10. Every term is tagged in the book text: the chapter uses and explains it. All numbers are computed in the page from the chapter’s own examples (the plus-one regression, missing_fields, order) or labelled illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Thirty terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Thirty terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Formulating the problem">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Choosing the problem</p>
+      <h2 class="t-chart">Formulating the problem</h2>
+      <div class="diagram build" data-build="form" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Formulate before you plan”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>The pass and fail marks are computed from the chapter’s plus-one regression: a patch returning 3 and a correct x + 1 patch tested on inputs 2 and 5.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Anchors, criteria and values">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Choosing the problem</p>
+      <h2 class="t-chart">Anchors, criteria and values</h2>
+      <div class="diagram build" data-build="anchor" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Formulate before you plan”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>The visible solutions and the scores are illustrative. The three centered groups (test-report reader, maintainers and callers, learner) are from the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Plan, eight fields and a field that has a job">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Fields and the presence check</p>
+      <h2 class="t-chart">Plan, eight fields and a field that has a job</h2>
+      <div class="diagram build" data-build="fields" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “The plan is the design…” and “The eight fields are eight questions”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Word counts and truthiness are computed from the chapter’s table entries.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="What the presence check sees">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Fields and the presence check</p>
+      <h2 class="t-chart">What the presence check sees</h2>
+      <div class="diagram build" data-build="check" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “What missing_fields actually checks”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>missing_fields is re-implemented from the chapter’s one-line definition and run on the plans shown.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Graph, order and three rejections">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Order and edges</p>
+      <h2 class="t-chart">Graph, order and three rejections</h2>
+      <div class="diagram build" data-build="graph" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Dependencies are directed obligations”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>order() is re-implemented from the chapter and run on each graph; the error text comes from the run.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Valid, evidenced and reversible">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Order and edges</p>
+      <h2 class="t-chart">Valid, evidenced and reversible</h2>
+      <div class="diagram build" data-build="edges" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Acyclic does not mean executable” and “Evidence belongs on the edges”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>The delete example is the chapter’s own (inspect, delete, verify). The action list is illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Exits, refusals and owners">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Exits and the gate</p>
+      <h2 class="t-chart">Exits, refusals and owners</h2>
+      <div class="diagram build" data-build="exits" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Stop conditions and refusal paths”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Four run states classified by a small function written from the chapter’s three exits.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Predictions, versions and counterexamples">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Exits and the gate</p>
+      <h2 class="t-chart">Predictions, versions and counterexamples</h2>
+      <div class="diagram build" data-build="predict" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “Review before action”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>The three predictions are the chapter’s symlink plan; the recorded results and plan versions are invented to show a mismatch.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The gate, approval and sign-off">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Exits and the gate</p>
+      <h2 class="t-chart">The gate, approval and sign-off</h2>
+      <div class="diagram build" data-build="gate" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “The gate” and “Ship It”; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Conditions are the chapter’s six; the status is computed from them.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Structural check and semantic review; unknown prerequisite and cycle; plan and result; capability and authority.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague request, exact instruction</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10; exam-term list, Chapter 10.</p>
+      <div class="speaker-notes" hidden><p>Five requests and exact versions, each with a chart computed in the page.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before a plan goes to Claude">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before a plan goes to Claude</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 10, “The gate”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= Planning before acting (Chapter 10) ================= */
+  var uid = 0, GREY = "#909090";
+  var T = {
+    form: { n: "Problem formulation", tag: "book", m: "Choosing which problem the plan is for, before any step is ordered" },
+    distinct: { n: "Distinctness test", tag: "book", m: "Two formulations differ only if some result passes one and fails the other" },
+    third: { n: "Error of the third kind", tag: "book", m: "A right answer to the wrong problem" },
+    anchor: { n: "Primary generator", tag: "book", m: "The first, often unspoken idea of what the task is about; it decides which solutions you can see" },
+    cset: { n: "Constraint set", tag: "book", m: "Criteria written before any scoring: feasibility, plus salience and whose interests are centered" },
+    values: { n: "Values decision", tag: "book", m: "Choosing whose interests the framing centers, and saying who it leaves out" },
+    plan: { n: "Plan", tag: "book", m: "The decisions on problem, boundary, order, evidence and stopping, written down where another person can challenge them" },
+    eight: { n: "Eight plan fields", tag: "book", m: "Objective, inputs, scope, steps, tools, risks, verification and stop: eight questions a reviewer asks" },
+    job: { n: "A field that has a job", tag: "book", m: "An entry concrete enough that a person can disagree with it" },
+    missing: { n: "missing_fields", tag: "book", m: "Lists the fields whose value is absent or false-valued, in the order of FIELDS" },
+    struct: { n: "Structural check", tag: "book", m: "A check on form only: it rejects absence, not poor content" },
+    allx: { n: "All-x plan", tag: "book", m: "Every field holds the string x: nothing is missing, nothing is meant" },
+    sem: { n: "Semantic review", tag: "book", m: "A person asks if each entry is meaningful, authorised and tests the claim" },
+    graph: { n: "Dependency graph", tag: "book", m: "Steps as nodes; an arrow means the second waits for the first" },
+    topo: { n: "Topological ordering", tag: "book", m: "Take every step with no waiting prerequisite, sorted by id, remove it, and repeat" },
+    dup: { n: "Duplicate step", tag: "book", m: "Two steps share one id; one key cannot hold both" },
+    unk: { n: "Unknown prerequisite", tag: "book", m: "A step waits on an id that is not in the plan" },
+    cycle: { n: "Dependency cycle", tag: "book", m: "Steps wait on each other, so none can become ready" },
+    acyc: { n: "Acyclic, not executable", tag: "book", m: "An order exists, but the declared arrows may omit real dependencies or allow an unsafe action" },
+    hand: { n: "Handoff condition", tag: "book", m: "What one step must hand the next, stated so a stranger can check it" },
+    rev: { n: "Reversibility", tag: "book", m: "Whether a change can be undone decides how much human approval it needs" },
+    stop: { n: "Stop condition", tag: "book", m: "Three exits, complete, halt or defer, each with an observable trigger" },
+    refuse: { n: "Refusal path", tag: "book", m: "A route for missing authority, evidence or checks: keep state and report what blocks the next step" },
+    owner: { n: "Exit owner", tag: "book", m: "Whoever answers for an exit: a test can halt, but a person decides what a new risk changes" },
+    pvr: { n: "Predict versus record", tag: "book", m: "The plan states predictions; the result records what happened; keep the two apart" },
+    nowf: { n: "Not-waterfall rule", tag: "book", m: "A plan is revised, with the reason recorded, when a result contradicts it" },
+    counter: { n: "Counterexample review", tag: "book", m: "Imagine a plan that meets a field's wording but fails its purpose, and check that the plan rejects it" },
+    gate: { n: "Review gate", tag: "book", m: "Nothing changes until a person has reviewed the plan and a stated condition holds" },
+    appr: { n: "Approval", tag: "book", m: "A named person's dated act; a sentence from Claude records nothing" },
+    sign: { n: "Sign-off", tag: "book", m: "A statement of what was checked, how, what was not, and what is not claimed" }
+  };
+  function note2(svg, ey, text) { var n = Math.ceil(text.length / 44); if (ey + 36 + n * 36 <= 590) wrap(svg.append("g"), 800, ey + 36, text, 44, { size: 28, lh: 36, fill: INK }); }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function bar(g, x, y, w, h, fill, anim, delay) { var b = g.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", fill); if (anim) b.attr("width", 0).transition().delay(delay || 0).duration(700).attr("width", w); return b; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function arrow(g, x1, y1, x2, y2, col, dash) {
+    var a = Math.atan2(y2 - y1, x2 - x1), c = col || INK, h = 14;
+    var l = g.append("line").attr("x1", x1).attr("y1", y1).attr("x2", x2 - h * Math.cos(a)).attr("y2", y2 - h * Math.sin(a)).attr("stroke", c).attr("stroke-width", 3);
+    if (dash) l.attr("stroke-dasharray", "8 6");
+    g.append("path").attr("d", "M" + x2 + "," + y2 + " L" + (x2 - h * Math.cos(a - 0.45)) + "," + (y2 - h * Math.sin(a - 0.45)) + " L" + (x2 - h * Math.cos(a + 0.45)) + "," + (y2 - h * Math.sin(a + 0.45)) + "Z").attr("fill", c);
+    return g;
+  }
+  function node(g, x, y, w, h, s, o) {
+    o = o || {};
+    var r = g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 3);
+    if (o.dash) r.attr("stroke-dasharray", "8 6");
+    txt(g, x + w / 2, y + h / 2 + 8, s, { size: 26, weight: 700, anchor: "middle", fill: o.color || INK });
+  }
+
+  /* ---------- the chapter's two mechanisms, run for real ---------- */
+  var FIELDS = ["objective", "inputs", "scope", "steps", "tools", "risks", "verification", "stop"];
+  function truthy(v) { if (Array.isArray(v)) return v.length > 0; if (v && typeof v === "object") return Object.keys(v).length > 0; return !!v; }
+  function missingFields(plan) { return FIELDS.filter(function (f) { return !truthy(plan[f]); }); }
+  function orderOf(steps) {
+    var graph = {}, ids = [], i, j;
+    for (i = 0; i < steps.length; i++) {
+      if (graph.hasOwnProperty(steps[i].id)) return { err: "Duplicate step", batches: [], order: [] };
+      graph[steps[i].id] = (steps[i].after || []).slice(); ids.push(steps[i].id);
+    }
+    for (i = 0; i < ids.length; i++) for (j = 0; j < graph[ids[i]].length; j++) if (!graph.hasOwnProperty(graph[ids[i]][j])) return { err: "Unknown prerequisite", batches: [], order: [] };
+    var done = {}, batches = [], out = [];
+    while (out.length < ids.length) {
+      var ready = ids.filter(function (id) { return !done[id] && graph[id].every(function (d) { return done[d]; }); }).sort();
+      if (!ready.length) return { err: "Dependency cycle", batches: batches, order: out };
+      ready.forEach(function (id) { done[id] = true; out.push(id); });
+      batches.push(ready);
+    }
+    return { err: null, batches: batches, order: out };
+  }
+  var DIAMOND = [{ id: "inspect" }, { id: "build", after: ["inspect"] }, { id: "lint", after: ["inspect"] }, { id: "verify", after: ["build", "lint"] }];
+  var ALLX = {}; FIELDS.forEach(function (f) { ALLX[f] = "x"; });
+
+  var MAPROWS = [
+    ["Choosing the problem", "problem formulation, distinctness test, error of the third kind, primary generator, constraint set, values decision", "Which problem the plan is for, and whose interests it serves"],
+    ["Fields and the presence check", "plan, eight plan fields, a field that has a job, missing_fields, structural check, all-x plan, semantic review", "What a form can show, and what it cannot"],
+    ["Order and edges", "dependency graph, topological ordering, duplicate step, unknown prerequisite, dependency cycle, acyclic not executable, handoff condition, reversibility", "How steps are ordered and what crosses each arrow"],
+    ["Exits and the gate", "stop condition, refusal path, exit owner, predict versus record, not-waterfall rule, counterexample review, review gate, approval, sign-off", "When work ends, and who lets it go ahead"]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four groups of planning terms", "A table with four rows: group, terms, what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "30 terms from Chapter 10 and the course's exam-term list. All of them are about settling what to do, in what order and under whose approval, before Claude changes anything.", 96, { size: 28, lh: 38, fill: INK });
+    var cx = [0, 380, 1010];
+    ["GROUP", "TERMS", "WHAT IT IS ABOUT"].forEach(function (h, i) { lab(g, cx[i] + 18, 152, h); });
+    g.append("path").attr("d", "M0,168 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    MAPROWS.forEach(function (r, i) {
+      if (i + 1 > k) return;
+      var y = 184 + i * 118, row = g.append("g");
+      box(row, 0, y, 1400, 106, { stroke: FAMILIAR });
+      row.append("rect").attr("x", 0).attr("y", y).attr("width", 10).attr("height", 107).attr("fill", RED);
+      wrap(row, cx[0] + 28, y + 44, r[0], 22, { size: 26, lh: 30, weight: 700, fill: RED });
+      wrap(row, cx[1] + 18, y + 34, r[1], 50, { size: 24, lh: 30, fill: INK });
+      wrap(row, cx[2] + 18, y + 34, r[2], 30, { size: 24, lh: 30 });
+      if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    });
+    if (k === 0) cap(g, 0, 430, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. formulation, distinctness, third kind ---------- */
+  function renderForm(el, k, anim) {
+    var svg = svgFor(el, W, H, "Three formulations of one task, and the results that tell them apart", "Three candidate formulations, then a table of two constructed results showing which formulation each one passes.");
+    var ey = base(svg, [{ id: "form", s: 1 }, { id: "distinct", s: 2 }, { id: "third", s: 3 }], k, anim, ["Distinctness test", "a result passes one, fails another"], ["Reworded", "every result passes both or neither"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    var FM = [["A", "the input-two test goes green"], ["B", "declared plus-one behaviour restored, in scope"], ["C", "the learner can explain the bug"]];
+    lab(d, 0, 30, "THREE FORMULATIONS");
+    FM.forEach(function (f, i) { txt(d, 0, 76 + i * 44, f[0], { size: 26, weight: 700, fill: RED }); cap(d, 40, 76 + i * 44, f[1], { size: 24 }); });
+    if (k >= 2) {
+      var f1 = function () { return 3; }, f2 = function (x) { return x + 1; };
+      var RES = [{ n: "patch returns 3, undiagnosed", f: f1, ex: false }, { n: "x + 1, accepted unread", f: f2, ex: false }];
+      var cx = [470, 580, 690], g2 = d.append("g");
+      lab(g2, 0, 250, "CONSTRUCTED RESULTS");
+      ["A", "B", "C"].forEach(function (c, i) { txt(g2, cx[i], 296, c, { size: 26, weight: 700, anchor: "middle", fill: RED }); });
+      var sep = 0, cell = [];
+      RES.forEach(function (r, i) {
+        var y = 350 + i * 64, pa = r.f(2) === 3, pb = [2, 5].every(function (x) { return r.f(x) === x + 1; }), pc = r.ex, ps = [pa, pb, pc];
+        cell.push(ps);
+        if (k === 3 && i === 0) g2.append("rect").attr("x", -8).attr("y", y - 34).attr("width", 760).attr("height", 52).attr("fill", TINT);
+        cap(g2, 0, y, r.n, { size: 24 });
+        ps.forEach(function (p, j) { if (p) check(g2, cx[j], y - 8, 14, INK); else cross(g2, cx[j], y - 8, 12, RED); });
+      });
+      for (var a = 0; a < 3; a++) for (var b = a + 1; b < 3; b++) if (cell.some(function (r) { return r[a] !== r[b]; })) sep++;
+      cap(g2, 0, 510, "formulation pairs the two results separate: " + sep + " of 3", { size: 24, weight: 700 });
+      if (k === 2) cap(g2, 0, 544, "Input 5 gives 3, not 6, so row 1 splits A from B.", { size: 24, fill: MUTED });
+      else cap(g2, 0, 544, "Row 1: A cheers, B fails. A polished answer to A is the wrong answer.", { size: 24, fill: RED, weight: 700 });
+      fade(g2, A(anim, k, 2) || A(anim, k, 3), 0);
+    }
+    note2(svg, ey, ["", "Write candidates first. They must differ in what counts as success, not in wording.", "If one solution satisfies both, there is one formulation in two outfits.", "A flawless plan for A can still fail B."][k]);
+  }
+
+  /* ---------- 2. anchor, constraint set, values ---------- */
+  function renderAnchor(el, k, anim) {
+    var svg = svgFor(el, W, H, "An anchor limits what you can see; criteria and values choose among framings", "Five candidate solutions with the ones visible under two different anchors; then scores for three formulations; then whom each one centers.");
+    var ey = base(svg, [{ id: "anchor", s: 1 }, { id: "cset", s: 2 }, { id: "values", s: 3 }], k, anim, ["Constraint set", "criteria fixed before scoring"], ["Feasibility only", "picks the easiest framing"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      var SOL = ["return 3", "x + 1", "x + 1, and test 5", "explain the bug", "rewrite the module"], AN = [["“a test is failing”", 0, 1], ["“declared behaviour is wrong”", 1, 2]];
+      lab(d, 0, 30, "SOLUTIONS YOU CAN SEE");
+      var ring = d.append("rect").attr("x", -10).attr("width", 440).attr("fill", TINT).attr("stroke", RED).attr("stroke-width", 3);
+      var items = SOL.map(function (s, i) { return cap(d, 10, 98 + i * 60, s, { size: 26 }); });
+      var al = cap(d, 0, 450, "", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 520, "The anchor is chosen by you, or arrives from Claude.", { size: 24, fill: MUTED });
+      var draw = function (t) {
+        var a = AN[t < 0.5 ? 0 : 1], y0 = 98 + a[1] * 60 - 38, y1 = 98 + a[2] * 60 + 22;
+        ring.attr("y", y0).attr("height", y1 - y0);
+        items.forEach(function (it, i) { var on = i >= a[1] && i <= a[2]; it.attr("fill", on ? INK : GREY).attr("font-weight", on ? 700 : 400); });
+        al.text("anchor: " + a[0]);
+      };
+      draw(0.99); run(d, 4200, draw, anim);
+    } else if (k === 2) {
+      var C = [["A", 3, 3, 0], ["B", 2, 2, 3], ["C", 1, 1, 3]], sc = 70;
+      lab(d, 0, 30, "SCORES, 0 TO 3 PER CRITERION");
+      cap(d, 0, 74, "cost and time (feasibility) in black, salience in red", { size: 24, fill: MUTED });
+      var best0 = 0, best1 = 0;
+      C.forEach(function (c, i) { if (c[1] + c[2] > C[best0][1] + C[best0][2]) best0 = i; if (c[1] + c[2] + c[3] > C[best1][1] + C[best1][2] + C[best1][3]) best1 = i; });
+      C.forEach(function (c, i) {
+        var y = 130 + i * 110, f = (c[1] + c[2]) * sc / 1.0 * 0.6;
+        txt(d, 0, y + 34, c[0], { size: 28, weight: 700, fill: RED });
+        bar(d, 50, y, f, 50, INK, false);
+        var s = bar(d, 50 + f, y, c[3] * sc * 0.6, 50, RED, anim && k === 2, 600);
+        cap(d, 50 + f + c[3] * sc * 0.6 + 14, y + 34, "" + (c[1] + c[2]) + (c[3] ? " + " + c[3] + " = " + (c[1] + c[2] + c[3]) : ""), { size: 24, weight: 700 });
+      });
+      cap(d, 0, 480, "feasibility only picks " + C[best0][0] + "; with salience it picks " + C[best1][0] + ".", { size: 26, weight: 700 });
+      cap(d, 0, 520, "Scores are illustrative.", { size: 24, fill: MUTED });
+    } else {
+      var CEN = [["A", "whoever reads the test report"], ["B", "maintainers and callers"], ["C", "the learner"]];
+      lab(d, 0, 30, "EACH FORMULATION CENTERS SOMEONE");
+      CEN.forEach(function (c, i) {
+        var y = 70 + i * 96, ch = i === 1, g2 = d.append("g");
+        box(g2, 0, y, 740, 78, { stroke: ch ? RED : FAMILIAR, sw: ch ? 3 : 1.5 });
+        txt(g2, 20, y + 48, c[0], { size: 28, weight: 700, fill: RED });
+        cap(g2, 64, y + 48, c[1], { size: 26, weight: ch ? 700 : 400 });
+        fade(g2, A(anim, k, 3), i * 300);
+      });
+      wrap(d, 0, 400, "None centers everyone. Choosing B decenters the learner's understanding, so the plan says so: that is a defended selection.", 60, { size: 26, lh: 34, weight: 700 });
+    }
+    note2(svg, ey, ["", "An anchor you did not name is replaced by Claude's.", "Feasibility alone selects the most tractable framing.", "The values decision sits inside the formulation."][k]);
+  }
+
+  /* ---------- 3. plan, eight fields, a field that has a job ---------- */
+  function renderFields(el, k, anim) {
+    var svg = svgFor(el, W, H, "A plan is five decisions written down; eight fields ask questions; an entry needs a job", "Five decisions, then eight field tiles with their questions, then weak and strong entries that both pass the presence check.");
+    var ey = base(svg, [{ id: "plan", s: 1 }, { id: "eight", s: 2 }, { id: "job", s: 3 }], k, anim, ["Present", "the name holds a value"], ["Useful", "a person can disagree with it"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      var DEC = ["which problem", "which boundary", "which order", "which evidence between steps", "which point to stop"];
+      lab(d, 0, 30, "DECISIONS MADE BEFORE THE BUILD");
+      DEC.forEach(function (s, i) { var g = d.append("g"); box(g, 0, 56 + i * 72, 420, 56, { stroke: INK, sw: 2.5 }); cap(g, 20, 92 + i * 72, s, { size: 26, weight: 700 }); fade(g, A(anim, k, 1), i * 200); });
+      d.append("path").attr("d", "M450,60 V400 M450,60 h-14 M450,400 h-14").attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      wrap(d, 474, 200, "written down where another person can challenge them", 18, { size: 26, lh: 34, weight: 700, fill: RED });
+      cap(d, 0, 470, "Reviewing the plan is the gate.", { size: 26 });
+    } else if (k === 2) {
+      var Q = ["what outcome?", "what may it rely on?", "what may change?", "what does each produce?", "which capability?", "what could go wrong?", "what will be observed?", "when does it end?"];
+      lab(d, 0, 30, "FIELDS = (EIGHT NAMES, EIGHT QUESTIONS)");
+      FIELDS.forEach(function (f, i) {
+        var x = (i % 2) * 380, y = 56 + Math.floor(i / 2) * 124, g = d.append("g");
+        box(g, x, y, 360, 108, { stroke: INK, sw: 2 });
+        mono(g, x + 18, y + 44, f, { size: 26, weight: 700 }); cap(g, x + 18, y + 86, Q[i], { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 2), i * 120);
+      });
+    } else {
+      var ROWS = [["objective", "Improve the code", "Make the supplied failing plus-one regression pass without changing files outside the learner module and its test"], ["verification", "Review the result", "An exact command, an expected invariant, or a source comparison"]];
+      ROWS.forEach(function (r, i) {
+        var y = 10 + i * 270, g = d.append("g"), nw = function (s) { return s.split(" ").length; };
+        lab(g, 0, y + 24, r[0].toUpperCase());
+        mono(g, 0, y + 64, "\"" + r[1] + "\"", { size: 24, fill: GREY }); cap(g, 0, y + 98, nw(r[1]) + " words; present: " + truthy(r[1]), { size: 24, fill: MUTED });
+        wrap(g, 0, y + 138, "\"" + r[2] + "\"", 56, { size: 24, lh: 30, fill: INK, weight: 700 });
+        var hy = y + 138 + (Math.ceil((r[2].length + 2) / 56)) * 30 + 6;
+        cap(g, 0, hy, nw(r[2]) + " words; present: " + truthy(r[2]), { size: 24, fill: RED });
+        fade(g, A(anim, k, 3), i * 500);
+      });
+      cap(d, 0, 552, "missing_fields → [" + missingFields(ALLX).join("") + "] for both.", { size: 24, weight: 700 });
+    }
+    note2(svg, ey, ["", "Reviewing it is the gate: a plan nobody reviewed is a draft.", "Code sees whether a name is bound. A reviewer asks the question.", "Both entries pass the check. Only one can be challenged."][k]);
+  }
+
+  /* ---------- 4. missing_fields, structural check, all-x, semantic review ---------- */
+  function renderCheck(el, k, anim) {
+    var svg = svgFor(el, W, H, "What the presence check sees, and what it cannot", "Rows of plan fields with their values and a present or missing mark, then a table of values and whether each passes, then an all-x plan, then question marks.");
+    var ey = base(svg, [{ id: "missing", s: 1 }, { id: "struct", s: 2 }, { id: "allx", s: 3 }, { id: "sem", s: 4 }], k, anim, ["Structural check", "is a value bound to each name"], ["Semantic review", "does the value mean anything"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 2) {
+      lab(d, 0, 30, "TRUTH-VALUE RULE: PASS OR FAIL");
+      var VS = [["\"\"", ""], ["[]", []], ["0", 0], ["false", false], ["None", null], ["\"x\"", "x"]], nf = 0;
+      VS.forEach(function (v, i) {
+        var y = 90 + i * 66, ok = truthy(v[1]), g = d.append("g"); if (!ok) nf++;
+        mono(g, 0, y, v[0], { size: 28 }); cap(g, 250, y, ok ? "passes" : "missing", { size: 26, weight: 700, fill: ok ? INK : RED });
+        if (ok) check(g, 440, y - 8, 14, INK); else cross(g, 440, y - 8, 12, RED);
+        fade(g, A(anim, k, 2), i * 150);
+      });
+      cap(d, 0, 520, nf + " of 6 values fail. Type and content are never read.", { size: 24, weight: 700 });
+    } else {
+      var P = k === 1 ? { objective: "Fix plus-one" } : ALLX, miss = missingFields(P);
+      lab(d, 0, 30, k === 1 ? "A PLAN WITH ONE FIELD" : k === 3 ? "EVERY FIELD HOLDS x" : "SAME ROWS, JUDGED BY A PERSON");
+      FIELDS.forEach(function (f, i) {
+        var y = 76 + i * 48, g = d.append("g"), has = miss.indexOf(f) < 0;
+        mono(g, 0, y, f, { size: 24 }); mono(g, 270, y, has ? "\"" + P[f] + "\"" : "(absent)", { size: 24, fill: has ? INK : RED });
+        if (k === 4) txt(g, 600, y + 2, "?", { size: 30, weight: 700, fill: RED }); else if (has) check(g, 610, y - 8, 12, INK); else cross(g, 610, y - 8, 10, RED);
+        fade(g, A(anim, k, k), i * 80);
+      });
+      if (k === 1) { wrap(d, 0, 500, "missing_fields → " + miss.length + " missing: " + miss.join(", "), 56, { size: 24, lh: 30, weight: 700 }); }
+      else if (k === 3) { mono(d, 0, 500, "missing_fields → [" + missingFields(P).join("") + "]", { size: 26, weight: 700, fill: RED }); cap(d, 0, 542, "Correct under the rule it implements.", { size: 24, fill: MUTED }); }
+      else { cap(d, 0, 500, "present: 8 of 8. Judged for meaning by the code: 0 of 8.", { size: 24, weight: 700 }); cap(d, 0, 542, "A person decides if x serves anyone.", { size: 24, fill: MUTED }); }
+    }
+  }
+
+  /* ---------- 5. graph, ordering, three rejections ---------- */
+  var NP = { inspect: [0, 160], build: [290, 70], lint: [290, 250], verify: [560, 160] };
+  function drawGraph(d, shown, color) {
+    var E = [["inspect", "build"], ["inspect", "lint"], ["build", "verify"], ["lint", "verify"]], R = orderOf(DIAMOND), nw = 170, nh = 54;
+    E.forEach(function (e) { arrow(d, NP[e[0]][0] + nw, NP[e[0]][1] + nh / 2, NP[e[1]][0], NP[e[1]][1] + nh / 2, INK); });
+    Object.keys(NP).forEach(function (id) {
+      var bi = -1; R.batches.forEach(function (b, i) { if (b.indexOf(id) >= 0) bi = i; });
+      var on = color && bi >= 0 && bi < shown;
+      node(d, NP[id][0], NP[id][1], nw, nh, id, { fill: on ? TINT : "#FFFFFF", stroke: on ? RED : INK });
+      if (on) txt(d, NP[id][0] + nw - 8, NP[id][1] - 8, "batch " + (bi + 1), { size: 24, weight: 700, anchor: "end", fill: RED });
+    });
+  }
+  function renderGraph(el, k, anim) {
+    var svg = svgFor(el, W, H, "Steps form a graph; ordering it can fail in three different ways", "A four-step graph, its batch-by-batch order, then three small broken graphs with the error each one raises.");
+    var ey = base(svg, [{ id: "graph", s: 1 }, { id: "topo", s: 2 }, { id: "dup", s: 3 }, { id: "unk", s: 4 }, { id: "cycle", s: 5 }], k, anim, ["Unknown prerequisite", "waits on a step that is absent"], ["Dependency cycle", "present steps wait on each other"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k <= 2) {
+      lab(d, 0, 30, k === 1 ? "EACH ARROW IS AN OBLIGATION" : "ORDER, BATCH BY BATCH");
+      var R = orderOf(DIAMOND), g = d.append("g");
+      var rest = d.append("g");
+      var draw = function (t) {
+        var shown = k === 1 ? 0 : Math.min(3, 1 + Math.floor(t * 3));
+        g.selectAll("*").remove(); rest.selectAll("*").remove();
+        drawGraph(g, shown, k === 2);
+        if (k === 1) { cap(rest, 0, 420, "verify is not ready until build and lint have produced output.", { size: 24 }); cap(rest, 0, 456, "You decide which arrows exist. The code orders what you declared.", { size: 24, fill: MUTED }); }
+        else {
+          R.batches.forEach(function (b, i) { if (i < shown) cap(rest, 0, 400 + i * 36, "batch " + (i + 1) + ": " + b.join(", ") + (b.length > 1 ? "  (sorted by id)" : ""), { size: 24, weight: 700 }); });
+          if (shown === 3) mono(rest, 0, 540, "order → " + R.order.join(", "), { size: 24, weight: 700, fill: RED });
+        }
+      };
+      draw(0.99); if (k === 2) run(d, 3000, draw, anim);
+    } else {
+      var CASES = { 3: [[{ id: "build" }, { id: "build" }], "ONE ID, TWO STEPS", "One key cannot hold two steps, so the plan is rejected before any ordering."],
+        4: [[{ id: "verify", after: ["test"] }], "A STEP WAITS ON SOMETHING ABSENT", "A missing prerequisite is not a cycle: the plan names work that does not exist."],
+        5: [[{ id: "implement", after: ["review"] }, { id: "review", after: ["implement"] }], "TWO STEPS WAIT ON EACH OTHER", "Neither is ever ready. Rename the jobs: plan review, implement, result review."] }[k];
+      var R2 = orderOf(CASES[0]); lab(d, 0, 30, CASES[1]);
+      var g3 = d.append("g");
+      if (k === 3) { node(g3, 90, 130, 170, 54, "build", { stroke: RED, color: RED }); node(g3, 430, 130, 170, 54, "build", { stroke: RED, color: RED }); cap(g3, 175, 230, "id: build", { size: 24, anchor: "middle", fill: MUTED }); cap(g3, 515, 230, "id: build", { size: 24, anchor: "middle", fill: MUTED }); }
+      if (k === 4) { node(g3, 60, 130, 170, 54, "verify"); arrow(g3, 230, 157, 430, 157, INK); node(g3, 430, 130, 170, 54, "test", { stroke: GREY, dash: true, color: GREY }); cap(g3, 515, 230, "(no such step)", { size: 24, anchor: "middle", fill: RED }); cap(g3, 145, 230, "after: [test]", { size: 24, anchor: "middle", fill: MUTED }); }
+      if (k === 5) { node(g3, 60, 130, 190, 54, "implement"); node(g3, 440, 130, 170, 54, "review"); arrow(g3, 250, 143, 440, 143, RED); arrow(g3, 440, 171, 250, 171, RED); cap(g3, 345, 230, "no step has an empty wait list", { size: 24, anchor: "middle", fill: MUTED }); }
+      fade(g3, A(anim, k, k), 0);
+      mono(d, 0, 330, "error → " + R2.err, { size: 28, weight: 700, fill: RED });
+      wrap(d, 0, 400, CASES[2], 56, { size: 24, lh: 30 });
+    }
+  }
+
+  /* ---------- 6. acyclic, handoff, reversibility ---------- */
+  function renderEdges(el, k, anim) {
+    var svg = svgFor(el, W, H, "A valid order is not a safe plan; edges need evidence; reversibility sets the gate", "A valid order that contains a delete step, then a handoff condition with four checkable items, then four actions sorted by whether they can be undone.");
+    var ey = base(svg, [{ id: "acyc", s: 1 }, { id: "hand", s: 2 }, { id: "rev", s: 3 }], k, anim, ["Acyclic", "an order exists"], ["Executable", "the declared arrows are the real ones"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      var R = orderOf([{ id: "inspect" }, { id: "delete", after: ["inspect"] }, { id: "verify", after: ["delete"] }]);
+      lab(d, 0, 30, "A VALID GRAPH");
+      var g = d.append("g");
+      R.order.forEach(function (id, i) { node(g, i * 285, 100, 190, 60, id, { stroke: id === "delete" ? RED : INK, color: id === "delete" ? RED : INK, fill: id === "delete" ? TINT : "#FFFFFF" }); if (i) arrow(g, i * 285 - 95, 130, i * 285, 130, INK); });
+      fade(g, A(anim, k, 1), 0);
+      mono(d, 0, 250, "order → " + R.order.join(", "), { size: 24, weight: 700 });
+      [["valid ordering: " + (R.err ? "no" : "yes"), true], ["operation allowlist: none", false], ["approval model: none", false]].forEach(function (r, i) { if (r[1]) check(d, 14, 320 + i * 50, 12, INK); else cross(d, 14, 320 + i * 50, 10, RED); cap(d, 44, 328 + i * 50, r[0], { size: 24 }); });
+      wrap(d, 0, 500, "Semantic review compares each action with scope, authority and consequence.", 56, { size: 24, lh: 30, weight: 700, fill: RED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "EDGE: run → review");
+      var IT = ["the exact commands", "the exit statuses", "the output", "a current diff hash or version"];
+      IT.forEach(function (s, i) { var g = d.append("g"); check(g, 14, 90 + i * 52, 12, INK); cap(g, 44, 98 + i * 52, s, { size: 26 }); cap(g, 560, 98 + i * 52, "checkable", { size: 24, fill: MUTED }); fade(g, A(anim, k, 2), i * 250); });
+      var g2 = d.append("g"); cross(g2, 14, 340, 10, RED); cap(g2, 44, 348, "“reviewed”, “reasonable”, “looks good”", { size: 26, fill: RED, weight: 700 });
+      cap(g2, 44, 388, "five reviewers, five procedures", { size: 24, fill: MUTED }); fade(g2, A(anim, k, 2), 1100);
+      wrap(d, 0, 470, "The evidence comes from the test runner. Claude's sentence about it is the first opinion run twice.", 56, { size: 24, lh: 30, weight: 700 });
+    } else {
+      var AC = [["new test, in version control", true], ["edit to learner code, tracked", true], ["write outside the fixture", false], ["delete an untracked file", false]], nr = 0;
+      lab(d, 0, 30, "CAN IT BE UNDONE FROM A DIFF?");
+      AC.forEach(function (a, i) { var y = 90 + i * 78, g = d.append("g"); if (a[1]) nr++; box(g, 0, y - 36, 740, 62, { stroke: a[1] ? FAMILIAR : RED, sw: a[1] ? 1.5 : 3 }); cap(g, 16, y + 2, a[0], { size: 24 }); cap(g, 724, y + 2, a[1] ? "evidence only" : "human approval", { size: 24, weight: 700, anchor: "end", fill: a[1] ? INK : RED }); fade(g, A(anim, k, 3), i * 250); });
+      cap(d, 0, 460, nr + " of 4 can be reverted from a diff; " + (4 - nr) + " need a hard human approval or fall outside scope.", { size: 24, weight: 700 });
+      cap(d, 0, 500, "Attach evidence to state-changing edges first.", { size: 24, fill: MUTED });
+    }
+  }
+
+  /* ---------- 7. stop condition, refusal path, exit owner ---------- */
+  function classify(s) { if (!s.inside || !s.scope) return "halt"; if (!s.source || s.budget) return "defer"; if (s.tests && s.reviewer) return "complete"; return "defer"; }
+  var STATES = [
+    ["tests pass, diff in scope, reviewer accepts", { inside: 1, scope: 1, source: 1, budget: 0, tests: 1, reviewer: 1 }],
+    ["target outside the disposable parent", { inside: 0, scope: 1, source: 1, budget: 0, tests: 1, reviewer: 0 }],
+    ["a needed source is unavailable", { inside: 1, scope: 1, source: 0, budget: 0, tests: 0, reviewer: 0 }],
+    ["turn budget reached, tests unfinished", { inside: 1, scope: 1, source: 1, budget: 1, tests: 0, reviewer: 0 }]
+  ];
+  function renderExits(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four situations sorted into three exits, a refusal report, and an owner per exit", "Four run states each classified as complete, halt or defer; then the three parts of a refusal report; then who owns each exit.");
+    var ey = base(svg, [{ id: "stop", s: 1 }, { id: "refuse", s: 2 }, { id: "owner", s: 3 }], k, anim, ["Budget", "bounds effort, not success"], ["Completion", "an observed outcome"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      lab(d, 0, 30, "RUN STATE → EXIT");
+      var cnt = { complete: 0, halt: 0, defer: 0 };
+      STATES.forEach(function (s, i) { var y = 70 + i * 92, ex = classify(s[1]), g = d.append("g"); cnt[ex]++; box(g, 0, y, 740, 78, { stroke: ex === "halt" ? RED : FAMILIAR, sw: ex === "halt" ? 3 : 1.5 }); wrap(g, 16, y + 34, s[0], 38, { size: 24, lh: 28 }); cap(g, 724, y + 46, ex.toUpperCase(), { size: 26, weight: 700, anchor: "end", fill: ex === "complete" ? INK : RED }); fade(g, A(anim, k, 1), i * 300); });
+      cap(d, 0, 470, "complete " + cnt.complete + ", halt " + cnt.halt + ", defer " + cnt.defer + ".", { size: 24, weight: 700 });
+      cap(d, 0, 510, "Reaching a budget gives an incomplete status, never a final result.", { size: 24, fill: MUTED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "A HALT REPORTS THREE THINGS");
+      [["why it stopped", "resolved target is outside the disposable parent"], ["evidence available", "the resolved path, printed"], ["decision to resume", "reviewer rescopes the fixture"]].forEach(function (r, i) { var y = 70 + i * 118, g = d.append("g"); box(g, 0, y, 740, 100, { stroke: i === 0 ? RED : INK, sw: 2.5 }); lab(g, 16, y + 32, r[0].toUpperCase(), { fill: i === 0 ? RED : MUTED }); cap(g, 16, y + 72, r[1], { size: 24 }); fade(g, A(anim, k, 2), i * 350); });
+      wrap(d, 0, 450, "Same check fails with no new evidence: do not retry identically. Diagnose, revise the plan, or defer.", 56, { size: 24, lh: 30, weight: 700 });
+    } else {
+      var OW = [["complete", "the named reviewer"], ["halt", "a test, or a person for a new risk"], ["defer", "a person decides to resume"]];
+      lab(d, 0, 30, "EVERY EXIT HAS AN OWNER");
+      OW.forEach(function (o, i) { var y = 70 + i * 110, g = d.append("g"); box(g, 0, y, 740, 92, { stroke: INK, sw: 2.5 }); cap(g, 20, y + 38, o[0].toUpperCase(), { size: 26, weight: 700, fill: RED }); cap(g, 20, y + 74, "owner: " + o[1], { size: 24 }); fade(g, A(anim, k, 3), i * 300); });
+      cap(d, 0, 450, OW.length + " exits, " + OW.length + " owners.", { size: 24, weight: 700 });
+      cap(d, 0, 490, "A summary from Claude is not a decision with a name on it.", { size: 24, fill: MUTED });
+    }
+  }
+
+  /* ---------- 8. predict versus record, not-waterfall, counterexamples ---------- */
+  function renderPredict(el, k, anim) {
+    var svg = svgFor(el, W, H, "Predictions, a revised plan with its reason, and counterexamples the plan must reject", "A table of three predictions against recorded results; a version timeline; a table of counterexamples and whether two plan versions reject them.");
+    var ey = base(svg, [{ id: "pvr", s: 1 }, { id: "nowf", s: 2 }, { id: "counter", s: 3 }], k, anim, ["Plan", "predicts, dated before the run"], ["Result", "records what happened"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      var PR = [["new test passes", "passes", 1], ["existing tests pass", "1 fails", 0], ["diff: allowed files", "reference edited", 0]], hit = 0;
+      lab(d, 0, 30, "PREDICTED"); lab(d, 380, 30, "RECORDED");
+      PR.forEach(function (p, i) { var y = 80 + i * 92, g = d.append("g"); hit += p[2]; box(g, 0, y, 740, 74, { stroke: p[2] ? FAMILIAR : RED, sw: p[2] ? 1.5 : 3 }); cap(g, 16, y + 46, p[0], { size: 24 }); cap(g, 396, y + 46, p[1], { size: 24, weight: 700, fill: p[2] ? INK : RED }); if (p[2]) check(g, 700, y + 36, 12, INK); else cross(g, 700, y + 36, 10, RED); fade(g, A(anim, k, 1), i * 350); });
+      cap(d, 0, 400, (PR.length - hit) + " of " + PR.length + " predictions failed: the plan reopens.", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 444, "Editing the plan afterward to match the run erases what was learned.", { size: 24, fill: MUTED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "A PLAN HAS VERSIONS");
+      [["plan v1", "dated, reviewed, kept on record"], ["a result contradicts an assumption", "e.g. rounding was never specified"], ["plan v2", "reason recorded; goes through the gate again"]].forEach(function (b, i) { var y = 60 + i * 150, g = d.append("g"); box(g, 0, y, 740, 100, { stroke: i === 1 ? RED : INK, sw: 2.5 }); cap(g, 20, y + 42, b[0], { size: 26, weight: 700, fill: i === 1 ? RED : INK }); cap(g, 20, y + 80, b[1], { size: 24 }); if (i < 2) arrow(g, 370, y + 100, 370, y + 150, INK); fade(g, A(anim, k, 2), i * 400); });
+      cap(d, 0, 540, "Not “plan everything first”: the first version is reviewed before action.", { size: 24, fill: MUTED });
+    } else {
+      var CX = [["citation that does not support the claim", 1, 1], ["in-scope path, unapproved write", 0, 1], ["all-x object", 0, 1]], r1 = 0, r2 = 0;
+      lab(d, 0, 30, "DOES THE PLAN REJECT IT?"); txt(d, 540, 30, "v1", { size: 24, weight: 700, anchor: "middle", fill: MUTED }); txt(d, 680, 30, "v2", { size: 24, weight: 700, anchor: "middle", fill: RED });
+      CX.forEach(function (c, i) { var y = 90 + i * 100, g = d.append("g"); r1 += c[1]; r2 += c[2]; wrap(g, 0, y, c[0], 30, { size: 24, lh: 30 }); [[540, c[1]], [680, c[2]]].forEach(function (m) { if (m[1]) check(g, m[0], y - 8, 14, INK); else cross(g, m[0], y - 8, 12, RED); }); fade(g, A(anim, k, 3), i * 300); });
+      cap(d, 0, 450, "v1 rejects " + r1 + " of 3; v2 rejects " + r2 + " of 3.", { size: 26, weight: 700 });
+      cap(d, 0, 490, "Illustrative. Keep the original counterexample beside v2.", { size: 24, fill: MUTED });
+    }
+  }
+
+  /* ---------- 9. gate, approval, sign-off ---------- */
+  function approval(r) { return r.person && r.date ? "approved" : "pending"; }
+  function renderGate(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six conditions open the gate; only a named, dated person approves; the sign-off states its limits", "Six clearance conditions with five met; three approval records and the status each one gives; the five lines of a sign-off.");
+    var ey = base(svg, [{ id: "gate", s: 1 }, { id: "appr", s: 2 }, { id: "sign", s: 3 }], k, anim, ["Approval", "a person's dated act"], ["Summary", "Claude's account of the evidence"]);
+    if (k === 0) return;
+    var d = svg.append("g");
+    if (k === 1) {
+      var CO = [["three distinct candidates, one interest named", 1], ["missing_fields empty, cross-field review done", 1], ["order returned, edges carry evidence", 1], ["stop has three exits, each with an owner", 1], ["counterexample written and rejected", 1], ["named person approved, with a date", 0]], n = 0;
+      lab(d, 0, 30, "SIX CONDITIONS");
+      CO.forEach(function (c, i) { var y = 80 + i * 66, g = d.append("g"); n += c[1]; if (c[1]) check(g, 20, y - 8, 14, INK); else cross(g, 20, y - 8, 12, RED); cap(g, 56, y, c[0], { size: 24, fill: c[1] ? INK : RED, weight: c[1] ? 400 : 700 }); fade(g, A(anim, k, 1), i * 200); });
+      cap(d, 0, 520, n + " of 6 hold: gate " + (n === 6 ? "open" : "closed, status pending") + ".", { size: 26, weight: 700, fill: n === 6 ? INK : RED });
+    } else if (k === 2) {
+      var RC = [["Claude writes “approved”", { person: 0, date: 1 }], ["named person, no date", { person: 1, date: 0 }], ["named person, dated", { person: 1, date: 1 }]];
+      lab(d, 0, 30, "WHO WROTE IT → STATUS");
+      RC.forEach(function (r, i) { var y = 70 + i * 120, st = approval(r[1]), g = d.append("g"); box(g, 0, y, 740, 100, { stroke: st === "approved" ? INK : RED, sw: 2.5 }); cap(g, 20, y + 42, r[0], { size: 26 }); cap(g, 20, y + 82, "status: " + st, { size: 24, weight: 700, fill: st === "approved" ? INK : RED }); fade(g, A(anim, k, 2), i * 350); });
+      cap(d, 0, 470, "Nothing consequential runs while the status is pending.", { size: 24, weight: 700 });
+    } else {
+      var SG = [["Checked", "the two function results, cross-field review, counterexamples"], ["How", "by hand, by tests, or with Claude as critic"], ["Not checked", "whether the objective serves anyone beyond my reading"], ["Not claiming", "that the plan will succeed or is safe beyond the fixture"], ["Signed or withheld", "name and date, or returned for revision"]];
+      SG.forEach(function (s, i) { var y = 24 + i * 100, g = d.append("g"), hot = i === 2; g.append("rect").attr("x", 0).attr("y", y - 4).attr("width", 8).attr("height", 90).attr("fill", hot ? RED : FAMILIAR); cap(g, 24, y + 24, s[0], { size: 26, weight: 700, fill: hot ? RED : INK }); wrap(g, 24, y + 58, s[1], 60, { size: 24, lh: 28 }); fade(g, A(anim, k, 3), i * 250); });
+      cap(d, 0, 556, "A plan sign-off claims less than a result sign-off.", { size: 24, fill: MUTED });
+    }
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from planning", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Structural check", "Rejects missing or false entries"], ["Semantic review", "Asks if each entry means something"]],
+      [["Unknown prerequisite", "Waits on a step that is not there"], ["Dependency cycle", "Present steps wait on each other"]],
+      [["Plan", "Predicts what will happen"], ["Result", "Records what did happen"]],
+      [["Capability", "What the tool can do"], ["Authority", "What this task allows"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(30,0)"), RG = R.append("g").attr("transform", "translate(30,0)");
+      if (i === 0) {
+        var m = Math.min(8, Math.floor(t * 10));
+        d3.range(8).forEach(function (j) {
+          var x = (j % 4) * 80, y = 130 + Math.floor(j / 4) * 80;
+          LG.append("rect").attr("x", x).attr("y", y).attr("width", 60).attr("height", 60).attr("fill", j < m ? INK : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+          if (j < m) txt(LG, x + 30, y + 40, "x", { size: 28, weight: 700, anchor: "middle", fill: "#FFFFFF" });
+          RG.append("rect").attr("x", x).attr("y", y).attr("width", 60).attr("height", 60).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 3);
+          if (j < m) txt(RG, x + 30, y + 40, "?", { size: 30, weight: 700, anchor: "middle", fill: RED });
+        });
+        cap(LG, 0, 340, m + " of 8 present", { size: 24, weight: 700 }); cap(RG, 0, 340, "0 of 8 judged by the code", { size: 24, weight: 700, fill: RED });
+      } else if (i === 1) {
+        node(LG, 0, 150, 150, 54, "verify"); node(LG, 270, 150, 150, 54, "test", { stroke: GREY, dash: true, color: GREY });
+        LG.append("g").attr("opacity", Math.min(1, t * 3)).call(function (g) { arrow(g, 150, 177, 270, 177, INK); });
+        cap(LG, 0, 290, "named step absent", { size: 24, fill: MUTED });
+        node(RG, 0, 150, 150, 54, "a"); node(RG, 270, 150, 150, 54, "b");
+        RG.append("g").attr("opacity", Math.min(1, t * 3)).call(function (g) { arrow(g, 150, 165, 270, 165, RED); arrow(g, 270, 192, 150, 192, RED); });
+        cap(RG, 0, 290, "all present, none ready", { size: 24, fill: MUTED });
+      } else if (i === 2) {
+        d3.range(3).forEach(function (j) {
+          var on = j / 3 < t;
+          LG.append("rect").attr("x", j * 90).attr("y", 150).attr("width", 70).attr("height", 70).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3).attr("stroke-dasharray", "8 6");
+          RG.append("rect").attr("x", j * 90).attr("y", 150).attr("width", 70).attr("height", 70).attr("fill", on && j < 2 ? INK : "#FFFFFF").attr("stroke", on && j === 2 ? RED : INK).attr("stroke-width", 3);
+          if (on && j === 2) cross(RG, j * 90 + 35, 185, 18, RED);
+        });
+        cap(LG, 0, 270, "3 tests predicted to pass", { size: 24, fill: MUTED }); cap(RG, 0, 270, "2 of 3 recorded as passing", { size: 24, fill: MUTED });
+      } else {
+        var PA = [["learner test", 1], ["reference copy", 0], ["personal files", 0], ["settings", 0]], nr = Math.min(4, Math.floor(t * 5)), can = 0, may = 0;
+        PA.forEach(function (p, j) { var y = 120 + j * 56; if (j < nr) { can++; may += p[1]; check(LG, 20, y - 8, 12, INK); if (p[1]) check(RG, 20, y - 8, 12, INK); else cross(RG, 20, y - 8, 10, RED); } cap(LG, 50, y, p[0], { size: 24 }); cap(RG, 50, y, p[0], { size: 24 }); });
+        cap(LG, 0, 380, "can write: " + can + " of 4", { size: 24, weight: 700 }); cap(RG, 0, 380, "may write: " + may + " of 4", { size: 24, weight: 700, fill: RED });
+      }
+    }
+    if (k === 0) { draw(0, 0.5); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  var SAY = [
+    { v: "check the plan is complete", x: "Run missing_fields and require []; then review each field for meaning" },
+    { v: "put the steps in order", x: "Declare every after: arrow and run order(); an error names the cause" },
+    { v: "stop when it is done", x: "Complete on passing tests and an in-scope diff; halt out of scope; defer if a source is missing" },
+    { v: "get it approved", x: "A named person approves this version, with a date; until then it is pending" },
+    { v: "pick the right problem", x: "Write three formulations that disagree on some result; choose with criteria set first" }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague requests about plans turned into precise ones", "Five rows with a vague request and an exact instruction. On the right, a chart computed from the exact instruction.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague request gets a guess. An exact one gets what you meant.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five requests into instructions.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE INSTRUCTION DOES", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    if (k === 1) {
+      var miss = missingFields(ALLX).length;
+      [["fields present, all-x plan", FIELDS.length - miss, INK], ["fields a person can challenge", 0, RED]].forEach(function (r, i) { cap(p, 14, 70 + i * 110, r[0] + ": " + r[1] + " of 8", { size: 24 }); bar(p, 14, 84 + i * 110, 8 + 560 * r[1] / 8, 40, r[2], anim, i * 400); });
+      nt = "the empty list does not certify the plan";
+    } else if (k === 2) {
+      var R = orderOf(DIAMOND);
+      R.batches.forEach(function (b, i) { var x = 14 + i * 205, gg = p.append("g"); lab(gg, x, 50, "BATCH " + (i + 1), { fill: RED }); b.forEach(function (id, j) { box(gg, x, 80 + j * 76, 180, 60, { stroke: INK, sw: 2.5 }); cap(gg, x + 90, 118 + j * 76, id, { size: 24, weight: 700, anchor: "middle" }); }); fade(gg, anim, i * 450); });
+      nt = "order: " + R.order.join(", ");
+    } else if (k === 3) {
+      var cn = { complete: 0, halt: 0, defer: 0 }; STATES.forEach(function (s) { cn[classify(s[1])]++; });
+      ["complete", "halt", "defer"].forEach(function (e, i) { cap(p, 14, 70 + i * 80, e + ": " + cn[e], { size: 24 }); bar(p, 200, 44 + i * 80, 40 + cn[e] * 180, 40, e === "complete" ? INK : RED, anim, i * 300); });
+      nt = "four situations, three exits";
+    } else if (k === 4) {
+      d3.range(6).forEach(function (j) { var bad = j === 5, c = p.append("rect").attr("x", 14 + j * 100).attr("y", 90).attr("width", 80).attr("height", 80).attr("fill", bad ? RED : INK); if (anim) c.attr("opacity", 0).transition().delay(j * 200).duration(200).attr("opacity", 1); });
+      cap(p, 14, 230, "5 of 6 conditions hold: status " + approval({ person: 0, date: 0 }), { size: 24, weight: 700, fill: RED });
+      nt = "one missing name keeps it pending";
+    } else {
+      var F = [[1, 0, 0], [0, 1, 0]], pr = 0, c2 = [[1, 0, 0], [1, 1, 0]], pairsSep = 0;
+      for (var a = 0; a < 3; a++) for (var b = a + 1; b < 3; b++) if (c2.some(function (r) { return r[a] !== r[b]; })) pairsSep++;
+      [["A", "B"], ["B", "C"], ["A", "C"]].forEach(function (pp, i) { var ai = "ABC".indexOf(pp[0]), bi = "ABC".indexOf(pp[1]), s = c2.some(function (r) { return r[ai] !== r[bi]; }); cap(p, 14, 70 + i * 80, pp[0] + " versus " + pp[1] + (s ? ": separated" : ": not separated"), { size: 24 }); bar(p, 360, 44 + i * 80, s ? 240 : 20, 40, s ? INK : RED, anim, i * 300); });
+      nt = "pairs separated: " + pairsSep + " of 3";
+    }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Can a person disagree with every field's entry?",
+    "Did my check test presence, or meaning?",
+    "Does each state-changing edge carry evidence and a failure route?",
+    "Does stop have complete, halt and defer exits, each with an owner?",
+    "Did I write a counterexample before approval, and does the plan reject it?",
+    "Is there a named person and a date, or is the status pending?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before a plan goes to Claude", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 42, c, 78, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Say it exactly: not “it is complete”, but “missing_fields is [] and each field can be challenged”.", { size: 26, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, form: { steps: 3, render: renderForm }, anchor: { steps: 3, render: renderAnchor },
+    fields: { steps: 3, render: renderFields }, check: { steps: 4, render: renderCheck }, graph: { steps: 5, render: renderGraph },
+    edges: { steps: 3, render: renderEdges }, exits: { steps: 3, render: renderExits }, predict: { steps: 3, render: renderPredict },
+    gate: { steps: 3, render: renderGate }, pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay },
+    closing: { steps: 6, render: renderClosing }
+  };
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

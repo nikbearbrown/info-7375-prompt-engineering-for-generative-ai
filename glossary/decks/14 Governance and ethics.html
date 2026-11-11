@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Governance and ethics | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: Governance and ethics">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Governance and ethics">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 14</p>
+      <h1 class="t-opening rise g2">Governance and ethics</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for telling a complete register from a responsible team</p>
+      <div class="speaker-notes" hidden><p>33 terms. Every term is used and explained in Chapter 14, so each carries the in the book text tag. Numbers on the slides are computed from stated inputs; invented cases are labelled illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Thirty-three terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Thirty-three terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Register, fields and the missing-field check">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Register and validator</p>
+      <h2 class="t-chart">Register, fields and the missing-field check</h2>
+      <div class="diagram build" data-build="reg" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “A register makes questions inspectable”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>The empty record reports all seven field names, as in the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Allowlist, external write and the two statuses">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Register and validator</p>
+      <h2 class="t-chart">Allowlist, external write and the two statuses</h2>
+      <div class="diagram build" data-build="stat" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Tear down the validator”; “Complete, reviewable, and still weak”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Each result is computed by a port of the chapter validator.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Complete but hollow: two gates and a verb ladder">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Who decided, and what counts</p>
+      <h2 class="t-chart">Complete but hollow: two gates and a verb ladder</h2>
+      <div class="diagram build" data-build="hollow" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, opening; “Who decided?”; “Complete, reviewable, and still weak”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>The counts of accepted roles and verbs are illustrative; the six tests are the lesson’s.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Five decisions, owner, threshold and operational record">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Who decided, and what counts</p>
+      <h2 class="t-chart">Five decisions, owner, threshold and operational record</h2>
+      <div class="diagram build" data-build="five" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Who decided?”; “Owners, thresholds, and bounded responses”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>The 99 percent case and the six slots follow the chapter’s examples.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Retention lifecycle and the deletion test">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Harm, retention and response</p>
+      <h2 class="t-chart">Retention lifecycle and the deletion test</h2>
+      <div class="diagram build" data-build="ret" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Retention is a lifecycle”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Copies are the chapter’s list; which are inspected is illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Concrete harm, equal scores and values claims">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Harm, retention and response</p>
+      <h2 class="t-chart">Concrete harm, equal scores and values claims</h2>
+      <div class="diagram build" data-build="harm" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Who bears the error”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Constructed cases; the fairness rates are stated inputs, results computed.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Consultation, simulation, recourse and contestability">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">People, scope and sign-off</p>
+      <h2 class="t-chart">Consultation, simulation, recourse and contestability</h2>
+      <div class="diagram build" data-build="cons" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Consultation and recourse are people’s work”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>The five-question test is the chapter’s; scores are illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Deferral, narrowing, review capacity and pause authority">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">People, scope and sign-off</p>
+      <h2 class="t-chart">Deferral, narrowing, review capacity and pause authority</h2>
+      <div class="diagram build" data-build="defer" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “When deferral is the responsible output”; “Owners, thresholds, and bounded responses”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Rates and hours are illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Sign-off, Not checked, withholding and control plane">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">People, scope and sign-off</p>
+      <h2 class="t-chart">Sign-off, Not checked, withholding and control plane</h2>
+      <div class="diagram build" data-build="sign" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “Ship It”; “Complete, reviewable, and still weak”; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Verb counts are illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Ready and approved, machine and human gate, listed and verified, simulated reply and consent.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague request, exact instruction</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14; exam-term lists.</p>
+      <div class="speaker-notes" hidden><p>Five requests and exact versions.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before you sign a register">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before you sign a register</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 14, “The sign-off”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= Chapter 14: Governance and ethics ================= */
+  var DEG = Math.PI / 180, uid = 0, GREY = "#909090";
+  /* tag: book = Chapter 14 uses and explains it */
+  var T = {
+    register: { n: "Register", tag: "book", m: "A record of the owner, purpose, data, retention, approver, evaluation and incident contact for one AI workflow" },
+    fields: { n: "Seven required fields", tag: "book", m: "Owner, purpose, data classes, retention days, approver, evaluation, incident contact; each opens a question" },
+    missing: { n: "Missing-field check", tag: "book", m: "A field is missing when its key is absent or its value is None, empty text or an empty list" },
+    allow: { n: "Classroom allowlist", tag: "book", m: "The three data classes accepted without review: public, synthetic, internal; case-sensitive" },
+    extw: { n: "External write", tag: "book", m: "A flag for acting outside the system; the validator adds an approval issue and checks nothing more" },
+    reqd: { n: "Review-required", tag: "book", m: "The status when a check found an issue, such as an unknown class or an external write" },
+    ready: { n: "Ready-for-human-review", tag: "book", m: "The status when every structural check passed; it is not approval, consent or compliance" },
+    hollow: { n: "Complete but hollow", tag: "book", alias: "structurally complete, operationally hollow", m: "Every field is filled while nobody has accepted a role and no threshold fires" },
+    mgate: { n: "Machine gate", tag: "book", m: "A gate that passes when a list of tests you can run passes; here, the validator" },
+    hgate: { n: "Human gate", tag: "book", m: "A gate that passes when a named person accepted each role and the routes work when used" },
+    ladder: { n: "Verb ladder", tag: "book", m: "Listed, confirmed, exercised, verified: use the weakest verb the evidence supports" },
+    five: { n: "Five decisions", tag: "book", m: "Owner, threshold, retention, consultation and recourse, made by people before the form is filled" },
+    owner: { n: "Owner", tag: "book", m: "The person who accepts the workflow as a continuing system and may stop it" },
+    thresh: { n: "Threshold", tag: "book", m: "The observable signal that triggers a response, and what the response is" },
+    oprec: { n: "Operational record", tag: "book", m: "A statement a stranger can test: signal, threshold, owner, response, scope, recovery" },
+    retlife: { n: "Retention lifecycle", tag: "book", m: "Every copy of the data, how long it lives and how deletion is checked; retention_days is one input" },
+    deltest: { n: "Deletion test", tag: "book", m: "Insert a labelled fixture, run the lifecycle, inspect the stores you control, state what is unverified" },
+    harm: { n: "Concrete harm", tag: "book", m: "Names who is affected, how it happens and the consequence, such as a wrong deadline" },
+    generic: { n: "Generic risk language", tag: "book", m: "Worries like “bias or privacy concerns” that fit any register and tell nobody what to do" },
+    same: { n: "Same score, other error", tag: "book", m: "Equal accuracy can hide different errors that cost different people" },
+    values: { n: "Values claim", tag: "book", m: "Choosing which error or equality matters is a decision with an owner, not an optimization" },
+    consult: { n: "Consultation", tag: "book", m: "Asking real people, where the answer could change the purpose, limits, retention or the decision to automate" },
+    sim: { n: "Consent by simulation", tag: "book", m: "Presenting model-written stakeholder reactions as if people had given feedback" },
+    recourse: { n: "Recourse path", tag: "book", m: "The whole route from report to correction, not just an email address" },
+    contest: { n: "Contestability", tag: "book", m: "A person can trigger real reconsideration; it does not mean every challenge wins" },
+    deferral: { n: "Deferral", tag: "book", m: "Deciding not to automate yet, and recording what evidence or capacity would justify revisiting" },
+    narrow: { n: "Narrowing scope", tag: "book", m: "Keeping the work but cutting data, authority or retention until the risk can be handled" },
+    hitl: { n: "Human in the loop", tag: "book", m: "Counts only when the human task, evidence, authority, time budget and stop rule are named" },
+    pause: { n: "Pause authority", tag: "book", m: "The owner's explicit power to halt the workflow, with a backup when the owner is unavailable" },
+    signoff: { n: "Sign-off", tag: "book", m: "A closing statement of what was checked, how, what was not, and what is not claimed" },
+    notchecked: { n: "Not checked line", tag: "book", m: "The sign-off line naming what the author did not verify; an AI-written sign-off leaves it out" },
+    withhold: { n: "Withholding", tag: "book", m: "Declining to sign when the evidence does not support it, then narrowing or deferring" },
+    ctrl: { n: "Control plane", tag: "book", m: "A register that can pause, revoke approval, shorten retention, change evaluation, assign repair or end the project" }
+  };
+  /* own note: right column, only when it still fits above the pair strip */
+  function note(svg, ey, text) {
+    if (!text) return;
+    var n = Math.ceil(text.length / 46);
+    if (ey + 36 + n * 36 > 592) return;
+    wrap(svg.append("g"), 800, ey + 36, text, 46, { size: 28, lh: 36, fill: INK });
+  }
+  function take(d, s) { cap(d, 0, 554, s, { size: 24, weight: 700, fill: RED }); }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function bar(g, x, y, w, h, fill, anim, delay) { var b = g.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", fill); if (anim) b.attr("width", 0).transition().delay(delay || 0).duration(700).attr("width", w); return b; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("fill", "none").attr("stroke", color || RED).attr("stroke-width", 5); }
+  function mk(svg, el, label, desc) { return svgFor(el, W, H, label, desc); }
+
+  /* ---------- the validator, ported from the chapter ---------- */
+  var FIELDS = ["owner", "purpose", "data_classes", "retention_days", "approver", "evaluation", "incident_contact"];
+  var ALLOW = ["public", "synthetic", "internal"];
+  function assess(r) {
+    var miss = FIELDS.filter(function (f) { var v = r[f]; return v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0); });
+    if (miss.length) return { status: "incomplete", issues: miss };
+    if (typeof r.retention_days !== "number" || !Number.isInteger(r.retention_days) || r.retention_days < 0) return { status: "ValueError", issues: [] };
+    if (!Array.isArray(r.data_classes) || !r.data_classes.every(function (s) { return typeof s === "string"; })) return { status: "ValueError", issues: [] };
+    var issues = [];
+    if (r.data_classes.some(function (c) { return ALLOW.indexOf(c) < 0; })) issues.push("sensitive or unknown data review");
+    if (r.external_write) issues.push("external action approval");
+    return { status: issues.length ? "review-required" : "ready-for-human-review", issues: issues };
+  }
+  var DEMO = { owner: "project team", purpose: "summarize public course notes", data_classes: ["public"], retention_days: 30, approver: "instructor", evaluation: "citation audit", incident_contact: "project owner" };
+  var WEAK = { owner: "everyone", purpose: "help", data_classes: ["public"], retention_days: 99999, approver: "manager", evaluation: "looks fine", incident_contact: "team" };
+  function withRec(base_, o) { var r = {}; Object.keys(base_).forEach(function (k) { r[k] = base_[k]; }); Object.keys(o).forEach(function (k) { r[k] = o[k]; }); return r; }
+  function fmt(v) { return Array.isArray(v) ? "[" + v.map(function (s) { return "\"" + s + "\""; }).join(", ") + "]" : typeof v === "string" ? "\"" + v + "\"" : String(v); }
+  /* verbs earned by the seven lines (illustrative) */
+  var LINES = [["owner", "confirmed"], ["purpose", "listed"], ["data classes", "verified"], ["retention", "listed"], ["approver", "listed"], ["evaluation", "exercised"], ["incident contact", "listed"]];
+  var VERBS = ["listed", "confirmed", "exercised", "verified"];
+  function verbCount(v) { return LINES.filter(function (l) { return l[1] === v; }).length; }
+
+  var MAPROWS = [
+    ["Register and validator", "register, seven required fields, missing-field check, classroom allowlist, external write, review-required, ready-for-human-review", "What the course validator checks and reports", 108],
+    ["Who decided, and what counts", "complete but hollow, machine gate, human gate, verb ladder, five decisions, owner, threshold, operational record", "Why a full form is not a responsible team", 108],
+    ["Harm, retention and response", "concrete harm, generic risk language, same score other error, values claim, retention lifecycle, deletion test, pause authority", "Who pays, and how a team can stop", 108],
+    ["People, scope and sign-off", "consultation, consent by simulation, recourse path, contestability, deferral, narrowing scope, human in the loop, sign-off, not checked line, withholding, control plane", "What stays with people, and what you may claim", 152]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four groups of governance terms", "A table with four rows: group, terms, what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "33 terms from Chapter 14. Each is about what a complete register does and does not show about who answers for a system.", 96, { size: 28, lh: 38, fill: INK });
+    var cx = [0, 330, 1010];
+    ["GROUP", "TERMS", "WHAT IT IS ABOUT"].forEach(function (h, i) { lab(g, cx[i] + 18, 152, h); });
+    g.append("path").attr("d", "M0,168 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    var y = 180;
+    MAPROWS.forEach(function (r, i) {
+      var hh = r[3], yy = y; y += hh + 8;
+      if (i + 1 > k) return;
+      var row = g.append("g");
+      box(row, 0, yy, 1400, hh, { stroke: FAMILIAR });
+      row.append("rect").attr("x", 0).attr("y", yy).attr("width", 10).attr("height", hh + 1).attr("fill", RED);
+      wrap(row, cx[0] + 28, yy + 40, r[0], 20, { size: 26, lh: 30, weight: 700, fill: RED });
+      wrap(row, cx[1] + 18, yy + 34, r[1], 58, { size: 24, lh: 30, fill: INK });
+      wrap(row, cx[2] + 18, yy + 34, r[2], 30, { size: 24, lh: 30 });
+      if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    });
+    if (k === 0) cap(g, 0, 450, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. register, fields, missing-field check ---------- */
+  function renderReg(el, k, anim) {
+    var svg = mk(null, el, "A register is seven fields; the missing-field check reports the empty ones", "Seven rows of a register record. Then the same rows for an empty record, all marked missing.");
+    var ey = base(svg, [{ id: "register", s: 1 }, { id: "fields", s: 2 }, { id: "missing", s: 3 }], k, anim, ["Missing", "absent, None, empty text or empty list"], ["Weak", "present, but says almost nothing"]);
+    var d = svg.append("g"), kk = Math.max(k, 1), rec = kk === 3 ? {} : DEMO;
+    lab(d, 0, 30, kk === 3 ? "EMPTY RECORD: assess({})" : "THE CHAPTER'S DEMO RECORD");
+    FIELDS.forEach(function (f, i) {
+      var y = 50 + i * 56, g = d.append("g"), v = rec[f], gone = v === undefined;
+      box(g, 0, y, 740, 48, { stroke: FAMILIAR });
+      if (kk >= 2) g.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 49).attr("fill", gone ? RED : INK);
+      mono(g, 20, y + 33, f, { fill: kk >= 2 ? RED : INK, weight: kk >= 2 ? 700 : 400 });
+      mono(g, 290, y + 33, gone ? "missing" : fmt(v), { fill: gone ? RED : INK, weight: gone ? 700 : 400 });
+      fade(g, A(anim, k, kk), i * 120);
+    });
+    var res = assess(rec);
+    if (kk === 1) cap(d, 0, 480, "These seven are the whole record the validator sees.", { size: 24, fill: MUTED });
+    if (kk === 2) { var c = cap(d, 0, 490, "Fields present: 7 of 7", { size: 26, weight: 700 }); var n = FIELDS.filter(function (f) { return DEMO[f] !== undefined; }).length; run(d, 1200, function (t) { c.text("Fields present: " + Math.round(t * n) + " of " + FIELDS.length); }, A(anim, k, 2)); }
+    if (kk === 3) cap(d, 0, 490, "status: " + res.status + ", " + res.issues.length + " issues", { size: 26, weight: 700, fill: RED });
+    take(d, ["", "Seven fields describe one workflow.", "Each field opens a question; none answers it.", "An empty record exposes all seven at once."][kk]);
+    note(svg, ey, ["", "", "", "Whitespace, zero or a vague string still passes this check."][k]);
+  }
+
+  /* ---------- 2. allowlist, external write, statuses ---------- */
+  function renderStat(el, k, anim) {
+    var svg = mk(null, el, "The validator routes by data class and external write, then returns a status", "Chips for the three allowed classes and tests of three values. Then external write, then three records that need review, then two records that are ready.");
+    var ey = base(svg, [{ id: "allow", s: 1 }, { id: "extw", s: 2 }, { id: "reqd", s: 3 }, { id: "ready", s: 4 }], k, anim, ["Review-required", "an issue was found"], ["Incomplete", "a required field is missing"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "ALLOWED WITHOUT REVIEW");
+      ALLOW.forEach(function (a, i) { var g = d.append("g"); box(g, i * 250, 50, 240, 56, { stroke: INK, sw: 3 }); mono(g, i * 250 + 120, 88, a, { anchor: "middle", weight: 700 }); fade(g, A(anim, k, 1), i * 200); });
+      ["public", "personal", "Public"].forEach(function (v, i) {
+        var y = 150 + i * 80, inn = ALLOW.indexOf(v) >= 0, g = d.append("g");
+        box(g, 0, y, 740, 64, { stroke: inn ? FAMILIAR : RED, sw: inn ? 1.5 : 3 });
+        mono(g, 20, y + 40, "\"" + v + "\"", { weight: 700 });
+        cap(g, 720, y + 40, inn ? "in the list: no issue" : v === "Public" ? "not in the list (capital P)" : "not in the list: review", { size: 24, weight: 700, anchor: "end", fill: inn ? INK : RED });
+        fade(g, A(anim, k, 1), 600 + i * 300);
+      });
+      take(d, "Anything outside three labels goes to a person.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "THE SAME PUBLIC-DATA RECORD, TWO FLAGS");
+      [false, true].forEach(function (f, i) {
+        var y = 60 + i * 130, r = assess(withRec(DEMO, { external_write: f })), g = d.append("g");
+        box(g, 0, y, 740, 110, { stroke: f ? RED : FAMILIAR, sw: f ? 3 : 1.5 });
+        mono(g, 20, y + 40, "external_write: " + f, { weight: 700 });
+        cap(g, 20, y + 84, r.issues.length ? "issue added: " + r.issues[0] : "issues: none", { size: 24, weight: 700, fill: f ? RED : INK });
+        fade(g, A(anim, k, 2), i * 400);
+      });
+      wrap(d, 0, 360, "The check does not name the target, confirm approval or run Chapter 13's gate.", 56, { size: 24, lh: 30, fill: MUTED });
+      take(d, "A flag marks a need for another control.");
+    } else if (kk === 3) {
+      lab(d, 0, 30, "THREE RECORDS THAT NEED A PERSON");
+      [["data_classes [\"personal\"]", { data_classes: ["personal"] }], ["data_classes [\"Public\"]", { data_classes: ["Public"] }], ["external_write true", { external_write: true }]].forEach(function (c, i) {
+        var y = 50 + i * 120, r = assess(withRec(DEMO, c[1])), g = d.append("g");
+        box(g, 0, y, 740, 104, { stroke: RED, sw: 3 });
+        mono(g, 20, y + 38, c[0], { weight: 700 });
+        cap(g, 20, y + 80, r.status + ": " + r.issues[0], { size: 24, fill: RED, weight: 700 });
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      take(d, "It routes the doubt; it does not settle it.");
+    } else {
+      lab(d, 0, 30, "TWO VERY DIFFERENT RECORDS");
+      [["demo", DEMO, "owner project team, 30 days"], ["weak", WEAK, "owner everyone, 99999 days"]].forEach(function (c, i) {
+        var y = 60 + i * 150, r = assess(c[1]), g = d.append("g");
+        box(g, 0, y, 740, 130, { stroke: INK, sw: 3 });
+        cap(g, 20, y + 36, c[0] + " record: " + c[2], { size: 24, fill: MUTED });
+        mono(g, 20, y + 80, r.status, { weight: 700, fill: RED, size: 28 });
+        cap(g, 20, y + 114, "issues: " + r.issues.length, { size: 24 });
+        fade(g, A(anim, k, 4), i * 500);
+      });
+      wrap(d, 0, 400, "Both lead to people. Ready means nothing was flagged, not that anyone reviewed it.", 56, { size: 24, lh: 30, fill: MUTED });
+      take(d, "Ready means checked in shape. Nobody has approved it.");
+    }
+    note(svg, ey, ["", "", "", "", ""][k]);
+  }
+
+  /* ---------- 3. hollow register, two gates, verb ladder ---------- */
+  function renderHollow(el, k, anim) {
+    var svg = mk(null, el, "A complete register can be hollow: the two gates and the verb ladder", "Seven filled fields each with an unanswered acceptance question. Then a bar of passing tests beside an empty bar of accepted roles. Then four verbs with counts.");
+    var ey = base(svg, [{ id: "hollow", s: 1 }, { id: "mgate", s: 2 }, { id: "hgate", s: 2 }, { id: "ladder", s: 3 }], k, anim, ["Machine gate", "tests you can run pass"], ["Human gate", "a named person accepted it"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "FILLED: 7 OF 7      ACCEPTED BY A PERSON: ?");
+      FIELDS.forEach(function (f, i) {
+        var y = 50 + i * 60, g = d.append("g"); box(g, 0, y, 740, 52, { stroke: FAMILIAR });
+        mono(g, 16, y + 35, f, {}); check(g, 560, y + 24, 14, INK); cap(g, 726, y + 36, "?", { size: 30, weight: 700, anchor: "end", fill: RED });
+        fade(g, A(anim, k, 1), i * 130);
+      });
+      take(d, "Every field filled. Nobody has said yes.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "TWO GATES, TWO PASS CONDITIONS");
+      var tests = 6, roles = FIELDS.length, accepted = 0;
+      [["MACHINE GATE: the validator's tests", tests, tests, "6 of 6 tests pass", INK], ["HUMAN GATE: roles a named person accepted", accepted, roles, "0 of 7 roles confirmed", RED]].forEach(function (c, i) {
+        var y = 70 + i * 190, g = d.append("g");
+        cap(g, 0, y, c[0], { size: 24, weight: 700, fill: c[4] });
+        box(g, 0, y + 20, 740, 60, { stroke: c[4], sw: 3 });
+        bar(g, 3, y + 23, Math.max(0, 734 * c[1] / c[2]), 54, c[4], A(anim, k, 2), i * 500);
+        cap(g, 0, y + 124, c[3], { size: 26, weight: 700, fill: c[4] });
+      });
+      take(d, "The validator is evidence for the first gate only.");
+    } else {
+      lab(d, 0, 30, "THE FIRST-DRAFT REGISTER'S SEVEN LINES");
+      var DES = { listed: "a name appears", confirmed: "the person said they accept", exercised: "you ran the route and it worked", verified: "you inspected the store yourself" };
+      VERBS.forEach(function (v, i) {
+        var y = 56 + i * 122, g = d.append("g"), n = verbCount(v);
+        cap(g, 0, y + 26, v, { size: 28, weight: 700, fill: i === 0 ? RED : INK }); cap(g, 190, y + 26, DES[v], { size: 24, fill: MUTED });
+        box(g, 0, y + 44, 740, 36, { stroke: FAMILIAR }); bar(g, 2, y + 46, 732 * n / LINES.length, 32, i === 0 ? RED : INK, A(anim, k, 3), i * 250);
+        cap(g, 0, y + 106, n + " of " + LINES.length + " lines", { size: 24, weight: 700 });
+      });
+      take(d, "Most of a first draft sits at “listed”.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- 4. five decisions, owner, threshold, operational record ---------- */
+  var DEC = [["owner", "who accepts it, and what can they stop?", "yes"], ["threshold", "which signal triggers a response?", "yes"], ["retention", "which copies, how long, how checked?", "yes"], ["consultation", "who was asked, what could change?", null], ["recourse", "how does a person reach a human?", null]];
+  function renderFive(el, k, anim) {
+    var svg = mk(null, el, "Five decisions, with owner and threshold made testable", "Five decision rows with who accepted each. Then a table of two candidate owners. Then 200 outputs under two stop rules. Then a vague sentence rewritten into six filled slots.");
+    var ey = base(svg, [{ id: "five", s: 1 }, { id: "owner", s: 2 }, { id: "thresh", s: 3 }, { id: "oprec", s: 4 }], k, anim, ["Owner", "accepts the workflow as a system"], ["Approver", "may approve this change"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "WHO ACCEPTED EACH DECISION (ILLUSTRATIVE)");
+      DEC.forEach(function (r, i) {
+        var y = 46 + i * 78, g = d.append("g"), un = r[2] === null; box(g, 0, y, 740, 70, { stroke: un ? RED : FAMILIAR, sw: un ? 3 : 1.5 });
+        cap(g, 16, y + 30, r[0], { size: 26, weight: 700 }); cap(g, 16, y + 58, r[1], { size: 24, fill: MUTED });
+        cap(g, 724, y + 30, un ? "unresolved" : "accepted", { size: 24, weight: 700, anchor: "end", fill: un ? RED : INK });
+        fade(g, A(anim, k, 1), i * 200);
+      });
+      var un = DEC.filter(function (r) { return r[2] === null; }).length;
+      wrap(d, 0, 470, un + " unresolved: constrain the workflow to a private draft, synthetic data, no external write.", 56, { size: 24, lh: 30, fill: MUTED });
+      take(d, "People decide first; the form records it.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "WHICH ENTRY IS AN OWNER? (ILLUSTRATIVE)");
+      var ROWS = ["is one person", "accepted the role", "can pause the workflow"], C = [["project team", [false, false, false]], ["named content owner", [true, true, true]]];
+      cap(d, 320, 76, "“project team”", { size: 24, weight: 700, fill: INK }); cap(d, 560, 76, "named person", { size: 24, weight: 700, fill: RED });
+      ROWS.forEach(function (r, i) {
+        var y = 96 + i * 90, g = d.append("g"); box(g, 0, y, 740, 76, { stroke: FAMILIAR }); cap(g, 16, y + 46, r, { size: 24 });
+        C.forEach(function (c, j) { var cx = 380 + j * 240, cy = y + 38; if (c[1][i]) check(g, cx, cy, 14, RED); else cross(g, cx, cy, 12, INK); });
+        fade(g, A(anim, k, 2), i * 300);
+      });
+      var sc = C.map(function (c) { return c[1].filter(Boolean).length; });
+      cap(d, 0, 420, "Score: " + sc[0] + " of 3 for the group, " + sc[1] + " of 3 for the person", { size: 26, weight: 700 });
+      take(d, "An owner exists only when someone accepts.");
+    } else if (kk === 3) {
+      lab(d, 0, 30, "200 OUTPUTS, ONE SEVERE DISCLOSURE (ILLUSTRATIVE)");
+      var r = rng(14), N = 200, sev = 137, minor = 61, g = d.append("g");
+      d3.range(N).forEach(function (i) {
+        var col = i === sev ? RED : i === minor ? INK : "#C4C4C4";
+        g.append("rect").attr("x", (i % 20) * 37).attr("y", 50 + Math.floor(i / 20) * 24).attr("width", 31).attr("height", 18).attr("fill", col);
+      });
+      fade(g, A(anim, k, 3), 0);
+      var pass = (N - 2) / N * 100;
+      cap(d, 0, 330, "198 fine (grey), 1 minor (dark), 1 severe (red)", { size: 24, fill: MUTED });
+      [["Rule A: keep going while pass rate ≥ 95%", "pass rate " + pass.toFixed(1) + "%: keeps running", INK], ["Rule B: stop on any disclosure", "1 disclosure found: stops", RED]].forEach(function (c, i) {
+        var y = 370 + i * 90, e = d.append("g"); cap(e, 0, y, c[0], { size: 24, weight: 700 }); cap(e, 0, y + 34, c[1], { size: 24, weight: 700, fill: c[2] }); fade(e, A(anim, k, 3), 500 + i * 500);
+      });
+      take(d, "A 99 percent pass rate can hide one severe event.");
+    } else {
+      lab(d, 0, 30, "“MONITOR QUALITY AND INTERVENE IF NEEDED”");
+      var SL = [["signal", "unsupported-source flag"], ["threshold", "any deadline claim lacking a source ID"], ["owner", "content owner"], ["response", "publication pauses"], ["scope", "affected drafts"], ["recovery", "correction, then repeat the citation audit"]];
+      SL.forEach(function (s, i) {
+        var y = 46 + i * 70, g = d.append("g"); box(g, 0, y, 740, 62, { stroke: FAMILIAR });
+        cap(g, 16, y + 40, s[0], { size: 24, weight: 700, fill: RED }); cap(g, 170, y + 40, s[1], { size: 24 });
+        fade(g, A(anim, k, 4), i * 220);
+      });
+      cap(d, 0, 500, "Slots filled: " + SL.length + " of 6; the vague sentence fills 0.", { size: 24, weight: 700 });
+      take(d, "A stranger can tell from the record if it fired.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- 5. retention lifecycle and deletion test ---------- */
+  var COPIES = [["incoming prompt", true], ["local fixture", true], ["application log", true], ["model-provider handling", false], ["cache", true], ["exported report", true], ["repository history", true], ["backup", false], ["incident record", false]];
+  function renderRet(el, k, anim) {
+    var svg = mk(null, el, "Retention is a lifecycle: nine copies, and which of them you inspected", "Nine tiles, one per copy of the data. Then each tile marked verified if inspected or listed if only stated.");
+    var ey = base(svg, [{ id: "retlife", s: 1 }, { id: "deltest", s: 2 }], k, anim, ["Verified", "you inspected the store"], ["Listed", "you rely on a statement"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    lab(d, 0, 30, kk === 1 ? "WHERE ONE PIECE OF DATA LIVES" : "AFTER THE DELETION TEST (ILLUSTRATIVE)");
+    COPIES.forEach(function (c, i) {
+      var x = (i % 2) * 380, y = 50 + Math.floor(i / 2) * 76, g = d.append("g"), ver = kk === 2 && c[1];
+      g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", 360).attr("height", 64).attr("fill", ver ? INK : "#FFFFFF").attr("stroke", kk === 2 && !c[1] ? RED : INK).attr("stroke-width", 3);
+      cap(g, x + 16, y + 40, c[0], { size: 24, weight: 700, fill: ver ? "#FFFFFF" : INK });
+      fade(g, A(anim, k, kk), i * (kk === 1 ? 150 : 100));
+    });
+    if (kk === 1) cap(d, 0, 470, "retention_days: 30 is one number. The data lives in " + COPIES.length + " places.", { size: 24, weight: 700 });
+    else { var v = COPIES.filter(function (c) { return c[1]; }).length; cap(d, 0, 470, "Filled: " + v + " verified. Outlined: " + (COPIES.length - v) + " listed only.", { size: 24, weight: 700 }); cap(d, 0, 510, "Removed from this dictionary is not erased everywhere.", { size: 24, fill: MUTED }); }
+    take(d, ["", "A retention number is a policy input, not a deletion.", "Inspect what you control; mark the rest unverified."][kk]);
+    note(svg, ey, "");
+  }
+
+  /* ---------- 6. harm, same score, values claim ---------- */
+  function renderHarm(el, k, anim) {
+    var svg = mk(null, el, "Name who pays: concrete harm, equal scores with different errors, values claims", "Two boxes, one generic and one concrete, with four slots each. Then two summarizers with the same error count. Then two groups with equal error rates but unequal favorable rates and precision.");
+    var ey = base(svg, [{ id: "harm", s: 1 }, { id: "generic", s: 1 }, { id: "same", s: 2 }, { id: "values", s: 3 }], k, anim, ["Generic risk", "fits any register"], ["Concrete harm", "who, how, what consequence"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "FOUR QUESTIONS EVERY HARM SHOULD ANSWER");
+      [["“There may be bias or privacy concerns.”", ["—", "—", "—", "—"], RED], ["A summary states an unsupported deadline.", ["students planning around it", "reliance on the wrong date", "work allocated wrongly", "a maintainer who can correct"], INK]].forEach(function (c, i) {
+        var y = 46 + i * 250, g = d.append("g"); box(g, 0, y, 740, 232, { stroke: c[2], sw: 3 }); cap(g, 16, y + 36, c[0], { size: 24, weight: 700, fill: c[2] });
+        ["who", "how", "cost", "fix by"].forEach(function (q, j) { cap(g, 16, y + 82 + j * 36, q, { size: 24, fill: MUTED }); cap(g, 130, y + 82 + j * 36, c[1][j], { size: 24 }); });
+        fade(g, A(anim, k, 1), i * 500);
+      });
+      take(d, "A harm names a person, a path and a cost.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "SAME 100 ITEMS, SAME 6 ERRORS (CONSTRUCTED)");
+      [["Summarizer A", "states a deadline the sources do not support", "students who plan around a wrong date"], ["Summarizer B", "leaves the deadline out when sources conflict", "students who ask, and maintainers who answer"]].forEach(function (c, i) {
+        var y = 56 + i * 230, g = d.append("g"), err = 6;
+        cap(g, 0, y + 20, c[0] + ": accuracy " + (100 - err) + "%", { size: 26, weight: 700 });
+        d3.range(err).forEach(function (j) { g.append("rect").attr("x", j * 50).attr("y", y + 40).attr("width", 40).attr("height", 40).attr("fill", i ? INK : RED); });
+        wrap(g, 0, y + 112, "error: " + c[1], 56, { size: 24, lh: 30, fill: INK }); wrap(g, 0, y + 172, "pays: " + c[2], 56, { size: 24, lh: 30, fill: RED, weight: 700 });
+        fade(g, A(anim, k, 2), i * 500);
+      });
+      take(d, "The score is equal. The people who pay are not.");
+    } else {
+      lab(d, 0, 30, "TWO GROUPS, 1000 PEOPLE EACH (ILLUSTRATIVE)");
+      var tpr = 0.8, fpr = 0.2, GR = [["Group P", 0.5], ["Group Q", 0.3]], M = [["error rates", function (b) { return tpr * 100; }], ["favorable rate", function (b) { return (b * tpr + (1 - b) * fpr) * 100; }], ["score precision", function (b) { return b * tpr / (b * tpr + (1 - b) * fpr) * 100; }]];
+      cap(d, 0, 66, "caught " + tpr * 100 + "%, false alarm " + fpr * 100 + "% in both groups", { size: 24, fill: MUTED });
+      M.forEach(function (m, i) {
+        var y = 96 + i * 130, g = d.append("g"); cap(g, 0, y + 20, i === 0 ? "equal error rates (true positive rate)" : m[0], { size: 24, weight: 700 });
+        GR.forEach(function (gr, j) { var v = m[1](gr[1]); bar(g, 150, y + 34 + j * 40, 5.2 * v, 32, j ? INK : RED, A(anim, k, 3), i * 300 + j * 150); cap(g, 0, y + 58 + j * 40, gr[0].replace("Group ", "Grp "), { size: 24 }); cap(g, 150 + 5.2 * v + 10, y + 58 + j * 40, v.toFixed(0) + "%", { size: 24, weight: 700 }); });
+      });
+      take(d, "Equalizing one makes the others differ. Someone chooses.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- 7. consultation, simulation, recourse, contestability ---------- */
+  function renderCons(el, k, anim) {
+    var svg = mk(null, el, "Consultation and recourse are people's work", "Two boxes comparing what a real answer can change. Then five simulated agreements with zero people asked. Then a six-step route from report to escalation. Then a five-question route test.");
+    var ey = base(svg, [{ id: "consult", s: 1 }, { id: "sim", s: 2 }, { id: "recourse", s: 3 }, { id: "contest", s: 4 }], k, anim, ["Consultation", "an answer that can change things"], ["Role-play", "rehearsal, labelled simulated"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "COULD THE ANSWER CHANGE THE PROJECT?");
+      var CH = ["purpose", "boundaries", "retention", "the decision to automate"];
+      [["asked before it is fixed", true], ["asked to soften a fixed plan", false]].forEach(function (c, i) {
+        var y = 56 + i * 240, g = d.append("g"); box(g, 0, y, 740, 220, { stroke: c[1] ? INK : RED, sw: 3 }); cap(g, 16, y + 36, c[0], { size: 26, weight: 700, fill: c[1] ? INK : RED });
+        CH.forEach(function (s, j) { var yy = y + 74 + j * 36; if (c[1]) check(g, 32, yy - 6, 11, RED); else cross(g, 32, yy - 6, 9, INK); cap(g, 60, yy, "can change " + s, { size: 24 }); });
+        fade(g, A(anim, k, 1), i * 500);
+      });
+      take(d, "If nothing could change, it is theater.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "WHAT CLAUDE WROTE IN THEIR VOICE");
+      var VO = ["student", "maintainer", "instructor", "reader", "editor"];
+      VO.forEach(function (v, i) {
+        var y = 46 + i * 62, g = d.append("g"); box(g, 0, y, 740, 54, { stroke: FAMILIAR }); cap(g, 16, y + 36, v + ": “sounds good”", { size: 24 });
+        g.append("rect").attr("x", 540).attr("y", y + 8).attr("width", 186).attr("height", 38).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 2); cap(g, 633, y + 36, "simulated", { size: 24, weight: 700, anchor: "middle", fill: RED });
+        fade(g, A(anim, k, 2), i * 250);
+      });
+      cap(d, 0, 400, VO.length + " agreements written, 0 people asked", { size: 26, weight: 700 }); cap(d, 0, 446, "Consent given: 0", { size: 26, weight: 700, fill: RED });
+      take(d, "Invented agreement is not consent.");
+    } else if (kk === 3) {
+      lab(d, 0, 30, "A PATH, NOT AN INBOX");
+      var ST = ["report channel", "acknowledgment rule", "triage owner", "correction authority", "escalation to a second route"];
+      ST.forEach(function (s, i) {
+        var y = 46 + i * 92, g = d.append("g"); box(g, 0, y, 520, 56, { stroke: INK, sw: 3 }); cap(g, 16, y + 37, (i + 1) + ". " + s, { size: 24, weight: 700 });
+        if (i < ST.length - 1) g.append("path").attr("d", "M260," + (y + 58) + " V" + (y + 90)).attr("stroke", INK).attr("stroke-width", 3);
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      var dot = d.append("circle").attr("cx", 560).attr("r", 11).attr("fill", RED).attr("cy", 74);
+      run(d, 3200, function (t) { dot.attr("cy", 74 + t * 4 * 92); }, A(anim, k, 3));
+      cap(d, 590, 74, "report", { size: 24, fill: MUTED }); cap(d, 590, 442, "fix", { size: 24, fill: MUTED });
+      take(d, "An email address is only step one.");
+    } else {
+      lab(d, 0, 30, "FIVE-QUESTION ROUTE TEST (ILLUSTRATIVE)");
+      var Q = ["challenge a result", "get a fitting explanation", "reach a human who can fix it", "see copies updated", "appeal past the owner"], R1 = [true, false, false, false, false], R2 = [true, true, true, true, true];
+      cap(d, 490, 66, "inbox", { size: 24, weight: 700, anchor: "middle" }); cap(d, 650, 66, "full path", { size: 24, weight: 700, anchor: "middle", fill: RED });
+      Q.forEach(function (q, i) {
+        var y = 80 + i * 66, g = d.append("g"); box(g, 0, y, 740, 58, { stroke: FAMILIAR }); cap(g, 16, y + 38, q, { size: 24 });
+        [[490, R1[i], INK], [650, R2[i], RED]].forEach(function (c) { if (c[1]) check(g, c[0], y + 28, 13, c[2]); else cross(g, c[0], y + 29, 10, INK); });
+        fade(g, A(anim, k, 4), i * 250);
+      });
+      cap(d, 0, 450, "Score: " + R1.filter(Boolean).length + " of 5 for the inbox, " + R2.filter(Boolean).length + " of 5 for the path", { size: 26, weight: 700 });
+      take(d, "A challenge triggers review; it need not win.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- 8. deferral, narrowing, human in the loop, pause authority ---------- */
+  function renderDefer(el, k, anim) {
+    var svg = mk(null, el, "When to defer, narrow, throttle and pause", "A six-item deferral checklist with three true. Then a before and after table of a narrowed agent. Then review backlog over five days with and without a throughput limit. Then three exposure bars for how fast publication pauses.");
+    var ey = base(svg, [{ id: "deferral", s: 1 }, { id: "narrow", s: 2 }, { id: "hitl", s: 3 }, { id: "pause", s: 4 }], k, anim, ["Deferral", "wait until evidence exists"], ["Narrowing", "keep the work, cut the scope"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "ANY TRUE → DEFER (ILLUSTRATIVE CASE)");
+      var CD = [["purpose is contested", false], ["affected people not consulted", true], ["data boundary unknown", true], ["evaluation cannot see the harm", false], ["no incident capacity", true], ["no owner accepts the decision", false]];
+      CD.forEach(function (c, i) {
+        var y = 46 + i * 68, g = d.append("g"); box(g, 0, y, 740, 60, { stroke: c[1] ? RED : FAMILIAR, sw: c[1] ? 3 : 1.5 }); cap(g, 16, y + 39, c[0], { size: 24 }); cap(g, 724, y + 39, c[1] ? "true" : "false", { size: 24, weight: 700, anchor: "end", fill: c[1] ? RED : MUTED });
+        fade(g, A(anim, k, 1), i * 150);
+      });
+      cap(d, 0, 478, CD.filter(function (c) { return c[1]; }).length + " of 6 true: defer, and record what would change it.", { size: 24, weight: 700 });
+      take(d, "A register that can only say go is a rubber stamp.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "SAME AGENT, NARROWER SCOPE");
+      var NR = [["data", "internal records", "synthetic data"], ["action", "external write", "draft for review"], ["retention", "1 year of traces", "1 day"]];
+      cap(d, 190, 76, "before", { size: 24, weight: 700, fill: RED }); cap(d, 470, 76, "after", { size: 24, weight: 700 });
+      NR.forEach(function (r, i) {
+        var y = 96 + i * 100, g = d.append("g"); box(g, 0, y, 740, 84, { stroke: FAMILIAR }); cap(g, 16, y + 52, r[0], { size: 26, weight: 700 }); cap(g, 190, y + 52, r[1], { size: 24, fill: RED }); cap(g, 470, y + 52, r[2], { size: 24 });
+        fade(g, A(anim, k, 2), i * 350);
+      });
+      cap(d, 0, 450, "Broad settings: " + NR.length + " before, 0 after.", { size: 26, weight: 700 });
+      take(d, "Narrowing often beats refusing outright.");
+    } else if (kk === 3) {
+      lab(d, 0, 30, "REVIEW BACKLOG, ITEMS (ILLUSTRATIVE)");
+      var prod = 120, cap_ = 40, days = d3.range(6), x0 = 70, W_ = 640, Y0 = 450, sc = 360 / 480;
+      var free = days.map(function (t) { return t * (prod - cap_); }), lim = days.map(function () { return 0; });
+      d.append("path").attr("d", "M" + x0 + ",50 V" + Y0 + " H" + (x0 + W_)).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+      [0, 160, 320, 480].forEach(function (v) { cap(d, x0 - 8, Y0 - v * sc + 8, String(v), { size: 24, anchor: "end", fill: MUTED }); });
+      days.forEach(function (t) { cap(d, x0 + t * 120, Y0 + 30, String(t), { size: 24, anchor: "middle", fill: MUTED }); });
+      var ln = d.append("path").attr("fill", "none").attr("stroke", RED).attr("stroke-width", 5), ln2 = d.append("path").attr("fill", "none").attr("stroke", INK).attr("stroke-width", 5);
+      function pts(a, t) { return a.map(function (v, i) { var f = Math.min(1, Math.max(0, t * 5 - i + 1)); return [x0 + i * 120, Y0 - (i === 0 ? 0 : v * f) * sc]; }); }
+      run(d, 1800, function (t) { ln.attr("d", d3.line()(pts(free, t))); ln2.attr("d", d3.line()(pts(lim, t))); }, A(anim, k, 3));
+      cap(d, x0 + 640 - 10, Y0 - free[5] * sc - 12, "no limit: " + free[5], { size: 24, weight: 700, anchor: "end", fill: RED });
+      cap(d, x0 + 640 - 10, Y0 - 12, "limit " + cap_ + " a day: 0", { size: 24, weight: 700, anchor: "end" });
+      cap(d, x0 + 320, Y0 + 62, "day (agent makes " + prod + ", reviewer clears " + cap_ + ")", { size: 24, anchor: "middle", fill: MUTED });
+      take(d, "Limit agent throughput to review capacity.");
+    } else {
+      lab(d, 0, 30, "HOURS A BAD SUMMARY STAYS PUBLIC (ILLUSTRATIVE)");
+      var PA = [["owner is there", 0.5, INK, "0.5 h"], ["backup after 2 h", 2, INK, "2 h"], ["no backup named", 8, RED, "8 h and counting"]], sc2 = 520 / 8;
+      PA.forEach(function (p, i) {
+        var y = 70 + i * 130, g = d.append("g"); cap(g, 0, y, p[0], { size: 24, weight: 700 });
+        box(g, 0, y + 16, 740, 44, { stroke: FAMILIAR }); bar(g, 2, y + 18, p[1] * sc2, 40, p[2], A(anim, k, 4), i * 450);
+        cap(g, Math.min(p[1] * sc2 + 14, 560), y + 102 - 40 + 0, "", { size: 24 });
+        cap(g, 0, y + 92, p[3], { size: 24, weight: 700, fill: p[2] });
+      });
+      take(d, "No backup is an unresolved dependency.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- 9. sign-off ---------- */
+  function renderSign(el, k, anim) {
+    var svg = mk(null, el, "A sign-off claims only what was checked; withholding is a real option", "Five sign-off lines. Then seven register lines sorted into a not-checked list. Then three claims with evidence counts. Then six levers a register should change.");
+    var ey = base(svg, [{ id: "signoff", s: 1 }, { id: "notchecked", s: 2 }, { id: "withhold", s: 3 }, { id: "ctrl", s: 4 }], k, anim, ["Sign-off", "what the register itself earned"], ["Approver", "who may approve the workflow"]);
+    var d = svg.append("g"), kk = Math.max(k, 1);
+    if (kk === 1) {
+      lab(d, 0, 30, "THE FIVE LINES OF THE SIGN-OFF");
+      [["Checked", "lines confirmed, owners who accepted"], ["How", "my tests, the route run, stores inspected"], ["Not checked", "provider, backups, real load, consultation"], ["Not claiming", "ethical, consented to, compliant"], ["Signed or withheld", "name and date"]].forEach(function (r, i) {
+        var y = 46 + i * 92, g = d.append("g"), nc = i === 2; box(g, 0, y, 740, 82, { stroke: nc ? RED : FAMILIAR, sw: nc ? 3 : 1.5 }); cap(g, 16, y + 34, r[0], { size: 26, weight: 700, fill: nc ? RED : INK }); cap(g, 16, y + 66, r[1], { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 1), i * 200);
+      });
+      take(d, "Written from your record, not from a draft.");
+    } else if (kk === 2) {
+      lab(d, 0, 30, "VERB EARNED BY EACH LINE (ILLUSTRATIVE)");
+      LINES.forEach(function (l, i) {
+        var y = 46 + i * 58, g = d.append("g"), weak = l[1] === "listed"; box(g, 0, y, 380, 50, { stroke: FAMILIAR }); cap(g, 14, y + 34, l[0], { size: 24 }); cap(g, 366, y + 34, l[1], { size: 24, weight: 700, anchor: "end", fill: weak ? RED : INK });
+        fade(g, A(anim, k, 2), i * 120);
+      });
+      var nc = LINES.filter(function (l) { return l[1] === "listed"; });
+      var gg = d.append("g"); box(gg, 410, 46, 330, 50 + nc.length * 50, { stroke: RED, sw: 3 }); cap(gg, 426, 80, "Not checked", { size: 26, weight: 700, fill: RED });
+      nc.forEach(function (l, i) { cap(gg, 426, 124 + i * 44, "• " + l[0], { size: 24 }); });
+      fade(gg, A(anim, k, 2), 900);
+      take(d, "Lines still at “listed” go on the Not checked line.");
+    } else if (kk === 3) {
+      lab(d, 0, 30, "WHAT THE EVIDENCE SUPPORTS (ILLUSTRATIVE)");
+      var up = LINES.filter(function (l) { return l[1] !== "listed"; }).length, CL = [["has the minimum shape", LINES.length, "sign this"], ["named people accepted roles", up, "narrow or withhold"], ["is ethical, consented, compliant", 0, "never from this register"]];
+      CL.forEach(function (c, i) {
+        var y = 52 + i * 150, g = d.append("g"); cap(g, 0, y + 20, c[0], { size: 24, weight: 700 }); box(g, 0, y + 36, 740, 40, { stroke: FAMILIAR }); bar(g, 2, y + 38, 736 * c[1] / LINES.length, 36, i === 0 ? INK : RED, A(anim, k, 3), i * 350);
+        cap(g, 0, y + 114, c[1] + " of " + LINES.length + " lines: " + c[2], { size: 24, weight: 700, fill: i === 0 ? INK : RED });
+        fade(g, A(anim, k, 3), 0);
+      });
+      take(d, "If the evidence does not support signing, withhold.");
+    } else {
+      lab(d, 0, 30, "DOES UPDATING THE REGISTER CHANGE THE SYSTEM?");
+      var LV = ["pause execution", "revoke approval", "shorten retention", "change evaluation", "assign repair", "end the project"];
+      cap(d, 560, 66, "wired?", { size: 24, weight: 700, fill: RED });
+      LV.forEach(function (l, i) {
+        var y = 80 + i * 66, g = d.append("g"); box(g, 0, y, 740, 58, { stroke: FAMILIAR }); cap(g, 16, y + 38, l, { size: 24 });
+        var sw = g.append("rect").attr("x", 560).attr("y", y + 12).attr("width", 150).attr("height", 34).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5), tx = cap(g, 635, y + 37, "no", { size: 24, weight: 700, anchor: "middle" });
+        if (anim && A(anim, k, 4)) { sw.transition().delay(300 + i * 350).duration(1).attr("fill", INK); tx.transition().delay(300 + i * 350).duration(1).attr("fill", "#FFFFFF").text("yes"); } else if (kk === 4) { sw.attr("fill", INK); tx.attr("fill", "#FFFFFF").text("yes"); }
+      });
+      take(d, "If updating it changes nothing, it is documentation.");
+    }
+    note(svg, ey, "");
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from Chapter 14", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Ready for review", "The checks found nothing to flag"], ["Approved", "A named person decided"]],
+      [["Machine gate", "Tests you can run pass"], ["Human gate", "A named person accepted each role"]],
+      [["Listed", "A name appears in the record"], ["Verified", "You inspected the store yourself"]],
+      [["Simulated reply", "Model-written, labelled simulated"], ["Consent", "A person said yes"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(60,0)"), RG = R.append("g").attr("transform", "translate(60,0)");
+      if (i === 0) {
+        LG.append("rect").attr("x", 0).attr("y", 200).attr("width", 440).attr("height", 80).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+        if (t > 0.3) mono(LG, 16, 250, assess(DEMO).status, { size: 24, weight: 700 });
+        RG.append("rect").attr("x", 0).attr("y", 200).attr("width", 440).attr("height", 80).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+        cap(RG, 16, 232, "approved by:", { size: 24, fill: MUTED }); RG.append("path").attr("d", "M200,236 H420").attr("stroke", INK).attr("stroke-width", 2);
+        if (t > 0.6) cap(RG, 16, 268, "no name, no date", { size: 24, weight: 700, fill: RED });
+      } else if (i === 1) {
+        [[LG, 6, 6, INK, "6 of 6 tests pass"], [RG, 0, 7, RED, "0 of 7 roles accepted"]].forEach(function (c) {
+          c[0].append("rect").attr("x", 0.5).attr("y", 220.5).attr("width", 440).attr("height", 50).attr("fill", "none").attr("stroke", c[3]).attr("stroke-width", 3);
+          c[0].append("rect").attr("x", 3).attr("y", 223).attr("width", 434 * (c[1] / c[2]) * Math.min(1, t * 1.2)).attr("height", 44).attr("fill", c[3]);
+          cap(c[0], 0, 320, c[4], { size: 24, weight: 700, fill: c[3] });
+        });
+      } else if (i === 2) {
+        mono(LG, 0, 250, "retention: 30", { size: 28 }); cap(LG, 0, 300, "stated, not looked at", { size: 24, fill: MUTED });
+        var rows = Math.round(3 * (1 - Math.min(1, t * 1.3)));
+        cap(RG, 0, 250, "rows left in fixture store: " + rows, { size: 24, weight: 700 }); if (t > 0.8) check(RG, 380, 240, 16, RED); cap(RG, 0, 300, "you inspected it", { size: 24, fill: MUTED });
+      } else {
+        d3.range(5).forEach(function (j) { LG.append("circle").attr("cx", 30 + j * 60).attr("cy", 240).attr("r", 22).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 3).attr("stroke-dasharray", "6 5").attr("opacity", j / 5 < t ? 1 : 0.15); });
+        cap(LG, 0, 320, "consents given: 0", { size: 24, weight: 700, fill: RED });
+        RG.append("circle").attr("cx", 30).attr("cy", 240).attr("r", 22).attr("fill", t > 0.5 ? INK : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); cap(RG, 70, 248, "name, date", { size: 24, fill: MUTED });
+        cap(RG, 0, 320, "consents given: " + (t > 0.5 ? 1 : 0), { size: 24, weight: 700 });
+      }
+    }
+    if (k === 0) { draw(0, 0.99); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  var SAY = [
+    { v: "write the governance", x: "One sentence per decision, with the name of the person who made it, or “unresolved”" },
+    { v: "be careful with personal data", x: "Route any class outside public, synthetic and internal to a person" },
+    { v: "monitor quality", x: "Pause publication if any deadline claim has no approved source ID" },
+    { v: "delete the data after 30 days", x: "List every copy, then inspect each store you control" },
+    { v: "make sure it is ethical", x: "Sign only what the evidence earned, and list what was not checked" }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague governance requests turned into precise ones", "Five rows with a vague request and an exact instruction. On the right, a chart computed from the exact instruction.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague request gets a fluent guess. An exact one gets a test.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five requests into instructions.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE INSTRUCTION DOES", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    function rows(list) { list.forEach(function (r, i) { var e = p.append("g"); cap(e, 14, 50 + i * 48, r[0], { size: 24 }); cap(e, 620, 50 + i * 48, r[1], { size: 24, weight: 700, anchor: "end", fill: r[2] ? RED : INK }); fade(e, anim, i * 250); }); }
+    if (k === 1) { rows(DEC.map(function (r) { return [r[0], r[2] === null ? "unresolved" : "named", r[2] === null]; })); var u = DEC.filter(function (r) { return r[2] === null; }).length; nt = (DEC.length - u) + " named, " + u + " unresolved: constrain until fixed"; }
+    else if (k === 2) { var cl = ["public", "synthetic", "internal", "personal", "Public"]; rows(cl.map(function (c) { var ok = ALLOW.indexOf(c) >= 0; return ["\"" + c + "\"", ok ? "passes" : "review", !ok]; })); nt = cl.filter(function (c) { return ALLOW.indexOf(c) < 0; }).length + " of " + cl.length + " go to a person"; }
+    else if (k === 3) { var pr = (200 - 2) / 200 * 100; cap(p, 14, 60, "pass rate " + pr.toFixed(1) + "% (rule ≥ 95%: no alarm)", { size: 24 }); bar(p, 14, 76, 600 * pr / 100, 40, "#C4C4C4", anim, 0); cap(p, 14, 190, "source-ID rule: 1 unsupported claim, fires", { size: 24 }); bar(p, 14, 206, 600, 40, RED, anim, 400); nt = "the single-event rule catches what the average hid"; }
+    else if (k === 4) { var CP = [["prompt", 1], ["fixture", 1], ["log", 1], ["cache", 1], ["export", 1], ["git history", 1], ["provider", 0], ["backup", 0], ["incident log", 0]]; CP.forEach(function (c, j) { var r = p.append("rect").attr("x", 14 + (j % 3) * 205).attr("y", 24 + Math.floor(j / 3) * 90).attr("width", 195).attr("height", 76).attr("fill", c[1] ? INK : "#FFFFFF").attr("stroke", c[1] ? INK : RED).attr("stroke-width", 3); cap(p, 14 + (j % 3) * 205 + 97, 24 + Math.floor(j / 3) * 90 + 47, c[0], { size: 24, anchor: "middle", weight: 700, fill: c[1] ? "#FFFFFF" : INK }); if (anim) r.attr("opacity", 0).transition().delay(j * 100).duration(200).attr("opacity", 1); }); nt = "6 inspected, 3 only listed"; }
+    else { VERBS.forEach(function (v, i) { var n = verbCount(v); cap(p, 14, 50 + i * 62, v, { size: 24 }); bar(p, 170, 28 + i * 62, 420 * n / 4, 34, i === 0 ? RED : INK, anim, i * 250); cap(p, 180 + 420 * n / 4, 54 + i * 62, String(n), { size: 24, weight: 700 }); }); nt = (LINES.length - verbCount("listed")) + " of " + LINES.length + " lines earned more than listed"; }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Has a named person accepted each of the five decisions, or does it say unresolved?",
+    "Could a stranger tell from the record whether the threshold fired?",
+    "What verb does each line earn: listed, confirmed, exercised or verified?",
+    "Who bears each kind of error, and who chose which to risk?",
+    "Can an affected person reach a human who can change the outcome?",
+    "Does the sign-off say what was not checked, and could I withhold it?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before you sign a register", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 30, c, 70, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Then say it exactly: not “make it ethical”, but “name the person, the signal, the date”.", { size: 28, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, reg: { steps: 3, render: renderReg }, stat: { steps: 4, render: renderStat },
+    hollow: { steps: 3, render: renderHollow }, five: { steps: 4, render: renderFive }, ret: { steps: 2, render: renderRet },
+    harm: { steps: 3, render: renderHarm }, cons: { steps: 4, render: renderCons }, defer: { steps: 4, render: renderDefer },
+    sign: { steps: 4, render: renderSign }, pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay },
+    closing: { steps: 6, render: renderClosing }
+  };
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

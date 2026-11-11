@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Training and configuration | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: Training and configuration">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Training and configuration">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 9</p>
+      <h1 class="t-opening rise g2">Training and configuration</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for telling a change to the weights from a change to the input, and for claiming only what the record supports</p>
+      <div class="speaker-notes" hidden><p>32 terms from Chapter 9 in four groups. Tags: in the book text means the chapter uses and explains the term. The toy classifier numbers are recomputed in the page from the chapter's stated data, rate and steps.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Thirty-two terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Thirty-two terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Mutable object, training and weights">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Which object changed</p>
+      <h2 class="t-chart">Mutable object, training and weights</h2>
+      <div class="diagram build" data-build="objects" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Name the mutable object before you change it”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>The one update is computed from the four training pairs at rate 0.2: w goes from 0 to 0.15 and b stays 0.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Prompt, few-shot examples, retrieval and context">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Which object changed</p>
+      <h2 class="t-chart">Prompt, few-shot examples, retrieval and context</h2>
+      <div class="diagram build" data-build="input" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Name the mutable object before you change it”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Passages, query and prompt are invented. The overlap scores are computed as shared words over all distinct words. The weights chip uses the chapter's fitted w = 3.1670.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Tools, settings and the one-object test">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">Which object changed</p>
+      <h2 class="t-chart">Tools, settings and the one-object test</h2>
+      <div class="diagram build" data-build="tools" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Name the mutable object before you change it”; “Persistence is not proof of training”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Permission table is illustrative. Probabilities are a softmax of four fixed scores at three temperatures. Run counts are seeded draws from assumed rates 0.3, 0.7 and 0.6.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Linear score, sigmoid, loss and objective">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The toy training run</p>
+      <h2 class="t-chart">Linear score, sigmoid, loss and objective</h2>
+      <div class="diagram build" data-build="score" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “The model: two numbers and a squashing function”; “Loss makes the objective explicit”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>All values are computed from the chapter's four training pairs. Fitted w is 3.1670 and the final average loss 0.0215.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Gradient, finite difference, descent and rate">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The toy training run</p>
+      <h2 class="t-chart">Gradient, finite difference, descent and rate</h2>
+      <div class="diagram build" data-build="grad" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Derive the first update”; “The loop, its rate, and its stop rule”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>The hand gradient -0.75 and the first step 0.15 are the chapter's. The three-rate curves are this deck's own runs.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Gate, stop rule and sign-off">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Gate, evidence, sign-off</p>
+      <h2 class="t-chart">Gate, stop rule and sign-off</h2>
+      <div class="diagram build" data-build="gate" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “The gate: say what should change before you change it”; “Ship It”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>The 500-update curve is an extension of the chapter's 200-update run. The gate items are the chapter's.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Held-out set, development data and contamination">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Gate, evidence, sign-off</p>
+      <h2 class="t-chart">Held-out set, development data and contamination</h2>
+      <div class="diagram build" data-build="split" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Held-out means separately specified, not magically representative”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Held-out probabilities are the chapter's. The three-rate comparison and the four awkward points are this deck's own illustration.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Generalization, calibration, threshold and boundary">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">Gate, evidence, sign-off</p>
+      <h2 class="t-chart">Generalization, calibration, threshold and boundary</h2>
+      <div class="diagram build" data-build="read" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “What a lower loss claims”; “Score, probability, and decision are three layers”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Shifted cases are invented. The reliability bins come from a seeded simulation of an overconfident model. Threshold and bias sweeps use the fitted w.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Prediction, intervention, counterfactual and confounder">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">Prediction or intervention</p>
+      <h2 class="t-chart">Prediction, intervention, counterfactual and confounder</h2>
+      <div class="diagram build" data-build="causal" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Decide what kind of question you are asking”; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Seeded simulation of 2000 students: motivation raises both opening emails and passing; opening has no effect of its own. The chapter's email example is a hypothetical.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Training and prompting, held out and representative, lower loss and better, prediction and intervention.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague claim, exact statement</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9; exam terms, Chapter 9.</p>
+      <div class="speaker-notes" hidden><p>Five vague claims and exact versions, each with a computed chart.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before you call a change training">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before you call a change training</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 9, “Verify and reflect”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= Training and configuration (Chapter 9) ================= */
+  var GREY = "#909090", uid = 0;
+  function N(v, d) { return (v < 0 && Math.abs(v) >= Math.pow(10, -d) / 2 ? "−" : "") + Math.abs(v).toFixed(d); }
+
+  /* ---- the chapter's toy: one-feature logistic classifier, recomputed here ---- */
+  var TRAIN = [[-2, 0], [-1, 0], [1, 1], [2, 1]], HELD = [[-3, 0], [-0.5, 0], [0.5, 1], [3, 1]];
+  function lossA(a, y) { return Math.max(a, 0) - y * a + Math.log(1 + Math.exp(-Math.abs(a))); }
+  function avgLoss(w, b, d) { var s = 0; d.forEach(function (p) { s += lossA(w * p[0] + b, p[1]); }); return s / d.length; }
+  function trainToy(d, steps, rate) {
+    var w = 0, b = 0, L = [avgLoss(0, 0, d)], W = [0];
+    for (var i = 0; i < steps; i++) {
+      var gw = 0, gb = 0;
+      d.forEach(function (p) { var e = sigmoid(w * p[0] + b) - p[1]; gw += e * p[0]; gb += e; });
+      w -= rate * gw / d.length; b -= rate * gb / d.length; L.push(avgLoss(w, b, d)); W.push(w);
+    }
+    return { w: w, b: b, L: L, W: W };
+  }
+  var FIT = trainToy(TRAIN, 200, 0.2), STEP1 = trainToy(TRAIN, 1, 0.2), LONG = trainToy(TRAIN, 500, 0.2);
+  var HP = HELD.map(function (p) { return sigmoid(FIT.w * p[0] + FIT.b); });
+  var BTXT = "0.0000";
+
+  /* ---- seeded simulation: motivation drives both opening emails and passing ---- */
+  var SIM = (function () {
+    var r = rng(11), n = 2000, rows = [], i;
+    for (i = 0; i < n; i++) { var m = r(); var o = r() < 0.15 + 0.7 * m ? 1 : 0; var pa = r() < 0.15 + 0.7 * m ? 1 : 0; rows.push([m, o, pa]); }
+    function rate(f) { var a = rows.filter(f); return a.filter(function (x) { return x[2]; }).length / a.length; }
+    var q = [0, 1, 2, 3].map(function (j) { return [rate(function (x) { return Math.floor(x[0] * 4) === j && x[1] === 1; }), rate(function (x) { return Math.floor(x[0] * 4) === j && x[1] === 0; })]; });
+    var r2 = rng(12), k = 0; for (i = 0; i < n; i++) { var m2 = r2(); if (r2() < 0.15 + 0.7 * m2) k++; }
+    return { open: rate(function (x) { return x[1] === 1; }), shut: rate(function (x) { return x[1] === 0; }), all: rate(function () { return true; }), forced: k / n, q: q };
+  })();
+  var PC = function (v) { return Math.round(v * 100) + "%"; };
+
+  /* ---- illustrative error-cost cases ---- */
+  var CASES = [[0.9, 1], [0.8, 1], [0.35, 1], [0.3, 1], [0.6, 0], [0.45, 0], [0.2, 0], [0.15, 0], [0.1, 0], [0.05, 0]];
+  function costAt(th) { var miss = 0, fa = 0; CASES.forEach(function (c) { var pr = c[0] >= th ? 1 : 0; if (c[1] === 1 && pr === 0) miss++; if (c[1] === 0 && pr === 1) fa++; }); return { miss: miss, fa: fa, cost: 5 * miss + fa }; }
+
+  /* tag: book = Chapter 9 uses and explains it */
+  var T = {
+    mutable: { n: "Mutable object", tag: "book", m: "The one part of a system a change edits: weights, prompt, context, tools or settings" },
+    training: { n: "Training", tag: "book", m: "Changing parameters with an objective and an update rule; nothing else counts" },
+    weights: { n: "Weights", alias: "also: parameters", tag: "book", m: "The saved numbers inside the model; only training edits them" },
+    prompt: { n: "Prompt", alias: "includes the system prompt", tag: "book", m: "Instruction text given as input; a file you can compare and revert" },
+    fewshot: { n: "Few-shot examples", tag: "book", m: "Worked examples placed in the input to show a pattern; input, not training" },
+    retrieval: { n: "Retrieval", tag: "book", m: "Choosing which stored passages go into this turn's input" },
+    context: { n: "Context", tag: "book", m: "What actually enters the input this turn, retrieved passages included" },
+    tools: { n: "Tools", alias: "and permission rules", tag: "book", m: "Actions and sources the host exposes, plus the rules that allow them" },
+    settings: { n: "Settings", alias: "for example temperature", tag: "book", m: "Run-time choices for how output is drawn from scores; they fit nothing" },
+    onetest: { n: "One-object test", alias: "one object at a time", tag: "book", m: "Change one object, hold the rest fixed, repeat the runs, and see what follows" },
+    linear: { n: "Linear score", tag: "book", m: "The number a = w x + b, before any squashing; it can be any size" },
+    sigmoid: { n: "Sigmoid", tag: "book", m: "Squashes any score into a probability between 0 and 1; a score of zero gives one-half" },
+    loss: { n: "Loss", alias: "binary logistic loss", tag: "book", m: "How far a predicted probability sits from the label; confident and wrong costs most" },
+    objective: { n: "Objective", tag: "book", m: "The average loss the update is told to lower; a choice made before training" },
+    gradient: { n: "Gradient", tag: "book", m: "How the average loss changes as each parameter changes" },
+    fd: { n: "Finite-difference check", tag: "book", m: "Estimate a slope by nudging a value both ways; uses no derivative formula" },
+    gd: { n: "Gradient descent", alias: "the update rule", tag: "book", m: "Subtract rate times gradient from each parameter, again and again" },
+    lr: { n: "Learning rate", tag: "book", m: "A setting you choose that scales each step; it is never learned" },
+    gate: { n: "Gate", tag: "book", m: "Written before the run: the change, the objective, the held-out set and the stop rule" },
+    stop: { n: "Stop rule", alias: "step count (budget)", tag: "book", m: "How many updates, fixed in advance; no early stop, no extra steps after peeking" },
+    signoff: { n: "Sign-off", tag: "book", m: "A closing statement: what was checked, how, what was not, and what is not claimed" },
+    heldout: { n: "Held-out set", tag: "book", m: "Points fixed beforehand and never passed to training; separate, not automatically typical" },
+    dev: { n: "Development data", tag: "book", m: "Held-out points that guided a choice; their next use is no longer independent" },
+    contam: { n: "Contamination", alias: "also: leakage", tag: "book", m: "Evaluation points the optimizer already used, so the result stops meaning anything" },
+    gen: { n: "Generalization", tag: "book", m: "Doing well on cases beyond those used to fit; it needs its own evidence" },
+    calib: { n: "Calibration", tag: "book", m: "Whether stated probabilities match how often the outcome happens; needs many labeled cases" },
+    thresh: { n: "Threshold", tag: "book", m: "The cutoff that turns a probability into a decision; you choose it, training never sees it" },
+    boundary: { n: "Decision boundary", tag: "book", m: "The input where w x + b = 0, so the probability is one-half" },
+    pred: { n: "Prediction", alias: "association: what goes with what", tag: "book", m: "What the fitted function outputs for an input; a statement about the model" },
+    interv: { n: "Intervention", tag: "book", m: "What happens if we do something; observational data alone cannot settle it" },
+    counter: { n: "Counterfactual", tag: "book", m: "What would have happened to this case had it gone differently" },
+    conf: { n: "Confounder", tag: "book", m: "A third factor that drives both input and outcome and creates an association" }
+  };
+
+  function note(svg, ey, text) {
+    var g = svg.append("g"), w = wrap(g, 800, ey + 36, text, 46, { size: 28, lh: 36, fill: INK });
+    if (ey + 36 - 28 + w.node().__h > 596) { g.remove(); wrap(svg.append("g"), 800, ey + 32, text, 52, { size: 24, lh: 30, fill: INK }); }
+  }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function bar(g, x, y, w, h, fill, anim, delay) { var b = g.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", fill); if (anim) b.attr("width", 0).transition().delay(delay || 0).duration(700).attr("width", w); return b; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function seg(g, x1, y1, x2, y2, col, w, dash) { var p = g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", col || INK).attr("stroke-width", w || 2).attr("fill", "none"); if (dash) p.attr("stroke-dasharray", dash); return p; }
+  function curve(g, fn, x0, x1, sx, sy, n, col, w) {
+    var pts = d3.range(n + 1).map(function (i) { var x = x0 + (x1 - x0) * i / n; return [sx(x), sy(fn(x))]; });
+    return g.append("path").attr("d", "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L")).attr("fill", "none").attr("stroke", col || INK).attr("stroke-width", w || 3);
+  }
+
+  /* ---------- map ---------- */
+  var MAPROWS = [
+    ["Which object changed", "mutable object, training, weights, prompt, few-shot examples, retrieval, context, tools, settings, one-object test", "Five things a system can change, and how to tell which one did"],
+    ["The toy training run", "linear score, sigmoid, loss, objective, gradient, finite-difference check, gradient descent, learning rate", "The parts of a training run you can print and check"],
+    ["Gate, evidence, sign-off", "gate, stop rule, held-out set, development data, contamination, generalization, calibration, threshold, decision boundary, sign-off", "What to write first and what a result may claim"],
+    ["Prediction or intervention", "prediction, intervention, counterfactual, confounder", "What kind of question a fitted model can answer"]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four groups of training and configuration terms", "A table with four rows: group, terms, what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "32 terms from Chapter 9. Every one separates what a change touched from what the evidence shows.", 96, { size: 28, lh: 38, fill: INK });
+    var cx = [0, 380, 1010];
+    ["GROUP", "TERMS", "WHAT IT IS ABOUT"].forEach(function (h, i) { lab(g, cx[i] + 18, 152, h); });
+    g.append("path").attr("d", "M0,168 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    MAPROWS.forEach(function (r, i) {
+      if (i + 1 > k) return;
+      var y = 184 + i * 118, row = g.append("g");
+      box(row, 0, y, 1400, 106, { stroke: FAMILIAR });
+      row.append("rect").attr("x", 0).attr("y", y).attr("width", 10).attr("height", 107).attr("fill", RED);
+      wrap(row, cx[0] + 28, y + 44, r[0], 22, { size: 26, lh: 30, weight: 700, fill: RED });
+      wrap(row, cx[1] + 18, y + 34, r[1], 50, { size: 24, lh: 30, fill: INK });
+      wrap(row, cx[2] + 18, y + 34, r[2], 30, { size: 24, lh: 30 });
+      if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    });
+    if (k === 0) cap(g, 0, 430, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. mutable object, training, weights ---------- */
+  var OBJ = [["Weights", "parameters, by an objective"], ["Prompt", "instruction text and examples"], ["Context", "passages supplied this turn"], ["Tools", "actions the host exposes"], ["Settings", "how output is drawn"]];
+  function renderObjects(el, k, anim) {
+    var svg = svgFor(el, W, H, "Five objects a change can touch; only training edits the weights", "Five rows: weights, prompt, context, tools, settings. Then the weights row is picked out, and its numbers before and after one update are shown.");
+    var ey = base(svg, [{ id: "mutable", s: 1 }, { id: "training", s: 2 }, { id: "weights", s: 3 }], k, anim, ["Training", "changes the weights"], ["Prompting", "changes the input"]);
+    var d = svg.append("g");
+    lab(d, 0, 30, "FIVE THINGS A SYSTEM CAN CHANGE");
+    OBJ.forEach(function (o, i) {
+      if (k < 1) return;
+      var y = 50 + i * 68, g = d.append("g"), hot = k >= 2 && i === 0, dim = k >= 2 && !hot;
+      box(g, 0, y, 740, 58, { stroke: hot ? RED : dim ? FAMILIAR : INK, sw: hot ? 3 : 2 });
+      cap(g, 14, y + 39, o[0], { size: 26, weight: 700, fill: hot ? RED : dim ? MUTED : INK });
+      cap(g, 200, y + 39, o[1], { size: 24, fill: dim ? MUTED : BODY });
+      fade(g, A(anim, k, 1), i * 200);
+    });
+    if (k >= 2) cap(d, 0, 430, "Only the weights row has an optimizer.", { size: 26, weight: 700, fill: RED });
+    if (k >= 3) {
+      cap(d, 0, 478, "before: w = " + N(0, 2) + ", b = " + N(0, 2), { size: 24 });
+      cap(d, 0, 514, "after one update: w = " + N(STEP1.w, 2) + ", b = " + N(STEP1.b, 2), { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 550, "prompt, context, tools, settings: no number moved", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "A change request hides a choice: which object may be edited. There are five.", "Training is the change that runs an optimizer. A new prompt or document is not training.", "The weights are the stored numbers. Here one update moves w from 0 to 0.15."][k]);
+  }
+
+  /* ---------- 2. prompt, few-shot, retrieval, context ---------- */
+  var QUERY = "how many days to request a refund";
+  var PASS = ["a refund request is accepted within 30 days of purchase", "late fees are charged five dollars after the due date", "the refund goes back to the original payment method", "the office is closed on public holidays"];
+  function jacc(a, b) { var A_ = new Set(a.split(" ")), B_ = new Set(b.split(" ")), i = 0; A_.forEach(function (v) { if (B_.has(v)) i++; }); return i / (A_.size + B_.size - i); }
+  var RANK = PASS.map(function (p, i) { return { i: i, p: p, s: jacc(QUERY, p) }; }).sort(function (a, b) { return b.s - a.s; });
+  var PROMPT_L = ["Cite the policy in", "two sentences."], FEW_L = ["Q: refund window?", "A: 30 days.", "Q: late fee?", "A: five dollars."];
+  function wc(a) { return a.join(" ").split(" ").length; }
+  function renderInput(el, k, anim) {
+    var svg = svgFor(el, W, H, "Prompt, few-shot examples and retrieved passages all enter the input; the weights stay", "An input window that grows: a revised prompt, then examples, then two retrieved passages. A chip shows the weights unchanged. One step ranks four passages by word overlap with the query.");
+    var ey = base(svg, [{ id: "prompt", s: 1 }, { id: "fewshot", s: 2 }, { id: "retrieval", s: 3 }, { id: "context", s: 4 }], k, anim, ["Prompt", "text you write and revise"], ["Context", "what actually enters this turn"]);
+    var d = svg.append("g");
+    if (k === 3) {
+      lab(d, 0, 30, "RANK BY SHARED WORDS WITH THE QUERY");
+      cap(d, 0, 66, "query: " + QUERY, { size: 24, weight: 700 });
+      RANK.forEach(function (r, i) {
+        var y = 96 + i * 118, g = d.append("g"), sel = i < 2;
+        wrap(g, 0, y + 26, r.p, 56, { size: 24, lh: 30, fill: sel ? INK : MUTED });
+        bar(g, 0, y + 70, Math.max(r.s * 1500, 4), 24, sel ? RED : "#C4C4C4", anim, i * 250);
+        cap(g, Math.max(r.s * 1500, 4) + 12, y + 90, N(r.s, 2), { size: 24, weight: 700, fill: sel ? RED : MUTED });
+        if (sel) cap(g, 740, y + 90, "selected", { size: 24, weight: 700, fill: RED, anchor: "end" });
+        fade(g, anim, i * 250);
+      });
+    } else {
+      lab(d, 0, 30, "WHAT THE MODEL RECEIVES THIS TURN");
+      var y = 50;
+      function panel(label, lines, h, hot) {
+        var g = d.append("g"); box(g, 0, y, 520, h, { stroke: hot ? RED : INK, sw: hot ? 3 : 2 });
+        cap(g, 14, y + 30, label, { size: 24, weight: 700, fill: hot ? RED : MUTED });
+        lines.forEach(function (l, i) { mono(g, 14, y + 64 + i * 32, l, { size: 24, fill: l.charAt(0) === "+" ? RED : INK }); });
+        y += h + 12; return g;
+      }
+      var gp = panel("PROMPT", k === 1 ? ["- Answer briefly.", "+ Cite the policy in", "+ two sentences."] : PROMPT_L, k === 1 ? 140 : 112, k === 1);
+      fade(gp, A(anim, k, 1), 0);
+      if (k >= 2) fade(panel("FEW-SHOT EXAMPLES", FEW_L, 180, k === 2), A(anim, k, 2), 0);
+      var words = wc(PROMPT_L);
+      if (k >= 2) words += wc(FEW_L);
+      if (k >= 4) {
+        var g4 = d.append("g"), h4 = 30 + 2 * 2 * 32 + 30; box(g4, 0, y, 520, h4, { stroke: RED, sw: 3 });
+        cap(g4, 14, y + 30, "RETRIEVED PASSAGES (TOP 2)", { size: 24, weight: 700, fill: RED });
+        var yy = y + 64;
+        RANK.slice(0, 2).forEach(function (r) { words += wc([r.p]); var parts = wrap(g4, 14, yy, r.p, 33, { size: 24, lh: 32, family: MONO }); parts.attr("font-family", MONO); yy += 64; });
+        fade(g4, A(anim, k, 4), 0);
+      }
+      var chip = d.append("g"); box(chip, 540, 50, 220, 150, { stroke: GREY, sw: 2 });
+      cap(chip, 556, 84, "weights", { size: 24, weight: 700 }); mono(chip, 556, 118, "w = " + N(FIT.w, 4), { size: 24 }); mono(chip, 556, 150, "b = " + BTXT, { size: 24 }); cap(chip, 556, 184, "unchanged", { size: 24, weight: 700, fill: RED });
+      if (k >= 2) cap(d, 540, 250, "input: " + words + " words", { size: 24 });
+      if (k >= 4) cap(d, 540, 286, "only the input grew", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "A prompt is text in the input. Revise it and behaviour can change while the weights do not.", "Few-shot examples show a pattern inside the input. They are not training.", "Retrieval ranks stored passages and lets the best enter. Here by shared words.", "Context is what really entered: prompt, examples and passages. Only the input changed."][k]);
+  }
+
+  /* ---------- 3. tools, settings, one-object test ---------- */
+  var ACTS = ["read a file", "run the tests", "delete a file", "send an email"];
+  var TEMP_SC = [3.0, 2.2, 1.0, 0.2], TEMP_W = ["refund", "return", "credit", "voucher"];
+  function softmaxT(sc, t) { var e = sc.map(function (s) { return Math.exp(s / t); }), z = d3.sum(e); return e.map(function (v) { return v / z; }); }
+  var ONE = (function () {
+    var r = rng(21), rows = [["baseline", 0.3], ["baseline + few-shot examples", 0.7], ["baseline + retrieved context", 0.6]];
+    return rows.map(function (c) { var runs = d3.range(20).map(function () { return r() < c[1] ? 1 : 0; }); return { n: c[0], runs: runs, ok: d3.sum(runs) }; });
+  })();
+  function renderTools(el, k, anim) {
+    var svg = svgFor(el, W, H, "Tools change what the host allows, settings change how output is drawn, and one-object runs show which mattered", "A permission table before and after one rule changes. Then bars of word probabilities at three temperatures. Then twenty runs in each of three conditions that differ by one object.");
+    var ey = base(svg, [{ id: "tools", s: 1 }, { id: "settings", s: 2 }, { id: "onetest", s: 3 }], k, anim, ["Tools", "what the host lets it do"], ["Settings", "how an output is drawn"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 30, "PERMISSION TABLE: BEFORE AND AFTER ONE RULE");
+      [[0, "BEFORE", [1, 0, 0, 0]], [380, "AFTER", [1, 1, 0, 0]]].forEach(function (c) {
+        lab(d, c[0], 76, c[1], { fill: c[1] === "AFTER" ? RED : MUTED });
+        ACTS.forEach(function (a, i) {
+          var y = 92 + i * 62, g = d.append("g"), on = c[2][i], chg = c[1] === "AFTER" && i === 1;
+          box(g, c[0], y, 360, 52, { stroke: chg ? RED : INK, sw: chg ? 3 : 1.5 });
+          cap(g, c[0] + 12, y + 35, a, { size: 24, fill: chg ? RED : INK });
+          cap(g, c[0] + 348, y + 35, on ? "allow" : "deny", { size: 24, weight: 700, anchor: "end", fill: on ? INK : MUTED });
+          if (chg) fade(g, A(anim, k, 1), 300);
+        });
+      });
+      mono(d, 0, 380, "- run_tests: deny", { size: 24 }); mono(d, 0, 414, "+ run_tests: allow", { size: 24, fill: RED, weight: 700 });
+      cap(d, 0, 470, "allowed actions: 1 → 2 of 4", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 510, "weights: w = " + N(FIT.w, 4) + ", unchanged", { size: 24, fill: MUTED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "SAME SCORES, THREE TEMPERATURES");
+      var TS = [0.5, 1, 1.5];
+      TS.forEach(function (t, i) {
+        var x0 = i * 260, g = d.append("g"), p = softmaxT(TEMP_SC, t);
+        cap(g, x0, 78, "T = " + t.toFixed(1), { size: 26, weight: 700 });
+        p.forEach(function (v, j) {
+          var h = 250 * v, bx = x0 + j * 60, by = 390 - h, b = g.append("rect").attr("x", bx).attr("y", by).attr("width", 46).attr("height", h).attr("fill", j === 0 ? RED : "#C4C4C4");
+          if (anim) b.attr("y", 390).attr("height", 0).transition().delay(i * 250).duration(800).attr("y", by).attr("height", h);
+          if (j === 0) cap(g, bx + 23, by - 10, v.toFixed(2), { size: 24, weight: 700, anchor: "middle" });
+        });
+      });
+      seg(d, 0, 391, 740, 391, INK, 2);
+      cap(d, 0, 430, "bars: " + TEMP_W.join(", "), { size: 24 });
+      cap(d, 0, 470, "Scores are fixed. A lower T makes the top word dominate.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 30, "20 RUNS EACH: DOES THE ANSWER CITE THE POLICY?");
+      ONE.forEach(function (c, i) {
+        var y = 56 + i * 140, g = d.append("g");
+        cap(g, 0, y + 28, c.n, { size: 24, weight: 700 });
+        c.runs.forEach(function (v, j) { g.append("circle").attr("cx", 14 + j * 36).attr("cy", y + 66).attr("r", 13).attr("fill", v ? RED : "#FFFFFF").attr("stroke", v ? RED : INK).attr("stroke-width", 2.5); });
+        cap(g, 0, y + 112, "cited: " + c.ok + " of 20", { size: 24, fill: i ? RED : INK, weight: 700 });
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      cap(d, 0, 500, "Each row differs from the baseline by one object.", { size: 24, weight: 700 });
+      cap(d, 0, 536, "One run each would show little; sampling varies.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "Tools are what the host exposes and permits. A rule change adds capability; the weights do not move.", "A setting changes how an output is drawn from fixed scores. It fits nothing.", "Change one object, hold the rest, repeat the runs. Only then credit that object."][k]);
+  }
+
+  /* ---------- 4. linear score, sigmoid, loss, objective ---------- */
+  function renderScore(el, k, anim) {
+    var svg = svgFor(el, W, H, "A score becomes a probability, a loss and an average objective", "A table of scores for four points, the sigmoid curve with the points sliding as the weight grows, the loss curve for label one, and the average loss before and after training.");
+    var ey = base(svg, [{ id: "linear", s: 1 }, { id: "sigmoid", s: 2 }, { id: "loss", s: 3 }, { id: "objective", s: 4 }], k, anim, ["Loss", "one example's penalty"], ["Objective", "the average being lowered"]);
+    var d = svg.append("g");
+    if (k === 1) {
+      lab(d, 0, 30, "a = w x + b, WITH w = " + N(STEP1.w, 2) + " AND b = 0");
+      TRAIN.forEach(function (p, i) {
+        var a = STEP1.w * p[0], g = d.append("g");
+        mono(g, 0, 90 + i * 44, "x = " + (p[0] < 0 ? "−" : " ") + Math.abs(p[0]) + "   a = " + N(STEP1.w, 2) + " × (" + N(p[0], 0) + ") = " + N(a, 2), { size: 24 });
+        fade(g, A(anim, k, 1), i * 250);
+      });
+      var nl = d.append("g"); seg(nl, 40, 340, 720, 340, INK, 3); [-0.3, 0, 0.3].forEach(function (a) { seg(nl, 380 + a * 1000, 330, 380 + a * 1000, 350, INK, 2); cap(nl, 380 + a * 1000, 384, N(a, 1), { size: 24, anchor: "middle" }); });
+      TRAIN.forEach(function (p, i) { var c = nl.append("circle").attr("cx", 380 + STEP1.w * p[0] * 1000).attr("cy", 340).attr("r", 12).attr("fill", p[1] ? RED : INK); if (anim) c.attr("r", 0).transition().delay(400 + i * 200).duration(400).attr("r", 12); });
+      cap(d, 0, 460, "Dark dots have label 0, red dots label 1.", { size: 24, fill: MUTED });
+      cap(d, 0, 500, "a is not a probability: it can be any size.", { size: 24, weight: 700 });
+    } else if (k === 2) {
+      lab(d, 0, 30, "SIGMOID: SCORE a → PROBABILITY");
+      var sx = d3.scaleLinear().domain([-7, 7]).range([60, 720]), sy = d3.scaleLinear().domain([0, 1]).range([400, 60]);
+      seg(d, 60, 400, 720, 400, INK, 2); seg(d, 60, 60, 60, 400, INK, 2); seg(d, 60, sy(0.5), 720, sy(0.5), GREY, 1.5, "6 6");
+      [-6, 0, 6].forEach(function (a) { cap(d, sx(a), 432, N(a, 0), { size: 24, anchor: "middle" }); });
+      [0, 0.5, 1].forEach(function (p) { cap(d, 50, sy(p) + 8, p === 0 ? "0" : p === 1 ? "1" : "0.5", { size: 24, anchor: "end" }); });
+      cap(d, 720, 464, "score a", { size: 24, anchor: "end", fill: MUTED });
+      curve(d, function (a) { return sigmoid(a); }, -7, 7, sx, sy, 120, GREY, 3);
+      var dyn = d.append("g"), t1 = cap(d, 90, 100, "", { size: 26, weight: 700 }), t2 = cap(d, 0, 512, "", { size: 24 }), t3 = cap(d, 0, 548, "", { size: 24, weight: 700 });
+      cap(d, 0, 512, "", { size: 24 });
+      run(d, 3800, function (t) {
+        var w = FIT.w * d3.easeCubicInOut(t); dyn.selectAll("*").remove(); t1.text("w = " + N(w, 2));
+        TRAIN.forEach(function (p) { dyn.append("circle").attr("cx", sx(w * p[0])).attr("cy", sy(sigmoid(w * p[0]))).attr("r", 11).attr("fill", p[1] ? RED : INK).attr("stroke", "#FFFFFF").attr("stroke-width", 2); });
+        t2.text("p at x = −2, −1, 1, 2:"); t3.text(TRAIN.map(function (p) { return sigmoid(w * p[0]).toFixed(3); }).join("  "));
+      }, A(anim, k, 2));
+    } else if (k === 3) {
+      lab(d, 0, 30, "LOSS WHEN THE LABEL IS 1");
+      var lx = d3.scaleLinear().domain([0, 1]).range([60, 720]), ly = d3.scaleLinear().domain([0, 3.2]).range([400, 60]);
+      seg(d, 60, 400, 720, 400, INK, 2); seg(d, 60, 60, 60, 400, INK, 2);
+      [0, 0.5, 1].forEach(function (p) { cap(d, lx(p), 432, String(p), { size: 24, anchor: "middle" }); });
+      cap(d, 720, 464, "predicted probability p", { size: 24, anchor: "end", fill: MUTED });
+      curve(d, function (p) { return -Math.log(Math.max(p, 0.02)); }, 0.04, 1, lx, ly, 120, INK, 3);
+      [[0.05, "p = 0.05 → ", 1], [0.5, "p = 0.5 → ", 2], [0.9, "p = 0.9 → ", 3]].forEach(function (q, i) {
+        var l = -Math.log(q[0]), g = d.append("g");
+        g.append("circle").attr("cx", lx(q[0])).attr("cy", ly(l)).attr("r", 11).attr("fill", RED);
+        cap(g, i === 2 ? 720 : lx(q[0]) + 20, i === 2 ? ly(l) - 45 : ly(l) + (i === 1 ? -22 : 8), q[1] + l.toFixed(2), { size: 24, weight: 700, anchor: i === 2 ? "end" : "start" });
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      cap(d, 0, 512, "Confident and wrong costs the most.", { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 548, "Each label-1 example costs −ln p; label 0 costs −ln(1 − p).", { size: 24, fill: MUTED });
+    } else if (k === 4) {
+      lab(d, 0, 30, "LOSS PER EXAMPLE, THEN THE AVERAGE");
+      var G = [["at the start: w = 0", function () { return avgLoss(0, 0, [[0, 0]]); }, 0, 0], ["after 200 updates", null, 400, FIT.w]];
+      seg(d, 0, 380, 740, 380, INK, 2);
+      G.forEach(function (gr, gi) {
+        var g = d.append("g"), w = gr[3], ls = TRAIN.map(function (p) { return lossA(w * p[0] + FIT.b * gi, p[1]); }), av = d3.mean(ls);
+        cap(g, gr[2], 70, gr[0], { size: 24, weight: 700 });
+        ls.forEach(function (l, j) {
+          var h = Math.max(l / 0.7 * 250, 3), bx = gr[2] + 6 + j * 84, b = g.append("rect").attr("x", bx).attr("y", 380 - h).attr("width", 64).attr("height", h).attr("fill", gi ? RED : "#C4C4C4");
+          if (anim) b.attr("y", 380).attr("height", 0).transition().delay(gi * 600 + j * 120).duration(700).attr("y", 380 - h).attr("height", h);
+          cap(g, bx + 32, 412, N(TRAIN[j][0], 0), { size: 24, anchor: "middle" });
+        });
+        cap(g, gr[2], 470, "average " + av.toFixed(4), { size: 26, weight: 700, fill: gi ? RED : INK });
+        fade(g, A(anim, k, 4), gi * 300);
+      });
+      cap(d, 0, 520, "Bars: loss for x = −2, −1, 1, 2. The objective is their average.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "The linear score is just w times x plus b. At w = 0.15 every score is small.", "The sigmoid turns a score into a probability. A larger w pushes the points to the ends.", "Loss grades one probability against its label.", "The objective is the average loss over the four pairs: it falls from 0.6931 to 0.0215."][k]);
+  }
+
+  /* ---------- 5. gradient, finite difference, gradient descent, learning rate ---------- */
+  function renderGrad(el, k, anim) {
+    var svg = svgFor(el, W, H, "The gradient gives the slope, a nudge check confirms it, and the rate scales each step", "A table of errors giving an average gradient of minus 0.75, the loss curve with a secant line, the first steps downhill, and loss curves at three learning rates.");
+    var ey = base(svg, [{ id: "gradient", s: 1 }, { id: "fd", s: 2 }, { id: "gd", s: 3 }, { id: "lr", s: 4 }], k, anim, ["Gradient", "slope of the average loss"], ["Learning rate", "how far each step goes"]);
+    var d = svg.append("g"), wx = d3.scaleLinear().domain([-0.6, 1.0]).range([60, 720]);
+    function Lw(w) { return avgLoss(w, 0, TRAIN); }
+    var LE = d3.extent(d3.range(-0.6, 1.0001, 0.02).map(Lw)), ly = d3.scaleLinear().domain([LE[0] - 0.02, LE[1] + 0.02]).range([400, 70]);
+    function axes() {
+      seg(d, 60, 400, 720, 400, INK, 2); seg(d, 60, 60, 60, 400, INK, 2);
+      [-0.5, 0, 0.5, 1].forEach(function (w) { cap(d, wx(w), 432, N(w, 1), { size: 24, anchor: "middle" }); });
+      cap(d, 720, 464, "weight w (b = 0)", { size: 24, anchor: "end", fill: MUTED });
+      curve(d, Lw, -0.6, 1.0, wx, ly, 100, INK, 3);
+    }
+    if (k === 1) {
+      lab(d, 0, 30, "AT w = 0, b = 0: EVERY PREDICTION IS 0.5");
+      var cols = [20, 130, 240, 400, 600]; ["x", "y", "p", "error p − y", "(p − y) x"].forEach(function (h, i) { cap(d, cols[i], 80, h, { size: 24, weight: 700, fill: MUTED }); });
+      seg(d, 0, 94, 740, 94, INK, 2);
+      var sum = 0;
+      TRAIN.forEach(function (p, i) {
+        var pr = sigmoid(0), e = pr - p[1], c = e * p[0]; sum += c; var g = d.append("g"), y = 130 + i * 44;
+        [N(p[0], 0), String(p[1]), N(pr, 1), N(e, 1), N(c, 1)].forEach(function (s, j) { mono(g, cols[j], y, s, { size: 24 }); });
+        fade(g, A(anim, k, 1), i * 250);
+      });
+      var gs = d.append("g"); seg(gs, 0, 322, 740, 322, INK, 2);
+      cap(gs, 0, 366, "sum " + N(sum, 2) + "; average over 4 = " + N(sum / 4, 2), { size: 26, weight: 700, fill: RED });
+      cap(gs, 0, 412, "errors sum to 0, so the bias gradient is 0", { size: 24 });
+      cap(gs, 0, 456, "The weight gradient is negative: raise w to lower the loss.", { size: 24, fill: MUTED });
+      fade(gs, A(anim, k, 1), 1100);
+    } else if (k === 2) {
+      lab(d, 0, 30, "LOSS AGAINST w, NUDGED BOTH WAYS");
+      axes(); var h = 0.2, a = [wx(-h), ly(Lw(-h))], b = [wx(h), ly(Lw(h))];
+      var sg = d.append("g");
+      var ext = (b[1] - a[1]) / (b[0] - a[0]); seg(sg, wx(-0.5), a[1] + ext * (wx(-0.5) - a[0]), wx(0.5), a[1] + ext * (wx(0.5) - a[0]), RED, 3, "10 6");
+      [a, b].forEach(function (p) { sg.append("circle").attr("cx", p[0]).attr("cy", p[1]).attr("r", 11).attr("fill", RED); });
+      fade(sg, A(anim, k, 2), 0);
+      var fd = function (hh) { return (Lw(hh) - Lw(-hh)) / (2 * hh); };
+      cap(d, 0, 506, "h = 0.2: slope " + N(fd(0.2), 4), { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 542, "h = 0.000001: slope " + N(fd(1e-6), 4) + ". The hand value is −0.75.", { size: 24 });
+    } else if (k === 3) {
+      lab(d, 0, 30, "GRADIENT DESCENT: FIRST SIX STEPS AT RATE 0.2");
+      axes(); var T6 = trainToy(TRAIN, 6, 0.2), dg = d.append("g"), txtl = cap(d, 340, 110, "", { size: 24, weight: 700 });
+      run(d, 3600, function (t) {
+        var m = Math.min(6, Math.floor(t * 7 + 1e-9)); dg.selectAll("*").remove();
+        for (var i = 0; i <= m; i++) { dg.append("circle").attr("cx", wx(T6.W[i])).attr("cy", ly(Lw(T6.W[i]))).attr("r", i === m ? 11 : 7).attr("fill", i === m ? RED : INK); }
+        txtl.text("step " + m + ": w = " + N(T6.W[m], 2) + ", loss " + Lw(T6.W[m]).toFixed(4));
+      }, A(anim, k, 3));
+      cap(d, 0, 506, "step 1: w = 0 − 0.2 × (−0.75) = " + N(STEP1.w, 2), { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 542, "average loss " + LONG.L[0].toFixed(4) + " → " + STEP1.L[1].toFixed(4), { size: 24 });
+    } else if (k === 4) {
+      lab(d, 0, 30, "AVERAGE LOSS OVER 40 UPDATES, THREE RATES");
+      var ex = d3.scaleLinear().domain([0, 40]).range([60, 720]), ey2 = d3.scaleLinear().domain([0, 0.7]).range([400, 190]);
+      seg(d, 60, 400, 720, 400, INK, 2); seg(d, 60, 60, 60, 400, INK, 2);
+      [0, 20, 40].forEach(function (s) { cap(d, ex(s), 432, String(s), { size: 24, anchor: "middle" }); });
+      cap(d, 720, 464, "update number", { size: 24, anchor: "end", fill: MUTED });
+      [[0.02, "#909090"], [0.2, INK], [2, RED]].forEach(function (r, i) {
+        var tr = trainToy(TRAIN, 40, r[0]), g = d.append("g"), pts = tr.L.map(function (l, s) { return [ex(s), ey2(l)]; });
+        var p = g.append("path").attr("d", "M" + pts.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" L")).attr("fill", "none").attr("stroke", r[1]).attr("stroke-width", 4);
+        if (anim) drawIn(p, i * 300, 1400);
+        seg(g, 330, 80 + i * 34 - 8, 370, 80 + i * 34 - 8, r[1], 4); cap(g, 384, 80 + i * 34, "rate " + r[0] + ": " + tr.L[40].toFixed(3), { size: 24, weight: 700 });
+      });
+      cap(d, 0, 506, "Same data, same start. Only the rate differs.", { size: 24, weight: 700 });
+      cap(d, 0, 542, "No safe range is claimed; test chosen values.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "For each example, error is p − y. Multiply by x, average: −0.75.", "Nudge w both ways and divide the loss difference by 0.4. No derivative formula, same −0.75.", "Each update subtracts rate times gradient, so w climbs from 0 and the loss falls.", "The rate is a setting you choose. It changes how quickly the loss falls."][k]);
+  }
+
+  /* ---------- 6. gate, stop rule, sign-off ---------- */
+  function renderGate(el, k, anim) {
+    var svg = svgFor(el, W, H, "The gate is written first, the stop rule fixes the budget, and the sign-off limits the claim", "Four gate items written before the loop. The loss over 500 updates with the 200-update budget marked. Five claims, each supported or not by the record.");
+    var ey = base(svg, [{ id: "gate", s: 1 }, { id: "stop", s: 2 }, { id: "signoff", s: 3 }], k, anim, ["Gate", "written before the run"], ["Sign-off", "written after, from the record"]);
+    var d = svg.append("g");
+    if (k === 1) {
+      lab(d, 0, 30, "THE GATE: FOUR DECISIONS, ALL HUMAN");
+      [["Change", "weights w and b only"], ["Objective", "average loss on 4 pairs"], ["Held-out", "4 pairs, never trained on"], ["Stop rule", "200 updates, rate 0.2"]].forEach(function (r, i) {
+        var y = 50 + i * 76, g = d.append("g"); box(g, 0, y, 740, 62, { stroke: INK, sw: 2 });
+        g.append("rect").attr("x", 0).attr("y", y).attr("width", 56).attr("height", 63).attr("fill", RED); cap(g, 28, y + 42, String(i + 1), { size: 26, weight: 700, anchor: "middle", fill: "#FFFFFF" });
+        cap(g, 74, y + 41, r[0] + ": ", { size: 24, weight: 700 }); cap(g, 250, y + 41, r[1], { size: 24 });
+        fade(g, A(anim, k, 1), i * 300);
+      });
+      var ar = d.append("g"); seg(ar, 0, 400, 740, 400, RED, 4); ar.append("path").attr("d", "M720,386 L740,400 L720,414").attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      cap(ar, 0, 446, "then, and only then, the loop runs", { size: 26, weight: 700, fill: RED });
+      cap(ar, 0, 486, "The data hold no opinion on what “better” means.", { size: 24, fill: MUTED });
+      fade(ar, A(anim, k, 1), 1300);
+    } else if (k === 2) {
+      lab(d, 0, 30, "AVERAGE LOSS OVER 500 UPDATES");
+      var sx = d3.scaleLinear().domain([0, 500]).range([60, 720]), sy = d3.scaleLinear().domain([0, 0.7]).range([400, 60]);
+      seg(d, 60, 400, 720, 400, INK, 2); seg(d, 60, 60, 60, 400, INK, 2);
+      [0, 200, 500].forEach(function (s) { cap(d, sx(s), 432, String(s), { size: 24, anchor: "middle" }); });
+      cap(d, 720, 464, "update number", { size: 24, anchor: "end", fill: MUTED });
+      var pts = LONG.L.map(function (l, s) { return [sx(s), sy(l)]; }), pth = d.append("path").attr("d", "M" + pts.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" L")).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 4);
+      if (anim) drawIn(pth, 0, 1600);
+      seg(d, sx(200), 60, sx(200), 400, RED, 3, "8 6"); cap(d, sx(200) + 12, 84, "budget: 200", { size: 24, weight: 700, fill: RED });
+      [[50, 0], [200, 1], [500, 2]].forEach(function (q) {
+        var g = d.append("g"); g.append("circle").attr("cx", sx(q[0])).attr("cy", sy(LONG.L[q[0]])).attr("r", 9).attr("fill", q[1] === 1 ? RED : INK);
+        cap(g, 740, 140 + q[1] * 36, "update " + q[0] + ": " + LONG.L[q[0]].toFixed(4), { size: 24, weight: q[1] === 1 ? 700 : 400, fill: q[1] === 1 ? RED : INK, anchor: "end" });
+        fade(g, A(anim, k, 2), 1600 + q[1] * 200);
+      });
+      cap(d, 0, 506, "200 is the demo setting, not a natural stopping point.", { size: 24, weight: 700 });
+      cap(d, 0, 542, "The loss keeps falling; the loop has no convergence test.", { size: 24, fill: MUTED });
+    } else if (k === 3) {
+      lab(d, 0, 30, "WHICH SENTENCES MAY THE REPORT SIGN?");
+      [["lowered the loss on four pairs", true], ["classified four fixtures correctly", true], ["the model generalizes", false], ["lower loss means better", false], ["x causes the outcome", false]].forEach(function (r, i) {
+        var y = 50 + i * 70, g = d.append("g"); box(g, 0, y, 740, 58, { stroke: r[1] ? INK : RED, sw: 2 });
+        cap(g, 14, y + 39, "“" + r[0] + "”", { size: 24, fill: r[1] ? INK : RED, weight: r[1] ? 400 : 700 });
+        if (r[1]) check(g, 700, y + 28, 15, INK); else cross(g, 700, y + 29, 13, RED);
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      cap(d, 0, 430, "The “Not checked” line does the work.", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 470, "A fluent draft omits what you did not do.", { size: 24, fill: MUTED });
+      cap(d, 0, 510, "If the evidence does not support signing, withhold.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "The gate fixes the change, objective, held-out set and stop rule before any training.", "The stop rule is a budget you chose. The loop runs exactly that many updates.", "The sign-off names the check, the method, what was not checked and what is not claimed."][k]);
+  }
+
+  /* ---------- 7. held-out set, development data, contamination ---------- */
+  var H2 = [[-1.5, 1], [1.5, 0], [-3, 0], [3, 1]], LEAK = trainToy(TRAIN.concat(H2), 200, 0.2);
+  function renderSplit(el, k, anim) {
+    var svg = svgFor(el, W, H, "Held-out points stay unused; once they guide a choice they become development data; training on them is contamination", "Four held-out probabilities with correct decisions. Held-out loss at three rates with the best one picked. Held-out loss with and without the points in training.");
+    var ey = base(svg, [{ id: "heldout", s: 1 }, { id: "dev", s: 2 }, { id: "contam", s: 3 }], k, anim, ["Held out", "kept out of training"], ["Representative", "like the real population"]);
+    var d = svg.append("g");
+    if (k === 1) {
+      lab(d, 0, 30, "FOUR POINTS NEVER PASSED TO TRAIN, AFTER 200 UPDATES");
+      HELD.forEach(function (p, i) {
+        var y = 56 + i * 76, g = d.append("g"), pr = HP[i], ok = (pr >= 0.5 ? 1 : 0) === p[1];
+        cap(g, 0, y + 30, "x = " + N(p[0], 1) + ", label " + p[1], { size: 24 });
+        bar(g, 250, y + 8, Math.max(pr * 280, 3), 30, p[1] ? RED : INK, A(anim, k, 1), i * 250);
+        cap(g, 250 + Math.max(pr * 280, 3) + 10, y + 32, pr.toFixed(4), { size: 24, weight: 700 });
+        check(g, 716, y + 22, 13, INK); void ok;
+        fade(g, A(anim, k, 1), i * 250);
+      });
+      cap(d, 0, 400, "4 of 4 correct at threshold 0.5", { size: 26, weight: 700, fill: RED });
+      cap(d, 0, 444, "Bars: probability of label 1.", { size: 24, fill: MUTED });
+      cap(d, 0, 484, "“Held out” says how the points were handled,", { size: 24 }); cap(d, 0, 514, "not that they are typical of anything.", { size: 24 });
+    } else if (k === 2) {
+      lab(d, 0, 30, "HELD-OUT LOSS AFTER 20 UPDATES, THREE RATES");
+      var rs = [0.02, 0.2, 2], ls = rs.map(function (r) { var t = trainToy(TRAIN, 20, r); return avgLoss(t.w, t.b, HELD); }), best = ls.indexOf(d3.min(ls));
+      rs.forEach(function (r, i) {
+        var y = 56 + i * 64, g = d.append("g");
+        cap(g, 0, y + 30, "rate " + r, { size: 24, weight: i === best ? 700 : 400 });
+        bar(g, 160, y + 8, ls[i] / 0.5 * 420, 32, i === best ? RED : "#C4C4C4", A(anim, k, 2), i * 250);
+        cap(g, 160 + ls[i] / 0.5 * 420 + 10, y + 32, ls[i].toFixed(3) + (i === best ? "  picked" : ""), { size: 24, weight: 700, fill: i === best ? RED : INK });
+        fade(g, A(anim, k, 2), i * 250);
+      });
+      [["training", "fit"], ["development", "choose here"], ["held-out", "touch once"]].forEach(function (r, i) {
+        var g = d.append("g"), x = i * 250; box(g, x, 290, 240, 90, { stroke: i === 1 ? RED : INK, sw: i === 1 ? 3 : 2 });
+        cap(g, x + 120, 328, r[0], { size: 26, weight: 700, anchor: "middle", fill: i === 1 ? RED : INK }); cap(g, x + 120, 364, r[1], { size: 24, anchor: "middle", fill: MUTED });
+      });
+      cap(d, 0, 430, "Choosing the rate by these points made them development data.", { size: 24, weight: 700 });
+      cap(d, 0, 470, "Tuning needs three sets, not two.", { size: 24, fill: MUTED });
+    } else if (k === 3) {
+      lab(d, 0, 30, "HELD-OUT LOSS ON FOUR AWKWARD POINTS");
+      var cl = avgLoss(FIT.w, FIT.b, H2), ll = avgLoss(LEAK.w, LEAK.b, H2), sc = 560 / cl;
+      [["trained without them", cl, "#C4C4C4"], ["trained with them", ll, RED]].forEach(function (r, i) {
+        var y = 70 + i * 120, g = d.append("g"); cap(g, 0, y, r[0], { size: 24, weight: 700 });
+        bar(g, 0, y + 14, r[1] * sc, 44, r[2], A(anim, k, 3), i * 400); cap(g, r[1] * sc + 12, y + 48, r[1].toFixed(2), { size: 26, weight: 700, fill: i ? RED : INK });
+        fade(g, A(anim, k, 3), i * 400);
+      });
+      cap(d, 0, 340, "Points (x, label): (−1.5, 1), (1.5, 0), (−3, 0), (3, 1).", { size: 24, fill: MUTED });
+      cap(d, 0, 396, "The score improved because the optimizer saw the points,", { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 426, "not because the model got better at new cases.", { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 480, "Same 200 updates, same rate, same start.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "These four points were fixed beforehand and never passed to train. All four come out right.", "Using held-out results to pick a rate or step count turns them into development data.", "If held-out points go into training, a better score no longer means a better model."][k]);
+  }
+
+  /* ---------- 8. generalization, calibration, threshold, decision boundary ---------- */
+  var SHIFT = [[-1, 0], [0.2, 0], [0.8, 0], [1.2, 0], [2.5, 1], [3, 1]];
+  var CAL = (function () {
+    var r = rng(31), bins = d3.range(5).map(function () { return { n: 0, sp: 0, so: 0 }; });
+    for (var i = 0; i < 300; i++) { var p = 0.02 + 0.96 * r(), o = r() < 0.5 + 0.6 * (p - 0.5) ? 1 : 0, b = bins[Math.min(4, Math.floor(p * 5))]; b.n++; b.sp += p; b.so += o; }
+    return bins.map(function (b) { return { n: b.n, p: b.sp / b.n, o: b.so / b.n }; });
+  })();
+  function renderRead(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four right answers do not show generalization or calibration; the threshold and the boundary are chosen", "Dots for the fixtures and for shifted cases around the learned boundary. A reliability plot of a simulated overconfident model. A sweeping threshold on four probabilities. A boundary that moves when the bias changes.");
+    var ey = base(svg, [{ id: "gen", s: 1 }, { id: "calib", s: 2 }, { id: "thresh", s: 3 }, { id: "boundary", s: 4 }], k, anim, ["Probability", "the sigmoid output"], ["Decision", "probability and a threshold"]);
+    var d = svg.append("g");
+    if (k === 1) {
+      lab(d, 0, 30, "LEARNED BOUNDARY AT x ≈ 0");
+      var gx = d3.scaleLinear().domain([-3.5, 3.5]).range([30, 720]);
+      [[HELD, 130, "THE FOUR FIXTURES"], [SHIFT, 290, "NEW CASES, SHIFTED PATTERN"]].forEach(function (r, ri) {
+        var g = d.append("g"); cap(g, 0, r[1] - 40, r[2], { size: 24, weight: 700, fill: ri ? RED : INK }); seg(g, 30, r[1], 720, r[1], FAMILIAR, 3);
+        r[0].forEach(function (p, i) {
+          var ok = (sigmoid(FIT.w * p[0] + FIT.b) >= 0.5 ? 1 : 0) === p[1];
+          var c = g.append("circle").attr("cx", gx(p[0])).attr("cy", r[1]).attr("r", 14).attr("fill", ok ? INK : RED).attr("stroke", "#FFFFFF").attr("stroke-width", 2);
+          if (anim) c.attr("r", 0).transition().delay(300 + ri * 600 + i * 120).duration(350).attr("r", 14);
+        });
+      });
+      seg(d, gx(0), 70, gx(0), 340, RED, 3, "8 6");
+      var okS = SHIFT.filter(function (p) { return (sigmoid(FIT.w * p[0] + FIT.b) >= 0.5 ? 1 : 0) === p[1]; }).length;
+      cap(d, 0, 396, "fixtures: 4 of 4 correct", { size: 24, weight: 700 }); cap(d, 0, 432, "shifted cases (illustrative): " + okS + " of " + SHIFT.length + " correct", { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 482, "Red dots are wrong. 4 of 4 says nothing about new cases.", { size: 24, fill: MUTED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "RELIABILITY: 300 SIMULATED CASES, 5 BINS");
+      var cx = d3.scaleLinear().domain([0, 1]).range([80, 560]), cy = d3.scaleLinear().domain([0, 1]).range([400, 60]);
+      seg(d, 80, 400, 560, 400, INK, 2); seg(d, 80, 60, 80, 400, INK, 2); seg(d, cx(0), cy(0), cx(1), cy(1), GREY, 2, "8 6");
+      [0, 0.5, 1].forEach(function (v) { cap(d, cx(v), 432, String(v), { size: 24, anchor: "middle" }); cap(d, 70, cy(v) + 8, String(v), { size: 24, anchor: "end" }); });
+      cap(d, 560, 464, "stated probability", { size: 24, anchor: "end", fill: MUTED }); cap(d, 96, 90, "how often it happened", { size: 24, fill: MUTED });
+      var pts = CAL.map(function (b) { return [cx(b.p), cy(b.o)]; });
+      var pl = d.append("path").attr("d", "M" + pts.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" L")).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3);
+      if (anim) drawIn(pl, 0, 1200);
+      pts.forEach(function (q, i) { var c = d.append("circle").attr("cx", q[0]).attr("cy", q[1]).attr("r", 10).attr("fill", RED); if (anim) c.attr("opacity", 0).transition().delay(300 + i * 200).duration(300).attr("opacity", 1); });
+      cap(d, 300, 340, "dashed: calibrated", { size: 24, fill: MUTED }); cap(d, 300, 376, "red: this model", { size: 24, weight: 700, fill: RED });
+      cap(d, 0, 506, "Stated 0.9, happened " + N(CAL[4].o, 2) + " of the time: overconfident.", { size: 24, weight: 700 });
+      cap(d, 0, 542, "Four fixtures cannot fill even one bin.", { size: 24, fill: MUTED });
+    } else if (k === 3) {
+      lab(d, 0, 30, "SAME PROBABILITIES, A MOVING THRESHOLD");
+      var tx = d3.scaleLinear().domain([0, 1]).range([40, 720]); seg(d, 40, 250, 720, 250, INK, 3);
+      [0, 0.5, 1].forEach(function (v) { cap(d, tx(v), 300, String(v), { size: 24, anchor: "middle", fill: MUTED }); });
+      var dyn3 = d.append("g"), tt = cap(d, 0, 120, "", { size: 28, weight: 700, fill: RED }), tc = cap(d, 0, 400, "", { size: 26, weight: 700 });
+      cap(d, 0, 470, "Dots: the four held-out probabilities. Label 1 is red.", { size: 24, fill: MUTED });
+      cap(d, 0, 506, "The parameters never changed. Only the cutoff moved.", { size: 24, fill: MUTED });
+      run(d, 5000, function (t) {
+        var th = kf(t, [0.5, 0.9, 0.1, 0.5]), n = 0; dyn3.selectAll("*").remove();
+        seg(dyn3, tx(th), 150, tx(th), 280, RED, 4);
+        HELD.forEach(function (p, i) { var ok = (HP[i] >= th ? 1 : 0) === p[1]; if (ok) n++; dyn3.append("circle").attr("cx", tx(HP[i])).attr("cy", 250).attr("r", 15).attr("fill", p[1] ? RED : "#FFFFFF").attr("stroke", ok ? INK : RED).attr("stroke-width", ok ? 3 : 6); });
+        tt.text("threshold " + th.toFixed(2)); tc.text(n + " of 4 correct");
+      }, A(anim, k, 3));
+    } else if (k === 4) {
+      lab(d, 0, 30, "BOUNDARY: WHERE w x + b = 0");
+      var bx = d3.scaleLinear().domain([-3, 3]).range([80, 680]); seg(d, 60, 250, 700, 250, INK, 3);
+      [-2, 0, 2].forEach(function (v) { cap(d, bx(v), 300, N(v, 0), { size: 24, anchor: "middle", fill: MUTED }); });
+      var dyn4 = d.append("g"), tb = cap(d, 0, 110, "", { size: 26, weight: 700, fill: RED }), tb2 = cap(d, 0, 400, "", { size: 24, weight: 700 });
+      cap(d, 0, 470, "w = " + N(FIT.w, 2) + " stays fixed; only b moves.", { size: 24, fill: MUTED });
+      cap(d, 0, 506, "Red dots: predicted 1. Ring: wrong decision.", { size: 24, fill: MUTED });
+      run(d, 5000, function (t) {
+        var b = kf(t, [0, 4, 0]), xb = -b / FIT.w, n = 0; dyn4.selectAll("*").remove();
+        seg(dyn4, bx(xb), 140, bx(xb), 280, RED, 4);
+        TRAIN.forEach(function (p) { var pr = sigmoid(FIT.w * p[0] + b) >= 0.5 ? 1 : 0, ok = pr === p[1]; if (ok) n++; dyn4.append("circle").attr("cx", bx(p[0])).attr("cy", 250).attr("r", 15).attr("fill", pr ? RED : "#FFFFFF").attr("stroke", ok ? INK : RED).attr("stroke-width", ok ? 3 : 6); });
+        tb.text("b = " + N(b, 2) + ", boundary x = −b / w = " + N(xb, 2)); tb2.text(n + " of 4 training points right");
+      }, A(anim, k, 4));
+    }
+    note(svg, ey, ["", "Four correct fixtures say little about shifted cases. Generalization needs its own evidence.", "Stated probabilities match real frequencies only if a calibration study on many cases says so.", "The decision comes from a cutoff you chose. Move it and decisions move, parameters fixed.", "The boundary sits where the score is zero. A different bias moves it."][k]);
+  }
+
+  /* ---------- 9. prediction, intervention, counterfactual, confounder ---------- */
+  function renderCausal(el, k, anim) {
+    var svg = svgFor(el, W, H, "Prediction, intervention and counterfactual are three questions; a confounder explains why they differ", "A ladder of three questions using a simulated course, then bars showing pass rates inside each motivation quarter.");
+    var ey = base(svg, [{ id: "pred", s: 1 }, { id: "interv", s: 2 }, { id: "counter", s: 3 }, { id: "conf", s: 4 }], k, anim, ["Prediction", "what the model says"], ["Intervention", "what happens if we act"]);
+    var d = svg.append("g");
+    if (k <= 3) {
+      lab(d, 0, 30, "THREE QUESTIONS, FROM A SIMULATED COURSE");
+      var R = [["3. Counterfactual", "This student did not open emails and failed. Would they have passed had they opened? No table answers it.", 3], ["2. Intervention", "If every student is required to open the emails, the pass rate is " + PC(SIM.forced) + " in the simulation, near " + PC(SIM.all) + " before.", 2], ["1. Association (prediction)", "Of students who opened emails " + PC(SIM.open) + " passed; of those who did not, " + PC(SIM.shut) + ".", 1]];
+      R.forEach(function (r, i) {
+        if (r[2] > k) return;
+        var y = 50 + i * 138, g = d.append("g"), cur = r[2] === k; box(g, 0, y, 740, 122, { stroke: cur ? RED : INK, sw: cur ? 3 : 2 });
+        cap(g, 14, y + 34, r[0], { size: 26, weight: 700, fill: cur ? RED : INK }); wrap(g, 14, y + 68, r[1], 56, { size: 24, lh: 30, fill: BODY });
+        fade(g, A(anim, k, r[2]), 0);
+      });
+      cap(d, 0, 486, "Each rung needs more than the rung below it.", { size: 24, weight: 700 });
+      cap(d, 0, 522, "Seeded simulation of 2000 students; real data would differ.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 30, "PASS RATE BY MOTIVATION QUARTER (SIMULATED)");
+      seg(d, 0, 380, 740, 380, INK, 2);
+      SIM.q.forEach(function (q, i) {
+        var g = d.append("g"), x0 = 10 + i * 185;
+        q.forEach(function (v, j) {
+          var h = 250 * v, bx = x0 + j * 72, b = g.append("rect").attr("x", bx).attr("y", 380 - h).attr("width", 66).attr("height", h).attr("fill", j ? "#C4C4C4" : RED);
+          if (anim) b.attr("y", 380).attr("height", 0).transition().delay(i * 250).duration(700).attr("y", 380 - h).attr("height", h);
+          cap(g, bx + 33, 380 - h - 8, PC(v), { size: 24, weight: 700, anchor: "middle" });
+        });
+        cap(g, x0 + 69, 414, "Q" + (i + 1), { size: 24, anchor: "middle" });
+      });
+      seg(d, 0, 440, 30, 440, RED, 10); cap(d, 40, 448, "opened emails", { size: 24 }); seg(d, 260, 440, 290, 440, "#C4C4C4", 10); cap(d, 300, 448, "did not open", { size: 24 });
+      cap(d, 0, 496, "Q1 is the least motivated quarter. Overall gap " + PC(SIM.open) + " against " + PC(SIM.shut) + ".", { size: 24, weight: 700 });
+      cap(d, 0, 532, "Inside each quarter the gap shrinks: motivation drives both.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "A prediction evaluates the fitted function. It answers a question about the model.", "An intervention asks what happens in the world if we act. The function answers a different question.", "A counterfactual asks about this one case under a different history. Data alone cannot reach it.", "A confounder drives both input and outcome. A positive weight cannot tell it from a cause."][k]);
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from training and configuration", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Training", "Changes the weights through an objective and an update rule"], ["Prompting", "Changes the input to a model that is already trained"]],
+      [["Held out", "Kept out of training by how it was handled"], ["Representative", "Like the population the claim is about"]],
+      [["Lower loss", "The number the optimizer was told to reduce"], ["Better", "A claim about the task, including error costs"]],
+      [["Prediction", "What the fitted function returns for an input"], ["Intervention", "What happens in the world if we act"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(60,0)"), RG = R.append("g").attr("transform", "translate(60,0)");
+      if (i === 0) {
+        LG.append("rect").attr("x", 20).attr("y", 220).attr("width", 300).attr("height", 40).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3);
+        LG.append("rect").attr("x", 20).attr("y", 220).attr("width", 300 * t).attr("height", 40).attr("fill", INK); cap(LG, 20, 200, "weight w = " + N(STEP1.w * t, 2), { size: 24, weight: 700 }); cap(LG, 20, 330, "the stored number moved", { size: 24, fill: MUTED });
+        RG.append("rect").attr("x", 20).attr("y", 220).attr("width", 300).attr("height", 40).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); cap(RG, 20, 200, "weight w = " + N(0, 2), { size: 24, weight: 700 });
+        if (t > 0.4) mono(RG, 20, 300, "prompt: v1 → v2", { size: 26, weight: 700, fill: RED }); cap(RG, 20, 350, "no stored number moved", { size: 24, fill: MUTED });
+      } else if (i === 1) {
+        var qx = d3.scaleLinear().domain([-3, 3]).range([20, 320]), r = rng(8);
+        HELD.forEach(function (p, j) { LG.append("circle").attr("cx", qx(p[0])).attr("cy", 250).attr("r", 12).attr("fill", INK).attr("opacity", j / 4 < t ? 1 : 0.15); });
+        cap(LG, 20, 330, "four fixtures, one pattern", { size: 24, fill: MUTED });
+        d3.range(40).forEach(function (j) { var x = 20 + r() * 300, y = 150 + r() * 160; RG.append("circle").attr("cx", x).attr("cy", y).attr("r", 8).attr("fill", r() < 0.5 ? RED : INK).attr("opacity", j / 40 < t ? 1 : 0.1); });
+        cap(RG, 20, 350, "a spread of real cases", { size: 24, fill: MUTED });
+      } else if (i === 2) {
+        var lv = FIT.L[Math.round(200 * t)] !== undefined ? FIT.L[Math.round(200 * t)] : FIT.L[200];
+        LG.append("rect").attr("x", 20).attr("y", 230).attr("width", 300 * lv / FIT.L[0]).attr("height", 40).attr("fill", INK); cap(LG, 20, 210, "loss " + lv.toFixed(4), { size: 24, weight: 700 }); cap(LG, 20, 330, "falls with every update", { size: 24, fill: MUTED });
+        var c5 = costAt(0.5);
+        CASES.forEach(function (c, j) { var pr = c[0] >= 0.5 ? 1 : 0, miss = c[1] === 1 && pr === 0, fa = c[1] === 0 && pr === 1; RG.append("rect").attr("x", 20 + j * 30).attr("y", 230).attr("width", 24).attr("height", 40).attr("fill", miss ? RED : "#FFFFFF").attr("stroke", fa ? RED : INK).attr("stroke-width", fa ? 4 : 2).attr("opacity", j / 10 < t ? 1 : 0.15); });
+        cap(RG, 20, 210, "cost " + c5.cost + " (2 missed × 5 + 1 false alarm)", { size: 24, weight: 700 }); cap(RG, 20, 330, "red: missed (×5); ring: false alarm", { size: 24, fill: MUTED });
+      } else {
+        [[SIM.shut, "did not open"], [SIM.open, "opened"]].forEach(function (b, j) { LG.append("rect").attr("x", 20).attr("y", 190 + j * 70).attr("width", 300 * b[0] * t / 0.7).attr("height", 40).attr("fill", j ? RED : "#C4C4C4"); cap(LG, 20, 180 + j * 70, b[1] + ": " + PC(b[0] * t), { size: 24, weight: j ? 700 : 400 }); });
+        cap(LG, 20, 350, "association seen in the data", { size: 24, fill: MUTED });
+        [[SIM.all, "before"], [SIM.forced, "everyone required"]].forEach(function (b, j) { RG.append("rect").attr("x", 20).attr("y", 190 + j * 70).attr("width", 300 * b[0] * t / 0.7).attr("height", 40).attr("fill", j ? RED : "#C4C4C4"); cap(RG, 20, 180 + j * 70, b[1] + ": " + PC(b[0] * t), { size: 24, weight: j ? 700 : 400 }); });
+        cap(RG, 20, 350, "the course's response (simulated)", { size: 24, fill: MUTED });
+      }
+    }
+    if (k === 0) { draw(0, 0.5); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  var C25 = costAt(0.5), C25b = costAt(0.25);
+  var SAY = [
+    { v: "we trained Claude on our policies", x: "Rewrote the system prompt and added three documents; weights unchanged (2 of 5 objects)" },
+    { v: "the model learned it", x: "Average loss fell from " + FIT.L[0].toFixed(4) + " to " + FIT.L[200].toFixed(4) + " on four training pairs in 200 updates at rate 0.2" },
+    { v: "it generalizes", x: "Four sign-pattern fixtures were classified correctly at threshold 0.5; nothing broader" },
+    { v: "make it better", x: "State the cost of each error first: a missed escalation costs 5, a false alarm costs 1" },
+    { v: "opening emails makes them pass", x: "Report the gap as association (" + PC(SIM.open) + " against " + PC(SIM.shut) + "); forcing opens left the pass rate near " + PC(SIM.forced) }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague claims about a change turned into precise ones", "Five rows with a vague claim and an exact statement. On the right, a chart of what the exact statement rests on.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague claim names the wrong thing. An exact one names the object and the evidence.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five claims into statements.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE STATEMENT RESTS ON", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    if (k === 1) {
+      OBJ.forEach(function (o, i) { var ch = i === 1 || i === 2, g2 = p.append("g"); cap(g2, 14, 50 + i * 52, o[0], { size: 24, weight: ch ? 700 : 400 }); cap(g2, 620, 50 + i * 52, ch ? "changed" : "unchanged", { size: 24, weight: 700, anchor: "end", fill: ch ? RED : MUTED }); fade(g2, anim, i * 200); });
+      nt = "2 of 5 objects changed; training is not among them";
+    } else if (k === 2) {
+      var sx = d3.scaleLinear().domain([0, 200]).range([30, 610]), sy = d3.scaleLinear().domain([0, 0.7]).range([260, 40]);
+      var pts = FIT.L.map(function (l, s) { return [sx(s), sy(l)]; }), pa = p.append("path").attr("d", "M" + pts.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" L")).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      if (anim) drawIn(pa, 0, 1400);
+      cap(p, 60, 80, FIT.L[0].toFixed(4), { size: 24, weight: 700 }); cap(p, 610, 232, FIT.L[200].toFixed(4), { size: 24, weight: 700, anchor: "end", fill: RED }); nt = "average loss on the four training pairs";
+    } else if (k === 3) {
+      seg(p, 300, 20, 300, 276, GREY, 2, "6 6"); cap(p, 304, 292, "0.5", { size: 24, fill: MUTED });
+      HELD.forEach(function (q, i) { var g2 = p.append("g"); cap(g2, 14, 52 + i * 62, "x = " + N(q[0], 1), { size: 24 }); bar(g2, 100, 30 + i * 62, Math.max(HP[i] * 520, 3), 32, q[1] ? RED : INK, anim, i * 250); });
+      nt = "4 of 4 on four fixtures; the evidence stops there";
+    } else if (k === 4) {
+      [["threshold 0.5", C25], ["threshold 0.25", C25b]].forEach(function (r, i) {
+        var y = 56 + i * 120, g2 = p.append("g"); cap(g2, 14, y, r[0] + ": " + r[1].miss + " missed, " + r[1].fa + (r[1].fa === 1 ? " false alarm" : " false alarms"), { size: 24 });
+        bar(g2, 14, y + 14, r[1].cost / C25.cost * 440, 44, i ? RED : "#C4C4C4", anim, i * 400); cap(g2, 14 + r[1].cost / C25.cost * 440 + 10, y + 48, "cost " + r[1].cost, { size: 24, weight: 700, fill: i ? RED : INK });
+      });
+      nt = "10 illustrative cases; cost = 5 × missed + 1 × false alarm";
+    } else {
+      [["opened", SIM.open, "#C4C4C4"], ["did not open", SIM.shut, "#C4C4C4"], ["everyone required", SIM.forced, RED]].forEach(function (r, i) {
+        var y = 56 + i * 88, g2 = p.append("g"); cap(g2, 14, y, r[0] + ": " + PC(r[1]), { size: 24, weight: i === 2 ? 700 : 400 }); bar(g2, 14, y + 14, r[1] * 560 / 0.7, 36, r[2], anim, i * 300);
+      });
+      nt = "seeded simulation: the gap is association";
+    }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Which object changed: weights, prompt, context, tools or settings?",
+    "Did I write the objective, held-out set and stop rule before the run?",
+    "Is the held-out set still untouched, or is it development data now?",
+    "Does my verb match the record: “lowered loss”, not “better”?",
+    "Is the question prediction or intervention, and who decided?",
+    "What does my sign-off say I did not check?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before you call a change training", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 42, c, 78, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Then say it exactly: not “we trained it”, but “edited the prompt; weights unchanged”.", { size: 28, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, objects: { steps: 3, render: renderObjects }, input: { steps: 4, render: renderInput },
+    tools: { steps: 3, render: renderTools }, score: { steps: 4, render: renderScore }, grad: { steps: 4, render: renderGrad },
+    gate: { steps: 3, render: renderGate }, split: { steps: 3, render: renderSplit }, read: { steps: 4, render: renderRead },
+    causal: { steps: 4, render: renderCausal }, pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay },
+    closing: { steps: 6, render: renderClosing }
+  };
+
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

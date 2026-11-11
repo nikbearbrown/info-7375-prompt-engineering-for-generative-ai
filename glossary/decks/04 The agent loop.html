@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The agent loop | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: The agent loop">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="The agent loop">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 4</p>
+      <h1 class="t-opening rise g2">The agent loop</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for who ends an agent run, and what the ending is allowed to mean</p>
+      <div class="speaker-notes" hidden><p>26 terms from Chapter 4, all explained in the chapter text. Every number on the slides is computed from a port of the chapter reference controller run on constructed fixtures, not from a model. Four groups: who does what, what gets recorded, how the run ends, judging the result.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty-six terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Twenty-six terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The loop, the policy and the controller">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Who does what</p>
+      <h2 class="t-chart">The loop, the policy and the controller</h2>
+      <div class="diagram build" data-build="loop" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “The policy proposes, the controller stops, someone else judges”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>The list of actions is illustrative. The scripted policy and the model-backed policy are contrasted as in the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Actions, records and the dispatcher">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">What gets recorded</p>
+      <h2 class="t-chart">Actions, records and the dispatcher</h2>
+      <div class="diagram build" data-build="disp" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “Every return statement is an exit someone decided”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Outputs come from a port of the reference run function on the constructed record color: blue.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Turns, observations and the trace">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">What gets recorded</p>
+      <h2 class="t-chart">Turns, observations and the trace</h2>
+      <div class="diagram build" data-build="trace" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “A trace records an event, not knowledge”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Policy of lookup color, lookup size, shell, finish blue; budget 4. The finish returns before the append.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Stop condition, budget and unit">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">How the run ends</p>
+      <h2 class="t-chart">Stop condition, budget and unit</h2>
+      <div class="diagram build" data-build="budget" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “The gate”; “Budget exhaustion is not policy exhaustion”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Design table from the chapter gate. Budget 2 with endless lookups, and budgets 1 and 2 with a lookup then a finish, are computed.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three exits and the stop reason">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">How the run ends</p>
+      <h2 class="t-chart">Three exits and the stop reason</h2>
+      <div class="diagram build" data-build="exits" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “Budget exhaustion is not policy exhaustion”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Statuses and trace lengths computed from the controller port. Same trace length under budgets 4 and 1 is from the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Finished is not correct">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Judging the result</p>
+      <h2 class="t-chart">Finished is not correct</h2>
+      <div class="diagram build" data-build="layers" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “A finished wrong answer”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Finish red after a lookup of blue is the chapter counterexample; the absent-key case is the chapter checker trace.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Activity, progress and repetition">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Judging the result</p>
+      <h2 class="t-chart">Activity, progress and repetition</h2>
+      <div class="diagram build" data-build="activity" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “A trace records an event, not knowledge”; “Repetition detectors have false positives too”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Repeated-lookup run and two detector rules computed. The records for the detector misfire (color, shade, size) are invented to show the chapter point.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Gate, sign-off and the two stops">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Judging the result</p>
+      <h2 class="t-chart">Gate, sign-off and the two stops</h2>
+      <div class="diagram build" data-build="gate" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “The gate”; “Ship It”; “The driver’s seat”; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Parts of the gate, the sign-off lines and the two stops follow the chapter.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Finished and correct, incomplete and budget-exhausted, turn budget and timeout, activity and progress.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague request, exact instruction</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4; decks/exam-terms, Exam terms - full list.</p>
+      <div class="speaker-notes" hidden><p>Five requests and exact versions, each charted from the controller port.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before you trust a run that says finished">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before you trust a run that says finished</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 4, “The driver’s seat”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= The agent loop (Prompt Engineering, Chapter 4) ================= */
+  var DEG = Math.PI / 180, uid = 0, GREY = "#909090";
+  /* tag: book = Chapter 4 uses and explains it */
+  var T = {
+    loop: { n: "Agent loop", tag: "book", m: "Propose, carry out, record, then go on or stop" },
+    policy: { n: "Policy", tag: "book", m: "Supplies the next action; here a prepared list" },
+    mpolicy: { n: "Model-backed policy", tag: "book", m: "A model picks the actions; the limits stay put" },
+    ctrl: { n: "Controller", tag: "book", m: "Runs the loop, keeps the trace, owns the stops" },
+    disp: { n: "Dispatcher", tag: "book", m: "Turns an action into an observation" },
+    env: { n: "Lookup environment", tag: "book", m: "The fixed records the lookups read" },
+    action: { n: "Action", tag: "book", m: "A request such as lookup color or finish red" },
+    turn: { n: "Turn", tag: "book", m: "One pass of the loop; it uses one action" },
+    obs: { n: "Observation", tag: "book", m: "What came back: a value, not found or an error" },
+    trace: { n: "Trace", tag: "book", m: "Turn, action and observation for each turn" },
+    state: { n: "State update", tag: "book", m: "The only change: an append to the trace" },
+    stopc: { n: "Stop condition", tag: "book", m: "A rule that ends the run, set before it starts" },
+    budget: { n: "Turn budget", tag: "book", m: "The most turns the loop may begin" },
+    unit: { n: "Unit of the budget", tag: "book", m: "One count is one action taken; finish costs one" },
+    finished: { n: "Finished", tag: "book", m: "A finish was taken, with whatever answer it held" },
+    incomplete: { n: "Incomplete", tag: "book", m: "The policy ran out before any finish or limit" },
+    bex: { n: "Budget-exhausted", tag: "book", m: "Every allowed turn was used" },
+    errobs: { n: "Error observation", tag: "book", m: "Result for a name the loop does not allow" },
+    reason: { n: "Stop reason", tag: "book", m: "Why the run ended, read from status and budget" },
+    layers: { n: "Status versus evidence", tag: "book", m: "Finished describes the loop, not the answer" },
+    outcome: { n: "Outcome check", tag: "book", m: "A check outside the controller against the record" },
+    activity: { n: "Activity versus progress", tag: "book", m: "A longer trace is not more support" },
+    detector: { n: "Repetition detector", tag: "book", m: "A rule that flags or stops on a repeat" },
+    gate: { n: "Gate and exit table", tag: "book", m: "Exits and checks written before any code runs" },
+    signoff: { n: "Sign-off", tag: "book", m: "A closing claim from your own record" },
+    twostops: { n: "Two stops", tag: "book", m: "Ending the run versus closing the task" }
+  };
+  function note(svg, ey, text) { wrap(svg.append("g"), 800, ey + 36, text, 46, { size: 28, lh: 36, fill: INK }); }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function arw(g, x1, y1, x2, y2, col, dash) {
+    var c = col || INK, a = Math.atan2(y2 - y1, x2 - x1), s = 13;
+    var l = g.append("path").attr("d", "M" + x1 + "," + y1 + "L" + x2 + "," + y2).attr("stroke", c).attr("stroke-width", 3).attr("fill", "none");
+    if (dash) l.attr("stroke-dasharray", dash);
+    g.append("path").attr("d", "M" + x2 + "," + y2 + "L" + (x2 - s * Math.cos(a - 0.45)) + "," + (y2 - s * Math.sin(a - 0.45)) + "L" + (x2 - s * Math.cos(a + 0.45)) + "," + (y2 - s * Math.sin(a + 0.45)) + "Z").attr("fill", c);
+  }
+  function slot(g, x, y, w, h, s, st) {
+    var r = box(g, x, y, w, h, { stroke: st === "free" ? GREY : st === "hot" ? RED : INK, sw: st === "free" ? 1.5 : 3, fill: st === "used" ? INK : st === "hot" ? RED : "#FFFFFF" });
+    if (st === "free") r.attr("stroke-dasharray", "6 5");
+    txt(g, x + w / 2, y + h / 2 + 8, s, { size: 24, anchor: "middle", weight: 700, fill: (st === "used" || st === "hot") ? "#FFFFFF" : MUTED });
+    return r;
+  }
+
+  /* ---- a port of the chapter's reference controller (offline, scripted policy) ----
+     policy is {list:[actions]} or {rep: action} (endless). Returns status, answer, trace and the turns used. */
+  function ctl(policy, rec, max) {
+    var trace = [];
+    for (var turn = 0; turn < max; turn++) {
+      var a = policy.rep ? policy.rep : policy.list[turn];
+      if (a === undefined) return { status: "incomplete", trace: trace, used: turn };
+      if (a.name === "finish") return { status: "finished", answer: a.answer === undefined ? "" : a.answer, trace: trace, used: turn + 1 };
+      var o = a.name === "lookup" ? (Object.prototype.hasOwnProperty.call(rec, a.key) ? rec[a.key] : "not found") : "error: tool not allowed";
+      trace.push({ turn: turn + 1, action: a.name, observation: o });
+    }
+    return { status: "budget-exhausted", trace: trace, used: max };
+  }
+  var REC = { color: "blue" };
+  var LK = { name: "lookup", key: "color" };
+  function uniq(a) { return a.filter(function (v, i) { return a.indexOf(v) === i; }); }
+
+  var MAPROWS = [
+    ["Who does what", "agent loop, policy, model-backed policy, controller, dispatcher, lookup environment", "The parts of the loop and who owns each one"],
+    ["What gets recorded", "action, turn, observation, trace, state update, error observation", "What happens on each pass, and what is kept"],
+    ["How the run ends", "stop condition, turn budget, unit of the budget, finished, incomplete, budget-exhausted, stop reason", "The exits and what each one says"],
+    ["Judging the result", "status versus evidence, outcome check, activity versus progress, repetition detector, gate and exit table, sign-off, two stops", "How you know the answer is supported, and who signs"]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four groups of agent-loop terms", "A table with four rows: group, terms, what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "26 terms from Chapter 4. Every one is about who ends an agent's run, and what the ending is allowed to mean.", 96, { size: 28, lh: 38, fill: INK });
+    var cx = [0, 380, 1010];
+    ["GROUP", "TERMS", "WHAT IT IS ABOUT"].forEach(function (h, i) { lab(g, cx[i] + 18, 152, h); });
+    g.append("path").attr("d", "M0,168 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    MAPROWS.forEach(function (r, i) {
+      if (i + 1 > k) return;
+      var y = 184 + i * 118, row = g.append("g");
+      box(row, 0, y, 1400, 106, { stroke: FAMILIAR });
+      row.append("rect").attr("x", 0).attr("y", y).attr("width", 10).attr("height", 107).attr("fill", RED);
+      wrap(row, cx[0] + 28, y + 44, r[0], 22, { size: 26, lh: 30, weight: 700, fill: RED });
+      wrap(row, cx[1] + 18, y + 34, r[1], 50, { size: 24, lh: 30, fill: INK });
+      wrap(row, cx[2] + 18, y + 34, r[2], 30, { size: 24, lh: 30 });
+      if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    });
+    if (k === 0) cap(g, 0, 430, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. loop, policy, model-backed policy, controller ---------- */
+  function renderLoop(el, k, anim) {
+    var svg = svgFor(el, W, H, "A loop has a policy that proposes and a controller that runs and stops", "A ring of four stages with a dot travelling round. Then a list of actions read one per turn, a scripted and a model-backed policy side by side, and three owners: policy, controller and a judge.");
+    var ey = base(svg, [{ id: "loop", s: 1 }, { id: "policy", s: 2 }, { id: "mpolicy", s: 3 }, { id: "ctrl", s: 4 }], k, anim, ["Policy", "proposes the next action"], ["Controller", "runs it and owns the stops"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 30, "ONE LAP OF THE LOOP IS ONE TURN");
+      var ST = ["Propose", "Dispatch", "Record", "Continue?"], cx = 380, cy = 280, R = 185;
+      d.append("circle").attr("cx", cx).attr("cy", cy).attr("r", R).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 3).attr("stroke-dasharray", "8 6");
+      ST.forEach(function (s, i) { var a = -Math.PI / 2 + i * Math.PI / 2, x = cx + R * Math.cos(a), y = cy + R * Math.sin(a); box(d, x - 80, y - 28, 160, 56, { stroke: i === 0 ? RED : INK, sw: 2.5 }); cap(d, x, y + 8, s, { size: 24, anchor: "middle", weight: 700 }); });
+      var dot = d.append("circle").attr("r", 11).attr("fill", RED), lap = cap(d, cx, cy + 10, "", { size: 26, weight: 700, anchor: "middle" });
+      run(d, 6000, function (t) { var a = -Math.PI / 2 + t * 2 * Math.PI; dot.attr("cx", cx + R * Math.cos(a)).attr("cy", cy + R * Math.sin(a)); lap.text("turn " + Math.min(4, Math.floor(t * 4) + 1)); }, k === 1 && anim);
+      cap(d, 0, 552, "The loop repeats until a stop condition ends it.", { size: 24, fill: MUTED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "A SCRIPTED POLICY (ILLUSTRATIVE LIST)");
+      var AC = ['{"name": "lookup", "key": "color"}', '{"name": "lookup", "key": "color"}', '{"name": "finish", "answer": "red"}'];
+      AC.forEach(function (a, i) { box(d, 0, 60 + i * 80, 560, 56, { stroke: INK, sw: 2.5 }); mono(d, 16, 96 + i * 80, a, { size: 24 }); });
+      var ptr = d.append("g"); txt(ptr, 584, 0, "← next", { size: 24, weight: 700, fill: RED });
+      run(d, 3000, function (t) { var i = Math.min(2, Math.floor(t * 3)); ptr.attr("transform", "translate(0," + (96 + i * 80) + ")"); }, anim);
+      cap(d, 0, 350, "The controller reads one item per turn.", { size: 24, weight: 700 });
+      cap(d, 0, 390, "Nothing feeds an observation back, so the list never changes.", { size: 24, fill: MUTED });
+    } else if (k === 3) {
+      lab(d, 0, 36, "SCRIPTED POLICY");
+      box(d, 0, 56, 200, 60, { stroke: INK, sw: 2.5 }); cap(d, 100, 94, "a list", { size: 24, anchor: "middle", weight: 700 });
+      arw(d, 200, 86, 330, 86); box(d, 330, 56, 230, 60, { stroke: RED, sw: 3 }); cap(d, 445, 94, "controller", { size: 24, anchor: "middle", weight: 700 });
+      cap(d, 590, 94, "no way back", { size: 24, fill: MUTED });
+      lab(d, 0, 186, "MODEL-BACKED POLICY");
+      box(d, 0, 206, 200, 60, { stroke: INK, sw: 2.5 }); cap(d, 100, 244, "a model", { size: 24, anchor: "middle", weight: 700 });
+      arw(d, 200, 236, 330, 236); box(d, 330, 206, 230, 60, { stroke: RED, sw: 3 }); cap(d, 445, 244, "controller", { size: 24, anchor: "middle", weight: 700 });
+      d.append("path").attr("d", "M445,266 V330 H100 V280").attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 3).attr("stroke-dasharray", "8 6");
+      arw(d, 100, 300, 100, 270, GREY);
+      cap(d, 270, 372, "observations, by a route someone defines", { size: 24, anchor: "middle", fill: MUTED });
+      wrap(d, 0, 450, "The budget and the stop stay in the controller, not in whatever supplies the actions.", 60, { size: 24, lh: 32, weight: 700, fill: RED });
+    } else {
+      lab(d, 0, 30, "THREE JOBS, THREE OWNERS");
+      [["Policy", "proposes the next action", INK, null], ["Controller", "dispatches, records, owns the budget and the stop", RED, null], ["Someone else", "judges the result: absent in this reference", GREY, "6 5"]].forEach(function (r, i) {
+        var y = 56 + i * 170, g = d.append("g"), b = box(g, 0, y, 740, 120, { stroke: r[2], sw: 3 }); if (r[3]) b.attr("stroke-dasharray", r[3]);
+        cap(g, 20, y + 44, r[0], { size: 28, weight: 700, fill: r[2] === GREY ? MUTED : r[2] });
+        wrap(g, 20, y + 86, r[1], 60, { size: 24, fill: BODY });
+        if (i < 2) arw(g, 370, y + 122, 370, y + 166, INK);
+        fade(g, A(anim, k, 4), i * 300);
+      });
+    }
+    note(svg, ey, ["", "Each lap is one turn: an action is proposed, dispatched, recorded, then the loop goes on or stops.", "The policy only supplies actions. Here it is a prepared list, so no observation changes the next one.", "A model could be the policy. It is a new source of actions and still must not rewrite the runtime's limits.", "The controller proposes nothing and judges nothing. Judging the result is a third job, and nothing here does it."][k]);
+  }
+
+  /* ---------- 2. action, environment, dispatcher, error observation ---------- */
+  function renderDisp(el, k, anim) {
+    var svg = svgFor(el, W, H, "A dispatcher turns each action into an observation using fixed records", "Three actions go through a dispatcher: a lookup that finds blue, a lookup that finds nothing, and an unknown action that returns an error.");
+    var ey = base(svg, [{ id: "action", s: 1 }, { id: "env", s: 2 }, { id: "disp", s: 3 }, { id: "errobs", s: 4 }], k, anim, ["Action", "what the policy asks for"], ["Observation", "what came back"]);
+    var d = svg.append("g");
+    var ACT = [{ name: "lookup", key: "color" }, { name: "lookup", key: "size" }, { name: "shell" }];
+    var OB = ACT.map(function (a) { return ctl({ list: [a] }, REC, 1).trace[0].observation; });
+    lab(d, 0, 30, k >= 3 ? "ACTION → DISPATCHER → OBSERVATION" : "ACTIONS THE POLICY SENDS");
+    ACT.forEach(function (a, i) {
+      var y = 60 + i * 90, g = d.append("g"), hot = k >= 4 && i === 2;
+      box(g, 0, y, 205, 60, { stroke: hot ? RED : INK, sw: 2.5 }); mono(g, 14, y + 38, a.name + (a.key ? " " + a.key : ""), { size: 24, fill: hot ? RED : INK, weight: 700 });
+      if (k >= 3) {
+        arw(g, 205, y + 30, 232, y + 30); arw(g, 370, y + 30, 410, y + 30);
+        box(g, 410, y, 350, 60, { stroke: hot ? RED : INK, sw: hot ? 3 : 1.5 }); cap(g, 424, y + 38, OB[i], { size: 24, weight: 700, fill: hot ? RED : INK });
+      }
+      fade(g, k >= 1 && A(anim, k, 1), i * 200);
+    });
+    if (k >= 3) { box(d, 230, 60, 140, 240, { stroke: INK, sw: 3, fill: TINT }); cap(d, 300, 186, "dispatch", { size: 24, anchor: "middle", weight: 700 }); }
+    if (k >= 2) {
+      var r = d.append("g"); box(r, 0, 360, 560, 70, { stroke: GREY, sw: 2 }); mono(r, 16, 404, 'records = {"color": "blue"}', { size: 24 });
+      cap(r, 0, 470, "The controller reads the records and never changes them.", { size: 24, weight: 700 }); fade(r, A(anim, k, 2), 0);
+    }
+    if (k >= 4) cap(d, 0, 520, "An unknown name uses a turn and the run goes on.", { size: 24, weight: 700, fill: RED });
+    note(svg, ey, ["", "An action is a small dictionary. A lookup carries a key; a finish carries an answer.", "The records are a fixed fixture. Lookups read them and nothing writes to them.", "The dispatcher maps an action to an observation: a value, or not found when the key is missing.", "Any other name, such as shell, is never run. The observation is an error and the loop continues if a turn remains."][k]);
+  }
+
+  /* ---------- 3. turn, observation, trace, state update ---------- */
+  function renderTrace(el, k, anim) {
+    var svg = svgFor(el, W, H, "The trace keeps turn, action name and observation, not the key and not the finish", "A four-turn run drawn as a table: turn, action, observation and trace length. The finish turn returns before anything is appended.");
+    var ey = base(svg, [{ id: "turn", s: 1 }, { id: "obs", s: 2 }, { id: "trace", s: 3 }, { id: "state", s: 4 }], k, anim, ["Trace", "a log of what was dispatched"], ["Knowledge", "a claim with evidence behind it"]);
+    var d = svg.append("g");
+    var POL = [{ name: "lookup", key: "color" }, { name: "lookup", key: "size" }, { name: "shell" }, { name: "finish", answer: "blue" }];
+    var R = ctl({ list: POL }, REC, 4);
+    lab(d, 14, 40, "TURN"); lab(d, 110, 40, "ACTION"); if (k >= 2) lab(d, 260, 40, "OBSERVATION"); if (k >= 4) lab(d, 650, 40, "LEN");
+    POL.forEach(function (a, i) {
+      var y = 56 + i * 72, g = d.append("g"), fin = a.name === "finish";
+      box(g, 0, y, 740, 60, { stroke: fin && k >= 3 ? GREY : INK, sw: 2 });
+      cap(g, 14, y + 40, String(i + 1), { size: 26, weight: 700 });
+      mono(g, 110, y + 40, a.name, { size: 24, fill: fin && k >= 3 ? MUTED : INK });
+      if (k >= 2) cap(g, 260, y + 40, i < R.trace.length ? R.trace[i].observation : "returns before the append", { size: 24, fill: fin ? MUTED : INK, weight: fin ? 400 : 700 });
+      if (k >= 4) cap(g, 668, y + 40, String(Math.min(i + 1, R.trace.length)), { size: 26, weight: 700, fill: RED });
+      fade(g, k >= 1 && A(anim, k, 1), i * 200);
+    });
+    if (k >= 3) cap(d, 0, 400, "Trace: " + R.trace.length + " entries. No keys and no finish.", { size: 24, weight: 700 });
+    if (k >= 4) { cap(d, 0, 446, "Status " + R.status + ", answer " + R.answer + ". Only the trace changed.", { size: 24, fill: MUTED }); mono(d, 0, 500, 'records = {"color": "blue"}  unchanged', { size: 24 }); }
+    note(svg, ey, ["", "A turn is one pass: take one action from the policy, dispatch it, record it. Four turns here.", "The observation is what the dispatch returned: a value, not found, or an error.", "The trace holds the action name, not the key. The finish returns before any append, so it never appears.", "The state update is only the append. Records and policy stay as they were."][k]);
+  }
+
+  /* ---------- 4. stop condition, budget, unit ---------- */
+  function renderBudget(el, k, anim) {
+    var svg = svgFor(el, W, H, "A stop condition ends the run; the turn budget counts turns begun, and a finish costs one", "The exit table, then an endless lookup policy stopped by a budget of two, then a lookup and a finish under budgets of one and two.");
+    var ey = base(svg, [{ id: "stopc", s: 1 }, { id: "budget", s: 2 }, { id: "unit", s: 3 }], k, anim, ["Turn budget", "counts turns begun"], ["Timeout", "counts seconds elapsed"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 30, "THE RUN ENDS BECAUSE… (DESIGN TABLE)");
+      [["the policy has no next action", "incomplete"], ["a finish action is consumed", "finished"], ["the turn budget is spent", "budget-exhausted"], ["the budget is not a positive int", "ValueError"]].forEach(function (r, i) {
+        var y = 56 + i * 78, g = d.append("g"); box(g, 0, y, 740, 64, { stroke: INK, sw: 2 });
+        cap(g, 14, y + 41, r[0], { size: 24 }); mono(g, 726, y + 41, r[1], { size: 24, weight: 700, fill: RED, anchor: "end" });
+        fade(g, A(anim, k, 1), i * 250);
+      });
+      cap(d, 0, 400, "Written before the loop runs, so the stop is designed, not discovered.", { size: 24, weight: 700 });
+    } else if (k === 2) {
+      var R = ctl({ rep: LK }, REC, 2);
+      lab(d, 0, 30, "ENDLESS LOOKUPS, BUDGET 2");
+      for (var i = 0; i < 6; i++) { var g = d.append("g"); slot(g, i * 122, 70, 110, 70, "turn " + (i + 1), i < R.used ? "used" : "free"); fade(g, A(anim, k, 2), i * 250); }
+      cap(d, 0, 200, "Turns 1 and 2 begin. Nothing after the second begins.", { size: 24 });
+      mono(d, 0, 270, "status: " + R.status, { size: 26, weight: 700, fill: RED }); mono(d, 0, 312, "trace entries: " + R.trace.length, { size: 26, weight: 700 });
+      cap(d, 0, 380, "The policy never runs out. The budget ends the run anyway.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 30, "A LOOKUP THEN A FINISH");
+      [1, 2].forEach(function (b, i) {
+        var R = ctl({ list: [LK, { name: "finish", answer: "blue" }] }, REC, b), y = 70 + i * 190, g = d.append("g");
+        cap(g, 0, y, "budget " + b, { size: 26, weight: 700 });
+        slot(g, 0, y + 20, 160, 70, "lookup", "used"); slot(g, 180, y + 20, 160, 70, "finish", R.used >= 2 ? "hot" : "free");
+        mono(g, 370, y + 62, R.status, { size: 26, weight: 700, fill: R.status === "finished" ? INK : RED });
+        cap(g, 0, y + 124, b === 1 ? "The finish never gets a turn." : "The finish uses the second turn.", { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 3), i * 400);
+      });
+      cap(d, 0, 470, "The unit counts actions taken, and the terminal action counts too.", { size: 24, weight: 700 });
+    }
+    note(svg, ey, ["", "A stop condition is a rule that ends the run. Write every one down before the loop starts.", "The budget is a positive whole number the controller owns. It bounds turns begun, not seconds.", "The unit matters. Here one count is one action, so a finish needs a turn of its own."][k]);
+  }
+
+  /* ---------- 5. three exits and the stop reason ---------- */
+  function renderExits(el, k, anim) {
+    var svg = svgFor(el, W, H, "Finished, incomplete and budget-exhausted are three different exits", "Three runs of the controller with their status and trace length, then two runs with the same trace and different statuses.");
+    var ey = base(svg, [{ id: "finished", s: 1 }, { id: "incomplete", s: 2 }, { id: "bex", s: 3 }, { id: "reason", s: 4 }], k, anim, ["Incomplete", "the policy ran out first"], ["Budget-exhausted", "the turns ran out first"]);
+    var d = svg.append("g");
+    var C = [
+      ["a lookup, then finish blue (budget 4)", ctl({ list: [LK, { name: "finish", answer: "blue" }] }, REC, 4)],
+      ["one lookup, then no more actions (budget 4)", ctl({ list: [LK] }, REC, 4)],
+      ["the same lookup repeated (budget 2)", ctl({ rep: LK }, REC, 2)]
+    ];
+    function card(g, y, t1, R, hot) {
+      box(g, 0, y, 740, 112, { stroke: hot ? RED : INK, sw: 3 }); cap(g, 16, y + 38, t1, { size: 24 });
+      mono(g, 16, y + 82, R.status + " · " + (R.status === "finished" ? "answer " + R.answer + " · " : "") + "trace " + R.trace.length, { size: 24, weight: 700, fill: hot ? RED : INK });
+    }
+    if (k <= 3) {
+      lab(d, 0, 30, "THREE RUNS, THREE STATUSES (COMPUTED)");
+      C.forEach(function (c, i) { if (i + 1 > k) return; var g = d.append("g"); card(g, 50 + i * 130, c[0], c[1], i + 1 === k); fade(g, A(anim, k, i + 1), 0); });
+    } else {
+      lab(d, 0, 30, "SAME TRACE, DIFFERENT STOP");
+      [4, 1].forEach(function (b, i) { var g = d.append("g"), R = ctl({ list: [LK] }, REC, b); card(g, 50 + i * 130, "one lookup, then no more actions (budget " + b + ")", R, i === 1); fade(g, A(anim, k, 4), i * 400); });
+      cap(d, 0, 350, "Trace length cannot tell them apart.", { size: 24, weight: 700 });
+      cap(d, 0, 390, "The status and the configured budget can.", { size: 24, weight: 700, fill: RED });
+    }
+    note(svg, ey, ["", "Finished records that a finish action arrived. It does not say the answer is supported.", "Incomplete: the action list ended before a finish and before the budget was spent.", "Budget-exhausted: every turn was used. It does not say the policy had nothing more to propose.", "With budget 1 the loop never asks for another action, so it never learns the policy has ended."][k]);
+  }
+
+  /* ---------- 6. finished is not correct ---------- */
+  function renderLayers(el, k, anim) {
+    var svg = svgFor(el, W, H, "Finished at the control-flow layer, contradicted at the evidence layer, and a checker that reads the task", "A finish of red after a lookup of blue. Then a comparison against the record shows a mismatch. Then two checkers on a run that looked up the wrong key.");
+    var ey = base(svg, [{ id: "layers", s: 1 }, { id: "outcome", s: 2 }], k, anim, ["Finished", "the controller returned"], ["Correct", "the answer matches the record"]);
+    var d = svg.append("g");
+    if (k <= 2) {
+      var R = ctl({ list: [LK, { name: "finish", answer: "red" }] }, REC, 4), ok = R.answer === REC.color;
+      lab(d, 0, 30, "FINISH(RED) AFTER A LOOKUP OF BLUE");
+      var g1 = d.append("g"); box(g1, 0, 50, 740, 160, { stroke: INK, sw: 3 }); lab(g1, 16, 88, "CONTROL-FLOW LAYER", { fill: INK });
+      mono(g1, 16, 128, "status: " + R.status, { size: 24, weight: 700 }); mono(g1, 16, 164, "answer: " + R.answer + " · trace: " + R.trace.length + " entry (blue)", { size: 24 }); cap(g1, 16, 198, "accurate: a finish arrived", { size: 24, fill: MUTED });
+      var g2 = d.append("g"); box(g2, 0, 250, 740, 170, { stroke: k >= 2 ? RED : GREY, sw: 3 }); lab(g2, 16, 288, "EVIDENCE LAYER", { fill: k >= 2 ? RED : MUTED });
+      if (k === 1) { cap(g2, 16, 338, "No check has run yet.", { size: 24, fill: MUTED }); }
+      else { mono(g2, 16, 328, 'records["color"] = blue', { size: 24 }); mono(g2, 16, 364, "answer " + R.answer + " ≠ " + REC.color + ": " + (ok ? "match" : "mismatch"), { size: 24, weight: 700, fill: RED }); cap(g2, 16, 402, "The controller status is still " + R.status + ".", { size: 24, fill: MUTED }); fade(g2, A(anim, k, 2), 0); }
+      if (k >= 2) cap(d, 0, 480, "Two accurate labels at two layers.", { size: 24, weight: 700 });
+    } else {
+      var P = ctl({ list: [{ name: "lookup", key: "shade" }, { name: "finish", answer: "not found" }] }, REC, 4), last = P.trace[P.trace.length - 1].observation;
+      lab(d, 0, 30, "TASK: WHAT IS THE COLOR RECORD?");
+      var r0 = d.append("g"); box(r0, 0, 50, 740, 110, { stroke: INK, sw: 2 }); mono(r0, 16, 92, "lookup shade, finish not found", { size: 24 }); mono(r0, 16, 134, "status: " + P.status + ", answer: " + P.answer, { size: 24, weight: 700 });
+      var c1 = d.append("g"); box(c1, 0, 190, 740, 130, { stroke: INK, sw: 2 }); cap(c1, 16, 228, "Checker 1 reads the last observation", { size: 24, weight: 700 });
+      cap(c1, 16, 268, "answer " + P.answer + " = " + last + ": pass", { size: 24 }); cap(c1, 16, 304, "It passes a wrong answer.", { size: 24, weight: 700, fill: RED });
+      var c2 = d.append("g"); box(c2, 0, 350, 740, 130, { stroke: RED, sw: 3 }); cap(c2, 16, 388, "Checker 2 reads the key the task names", { size: 24, weight: 700, fill: RED });
+      cap(c2, 16, 428, "records[color] = " + REC.color + " ≠ " + P.answer + ": mismatch", { size: 24 }); cap(c2, 16, 464, "It catches it.", { size: 24, weight: 700 });
+      fade(c1, A(anim, k, 3), 0); fade(c2, A(anim, k, 3), 600);
+      cap(d, 0, 540, "The check reads the task, not the trace.", { size: 24, weight: 700 });
+    }
+    note(svg, ey, ["", "Finished is true of the loop. Whether the answer follows from the records is a second, separate question.", "The check compares the answer with the record. It reports the mismatch and leaves the status alone.", "A checker must read the key the task names, not the key the policy happened to look up."][k]);
+  }
+
+  /* ---------- 7. activity, progress, repetition ---------- */
+  function renderActivity(el, k, anim) {
+    var svg = svgFor(el, W, H, "A longer trace is activity, not progress; a repetition detector can end a run too early", "A line chart of trace length against distinct values for a repeated lookup. Then a repeat detector firing at turn 2, and a detector that fires too early.", false);
+    var ey = base(svg, [{ id: "activity", s: 1 }, { id: "detector", s: 2 }], k, anim, ["Activity", "entries added to the trace"], ["Progress", "more support for the answer"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      var N = 6, len = [0], dist = [0];
+      for (var t = 1; t <= N; t++) { var Rr = ctl({ rep: LK }, REC, t); len.push(Rr.trace.length); dist.push(uniq(Rr.trace.map(function (e) { return e.observation; })).length); }
+      var X = function (v) { return 70 + v * 100; }, Y = function (v) { return 410 - v * 50; };
+      lab(d, 0, 30, "SAME LOOKUP REPEATED, 6 TURNS");
+      d.append("rect").attr("x", 90).attr("y", 52).attr("width", 28).attr("height", 8).attr("fill", INK); cap(d, 128, 62, "trace entries: " + len[N], { size: 24 });
+      d.append("rect").attr("x", 420).attr("y", 52).attr("width", 28).attr("height", 8).attr("fill", RED); cap(d, 458, 62, "distinct values: " + dist[N], { size: 24, fill: RED });
+      d.append("path").attr("d", "M70," + Y(0) + " H" + X(6) + " M70," + Y(0) + " V" + Y(6)).attr("stroke", INK).attr("stroke-width", 2).attr("fill", "none");
+      [0, 2, 4, 6].forEach(function (v) { cap(d, 52, Y(v) + 8, String(v), { size: 24, anchor: "end" }); });
+      d3.range(1, N + 1).forEach(function (v) { cap(d, X(v), 448, String(v), { size: 24, anchor: "middle" }); });
+      cap(d, 370, 490, "turn", { size: 24, anchor: "middle", fill: MUTED });
+      var line = d3.line().x(function (v, i) { return X(i); }).y(function (v) { return Y(v); });
+      var p1 = d.append("path").attr("d", line(len)).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 4), p2 = d.append("path").attr("d", line(dist)).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      if (A(anim, k, 1)) { drawIn(p1, 0, 2200); drawIn(p2, 0, 2200); }
+      len.forEach(function (v, i) { if (i) d.append("circle").attr("cx", X(i)).attr("cy", Y(v)).attr("r", 5).attr("fill", INK); });
+      cap(d, 0, 545, "Each lookup succeeds and is logged. The task gets no closer.", { size: 24, weight: 700 });
+    } else {
+      var seen = {}, fireA = -1;
+      d3.range(6).forEach(function (i) { var key = "lookup|color"; if (seen[key] && fireA < 0) fireA = i + 1; seen[key] = 1; });
+      if (k === 2) {
+        lab(d, 0, 30, "RULE: SAME NAME AND KEY SEEN BEFORE");
+        for (var i = 0; i < 6; i++) { var g = d.append("g"); slot(g, i * 122, 70, 110, 70, "turn " + (i + 1), i + 1 < fireA ? "used" : i + 1 === fireA ? "hot" : "free"); fade(g, A(anim, k, 2), i * 220); }
+        cap(d, 0, 200, "Fires at turn " + fireA + ": lookup color again.", { size: 24, weight: 700, fill: RED });
+        cap(d, 0, 244, "The fixture does not change, so the repeat adds nothing.", { size: 24 });
+        cap(d, 0, 300, "The budget of 6 stays as the backstop.", { size: 24, fill: MUTED });
+      } else {
+        var rec2 = { color: "blue", shade: "blue", size: "large" }, POL = [LK, { name: "lookup", key: "shade" }, { name: "lookup", key: "size" }, { name: "finish", answer: "blue" }];
+        var R2 = ctl({ list: POL }, rec2, 4), fire = -1; R2.trace.forEach(function (e, i) { if (i && e.observation === R2.trace[i - 1].observation && fire < 0) fire = i + 1; });
+        lab(d, 0, 30, "RULE: TWO EQUAL OBSERVATIONS IN A ROW");
+        POL.forEach(function (a, i) {
+          var y = 56 + i * 70, g = d.append("g"), ran = fire < 0 || i + 1 <= fire, hot = i + 1 === fire;
+          box(g, 0, y, 740, 58, { stroke: hot ? RED : ran ? INK : GREY, sw: hot ? 3 : 2 });
+          var s = "turn " + (i + 1) + "  " + a.name + (a.key ? " " + a.key : "") + (ran && a.key ? " → " + rec2[a.key] : "");
+          mono(g, 14, y + 39, s, { size: 24, fill: ran ? INK : MUTED });
+          cap(g, 726, y + 39, hot ? "rule fires" : ran ? "" : "never ran", { size: 24, anchor: "end", weight: hot ? 700 : 400, fill: hot ? RED : MUTED });
+          fade(g, A(anim, k, 3), i * 250);
+        });
+        wrap(d, 0, 390, "Two records can share a value. A task that needs both has not repeated itself.", 55, { size: 24, lh: 32, weight: 700 });
+        cap(d, 0, 470, "The size lookup never runs.", { size: 24, fill: RED });
+      }
+    }
+    note(svg, ey, ["", "Six lookups give six entries but one distinct value. Activity grew; support did not.", "A detector needs a definition of repeat and a stated target. Name plus key suits an unchanged fixture.", "A looser rule misfires: equal values from different keys stop a run that was still useful."][k]);
+  }
+
+  /* ---------- 8. gate, sign-off, two stops ---------- */
+  function renderGate(el, k, anim) {
+    var svg = svgFor(el, W, H, "The gate and sign-off bracket the work; one stop ends the run and another closes the task", "Six parts of the gate written before any code, the five lines of a sign-off, and two stops: the controller's return and the person's acceptance.");
+    var ey = base(svg, [{ id: "gate", s: 1 }, { id: "signoff", s: 2 }, { id: "twostops", s: 3 }], k, anim, ["Ends the run", "the controller returns"], ["Closes the task", "a person accepts the result"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 30, "THE GATE, WRITTEN BEFORE ANY CODE");
+      ["Exit table: every exit and its status", "Contract: no exit makes up an answer", "A check that is not the controller", "What must pass before the output moves on", "Wrong versions the tests must catch", "What the controller may claim"].forEach(function (s, i) {
+        var y = 50 + i * 76, g = d.append("g"); box(g, 0, y, 740, 62, { stroke: INK, sw: 2 });
+        g.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 62).attr("height", 62).attr("fill", INK); cap(g, 31, y + 42, String(i + 1), { size: 28, anchor: "middle", weight: 700, fill: "#FFFFFF" });
+        cap(g, 82, y + 41, s, { size: 26 }); fade(g, A(anim, k, 1), i * 250);
+      });
+      cap(d, 0, 540, "Written first. Claude is then held against it.", { size: 24, weight: 700, fill: RED });
+    } else if (k === 2) {
+      lab(d, 0, 30, "SIGN-OFF, AFTER THE RUN");
+      box(d, 0, 50, 740, 400, { stroke: INK, sw: 3 });
+      [["Checked", "exits exercised; outcome check", 0], ["How", "tests written before the reference", 0], ["Not checked", "non-dictionary actions, slow tools", 1], ["Not claiming", "that finished means supported", 0], ["Signed or withheld", "name and date", 0]].forEach(function (r, i) {
+        var y = 110 + i * 72, g = d.append("g"); cap(g, 20, y, r[0], { size: 24, weight: 700, fill: r[2] ? RED : INK }); cap(g, 270, y, r[1], { size: 24, weight: r[2] ? 700 : 400, fill: r[2] ? RED : BODY });
+        fade(g, A(anim, k, 2), i * 250);
+      });
+      wrap(d, 0, 500, "Not checked is the line an AI-written sign-off leaves out.", 60, { size: 24, lh: 32, weight: 700 });
+    } else {
+      lab(d, 0, 30, "STOP 1: ENDS THE RUN");
+      var g1 = d.append("g"); box(g1, 0, 50, 330, 80, { stroke: INK, sw: 2.5 }); cap(g1, 165, 98, "Claude requests finish", { size: 24, anchor: "middle", weight: 700 }); arw(g1, 330, 90, 410, 90); box(g1, 410, 50, 330, 80, { stroke: INK, sw: 2.5 }); cap(g1, 575, 98, "Controller returns", { size: 24, anchor: "middle", weight: 700 });
+      cap(g1, 0, 180, "Claude may take this stop.", { size: 24 }); fade(g1, A(anim, k, 3), 0);
+      var g2 = d.append("g"); lab(g2, 0, 260, "STOP 2: CLOSES THE TASK", { fill: RED });
+      box(g2, 0, 280, 330, 80, { stroke: RED, sw: 3 }); cap(g2, 165, 328, "Check against the record", { size: 24, anchor: "middle", weight: 700 }); arw(g2, 330, 320, 410, 320, RED); box(g2, 410, 280, 330, 80, { stroke: RED, sw: 3 }); cap(g2, 575, 328, "You accept or withhold", { size: 24, anchor: "middle", weight: 700, fill: RED });
+      cap(g2, 0, 410, "Only you take this stop.", { size: 24, weight: 700, fill: RED }); fade(g2, A(anim, k, 3), 700);
+    }
+    note(svg, ey, ["", "The gate comes first: exits, contract, an outside check, what may claim what. It is the part no tool should write for you.", "The sign-off comes last, from your own record. Withholding it is an honest result.", "The controller can end the run. Closing the task, by accepting the result, stays with a person."][k]);
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from the agent loop", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Finished", "The controller received a finish"], ["Correct", "A separate check found the answer matches the record"]],
+      [["Incomplete", "The policy ran out of actions first"], ["Budget-exhausted", "The turn budget ran out first"]],
+      [["Turn budget", "Counts turns begun"], ["Timeout", "Counts seconds elapsed, which this loop never does"]],
+      [["Activity", "Entries added to the trace"], ["Progress", "More support for the answer"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(60,0)"), RG = R.append("g").attr("transform", "translate(60,0)");
+      if (i === 0) {
+        var Q = ctl({ list: [LK, { name: "finish", answer: "red" }] }, REC, 4);
+        LG.append("rect").attr("x", 20).attr("y", 200).attr("width", 320).attr("height", 80).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); mono(LG, 40, 250, "status: " + Q.status, { size: 24, weight: 700 }); if (t > 0.4) check(LG, 310, 232, 14, INK);
+        RG.append("rect").attr("x", 20).attr("y", 200).attr("width", 320).attr("height", 80).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); mono(RG, 40, 250, "red vs blue", { size: 24, weight: 700 }); if (t > 0.4) cross(RG, 310, 232, 14, RED);
+        cap(LG, 20, 330, "answer red after a blue lookup", { size: 24, fill: MUTED }); cap(RG, 20, 330, "red ≠ blue: not correct", { size: 24, fill: MUTED });
+      } else if (i === 1) {
+        var Ra = ctl({ list: [LK] }, REC, 4), Rb = ctl({ list: [LK] }, REC, 1);
+        slot(LG, 20, 180, 66, 60, "t1", t > 0.2 ? "used" : "free"); [1, 2, 3].forEach(function (j) { slot(LG, 20 + j * 76, 180, 66, 60, "t" + (j + 1), "free"); });
+        slot(RG, 20, 180, 66, 60, "t1", t > 0.2 ? "used" : "free"); RG.append("rect").attr("x", 98).attr("y", 170).attr("width", 8).attr("height", 80).attr("fill", RED);
+        if (t > 0.6) { mono(LG, 20, 300, Ra.status, { size: 24, weight: 700 }); mono(RG, 20, 300, Rb.status, { size: 24, weight: 700, fill: RED }); }
+        cap(LG, 20, 340, "turns left, nothing to take", { size: 24, fill: MUTED }); cap(RG, 20, 340, "no turns left: budget 1", { size: 24, fill: MUTED });
+      } else if (i === 2) {
+        slot(LG, 20, 190, 120, 70, "turn 1", "used"); slot(LG, 160, 190, 120, 70, "turn 2", t > 0.5 ? "used" : "free"); cap(LG, 20, 330, "2 of 2 turns begun", { size: 24, fill: MUTED });
+        RG.append("rect").attr("x", 20).attr("y", 210).attr("width", 300 * t).attr("height", 40).attr("fill", RED); cap(RG, 20, 330, "a blocked call: " + (t * 60).toFixed(0) + " s and counting", { size: 24, fill: MUTED });
+      } else {
+        var Rc = ctl({ rep: LK }, REC, 6), nd = uniq(Rc.trace.map(function (e) { return e.observation; })).length;
+        d3.range(6).forEach(function (j) { LG.append("rect").attr("x", 20 + j * 52).attr("y", 200).attr("width", 40).attr("height", 40).attr("fill", INK).attr("opacity", j / 6 < t ? 1 : 0.15); RG.append("rect").attr("x", 20 + j * 52).attr("y", 200).attr("width", 40).attr("height", 40).attr("fill", j < nd ? RED : "#FFFFFF").attr("stroke", j < nd ? RED : INK).attr("stroke-width", 2).attr("opacity", j / 6 < t ? 1 : 0.15); });
+        cap(LG, 20, 330, Rc.trace.length + " entries logged", { size: 24, fill: MUTED }); cap(RG, 20, 330, nd + " distinct value seen", { size: 24, fill: MUTED });
+      }
+    }
+    if (k === 0) { draw(0, 0.5); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  var SAY = [
+    { v: "make sure it cannot loop forever", x: "Set max_turns to 2 before the run; endless lookups end as budget-exhausted, 2 entries" },
+    { v: "make sure the answer is right", x: "Compare the finished answer with records[\"color\"], not with the last observation" },
+    { v: "find out why it stopped", x: "Record status and budget: one lookup is incomplete at budget 4, budget-exhausted at 1" },
+    { v: "stop it if it goes in circles", x: "Flag a repeated name and key at the second lookup, and keep max_turns as the backstop" },
+    { v: "let it use whatever tools it needs", x: "Dispatch only lookup and finish; any other name gives error: tool not allowed and costs a turn" }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague requests about an agent loop turned into precise ones", "Five rows with a vague request and an exact instruction. On the right, a computed chart of what the exact instruction does.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague request gets a guess. An exact one gets what you meant.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five requests into instructions.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE INSTRUCTION DOES", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    if (k === 1) {
+      var R1 = ctl({ rep: LK }, REC, 2);
+      for (var i = 0; i < 6; i++) { var s = p.append("g"); slot(s, 14 + i * 102, 60, 94, 66, "t" + (i + 1), i < R1.used ? "used" : "free"); fade(s, anim, i * 200); }
+      mono(p, 14, 190, "status: " + R1.status, { size: 24, weight: 700, fill: RED }); mono(p, 14, 232, "trace entries: " + R1.trace.length, { size: 24 }); nt = "the loop ends at turn 2";
+    } else if (k === 2) {
+      var R2 = ctl({ list: [LK, { name: "finish", answer: "red" }] }, REC, 4);
+      cap(p, 14, 70, "finished answer: " + R2.answer, { size: 24 }); cap(p, 14, 120, "records[color]: " + REC.color, { size: 24 });
+      var c = p.append("g"); cap(c, 14, 190, R2.answer === REC.color ? "match" : "mismatch", { size: 28, weight: 700, fill: RED }); cap(c, 14, 236, "status stays " + R2.status, { size: 24, fill: MUTED }); fade(c, anim, 500); nt = "two layers, two labels";
+    } else if (k === 3) {
+      [4, 1].forEach(function (b, i) { var R3 = ctl({ list: [LK] }, REC, b), s = p.append("g"); cap(s, 14, 70 + i * 100, "budget " + b + ", one lookup", { size: 24 }); mono(s, 14, 110 + i * 100, R3.status + ", trace " + R3.trace.length, { size: 24, weight: 700, fill: i ? RED : INK }); fade(s, anim, i * 400); });
+      nt = "same trace, different stop";
+    } else if (k === 4) {
+      var fire = 2;
+      for (var j = 0; j < 6; j++) { var s4 = p.append("g"); slot(s4, 14 + j * 102, 60, 94, 66, "t" + (j + 1), j + 1 < fire ? "used" : j + 1 === fire ? "hot" : "free"); fade(s4, anim, j * 200); }
+      cap(p, 14, 190, "flag at turn " + fire + ": lookup color again", { size: 24, weight: 700, fill: RED }); cap(p, 14, 232, "backstop: max_turns 6", { size: 24, fill: MUTED }); nt = "the flag comes first, the budget stays";
+    } else {
+      var R5 = ctl({ list: [{ name: "shell" }, LK, { name: "finish", answer: "blue" }] }, REC, 4);
+      R5.trace.forEach(function (e, i) { var s5 = p.append("g"); mono(s5, 14, 70 + i * 60, "turn " + e.turn + "  " + e.action, { size: 24 }); cap(s5, 300, 70 + i * 60, e.observation, { size: 24, weight: 700, fill: e.action === "shell" ? RED : INK }); fade(s5, anim, i * 400); });
+      mono(p, 14, 230, "status: " + R5.status + ", trace " + R5.trace.length, { size: 24, weight: 700 }); nt = "the unknown name used turn 1";
+    }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Who chose the budget and its unit before the run?",
+    "Which exit ended it: finished, incomplete or budget-exhausted?",
+    "Did a check outside the controller read the task's record?",
+    "Is the trace long from progress, or only from activity?",
+    "What useful run would my repetition rule stop?",
+    "Which stop did Claude take, and which did I take?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before you trust a run that says finished", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 42, c, 78, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Then say it exactly: not “check it finished”, but “compare the answer with records[color]”.", { size: 28, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, loop: { steps: 4, render: renderLoop }, disp: { steps: 4, render: renderDisp },
+    trace: { steps: 4, render: renderTrace }, budget: { steps: 3, render: renderBudget }, exits: { steps: 4, render: renderExits },
+    layers: { steps: 3, render: renderLayers }, activity: { steps: 3, render: renderActivity }, gate: { steps: 3, render: renderGate },
+    pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay }, closing: { steps: 6, render: renderClosing }
+  };
+
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

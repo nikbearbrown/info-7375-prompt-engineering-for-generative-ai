@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MCP from scratch | INFO 7375 Prompt Engineering terminology deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="INFO 7375 Prompt Engineering terminology: MCP from scratch">
+  <div id="deck">
+
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="MCP from scratch">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">INFO 7375 · Terminology · Chapter 8</p>
+      <h1 class="t-opening rise g2">MCP from scratch</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Terms for tracing one connection and deciding whether to trust it</p>
+      <div class="speaker-notes" hidden><p>29 terms from Chapter 8. Tags: in the book text means the chapter uses and explains the term; in the glossary means a row of the course exam-term list that the chapter does not explain (JSON-RPC). The server animations run a port of the lesson server from lessons/08-mcp-from-scratch/code/main.py.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty-nine terms in four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Map</p>
+      <h2 class="t-chart">Twenty-nine terms in four groups</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8; exam-term list.</p>
+      <div class="speaker-notes" hidden><p>Four groups, one per click.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="MCP, the host and the four parties">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The connection</p>
+      <h2 class="t-chart">MCP, the host and the four parties</h2>
+      <div class="diagram build" data-build="parties" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Four parties and one decision”.</p>
+      <div class="speaker-notes" hidden><p>The chapter names four parties: server, host, Claude or a workflow around it, and people and policies. MCP supplies only the communication structure.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="State machine, lifecycle and history">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Parties and order</p>
+      <h2 class="t-chart">State machine, lifecycle and history</h2>
+      <div class="diagram build" data-build="state" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Initialization is a state transition”; “History is part of the protocol”.</p>
+      <div class="speaker-notes" hidden><p>The three reachable states are found by trying message sequences against the ported server. The replies in step three are computed from the same server.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Initialize, notification and readiness">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Parties and order</p>
+      <h2 class="t-chart">Initialize, notification and readiness</h2>
+      <div class="diagram build" data-build="init" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Initialization is a state transition”; “The initialize exchange”.</p>
+      <div class="speaker-notes" hidden><p>Version 2025-11-25, the lack of a reply to the notification and the flags are produced by running the ported server.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Listing tools, schemas and calls">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Messages and errors</p>
+      <h2 class="t-chart">Listing tools, schemas and calls</h2>
+      <div class="diagram build" data-build="tools" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Discovery reveals a declared capability”; “Requests, identifiers, and tool results”.</p>
+      <div class="speaker-notes" hidden><p>Every reply on this slide is computed by the ported server, including the four argument checks.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="JSON-RPC, ids and the two kinds of error">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Messages and errors</p>
+      <h2 class="t-chart">JSON-RPC, ids and the two kinds of error</h2>
+      <div class="diagram build" data-build="msgs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Requests, identifiers, and tool results”; “History is part of the protocol”; exam-term list (JSON-RPC).</p>
+      <div class="speaker-notes" hidden><p>Replies and codes come from the ported server. JSON-RPC is a glossary row only; the chapter uses the format without defining it.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Compatible is not authorized">
+      <div class="rule"></div>
+      <span class="evidence">Simulation</span>
+      <p class="eyebrow">Trust is separate</p>
+      <h2 class="t-chart">Compatible is not authorized</h2>
+      <div class="diagram build" data-build="trust" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, opening; “Compatibility is not authorized”.</p>
+      <div class="speaker-notes" hidden><p>Both servers share one protocol handler, so their transcripts are equal by construction. Server B stands for the chapter’s write-capable candidate, which is hypothetical and never run.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="A description is the server’s own claim">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Trust is separate</p>
+      <h2 class="t-chart">A description is the server’s own claim</h2>
+      <div class="diagram build" data-build="desc" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Discovery reveals a declared capability”.</p>
+      <div class="speaker-notes" hidden><p>The word-overlap score is a toy to show that wording can steer a choice; it is not how Claude chooses. save_report is the chapter’s hypothetical write tool.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Valid content is not true content">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Trust is separate</p>
+      <h2 class="t-chart">Valid content is not true content</h2>
+      <div class="diagram build" data-build="launder" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Laundering: valid transport, borrowed authority”.</p>
+      <div class="speaker-notes" hidden><p>505B Dana Hall is an invented wrong value for the stale-fixture exercise. The cue counts are illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The gate and the four ledgers">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The gate</p>
+      <h2 class="t-chart">The gate and the four ledgers</h2>
+      <div class="diagram build" data-build="ledgers" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Four ledgers for one connection decision”; “The gate: write the connection decision before you connect”.</p>
+      <div class="speaker-notes" hidden><p>The three wrong servers are the chapter’s constructed examples. The claim list is illustrative.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Look-alike pairs">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Tell them apart</p>
+      <h2 class="t-chart">Look-alike pairs</h2>
+      <div class="diagram build" data-build="pairs" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8.</p>
+      <div class="speaker-notes" hidden><p>Compatible and authorized, protocol error and tool error, initialize and initialized, what it says and what it does.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Say it exactly">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Vague request, exact instruction</p>
+      <h2 class="t-chart">Say it exactly</h2>
+      <div class="diagram build" data-build="say" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “Build It”; “Use It”; “Ship It”.</p>
+      <div class="speaker-notes" hidden><p>Five requests and exact versions. Test results come from running the lesson tests on a reference server and on a ready-on-initialize copy, as the chapter describes.</p></div>
+    </section>
+
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Before you connect a server">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Before you connect a server</h2>
+      <div class="diagram build" data-build="closing" style="flex-basis:700px"></div>
+      <p class="source">Source: Chapter 8, “What you can now trace”.</p>
+      <div class="speaker-notes" hidden><p>Six checks.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= review-deck helpers ================= */
+  var W = 1400, H = 700;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function tweenNum(sel, from, to, fmt, delay, dur) {
+    sel.text(fmt(from)).transition().delay(delay || 0).duration(dur || 1000).ease(d3.easeCubicOut)
+      .tween("text", function () { var it = d3.interpolate(from, to), node = this; return function (t) { node.textContent = fmt(it(t)); }; });
+  }
+  var pct1 = function (v) { return v.toFixed(1) + "%"; };
+  function lab(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: 700, fill: o.fill || MUTED, ls: 1.2, anchor: o.anchor }); }
+  /* wrap a string into tspans; n = characters per line (estimate) */
+  function wrap(g, x, y, s, n, o) {
+    o = o || {};
+    var size = o.size || 26, lh = o.lh || Math.round(size * 1.34), words = s.split(" "), lines = [], cur = "";
+    words.forEach(function (w) { var t = (cur ? cur + " " : "") + w; if (t.length > n && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    var t = g.append("text").attr("x", x).attr("y", y).attr("font-family", SANS).attr("font-size", size)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || BODY);
+    lines.forEach(function (l, i) { t.append("tspan").attr("x", x).attr("dy", i ? lh : 0).text(l); });
+    t.node().__h = lines.length * lh;
+    return t;
+  }
+  function box(g, x, y, w, h, o) {
+    o = o || {};
+    return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h)
+      .attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || FAMILIAR).attr("stroke-width", o.sw || 1.5);
+  }
+  function ppvOf(p, sens, spec) { return p * sens / (p * sens + (1 - p) * (1 - spec)); }
+  function sigmoid(z) { return 1 / (1 + Math.exp(-z)); }
+  function logit(c) { return Math.log(c / (1 - c)); }
+  function fmtInt(v) { return d3.format(",")(Math.round(v)); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 5).attr("stroke-linecap", "square"); }
+
+  /* ---------- small drawing helpers ---------- */
+  function run(g, dur, fn, anim, ease) {
+    if (!anim) { fn(1); return; }
+    fn(0);
+    d3.select(g.node()).transition().duration(dur).ease(ease || d3.easeLinear)
+      .tween("run", function () { return function (t) { fn(t); }; });
+  }
+  /* keyframes through the values in a, smooth between them, t in 0..1 */
+  function kf(t, a) {
+    var n = a.length - 1, s = Math.min(n - 1e-9, Math.max(0, t) * n), i = Math.floor(s);
+    return a[i] + (a[i + 1] - a[i]) * d3.easeCubicInOut(s - i);
+  }
+  function hint(svg) { wrap(svg.append("g"), 800, 44, "Click or press → to start the animation. Each click adds one idea.", 46, { size: 28, fill: MUTED }); }
+  function cap(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 26, weight: o.weight || 400, fill: o.fill || BODY, anchor: o.anchor, family: o.family }); }
+  function sgn(v, d) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d || 0); }
+
+  /* right-hand column: one glossary entry per step, with its tag; returns the y below the last entry */
+  function entries(svg, list, k, anim) {
+    var g = svg.append("g"), y = 4;
+    list.forEach(function (it) {
+      if (it.s > k) return;
+      var t = T[it.id], cur = it.s === k, e = g.append("g");
+      txt(e, 800, y + 26, t.n, { size: 26, weight: 700, fill: cur ? RED : INK });
+      var TG = { book: ["in the book text", 212], gloss: ["in the glossary", 200], video: ["video only", 150], editor: ["editor or docs", 190], web: ["outside source", 200] }[t.tag || "video"], tg = TG[0], tw_ = TG[1], fill_ = t.tag === "book";
+      e.append("rect").attr("x", 1400 - tw_ + 0.5).attr("y", y + 3.5).attr("width", tw_ - 1).attr("height", 34)
+        .attr("fill", fill_ ? INK : "none").attr("stroke", fill_ ? INK : GREY).attr("stroke-width", 1.5);
+      txt(e, 1400 - tw_ / 2, y + 28, tg, { size: 24, anchor: "middle", fill: fill_ ? "#FFFFFF" : MUTED });
+      var yy = y + 58;
+      if (t.alias) { txt(e, 800, yy, t.alias, { size: 24, fill: MUTED }); yy += 30; }
+      var w = wrap(e, 800, yy, t.m + ".", 50, { size: 24, lh: 30, fill: BODY });
+      y = yy + w.node().__h + 6;
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    return y;
+  }
+  function pairStrip(svg, a, b) {
+    var g = svg.append("g");
+    lab(g, 0, 598, "TELL THESE APART");
+    [[0, a], [740, b]].forEach(function (p, i) {
+      box(g, p[0], 612, 660, 88, { stroke: i ? RED : INK, sw: 2 });
+      txt(g, p[0] + 20, 646, p[1][0], { size: 26, weight: 700, fill: i ? RED : INK });
+      txt(g, p[0] + 20, 682, p[1][1], { size: 24, fill: BODY });
+    });
+    txt(g, 700, 664, "≠", { size: 44, weight: 700, anchor: "middle", fill: RED });
+  }
+  function base(svg, list, k, anim, a, b) { var y = entries(svg, list, k, anim); pairStrip(svg, a, b); if (k === 0) hint(svg); return y; }
+
+  /* top-down / side-view camera pieces. ang: radians, 0 = +x, y grows downward */
+  function conePath(x, y, ang, fov, len) {
+    var h = fov * DEG / 2;
+    return "M" + x + "," + y + "L" + (x + len * Math.cos(ang - h)) + "," + (y + len * Math.sin(ang - h)) +
+      "A" + len + "," + len + " 0 0 1 " + (x + len * Math.cos(ang + h)) + "," + (y + len * Math.sin(ang + h)) + "Z";
+  }
+  function cone(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", TINT).attr("fill-opacity", 0.9).attr("stroke", RED).attr("stroke-width", 2);
+  }
+  function ghost(g, x, y, ang, fov, len) {
+    g.append("path").attr("d", conePath(x, y, ang, fov, len)).attr("fill", "none").attr("stroke", GREY).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+  }
+  function camBody(g, x, y, ang) {
+    var c = g.append("g").attr("transform", "translate(" + x + "," + y + ") rotate(" + (ang / DEG) + ")");
+    c.append("rect").attr("x", -16).attr("y", -11).attr("width", 24).attr("height", 22).attr("fill", INK);
+    c.append("path").attr("d", "M8,-7 L22,-14 L22,14 L8,7Z").attr("fill", INK);
+  }
+  function inView(px, py, x, y, ang, fov, len) {
+    var dx = px - x, dy = py - y;
+    if (Math.hypot(dx, dy) > len) return false;
+    var da = Math.atan2(dy, dx) - ang; da = Math.atan2(Math.sin(da), Math.cos(da));
+    return Math.abs(da) <= fov * DEG / 2;
+  }
+  function post(g, x, y, on, r) {
+    g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 11).attr("fill", on ? RED : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+  }
+  function ptsInView(g, pts, cx, cy, ang, fov, len) {
+    var n = 0;
+    pts.forEach(function (p) { var on = inView(p[0], p[1], cx, cy, ang, fov, len); if (on) n++; post(g, p[0], p[1], on); });
+    return n;
+  }
+
+
+  /* ================= MCP from scratch (Chapter 8) ================= */
+  var GREY = "#909090";
+  /* tag: book = Chapter 8 uses and explains it; gloss = exam-term list row only */
+  var T = {
+    mcp: { n: "MCP", tag: "book", m: "A shared message structure for host and server; it chooses nothing and vouches for nothing" },
+    server: { n: "Server", tag: "book", m: "The program that offers tools and describes them" },
+    host: { n: "Host", tag: "book", m: "Software around Claude that builds requests and controls what enters context" },
+    party: { n: "Four parties", tag: "book", m: "Server, host, Claude, and the people and policies that set authority" },
+    state: { n: "State machine", tag: "book", m: "Always in one state; only certain messages move it, so history decides what is accepted" },
+    life: { n: "Lifecycle", tag: "book", m: "The fixed order of a connection: initialize, then the notification, then tool use" },
+    hist: { n: "History matters", tag: "book", m: "The same message can pass or fail depending on what came before it" },
+    initreq: { n: "Initialize request", tag: "book", m: "First message; the reply gives version and capabilities, and the server is initialized" },
+    notice: { n: "Initialized notification", tag: "book", m: "Follow-up with no id and no reply; it makes the server ready" },
+    ready: { n: "Readiness", tag: "book", m: "The state in which the server will do tool work" },
+    tlist: { n: "tools/list", tag: "book", m: "Request, once ready, for the tools that exist and what they accept" },
+    schema: { n: "Tool schema", tag: "book", m: "The input shape a tool accepts, advertised in its listing" },
+    tcall: { n: "tools/call", tag: "book", m: "Request naming a tool and its arguments; the reply is a result or an error" },
+    jrpc: { n: "JSON-RPC", tag: "gloss", m: "The message format: jsonrpc 2.0, an id, a method" },
+    rid: { n: "Request id", tag: "book", m: "Pairs each reply with its request; not truth" },
+    perr: { n: "Protocol-level error", tag: "book", m: "A reply with an error code; the tool never ran" },
+    terr: { n: "Tool error", tag: "book", m: "A result flagged isError true; the tool ran" },
+    interop: { n: "Interoperability", tag: "book", m: "Whether two programs can exchange messages both understand" },
+    authz: { n: "Authorization", tag: "book", m: "The decision whether a capability may run for this task; syntax cannot make it" },
+    capauth: { n: "Capability vs authority", tag: "book", m: "What a server can do is separate from what the task is allowed to use" },
+    selfdesc: { n: "Server self-description", tag: "book", m: "What a server says about itself is its own claim, not evidence of behavior" },
+    misdesc: { n: "Misleading description", tag: "book", m: "A description in context is more text, and can steer tool choice before any check" },
+    discovery: { n: "Discovery is not consent", tag: "book", m: "A tool seen in the listing may still be denied by the host's policy" },
+    untrusted: { n: "Untrusted content", tag: "book", m: "Text a tool returns is data; a successful reply does not make it true" },
+    launder: { n: "Laundering", tag: "book", m: "An unchecked output gains authority from the clean steps it passes through" },
+    stop: { n: "Stop rule", tag: "book", m: "A rule written into the host so a missing record is reported, not guessed" },
+    gate: { n: "Connection gate", tag: "book", m: "Written before connecting: the predicted lifecycle table and the four ledgers" },
+    ledgers: { n: "Four ledgers", tag: "book", m: "Protocol, capability, permission, evidence: four questions kept apart" },
+    etype: { n: "Evidence type", tag: "book", m: "How a claim is known: advertised, inspected, executed, independently sourced or uninspected" }
+  };
+
+  function note(svg, ey, text) { wrap(svg.append("g"), 800, ey + 36, text, 46, { size: 28, lh: 36, fill: INK }); }
+  function fade(sel, anim, delay) { if (anim) sel.attr("opacity", 0).transition().delay(delay || 0).duration(450).attr("opacity", 1); return sel; }
+  function bar(g, x, y, w, h, fill, anim, delay) { var b = g.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", fill); if (anim) b.attr("width", 0).transition().delay(delay || 0).duration(700).attr("width", w); return b; }
+  function mono(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 24, weight: o.weight || 400, fill: o.fill || INK, family: MONO, anchor: o.anchor }); }
+  function arrow(g, x1, y1, x2, y2, col, dash) {
+    var a = Math.atan2(y2 - y1, x2 - x1), h = 14, c = col || INK;
+    var l = g.append("path").attr("d", "M" + x1 + "," + y1 + "L" + x2 + "," + y2).attr("stroke", c).attr("stroke-width", 3).attr("fill", "none");
+    if (dash) l.attr("stroke-dasharray", "8 6");
+    g.append("path").attr("d", "M" + x2 + "," + y2 + "L" + (x2 - h * Math.cos(a - 0.45)) + "," + (y2 - h * Math.sin(a - 0.45)) + "L" + (x2 - h * Math.cos(a + 0.45)) + "," + (y2 - h * Math.sin(a + 0.45)) + "Z").attr("fill", c);
+    return l;
+  }
+  function mark(g, x, y, v) {
+    if (v === true) check(g, x, y - 8, 14, INK);
+    else if (v === false) cross(g, x, y - 8, 12, RED);
+    else txt(g, x, y, "–", { size: 26, anchor: "middle", fill: GREY });
+  }
+
+  /* ---------- the teaching server, ported from lessons/08-mcp-from-scratch/code/main.py ---------- */
+  function mkServer(mut) {
+    var st = { i: false, r: false };
+    function handle(m) {
+      if (typeof m !== "object" || m === null || Array.isArray(m) || m.jsonrpc !== "2.0") return { jsonrpc: "2.0", id: null, error: { code: -32600, message: "Invalid request" } };
+      var method = m.method;
+      if (!("id" in m)) { if (method === "notifications/initialized" && st.i) st.r = true; return null; }
+      var id = m.id, result;
+      function fail(c, t) { return { jsonrpc: "2.0", id: id, error: { code: c, message: t } }; }
+      if (method === "initialize") {
+        st.i = true; if (mut) st.r = true;
+        result = { protocolVersion: "2025-11-25", capabilities: { tools: {} }, serverInfo: { name: "info7375-readonly", version: "1.0.0" } };
+      } else if (!st.r) return fail(-32000, "Initialize and notify before using tools");
+      else if (method === "tools/list") result = { tools: [{ name: "lookup", description: "Read a public course fixture", inputSchema: { type: "object", properties: { key: { type: "string" } }, required: ["key"], additionalProperties: false } }] };
+      else if (method === "tools/call") {
+        var p = ("params" in m) ? m.params : {};
+        if (typeof p !== "object" || p === null || Array.isArray(p) || p.name !== "lookup") return fail(-32602, "Unknown tool");
+        var a = ("arguments" in p) ? p.arguments : {};
+        var ks = (typeof a === "object" && a !== null && !Array.isArray(a)) ? Object.keys(a) : null;
+        if (!ks || ks.length !== 1 || ks[0] !== "key" || typeof a.key !== "string") return fail(-32602, "Expected a string key");
+        var map = { office: "505A Dana Hall" }, v = Object.prototype.hasOwnProperty.call(map, a.key) ? map[a.key] : null;
+        result = { content: [{ type: "text", text: v || "Record not found" }], isError: v === null };
+      } else return fail(-32601, "Method not found");
+      return { jsonrpc: "2.0", id: id, result: result };
+    }
+    return { st: st, handle: handle };
+  }
+  var M = {
+    init: function (id, p) { var o = { jsonrpc: "2.0", id: id, method: "initialize" }; if (p) o.params = p; return o; },
+    note: function () { return { jsonrpc: "2.0", method: "notifications/initialized" }; },
+    list: function (id) { return { jsonrpc: "2.0", id: id, method: "tools/list" }; },
+    call: function (id, args, name) { return { jsonrpc: "2.0", id: id, method: "tools/call", params: { name: name || "lookup", arguments: args } }; },
+    bad: function (id) { return { jsonrpc: "2.0", id: id, method: "bad" }; }
+  };
+  function srvAt(n, mut) { var s = mkServer(mut); if (n >= 1) s.handle(M.init(1)); if (n >= 2) s.handle(M.note()); return s; }   /* n: 0 fresh, 1 initialized, 2 ready */
+  function ff(st) { return (st.i ? "T" : "F") + ", " + (st.r ? "T" : "F"); }
+  function code(r) { return r.error ? "error " + r.error.code : "result"; }
+
+  var MAPROWS = [
+    ["Parties and order", "MCP, server, host, four parties, state machine, lifecycle, history matters, initialize request, initialized notification, readiness", 120],
+    ["Messages and errors", "tools/list, tool schema, tools/call, JSON-RPC, request id, protocol-level error, tool error", 90],
+    ["Trust is separate", "interoperability, authorization, capability vs authority, self-description, misleading description, discovery is not consent, untrusted content, laundering, stop rule", 150],
+    ["The gate", "connection gate, four ledgers, evidence type", 80]
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, H, "Twenty-nine terms in four groups", "A table with four rows: group, terms, what the group is about.");
+    var g = svg.append("g");
+    wrap(g, 0, 36, "29 terms from Chapter 8, one connection traced from the first message to a written decision.", 96, { size: 28, lh: 38, fill: INK });
+    var cx = [0, 330];
+    ["GROUP", "TERMS"].forEach(function (h, i) { lab(g, cx[i] + 18, 112, h); });
+    g.append("path").attr("d", "M0,126 H1400").attr("stroke", INK).attr("stroke-width", 2);
+    var y = 140;
+    MAPROWS.forEach(function (r, i) {
+      var h = r[2], yy = y; y += h + 14;
+      if (i + 1 > k) return;
+      var row = g.append("g");
+      box(row, 0, yy, 1400, h, { stroke: FAMILIAR });
+      row.append("rect").attr("x", 0).attr("y", yy).attr("width", 10).attr("height", h + 1).attr("fill", RED);
+      wrap(row, 28, yy + 40, r[0], 22, { size: 26, lh: 30, weight: 700, fill: RED });
+      wrap(row, cx[1] + 18, yy + 34, r[1], 80, { size: 24, lh: 30, fill: INK });
+      if (A(anim, k, i + 1)) row.attr("opacity", 0).attr("transform", "translate(0,18)").transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    });
+    if (k === 0) cap(g, 0, 230, "Click or press → to add the four groups, one at a time.", { fill: MUTED });
+  }
+
+  /* ---------- 1. parties, server, host, MCP ---------- */
+  function renderParties(el, k, anim) {
+    var svg = svgFor(el, W, H, "A connection has four parties; MCP is only the wire between host and server", "Four boxes: people and policies, Claude, the host and the server. A line labelled MCP joins host and server with a message moving along it.");
+    var ey = base(svg, [{ id: "party", s: 1 }, { id: "server", s: 2 }, { id: "host", s: 3 }, { id: "mcp", s: 4 }], k, anim, ["Server", "describes the tools"], ["Host", "decides what reaches Claude"]);
+    var d = svg.append("g");
+    function party(x, y, w, name, sub, on, delay) {
+      var g = d.append("g");
+      box(g, x, y, w, 100, { stroke: on ? RED : INK, sw: on ? 3.5 : 2 });
+      cap(g, x + 16, y + 40, name, { size: 26, weight: 700, fill: on ? RED : INK });
+      cap(g, x + 16, y + 78, sub, { size: 24 });
+      fade(g, A(anim, k, 1), delay);
+    }
+    party(0, 20, 360, "People and policies", "write the policy", false, 0);
+    party(400, 20, 360, "Claude", "proposes a tool call", false, 200);
+    party(120, 230, 520, "Host", "builds requests, controls context", k === 3, 400);
+    party(120, 450, 520, "Server", "offers tools, describes them", k === 2, 600);
+    arrow(d, 180, 122, 260, 228, INK); arrow(d, 580, 122, 500, 228, INK);
+    var wire = d.append("path").attr("d", "M380,332 V448").attr("stroke", k === 4 ? RED : INK).attr("stroke-width", 4);
+    cap(d, 400, 396, "MCP: shared message format", { size: 24, weight: k === 4 ? 700 : 400, fill: k === 4 ? RED : INK });
+    if (k === 4) {
+      var dot = d.append("circle").attr("cx", 380).attr("r", 11).attr("fill", RED);
+      run(d, 3600, function (t) { dot.attr("cy", kf(t, [340, 440, 340])); }, anim);
+    }
+    note(svg, ey, ["", "A connection has four parties. Three are software; the fourth, people, decides.", "The server offers tools and describes them in its own words.", "The host builds requests, picks the tools Claude sees and controls the context.", "MCP is only the wire: the messages between host and server."][k]);
+  }
+
+  /* ---------- 2. state machine, lifecycle, history ---------- */
+  function renderState(el, k, anim) {
+    var svg = svgFor(el, W, H, "Two flags make three reachable states, and the same message gets different replies in each", "Three states in a row, F F then T F then T T, joined by arrows labelled initialize and notification. Below, the same tools/list request gets an error in the first two states and a result in the third.");
+    var ey = base(svg, [{ id: "state", s: 1 }, { id: "life", s: 2 }, { id: "hist", s: 3 }], k, anim, ["Initialize request", "has an id, gets a reply"], ["Initialized notice", "no id, no reply"]);
+    var d = svg.append("g"), CX = [105, 380, 655], NY = 150, CAP = ["start", "initialized", "ready"];
+    /* computed: which flag pairs can any message sequence reach */
+    var seen = {}, queue = [[]], MS = [M.init(1), M.note(), M.list(2), M.call(3, { key: "office" }), M.bad(4)];
+    seen["F, F"] = 1;
+    for (var qi = 0; qi < queue.length; qi++) { MS.forEach(function (m) { var seq = queue[qi].concat([m]); if (seq.length > 4) return; var s = mkServer(); seq.forEach(function (x) { s.handle(x); }); var f = ff(s.st); if (!seen[f]) { seen[f] = 1; queue.push(seq); } }); }
+    var nReach = Object.keys(seen).length;
+    var states = [];
+    var s0 = mkServer(); states.push(ff(s0.st)); s0.handle(M.init(1)); states.push(ff(s0.st)); s0.handle(M.note()); states.push(ff(s0.st));
+    lab(d, 0, 26, "STATE = (INITIALIZED, READY)");
+    CX.forEach(function (x, i) {
+      var g = d.append("g");
+      g.append("circle").attr("cx", x).attr("cy", NY).attr("r", 52).attr("fill", "#FFFFFF").attr("stroke", i === 2 && k === 3 ? RED : INK).attr("stroke-width", 3);
+      cap(g, x, NY + 9, states[i], { size: 26, weight: 700, anchor: "middle" });
+      cap(g, x, NY + 96, CAP[i], { size: 24, anchor: "middle", fill: MUTED });
+    });
+    [[0, "initialize"], [1, "notification"]].forEach(function (a) {
+      var x1 = CX[a[0]] + 60, x2 = CX[a[0] + 1] - 60;
+      arrow(d, x1, NY, x2, NY, k >= 2 ? RED : INK);
+      cap(d, (x1 + x2) / 2, NY - 20, a[1], { size: 24, anchor: "middle", fill: k >= 2 ? RED : INK, weight: k >= 2 ? 700 : 400 });
+    });
+    if (k === 1) {
+      var tok = d.append("circle").attr("r", 12).attr("fill", RED).attr("cy", NY - 70);
+      run(d, 4500, function (t) { tok.attr("cx", kf(t, [CX[0], CX[1], CX[2]])); }, anim);
+      cap(d, 0, 330, nReach + " of the 4 flag pairs can ever occur (computed by trying message sequences).", { size: 24 });
+      cap(d, 0, 370, "(F, T) never occurs: ready needs initialized first.", { size: 24, fill: RED, weight: 700 });
+    } else if (k === 2) {
+      [["1", "initialize request"], ["2", "initialized notification"], ["3", "tool operations"]].forEach(function (s, i) {
+        var g = d.append("g"), y = 300 + i * 78;
+        box(g, 0, y, 56, 56, { stroke: i === 2 ? RED : INK, sw: 2.5 }); cap(g, 28, y + 38, s[0], { size: 28, weight: 700, anchor: "middle" });
+        cap(g, 80, y + 38, s[1], { size: 28, weight: i === 2 ? 700 : 400, fill: i === 2 ? RED : INK });
+        fade(g, A(anim, k, 2), i * 350);
+      });
+      cap(d, 0, 548, "Skip a step and the server refuses the tool work.", { size: 24, fill: MUTED });
+    } else if (k === 3) {
+      CX.forEach(function (x, i) {
+        var s = srvAt(i), r = s.handle(M.list(9)), g = d.append("g"), bx = x - 105;
+        box(g, bx, 290, 210, 150, { stroke: r.error ? RED : INK, sw: 2.5 });
+        mono(g, bx + 14, 330, "tools/list", { size: 24 });
+        mono(g, bx + 14, 376, r.error ? "" + r.error.code : r.result.tools.length + " tool", { size: 26, weight: 700, fill: r.error ? RED : INK });
+        cap(g, bx + 14, 418, r.error ? "error" : "result: lookup", { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      cap(d, 0, 500, "Same message, three histories, three replies (computed).", { size: 24, weight: 700 });
+    }
+    if (k === 0) { /* nodes only */ }
+    note(svg, ey, ["", "The server is in one state at a time. Two flags give the states shown.", "The lifecycle is the order that moves the server from the first state to the last.", "The same tools/list is an error twice and a result once. History decides."][k]);
+  }
+
+  /* ---------- 3. initialize exchange, notification, readiness ---------- */
+  function renderInit(el, k, anim) {
+    var svg = svgFor(el, W, H, "Initialize sets one flag, the notification sets the other, and only then may tools be used", "A message sequence between client and server in three rows: initialize with a reply, a notification with no reply, then tools/list with a reply. A column on the right shows the two flags after each row.");
+    var ey = base(svg, [{ id: "initreq", s: 1 }, { id: "notice", s: 2 }, { id: "ready", s: 3 }], k, anim, ["Initialize request", "has an id, gets a reply"], ["Initialized notice", "no id, no reply"]);
+    var d = svg.append("g"), s = mkServer(), rows = [];
+    var r1 = s.handle(M.init(1)), f1 = ff(s.st), r2 = s.handle(M.note()), f2 = ff(s.st), r3 = s.handle(M.list(2)), f3 = ff(s.st);
+    var e = mkServer(), early = e.handle(M.note()), fe = ff(e.st);
+    lab(d, 20, 26, "CLIENT"); lab(d, 540, 26, "SERVER", { anchor: "end" }); lab(d, 590, 26, "FLAGS");
+    rows = [
+      ["initialize, id 1", "result: version " + r1.result.protocolVersion, f1, true],
+      ["notification, no id", r2 === null ? "no reply: silence" : "reply", f2, false],
+      ["tools/list, id 2", "result: tool " + r3.result.tools[0].name, f3, true]
+    ];
+    rows.forEach(function (r, i) {
+      if (i + 1 > k) return;
+      var y0 = 50 + i * 170, g = d.append("g"), cur = i + 1 === k;
+      var col = cur ? RED : INK;
+      cap(g, 280, y0 + 36, r[0], { size: 24, anchor: "middle", weight: 700, fill: col });
+      arrow(g, 20, y0 + 50, 540, y0 + 50, col);
+      cap(g, 280, y0 + 104, r[1], { size: 24, anchor: "middle", fill: r[3] ? INK : MUTED });
+      arrow(g, 540, y0 + 120, 20, y0 + 120, r[3] ? INK : GREY, !r[3]);
+      box(g, 590, y0 + 50, 170, 56, { stroke: col, sw: cur ? 3 : 1.5 });
+      mono(g, 675, y0 + 88, r[2], { size: 26, weight: 700, anchor: "middle", fill: col });
+      fade(g, A(anim, k, i + 1), 0);
+    });
+    if (k === 3) cap(d, 0, 548, "An early notice also gets no reply, and flags stay " + fe + (early === null ? "." : "?"), { size: 24, fill: MUTED });
+    note(svg, ey, ["", "Initialize: the client introduces itself and the reply gives version and capabilities.", "The notification says the client is done. It gets no reply, by design.", "Now ready: tools/list returns the one tool. Silence alone never shows readiness."][k]);
+  }
+
+  /* ---------- 4. tools/list, schema, tools/call ---------- */
+  function renderTools(el, k, anim) {
+    var svg = svgFor(el, W, H, "Listing shows a tool and its schema; a call is checked against that schema", "Step one shows the tools/list reply for the lookup tool. Step two tests four argument objects against the schema. Step three shows a tools/call request and its result.");
+    var ey = base(svg, [{ id: "tlist", s: 1 }, { id: "schema", s: 2 }, { id: "tcall", s: 3 }], k, anim, ["tools/list", "asks what tools exist"], ["tools/call", "runs one of them"]);
+    var d = svg.append("g"), s = srvAt(2);
+    if (k <= 1 || k === 3) {
+      var q, rq, rs, rl;
+      if (k <= 1) { var rr = s.handle(M.list(2)), t0 = rr.result.tools[0]; rq = ["→ tools/list    id 2"]; rs = ["← result, tools[0]", "name: " + t0.name, "description: " + t0.description, "required: " + t0.inputSchema.required.join(", ") + " (a string)", "extra keys: " + (t0.inputSchema.additionalProperties ? "allowed" : "not allowed")]; }
+      else { var rc = s.handle(M.call(3, { key: "office" })); rq = ["→ tools/call    id 3", "name: lookup", "arguments: {\"key\": \"office\"}"]; rs = ["← result", "text: " + rc.result.content[0].text, "isError: " + rc.result.isError]; }
+      var g1 = d.append("g"), h1 = 30 + rq.length * 40; box(g1, 0, 20, 740, h1, { stroke: INK, sw: 2.5 });
+      rq.forEach(function (l, i) { mono(g1, 16, 62 + i * 40, l, { size: 24, weight: i === 0 ? 700 : 400 }); });
+      var y2 = 20 + h1 + 40, g2 = d.append("g"), h2 = 30 + rs.length * 40; box(g2, 0, y2, 740, h2, { stroke: RED, sw: 2.5 });
+      rs.forEach(function (l, i) { mono(g2, 16, y2 + 42 + i * 40, l, { size: 24, weight: i === 0 ? 700 : 400, fill: i === 0 ? RED : INK }); });
+      fade(g2, A(anim, k, k), 300);
+      if (k === 3) cap(d, 0, 520, "The tool ran. 505A Dana Hall is still data to compare with its source.", { size: 24, fill: MUTED });
+      else cap(d, 0, 520, "The listing is the server's own text about itself.", { size: 24, fill: MUTED });
+    } else {
+      lab(d, 0, 26, "FOUR ARGUMENT OBJECTS, CHECKED BY THE SERVER");
+      [[{ key: "office" }, ""], [{}, "key missing"], [{ key: 5 }, "key is not a string"], [{ key: "a", x: 1 }, "extra key"]].forEach(function (a, i) {
+        var r = s.handle(M.call(10 + i, a[0])), ok = !r.error, y = 50 + i * 120, g = d.append("g");
+        mono(g, 0, y + 40, JSON.stringify(a[0]).replace(/,/g, ", "), { size: 24, weight: 700 });
+        mark(g, 340, y + 40, ok);
+        cap(g, 400, y + 40, ok ? "result" : r.error.code + " " + r.error.message, { size: 24, fill: ok ? INK : RED, weight: 700 });
+        cap(g, 0, y + 82, ok ? "key present, one string" : a[1], { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 2), i * 300);
+      });
+      cap(d, 0, 540, "Missing, extra or non-string keys all fail the same check.", { size: 24, fill: MUTED });
+    }
+    note(svg, ey, ["", "tools/list returns each tool with its name, description and input schema.", "The call branch enforces the schema: exactly one key, and it must be a string.", "tools/call names the tool and arguments; the reply is a result or an error."][k]);
+  }
+
+  /* ---------- 5. JSON-RPC, id, errors ---------- */
+  function renderMsgs(el, k, anim) {
+    var svg = svgFor(el, W, H, "A message has a version, an id and a method; replies split into protocol errors and tool errors", "Step one annotates a JSON-RPC message. Step two pairs two replies with two requests by id. Step three lists four messages and their error codes. Step four marks which layer each failure reached.");
+    var ey = base(svg, [{ id: "jrpc", s: 1 }, { id: "rid", s: 2 }, { id: "perr", s: 3 }, { id: "terr", s: 4 }], k, anim, ["Protocol error", "tool never ran"], ["Tool error", "tool ran, task failed"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 26, "ONE JSON-RPC REQUEST");
+      [["{ \"jsonrpc\": \"2.0\",", "version tag"], ["  \"id\": 2,", "request number"], ["  \"method\": \"tools/list\" }", "what to do"]].forEach(function (l, i) {
+        var g = d.append("g"); mono(g, 0, 90 + i * 60, l[0], { size: 26, weight: 700 }); cap(g, 470, 90 + i * 60, "← " + l[1], { size: 24, fill: RED });
+        fade(g, A(anim, k, 1), i * 300);
+      });
+      wrap(d, 0, 330, "A message can be well formed and still say nothing about whether the tool deserves trust.", 56, { size: 24, lh: 30, fill: MUTED });
+    } else if (k === 2) {
+      var s = srvAt(2), rA = s.handle(M.call(7, { key: "office" })), rB = s.handle(M.call(8, { key: "desk" }));
+      var reqs = [[7, "id 7  lookup office"], [8, "id 8  lookup desk"]], reps = [[rB, "id 8: " + rB.result.content[0].text], [rA, "id 7: " + rA.result.content[0].text]];
+      lab(d, 0, 26, "SENT"); lab(d, 440, 26, "ARRIVED, IN THIS ORDER");
+      reqs.forEach(function (r, i) { var g = d.append("g"); box(g, 0, 50 + i * 130, 300, 70, { stroke: INK, sw: 2.5 }); cap(g, 16, 94 + i * 130, r[1], { size: 24, weight: 700 }); });
+      reps.forEach(function (r, i) { var g = d.append("g"); box(g, 440, 50 + i * 130, 320, 70, { stroke: INK, sw: 2.5 }); cap(g, 456, 94 + i * 130, r[1], { size: 24, weight: 700 }); });
+      [[7, 0, 1], [8, 1, 0]].forEach(function (c) { var p = d.append("path").attr("d", "M300," + (85 + c[1] * 130) + " L440," + (85 + c[2] * 130)).attr("stroke", RED).attr("stroke-width", 4).attr("fill", "none"); if (A(anim, k, 2)) drawIn(p, 200, 700); });
+      wrap(d, 0, 360, "The id says which answer belongs to which question. It does not say whether the answer is true.", 56, { size: 24, lh: 30, fill: MUTED });
+    } else if (k === 3) {
+      var rows = [["{}", srvAt(0), {}, "no jsonrpc tag"], ["tools/list", srvAt(0), M.list(1), "before initialize"], ["method bad", srvAt(2), M.bad(2), "unknown method"], ["tools/call, list args", srvAt(2), M.call(3, ["x"]), "arguments not an object"]];
+      lab(d, 0, 26, "MESSAGE"); lab(d, 400, 26, "REPLY");
+      rows.forEach(function (r, i) {
+        var rs = r[1].handle(r[2]), g = d.append("g"), y = 50 + i * 120;
+        mono(g, 0, y + 36, r[0], { size: 24, weight: 700 }); cap(g, 0, y + 76, r[3], { size: 24, fill: MUTED });
+        cap(g, 400, y + 36, "error " + rs.error.code, { size: 26, weight: 700, fill: RED }); cap(g, 400, y + 76, "id " + (rs.id === null ? "null" : rs.id) + "; tool never ran", { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 3), i * 250);
+      });
+    } else {
+      var outs = [["too early", srvAt(0).handle(M.call(1, { key: "office" }))], ["bad arguments", srvAt(2).handle(M.call(2, {}))], ["missing record", srvAt(2).handle(M.call(3, { key: "missing" }))]];
+      function layers(r) { if (r.error) return r.error.code === -32000 ? [false, null, null] : [true, false, null]; return [true, true, !r.result.isError]; }
+      lab(d, 0, 26, "WHICH LAYER FAILED?");
+      [["lifecycle", 380], ["request", 530], ["task", 680]].forEach(function (c) { cap(d, c[1], 86, c[0], { size: 24, anchor: "middle", weight: 700 }); });
+      outs.forEach(function (o, i) {
+        var y = 120 + i * 110, g = d.append("g"), hl = i === 2, L = layers(o[1]);
+        cap(g, 0, y + 40, o[0], { size: 26, weight: 700, fill: hl ? RED : INK });
+        L.forEach(function (v, j) { mark(g, 380 + j * 150, y + 40, v); });
+        g.append("path").attr("d", "M0," + (y + 66) + " H760").attr("stroke", GRID).attr("stroke-width", 2);
+        fade(g, A(anim, k, 4), i * 300);
+      });
+      wrap(d, 0, 480, "Missing record: valid request, the tool ran, the task found nothing. That is isError true, not a protocol failure.", 60, { size: 24, lh: 30, weight: 700 });
+    }
+    note(svg, ey, ["", "JSON-RPC is the envelope: a version tag, an id and a method.", "The id pairs a reply with its request, even when replies arrive out of order.", "A protocol-level error means the message was wrong or early; the tool never ran.", "A tool error is a well-formed result where the task failed."][k]);
+  }
+
+  /* ---------- 6. interoperability, authorization, capability vs authority ---------- */
+  function renderTrust(el, k, anim) {
+    var svg = svgFor(el, W, H, "Two servers with the same transcript can deserve different permissions", "Two panels, server A which reads a fixture and server B which also writes files. Step one shows identical transcripts. Step two shows an allow and a deny. Step three lines up what the code can do against what the task allows.");
+    var ey = base(svg, [{ id: "interop", s: 1 }, { id: "authz", s: 2 }, { id: "capauth", s: 3 }], k, anim, ["Capability", "what the code can do"], ["Authority", "what the task allows"]);
+    var d = svg.append("g");
+    var SV = [["Server A", "reads a fixture", ["read"]], ["Server B", "also writes files", ["read", "write"]]], ALLOW = ["read"];
+    function trans(m) { var s = mkServer(), out = []; [M.init(1), M.note(), M.list(2), M.call(3, { key: "office" })].forEach(function (x) { var r = s.handle(x); out.push(r ? JSON.stringify(r) : "null"); }); return out.join("|"); }
+    var eq = trans() === trans();
+    if (k <= 1) {
+      SV.forEach(function (sv, i) {
+        var x = i * 400, g = d.append("g"); box(g, x, 20, 360, 250, { stroke: INK, sw: 2.5 });
+        cap(g, x + 16, 60, sv[0], { size: 26, weight: 700 }); cap(g, x + 16, 96, sv[1] + " (hidden)", { size: 24, fill: MUTED });
+        mono(g, x + 16, 150, "initialize → ok", { size: 24 }); mono(g, x + 16, 196, "tools/list → lookup", { size: 24 }); mono(g, x + 16, 242, "lookup office → ok", { size: 24 });
+        fade(g, A(anim, k, 1), i * 300);
+      });
+      cap(d, 0, 340, "Transcripts identical: " + (eq ? "yes" : "no"), { size: 28, weight: 700, fill: RED });
+      cap(d, 0, 384, "The protocol cannot tell them apart.", { size: 24 });
+    } else if (k === 2) {
+      cap(d, 0, 40, "Task: answer one question from a public fixture. Allowed effects: read.", { size: 24, weight: 700 });
+      SV.forEach(function (sv, i) {
+        var x = i * 400, g = d.append("g"), ok = sv[2].every(function (e) { return ALLOW.indexOf(e) >= 0; });
+        box(g, x, 80, 360, 260, { stroke: ok ? INK : RED, sw: 3 }); cap(g, x + 16, 120, sv[0], { size: 26, weight: 700 });
+        sv[2].forEach(function (e, j) { var inn = ALLOW.indexOf(e) >= 0; cap(g, x + 16, 176 + j * 44, e + ": " + (inn ? "in task" : "outside task"), { size: 24, fill: inn ? INK : RED, weight: inn ? 400 : 700 }); });
+        cap(g, x + 16, 304, ok ? "ALLOW" : "DENY", { size: 28, weight: 700, fill: ok ? INK : RED });
+        fade(g, A(anim, k, 2), i * 300);
+      });
+    } else {
+      lab(d, 0, 30, "SERVER B, CAPABILITY"); lab(d, 420, 30, "TASK, AUTHORITY");
+      SV[1][2].forEach(function (e, i) {
+        var y = 70 + i * 110, g = d.append("g"), inn = ALLOW.indexOf(e) >= 0;
+        box(g, 0, y, 340, 70, { stroke: inn ? INK : RED, sw: 3 }); cap(g, 16, y + 44, "can " + e, { size: 26, weight: 700, fill: inn ? INK : RED });
+        if (inn) { box(g, 420, y, 340, 70, { stroke: INK, sw: 3 }); cap(g, 436, y + 44, "may " + e, { size: 26, weight: 700 }); arrow(g, 344, y + 35, 416, y + 35, INK); }
+        else { cap(g, 420, y + 44, "no matching authority", { size: 24, weight: 700, fill: RED }); }
+        fade(g, A(anim, k, 3), i * 400);
+      });
+      wrap(d, 0, 340, "The protocol carries the capability. A person writes the authority, before the call.", 56, { size: 24, lh: 30, weight: 700 });
+    }
+    note(svg, ey, ["", "Interoperable means both sides understand each message. Nothing more.", "Authorization asks whether this task may use that capability.", "Capability is what the code can do. Authority is what the task grants."][k]);
+  }
+
+  /* ---------- 7. description: self-description, misleading, discovery ---------- */
+  function renderDesc(el, k, anim) {
+    var svg = svgFor(el, W, H, "A description is the server's own claim; a listing is not permission", "Step one checks each word of a tool description for evidence. Step two scores two descriptions against a request by word overlap. Step three shows a listed tool that the host policy still denies.");
+    var ey = base(svg, [{ id: "selfdesc", s: 1 }, { id: "misdesc", s: 2 }, { id: "discovery", s: 3 }], k, anim, ["Listed", "the tool appears"], ["Allowed", "the host lets it run"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      cap(d, 0, 40, "“Read a public course fixture”", { size: 28, weight: 700 });
+      [["Read", "source-inspected", "the call branch only reads a mapping", false], ["public", "owner must say", "nothing in the code classifies data", true], ["course fixture", "source-inspected", "the mapping is a literal in the source", false]].forEach(function (r, i) {
+        var y = 90 + i * 130, g = d.append("g");
+        box(g, 0, y, 700, 108, { stroke: r[3] ? RED : FAMILIAR, sw: r[3] ? 3 : 1.5 });
+        cap(g, 16, y + 44, r[0], { size: 28, weight: 700, fill: r[3] ? RED : INK });
+        cap(g, 250, y + 44, r[1], { size: 24, weight: 700, fill: r[3] ? RED : INK });
+        cap(g, 250, y + 84, r[2], { size: 24, fill: MUTED });
+        fade(g, A(anim, k, 1), i * 350);
+      });
+    } else if (k === 2) {
+      var req = "look up the office for key office", rt = req.split(" "), TL = [["lookup", "Read a public course fixture"], ["fast_lookup (invented)", "Look up the office and any record fast"]];
+      wrap(d, 0, 36, "Request: " + req, 56, { size: 24, lh: 30, weight: 700 });
+      TL.forEach(function (t, i) {
+        var words = t[1].toLowerCase().split(" "), sc = words.filter(function (w, j) { return rt.indexOf(w) >= 0; }).length, y = 110 + i * 190, g = d.append("g");
+        cap(g, 0, y, t[0], { size: 26, weight: 700, fill: i ? RED : INK }); cap(g, 0, y + 36, "“" + t[1] + "”", { size: 24, fill: MUTED });
+        bar(g, 0, y + 60, Math.max(sc * 120, 4), 44, i ? RED : "#C4C4C4", A(anim, k, 2), i * 400);
+        cap(g, sc * 120 + 16, y + 94, "overlap " + sc, { size: 24, weight: 700 });
+      });
+      cap(d, 0, 500, "Toy word overlap, not how Claude chooses: it shows wording can steer.", { size: 24, fill: MUTED });
+    } else {
+      var POL = ["read"], TS = [["lookup (read)", "read"], ["save_report (write)", "write"]];
+      cap(d, 470, 40, "listed", { size: 24, weight: 700, anchor: "middle" }); cap(d, 640, 40, "may run", { size: 24, weight: 700, anchor: "middle" });
+      TS.forEach(function (t, i) {
+        var y = 80 + i * 110, g = d.append("g"), ok = POL.indexOf(t[1]) >= 0;
+        cap(g, 0, y + 40, t[0], { size: 26, weight: 700, fill: ok ? INK : RED }); mark(g, 470, y + 40, true); mark(g, 640, y + 40, ok);
+        g.append("path").attr("d", "M0," + (y + 66) + " H760").attr("stroke", GRID).attr("stroke-width", 2);
+        fade(g, A(anim, k, 3), i * 350);
+      });
+      wrap(d, 0, 360, "Policy: read only. save_report is a hypothetical write tool that is never run.", 56, { size: 24, lh: 30, fill: MUTED });
+    }
+    note(svg, ey, ["", "Each word of a description needs evidence. “Public” is a data label the server cannot give.", "A misleading description can pull a tool choice before any runtime check.", "Discovery shows what exists. The host's policy decides what may run."][k]);
+  }
+
+  /* ---------- 8. untrusted content, laundering, stop rule ---------- */
+  function renderLaunder(el, k, anim) {
+    var svg = svgFor(el, W, H, "Valid transport does not make content true; each clean step adds polish, not evidence", "Step one compares a returned value with the source. Step two counts trust cues against content checks across four steps. Step three shows what a host may say for a found record and for a missing one.");
+    var ey = base(svg, [{ id: "untrusted", s: 1 }, { id: "launder", s: 2 }, { id: "stop", s: 3 }], k, anim, ["Plausible", "reads like an answer"], ["Supported", "compared with the source"]);
+    var d = svg.append("g"), SRC = { office: "505A Dana Hall" };
+    if (k <= 1) {
+      var got = "505B Dana Hall", same = got === SRC.office;
+      lab(d, 0, 26, "ONE REPLY, ONE SOURCE");
+      [["reply text", got + "  (illustrative)", false], ["source mapping", SRC.office, false]].forEach(function (r, i) { var g = d.append("g"), y = 60 + i * 90; cap(g, 0, y + 30, r[0], { size: 24, fill: MUTED }); mono(g, 220, y + 30, r[1], { size: 26, weight: 700 }); fade(g, A(anim, k, 1), i * 300); });
+      var g3 = d.append("g"); cap(g3, 0, 290, "Protocol ledger", { size: 26, weight: 700 }); mark(g3, 400, 290, true); cap(g3, 450, 290, "well formed", { size: 24 });
+      cap(g3, 0, 360, "Evidence ledger", { size: 26, weight: 700, fill: RED }); mark(g3, 400, 360, same); cap(g3, 450, 360, same ? "matches" : "value differs", { size: 24, fill: RED, weight: 700 });
+      fade(g3, A(anim, k, 1), 700);
+      wrap(d, 0, 440, "Only the comparison with the source catches a wrong value. The exchange was valid throughout.", 56, { size: 24, lh: 30, fill: MUTED });
+    } else if (k === 2) {
+      var HOPS = ["valid envelope", "matching id", "isError false", "Claude's sentence"], checks = 0;
+      lab(d, 0, 26, "TRUST CUES ADDED PER STEP");
+      HOPS.forEach(function (h, i) {
+        var y = 56 + i * 100, g = d.append("g"); cap(g, 0, y + 40, h, { size: 24 });
+        bar(g, 280, y + 10, (i + 1) * 100, 44, "#C4C4C4", A(anim, k, 2), i * 450); cap(g, 280 + (i + 1) * 100 + 14, y + 42, (i + 1) + " cue" + (i ? "s" : ""), { size: 24, weight: 700 });
+      });
+      cap(d, 0, 500, "Cues of polish: " + HOPS.length + ". Checks of content: " + checks + ".", { size: 28, weight: 700, fill: RED });
+    } else {
+      var s = srvAt(2), KEYS = ["office", "desk", "room"];
+      lab(d, 0, 26, "KEY"); lab(d, 170, 26, "REPLY"); lab(d, 400, 26, "WHAT MAY BE SAID");
+      KEYS.forEach(function (key, i) {
+        var r = s.handle(M.call(20 + i, { key: key })), miss = r.result.isError, y = 50 + i * 130, g = d.append("g");
+        mono(g, 0, y + 36, key, { size: 24, weight: 700 }); cap(g, 170, y + 36, miss ? "isError true" : "value", { size: 24, fill: miss ? RED : INK, weight: 700 });
+        wrap(g, 400, y + 36, miss ? "Report the absence; ask another authorized source." : "Cite it as the course fixture's value.", 32, { size: 24, lh: 30, fill: miss ? RED : INK });
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      cap(d, 0, 470, "A fluent guess is never an allowed continuation.", { size: 24, weight: 700 });
+    }
+    note(svg, ey, ["", "A reply can be valid and false. Compare the value with the source.", "Each step looks more trustworthy; none checked the content.", "Nothing in the model stops a guess, so the host or instruction must."][k]);
+  }
+
+  /* ---------- 9. gate, ledgers, evidence type ---------- */
+  function renderLedgers(el, k, anim) {
+    var svg = svgFor(el, W, H, "Write the gate first; keep four ledgers apart and label each claim with its evidence type", "Step one shows four things done in order before connecting. Step two marks which ledger each of three wrong servers fails. Step three lists four claims with their evidence types.");
+    var ey = base(svg, [{ id: "gate", s: 1 }, { id: "ledgers", s: 2 }, { id: "etype", s: 3 }], k, anim, ["Decision", "about the server"], ["Sign-off", "about your evidence"]);
+    var d = svg.append("g");
+    if (k <= 1) {
+      lab(d, 0, 26, "THE GATE COMES FIRST");
+      ["Predict the lifecycle table", "Write the four ledgers", "Name who decided each item", "Only then connect"].forEach(function (s, i) {
+        var y = 56 + i * 110, g = d.append("g"), last = i === 3;
+        box(g, 0, y, 740, 80, { stroke: last ? RED : INK, sw: last ? 3.5 : 2 });
+        cap(g, 20, y + 52, (i + 1) + "   " + s, { size: 28, weight: 700, fill: last ? RED : INK });
+        if (i < 3) arrow(g, 370, y + 82, 370, y + 108, INK);
+        fade(g, A(anim, k, 1), i * 350);
+      });
+    } else if (k === 2) {
+      var LG = ["Protocol", "Capability", "Permission", "Evidence"], CXs = [320, 450, 580, 710];
+      LG.forEach(function (l, i) { cap(d, CXs[i], 40, l, { size: 24, weight: 700, anchor: "middle" }); });
+      [["Ready on initialize", [false, null, null, null]], ["Logs on every call", [true, false, null, null]], ["Wrong fixture value", [true, true, true, false]]].forEach(function (r, i) {
+        var y = 70 + i * 110, g = d.append("g");
+        cap(g, 0, y + 44, r[0], { size: 26, weight: 700 });
+        r[1].forEach(function (v, j) { if (v !== null) mark(g, CXs[j], y + 44, v); });
+        g.append("path").attr("d", "M0," + (y + 76) + " H760").attr("stroke", GRID).attr("stroke-width", 2);
+        fade(g, A(anim, k, 2), i * 350);
+      });
+      wrap(d, 0, 440, "Each wrong version fails a different ledger. A blank cell means the chapter does not say.", 56, { size: 24, lh: 30, fill: MUTED });
+    } else {
+      var CL = [["tool is named lookup", "advertised"], ["reads one literal mapping", "source-inspected"], ["initialize gives 2025-11-25", "executed on a fixture"], ["network behavior", "uninspected"]];
+      var TY = ["advertised", "source-inspected", "executed on a fixture", "independently sourced", "uninspected"];
+      lab(d, 0, 26, "CLAIM"); lab(d, 440, 26, "EVIDENCE TYPE");
+      CL.forEach(function (c, i) {
+        var y = 50 + i * 90, g = d.append("g"), un = c[1] === "uninspected";
+        cap(g, 0, y + 36, c[0], { size: 24 }); cap(g, 440, y + 36, c[1], { size: 24, weight: 700, fill: un ? RED : INK });
+        g.append("path").attr("d", "M0," + (y + 58) + " H760").attr("stroke", GRID).attr("stroke-width", 2);
+        fade(g, A(anim, k, 3), i * 300);
+      });
+      var tally = TY.map(function (t) { return t + " " + CL.filter(function (c) { return c[1] === t; }).length; }).join(", ");
+      wrap(d, 0, 440, "Count by type (illustrative claims): " + tally + ".", 56, { size: 24, lh: 30, fill: MUTED });
+    }
+    note(svg, ey, ["", "The gate is written before connecting: the table, the ledgers and who decided.", "Passed always names a ledger. One ledger never stands in for another.", "Write uninspected, not none, when a check was not done."][k]);
+  }
+
+  /* ---------- pairs ---------- */
+  function renderPairs(el, k, anim) {
+    var svg = svgFor(el, W, H, "Four look-alike pairs from the connection", "Each step shows two ideas people mix up, side by side with a small animation.");
+    var d = svg.append("g");
+    var PAIRS = [
+      [["Compatible", "Both sides understand the messages"], ["Authorized", "This task may use the capability"]],
+      [["Protocol error", "Message wrong or early; tool never ran"], ["Tool error", "Message fine; the tool ran and failed"]],
+      [["Initialize", "A request with an id and a reply"], ["Initialized", "A notification with no id and no reply"]],
+      [["What it says", "The server's description of itself"], ["What it does", "What the code in the source does"]]
+    ];
+    var L = d.append("g"), R = d.append("g").attr("transform", "translate(740,0)");
+    function head(g, i, j) { lab(g, 0, 24, "PAIR " + Math.max(1, k) + " · " + (j ? "RIGHT" : "LEFT"), { fill: MUTED }); txt(g, 0, 66, PAIRS[i][j][0], { size: 32, weight: 700, fill: j ? RED : INK }); wrap(g, 0, 470, PAIRS[i][j][1] + ".", 44, { size: 26, lh: 32, fill: BODY }); }
+    function flag(g, x, y, on, label) { g.append("rect").attr("x", x).attr("y", y).attr("width", 130).attr("height", 70).attr("fill", on ? INK : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); cap(g, x + 65, y + 44, label, { size: 24, anchor: "middle", weight: 700, fill: on ? "#FFFFFF" : INK }); }
+    function draw(i, t) {
+      L.selectAll("*").remove(); R.selectAll("*").remove(); head(L, i, 0); head(R, i, 1);
+      var LG = L.append("g").attr("transform", "translate(60,0)"), RG = R.append("g").attr("transform", "translate(60,0)");
+      if (i === 0) {
+        mono(LG, 20, 220, "initialize ok", { size: 26, weight: 700 }); mono(LG, 20, 262, "tools/list ok", { size: 26, weight: 700 }); if (t > 0.4) check(LG, 300, 236, 16, INK);
+        mono(RG, 20, 220, "lookup: read", { size: 26, weight: 700 }); mono(RG, 20, 262, "save_report: write", { size: 26, weight: 700, fill: RED }); if (t > 0.4) { check(RG, 320, 206, 16, INK); if (t > 0.7) cross(RG, 330, 252, 14, RED); }
+      } else if (i === 1) {
+        LG.append("rect").attr("x", 20).attr("y", 190).attr("width", 280).attr("height", 70).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 3); mono(LG, 40, 236, "error -32602", { size: 26, weight: 700, fill: RED });
+        if (t > 0.5) cap(LG, 20, 310, "tool never ran", { size: 24, fill: MUTED });
+        RG.append("rect").attr("x", 20).attr("y", 190).attr("width", 280).attr("height", 70).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 3); mono(RG, 40, 236, "isError true", { size: 26, weight: 700 });
+        if (t > 0.5) cap(RG, 20, 310, "tool ran, nothing found", { size: 24, fill: MUTED });
+      } else if (i === 2) {
+        var s = mkServer(); s.handle(M.init(1));
+        flag(LG, 20, 190, t > 0.2, "initialized"); flag(LG, 170, 190, false, "ready");
+        var s2 = srvAt(2);
+        flag(RG, 20, 190, true, "initialized"); flag(RG, 170, 190, t > 0.5 && s2.st.r, "ready");
+        cap(LG, 20, 310, "reply carries the version", { size: 24, fill: MUTED }); cap(RG, 20, 310, "silence, but ready is set", { size: 24, fill: MUTED });
+      } else {
+        LG.append("rect").attr("x", 20).attr("y", 200).attr("width", 230 * Math.min(1, t * 1.5)).attr("height", 44).attr("fill", "#C4C4C4"); cap(LG, 20, 290, "claims: read", { size: 24, fill: MUTED });
+        RG.append("rect").attr("x", 20).attr("y", 200).attr("width", 230 * Math.min(1, t * 1.5)).attr("height", 44).attr("fill", INK);
+        if (t > 0.6) RG.append("rect").attr("x", 250).attr("y", 200).attr("width", 110 * Math.min(1, (t - 0.6) * 2.5)).attr("height", 44).attr("fill", RED);
+        cap(RG, 20, 290, "reads, and also writes", { size: 24, fill: MUTED });
+      }
+    }
+    if (k === 0) { draw(0, 0.5); cap(svg.append("g"), 0, 612, "Click or press → to see four pairs, one at a time.", { size: 24, fill: MUTED }); return; }
+    draw(k - 1, 0.99); run(d, 3000, function (t) { draw(k - 1, t); }, anim);
+  }
+
+  /* ---------- say it exactly ---------- */
+  function lessonTests(mut) {
+    var out = [];
+    out.push(mkServer(mut).handle({}).error.code === -32600);
+    out.push(mkServer(mut).handle(M.list(1)).error.code === -32000);
+    out.push(!!srvAt(2, mut).handle(M.list(2)).result.tools);
+    var s4 = mkServer(mut); out.push(s4.handle(M.note()) === null && !s4.st.r);
+    out.push(srvAt(2, mut).handle(M.bad(2)).error.code === -32601);
+    var s6 = mkServer(mut); s6.st.r = true; out.push(s6.handle(M.call(2, { key: "missing" })).result.isError === true);
+    var s7 = mkServer(mut); s7.handle(M.init(1)); var r7 = s7.handle(M.list(2)); out.push(!!r7.error && r7.error.code === -32000);   /* the new test */
+    return out;
+  }
+  var SAY = [
+    { v: "make sure the server is safe", x: "List every disagreement between transcript, source and description, quoting lines; no verdict" },
+    { v: "check the tests are strong enough", x: "Add one test: initialize, then tools/list with no notification must return -32000" },
+    { v: "retry when it fails", x: "On -32000 finish the handshake; on -32602 fix the arguments; on isError true report the absence" },
+    { v: "use the answer it gave", x: "Cite 505A Dana Hall as the course fixture's value, after comparing it with the source mapping" },
+    { v: "connect it if it works", x: "Write allow, deny or pending with a re-review trigger and a Not checked line" }
+  ];
+  function renderSay(el, k, anim) {
+    var svg = svgFor(el, W, H, "Say it exactly: five vague requests about a connection turned into precise ones", "Five rows with a vague request and an exact instruction. On the right, a chart of what the exact instruction does.");
+    var g = svg.append("g");
+    SAY.forEach(function (r, i) {
+      if (i + 1 > k) return; var y = 6 + i * 128, cur = i + 1 === k, e = g.append("g");
+      e.append("rect").attr("x", 0).attr("y", y).attr("width", 8).attr("height", 114).attr("fill", cur ? RED : FAMILIAR);
+      txt(e, 24, y + 30, "“" + r.v + "”", { size: 26, fill: RED, weight: 700 });
+      wrap(e, 24, y + 64, "→ " + r.x, 50, { size: 24, lh: 30, fill: INK, weight: 700 });
+      if (anim && cur) e.attr("opacity", 0).transition().duration(450).attr("opacity", 1);
+    });
+    if (k === 0) { cap(g, 0, 60, "A vague request gets a guess. An exact one gets what you meant.", { fill: INK }); cap(g, 0, 110, "Click or press → to turn five requests into instructions.", { fill: MUTED }); return; }
+    var p = g.append("g").attr("transform", "translate(700,60)"), pw = 640, ph = 300, nt = "";
+    lab(p, 0, -14, "WHAT THE INSTRUCTION DOES", { fill: RED });
+    p.append("rect").attr("x", 0.5).attr("y", 0.5).attr("width", pw).attr("height", ph).attr("fill", "none").attr("stroke", FAMILIAR).attr("stroke-width", 2);
+    if (k === 1) {
+      var sv = mkServer(); var got = sv.handle(M.init(1, { protocolVersion: "unsupported-fixture" })).result.protocolVersion;
+      cap(p, 14, 50, "Lead 1 (computed from a run)", { size: 24, weight: 700 }); cap(p, 14, 90, "asked for unsupported-fixture", { size: 24 }); cap(p, 14, 126, "got " + got, { size: 24, fill: RED, weight: 700 });
+      cap(p, 14, 190, "Lead 2 (from the description)", { size: 24, weight: 700 }); cap(p, 14, 230, "“public” is asserted, not coded", { size: 24, fill: RED, weight: 700 });
+      nt = "leads to check, not a verdict";
+    } else if (k === 2) {
+      var A6 = lessonTests(false), B6 = lessonTests(true);
+      [["reference", A6], ["ready on init", B6]].forEach(function (r, i) {
+        cap(p, 14, 70 + i * 120, r[0], { size: 24 });
+        r[1].forEach(function (ok, j) { var c = p.append("rect").attr("x", 14 + j * 60).attr("y", 90 + i * 120).attr("width", 50).attr("height", 50).attr("fill", ok ? INK : RED); if (anim) c.attr("opacity", 0).transition().delay(j * 120 + i * 500).duration(200).attr("opacity", 1); });
+      });
+      cap(p, 14, 290, "squares 1 to 6: lesson tests; 7: the new test", { size: 24, weight: 700, fill: MUTED });
+      nt = "the new test fails the wrong server only";
+    } else if (k === 3) {
+      var s3 = [srvAt(0).handle(M.list(1)), srvAt(2).handle(M.call(2, {})), srvAt(2).handle(M.call(3, { key: "missing" }))];
+      s3.forEach(function (r, i) {
+        var act = r.error ? (r.error.code === -32000 ? "finish the handshake" : "fix the arguments") : "report the absence", lbl = r.error ? "error " + r.error.code : "isError true", y = 60 + i * 80, g2 = p.append("g");
+        mono(g2, 14, y, lbl, { size: 24, weight: 700 }); cap(g2, 250, y, "→ " + act, { size: 24, fill: RED, weight: 700 }); fade(g2, anim, i * 300);
+      });
+      nt = "each reply maps to one action";
+    } else if (k === 4) {
+      var SRC = "505A Dana Hall";
+      [[SRC, "returned value"], ["505B Dana Hall", "returned value (illustrative)"]].forEach(function (r, i) {
+        var ok = r[0] === SRC, y = 60 + i * 120, g2 = p.append("g");
+        cap(g2, 14, y, r[1], { size: 24, fill: MUTED }); mono(g2, 14, y + 44, r[0], { size: 26, weight: 700 }); mark(g2, 420, y + 44, ok); cap(g2, 470, y + 44, ok ? "cite" : "stop", { size: 24, weight: 700, fill: ok ? INK : RED });
+        fade(g2, anim, i * 400);
+      });
+      nt = "source: 505A Dana Hall; only an exact match is cited";
+    } else {
+      var F = ["Checked", "How", "Not checked", "Not claiming", "Decision", "Re-review if", "Signed or withheld"];
+      F.forEach(function (f, i) { var g2 = p.append("g"), x = 14 + (i % 2) * 310, y = 40 + Math.floor(i / 2) * 62; box(g2, x, y, 290, 46, { stroke: INK, sw: 2 }); cap(g2, x + 12, y + 33, f, { size: 24 }); check(g2, x + 262, y + 22, 11, RED); fade(g2, anim, i * 150); });
+      nt = F.length + " of " + F.length + " fields named; “it works” names 0";
+    }
+    cap(p, 0, ph + 40, nt, { size: 24, weight: 700 });
+  }
+
+  var CHECKS = [
+    "Did initialize and the notification both arrive before any tool call?",
+    "Is each failure a protocol error or a tool error, and which id does it answer?",
+    "Does the schema match what the code actually checks?",
+    "Does the task's permission cover everything the code can do?",
+    "Was every returned value compared with the declared source?",
+    "Is the decision allow, deny or pending, with a re-review trigger?"
+  ];
+  function renderClosing(el, k, anim) {
+    var svg = svgFor(el, W, H, "Six checks before you connect a server", "A checklist of six items drawn one at a time.");
+    var g = svg.append("g");
+    CHECKS.forEach(function (c, i) {
+      var y = 20 + i * 100, on = i + 1 <= k, row = g.append("g");
+      row.append("rect").attr("x", 0.5).attr("y", y + 0.5).attr("width", 64).attr("height", 64).attr("fill", on ? "#FFFFFF" : "none").attr("stroke", on ? INK : FAMILIAR).attr("stroke-width", 3);
+      wrap(row, 100, y + 42, c, 78, { size: 32, lh: 36, fill: on ? INK : MUTED });
+      if (on) { var ck = check(row, 32, y + 36, 20, RED); if (A(anim, k, i + 1)) drawIn(ck, 0, 450); }
+    });
+    cap(g, 0, 660, "Then say it exactly: not “it works”, but “allow, for this task and version”.", { size: 28, weight: 700 });
+  }
+
+  var BUILDS = {
+    map: { steps: 4, render: renderMap }, parties: { steps: 4, render: renderParties }, state: { steps: 3, render: renderState },
+    init: { steps: 3, render: renderInit }, tools: { steps: 3, render: renderTools }, msgs: { steps: 4, render: renderMsgs },
+    trust: { steps: 3, render: renderTrust }, desc: { steps: 3, render: renderDesc }, launder: { steps: 3, render: renderLaunder },
+    ledgers: { steps: 3, render: renderLedgers }, pairs: { steps: 4, render: renderPairs }, say: { steps: 5, render: renderSay },
+    closing: { steps: 6, render: renderClosing }
+  };
+
+  /* click on the stage advances one fragment (the original deck had keys and buttons only) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
