@@ -15,7 +15,7 @@
 
 ### 2026-11-10 19:18 ·
 - **Tried:** to answer the gate questions on Nov 5.
-- **Happened:** I answered them on the due date (Nov 10). GATE.md is commit `3ce860b`, before any code.
+- **Happened:** I answered them on the due date (Nov 10). GATE.md is commit `1cc3602`, before any code.
 - **From Claude:** accepted every ★ except 4b, where I chose A + B + C. I wrote the failure sentence and W9 myself.
 
 ### 2026-11-10 19:24 · Three failures on the first full test run
@@ -24,7 +24,7 @@
   1. The W6 test caught a real bug: a board stopped by the budget before its first request was still counted as done, so `never_attempted` was empty.
   2. The checker refused its own temp folder (`/var/…` vs resolved `/private/var/…`).
   3. My "checker doesn't import the agent" test matched a string in the checker's own output.
-- **Did instead:** fixed all three before committing CP3 (`b8b3fb4`); 48/48.
+- **Did instead:** fixed all three before committing CP3 (`d725018`); 48/48.
 - **Learned:** the W6 test was the only showing the report that would be under-count untried boards.
 
 ### 2026-11-10 19:25 · The planned finished-wrong trap had disappeared
@@ -42,7 +42,7 @@
 
 ### 2026-11-10 19:27 · Review packet: the test first, then the patch
 - **Tried:** reproducing the JS1 symlink defect.
-- **Happened:** B8 and B8b failed on the first version ("PolicyError not raised"; CP5 `f2e775e`, `review/01-reproduce-before-patch.txt`). After Claude's one-function patch, 50/50 and 9/9 (CP6 `9416437`).
+- **Happened:** B8 and B8b failed on the first version ("PolicyError not raised"; CP5 `6050272`, `review/01-reproduce-before-patch.txt`). After Claude's one-function patch, 50/50 and 9/9 (CP6 `3ab4582`).
 - **Found:**
   - The patch also changed **reads**: a read through a link pointing outside was allowed before and refused after. I probed both versions to check this.
   - A probe shows that if `runs/` itself is a symlink, writes still escape.

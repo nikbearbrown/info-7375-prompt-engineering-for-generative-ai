@@ -12,11 +12,11 @@
 
 | Step | Evidence |
 |---|---|
-| 1. Defect named in the gate, before any code | `GATE.md` §7 W2 and §8; my answer 9 in `notes/gate-answers-2026-11-10.md` (JS2-CP1 `3ce860b`) |
-| 2. First version ports the defect on purpose | `src/jsa/policy.py` `_resolve` = `os.path.abspath(...)`, as JS1's `safeWrite` used `path.resolve` (JS2-CP3 `b8b3fb4`) |
-| 3. **Reproduced, with the test written before the patch** | tests `test_B8_symlink_escape_on_write` and `test_B8b_returned_path_is_the_resolved_one` committed in **JS2-CP5 `f2e775e`**, both failing: `review/01-reproduce-before-patch.txt` ("PolicyError not raised"). The harness agrees: `review/01b-wrong-versions-before-patch.txt` |
+| 1. Defect named in the gate, before any code | `GATE.md` §7 W2 and §8; my answer 9 in `notes/gate-answers-2026-11-10.md` (JS2-CP1 `1cc3602`) |
+| 2. First version ports the defect on purpose | `src/jsa/policy.py` `_resolve` = `os.path.abspath(...)`, as JS1's `safeWrite` used `path.resolve` (JS2-CP3 `d725018`) |
+| 3. **Reproduced, with the test written before the patch** | tests `test_B8_symlink_escape_on_write` and `test_B8b_returned_path_is_the_resolved_one` committed in **JS2-CP5 `6050272`**, both failing: `review/01-reproduce-before-patch.txt` ("PolicyError not raised"). The harness agrees: `review/01b-wrong-versions-before-patch.txt` |
 | 4. The request to Claude Code, with its scope | `review/02-request-to-claude-code.md` |
-| 5. The diff | `review/02-patch.diff` (JS2-CP6 `9416437`): 1 file, `_resolve` only, +3 −2 |
+| 5. The diff | `review/02-patch.diff` (JS2-CP6 `3ab4582`): 1 file, `_resolve` only, +3 −2 |
 | 6. After the patch | `review/03-after-patch.txt`: B8/B8b pass, **50/50** tests, **9/9** wrong versions caught |
 | 7. One case the test still misses | `review/04-still-missed-probe.txt`: **ALLOWED, the write landed outside the project** |
 
@@ -34,7 +34,7 @@
 |---|---|---|
 | `runs/<id>/link/x.json`, where `link` → outside | **allowed**; the write follows the link | refused `outside-write-root` |
 | Path returned to the caller | the spelled path (`/var/…` on macOS) | the real path (`/private/var/…`) |
-| **Reads** through a link pointing outside a read root | **allowed** (probed on `f2e775e`) | **refused** `outside-read-roots` (probed on `9416437`): a second behaviour change, beyond the write case I asked about. It matches GATE §6 ("paths are judged by where they resolve"). There is no test for it yet. |
+| **Reads** through a link pointing outside a read root | **allowed** (probed on `6050272`) | **refused** `outside-read-roots` (probed on `3ab4582`): a second behaviour change, beyond the write case I asked about. It matches GATE §6 ("paths are judged by where they resolve"). There is no test for it yet. |
 | The allowed roots themselves (`runs/<id>`, `config`, …) | spelled | **also resolved**. If a root is itself a symlink, the root moves with it. That's why the probe in step 7 still escapes. |
 | A path that doesn't exist yet | cleaned textually | `resolve()` resolves the part that exists and appends the rest (`strict=False`) |
 | `..` and sibling-prefix cases (B7, B9) | refused | refused (unchanged) |
@@ -47,8 +47,8 @@ Yes. `git diff --stat` shows `src/jsa/policy.py | 5 +++--` and nothing else: no 
 
 ```bash
 cd fall-2026/mayank-b/js2-loop-tools-diff
-git checkout f2e775e -- src/jsa/policy.py && (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write)   # expect FAIL
-git checkout 9416437 -- src/jsa/policy.py && (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write)   # expect ok
+git checkout 6050272 -- src/jsa/policy.py && (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write)   # expect FAIL
+git checkout 3ab4582 -- src/jsa/policy.py && (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write)   # expect ok
 python3 -m unittest discover -s tests -p "test_*.py"     # expect: Ran 50 tests ... OK
 python3 scripts/wrong_versions.py                         # expect: 9/9 wrong versions caught
 python3 review/probe_still_missed.py                      # expect: ALLOWED ... outside the project? True

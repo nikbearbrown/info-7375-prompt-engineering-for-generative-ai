@@ -60,6 +60,8 @@ Exit codes: `0` nothing needs me · `3` a board needs me (error or suspect) · `
 | `config/` | budgets, plans, floors (`expected-boards.json`), replay files for the seeded run |
 | `SOURCES.md`, `FRICTIONAL.md` | what I used and what Claude contributed; the dated friction log |
 
+Commit hashes in these documents are the ones on GitHub `main`. Pushing on 2026-11-10 rebased my local commits onto classmates' newer commits, which changed every hash; the documents were updated to match in JS2-CP10.
+
 ---
 
 ## What ran (past tense only; times are UTC run ids)
@@ -113,7 +115,7 @@ The 16 boundary cases, each with its prediction committed before the tests ran, 
 ### 4. The review packet
 
 See **`REVIEW-PACKET.md`**:
-1. Failing tests committed first (CP5 `f2e775e`).
+1. Failing tests committed first (CP5 `6050272`).
 2. The request and its scope.
 3. A 1-function diff, read as a behaviour change (it also changed reads, which I didn't ask for by name).
 4. 50/50 tests and 9/9 wrong versions after the patch.
@@ -163,9 +165,9 @@ See **`REVIEW-PACKET.md`**:
 
 | Part | What Claude did | What I did | Why it stays mine | Evidence |
 |---|---|---|---|---|
-| The gate | wrote the question sheet (2026-11-05), then turned my answers into GATE.md with 6 listed edits | chose every rule; chose 4b = A+B+C; wrote my failure sentence and W9; ran `approve` on the real run myself | the rules are the criterion everything is checked against; written by the producer, they would describe its output | `notes/GATE-QUESTIONS.md`, `notes/gate-answers-2026-11-10.md`, GATE.md "Changes Claude made" · CP1 `3ce860b` |
-| Predictions | drafted the 16 cases with predicted results | accepted them before any test ran | a prediction written after the run tests nothing | CP2 `1581f58` (before code, CP3 `b8b3fb4`) |
-| The loop | wrote `src/jsa/`, the tests, the harness; ran the live runs | decided boards, caps, the deliberate failure and the repeat | how much the agent may spend and try is my decision, not a property of the code | CP3 `b8b3fb4`, CP4 `ebb7b3f`, `runs/*-real/trace.jsonl` |
+| The gate | wrote the question sheet (2026-11-05), then turned my answers into GATE.md with 6 listed edits | chose every rule; chose 4b = A+B+C; wrote my failure sentence and W9; ran `approve` on the real run myself | the rules are the criterion everything is checked against; written by the producer, they would describe its output | `notes/GATE-QUESTIONS.md`, `notes/gate-answers-2026-11-10.md`, GATE.md "Changes Claude made" · CP1 `1cc3602` |
+| Predictions | drafted the 16 cases with predicted results | accepted them before any test ran | a prediction written after the run tests nothing | CP2 `9cea561` (before code, CP3 `d725018`) |
+| The loop | wrote `src/jsa/`, the tests, the harness; ran the live runs | decided boards, caps, the deliberate failure and the repeat | how much the agent may spend and try is my decision, not a property of the code | CP3 `d725018`, CP4 `60aec49`, `runs/*-real/trace.jsonl` |
 | Floors for the checker | proposed each floor from a named source | approved them on 2026-11-10 after checking each against Lectern's counts and the live run | the checker is only independent if its expectations aren't the agent's | `config/expected-boards.json` (`_status`) |
-| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | ran the commands myself ("Ran, matched"); decided **ACCEPT**, with the missed case logged as a follow-up | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `f2e775e`, CP6 `9416437`, `REVIEW-PACKET.md` |
+| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | ran the commands myself ("Ran, matched"); decided **ACCEPT**, with the missed case logged as a follow-up | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `6050272`, CP6 `3ab4582`, `REVIEW-PACKET.md` |
 | Sign-off | drafted the Checked / Not checked lists from the record | signed: Mayank Bhadrasen, 2026-11-10 | my name goes on it | this section |
