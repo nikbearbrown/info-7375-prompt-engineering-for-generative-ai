@@ -1,0 +1,39 @@
+{
+  "plan_version": 1,
+  "note": "Four real boards across three applicant-tracking systems, plus one board that is broken on purpose. Every token here was probed with a single read-only GET on 2026-11-09 before being written down: boards-api.greenhouse.io/reddit, api.lever.co/spotify, api.ashbyhq.com/ramp and api.ashbyhq.com/linear each answered 200; api.lever.co/matterport, /plaid and /mistral answered 404 and are therefore not in the plan.",
+  "expect_at_least_note": "The floors are 1, not a guess at each board's real size. I do not know how many postings these boards carry and will not pretend to; what I am willing to assert by hand is that a live public job board answering 200 with zero postings is not something I believe without checking. tools/crosscheck.py turns that belief into a flag.",
+  "boards": [
+    {
+      "board": "greenhouse:reddit",
+      "provider": "greenhouse",
+      "token": "reddit",
+      "expect_at_least": 1
+    },
+    {
+      "board": "lever:spotify",
+      "provider": "lever",
+      "token": "spotify",
+      "expect_at_least": 1
+    },
+    {
+      "board": "ashby:ramp",
+      "provider": "ashby",
+      "token": "ramp",
+      "expect_at_least": 1
+    },
+    {
+      "board": "ashby:linear",
+      "provider": "ashby",
+      "token": "linear",
+      "expect_at_least": 1
+    },
+    {
+      "board": "greenhouse:js2-no-such-board-9f3a",
+      "provider": "greenhouse",
+      "token": "js2-no-such-board-9f3a",
+      "expect_at_least": 0,
+      "deliberate_failure": true,
+      "why": "GATE.md §4 demonstration: an unknown board token. Predicted before running: classification `permanent`, zero retries, the board reported as failed with no count, the run exits `incomplete`, and the other four boards still produce their postings."
+    }
+  ]
+}
