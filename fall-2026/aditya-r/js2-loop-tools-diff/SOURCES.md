@@ -25,4 +25,6 @@
 | Tests, mutants, checker, finished-wrong demo | Specified the wrong versions W1–W12 | Wrote them; drafted the boundary predictions from the gate before the code existed; found and fixed 3 mutation gaps |
 | LIVE run | — | Ran it (18:21 EST) on Aditya's Claude Code login |
 | README, SOURCES, `[process log]` entries in FRICTIONAL | Reviews them | Drafted them from the record |
-| FRICTIONAL `[Aditya]` entries, sign-off, "why it stays mine", export approval | **His alone** | Nothing (left blank) |
+| Export approval and fresh-extraction check | **Inspected the proposal, wrote the approval record himself (18:37:50 EST), and ran the export without approval, with approval, and repeated; ran `clean_clone_check.sh` at `1019351`** | Built the proposal and export path; supplied the commands; committed his outputs, with one disclosed path redaction |
+| Attempt-deadline fix (`net.py`) after the LIVE run | Asked for the DNS gap to be resolved without weakening the gate | Wrote the tests first (`20c9d05`, failing), the fix (`be5d821`) and 3 mutants; found that headers and the TLS handshake also lacked a total bound |
+| FRICTIONAL `[Aditya]` entries, sign-off, "why it stays mine" | **His alone** | Inserted his FRICTIONAL text verbatim when he supplied it; sign-off and "why" left blank |

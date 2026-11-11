@@ -1,0 +1,33 @@
+Started: 2026-11-10 19:45:37 EST
+HEAD 7e08f64e387923d9c265c8918914f5f37297c728 (agent/net.py unchanged since 785138a)
+$ .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_net_deadline.py --tb=short
+.FFFF..                                                                  [100%]
+=================================== FAILURES ===================================
+_______________ test_slow_dns_is_bounded_by_the_attempt_deadline _______________
+tests/test_net_deadline.py:126: in test_slow_dns_is_bounded_by_the_attempt_deadline
+    assert elapsed < 1.0, f"the attempt took {elapsed:.2f} s against a 0.4 s deadline"
+E   AssertionError: the attempt took 1.51 s against a 0.4 s deadline
+E   assert 1.505030042026192 < 1.0
+_______ test_a_dns_answer_arriving_after_the_deadline_is_never_connected _______
+tests/test_net_deadline.py:141: in test_a_dns_answer_arriving_after_the_deadline_is_never_connected
+    assert late == 0, "a request was dispatched after its attempt had already timed out"
+E   AssertionError: a request was dispatched after its attempt had already timed out
+E   assert 1 == 0
+___________ test_dripped_headers_are_bounded_by_the_attempt_deadline ___________
+tests/test_net_deadline.py:155: in test_dripped_headers_are_bounded_by_the_attempt_deadline
+    assert elapsed < 1.2, f"the attempt took {elapsed:.2f} s against a 0.5 s deadline"
+E   AssertionError: the attempt took 3.02 s against a 0.5 s deadline
+E   assert 3.0208722080569714 < 1.2
+_________________ test_an_expired_deadline_dispatches_nothing __________________
+tests/test_net_deadline.py:167: in test_an_expired_deadline_dispatches_nothing
+    assert srv.connections == 0 and calls == []
+E   assert (1 == 0)
+E    +  where 1 = <tests.test_net_deadline._Server object at 0x104790d70>.connections
+=========================== short test summary info ============================
+FAILED tests/test_net_deadline.py::test_slow_dns_is_bounded_by_the_attempt_deadline
+FAILED tests/test_net_deadline.py::test_a_dns_answer_arriving_after_the_deadline_is_never_connected
+FAILED tests/test_net_deadline.py::test_dripped_headers_are_bounded_by_the_attempt_deadline
+FAILED tests/test_net_deadline.py::test_an_expired_deadline_dispatches_nothing
+4 failed, 3 passed in 9.71s
+[pytest exit: 1]
+Finished: 2026-11-10 19:45:47 EST

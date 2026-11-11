@@ -5,7 +5,10 @@
 
 This agent is a bounded loop over **four public job boards on two applicant-tracking systems**: Greenhouse `databricks` and `figma`, Ashby `notion`, and one Greenhouse board that fails on purpose. It runs under a permission policy enforced in code, and it ends with exactly one of four statuses. Every new posting gets a **RECORD**, a deterministic rule anyone can recompute, and a **JUDGMENT**, Claude's opinion validated for format and cited evidence, not for correctness.
 
-The agent never applies, emails, messages anyone or logs in. Its only network access is HTTPS GET to `boards-api.greenhouse.io` and `api.ashbyhq.com`.
+The agent never applies, emails, messages anyone or logs in. It has two network channels, kept separate as GATE.md §5 requires:
+
+- **Board fetching** (`agent/net.py`, called only through `fetch_board`). This is HTTPS GET to exactly `boards-api.greenhouse.io` and `api.ashbyhq.com`, on the board paths only, with no redirects. It is checked by `policy.check_request` before every dispatch, and it is the only channel the allow-list and the HTTP-attempt budget govern.
+- **Judgments** (`agent/judge.py`, inherited from JS1). This runs the installed Claude Code CLI (`claude -p`) as a subprocess, with a fixed argument list, under Aditya's existing login, with model tools disabled. The CLI talks to Anthropic's service itself. That traffic is **not** governed by the board allow-list: GATE.md §5 authorizes it separately, the 10-call model budget counts it, and each call is bounded by a subprocess timeout of min(20 s, remaining allowance). The agent does not count or inspect the CLI's internal network requests (GATE.md §2).
 
 _This README is technical documentation drafted by Claude Code. The sign-off and the "why it stays mine" column of the driver's seat table are Aditya's to write; they are blank below._
 
@@ -15,7 +18,7 @@ JS2 builds on Aditya's own **Job-Search Agent 1**, posted at [`../js1-contract-a
 
 | Inherited from JS1 (unchanged unless noted) | New in JS2 |
 |---|---|
-| `agent/rules.py` (RECORD rule), `judge.py` (isolated `claude -p` call), `validate.py` (JUDGMENT validator), `resume.py` (fictional-persona guard), `state.py` (used to validate the JS1 state before seeding), `prompts/`, `resume/priya-nair.resume.example.json`, `state/seen.json` (JS1's Databricks state, 2026-10-30), JS1 tests | `agent/loop.py` (the loop), `agent/policy.py` (permissions), `agent/net.py` (HTTP client that never follows redirects), `agent/providers.py` (Greenhouse and Ashby adapters), `config/boards.json`, `tests/test_loop.py`, `tests/test_boundary.py`, `tests/mutation_check_js2.py`, `scripts/check_run.py` (independent checker), `scripts/demo_finished_wrong.py` |
+| `agent/rules.py` (RECORD rule), `judge.py` (isolated `claude -p` call), `validate.py` (JUDGMENT validator), `resume.py` (fictional-persona guard), `state.py` (used to validate the JS1 state before seeding), `prompts/`, `resume/priya-nair.resume.example.json`, `state/seen.json` (JS1's Databricks state, 2026-10-30), JS1 tests | `agent/loop.py` (the loop), `agent/policy.py` (permissions), `agent/net.py` (HTTP client that never follows redirects), `agent/providers.py` (Greenhouse and Ashby adapters), `config/boards.json`, `tests/test_loop.py`, `tests/test_boundary.py`, `tests/test_net_deadline.py`, `tests/mutation_check_js2.py`, `scripts/check_run.py` (independent checker), `scripts/demo_finished_wrong.py` |
 | `agent/board.py` and `agent/watch.py`: **changed only by the reviewed patch** (`0007bbd`, `d58682c`; see [`review/REVIEW.md`](review/REVIEW.md)) | `tests/test_aditya_total_mismatch.py` (**Aditya's** regression test), `tests/test_total_validation.py` and `tests/test_meta_object.py` (Claude's focused tests) |
 
 ## Toolchain
@@ -34,8 +37,8 @@ cd fall-2026/aditya-r/js2-loop-tools-diff
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 # Offline: no network and no model needed
-.venv/bin/python -m pytest -q                                   # 171 tests
-.venv/bin/python tests/mutation_check_js2.py                    # plants W1–W12 + the reviewed patch; all 18 CAUGHT
+.venv/bin/python -m pytest -q                                   # 178 tests
+.venv/bin/python tests/mutation_check_js2.py                    # plants W1–W12 + the reviewed patch; all 21 CAUGHT
 .venv/bin/python tests/mutation_check.py                        # JS1's 3 wrong versions; all CAUGHT
 .venv/bin/python scripts/check_run.py run out/runs/20261110T232115022Z_live   # independent re-check of the LIVE run
 sh scripts/clean_clone_check.sh                                 # all of the above, in a fresh extraction of HEAD
@@ -56,7 +59,7 @@ A live run reads and updates the working state `out/state/seen.json`. To start f
 | Gate rule | Where it is enforced | Tested by |
 |---|---|---|
 | Exits and precedence; unknown counts are `null`, never 0 | `loop.run_loop` (end) | `test_loop.py` W2/W12, precedence, run-level-error tests |
-| Budgets: 4 boards, 8 HTTP attempts (8th allowed, 9th never sent), 180 s with a 10 s reserve and per-call timeout = min(20 s, allowance), 10 model calls | `Budget`, `fetch_board`, the judgment loop | `test_W3_*`, `test_elapsed_budget_*`, `test_exactly_ten_*` |
+| Budgets: 4 boards, 8 HTTP attempts (8th allowed, 9th never sent), 180 s with a 10 s reserve and per-call timeout = min(20 s, allowance), 10 model calls | `Budget`, `fetch_board`, the judgment loop; the per-attempt deadline in `agent/net.py` | `test_W3_*`, `test_elapsed_budget_*`, `test_exactly_ten_*`, `tests/test_net_deadline.py` |
 | Repeat rule: same method and URL once per run, plus one linked retry; duplicate boards rejected | `fetch_board`, `load_config` | `test_b19`, `test_config_errors_*` |
 | Error policy: 4xx no retry; 5xx, timeout or reset retried once after 0.5 s and counted; empty board → suspect-empty; `meta.total` checked; redirect → run-level error | `fetch_board`, `providers`, `board.parse_jobs` | `test_W1_*`, `test_W4_*`, `test_b07` |
 | Identity `(provider, board, id)`; state staged and published only when there is no run-level error | `loop`, `out/state/seen.json` | `test_W9_*`, `test_W10_*`, `test_run_level_error_*` |
@@ -64,7 +67,10 @@ A live run reads and updates the working state `out/state/seen.json`. To start f
 
 **Honest limits of enforcement.**
 - These are application-level controls, not an OS sandbox (GATE §5).
-- DNS resolution inside `getaddrinfo` is not bounded by the attempt deadline.
+- **Board-attempt deadline (changed after the LIVE run).**
+  - *What changed:* the LIVE run and Aditya's 18:41 check used the earlier client. It bounded body reads only: DNS inside `getaddrinfo` was unbounded (this was disclosed), and the TLS handshake, status line and headers got a fresh socket timeout on every `recv` (this was **not** disclosed until the tests showed it).
+  - *How it works now* (`be5d821`): the whole attempt runs in a worker thread, and the agent waits at most until the attempt's deadline. A DNS answer that arrives late is not connected, and an expired deadline dispatches nothing.
+  - *What remains:* a worker stuck in `getaddrinfo` keeps running in the background until the OS resolver returns, as a daemon thread that sends nothing. The connect hook relies on `http.client._create_connection`, which is not a public API; if it is missing, the client fails closed. All of this was tested against local servers and a stub resolver only (`evidence/net_deadline/`), not a real slow DNS server.
 - A model subprocess is bounded by `subprocess.run(timeout=…)`.
 - Races between the path check and the write are narrowed by a re-check after creating folders and by `O_EXCL|O_NOFOLLOW`. They are not eliminated.
 
@@ -72,11 +78,14 @@ A live run reads and updates the working state `out/state/seen.json`. To start f
 
 | Evidence | Label | Result |
 |---|---|---|
-| [`out/runs/20261110T232115022Z_live/`](out/runs/20261110T232115022Z_live/) — `trace.jsonl`, `raw/` (exact bytes, gzip-wrapped), `judgments/`, `report.md`, `state_before/after.json`; console in `evidence/live/console.txt` | **LIVE**, started 18:21:14 EST by Claude Code | **`budget-exhausted`, exit 4**. Databricks: 920 postings, **89 new** since JS1's 2026-10-30 state (inherited, not captured by JS2). Figma (144) and Notion (155): baselines. `js2-no-such-board-zzz`: **HTTP 404 → failed**, counts `null`, not retried. Used 4/8 HTTP attempts, **10/10 model calls** (all valid; all RECORD = JUDGMENT = `not_relevant`) and 58.1/180 s. **79 new postings remain `pending`.** An export proposal was written; no approval exists yet. |
+| [`out/runs/20261110T232115022Z_live/`](out/runs/20261110T232115022Z_live/) — `trace.jsonl`, `raw/` (exact bytes, gzip-wrapped), `judgments/`, `report.md`, `state_before/after.json`; console in `evidence/live/console.txt` | **LIVE**, started 18:21:14 EST by Claude Code | **`budget-exhausted`, exit 4**. Databricks: 920 postings, **89 new** since JS1's 2026-10-30 state (inherited, not captured by JS2). Figma (144) and Notion (155): baselines. `js2-no-such-board-zzz`: **HTTP 404 → failed**, counts `null`, not retried. Used 4/8 HTTP attempts, **10/10 model calls** (all valid; all RECORD = JUDGMENT = `not_relevant`) and 58.1/180 s. **79 new postings remain `pending`.** An export proposal was written (0 entries, `partial: true`, 4 RECORD-relevant withheld). |
+| [`evidence/approval_demo.txt`](evidence/approval_demo.txt), [`approvals/20261110T232115022Z_live.json`](approvals/20261110T232115022Z_live.json), `out/exports/`, `out/approved-shortlists/` | **LIVE**, run by **Aditya**, 18:36:37–18:38:11 EST | Export without approval: **exit 3**. Aditya wrote the approval record himself (`approved_at` 18:37:50 EST, bound to the proposal's sha256 `df370075…`). Export: **exit 0**, and the bytes equal the proposal (`cmp` exit 0). Repeat: **exit 2** (create-only). The approval covers this one local file. It does not change the LIVE run's status. |
+| [`evidence/aditya_clean_clone_check.txt`](evidence/aditya_clean_clone_check.txt) | run by **Aditya**, 18:41:36–18:42:07 EST, at `1019351` | 171 passed; 3/3 + 18/18 mutants caught; checker 24/24; exit 0. This **predates** the `net.py` deadline fix. |
+| [`evidence/net_deadline/`](evidence/net_deadline/) | SYNTHETIC (local servers, stub resolver), Claude Code | Tests committed failing first (`20c9d05`: 4 failed, 3 passed), then the fix (`be5d821`): 7 passed |
 | `scripts/check_run.py run …live` | independent recomputation | 24/24 checks passed: limits, allow-listed URLs, raw hashes, new ids = raw ids − inherited ids, `meta.total`, null counts, status by precedence, state |
 | [`evidence/finished_wrong/`](evidence/finished_wrong/) ([`DEMO_LOG.md`](evidence/finished_wrong/DEMO_LOG.md)) | **REPLAY** (LIVE Figma bytes) + **SYNTHETIC** (empty board); expectation committed first (`8664385`) | **Finished wrong answer:** the inherited single-board `agent/watch.py` exits **0**, "COMPLETE: 0 new", after 144 postings vanish. The **independent checker** (no `agent/` imports) flags the contradiction from the raw evidence (exit 1). The JS2 loop on the same inputs: suspect-empty, **exit 3**, state unchanged; checker exit 0. |
 | `evidence/boundary/boundary_run.txt` | SYNTHETIC; B7 uses the real HTTP client against two local servers | 30 passed; 20/20 rows observed as predicted |
-| `evidence/mutation/mutation_check_js2_output.txt` | **MUTATION** | 18/18 CAUGHT. The **first** run had 3 MISSED: W3 (an untested path, now tested) and W6/W11 (each masked by a second defense; the mutants now remove both layers) |
+| `evidence/mutation/mutation_check_js2_output.txt` | **MUTATION** | 21/21 CAUGHT, including 3 attempt-deadline mutants. Two earlier runs had misses. The first had 3 MISSED: W3, an untested path that is now tested; and W6 and W11, each masked by a second defense, so those mutants now remove both layers. The first deadline run had 1 MISSED, also masked, and is kept as `mutation_check_js2_dns_first_run.txt` |
 | [`review/`](review/) | Aditya's reproduction and test; Claude's patch | Reproduce → test first → patch → REVISE → revision tests first → revision → **ACCEPT** by Aditya (18:03 EST check) |
 | `evidence/pre_gate_recon/` | LIVE recon before the gate | status codes and response shapes only (disclosed in GATE.md) |
 
@@ -93,7 +102,7 @@ See [`review/REVIEW.md`](review/REVIEW.md). Claude flagged the defect with probe
 | Gate (exits, budgets, policy) | Asked the clarifying questions; pointed out the ambiguities | Wrote GATE.md and the six decisions in Addendum 1 | _(Aditya)_ | `8257ffb`, `8a0ef83` |
 | Loop and tools | Wrote the loop, policy, adapters, tests, mutants and checker; ran the live run | Set the limits, the hosts, the deliberate failure and the expected outcome | _(Aditya)_ | `785138a`, `31dd501`; Addendum §6 |
 | Review | Flagged P2, wrote the probes, the patch, the revision and the focused tests | Reproduced it, wrote `test_aditya_total_mismatch.py` and CHANGE_REQUEST.md, ran the checks, decided REVISE then ACCEPT | _(Aditya)_ | `b0e3fb4`, `6d37618`, `9589e64` |
-| Approval of the export | Built the proposal and the export-only path | Writes or withholds `approvals/<run-id>.json` | _(Aditya)_ | _(pending)_ |
+| Approval of the export | Built the proposal and the export-only path | Inspected the proposal and checked its hash; wrote `approvals/20261110T232115022Z_live.json` himself (18:37:50 EST); ran the export without approval, with approval, and repeated | _(Aditya)_ | `evidence/approval_demo.txt`, `e1a4a69` |
 
 ## Sign-off — Job-Search Agent 2
 
@@ -105,7 +114,7 @@ _Unsigned. The candidate items below were drafted by Claude from the evidence. A
   1. a real 5xx, timeout or redirect from a live board (only SYNTHETIC or local);
   2. whether the 79 pending Databricks postings, 4 of them RECORD-relevant, are relevant by JUDGMENT;
   3. behavior across days or schema changes on Ashby (the `id` field is an observed dependency, not documented);
-  4. filesystem races and DNS-time bounds;
+  4. filesystem races; the attempt deadline against a real slow DNS server or a real slow TLS peer (tested only locally);
   5. whether the free-text `explanation` sentences are true.
 - **Not claiming:** _(Aditya)_
 - **Signed or withheld:** ____________ _(name, date)_
