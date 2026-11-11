@@ -8,6 +8,22 @@
 
 **What it found.** On the final code (CP6) all 16 cases were allowed or refused as predicted, and the "Observed" column was filled in only after running. **One prediction named the wrong reason:** B7 was refused as predicted, but with `approval-required`, not the `outside-write-root` I wrote. The one prediction the first version broke was **B8**, the review-packet defect: a write through a symlink pointing outside the project was **allowed**. That was reproduced before the patch (CP5) and refused after it (CP6). One gap remains untested: if `runs/` *itself* is a symlink to outside, writes still land outside (`review/04-still-missed-probe.txt`).
 
+## The permission policy (GATE.md §6, enforced in code)
+
+| Rule | Where in the code | What it allows |
+|---|---|---|
+| Hosts | `policy.check_url` + `policy._host_ok`; `net.fetch` calls it before every request | only `boards-api.greenhouse.io` and `api.ashbyhq.com`, exact match; `https` only; port 443 only; no user-info in the URL |
+| Methods | `policy.check_url` | `GET` only |
+| Redirects | `net._NoRedirect` | none followed: a 3xx becomes `redirect-refused` |
+| Read | `policy.authorize(…, "read")` | inside `config/`, `persona/`, `state/`, `runs/`, judged by where the path resolves |
+| Write, no approval | `policy.authorize(…, "write", run_id=…)` | inside `runs/<this-run-id>/` only |
+| Write, needs my approval | `policy.authorize(…, approval=…)` + `policy._approval_ok`; used only by `agent.py approve` | `state/seen-ids.json`, only when the approval is a string exactly equal to the run id |
+| Never | not representable in the code | apply, email, message, log in, submit a form, send credentials: there is no code path for any of these |
+
+Containment is component-wise (`Path.is_relative_to`), never a string prefix.
+
+## The boundary tests
+
 Predictions committed in JS2-CP2 (before code). Test names refer to `tests/test_policy.py`.
 
 | # | Case | Request | Predicted (correct policy) | Wrong version it catches | Observed |
