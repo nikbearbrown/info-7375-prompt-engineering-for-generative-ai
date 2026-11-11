@@ -53,5 +53,8 @@ Palantir: fresh baseline, 304/304 ids usable. OpenAI: fresh baseline, 829/829 us
 
 ## Entry 12 — November 10, 2026: Finished-wrong-answer demo
 Built a CONSTRUCTED empty Glean response from my real Nov 9 capture and a demo config with three replayed boards (no bad board). The loop ended finished, exit 0, reporting Glean as ok with 0 postings: clean and wrong. check_run.py flagged it as a suspicious empty board (exit 1), and found 0 problems on real run 2 (exit 0). Limit noted: the checker flags any empty board and doesn't catch a large drop that isn't to zero.
+## Entry 13 — November 10, 2026: Fresh-clone test
+Cloned the class repo fresh into /tmp (--depth 1) and followed my README: venv, `pip install -r requirements.txt`, `python -m pytest -v` → 40 passed; demo config → loop exit 0 (finished); check_run.py on that run → flagged Glean, exit 1. Confirmed no .DS_Store is tracked (JS1 feedback).
+
 ## Entry 14 — November 10, 2026: Real run #3 (live)
 Ran live at 7:09 PM EST (out/runs/2026-11-10T190937/; evidence/run3_terminal_2026-11-10.txt). Status incomplete, agent exit code 1, 4 requests. OpenAI (Ashby): 4 new postings while the total stayed at 829, so the agent detected new ids even though the count didn't change. Glean and Palantir: 0 new. Bad board: bad_board again. check_run.py on this run: 0 problems (exit 0). Across runs 2 and 3, the agent found real new postings on two systems (Greenhouse and Ashby).
