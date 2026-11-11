@@ -1,0 +1,72 @@
+{
+  "run_id": "2026-11-11T03-09-02Z",
+  "exit": "finished",
+  "started_at": "2026-11-11T03:09:02+00:00",
+  "finished_at": "2026-11-11T03:09:04+00:00",
+  "budgets": {
+    "boards": 4,
+    "requests": 12,
+    "seconds": 120
+  },
+  "budget_reached": null,
+  "used": {
+    "requests": 3,
+    "seconds": 1.29,
+    "boards": 3
+  },
+  "boards": [
+    {
+      "company": "Stripe",
+      "provider": "greenhouse",
+      "slug": "stripe",
+      "status": "success",
+      "reason": null,
+      "postings": 778,
+      "board_total": null,
+      "new_since_previous": 0,
+      "raw_paths": [
+        "evidence/runs/2026-11-11T03-09-02Z/raw/greenhouse-stripe-o0-a1.json"
+      ]
+    },
+    {
+      "company": "Notion",
+      "provider": "ashby",
+      "slug": "notion",
+      "status": "success",
+      "reason": null,
+      "postings": 156,
+      "board_total": null,
+      "new_since_previous": 0,
+      "raw_paths": [
+        "evidence/runs/2026-11-11T03-09-02Z/raw/ashby-notion-o0-a1.json"
+      ]
+    },
+    {
+      "company": "Canva (misspelled)",
+      "provider": "smartrecruiters",
+      "slug": "Canvaa",
+      "status": "success",
+      "reason": null,
+      "postings": 0,
+      "board_total": 0,
+      "new_since_previous": null,
+      "raw_paths": [
+        "evidence/runs/2026-11-11T03-09-02Z/raw/smartrecruiters-Canvaa-o0-a1.json"
+      ]
+    }
+  ],
+  "successful": [
+    "stripe",
+    "notion",
+    "Canvaa"
+  ],
+  "failed": [],
+  "remaining": [],
+  "total_postings_successful_boards": 934,
+  "error": null,
+  "last_completed_action": "GET https://api.smartrecruiters.com/v1/companies/Canvaa/postings?limit=100&offset=0 -> 200",
+  "outputs": {
+    "trace": "evidence/runs/2026-11-11T03-09-02Z/trace.jsonl",
+    "summary": "evidence/runs/2026-11-11T03-09-02Z/summary.json"
+  }
+}
