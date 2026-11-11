@@ -10,17 +10,17 @@ logs in. It uses a **fictional persona** (Evan Gordon) only.
 **Built on:** my own JS1 code. The JS1 folder was not a git repository, so the first commit (`09b1056`) records exactly what was copied,
 plus the real 2026-10-31 Samsara baseline with sha256s ([baseline/2026-10-31/PROVENANCE.md](baseline/2026-10-31/PROVENANCE.md)).
 
-## What ran (2026-11-10, ET)
+## What ran (2026-11-10)
 
 | Run | Kind | Boards | Loop exit | Independent verifier | Shows |
 |---|---|---|---|---|---|
-| A 17:15:00 | **live** | 10 (`config/boards.json`) | **incomplete (1)** | FAIL (kraken empty) | the deliberate 404 handled with no retry and a null count; Samsara compared with the **real Oct 31 baseline**: 80 new, none data-titled |
-| B 17:15:27 | **live**, same day | 9 | **finished (0)** | **FAIL** | **the live finished-wrong answer**: `lever:kraken` reported as 0 new |
-| X 17:15:53 | my cross-check, **outside the agent** | — | — | — | Kraken lists **92 postings on Ashby**, so B's answer is wrong |
-| C 17:16:05 | **SEEDED** replay, offline | 1 | **finished (0)** | **FAIL** | the same failure, reproducible offline: empty, and 0 vs 323 |
-| D 17:16:11 | **live**, same day | 8 | **finished (0)** | **PASS** | the clean run (Toast: 1 new posting) |
+| A | **live** | 10 (`config/boards.json`) | **incomplete (1)** | FAIL (kraken empty) | the deliberate 404 handled with no retry and a null count; Samsara compared with the **real Oct 31 baseline**: 80 new, none data-titled |
+| B | **live**, same day | 9 | **finished (0)** | **FAIL** | **the live finished-wrong answer**: `lever:kraken` reported as 0 new |
+| X | my cross-check, **outside the agent** | — | — | — | Kraken lists **92 postings on Ashby**, so B's answer is wrong |
+| C | **SEEDED** replay, offline | 1 | **finished (0)** | **FAIL** | the same failure, reproducible offline: empty, and 0 vs 323 |
+| D | **live**, same day | 8 | **finished (0)** | **PASS** | the clean run (Toast: 1 new posting) |
 
-Details and limits are in [evidence/RUNS.md](evidence/RUNS.md). **Only Samsara has a real earlier day.** B and D ran seconds after A.
+Details and limits are in [evidence/RUNS.md](evidence/RUNS.md). **Only Samsara has a real earlier day.** B and D ran the same day as A.
 No new data-titled posting appeared live, so the rule judge ran only in offline tests.
 
 ## Language, toolchain
