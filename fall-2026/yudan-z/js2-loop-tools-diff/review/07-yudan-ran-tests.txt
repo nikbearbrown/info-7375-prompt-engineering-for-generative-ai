@@ -1,0 +1,228 @@
+test_good_answer_passes_and_is_labelled (test_contract.JudgeValidatorTests.test_good_answer_passes_and_is_labelled) ... ok
+test_rejects_bad_verdict (test_contract.JudgeValidatorTests.test_rejects_bad_verdict) ... ok
+test_rejects_extra_text (test_contract.JudgeValidatorTests.test_rejects_extra_text) ... ok
+test_rejects_justification_citing_nothing (test_contract.JudgeValidatorTests.test_rejects_justification_citing_nothing) ... ok
+test_rejects_long_justification (test_contract.JudgeValidatorTests.test_rejects_long_justification) ... ok
+test_rejects_unknown_field (test_contract.JudgeValidatorTests.test_rejects_unknown_field) ... ok
+test_verdicts_join_by_id_not_position (test_contract.PairingTests.test_verdicts_join_by_id_not_position) ... ok
+test_fictional_persona_validates (test_contract.PersonaTests.test_fictional_persona_validates) ... ok
+test_missing_field_is_refused (test_contract.PersonaTests.test_missing_field_is_refused) ... ok
+test_non_555_phone_is_refused (test_contract.PersonaTests.test_non_555_phone_is_refused) ... ok
+test_real_looking_email_is_refused (test_contract.PersonaTests.test_real_looking_email_is_refused) ... ok
+test_prompt_keeps_the_end_of_a_long_description (test_contract.PromptTests.test_prompt_keeps_the_end_of_a_long_description) ... ok
+test_check_not_applying_for_a_citizen (test_contract.RuleTests.test_check_not_applying_for_a_citizen) ... ok
+test_every_reason_names_both_fields (test_contract.RuleTests.test_every_reason_names_both_fields) ... ok
+test_html_escaped_content_is_read (test_contract.RuleTests.test_html_escaped_content_is_read) ... ok
+test_r1_title_family (test_contract.RuleTests.test_r1_title_family) ... ok
+test_r2_senior_word (test_contract.RuleTests.test_r2_senior_word) ... ok
+test_r3_canada_revision (test_contract.RuleTests.test_r3_canada_revision) ... ok
+test_r3_location (test_contract.RuleTests.test_r3_location) ... ok
+test_r4_experience (test_contract.RuleTests.test_r4_experience) ... ok
+test_r5_citizenship_and_boilerplate (test_contract.RuleTests.test_r5_citizenship_and_boilerplate) ... ok
+test_r5_itar_is_a_whole_word (test_contract.RuleTests.test_r5_itar_is_a_whole_word) ... ok
+test_r6_sponsorship (test_contract.RuleTests.test_r6_sponsorship) ... ok
+test_r7_phd (test_contract.RuleTests.test_r7_phd) ... ok
+test_r8_skills_whole_words (test_contract.RuleTests.test_r8_skills_whole_words) ... ok
+test_r9_graduation_window (test_contract.RuleTests.test_r9_graduation_window) ... ok
+test_relevant_posting (test_contract.RuleTests.test_relevant_posting) ... ok
+test_baseline_reports_nothing_new (test_contract.WatchTests.test_baseline_reports_nothing_new) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_contract.py:66: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpoyugpj_x\\state\\seen_ids.json' mode='r' encoding='utf-8'>
+  state = json.load(open(os.path.join(self.tmp, "state", "seen_ids.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_duplicate_id_in_one_response_reported_once (test_contract.WatchTests.test_duplicate_id_in_one_response_reported_once) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\agent\watch.py:51: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp9aegh0kj\\state\\seen_ids.json' mode='r' encoding='utf-8'>
+  seen = set() if baseline else set(json.load(open(state_path, encoding="utf-8"))["seen_ids"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_host_not_on_allowlist_is_refused (test_contract.WatchTests.test_host_not_on_allowlist_is_refused) ... ok
+test_only_postings_in_this_response (test_contract.WatchTests.test_only_postings_in_this_response) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\agent\watch.py:51: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpdnspib00\\state\\seen_ids.json' mode='r' encoding='utf-8'>
+  seen = set() if baseline else set(json.load(open(state_path, encoding="utf-8"))["seen_ids"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_raw_response_saved_unchanged (test_contract.WatchTests.test_raw_response_saved_unchanged) ... ok
+test_same_second_runs_keep_both_evidence_files (test_contract.WatchTests.test_same_second_runs_keep_both_evidence_files) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\agent\watch.py:51: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp5_ybk_bm\\state\\seen_ids.json' mode='r' encoding='utf-8'>
+  seen = set() if baseline else set(json.load(open(state_path, encoding="utf-8"))["seen_ids"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_second_run_reports_only_unseen (test_contract.WatchTests.test_second_run_reports_only_unseen) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\agent\watch.py:51: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpuw35kai5\\state\\seen_ids.json' mode='r' encoding='utf-8'>
+  seen = set() if baseline else set(json.load(open(state_path, encoding="utf-8"))["seen_ids"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_ashby (test_gate.AtsTests.test_ashby) ... ok
+test_greenhouse (test_gate.AtsTests.test_greenhouse) ... ok
+test_lever (test_gate.AtsTests.test_lever) ... ok
+test_unknown_ats_refused (test_gate.AtsTests.test_unknown_ats_refused) ... ok
+test_wrong_shape_raises (test_gate.AtsTests.test_wrong_shape_raises) ... ok
+test_b01_allowed_host_get_passes (test_gate.BoundaryTests.test_b01_allowed_host_get_passes) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpzia034kc\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b02_host_off_allowlist_refused (test_gate.BoundaryTests.test_b02_host_off_allowlist_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpn7cl3a__\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b03_http_not_https_refused (test_gate.BoundaryTests.test_b03_http_not_https_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpqszaz95o\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b04_lookalike_host_refused (test_gate.BoundaryTests.test_b04_lookalike_host_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpj7b7bmd0\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b05_post_to_allowed_host_refused (test_gate.BoundaryTests.test_b05_post_to_allowed_host_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmprxc28wyj\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b06_write_inside_runs_allowed (test_gate.BoundaryTests.test_b06_write_inside_runs_allowed) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp0p2_58dv\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b07_dotdot_escape_refused (test_gate.BoundaryTests.test_b07_dotdot_escape_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpauxs9zv0\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b08_prefix_trick_refused (test_gate.BoundaryTests.test_b08_prefix_trick_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp9amnm44w\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b09_symlink_escape_refused (test_gate.BoundaryTests.test_b09_symlink_escape_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpzviwim46\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b10_read_inside_project_allowed (test_gate.BoundaryTests.test_b10_read_inside_project_allowed) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpzkkywu8s\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b11_read_outside_project_refused (test_gate.BoundaryTests.test_b11_read_outside_project_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpg6_e6zu_\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b12_same_file_read_yes_write_no (test_gate.BoundaryTests.test_b12_same_file_read_yes_write_no) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp7gwvifvd\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b13_reset_state_without_approval_needs_approval (test_gate.BoundaryTests.test_b13_reset_state_without_approval_needs_approval) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpqw8dwzi4\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b14_reset_state_with_approval_allowed (test_gate.BoundaryTests.test_b14_reset_state_with_approval_allowed) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpac7ow9qx\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b15_replace_evidence_needs_approval (test_gate.BoundaryTests.test_b15_replace_evidence_needs_approval) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpe26xu6lg\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b16_approval_for_another_board_does_not_count (test_gate.BoundaryTests.test_b16_approval_for_another_board_does_not_count) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpxz25rcal\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_b17_never_tools_refused (test_gate.BoundaryTests.test_b17_never_tools_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpj3ove282\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_404_not_retried_and_run_is_incomplete (test_gate.LoopTests.test_404_not_retried_and_run_is_incomplete) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp4xao60ym\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_5xx_retried_once_only (test_gate.LoopTests.test_5xx_retried_once_only) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpg9n86wmt\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_all_boards_ok_is_finished (test_gate.LoopTests.test_all_boards_ok_is_finished) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpmvr8dd2k\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_bad_shape_stops_with_error (test_gate.LoopTests.test_bad_shape_stops_with_error) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpvxoozc2_\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_baseline_then_new_ids_only_per_board (test_gate.LoopTests.test_baseline_then_new_ids_only_per_board) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpztygc8nl\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_board_budget (test_gate.LoopTests.test_board_budget) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp75ykswlp\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_board_listed_twice_fetched_once (test_gate.LoopTests.test_board_listed_twice_fetched_once) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp03mojsox\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_budget_can_be_lowered_not_raised (test_gate.LoopTests.test_budget_can_be_lowered_not_raised) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpe3iu422t\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_every_request_is_in_the_trace (test_gate.LoopTests.test_every_request_is_in_the_trace) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmporn43ij1\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_failed_board_keeps_its_seen_ids (test_gate.LoopTests.test_failed_board_keeps_its_seen_ids) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp_sn7a8mz\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:273: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp_sn7a8mz\\runs\\w\\state\\greenhouse-pinterest.json'>
+  before = open(state, "rb").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:275: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp_sn7a8mz\\runs\\w\\state\\greenhouse-pinterest.json'>
+  self.assertEqual(open(state, "rb").read(), before)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_policy_refusal_stops_with_error (test_gate.LoopTests.test_policy_refusal_stops_with_error) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpn_2m4h9x\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_retries_count_against_request_budget (test_gate.LoopTests.test_retries_count_against_request_budget) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpvu6cno36\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_seconds_budget (test_gate.LoopTests.test_seconds_budget) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpr5o0l2w2\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_timeout_retried_once_then_ok (test_gate.LoopTests.test_timeout_retried_once_then_ok) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpaq2_yz0s\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_timeout_twice_fails_after_two_requests (test_gate.LoopTests.test_timeout_twice_fails_after_two_requests) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpn76m36b7\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_trace_and_raw_saved_under_runs (test_gate.LoopTests.test_trace_and_raw_saved_under_runs) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpd2353ooh\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_evidence_write_twice_is_refused (test_gate.ToolTests.test_evidence_write_twice_is_refused) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpllk3xwbb\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:185: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpllk3xwbb\\runs\\w\\evidence\\a.json'>
+  self.assertEqual(open(p, "rb").read(), b"1")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_tool_refused_fetch_makes_no_request (test_gate.ToolTests.test_tool_refused_fetch_makes_no_request) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmp87qbo4rd\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_tool_write_outside_runs_is_refused_and_writes_nothing (test_gate.ToolTests.test_tool_write_outside_runs_is_refused_and_writes_nothing) ... C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_gate.py:56: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\<user>\\AppData\\Local\\Temp\\tmpx8dpdl4e\\persona\\resume.json' mode='w' encoding='utf-8'>
+  open(os.path.join(self.root, "persona", "resume.json"), "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_city_and_full_state (test_r3_full_state_names.R3FullStateNames.test_city_and_full_state) ... ok
+test_georgia_the_country (test_r3_full_state_names.R3FullStateNames.test_georgia_the_country) ... ok
+test_georgia_the_us_state (test_r3_full_state_names.R3FullStateNames.test_georgia_the_us_state) ... ok
+test_js1_behaviour_kept (test_r3_full_state_names.R3FullStateNames.test_js1_behaviour_kept) ... ok
+test_other_countries (test_r3_full_state_names.R3FullStateNames.test_other_countries) ... ok
+test_remote_with_a_state (test_r3_full_state_names.R3FullStateNames.test_remote_with_a_state) ... ok
+test_state_name_alone (test_r3_full_state_names.R3FullStateNames.test_state_name_alone) ... ok
+test_state_name_inside_another_word_does_not_count (test_r3_full_state_names.R3FullStateNames.test_state_name_inside_another_word_does_not_count) ... ok
+test_washington_dc (test_r3_full_state_names.R3FullStateNames.test_washington_dc) ... ok
+test_3xx_is_not_transient (test_redirect.RedirectTests.test_3xx_is_not_transient) ... ok
+test_redirect_is_not_followed (test_redirect.RedirectTests.test_redirect_is_not_followed) ... C:\Users\<user>\AppData\Local\Programs\Python\Python314\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 302: 'Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+C:\Users\<user>\AppData\Local\Programs\Python\Python314\Lib\unittest\case.py:615: ResourceWarning: unclosed <socket.socket fd=520, family=2, type=1, proto=0, laddr=('127.0.0.1', 50398)>
+  result = method()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 86 tests in 1.310s
+
+OK

@@ -1,0 +1,33 @@
+diff --git a/agent/rule.py b/agent/rule.py
+index 093dc91..92365bf 100644
+--- a/agent/rule.py
++++ b/agent/rule.py
+@@ -81,17 +81,26 @@ def graduation_window(text):
+ 
+ 
+ PROVINCES = set("AB BC MB NB NL NS NT NU ON PE QC SK YT".split())
++# Georgia is left out: 'Tbilisi, Georgia' is the country (stated limit: 'Atlanta, Georgia' fails unless it says GA or US).
++STATE_NAMES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
++               "Florida", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
++               "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
++               "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
++               "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
++               "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
++               "Wisconsin", "Wyoming", "District of Columbia", "D.C."]
+ 
+ 
+ def _segment_is_us(seg):
+     """R3 for one ';'-separated location segment. Revision 2026-10-30: a segment that also names a Canadian
+-    province (e.g. 'Toronto, ON, CA') reads its trailing CA as Canada, not California."""
++    province (e.g. 'Toronto, ON, CA') reads its trailing CA as Canada, not California.
++    Revision 2026-11-09: full state names count too ('San Francisco, California'; review/01-reproduce-before.txt)."""
+     if re.search(r"\b(United States|USA|US)\b", seg):
+         return True
+     codes = re.findall(r",\s*([A-Z]{2})\b", seg)
+     if any(c in PROVINCES for c in codes):
+         return False
+-    return any(c in STATES for c in codes)
++    return any(c in STATES for c in codes) or any(word_in(n, seg) for n in STATE_NAMES)
+ 
+ 
+ def _r(check, resume_field, posting_field, ok, evidence):
