@@ -12,6 +12,7 @@ from agent2 import policy, providers
 
 REQUEST_TIMEOUT = 20
 RETRY_WAIT = 2
+MIN_REQUEST_SECONDS = 1   # below this much time left, a request is not sent
 
 
 @dataclass(frozen=True)
@@ -102,12 +103,13 @@ def run_loop(boards, transport, last_counts: dict, budget: Budget, save_raw,
                 if res.requests_used >= budget.max_requests:
                     stop_for_budget(i, f"request budget ({budget.max_requests}) reached")
                     break
-                if clock() - t0 >= budget.max_seconds:
+                time_left = budget.max_seconds - (clock() - t0)
+                if time_left < MIN_REQUEST_SECONDS:
                     stop_for_budget(i, f"time budget ({budget.max_seconds}s) reached")
                     break
                 attempt += 1
                 res.requests_used += 1
-                r = transport.get(b.url, timeout=REQUEST_TIMEOUT)
+                r = transport.get(b.url, timeout=min(REQUEST_TIMEOUT, time_left))
                 raw = save_raw(b.key, attempt, r.body) if r.body is not None else None
                 log("request", board=b.key, attempt=attempt, url=b.url, kind=r.kind, status=r.status,
                     bytes=len(r.body) if r.body is not None else 0, raw=raw, detail=r.detail)
