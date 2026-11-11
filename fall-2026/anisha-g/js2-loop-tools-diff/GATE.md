@@ -1,6 +1,7 @@
 # GATE.md — Job-Search Agent 2
 Anisha Gaikar · 2026-11-09 · Written **before Claude Code touched any code**.
-Every answer below is mine, in my own words. I gave my answers in chat, and Claude copied them into this file unchanged. Anything in [square brackets] is a note added for clarity, not a change to my answer.
+The decisions in this file are mine. ChatGPT drafted the wording of my answers on 2026-11-09. I read each one, changed some, and chose what to keep before any code was written. I gave them to Claude in chat, and Claude copied them into this file unchanged.
+[Attribution corrected 2026-11-09 ~3:35 pm. The first version of this line, in commit cdc62ba, said the words were all mine; that was not accurate. Nothing else in this file was changed.] Anything in [square brackets] is a note added for clarity, not a change to my answer.
 
 ## 1. Exits — how a run ends
 - **Finished** — I checked every board on the list. I'd report how many boards I checked and how many new jobs I found, even if the count is zero.

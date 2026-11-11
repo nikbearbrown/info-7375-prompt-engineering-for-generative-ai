@@ -1,5 +1,6 @@
 # Boundary cases — my predictions, written BEFORE any test or code existed
-Anisha Gaikar · 2026-11-09 ~3:13 pm · My words, copied unchanged from my chat answer. Each case is one test in `tests/test_policy.py`; the test's name is shown.
+Anisha Gaikar · 2026-11-09 ~3:13 pm · The decisions in this file are mine. ChatGPT drafted the wording of my answers on 2026-11-09. I read each one, changed some, and chose what to keep before any code was written. Claude copied them into this table unchanged.
+[Attribution corrected 2026-11-09 ~3:35 pm; the first version said "My words". This file's original hash is the PREDICTIONS.md line in `tests.frozen.sha256`, so the change is traceable.] Each case is one test in `tests/test_policy.py`; the test's name is shown.
 
 | # | Case | My prediction (before running) | Test |
 |---|---|---|---|
@@ -20,5 +21,6 @@ Anisha Gaikar · 2026-11-09 ~3:13 pm · My words, copied unchanged from my chat 
 | 15 | Same overwrite, with approval | allowed — I approved this specific overwrite inside the report folder. | `test_15_overwrite_with_approval_allowed` |
 | 16 | Read an existing report in `reports/job-watch/` | allowed — The agent can read an existing report in the report folder. | `test_16_read_report_allowed` |
 | 17 | Delete a report in `reports/job-watch/` | blocked — The agent must never delete reports. | `test_17_delete_blocked` |
+| 18 | GET an *application* URL on an allowed host (`.../jobs/1/applications`) — added after the freeze | blocked — my decision at ~3:23 pm: "Keep the apply URL test ... expect blocked before any request is sent. That tests whether the agent checks the endpoint's purpose as well as the hostname and HTTP method." (Claude wrote this test before my decision; I decided to keep it.) | `test_never_apply_path_blocked_even_with_get` |
 
 Boards (my choice, live status unverified before the first run): Greenhouse `klaviyo`, Greenhouse `datadog`, Lever `palantir`, and Greenhouse `no-such-board-7375` as the deliberate failure.
