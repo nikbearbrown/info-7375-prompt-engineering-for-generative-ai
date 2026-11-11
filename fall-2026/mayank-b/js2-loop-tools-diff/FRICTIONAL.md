@@ -59,7 +59,9 @@
 ### 2026-11-10 20:00 · I approved the first real state write
 - **Did:** `python3 agent.py approve 2026-11-11T00-24-30Z-real --approve-state 2026-11-11T00-24-30Z-real`.
 - **Happened:** applied 3 boards (anthropic 679, hubspotjobs 122, notion 156 ids). Nothing was held: the failed board had no proposed state to write, so its state stayed untouched as GATE §4 says (`runs/2026-11-11T00-24-30Z-real/approval.json`).
-- **Unresolved:** no later run has used this state, so a live "new jobs" result was never shown.
+- **Later (2026-11-10, 21:24 ET):** `runs/2026-11-11T02-24-39Z-second-check/` used this state. HubSpot had **2 new postings** ("Lead Solutions Engineer", "Solutions Engineer", both "Remote - USA"); the rule judged both `not_relevant`.
+- **Found:** my JS1 rule only treats remote work as US when the text says "United States". "ML Engineer / Remote - USA" comes out `not_relevant`, but "Remote - United States" comes out `relevant` (I ran `rule.judge` on both).
+- **Unresolved:** that "USA" gap in the location rule, and a second calendar day: the second check ran on the same evening.
 
 ### 2026-11-10 · Smaller things
 - **One wrong prediction:** B7 was refused as predicted, but with `approval-required`, not the `outside-write-root` I predicted (`BOUNDARY-TESTS.md`).

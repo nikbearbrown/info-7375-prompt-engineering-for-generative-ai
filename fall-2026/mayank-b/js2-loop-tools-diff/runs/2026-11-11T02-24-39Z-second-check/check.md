@@ -1,0 +1,12 @@
+NEEDS MAYANK: greenhouse/mayank-js2-no-such-board
+
+# Independent check of run 2026-11-11T02-24-39Z-second-check
+
+The agent's own exit was `incomplete`. That says how its loop ended, not whether it was right. This table is computed from the saved raw responses and my floors, not from the agent's report.
+
+| Board | Checker verdict | Why | Agent claimed | Floor (source) |
+|---|---|---|---|---|
+| greenhouse/anthropic | **ok** | 678 postings, floor 100 | ok, 678 postings, 0 new | 100 (Lectern ATS.md 2026-09-26: 618 postings; my JS1 run 2026-10-30: 670 postings. A floor far below any count seen.) |
+| greenhouse/hubspotjobs | **ok** | 124 postings, floor 20 | ok, 124 postings, 2 new | 20 (Lectern ATS.md 2026-09-26: 133 postings) |
+| ashby/notion | **ok** | 156 postings, floor 20 | ok, 156 postings, 0 new | 20 (Lectern ATS.md 2026-09-26: 128 postings) |
+| greenhouse/mayank-js2-no-such-board | **error-response** | HTTP 404, body is not a job list | error: http-4xx | None (unknown: a deliberately invalid board; no count exists) |

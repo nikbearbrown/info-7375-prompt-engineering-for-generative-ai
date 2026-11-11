@@ -9,6 +9,7 @@
 **Why read it.** The interesting part isn't that it fetches jobs. It's what happens when a board fails, when the same board appears twice, when a run ends cleanly with a wrong answer, and when a path tries to escape its folder. Each case has a rule written first (`GATE.md`), a test, and a saved real run.
 
 **What it showed (2026-11-10, Eastern):**
+- **A second live check** from the state I approved found **2 genuinely new HubSpot postings**, and it exposed a gap in my title rule (it doesn't read "Remote - USA" as remote United States).
 - **The real run** read Anthropic (679 postings), HubSpot (122) and Notion (156). The deliberately bad board returned HTTP 404 and was recorded as an *error*, not "0 jobs"; it was not retried. A repeated board was skipped without a request. The run stopped as `incomplete` with exit code 3 and "NEEDS MAYANK" on its first line.
 - **The finished-wrong answers.** Two runs ended `finished` with exit code 0 while reporting a board as "0 postings, 0 new". A separate checker, reading only the saved raw responses and my floors, flagged both as `suspect`.
 - **The permission policy** holds all 16 boundary cases predicted in advance. The review patch fixed a symlink escape inherited from JS1. A probe shows one escape it still misses.
@@ -115,7 +116,15 @@ The 16 boundary cases, each with its prediction committed before the tests ran, 
 
 `scripts/wrong_versions.py` → **9/9 wrong versions caught** (`review/03-after-patch.txt`).
 
-### 4. The review packet
+### 4. A second live check, using the state I approved: `runs/2026-11-11T02-24-39Z-second-check/`
+
+I ran `approve` on the real run (`runs/2026-11-11T00-24-30Z-real/approval.json`, 2026-11-11T01:00Z). About 80 minutes later the same plan ran again from that state:
+- **2 new HubSpot postings** (124 now vs the 122 I approved): `8373973` "Lead Solutions Engineer" and `8373974` "Solutions Engineer", both "Remote - USA". Anthropic 678 (one fewer), Notion 156, both 0 new.
+- The title rule judged both new postings `not_relevant`: no target title matched, and "Lead" is an exclude term.
+- **It exposed a limitation in the JS1 rule:** remote US work only passes when the text literally says "United States". Run directly, `rule.judge` gives "ML Engineer / Remote - USA" → `not_relevant` but "ML Engineer / Remote - United States" → `relevant`. Not fixed here; listed under Not checked.
+- The deliberate 404 and the repeat behaved as in the first run. The independent check: three boards `ok`, the bad board `error-response`.
+
+### 5. The review packet
 
 See **`REVIEW-PACKET.md`**:
 1. Failing tests committed first (CP5 `6050272`).
@@ -149,8 +158,8 @@ See **`REVIEW-PACKET.md`**:
 2. A link swapped in between the check and the write (time-of-check/time-of-use).
 3. A real timeout or 5xx: those paths were exercised only with a scripted fetch; no live board timed out.
 4. The 60-second cap against a real slow board: tested only with a fake clock.
-5. The title rule on live new jobs: every live board was a baseline, so no job was "new" and the rule never judged a live posting.
-6. A second calendar day. I ran `approve` on the real run myself (2026-11-11T01:00Z UTC, `runs/2026-11-11T00-24-30Z-real/approval.json`): `state/seen-ids.json` now holds 679 / 122 / 156 ids for the three healthy boards. No later run has used that state yet, so "new since last check" was never shown live.
+5. The title rule on more than 2 live new jobs. It judged only the 2 HubSpot postings in `runs/2026-11-11T02-24-39Z-second-check/` (both correctly `not_relevant`), and it **misses "Remote - USA"** as remote United States (shown by running `rule.judge`; not fixed).
+6. A second calendar day. The second check (`runs/2026-11-11T02-24-39Z-second-check/`) ran about 80 minutes after I approved the state (2026-11-11T01:00Z), on the same evening. It showed "new since last check" live once (2 HubSpot postings), not across days.
 7. Board identity for `ashby/greenlight` (unknown), and this time for the other boards (taken from Lectern's 2026-09-26 verification, not re-confirmed by me).
 8. Reads through symlinks are now refused, but no test covers that yet (`REVIEW-PACKET.md`).
 
