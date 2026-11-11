@@ -18,3 +18,11 @@ class WV2SilentSkip(Loop):
 
     def exit_status(self, flags, boards):
         return "finished" if not flags else super().exit_status(flags, boards)
+
+
+class WV3BareId(Loop):
+    """GATE 6.3: a job is identified by its posting id alone, so the same id on two boards collides.
+    (This is exactly how JS1 stored ids, and how the JS2-2 loop stored them before the patch.)"""
+
+    def job_key(self, system, board, job_id):
+        return job_id
