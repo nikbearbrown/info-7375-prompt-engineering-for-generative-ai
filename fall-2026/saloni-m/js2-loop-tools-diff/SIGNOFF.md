@@ -1,7 +1,7 @@
 # Sign-off — Job-Search Agent 2
 
-Drafted by Claude Code from the tests and runs on 2026-11-10; read, edited and signed or withheld
-by Saloni below.
+Drafted by Claude Code from the tests and runs on 2026-11-10; read and signed by Saloni
+("Signed, push it", in chat, 2026-11-10 ~20:10 ET).
 
 ```text
 Sign-off — Job-Search Agent 2
@@ -44,7 +44,7 @@ Not checked:  - a real retry: no real run had a timeout or a 5xx, so retries are
 Not claiming: that the agent finds every new job (only these three boards, only while it
               runs), that a job is relevant (JS2 does not judge), or that 50 green tests mean
               correct: patch v1 passed 48/48 and still hid a real job.
-Signed or withheld: ____________ (name, date)
+Signed or withheld: Signed: Saloni Mathure, 2026-11-10
 ```
 
 **B21**: I predicted deny; the code asks for approval when an alias (symlink) points at the
