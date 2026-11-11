@@ -1,0 +1,46 @@
+$ WATCHER_LOOP=wrong_versions.retry_ignores_budget python3 -m unittest tests.test_loop -v   (2026-11-10 21:30)
+test_defaults_are_my_numbers (tests.test_loop.Budgets.test_defaults_are_my_numbers) ... ok
+test_more_than_five_distinct_boards_is_budget_exhausted (tests.test_loop.Budgets.test_more_than_five_distinct_boards_is_budget_exhausted) ... ok
+test_retries_count_toward_requests (tests.test_loop.Budgets.test_retries_count_toward_requests) ... ok
+test_seconds_limit_stops_the_loop (tests.test_loop.Budgets.test_seconds_limit_stops_the_loop) ... ok
+test_bad_name_reported_no_retry_move_on (tests.test_loop.Errors.test_bad_name_reported_no_retry_move_on) ... ok
+test_blank_body_retried_once (tests.test_loop.Errors.test_blank_body_retried_once) ... ok
+test_every_attempt_is_observed (tests.test_loop.Errors.test_every_attempt_is_observed) ... ok
+test_failed_board_has_no_invented_values (tests.test_loop.Errors.test_failed_board_has_no_invented_values) ... ok
+test_timeout_retried_once_then_success (tests.test_loop.Errors.test_timeout_retried_once_then_success) ... ok
+test_two_timeouts_fail_then_next_board (tests.test_loop.Errors.test_two_timeouts_fail_then_next_board) ... ok
+test_budget_exhausted_says_which_limit_and_unfinished_boards (tests.test_loop.Exits.test_budget_exhausted_says_which_limit_and_unfinished_boards) ... ok
+test_error_when_no_board_succeeds (tests.test_loop.Exits.test_error_when_no_board_succeeds) ... ok
+test_error_when_run_cannot_start (tests.test_loop.Exits.test_error_when_run_cannot_start) ... ok
+test_finished_reports_boards_and_new_count_even_zero (tests.test_loop.Exits.test_finished_reports_boards_and_new_count_even_zero) ... ok
+test_incomplete_lists_failed_boards_and_why (tests.test_loop.Exits.test_incomplete_lists_failed_boards_and_why) ... ok
+test_duplicate_board_is_skipped_and_noted (tests.test_loop.Repeat.test_duplicate_board_is_skipped_and_noted) ... ok
+test_first_sight_of_a_board_is_a_baseline (tests.test_loop.Watch.test_first_sight_of_a_board_is_a_baseline) ... ok
+test_new_ids_only (tests.test_loop.Watch.test_new_ids_only) ... ok
+test_at_my_default_numbers_requests_cannot_exceed_ten (tests.test_loop.WrongVersions.test_at_my_default_numbers_requests_cannot_exceed_ten) ... ok
+test_wrong1_empty_list_is_success_but_failure_is_not_zero (tests.test_loop.WrongVersions.test_wrong1_empty_list_is_success_but_failure_is_not_zero) ... ok
+test_wrong2_timeout_on_last_allowed_request_gets_no_retry (tests.test_loop.WrongVersions.test_wrong2_timeout_on_last_allowed_request_gets_no_retry) ... FAIL
+test_wrong2_timeout_while_another_board_waits (tests.test_loop.WrongVersions.test_wrong2_timeout_while_another_board_waits) ... FAIL
+
+======================================================================
+FAIL: test_wrong2_timeout_on_last_allowed_request_gets_no_retry (tests.test_loop.WrongVersions.test_wrong2_timeout_on_last_allowed_request_gets_no_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_loop.py", line 89, in test_wrong2_timeout_on_last_allowed_request_gets_no_retry
+    self.assertEqual(len(f.calls), 3)                           # no 4th request
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: 4 != 3
+
+======================================================================
+FAIL: test_wrong2_timeout_while_another_board_waits (tests.test_loop.WrongVersions.test_wrong2_timeout_while_another_board_waits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_loop.py", line 98, in test_wrong2_timeout_while_another_board_waits
+    self.assertEqual(len(f.calls), 7)                           # the retry would be request 8: not made
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: 8 != 7
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.001s
+
+FAILED (failures=2)
