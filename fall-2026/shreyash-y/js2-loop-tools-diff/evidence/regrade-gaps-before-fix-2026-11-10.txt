@@ -1,0 +1,86 @@
+# Regrade gaps, test run BEFORE the fix, 2026-11-10 (EST).
+# Command: python3 -m unittest tests.test_regrade_gaps -v
+#
+# First attempt, 20:29 EST: the boards test had no network guard, so the old command line read the
+# outside boards file and made one live GET to Oscar's public board, and both CLI tests wrote throwaway
+# runs (runs/never-made, runs/never-made-SEEDED and two state files). Those files were deleted and
+# never committed. The test now replaces the network and writes to a temp folder. Second attempt below.
+# --- 20:29 EST ---
+test_boards_file_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_boards_file_outside_the_folder_is_refused) ... FAIL
+test_replay_map_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_replay_map_outside_the_folder_is_refused) ... ERROR
+test_check_flags_finished_with_no_board_checked (tests.test_regrade_gaps.EmptyBoardList.test_check_flags_finished_with_no_board_checked)
+What the old loop wrote for an empty list: exit finished, no boards. The check must not pass it. ... FAIL
+test_empty_board_list_is_an_error_not_finished (tests.test_regrade_gaps.EmptyBoardList.test_empty_board_list_is_an_error_not_finished) ... FAIL
+test_response_file_outside_the_project_is_refused (tests.test_regrade_gaps.ReplayResponseFiles.test_response_file_outside_the_project_is_refused) ... ERROR
+
+======================================================================
+ERROR: test_replay_map_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_replay_map_outside_the_folder_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 54, in test_replay_map_outside_the_folder_is_refused
+    cli.main(["run", "--boards", "demo/boards-four-good.json", "--replay", str(m), "--runs-dir", str(self.runs),
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              "--run-id", "never-made"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/__main__.py", line 32, in main
+    rep = loop.run(boards, budgets, t, files, run_id, view)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/loop.py", line 107, in run
+    r["raw_files"].append(rel(raw))
+                          ~~~^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/loop.py", line 41, in <lambda>
+    rel = lambda p: str(pathlib.Path(p).relative_to(files.project))
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 490, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/private/var/folders/r0/9dx27nmx021b7_yd_5cmc1pm0000gn/T/tmpw6bzbgb1/runs/never-made-SEEDED/raw/greenhouse-oscar-attempt1.json' is not in the subpath of '/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff'
+
+======================================================================
+ERROR: test_response_file_outside_the_project_is_refused (tests.test_regrade_gaps.ReplayResponseFiles.test_response_file_outside_the_project_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 70, in test_response_file_outside_the_project_is_refused
+    t = transport.Replay(proj / "map.json", read=files.read)
+TypeError: Replay.__init__() got an unexpected keyword argument 'read'
+
+======================================================================
+FAIL: test_boards_file_outside_the_folder_is_refused (tests.test_regrade_gaps.CommandLineReads.test_boards_file_outside_the_folder_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 46, in test_boards_file_outside_the_folder_is_refused
+    cli.main(["run", "--boards", str(boards), "--runs-dir", str(self.runs), "--run-id", "never-made"])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/__main__.py", line 32, in main
+    rep = loop.run(boards, budgets, t, files, run_id, view)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/loop.py", line 95, in run
+    status, body = transport.get(url, timeout=min(REQUEST_TIMEOUT, budgets["max_seconds"] - used))
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 23, in get
+    raise AssertionError(f"the test tried the network: {url}")
+AssertionError: the test tried the network: https://boards-api.greenhouse.io/v1/boards/oscar/jobs?content=true
+
+======================================================================
+FAIL: test_check_flags_finished_with_no_board_checked (tests.test_regrade_gaps.EmptyBoardList.test_check_flags_finished_with_no_board_checked)
+What the old loop wrote for an empty list: exit finished, no boards. The check must not pass it.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 102, in test_check_flags_finished_with_no_board_checked
+    self.assertTrue(any("no board" in f for f in findings), findings)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : []
+
+======================================================================
+FAIL: test_empty_board_list_is_an_error_not_finished (tests.test_regrade_gaps.EmptyBoardList.test_empty_board_list_is_an_error_not_finished)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade_gaps.py", line 91, in test_empty_board_list_is_an_error_not_finished
+    self.assertEqual(rep["exit"], "error")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'finished' != 'error'
+- finished
++ error
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.008s
+
+FAILED (failures=3, errors=2)
