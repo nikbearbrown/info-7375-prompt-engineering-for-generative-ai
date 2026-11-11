@@ -21,3 +21,8 @@ Ran 3 tests in 0.000s
 
 OK (expected failures=1)
 OK (expected failures=1)
+
+# Later on 2026-11-10, after commit 5c903ec (the regrade fixes; 17 frozen files since test_regrade_gaps.py was added):
+$ cd ~/"Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff" && python3 -m unittest discover -s tests -t . 2>&1 | tail -1 && shasum -a 256 -c tests.frozen.sha256 | grep -c ": OK"
+OK (expected failures=1)
+17
