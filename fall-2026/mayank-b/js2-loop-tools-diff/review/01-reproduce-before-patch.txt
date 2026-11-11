@@ -1,0 +1,28 @@
+# 2026-11-10, before the patch (code at JS2-CP4 ebb7b3f)
+$ cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write test_policy.Paths.test_B8b_returned_path_is_the_resolved_one -v
+test_B8_symlink_escape_on_write (test_policy.Paths.test_B8_symlink_escape_on_write) ... FAIL
+test_B8b_returned_path_is_the_resolved_one (test_policy.Paths.test_B8b_returned_path_is_the_resolved_one) ... FAIL
+
+======================================================================
+FAIL: test_B8_symlink_escape_on_write (test_policy.Paths.test_B8_symlink_escape_on_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayank/Desktop/AgenticAI/Week_1/info-7375-repo/fall-2026/mayank-b/js2-loop-tools-diff/tests/test_policy.py", line 65, in test_B8_symlink_escape_on_write
+    self.refused(f"runs/{RUN_ID}/link/x.json", "write", "outside-write-root")
+  File "/Users/mayank/Desktop/AgenticAI/Week_1/info-7375-repo/fall-2026/mayank-b/js2-loop-tools-diff/tests/test_policy.py", line 53, in refused
+    with self.assertRaises(PolicyError) as cm:
+AssertionError: PolicyError not raised
+
+======================================================================
+FAIL: test_B8b_returned_path_is_the_resolved_one (test_policy.Paths.test_B8b_returned_path_is_the_resolved_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mayank/Desktop/AgenticAI/Week_1/info-7375-repo/fall-2026/mayank-b/js2-loop-tools-diff/tests/test_policy.py", line 74, in test_B8b_returned_path_is_the_resolved_one
+    self.assertEqual(p, (real / "f.json").resolve())
+AssertionError: PosixPath('/var/folders/v4/xcbrrtwn4jn2xg1h00m6ztpc00[60 chars]son') != PosixPath('/private/var/folders/v4/xcbrrtwn4jn2xg1h00[67 chars]son')
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=2)
+[exit 1]

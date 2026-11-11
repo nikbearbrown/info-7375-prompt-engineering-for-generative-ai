@@ -1,6 +1,8 @@
 """Permission boundary tests. Each name is a row in BOUNDARY-TESTS.md (predictions committed first, CP2)."""
 import os
+import tempfile
 import unittest
+from pathlib import Path
 import urllib.request
 
 from helpers import RUN_ID, temp_root
@@ -55,6 +57,21 @@ class Paths(unittest.TestCase):
     def test_B7_dotdot_escape_on_write(self):
         self.refused(f"runs/{RUN_ID}/../../state/seen-ids.json", "write", "approval-required")
         self.refused(f"runs/{RUN_ID}/../../config/x.json", "write", "outside-write-root")
+
+    def test_B8_symlink_escape_on_write(self):
+        # Review packet (GATE §8): written 2026-11-10 BEFORE the patch, to reproduce JS1's safeWrite defect.
+        outside = Path(tempfile.mkdtemp(prefix="js2-outside-"))
+        os.symlink(outside, self.root / "runs" / RUN_ID / "link")
+        self.refused(f"runs/{RUN_ID}/link/x.json", "write", "outside-write-root")
+        self.assertFalse((outside / "x.json").exists())
+
+    def test_B8b_returned_path_is_the_resolved_one(self):
+        # Chapter 5's third gap: success tests must check the path the caller will actually use.
+        real = self.root / "runs" / RUN_ID / "real"
+        real.mkdir()
+        os.symlink(real, self.root / "runs" / RUN_ID / "alias")
+        p = authorize(self.root, f"runs/{RUN_ID}/alias/f.json", "write", run_id=RUN_ID)
+        self.assertEqual(p, (real / "f.json").resolve())
 
     def test_B9_prefix_trick_sibling(self):
         (self.root / "runs-evil").mkdir()
