@@ -1,0 +1,16 @@
+{
+  "_comment": "Budgets and hosts must match GATE.md sections 2 and 5; tests/test_gate.py and the agent's start-up check fail if they differ. Only Saloni changes these, by a dated GATE.md entry.",
+  "budgets": {
+    "max_boards": 5,
+    "max_requests": 10,
+    "max_seconds": 60,
+    "request_timeout_seconds": 10
+  },
+  "allowed_hosts": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+  "boards": [
+    {"system": "greenhouse", "board": "anthropic"},
+    {"system": "greenhouse", "board": "figma"},
+    {"system": "ashby", "board": "openai"},
+    {"system": "greenhouse", "board": "anthropic-doesnotexist", "deliberate_failure": "misspelled board name, expected 404"}
+  ]
+}
