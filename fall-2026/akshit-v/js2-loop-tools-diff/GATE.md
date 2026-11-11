@@ -63,3 +63,7 @@ When a budget would be exceeded, the loop stops before making that request and e
 
 - **W-a. A finished wrong answer.** An empty response is reported as `finished` with "no new jobs". The independent check must catch it, not the agent's own report.
 - **W-b. Prefix path check.** The write check compares string prefixes (`str(path).startswith("out")`), so `out-evil/x` is wrongly accepted as inside `out/`.
+
+## Dated entries
+
+- **2026-11-10, approved by me after the review packet (see REVIEW_PACKET.md).** The 60-second budget is unchanged. How it is enforced is now explicit: before each request, the loop computes the time left. If less than **1 second** is left, it stops with `budget_exhausted` without sending. Otherwise the request's timeout is at most the time left (and never more than 20 seconds).
