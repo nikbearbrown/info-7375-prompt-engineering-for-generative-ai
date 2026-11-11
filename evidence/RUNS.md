@@ -51,5 +51,4 @@ cross-check) and C (the seeded run) by hand. Their outputs are in the folders li
 - **No new data-titled posting appeared live**, so the rule judge never ran on a live posting in JS2. That path is covered only by the
   offline tests (`test_second_run_reports_new_and_judges_data_titles`, `test_lever_needs_no_detail_request`, W14).
 - **No live retry, redirect or 429 happened.** Those paths are covered only by offline tests.
-- The board picks come from read-only probes on 2026-11-10 that were **not** agent runs, and their raw responses were not saved (see
-  GATE.md Scope).
+- The board picks come from read-only probes on 2026-11-10 that were **not** agent runs, and their raw responses were not saved.

@@ -54,7 +54,7 @@ verifier: FAIL (...)
 
 ## Why the check is outside the loop
 
-A plausibility check inside the loop would still be the agent grading itself (GATE.md, section 4). The verifier reads the raw files,
+A plausibility check inside the loop would still be the agent grading itself. The verifier reads the raw files,
 the trace, the board file, the baseline's raw response and earlier runs' raw files. It does not reuse the loop's adapters or its exit
 function. `test_W15_verifier_ignores_report_counts` shows it catches a report that lies about a count.
 `test_W19_empty_board_fails_verification` shows it fails an empty board even with no history. `scripts/sabotage_check.py` shows both
@@ -62,6 +62,6 @@ tests go red when those checks are removed.
 
 ## What the check does not prove
 
-- The verifier flags *every* empty board, so a company that truly has no openings would also FAIL. GATE.md accepts that false alarm.
+- The verifier flags *every* empty board, so a company that truly has no openings would also FAIL. I accept that false alarm.
 - It cannot find where a company moved. The Ashby cross-check was my manual step.
 - It trusts earlier runs' reports for which ids were left unjudged. It recounts everything else from raw bytes.

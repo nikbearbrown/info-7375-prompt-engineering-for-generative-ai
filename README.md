@@ -87,7 +87,7 @@ afb3877  review packet 2/2: the patch (113 OK, 18/18)
 024c1f7  runs A-D + cross-check
 ```
 
-## JS1's limits, carried forward (from GATE.md)
+## JS1's limits, carried forward
 
 - The change between JS1 runs was a constructed seed, not a real second day. JS2 has a real Oct 31 → Nov 10 comparison for Samsara
   only.

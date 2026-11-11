@@ -6,7 +6,7 @@ section 5 requires port 443 only and no user information. This is a real defect 
 
 **What Claude was asked, and what it replied (2026-11-10, Claude Code, model Opus 5.5).** I didn't write a separate prompt for this patch.
 The instruction was my session message "make everything that is left to be done now" (later "except the submission part, build
-everything"), on top of GATE.md's written plan ("My proposed Claude Code change fixes a real JS1 defect … Before the patch, I will save
+everything"), on top of GATE.md v2.3's written plan ("My proposed Claude Code change fixes a real JS1 defect … Before the patch, I will save
 the reproduction and commit a failing regression test"). Claude's reply for this step was the patch below and its commit message
 (`afb3877`). That is a weakness in this packet: a narrower prompt would make the scope easier to judge.
 
