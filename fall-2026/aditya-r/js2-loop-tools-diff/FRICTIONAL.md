@@ -38,6 +38,17 @@
 - **LIVE run** (18:21): budget-exhausted, exit 4, exactly as Addendum §6 predicted for a backlog larger than 10. The independent checker passed 24/24.
 - **Finished-wrong demo** (18:24): all 4 predictions committed in `8664385` held.
 
+## [process log] 18:36–19:55 — Aditya's approval and check; the attempt-deadline fix
+
+- Aditya ran the approval demonstration (18:36–18:38) and the fresh-extraction check (18:41–18:42) himself. His outputs were committed byte-identical (`e1a4a69`), except for one pip temp-folder path, which was redacted and disclosed.
+- He asked for the documented DNS gap to be resolved without weakening the gate.
+- **Friction:** writing the tests showed the gap was wider than the README said. The TLS handshake, status line and headers each got a fresh socket timeout on every `recv`, so a dripping server held an attempt for 3.02 s against a 0.5 s deadline. An expired deadline also still connected.
+  - The tests were committed failing (`20c9d05`: 4 failed, 3 passed).
+  - The fix is `be5d821`.
+- **Friction:** the fix broke B7. The cause was a fake test clock fed to the real client, not the redirect logic. Only B7's wrapper changed; its assertions did not.
+- **Friction:** the first mutation run with the new mutants had 1 MISSED. A negative connect timeout raised `ValueError` and masked the removed check. The mutant was strengthened, and the run is kept (`evidence/mutation/mutation_check_js2_dns_first_run.txt`). Result: 21/21.
+- The LIVE run and the approval demonstration were **not** rerun. They ran on the earlier client, and their records are unchanged.
+
 ## [Aditya] Entries — written by Aditya
 
 _Provenance: written by Aditya and dated by him November 10, 2026. He gave the text to Claude Code in the session, and Claude inserted it below verbatim at 2026-11-10 19:42 EST. Claude changed only the Markdown heading levels; it edited none of the words._

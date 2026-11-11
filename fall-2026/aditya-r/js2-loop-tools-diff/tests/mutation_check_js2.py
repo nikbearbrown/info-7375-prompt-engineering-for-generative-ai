@@ -1,4 +1,4 @@
-"""Plant each GATE.md §6 wrong version (W1–W12), plus the accepted meta-validation patch, into a temporary
+"""Plant each GATE.md §6 wrong version (W1–W12, with W3 also covering the HTTP attempt deadline), plus the accepted meta-validation patch, into a temporary
 copy of the real code, and confirm the test suite fails for each (MUTATION evidence).
 
     .venv/bin/python tests/mutation_check_js2.py      # exits 0 only if every mutant is CAUGHT
@@ -45,6 +45,15 @@ MUTANTS = [
      "        if 300 <= status < 400:  # never read on, never follow: the caller refuses it\n            return status, headers, b\"\"",
      "        if 300 <= status < 400:\n            import urllib.request\n"
      "            urllib.request.urlopen(headers['location'], timeout=timeout_s).read()\n            return status, headers, b\"\""),
+    ("W3 attempt wait unbounded (caller joins the HTTP worker without the deadline)", "agent/net.py",
+     "    worker.join(max(0.0, deadline - clock()))", "    worker.join()"),
+    ("W3 late DNS answer still connected (post-DNS cancellation check removed)", "agent/net.py",
+     "            if cancelled.is_set() or left <= 0:", "            if False:",
+     ("                return socket.create_connection(sockaddr[:2], min(timeout, left), source_address)",
+      "                return socket.create_connection(sockaddr[:2], timeout, source_address)")),
+    ("W3 expired attempt deadline still dispatches", "agent/net.py",
+     "    if deadline - clock() <= 0:\n        raise TransportError(\"timeout\", \"attempt deadline reached before dispatch\")",
+     "    if False:\n        raise TransportError(\"timeout\", \"attempt deadline reached before dispatch\")"),
     ("W9 state shared across boards", "agent/loop.py",
      '            entry = staged["boards"].get(o["key"])',
      '            entry = next(iter(staged["boards"].values()), None)'),

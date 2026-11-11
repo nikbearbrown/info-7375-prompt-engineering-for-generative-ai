@@ -6,9 +6,11 @@ How the deadline is enforced (GATE.md §2; GATE_ADDENDUM_1.md §4):
   running then, the caller raises TransportError("timeout") and returns. The caller's wait is
   bounded even while the worker is blocked inside getaddrinfo, which cannot be interrupted.
 - The worker checks for cancellation and for the deadline after DNS and immediately before
-  connecting, so a late DNS answer is never connected. It also checks between body chunks, so an
-  abandoned attempt never sends its request after timing out. (The check-to-connect window is a
-  few instructions, not zero.)
+  connecting, so a DNS answer that arrives after the deadline is not connected and its request is
+  not sent. (The window between that check and the connect is a few instructions, not zero.) It
+  also checks between body chunks.
+- The connect hook is http.client's `_create_connection` attribute (CPython 3.12), which is not a
+  public API. If it is missing, the attempt fails closed as TransportError("other").
 - Inside the worker, every socket operation is also limited to the time left, so an abandoned
   worker ends on its own within about one timeout. A worker blocked in getaddrinfo ends only when
   the OS resolver returns; it is a daemon thread and does not delay process exit.

@@ -1,5 +1,5 @@
-# MUTATION evidence: tests/mutation_check_js2.py run by Claude Code at 2026-11-10 18:20:43 EST on HEAD 785138a + uncommitted test/mutant edits listed in the next commit.
-# First run (same session, ~18:20 EST) reported 3 MISSED: W3-http (test gap, fixed by test_W3_http_budget_is_checked_before_each_first_attempt), W6 and W11 (each masked by a second defense; mutants strengthened to remove both layers / to self-grant approval).
+# MUTATION evidence: tests/mutation_check_js2.py run by Claude Code, finished 2026-11-10 19:49:03 EST, on HEAD be5d821 + the uncommitted mutant edits in the next commit (a later fresh-extraction rerun on the committed revision is in evidence/clean_clone_check_after_deadline_fix.txt).
+# Earlier first runs: ~18:20 EST, 3 MISSED (W3-http, W6, W11; fixed as recorded in FRICTIONAL); 19:48 EST, 1 MISSED (late-DNS mutant masked; mutation_check_js2_dns_first_run.txt).
 
 CAUGHT: W1 empty Greenhouse response accepted as zero new
     FAILED tests/test_loop.py::test_W1_suspect_empty_on_a_known_board_is_not_zero_new
@@ -25,6 +25,12 @@ CAUGHT: W7 substring host match admits a deceptive host
     FAILED tests/test_boundary.py::test_b04_deceptive_suffix_refused - Failed: DI...
 CAUGHT: W8 redirect followed before policy enforcement
     FAILED tests/test_boundary.py::test_b07_redirect_refused_destination_never_contacted
+CAUGHT: W3 attempt wait unbounded (caller joins the HTTP worker without the deadline)
+    FAILED tests/test_net_deadline.py::test_slow_dns_is_bounded_by_the_attempt_deadline
+CAUGHT: W3 late DNS answer still connected (post-DNS cancellation check removed)
+    FAILED tests/test_net_deadline.py::test_a_dns_answer_arriving_after_the_deadline_is_never_connected
+CAUGHT: W3 expired attempt deadline still dispatches
+    FAILED tests/test_net_deadline.py::test_an_expired_deadline_dispatches_nothing
 CAUGHT: W9 state shared across boards
     FAILED tests/test_loop.py::test_first_run_baselines_every_board_and_finishes
 CAUGHT: W10 unvalidated judgment marked completed
