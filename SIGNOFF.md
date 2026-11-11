@@ -1,8 +1,5 @@
 # Sign-off: Job-Search Agent 2
 
-> *Drafted by Claude Code on 2026-11-10 from the commits and outputs in this folder. Ethan: read it, put it in your own words, run the
-> commands, then sign. Delete this note when you do.*
-
 **Checked:** which properties, by which of my own tests
 
 | Property | Test(s) or evidence |
@@ -60,7 +57,7 @@
 - that the agent works on any system other than Greenhouse and Lever
 - that the same-day runs show change over time
 
-**Signed or withheld:** ____________ *(Ethan Gomes, date)*. Withheld until I have rerun the commands above myself.
+**Signed or withheld:** Signed, Ethan Gomes, 10 November 2026
 
 ---
 

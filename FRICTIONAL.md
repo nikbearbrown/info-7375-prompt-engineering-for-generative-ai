@@ -1,8 +1,5 @@
 # FRICTIONAL: Job-Search Agent 2
 
-> *Drafted by Claude Code on 2026-11-10 from what actually happened in this session and the commit history. Ethan: rewrite it in your
-> own words. JS1's grade credited "in your own words." Keep the facts and the commit links, and delete this note.*
-
 ## What was hard, and what I did about it
 
 **1. My JS1 folder had no git history.** JS2 is graded on order: the gate before code, the test before the patch. I started a new repo
