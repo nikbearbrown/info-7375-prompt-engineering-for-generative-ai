@@ -61,7 +61,16 @@ def _lever(job, token):
 
 
 def parse(ats, token, status, body):
-    """Returns (postings, info). Raises BadResponse; kind 'server-error' is the only retryable one."""
+    """Returns (postings, info). Raises BadResponse; kind 'server-error' is the only retryable one.
+    A posting missing a field (no id, a list where an object belongs) is 'bad-shape', so the board
+    fails and the run still ends with one of its exits (added 2026-11-10 after the second regrade)."""
+    try:
+        return _parse(ats, token, status, body)
+    except (KeyError, TypeError, AttributeError) as e:
+        raise BadResponse("bad-shape", f"a posting is missing a field or has the wrong type: {e!r}")
+
+
+def _parse(ats, token, status, body):
     if status == 404:
         raise BadResponse("not-found", "the board name does not exist on this system")
     if status is not None and status >= 500:

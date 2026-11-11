@@ -14,15 +14,48 @@ def count_raw(ats, data):
     return len(data["jobs"]) if isinstance(data, dict) and isinstance(data.get("jobs"), list) else None
 
 
+def raw_ids(ats, data):
+    jobs = data if ats == "lever" else (data.get("jobs") if isinstance(data, dict) else None)
+    if not isinstance(jobs, list) or not all(isinstance(j, dict) and "id" in j for j in jobs):
+        return None
+    return {str(j["id"]) for j in jobs}
+
+
+def check_trace(run_dir, s):
+    """The trace is appended line by line as the run goes; the summary is written at the end. The
+    check compares them, so a summary edited afterwards (or a board left out of it) shows up.
+    Added 2026-11-10 after the second regrade found the check trusted the summary."""
+    findings = []
+    path = run_dir / "trace.jsonl"
+    if not path.exists():
+        return [f"no trace.jsonl next to the summary"]
+    events = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    start = next((e for e in events if e["event"] == "start"), None)
+    end = [e for e in events if e["event"] == "exit"]
+    in_summary = [b["name"] for b in s["boards"]]
+    if start is None:
+        findings.append("the trace has no start line")
+    elif start.get("boards") != in_summary:
+        missing = [n for n in start.get("boards", []) if n not in in_summary]
+        findings.append(f"the trace started with boards {start.get('boards')} but the summary lists {in_summary}"
+                        + (f" (missing: {', '.join(missing)})" if missing else ""))
+    if not end:
+        findings.append("the trace has no exit line: the run did not end with one of its exits")
+    elif end[-1].get("exit") != s["exit"]:
+        findings.append(f"the summary says exit {s['exit']} but the trace says {end[-1].get('exit')}")
+    return findings
+
+
 def check_run(run_dir, project_dir):
     run_dir, project_dir = pathlib.Path(run_dir), pathlib.Path(project_dir)
     s = json.loads((run_dir / "summary.json").read_text())
-    findings = []
+    findings = check_trace(run_dir, s)
     states = {}
     for f in (run_dir.parent / "state").glob("state-*.json"):
         st = json.loads(f.read_text())
         states[st["sequence"]] = st
     previous = states.get(s["state_sequence"] - 1, {}).get("last_counts", {})
+    seen_before = states.get(s["state_sequence"] - 1, {}).get("boards", {})
     for b in s["boards"]:
         name = b["name"]
         if b["status"] == "failed" and (b["fetched"] is not None or b["new"] is not None):
@@ -41,7 +74,13 @@ def check_run(run_dir, project_dir):
         total = data.get("meta", {}).get("total") if isinstance(data, dict) and isinstance(data.get("meta"), dict) else None
         if total is not None and n is not None and total != n:
             findings.append(f"{name}: the response lists {n} jobs but its own meta.total says {total}")
-        before = previous.get(f"{b['ats']}:{b['token']}")
+        ids, key = raw_ids(b["ats"], data), f"{b['ats']}:{b['token']}"
+        if b["status"] == "ok" and ids is not None:
+            # A board first seen in this run is a baseline (0 new); otherwise new = ids not seen before.
+            expected = len(ids - set(seen_before[key])) if key in seen_before else 0
+            if b["new"] != expected:
+                findings.append(f"{name}: summary says new {b['new']} but the raw ids against the previous state give {expected}")
+        before = previous.get(key)
         if before and n is not None and n < before / 2:
             findings.append(f"{name}: {before - n} of {before} postings disappeared since the previous run "
                             f"(more than half in one run is not believable without a second look)")

@@ -45,6 +45,10 @@
 
 The 22 rows test `Files.read` itself. An independent regrade on 2026-11-10 found that the command line did not call it for its own input files. Three tests in `tests/test_regrade_gaps.py` predict a refusal (`read-outside`) for a `--boards` file outside the folder, a `--replay` map outside it, and a saved response outside it named by a map inside it. They were committed failing (`01aaeb2`, `evidence/regrade-gaps-before-fix-2026-11-10.txt`) and pass after the fix. The first run of these tests, before a network guard was added, let the old code make one live GET to Oscar's public board and write throwaway run files; those files were deleted and never committed (recorded at the top of the before-fix evidence file).
 
+### Found after the 22 rows: the write root at the command line (2026-11-10, Claude Code)
+
+Rows 8–10 test that `Files` refuses `runs-evil/`, but the command line let `--runs-dir` choose what `runs/` was, so `--runs-dir runs-evil` wrote there: GATE.md's wrong version 3. `tests/test_regrade2_gaps.py` predicts a refusal (`outside-runs`, nothing written) for `--runs-dir runs-evil`, `.` and a folder outside the project, allows `runs/_test-regrade2`, and predicts exit 4 with one line instead of a traceback. Committed failing (`ebfd405`, `evidence/regrade2-gaps-before-fix-2026-11-10.txt`); all pass after the fix. These tests replace the network and stub the loop in the refusal cases, so the code before the fix could not write anything when they ran.
+
 ### What these 22 rows do not cover
 
 - **The gap between checking a path and writing it** (a time-of-check/time-of-use race). `Files.write` resolves and checks the path, then opens it. If another process swapped a folder for a symlink in between, the write could follow it. No test covers this. Closing it properly means opening with `O_NOFOLLOW` relative to an already-opened `runs/` directory, which was not built. The agent is the only writer in `runs/` during a run, but that is an assumption, not something enforced.

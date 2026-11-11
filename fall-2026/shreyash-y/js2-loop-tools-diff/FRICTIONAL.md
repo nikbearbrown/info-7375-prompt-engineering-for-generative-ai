@@ -144,6 +144,12 @@ Different Lever boards may use `Dev` differently. I still need to test whether a
 - **My slip.** The first run of the new boards test had no network guard, so the old code made one live GET to Oscar's public board and wrote throwaway run folders and two state files into `runs/`. I deleted them (never committed), added a guard that replaces the network and sends runs to a temp folder, and re-ran. The before-fix evidence file says so at the top.
 - The live runs were made before this change. `budgets.json`, `GATE.md` and the persona are still read directly at fixed paths.
 
+**2026-11-10 21:00, a second independent regrade: three more gaps, fixed test-first.**
+- **The write root came from the command line.** I had fixed the read side earlier the same evening but not looked at the write side the same way: `--runs-dir runs-evil` wrote into `runs-evil/`, GATE.md's own wrong version 3. My own `tests/test_regrade_gaps.py` even relied on pointing `--runs-dir` outside the folder. The root must now be `runs/` or inside it.
+- **A posting with no id crashed the run**, ending in none of the four exits. It now fails its board as `bad-shape`. A refused read or write stops with exit 4 and one line.
+- **The check trusted the summary.** It now compares the summary with the trace and recounts new postings from the raw ids.
+- This time the tests replaced the network and stubbed the loop before their first run, so the code before the fix wrote nothing (10 tests, 8 failing, `ebfd405`).
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.
