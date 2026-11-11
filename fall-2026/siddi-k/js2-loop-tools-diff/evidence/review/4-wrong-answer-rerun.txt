@@ -1,0 +1,25 @@
+# python -m agent2 run --config config/boards.wrong-answer.json   (AFTER the patch; 2026-11-11T03:12:55Z)
+run 2026-11-11T03-12-55Z: 3 boards configured; budgets Budget(boards=4, requests=12, seconds=120)
+  event=request board=stripe url=https://boards-api.greenhouse.io/v1/boards/stripe/jobs attempt=1 requests_used=1
+  event=response board=stripe status=200 bytes=485327 raw=evidence/runs/2026-11-11T03-12-55Z/raw/greenhouse-stripe-o0-a1.json
+  event=board_done board=stripe status=success postings=778
+  event=request board=notion url=https://api.ashbyhq.com/posting-api/job-board/notion attempt=1 requests_used=2
+  event=response board=notion status=200 bytes=2874589 raw=evidence/runs/2026-11-11T03-12-55Z/raw/ashby-notion-o0-a1.json
+  event=board_done board=notion status=success postings=156
+  event=request board=Canvaa url=https://api.smartrecruiters.com/v1/companies/Canvaa/postings?limit=100&offset=0 attempt=1 requests_used=3
+  event=response board=Canvaa status=200 bytes=52 raw=evidence/runs/2026-11-11T03-12-55Z/raw/smartrecruiters-Canvaa-o0-a1.json
+  event=identity_unconfirmed board=Canvaa detail=empty board never seen non-empty in an earlier run
+  event=board_done board=Canvaa status=failed reason=empty_unverified
+EXIT incomplete  run 2026-11-11T03-12-55Z  requests 3/12  seconds 1.78/120
+  greenhouse      stripe       success      postings 778, new since previous run 0
+  ashby           notion       success      postings 156, new since previous run 0
+  smartrecruiters Canvaa       failed       reason empty_unverified (no count reported)
+  outputs: evidence/runs/2026-11-11T03-12-55Z/summary.json, evidence/runs/2026-11-11T03-12-55Z/trace.jsonl
+# exit 1
+# python check/independent_check.py evidence/runs/2026-11-11T03-12-55Z/
+independent check of run 2026-11-11T03-12-55Z (agent reported: incomplete)
+  greenhouse      stripe     agent: success   postings=778  recount from raw: 778
+  ashby           notion     agent: success   postings=156  recount from raw: 156
+  smartrecruiters Canvaa     agent: failed    postings=None  recount from raw: 0
+CHECK PASSED: nothing in the raw evidence or the roster contradicts the agent's report
+# exit 0

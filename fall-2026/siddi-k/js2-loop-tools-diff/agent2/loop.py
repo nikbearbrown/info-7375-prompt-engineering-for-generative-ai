@@ -164,8 +164,12 @@ class _Run:
         except BudgetExhausted as e:
             self.emit(event="board_done", board=b["slug"], status="not_finished", reason=f"budget_exhausted:{e.which}")
             raise
-        # NOTE: GATE §4 also asks that an empty 200 be accepted only once the board's identity is confirmed.
-        # This first build checks structure only; the identity check is the change reviewed in REVIEW-PACKET.md.
+        if not found and not self.previous_postings(b):
+            # GATE §4: an empty 200 is a valid result only once the board's identity is confirmed. The evidence used:
+            # an earlier run saw this same provider+slug with at least one posting. Otherwise it may be a wrong name.
+            self.emit(event="identity_unconfirmed", board=b["slug"],
+                      detail="empty board never seen non-empty in an earlier run")
+            return fail("empty_unverified")
         out["status"], out["postings"] = "success", len(found)
         out["new_since_previous"] = self.new_since_previous(b, found)
         policy.write_bytes(f"{self.dir}/postings/{_safe(b['provider'])}-{_safe(b['slug'])}.json",

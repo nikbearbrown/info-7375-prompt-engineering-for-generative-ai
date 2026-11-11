@@ -1,0 +1,20 @@
+# python tests/run_tests.py   (AFTER the patch; 2026-11-11T03:12:40Z)
+PASS test_review_identity.test_review_empty_200_after_a_nonempty_run_is_valid
+PASS test_review_identity.test_review_empty_200_without_identity_is_not_success
+PASS test_wrong_versions.test_pagination_and_error_exit
+PASS test_wrong_versions.test_wv_1_failures_never_become_zero
+PASS test_wrong_versions.test_wv_2_retries_bounded
+PASS test_wrong_versions.test_wv_3_repeat_is_not_new_work
+PASS test_wrong_versions.test_wv_4_a_200_is_not_automatically_a_valid_board
+PASS test_wrong_versions.test_wv_5_finished_only_when_everything_succeeded
+8/8 passed
+# exit 0
+
+# python tests/mutants.py
+caught test_wv_1_failures_never_become_zero: AssertionError
+caught test_wv_2_retries_bounded: AssertionError
+caught test_wv_3_repeat_is_not_new_work: AssertionError
+caught test_wv_4_a_200_is_not_automatically_a_valid_board: AssertionError
+caught test_wv_5_finished_only_when_everything_succeeded: AssertionError
+5/5 GATE wrong versions caught by their own test
+# exit 0
