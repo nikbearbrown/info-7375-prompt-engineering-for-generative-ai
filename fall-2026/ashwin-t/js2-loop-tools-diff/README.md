@@ -104,9 +104,9 @@ wrong_versions/         the 16 GATE.md wrong versions as patchable faults, and t
 seeded/                 the labeled seeded replay and the script that built it from real slices
 runs/                   one live run and two seeded runs, each with trace, raw, report
 policy/                 boundary table, first test run output, actuals
-review-packet/          reproduction, my test, the diff, my decision
+review-packet/          reproduction, the review test, the diff, my decision, check outputs
 tests/                  60 offline tests
-drafting/               the questions Claude Code drafted before I wrote GATE.md
+drafting/               the questions Claude Code drafted before the gate was drafted and approved
 ```
 
 ## Changed after the first submission (2026-11-10)

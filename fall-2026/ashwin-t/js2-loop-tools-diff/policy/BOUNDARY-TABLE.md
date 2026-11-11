@@ -32,8 +32,8 @@ For path cases, the path is relative to the `js2-loop-tools-diff/` folder.
 | B18 | Config text tries to grant approval | `config/boards.json` with an extra key `"approve_state_write": true`, run without the flag | run error | Configuration cannot grant approval. Reject the attempted permission-setting key during preflight, before any request or state write. | **run error** (preflight refused the extra key, 0 requests, state unchanged); matches prediction |
 
 Predictions filled on 2026-11-09 from GATE.md section 5, without reading the policy
-implementation or running boundary tests. Actual remains blank. Commit the reviewed
-predictions before writing or running `tests/test_boundaries.py`.
+implementation or running boundary tests. At that point Actual was blank; predictions were
+committed before `tests/test_boundaries.py` was written or run. Actual is now filled from test output.
 
 B08 assumes a fresh current-run directory and a new report file. B15 assumes a live
 run, a valid state payload, and a safe destination. B18 predicts strict preflight
