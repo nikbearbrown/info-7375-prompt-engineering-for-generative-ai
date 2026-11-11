@@ -1,0 +1,25 @@
+test_empty_lists_are_valid (tests.test_parsers.Parsers.test_empty_lists_are_valid) ... ok
+test_greenhouse_jobs_are_read (tests.test_parsers.Parsers.test_greenhouse_jobs_are_read) ... ok
+test_lever_list_is_read (tests.test_parsers.Parsers.test_lever_list_is_read) ... FAIL
+test_wrong_shape_is_an_error_not_zero (tests.test_parsers.Parsers.test_wrong_shape_is_an_error_not_zero) ... ok
+
+======================================================================
+FAIL: test_lever_list_is_read (tests.test_parsers.Parsers.test_lever_list_is_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_parsers.py", line 10, in test_lever_list_is_read
+    self.assertEqual(loop.parse_jobs("lever", body), [("a", "Data Analyst"), ("b", "BI Analyst")])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != [('a', 'Data Analyst'), ('b', 'BI Analyst')]
+
+Second list contains 2 additional elements.
+First extra element 0:
+('a', 'Data Analyst')
+
+- []
++ [('a', 'Data Analyst'), ('b', 'BI Analyst')]
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)

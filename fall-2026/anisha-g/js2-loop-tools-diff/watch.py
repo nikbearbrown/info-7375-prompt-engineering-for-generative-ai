@@ -28,7 +28,7 @@ def cmd_run(a):
              label=("DELIBERATELY WRONG VERSION - for the finished-wrong demo only" if a.wrong else "real run"))
     if not a.wrong:                                    # the wrong demo never touches the real state
         for b in r["boards"]:
-            if b["status"] == "ok": seen[b["board"]] = set(b.pop("all_ids"))
+            if b["status"] == "ok": seen.setdefault(b["board"], set()).update(b.pop("all_ids"))   # keep every id ever seen
         r["state_written"] = store.save_seen(seen).name
     for b in r["boards"]: b.pop("all_ids", None)
     try:
