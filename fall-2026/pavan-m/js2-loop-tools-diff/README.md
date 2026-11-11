@@ -52,7 +52,7 @@ Exit codes: 0 finished, 1 incomplete, 2 budget-exhausted, 3 error (GATE.md §2).
 | Nov 10, 13:11 | I removed the 2 empty state files left by the bug | visible in commit `a249b3d` | FRICTIONAL Entry 10 |
 | Nov 10, 13:12 | **Real run 2, live** | incomplete, exit code 1; **Glean: 2 real new postings** (125); Palantir baseline 304/304, OpenAI baseline 829/829 usable; bad board `bad_board` | `out/runs/2026-11-10T131257/` |
 | Nov 10, 13:18 | **CONSTRUCTED** finished-wrong demo | loop `finished` (exit 0); checker flags Glean (exit 1) | `DEMO_FINISHED_WRONG.md` |
-| Nov 10 (fill in tonight) | Real run 3, live | | |
+| Nov 10, 19:09 | **Real run 3, live** | incomplete, exit code 1; **OpenAI: 4 real new postings** (total still 829, so ids changed, not the count); Glean and Palantir 0 new; bad board `bad_board`; check_run.py: 0 problems | `out/runs/2026-11-10T190937/` |
 
 **The agent trace with the deliberate failure:** `out/runs/2026-11-10T131257/trace.jsonl` (also run 1). Every request, response status, and board result is one line; the bad board's 404 is recorded with no retry and no invented value.
 
@@ -97,7 +97,7 @@ Exit codes: 0 finished, 1 incomplete, 2 budget-exhausted, 3 error (GATE.md §2).
 **Not claiming**
 - That the loop finds every new job, or that any posting is a good fit for Alex. The JS1 rule and Claude judge are not part of this loop.
 - That the permission policy stops a different agent with shell access (as JS1's Way 3 showed, an agent with `curl` can bypass my code's allow-list).
-- That behavior generalizes beyond these 4 boards, 3 systems, and 2 live runs on one day.
+- That behavior generalizes beyond these 4 boards, 3 systems, and 3 live runs on one day.
 
 **Signed or Withheld** Signed PAVAN JAYANT MAJJI - 11/10/2026
 
