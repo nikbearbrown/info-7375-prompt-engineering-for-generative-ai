@@ -34,7 +34,7 @@ I reviewed the evidence and recorded my decision based on what I could verify fr
 
 ## The findings that led to it (written first)
 
-*Shreyash's words, typed into the session on 2026-11-10 after reading the saved ads, which a read-only helper printed (the skills found in 7809608003, the two Linear requirement lines, and the Palantir intern departments). Claude Code added only this heading and note. Later that evening Shreyash renamed the table's last column from "Proposed decision" to "My decision" and added the closing **Decision** line. No code was changed: the `Dev` decision is recorded first, as it says, and is not implemented in this submission.*
+*Shreyash's words, typed into the session on 2026-11-10 after reading the saved ads, which a read-only helper printed (the skills found in 7809608003, the two Linear requirement lines, and the Palantir intern departments). Claude Code added only this heading and note. Later that evening Shreyash renamed the table's last column from "Proposed decision" to "My decision" added the closing **Decision** line, and replaced the first sentence of the `Dev` paragraph ("my recommendation is yes…") with a decision. No code was changed: the `Dev` decision is recorded first, as it says, and is not implemented in this submission.*
 
 | Item | My finding | My decision |
 |---|---|---|
@@ -44,7 +44,7 @@ I reviewed the evidence and recorded my decision based on what I could verify fr
 
 The first item explains the discrepancy between review/16 and review/18: the rule's skills failure appears justified, while the original hand-label omitted that failure.
 
-For Palantir Dev, my recommendation is yes, treat it as an engineering department, but only through a documented, provider-specific interpretation. The saved jobs are explicitly Software Engineer internships, and their responsibilities concern software development. However, the raw department value Dev remains ambiguous on its own, so I would not globally equate every Dev department with engineering.
+For Palantir Dev, I decided to treat “Dev” as an engineering department based on my reading of the job advertisement. This interpretation applies specifically to Palantir, not automatically to other companies using the same department name. I reviewed the advertisement myself, but I did not implement or execute a test for this interpretation. The saved jobs are explicitly Software Engineer internships, and their responsibilities concern software development. However, the raw department value Dev remains ambiguous on its own, so I would not globally equate every Dev department with engineering.
 
 Changing this interpretation would remove the department failure for those postings, but they would still fail the Boston/remote location rule. I reviewed the Palantir Dev posting myself and recorded my interpretation of the job requirements. I kept this as a manual review rather than claiming I had written or executed a test for this posting.
 
