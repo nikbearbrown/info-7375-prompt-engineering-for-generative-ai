@@ -1,0 +1,93 @@
+{
+ "exit": "finished",
+ "why": "every board was checked",
+ "stopped_at": null,
+ "limit_hit": null,
+ "budget": {
+  "boards": 5,
+  "requests": 15,
+  "seconds": 60.0,
+  "per_request_timeout": 20.0
+ },
+ "used": {
+  "requests": 2,
+  "seconds": 1.611,
+  "boards": 2
+ },
+ "boards_checked": 2,
+ "new_count": 0,
+ "boards": [
+  {
+   "board": "greenhouse:klaviyo",
+   "status": "ok",
+   "jobs": 145,
+   "new": [],
+   "baseline": false,
+   "error": "",
+   "attempts": [
+    {
+     "t": 0.0,
+     "board": "greenhouse:klaviyo",
+     "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs",
+     "attempt": 1,
+     "outcome": "ok",
+     "http_status": 200,
+     "n_jobs": 145,
+     "bytes": 93062,
+     "raw_file": "raw/greenhouse_klaviyo-a1.body"
+    }
+   ]
+  },
+  {
+   "board": "lever:palantir",
+   "status": "ok",
+   "jobs": 0,
+   "new": [],
+   "baseline": false,
+   "error": "",
+   "attempts": [
+    {
+     "t": 0.141,
+     "board": "lever:palantir",
+     "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+     "attempt": 1,
+     "outcome": "ok",
+     "http_status": 200,
+     "n_jobs": 0,
+     "bytes": 5927002,
+     "raw_file": "raw/lever_palantir-a1.body"
+    }
+   ]
+  }
+ ],
+ "observations": [
+  {
+   "t": 0.0,
+   "board": "greenhouse:klaviyo",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs",
+   "attempt": 1,
+   "outcome": "ok",
+   "http_status": 200,
+   "n_jobs": 145,
+   "bytes": 93062,
+   "raw_file": "raw/greenhouse_klaviyo-a1.body"
+  },
+  {
+   "t": 0.141,
+   "board": "lever:palantir",
+   "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+   "attempt": 1,
+   "outcome": "ok",
+   "http_status": 200,
+   "n_jobs": 0,
+   "bytes": 5927002,
+   "raw_file": "raw/lever_palantir-a1.body"
+  }
+ ],
+ "notes": [],
+ "new_jobs": [],
+ "run_id": "20261110T213143-WRONG-DEMO-lever_reads_nothing",
+ "state_read": "seen-20261110T213132-live.json",
+ "wrong_version": "lever_reads_nothing",
+ "label": "DELIBERATELY WRONG VERSION - for the finished-wrong demo only"
+}

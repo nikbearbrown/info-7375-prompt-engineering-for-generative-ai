@@ -9,6 +9,7 @@
 **Why read it.** The interesting part isn't that it fetches jobs. It's what happens when a board fails, when the same board appears twice, when a run ends cleanly with a wrong answer, and when a path tries to escape its folder. Each case has a rule written first (`GATE.md`), a test, and a saved real run.
 
 **What it showed (2026-11-10, Eastern):**
+- **A second live check** from the state I approved found **2 genuinely new HubSpot postings**, and it exposed a gap in my title rule (it doesn't read "Remote - USA" as remote United States).
 - **The real run** read Anthropic (679 postings), HubSpot (122) and Notion (156). The deliberately bad board returned HTTP 404 and was recorded as an *error*, not "0 jobs"; it was not retried. A repeated board was skipped without a request. The run stopped as `incomplete` with exit code 3 and "NEEDS MAYANK" on its first line.
 - **The finished-wrong answers.** Two runs ended `finished` with exit code 0 while reporting a board as "0 postings, 0 new". A separate checker, reading only the saved raw responses and my floors, flagged both as `suspect`.
 - **The permission policy** holds all 16 boundary cases predicted in advance. The review patch fixed a symlink escape inherited from JS1. A probe shows one escape it still misses.
@@ -56,7 +57,10 @@ Exit codes: `0` nothing needs me · `3` a board needs me (error or suspect) · `
 | `scripts/wrong_versions.py` | plants each wrong version W1–W9 |
 | `BOUNDARY-TESTS.md` | the permission policy and the 16-case table: prediction first (CP2), then what happened |
 | `REVIEW-PACKET.md` + `review/` | the Chapter 6 review packet |
-| `runs/<run-id>/` | `trace.jsonl` (every step), `raw/` (exact bytes as received), `report.{json,md}`, `proposed-seen-ids.json`, `check.{json,md}`, captured stdout |
+| **`runs/2026-11-11T00-24-30Z-real/trace.jsonl`** | **the agent trace of the real run, including the deliberate failure** (and its `raw/`, `report.md`, `check.md`, `approval.json`) |
+| `runs/<run-id>/` | for every run: `trace.jsonl` (every step), `raw/` (exact bytes as received), `report.{json,md}`, `proposed-seen-ids.json`, `check.{json,md}`, captured stdout |
+| `state/seen-ids.json` | the state I approved on the real run (2026-11-11T01:00Z) |
+| **Sign-off and driver's seat** | this README, the last two sections |
 | `config/` | budgets, plans, floors (`expected-boards.json`), replay files for the seeded run |
 | `SOURCES.md`, `FRICTIONAL.md` | what I used and what Claude contributed; the dated friction log |
 
@@ -93,7 +97,7 @@ The plan had five entries: Greenhouse `anthropic`, Greenhouse `hubspotjobs`, Ash
 | **LIVE** `runs/2026-11-11T00-26-09Z-empty-board-live/`: Ashby `greenlight` | `finished`, process exit **0** ("nothing needs Mayank") | `ashby/greenlight: ok, 0 postings, 0 new` | **`suspect`**: "0 postings in the raw response (an empty board is not 'no new jobs')"; exit **3** |
 | **SEEDED** (labelled; no network) `runs/2026-11-11T00-26-11Z-seeded-finished-wrong/`: Greenhouse `hubspot` replayed as the empty board Lectern recorded on 2026-09-26 | `finished`, exit **0** | `greenhouse/hubspot: ok, 0 postings, 0 new` | **`suspect`**: 0 postings, below my floor of 20 (HubSpot posted 133 at `hubspotjobs` per Lectern, and 122 in my live run) |
 
-- **Why two.** I planned to use `greenhouse/hubspot` live. On 2026-11-11 the live API returned **404** for it (`runs/2026-11-11T00-24-41Z-finished-wrong/`), so the agent correctly reported an error and the trap no longer existed. The world had moved since Lectern's note.
+- **Why two.** I planned to use `greenhouse/hubspot` live. On 2026-11-11 the live API returned **404** for it (`runs/2026-11-11T00-24-41Z-finished-wrong/`), so the agent correctly reported an error and the trap no longer existed. The world had moved since Lectern's note. That run still shows something: it ended **`finished` with one board in `error`**, live (my decision 1a), with exit code 3 and HubSpot on the "NEEDS MAYANK" line.
 - The live replacement, `ashby/greenlight`, is a real valid-but-empty board. Its *identity* is unconfirmed: my Reallocation Engine probe flagged it as possibly not GreenLight Biosciences. So the agent's "no new jobs" is **unsupported**, but I can't prove it **wrong**.
 - The seeded HubSpot replay is provably wrong. It's labelled `SEEDED RUN` on the first line of its report, and its replay file names the origin of every byte.
 - **What makes the check independent:** `checker/check.py` doesn't import the agent. It counts postings from the raw bytes itself, uses floors *I* set with named sources, and reads the agent's report only afterwards, to show the claim next to the verdict.
@@ -112,7 +116,15 @@ The 16 boundary cases, each with its prediction committed before the tests ran, 
 
 `scripts/wrong_versions.py` → **9/9 wrong versions caught** (`review/03-after-patch.txt`).
 
-### 4. The review packet
+### 4. A second live check, using the state I approved: `runs/2026-11-11T02-24-39Z-second-check/`
+
+I ran `approve` on the real run (`runs/2026-11-11T00-24-30Z-real/approval.json`, 2026-11-11T01:00Z). About 80 minutes later the same plan ran again from that state:
+- **2 new HubSpot postings** (124 now vs the 122 I approved): `8373973` "Lead Solutions Engineer" and `8373974` "Solutions Engineer", both "Remote - USA". Anthropic 678 (one fewer), Notion 156, both 0 new.
+- The title rule judged both new postings `not_relevant`: no target title matched, and "Lead" is an exclude term.
+- **It exposed a limitation in the JS1 rule:** remote US work only passes when the text literally says "United States". Run directly, `rule.judge` gives "ML Engineer / Remote - USA" → `not_relevant` but "ML Engineer / Remote - United States" → `relevant`. Not fixed here; listed under Not checked.
+- The deliberate 404 and the repeat behaved as in the first run. The independent check: three boards `ok`, the bad board `error-response`.
+
+### 5. The review packet
 
 See **`REVIEW-PACKET.md`**:
 1. Failing tests committed first (CP5 `6050272`).
@@ -146,8 +158,8 @@ See **`REVIEW-PACKET.md`**:
 2. A link swapped in between the check and the write (time-of-check/time-of-use).
 3. A real timeout or 5xx: those paths were exercised only with a scripted fetch; no live board timed out.
 4. The 60-second cap against a real slow board: tested only with a fake clock.
-5. The title rule on live new jobs: every live board was a baseline, so no job was "new" and the rule never judged a live posting.
-6. A second calendar day. I ran `approve` on the real run myself (2026-11-11T01:00Z UTC, `runs/2026-11-11T00-24-30Z-real/approval.json`): `state/seen-ids.json` now holds 679 / 122 / 156 ids for the three healthy boards. No later run has used that state yet, so "new since last check" was never shown live.
+5. The title rule on more than 2 live new jobs. It judged only the 2 HubSpot postings in `runs/2026-11-11T02-24-39Z-second-check/` (both correctly `not_relevant`), and it **misses "Remote - USA"** as remote United States (shown by running `rule.judge`; not fixed).
+6. A second calendar day. The second check (`runs/2026-11-11T02-24-39Z-second-check/`) ran about 80 minutes after I approved the state (2026-11-11T01:00Z), on the same evening. It showed "new since last check" live once (2 HubSpot postings), not across days.
 7. Board identity for `ashby/greenlight` (unknown), and this time for the other boards (taken from Lectern's 2026-09-26 verification, not re-confirmed by me).
 8. Reads through symlinks are now refused, but no test covers that yet (`REVIEW-PACKET.md`).
 
@@ -163,7 +175,9 @@ See **`REVIEW-PACKET.md`**:
 
 ## Driver's seat
 
-| Part | What Claude did | What I did | Why it stays mine | Evidence |
+Evidence points to commits on `main` and to files in this folder. The Claude Code conversation itself stays on my machine (the course privacy rule for transcripts); it took place on 2026-11-05 (question sheet) and 2026-11-10 (everything else), and the request I gave Claude Code for the patch is quoted verbatim in `review/02-request-to-claude-code.md`.
+
+| Part | What Claude should do (and did) | What I should do (and did) | Why it stays mine | Evidence |
 |---|---|---|---|---|
 | The gate | wrote the question sheet (2026-11-05), then turned my answers into GATE.md with 6 listed edits | chose every rule; chose 4b = A+B+C; wrote my failure sentence and W9; ran `approve` on the real run myself | the rules are the criterion everything is checked against; written by the producer, they would describe its output | `notes/GATE-QUESTIONS.md`, `notes/gate-answers-2026-11-10.md`, GATE.md "Changes Claude made" · CP1 `1cc3602` |
 | Predictions | drafted the 16 cases with predicted results | accepted them before any test ran | a prediction written after the run tests nothing | CP2 `9cea561` (before code, CP3 `d725018`) |

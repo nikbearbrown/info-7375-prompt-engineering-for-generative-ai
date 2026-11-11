@@ -1,0 +1,158 @@
+{
+ "exit": "incomplete",
+ "why": "1 board(s) failed",
+ "stopped_at": null,
+ "limit_hit": null,
+ "budget": {
+  "boards": 5,
+  "requests": 15,
+  "seconds": 60.0,
+  "per_request_timeout": 20.0
+ },
+ "used": {
+  "requests": 4,
+  "seconds": 1.833,
+  "boards": 4
+ },
+ "boards_checked": 3,
+ "new_count": 0,
+ "boards": [
+  {
+   "board": "greenhouse:klaviyo",
+   "status": "ok",
+   "jobs": 145,
+   "new": [],
+   "baseline": false,
+   "error": "",
+   "attempts": [
+    {
+     "t": 0.0,
+     "board": "greenhouse:klaviyo",
+     "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs",
+     "attempt": 1,
+     "outcome": "ok",
+     "http_status": 200,
+     "n_jobs": 145,
+     "bytes": 93062,
+     "raw_file": "raw/greenhouse_klaviyo-a1.body"
+    }
+   ]
+  },
+  {
+   "board": "greenhouse:datadog",
+   "status": "ok",
+   "jobs": 394,
+   "new": [],
+   "baseline": false,
+   "error": "",
+   "attempts": [
+    {
+     "t": 0.224,
+     "board": "greenhouse:datadog",
+     "url": "https://boards-api.greenhouse.io/v1/boards/datadog/jobs",
+     "attempt": 1,
+     "outcome": "ok",
+     "http_status": 200,
+     "n_jobs": 394,
+     "bytes": 543280,
+     "raw_file": "raw/greenhouse_datadog-a1.body"
+    }
+   ]
+  },
+  {
+   "board": "lever:palantir",
+   "status": "ok",
+   "jobs": 304,
+   "new": [],
+   "baseline": false,
+   "error": "",
+   "attempts": [
+    {
+     "t": 0.427,
+     "board": "lever:palantir",
+     "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+     "attempt": 1,
+     "outcome": "ok",
+     "http_status": 200,
+     "n_jobs": 304,
+     "bytes": 5927002,
+     "raw_file": "raw/lever_palantir-a1.body"
+    }
+   ]
+  },
+  {
+   "board": "greenhouse:no-such-board-7375",
+   "status": "failed",
+   "jobs": null,
+   "new": null,
+   "baseline": null,
+   "error": "HTTP 404: board name not found",
+   "attempts": [
+    {
+     "t": 1.652,
+     "board": "greenhouse:no-such-board-7375",
+     "url": "https://boards-api.greenhouse.io/v1/boards/no-such-board-7375/jobs",
+     "attempt": 1,
+     "outcome": "not-found",
+     "http_status": 404,
+     "n_jobs": null,
+     "bytes": 38,
+     "raw_file": "raw/greenhouse_no-such-board-7375-a1.body"
+    }
+   ]
+  }
+ ],
+ "observations": [
+  {
+   "t": 0.0,
+   "board": "greenhouse:klaviyo",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs",
+   "attempt": 1,
+   "outcome": "ok",
+   "http_status": 200,
+   "n_jobs": 145,
+   "bytes": 93062,
+   "raw_file": "raw/greenhouse_klaviyo-a1.body"
+  },
+  {
+   "t": 0.224,
+   "board": "greenhouse:datadog",
+   "url": "https://boards-api.greenhouse.io/v1/boards/datadog/jobs",
+   "attempt": 1,
+   "outcome": "ok",
+   "http_status": 200,
+   "n_jobs": 394,
+   "bytes": 543280,
+   "raw_file": "raw/greenhouse_datadog-a1.body"
+  },
+  {
+   "t": 0.427,
+   "board": "lever:palantir",
+   "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+   "attempt": 1,
+   "outcome": "ok",
+   "http_status": 200,
+   "n_jobs": 304,
+   "bytes": 5927002,
+   "raw_file": "raw/lever_palantir-a1.body"
+  },
+  {
+   "t": 1.652,
+   "board": "greenhouse:no-such-board-7375",
+   "url": "https://boards-api.greenhouse.io/v1/boards/no-such-board-7375/jobs",
+   "attempt": 1,
+   "outcome": "not-found",
+   "http_status": 404,
+   "n_jobs": null,
+   "bytes": 38,
+   "raw_file": "raw/greenhouse_no-such-board-7375-a1.body"
+  }
+ ],
+ "notes": [],
+ "new_jobs": [],
+ "run_id": "20261110T213132-live",
+ "state_read": "seen-20261110T213125-live.json",
+ "wrong_version": null,
+ "label": "real run",
+ "state_written": "seen-20261110T213132-live.json"
+}
