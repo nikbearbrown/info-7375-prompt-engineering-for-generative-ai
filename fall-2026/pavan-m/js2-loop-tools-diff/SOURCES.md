@@ -30,3 +30,6 @@
 - The idea of saving the string-id defect for the review packet, and of a replay mode for before/after evidence on identical input
 - The Claude Code prompts I used
 - Drafts of REVIEW_PACKET.md, DEMO_FINISHED_WRONG.md, the README, and wording for several FRICTIONAL entries, all from my results; I checked them against the evidence files and commits
+
+## Entry 13 — November 10, 2026: Fresh-clone test
+Cloned the class repo fresh into /tmp (--depth 1) and followed my README: venv, `pip install -r requirements.txt`, `python -m pytest -v` → 40 passed; demo config → loop exit 0 (finished); check_run.py on that run → flagged Glean, exit 1. Confirmed no .DS_Store is tracked (JS1 feedback).
