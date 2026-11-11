@@ -50,7 +50,10 @@ class TestJobIdentity(unittest.TestCase):
         self.assertEqual(s["schema"], 2)
         self.assertIn("greenhouse:b:2002", s["seen"])
         self.assertEqual(s["runs"][0], {"run_id": "old"})
-        self.assertTrue(any(e["event"] == "state_rebaselined" for e in loop.trace))
+        # patch v2: the event is "state_migrated"; with no saved raw, every board is re-baselined
+        ev = [e for e in loop.trace if e["event"] == "state_migrated"]
+        self.assertEqual(len(ev), 1)
+        self.assertEqual(ev[0]["rebaselined_boards"], ["ashby:c", "greenhouse:a", "greenhouse:b"])
 
     def test_same_id_on_two_boards_is_two_jobs(self):
         self.assertEqual(check_same_id_on_two_boards(Loop), [])

@@ -4,7 +4,8 @@ Written BEFORE the v2 code (commit JS2-8) and expected to FAIL on patch v1, whic
 old (schema 1) history and so hid a real new OpenAI job in live run 2.
 
 Real data, copied into a temp folder (nothing under out/ is written):
-  - out/state/seen_ids.json          : live run 1's saved history (schema 1, bare ids)
+  - tests/fixtures/run1_seen_ids_schema1.json : live run 1's saved history (schema 1, bare ids),
+    copied from commit 61312028
   - out/runs/<run1>/raw/*            : live run 1's raw responses
   - out/runs/<run2>/raw/*            : live run 2's raw responses, replayed as the "current" boards
 Expected: exactly one new job, ashby:openai:76084eee-... "Account Director, Mid-Market | Korea".
@@ -40,7 +41,9 @@ class TestSchema1Migration(unittest.TestCase):
     def test_real_run1_history_migrated_reports_only_the_real_new_job(self):
         root, out, pol = workspace()
         shutil.copytree(os.path.join(HERE, "out", "runs", RUN1, "raw"), os.path.join(out, "runs", RUN1, "raw"))
-        with open(os.path.join(HERE, "out", "state", "seen_ids.json")) as f:
+        # pinned copy of live run 1's history as committed in 61312028 (the live file changes
+        # with every approved run; reading it here made this test fail after live run 3)
+        with open(os.path.join(HERE, "tests", "fixtures", "run1_seen_ids_schema1.json")) as f:
             old = json.load(f)
         self.assertEqual(old["schema"], 1)  # the real saved history is the old format
         boards = [("greenhouse", "anthropic"), ("greenhouse", "figma"), ("ashby", "openai")]

@@ -7,6 +7,7 @@ Method hooks (classify, exit_status, job_key) exist so the wrong versions in
 tests/wrong_versions.py can each change exactly one behaviour.
 """
 import copy
+import glob
 import datetime as dt
 import gzip
 import hashlib
@@ -103,11 +104,7 @@ class Loop:
                 boards.append(self._board(p, None, "not_tried", "max_boards budget"))
             plan = plan[: self.b["max_boards"]]
         if state.get("schema", 1) < STATE_SCHEMA:
-            # Bare ids cannot be assigned to a board, so comparing them with the new keys would
-            # report every saved job as new. Re-baseline instead: nothing is reported new this run.
-            self.log("state_rebaselined", old_schema=state.get("schema", 1), new_schema=STATE_SCHEMA,
-                     dropped_ids=len(state["seen"]), boards=sorted(state["boards"]))
-            state = dict(empty_state(), runs=list(state.get("runs", [])))
+            state = self.migrate(state)
         seen = set(state["seen"])
 
         for p in plan:
@@ -181,6 +178,35 @@ class Loop:
         self.log("exit", status=status, requests_used=used, total_new=report["total_new"])
         new_state = None if status == "error" else self.next_state(state, boards, status)
         return report, new_state
+
+    def migrate(self, state):
+        """Schema 1 (bare ids) -> schema 2 (system:board:id), rebuilt from the raw response each
+        board saved in its last ok run. A bare id becomes a key only if that board's raw response
+        contained it AND it was in the old history. A board whose raw cannot be read or parsed is
+        re-baselined on its own (nothing reported new for it this run), never reported all-new."""
+        old_seen = set(state["seen"])
+        new = dict(empty_state(), runs=list(state.get("runs", [])))
+        keys, rebased = set(), []
+        for bkey, entry in sorted(state["boards"].items()):
+            system, board = bkey.split(":", 1)
+            ids = None
+            pattern = os.path.join(self.out_dir, "runs", str(entry.get("last_ok_run")), "raw",
+                                   f"{system}-{board}-a*.json.gz")
+            for path in sorted(glob.glob(pattern), reverse=True):  # the last attempt is the ok one
+                try:
+                    ids = {j["id"] for j in PROVIDERS[system].parse(gzip.decompress(self.policy.read_bytes(path)))}
+                    break
+                except (BadData, OSError, KeyError, PolicyError):
+                    continue
+            if ids is None:
+                rebased.append(bkey)
+                continue
+            keys |= {self.job_key(system, board, i) for i in ids & old_seen}
+            new["boards"][bkey] = dict(entry)
+        new["seen"] = sorted(keys)
+        self.log("state_migrated", old_schema=state.get("schema", 1), new_schema=STATE_SCHEMA,
+                 old_ids=len(old_seen), keys=len(keys), rebaselined_boards=rebased)
+        return new
 
     def _board(self, p, url, result, reason, attempts=0):
         return {"system": p["system"], "board": p["board"], "url": url, "result": result, "reason": reason,
