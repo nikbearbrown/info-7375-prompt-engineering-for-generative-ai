@@ -66,4 +66,4 @@ When a budget would be exceeded, the loop stops before making that request and e
 ## Dated entries
 
 - **2026-11-10, approved by me after the review packet (see REVIEW_PACKET.md).** The 60-second budget is unchanged. How it is enforced is now explicit: before each request, the loop computes the time left. If less than **1 second** is left, it stops with `budget_exhausted` without sending. Otherwise the request's timeout is at most the time left (and never more than 20 seconds).
-- **2026-11-10, after the review.** I reworded the provenance line above. The original wording is in commit `ea61db0`. The seven rules themselves are unchanged. Who proposed them is recorded in SOURCES.md.
+- **2026-11-10, after the review.** I reworded the provenance line above. The original wording is in commit `c4d9481`. The seven rules themselves are unchanged. Who proposed them is recorded in SOURCES.md.

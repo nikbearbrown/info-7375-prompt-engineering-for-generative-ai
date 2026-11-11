@@ -2,7 +2,7 @@
 
 This layer turns my Job-Search Agent 1 watcher into a **bounded loop** for a fictional persona, Jack Spencer. The loop watches **three real boards on three applicant-tracking systems**, plus one board that fails on purpose. A **permission policy enforced in code** governs everything the loop does, and it ends in one of four **explicit exits**.
 
-The rules were written first: `GATE.md`, committed alone before any code (`ea61db0`, 2026-11-10 19:38 ET).
+The rules were written first: `GATE.md`, committed alone before any code (`c4d9481`, 2026-11-10 19:38 ET).
 
 **Started from:** my own JS1 code. The rule judge (`agent2/rule.py`) and the persona validator (`agent2/resume.py`) were copied from JS1 unchanged, apart from one type hint. The loop, the three providers, the policy, the transports, and the independent check are new. I did not use the Reallocation Engine's ATS providers or Lectern.
 
@@ -64,13 +64,13 @@ The demo also runs as a test: `tests/test_wrong_versions.py`.
 
 ### The permission policy in code
 
-`agent2/policy.py` enforces the policy. Every request and every write goes through it. There are 15 boundary cases, B01–B15. Their predicted outcomes were committed **before** the tests first ran (`ca47a41`). I reviewed them, then ran the tests myself, and all 15 matched: see `POLICY_TESTS.md`.
+`agent2/policy.py` enforces the policy. Every request and every write goes through it. There are 15 boundary cases, B01–B15. Their predicted outcomes were committed **before** the tests first ran (`0913db8`). I reviewed them, then ran the tests myself, and all 15 matched: see `POLICY_TESTS.md`.
 
 ### The review packet
 
 See `REVIEW_PACKET.md`. The change was defect (A), a time-budget overrun:
-- the defect was reproduced by my own run, using a test written before the patch (`100ac74`);
-- the patch is `4c70674`: one file, +4/−2;
+- the defect was reproduced by my own run, using a test written before the patch (`6246eab`);
+- the patch is `9783db3`: one file, +4/−2;
 - my decision: **accept**, with evidence.
 
 ## Files
@@ -133,9 +133,9 @@ See `REVIEW_PACKET.md`. The change was defect (A), a time-budget overrun:
 
 | Part | What Claude did | What I did | Why that part stays mine | Evidence |
 |---|---|---|---|---|
-| The gate (GATE.md) | proposed every rule as a numbered suggestion | accepted each one ("Okay"), before any code | The rules define what counts as a correct run. Whoever writes them sets the standard the code is judged by. | `ea61db0`; the "Provenance" line in GATE.md |
+| The gate (GATE.md) | proposed every rule as a numbered suggestion | accepted each one ("Okay"), before any code | The rules define what counts as a correct run. Whoever writes them sets the standard the code is judged by. | `c4d9481`; the "Provenance" line in GATE.md |
 | The loop | wrote the loop, the providers, and the tests | ran the tests and the live check myself | I'm the one who reports a run's exit to anyone else, so I need to have seen it run. | `review/` |
-| Permission predictions | derived the 15 predictions from GATE.md | reviewed them ("ok") before the first run, then ran the tests | A prediction is a claim made before the evidence. Only I can say I made it before looking. | `ca47a41` (before the run); POLICY_TESTS.md results |
-| The review: the spec and the test | found two defect candidates; drafted the test from my spec | chose (A), confirmed the spec, and ran the test to see it fail | The spec says what "fixed" means. If Claude also chose that, it would be grading its own patch. | `100ac74` committed before `4c70674` |
+| Permission predictions | derived the 15 predictions from GATE.md | reviewed them ("ok") before the first run, then ran the tests | A prediction is a claim made before the evidence. Only I can say I made it before looking. | `0913db8` (before the run); POLICY_TESTS.md results |
+| The review: the spec and the test | found two defect candidates; drafted the test from my spec | chose (A), confirmed the spec, and ran the test to see it fail | The spec says what "fixed" means. If Claude also chose that, it would be grading its own patch. | `6246eab` committed before `9783db3` |
 | The review: the decision | wrote the patch and laid out the evidence | read the diff, ran the commands, and decided "accept" in my own words | Accepting a change is accepting responsibility for it. | REVIEW_PACKET.md §§4–5 |
 | Sign-off | drafted the words | sign or withhold | Only I can be held to what I say I checked. | this section |

@@ -4,7 +4,7 @@
 
 ## The change
 
-**Defect (A): the time budget could be overrun.** GATE.md §3 sets a 60-second budget per run, "checked before each request". In v1 (`51b4eab`), the loop checked only whether 60 s had **already** passed, then gave every request a fixed 20 s timeout. A request started at second 59 could therefore run to about second 79, or longer with a retry.
+**Defect (A): the time budget could be overrun.** GATE.md §3 sets a 60-second budget per run, "checked before each request". In v1 (`2711716`), the loop checked only whether 60 s had **already** passed, then gave every request a fixed 20 s timeout. A request started at second 59 could therefore run to about second 79, or longer with a retry.
 
 Claude Code found this while reading v1 against GATE.md. It offered it to me as one of two candidates (the other was a non-atomic state-file write). I chose (A).
 
@@ -16,7 +16,7 @@ Claude Code found this while reading v1 against GATE.md. It offered it to me as 
 - **Test:** `tests/test_review_time_budget.py`, drafted by Claude Code from my spec. It uses a fake transport that records the timeout each request was given, so no network is involved.
   - `test_timeout_never_exceeds_time_left`: after one 50 s request, 10 s remain, so the second request's timeout must be ≤ 10 s.
   - `test_stops_before_sending_when_under_one_second_left`: after one 59.5 s request, the second must not be sent, and the run must exit `budget_exhausted`.
-- **Committed before the patch:** `100ac74` (19:58), with my run's output. The patch is the later commit `4c70674` (20:14).
+- **Committed before the patch:** `6246eab` (19:58), with my run's output. The patch is the later commit `9783db3` (20:14).
 - **Reproduced by me**, in my own terminal: `review/test_run_1_before_patch.txt` shows 35 tests, **2 failures**, both of them these tests:
   - `AssertionError: 20 not less than or equal to 10 : second request was given 20 s with only 10 s left`
   - `AssertionError: 2 != 1 : a request was sent with under 1 s of budget left`
@@ -47,7 +47,7 @@ Claude Code found this while reading v1 against GATE.md. It offered it to me as 
 
 ## 3. Did it stay in scope?
 
-Yes. `git show --stat 4c70674` shows one code file (`agent2/loop.py`, +4/−2). The rest of that commit is my saved outputs and the live-check run. Exits, the repeat rule, the error policy, and the permission checks did not change. The new 1-second floor is recorded as a dated entry in GATE.md, because it is a rule about how a budget is enforced.
+Yes. `git show --stat 9783db3` shows one code file (`agent2/loop.py`, +4/−2). The rest of that commit is my saved outputs and the live-check run. Exits, the repeat rule, the error policy, and the permission checks did not change. The new 1-second floor is recorded as a dated entry in GATE.md, because it is a rule about how a budget is enforced.
 
 ## 4. Commands I ran myself (2026-11-10)
 
