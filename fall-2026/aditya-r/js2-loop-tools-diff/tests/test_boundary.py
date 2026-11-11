@@ -5,6 +5,7 @@ import http.server
 import json
 import os
 import threading
+import time
 
 import pytest
 
@@ -119,7 +120,8 @@ def test_b07_redirect_refused_destination_never_contacted(root):
     origin = _Server(redirect)
     try:
         def transport(url, timeout, deadline):  # the real client; only the TCP endpoint is local
-            return https_get(url, timeout, deadline,
+            # `deadline` is on the loop's fake test clock; the real client measures real time.
+            return https_get(url, timeout, time.monotonic() + timeout,
                              conn_factory=lambda host, port, timeout: http.client.HTTPConnection(
                                  "127.0.0.1", origin.port, timeout=timeout))
         code, rep, run_dir = run(root, transport)
