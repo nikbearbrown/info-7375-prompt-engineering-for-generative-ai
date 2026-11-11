@@ -46,8 +46,26 @@ test_06_post_blocked (tests.test_policy.Network.test_06_post_blocked) ... ok
 test_07_plain_http_blocked (tests.test_policy.Network.test_07_plain_http_blocked) ... ok
 test_08_redirect_off_allowlist_blocked (tests.test_policy.Network.test_08_redirect_off_allowlist_blocked) ... ok
 test_never_apply_path_blocked_even_with_get (tests.test_policy.Network.test_never_apply_path_blocked_even_with_get) ... ok
+test_malformed_boards_file_gives_error_trace (tests.test_review_fixes.Config.test_malformed_boards_file_gives_error_trace) ... ok
+test_timeout_never_exceeds_time_left (tests.test_review_fixes.Deadline.test_timeout_never_exceeds_time_left) ... ok
+test_live_recount_catches_self_consistent_empty_answer (tests.test_review_fixes.IndependentCheckLive.test_live_recount_catches_self_consistent_empty_answer) ... ok
+test_trace_with_no_boards_is_rejected (tests.test_review_fixes.IndependentCheckLive.test_trace_with_no_boards_is_rejected) ... ok
+test_oversize_body_raises (tests.test_review_fixes.LargeResponses.test_oversize_body_raises) ... ok
+test_approval_is_for_one_specific_file (tests.test_review_fixes.PolicyEdges.test_approval_is_for_one_specific_file) ... ok
+test_bad_port_is_blocked_not_a_crash (tests.test_review_fixes.PolicyEdges.test_bad_port_is_blocked_not_a_crash) ... ok
+test_board_name_with_capitals_or_underscore_is_allowed (tests.test_review_fixes.PolicyEdges.test_board_name_with_capitals_or_underscore_is_allowed) ... ok
+test_report_folder_itself_is_not_a_file_target (tests.test_review_fixes.PolicyEdges.test_report_folder_itself_is_not_a_file_target) ... ok
+test_report_folder_symlinked_outside_is_blocked (tests.test_review_fixes.PolicyEdges.test_report_folder_symlinked_outside_is_blocked) ... ok
+test_allowed_redirect_is_a_second_counted_request (tests.test_review_fixes.RedirectsCount.test_allowed_redirect_is_a_second_counted_request) ... ok
+test_fetch_does_not_follow_redirects_by_itself (tests.test_review_fixes.RedirectsCount.test_fetch_does_not_follow_redirects_by_itself) ... ok
+test_redirect_hops_cannot_pass_the_request_cap (tests.test_review_fixes.RedirectsCount.test_redirect_hops_cannot_pass_the_request_cap) ... ok
+test_redirect_to_blocked_host_fails_the_board_and_names_it (tests.test_review_fixes.RedirectsCount.test_redirect_to_blocked_host_fails_the_board_and_names_it) ... ok
+test_too_many_redirects_fails (tests.test_review_fixes.RedirectsCount.test_too_many_redirects_fails) ... ok
+test_invalid_board_entry_is_reported_not_crashed (tests.test_review_fixes.UnexpectedErrors.test_invalid_board_entry_is_reported_not_crashed) ... ok
+test_unexpected_exception_gives_error_exit_and_where (tests.test_review_fixes.UnexpectedErrors.test_unexpected_exception_gives_error_exit_and_where) ... ok
 
 ----------------------------------------------------------------------
-Ran 47 tests in 0.007s
+Ran 64 tests in 0.009s
 
 OK
+20261110T213020-live: exit=error (the run could not start: cannot read bad.json: Expecting ',' delimiter: line 1 column 35 (char 34))
