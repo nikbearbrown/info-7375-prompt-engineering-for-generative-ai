@@ -1,0 +1,15 @@
+Independent check of data/watch/loops/2026-11-11T01-14-05Z
+
+| board | check | result | detail |
+|---|---|---|---|
+| (loop) | every planned board reported | PASS | 1 planned, 1 reported |
+| (loop) | requests = trace attempts <= budget | PASS | 1 attempts |
+| (loop) | FINISHED only if every board is OK and checks out | PASS | agent says ERROR |
+| greenhouse/ramp | sha256 raw = report = trace | PASS | 4127597215cc |
+| greenhouse/ramp | count = raw jobs (a failed board may report none) | PASS | raw 1, report None |
+| greenhouse/ramp | careers page uses this system | fact | board greenhouse, careers page ashby |
+| greenhouse/ramp | at least the expected floor | fact | 1 vs 20 |
+| greenhouse/ramp | failed board misses an expectation | PASS | the agent failed it; justified |
+
+6 passed, 0 failed.
+exit=0

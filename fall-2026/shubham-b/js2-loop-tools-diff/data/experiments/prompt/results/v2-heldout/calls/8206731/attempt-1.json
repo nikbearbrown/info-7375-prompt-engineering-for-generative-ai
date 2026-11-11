@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 7085,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "17b00e86ae6f52624a6a7f57611b8da1323f61af4690152011a447235ad67b01",
+  "posting_id": "8206731",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "9303ed8b-16db-48a3-a34a-b33f70378754",
+  "started_at_et": "2026-10-31T14:33:53.104710-04:00",
+  "started_at_utc": "2026-10-31T18:33:53.104710Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6813,\"stop_reason\":\"end_turn\",\"session_id\":\"9303ed8b-16db-48a3-a34a-b33f70378754\",\"total_cost_usd\":0.031672900000000004,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5652,\"cache_read_input_tokens\":1109,\"output_tokens\":895,\"output_tokens_details\":{\"thinking_tokens\":381},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5652,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":895,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5652,\"webSearchRequests\":0,\"costUSD\":0.031672900000000004,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":381,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5652,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title \\\\\\\"Full Stack Engineer\\\\\\\" matches the full-stack role family and has no excluded marker. The content names both Java and TypeScript, which are eligible resume skills. No citizenship, clearance or unpaid-work phrase appears. The location \\\\\\\"San Francisco\\\\\\\" is a US city with no non-US signal. The 5+ years of experience requirement is not a gate, though it is well above Kiran's new-grad to SWE II target levels.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains the whole-word phrase 'full stack' followed by 'engineer' and no excluded markers such as senior, lead or intern.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"TypeScript appears in the preferred qualifications, giving the first of two distinct skill matches.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java appears in the preferred qualifications, giving the second distinct skill match.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"San Francisco is a listed US city signal and no non-US signal is present.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting asks for 5+ years of experience, which is above Kiran's target levels. That is not a rule gate, but it may affect real-world fit.\\\"]}\",\"ttft_ms\":3795,\"type\":\"result\",\"duration_ms\":6864,\"uuid\":\"84222397-72f6-4f51-9203-6c6ad6bf1199\",\"ttft_stream_ms\":1351,\"time_to_request_ms\":50,\"first_content_frame_ms\":1351,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.031672900000000004,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

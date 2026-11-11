@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6330,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "9a6f8fe8714210aaa85220a1a90f34ba8ff4b59434230cd988ef32bc7b149c05",
+  "posting_id": "8128744",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "cf2a4418-dc39-4d74-b201-08d5efb35297",
+  "started_at_et": "2026-10-31T14:21:58.117328-04:00",
+  "started_at_utc": "2026-10-31T18:21:58.117328Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5988,\"stop_reason\":\"end_turn\",\"session_id\":\"cf2a4418-dc39-4d74-b201-08d5efb35297\",\"total_cost_usd\":0.0243209,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4159,\"cache_read_input_tokens\":1109,\"output_tokens\":757,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4159,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":757,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4159,\"webSearchRequests\":0,\"costUSD\":0.0243209,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4159,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"New-grad Software Engineer role at Stripe in US locations (San Francisco, Seattle, New York). It matches Kiran's target role and level. Stripe's stack includes Java and JavaScript, which Kiran knows, and the posting welcomes frontend or backend specialization. The posting states no citizenship or clearance requirement and no unpaid terms. The new-grad degree timing (by summer 2027) and the experience cap are unconfirmed for Kiran.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Posting title is Software Engineer, New Grad, which matches the target role Software Engineer.\\\"},{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"New Grad level matches the target level New Grad.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"San Francisco, Seattle and New York are US locations, which fits the United States target.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Posting says the team works mostly in Java, among other languages, and Kiran lists Java.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[1]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"JavaScript is also named in the posting's stack and is on Kiran's skills list.\\\"},{\\\"resume_path\\\":\\\"$.experience[1].bullets[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran's Java backend microservice experience fits the preferred backend specialization and production-systems focus.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so exclusions cannot be fully ruled out.\\\",\\\"The posting does not say whether the role is remote; it lists only three onsite cities.\\\",\\\"The résumé does not state degree or graduation date, so eligibility for the degree-by-summer-2027 requirement is unknown.\\\",\\\"The résumé does not state total professional experience, so the 18-month cap for new grads cannot be checked.\\\",\\\"Compensation and whether the role is paid are not stated, though a Stripe new-grad role is unlikely to be unpaid.\\\"]}\",\"ttft_ms\":6034,\"type\":\"result\",\"duration_ms\":6049,\"uuid\":\"c1dce56c-cdd5-483b-96d5-6038d527e8c6\",\"ttft_stream_ms\":1241,\"time_to_request_ms\":57,\"first_content_frame_ms\":1242,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0243209,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,89 @@
+diff --git a/src/job_search_agent/watch.py b/src/job_search_agent/watch.py
+index 3172211..bccb0d8 100644
+--- a/src/job_search_agent/watch.py
++++ b/src/job_search_agent/watch.py
+@@ -339,6 +339,8 @@ class LoopFetcher:
+         self._sleep = sleep
+         self._sent = {} if sent is None else sent
+         self.attempts = 0
++        self.live_body: bytes | None = None
++        """The body of the last result ``get`` returned: the board's live response."""
+ 
+     def get(self, url: str) -> FetchResult:
+         """One board request, with at most ``retry.max_retries`` retries.
+@@ -378,6 +380,7 @@ class LoopFetcher:
+             )
+             self._sleep(self._retry.pause_s)
+             result = self._refusal(url) or self._attempt(url, attempt)
++        self.live_body = result.body
+         return result
+ 
+     def _retry_refusal(self) -> str | None:
+@@ -592,21 +595,28 @@ NOTE_BELOW_FLOOR: Final = "below_floor"
+ 
+ 
+ class FlooredProvider:
+-    """GATE A2: a parsed board listing 1 to ``floor - 1`` postings is invalid.
++    """GATE A2: a live response listing 1 to ``floor - 1`` postings is invalid.
+ 
+-    Only the first parse is floored: in a JS1 run that is the live response
+-    (``pipeline`` parses it before anything else); later parses re-read saved raws
+-    for pending retries (A26) and keep their JS1 behaviour.
++    Only the live response is floored, recognised by its bytes (``live_body``, from
++    the loop's fetcher), so the order in which ``pipeline.run_once`` parses responses
++    does not matter. Saved raws re-read for pending retries (A26) are never floored.
+ 
+     Args:
+         inner: The board's real provider.
+         floor: The planned ``min_postings``.
++        live_body: Returns the body the loop fetched for this board, or ``None``.
+     """
+ 
+-    def __init__(self, inner: BoardProvider, floor: int) -> None:
++    def __init__(
++        self,
++        inner: BoardProvider,
++        floor: int,
++        *,
++        live_body: Callable[[], bytes | None],
++    ) -> None:
+         self._inner = inner
+         self._floor = floor
+-        self._parsed = False
++        self._live_body = live_body
+         self.below_floor = False
+ 
+     @property
+@@ -619,14 +629,14 @@ class FlooredProvider:
+         return self._inner.jobs_url(board_token)
+ 
+     def parse(self, body: bytes) -> ParsedBoard:
+-        """Parses with the inner provider, then applies the floor once.
++        """Parses with the inner provider, then floors the live response.
+ 
+         Raises:
+             InvalidResponse: The inner provider's, or ``below_floor``.
+         """
+         board = self._inner.parse(body)
+-        first, self._parsed = not self._parsed, True
+-        if first and not board.is_empty and board.fetched_count < self._floor:
++        live = body == self._live_body()
++        if live and not board.is_empty and board.fetched_count < self._floor:
+             self.below_floor = True
+             raise InvalidResponse(
+                 NOTE_BELOW_FLOOR, f"{board.fetched_count} < {self._floor}"
+@@ -706,7 +716,13 @@ class _Loop:
+             sleep=self.d.sleep,
+             sent=self.sent,
+         )
+-        floored = None if floor is None else FlooredProvider(deps.provider, floor)
++        floored = (
++            None
++            if floor is None
++            else FlooredProvider(
++                deps.provider, floor, live_body=lambda: fetcher.live_body
++            )
++        )
+         deps = dataclasses.replace(
+             deps,
+             source=LiveSource(fetcher, url),

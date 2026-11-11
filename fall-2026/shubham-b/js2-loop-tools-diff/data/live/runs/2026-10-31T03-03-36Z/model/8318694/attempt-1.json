@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4416,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "7e6c7a2bb924ab4c9bb2eb97a04c11a2f6951663080ff48c240934c8cd2088e6",
+  "posting_id": "8318694",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "5350c8cb-87dc-4723-8d43-18b2b07d7790",
+  "started_at_et": "2026-10-30T23:05:01.024755-04:00",
+  "started_at_utc": "2026-10-31T03:05:01.024755Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4119,\"stop_reason\":\"end_turn\",\"session_id\":\"5350c8cb-87dc-4723-8d43-18b2b07d7790\",\"total_cost_usd\":0.0195738,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3724,\"cache_read_input_tokens\":1138,\"output_tokens\":456,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3724,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":456,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3724,\"webSearchRequests\":0,\"costUSD\":0.0195738,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3724,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is an enterprise sales management role in London, leading a team of account executives. It requires 8-10+ years of closing sales experience and 5+ years of people management. Kiran is targeting entry-level and new-grad software engineering roles in the US or remote US, so the role, level and location all fail to match.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Kiran targets software engineering roles; the posting is a Sales Manager role.\\\"},{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran seeks new grad or entry-level roles; the posting requires 8-10+ years of sales experience and 5+ years of people management.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran wants US or remote US locations; the posting is based in London, UK.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[0]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran's skills are engineering skills; the posting sits in a GEO Sales HQ (EMEA) department with no engineering duties.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting does not say whether remote work or work outside the UK is possible.\\\"]}\",\"ttft_ms\":4154,\"type\":\"result\",\"duration_ms\":4175,\"uuid\":\"beb81318-5eaa-4d23-8f1f-7e56c0f513a7\",\"ttft_stream_ms\":1304,\"time_to_request_ms\":49,\"first_content_frame_ms\":1305,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0195738,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5416,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "5b8491ee127812a95f75c72fbb3ce44135116c172952da7faeb68d5c6246e85a",
+  "posting_id": "8039548",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "f65f3afb-f9c3-4fa7-9059-f5abadbfaebe",
+  "started_at_et": "2026-10-31T14:33:14.254720-04:00",
+  "started_at_utc": "2026-10-31T18:33:14.254720Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5120,\"stop_reason\":\"end_turn\",\"session_id\":\"f65f3afb-f9c3-4fa7-9059-f5abadbfaebe\",\"total_cost_usd\":0.0217389,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3816,\"cache_read_input_tokens\":1109,\"output_tokens\":636,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3816,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":636,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3816,\"webSearchRequests\":0,\"costUSD\":0.0217389,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3816,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a full-stack engineering position in the US, and the stack partly overlaps with the résumé (React, backend services, GraphQL, Docker/Kubernetes, AWS). However, it requires 5+ years of industry experience, which is well above the New Grad to SWE II levels targeted, and it requires native Mandarin fluency, which the résumé does not show. The primary backend technology is Ruby, which is not among the listed skills.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting's minimum requirement of 5+ years of experience does not match the targeted New Grad, Entry Level, SWE I and SWE II levels.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The Full Stack Engineer title matches a targeted role, but the seniority requirement in the posting outweighs this.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"React is a primary technology in the posting and a résumé skill, though this does not offset the other mismatches.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Ruby is named as a primary technology and does not appear among the résumé's languages.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The US location fits the targeted locations.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The résumé does not state any language fluency, so Mandarin ability cannot be established.\\\",\\\"The posting does not say whether the role is remote or hybrid, or in which US location; it mentions a distributed and hybrid team.\\\",\\\"The posting does not say whether it requires U.S. citizenship or a security clearance.\\\",\\\"It is unclear how strictly the 5+ years minimum would be applied.\\\"]}\",\"ttft_ms\":5160,\"type\":\"result\",\"duration_ms\":5174,\"uuid\":\"64435e81-6716-40d6-bc85-48a5514b0c29\",\"ttft_stream_ms\":1272,\"time_to_request_ms\":52,\"first_content_frame_ms\":1272,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0217389,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

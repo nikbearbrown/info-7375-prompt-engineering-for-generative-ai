@@ -1,0 +1,32 @@
+Independent check of data/watch/loops/2026-11-09T08-27-13Z
+
+| board | check | result | detail |
+|---|---|---|---|
+| (loop) | every planned board reported | PASS | 5 planned, 5 reported |
+| (loop) | requests = trace attempts <= budget | PASS | 5 attempts |
+| (loop) | FINISHED only if every board is OK and checks out | PASS | agent says INCOMPLETE |
+| greenhouse/stripe | sha256 raw = report = trace | PASS | 0a362ca97819 |
+| greenhouse/stripe | count = raw jobs (a failed board may report none) | PASS | raw 768, report 768 |
+| greenhouse/stripe | new = raw - before | PASS | recomputed 0 |
+| greenhouse/stripe | careers page uses this system | PASS | board greenhouse, careers page greenhouse |
+| greenhouse/stripe | at least the expected floor | PASS | 768 vs 100 |
+| greenhouse/figma | sha256 raw = report = trace | PASS | d9b778d3b3ff |
+| greenhouse/figma | count = raw jobs (a failed board may report none) | PASS | raw 144, report 144 |
+| greenhouse/figma | new = raw - before | PASS | recomputed 0 |
+| greenhouse/figma | careers page uses this system | PASS | board greenhouse, careers page greenhouse |
+| greenhouse/figma | at least the expected floor | PASS | 144 vs 20 |
+| ashby/ramp | sha256 raw = report = trace | PASS | f9ef73522895 |
+| ashby/ramp | count = raw jobs (a failed board may report none) | PASS | raw 169, report 169 |
+| ashby/ramp | new = raw - before | PASS | recomputed 0 |
+| ashby/ramp | careers page uses this system | PASS | board ashby, careers page ashby |
+| ashby/ramp | at least the expected floor | PASS | 169 vs 20 |
+| ashby/linear | sha256 raw = report = trace | PASS | 13cfd35e4bc8 |
+| ashby/linear | count = raw jobs (a failed board may report none) | PASS | raw 32, report 32 |
+| ashby/linear | new = raw - before | PASS | recomputed 0 |
+| ashby/linear | careers page uses this system | PASS | board ashby, careers page ashby |
+| ashby/linear | at least the expected floor | PASS | 32 vs 5 |
+| ashby/linearapp | sha256 raw = report = trace | PASS | 0019dfc4b32d |
+| ashby/linearapp | no count invented | PASS | raw is not a jobs object |
+
+25 passed, 0 failed.
+exit=0

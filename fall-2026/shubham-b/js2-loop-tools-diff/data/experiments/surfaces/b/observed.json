@@ -1,0 +1,29 @@
+{
+  "is_error": false,
+  "model": "claude-sonnet-5-5",
+  "permission_denials": [],
+  "reads": [
+    "<sandbox>/resume.payload.json",
+    "<sandbox>/posting.json"
+  ],
+  "result_text": "{\"label\":\"NOT_RELEVANT\",\"summary\":\"The title is Software Engineer in a US location, which fits Kiran's target roles. The substance is a tier-0 infrastructure and reliability role, though, not general backend or full-stack work. It requires 3 years in each of several areas, including AWS and Azure, Go/Python/Java, Linux, distributed systems, NoSQL, and critical-incident handling. It also asks for on-call work and for building AMIs and EC2 bootstrap infrastructure. Kiran targets new grad to SWE II roles and has Terraform and Go only as not-shipped familiarity. They have no Azure or Linux infrastructure experience listed. The role is also hybrid (50% telecommuting) in Seattle, not remote. It is a poor fit on level and focus.\",\"evidence\":[{\"resume_path\":\"$.target.levels\",\"posting_path\":\"$.content\",\"reason\":\"Kiran targets New Grad through SWE II. The posting requires a degree plus 3 years in each of several areas, which is above that range.\"},{\"resume_path\":\"$.skills.familiar_with_not_shipped\",\"posting_path\":\"$.content\",\"reason\":\"The posting wants infrastructure, AMI and EC2 hardening and Go/Java/Python distributed systems. Kiran has only unshipped familiarity with Go and Terraform.\"},{\"resume_path\":\"$.skills.cloud_devops\",\"posting_path\":\"$.content\",\"reason\":\"The posting requires AWS and Azure experience. Kiran lists AWS and GCP but not Azure.\"},{\"resume_path\":\"$.target.roles\",\"posting_path\":\"$.title\",\"reason\":\"The title Software Engineer matches a target role, but the duties are infrastructure and reliability focused.\"},{\"resume_path\":\"$.target.locations\",\"posting_path\":\"$.location.name\",\"reason\":\"Seattle, WA is in the United States, but the role is onsite-hybrid, not Remote (US).\"}],\"uncertainties\":[\"The posting does not state whether the employer sponsors work visas.\",\"The posting does not say whether the role requires U.S. citizenship or a security clearance, though it mentions security-sensitive data.\",\"Kiran's years of experience are not stated, so the 3-year requirements cannot be checked exactly.\",\"The posting is tagged #LI-DNI, and its meaning is unclear.\",\"Kiran's Linux and incident-handling experience is not shown in the résumé.\"]}",
+  "sends": [],
+  "session_id": "605649a7-ba06-40df-91ef-7d0aadca01ed",
+  "tool_uses": [
+    {
+      "input": {
+        "file_path": "<sandbox>/resume.payload.json"
+      },
+      "name": "Read"
+    },
+    {
+      "input": {
+        "file_path": "<sandbox>/posting.json"
+      },
+      "name": "Read"
+    }
+  ],
+  "total_cost_usd": 0.030064099999999996,
+  "unparsed_lines": 0,
+  "writes": []
+}

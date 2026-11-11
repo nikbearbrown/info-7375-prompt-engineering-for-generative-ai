@@ -1,0 +1,8 @@
+# Mutations of the A2 patch, run by Claude on 2026-11-09 at commit c51335d (each mutation
+# applied to src/job_search_agent/watch.py, `uv run pytest -q tests/watch`, then restored)
+
+m1  floor uses <= instead of <                 -> 1 failed, 75 passed
+    FAILED tests/watch/test_floor.py::test_board_exactly_at_its_floor_is_ok
+m2  floor every parse, not only the first      -> 76 passed   (SURVIVES: no test pins this)
+m3  empty board also floored                    -> 1 failed, 75 passed
+    FAILED tests/watch/test_floor.py::test_empty_board_with_a_floor_stays_empty_response

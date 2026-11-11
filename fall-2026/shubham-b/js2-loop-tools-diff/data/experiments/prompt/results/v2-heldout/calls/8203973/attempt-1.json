@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4583,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "ae637fb1014a30acdf48792bf3dda4e36e83cddb73416afd3b7bac4e47e99269",
+  "posting_id": "8203973",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "ad0c6754-8963-4824-a775-deb5ef4a96e1",
+  "started_at_et": "2026-10-31T14:34:21.102781-04:00",
+  "started_at_utc": "2026-10-31T18:34:21.102781Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4295,\"stop_reason\":\"end_turn\",\"session_id\":\"ad0c6754-8963-4824-a775-deb5ef4a96e1\",\"total_cost_usd\":0.0268129,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5372,\"cache_read_input_tokens\":1109,\"output_tokens\":521,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5372,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":521,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5372,\"webSearchRequests\":0,\"costUSD\":0.0268129,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5372,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting fails the title gate: \\\\\\\"Integration Engineer, Professional Services\\\\\\\" does not contain a target role-family phrase such as software engineer, backend engineer, frontend engineer or full-stack engineer. The location gate passes (United States) and no exclusion phrases appear. The skill gate also fails: only SQL clearly matches as a whole word, and Java appears only as an example language, which gives Java and SQL as two matches on a literal read. Because the title gate fails, the posting is NOT_RELEVANT regardless.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title says Integration Engineer, which is not a target role-family phrase like Software Engineer, so the title gate fails.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"SQL is mentioned in the minimum requirements.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is named as an example programming language; on a literal read it counts as a second skill match.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The location is United States, so the US location gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The summary's skill-gate wording is hedged: on a literal whole-word read, SQL and Java both match, so the skill gate likely passes, but the title gate failure decides the label either way.\\\"]}\",\"ttft_ms\":4331,\"type\":\"result\",\"duration_ms\":4348,\"uuid\":\"a10f2165-5bdd-4677-8959-63e6ba630393\",\"ttft_stream_ms\":1203,\"time_to_request_ms\":51,\"first_content_frame_ms\":1204,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0268129,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

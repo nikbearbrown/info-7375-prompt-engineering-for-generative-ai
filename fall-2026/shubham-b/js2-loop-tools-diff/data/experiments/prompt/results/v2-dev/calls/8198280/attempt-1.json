@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 7921,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "7fb257eb8ba3bad0eb5dd80b420ef8b85641ccb842ad9eea332dd19850e3847b",
+  "posting_id": "8198280",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "48dd84e6-5baa-4ae2-bc50-dcc281a27a39",
+  "started_at_et": "2026-10-31T14:32:34.091004-04:00",
+  "started_at_utc": "2026-10-31T18:32:34.091004Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":7626,\"stop_reason\":\"end_turn\",\"session_id\":\"48dd84e6-5baa-4ae2-bc50-dcc281a27a39\",\"total_cost_usd\":0.0290029,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4857,\"cache_read_input_tokens\":1109,\"output_tokens\":946,\"output_tokens_details\":{\"thinking_tokens\":384},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4857,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":946,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4857,\"webSearchRequests\":0,\"costUSD\":0.0290029,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":384,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4857,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title \\\\\\\"Software Engineer, Backend\\\\\\\" contains \\\\\\\"software engineer\\\\\\\" and no excluded marker. The content names Java and Python, which are two distinct eligible resume skills. \\\\\\\"RESTful microservices\\\\\\\" does not count as REST under the rule. No citizenship, clearance or unpaid phrase appears. The location \\\\\\\"Seattle, WA\\\\\\\" has US signals and no non-US signals. The posting asks for a Master's degree and 6 years of experience, which is far above Kiran's entry-level targets, but the rule says these are not gates.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains the target role phrase \\\\\\\"software engineer\\\\\\\" with no excluded marker such as senior or lead.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is listed among the languages the posting accepts.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Python is listed among the languages the posting accepts, which makes the second distinct skill match.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is a US location with no non-US signal.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting requires a Master's degree and 6 years of experience, so the seniority fit with Kiran's new-grad to SWE II targets is doubtful, though this does not affect the rule-based label.\\\",\\\"The posting says 50% telecommuting is permitted, so the on-site expectation is unclear.\\\"]}\",\"ttft_ms\":4077,\"type\":\"result\",\"duration_ms\":7679,\"uuid\":\"039729db-b93b-4c9d-980b-d7a2ee97cc89\",\"ttft_stream_ms\":1437,\"time_to_request_ms\":51,\"first_content_frame_ms\":1437,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0290029,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

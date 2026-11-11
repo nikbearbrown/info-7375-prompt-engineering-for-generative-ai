@@ -1,0 +1,4 @@
+r1 floor every parse (ignore live check): 3 failed, 86 passed in 1.19s :: FAILED tests/watch/test_floor.py::test_pending_retry_from_an_old_raw_below_the_floor FAILED tests/watch/test_floor_live_body.py::test_an_old_raw_parsed_first_is_not_floored_and_the_live_one_still_is FAILED tests/watch/test_floor_live_body.py::test_no_live_body_means_no_floor 
+r2 fetcher never records the live body: 2 failed, 87 passed in 0.70s :: FAILED tests/watch/test_floor.py::test_stale_board_below_its_floor_is_failed_not_finished FAILED tests/watch/test_floor.py::test_shrunken_board_keeps_its_saved_state 
+r3 <= instead of <: 2 failed, 87 passed in 0.66s :: FAILED tests/watch/test_floor.py::test_board_exactly_at_its_floor_is_ok FAILED tests/watch/test_floor.py::test_pending_retry_from_an_old_raw_below_the_floor 
+r4 floor empty boards too: 1 failed, 88 passed in 0.67s :: FAILED tests/watch/test_floor.py::test_empty_board_with_a_floor_stays_empty_response 

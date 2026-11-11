@@ -1,0 +1,170 @@
+diff --git a/config/watch-wrong-board.toml b/config/watch-wrong-board.toml
+index bf6d853..69d27ba 100644
+--- a/config/watch-wrong-board.toml
++++ b/config/watch-wrong-board.toml
+@@ -20,3 +20,4 @@ write_root = "data/watch"
+ [[boards]]
+ provider = "greenhouse"
+ token = "ramp"
++min_postings = 20
+diff --git a/config/watch.toml b/config/watch.toml
+index a323fd0..fe3d989 100644
+--- a/config/watch.toml
++++ b/config/watch.toml
+@@ -21,18 +21,22 @@ write_root = "data/watch"
+ [[boards]]
+ provider = "greenhouse"
+ token = "stripe"
++min_postings = 100
+ 
+ [[boards]]
+ provider = "greenhouse"
+ token = "figma"
++min_postings = 20
+ 
+ [[boards]]
+ provider = "ashby"
+ token = "ramp"
++min_postings = 20
+ 
+ [[boards]]
+ provider = "ashby"
+ token = "linear"
++min_postings = 5
+ 
+ # Deliberate failure (GATE §5): Linear's Ashby board is "linear", not "linearapp".
+ [[boards]]
+diff --git a/src/job_search_agent/watch.py b/src/job_search_agent/watch.py
+index 09b3069..9be8928 100644
+--- a/src/job_search_agent/watch.py
++++ b/src/job_search_agent/watch.py
+@@ -28,7 +28,7 @@ from pydantic import BaseModel, ConfigDict, Field, StringConstraints, Validation
+ 
+ from job_search_agent.clock import format_run_id
+ from job_search_agent.config import AgentConfig
+-from job_search_agent.errors import AgentError, ConfigError
++from job_search_agent.errors import AgentError, ConfigError, InvalidResponse
+ from job_search_agent.events import EventLog
+ from job_search_agent.fsio import OutputRoot, create_output_root
+ from job_search_agent.http import build_fetcher_from_settings
+@@ -36,12 +36,13 @@ from job_search_agent.models import (
+     FetchErrorKind,
+     FetchResult,
+     JudgmentStatus,
++    ParsedBoard,
+     RunReport,
+     RunStatus,
+ )
+ from job_search_agent.pipeline import NOTE_JUDGE_UNAVAILABLE, RunDeps, run_once
+ from job_search_agent.policy import Approver, PermissionPolicy, Verdict, settle
+-from job_search_agent.ports import Clock, EventSink, HttpFetcher
++from job_search_agent.ports import BoardProvider, Clock, EventSink, HttpFetcher
+ from job_search_agent.providers import get_provider
+ from job_search_agent.sources import LiveSource, sha256_hex
+ from job_search_agent.status import NOTE_JUDGMENTS_FAILED, NOTE_PENDING_UNRESOLVED
+@@ -94,10 +95,11 @@ class PolicySettings(_Section):
+ 
+ 
+ class BoardEntry(_Section):
+-    """One planned board, e.g. ``ashby`` / ``ramp``."""
++    """One planned board, e.g. ``ashby`` / ``ramp``, with its GATE A2 floor if any."""
+ 
+     provider: _Name
+     token: _Name
++    min_postings: int | None = Field(default=None, ge=1)
+ 
+ 
+ class WatchPlan(_Section):
+@@ -526,6 +528,52 @@ def board_config(
+     return AgentConfig.model_validate(raw)
+ 
+ 
++NOTE_BELOW_FLOOR: Final = "below_floor"
++
++
++class FlooredProvider:
++    """GATE A2: a parsed board listing 1 to ``floor - 1`` postings is invalid.
++
++    Only the first parse is floored: in a JS1 run that is the live response
++    (``pipeline`` parses it before anything else); later parses re-read saved raws
++    for pending retries (A26) and keep their JS1 behaviour.
++
++    Args:
++        inner: The board's real provider.
++        floor: The planned ``min_postings``.
++    """
++
++    def __init__(self, inner: BoardProvider, floor: int) -> None:
++        self._inner = inner
++        self._floor = floor
++        self._parsed = False
++        self.below_floor = False
++
++    @property
++    def name(self) -> str:
++        """The inner provider's name."""
++        return self._inner.name
++
++    def jobs_url(self, board_token: str) -> str:
++        """The inner provider's URL."""
++        return self._inner.jobs_url(board_token)
++
++    def parse(self, body: bytes) -> ParsedBoard:
++        """Parses with the inner provider, then applies the floor once.
++
++        Raises:
++            InvalidResponse: The inner provider's, or ``below_floor``.
++        """
++        board = self._inner.parse(body)
++        first, self._parsed = not self._parsed, True
++        if first and not board.is_empty and board.fetched_count < self._floor:
++            self.below_floor = True
++            raise InvalidResponse(
++                NOTE_BELOW_FLOOR, f"{board.fetched_count} < {self._floor}"
++            )
++        return board
++
++
+ class _Loop:
+     """One loop run (private): planning, boards, report."""
+ 
+@@ -571,7 +619,9 @@ class _Loop:
+             checked.append((index, key, url))
+         return checked
+ 
+-    def run_board(self, key: tuple[str, str], url: str) -> BoardOutcome:
++    def run_board(
++        self, key: tuple[str, str], url: str, floor: int | None = None
++    ) -> BoardOutcome:
+         name = key_text(key)
+         cfg = board_config(self.d.base_config, self.d.policy, key)
+         base_http = cfg.http
+@@ -594,10 +644,17 @@ class _Loop:
+             timeout_cap=base_http.timeout_s,
+             sleep=self.d.sleep,
+         )
+-        deps = dataclasses.replace(deps, source=LiveSource(fetcher, url))
++        floored = None if floor is None else FlooredProvider(deps.provider, floor)
++        deps = dataclasses.replace(
++            deps,
++            source=LiveSource(fetcher, url),
++            provider=floored or deps.provider,
++        )
+         self.trace.emit("board.started", {"board": name, "url": url})
+         report = run_once(deps)
+         ok, note = board_ok(report)
++        if floored is not None and floored.below_floor:
++            note = NOTE_BELOW_FLOOR
+         counted = report.status not in _NO_COUNT_STATUSES
+         outcome = BoardOutcome(
+             board=name,
+@@ -629,7 +686,8 @@ class _Loop:
+                 break
+             self.meter.boards += 1
+             try:
+-                self.outcomes[index] = self.run_board(key, url)
++                floor = self.d.plan.boards[index].min_postings
++                self.outcomes[index] = self.run_board(key, url, floor)
+             except AgentError as exc:
+                 self.trace.emit(
+                     "board.error", {"board": key_text(key), "error": type(exc).__name__}

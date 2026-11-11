@@ -1,0 +1,159 @@
+# Red run on commit affcbdd (the test commit, before any patch), 2026-11-09T08:18:18Z, run by Claude
+$ uv run pytest -q -p no:cacheprovider tests/watch/test_floor.py
+FFF.F..                                                                  [100%]
+=================================== FAILURES ===================================
+___________ test_stale_board_below_its_floor_is_failed_not_finished ____________
+
+p = <tests.watch.harness.Project object at 0x10c0dc1a0>
+
+    def test_stale_board_below_its_floor_is_failed_not_finished(p: Project) -> None:
+        report = p.run(
+>           _plan(RAMP_ON_GREENHOUSE, LINEAR),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            {
+                GH.format("ramp"): ok(gh_body(8042562003)),
+                ASHBY.format("linear"): ok(ashby_body(*LINEAR_IDS)),
+            },
+        )
+
+tests/watch/test_floor.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+boards = ({'provider': 'greenhouse', 'token': 'ramp', 'min_postings': 20}, {'provider': 'ashby', 'token': 'linear', 'min_postings': 5})
+
+    def _plan(*boards: dict[str, Any]) -> WatchPlan:
+>       return WatchPlan.model_validate(
+            {
+                "budget": {"max_boards": 6, "max_requests": 10, "max_seconds": 180},
+                "retry": {"max_retries": 1, "pause_s": 2.0, "min_seconds_left": 5.0},
+                "policy": {
+                    "allowed_hosts": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+                    "write_root": "data/watch",
+                },
+                "boards": list(boards),
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 2 validation errors for WatchPlan
+E       boards.0.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=20, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+E       boards.1.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=5, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+
+tests/watch/test_floor.py:32: ValidationError
+__________________ test_shrunken_board_keeps_its_saved_state ___________________
+
+p = <tests.watch.harness.Project object at 0x10c02f110>
+
+    def test_shrunken_board_keeps_its_saved_state(p: Project) -> None:
+>       plan = _plan(RAMP_ON_GREENHOUSE, LINEAR)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/watch/test_floor.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+boards = ({'provider': 'greenhouse', 'token': 'ramp', 'min_postings': 20}, {'provider': 'ashby', 'token': 'linear', 'min_postings': 5})
+
+    def _plan(*boards: dict[str, Any]) -> WatchPlan:
+>       return WatchPlan.model_validate(
+            {
+                "budget": {"max_boards": 6, "max_requests": 10, "max_seconds": 180},
+                "retry": {"max_retries": 1, "pause_s": 2.0, "min_seconds_left": 5.0},
+                "policy": {
+                    "allowed_hosts": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+                    "write_root": "data/watch",
+                },
+                "boards": list(boards),
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 2 validation errors for WatchPlan
+E       boards.0.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=20, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+E       boards.1.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=5, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+
+tests/watch/test_floor.py:32: ValidationError
+____________________ test_board_exactly_at_its_floor_is_ok _____________________
+
+p = <tests.watch.harness.Project object at 0x10c02fed0>
+
+    def test_board_exactly_at_its_floor_is_ok(p: Project) -> None:
+        report = p.run(
+>           _plan(LINEAR), {ASHBY.format("linear"): ok(ashby_body(*LINEAR_IDS[:5]))}
+            ^^^^^^^^^^^^^
+        )
+
+tests/watch/test_floor.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+boards = ({'provider': 'ashby', 'token': 'linear', 'min_postings': 5},)
+
+    def _plan(*boards: dict[str, Any]) -> WatchPlan:
+>       return WatchPlan.model_validate(
+            {
+                "budget": {"max_boards": 6, "max_requests": 10, "max_seconds": 180},
+                "retry": {"max_retries": 1, "pause_s": 2.0, "min_seconds_left": 5.0},
+                "policy": {
+                    "allowed_hosts": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+                    "write_root": "data/watch",
+                },
+                "boards": list(boards),
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for WatchPlan
+E       boards.0.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=5, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+
+tests/watch/test_floor.py:32: ValidationError
+______________ test_empty_board_with_a_floor_stays_empty_response ______________
+
+p = <tests.watch.harness.Project object at 0x10c04f100>
+
+    def test_empty_board_with_a_floor_stays_empty_response(p: Project) -> None:
+        body = json.dumps({"jobs": [], "meta": {"total": 0}}).encode()
+        report = p.run(
+>           _plan(RAMP_ON_GREENHOUSE, LINEAR),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            {
+                GH.format("ramp"): ok(body),
+                ASHBY.format("linear"): ok(ashby_body(*LINEAR_IDS)),
+            },
+        )
+
+tests/watch/test_floor.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+boards = ({'provider': 'greenhouse', 'token': 'ramp', 'min_postings': 20}, {'provider': 'ashby', 'token': 'linear', 'min_postings': 5})
+
+    def _plan(*boards: dict[str, Any]) -> WatchPlan:
+>       return WatchPlan.model_validate(
+            {
+                "budget": {"max_boards": 6, "max_requests": 10, "max_seconds": 180},
+                "retry": {"max_retries": 1, "pause_s": 2.0, "min_seconds_left": 5.0},
+                "policy": {
+                    "allowed_hosts": ["boards-api.greenhouse.io", "api.ashbyhq.com"],
+                    "write_root": "data/watch",
+                },
+                "boards": list(boards),
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 2 validation errors for WatchPlan
+E       boards.0.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=20, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+E       boards.1.min_postings
+E         Extra inputs are not permitted [type=extra_forbidden, input_value=5, input_type=int]
+E           For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+
+tests/watch/test_floor.py:32: ValidationError
+=========================== short test summary info ============================
+FAILED tests/watch/test_floor.py::test_stale_board_below_its_floor_is_failed_not_finished
+FAILED tests/watch/test_floor.py::test_shrunken_board_keeps_its_saved_state
+FAILED tests/watch/test_floor.py::test_board_exactly_at_its_floor_is_ok - pyd...
+FAILED tests/watch/test_floor.py::test_empty_board_with_a_floor_stays_empty_response
+4 failed, 3 passed in 0.05s
+exit=1

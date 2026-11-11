@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4788,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "7e1f542d1401a57a587bc51437bc7945cc5325b6dff9f14ad3d579625eeb81aa",
+  "posting_id": "8330131",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "f22e0c1d-a554-40c8-a700-11814ee2135e",
+  "started_at_et": "2026-10-30T23:04:10.466478-04:00",
+  "started_at_utc": "2026-10-31T03:04:10.466478Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4504,\"stop_reason\":\"end_turn\",\"session_id\":\"f22e0c1d-a554-40c8-a700-11814ee2135e\",\"total_cost_usd\":0.0223118,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4081,\"cache_read_input_tokens\":1138,\"output_tokens\":587,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4081,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":587,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":4081,\"webSearchRequests\":0,\"costUSD\":0.0223118,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4081,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a senior Engineering Manager role requiring 10+ years of engineering experience, 4+ years of management, and experience leading teams of 8+ engineers. Kiran's targets are individual-contributor engineering roles at New Grad, Entry, SWE I or SWE II level, so the role and level do not match. Kiran's experience is in hands-on development (Node.js, Express, Spring Boot, PostgreSQL), and the posting's billing and payments domain is only a loose overlap that does not make up for the seniority gap.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Posting requires 10+ years of engineering experience and 4+ years of management, far above the New Grad to SWE II levels Kiran targets.\\\"},{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title is Engineering Manager, a people-management role, not one of the Software Engineer, Backend, Frontend or Full-Stack engineer roles Kiran targets.\\\"},{\\\"resume_path\\\":\\\"$.experience[0].bullets[1]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran built appointment and billing REST APIs, which loosely overlaps with the Commerce Systems billing domain, but it is IC work and does not offset the management requirements.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The location is given as N/A, so it is unclear whether the role is in the United States or remote (US).\\\",\\\"The posting does not say whether U.S. citizenship or a security clearance is required, though none is mentioned.\\\",\\\"The posting does not state compensation, so it is unclear whether the role is paid, though this is very likely.\\\"]}\",\"ttft_ms\":4532,\"type\":\"result\",\"duration_ms\":4558,\"uuid\":\"166a8174-e4c3-4eb5-8c4d-61a1d469d682\",\"ttft_stream_ms\":759,\"time_to_request_ms\":49,\"first_content_frame_ms\":759,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0223118,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

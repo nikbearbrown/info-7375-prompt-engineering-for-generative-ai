@@ -1,0 +1,251 @@
+[
+  {
+    "posting_id": "6232528004",
+    "title": "Director, Creative Brand Expression",
+    "location": "San Francisco, CA • New York, NY • United States",
+    "updated_at": "2026-11-10T13:58:59-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "US_BASED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has US signal(s) 'San Francisco', ', CA', 'New York', ', NY', 'United States' and no non-US one."
+      },
+      "evidence": [],
+      "reason": "Failed gate(s): TITLE, SKILLS. The title contains no role-family phrase from $.target.roles, and it contains excluded marker(s): director. 0 distinct résumé skill(s) appear in the posting; at least 2 are required.",
+      "failed_gates": [
+        "TITLE",
+        "SKILLS"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  },
+  {
+    "posting_id": "6247174004",
+    "title": "Product Designer - Figma Weave (Tel Aviv, Israel)",
+    "location": "Tel Aviv, Israel",
+    "updated_at": "2026-11-10T04:48:39-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "NON_US",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has non-US signal(s) 'Israel' and no US one."
+      },
+      "evidence": [
+        {
+          "term": "HTML",
+          "resume_path": "$.skills.frontend[2]",
+          "posting_path": "$.content"
+        },
+        {
+          "term": "CSS",
+          "resume_path": "$.skills.frontend[3]",
+          "posting_path": "$.content"
+        }
+      ],
+      "reason": "Failed gate(s): TITLE, LOCATION. The title contains no role-family phrase from $.target.roles. Location NON_US: The location has non-US signal(s) 'Israel' and no US one.",
+      "failed_gates": [
+        "TITLE",
+        "LOCATION"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  },
+  {
+    "posting_id": "6242701004",
+    "title": "Researcher, AI Evaluations",
+    "location": "San Francisco, CA • New York, NY • United States",
+    "updated_at": "2026-11-09T16:53:01-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "US_BASED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has US signal(s) 'San Francisco', ', CA', 'New York', ', NY', 'United States' and no non-US one."
+      },
+      "evidence": [],
+      "reason": "Failed gate(s): TITLE, SKILLS. The title contains no role-family phrase from $.target.roles. 0 distinct résumé skill(s) appear in the posting; at least 2 are required.",
+      "failed_gates": [
+        "TITLE",
+        "SKILLS"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  },
+  {
+    "posting_id": "6250826004",
+    "title": "Senior Inside Sales Representative ",
+    "location": "San Francisco, CA • New York, NY",
+    "updated_at": "2026-11-10T17:28:57-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "US_BASED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has US signal(s) 'San Francisco', ', CA', 'New York', ', NY' and no non-US one."
+      },
+      "evidence": [],
+      "reason": "Failed gate(s): TITLE, SKILLS. The title contains no role-family phrase from $.target.roles, and it contains excluded marker(s): senior. 0 distinct résumé skill(s) appear in the posting; at least 2 are required.",
+      "failed_gates": [
+        "TITLE",
+        "SKILLS"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  },
+  {
+    "posting_id": "6251998004",
+    "title": "Strategic Finance",
+    "location": "San Francisco, CA • New York, NY • United States",
+    "updated_at": "2026-11-10T19:59:09-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "US_BASED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has US signal(s) 'San Francisco', ', CA', 'New York', ', NY', 'United States' and no non-US one."
+      },
+      "evidence": [
+        {
+          "term": "SQL",
+          "resume_path": "$.skills.languages[4]",
+          "posting_path": "$.content"
+        }
+      ],
+      "reason": "Failed gate(s): TITLE, SKILLS. The title contains no role-family phrase from $.target.roles. 1 distinct résumé skill(s) appear in the posting; at least 2 are required.",
+      "failed_gates": [
+        "TITLE",
+        "SKILLS"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  },
+  {
+    "posting_id": "6249978004",
+    "title": "Technical Operations & Insights Analyst",
+    "location": "San Francisco, CA • New York, NY • United States",
+    "updated_at": "2026-11-10T13:53:05-05:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "US_BASED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has US signal(s) 'San Francisco', ', CA', 'New York', ', NY', 'United States' and no non-US one."
+      },
+      "evidence": [
+        {
+          "term": "Python",
+          "resume_path": "$.skills.languages[3]",
+          "posting_path": "$.content"
+        },
+        {
+          "term": "SQL",
+          "resume_path": "$.skills.languages[4]",
+          "posting_path": "$.content"
+        }
+      ],
+      "reason": "Failed gate(s): TITLE. The title contains no role-family phrase from $.target.roles.",
+      "failed_gates": [
+        "TITLE"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  }
+]
