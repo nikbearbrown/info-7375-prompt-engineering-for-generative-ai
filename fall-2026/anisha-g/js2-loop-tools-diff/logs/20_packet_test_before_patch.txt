@@ -1,0 +1,63 @@
+test_a_never_seen_id_is_still_new (tests.test_review_packet.EmptyListKeepsSeenIds.test_a_never_seen_id_is_still_new) ... FAIL
+test_returning_jobs_after_an_empty_run_are_not_new (tests.test_review_packet.EmptyListKeepsSeenIds.test_returning_jobs_after_an_empty_run_are_not_new) ... FAIL
+
+======================================================================
+FAIL: test_a_never_seen_id_is_still_new (tests.test_review_packet.EmptyListKeepsSeenIds.test_a_never_seen_id_is_still_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_packet.py", line 38, in test_a_never_seen_id_is_still_new
+    self.assertEqual([j["id"] for j in r["boards"][0]["new"]], ["9"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['1', '2', '9'] != ['9']
+
+First differing element 0:
+'1'
+'9'
+
+First list contains 2 additional elements.
+First extra element 1:
+'2'
+
+- ['1', '2', '9']
++ ['9']
+
+======================================================================
+FAIL: test_returning_jobs_after_an_empty_run_are_not_new (tests.test_review_packet.EmptyListKeepsSeenIds.test_returning_jobs_after_an_empty_run_are_not_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_packet.py", line 33, in test_returning_jobs_after_an_empty_run_are_not_new
+    self.assertEqual(back["boards"][0]["new"], [], "returning jobs were reported as new: the empty run wiped the seen ids")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [{'id': '1', 'title': 'Job 1'}, {'id': '2'[46 chars] 3'}] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+{'id': '1', 'title': 'Job 1'}
+
++ []
+- [{'id': '1', 'title': 'Job 1'},
+-  {'id': '2', 'title': 'Job 2'},
+-  {'id': '3', 'title': 'Job 3'}] : returning jobs were reported as new: the empty run wiped the seen ids
+
+----------------------------------------------------------------------
+Ran 2 tests in 4.449s
+
+FAILED (failures=2)
+20261110T213355-live: exit=finished (every board was checked); boards checked 1, new jobs 0, requests 1/15, seconds 0.0/60.0
+  greenhouse:klaviyo                 ok           jobs=2 new=0 
+  trace: reports/job-watch/runs/20261110T213355-live/trace.json
+20261110T213356-live: exit=finished (every board was checked); boards checked 1, new jobs 0, requests 1/15, seconds 0.002/60.0
+  greenhouse:klaviyo                 ok           jobs=0 new=0 
+  trace: reports/job-watch/runs/20261110T213356-live/trace.json
+20261110T213357-live: exit=finished (every board was checked); boards checked 1, new jobs 3, requests 1/15, seconds 0.002/60.0
+  greenhouse:klaviyo                 ok           jobs=3 new=3 
+  trace: reports/job-watch/runs/20261110T213357-live/trace.json
+20261110T213357-live: exit=finished (every board was checked); boards checked 1, new jobs 0, requests 1/15, seconds 0.001/60.0
+  greenhouse:klaviyo                 ok           jobs=3 new=0 
+  trace: reports/job-watch/runs/20261110T213357-live/trace.json
+20261110T213358-live: exit=finished (every board was checked); boards checked 1, new jobs 0, requests 1/15, seconds 0.002/60.0
+  greenhouse:klaviyo                 ok           jobs=0 new=0 
+  trace: reports/job-watch/runs/20261110T213358-live/trace.json
+20261110T213359-live: exit=finished (every board was checked); boards checked 1, new jobs 3, requests 1/15, seconds 0.002/60.0
+  greenhouse:klaviyo                 ok           jobs=3 new=3 
+  trace: reports/job-watch/runs/20261110T213359-live/trace.json
