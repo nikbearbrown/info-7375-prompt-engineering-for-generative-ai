@@ -2,7 +2,7 @@
 
 ## My review of the remaining open items, November 10, 2026
 
-*Shreyash's words, typed into the session on 2026-11-10. This replaces a shorter decision paragraph on `Dev` given earlier the same day (in commit `5ed5159`). The last sentence of the `Dev` paragraph was replaced later that evening, after the regrade, also in Shreyash's words. Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-10. This replaces a shorter decision paragraph on `Dev` given earlier the same day (in commit `5ed5159`). Later that evening, after the regrades, the last sentence of the `Dev` paragraph was replaced and a closing paragraph was added to "What I learned", both in Shreyash's words. Claude Code did not change them.*
 
 **1. Klaviyo — Posting 7809608003**
 
@@ -29,6 +29,8 @@ For now, I documented this interpretation without changing the implementation. I
 **What I learned**
 
 These checks showed me that my manual judgments also need verification. Not every mismatch means the code is wrong. Sometimes the rule is correct, and the mistake is in my original label or interpretation. I kept these decisions separate from code changes so the review record shows exactly what I concluded and what remains unresolved.
+
+I reviewed the evidence and recorded my decision based on what I could verify from the job advertisements. I kept the remaining limitations visible rather than changing the expected results to make the tests pass.
 
 ## The findings that led to it (written first)
 
