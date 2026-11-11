@@ -1,0 +1,66 @@
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 run_agent.py --boards fixtures/vanish/boards.json --replay fixtures/vanish/scenario-1-baseline.json --run-id seeded-local-20261109-1
+run seeded-local-20261109-1  [SEEDED (replayed saved responses, not a live run)]  requests=3  elapsed=0.01s
+  figma                  greenhouse ok                         count=145  (baseline: nothing reported as new)
+  spotify                lever      ok                         count=85  (baseline: nothing reported as new)
+  linear                 ashby      ok                         count=32  (baseline: nothing reported as new)
+exit: finished (code 0)
+Exit code: 0 (expected 0)
+
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 verify_run.py seeded-local-20261109-1
+PASS  hosts                               3 requests, off-list: none
+PASS  request count                       trace has 3, summary says 3
+PASS  seeded label                        replayed responses must be labeled
+PASS  figma: recount from raw             agent 145, recount 145
+PASS  figma: greenhouse meta.total        meta.total 145, jobs 145
+PASS  figma: compared with earlier raw    no earlier raw; first observation
+PASS  spotify: recount from raw           agent 85, recount 85
+PASS  spotify: compared with earlier raw  no earlier raw; first observation
+PASS  linear: recount from raw            agent 32, recount 32
+PASS  linear: compared with earlier raw   no earlier raw; first observation
+PASS  exit status earned                  every board ok, nothing suspicious
+verify seeded-local-20261109-1: agent said 'finished'; independent check passed
+Exit code: 0 (expected 0)
+
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 run_agent.py --boards fixtures/vanish/boards.json --replay fixtures/vanish/scenario-2-figma-empty.json --run-id seeded-local-20261109-2
+run seeded-local-20261109-2  [SEEDED (replayed saved responses, not a live run)]  requests=3  elapsed=0.01s
+  figma                  greenhouse suspect:empty_after_nonempty count=null
+  spotify                lever      ok                         count=85  new=0
+  linear                 ashby      ok                         count=32  new=0
+  NEEDS HUMAN: figma: suspect:empty_after_nonempty (0 postings now, 145 in the baseline)
+exit: incomplete (code 2)
+Exit code: 2 (expected 2)
+
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 verify_run.py seeded-local-20261109-2
+PASS  hosts                                 3 requests, off-list: none
+PASS  request count                         trace has 3, summary says 3
+PASS  seeded label                          replayed responses must be labeled
+PASS  figma: failure has no invented value  status suspect:empty_after_nonempty, count None
+PASS  spotify: recount from raw             agent 85, recount 85
+PASS  spotify: compared with earlier raw    85 in seeded-local-20261109-1, 85 now
+PASS  linear: recount from raw              agent 32, recount 32
+PASS  linear: compared with earlier raw     32 in seeded-local-20261109-1, 32 now
+verify seeded-local-20261109-2: agent said 'incomplete'; independent check passed
+Exit code: 0 (expected 0)
+
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 run_agent.py --boards fixtures/vanish/boards.json --replay fixtures/vanish/scenario-1-baseline.json --run-id seeded-local-20261109-3
+run seeded-local-20261109-3  [SEEDED (replayed saved responses, not a live run)]  requests=3  elapsed=0.01s
+  figma                  greenhouse ok                         count=145  new=0
+  spotify                lever      ok                         count=85  new=0
+  linear                 ashby      ok                         count=32  new=0
+exit: finished (code 0)
+Exit code: 0 (expected 0)
+
+$ /opt/homebrew/opt/python@3.14/bin/python3.14 verify_run.py seeded-local-20261109-3
+PASS  hosts                               3 requests, off-list: none
+PASS  request count                       trace has 3, summary says 3
+PASS  seeded label                        replayed responses must be labeled
+PASS  figma: recount from raw             agent 145, recount 145
+PASS  figma: greenhouse meta.total        meta.total 145, jobs 145
+PASS  figma: compared with earlier raw    0 in seeded-local-20261109-2, 145 now
+PASS  spotify: recount from raw           agent 85, recount 85
+PASS  spotify: compared with earlier raw  85 in seeded-local-20261109-2, 85 now
+PASS  linear: recount from raw            agent 32, recount 32
+PASS  linear: compared with earlier raw   32 in seeded-local-20261109-2, 32 now
+PASS  exit status earned                  every board ok, nothing suspicious
+verify seeded-local-20261109-3: agent said 'finished'; independent check passed
+Exit code: 0 (expected 0)

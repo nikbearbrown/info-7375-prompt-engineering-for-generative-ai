@@ -1,0 +1,13 @@
+{
+ "plan_version": 1,
+ "note": "SEEDED. One board, the real greenhouse:reddit token, used only by the finished-wrong-answer demonstration in reports/wrong-answer.md. The response it is replayed against is CONSTRUCTED (evidence/seeded/replay-wrong-answer/greenhouse-reddit.json): HTTP 200 with an empty jobs array. No request is made to any host when this plan is run, because the demonstration always runs with --replay-from.",
+ "expect_at_least_note": "The floor is the same hand-written 1 as in config/boards.json, and the same sentence justifies it: a live public job board answering 200 with zero postings is not something I believe without checking. The point of the demonstration is that the loop cannot use this floor and the cross-check can.",
+ "boards": [
+  {
+   "board": "greenhouse:reddit",
+   "provider": "greenhouse",
+   "token": "reddit",
+   "expect_at_least": 1
+  }
+ ]
+}

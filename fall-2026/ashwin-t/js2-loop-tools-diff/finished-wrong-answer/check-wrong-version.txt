@@ -1,0 +1,5 @@
+INDEPENDENT CHECK of runs/2026-11-09T20-23-30Z-seeded-WRONG-VERSION-w01 (the run reported SEEDED REPLAY, status finished, exit 0)
+FAIL: 3 violation(s); the run's own report is not trustworthy:
+  [C4] greenhouse/hubspotjobs: reported as observed, but the saved evidence is HTTP 200 with 0 postings
+  [C6] greenhouse/hubspotjobs: reported as 0 new postings ('no new jobs') without a nonempty raw listing
+  [C5] run: the run says FINISHED, but at least one board lacks a nonempty HTTP 200 raw listing

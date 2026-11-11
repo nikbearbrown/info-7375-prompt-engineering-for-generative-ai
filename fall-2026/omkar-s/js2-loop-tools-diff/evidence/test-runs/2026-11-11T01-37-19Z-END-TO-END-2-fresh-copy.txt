@@ -1,0 +1,83 @@
+# END-TO-END 2 in a fresh copy (rsync of the folder minus caches into a temp dir). Run by Claude Code at 2026-11-11T01-37-19Z. The temp path is shown as $FRESH.
+
+## 1. tests
+Ran 75 tests in 0.222s
+
+OK
+exit=0
+
+## 2. mutants
+CONTROL  passed: the unmutated copy passes every test
+W11  KILLED   drop rule flags exactly 50% ('more than half' read as 'at least half')
+W12  KILLED   drop rule minimum size off by one (a board with exactly 10 is skipped)
+W13  KILLED   first run of a board gives no 'no_baseline' warning
+14/14 wrong versions KILLED
+
+## 3. live run, main watch list (state carried over from earlier runs)
+exit=3
+# Run 2026-11-11T01-37-24Z-e2e2: **INCOMPLETE** (exit code 3)
+
+> no answer from: greenhouse:webflow (empty_unverified), greenhouse:klaviyoo (error)
+
+Requests used 6/12 · boards attempted 6/8 · 2.096 s of 90 s · persona Aarav Patel (fictional)
+
+| Board | Status | Why | Postings | New | Removed | Attempts |
+|---|---|---|---:|---:|---:|---:|
+| `greenhouse:klaviyo` | ok | http_200 | 145 | 0 | 7 | 1 |
+| `greenhouse:hubspotjobs` | ok | http_200 | 122 | 3 | 8 | 1 |
+| `ashby:linear` | ok | http_200 | 33 | 1 | 0 | 1 |
+| `lever:spotify` | ok | http_200 | 86 | 7 | 10 | 1 |
+| `greenhouse:webflow` | empty_unverified | HTTP 200 with zero postings; not reported as 'no new jobs' | 0 | null | null | 1 |
+| `greenhouse:klaviyoo` | error | not_found | null | null | null | 1 |
+warnings in trace: 0
+
+## 4. independent check of that run
+exit=1 (1 = a contradiction was found)
+This check found **1 contradiction(s)**.
+| C3 | `greenhouse:webflow` | CONTRADICTED | reference says 27 postings on 2026-09-26 (fall-2026/nik-bear-brown/lectern/ATS.md, 'Verified - reachable today' tab
+
+## 5. drop rule, first run into an empty output folder -> no_baseline on every board that answered
+exit=3
+## Warnings
+
+These do not change the exit code (Omkar's drop rule, GATE.md change log 2026-11-10).
+
+- `greenhouse:klaviyo`: **no_baseline**, first run for this board; no earlier count to compare against.
+- `greenhouse:hubspotjobs`: **no_baseline**, first run for this board; no earlier count to compare against.
+- `ashby:linear`: **no_baseline**, first run for this board; no earlier count to compare against.
+- `lever:spotify`: **no_baseline**, first run for this board; no earlier count to compare against.
+
+
+## 6. drop rule on real data: the copy's state for ashby:linear is edited (in this temp copy only) to say the last run had 100 postings
+exit=3 (warning only: exit unchanged)
+## Warnings
+
+These do not change the exit code (Omkar's drop rule, GATE.md change log 2026-11-10).
+
+- `ashby:linear`: **suspicious_drop**, postings fell from 100 to 33 (more than 50% fewer than the last run); the board may have moved or broken.
+# Run 2026-11-11T01-37-29Z-droptest: **INCOMPLETE** (exit code 3)
+
+## 7. edge: --out outside the folder
+exit=5
+EXIT error (code 5): ESCALATE: output folder must be inside the assignment folder
+
+## 8. edge: unknown ATS and a ../ slug (no request may be sent for either)
+exit=5
+| `workday:acme` | error | bad_slug: unknown ATS 'workday'; known: greenhouse, ashby, lever | null | null | null | 0 |
+| `greenhouse:../etc` | error | bad_slug: board name '../etc' is not a plain board slug | null | null | null | 0 |
+- `workday:acme`: **error**, bad_slug: unknown ATS 'workday'; known: greenhouse, ashby, lever. Postings: null (null = not observed; no value invented).
+- `greenhouse:../etc`: **error**, bad_slug: board name '../etc' is not a plain board slug. Postings: null (null = not observed; no value invented).
+observations (requests sent): 0
+
+## 9. edge: missing config
+exit=5
+EXIT error (code 5): ESCALATE: [Errno 2] No such file or directory: '/private/var/folders/w1/1m43m_rj08l59nztff6fmwzm0000gn/T/tmp.lUNe2AgqWK/js2/config/nope.jso
+
+## 10. edge: same label twice in a row
+exit=3
+exit=3
+2026-11-11T01-37-31Z-twice
+2026-11-11T01-37-33Z-twice
+
+## 11. nothing was written outside the copy
+ls: /tmp/js2-outside-95210: No such file or directory

@@ -93,7 +93,7 @@ These merge with the built-in list in `data/skill_aliases.json`. Check 3's justi
 
 | Path | What |
 |---|---|
-| `CONTRACT.md` | The spec (English). `CONTRACT.zh.md` is the Chinese original I wrote |
+| `CONTRACT.md` | The spec |
 | `job_agent/` | The agent. `common/` (errors, file paths, the allow-listed network door), `watch/` (board adapter, state, new-posting detection), `judges/` (rule checks, Claude judge, validator, the one verdict format), `pipeline.py` (the order of one run), `__main__.py` (command line) |
 | `personas/`, `data/` | Fictional résumé + profile (Aarav Patel, `@example.com`); built-in skill aliases and no-sponsorship phrases |
 | `prompts/` | Claude's prompt contract: v1 baseline, v2 revision |

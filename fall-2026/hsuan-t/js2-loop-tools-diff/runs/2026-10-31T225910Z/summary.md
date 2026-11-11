@@ -1,0 +1,44 @@
+Run 2026-10-31T22:59:10Z · board: stripe · live
+State file: state/stripe.state.json · updated: 2026-10-31T22:59:10Z
+Raw response: evidence/raw/2026-10-31T225910Z/stripe_content.json
+Claude judge: claude-sonnet-5-5 via cli · prompt: prompts/claude_judge.v1.md
+
+| | rule (record) | Claude (judgment) |
+|---|---|---|
+| fetched postings | 745 | — |
+| new postings | 20 | 20 |
+| cut at 1a exclude words | 9 | — |
+| cut at 1b title | 11 | — |
+| cut at 2 location | 0 | — |
+| cut at 3 skills | 0 | — |
+| cut at 4 years | 0 | — |
+| cut at 5 visa | 0 | — |
+| cut at 6 salary | 0 | — |
+| error | 0 | 0 |
+| **relevant** | **0** | 0 |
+| judges disagree | 0 | |
+
+| posting_id | title | rule | cut at | Claude |
+|---|---|---|---|---|
+| 8288561 | Account Executive - Enterprise Grower (DACH Market) | not_relevant | 1b | not_relevant |
+| 8114458 | Account Executive, Enterprise Grower (Israel) | not_relevant | 1b | not_relevant |
+| 7825578 | Account Executive, Enterprise Hunter (DACH Market) | not_relevant | 1b | not_relevant |
+| 8330815 | Account Executive Platforms, Grower | not_relevant | 1b | not_relevant |
+| 8328118 | Administrative Business Partner, Coverage | not_relevant | 1b | not_relevant |
+| 8336819 | Blockchain Security Engineer, Bridge | not_relevant | 1b | not_relevant |
+| 8335758 | Commercial Counsel, Bridge | not_relevant | 1b | not_relevant |
+| 8330131 | Engineering Manager, Commerce Systems | not_relevant | 1a | not_relevant |
+| 8336023 | Enterprise Account Executive - Grower | not_relevant | 1b | not_relevant |
+| 8283786 | Marketing Operations Program Manager | not_relevant | 1a | not_relevant |
+| 8333074 | Master's Machine Learning Engineer, Intern | not_relevant | 1a | not_relevant |
+| 8333122 | Master's Machine Learning Engineer, Intern | not_relevant | 1a | not_relevant |
+| 8265389 | Motion Designer, Stripe Identity | not_relevant | 1b | not_relevant |
+| 8328664 | PhD Machine Learning Engineer, Intern | not_relevant | 1a | not_relevant |
+| 8328662 | PhD Machine Learning Engineer, Intern | not_relevant | 1a | not_relevant |
+| 8327254 | Product Manager, Terminal Payments | not_relevant | 1a | not_relevant |
+| 8318694 | Sales Manager, Platforms - UK | not_relevant | 1a | not_relevant |
+| 8289414 | Sales Manager, Platforms - UK & Ireland | not_relevant | 1a | not_relevant |
+| 8234710 | Startup Products Strategy & Operations, Insights & Analytics | not_relevant | 1b | not_relevant |
+| 8248415 | Startup Products Strategy & Operations, Product Strategy | not_relevant | 1b | not_relevant |
+
+Missed a skill written another way? Add it under "skill_aliases" in personas/aarav-patel.profile.json

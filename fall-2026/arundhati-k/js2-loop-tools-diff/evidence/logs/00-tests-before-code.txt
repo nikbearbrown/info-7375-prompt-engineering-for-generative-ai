@@ -1,0 +1,67 @@
+# 2026-11-10 16:33:19 EST — python3 -m unittest discover -s tests -t .  (before any jsagent2/ code exists)
+EEEE
+======================================================================
+ERROR: tests.test_check (unittest.loader._FailedTest.tests.test_check)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_check
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_check.py", line 7, in <module>
+    from jsagent2.check import check_run
+ModuleNotFoundError: No module named 'jsagent2'
+
+
+======================================================================
+ERROR: tests.test_loop (unittest.loader._FailedTest.tests.test_loop)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_loop
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_loop.py", line 5, in <module>
+    from jsagent2.loop import run_loop
+ModuleNotFoundError: No module named 'jsagent2'
+
+
+======================================================================
+ERROR: tests.test_policy (unittest.loader._FailedTest.tests.test_policy)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_policy
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_policy.py", line 12, in <module>
+    from jsagent2.policy import Policy
+ModuleNotFoundError: No module named 'jsagent2'
+
+
+======================================================================
+ERROR: tests.test_wrong_versions (unittest.loader._FailedTest.tests.test_wrong_versions)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_wrong_versions
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_wrong_versions.py", line 13, in <module>
+    from jsagent2 import loop as loop_mod
+ModuleNotFoundError: No module named 'jsagent2'
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+FAILED (errors=4)
+exit status: 1

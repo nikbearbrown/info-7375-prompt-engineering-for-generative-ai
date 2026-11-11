@@ -1,0 +1,476 @@
+{
+  "run": 2,
+  "started_at": "2026-10-30T09:18:13.042Z",
+  "board": "anthropic",
+  "host": "boards-api.greenhouse.io",
+  "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs",
+  "seeded": false,
+  "seeded_from": null,
+  "baseline": false,
+  "postings_fetched": 670,
+  "duplicate_ids_removed": 0,
+  "new_count": 12,
+  "raw_response": "runs/run-02-2026-10-30/raw-response.json",
+  "raw_sha256": "1a056ee9a881fb5780d3694f7410f21f9640431a1333545d7b17587956dee405",
+  "state_file": "state/seen-ids.json",
+  "postings": [
+    {
+      "posting_id": 5467425008,
+      "title": "Business Recruiter",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5467425008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Business Recruiter\" matched no search.target_titles term; it matched no search.exclude_titles term; no posting location.name piece (\"Dublin, IE\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "Dublin, IE"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5467425008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:15.792Z",
+        "verdict": "not_relevant",
+        "justification": "The posting title \"Business Recruiter\" does not match any of the search.target_titles such as \"AI Engineer\" or \"ML Engineer\", and its location.name \"Dublin, IE\" is not personal.location \"Boston, MA\", nor is it in search.open_to_relocate (\"San Francisco, CA\" or \"New York City, NY\") or remote (search.open_to_remote is true, but the role is not remote-specified).",
+        "resume_fields": [
+          "search.target_titles",
+          "personal.location",
+          "search.open_to_remote",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5467425008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"personal.location\", \"search.open_to_remote\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The posting title \\\"Business Recruiter\\\" does not match any of the search.target_titles such as \\\"AI Engineer\\\" or \\\"ML Engineer\\\", and its location.name \\\"Dublin, IE\\\" is not personal.location \\\"Boston, MA\\\", nor is it in search.open_to_relocate (\\\"San Francisco, CA\\\" or \\\"New York City, NY\\\") or remote (search.open_to_remote is true, but the role is not remote-specified).\"}"
+      }
+    },
+    {
+      "posting_id": 5462040008,
+      "title": "Customer Success Manager, Beneficial Deployments EMEA",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5462040008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Customer Success Manager, Beneficial Deployments EMEA\" matched no search.target_titles term; it matched search.exclude_titles term \"Manager\"; no posting location.name piece (\"London, UK\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Manager",
+          "locations": [
+            "London, UK"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5462040008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:17.351Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Customer Success Manager, Beneficial Deployments EMEA\" is a customer-facing manager role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and contains the excluded word \"Manager\" from search.exclude_titles. The location.name \"London, UK\" is outside personal.location \"Boston, MA\", search.open_to_relocate (San Francisco, CA; New York City, NY), and not a remote posting for search.open_to_remote.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_remote",
+          "search.open_to_relocate",
+          "personal.location"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5462040008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_remote\", \"search.open_to_relocate\", \"personal.location\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Customer Success Manager, Beneficial Deployments EMEA\\\" is a customer-facing manager role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and contains the excluded word \\\"Manager\\\" from search.exclude_titles. The location.name \\\"London, UK\\\" is outside personal.location \\\"Boston, MA\\\", search.open_to_relocate (San Francisco, CA; New York City, NY), and not a remote posting for search.open_to_remote.\"}"
+      }
+    },
+    {
+      "posting_id": 5458689008,
+      "title": "Enterprise Account Executive, Public Sector",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5458689008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Enterprise Account Executive, Public Sector\" matched no search.target_titles term; it matched no search.exclude_titles term; no posting location.name piece (\"Milan, Italy\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "Milan, Italy"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5458689008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:18.892Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Enterprise Account Executive, Public Sector\" is a sales role, not one of the target titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM). The location Milan, Italy is outside personal.location Boston, MA and the relocation options San Francisco, CA and New York City, NY, and the posting is not remote-friendly per the candidate's search.open_to_remote setting.",
+        "resume_fields": [
+          "search.target_titles",
+          "personal.location",
+          "search.open_to_remote",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5458689008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"personal.location\", \"search.open_to_remote\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Enterprise Account Executive, Public Sector\\\" is a sales role, not one of the target titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM). The location Milan, Italy is outside personal.location Boston, MA and the relocation options San Francisco, CA and New York City, NY, and the posting is not remote-friendly per the candidate's search.open_to_remote setting.\"}"
+      }
+    },
+    {
+      "posting_id": 5458064008,
+      "title": "Enterprise Account Executive, Public Sector",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5458064008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Enterprise Account Executive, Public Sector\" matched no search.target_titles term; it matched no search.exclude_titles term; no posting location.name piece (\"Madrid, Spain\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "Madrid, Spain"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5458064008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:21.968Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Enterprise Account Executive, Public Sector\" is a sales role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM). The location.name \"Madrid, Spain\" is outside personal.location \"Boston, MA\" and not among search.open_to_relocate (San Francisco, CA; New York City, NY).",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "personal.location",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5458064008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"personal.location\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Enterprise Account Executive, Public Sector\\\" is a sales role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM). The location.name \\\"Madrid, Spain\\\" is outside personal.location \\\"Boston, MA\\\" and not among search.open_to_relocate (San Francisco, CA; New York City, NY).\"}"
+      }
+    },
+    {
+      "posting_id": 5461024008,
+      "title": "Enterprise Account Executive - Semiconductors",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5461024008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Enterprise Account Executive - Semiconductors\" matched no search.target_titles term; it matched no search.exclude_titles term; no posting location.name piece (\"London, UK\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "London, UK"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5461024008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:23.331Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Enterprise Account Executive - Semiconductors\" is a sales role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM), and the location.name \"London, UK\" falls outside personal.location \"Boston, MA\", the search.open_to_relocate cities (San Francisco, CA; New York City, NY), and the remote option under search.open_to_remote.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_remote",
+          "search.open_to_relocate",
+          "personal.location"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5461024008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_remote\", \"search.open_to_relocate\", \"personal.location\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Enterprise Account Executive - Semiconductors\\\" is a sales role that matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM), and the location.name \\\"London, UK\\\" falls outside personal.location \\\"Boston, MA\\\", the search.open_to_relocate cities (San Francisco, CA; New York City, NY), and the remote option under search.open_to_remote.\"}"
+      }
+    },
+    {
+      "posting_id": 5465578008,
+      "title": "Performance & Talent Programs Manager ",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5465578008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Performance & Talent Programs Manager\" matched no search.target_titles term; it matched search.exclude_titles term \"Manager\"; posting location.name piece \"New York City, NY\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Manager",
+          "locations": [
+            "New York City, NY",
+            "San Francisco, CA",
+            "New York City, NY",
+            "Seattle, WA"
+          ],
+          "location_passed": "New York City, NY"
+        }
+      },
+      "claude": {
+        "posting_id": 5465578008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:24.844Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Performance & Talent Programs Manager\" matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and contains \"Manager\", which is listed in search.exclude_titles. The location.name includes New York City, NY and San Francisco, CA, which are in search.open_to_relocate, but the role itself is not a fit.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5465578008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Performance & Talent Programs Manager\\\" matches none of the search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and contains \\\"Manager\\\", which is listed in search.exclude_titles. The location.name includes New York City, NY and San Francisco, CA, which are in search.open_to_relocate, but the role itself is not a fit.\"}"
+      }
+    },
+    {
+      "posting_id": 5426617008,
+      "title": "Public Sector Sales Lead",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5426617008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Public Sector Sales Lead\" matched no search.target_titles term; it matched search.exclude_titles term \"Lead\"; no posting location.name piece (\"Paris, France\") matched personal.location \"Boston, MA\", search.open_to_relocate, or remote United States.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Lead",
+          "locations": [
+            "Paris, France"
+          ],
+          "location_passed": null
+        }
+      },
+      "claude": {
+        "posting_id": 5426617008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:26.276Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Public Sector Sales Lead\" is a sales role that matches none of the target titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and includes the excluded seniority term \"Lead\". The location \"Paris, France\" is outside personal.location \"Boston, MA\", the open_to_relocate cities (San Francisco, CA and New York City, NY), and is not a remote posting.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate",
+          "search.open_to_remote",
+          "personal.location"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5426617008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\", \"search.open_to_remote\", \"personal.location\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Public Sector Sales Lead\\\" is a sales role that matches none of the target titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM) and includes the excluded seniority term \\\"Lead\\\". The location \\\"Paris, France\\\" is outside personal.location \\\"Boston, MA\\\", the open_to_relocate cities (San Francisco, CA and New York City, NY), and is not a remote posting.\"}"
+      }
+    },
+    {
+      "posting_id": 5467092008,
+      "title": "Research Scientist, Life Sciences (Large Molecules, Antibody Design) ",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5467092008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design)\" matched no search.target_titles term; it matched no search.exclude_titles term; posting location.name piece \"San Francisco, CA\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "location_passed": "San Francisco, CA"
+        }
+      },
+      "claude": {
+        "posting_id": 5467092008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:28.947Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Research Scientist, Life Sciences (Large Molecules, Antibody Design)\" does not match any of the search.target_titles (such as AI Engineer, ML Engineer, or Machine Learning), and its biology focus is far from the candidate's Python and SQL skills in skills.languages. The location.name of San Francisco, CA is listed in search.open_to_relocate, so location is not the deciding factor.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.open_to_relocate",
+          "skills.languages"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5467092008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_relocate\", \"skills.languages\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Research Scientist, Life Sciences (Large Molecules, Antibody Design)\\\" does not match any of the search.target_titles (such as AI Engineer, ML Engineer, or Machine Learning), and its biology focus is far from the candidate's Python and SQL skills in skills.languages. The location.name of San Francisco, CA is listed in search.open_to_relocate, so location is not the deciding factor.\"}"
+      }
+    },
+    {
+      "posting_id": 5467099008,
+      "title": "Research Scientist, Life Sciences (Large Molecules, Process Development) ",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5467099008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Research Scientist, Life Sciences (Large Molecules, Process Development)\" matched no search.target_titles term; it matched no search.exclude_titles term; posting location.name piece \"San Francisco, CA\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": null,
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "location_passed": "San Francisco, CA"
+        }
+      },
+      "claude": {
+        "posting_id": 5467099008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:31.607Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Research Scientist, Life Sciences (Large Molecules, Process Development)\" does not match any search.target_titles value (such as \"AI Engineer\", \"ML Engineer\", or \"Machine Learning\") and describes a life-sciences process role rather than AI/ML engineering. Although location.name \"San Francisco, CA\" is listed in search.open_to_relocate and no search.exclude_titles term appears in the title, the role type is a poor fit.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.open_to_relocate",
+          "search.exclude_titles"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5467099008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_relocate\", \"search.exclude_titles\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Research Scientist, Life Sciences (Large Molecules, Process Development)\\\" does not match any search.target_titles value (such as \\\"AI Engineer\\\", \\\"ML Engineer\\\", or \\\"Machine Learning\\\") and describes a life-sciences process role rather than AI/ML engineering. Although location.name \\\"San Francisco, CA\\\" is listed in search.open_to_relocate and no search.exclude_titles term appears in the title, the role type is a poor fit.\"}"
+      }
+    },
+    {
+      "posting_id": 5467083008,
+      "title": "Senior Engineer, Bioinformatics",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5467083008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Senior Engineer, Bioinformatics\" matched no search.target_titles term; it matched search.exclude_titles term \"Senior\"; posting location.name piece \"San Francisco, CA\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Senior",
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "location_passed": "San Francisco, CA"
+        }
+      },
+      "claude": {
+        "posting_id": 5467083008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:34.172Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Senior Engineer, Bioinformatics\" contains \"Senior\", which is listed in search.exclude_titles, and bioinformatics does not match any search.target_titles such as \"AI Engineer\" or \"ML Engineer\". Although location.name \"San Francisco, CA\" is in search.open_to_relocate, the seniority and role mismatch outweigh it.",
+        "resume_fields": [
+          "search.exclude_titles",
+          "search.target_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5467083008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.exclude_titles\", \"search.target_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Senior Engineer, Bioinformatics\\\" contains \\\"Senior\\\", which is listed in search.exclude_titles, and bioinformatics does not match any search.target_titles such as \\\"AI Engineer\\\" or \\\"ML Engineer\\\". Although location.name \\\"San Francisco, CA\\\" is in search.open_to_relocate, the seniority and role mismatch outweigh it.\"}"
+      }
+    },
+    {
+      "posting_id": 5451912008,
+      "title": "Senior Manager, Order-to-Cash Assurance",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5451912008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Senior Manager, Order-to-Cash Assurance\" matched no search.target_titles term; it matched search.exclude_titles term \"Senior\"; posting location.name piece \"San Francisco, CA\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Senior",
+          "locations": [
+            "San Francisco, CA",
+            "Seattle, WA"
+          ],
+          "location_passed": "San Francisco, CA"
+        }
+      },
+      "claude": {
+        "posting_id": 5451912008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:35.815Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Senior Manager, Order-to-Cash Assurance\" contains the excluded terms \"Senior\" and \"Manager\" from search.exclude_titles, and it is an order-to-cash finance role rather than any of the search.target_titles such as \"AI Engineer\" or \"ML Engineer\". The location.name \"San Francisco, CA | Seattle, WA\" overlaps with search.open_to_relocate only for San Francisco, so the location does not rescue the posting.",
+        "resume_fields": [
+          "search.exclude_titles",
+          "search.target_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5451912008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.exclude_titles\", \"search.target_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Senior Manager, Order-to-Cash Assurance\\\" contains the excluded terms \\\"Senior\\\" and \\\"Manager\\\" from search.exclude_titles, and it is an order-to-cash finance role rather than any of the search.target_titles such as \\\"AI Engineer\\\" or \\\"ML Engineer\\\". The location.name \\\"San Francisco, CA | Seattle, WA\\\" overlaps with search.open_to_relocate only for San Francisco, so the location does not rescue the posting.\"}"
+      }
+    },
+    {
+      "posting_id": 5419154008,
+      "title": "Staff / Senior Data Center Security Engineer",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5419154008",
+      "rule": {
+        "kind": "record",
+        "verdict": "not_relevant",
+        "justification": "posting title \"Staff / Senior Data Center Security Engineer\" matched no search.target_titles term; it matched search.exclude_titles term \"Senior\"; posting location.name piece \"San Francisco, CA\" is in search.open_to_relocate.",
+        "evidence": {
+          "include_matched": null,
+          "exclude_matched": "Senior",
+          "locations": [
+            "Remote-Friendly (Travel Required)",
+            "San Francisco, CA"
+          ],
+          "location_passed": "San Francisco, CA"
+        }
+      },
+      "claude": {
+        "posting_id": 5419154008,
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-30T09:18:37.843Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Staff / Senior Data Center Security Engineer\" contains \"Staff\" and \"Senior\", both listed in search.exclude_titles, and its security focus does not match any search.target_titles such as \"AI Engineer\" or \"ML Engineer\". The location, \"Remote-Friendly (Travel Required) | San Francisco, CA\", is in search.open_to_relocate, but that does not offset the title mismatch.",
+        "resume_fields": [
+          "search.exclude_titles",
+          "search.target_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5419154008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.exclude_titles\", \"search.target_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Staff / Senior Data Center Security Engineer\\\" contains \\\"Staff\\\" and \\\"Senior\\\", both listed in search.exclude_titles, and its security focus does not match any search.target_titles such as \\\"AI Engineer\\\" or \\\"ML Engineer\\\". The location, \\\"Remote-Friendly (Travel Required) | San Francisco, CA\\\", is in search.open_to_relocate, but that does not offset the title mismatch.\"}"
+      }
+    }
+  ]
+}

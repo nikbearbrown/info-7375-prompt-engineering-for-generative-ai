@@ -1,0 +1,39 @@
+# 2026-11-10 16:37:20 EST — BEFORE patch (Claude Code ran these)
+$ python3 review/reproduce_defect.py
+url_for('ashby', 'Jasper AI') -> ValueError: board name must match ^[a-z0-9-]{1,64}$: 'Jasper AI'
+run with Stripe + Notion + Jasper AI -> exit='error' reason="bad config: board name must match ^[a-z0-9-]{1,64}$: 'Jasper AI'" requests sent=0
+DEFECT PRESENT
+exit status: 1
+
+$ python3 -m unittest tests.test_providers -v
+test_encoded_url_still_passes_policy (tests.test_providers.AshbyBoardNames.test_encoded_url_still_passes_policy) ... ERROR
+test_name_cannot_change_the_path_or_query (tests.test_providers.AshbyBoardNames.test_name_cannot_change_the_path_or_query) ... ok
+test_name_with_space_and_capitals_is_encoded (tests.test_providers.AshbyBoardNames.test_name_with_space_and_capitals_is_encoded) ... ERROR
+test_plain_names_unchanged (tests.test_providers.AshbyBoardNames.test_plain_names_unchanged) ... ok
+test_greenhouse_rule_unchanged (tests.test_providers.GreenhouseBoardNames.test_greenhouse_rule_unchanged) ... ok
+
+======================================================================
+ERROR: test_encoded_url_still_passes_policy (tests.test_providers.AshbyBoardNames.test_encoded_url_still_passes_policy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_providers.py", line 28, in test_encoded_url_still_passes_policy
+    url = providers.url_for("ashby", "Jasper AI")
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py", line 23, in url_for
+    raise ValueError(f"board name must match {BOARD_SLUG.pattern}: {slug!r}")
+ValueError: board name must match ^[a-z0-9-]{1,64}$: 'Jasper AI'
+
+======================================================================
+ERROR: test_name_with_space_and_capitals_is_encoded (tests.test_providers.AshbyBoardNames.test_name_with_space_and_capitals_is_encoded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/tests/test_providers.py", line 13, in test_name_with_space_and_capitals_is_encoded
+    self.assertEqual(providers.url_for("ashby", "Jasper AI"),
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/arundhati/Desktop/INFO7375_Week01/info-7375-prompt-engineering-for-generative-ai/fall-2026/arundhati-k/js2-loop-tools-diff/jsagent2/providers.py", line 23, in url_for
+    raise ValueError(f"board name must match {BOARD_SLUG.pattern}: {slug!r}")
+ValueError: board name must match ^[a-z0-9-]{1,64}$: 'Jasper AI'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (errors=2)

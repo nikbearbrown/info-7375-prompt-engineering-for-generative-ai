@@ -1,0 +1,56 @@
+{"t": 0.0, "kind": "run_start", "run_id": "20261110T194501Z-live-day2", "label": "live-day2", "empty_guard": true, "budget": {"boards": 6, "requests": 10, "seconds": 60.0}}
+{"t": 0.0, "kind": "read", "target": "boards.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 0.001, "kind": "read", "target": "persona/arya-sahni.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 0.001, "kind": "request", "target": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 0.001, "kind": "request", "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true", "n": 1, "attempt": 1}
+{"t": 34.067, "kind": "response", "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true", "status": 200, "bytes": 9963648}
+{"t": 34.068, "kind": "write", "target": "runs/raw/greenhouse-databricks-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 34.068, "kind": "write", "target": "runs/raw/greenhouse-databricks-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 34.122, "kind": "read", "target": "runs/state/greenhouse-databricks.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 34.164, "kind": "write", "target": "runs/state/greenhouse-databricks.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 34.164, "kind": "state-write", "target": "runs/state/greenhouse-databricks.json", "decision": "allow", "reason": "adds ids only"}
+{"t": 34.165, "kind": "write", "target": "runs/state/greenhouse-databricks.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 34.167, "kind": "board_result", "board": "greenhouse:databricks", "system": "greenhouse", "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true", "attempts": 1, "http_status": 200, "postings": 914, "status": "ok", "reason": null, "raw_responses": ["runs/raw/greenhouse-databricks-20261110T194501Z-live-day2-a1.json"], "baseline": false, "new": 10, "removed_since_last": 77}
+{"t": 34.167, "kind": "request", "target": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 34.167, "kind": "request", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "n": 2, "attempt": 1}
+{"t": 36.602, "kind": "response", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "status": 200, "bytes": 10314664}
+{"t": 36.602, "kind": "write", "target": "runs/raw/greenhouse-anthropic-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 36.603, "kind": "write", "target": "runs/raw/greenhouse-anthropic-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 36.652, "kind": "read", "target": "runs/state/greenhouse-anthropic.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 36.684, "kind": "write", "target": "runs/state/greenhouse-anthropic.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 36.684, "kind": "state-write", "target": "runs/state/greenhouse-anthropic.json", "decision": "allow", "reason": "adds ids only"}
+{"t": 36.684, "kind": "write", "target": "runs/state/greenhouse-anthropic.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 36.685, "kind": "board_result", "board": "greenhouse:anthropic", "system": "greenhouse", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "attempts": 1, "http_status": 200, "postings": 677, "status": "ok", "reason": null, "raw_responses": ["runs/raw/greenhouse-anthropic-20261110T194501Z-live-day2-a1.json"], "baseline": false, "new": 12, "removed_since_last": 11}
+{"t": 36.685, "kind": "request", "target": "https://api.ashbyhq.com/posting-api/job-board/openai", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 36.685, "kind": "request", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "n": 3, "attempt": 1}
+{"t": 39.702, "kind": "response", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "status": 200, "bytes": 13893459}
+{"t": 39.703, "kind": "write", "target": "runs/raw/ashby-openai-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 39.703, "kind": "write", "target": "runs/raw/ashby-openai-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 39.778, "kind": "read", "target": "runs/state/ashby-openai.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 39.839, "kind": "write", "target": "runs/state/ashby-openai.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 39.839, "kind": "state-write", "target": "runs/state/ashby-openai.json", "decision": "allow", "reason": "adds ids only"}
+{"t": 39.839, "kind": "write", "target": "runs/state/ashby-openai.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 39.84, "kind": "board_result", "board": "ashby:openai", "system": "ashby", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "attempts": 1, "http_status": 200, "postings": 830, "status": "ok", "reason": null, "raw_responses": ["runs/raw/ashby-openai-20261110T194501Z-live-day2-a1.json"], "baseline": false, "new": 26, "removed_since_last": 8}
+{"t": 39.84, "kind": "request", "target": "https://api.ashbyhq.com/posting-api/job-board/notion", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 39.84, "kind": "request", "url": "https://api.ashbyhq.com/posting-api/job-board/notion", "n": 4, "attempt": 1}
+{"t": 40.523, "kind": "response", "url": "https://api.ashbyhq.com/posting-api/job-board/notion", "status": 200, "bytes": 2853046}
+{"t": 40.524, "kind": "write", "target": "runs/raw/ashby-notion-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.524, "kind": "write", "target": "runs/raw/ashby-notion-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.549, "kind": "read", "target": "runs/state/ashby-notion.json", "decision": "allow", "reason": "inside a read root"}
+{"t": 40.557, "kind": "write", "target": "runs/state/ashby-notion.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.557, "kind": "state-write", "target": "runs/state/ashby-notion.json", "decision": "allow", "reason": "adds ids only"}
+{"t": 40.557, "kind": "write", "target": "runs/state/ashby-notion.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.558, "kind": "board_result", "board": "ashby:notion", "system": "ashby", "url": "https://api.ashbyhq.com/posting-api/job-board/notion", "attempts": 1, "http_status": 200, "postings": 155, "status": "ok", "reason": null, "raw_responses": ["runs/raw/ashby-notion-20261110T194501Z-live-day2-a1.json"], "baseline": false, "new": 3, "removed_since_last": 1}
+{"t": 40.558, "kind": "request", "target": "https://api.ashbyhq.com/posting-api/job-board/notarealco-js2", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 40.558, "kind": "request", "url": "https://api.ashbyhq.com/posting-api/job-board/notarealco-js2", "n": 5, "attempt": 1}
+{"t": 40.714, "kind": "response", "url": "https://api.ashbyhq.com/posting-api/job-board/notarealco-js2", "status": 404, "bytes": 9}
+{"t": 40.715, "kind": "write", "target": "runs/raw/ashby-notarealco-js2-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.715, "kind": "write", "target": "runs/raw/ashby-notarealco-js2-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 40.717, "kind": "board_result", "board": "ashby:notarealco-js2", "system": "ashby", "url": "https://api.ashbyhq.com/posting-api/job-board/notarealco-js2", "attempts": 1, "http_status": 404, "postings": null, "status": "failed", "reason": "HTTP 404 (4xx: not retried)", "raw_responses": ["runs/raw/ashby-notarealco-js2-20261110T194501Z-live-day2-a1.json"]}
+{"t": 40.717, "kind": "request", "target": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 40.717, "kind": "request", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "n": 6, "attempt": 1}
+{"t": 41.201, "kind": "response", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "status": 200, "bytes": 52}
+{"t": 41.202, "kind": "write", "target": "runs/raw/smartrecruiters-hubspot-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 41.203, "kind": "write", "target": "runs/raw/smartrecruiters-hubspot-20261110T194501Z-live-day2-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 41.204, "kind": "board_result", "board": "smartrecruiters:hubspot", "system": "smartrecruiters", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "attempts": 1, "http_status": 200, "postings": 0, "status": "suspect_empty", "reason": "HTTP 200 with 0 postings: wrong slug or wrong system? escalated", "raw_responses": ["runs/raw/smartrecruiters-hubspot-20261110T194501Z-live-day2-a1.json"]}
+{"t": 41.204, "kind": "run_end", "exit": "incomplete", "reason": "2 board(s) failed or flagged; escalated to Riya"}

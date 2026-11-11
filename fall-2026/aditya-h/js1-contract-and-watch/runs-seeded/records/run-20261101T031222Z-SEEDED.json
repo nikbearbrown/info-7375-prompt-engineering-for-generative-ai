@@ -1,0 +1,1008 @@
+{
+ "board": "stripe",
+ "source_url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true",
+ "run_time": "2026-11-01T03:12:22.269963+00:00",
+ "contract_version": "v1",
+ "rule_id": "title-us-v1",
+ "seeded": true,
+ "seeded_from": "runs/raw/stripe-20261101T031155Z.json",
+ "baseline": false,
+ "suspect_empty": false,
+ "raw_response_path": "runs-seeded/raw/stripe-20261101T031222Z-SEEDED.json",
+ "state_path": "runs-seeded/state.json",
+ "verdicts": [
+  {
+   "posting_id": 8330815,
+   "title": "Account Executive Platforms, Grower",
+   "url": "https://stripe.com/jobs/search?gh_jid=8330815",
+   "rule": {
+    "posting_id": 8330815,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Account Executive Platforms, Grower",
+     "location.name": "Sydney Or Melbourne",
+     "offices[0].name": "Australia Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:22+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Account Executive Platforms, Grower' contains none of the required product phrases, and the location (Sydney or Melbourne) and office (Australia Locations) have no US markers, so both checks fail.",
+    "raw": "{\"posting_id\": 8330815, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Account Executive Platforms, Grower' contains none of the required product phrases, and the location (Sydney or Melbourne) and office (Australia Locations) have no US markers, so both checks fail.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8328118,
+   "title": "Administrative Business Partner, Coverage",
+   "url": "https://stripe.com/jobs/search?gh_jid=8328118",
+   "rule": {
+    "posting_id": 8328118,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Administrative Business Partner, Coverage",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:27+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name",
+     "location.name"
+    ],
+    "reason": "The title 'Administrative Business Partner, Coverage' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check would pass (offices[0].name is 'US'), but both checks are required.",
+    "raw": "{\"posting_id\": 8328118, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\", \"location.name\"], \"reason\": \"The title 'Administrative Business Partner, Coverage' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check would pass (offices[0].name is 'US'), but both checks are required.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8336819,
+   "title": "Blockchain Security Engineer, Bridge",
+   "url": "https://stripe.com/jobs/search?gh_jid=8336819",
+   "rule": {
+    "posting_id": 8336819,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Blockchain Security Engineer, Bridge",
+     "location.name": "Luxembourg",
+     "offices[0].name": "Luxembourg Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:32+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Blockchain Security Engineer, Bridge' contains none of the required product phrases, and the location (Luxembourg) and office ('Luxembourg Locations') have no US markers, so both checks fail.",
+    "raw": "{\"posting_id\": 8336819, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Blockchain Security Engineer, Bridge' contains none of the required product phrases, and the location (Luxembourg) and office ('Luxembourg Locations') have no US markers, so both checks fail.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8335758,
+   "title": "Commercial Counsel, Bridge",
+   "url": "https://stripe.com/jobs/search?gh_jid=8335758",
+   "rule": {
+    "posting_id": 8335758,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Commercial Counsel, Bridge",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:36+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Commercial Counsel, Bridge' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes via offices[0].name 'US', but both checks are required.",
+    "raw": "{\"posting_id\": 8335758, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\"], \"reason\": \"The title 'Commercial Counsel, Bridge' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes via offices[0].name 'US', but both checks are required.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8330131,
+   "title": "Engineering Manager, Commerce Systems",
+   "url": "https://stripe.com/jobs/search?gh_jid=8330131",
+   "rule": {
+    "posting_id": 8330131,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Engineering Manager, Commerce Systems",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:41+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Engineering Manager, Commerce Systems' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails even though the US office check passes.",
+    "raw": "{\"posting_id\": 8330131, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\"], \"reason\": \"The title 'Engineering Manager, Commerce Systems' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails even though the US office check passes.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8336023,
+   "title": "Enterprise Account Executive - Grower",
+   "url": "https://stripe.com/jobs/search?gh_jid=8336023",
+   "rule": {
+    "posting_id": 8336023,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Enterprise Account Executive - Grower",
+     "location.name": "Sydney Or Melbourne",
+     "offices[0].name": "Australia Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:46+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title",
+     "personal.location"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Enterprise Account Executive - Grower' contains none of the required product phrases, so the title check fails. The location 'Sydney Or Melbourne' and office 'Australia Locations' are also not US markers, so the US check fails too.",
+    "raw": "{\"posting_id\": 8336023, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\", \"personal.location\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Enterprise Account Executive - Grower' contains none of the required product phrases, so the title check fails. The location 'Sydney Or Melbourne' and office 'Australia Locations' are also not US markers, so the US check fails too.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8283786,
+   "title": "Marketing Operations Program Manager",
+   "url": "https://stripe.com/jobs/search?gh_jid=8283786",
+   "rule": {
+    "posting_id": 8283786,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Marketing Operations Program Manager",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:51+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name",
+     "location.name"
+    ],
+    "reason": "The title 'Marketing Operations Program Manager' does not contain any of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails even though the US check passes via offices[0].name 'US'.",
+    "raw": "{\"posting_id\": 8283786, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\", \"location.name\"], \"reason\": \"The title 'Marketing Operations Program Manager' does not contain any of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails even though the US check passes via offices[0].name 'US'.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8333074,
+   "title": "Master's Machine Learning Engineer, Intern",
+   "url": "https://stripe.com/jobs/search?gh_jid=8333074",
+   "rule": {
+    "posting_id": 8333074,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US-NYC",
+      "reason": "office \"US-NYC\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Master's Machine Learning Engineer, Intern",
+     "offices[0].name": "US-NYC"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US-NYC\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:12:56+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name",
+     "location.name"
+    ],
+    "reason": "The title 'Master's Machine Learning Engineer, Intern' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes (US-NYC office, San Francisco/New York/Seattle locations), but both checks are required.",
+    "raw": "{\"posting_id\": 8333074, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\", \"location.name\"], \"reason\": \"The title 'Master's Machine Learning Engineer, Intern' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes (US-NYC office, San Francisco/New York/Seattle locations), but both checks are required.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8333122,
+   "title": "Master's Machine Learning Engineer, Intern",
+   "url": "https://stripe.com/jobs/search?gh_jid=8333122",
+   "rule": {
+    "posting_id": 8333122,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Master's Machine Learning Engineer, Intern",
+     "location.name": "Toronto",
+     "offices[0].name": "CA-Toronto"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:01+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Master's Machine Learning Engineer, Intern' contains none of the required product phrases (product manager, product analyst, product strategy, product operations, product owner). The posting is also in Toronto (office CA-Toronto), which fails the US check.",
+    "raw": "{\"posting_id\": 8333122, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Master's Machine Learning Engineer, Intern' contains none of the required product phrases (product manager, product analyst, product strategy, product operations, product owner). The posting is also in Toronto (office CA-Toronto), which fails the US check.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8265389,
+   "title": "Motion Designer, Stripe Identity",
+   "url": "https://stripe.com/jobs/search?gh_jid=8265389",
+   "rule": {
+    "posting_id": 8265389,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Motion Designer, Stripe Identity",
+     "location.name": "Barcelona",
+     "offices[0].name": "Spain Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:05+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Motion Designer, Stripe Identity' contains none of the required product phrases, so the title check fails. The location (Barcelona, Spain Locations) also has no US marker, so the US check fails as well.",
+    "raw": "{\"posting_id\": 8265389, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Motion Designer, Stripe Identity' contains none of the required product phrases, so the title check fails. The location (Barcelona, Spain Locations) also has no US marker, so the US check fails as well.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8328664,
+   "title": "PhD Machine Learning Engineer, Intern",
+   "url": "https://stripe.com/jobs/search?gh_jid=8328664",
+   "rule": {
+    "posting_id": 8328664,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "PhD Machine Learning Engineer, Intern",
+     "location.name": "Toronto",
+     "offices[0].name": "CA-Toronto"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:10+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'PhD Machine Learning Engineer, Intern' contains none of the required product phrases, and the location (Toronto, CA-Toronto) has no US marker, so both checks fail.",
+    "raw": "{\"posting_id\": 8328664, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'PhD Machine Learning Engineer, Intern' contains none of the required product phrases, and the location (Toronto, CA-Toronto) has no US marker, so both checks fail.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8328662,
+   "title": "PhD Machine Learning Engineer, Intern",
+   "url": "https://stripe.com/jobs/search?gh_jid=8328662",
+   "rule": {
+    "posting_id": 8328662,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US-NYC",
+      "reason": "office \"US-NYC\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "PhD Machine Learning Engineer, Intern",
+     "offices[0].name": "US-NYC"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US-NYC\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name"
+    ],
+    "reason": "The title 'PhD Machine Learning Engineer, Intern' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes (offices include US-NYC, US-Seattle, US-SF-HQ), but both checks are required.",
+    "raw": "{\"posting_id\": 8328662, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\"], \"reason\": \"The title 'PhD Machine Learning Engineer, Intern' contains none of the required phrases (product manager, product analyst, product strategy, product operations, product owner), so the title check fails. The US check passes (offices include US-NYC, US-Seattle, US-SF-HQ), but both checks are required.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8327254,
+   "title": "Product Manager, Terminal Payments",
+   "url": "https://stripe.com/jobs/search?gh_jid=8327254",
+   "rule": {
+    "posting_id": 8327254,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": true,
+      "matched": "product manager",
+      "reason": "title contains \"product manager\""
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Product Manager, Terminal Payments",
+     "location.name": "Toronto, Canada",
+     "offices[0].name": "Canada Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check passed: title contains \"product manager\". Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:19+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Product Manager, Terminal Payments' passes the title check, but the location 'Toronto, Canada' and office 'Canada Locations' contain no US marker, so the US check fails.",
+    "raw": "{\"posting_id\": 8327254, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Product Manager, Terminal Payments' passes the title check, but the location 'Toronto, Canada' and office 'Canada Locations' contain no US marker, so the US check fails.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8318694,
+   "title": "Sales Manager, Platforms - UK",
+   "url": "https://stripe.com/jobs/search?gh_jid=8318694",
+   "rule": {
+    "posting_id": 8318694,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Sales Manager, Platforms - UK",
+     "location.name": "London",
+     "offices[0].name": "United Kingdom Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:23+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "personal.location"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Sales Manager, Platforms - UK' contains none of the required product phrases, so the title check fails. The location (London, United Kingdom Locations) also has no US marker, so the US check fails too.",
+    "raw": "{\"posting_id\": 8318694, \"verdict\": \"not_relevant\", \"resume_fields\": [\"personal.location\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Sales Manager, Platforms - UK' contains none of the required product phrases, so the title check fails. The location (London, United Kingdom Locations) also has no US marker, so the US check fails too.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8289414,
+   "title": "Sales Manager, Platforms - UK & Ireland",
+   "url": "https://stripe.com/jobs/search?gh_jid=8289414",
+   "rule": {
+    "posting_id": 8289414,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": false,
+      "via": null,
+      "field": null,
+      "value": null,
+      "reason": "location not US / unknown"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Sales Manager, Platforms - UK & Ireland",
+     "location.name": "Dublin",
+     "offices[0].name": "Ireland Locations"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check failed: location not US / unknown."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:28+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "location.name",
+     "offices[0].name"
+    ],
+    "reason": "The title 'Sales Manager, Platforms - UK & Ireland' contains none of the required product phrases, so the title check fails. The location is Dublin with office 'Ireland Locations', so the US check also fails.",
+    "raw": "{\"posting_id\": 8289414, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"location.name\", \"offices[0].name\"], \"reason\": \"The title 'Sales Manager, Platforms - UK & Ireland' contains none of the required product phrases, so the title check fails. The location is Dublin with office 'Ireland Locations', so the US check also fails.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8234710,
+   "title": "Startup Products Strategy & Operations, Insights & Analytics",
+   "url": "https://stripe.com/jobs/search?gh_jid=8234710",
+   "rule": {
+    "posting_id": 8234710,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "not_relevant",
+    "checks": {
+     "title": {
+      "pass": false,
+      "matched": null,
+      "reason": "title has none of the product-family phrases"
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Startup Products Strategy & Operations, Insights & Analytics",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check failed: title has none of the product-family phrases. Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:33+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "not_relevant",
+    "resume_fields": [
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name",
+     "location.name"
+    ],
+    "reason": "The title 'Startup Products Strategy & Operations, Insights & Analytics' does not contain any of the required phrases (e.g., 'product strategy' or 'product operations' as a contiguous phrase), so the title check fails even though the US check passes via offices[0].name 'US' and location.name 'Remote US'.",
+    "raw": "{\"posting_id\": 8234710, \"verdict\": \"not_relevant\", \"resume_fields\": [\"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\", \"location.name\"], \"reason\": \"The title 'Startup Products Strategy & Operations, Insights & Analytics' does not contain any of the required phrases (e.g., 'product strategy' or 'product operations' as a contiguous phrase), so the title check fails even though the US check passes via offices[0].name 'US' and location.name 'Remote US'.\"}"
+   },
+   "disagree": false
+  },
+  {
+   "posting_id": 8248415,
+   "title": "Startup Products Strategy & Operations, Product Strategy",
+   "url": "https://stripe.com/jobs/search?gh_jid=8248415",
+   "rule": {
+    "posting_id": 8248415,
+    "judge": "rule",
+    "kind": "record",
+    "rule_id": "title-us-v1",
+    "verdict": "relevant",
+    "checks": {
+     "title": {
+      "pass": true,
+      "matched": "product strategy",
+      "reason": "title contains \"product strategy\""
+     },
+     "location": {
+      "pass": true,
+      "via": "offices",
+      "field": "offices[0].name",
+      "value": "US",
+      "reason": "office \"US\" is US"
+     }
+    },
+    "resume_fields": {
+     "personal.location": "Boston, MA",
+     "experience[0].title": "AI Product Manager",
+     "experience[1].title": "Product Manager, Payment Platform"
+    },
+    "posting_fields": {
+     "title": "Startup Products Strategy & Operations, Product Strategy",
+     "offices[0].name": "US"
+    },
+    "skills_in_content": [],
+    "reason": "Title check passed: title contains \"product strategy\". Location check passed: office \"US\" is US."
+   },
+   "claude": {
+    "judge": "claude",
+    "kind": "judgment",
+    "prompt": "judge_v2.txt",
+    "date": "2026-11-01T03:13:38+00:00",
+    "model": "claude-sonnet-5-5",
+    "status": "valid",
+    "verdict": "relevant",
+    "resume_fields": [
+     "personal.location",
+     "experience[0].title"
+    ],
+    "posting_fields": [
+     "title",
+     "offices[0].name",
+     "location.name"
+    ],
+    "reason": "The title ends with \"Product Strategy\", so it contains the phrase \"product strategy\". offices[0].name is exactly \"US\" and location.name is \"US-Remote\", so both checks pass.",
+    "raw": "{\"posting_id\": 8248415, \"verdict\": \"relevant\", \"resume_fields\": [\"personal.location\", \"experience[0].title\"], \"posting_fields\": [\"title\", \"offices[0].name\", \"location.name\"], \"reason\": \"The title ends with \\\"Product Strategy\\\", so it contains the phrase \\\"product strategy\\\". offices[0].name is exactly \\\"US\\\" and location.name is \\\"US-Remote\\\", so both checks pass.\"}"
+   },
+   "disagree": false
+  }
+ ],
+ "counts": {
+  "fetched": 745,
+  "new": 17,
+  "relevant_rule": 1,
+  "skipped": 16,
+  "relevant_claude": 1,
+  "invalid_claude": 0,
+  "disagreements": 0
+ },
+ "record_path": "runs-seeded/records/run-20261101T031222Z-SEEDED.json",
+ "report_path": "runs-seeded/reports/report-20261101T031222Z-SEEDED.md"
+}

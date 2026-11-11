@@ -1,7 +1,5 @@
 # CONTRACT — Job-Search Agent 1
 
-English translation of `CONTRACT.zh.md` (the version Isaac wrote and revised in Chinese). If they ever differ, the code follows this file.
-
 Author: Isaac Tai · Written: 2026-10-29 (before any code ran) · Revised: 2026-10-31
 
 ## In
@@ -339,4 +337,4 @@ The same profile on all 737: 1a cuts 355, 1b cuts 322, 2 cuts 49, 3 cuts 4, 4 cu
 ## What a failure looks like
 
 2026-10-29: This agent has failed when: it picks up postings it has already judged as new again; or it judges wrongly, calling a posting relevant when it doesn't fit, or not_relevant when it does fit; worst of all, it can't fetch the data, or the data it fetches is wrong; or the justification compares the wrong things, for example comparing skills with the title or some other field when they should be compared with the JD's requirements.
-(Translated from the original Chinese sentence, unchanged in meaning; original in CONTRACT.zh.md.)
+(Translated from the original Chinese sentence, unchanged in meaning.)

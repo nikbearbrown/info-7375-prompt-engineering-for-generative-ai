@@ -1,0 +1,306 @@
+{
+ "run_id": "2026-11-10T10-38-43Z-drop-rule-live",
+ "started_at": "2026-11-10T10:38:43+00:00",
+ "source": "live",
+ "exit": {
+  "status": "incomplete",
+  "code": 3,
+  "why": "no answer from: greenhouse:webflow (empty_unverified), greenhouse:klaviyoo (error)"
+ },
+ "budgets": {
+  "_comment": "GATE.md section 2. Changes only by a new dated entry in GATE.md's change log. The agent cannot write this file (policy: ASK, no approver).",
+  "max_boards": 8,
+  "max_requests": 12,
+  "max_seconds": 90,
+  "max_retries_per_board": 2,
+  "request_timeout_seconds": 20,
+  "max_response_bytes": 10000000
+ },
+ "requests_used": 6,
+ "boards_attempted": 6,
+ "seconds": 2.038,
+ "persona": "Aarav Patel (fictional)",
+ "boards": [
+  {
+   "key": "greenhouse:klaviyo",
+   "ats": "greenhouse",
+   "slug": "klaviyo",
+   "company": "Klaviyo",
+   "purpose": "carried over from JS1 (Boston HQ)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/greenhouse-klaviyo-a1.json",
+     "bytes": 2762958,
+     "elapsed_s": 0.371
+    }
+   ],
+   "postings": 148,
+   "new": 0,
+   "removed": 4,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "greenhouse:hubspotjobs",
+   "ats": "greenhouse",
+   "slug": "hubspotjobs",
+   "company": "HubSpot",
+   "purpose": "Boston HQ; slug is 'hubspotjobs', not 'hubspot' (Lectern ATS.md)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/hubspotjobs/jobs?content=true",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/greenhouse-hubspotjobs-a1.json",
+     "bytes": 2122014,
+     "elapsed_s": 0.211
+    }
+   ],
+   "postings": 125,
+   "new": 5,
+   "removed": 2,
+   "baseline": false,
+   "new_postings": [
+    {
+     "id": "8346343",
+     "title": "Global Category Specialist",
+     "location": "Remote - Colombia",
+     "url": "https://www.hubspot.com/careers/jobs/8346343?gh_jid=8346343",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Global Category Specialist\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Remote - Colombia\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    },
+    {
+     "id": "8147286",
+     "title": "Lead Data Analyst",
+     "location": "Remote - Ireland",
+     "url": "https://www.hubspot.com/careers/jobs/8147286?gh_jid=8147286",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Lead Data Analyst\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Remote - Ireland\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: resume.skills.languages[SQL] found in posting.content -> 1 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    },
+    {
+     "id": "8225811",
+     "title": "Manager, PreSales DACH",
+     "location": "Flex - Berlin, Germany",
+     "url": "https://www.hubspot.com/careers/jobs/8225811?gh_jid=8225811",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Manager, PreSales DACH\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Flex - Berlin, Germany\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: resume.skills.languages[SQL] found in posting.content -> 1 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    },
+    {
+     "id": "8073610",
+     "title": "Senior Manager, Customer Trust Enablement",
+     "location": "Remote - USA",
+     "url": "https://www.hubspot.com/careers/jobs/8073610?gh_jid=8073610",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Senior Manager, Customer Trust Enablement\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Remote - USA\" vs resume.personal.location=\"Boston, MA\" -> PASS (US remote)",
+      "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B PASS, C FAIL)"
+     ]
+    },
+    {
+     "id": "8066767",
+     "title": "Senior Solutions Engineer - Polish speaking ",
+     "location": "Remote - Spain",
+     "url": "https://www.hubspot.com/careers/jobs/8066767?gh_jid=8066767",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Senior Solutions Engineer - Polish speaking \" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Remote - Spain\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ashby:linear",
+   "ats": "ashby",
+   "slug": "linear",
+   "company": "Linear",
+   "purpose": "second ATS",
+   "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/ashby-linear-a1.json",
+     "bytes": 452742,
+     "elapsed_s": 0.177
+    }
+   ],
+   "postings": 32,
+   "new": 0,
+   "removed": 0,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "lever:spotify",
+   "ats": "lever",
+   "slug": "spotify",
+   "company": "Spotify",
+   "purpose": "third ATS; has US offices",
+   "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/lever-spotify-a1.json",
+     "bytes": 809127,
+     "elapsed_s": 0.868
+    }
+   ],
+   "postings": 85,
+   "new": 4,
+   "removed": 4,
+   "baseline": false,
+   "new_postings": [
+    {
+     "id": "a4651332-6400-40e8-8c22-5491e7a34161",
+     "title": "Analyst, Royalty Operations",
+     "location": "Stockholm",
+     "url": "https://jobs.lever.co/spotify/a4651332-6400-40e8-8c22-5491e7a34161",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Analyst, Royalty Operations\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Stockholm\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: resume.skills.languages[Python, SQL] found in posting.content -> 2 of 15, need 2 -> PASS",
+      "verdict: not_relevant (A FAIL, B FAIL, C PASS)"
+     ]
+    },
+    {
+     "id": "ea20d13d-aedc-4d02-a4aa-b6d6b1400aed",
+     "title": "Machine Learning Engineering Manager II",
+     "location": "New York, NY; Boston, MA; Remote (United States)",
+     "url": "https://jobs.lever.co/spotify/ea20d13d-aedc-4d02-a4aa-b6d6b1400aed",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Machine Learning Engineering Manager II\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"New York, NY; Boston, MA; Remote (United States)\" vs resume.personal.location=\"Boston, MA\" -> PASS (US city (New York, NY; posting.offices[] has a United States office))",
+      "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B PASS, C FAIL)"
+     ]
+    },
+    {
+     "id": "9057bb9b-3aa2-49ba-9fd0-a9395018d0ea",
+     "title": "Retention & Engagement Marketing Lead",
+     "location": "Mumbai",
+     "url": "https://jobs.lever.co/spotify/9057bb9b-3aa2-49ba-9fd0-a9395018d0ea",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Retention & Engagement Marketing Lead\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Mumbai\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: none found in posting.content -> 0 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    },
+    {
+     "id": "3616d255-dd0f-4771-a0c8-92bdc2abdccd",
+     "title": "Senior Accountant, General Ledger Accounting",
+     "location": "Stockholm",
+     "url": "https://jobs.lever.co/spotify/3616d255-dd0f-4771-a0c8-92bdc2abdccd",
+     "rule_verdict": "not_relevant",
+     "justification": [
+      "A role: posting.title=\"Senior Accountant, General Ledger Accounting\" does not contain \"Software Engineer\" (resume.experience[].title: Software Engineer (Co-op); Software Engineer) -> FAIL",
+      "B location (US): posting.location.name=\"Stockholm\" vs resume.personal.location=\"Boston, MA\" -> FAIL (not a US location)",
+      "C skills: resume.skills.languages[SQL] found in posting.content -> 1 of 15, need 2 -> FAIL",
+      "verdict: not_relevant (A FAIL, B FAIL, C FAIL)"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "greenhouse:webflow",
+   "ats": "greenhouse",
+   "slug": "webflow",
+   "company": "Webflow",
+   "purpose": "listed as Greenhouse in Lectern ATS.md (2026-09-26, 27 postings)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/webflow/jobs?content=true",
+   "status": "empty_unverified",
+   "reason": "HTTP 200 with zero postings; not reported as 'no new jobs'",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "empty",
+     "why": "HTTP 200 with zero postings; not reported as 'no new jobs'",
+     "raw": "raw/greenhouse-webflow-a1.json",
+     "bytes": 30,
+     "elapsed_s": 0.095
+    }
+   ],
+   "postings": 0,
+   "new": null,
+   "removed": null,
+   "baseline": null,
+   "new_postings": []
+  },
+  {
+   "key": "greenhouse:klaviyoo",
+   "ats": "greenhouse",
+   "slug": "klaviyoo",
+   "company": "(typo)",
+   "purpose": "DELIBERATE FAILURE: misspelled board name; expected HTTP 404",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyoo/jobs?content=true",
+   "status": "error",
+   "reason": "not_found",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 404,
+     "error_kind": null,
+     "outcome": "permanent",
+     "why": "not_found",
+     "raw": "raw/greenhouse-klaviyoo-a1.json",
+     "bytes": 38,
+     "elapsed_s": 0.097
+    }
+   ],
+   "postings": null,
+   "new": null,
+   "removed": null,
+   "baseline": null,
+   "new_postings": []
+  }
+ ]
+}

@@ -1,0 +1,414 @@
+{
+ "prompt": "claude_judge.v1",
+ "split": "dev",
+ "model": "claude-sonnet-5-5",
+ "via": "cli",
+ "passed": 8,
+ "total": 10,
+ "rows": [
+  {
+   "posting_id": 6042172,
+   "title": "Backend Engineer, Core Technology",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 6042172,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Backend Engineer matches the 'backend' target role, and the title has no excluded words.",
+      "quote": "Backend Engineer, Core Technology"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "US-Remote matches the candidate's 'us remote' location.",
+      "quote": "US-Remote, Chicago, Seattle, San Francisco"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The posting lists Java among example languages, and the résumé shows Java. It does not name a single required language.",
+      "quote": "Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.)"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The minimum of 2 years is within the candidate's 2 years plus a 2-year stretch.",
+      "quote": "2–12+ years of professional hands-on software development experience"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 7235875,
+   "title": "Backend Engineer, Privy",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 7235875,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Backend engineer role matches the 'backend' target role, and the title has no excluded words.",
+      "quote": "Backend Engineer, Privy"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "NYC is in the US, which the profile accepts via 'us'.",
+      "quote": "NYC-Privy"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Required database and infrastructure experience fits the résumé's PostgreSQL, MSSQL, AWS and Node.js skills.",
+      "quote": "Experience in building data models, managing database migrations and best practices, and infrastructure configuration"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting gives no required number of years, so there is no conflict with 2 years plus a 2-year stretch.",
+      "quote": "Deep experience building and maintaining a production system at scale"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 7913700,
+   "title": "Backend Engineer, Data",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 7913700,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "Posting requires 6+ years of experience, which exceeds the candidate's 2 years plus 2 stretch (4 max).",
+      "quote": "Must have 6+ years of experience in a Software Engineering role, with a focus on building and maintaining data services or data-intensive applications"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Posting is located in Canada, which is not among the candidate's locations (Boston, US remote, US).",
+      "quote": "Canada"
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a backend engineer role, matching the target role 'backend', with no excluded title words.",
+      "quote": "Backend Engineer, Data"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Posting requires distributed data framework experience (Spark, Hadoop, Pig), which the résumé does not show, though Java and SQL are present.",
+      "quote": "Prior experience with writing and debugging data pipelines using a distributed data framework (Spark, Hadoop, Pig, etc.)"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 7984866,
+   "title": "Product Manager, Ecosystem Risk",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 7984866,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Product Manager is not one of the target engineering roles (software engineer, backend, platform, devops, SRE).",
+      "quote": "Product Manager, Ecosystem Risk"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "Posting requires 7+ years, well above the 2 years plus 2 stretch (4) the candidate can reach.",
+      "quote": "7+ years in Product Management"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Toronto is not in Boston, US remote, or US, so the candidate cannot work there.",
+      "quote": "Toronto"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8072257,
+   "title": "Solutions Architect, Metronome (Startups)",
+   "hand_label": "relevant",
+   "claude": "not_relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8072257,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Solutions Architect is a customer-facing pre-sales role, not a software engineer, backend, platform, DevOps or SRE role.",
+      "quote": "Solutions Architect, Metronome (Startups)"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.target_roles[]",
+      "result": "The work is demos, discovery calls, deals and pre-sales scoping, which does not match the target engineering roles.",
+      "quote": "Land deals for some of the most exciting names in software, from startups to enterprise SaaS."
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Listed locations are NYC, SF and Chicago; none is Boston or remote, though 'us' might be read broadly.",
+      "quote": "US-NYC, US-SF, US-Chicago"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8130052,
+   "title": "Account Executive, Hunter (Central Eastern Europe)",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 8130052,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Account Executive is a sales role, not a software, backend, platform, DevOps or SRE role.",
+      "quote": "Account Executive, Hunter (Central Eastern Europe)"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Posting is remote in Poland or Romania, but the candidate can only work in Boston or the US.",
+      "quote": "Poland - Remote OR Romania - Remote"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "Posting requires 7+ years of sales experience, beyond the candidate's 2 years plus 2 stretch years, and the experience is not in sales.",
+      "quote": "7+ years of sales experience, preferably selling a highly technical product to enterprise customers, with a track record of top performance"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Posting requires Polish or Romanian fluency, which the résumé does not show.",
+      "quote": "Superior verbal and written communication skills in English and in either Polish or Romanian"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8131144,
+   "title": "Backend Engineer, Link",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 8131144,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Backend engineer matches the 'backend' and 'software engineer' target roles, and the title has no excluded word.",
+      "quote": "Backend Engineer, Link"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "NYC, Seattle and SF are US locations, and the profile accepts 'us'.",
+      "quote": "NYC, Sea, SF, Tor"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The minimum of 2 years is within the candidate's 2 years plus a 2-year stretch.",
+      "quote": "2–10+ years of industry software engineering experience (does not include internships or co-ops)"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The only language requirement is any programming language, and the résumé lists TypeScript, Python, Java and SQL.",
+      "quote": "Strong coding skills in any programming language"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8265763,
+   "title": "Software Engineer, Internal Identity",
+   "hand_label": "relevant",
+   "claude": "not_relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8265763,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Security-domain experience is a minimum requirement, but the résumé shows no security work or skills (it lists feature flags, Java banking services, DevOps tooling).",
+      "quote": "Experience in the security domain"
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer role and has no excluded word.",
+      "quote": "Software Engineer, Internal Identity"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The 2-year minimum is within the candidate's 2 years plus a 2-year stretch.",
+      "quote": "2-5 years of professional hands-on software development experience"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Java is only a preferred qualification, so it does not make up for the missing security requirement.",
+      "quote": "Experience with Go, Java or Ruby"
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8301253,
+   "title": "Backend / API Engineer, Radar",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 8301253,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Backend engineering role matches the 'backend' target role and contains no excluded title word.",
+      "quote": "Backend / API Engineer, Radar"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Offices are in San Francisco, Seattle and New York, none in Boston and no remote option is stated; the profile lists 'us' as a workable location, so a US location fits.",
+      "quote": "San Francisco, Seattle, New York"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "Requires 2+ years of experience, within the 2 years of experience plus 2 stretch.",
+      "quote": "2+ years of industry software engineering experience"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Only requires strong coding in any language, which the résumé shows (TypeScript, Python, Java); other skills are preferred only.",
+      "quote": "Strong coding skills in any programming language, with experience building and maintaining production software"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting says nothing against visa sponsorship, so it does not count against the fit.",
+      "quote": "We’re looking for someone who meets the minimum requirements to be considered for the role."
+     }
+    ]
+   }
+  },
+  {
+   "posting_id": 8311067,
+   "title": "Program Manager, Go-to-Market Experience and Productivity",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 8311067,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Program manager is not a software, backend, platform, DevOps or SRE role, so it is not a target role.",
+      "quote": "Program Manager, Go-to-Market Experience and Productivity"
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.exclude_title_words[]",
+      "result": "The title contains the excluded word 'manager'.",
+      "quote": "Program Manager"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Dublin is not in Boston, US remote or US, so the candidate cannot work there.",
+      "quote": "Dublin"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.work[]",
+      "result": "The posting requires 2+ years of Sales Development or GTM workflow experience, which the résumé does not show (only software engineering).",
+      "quote": "2+ years of experience building, improving or supporting Sales Development or broader GTM workflows, data and systems."
+     }
+    ]
+   }
+  }
+ ]
+}

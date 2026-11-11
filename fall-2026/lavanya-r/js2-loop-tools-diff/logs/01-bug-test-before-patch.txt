@@ -1,0 +1,58 @@
+# The bug test run against the UNCHANGED JS1 validator (before any patch)
+# Command: python3 -B -m unittest tests.test_path_index -v
+# Ran: 2026-11-10T22:23:06Z, at commit 7e1bacb
+
+test_every_case_has_an_expected_value (tests.test_path_index.TestPathIndex.test_every_case_has_an_expected_value) ... ok
+test_paths (tests.test_path_index.TestPathIndex.test_paths) ... 
+  test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education.0.end_date') ... FAIL
+  test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education.0.status') ... FAIL
+  test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='experience.0.title') ... FAIL
+  test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education[5].end_date') ... FAIL
+test_real_reply_from_2026_10_30 (tests.test_path_index.TestPathIndex.test_real_reply_from_2026_10_30)
+The real Claude reply that JS1 marked INVALID only for `.0` paths. ... FAIL
+
+======================================================================
+FAIL: test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education.0.end_date')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index.py", line 60, in test_paths
+    self.assertIs(path_exists(RESUME, path), expected)
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education.0.status')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index.py", line 60, in test_paths
+    self.assertIs(path_exists(RESUME, path), expected)
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='experience.0.title')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index.py", line 60, in test_paths
+    self.assertIs(path_exists(RESUME, path), expected)
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_paths (tests.test_path_index.TestPathIndex.test_paths) (path='education[5].end_date')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index.py", line 60, in test_paths
+    self.assertIs(path_exists(RESUME, path), expected)
+AssertionError: True is not False
+
+======================================================================
+FAIL: test_real_reply_from_2026_10_30 (tests.test_path_index.TestPathIndex.test_real_reply_from_2026_10_30)
+The real Claude reply that JS1 marked INVALID only for `.0` paths.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index.py", line 69, in test_real_reply_from_2026_10_30
+    self.assertIs(parsed is not None, SHOULD_BE_VALID, errors)
+AssertionError: False is not True : ["resume_fields names fields that do not exist: ['education.0.end_date', 'education.0.status']"]
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=5)

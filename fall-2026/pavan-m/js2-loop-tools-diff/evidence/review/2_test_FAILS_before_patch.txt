@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 2 items
+
+tests/test_string_ids.py::test_string_ids_are_tracked_not_dropped FAILED [ 50%]
+tests/test_string_ids.py::test_empty_or_missing_ids_are_still_unusable FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_string_ids_are_tracked_not_dropped ____________________
+
+tmp_path = PosixPath('/private/var/folders/7k/gmfqyq6d56zcn_w9_g394k6h0000gn/T/pytest-of-jayantmajji/pytest-11/test_string_ids_are_tracked_no0')
+
+    def test_string_ids_are_tracked_not_dropped(tmp_path):
+        root = project(tmp_path)
+        s1 = run_loop([LEVER], root, fake_net(lever_postings(A)), sleep=NO_SLEEP)
+        b1 = s1["boards"]["lever:palantir"]
+    
+>       assert b1["usable_ids"] == 1
+E       assert 0 == 1
+
+tests/test_string_ids.py:39: AssertionError
+_________________ test_empty_or_missing_ids_are_still_unusable _________________
+
+tmp_path = PosixPath('/private/var/folders/7k/gmfqyq6d56zcn_w9_g394k6h0000gn/T/pytest-of-jayantmajji/pytest-11/test_empty_or_missing_ids_are_0')
+
+    def test_empty_or_missing_ids_are_still_unusable(tmp_path):
+        """The fix must not simply accept everything."""
+        root = project(tmp_path)
+        blank = lever_postings("tmp1")[0]
+        blank["id"] = ""                  # same posting shape, empty id
+        no_id = lever_postings("tmp2")[0]
+        del no_id["id"]                   # same posting shape, no id at all
+        body = lever_postings(A) + [blank, no_id]
+        s = run_loop([LEVER], root, fake_net(body), sleep=NO_SLEEP)
+        b = s["boards"]["lever:palantir"]
+    
+>       assert b["usable_ids"] == 1
+E       assert 0 == 1
+
+tests/test_string_ids.py:60: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_string_ids.py::test_string_ids_are_tracked_not_dropped - as...
+FAILED tests/test_string_ids.py::test_empty_or_missing_ids_are_still_unusable
+============================== 2 failed in 0.06s ===============================

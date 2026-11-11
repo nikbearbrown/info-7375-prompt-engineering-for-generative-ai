@@ -1,0 +1,40 @@
+{
+ "report": "2-wrong-version-1",
+ "agent_status": "finished",
+ "status_consistent": true,
+ "finished_but_wrong": true,
+ "boards": [
+  {
+   "board": "greenhouse:anthropic",
+   "agent_result": "ok",
+   "agent_count": 679,
+   "count_before_run": 679,
+   "live_count": 679,
+   "live_source": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs",
+   "verdict": "CONFIRMED"
+  },
+  {
+   "board": "greenhouse:figma",
+   "agent_result": "ok",
+   "agent_count": 0,
+   "count_before_run": 144,
+   "live_count": 144,
+   "live_source": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+   "verdict": "CONTRADICTED",
+   "why": [
+    "agent says 0 jobs; 144 were saved before this run",
+    "agent says 0 jobs; a fresh GET counts 144"
+   ]
+  },
+  {
+   "board": "ashby:openai",
+   "agent_result": "ok",
+   "agent_count": 826,
+   "count_before_run": 826,
+   "live_count": 827,
+   "live_source": "https://api.ashbyhq.com/posting-api/job-board/openai",
+   "verdict": "DIFFERS by 1 (board may have changed)"
+  }
+ ],
+ "overall": "CONTRADICTED"
+}

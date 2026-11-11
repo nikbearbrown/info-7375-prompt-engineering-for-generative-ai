@@ -1,0 +1,92 @@
+{
+  "label": "WRONG-DEMO",
+  "notes": "WRONG-DEMO: deliberately finished-but-wrong. buggy_parse treats the empty demo-empty response as a successful check with zero jobs (GATE.md Bug 1), so this trace says finished although one board returned no postings. Kept as evidence; independent_check.check_trace must flag it.",
+  "started_utc": "2026-11-06T19:18:00Z",
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 8,
+    "max_seconds": 90
+  },
+  "boards": [
+    {
+      "board": "demo-good",
+      "ats": "greenhouse",
+      "token": "demo-good",
+      "url": "https://boards-api.greenhouse.io/v1/boards/demo-good/jobs",
+      "outcome": "ok",
+      "reused": false,
+      "posting_count": 2,
+      "posting_ids": [
+        "101",
+        "102"
+      ],
+      "raw_path": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800441914Z-greenhouse-demo-good-WRONG-DEMO.json"
+    },
+    {
+      "board": "demo-empty",
+      "ats": "greenhouse",
+      "token": "demo-empty",
+      "url": "https://boards-api.greenhouse.io/v1/boards/demo-empty/jobs",
+      "outcome": "ok",
+      "reused": false,
+      "posting_count": 0,
+      "posting_ids": [],
+      "raw_path": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800442301Z-greenhouse-demo-empty-WRONG-DEMO.json"
+    }
+  ],
+  "attempts": [
+    {
+      "board": "demo-good",
+      "ats": "greenhouse",
+      "token": "demo-good",
+      "url": "https://boards-api.greenhouse.io/v1/boards/demo-good/jobs",
+      "attempt": 1,
+      "reason": "first attempt",
+      "time_utc": "2026-11-06T19:18:00Z",
+      "elapsed_s": 0.0,
+      "outcome": "fetched",
+      "status_code": 200,
+      "raw_path": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800441914Z-greenhouse-demo-good-WRONG-DEMO.json",
+      "raw_write_decision": true
+    },
+    {
+      "board": "demo-empty",
+      "ats": "greenhouse",
+      "token": "demo-empty",
+      "url": "https://boards-api.greenhouse.io/v1/boards/demo-empty/jobs",
+      "attempt": 1,
+      "reason": "first attempt",
+      "time_utc": "2026-11-06T19:18:00Z",
+      "elapsed_s": 0.001,
+      "outcome": "fetched",
+      "status_code": 200,
+      "raw_path": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800442301Z-greenhouse-demo-empty-WRONG-DEMO.json",
+      "raw_write_decision": true
+    }
+  ],
+  "status": "finished",
+  "stop_reason": "all planned boards checked successfully",
+  "boards_planned": 2,
+  "boards_checked": 2,
+  "boards_succeeded": 2,
+  "boards_failed": 0,
+  "requests_used": 2,
+  "elapsed_s": 0.001,
+  "finished_utc": "2026-11-06T19:18:00Z",
+  "policy_decisions": [
+    {
+      "time_utc": "2026-11-06T19:18:00Z",
+      "kind": "write",
+      "target": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800441914Z-greenhouse-demo-good-WRONG-DEMO.json",
+      "decision": "allowed",
+      "reason": "real path /Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800441914Z-greenhouse-demo-good-WRONG-DEMO.json is inside /Users/sreevarshansathiyamurthy/eng_job 2/output"
+    },
+    {
+      "time_utc": "2026-11-06T19:18:00Z",
+      "kind": "write",
+      "target": "/Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800442301Z-greenhouse-demo-empty-WRONG-DEMO.json",
+      "decision": "allowed",
+      "reason": "real path /Users/sreevarshansathiyamurthy/eng_job 2/output/raw/20261106T191800442301Z-greenhouse-demo-empty-WRONG-DEMO.json is inside /Users/sreevarshansathiyamurthy/eng_job 2/output"
+    }
+  ]
+}

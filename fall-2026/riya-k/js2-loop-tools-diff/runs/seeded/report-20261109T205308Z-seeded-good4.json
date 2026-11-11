@@ -1,0 +1,92 @@
+{
+  "run_id": "20261109T205308Z-seeded-good4",
+  "label": "seeded-good4",
+  "run_at": "2026-11-09T20:53:08+00:00",
+  "exit": "finished",
+  "stop_reason": "all boards read",
+  "empty_guard": true,
+  "budget_used": {
+    "boards": 4,
+    "requests": 4,
+    "seconds": 0.163,
+    "limits": {
+      "boards": 6,
+      "requests": 10,
+      "seconds": 60.0
+    }
+  },
+  "boards": [
+    {
+      "board": "greenhouse:databricks",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 918,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/greenhouse-databricks-20261109T203203Z-live-day1-a1.json"
+      ],
+      "baseline": true,
+      "new": null,
+      "removed_since_last": 0,
+      "new_postings": []
+    },
+    {
+      "board": "greenhouse:anthropic",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 676,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/greenhouse-anthropic-20261109T203203Z-live-day1-a1.json"
+      ],
+      "baseline": true,
+      "new": null,
+      "removed_since_last": 0,
+      "new_postings": []
+    },
+    {
+      "board": "ashby:openai",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 812,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/ashby-openai-20261109T203203Z-live-day1-a1.json"
+      ],
+      "baseline": true,
+      "new": null,
+      "removed_since_last": 0,
+      "new_postings": []
+    },
+    {
+      "board": "ashby:notion",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 153,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/ashby-notion-20261109T203203Z-live-day1-a1.json"
+      ],
+      "baseline": true,
+      "new": null,
+      "removed_since_last": 0,
+      "new_postings": []
+    }
+  ],
+  "never_ran": [],
+  "interrupted_by_budget": null,
+  "duplicates_skipped": [],
+  "escalations": []
+}

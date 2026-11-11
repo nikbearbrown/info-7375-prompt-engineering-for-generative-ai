@@ -1,0 +1,123 @@
+{
+ "run_id": "B-wrong-version",
+ "exit": "finished",
+ "reason": "",
+ "budget_hit": null,
+ "unvisited": [],
+ "requests_used": 3,
+ "budgets": {
+  "_comment": "GATE.md section 2. Change only with a dated line under GATE.md Revisions.",
+  "max_boards": 5,
+  "max_requests": 8,
+  "max_seconds": 120,
+  "request_timeout_seconds": 30,
+  "retry_delay_seconds": 2
+ },
+ "state_write": "written",
+ "boards": {
+  "Stripe": {
+   "status": "ok",
+   "postings": 775,
+   "new": [],
+   "reason": "HTTP 200",
+   "baseline": false
+  },
+  "Figma": {
+   "status": "ok",
+   "postings": 0,
+   "new": [],
+   "reason": "HTTP 200",
+   "baseline": false
+  },
+  "Notion": {
+   "status": "ok",
+   "postings": 155,
+   "new": [],
+   "reason": "HTTP 200",
+   "baseline": false
+  }
+ },
+ "observations": [
+  {
+   "event": "policy",
+   "board": "Stripe",
+   "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+   "verdict": "allow",
+   "reason": "GET https://boards-api.greenhouse.io is on the allow-list",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.0
+  },
+  {
+   "event": "response",
+   "board": "Stripe",
+   "ats": "greenhouse",
+   "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+   "attempt": 1,
+   "http_status": 200,
+   "bytes": 483505,
+   "sha256": "8d2bf53584bb4907fda21f20f0028a30c8e56216287c1fa0ec7aa999085d78d2",
+   "raw_file": "out/runs/B-wrong-version/raw/01-stripe-attempt1.json.gz",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.003
+  },
+  {
+   "event": "policy",
+   "board": "Figma",
+   "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+   "verdict": "allow",
+   "reason": "GET https://boards-api.greenhouse.io is on the allow-list",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.004
+  },
+  {
+   "event": "response",
+   "board": "Figma",
+   "ats": "greenhouse",
+   "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+   "attempt": 1,
+   "http_status": 200,
+   "bytes": 34,
+   "sha256": "3c17cd094da21b3650f5e310affcc8f17cffd315a516c588972a73588704a791",
+   "raw_file": "out/runs/B-wrong-version/raw/02-figma-attempt1.json.gz",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.005
+  },
+  {
+   "event": "policy",
+   "board": "Notion",
+   "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+   "verdict": "allow",
+   "reason": "GET https://api.ashbyhq.com is on the allow-list",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.005
+  },
+  {
+   "event": "response",
+   "board": "Notion",
+   "ats": "ashby",
+   "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+   "attempt": 1,
+   "http_status": 200,
+   "bytes": 2853042,
+   "sha256": "a17496214bdc571109ea3c0d52ebe977ceefa04ceb02969e661829bbfe391676",
+   "raw_file": "out/runs/B-wrong-version/raw/03-notion-attempt1.json.gz",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.024
+  },
+  {
+   "event": "state-write",
+   "verdict": "allow",
+   "reason": "state write approved with --approve-state-write",
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.028
+  },
+  {
+   "event": "exit",
+   "exit": "finished",
+   "budget_hit": null,
+   "requests_used": 3,
+   "t_utc": "2026-11-10T21:36:20Z",
+   "t_run": 0.028
+  }
+ ]
+}

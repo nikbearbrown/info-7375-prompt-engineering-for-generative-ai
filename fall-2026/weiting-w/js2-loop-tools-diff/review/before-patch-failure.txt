@@ -1,0 +1,256 @@
+=== 复现:补丁之前的真实失败输出 ===
+F.FFFFFF..F                                                              [100%]
+=================================== FAILURES ===================================
+__________ test_no_posting_outside_the_personas_locations_is_relevant __________
+
+real_postings = [Posting(board='greenhouse:reddit', provider='greenhouse', posting_id='8153017', title='Account Executive, Mid-Market ...name': 'Reddit', 'first_published': '2026-09-09T12:59:25-04:00', 'language': 'en', 'application_deadline': None}), ...]
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    def test_no_posting_outside_the_personas_locations_is_relevant(real_postings, persona):
+        """The defect, reproduced on the real board.
+    
+        This is the assertion that fails before the patch. It names the postings it
+        fails on, so the failure output is itself the reproduction.
+        """
+        allowed = persona["locations_ok"]
+        offenders = []
+        for p in real_postings:
+            verdict = rule_judge.judge(p.for_rule(), persona)
+            if verdict["verdict"] != "relevant":
+                continue
+            loc = p.location.casefold()
+            if not any(phrase in loc for phrase in allowed):
+                offenders.append((p.identity, p.title, p.location))
+>       assert offenders == [], (
+            f"{len(offenders)} posting(s) judged relevant in a location the persona "
+            f"cannot take: {offenders}"
+        )
+E       AssertionError: 2 posting(s) judged relevant in a location the persona cannot take: [('greenhouse:7131934', 'Machine Learning Engineer', 'Remote - Ontario, Canada'), ('greenhouse:6512458', 'Software Engineer, Ads', 'Remote - Ontario, Canada')]
+E       assert [('greenhouse...rio, Canada')] == []
+E         
+E         Left contains 2 more items, first extra item: ('greenhouse:7131934', 'Machine Learning Engineer', 'Remote - Ontario, Canada')
+E         Use -v to get more diff
+
+tests/test_review_g4_location.py:73: AssertionError
+_ test_remote_outside_the_allowed_locations_fails_g4[Remote - Ontario, Canada] _
+
+location = 'Remote - Ontario, Canada'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+_ test_remote_outside_the_allowed_locations_fails_g4[Remote - British Columbia, Canada] _
+
+location = 'Remote - British Columbia, Canada'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+_ test_remote_outside_the_allowed_locations_fails_g4[Remote - United Kingdom] __
+
+location = 'Remote - United Kingdom'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+_ test_remote_outside_the_allowed_locations_fails_g4[Remote - The Netherlands] _
+
+location = 'Remote - The Netherlands'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+_____ test_remote_outside_the_allowed_locations_fails_g4[Remote - Ireland] _____
+
+location = 'Remote - Ireland'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+_____ test_remote_outside_the_allowed_locations_fails_g4[Remote - Germany] _____
+
+location = 'Remote - Germany'
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    @pytest.mark.parametrize(
+        "location",
+        [
+            "Remote - Ontario, Canada",
+            "Remote - British Columbia, Canada",
+            "Remote - United Kingdom",
+            "Remote - The Netherlands",
+            "Remote - Ireland",
+            "Remote - Germany",
+        ],
+    )
+    def test_remote_outside_the_allowed_locations_fails_g4(location, persona):
+        verdict = rule_judge.judge(
+            posting("Software Engineer, Core", "Software Engineering", location).for_rule(),
+            persona,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:109: AssertionError
+______ test_a_persona_that_cannot_work_remotely_rejects_a_remote_posting _______
+
+persona = {'schema_version': '1.0', 'persona': True, 'persona_note': 'Fictional persona. Not a real person. Used so that no real resume appears on screen or on GitHub (CONTRACT.md R2).', 'name': 'Avery Quill', ...}
+
+    def test_a_persona_that_cannot_work_remotely_rejects_a_remote_posting(persona):
+        """`remote_ok` should be a filter, not a bypass.
+    
+        In R-v2a `remote_ok` only ever *widened* the gate, so a persona with
+        `remote_ok: false` was indistinguishable from one with it true for any
+        posting whose location also matched `locations_ok`. If the flag is going to
+        exist it should mean something in both directions.
+        """
+        import copy
+    
+        homebound = copy.deepcopy(persona)
+        homebound["remote_ok"] = False
+        verdict = rule_judge.judge(
+            posting(
+                "Software Engineer, Core", "Software Engineering", "Remote - United States"
+            ).for_rule(),
+            homebound,
+        )
+>       assert verdict["verdict"] == "not_relevant"
+E       AssertionError: assert 'relevant' == 'not_relevant'
+E         
+E         - not_relevant
+E         ? ----
+E         + relevant
+
+tests/test_review_g4_location.py:153: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_review_g4_location.py::test_no_posting_outside_the_personas_locations_is_relevant
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - Ontario, Canada]
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - British Columbia, Canada]
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - United Kingdom]
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - The Netherlands]
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - Ireland]
+FAILED tests/test_review_g4_location.py::test_remote_outside_the_allowed_locations_fails_g4[Remote - Germany]
+FAILED tests/test_review_g4_location.py::test_a_persona_that_cannot_work_remotely_rejects_a_remote_posting
+8 failed, 3 passed in 0.06s
+=== 真实数据上的具体违例清单(复现的核心) ===
+            f"{len(offenders)} posting(s) judged relevant in a location the persona "
+            f"cannot take: {offenders}"
+        )
+E       AssertionError: 2 posting(s) judged relevant in a location the persona cannot take: [('greenhouse:7131934', 'Machine Learning Engineer', 'Remote - Ontario, Canada'), ('greenhouse:6512458', 'Software Engineer, Ads', 'Remote - Ontario, Canada')]
+E       assert [('greenhouse...rio, Canada')] == []
+E         
+E         Left contains 2 more items, first extra item: ('greenhouse:7131934', 'Machine Learning Engineer', 'Remote - Ontario, Canada')

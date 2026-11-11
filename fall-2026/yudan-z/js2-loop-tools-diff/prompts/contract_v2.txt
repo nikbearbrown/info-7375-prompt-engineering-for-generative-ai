@@ -1,0 +1,28 @@
+You are judging ONE job posting for ONE candidate. Use only the information below. Do not browse.
+
+CANDIDATE (fictional persona)
+- target_roles: {{TARGET_ROLES}}
+- skills: {{SKILLS}}
+- other résumé facts: {{RESUME_FACTS}}
+
+RULE — the posting is "relevant" only if ALL of these hold:
+R1 judging from the title AND the content together, the day-to-day work is entry-level data or analytics work of the kind named in target_roles (the title wording alone does not decide it).
+R2 the title contains none of the words: Senior, Sr., Staff, Principal, Lead, Director, Head, Manager, III.
+R3 the location is in the United States (a location with no country, such as plain "Remote", fails).
+R4 the posting states no minimum of 3 or more years of experience (ranges count by their minimum).
+R5 the posting does not require U.S. citizenship, a green card, or a security clearance (equal-opportunity boilerplate does not count).
+R6 the posting does not say visa sponsorship is unavailable.
+R7 the posting does not require a PhD ("preferred" is fine).
+R8 at least 2 of the candidate's skills appear in the posting.
+R9 if the posting states a graduation window, the candidate's graduation window (in the résumé facts) overlaps it.
+
+POSTING
+- title: {{TITLE}}
+- location: {{LOCATION}}
+- content: {{CONTENT}}
+
+ANSWER FORMAT — reply with exactly one JSON object and nothing else (no code fence, no prose):
+{"verdict": "relevant" or "not_relevant",
+ "resume_fields": [names from: "target_roles","experience_years","education","work_authorization","skills","location"],
+ "posting_fields": [names from: "title","location","content"],
+ "justification": "at most 400 characters, naming the fields you used"}

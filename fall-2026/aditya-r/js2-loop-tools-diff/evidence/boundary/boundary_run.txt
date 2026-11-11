@@ -1,0 +1,39 @@
+# Boundary suite run by Claude Code at 2026-11-10 18:24:43 EST on HEAD f87f0cc (predictions committed earlier in 19f3140).
+============================= test session starts ==============================
+platform darwin -- Python 3.12.8, pytest-8.3.3, pluggy-1.7.0 -- <js2>/.venv/bin/python
+rootdir: <js2>
+collecting ... collected 30 items
+
+tests/test_boundary.py::test_b01_allowed_greenhouse_url PASSED           [  3%]
+tests/test_boundary.py::test_b02_allowed_ashby_url PASSED                [  6%]
+tests/test_boundary.py::test_b03_off_list_host_refused_before_dispatch PASSED [ 10%]
+tests/test_boundary.py::test_b04_deceptive_suffix_refused PASSED         [ 13%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[http://boards-api.greenhouse.io/v1/boards/x/jobs?content=true] PASSED [ 16%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://user:pw@boards-api.greenhouse.io/v1/boards/x/jobs?content=true] PASSED [ 20%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://boards-api.greenhouse.io:8443/v1/boards/x/jobs?content=true] PASSED [ 23%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://boards-api.greenhouse.io/v1/boards/x/jobs/123?content=true] PASSED [ 26%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://boards-api.greenhouse.io/v1/boards/x/jobs?content=true&questions=true] PASSED [ 30%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true] PASSED [ 33%]
+tests/test_boundary.py::test_b05_scheme_userinfo_port_path_refused[https://api.ashbyhq.com/../admin] PASSED [ 36%]
+tests/test_boundary.py::test_b06_write_method_refused PASSED             [ 40%]
+tests/test_boundary.py::test_b07_redirect_refused_destination_never_contacted PASSED [ 43%]
+tests/test_boundary.py::test_b08_posting_supplied_url_refused PASSED     [ 46%]
+tests/test_boundary.py::test_b09_write_inside_out_allowed PASSED         [ 50%]
+tests/test_boundary.py::test_b10_parent_traversal_refused PASSED         [ 53%]
+tests/test_boundary.py::test_b11_sibling_prefix_refused PASSED           [ 56%]
+tests/test_boundary.py::test_b12_symlink_escape_refused PASSED           [ 60%]
+tests/test_boundary.py::test_b12b_symlink_at_the_target_file_is_not_followed PASSED [ 63%]
+tests/test_boundary.py::test_b13_read_allowed_write_refused PASSED       [ 66%]
+tests/test_boundary.py::test_b14_runtime_cannot_write_approval[approvals/r.json] PASSED [ 70%]
+tests/test_boundary.py::test_b14_runtime_cannot_write_approval[out/../approvals/r.json] PASSED [ 73%]
+tests/test_boundary.py::test_b15_protected_export_needs_export_path PASSED [ 76%]
+tests/test_boundary.py::test_b16_export_without_approval_refused PASSED  [ 80%]
+tests/test_boundary.py::test_b17_export_with_mismatched_approval_refused[sha256-0000000000000000000000000000000000000000000000000000000000000000] PASSED [ 83%]
+tests/test_boundary.py::test_b17_export_with_mismatched_approval_refused[destination-out/approved-shortlists/other.json] PASSED [ 86%]
+tests/test_boundary.py::test_b17_export_with_mismatched_approval_refused[run_id-20990101T000000000Z_other] PASSED [ 90%]
+tests/test_boundary.py::test_b18_matching_approval_creates_once PASSED   [ 93%]
+tests/test_boundary.py::test_b19_repeated_action_refused PASSED          [ 96%]
+tests/test_boundary.py::test_b20_read_outside_root_refused PASSED        [100%]
+
+============================== 30 passed in 1.13s ==============================
+[exit status: 0]

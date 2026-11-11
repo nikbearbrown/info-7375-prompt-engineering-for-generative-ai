@@ -1,0 +1,311 @@
+{
+  "prompt_version": "judge-v1",
+  "set": "dev",
+  "ran_at": "2026-10-29T06:25:00.944Z",
+  "passed": 5,
+  "total": 12,
+  "results": [
+    {
+      "posting_id": 5448481008,
+      "title": "Data Engineer, Product",
+      "hand_label": "relevant",
+      "claude_verdict": "relevant",
+      "pass": true,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:35.582Z",
+        "verdict": "relevant",
+        "justification": "The title \"Data Engineer, Product\" matches the search.target_titles entry \"Data Engineer\" and contains none of the search.exclude_titles terms (such as \"Senior\" or \"Lead\"). The location.name lists \"San Francisco, CA | New York City, NY | Seattle, WA\", and the candidate's search.open_to_relocate includes \"San Francisco, CA\" and \"New York City, NY\".",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5448481008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Data Engineer, Product\\\" matches the search.target_titles entry \\\"Data Engineer\\\" and contains none of the search.exclude_titles terms (such as \\\"Senior\\\" or \\\"Lead\\\"). The location.name lists \\\"San Francisco, CA | New York City, NY | Seattle, WA\\\", and the candidate's search.open_to_relocate includes \\\"San Francisco, CA\\\" and \\\"New York City, NY\\\".\"}"
+      }
+    },
+    {
+      "posting_id": 5182605008,
+      "title": "Data Scientist, Product",
+      "hand_label": "relevant",
+      "claude_verdict": "not_relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:38.687Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Data Scientist, Product\" does not match any of the search.target_titles (such as \"AI Engineer\", \"ML Engineer\", or \"Data Engineer\"), though the skills.languages of Python and SQL overlap. The location.name includes \"New York City, NY\" and \"San Francisco, CA\", both in search.open_to_relocate, so location fits, but the role type is only adjacent to the target.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.open_to_relocate",
+          "skills.languages"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5182605008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_relocate\", \"skills.languages\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Data Scientist, Product\\\" does not match any of the search.target_titles (such as \\\"AI Engineer\\\", \\\"ML Engineer\\\", or \\\"Data Engineer\\\"), though the skills.languages of Python and SQL overlap. The location.name includes \\\"New York City, NY\\\" and \\\"San Francisco, CA\\\", both in search.open_to_relocate, so location fits, but the role type is only adjacent to the target.\"}"
+      }
+    },
+    {
+      "posting_id": 5439830008,
+      "title": "Applied AI Architect, International Policy",
+      "hand_label": "not_relevant",
+      "claude_verdict": "relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:41.311Z",
+        "verdict": "relevant",
+        "justification": "The title \"Applied AI Architect, International Policy\" contains the target title \"Applied AI\" and none of the excluded terms (e.g., \"Senior\", \"Lead\", \"Manager\"), though \"Architect\" may signal seniority. The location includes San Francisco, CA and New York City, NY, both listed in search.open_to_relocate, although personal.location is Boston, MA.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate",
+          "personal.location"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5439830008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\", \"personal.location\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Applied AI Architect, International Policy\\\" contains the target title \\\"Applied AI\\\" and none of the excluded terms (e.g., \\\"Senior\\\", \\\"Lead\\\", \\\"Manager\\\"), though \\\"Architect\\\" may signal seniority. The location includes San Francisco, CA and New York City, NY, both listed in search.open_to_relocate, although personal.location is Boston, MA.\"}"
+      }
+    },
+    {
+      "posting_id": 5057647008,
+      "title": "Applied AI Engineer, Enterprise ",
+      "hand_label": "not_relevant",
+      "claude_verdict": "relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:43.286Z",
+        "verdict": "relevant",
+        "justification": "The title \"Applied AI Engineer, Enterprise\" matches the search.target_titles entries \"Applied AI\" and \"AI Engineer\" and contains none of the search.exclude_titles terms (such as \"Senior\" or \"Lead\"). The location.name \"San Francisco, CA | New York City, NY\" matches both cities in search.open_to_relocate, which are \"San Francisco, CA\" and \"New York City, NY\".",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5057647008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Applied AI Engineer, Enterprise\\\" matches the search.target_titles entries \\\"Applied AI\\\" and \\\"AI Engineer\\\" and contains none of the search.exclude_titles terms (such as \\\"Senior\\\" or \\\"Lead\\\"). The location.name \\\"San Francisco, CA | New York City, NY\\\" matches both cities in search.open_to_relocate, which are \\\"San Francisco, CA\\\" and \\\"New York City, NY\\\".\"}"
+      }
+    },
+    {
+      "posting_id": 5183051008,
+      "title": "Anthropic Fellows Program, ML Systems & Reinforcement Learning",
+      "hand_label": "relevant",
+      "claude_verdict": "relevant",
+      "pass": true,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:46.083Z",
+        "verdict": "relevant",
+        "justification": "The title \"Anthropic Fellows Program, ML Systems & Reinforcement Learning\" matches the search.target_titles entry \"ML Engineer\" and \"Machine Learning\" and contains none of the search.exclude_titles terms. The location.name includes \"Remote-Friendly, United States\", which fits search.open_to_remote set to true, and \"San Francisco, CA\", which is listed in search.open_to_relocate.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_remote",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5183051008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_remote\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Anthropic Fellows Program, ML Systems & Reinforcement Learning\\\" matches the search.target_titles entry \\\"ML Engineer\\\" and \\\"Machine Learning\\\" and contains none of the search.exclude_titles terms. The location.name includes \\\"Remote-Friendly, United States\\\", which fits search.open_to_remote set to true, and \\\"San Francisco, CA\\\", which is listed in search.open_to_relocate.\"}"
+      }
+    },
+    {
+      "posting_id": 5364804008,
+      "title": "Machine Learning Infrastructure Engineer, Safeguards Research",
+      "hand_label": "relevant",
+      "claude_verdict": "relevant",
+      "pass": true,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:48.361Z",
+        "verdict": "relevant",
+        "justification": "The title \"Machine Learning Infrastructure Engineer, Safeguards Research\" matches search.target_titles (\"Machine Learning\") and contains none of the search.exclude_titles terms. The location.name \"San Francisco, CA | New York City, NY\" falls within search.open_to_relocate (\"San Francisco, CA\", \"New York City, NY\"), and the role's ML engineering focus aligns with skills.languages (\"Python\", \"SQL\").",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate",
+          "skills.languages"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5364804008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\", \"skills.languages\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Machine Learning Infrastructure Engineer, Safeguards Research\\\" matches search.target_titles (\\\"Machine Learning\\\") and contains none of the search.exclude_titles terms. The location.name \\\"San Francisco, CA | New York City, NY\\\" falls within search.open_to_relocate (\\\"San Francisco, CA\\\", \\\"New York City, NY\\\"), and the role's ML engineering focus aligns with skills.languages (\\\"Python\\\", \\\"SQL\\\").\"}"
+      }
+    },
+    {
+      "posting_id": 5455961008,
+      "title": "Applied AI Demo Engineer",
+      "hand_label": "not_relevant",
+      "claude_verdict": "relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:50.445Z",
+        "verdict": "relevant",
+        "justification": "The title \"Applied AI Demo Engineer\" matches the search.target_titles entry \"Applied AI\" and contains none of the search.exclude_titles terms (such as \"Senior\" or \"Lead\"). The location.name \"San Francisco, CA | New York City, NY\" falls within the search.open_to_relocate values \"San Francisco, CA\" and \"New York City, NY\".",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5455961008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Applied AI Demo Engineer\\\" matches the search.target_titles entry \\\"Applied AI\\\" and contains none of the search.exclude_titles terms (such as \\\"Senior\\\" or \\\"Lead\\\"). The location.name \\\"San Francisco, CA | New York City, NY\\\" falls within the search.open_to_relocate values \\\"San Francisco, CA\\\" and \\\"New York City, NY\\\".\"}"
+      }
+    },
+    {
+      "posting_id": 5389305008,
+      "title": "Software Engineer, Education",
+      "hand_label": "relevant",
+      "claude_verdict": "not_relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:52.886Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Software Engineer, Education\" does not match any of the search.target_titles (such as \"AI Engineer\", \"ML Engineer\", or \"Data Engineer\"), so the role falls outside the candidate's AI/ML/data focus. The location.name \"San Francisco, CA | New York City, NY\" is covered by search.open_to_relocate, but that does not offset the title mismatch.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5389305008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Software Engineer, Education\\\" does not match any of the search.target_titles (such as \\\"AI Engineer\\\", \\\"ML Engineer\\\", or \\\"Data Engineer\\\"), so the role falls outside the candidate's AI/ML/data focus. The location.name \\\"San Francisco, CA | New York City, NY\\\" is covered by search.open_to_relocate, but that does not offset the title mismatch.\"}"
+      }
+    },
+    {
+      "posting_id": 5450099008,
+      "title": "Data Engineer, Billing & Payments",
+      "hand_label": "relevant",
+      "claude_verdict": "relevant",
+      "pass": true,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:54.243Z",
+        "verdict": "relevant",
+        "justification": "The title \"Data Engineer, Billing & Payments\" matches the search.target_titles entry \"Data Engineer\" and contains no search.exclude_titles term such as \"Senior\" or \"Lead\", so it is not senior-level. The location.name \"San Francisco, CA | New York City, NY\" includes both cities listed in search.open_to_relocate, and the role's Data Engineer work fits skills.languages Python and SQL.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate",
+          "skills.languages"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5450099008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\", \"skills.languages\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Data Engineer, Billing & Payments\\\" matches the search.target_titles entry \\\"Data Engineer\\\" and contains no search.exclude_titles term such as \\\"Senior\\\" or \\\"Lead\\\", so it is not senior-level. The location.name \\\"San Francisco, CA | New York City, NY\\\" includes both cities listed in search.open_to_relocate, and the role's Data Engineer work fits skills.languages Python and SQL.\"}"
+      }
+    },
+    {
+      "posting_id": 5454673008,
+      "title": "Applied AI Engineer, Startups (Physical AI)",
+      "hand_label": "not_relevant",
+      "claude_verdict": "relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:56.387Z",
+        "verdict": "relevant",
+        "justification": "The title \"Applied AI Engineer, Startups (Physical AI)\" matches search.target_titles entries \"AI Engineer\" and \"Applied AI\" and contains none of the search.exclude_titles terms (such as \"Senior\" or \"Lead\"). The location.name \"San Francisco, CA\" is listed in search.open_to_relocate, so the candidate would consider relocating for it.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5454673008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Applied AI Engineer, Startups (Physical AI)\\\" matches search.target_titles entries \\\"AI Engineer\\\" and \\\"Applied AI\\\" and contains none of the search.exclude_titles terms (such as \\\"Senior\\\" or \\\"Lead\\\"). The location.name \\\"San Francisco, CA\\\" is listed in search.open_to_relocate, so the candidate would consider relocating for it.\"}"
+      }
+    },
+    {
+      "posting_id": 4942024008,
+      "title": "Software Engineer, Beneficial Deployments ",
+      "hand_label": "relevant",
+      "claude_verdict": "not_relevant",
+      "pass": false,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:24:59.265Z",
+        "verdict": "not_relevant",
+        "justification": "The title \"Software Engineer, Beneficial Deployments\" contains no term from search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM), so the role type is a weak match. The location.name of \"San Francisco, CA | New York City, NY\" does fall within search.open_to_relocate, but that alone does not outweigh the mismatch in role type.",
+        "resume_fields": [
+          "search.target_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 4942024008, \"verdict\": \"not_relevant\", \"resume_fields\": [\"search.target_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Software Engineer, Beneficial Deployments\\\" contains no term from search.target_titles (AI Engineer, ML Engineer, Machine Learning, Applied AI, Data Engineer, LLM), so the role type is a weak match. The location.name of \\\"San Francisco, CA | New York City, NY\\\" does fall within search.open_to_relocate, but that alone does not outweigh the mismatch in role type.\"}"
+      }
+    },
+    {
+      "posting_id": 5418610008,
+      "title": "Data Engineer, GTM",
+      "hand_label": "relevant",
+      "claude_verdict": "relevant",
+      "pass": true,
+      "claude": {
+        "kind": "judgment",
+        "model": "claude-haiku-5-5",
+        "prompt_version": "judge-v1",
+        "judged_at": "2026-10-29T06:25:00.943Z",
+        "verdict": "relevant",
+        "justification": "The title \"Data Engineer, GTM\" matches the search.target_titles entry \"Data Engineer\" and contains none of the search.exclude_titles terms. The location.name \"San Francisco, CA | New York City, NY\" matches both cities listed in search.open_to_relocate, though it is outside personal.location \"Boston, MA\".",
+        "resume_fields": [
+          "search.target_titles",
+          "search.exclude_titles",
+          "search.open_to_relocate"
+        ],
+        "posting_fields": [
+          "title",
+          "location.name"
+        ],
+        "raw_output": "{\"posting_id\": 5418610008, \"verdict\": \"relevant\", \"resume_fields\": [\"search.target_titles\", \"search.exclude_titles\", \"search.open_to_relocate\"], \"posting_fields\": [\"title\", \"location.name\"], \"justification\": \"The title \\\"Data Engineer, GTM\\\" matches the search.target_titles entry \\\"Data Engineer\\\" and contains none of the search.exclude_titles terms. The location.name \\\"San Francisco, CA | New York City, NY\\\" matches both cities listed in search.open_to_relocate, though it is outside personal.location \\\"Boston, MA\\\".\"}"
+      }
+    }
+  ]
+}

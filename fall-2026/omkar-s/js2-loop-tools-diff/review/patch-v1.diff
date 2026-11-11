@@ -1,0 +1,16 @@
+--- review/before/loop.py	2026-11-09 03:07:29
++++ agent/loop.py	2026-11-09 03:08:54
+@@ -165,6 +165,13 @@
+             rec["attempts"].append({k: obs[k] for k in ("attempt", "http_status", "error_kind", "outcome",
+                                                          "why", "raw", "bytes", "elapsed_s")})
+             if outcome == "ok":
++                if not parsed:
++                    # GATE section 4: a valid but empty board is evidence of nothing (moved board,
++                    # wrong slug, or a real lull). Record what was observed (0), claim nothing new,
++                    # leave the state untouched, and keep the run from reporting `finished`.
++                    rec.update(status="empty_unverified", postings=0,
++                               reason="HTTP 200 with zero postings; not reported as 'no new jobs'")
++                    return rec, None
+                 rec.update(status="ok", reason=why)
+                 return rec, parsed
+             if outcome == "permanent":

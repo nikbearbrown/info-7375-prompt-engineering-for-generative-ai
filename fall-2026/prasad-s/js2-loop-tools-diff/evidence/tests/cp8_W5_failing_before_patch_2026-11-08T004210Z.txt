@@ -1,0 +1,29 @@
+test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty (test_review_empty_board.W5EmptyBoardWithSavedIds.test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty) ... 
+  test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty (test_review_empty_board.W5EmptyBoardWithSavedIds.test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty) [1. the board line] ... FAIL
+  test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty (test_review_empty_board.W5EmptyBoardWithSavedIds.test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty) [4. the run ends finished — with failures, naming greenhouse:duolingo] ... FAIL
+
+======================================================================
+FAIL: test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty (test_review_empty_board.W5EmptyBoardWithSavedIds.test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty) [1. the board line]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_review_empty_board.py", line 58, in test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty
+    self.assertEqual(self.line(report, BOARD)["line"], "failed — empty board: 0 jobs, 59 ids saved before")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ok — 0 jobs, 0 new' != 'failed — empty board: 0 jobs, 59 ids saved before'
+- ok — 0 jobs, 0 new
++ failed — empty board: 0 jobs, 59 ids saved before
+
+
+======================================================================
+FAIL: test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty (test_review_empty_board.W5EmptyBoardWithSavedIds.test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty) [4. the run ends finished — with failures, naming greenhouse:duolingo]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_review_empty_board.py", line 76, in test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty
+    self.assertTrue(report["exit"]["line"].startswith("finished — with failures"), report["exit"]["line"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : finished
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=2)

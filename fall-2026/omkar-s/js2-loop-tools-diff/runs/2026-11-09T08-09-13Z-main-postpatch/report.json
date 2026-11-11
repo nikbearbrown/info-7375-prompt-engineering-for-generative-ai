@@ -1,0 +1,187 @@
+{
+ "run_id": "2026-11-09T08-09-13Z-main-postpatch",
+ "started_at": "2026-11-09T08:09:13+00:00",
+ "source": "live",
+ "exit": {
+  "status": "incomplete",
+  "code": 3,
+  "why": "no answer from: greenhouse:webflow (empty_unverified), greenhouse:klaviyoo (error)"
+ },
+ "budgets": {
+  "_comment": "GATE.md section 2. Changes only by a new dated entry in GATE.md's change log. The agent cannot write this file (policy: ASK, no approver).",
+  "max_boards": 8,
+  "max_requests": 12,
+  "max_seconds": 90,
+  "max_retries_per_board": 2,
+  "request_timeout_seconds": 20,
+  "max_response_bytes": 10000000
+ },
+ "requests_used": 6,
+ "boards_attempted": 6,
+ "seconds": 2.005,
+ "persona": "Aarav Patel (fictional)",
+ "boards": [
+  {
+   "key": "greenhouse:klaviyo",
+   "ats": "greenhouse",
+   "slug": "klaviyo",
+   "company": "Klaviyo",
+   "purpose": "carried over from JS1 (Boston HQ)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/greenhouse-klaviyo-a1.json",
+     "bytes": 2846399,
+     "elapsed_s": 0.326
+    }
+   ],
+   "postings": 152,
+   "new": 0,
+   "removed": 0,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "greenhouse:hubspotjobs",
+   "ats": "greenhouse",
+   "slug": "hubspotjobs",
+   "company": "HubSpot",
+   "purpose": "Boston HQ; slug is 'hubspotjobs', not 'hubspot' (Lectern ATS.md)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/hubspotjobs/jobs?content=true",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/greenhouse-hubspotjobs-a1.json",
+     "bytes": 2071258,
+     "elapsed_s": 0.317
+    }
+   ],
+   "postings": 122,
+   "new": 0,
+   "removed": 0,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "ashby:linear",
+   "ats": "ashby",
+   "slug": "linear",
+   "company": "Linear",
+   "purpose": "second ATS",
+   "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/ashby-linear-a1.json",
+     "bytes": 452742,
+     "elapsed_s": 0.122
+    }
+   ],
+   "postings": 32,
+   "new": 0,
+   "removed": 0,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "lever:spotify",
+   "ats": "lever",
+   "slug": "spotify",
+   "company": "Spotify",
+   "purpose": "third ATS; has US offices",
+   "url": "https://api.lever.co/v0/postings/spotify?mode=json",
+   "status": "ok",
+   "reason": "http_200",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/lever-spotify-a1.json",
+     "bytes": 814089,
+     "elapsed_s": 0.798
+    }
+   ],
+   "postings": 85,
+   "new": 0,
+   "removed": 0,
+   "baseline": false,
+   "new_postings": []
+  },
+  {
+   "key": "greenhouse:webflow",
+   "ats": "greenhouse",
+   "slug": "webflow",
+   "company": "Webflow",
+   "purpose": "listed as Greenhouse in Lectern ATS.md (2026-09-26, 27 postings)",
+   "url": "https://boards-api.greenhouse.io/v1/boards/webflow/jobs?content=true",
+   "status": "empty_unverified",
+   "reason": "HTTP 200 with zero postings; not reported as 'no new jobs'",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 200,
+     "error_kind": null,
+     "outcome": "ok",
+     "why": "http_200",
+     "raw": "raw/greenhouse-webflow-a1.json",
+     "bytes": 30,
+     "elapsed_s": 0.11
+    }
+   ],
+   "postings": 0,
+   "new": null,
+   "removed": null,
+   "baseline": null,
+   "new_postings": []
+  },
+  {
+   "key": "greenhouse:klaviyoo",
+   "ats": "greenhouse",
+   "slug": "klaviyoo",
+   "company": "(typo)",
+   "purpose": "DELIBERATE FAILURE: misspelled board name; expected HTTP 404",
+   "url": "https://boards-api.greenhouse.io/v1/boards/klaviyoo/jobs?content=true",
+   "status": "error",
+   "reason": "not_found",
+   "attempts": [
+    {
+     "attempt": 1,
+     "http_status": 404,
+     "error_kind": null,
+     "outcome": "permanent",
+     "why": "not_found",
+     "raw": "raw/greenhouse-klaviyoo-a1.json",
+     "bytes": 38,
+     "elapsed_s": 0.117
+    }
+   ],
+   "postings": null,
+   "new": null,
+   "removed": null,
+   "baseline": null,
+   "new_postings": []
+  }
+ ]
+}

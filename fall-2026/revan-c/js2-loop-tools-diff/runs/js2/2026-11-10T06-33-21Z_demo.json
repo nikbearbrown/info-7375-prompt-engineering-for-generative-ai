@@ -1,0 +1,287 @@
+{
+  "agent": "jsloop — Job-Search Agent 2",
+  "policy": "GATE.md",
+  "started_at": "2026-11-10T06:33:21+00:00",
+  "selection": [
+    "klaviyo",
+    "duolingo",
+    "patchmypc",
+    "js2-deliberate-missing-board"
+  ],
+  "demo": true,
+  "approve_state_write": true,
+  "run_mode": "live",
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 45.0,
+    "request_timeout": 8.0,
+    "finalize_reserve": 2.0
+  },
+  "budget_label": "production",
+  "status": "incomplete",
+  "exit_code": 10,
+  "stop_reason": null,
+  "error": null,
+  "requests_made": 4,
+  "elapsed_seconds": 1.229,
+  "boards": [
+    {
+      "order": 1,
+      "board": "klaviyo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "deliberate_failure": false,
+      "outcome": "ok",
+      "reason": null,
+      "http_status": 200,
+      "error": null,
+      "raw_path": "evidence/js2/2026-11-10T06-33-21Z_klaviyo.body",
+      "raw_bytes": 2785684,
+      "raw_note": null,
+      "postings_in_response": 149,
+      "baseline": false,
+      "new_count": 0,
+      "new_postings": [],
+      "seconds": 0.293
+    },
+    {
+      "order": 2,
+      "board": "duolingo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "deliberate_failure": false,
+      "outcome": "ok",
+      "reason": null,
+      "http_status": 200,
+      "error": null,
+      "raw_path": "evidence/js2/2026-11-10T06-33-21Z_duolingo.body",
+      "raw_bytes": 741133,
+      "raw_note": null,
+      "postings_in_response": 61,
+      "baseline": false,
+      "new_count": 0,
+      "new_postings": [],
+      "seconds": 0.185
+    },
+    {
+      "order": 3,
+      "board": "patchmypc",
+      "provider": "lever",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "mode": "live",
+      "source": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "deliberate_failure": false,
+      "outcome": "ok",
+      "reason": null,
+      "http_status": 200,
+      "error": null,
+      "raw_path": "evidence/js2/2026-11-10T06-33-21Z_patchmypc.body",
+      "raw_bytes": 73158,
+      "raw_note": null,
+      "postings_in_response": 5,
+      "baseline": false,
+      "new_count": 0,
+      "new_postings": [],
+      "seconds": 0.614
+    },
+    {
+      "order": 4,
+      "board": "js2-deliberate-missing-board",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/js2-deliberate-missing-board/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/js2-deliberate-missing-board/jobs?content=true",
+      "deliberate_failure": true,
+      "outcome": "failed",
+      "reason": null,
+      "http_status": 404,
+      "error": "HTTP 404",
+      "raw_path": "evidence/js2/2026-11-10T06-33-21Z_js2-deliberate-missing-board.body",
+      "raw_bytes": 38,
+      "raw_note": null,
+      "postings_in_response": "unknown",
+      "baseline": null,
+      "new_count": "unknown",
+      "new_postings": [],
+      "seconds": 0.11
+    }
+  ],
+  "state_path": "state/js2/seen_ids.json",
+  "state_updated": false,
+  "state_note": "state not written: run status is incomplete",
+  "trace_path": "runs/js2/2026-11-10T06-33-21Z_demo.json",
+  "actions": [
+    {
+      "seq": 1,
+      "t": 0.003,
+      "event": "preflight_ok",
+      "boards": [
+        "klaviyo",
+        "duolingo",
+        "patchmypc",
+        "js2-deliberate-missing-board"
+      ],
+      "demo": true,
+      "approve_state_write": true
+    },
+    {
+      "seq": 2,
+      "t": 0.003,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "board": "klaviyo",
+      "timeout": 8.0
+    },
+    {
+      "seq": 3,
+      "t": 0.296,
+      "event": "response",
+      "board": "klaviyo",
+      "http_status": 200,
+      "error": null,
+      "bytes": 2785684
+    },
+    {
+      "seq": 4,
+      "t": 0.297,
+      "event": "write_raw",
+      "board": "klaviyo",
+      "path": "evidence/js2/2026-11-10T06-33-21Z_klaviyo.body"
+    },
+    {
+      "seq": 5,
+      "t": 0.311,
+      "event": "observed",
+      "board": "klaviyo",
+      "outcome": "ok",
+      "error": null,
+      "postings": 149,
+      "new": 0
+    },
+    {
+      "seq": 6,
+      "t": 0.311,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "board": "duolingo",
+      "timeout": 8.0
+    },
+    {
+      "seq": 7,
+      "t": 0.496,
+      "event": "response",
+      "board": "duolingo",
+      "http_status": 200,
+      "error": null,
+      "bytes": 741133
+    },
+    {
+      "seq": 8,
+      "t": 0.497,
+      "event": "write_raw",
+      "board": "duolingo",
+      "path": "evidence/js2/2026-11-10T06-33-21Z_duolingo.body"
+    },
+    {
+      "seq": 9,
+      "t": 0.501,
+      "event": "observed",
+      "board": "duolingo",
+      "outcome": "ok",
+      "error": null,
+      "postings": 61,
+      "new": 0
+    },
+    {
+      "seq": 10,
+      "t": 0.501,
+      "event": "request",
+      "method": "GET",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "board": "patchmypc",
+      "timeout": 8.0
+    },
+    {
+      "seq": 11,
+      "t": 1.115,
+      "event": "response",
+      "board": "patchmypc",
+      "http_status": 200,
+      "error": null,
+      "bytes": 73158
+    },
+    {
+      "seq": 12,
+      "t": 1.116,
+      "event": "write_raw",
+      "board": "patchmypc",
+      "path": "evidence/js2/2026-11-10T06-33-21Z_patchmypc.body"
+    },
+    {
+      "seq": 13,
+      "t": 1.117,
+      "event": "observed",
+      "board": "patchmypc",
+      "outcome": "ok",
+      "error": null,
+      "postings": 5,
+      "new": 0
+    },
+    {
+      "seq": 14,
+      "t": 1.117,
+      "event": "label",
+      "board": "js2-deliberate-missing-board",
+      "url": "https://boards-api.greenhouse.io/v1/boards/js2-deliberate-missing-board/jobs?content=true",
+      "note": "deliberately failing board, selected for the labeled demonstration run"
+    },
+    {
+      "seq": 15,
+      "t": 1.117,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/js2-deliberate-missing-board/jobs?content=true",
+      "board": "js2-deliberate-missing-board",
+      "timeout": 8.0
+    },
+    {
+      "seq": 16,
+      "t": 1.227,
+      "event": "response",
+      "board": "js2-deliberate-missing-board",
+      "http_status": 404,
+      "error": "HTTP 404",
+      "bytes": 38
+    },
+    {
+      "seq": 17,
+      "t": 1.229,
+      "event": "write_raw",
+      "board": "js2-deliberate-missing-board",
+      "path": "evidence/js2/2026-11-10T06-33-21Z_js2-deliberate-missing-board.body"
+    },
+    {
+      "seq": 18,
+      "t": 1.229,
+      "event": "observed",
+      "board": "js2-deliberate-missing-board",
+      "outcome": "failed",
+      "error": "HTTP 404",
+      "postings": "unknown",
+      "new": "unknown"
+    },
+    {
+      "seq": 19,
+      "t": 1.229,
+      "event": "write_trace",
+      "path": "runs/js2/2026-11-10T06-33-21Z_demo.json"
+    }
+  ]
+}

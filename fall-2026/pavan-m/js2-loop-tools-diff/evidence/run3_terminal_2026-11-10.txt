@@ -1,0 +1,105 @@
+{
+  "status": "incomplete",
+  "exit_code": 1,
+  "reason": "1 board(s) did not succeed: greenhouse:pavan-js2-no-such-board",
+  "requests_used": 4,
+  "elapsed_seconds": 2.568,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 10,
+    "max_seconds": 60,
+    "request_timeout": 10,
+    "retry_wait": 2
+  },
+  "boards_attempted": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai",
+    "greenhouse:pavan-js2-no-such-board"
+  ],
+  "boards_succeeded": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai"
+  ],
+  "boards_failed": [
+    "greenhouse:pavan-js2-no-such-board"
+  ],
+  "boards_repeat_blocked": [],
+  "boards_not_attempted": [],
+  "new_counts": {
+    "greenhouse:gleanwork": 0,
+    "lever:palantir": 0,
+    "ashby:openai": 4
+  },
+  "failures": {
+    "greenhouse:pavan-js2-no-such-board": {
+      "reason": "bad_board",
+      "detail": "HTTP 404"
+    }
+  },
+  "duplicate_entries": [],
+  "replayed": [],
+  "run_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T190937",
+  "trace": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T190937/trace.jsonl",
+  "raw_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js2-loop-tools-diff/out/runs/2026-11-10T190937/raw",
+  "boards": {
+    "greenhouse:gleanwork": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 125,
+      "new": [],
+      "baseline": false,
+      "usable_ids": 125,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/greenhouse_gleanwork.json"
+    },
+    "lever:palantir": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 304,
+      "new": [],
+      "baseline": false,
+      "usable_ids": 304,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/lever_palantir.json"
+    },
+    "ashby:openai": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 829,
+      "new": [
+        "ashby:openai:c1d765b3-182e-4874-8316-12ce509a7f9f",
+        "ashby:openai:681d205f-5b03-4d4d-a024-5ae7815bfde5",
+        "ashby:openai:97e3df39-8a0b-493d-8cc4-c35e01491516",
+        "ashby:openai:6cc80c7c-c4ec-41e8-bbdd-a66be512106b"
+      ],
+      "baseline": false,
+      "usable_ids": 829,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/ashby_openai.json"
+    },
+    "greenhouse:pavan-js2-no-such-board": {
+      "status": "failed",
+      "reason": "bad_board",
+      "postings": null,
+      "new": null,
+      "detail": "HTTP 404",
+      "source": "live",
+      "http_status": 404,
+      "raw_file": "raw/greenhouse_pavan-js2-no-such-board.json"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+ "run_id": "2026-11-11T00-26-11Z-seeded-finished-wrong",
+ "checker": "checker/check.py (does not import the agent)",
+ "agent_exit": "finished",
+ "needs_mayank": [
+  "greenhouse/hubspot"
+ ],
+ "boards": {
+  "greenhouse/anthropic": {
+   "verdict": "ok",
+   "reason": "679 postings, floor 100",
+   "raw_file": "greenhouse__anthropic__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 679,
+   "floor": 100,
+   "floor_source": "Lectern ATS.md 2026-09-26: 618 postings; my JS1 run 2026-10-30: 670 postings. A floor far below any count seen.",
+   "previous": 679,
+   "previous_run": "2026-11-11T00-26-09Z-empty-board-live",
+   "agent_claimed": "ok, 679 postings, 0 new (baseline)"
+  },
+  "greenhouse/hubspot": {
+   "verdict": "suspect",
+   "reason": "0 postings in the raw response (an empty board is not 'no new jobs')",
+   "raw_file": "greenhouse__hubspot__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 0,
+   "floor": 20,
+   "floor_source": "This slug stands for HubSpot, which posted 133 jobs at hubspotjobs (Lectern ATS.md 2026-09-26). Any 'HubSpot' board under 20 is implausible.",
+   "previous": null,
+   "previous_run": null,
+   "agent_claimed": "ok, 0 postings, 0 new (baseline)"
+  },
+  "ashby/notion": {
+   "verdict": "ok",
+   "reason": "156 postings, floor 20",
+   "raw_file": "ashby__notion__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 156,
+   "floor": 20,
+   "floor_source": "Lectern ATS.md 2026-09-26: 128 postings",
+   "previous": 156,
+   "previous_run": "2026-11-11T00-26-09Z-empty-board-live",
+   "agent_claimed": "ok, 156 postings, 0 new (baseline)"
+  }
+ }
+}

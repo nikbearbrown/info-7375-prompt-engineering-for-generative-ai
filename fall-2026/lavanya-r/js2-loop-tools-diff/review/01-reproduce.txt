@@ -1,0 +1,18 @@
+# Reproduction of the JS1 validator path defect, unchanged JS1 code
+# Command: python3 -B review/reproduce.py
+# Ran: 2026-11-10T04:10:39Z, JS1 code at commit 0b682d7b
+
+Real Claude reply, asked_at 2026-10-30T21:26:14+00:00 model ['claude-opus-5-5']
+resume_fields in that reply: ['education.0.end_date', 'education.0.status', 'skills.languages', 'skills.data_bi']
+
+1. validate(real reply)             -> INVALID ["resume_fields names fields that do not exist: ['education.0.end_date', 'education.0.status']"]
+2. same reply, education[0].        -> VALID
+
+path_exists on single paths (Priya has 1 education entry):
+   education.end_date         -> True
+   education[0].end_date      -> True
+   education.0.end_date       -> False
+   education[5].end_date      -> True
+   education.5.end_date       -> False
+   education[0]               -> True
+   education[x].end_date      -> False

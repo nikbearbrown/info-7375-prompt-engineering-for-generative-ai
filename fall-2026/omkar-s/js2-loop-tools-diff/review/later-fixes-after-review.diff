@@ -1,0 +1,58 @@
+--- review/before/loop-v2-reviewed.py	2026-11-09 03:16:40
++++ agent/loop.py	2026-11-09 03:28:58
+@@ -87,6 +87,11 @@
+         self.policy = policy.Policy(base, out, approver=approver)
+         self.out = self.policy.out
+         self.run_dir = os.path.join(self.out, self.run_id)
++        n = 1
++        while os.path.lexists(self.run_dir):  # two runs in the same second: new folder, never reuse one
++            n += 1
++            self.run_dir = os.path.join(self.out, f"{self.run_id}-{n}")
++        self.run_id = os.path.basename(self.run_dir)
+         self.raw_dir = os.path.join(self.run_dir, "raw")
+         self.state_dir = os.path.join(self.out, "state")
+         self.trace_path = os.path.join(self.run_dir, "trace.jsonl")
+@@ -97,8 +102,14 @@
+         self._pending = []
+ 
+     # ---- trace -------------------------------------------------------------------------------
++    def _rel(self, target):
++        """Paths in the trace are relative to the assignment folder (no local user paths)."""
++        if isinstance(target, str) and os.path.isabs(target):
++            return os.path.relpath(target, self.policy.base)
++        return target
++
+     def _policy_event(self, decision):
+-        ev = {"event": "policy", **decision}
++        ev = {"event": "policy", **decision, "target": self._rel(decision.get("target"))}
+         if os.path.realpath(self.trace_path) in self.store.created:
+             self.trace(ev)
+         else:
+@@ -139,6 +150,8 @@
+                 rec.update(status="error", reason=f"budget {blocked} ran out before attempt {attempt}")
+                 return rec, None
+             timeout = max(0.1, min(self.budgets["request_timeout_seconds"], self.seconds_left()))
++            # decided (and recorded) here as well as inside transport.get, so the trace shows it
++            req_d = policy.check_request("GET", rec["url"], {"User-Agent": transport.USER_AGENT})
+             try:
+                 resp = self.get(rec["url"], timeout, int(self.budgets["max_response_bytes"]))
+             except policy.PolicyDenied as e:
+@@ -163,6 +176,7 @@
+                    "http_status": resp.status, "error_kind": resp.error_kind, "error": resp.error,
+                    "bytes": len(resp.body or b""), "sha256": hashlib.sha256(resp.body or b"").hexdigest(),
+                    "elapsed_s": round(resp.elapsed, 3), "raw": f"raw/{raw_name}", "outcome": outcome,
++                   "request_policy": req_d["decision"], "request_policy_reason": req_d["reason"],
+                    "why": why, "postings_parsed": None if parsed is None else len(parsed),
+                    "requests_used": self.requests_used}
+             self.trace(obs)
+@@ -198,8 +212,8 @@
+         state_path = os.path.join(self.state_dir, f"{safe}.state.json")
+         state = None
+         if os.path.exists(state_path):
+-            with open(state_path, encoding="utf-8") as f:
+-                state = json.load(f)
++            self._policy_event(self.policy.check_read(state_path))  # the read decision is traced too
++            state = _read_json(self.policy, state_path)  # reads go through the policy too
+         ids = [p["id"] for p in postings]
+         prev = set(state["seen_ids"]) if state else set()
+         new = [p for p in postings if p["id"] not in prev] if state else []

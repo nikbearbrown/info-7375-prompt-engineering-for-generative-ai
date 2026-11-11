@@ -1,0 +1,188 @@
+{
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "board": "greenhouse:databricks",
+ "cli_json": {
+  "api_error_status": null,
+  "duration_api_ms": 5690,
+  "duration_ms": 4691,
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 1227,
+  "input_attachments_detail": {
+   "cpu_ms": 18,
+   "major_faults": 0,
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 10
+  },
+  "is_error": false,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.00032900000000000003,
+    "inputTokens": 3160,
+    "maxOutputTokens": 128000,
+    "outputTokens": 26,
+    "provider": "firstParty",
+    "thinkingTokens": 0,
+    "webSearchRequests": 0
+   },
+   "claude-opus-5-5": {
+    "cacheCreationInputTokens": 2798,
+    "cacheReadInputTokens": 1054,
+    "canonicalModel": "claude-opus-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.0322628,
+    "inputTokens": 2,
+    "maxOutputTokens": 128000,
+    "outputTokens": 483,
+    "provider": "firstParty",
+    "thinkingTokens": 135,
+    "webSearchRequests": 0
+   }
+  },
+  "num_turns": 1,
+  "permission_denials": [],
+  "process_turn_index": 0,
+  "queued_turn_count": 0,
+  "result": "{\"posting_id\": 8742059002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"architect\"]}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Strong coding proficiency in Python, SQL, Scala\"}, {\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Strong coding proficiency in Python, SQL, Scala\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are on a mission\"}]}, \"explanation\": \"The title 'Delivery Solutions Architect' contains no eligible role phrase and includes the excluded word 'architect', so the posting fails. The description does share python and sql (skills.languages) and databricks (skills.data_bi).\"}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "0759cc59-1330-424c-b430-f120a07cf9b3",
+  "stop_reason": "end_turn",
+  "subagent_stats": {
+   "by_type": {},
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "system": 0,
+    "user": 0
+   },
+   "max_depth": 0,
+   "refused": {
+    "budget": 0,
+    "concurrency_limit": 0,
+    "depth_limit": 0
+   },
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "spawned": 0,
+   "spawned_by_subagents": 0,
+   "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_cpu_ms": 59,
+  "time_to_request_loop_lag_ms": 0,
+  "time_to_request_major_faults": 0,
+  "time_to_request_ms": 39,
+  "time_to_request_phases_ms": {
+   "autocompact": 1,
+   "client_creation": 3,
+   "engine_pickup": 1,
+   "init_message": 1,
+   "input_attachments": 12,
+   "input_hooks": 1,
+   "message_normalization": 0,
+   "message_prep": 0,
+   "model_config_wait": 0,
+   "model_gates": 4,
+   "other": 9,
+   "process_user_input": 1,
+   "query_setup": 0,
+   "request_build": 1,
+   "resume_other": 1,
+   "system_prompt": 0,
+   "tool_pool_refresh": 0,
+   "tool_schema_build": 4
+  },
+  "total_cost_usd": 0.032591800000000004,
+  "ttft_ms": 2268,
+  "ttft_stream_ms": 1227,
+  "turn_start_resume_kind": "none",
+  "type": "result",
+  "usage": {
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2798,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "cache_creation_input_tokens": 2798,
+   "cache_read_input_tokens": 1054,
+   "fallback_credit": null,
+   "inference_geo": "global",
+   "input_tokens": 2,
+   "iterations": [
+    {
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 2798,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_creation_input_tokens": 2798,
+     "cache_read_input_tokens": 1054,
+     "input_tokens": 2,
+     "output_tokens": 483,
+     "type": "message"
+    }
+   ],
+   "output_tokens": 483,
+   "output_tokens_details": {
+    "thinking_tokens": 135
+   },
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "service_tier": "standard",
+   "speed": "standard"
+  },
+  "uuid": "986d86ea-6a39-4d9d-b29d-f85d996a987f"
+ },
+ "effort": "medium",
+ "finished_at_utc": "2026-11-10T23:21:57+00:00",
+ "invoked_at_utc": "2026-11-10T23:21:51+00:00",
+ "model_requested": "claude-opus-5-5",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "posting_id_requested": "8742059002",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "prompt_version": "v1",
+ "response_text": "{\"posting_id\": 8742059002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": false, \"found\": [\"architect\"]}, \"shared_skills\": {\"pass\": true, \"skills\": [{\"skill\": \"python\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Strong coding proficiency in Python, SQL, Scala\"}, {\"skill\": \"sql\", \"resume_field\": \"skills.languages\", \"posting_field\": \"description\", \"quote\": \"Strong coding proficiency in Python, SQL, Scala\"}, {\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"At Databricks, we are on a mission\"}]}, \"explanation\": \"The title 'Delivery Solutions Architect' contains no eligible role phrase and includes the excluded word 'architect', so the posting fails. The description does share python and sql (skills.languages) and databricks (skills.data_bi).\"}",
+ "returncode": 0,
+ "session_id": "0759cc59-1330-424c-b430-f120a07cf9b3",
+ "stderr_tail": "",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "transport_ok": true,
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8742059002,\n \"title\": \"Delivery Solutions Architect \",\n \"location\": \"London, United Kingdom\",\n \"departments\": [\n  \"Delivery Solutions Architects\"\n ],\n \"description\": \"REQ ID: CSQ427R257 Location: London area (commutable up to 90 minutes) Recruiter: Dina Hussain At Databricks, we are on a mission to empower our customers to solve the world's toughest data and AI problems by utilizing the Databricks Data Intelligence Platform. As a Delivery Solutions Architect (DSA), you will partner with Sales, Solutions Architecture, and Field Engineering to accelerate adoption and growth of the Databricks platform. You will serve as a trusted technical advisor, helping customers design, implement, scale, and optimize data and AI solutions that deliver measurable business value. This is a technical and customer-facing role focused on architecture, technical strategy, and customer outcomes. You will influence technical execution across complex use cases, guide architectural decisions, and align Databricks, customer, and partner teams from technical win through production and adoption. The Impact You Will Have Define and influence technical execution strategies across complex use cases and multiple workstreams within strategic accounts Serve as a trusted technical advisor to customer technical leads and architects, leading architecture discussions and guiding technical decisions Design secure, governed, and scalable Databricks architectures while balancing performance, cost, reliability, and long-term needs Build and demonstrate working solutions, prototypes, and reusable technical assets that accelerate customer outcomes Anticipate platform maturity and scaling needs and establish best practices for security, governance, and operational excellence Drive adoption and consumption by influencing architecture, unblocking delivery, and connecting technical execution to business outcomes Partner across Databricks, customer, and implementation teams to align resources, manage risks, and accelerate delivery Mentor peers and contribute reusable technical guidance, frameworks, and enablement across the organization What We Look For 5+ years in solutions architecture, solutions engineering, technical consulting, professional services, data engineering, or a related technical role Experience in influencing technical strategy and architecture across complex customer use cases or multiple workstreams Strong coding proficiency in Python, SQL, Scala, or similar languages, with the ability to build, debug, and validate technical solutions Deep understanding of distributed data systems, data engineering, analytics, data warehousing, AI/ML, and modern cloud architectures Experience designing secure, governed, scalable, and production-ready data solutions Ability to solve ambiguous technical problems, evaluate trade-offs, and validate solutions through structured analysis or experimentation Experience leading architecture discussions with technical leads, architects, and senior customer stakeholders Strong understanding of platform operational excellence, including security, governance, performance, reliability, and cost optimization Demonstrated ability to drive customer adoption, consumption, and measurable business outcomes through technical leadership Strong stakeholder management and cross-functional leadership skills, with the ability to align teams without formal authority Bachelor's degree in Computer Science, Engineering, or equivalent experience Nice to Have Databricks experience or certification Developing expertise in a technical specialization such as AI/ML, data engineering, streaming, data warehousing, governance, or migrations Experience with AWS, Azure, or GCP and production cloud deployments Experience creating reusable technical frameworks, demos, or enablement that scale across teams Interview Process: Recruiter Screen → Hiring Manager Screen → Design & Architecture → Live Coding → Build, Demo & Pitch → Reference Check Travel : Up to 30% as needed About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "48300742dabc460efe16fdaa879432c5326aec65c10e46ebaa034cb75baa0ecb",
+ "valid": true,
+ "validation_errors": [],
+ "wall_seconds": 5.73
+}

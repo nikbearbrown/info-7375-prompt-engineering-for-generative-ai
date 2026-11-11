@@ -1,0 +1,130 @@
+{
+  "run_id": "demo-C-real-agent-linear-empty",
+  "gate": "GATE.md of 2026-11-10",
+  "source": "seeded",
+  "fixtures": {
+    "greenhouse/anthropic": "fixtures/anthropic-live-2026-11-10T212848Z.body.gz",
+    "lever/palantir": "fixtures/palantir-live-2026-11-10T212848Z.body.gz",
+    "ashby/linear": "fixtures/linear-CONSTRUCTED-empty.json"
+  },
+  "note": "SEEDED; Linear's response is CONSTRUCTED (the real one with an empty jobs list). The real agent.",
+  "started_at": "2026-11-10T21:29:53+00:00",
+  "exit": "incomplete",
+  "exit_code": 2,
+  "exit_reason": "ashby/linear suspect empty",
+  "error_detail": null,
+  "meaning": "Every board was attempted within budget, but at least one board failed or is suspect. Those boards have no counts (not 0) and their state was not changed.",
+  "budget": {
+    "limits": {
+      "boards": 5,
+      "requests": 8,
+      "seconds": 120,
+      "seconds_per_request": 30,
+      "bytes_per_response": 20000000
+    },
+    "used": {
+      "boards": 3,
+      "requests": 3,
+      "seconds": 0.216
+    }
+  },
+  "boards": [
+    {
+      "key": "greenhouse/anthropic",
+      "system": "greenhouse",
+      "board": "anthropic",
+      "company": "Anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "status": "ok",
+      "reason": null,
+      "http_status": 200,
+      "requests": 1,
+      "attempts": [
+        {
+          "n": 1,
+          "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+          "timeout": 30,
+          "http_status": 200,
+          "bytes": 10311330,
+          "raw_file": "jobs/raw/demo-C-real-agent-linear-empty--greenhouse-anthropic--r1.body.gz",
+          "raw_sha256": "ff2a4167a32ba76ee3260d681a38c45c4d978d4cd871fca30957a686fb22a48c",
+          "seconds": 0.136,
+          "seeded_from": "fixtures/anthropic-live-2026-11-10T212848Z.body.gz"
+        }
+      ],
+      "counts": {
+        "postings": 677,
+        "new": 0,
+        "gone": 0,
+        "duplicate_ids": 0
+      },
+      "run_kind": "watch",
+      "new_postings": []
+    },
+    {
+      "key": "lever/palantir",
+      "system": "lever",
+      "board": "palantir",
+      "company": "Palantir",
+      "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+      "status": "ok",
+      "reason": null,
+      "http_status": 200,
+      "requests": 1,
+      "attempts": [
+        {
+          "n": 2,
+          "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+          "timeout": 30,
+          "http_status": 200,
+          "bytes": 5927002,
+          "raw_file": "jobs/raw/demo-C-real-agent-linear-empty--lever-palantir--r2.body.gz",
+          "raw_sha256": "68278bad3008de2fe332541f2ee624aa4ff2e2029e1362e5285d14c04d6c4552",
+          "seconds": 0.039,
+          "seeded_from": "fixtures/palantir-live-2026-11-10T212848Z.body.gz"
+        }
+      ],
+      "counts": {
+        "postings": 304,
+        "new": 0,
+        "gone": 0,
+        "duplicate_ids": 0
+      },
+      "run_kind": "watch",
+      "new_postings": []
+    },
+    {
+      "key": "ashby/linear",
+      "system": "ashby",
+      "board": "linear",
+      "company": "Linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "status": "suspect",
+      "reason": "empty",
+      "http_status": 200,
+      "requests": 1,
+      "attempts": [
+        {
+          "n": 3,
+          "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+          "timeout": 30,
+          "http_status": 200,
+          "bytes": 31,
+          "raw_file": "jobs/raw/demo-C-real-agent-linear-empty--ashby-linear--r3.body.gz",
+          "raw_sha256": "5e344d1d08dfb15bea70e2c6f1a4c37bb6a8e7b5ab23bc824a4f852a05b8b38c",
+          "seconds": 0.0,
+          "seeded_from": "fixtures/linear-CONSTRUCTED-empty.json"
+        }
+      ],
+      "counts": null,
+      "run_kind": null
+    }
+  ],
+  "not_attempted": [],
+  "approvals": [],
+  "files": {
+    "record": "jobs/runs/demo-C-real-agent-linear-empty.json",
+    "report": "jobs/runs/demo-C-real-agent-linear-empty.md",
+    "trace": "jobs/runs/demo-C-real-agent-linear-empty.trace.jsonl"
+  }
+}

@@ -1,0 +1,109 @@
+Started: 2026-11-10 20:19:19 EST
+Tested HEAD: 049e8b570572a7cd137cdefbca73fe9d6b6515d0
+Remote main: 6b7306511de5c3cf4cfb1b5c7a66805f1ab75a39
+
+BEFORE FIX: expect 4 failed, 3 passed, exit 1
+.FFFF..                                                                  [100%]
+=================================== FAILURES ===================================
+<before-tmp>/tests/test_net_deadline.py:126: AssertionError: the attempt took 1.51 s against a 0.4 s deadline
+<before-tmp>/tests/test_net_deadline.py:141: AssertionError: a request was dispatched after its attempt had already timed out
+<before-tmp>/tests/test_net_deadline.py:155: AssertionError: the attempt took 2.99 s against a 0.5 s deadline
+<before-tmp>/tests/test_net_deadline.py:167: assert (1 == 0)
+=========================== short test summary info ============================
+FAILED tests/test_net_deadline.py::test_slow_dns_is_bounded_by_the_attempt_deadline
+FAILED tests/test_net_deadline.py::test_a_dns_answer_arriving_after_the_deadline_is_never_connected
+FAILED tests/test_net_deadline.py::test_dripped_headers_are_bounded_by_the_attempt_deadline
+FAILED tests/test_net_deadline.py::test_an_expired_deadline_dispatches_nothing
+4 failed, 3 passed in 10.35s
+
+[pre-fix exit: 1]
+
+CURRENT COMMIT: fresh-extraction verification
+
+[notice] A new release of pip is available: 25.1.1 -> 26.3
+[notice] To update, run: <tmp>/.venv/bin/python3 -m pip install --upgrade pip
+........................................................................ [ 40%]
+........................................................................ [ 80%]
+..................................                                       [100%]
+178 passed in 5.81s
+CAUGHT: M1 validator ignores posting_id mismatch (wrong version 1, association)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-association]
+CAUGHT: M2 watch joins judgments by completion order instead of id (wrong version 1)
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_keeps_association_under_out_of_order_completion
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_rejects_a_swapped_response
+    FAILED tests/test_wrong_versions.py::test_wv2_unsupported_response_is_not_reported_as_evaluated
+CAUGHT: M3 validator skips quote and résumé-evidence checks (wrong version 2)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-quote not found]
+CAUGHT: W1 empty Greenhouse response accepted as zero new
+    FAILED tests/test_loop.py::test_W1_suspect_empty_on_a_known_board_is_not_zero_new
+CAUGHT: W1 count-inconsistent response accepted (meta.total check removed; review patch)
+    FAILED tests/test_aditya_total_mismatch.py::test_inconsistent_total_does_not_succeed_or_change_state
+CAUGHT: W1 non-object meta accepted (review revision removed)
+    FAILED tests/test_meta_object.py::test_3_non_object_meta_is_rejected_by_the_parser[None]
+CAUGHT: W2 failed board omitted from the exit decision
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W3 HTTP budget checked so that a ninth attempt is sent
+    FAILED tests/test_loop.py::test_W3_http_budget_is_checked_before_each_first_attempt
+CAUGHT: W3 model budget checked so that an eleventh call starts
+    FAILED tests/test_loop.py::test_W3_tenth_model_call_allowed_eleventh_never_starts
+CAUGHT: W4 a 404 is retried
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W4 retry attempts not counted
+    FAILED tests/test_loop.py::test_W4_transient_failure_retried_once_after_wait_and_counted[first0]
+CAUGHT: W5 string-prefix containment admits a sibling
+    FAILED tests/test_boundary.py::test_b11_sibling_prefix_refused - Failed: DID ...
+CAUGHT: W6 containment ignores symlinks (both resolve() and the post-mkdir re-check removed)
+    FAILED tests/test_boundary.py::test_b12_symlink_escape_refused - Failed: DID ...
+CAUGHT: W7 substring host match admits a deceptive host
+    FAILED tests/test_boundary.py::test_b04_deceptive_suffix_refused - Failed: DI...
+CAUGHT: W8 redirect followed before policy enforcement
+    FAILED tests/test_boundary.py::test_b07_redirect_refused_destination_never_contacted
+CAUGHT: W3 attempt wait unbounded (caller joins the HTTP worker without the deadline)
+    FAILED tests/test_net_deadline.py::test_slow_dns_is_bounded_by_the_attempt_deadline
+CAUGHT: W3 late DNS answer still connected (post-DNS cancellation check removed)
+    FAILED tests/test_net_deadline.py::test_a_dns_answer_arriving_after_the_deadline_is_never_connected
+CAUGHT: W3 expired attempt deadline still dispatches
+    FAILED tests/test_net_deadline.py::test_an_expired_deadline_dispatches_nothing
+CAUGHT: W9 state shared across boards
+    FAILED tests/test_loop.py::test_first_run_baselines_every_board_and_finishes
+CAUGHT: W10 unvalidated judgment marked completed
+    FAILED tests/test_loop.py::test_W10_invalid_judgment_stays_pending_then_completes_later
+CAUGHT: W10 failed board's state advanced (erased)
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+CAUGHT: W11 export grants its own approval (writes the record itself, bypassing policy)
+    FAILED tests/test_boundary.py::test_b16_export_without_approval_refused - Ass...
+CAUGHT: W11 approval bound only to the run id
+    FAILED tests/test_boundary.py::test_b17_export_with_mismatched_approval_refused[sha256-0000000000000000000000000000000000000000000000000000000000000000]
+CAUGHT: W12 non-finished run exits 0
+    FAILED tests/test_loop.py::test_W2_W12_deliberate_404_is_a_failure_with_null_counts_and_nonzero_exit
+# Independent check of 20261110T232115022Z_live (reported status: budget-exhausted, exit 4)
+PASS  trace sequence is contiguous from 1  — 41 events
+PASS  HTTP attempts within the gate limit (8) and equal to the report  — 4
+PASS  model calls within the gate limit (10) and equal to the report  — 10
+PASS  elapsed time within 180 s  — 58.121 s
+PASS  every attempt timeout ≤ 20 s and ≤ 180 − t − 10 at dispatch
+PASS  every dispatched URL is an allow-listed board endpoint
+PASS  no URL dispatched twice except one linked retry
+PASS  every saved raw response matches its recorded sha256 and size  — 4 boards
+PASS  greenhouse:databricks: raw HTTP 200, nonempty, unique ids, observed count recomputes  — 920 postings
+PASS  greenhouse:databricks: meta.total equals the jobs list length  — 920
+PASS  greenhouse:databricks: inherited seed file matches the sha256 in the trace
+PASS  greenhouse:databricks: new ids recompute as (raw ids − prior ids)  — 89 new
+PASS  greenhouse:figma: raw HTTP 200, nonempty, unique ids, observed count recomputes  — 144 postings
+PASS  greenhouse:figma: meta.total equals the jobs list length  — 144
+PASS  greenhouse:figma: baseline only when no prior state, with 0 new
+PASS  ashby:notion: raw HTTP 200, nonempty, unique ids, observed count recomputes  — 155 postings
+PASS  ashby:notion: baseline only when no prior state, with 0 new
+PASS  greenhouse:js2-no-such-board-zzz: failed/unattempted board reports unknown counts as null (not 0)  — HTTP 404 (no retry: 4xx is not transient)
+PASS  greenhouse:js2-no-such-board-zzz: failed board state unchanged
+PASS  greenhouse:js2-no-such-board-zzz: raw response confirms the failure (HTTP 404)
+PASS  status recomputed by precedence matches the report, and the exit code matches the status  — budget-exhausted
+PASS  state: every valid judgment is 'completed' and every unjudged one is 'pending'  — 10 completed, 79 pending
+PASS  every reported valid JUDGMENT's saved response names its own posting and verdict
+PASS  working state file equals this run's state_after
+
+NO CONTRADICTION FOUND (24 checks)
+clean extraction of 049e8b5:fall-2026/aditya-r/js2-loop-tools-diff: all offline checks passed
+
+[clean-copy exit: 0]
+Finished: 2026-11-10 20:20:31 EST

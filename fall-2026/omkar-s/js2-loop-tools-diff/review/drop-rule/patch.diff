@@ -1,0 +1,57 @@
+--- review/drop-rule/loop-before.py	2026-11-10 05:37:42
++++ agent/loop.py	2026-11-10 05:38:20
+@@ -22,6 +22,10 @@
+ BUDGET_KEYS = ("max_boards", "max_requests", "max_seconds", "max_retries_per_board",
+                "request_timeout_seconds", "max_response_bytes")
+ BACKOFF_SECONDS = (1, 2)
++# Omkar's drop rule (GATE.md change log, 2026-11-10): flag "more than 50% fewer" postings than the
++# last run (now < previous * 0.5), but only when the last run had at least 10 postings.
++DROP_KEEP_FRACTION = 0.5
++DROP_MIN_PREVIOUS = 10
+ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ 
+ 
+@@ -219,6 +223,7 @@
+         new = [p for p in postings if p["id"] not in prev] if state else []
+         rec.update(postings=len(postings), new=len(new), removed=len(prev - set(ids)) if state else 0,
+                    baseline=state is None)
++        self.check_drop(rec, state, len(postings))
+         for p in new:
+             v = rule.judge(p, self.resume)
+             rec["new_postings"].append({"id": p["id"], "title": p["title"], "location": p["location"]["name"],
+@@ -229,6 +234,23 @@
+         state["runs"].append({"run_id": self.run_id, "postings": len(postings), "new": len(new)})
+         self.store.write_state(state_path, state)
+ 
++    def check_drop(self, rec, state, now):
++        """Omkar's drop rule (GATE.md change log, 2026-11-10). A warning only: it never changes
++        the board's status or the run's exit."""
++        runs = (state or {}).get("runs") or []
++        if not runs:
++            w = {"code": "no_baseline", "previous": None, "now": now,
++                 "message": "first run for this board; no earlier count to compare against"}
++        else:
++            previous = runs[-1]["postings"]
++            if previous < DROP_MIN_PREVIOUS or now >= previous * DROP_KEEP_FRACTION:
++                return
++            w = {"code": "suspicious_drop", "previous": previous, "now": now,
++                 "message": f"postings fell from {previous} to {now} (more than 50% fewer than the last run); "
++                            "the board may have moved or broken"}
++        rec.setdefault("warnings", []).append(w)
++        self.trace(dict({"event": "warning", "board": rec["key"]}, **w))
++
+     # ---- the loop ------------------------------------------------------------------------------
+     def execute(self):
+         self.t0 = self.clock()
+@@ -329,6 +351,11 @@
+                  f"Postings: {_fmt(r.get('postings'))} (null = not observed; no value invented).")
+               for r in failed]
+         L.append("")
++    warns = [(r, w) for r in result["boards"] for w in r.get("warnings") or []]
++    if warns:
++        L += ["## Warnings", "", "These do not change the exit code (Omkar's drop rule, GATE.md change log 2026-11-10).", ""]
++        L += [f"- `{r['key']}`: **{w['code']}**, {w['message']}." for r, w in warns]
++        L.append("")
+     news = [(r, p) for r in result["boards"] for p in r.get("new_postings") or []]
+     L += ["## New postings since the last run", ""]
+     if not news:

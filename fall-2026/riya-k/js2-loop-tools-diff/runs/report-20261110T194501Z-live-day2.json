@@ -1,0 +1,1085 @@
+{
+  "run_id": "20261110T194501Z-live-day2",
+  "label": "live-day2",
+  "run_at": "2026-11-10T19:45:01+00:00",
+  "exit": "incomplete",
+  "stop_reason": "2 board(s) failed or flagged; escalated to Riya",
+  "empty_guard": true,
+  "budget_used": {
+    "boards": 6,
+    "requests": 6,
+    "seconds": 41.204,
+    "limits": {
+      "boards": 6,
+      "requests": 10,
+      "seconds": 60.0
+    }
+  },
+  "boards": [
+    {
+      "board": "greenhouse:databricks",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 914,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/greenhouse-databricks-20261110T194501Z-live-day2-a1.json"
+      ],
+      "baseline": false,
+      "new": 10,
+      "removed_since_last": 77,
+      "new_postings": [
+        {
+          "id": "8933544002",
+          "title": "Applied AI Architect",
+          "location": "United States",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8933544002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "relevant",
+          "resume_fields": [
+            "skills.database_cloud",
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Applied AI Architect' has title word(s) ['AI']; 3 of résumé skills in title/content (skills.languages: Python; skills.languages: SQL; skills.database_cloud: AWS); need 2; location.name 'United States' is US/Remote"
+        },
+        {
+          "id": "8920618002",
+          "title": "Delivery Partner Manager, FDE",
+          "location": "Northeast - United States; San Francisco, California; Seattle, Washington; Southeast - United States",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8920618002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Delivery Partner Manager, FDE' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Northeast - United States; San Francisco, California; Seattle, Washington; Southeast - United States' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "8855879002",
+          "title": "Enterprise Hunter Account Executive, Nordics",
+          "location": "Stockholm, Sweden",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8855879002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Enterprise Hunter Account Executive, Nordics' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Stockholm, Sweden' is not US/Remote"
+        },
+        {
+          "id": "8041698002",
+          "title": "Senior Technical Solutions Engineer (Platform)",
+          "location": "Bengaluru, India",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8041698002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.database_cloud"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Senior Technical Solutions Engineer (Platform)' has no title word; 1 of résumé skills in title/content (skills.database_cloud: AWS); need 2; location.name 'Bengaluru, India' is not US/Remote; title has seniority word(s) ['Senior']"
+        },
+        {
+          "id": "8929593002",
+          "title": "Solutions Architect - Public Sector",
+          "location": "Tokyo, Japan",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929593002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Solutions Architect - Public Sector' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Tokyo, Japan' is not US/Remote"
+        },
+        {
+          "id": "8918565002",
+          "title": "Sr. Solutions Engineer",
+          "location": "Chicago, Illinois; Remote - California; Remote - New York; United States",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8918565002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.backend_automation",
+            "skills.database_cloud",
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Sr. Solutions Engineer' has no title word; 5 of résumé skills in title/content (skills.languages: Python; skills.languages: SQL; skills.backend_automation: MLflow; skills.database_cloud: Delta Lake; skills.database_cloud: AWS); need 2; location.name 'Chicago, Illinois; Remote - California; Remote - New York; United States' is US/Remote; title has seniority word(s) ['Sr']"
+        },
+        {
+          "id": "8929603002",
+          "title": "Sr. Solutions Engineer - Hunter (New Logo)",
+          "location": "Tokyo, Japan",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8929603002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.backend_automation",
+            "skills.database_cloud",
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Sr. Solutions Engineer - Hunter (New Logo)' has no title word; 5 of résumé skills in title/content (skills.languages: Python; skills.languages: SQL; skills.backend_automation: MLflow; skills.database_cloud: Delta Lake; skills.database_cloud: AWS); need 2; location.name 'Tokyo, Japan' is not US/Remote; title has seniority word(s) ['Sr']"
+        },
+        {
+          "id": "8922954002",
+          "title": "Sr. Technical Program Manager, FDE",
+          "location": "Tokyo, Japan",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8922954002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Sr. Technical Program Manager, FDE' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Tokyo, Japan' is not US/Remote; title has seniority word(s) ['Sr', 'Manager']"
+        },
+        {
+          "id": "8931267002",
+          "title": "Staff Technical Instructor",
+          "location": "Singapore",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931267002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Staff Technical Instructor' has no title word; 1 of résumé skills in title/content (skills.languages: SQL); need 2; location.name 'Singapore' is not US/Remote; title has seniority word(s) ['Staff']"
+        },
+        {
+          "id": "8931264002",
+          "title": "Strategic Core Account Executive - Telco ",
+          "location": "Remote - Washington",
+          "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8931264002",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.database_cloud"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Strategic Core Account Executive - Telco ' has no title word; 1 of résumé skills in title/content (skills.database_cloud: Delta Lake); need 2; location.name 'Remote - Washington' is US/Remote"
+        }
+      ]
+    },
+    {
+      "board": "greenhouse:anthropic",
+      "system": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 677,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/greenhouse-anthropic-20261110T194501Z-live-day2-a1.json"
+      ],
+      "baseline": false,
+      "new": 12,
+      "removed_since_last": 11,
+      "new_postings": [
+        {
+          "id": "5467305008",
+          "title": "[C] Research Engineer, Discovery",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5467305008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.database_cloud"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title '[C] Research Engineer, Discovery' has no title word; 1 of résumé skills in title/content (skills.database_cloud: AWS); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote"
+        },
+        {
+          "id": "5477774008",
+          "title": "Enterprise Account Executive",
+          "location": "Tokyo, Japan",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5477774008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Enterprise Account Executive' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Tokyo, Japan' is not US/Remote"
+        },
+        {
+          "id": "5237923008",
+          "title": "Global Head of Renewals, Product & Engineering",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5237923008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Global Head of Renewals, Product & Engineering' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote; title has seniority word(s) ['Head']"
+        },
+        {
+          "id": "5424288008",
+          "title": "Marketing Events Manager, International ",
+          "location": "London, UK",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5424288008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Marketing Events Manager, International ' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'London, UK' is not US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "5475150008",
+          "title": "Partner Account Manager, ANZ",
+          "location": "Sydney, Australia",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5475150008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Partner Account Manager, ANZ' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Sydney, Australia' is not US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "5477753008",
+          "title": "Principal Engineer, Privacy",
+          "location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5477753008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Principal Engineer, Privacy' has no title word; 1 of résumé skills in title/content (skills.languages: Python); need 2; location.name 'Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY' is US/Remote; title has seniority word(s) ['Principal']"
+        },
+        {
+          "id": "5470528008",
+          "title": "Product Marketing Manager, Knowledge Work - Enterprise",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5470528008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Product Marketing Manager, Knowledge Work - Enterprise' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "5476579008",
+          "title": "Security Engineer, RF and Technical Surveillance Countermeasures",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5476579008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Security Engineer, RF and Technical Surveillance Countermeasures' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote"
+        },
+        {
+          "id": "5477464008",
+          "title": "Security Risk & Compliance, SOX IT ",
+          "location": "San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5477464008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Security Risk & Compliance, SOX IT ' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC' is US/Remote"
+        },
+        {
+          "id": "4942024008",
+          "title": "Software Engineer, Beneficial Deployments ",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/4942024008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Software Engineer, Beneficial Deployments ' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote"
+        },
+        {
+          "id": "5477746008",
+          "title": "Staff+ Software Engineer, Claude Design",
+          "location": "San Francisco, CA | New York City, NY",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5477746008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Staff+ Software Engineer, Claude Design' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, CA | New York City, NY' is US/Remote; title has seniority word(s) ['Staff']"
+        },
+        {
+          "id": "5447793008",
+          "title": "Transaction Principal",
+          "location": "Sydney, Australia",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5447793008",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name"
+          ],
+          "justification": "title 'Transaction Principal' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Sydney, Australia' is not US/Remote; title has seniority word(s) ['Principal']"
+        }
+      ]
+    },
+    {
+      "board": "ashby:openai",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 830,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/ashby-openai-20261110T194501Z-live-day2-a1.json"
+      ],
+      "baseline": false,
+      "new": 26,
+      "removed_since_last": 8,
+      "new_postings": [
+        {
+          "id": "c0586c46-6b10-482f-af1c-a5b7eb196b3b",
+          "title": "Applied AI Engineering Manager, Startups | Greenfield",
+          "location": "London, UK; Munich, Germany; Paris, France; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/c0586c46-6b10-482f-af1c-a5b7eb196b3b",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Applied AI Engineering Manager, Startups | Greenfield' has title word(s) ['AI']; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'London, UK; Munich, Germany; Paris, France; Remote' is not US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "bbf8d3b8-2f8f-49f8-9f35-73c7847647f7",
+          "title": "Product Engagement Manager, User Operations",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/bbf8d3b8-2f8f-49f8-9f35-73c7847647f7",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Product Engagement Manager, User Operations' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "57bbaedc-30c1-4f1d-b194-e32a6adf874c",
+          "title": "Android Engineer, Growth",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/57bbaedc-30c1-4f1d-b194-e32a6adf874c",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Android Engineer, Growth' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote"
+        },
+        {
+          "id": "74842880-e750-4664-9e2e-83b4c96c5a03",
+          "title": "Principal Software Engineer, Full Stack — Codex",
+          "location": "San Francisco",
+          "url": "https://jobs.ashbyhq.com/openai/74842880-e750-4664-9e2e-83b4c96c5a03",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Principal Software Engineer, Full Stack — Codex' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco' is not US/Remote; title has seniority word(s) ['Principal']"
+        },
+        {
+          "id": "b65e5399-5bbc-4d1f-9148-9c122428dd94",
+          "title": "Research Product Marketing Manager",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/b65e5399-5bbc-4d1f-9148-9c122428dd94",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Research Product Marketing Manager' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "c46d8648-b921-4b71-bb9a-f7d5c8e989f4",
+          "title": "Strategy & Operations, Germany",
+          "location": "Munich, Germany; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/c46d8648-b921-4b71-bb9a-f7d5c8e989f4",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Strategy & Operations, Germany' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Munich, Germany; Remote' is not US/Remote"
+        },
+        {
+          "id": "923eebc8-5591-4057-892f-5825de1a5460",
+          "title": "Senior HR Business Partner",
+          "location": "Paris, France; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/923eebc8-5591-4057-892f-5825de1a5460",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Senior HR Business Partner' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Paris, France; Remote' is not US/Remote; title has seniority word(s) ['Senior']"
+        },
+        {
+          "id": "40b24015-76ad-4013-b52c-313defd6f9bd",
+          "title": "Solutions Engineer, Ads Solutions - Tokyo",
+          "location": "Tokyo, Japan",
+          "url": "https://jobs.ashbyhq.com/openai/40b24015-76ad-4013-b52c-313defd6f9bd",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Solutions Engineer, Ads Solutions - Tokyo' has no title word; 1 of résumé skills in title/content (skills.languages: SQL); need 2; location.name 'Tokyo, Japan' is not US/Remote"
+        },
+        {
+          "id": "d7dfc19d-e508-4522-91fa-e31c3b612a47",
+          "title": "Full-Stack Software Engineer, Child Safety Tools & Systems",
+          "location": "San Francisco; New York City; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/d7dfc19d-e508-4522-91fa-e31c3b612a47",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Full-Stack Software Engineer, Child Safety Tools & Systems' has no title word; 2 of résumé skills in title/content (skills.languages: Python; skills.languages: SQL); need 2; location.name 'San Francisco; New York City; Remote' is US/Remote"
+        },
+        {
+          "id": "8ddb799f-f0c7-4df8-9665-5016a1f39da3",
+          "title": "Full-Stack Software Engineer, Child Safety Tools & Systems (London)",
+          "location": "London, UK; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/8ddb799f-f0c7-4df8-9665-5016a1f39da3",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Full-Stack Software Engineer, Child Safety Tools & Systems (London)' has no title word; 2 of résumé skills in title/content (skills.languages: Python; skills.languages: SQL); need 2; location.name 'London, UK; Remote' is not US/Remote"
+        },
+        {
+          "id": "d6fbe4bd-1b55-40b6-93c0-a296ea747ecf",
+          "title": "Partner Director, GTM Cloud Partnerships",
+          "location": "New York City; Seattle; San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/d6fbe4bd-1b55-40b6-93c0-a296ea747ecf",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Partner Director, GTM Cloud Partnerships' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'New York City; Seattle; San Francisco; Remote' is US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "2ccf7ce8-7440-4c1c-a652-589c0e53b0bf",
+          "title": "Partner Director, KPMG Global",
+          "location": "San Francisco; New York City; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/2ccf7ce8-7440-4c1c-a652-589c0e53b0bf",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Partner Director, KPMG Global' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; New York City; Remote' is US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "206bd77f-fdc1-438e-bb04-f226fa060637",
+          "title": "Partner Director, NTT Data Global",
+          "location": "New York City; San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/206bd77f-fdc1-438e-bb04-f226fa060637",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Partner Director, NTT Data Global' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'New York City; San Francisco; Remote' is US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "2bc7ca9b-4eae-4bda-982b-c1ac1d4e8596",
+          "title": "Partner Director, Oracle North America",
+          "location": "San Francisco; New York City; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/2bc7ca9b-4eae-4bda-982b-c1ac1d4e8596",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Partner Director, Oracle North America' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; New York City; Remote' is US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "e778df45-93d4-4b29-a994-f7d960af6d5c",
+          "title": "Account Director, Large Enterprise | France",
+          "location": "Paris, France; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/e778df45-93d4-4b29-a994-f7d960af6d5c",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Account Director, Large Enterprise | France' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Paris, France; Remote' is not US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "681d205f-5b03-4d4d-a024-5ae7815bfde5",
+          "title": "Project Manager, Compute Transformation",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/681d205f-5b03-4d4d-a024-5ae7815bfde5",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills.languages"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Project Manager, Compute Transformation' has no title word; 1 of résumé skills in title/content (skills.languages: SQL); need 2; location.name 'San Francisco; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "8f2d7c1e-7a76-4145-9a9d-b71a12ef9ad4",
+          "title": "Program Manager, M&A Recruiting | People",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/8f2d7c1e-7a76-4145-9a9d-b71a12ef9ad4",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Program Manager, M&A Recruiting | People' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "ead83ff6-7a58-43dd-b7da-b85e7ddd679c",
+          "title": "RTL Design Engineer, Networking / NoC",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/ead83ff6-7a58-43dd-b7da-b85e7ddd679c",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'RTL Design Engineer, Networking / NoC' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote"
+        },
+        {
+          "id": "8b237859-7e49-4e46-8850-575b78f76aee",
+          "title": "Recruiter, Data Center Infrastructure",
+          "location": "San Francisco; Seattle; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/8b237859-7e49-4e46-8850-575b78f76aee",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Recruiter, Data Center Infrastructure' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Seattle; Remote' is US/Remote"
+        },
+        {
+          "id": "ceca6916-b8d8-42cc-a32a-c27e06744b31",
+          "title": "Applied AI Engineering Manager, Startups | Core",
+          "location": "London, UK; Munich, Germany; Paris, France; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/ceca6916-b8d8-42cc-a32a-c27e06744b31",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Applied AI Engineering Manager, Startups | Core' has title word(s) ['AI']; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'London, UK; Munich, Germany; Paris, France; Remote' is not US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "9e7c3009-6a91-4927-b242-3d5aa766c722",
+          "title": "Novel Abuse Red Teamer",
+          "location": "San Francisco; Seattle; US - Remote",
+          "url": "https://jobs.ashbyhq.com/openai/9e7c3009-6a91-4927-b242-3d5aa766c722",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Novel Abuse Red Teamer' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Seattle; US - Remote' is US/Remote"
+        },
+        {
+          "id": "1dddc3d3-00d5-4b19-a321-a8d00720f543",
+          "title": "Community Programs Manager, Champion Network",
+          "location": "San Francisco; New York City; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/1dddc3d3-00d5-4b19-a321-a8d00720f543",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Community Programs Manager, Champion Network' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; New York City; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "97493ce9-9491-4384-9be9-8069625cd766",
+          "title": "Learning & Instruction Lead, Academy",
+          "location": "San Francisco; New York City; Washington, DC; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/97493ce9-9491-4384-9be9-8069625cd766",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Learning & Instruction Lead, Academy' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; New York City; Washington, DC; Remote' is US/Remote"
+        },
+        {
+          "id": "3b85fc17-403b-4ca0-81e3-21c2aec9c052",
+          "title": "Account Director, Startups | New Business - UK&I",
+          "location": "London, UK; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/3b85fc17-403b-4ca0-81e3-21c2aec9c052",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Account Director, Startups | New Business - UK&I' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'London, UK; Remote' is not US/Remote; title has seniority word(s) ['Director']"
+        },
+        {
+          "id": "1da72072-cf6e-4f5c-acbf-d4f2a2a74612",
+          "title": "Account Associate - Singapore (Bahasa-speaking)",
+          "location": "Singapore; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/1da72072-cf6e-4f5c-acbf-d4f2a2a74612",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Account Associate - Singapore (Bahasa-speaking)' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'Singapore; Remote' is not US/Remote"
+        },
+        {
+          "id": "bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
+          "title": "Subject Matter Expert, Legal",
+          "location": "San Francisco; Remote",
+          "url": "https://jobs.ashbyhq.com/openai/bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Subject Matter Expert, Legal' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco; Remote' is US/Remote"
+        }
+      ]
+    },
+    {
+      "board": "ashby:notion",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 155,
+      "status": "ok",
+      "reason": null,
+      "raw_responses": [
+        "runs/raw/ashby-notion-20261110T194501Z-live-day2-a1.json"
+      ],
+      "baseline": false,
+      "new": 3,
+      "removed_since_last": 1,
+      "new_postings": [
+        {
+          "id": "b58ad3ae-5fdd-4a9f-9ef5-0c0f3ebce147",
+          "title": "Lead Product Marketing Manager, Core Product",
+          "location": "San Francisco, California; New York, New York; Remote",
+          "url": "https://jobs.ashbyhq.com/notion/b58ad3ae-5fdd-4a9f-9ef5-0c0f3ebce147",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Lead Product Marketing Manager, Core Product' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, California; New York, New York; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "e4b7c4d5-9c71-4f82-bf32-0af60e1f2a9f",
+          "title": "Revenue Enablement Program Manager, AMER",
+          "location": "San Francisco, California; New York, New York; Remote",
+          "url": "https://jobs.ashbyhq.com/notion/e4b7c4d5-9c71-4f82-bf32-0af60e1f2a9f",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Revenue Enablement Program Manager, AMER' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'San Francisco, California; New York, New York; Remote' is US/Remote; title has seniority word(s) ['Manager']"
+        },
+        {
+          "id": "ea6f01b1-dda2-4b0f-b351-d3e7c5e9c9e9",
+          "title": "Product Design Intern (Summer 2027)",
+          "location": "New York, New York; Remote",
+          "url": "https://jobs.ashbyhq.com/notion/ea6f01b1-dda2-4b0f-b351-d3e7c5e9c9e9",
+          "judge": "rule",
+          "kind": "record",
+          "verdict": "not_relevant",
+          "resume_fields": [
+            "skills"
+          ],
+          "posting_fields": [
+            "title",
+            "content",
+            "location.name",
+            "employmentType"
+          ],
+          "justification": "title 'Product Design Intern (Summer 2027)' has no title word; 0 of résumé skills in title/content (skills.*: none matched); need 2; location.name 'New York, New York; Remote' is US/Remote; title has intern word(s) ['Intern']; employmentType 'Intern' is not full-time"
+        }
+      ]
+    },
+    {
+      "board": "ashby:notarealco-js2",
+      "system": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notarealco-js2",
+      "attempts": 1,
+      "http_status": 404,
+      "postings": null,
+      "status": "failed",
+      "reason": "HTTP 404 (4xx: not retried)",
+      "raw_responses": [
+        "runs/raw/ashby-notarealco-js2-20261110T194501Z-live-day2-a1.json"
+      ]
+    },
+    {
+      "board": "smartrecruiters:hubspot",
+      "system": "smartrecruiters",
+      "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings",
+      "attempts": 1,
+      "http_status": 200,
+      "postings": 0,
+      "status": "suspect_empty",
+      "reason": "HTTP 200 with 0 postings: wrong slug or wrong system? escalated",
+      "raw_responses": [
+        "runs/raw/smartrecruiters-hubspot-20261110T194501Z-live-day2-a1.json"
+      ]
+    }
+  ],
+  "never_ran": [],
+  "interrupted_by_budget": null,
+  "duplicates_skipped": [],
+  "escalations": [
+    {
+      "board": "ashby:notarealco-js2",
+      "status": "failed",
+      "reason": "HTTP 404 (4xx: not retried)"
+    },
+    {
+      "board": "smartrecruiters:hubspot",
+      "status": "suspect_empty",
+      "reason": "HTTP 200 with 0 postings: wrong slug or wrong system? escalated"
+    }
+  ]
+}

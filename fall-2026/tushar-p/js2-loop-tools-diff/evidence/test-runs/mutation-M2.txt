@@ -1,0 +1,31 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.10, pytest-9.2.0, pluggy-1.7.0 -- /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js2-loop-tools-diff
+configfile: pytest.ini
+collecting ... collected 20 items / 17 deselected / 3 selected
+
+tests/test_permissions.py::test_p12_dotdot_escape_denied PASSED          [ 33%]
+tests/test_permissions.py::test_p13_sibling_out_evil_denied FAILED       [ 66%]
+tests/test_permissions.py::test_p14_symlink_outside_and_inside_targets_denied PASSED [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_p13_sibling_out_evil_denied _______________________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-36/test_p13_sibling_out_evil_deni0')
+
+    def test_p13_sibling_out_evil_denied(tmp_path):
+        """P13 predicted result: "Deny. The sibling path is untouched." """
+        root = make_out_root(tmp_path)
+        sibling = tmp_path / "out-evil"
+        sibling.mkdir()
+        (sibling / "summary.json").write_bytes(b"original")
+        gate = FileGate(root, RUN_ID)
+>       with pytest.raises(WriteDenied):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE WriteDenied
+
+tests/test_permissions.py:132: Failed
+=========================== short test summary info ============================
+FAILED tests/test_permissions.py::test_p13_sibling_out_evil_denied - Failed: ...
+================== 1 failed, 2 passed, 17 deselected in 0.03s ==================

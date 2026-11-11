@@ -1,0 +1,26 @@
+test_city_and_full_state (tests.test_r3_full_state_names.R3FullStateNames.test_city_and_full_state) ... ok
+test_georgia_the_country (tests.test_r3_full_state_names.R3FullStateNames.test_georgia_the_country) ... ok
+test_georgia_the_us_state (tests.test_r3_full_state_names.R3FullStateNames.test_georgia_the_us_state) ... FAIL
+test_js1_behaviour_kept (tests.test_r3_full_state_names.R3FullStateNames.test_js1_behaviour_kept) ... ok
+test_other_countries (tests.test_r3_full_state_names.R3FullStateNames.test_other_countries) ... ok
+test_remote_with_a_state (tests.test_r3_full_state_names.R3FullStateNames.test_remote_with_a_state) ... ok
+test_state_name_alone (tests.test_r3_full_state_names.R3FullStateNames.test_state_name_alone) ... ok
+test_state_name_inside_another_word_does_not_count (tests.test_r3_full_state_names.R3FullStateNames.test_state_name_inside_another_word_does_not_count) ... ok
+test_washington_dc (tests.test_r3_full_state_names.R3FullStateNames.test_washington_dc) ... ok
+
+======================================================================
+FAIL: test_georgia_the_us_state (tests.test_r3_full_state_names.R3FullStateNames.test_georgia_the_us_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_r3_full_state_names.py", line 39, in test_georgia_the_us_state
+    self.assertEqual(r3("Atlanta, Georgia"), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.025s
+
+FAILED (failures=1)

@@ -1,0 +1,160 @@
+test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) ... 
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true') ... FAIL
+  test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/js2nosuchboard?includeCompensation=true') ... FAIL
+test_wire_user_agent_is_the_project_identity_never_pythons_default (test_user_agent.WireHeadersCarryTheProjectIdentity.test_wire_user_agent_is_the_project_identity_never_pythons_default) ... 
+  test_wire_user_agent_is_the_project_identity_never_pythons_default (test_user_agent.WireHeadersCarryTheProjectIdentity.test_wire_user_agent_is_the_project_identity_never_pythons_default) (host='boards-api.greenhouse.io') ... FAIL
+  test_wire_user_agent_is_the_project_identity_never_pythons_default (test_user_agent.WireHeadersCarryTheProjectIdentity.test_wire_user_agent_is_the_project_identity_never_pythons_default) (host='api.ashbyhq.com') ... FAIL
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/notion?includeCompensation=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_every_attempt_on_every_board_sends_exactly_the_project_user_agent (test_user_agent.LoopRequestsCarryTheProjectIdentity.test_every_attempt_on_every_board_sends_exactly_the_project_user_agent) (url='https://api.ashbyhq.com/posting-api/job-board/js2nosuchboard?includeCompensation=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 65, in test_every_attempt_on_every_board_sends_exactly_the_project_user_agent
+    self.assertEqual(user_agents(request), [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- []
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_wire_user_agent_is_the_project_identity_never_pythons_default (test_user_agent.WireHeadersCarryTheProjectIdentity.test_wire_user_agent_is_the_project_identity_never_pythons_default) (host='boards-api.greenhouse.io')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 111, in test_wire_user_agent_is_the_project_identity_never_pythons_default
+    self.assertEqual(values, [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['Python-urllib/3.13'] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+First differing element 0:
+'Python-urllib/3.13'
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- ['Python-urllib/3.13']
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+======================================================================
+FAIL: test_wire_user_agent_is_the_project_identity_never_pythons_default (test_user_agent.WireHeadersCarryTheProjectIdentity.test_wire_user_agent_is_the_project_identity_never_pythons_default) (host='api.ashbyhq.com')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/prasadshinde/Documents/Code/info-7375-prompt-engineering-for-generative-ai/fall-2026/prasad-s/js2-loop-tools-diff/tests/test_user_agent.py", line 111, in test_wire_user_agent_is_the_project_identity_never_pythons_default
+    self.assertEqual(values, [USER_AGENT])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['Python-urllib/3.13'] != ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+First differing element 0:
+'Python-urllib/3.13'
+'js2-loop-tools-diff/0.7 (INFO 7375 course project)'
+
+- ['Python-urllib/3.13']
++ ['js2-loop-tools-diff/0.7 (INFO 7375 course project)']
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.013s
+
+FAILED (failures=9)

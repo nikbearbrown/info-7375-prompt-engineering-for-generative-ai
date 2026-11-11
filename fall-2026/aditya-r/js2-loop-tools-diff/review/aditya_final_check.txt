@@ -1,0 +1,28 @@
+Final check started: 2026-11-10 18:03:52 EST
+2146388593b543679690bc7d63e3172eb22ccc8d
+
+COMMAND: revision tests and original regression
+.....................                                                    [100%]
+21 passed in 0.05s
+
+[targeted exit status: 0]
+
+COMMAND: full test suite
+........................................................................ [ 63%]
+.........................................                                [100%]
+113 passed in 0.14s
+
+[suite exit status: 0]
+
+COMMAND: inherited mutation check
+CAUGHT: M1 validator ignores posting_id mismatch (wrong version 1, association)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-association]
+CAUGHT: M2 watch joins judgments by completion order instead of id (wrong version 1)
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_keeps_association_under_out_of_order_completion
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_rejects_a_swapped_response
+    FAILED tests/test_wrong_versions.py::test_wv2_unsupported_response_is_not_reported_as_evaluated
+CAUGHT: M3 validator skips quote and résumé-evidence checks (wrong version 2)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-quote not found]
+
+[mutation exit status: 0]
+Final check finished: 2026-11-10 18:03:53 EST

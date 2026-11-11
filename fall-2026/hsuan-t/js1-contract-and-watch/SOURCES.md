@@ -14,8 +14,8 @@
 
 ## What I wrote
 
-- `CONTRACT.zh.md`: the contract, written by me in Chinese before any code (In, Out, Refuses, the rule and its checks 1–6, the wrong versions, the dated failure sentence). Commit a0d895e in my working repo (see `evidence/git-history.txt`).
-- The labeling rule's six steps, the nice-to-have rule and the missing-location rule (`labels/LABELING_RULE.zh.md`).
+- `CONTRACT.md`: the contract, written by me in Chinese before any code (In, Out, Refuses, the rule and its checks 1–6, the wrong versions, the dated failure sentence). Commit a0d895e in my working repo (see `evidence/git-history.txt`).
+- The labeling rule's six steps, the nice-to-have rule and the missing-location rule (`labels/LABELING_RULE.md`).
 - The hand labels in `labels/labels.csv`, including the one I corrected after the held-out run.
 - The decisions recorded in `FRICTIONAL.md` and in the README's driver's seat table: the architecture standard, the Claude CLI instead of API credits, a missing location passes check 2, the prompt revision (option B and its example), the choice of the agent as the least autonomy that suffices, and the sign-off.
 

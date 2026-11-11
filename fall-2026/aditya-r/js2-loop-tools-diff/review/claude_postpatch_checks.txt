@@ -1,0 +1,36 @@
+# Claude Code's post-patch checks on the patch working tree (parent 3ce2b1d), 2026-11-10 17:21:42 EST.
+# Paths are rewritten as they are captured: the working dir becomes <js2> and pytest's basetemp becomes <tmp>.
+# Aditya's test file sha256 (must equal the committed 55d7bc69…): 55d7bc69f1c95043…
+
+$ .venv/bin/python -m pytest -v -p no:cacheprovider --basetemp=<tmp>/a tests/test_aditya_total_mismatch.py
+============================= test session starts ==============================
+platform darwin -- Python 3.12.8, pytest-8.3.3, pluggy-1.7.0 -- <js2>/.venv/bin/python
+rootdir: <js2>
+collecting ... collected 1 item
+
+tests/test_aditya_total_mismatch.py::test_inconsistent_total_does_not_succeed_or_change_state PASSED [100%]
+
+============================== 1 passed in 0.02s ===============================
+[exit status: 0]
+
+$ .venv/bin/python -m pytest -q -p no:cacheprovider --basetemp=<tmp>/b tests/test_total_validation.py tests/test_inputs.py tests/test_watch.py
+........................................................                 [100%]
+56 passed in 0.05s
+[exit status: 0]
+
+$ .venv/bin/python -m pytest -q -p no:cacheprovider --basetemp=<tmp>/c
+........................................................................ [ 77%]
+.....................                                                    [100%]
+93 passed in 0.13s
+[exit status: 0]
+
+$ .venv/bin/python tests/mutation_check.py
+CAUGHT: M1 validator ignores posting_id mismatch (wrong version 1, association)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-association]
+CAUGHT: M2 watch joins judgments by completion order instead of id (wrong version 1)
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_keeps_association_under_out_of_order_completion
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_rejects_a_swapped_response
+    FAILED tests/test_wrong_versions.py::test_wv2_unsupported_response_is_not_reported_as_evaluated
+CAUGHT: M3 validator skips quote and résumé-evidence checks (wrong version 2)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-quote not found]
+[exit status: 0]
