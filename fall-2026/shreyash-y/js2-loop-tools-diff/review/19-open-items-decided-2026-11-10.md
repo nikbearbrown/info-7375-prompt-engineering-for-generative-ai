@@ -44,4 +44,4 @@ The first item explains the discrepancy between review/16 and review/18: the rul
 
 For Palantir Dev, my recommendation is yes, treat it as an engineering department, but only through a documented, provider-specific interpretation. The saved jobs are explicitly Software Engineer internships, and their responsibilities concern software development. However, the raw department value Dev remains ambiguous on its own, so I would not globally equate every Dev department with engineering.
 
-Changing this interpretation would remove the department failure for those postings, but they would still fail the Boston/remote location rule. I decided to record my expected result before making any code changes so that the test would reflect my own reading of the job advertisement rather than the agent's existing output.
+Changing this interpretation would remove the department failure for those postings, but they would still fail the Boston/remote location rule. I reviewed the Palantir Dev posting myself and recorded my interpretation of the job requirements. I kept this as a manual review rather than claiming I had written or executed a test for this posting.
