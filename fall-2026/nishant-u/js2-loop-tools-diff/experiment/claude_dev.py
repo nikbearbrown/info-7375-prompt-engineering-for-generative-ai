@@ -1,0 +1,164 @@
+"""Claude judge experiments: development postings, then the held-out evaluation once after the freeze.
+
+    python3 experiment/claude_dev.py sampling       # 5 dev postings x 4 fresh calls -> experiment/sampling/
+    python3 experiment/claude_dev.py baseline-dev   # 10 dev postings x 1 fresh call -> experiment/runs/baseline-dev/
+    python3 experiment/claude_dev.py revision1-dev  # the same with prompts/revision-1.md -> experiment/runs/revision1-dev/
+    python3 experiment/claude_dev.py heldout        # both frozen prompts x 10 held-out postings, once only
+
+Every call is a separate `claude -p` process (a fresh conversation) through agent.claude_judge,
+which saves the prompt, the raw reply and its date, session_id and model. Held-out ids are refused
+in every mode except heldout, which needs the freeze commit and can run only once.
+"""
+import hashlib
+import json
+import random
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve().parent.parent)]
+from hand_labels import HERE, ROOT, hand_labels, postings, split  # noqa: E402
+from agent import claude_judge, rules, validator  # noqa: E402
+from agent.resume import load_resume  # noqa: E402
+
+SAMPLING_SEED = 20261030
+SAMPLING_POSTINGS = 5
+SAMPLING_CALLS = 4
+
+
+def sampling_pick(dev, labels):
+    """5 dev postings with a mix of my labels: up to 2 of my relevant ones, the rest not_relevant."""
+    rng = random.Random(SAMPLING_SEED)
+    rel = sorted(i for i in dev if labels[i]["my_label"] == "relevant")
+    other = sorted(i for i in dev if labels[i]["my_label"] != "relevant")
+    k_rel = max(min(len(rel), 2), SAMPLING_POSTINGS - len(other))
+    return sorted(rng.sample(rel, k_rel) + rng.sample(other, SAMPLING_POSTINGS - k_rel))
+
+
+def one_call(job, resume, out_dir, template, schema="baseline"):
+    """One fresh judge call, then the validator and the support check, kept in separate columns."""
+    outcome = claude_judge.judge(job, resume, out_dir, template=template)
+    row = {"posting_id": job["id"], "status": outcome["status"], "meta": outcome.get("meta")}
+    if outcome["status"] != "ran":
+        row.update(valid=False, errors=[f"not run: {outcome['reason']}"], verdict=None, citations=[])
+        return row
+    # The posting it was given is the only id a judgment may name.
+    errors = validator.validate(outcome["result"], resume, {job["id"]}, schema=schema)
+    row.update(valid=not errors, errors=errors, verdict=None, citations=[])
+    try:
+        parsed = json.loads(outcome["result"])
+    except ValueError:
+        return row
+    if isinstance(parsed, dict):
+        # Recorded even when invalid, so a wrong shape and an unsupported quote stay distinguishable.
+        row["verdict"] = parsed.get("verdict")
+        if schema != "baseline":
+            row["failed_check"] = parsed.get("failed_check", "(missing)")
+        if isinstance(parsed.get("citations"), list):
+            row["citations"] = [dict(c, support=validator.support_check(c, job))
+                                for c in parsed["citations"] if isinstance(c, dict)]
+    return row
+
+
+def all_supported(row):
+    return bool(row["citations"]) and all(c["support"] == "supported" for c in row["citations"])
+
+
+FREEZE_SUBJECT = "JS1: freeze revision-1 before held-out"
+FREEZE_LINE = re.compile(r"revision-1 frozen before the held-out evaluation\. prompts/baseline\.md sha256 ([0-9a-f]{64}), "
+                         r"prompts/revision-1\.md sha256 ([0-9a-f]{64})\.")
+
+
+def git(*args):
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
+                          check=True).stdout
+
+
+def frozen_hashes():
+    """The prompt hashes in the freeze commit; refuses if that commit isn't in HEAD's history."""
+    commits = [line.split(" ", 1)[0] for line in git("log", "--format=%H %s", "HEAD").splitlines()
+               if line.split(" ", 1)[1:] == [FREEZE_SUBJECT]]
+    if not commits:
+        raise SystemExit(f"refused: no commit {FREEZE_SUBJECT!r} in git history; freeze the prompts first")
+    doc = git("show", f"{commits[0]}:./experiment/PROMPT-EXPERIMENT.md")
+    match = FREEZE_LINE.search(doc)
+    if not match:
+        raise SystemExit("refused: the freeze commit has no freeze line with both prompt hashes")
+    return commits[0], {"baseline.md": match.group(1), "revision-1.md": match.group(2)}
+
+
+def run_batch(ids, calls, base, prompt, schema, jobs, resume, labels, mode):
+    template = (ROOT / "prompts" / prompt).read_text(encoding="utf-8")
+    requirements = json.loads((ROOT / "data" / "requirements.json").read_text(encoding="utf-8"))
+    rows = []
+    for pid in ids:
+        for n in range(1, calls + 1):
+            out_dir = base / str(pid) / f"call-{n}" if calls > 1 else base
+            row = one_call(jobs[pid], resume, out_dir, template, schema)
+            if schema != "baseline":
+                rule = rules.evaluate(jobs[pid], resume, requirements)
+                row.update(rule_failed_check=rule["failed_check"],
+                           failed_check_agrees=row["valid"] and row.get("failed_check") == rule["failed_check"])
+            row.update(call=n, my_label=labels[pid]["my_label"], my_failed_check=labels[pid]["my_failed_check"],
+                       supported=all_supported(row),
+                       passed=row["valid"] and row["verdict"] == labels[pid]["my_label"])
+            rows.append(row)
+            print(mode, pid, n, row["status"], row["verdict"], "valid" if row["valid"] else row["errors"], flush=True)
+    return {"mode": mode, "prompt": f"prompts/{prompt}", "schema": schema,
+            "seed": SAMPLING_SEED if mode == "sampling" else None,
+            "posting_ids": ids, "calls_per_posting": calls, "rows": rows}
+
+
+def write_result(base, result):
+    base.mkdir(parents=True, exist_ok=True)
+    (base / "results.json").write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n",
+                                       encoding="utf-8", newline="\n")
+
+
+def heldout_run(resume, heldout, labels, jobs):
+    """Both frozen prompts, once each, on the 10 held-out postings. It can only run once."""
+    freeze_commit, hashes = frozen_hashes()
+    for prompt, sealed in hashes.items():
+        if hashlib.sha256((ROOT / "prompts" / prompt).read_bytes()).hexdigest() != sealed:
+            raise SystemExit(f"refused: prompts/{prompt} does not match the hash frozen in {freeze_commit[:7]}")
+    batches = [("baseline-heldout", "baseline.md", "baseline"), ("revision1-heldout", "revision-1.md", "revision-1")]
+    for name, _, _ in batches:
+        if (HERE / "runs" / name).exists():
+            raise SystemExit(f"refused: experiment/runs/{name}/ exists; the held-out evaluation runs once only")
+    for name, _, _ in batches:
+        (HERE / "runs" / name).mkdir(parents=True)  # claimed before any call, so a crash can't be rerun quietly
+    print("freeze commit", freeze_commit, "| heldout_ids.json sealed sha256 verified", flush=True)
+    for name, prompt, schema in batches:
+        result = run_batch(sorted(heldout), 1, HERE / "runs" / name, prompt, schema, jobs, resume, labels, name)
+        result.update(freeze_commit=freeze_commit, prompt_sha256=hashes[prompt])
+        write_result(HERE / "runs" / name, result)
+
+
+def main(mode):
+    resume = load_resume(ROOT / "data" / "resume.example.json")
+    dev, heldout = split()  # refuses a held-out file that doesn't match its sealed sha256
+    labels = hand_labels()
+    jobs = postings()
+    if mode == "heldout":
+        return heldout_run(resume, heldout, labels, jobs)
+
+    prompt, schema = "baseline.md", "baseline"
+    if mode == "sampling":
+        ids, calls, base = sampling_pick(dev, labels), SAMPLING_CALLS, HERE / "sampling"
+    elif mode == "baseline-dev":
+        ids, calls, base = sorted(dev), 1, HERE / "runs" / "baseline-dev"
+    elif mode == "revision1-dev":
+        ids, calls, base = sorted(dev), 1, HERE / "runs" / "revision1-dev"
+        prompt, schema = "revision-1.md", "revision-1"
+    else:
+        raise SystemExit("usage: claude_dev.py sampling | baseline-dev | revision1-dev | heldout")
+    if set(ids) & set(heldout) or not set(ids) <= set(dev):
+        raise SystemExit("refused: only development postings may be sent to Claude")
+    if (base / "results.json").exists():
+        raise SystemExit(f"refused: {base.relative_to(ROOT)}/results.json exists; these calls already ran")
+    write_result(base, run_batch(ids, calls, base, prompt, schema, jobs, resume, labels, mode))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1] if len(sys.argv) > 1 else "")
