@@ -1,0 +1,23 @@
+test_same_id_on_two_boards_is_two_jobs (tests.test_identity.TestJobIdentity.test_same_id_on_two_boards_is_two_jobs) ... FAIL
+test_wv3_bare_id_is_caught (tests.test_identity.TestJobIdentity.test_wv3_bare_id_is_caught) ... ok
+
+======================================================================
+FAIL: test_same_id_on_two_boards_is_two_jobs (tests.test_identity.TestJobIdentity.test_same_id_on_two_boards_is_two_jobs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/salonimathure/info-7375-prompt-engineering-for-generative-ai/fall-2026/saloni-m/js2-loop-tools-diff/tests/test_identity.py", line 41, in test_same_id_on_two_boards_is_two_jobs
+    self.assertEqual(check_same_id_on_two_boards(Loop), [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ["board b's new job 1001 was hidden by board a's job 1001 (reported new: [])"] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+"board b's new job 1001 was hidden by board a's job 1001 (reported new: [])"
+
+- ["board b's new job 1001 was hidden by board a's job 1001 (reported new: [])"]
++ []
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.009s
+
+FAILED (failures=1)

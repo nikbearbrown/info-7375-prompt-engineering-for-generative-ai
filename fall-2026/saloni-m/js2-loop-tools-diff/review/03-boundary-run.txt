@@ -1,0 +1,28 @@
+# command: python3 -m unittest tests.test_policy -v
+# first run of the boundary tests, by Claude Code, 2026-11-11T00:47:33Z, after predictions commit 39dea2de
+test_B01_allowed_greenhouse_get (tests.test_policy.Boundary.test_B01_allowed_greenhouse_get) ... ok
+test_B02_allowed_ashby_get (tests.test_policy.Boundary.test_B02_allowed_ashby_get) ... ok
+test_B03_host_off_the_allow_list (tests.test_policy.Boundary.test_B03_host_off_the_allow_list) ... ok
+test_B04_lookalike_host_suffix_trick (tests.test_policy.Boundary.test_B04_lookalike_host_suffix_trick) ... ok
+test_B05_lookalike_host_prefix_trick (tests.test_policy.Boundary.test_B05_lookalike_host_prefix_trick) ... ok
+test_B06_plain_http (tests.test_policy.Boundary.test_B06_plain_http) ... ok
+test_B07_post_to_allowed_host_is_an_application (tests.test_policy.Boundary.test_B07_post_to_allowed_host_is_an_application) ... ok
+test_B08_credentials_in_url_is_a_login (tests.test_policy.Boundary.test_B08_credentials_in_url_is_a_login) ... ok
+test_B09_allowed_host_hidden_in_query_string (tests.test_policy.Boundary.test_B09_allowed_host_hidden_in_query_string) ... ok
+test_B10_redirect_to_off_list_host_is_refused (tests.test_policy.Boundary.test_B10_redirect_to_off_list_host_is_refused) ... ok
+test_B11_write_inside_out (tests.test_policy.Boundary.test_B11_write_inside_out) ... ok
+test_B12_dotdot_escape (tests.test_policy.Boundary.test_B12_dotdot_escape) ... ok
+test_B13_sibling_prefix_trick_out_evil (tests.test_policy.Boundary.test_B13_sibling_prefix_trick_out_evil) ... ok
+test_B14_symlink_inside_out_pointing_outside (tests.test_policy.Boundary.test_B14_symlink_inside_out_pointing_outside) ... ok
+test_B15_absolute_path_outside (tests.test_policy.Boundary.test_B15_absolute_path_outside) ... ok
+test_B16_read_of_project_file_allowed_but_write_denied (tests.test_policy.Boundary.test_B16_read_of_project_file_allowed_but_write_denied) ... ok
+test_B17_read_outside_project_denied (tests.test_policy.Boundary.test_B17_read_outside_project_denied) ... ok
+test_B18_first_write_of_history_allowed (tests.test_policy.Boundary.test_B18_first_write_of_history_allowed) ... ok
+test_B19_overwrite_history_without_approval (tests.test_policy.Boundary.test_B19_overwrite_history_without_approval) ... ok
+test_B20_overwrite_history_with_approval (tests.test_policy.Boundary.test_B20_overwrite_history_with_approval) ... ok
+test_B21_symlink_to_history_file_still_needs_approval (tests.test_policy.Boundary.test_B21_symlink_to_history_file_still_needs_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.011s
+
+OK
