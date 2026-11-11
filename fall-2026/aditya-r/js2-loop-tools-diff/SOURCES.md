@@ -27,4 +27,6 @@
 | README, SOURCES, `[process log]` entries in FRICTIONAL | Reviews them | Drafted them from the record |
 | Export approval and fresh-extraction check | **Inspected the proposal, wrote the approval record himself (18:37:50 EST), and ran the export without approval, with approval, and repeated; ran `clean_clone_check.sh` at `1019351`** | Built the proposal and export path; supplied the commands; committed his outputs, with one disclosed path redaction |
 | Attempt-deadline fix (`net.py`) after the LIVE run | Asked for the DNS gap to be resolved without weakening the gate | Wrote the tests first (`20c9d05`, failing), the fix (`be5d821`) and 3 mutants; found that headers and the TLS handshake also lacked a total bound |
-| FRICTIONAL `[Aditya]` entries, sign-off, "why it stays mine" | **His alone** | Inserted his FRICTIONAL text verbatim when he supplied it; sign-off and "why" left blank |
+| FRICTIONAL `[Aditya]` entries; sign-off items; final verification and acceptance of the deadline fix | **Wrote the FRICTIONAL entries; dictated the Checked / How / Not checked / Not claiming items; ran the final verification (20:19 EST) and accepted the fix** | Inserted his text verbatim; formatted the sign-off items and added evidence pointers |
+| Driver's-seat "why" column | Named the four responsibilities it rests on | Drafted the sentences at his request |
+| Signature | **His alone** | Nothing |

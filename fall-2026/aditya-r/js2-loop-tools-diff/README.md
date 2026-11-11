@@ -10,7 +10,7 @@ The agent never applies, emails, messages anyone or logs in. It has two network 
 - **Board fetching** (`agent/net.py`, called only through `fetch_board`). This is HTTPS GET to exactly `boards-api.greenhouse.io` and `api.ashbyhq.com`, on the board paths only, with no redirects. It is checked by `policy.check_request` before every dispatch, and it is the only channel the allow-list and the HTTP-attempt budget govern.
 - **Judgments** (`agent/judge.py`, inherited from JS1). This runs the installed Claude Code CLI (`claude -p`) as a subprocess, with a fixed argument list, under Aditya's existing login, with model tools disabled. The CLI talks to Anthropic's service itself. That traffic is **not** governed by the board allow-list: GATE.md §5 authorizes it separately, the 10-call model budget counts it, and each call is bounded by a subprocess timeout of min(20 s, remaining allowance). The agent does not count or inspect the CLI's internal network requests (GATE.md §2).
 
-_This README is technical documentation drafted by Claude Code. The sign-off and the "why it stays mine" column of the driver's seat table are Aditya's to write; they are blank below._
+_This README is technical documentation drafted by Claude Code. Aditya dictated the sign-off items. The driver's-seat "why" column was drafted by Claude from the responsibilities he named. The signature is his._
 
 ## Starting point: JS1, credited (see [`BASELINE.md`](BASELINE.md))
 
@@ -82,6 +82,7 @@ A live run reads and updates the working state `out/state/seen.json`. To start f
 | [`evidence/approval_demo.txt`](evidence/approval_demo.txt), [`approvals/20261110T232115022Z_live.json`](approvals/20261110T232115022Z_live.json), `out/exports/`, `out/approved-shortlists/` | **LIVE**, run by **Aditya**, 18:36:37–18:38:11 EST | Export without approval: **exit 3**. Aditya wrote the approval record himself (`approved_at` 18:37:50 EST, bound to the proposal's sha256 `df370075…`). Export: **exit 0**, and the bytes equal the proposal (`cmp` exit 0). Repeat: **exit 2** (create-only). The approval covers this one local file. It does not change the LIVE run's status. |
 | [`evidence/aditya_clean_clone_check.txt`](evidence/aditya_clean_clone_check.txt) | run by **Aditya**, 18:41:36–18:42:07 EST, at `1019351` | 171 passed; 3/3 + 18/18 mutants caught; checker 24/24; exit 0. This **predates** the `net.py` deadline fix. |
 | [`evidence/net_deadline/`](evidence/net_deadline/) | SYNTHETIC (local servers, stub resolver), Claude Code | Tests committed failing first (`20c9d05`: 4 failed, 3 passed), then the fix (`be5d821`): 7 passed |
+| [`evidence/aditya_final_verification.txt`](evidence/aditya_final_verification.txt) | run by **Aditya**, 20:19:19–20:20:31 EST, at `049e8b5` | Pre-fix deadline tests: 4 failed, 3 passed, exit 1. Fresh extraction: 178 passed; 3/3 + 21/21 mutants caught; checker 24/24; exit 0. **Aditya accepted the deadline fix within its documented limits.** In his words: "I understand that the caller’s wait is bounded, while an underlying blocked DNS resolver thread may continue until the system resolver returns. The tests use local servers and a stubbed resolver; they do not prove behavior under every live-network condition." |
 | `scripts/check_run.py run …live` | independent recomputation | 24/24 checks passed: limits, allow-listed URLs, raw hashes, new ids = raw ids − inherited ids, `meta.total`, null counts, status by precedence, state |
 | [`evidence/finished_wrong/`](evidence/finished_wrong/) ([`DEMO_LOG.md`](evidence/finished_wrong/DEMO_LOG.md)) | **REPLAY** (LIVE Figma bytes) + **SYNTHETIC** (empty board); expectation committed first (`8664385`) | **Finished wrong answer:** the inherited single-board `agent/watch.py` exits **0**, "COMPLETE: 0 new", after 144 postings vanish. The **independent checker** (no `agent/` imports) flags the contradiction from the raw evidence (exit 1). The JS2 loop on the same inputs: suspect-empty, **exit 3**, state unchanged; checker exit 0. |
 | `evidence/boundary/boundary_run.txt` | SYNTHETIC; B7 uses the real HTTP client against two local servers | 30 passed; 20/20 rows observed as predicted |
@@ -97,26 +98,35 @@ See [`review/REVIEW.md`](review/REVIEW.md). Claude flagged the defect with probe
 
 ## Driver's seat
 
+_The "Why" column was drafted by Claude Code at Aditya's request (2026-11-10, about 20:30 EST), from the four responsibilities he named: adopting limits, authorizing actions, deciding whether to accept changes, and signing only claims supported by evidence._
+
 | Part | What Claude did | What Aditya did | Why that part stays Aditya's | Evidence |
 |---|---|---|---|---|
-| Gate (exits, budgets, policy) | Asked the clarifying questions; pointed out the ambiguities | Wrote GATE.md and the six decisions in Addendum 1 | _(Aditya)_ | `8257ffb`, `8a0ef83` |
-| Loop and tools | Wrote the loop, policy, adapters, tests, mutants and checker; ran the live run | Set the limits, the hosts, the deliberate failure and the expected outcome | _(Aditya)_ | `785138a`, `31dd501`; Addendum §6 |
-| Review | Flagged P2, wrote the probes, the patch, the revision and the focused tests | Reproduced it, wrote `test_aditya_total_mismatch.py` and CHANGE_REQUEST.md, ran the checks, decided REVISE then ACCEPT | _(Aditya)_ | `b0e3fb4`, `6d37618`, `9589e64` |
-| Approval of the export | Built the proposal and the export-only path | Inspected the proposal and checked its hash; wrote `approvals/20261110T232115022Z_live.json` himself (18:37:50 EST); ran the export without approval, with approval, and repeated | _(Aditya)_ | `evidence/approval_demo.txt`, `e1a4a69` |
+| Gate (exits, budgets, policy) | Asked the clarifying questions; pointed out the ambiguities | Wrote GATE.md and the six decisions in Addendum 1 | **Adopting limits.** The gate defines what "finished" means and how far the agent may go. Claude could propose limits, but only Aditya could adopt them, and only a new dated decision from him can raise one (GATE.md §2). | `8257ffb`, `8a0ef83` |
+| Loop and tools | Wrote the loop, policy, adapters, tests, mutants and checker; ran the live run | Set the limits, the hosts, the deliberate failure and the expected outcome; accepted the `budget-exhausted` LIVE result without raising a budget; accepted the deadline fix only after his own 20:19 check | **Adopting limits and accepting changes.** Claude wrote the code, but the code is accountable to limits Aditya adopted. Whether its outcome is acceptable, including an incomplete one, is his decision, not the agent's. | `785138a`, `31dd501`; Addendum §6 |
+| Review | Flagged P2, wrote the probes, the patch, the revision and the focused tests | Reproduced it, wrote `test_aditya_total_mismatch.py` and CHANGE_REQUEST.md, ran the checks, decided REVISE then ACCEPT | **Deciding whether to accept changes.** A passing test suite did not settle it: he asked for a revision after round 1 passed, and accepted only after his own final check. | `b0e3fb4`, `6d37618`, `9589e64` |
+| Approval of the export | Built the proposal and the export-only path | Inspected the proposal and checked its hash; wrote `approvals/20261110T232115022Z_live.json` himself (18:37:50 EST); ran the export without approval, with approval, and repeated | **Authorizing actions.** The agent may propose a protected write; only a human may authorize that exact write. The runtime cannot create the approval itself (B14, W11). | `evidence/approval_demo.txt`, `e1a4a69` |
+| Sign-off | Drafted the evidence pointers and formatted the items Aditya dictated | Chose what is checked, not checked and not claimed; signs or withholds | **Signing only claims supported by evidence.** A signature vouches for the claims above it, so each item must point to a record he produced or verified himself. | this section; `evidence/aditya_final_verification.txt` |
 
 ## Sign-off — Job-Search Agent 2
 
-_Unsigned. The candidate items below were drafted by Claude from the evidence. Aditya selects, rewrites and signs, or withholds._
+_The items below are Aditya's: he dictated them in the session on 2026-11-10 (about 20:30 EST). Claude Code formatted them and added the evidence pointers in brackets. The signature line is Aditya's to complete._
 
-- **Checked:** _(Aditya. Candidates: `tests/test_aditya_total_mismatch.py`, his own test, written before the patch and failing pre-patch at `b0e3fb4`; his final check `review/aditya_final_check.txt`)_
-- **How:** _(Aditya: by hand / by a test he wrote before reading Claude's code / by recomputation / with Claude's help)_
-- **Not checked** (candidates from the record):
-  1. a real 5xx, timeout or redirect from a live board (only SYNTHETIC or local);
-  2. whether the 79 pending Databricks postings, 4 of them RECORD-relevant, are relevant by JUDGMENT;
-  3. behavior across days or schema changes on Ashby (the `id` field is an observed dependency, not documented);
-  4. filesystem races; the attempt deadline against a real slow DNS server or a real slow TLS peer (tested only locally);
-  5. whether the free-text `explanation` sentences are true.
-- **Not claiming:** _(Aditya)_
+- **Checked:**
+  - my recorded regression runs [`review/prepatch_failure.txt`, `review/aditya_postpatch_run.txt`, `review/aditya_final_check.txt`];
+  - the approval demonstration [`evidence/approval_demo.txt`, 18:36:37–18:38:11 EST];
+  - the fresh-extraction checks [`evidence/aditya_clean_clone_check.txt` at `1019351`; `evidence/aditya_final_verification.txt` at `049e8b5`];
+  - the deadline tests [pre-fix at `20c9d05`: 4 failed, 3 passed, exit 1; current: passing];
+  - the mutation checks [3/3 inherited, 21/21 JS2];
+  - verification of the saved evidence [independent checker: no contradiction found across 24 checks].
+- **How:** I personally executed the commands.
+- **Not checked:**
+  1. arbitrary live-network deadline failures;
+  2. judgments for the 79 pending postings;
+  3. behavior across multiple live days and future schema changes;
+  4. the truth of all free-text explanations;
+  5. complete protection against filesystem races.
+- **Not claiming:** universal correctness, OS-level isolation, completed evaluation of every posting, or independent authorship of AI-produced work.
 - **Signed or withheld:** ____________ _(name, date)_
 
 ## Privacy
