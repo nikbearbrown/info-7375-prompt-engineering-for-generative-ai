@@ -1,123 +1,55 @@
 # FRICTIONAL — honest log
 
-I started JS2 thinking the hard part would be the loop. It wasn't. Claude Code wrote the loop, the policy and the verifier in well under
-an hour. The hard parts were deciding the rules before any code existed, and then checking whether "green" and "finished" actually
-meant true. Several of the most useful lessons came from things going wrong: a "finished" run that was wrong, a test that checked the
-wrong thing, output files labeled "after the patch" that were really from before it, and a claim about my own JS1 code that turned
-out to be false. This log records those moments, with the commits, prompts and tests behind them.
+I started the JS2 assignment by writing the Gate.md file first. I decided the exits, budgets, repeat rule, error policy, permission policy, and wrong versions in Gate.md, with Claude Code drafting the wording, before any code existed.
+
+That turned out to be one of the hard parts. The other was checking whether “green” and “finished” actually meant what they seemed to. A lot of what I learned came from things going wrong. I had a run marked “finished” that was wrong, a test that was checking the wrong thing, and output files labeled “after the patch” that were really from before it. Claude even made a claim about my own JS1 code. This log goes through each of those moments along with the commits, prompts, and tests behind them.
 
 ## 1. Starting point and the Oct 31 baseline
+My JS1 folder was never a git repository, and that mattered because JS2 is graded on order: the gate has to come before the code, and the test has to come before the patch. So I set up a new local repo, and in the first commit (09b1056) I copied over exactly what JS2 builds on and nothing more.
 
-My JS1 folder was not a git repository, but JS2 is graded on order: the gate before code, the test before the patch. So I started a
-new local repo, and the first commit (`09b1056`) copied exactly what JS2 builds on. My JS1 feedback asked for a real second-day run and
-for evidence of every run I cite. The JS1 state file still held all 323 Samsara ids from the live run on 2026-10-31, so I copied it and
-its raw response into `baseline/2026-10-31/` with sha256s. Claude Code checked that the 323 ids in the state are exactly the 323 jobs
-in the raw file. That baseline gave Samsara a real Oct 31 → Nov 10 comparison, which JS1 never had. On 2026-11-10 I said "Yes do the
-local things , do not do anything on github as of now", and later "Save the commits locally and then in the end when everything is
-done, I will tell you to push it on Github together", so every step was committed locally and nothing was pushed until I said so.
+The feedback on JS1 asked for two things: a real second-day run, and evidence for every run I cite. Luckily, the JS1 state file still had all 323 Samsara ids from the live run on 2026-10-31. I copied that file and its raw response into a baseline folder along with their sha256s, and had Claude Code confirm that the 323 ids in the state matched the 323 jobs in the raw file exactly. With that baseline in place, I finally had a genuine comparison for Samsara between Oct 31 and Nov 10, which JS1 never had.
+
 
 ## 2. Writing the gate before any code
 
-GATE.md went through several versions before any code existed (`82f02cb` … `6cc9e07`). Claude Code drafted the wording from my
-decisions, and each re-read turned up a real gap. The seeded run's temporary folder broke the "write only inside `out/`" rule. No live
-run could ever end `finished` while the deliberate 404 board was in it. A board with no history would have passed the verifier. And
-"judge off" would have counted as a missing judgment, which would have made every run incomplete. Each of these was fixed in the gate,
-with a written reason, before the tests or the code were written.
+Gate.md went through several versions before any code existed, from commit 82f02cb through 6cc9e07. I made the decisions and Claude Code drafted the wording, and every time I re-read it I found a real gap. The seeded run’s temporary folder broke the rule about writing only inside the output folder, no live run could ever end as “finished” while the deliberate 404 board was part of it, a board with no history would have passed the verifier, and turning the judge off would have counted as a missing judgment, which would have made every single run incomplete. I fixed each of these in the gate itself, with a written reason for the change, before writing any tests or code.
 
 ## 3. Making the gate mine
 
-I wanted the gate in my own format, so on 2026-11-10 I pasted an example and said "ONly refer this format . Write my content in this
-format." (`2b75002`). After reading that version I made my own edit and removed the checked-facts list and one rule from Scope
-(`a67bdbf`). That broke a reference in the review-packet paragraph, which still pointed to "the defect above", and it had to be fixed
-in the next version. I also asked for that commit's message to read "Changes made in Gate.md based on v2.0" instead of Claude's
-wording, which rewrote local history before any push; Claude kept the content identical and checked it. After the code existed, I went
-through the gate again section by section and cut text that repeated other files or described implementation (`b30ee67`, "Minor
-Changes made in Gate.md"). The tests that read the gate still passed, and no exit, budget, retry rule, permission rule or wrong version
-changed, so I logged it as a wording-only version.
+I wanted the gate written in my own format, so on 2026-11-10 I pasted an example and told Claude Code "ONly refer this format . Write my content in this format." (2b75002). After reading that version, I made an edit of my own and removed the checked-facts list along with one rule from Scope (a67bdbf). That ended up breaking a reference in the review-packet paragraph, which still pointed to "the defect above", so it had to be fixed in the next version. I also asked for that commit's message to say "Changes made in Gate.md based on v2.0" instead of the wording Claude had used, which meant rewriting local history before anything was pushed, and Claude kept the content identical and checked that it matched. Once the code existed, I went back through the gate section by section and cut any text that repeated other files or described implementation details (b30ee67, "Minor Changes made in Gate.md"). The tests that read the gate still passed, and none of the exits, budgets, retry rules, permission rules or wrong versions changed, so I logged it as a wording-only version.
 
 ## 4. A claim about my own code that turned out wrong
 
-In Claude's first breakdown of the assignment on 2026-11-09, it said my JS1 `fetch.py` had a redirect gap. When it actually read the
-code, JS1 already checked every redirect hop with `AllowListRedirectHandler`. Probing `check_url` offline instead found a real defect:
-it accepted `:8443` and `user:pw@` on an allowed host, because it compared only the hostname. That became my review packet. It also
-taught me not to trust a confident description of code that nobody has opened yet.
+When Claude first broke down the assignment on 2026-11-09, it told me my JS1 fetch.py had a redirect gap. Once it actually read the code, though, it turned out JS1 was already checking every redirect hop with AllowListRedirectHandler. So instead I had it probe check_url offline, and that found a real defect: it accepted :8443 and user:pw@ on an allowed host, because it was only comparing the hostname. That defect became my review packet. It also taught me not to trust a confident description of code that nobody has actually opened yet.
 
 ## 5. Choosing the boards
 
-For the second system I asked "Which is the best option?" between Lever and Ashby, and then "yes use what is best". A read-only probe
-showed that Lever returns a bare JSON array, while Greenhouse and Ashby both return an object with `jobs`, so I chose Lever because the
-different shape makes the adapter and the shape rule mean something. The same probe found that `plaid` now returns 404 on Lever, and
-that `kraken`, `wealthsimple` and `voleon` return `200 []`. Then I asked "can you include 10 boards in total?", which meant raising the
-budgets (boards 5→12, requests 60→100, time 300→420 s, loop steps 100→200) through a dated decision in the gate (`30e0f56`). I nearly
-swapped Kraken for Airbnb and said "Do what you think is best in adding Kraken or changing to Airbnb". Claude Code checked Kraken's
-Ashby board and found 92 postings, so Kraken's empty Lever board was provably wrong rather than just suspicious, and it stayed
-(`6cc9e07`). Kraken also exposed a hole: a board seen for the first time has no history, so the verifier would have passed it. The gate
-now fails every empty board, and wrong version 19 tests exactly that.
+For the second system, I asked Claude Code "Which is the best option?" between Lever and Ashby, and then told it "yes use what is best". A read-only probe showed that Lever returns a bare JSON array, while Greenhouse and Ashby both return an object containing jobs, so I went with Lever because that different shape is what makes the adapter and the shape rule actually mean something. The same probe also found that plaid now returns 404 on Lever, and that kraken, wealthsimple and voleon all return 200 with an empty list. I then asked "can you include 10 boards in total?", which meant raising the budgets through a dated decision in the gate (30e0f56): boards went from 5 to 12, requests from 60 to 100, time from 300 to 420 seconds, and loop steps from 100 to 200. At one point I nearly swapped Kraken for Airbnb and said "Do what you think is best in adding Kraken or changing to Airbnb". Claude Code checked Kraken's Ashby board and found 92 postings there, which proved Kraken's empty Lever board was wrong rather than just suspicious, so Kraken stayed (6cc9e07). Kraken also exposed a hole in my rules: a board seen for the first time has no history, so the verifier would have let it pass. The gate now fails every empty board, and wrong version 19 tests exactly that.
 
 ## 6. Tests first, then the build
 
-On 2026-11-10 I said "make everything that is left to be done now" and then "except the submission part , build everything". The first
-code commit was tests only (`e51d208`): the 18 boundary predictions and the 19 wrong-version tests, written before `policy.py` existed.
-Against no code they gave 113 tests with 21 failures and 38 errors. Three JS1 tests encoded JS1's contract, a Greenhouse-only allow-list
-and a single board, which my gate changes on purpose, so they were updated to the new rules without getting looser. After the build
-(`6c82b59`), only 5 failures were left, and all of them were the inherited defect in wrong version 4 and boundary cases B03 and B04.
-That was exactly what the boundary table predicted before any code existed.
+On 2026-11-10 I told Claude Code "make everything that is left to be done now", and then "except the submission part , build everything". The first code commit (e51d208) was tests only: the 18 boundary predictions and the 19 wrong-version tests, all written before policy.py even existed. Run against no code, they gave 113 tests with 21 failures and 38 errors. Three of the JS1 tests were built around JS1's contract, which was a Greenhouse-only allow-list and a single board, and my gate changes both of those on purpose, so Claude Code updated those tests to the new rules without making them any looser. After the build (6c82b59), only 5 failures were left, and every one of them came from the inherited defect, showing up in wrong version 4 and in boundary cases B03 and B04. That was exactly what the boundary table had predicted before any code was written.
 
 ## 7. A test that checked the wrong thing
 
-One test was wrong, not the code. `test_reset_state_needs_approval` compared the board's `last_run` field, which the gate expects to
-change, because a run still updates the boards it observed. It was corrected in `6c82b59` to check what actually matters: that the
-refused reset didn't happen, so the board was still compared with the old state and reported only the one new id. The commit message
-says the test was corrected and why. It was a reminder that a red test is not automatically right, any more than a green one is.
+One of the failures turned out to be the test's fault, not the code's. test_reset_state_needs_approval was comparing the board's last_run field, but the gate expects that field to change, because a run still updates the boards it observed. Claude Code corrected it in 6c82b59 so it checks what actually matters: that the refused reset never happened, which meant the board was still compared against the old state and reported only the one new id. The commit message says the test was corrected and explains why. It reminded me that a red test isn't automatically right, any more than a green one is.
 
 ## 8. The review packet
 
-The defect was reproduced first, in a commit that changed no code (`58ce031`), showing three URLs wrongly allowed. The patch came after
-it (`afb3877`): nine lines added to `check_url` and nothing removed. I asked "Why am i supposeed to run this git show afb3877 --
-jsagent/fetch.py", and the answer is the point of Chapter 6: I check the change itself, not Claude's summary of it. On 2026-11-10 at
-17:31 EST I ran `git show` and `git show --stat` on the patch, the reproduction script, the full test suite, the sabotage check, the
-boundary report, the verifier on runs A, B and D, and a search of run A's trace, and every result matched (`5b3bd32`). I noticed that
-the test run prints a `usage: … error:` message that looks like a failure, but it is a passing test showing that the loop refuses an
-unlabeled seeded replay. My decision was Accept (`2cb9ddb`), knowing the patch does not cover a proxy set in the environment.
+Claude Code reproduced the defect first, at my direction, in a commit that changed no code at all (58ce031), and it showed three URLs being wrongly allowed. The patch came after that (afb3877): nine lines added to check_url and nothing removed. At one point I asked "Why am i supposeed to run this git show afb3877 -- jsagent/fetch.py", and the answer is really the whole point of Chapter 6: I check the change itself, not Claude's summary of it. On 2026-11-10 at 17:31 EST, I ran git show and git show --stat on the patch, then the reproduction script, the full test suite, the sabotage check, the boundary report, the verifier on runs A, B and D, and a search through run A's trace, and every result matched (5b3bd32). I did notice that the test run prints a "usage: … error:" message that looks like a failure, but it's actually a passing test showing that the loop refuses an unlabeled seeded replay. My decision was to Accept (2cb9ddb), knowing the patch doesn't cover a proxy set in the environment.
 
 ## 9. Output that would have been false evidence
 
-Twice, Claude's edit tool silently didn't apply, because it refuses to change a file it hasn't read in the session. The first time,
-Claude went on to save "after the patch" outputs that were really unpatched results. It noticed, deleted those four untracked files
-before any commit, and redid the step. The second time, the sabotage check ran JS1's old script, and that output was overwritten before
-it was committed. If nobody had read the output, those files would have been false evidence in the review packet. The lesson I take
-from it is to read the output, not just the exit code.
+Twice during the build, Claude's edit tool quietly failed to apply a change, because it refuses to edit a file it hasn't read earlier in the session. The first time, Claude went ahead and saved "after the patch" outputs that were really unpatched results. It caught the mistake, deleted those four untracked files before anything was committed, and redid the step. The second time, the sabotage check ended up running JS1's old script, and that output was overwritten before it got committed. If nobody had actually read the output, those files would have gone into the review packet as false evidence. The lesson I take from this is to read the output itself, not just the exit code.
 
 ## 10. The runs and the finished-wrong answer
 
-All four runs were on 2026-11-10 with `--no-claude`, and Claude Code ran them. Run A, with all ten boards, ended `incomplete`: the 404
-board was tried once, not retried, and its count was left null instead of zero. Samsara had 314 postings against 323 on Oct 31, with 80
-new and 89 gone, and none of the 80 had a data title. That surprised me, so Claude Code rechecked the raw file with a broader match than
-my rule uses and still found none. Run B, with nine boards, ended `finished`, but Kraken was reported as 0 new; the verifier failed it
-as empty, and the Ashby cross-check, run by Claude Code outside the agent 26 seconds later, showed 92 postings. That was the live
-finished-wrong answer. Run C, the seeded replay, and run D, the clean eight-board run that ended `finished` with the verifier passing,
-both behaved as the gate predicted.
+All four runs happened on 2026-11-10 with the --no-claude flag, and Claude Code ran them. Run A covered all ten boards and ended as "incomplete": the 404 board was tried once and not retried, and its count was left as null instead of zero. Samsara had 314 postings compared to 323 on Oct 31, with 80 new and 89 gone, and none of the 80 new ones had a data title. That surprised me, so I had Claude Code recheck the raw file using a broader match than my rule uses, and it still found none. Run B covered nine boards and ended as "finished", but it reported Kraken as having 0 new postings. The verifier failed it as empty, and the Ashby cross-check, which Claude Code ran outside the agent 26 seconds later, showed 92 postings. That was the live case of a run that finished but gave the wrong answer. Run C, the seeded replay, and run D, the clean eight-board run that ended as "finished" with the verifier passing, both behaved exactly as the gate predicted.
 
 ## 11. What I accepted, changed and rejected
 
-I rejected `evidence/PROMPTS.md` when I asked "where is it mentioned that there should be a PROMPTS.md?" and had it removed (`f9d6e4d`)
-with "Don't add unnecessary useless things". I also rejected Claude's commit message for my own gate edit, the checked-facts list it had
-put in the gate's Scope, its listing of the AI policy as an assignment task, its suggestion that I make the commits myself, and the
-option to "Revise" the review, since the proxy gap is a separate defect rather than a flaw in this patch. I changed the number of boards
-from four to ten, put the gate in my own format, had the driver's seat rewritten in the brief's "should" form, and had RUNS.md, the
-sign-off and the gate reworded where they claimed I had done something I hadn't. I accepted Lever over Ashby after seeing the response
-shapes, Kraken over Airbnb after the 92 Ashby postings, the judge being off for graded runs because JS2 grades the loop rather than
-relevance, and the review patch after my own reruns.
+I rejected the PROMPTS.md file Claude had added to the evidence. I asked "where is it mentioned that there should be a PROMPTS.md?" and had it removed (f9d6e4d), saying "Don't add unnecessary useless things". I also rejected Claude's commit message for my own gate edit, the checked-facts list it had put in the gate's Scope, the way it listed the AI policy as one of the assignment tasks, its suggestion that I make the commits myself, and the option to "Revise" the review, since the proxy gap is a separate defect and not a flaw in this patch. Some things I changed outright: I raised the number of boards from four to ten, put the gate in my own format, had the driver's seat rewritten in the "should" form the brief uses, and had RUNS.md, the sign-off and the gate reworded wherever they claimed I had done something I hadn't actually done. Other things I accepted after checking them: Lever over Ashby once I saw the response shapes, Kraken over Airbnb after the 92 Ashby postings turned up, keeping the judge off for graded runs because JS2 grades the loop rather than relevance, and the review patch after running everything again myself.
 
 ## 12. What I learned, traceability, and what is still open
 
-The biggest lesson is that "finished" is not "right": run B ended cleanly with a wrong answer, and only a check outside the loop caught
-it. I also learned to read output instead of trusting exit codes, that a test can be wrong as easily as code, and that re-reading the
-gate before any code is cheaper than finding the same gaps later. The prompts I quoted above are from 2026-11-09 for the first breakdown
-and 2026-11-10 for the rest. The commits run from `09b1056` (start) through `6cc9e07` (the final gate), `e51d208` (tests first),
-`6c82b59` (build), `58ce031` and `afb3877` (the review), `2dfc3b1` (sabotage), `024c1f7` (runs), and my own `5b3bd32`, `2cb9ddb`,
-`75c7368` and `b30ee67`. The tests are the full suite of 113, `test_W1` to `test_W19`, the boundary cases B01 to B18, and
-`scripts/sabotage_check.py`, which catches all 19 wrong versions. Still open: a proxy set in the environment would route an allowed URL
-through a host that isn't on the list; there is a window between the path check and the write; boards 2–9 were only compared on the same
-day; the rule judge never ran on a live posting; no live retry, redirect or 429 happened; the verifier trusts earlier reports' lists of
-unjudged ids; and I didn't read each site's terms of use in full.
+The biggest lesson for me is that "finished" doesn't mean "right": run B ended cleanly with a wrong answer, and only a check outside the loop caught it. I also learned to read the output instead of trusting exit codes, that a test can be wrong just as easily as the code, and that re-reading the gate before writing any code is much cheaper than finding the same gaps later. The prompts I quoted above are from 2026-11-09 for the first breakdown and from 2026-11-10 for everything after. The commits run from 09b1056 at the start through 6cc9e07 for the final gate, then e51d208 for the tests written first, 6c82b59 for the build, 58ce031 and afb3877 for the review, 2dfc3b1 for the sabotage check, 024c1f7 for the runs, and my own commits 5b3bd32, 2cb9ddb, 75c7368 and b30ee67. The tests are the full suite of 113, including test_W1 through test_W19 and boundary cases B01 through B18, along with the sabotage_check.py script, which catches all 19 wrong versions. A few things are still open. A proxy set in the environment could route an allowed URL through a host that isn't on the list, and there's a window between the path check and the write. Boards 2 through 9 were only compared on the same day, the rule judge never ran on a live posting, and no live retry, redirect or 429 ever happened. The verifier also trusts the lists of unjudged ids from earlier reports, and I didn't read each site's terms of use in full.
