@@ -23,7 +23,8 @@
 - Ran the review commands myself and **accepted** the patch (2026-11-10, `REVIEW-PACKET.md`).
 - Ran `approve` on the real run myself (`runs/2026-11-11T00-24-30Z-real/approval.json`).
 - Signed the sign-off (2026-11-10).
-- _Pending:_ approving or changing the checker floors; editing FRICTIONAL into my own words.
+- Approved the checker floors in `config/expected-boards.json` (2026-11-10).
+- Reviewed and edited `FRICTIONAL.md` myself (2026-11-10).
 
 ## What Claude Code contributed (Claude Opus 5.5, in my Claude Code session, 2026-11-05 and 2026-11-10)
 
