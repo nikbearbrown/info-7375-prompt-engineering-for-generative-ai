@@ -19,6 +19,20 @@ def _load(rel):
     return json.loads(policy.read_text(ROOT, rel))
 
 
+def _replay_fetch(mapping: dict):
+    """SEEDED mode: serve saved bytes instead of the network. Labeled in the run id and report."""
+    from . import boards
+    files = {boards.board_url(*k.split("/", 1)): v for k, v in mapping["responses"].items()}
+
+    def fetch(url, timeout):
+        policy.check_url(url)
+        if url not in files:
+            raise net.NetError(f"seeded run has no response for {url}")
+        f = files[url]
+        return f["status"], policy.authorize(ROOT, f["file"], "read").read_bytes()
+    return fetch
+
+
 def cmd_run(a) -> int:
     run_id = a.run_id or dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ") + (f"-{a.label}" if a.label else "")
     try:
@@ -29,7 +43,14 @@ def cmd_run(a) -> int:
             seen = _load("state/seen-ids.json")
         except FileNotFoundError:
             seen = {}
-        s = loop.run(str(ROOT), run_id, plan, budget, persona, seen, fetch=net.fetch)
+        fetch = net.fetch
+        if a.replay:
+            fetch = _replay_fetch(_load(a.replay))
+        s = loop.run(str(ROOT), run_id, plan, budget, persona, seen, fetch=fetch)
+        if a.replay:  # label the seeded run inside its own report, first line
+            rep = ROOT / f"runs/{run_id}/report.md"
+            policy.write_text(ROOT, f"runs/{run_id}/report.md",
+                              f"SEEDED RUN (no network): every response replayed from files listed in {a.replay}\n" + rep.read_text(), run_id=run_id)
     except (loop.RunError, policy.PolicyError, json.JSONDecodeError, FileNotFoundError, KeyError) as e:
         msg = f"run-level error: {e}"
         try:
@@ -86,6 +107,7 @@ def main(argv=None) -> int:
     r.add_argument("--persona", default="persona/priya-nair.resume.json")
     r.add_argument("--run-id")
     r.add_argument("--label", help="suffix for the run id, e.g. finished-wrong")
+    r.add_argument("--replay", help="SEEDED run: config/replay/<file>.json mapping boards to saved responses (no network)")
     ap = sub.add_parser("approve")
     ap.add_argument("run_id")
     ap.add_argument("--approve-state", required=True, help="must equal the run id exactly")

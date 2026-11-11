@@ -1,0 +1,13 @@
+NEEDS MAYANK: none from the loop (run checker/check.py next)
+
+# Run 2026-11-11T00-26-09Z-empty-board-live
+
+**Exit: `finished`.** This says how the loop ended, not whether any answer is right. The independent check is `checker/check.py`.
+
+Requests 3 · seconds 2.286 · boards attempted 3 · budget hit: none
+
+| Board | Result | Postings | New | Relevant new | Note |
+|---|---|---|---|---|---|
+| greenhouse/anthropic | ok | 679 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| ashby/greenlight | ok | 0 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| ashby/notion | ok | 156 | 0 | 0 | baseline (first time seen: nothing reported as new) |

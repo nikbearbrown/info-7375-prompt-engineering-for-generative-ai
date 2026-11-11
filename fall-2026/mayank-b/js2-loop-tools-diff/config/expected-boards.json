@@ -1,12 +1,31 @@
 {
-  "_source": "Floors for the independent checker (GATE §5b). Each floor needs a named source; with no source the floor is null ('unknown') and is never guessed.",
+  "_source": "Floors for the independent checker (GATE \u00a75b). Each floor needs a named source; with no source the floor is null ('unknown') and is never guessed.",
   "_status": "PROPOSED by Claude Code 2026-11-10 from the sources below; approval by Mayank Bhadrasen: PENDING",
   "drop_threshold": 0.8,
   "boards": {
-    "greenhouse/anthropic": {"floor": 100, "source": "Lectern ATS.md 2026-09-26: 618 postings; my JS1 run 2026-10-30: 670 postings. A floor far below any count seen."},
-    "greenhouse/hubspotjobs": {"floor": 20, "source": "Lectern ATS.md 2026-09-26: 133 postings"},
-    "greenhouse/hubspot": {"floor": 20, "source": "This slug stands for HubSpot, which posted 133 jobs at hubspotjobs (Lectern ATS.md 2026-09-26). Any 'HubSpot' board under 20 is implausible."},
-    "ashby/notion": {"floor": 20, "source": "Lectern ATS.md 2026-09-26: 128 postings"},
-    "greenhouse/mayank-js2-no-such-board": {"floor": null, "source": "unknown: a deliberately invalid board; no count exists"}
+    "greenhouse/anthropic": {
+      "floor": 100,
+      "source": "Lectern ATS.md 2026-09-26: 618 postings; my JS1 run 2026-10-30: 670 postings. A floor far below any count seen."
+    },
+    "greenhouse/hubspotjobs": {
+      "floor": 20,
+      "source": "Lectern ATS.md 2026-09-26: 133 postings"
+    },
+    "greenhouse/hubspot": {
+      "floor": 20,
+      "source": "This slug stands for HubSpot, which posted 133 jobs at hubspotjobs (Lectern ATS.md 2026-09-26). Any 'HubSpot' board under 20 is implausible."
+    },
+    "ashby/notion": {
+      "floor": 20,
+      "source": "Lectern ATS.md 2026-09-26: 128 postings"
+    },
+    "greenhouse/mayank-js2-no-such-board": {
+      "floor": null,
+      "source": "unknown: a deliberately invalid board; no count exists"
+    },
+    "ashby/greenlight": {
+      "floor": null,
+      "source": "unknown: no posting count exists for this slug; the checker's 0-postings rule applies regardless of floor"
+    }
   }
 }

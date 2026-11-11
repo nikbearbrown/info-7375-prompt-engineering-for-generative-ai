@@ -1,0 +1,58 @@
+{
+ "run_id": "2026-11-11T00-24-30Z-real",
+ "checker": "checker/check.py (does not import the agent)",
+ "agent_exit": "incomplete",
+ "needs_mayank": [
+  "greenhouse/mayank-js2-no-such-board"
+ ],
+ "boards": {
+  "greenhouse/anthropic": {
+   "verdict": "ok",
+   "reason": "679 postings, floor 100",
+   "raw_file": "greenhouse__anthropic__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 679,
+   "floor": 100,
+   "floor_source": "Lectern ATS.md 2026-09-26: 618 postings; my JS1 run 2026-10-30: 670 postings. A floor far below any count seen.",
+   "previous": null,
+   "previous_run": null,
+   "agent_claimed": "ok, 679 postings, 0 new (baseline)"
+  },
+  "greenhouse/hubspotjobs": {
+   "verdict": "ok",
+   "reason": "122 postings, floor 20",
+   "raw_file": "greenhouse__hubspotjobs__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 122,
+   "floor": 20,
+   "floor_source": "Lectern ATS.md 2026-09-26: 133 postings",
+   "previous": null,
+   "previous_run": null,
+   "agent_claimed": "ok, 122 postings, 0 new (baseline)"
+  },
+  "ashby/notion": {
+   "verdict": "ok",
+   "reason": "156 postings, floor 20",
+   "raw_file": "ashby__notion__a1__200.json",
+   "http": 200,
+   "postings_in_raw": 156,
+   "floor": 20,
+   "floor_source": "Lectern ATS.md 2026-09-26: 128 postings",
+   "previous": null,
+   "previous_run": null,
+   "agent_claimed": "ok, 156 postings, 0 new (baseline)"
+  },
+  "greenhouse/mayank-js2-no-such-board": {
+   "verdict": "error-response",
+   "reason": "HTTP 404, body is not a job list",
+   "raw_file": "greenhouse__mayank-js2-no-such-board__a1__404.json",
+   "http": 404,
+   "postings_in_raw": null,
+   "floor": null,
+   "floor_source": "unknown: a deliberately invalid board; no count exists",
+   "previous": null,
+   "previous_run": null,
+   "agent_claimed": "error: http-4xx"
+  }
+ }
+}
