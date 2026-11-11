@@ -1,5 +1,5 @@
 # GATE.md — Job-Search Agent 2
-Anisha Gaikar · 2026-11-09 · Written **before Claude Code touched any code**.
+Anisha Gaikar · 2026-11-09 · Written **before any code in this folder**. (Before this gate, Claude Code on my Mac made a separate draft in another folder; I discarded it, and none of it is used here. Line clarified 2026-11-10.)
 The decisions in this file are mine. ChatGPT drafted the wording of my answers on 2026-11-09. I read each one, changed some, and chose what to keep before any code was written. I gave them to Claude in chat, and Claude copied them into this file unchanged.
 [Attribution corrected 2026-11-09 ~3:35 pm. The first version of this line, in commit cdc62ba, said the words were all mine; that was not accurate. Nothing else in this file was changed.] Anything in [square brackets] is a note added for clarity, not a change to my answer.
 

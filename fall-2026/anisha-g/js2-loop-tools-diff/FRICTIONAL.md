@@ -87,3 +87,5 @@ The push was rejected once because classmates had pushed; `git pull --rebase` fi
 - Old snapshots that were already wiped by the old code stay wiped, so an old posting can be flagged as new one more time.
 - The seen set now grows forever, with no limit.
 - No real timeout, blank body or redirect happened live; those paths were tested only with fakes.
+
+**~10:01 pm** — I wrote my explanation of the parser gap in my own words (REVIEW-PACKET.md §8).

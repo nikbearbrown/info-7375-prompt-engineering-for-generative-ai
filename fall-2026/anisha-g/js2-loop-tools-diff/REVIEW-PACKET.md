@@ -51,3 +51,11 @@ What I looked at myself, on my Mac, before deciding:
 A state snapshot written by the **old** code may already have lost its ids, for example after an empty run before this patch. The fix keeps the history it *loads*, but it can't bring back ids that were already erased. So one old posting could still be flagged as new one more time. My test starts from a clean state, so it can't see this. Two other gaps:
 - Nothing checks the saved snapshot file itself; the test only checks the "new" lists.
 - The seen set now grows forever, with no limit.
+
+## 8. A second finding: the Lever parser gap (logs 17, 24, 25)
+**The finding:** a deliberately wrong Lever parser (`wrong_versions/lever_reads_nothing`) reported Palantir as "ok, 0 jobs".
+- **Every unit test passed** on it.
+- **Only the independent check caught it** (`logs/17`).
+- **Who found it and what was added:** Claude Code pointed this out in its final review. Claude then added `tests/test_parsers.py` **after** the code. It fails on that wrong version (`logs/24`, `FAILED (failures=1)`) and passes on the real code (`logs/25`, 70/70).
+
+**(my own words)** The earlier loop test expected zero new jobs because the Lever posting was already in the seen list. The broken parser dropped the posting entirely and still produced zero new jobs, so the test passed. The new parser test checks the exact IDs and titles, which is why it catches the broken parser in log 24. The independent recount checks a real run: in log 17, the watcher reported zero jobs even though the saved Lever response contained 304.

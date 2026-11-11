@@ -36,7 +36,9 @@ python3 watch.py run --boards boards-demo.json --wrong lever_reads_nothing   # f
 | `8be479f` | 11-10 21:30 | The fixes: 64/64 pass |
 | `d3f9778` | 11-10 21:31 | **Live runs** 1 and 2, and the **finished-wrong demos** with their independent checks (`logs/10`–`17`) |
 | `21451f2` | 11-10 21:34 | Review packet: **the defect reproduced**, with the test failing before the patch (`logs/20`) |
-| (final commit) | 11-10 | Review packet: the Claude Code patch accepted, 66/66 pass (`logs/21`–`23`); Lever/Greenhouse parser tests added after a final review (`logs/24`, 70/70); the write-ups |
+| `c30d5b2` + final fix | 11-10 21:49 | Review packet: the Claude Code patch accepted, 66/66 pass (`logs/21`–`23`); Lever/Greenhouse parser tests added after a final review (`logs/24`, 70/70); the write-ups |
+
+**Note for TAs:** `shasum -a 256 -c tests.frozen.sha256` shows **PREDICTIONS.md: FAILED on purpose**. That file's authorship line was corrected after the freeze (FRICTIONAL ~3:35 pm); every test file still says OK (`logs/01`).
 
 `tests.frozen.sha256` and `tests.review-fixes.frozen.sha256` prove the tests weren't edited after they were frozen (`logs/01`). PREDICTIONS.md was changed once afterwards, for the authorship correction only; its original hash is kept in the frozen manifest.
 
