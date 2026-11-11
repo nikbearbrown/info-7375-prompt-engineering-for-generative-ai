@@ -47,8 +47,9 @@ Not claiming: that the agent finds every new job (only these three boards, only 
 Signed or withheld: ____________ (name, date)
 ```
 
-Open item for my decision: **B21**. The code asks for approval when an alias (symlink) points at
-the history file; I predicted deny. Not changed.
+**B21**: I predicted deny; the code asks for approval when an alias (symlink) points at the
+history file. I decided to keep needs approval: the alias cannot bypass the approval, and the
+underlying write is still the protected one (BOUNDARY-TESTS.md).
 
 GATE.md §8 (exits, "empty unexpectedly", job identity) was drafted by Claude Code. Signing
 above confirms it as mine.

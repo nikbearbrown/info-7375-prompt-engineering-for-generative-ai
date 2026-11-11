@@ -46,6 +46,11 @@ differences are listed here rather than hidden by changing either side.
 | # | Predicted | Code does | Which is right, by GATE.md | Status |
 |---|---|---|---|---|
 | B03 | allow ("Approved Lever host") | deny | **The code.** GATE §5 approves only `boards-api.greenhouse.io` and `api.ashbyhq.com`. Lever was in example option 1B, which Saloni did not choose. The prediction remembered the option menu, not the decision. | prediction wrong; policy unchanged |
-| B21 | deny | needs approval | **Both meet the rule** "must not bypass the approval requirement": `realpath` resolves the alias to the history file, so the approval check fires. Deny would be stricter (no alias can ever write history, even approved). | open: Saloni to decide whether to tighten; not changed tonight |
+| B21 | deny | needs approval | **Both meet the rule** "must not bypass the approval requirement": `realpath` resolves the alias to the history file, so the approval check fires. Deny would be stricter (no alias can ever write history, even approved). | **decided by Saloni (2026-11-10): keep needs approval** — see below |
 
 Nothing in the code or tests was changed after the run.
+
+**B21 decision (Saloni, 2026-11-10, quoted):** "I'd keep needs approval, rather than change it to
+deny. The distinction matters: creating or overwriting saved history is permitted with explicit
+approval. A symlink must not bypass that requirement. Without approval, the attempted write must
+be blocked." (`test_B21` shows the alias gets *needs approval*; `test_B19` shows that a needs-approval write is refused by `write_bytes` and leaves the file unchanged.)

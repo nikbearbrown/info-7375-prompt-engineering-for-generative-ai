@@ -97,7 +97,16 @@ pinned copy of run 1's history, taken from commit `61312028`
 re-run with `loop.py` temporarily set back to patch v1: it still fails twice
 (`review/15-fixture-test-still-fails-on-v1.txt`). On v2 the suite is 50/50.
 
-### My decision on v2: _(Saloni to write)_
+### My decision on v2: **ACCEPT** (provisional, on two conditions, both met) — `review/16-saloni-decision-v2.md`
+
+> V2: provisionally accept, provided `review/13` and `review/14` confirm that the migration
+> preserves the old history and correctly reports the Korea job as new. I would also accept the
+> changed test because checking `state_migrated` and the re-baselined board names verifies more
+> than simply checking a zero count.
+
+Conditions checked against the saved files: all 1,649 run-1 ids are in the new history (1,650 =
+1,649 + Korea), no board was re-baselined, run 3 reported exactly the Korea job, and run 4
+reported 0 new. Patch v2 is commit JS2-10.
 
 ## 4. A case my tests would still miss (my words)
 

@@ -30,7 +30,7 @@ listed under "Not checked".
 | GATE.md | wrote example options for each heading; wrote §8 (implementation details) | chose `1A fail=a, 2A, 3A, 4A, 5B`; wrote the wording of the three wrong versions (§6) and the failure sentence (§7). The ideas for §6 came from Claude's example list (a, b, g); §7 filled in Claude's template |
 | Code: `jsagent/`, `scripts/`, `tests/` | wrote all of it and ran the first runs | — |
 | Boundary cases | wrote the 21 cases and tests | wrote my prediction for every case before the run (`39dea2de`) |
-| Review packet | wrote the test before the patch, both patches, the diffs; compared run-1/run-2 raw and found the hidden Korea job | ran the review commands myself (`review/04-07`, `11-14`); decided REVISE on v1 and ___ on v2; named the case my tests miss |
+| Review packet | wrote the test before the patch, both patches, the diffs; compared run-1/run-2 raw and found the hidden Korea job | ran the review commands myself (`review/04-07`, `11-14`); decided REVISE on v1 and ACCEPT on v2 (on two conditions, both met); named the case my tests miss |
 | README, TRACE, FINISHED-WRONG, REVIEW-PACKET, this file | drafted from the runs and commits | read and corrected them |
 | FRICTIONAL.md | the commit/evidence timeline table only | my own dated entries |
 | Sign-off | drafted Checked / Not checked from tests and runs | read, edited and signed (or withheld) |
