@@ -37,6 +37,21 @@ def check_same_id_on_two_boards(cls):
 
 
 class TestJobIdentity(unittest.TestCase):
+    def test_schema1_state_is_rebaselined_not_reported_all_new(self):
+        """Added WITH the patch (not before it): a JS1-shaped state of bare ids must not make
+        every saved job look new after the key change."""
+        old = {"schema": 1, "boards": {"greenhouse:a": {}, "greenhouse:b": {}, "ashby:c": {}},
+               "seen": ["1001", "2002", "u-3"], "runs": [{"run_id": "old"}]}
+        t = {GH.format("a"): ok((1001, "ML Engineer")), GH.format("b"): ok((2002, "Designer")),
+             AS.format("c"): ok(("u-3", "Research Engineer"))}
+        r, s, _, loop = run(Loop, BOARDS, t, state=old)
+        self.assertEqual(r["total_new"], 0)
+        self.assertTrue(all(b["baseline"] for b in r["boards"]))
+        self.assertEqual(s["schema"], 2)
+        self.assertIn("greenhouse:b:2002", s["seen"])
+        self.assertEqual(s["runs"][0], {"run_id": "old"})
+        self.assertTrue(any(e["event"] == "state_rebaselined" for e in loop.trace))
+
     def test_same_id_on_two_boards_is_two_jobs(self):
         self.assertEqual(check_same_id_on_two_boards(Loop), [])
 

@@ -1,0 +1,54 @@
+test_a_changed_budget_is_detected (tests.test_gate.TestGate.test_a_changed_budget_is_detected) ... ok
+test_an_added_host_is_detected (tests.test_gate.TestGate.test_an_added_host_is_detected) ... ok
+test_config_has_three_real_boards_two_systems_and_one_deliberate_failure (tests.test_gate.TestGate.test_config_has_three_real_boards_two_systems_and_one_deliberate_failure) ... ok
+test_config_matches_gate (tests.test_gate.TestGate.test_config_matches_gate) ... ok
+test_gate_values_as_written (tests.test_gate.TestGate.test_gate_values_as_written) ... ok
+test_same_id_on_two_boards_is_two_jobs (tests.test_identity.TestJobIdentity.test_same_id_on_two_boards_is_two_jobs) ... ok
+test_schema1_state_is_rebaselined_not_reported_all_new (tests.test_identity.TestJobIdentity.test_schema1_state_is_rebaselined_not_reported_all_new)
+Added WITH the patch (not before it): a JS1-shaped state of bare ids must not make ... ok
+test_wv3_bare_id_is_caught (tests.test_identity.TestJobIdentity.test_wv3_bare_id_is_caught) ... ok
+test_board_budget (tests.test_loop.TestBudgetsAndRepeats.test_board_budget) ... ok
+test_most_serious_status_wins (tests.test_loop.TestBudgetsAndRepeats.test_most_serious_status_wins) ... ok
+test_off_list_url_is_refused_run_is_error_and_writes_no_state (tests.test_loop.TestBudgetsAndRepeats.test_off_list_url_is_refused_run_is_error_and_writes_no_state) ... ok
+test_request_budget_stops_with_budget_exhausted (tests.test_loop.TestBudgetsAndRepeats.test_request_budget_stops_with_budget_exhausted) ... ok
+test_retry_counts_against_request_budget (tests.test_loop.TestBudgetsAndRepeats.test_retry_counts_against_request_budget) ... ok
+test_same_board_twice_is_repeat_skipped_no_budget (tests.test_loop.TestBudgetsAndRepeats.test_same_board_twice_is_repeat_skipped_no_budget) ... ok
+test_seconds_budget (tests.test_loop.TestBudgetsAndRepeats.test_seconds_budget) ... ok
+test_404_not_retried_board_failed_no_counts_run_incomplete (tests.test_loop.TestExits.test_404_not_retried_board_failed_no_counts_run_incomplete) ... ok
+test_5xx_retried_once (tests.test_loop.TestExits.test_5xx_retried_once) ... ok
+test_all_ok_first_run_is_finished_baseline_nothing_new (tests.test_loop.TestExits.test_all_ok_first_run_is_finished_baseline_nothing_new) ... ok
+test_bad_data_not_retried_and_no_value_invented (tests.test_loop.TestExits.test_bad_data_not_retried_and_no_value_invented) ... ok
+test_failed_and_empty_boards_keep_their_history (tests.test_loop.TestExits.test_failed_and_empty_boards_keep_their_history) ... ok
+test_nothing_is_new_twice (tests.test_loop.TestExits.test_nothing_is_new_twice) ... ok
+test_raw_saved_before_parse_even_for_bad_data (tests.test_loop.TestExits.test_raw_saved_before_parse_even_for_bad_data) ... ok
+test_second_run_reports_only_unseen (tests.test_loop.TestExits.test_second_run_reports_only_unseen) ... ok
+test_timeout_then_success_is_retried_once (tests.test_loop.TestExits.test_timeout_then_success_is_retried_once) ... ok
+test_timeout_twice_fails_after_one_retry (tests.test_loop.TestExits.test_timeout_twice_fails_after_one_retry) ... ok
+test_wv1_empty_board (tests.test_loop.TestWrongVersionsAreCaught.test_wv1_empty_board) ... ok
+test_wv2_failed_board (tests.test_loop.TestWrongVersionsAreCaught.test_wv2_failed_board) ... ok
+test_B01_allowed_greenhouse_get (tests.test_policy.Boundary.test_B01_allowed_greenhouse_get) ... ok
+test_B02_allowed_ashby_get (tests.test_policy.Boundary.test_B02_allowed_ashby_get) ... ok
+test_B03_host_off_the_allow_list (tests.test_policy.Boundary.test_B03_host_off_the_allow_list) ... ok
+test_B04_lookalike_host_suffix_trick (tests.test_policy.Boundary.test_B04_lookalike_host_suffix_trick) ... ok
+test_B05_lookalike_host_prefix_trick (tests.test_policy.Boundary.test_B05_lookalike_host_prefix_trick) ... ok
+test_B06_plain_http (tests.test_policy.Boundary.test_B06_plain_http) ... ok
+test_B07_post_to_allowed_host_is_an_application (tests.test_policy.Boundary.test_B07_post_to_allowed_host_is_an_application) ... ok
+test_B08_credentials_in_url_is_a_login (tests.test_policy.Boundary.test_B08_credentials_in_url_is_a_login) ... ok
+test_B09_allowed_host_hidden_in_query_string (tests.test_policy.Boundary.test_B09_allowed_host_hidden_in_query_string) ... ok
+test_B10_redirect_to_off_list_host_is_refused (tests.test_policy.Boundary.test_B10_redirect_to_off_list_host_is_refused) ... ok
+test_B11_write_inside_out (tests.test_policy.Boundary.test_B11_write_inside_out) ... ok
+test_B12_dotdot_escape (tests.test_policy.Boundary.test_B12_dotdot_escape) ... ok
+test_B13_sibling_prefix_trick_out_evil (tests.test_policy.Boundary.test_B13_sibling_prefix_trick_out_evil) ... ok
+test_B14_symlink_inside_out_pointing_outside (tests.test_policy.Boundary.test_B14_symlink_inside_out_pointing_outside) ... ok
+test_B15_absolute_path_outside (tests.test_policy.Boundary.test_B15_absolute_path_outside) ... ok
+test_B16_read_of_project_file_allowed_but_write_denied (tests.test_policy.Boundary.test_B16_read_of_project_file_allowed_but_write_denied) ... ok
+test_B17_read_outside_project_denied (tests.test_policy.Boundary.test_B17_read_outside_project_denied) ... ok
+test_B18_first_write_of_history_allowed (tests.test_policy.Boundary.test_B18_first_write_of_history_allowed) ... ok
+test_B19_overwrite_history_without_approval (tests.test_policy.Boundary.test_B19_overwrite_history_without_approval) ... ok
+test_B20_overwrite_history_with_approval (tests.test_policy.Boundary.test_B20_overwrite_history_with_approval) ... ok
+test_B21_symlink_to_history_file_still_needs_approval (tests.test_policy.Boundary.test_B21_symlink_to_history_file_still_needs_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 48 tests in 0.067s
+
+OK

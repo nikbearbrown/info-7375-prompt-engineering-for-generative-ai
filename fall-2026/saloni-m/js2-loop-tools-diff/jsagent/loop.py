@@ -21,8 +21,11 @@ from jsagent.providers import PROVIDERS, BadData
 SEVERITY = ["finished", "incomplete", "budget-exhausted", "error"]
 
 
+STATE_SCHEMA = 2  # 1 = bare posting ids (JS1 shape); 2 = "system:board:id"
+
+
 def empty_state():
-    return {"schema": 1, "boards": {}, "seen": [], "runs": []}
+    return {"schema": STATE_SCHEMA, "boards": {}, "seen": [], "runs": []}
 
 
 class Loop:
@@ -42,8 +45,8 @@ class Loop:
 
     # -- hooks ---------------------------------------------------------------------------
     def job_key(self, system, board, job_id):
-        """The identity of a job in saved state. (JS1 stored the bare posting id.)"""
-        return job_id
+        """The identity of a job in saved state: system + board + posting id (GATE 6.3, 8)."""
+        return f"{system}:{board}:{job_id}"
 
     def classify(self, board, result):
         """-> ("ok", jobs) | ("suspicious_empty", []) | ("failed", reason, retryable)"""
@@ -99,6 +102,12 @@ class Loop:
             for p in plan[self.b["max_boards"]:]:
                 boards.append(self._board(p, None, "not_tried", "max_boards budget"))
             plan = plan[: self.b["max_boards"]]
+        if state.get("schema", 1) < STATE_SCHEMA:
+            # Bare ids cannot be assigned to a board, so comparing them with the new keys would
+            # report every saved job as new. Re-baseline instead: nothing is reported new this run.
+            self.log("state_rebaselined", old_schema=state.get("schema", 1), new_schema=STATE_SCHEMA,
+                     dropped_ids=len(state["seen"]), boards=sorted(state["boards"]))
+            state = dict(empty_state(), runs=list(state.get("runs", [])))
         seen = set(state["seen"])
 
         for p in plan:
