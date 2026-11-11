@@ -1,0 +1,194 @@
+EFEFEFEEFFEFEEEEE
+======================================================================
+ERROR: test_malformed_boards_file_gives_error_trace (tests.test_review_fixes.Config.test_malformed_boards_file_gives_error_trace)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 99, in test_malformed_boards_file_gives_error_trace
+    with self.assertRaises(SystemExit): watch.cmd_run(watch.argparse.Namespace(boards="bad.json", wrong=None))
+                                        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watch.py", line 16, in cmd_run
+    boards = json.loads((HERE / a.boards).read_text())["boards"]
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 35 (char 34)
+
+======================================================================
+ERROR: test_live_recount_catches_self_consistent_empty_answer (tests.test_review_fixes.IndependentCheckLive.test_live_recount_catches_self_consistent_empty_answer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 112, in test_live_recount_catches_self_consistent_empty_answer
+    problems = check_run(d, live=lambda board: (200, 151))                   # ...but a fresh, separate count does not
+TypeError: check_run() got an unexpected keyword argument 'live'
+
+======================================================================
+ERROR: test_oversize_body_raises (tests.test_review_fixes.LargeResponses.test_oversize_body_raises)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 89, in test_oversize_body_raises
+    from watcher.fetch import read_capped, FetchError
+ImportError: cannot import name 'read_capped' from 'watcher.fetch' (/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watcher/fetch.py)
+
+======================================================================
+ERROR: test_bad_port_is_blocked_not_a_crash (tests.test_review_fixes.PolicyEdges.test_bad_port_is_blocked_not_a_crash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 70, in test_bad_port_is_blocked_not_a_crash
+    with self.assertRaises(Blocked): self.p.check_request("GET", "https://api.lever.co:abc/v0/postings/x")
+                                     ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watcher/policy.py", line 31, in check_request
+    if u.port not in (None, 443):
+       ^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/parse.py", line 182, in port
+    raise ValueError(f"Port could not be cast to integer value as {port!r}")
+ValueError: Port could not be cast to integer value as 'abc'
+
+======================================================================
+ERROR: test_board_name_with_capitals_or_underscore_is_allowed (tests.test_review_fixes.PolicyEdges.test_board_name_with_capitals_or_underscore_is_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 78, in test_board_name_with_capitals_or_underscore_is_allowed
+    self.p.check_request("GET", "https://boards-api.greenhouse.io/v1/boards/My_Board/jobs")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watcher/policy.py", line 34, in check_request
+    raise Blocked(f"path {u.path} refused: only public job-list endpoints (never apply, message or log in)")
+watcher.policy.Blocked: path /v1/boards/My_Board/jobs refused: only public job-list endpoints (never apply, message or log in)
+
+======================================================================
+ERROR: test_allowed_redirect_is_a_second_counted_request (tests.test_review_fixes.RedirectsCount.test_allowed_redirect_is_a_second_counted_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 19, in test_allowed_redirect_is_a_second_counted_request
+    c = Clock(); f = ScriptedFetch({K: [redirect(GH2), gh(1, 2)]}, clock=c)
+                                        ~~~~~~~~^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 14, in redirect
+    def redirect(to): return Response(302, b"", location=to)
+                             ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Response.__init__() got an unexpected keyword argument 'location'
+
+======================================================================
+ERROR: test_redirect_hops_cannot_pass_the_request_cap (tests.test_review_fixes.RedirectsCount.test_redirect_hops_cannot_pass_the_request_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 23, in test_redirect_hops_cannot_pass_the_request_cap
+    c = Clock(); f = ScriptedFetch({K: [redirect(GH2), redirect(GH2), redirect(GH2), gh(1)]}, clock=c)
+                                        ~~~~~~~~^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 14, in redirect
+    def redirect(to): return Response(302, b"", location=to)
+                             ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Response.__init__() got an unexpected keyword argument 'location'
+
+======================================================================
+ERROR: test_redirect_to_blocked_host_fails_the_board_and_names_it (tests.test_review_fixes.RedirectsCount.test_redirect_to_blocked_host_fails_the_board_and_names_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 28, in test_redirect_to_blocked_host_fails_the_board_and_names_it
+    c = Clock(); f = ScriptedFetch({K: [redirect("https://evil.com/x"), Blocked("host evil.com is not on the allow-list")]}, clock=c)
+                                        ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 14, in redirect
+    def redirect(to): return Response(302, b"", location=to)
+                             ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Response.__init__() got an unexpected keyword argument 'location'
+
+======================================================================
+ERROR: test_too_many_redirects_fails (tests.test_review_fixes.RedirectsCount.test_too_many_redirects_fails)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 32, in test_too_many_redirects_fails
+    c = Clock(); f = ScriptedFetch({K: [redirect(GH2)] * 4 + [gh(1)]}, clock=c)
+                                        ~~~~~~~~^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 14, in redirect
+    def redirect(to): return Response(302, b"", location=to)
+                             ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Response.__init__() got an unexpected keyword argument 'location'
+
+======================================================================
+ERROR: test_invalid_board_entry_is_reported_not_crashed (tests.test_review_fixes.UnexpectedErrors.test_invalid_board_entry_is_reported_not_crashed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 63, in test_invalid_board_entry_is_reported_not_crashed
+    r = run([{"ats": "workday", "slug": "x"}, B], f, clock=c)
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watcher/loop.py", line 56, in run
+    url = URLS[b["ats"]].format(slug=b["slug"])
+          ~~~~^^^^^^^^^^
+KeyError: 'workday'
+
+======================================================================
+ERROR: test_unexpected_exception_gives_error_exit_and_where (tests.test_review_fixes.UnexpectedErrors.test_unexpected_exception_gives_error_exit_and_where)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 59, in test_unexpected_exception_gives_error_exit_and_where
+    r = run([B], f, clock=c, on_raw=boom)
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/watcher/loop.py", line 75, in run
+    if on_raw: obs["raw_file"] = on_raw(k, attempt, r)
+                                 ~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 57, in boom
+    def boom(*a): raise RuntimeError("disk full")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: disk full
+
+======================================================================
+FAIL: test_timeout_never_exceeds_time_left (tests.test_review_fixes.Deadline.test_timeout_never_exceeds_time_left)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 53, in test_timeout_never_exceeds_time_left
+    self.assertTrue(seen and seen[0] <= 0.5 + 1e-9, seen)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : [1.0]
+
+======================================================================
+FAIL: test_trace_with_no_boards_is_rejected (tests.test_review_fixes.IndependentCheckLive.test_trace_with_no_boards_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 117, in test_trace_with_no_boards_is_rejected
+    self.assertEqual(len(check_run(d)), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_approval_is_for_one_specific_file (tests.test_review_fixes.PolicyEdges.test_approval_is_for_one_specific_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 74, in test_approval_is_for_one_specific_file
+    with self.assertRaises(NeedsApproval): self.p.check_write(b, approved=a)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: NeedsApproval not raised
+
+======================================================================
+FAIL: test_report_folder_itself_is_not_a_file_target (tests.test_review_fixes.PolicyEdges.test_report_folder_itself_is_not_a_file_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 76, in test_report_folder_itself_is_not_a_file_target
+    with self.assertRaises(Blocked): self.p.check_write(self.base / "reports/job-watch", approved=True)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Blocked not raised
+
+======================================================================
+FAIL: test_report_folder_symlinked_outside_is_blocked (tests.test_review_fixes.PolicyEdges.test_report_folder_symlinked_outside_is_blocked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 84, in test_report_folder_symlinked_outside_is_blocked
+    with self.assertRaises(Blocked): s.write(s.run_dir / "trace.json", "{}")
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: Blocked not raised
+
+======================================================================
+FAIL: test_fetch_does_not_follow_redirects_by_itself (tests.test_review_fixes.RedirectsCount.test_fetch_does_not_follow_redirects_by_itself)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/anishagaikar/info-7375/fall-2026/anisha-g/js2-loop-tools-diff/tests/test_review_fixes.py", line 39, in test_fetch_does_not_follow_redirects_by_itself
+    self.assertIsNone(h.redirect_request(urllib.request.Request(GH2), None, 302, "Found", {}, GH2))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <urllib.request.Request object at 0x10a5d6d50> is not None
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.007s
+
+FAILED (failures=6, errors=11)
