@@ -1,0 +1,165 @@
+# Revan's terminal log, 2026-11-10, copied from Revan's zsh session. It starts with the GATE.md commit
+# (f3072e5, 05:57:21 UTC) and ends after the patch 06e9257 (06:46:17 UTC) was reviewed.
+# Revan ran every command below; Claude Code only saved the pasted text into this file.
+# Changes from the paste: the commit author's email address is replaced with [email removed], and the author name with "Revan C." (the class folder stores no full names).
+# It covers: the GATE.md commit, the independent checks, the run and test commits, the post-patch test runs,
+# the mutation check, the patch's --stat, the post-patch evaluation of the saved Patch My PC response,
+# and the same evaluation in a worktree at bfbc822 (the code before patch 06e9257).
+# ---------------------------------------------------------------------------------------------------
+
+revan@Revans-MacBook-Air Job-Search Agent % git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        GATE.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+revan@Revans-MacBook-Air Job-Search Agent % git add GATE.md
+revan@Revans-MacBook-Air Job-Search Agent % git commit -m "Gate for Job-Search Agent 2: exits, budgets, repeat rule, error and permission policy, written before any code"
+[main f3072e5] Gate for Job-Search Agent 2: exits, budgets, repeat rule, error and permission policy, written before any code
+ 1 file changed, 110 insertions(+)
+ create mode 100644 GATE.md
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python tools/independent_check.py demo/finished_wrong/runs/2026-11-10T06-34-17Z_seeded.json | tee demo/finished_wrong/independent_check.txt
+PASS  count-matches-raw [klaviyo]: run says 0; saved bytes hold 0
+FAIL  empty-response-claimed-as-no-new-jobs [klaviyo]: saved response holds 0 postings, yet the run completed and reported 0 new: an empty response cannot show that there are no new jobs
+
+1 passed, 1 failed — the run's claims are NOT supported by its saved responses
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python tools/independent_check.py runs/js2/2026-11-10T06-33-21Z_demo.json | tee demo/independent_check_demo_run.txt
+PASS  every-selected-board-observed: all 4 selected boards appear
+PASS  exit-code-matches-status: status 'incomplete', exit code 10
+PASS  count-matches-raw [klaviyo]: trace says 149; saved bytes hold 149
+PASS  empty-response-claimed-as-no-new-jobs [klaviyo]: saved response holds 149 postings
+PASS  count-matches-raw [duolingo]: trace says 61; saved bytes hold 61
+PASS  empty-response-claimed-as-no-new-jobs [duolingo]: saved response holds 61 postings
+PASS  count-matches-raw [patchmypc]: trace says 5; saved bytes hold 5
+PASS  empty-response-claimed-as-no-new-jobs [patchmypc]: saved response holds 5 postings
+PASS  failed-board-not-counted [js2-deliberate-missing-board]: outcome 'failed'; postings/new recorded as 'unknown'/'unknown' (must be 'unknown')
+
+9 passed, 0 failed — the run's claims match its saved responses
+revan@Revans-MacBook-Air Job-Search Agent % git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   tests/test_js2_remote_review.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        demo/
+        evidence/js2/
+        review_evidence/
+        runs/js2/
+        state/js2/
+
+revan@Revans-MacBook-Air Job-Search Agent % git add runs/js2 evidence/js2 state/js2 demo
+revan@Revans-MacBook-Air Job-Search Agent % git commit -m "JS2 runs, 2026-11-10 06:32-06:34Z: DNS failure, live timeout, finished baseline, deliberate 404, seeded empty board, JS1 finished-wrong demo"
+[main d7f1508] JS2 runs, 2026-11-10 06:32-06:34Z: DNS failure, live timeout, finished baseline, deliberate 404, seeded empty board, JS1 finished-wrong demo
+ 23 files changed, 1619 insertions(+)
+ create mode 100644 demo/finished_wrong/independent_check.txt
+ create mode 100644 demo/finished_wrong/runs/2026-11-10T06-34-13Z_seeded.json
+ create mode 100644 demo/finished_wrong/runs/2026-11-10T06-34-17Z_seeded.json
+ create mode 100644 demo/finished_wrong/seen_ids.json
+ create mode 100644 demo/independent_check_demo_run.txt
+ create mode 100644 evidence/js2/2026-11-10T06-32-42Z_duolingo.body
+ create mode 100644 evidence/js2/2026-11-10T06-32-42Z_klaviyo.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-08Z_duolingo.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-08Z_klaviyo.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-08Z_patchmypc.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-21Z_duolingo.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-21Z_js2-deliberate-missing-board.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-21Z_klaviyo.body
+ create mode 100644 evidence/js2/2026-11-10T06-33-21Z_patchmypc.body
+ create mode 100644 evidence/js2/2026-11-10T06-34-30Z_duolingo.body
+ create mode 100644 evidence/js2/2026-11-10T06-34-30Z_patchmypc.body
+ create mode 100644 runs/js2/2026-11-10T06-32-28Z_normal.json
+ create mode 100644 runs/js2/2026-11-10T06-32-42Z_normal.json
+ create mode 100644 runs/js2/2026-11-10T06-33-08Z_normal.json
+ create mode 100644 runs/js2/2026-11-10T06-33-21Z_demo.json
+ create mode 100644 runs/js2/2026-11-10T06-34-30Z_normal.json
+ create mode 100644 state/js2/seen_ids.json
+ create mode 100644 tests/test_js2_remote_review.py
+revan@Revans-MacBook-Air Job-Search Agent % git add tests/test_js2_remote_review.py review_evidence
+revan@Revans-MacBook-Air Job-Search Agent % git commit -m "Review packet: failing test for Lever remote location, written before the patch"
+[main bfbc822] Review packet: failing test for Lever remote location, written before the patch
+ 1 file changed, 37 insertions(+)
+ create mode 100644 review_evidence/remote_pre_patch_pytest.txt
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python -m pytest -v tests/test_js2_remote_review.py
+============================================================== test session starts ===============================================================
+platform darwin -- Python 3.12.14, pytest-9.2.0, pluggy-1.7.0 -- /Users/revan/NEU-4th sem/Prompt Eng & Agentic AI/Job-Search Agent/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/revan/NEU-4th sem/Prompt Eng & Agentic AI/Job-Search Agent
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collected 2 items
+
+tests/test_js2_remote_review.py::test_lever_workplace_type_controls_remote_location[remote-relevant-True] PASSED                           [ 50%]
+tests/test_js2_remote_review.py::test_lever_workplace_type_controls_remote_location[onsite-not_relevant-False] PASSED                      [100%]
+
+=============================================================== 2 passed in 0.03s ================================================================
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python -m pytest -q
+..............................................................................................................                             [100%]
+110 passed in 0.95s
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python tools/check_wrong_versions_js2.py
+[1 empty Greenhouse board accepted] named test test_empty_board_is_incomplete_never_no_new_jobs: FAILED (caught); all failing tests: test_empty_board_is_incomplete_never_no_new_jobs
+[1 empty Lever board accepted] named test test_empty_board_is_incomplete_never_no_new_jobs: FAILED (caught); all failing tests: test_empty_board_is_incomplete_never_no_new_jobs
+[2 failed board counted as zero] named test test_failed_board_records_actual_error_never_zero: FAILED (caught); all failing tests: test_deliberate_404_is_labeled_first_recorded_and_kept, test_empty_board_is_incomplete_never_no_new_jobs, test_failed_board_records_actual_error_never_zero
+[2 finished despite a failed board] named test test_deliberate_404_is_labeled_first_recorded_and_kept: FAILED (caught); all failing tests: test_B07_redirect_is_refused_and_not_followed, test_deliberate_404_is_labeled_first_recorded_and_kept, test_empty_board_is_incomplete_never_no_new_jobs, test_failed_board_records_actual_error_never_zero, test_state_bytes_unchanged_after_incomplete_run_even_with_approval
+[3 time checked only after acting] named test test_B16_request_not_started_with_under_10_seconds_left: FAILED (caught); all failing tests: test_B16_request_not_started_with_under_10_seconds_left
+[3 request budget off by one] named test test_request_budget_refused_before_sending: FAILED (caught); all failing tests: test_request_budget_refused_before_sending
+[4 duplicate selection not refused] named test test_duplicate_url_in_selection_is_preflight_error_with_no_request: FAILED (caught); all failing tests: test_duplicate_url_in_selection_is_preflight_error_with_no_request
+[4 ledger lets a repeat through] named test test_ledger_suppresses_a_repeated_action: FAILED (caught); all failing tests: test_ledger_suppresses_a_repeated_action
+[5 containment by string prefix] named test test_B09_sibling_prefix_denied: FAILED (caught); all failing tests: test_B09_sibling_prefix_denied
+[5 symlinks not resolved] named test test_B10_symlink_escape_denied: FAILED (caught); all failing tests: test_B10_symlink_escape_denied, test_output_root_symlinked_outside_repository_is_preflight_error
+[6 fixture folder writable] named test test_B12_write_to_seeded_fixture_denied: FAILED (caught); all failing tests: test_B11_seeded_fixture_read_allowed_but_not_write, test_B12_write_to_seeded_fixture_denied
+[6 state write without approval] named test test_B13_run_without_approval_observes_but_never_writes_state: FAILED (caught); all failing tests: test_B13_run_without_approval_observes_but_never_writes_state, test_observation_only_run_still_fetches_and_saves_trace, test_state_bytes_unchanged_after_observation_only_run
+[7 state advances after failure] named test test_state_bytes_unchanged_after_incomplete_run_even_with_approval: FAILED (caught); all failing tests: test_empty_board_is_incomplete_never_no_new_jobs, test_overrun_during_a_request_is_budget_exhausted_not_finished, test_state_bytes_unchanged_after_incomplete_run_even_with_approval
+[7 observation-only run tries to write state] named test test_state_bytes_unchanged_after_observation_only_run: FAILED (caught); all failing tests: test_B13_run_without_approval_observes_but_never_writes_state, test_finished_run_reports_what_the_gate_requires, test_state_bytes_unchanged_after_observation_only_run
+[8 Lever parser unwraps a Greenhouse object] named test test_lever_parser_rejects_greenhouse_shape: FAILED (caught); all failing tests: test_lever_parser_rejects_greenhouse_shape
+[B03a host matched by substring] named test test_B03a_look_alike_host_denied: FAILED (caught); all failing tests: test_B03a_look_alike_host_denied
+[B15 demo-only board allowed in normal mode] named test test_B15_deliberate_failure_board_needs_demo_mode: FAILED (caught); all failing tests: test_B15_deliberate_failure_board_needs_demo_mode
+
+17 mutants: all wrong versions caught
+revan@Revans-MacBook-Air Job-Search Agent % git show 06e9257 --stat
+commit 06e925778c491d44d989eff0f21fbebb351079d8 (HEAD -> main)
+Author: Revan C. <[email removed]>
+Date:   Tue Nov 10 01:46:17 2026 -0500
+
+    Lever: carry workplaceType remote into location.name (review-packet patch)
+
+    parse_lever copied only categories.location, so a Lever posting with
+    workplaceType "remote" and location "United States" failed CONTRACT.md's
+    location condition. Remote Lever postings now get
+    " (Lever workplaceType: remote)" appended to location.name.
+
+    Written by Claude Code at Revan's request, after Revan's failing test
+    (tests/test_js2_remote_review.py, committed in d7f1508). Only jsloop/providers.py
+    changed; jsagent/rule.py, CONTRACT.md and Revan's test are untouched.
+    Accept/revise/reject is Revan's decision (REVIEW_PACKET.md).
+
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+ jsloop/providers.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+revan@Revans-MacBook-Air Job-Search Agent % .venv/bin/python -c "import json; from jsloop.providers import parse_lever; from jsagent.rule import judge_posting; r=json.load(open('resumes/aarav-patel.json')); [print(p['id'], p['location']['name'], judge_posting(r,p)['rule_verdict']) for p in parse_lever(open('evidence/js2/2026-11-10T06-33-08Z_patchmypc.body','rb').read())]"
+31674fe9-9a81-4675-9a1d-073d1188542a United States (Lever workplaceType: remote) not_relevant
+c6ae9e75-99a1-47fd-8e1b-6b8477fb1902 United States (Lever workplaceType: remote) not_relevant
+96e36f66-20a8-4acf-ab54-ea3a23bbf9bf United States (Lever workplaceType: remote) not_relevant
+a71b827b-c926-4966-9207-dcc4dff7719a United States (Lever workplaceType: remote) relevant
+21f4037e-2b38-4f87-8877-fd4096d36e7f United States (Lever workplaceType: remote) relevant
+revan@Revans-MacBook-Air Job-Search Agent % git worktree add /tmp/js2-prepatch bfbc822
+Preparing worktree (detached HEAD bfbc822)
+HEAD is now at bfbc822 Review packet: failing test for Lever remote location, written before the patch
+revan@Revans-MacBook-Air Job-Search Agent % cd /tmp/js2-prepatch && "/Users/revan/NEU-4th sem/Prompt Eng & Agentic AI/Job-Search Agent/.venv/bin/python" -c "import json; from jsloop.providers import parse_lever;from jsagent.rule import judge_posting; r=json.load(open('resumes/aarav-patel.json')); [print(p['id'], p['location']['name'], judge_posting(r,p)['rule_verdict']) for p in parse_lever(open('evidence/js2/2026-11-10T06-33-08Z_patchmypc.body','rb').read())]"
+31674fe9-9a81-4675-9a1d-073d1188542a United States not_relevant
+c6ae9e75-99a1-47fd-8e1b-6b8477fb1902 United States not_relevant
+96e36f66-20a8-4acf-ab54-ea3a23bbf9bf United States not_relevant
+a71b827b-c926-4966-9207-dcc4dff7719a United States not_relevant
+21f4037e-2b38-4f87-8877-fd4096d36e7f United States not_relevant
+revan@Revans-MacBook-Air js2-prepatch % "/Users/revan/NEU-4th sem/Prompt Eng & Agentic AI/Job-Search Agent/.venv/bin/python" -c "import json; from jsloop.providers import parse_lever; from jsagent.rule import judge_posting; r=json.load(open('resumes/aarav-patel.json')); [print(p['id'], p['title'], [e['condition'] for e in judge_posting(r,p)['rule_justification'] if not e['passed']]) for p in parse_lever(open('evidence/js2/2026-11-10T06-33-08Z_patchmypc.body','rb').read())]"
+31674fe9-9a81-4675-9a1d-073d1188542a Business Intelligence Specialist ['title', 'location', 'skills']
+c6ae9e75-99a1-47fd-8e1b-6b8477fb1902 Cloud Security Engineer ['title', 'location', 'skills']
+96e36f66-20a8-4acf-ab54-ea3a23bbf9bf Manager, Business Intelligence Architecture ['title', 'location', 'skills', 'seniority']
+a71b827b-c926-4966-9207-dcc4dff7719a Software Engineer, AI ['location']
+21f4037e-2b38-4f87-8877-fd4096d36e7f Software Engineer, Backend ['location']
+revan@Revans-MacBook-Air js2-prepatch % cd "/Users/revan/NEU-4th sem/Prompt Eng & Agentic AI/Job-Search Agent"
+revan@Revans-MacBook-Air Job-Search Agent % git worktree remove /tmp/js2-prepatch
+revan@Revans-MacBook-Air Job-Search Agent %
