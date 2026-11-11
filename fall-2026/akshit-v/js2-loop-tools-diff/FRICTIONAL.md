@@ -32,6 +32,8 @@
 
 - **An ignore rule carried over from JS1 hid 4 demo files.** The JS1 `.gitignore` pattern `*real*.json` (meant for real résumés) also matched the demo's `REAL_*.json` replay copies, because Windows matches case-insensitively. So 4 files were never committed. Claude found this during the final requirements check. The pattern was narrowed to `*real_resume*` / `*resume_real*` and the 4 files (byte-identical to run 2's saved responses) were added.
 
+- **I reworded GATE.md's provenance line after the review.** First I rewrote it to say only that I worked on the decisions, and asked for that change not to be logged. Claude declined to commit a version that left out its role. I then chose my own wording, which says I set, reviewed, and approved the rules. GATE.md records the rewording as a dated entry (the original is in `ea61db0`), and SOURCES.md states that Claude Code proposed the seven decisions.
+
 ## 2. What I checked, changed, or learned, and what is unresolved
 
 **Checked:**

@@ -1,7 +1,6 @@
 # GATE — Job-Search Agent 2
 
-Written 2026-11-10, before Claude Code wrote any code for this assignment.
-**Provenance:** Claude Code proposed every decision below as a numbered suggestion. On 2026-11-10 I accepted all seven unchanged, answering "Okay" to each (see SOURCES.md). These are now my rules. Each one changes only through a new dated entry at the end of this file.
+**Provenance:** I set these seven rules on 2026-11-10, before any code existed. I reviewed each one of them as a numbered option and reviewed them and approved them. These are now my rules; each changes only through a new dated entry at the end of this file.
 
 ## 1. Starting point and boards
 
@@ -67,3 +66,4 @@ When a budget would be exceeded, the loop stops before making that request and e
 ## Dated entries
 
 - **2026-11-10, approved by me after the review packet (see REVIEW_PACKET.md).** The 60-second budget is unchanged. How it is enforced is now explicit: before each request, the loop computes the time left. If less than **1 second** is left, it stops with `budget_exhausted` without sending. Otherwise the request's timeout is at most the time left (and never more than 20 seconds).
+- **2026-11-10, after the review.** I reworded the provenance line above. The original wording is in commit `ea61db0`. The seven rules themselves are unchanged. Who proposed them is recorded in SOURCES.md.

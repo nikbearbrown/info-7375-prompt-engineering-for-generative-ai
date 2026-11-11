@@ -11,7 +11,7 @@
 
 ## What I wrote or decided
 
-- **Every decision in GATE.md.** I worked on the seven decisions that were asked for. I also approved the dated budget-enforcement entry after the review.
+- **Every decision in GATE.md.** Claude Code proposed the seven decisions as numbered options (after checking which boards respond). I reviewed and approved each one before any code was written (`ea61db0`). I also approved the dated budget-enforcement entry after the review.
 - **My review of the 15 boundary predictions** before the first run.
 - **The review packet:**
   - the choice of defect (A);
