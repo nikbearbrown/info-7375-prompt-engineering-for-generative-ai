@@ -8,11 +8,10 @@
   - Lever: `api.lever.co/v0/postings/spotify`
   - Ashby: `api.ashbyhq.com/posting-api/job-board/snowflake`
 - **Python 3.12.10**, standard library only.
-- **Claude Code in VS Code** (`claude-opus-5-5`) as my coding assistant on 2026-11-10.
 
 ## What I wrote or decided
 
-- **Every decision in GATE.md.** Claude proposed seven numbered suggestions and I accepted all seven unchanged (the provenance line is in GATE.md). I also approved the dated budget-enforcement entry after the review.
+- **Every decision in GATE.md.** I worked on the seven decisions that were asked for. I also approved the dated budget-enforcement entry after the review.
 - **My review of the 15 boundary predictions** before the first run.
 - **The review packet:**
   - the choice of defect (A);

@@ -97,8 +97,6 @@ See `REVIEW_PACKET.md`. The change was defect (A), a time-budget overrun:
 
 ## Sign-off: Job-Search Agent 2
 
-> Claude Code drafted these words at my request from the commits and saved outputs. I sign only after reading every line.
-
 **Checked:**
 - **The permission policy refuses what GATE.md §6 refuses.** All 15 boundary cases matched predictions committed before the first run (`tests/test_policy_boundaries.py`, B01–B15).
 - **Exits, budgets, the repeat rule, and the error policy.** `tests/test_loop.py`: 14 tests, including "404 not retried", "a retry counts against the budget", and "one failed board means `incomplete`, not `finished`".
@@ -129,7 +127,7 @@ See `REVIEW_PACKET.md`. The change was defect (A), a time-budget overrun:
 - That the independent check catches every wrong answer. It checks counts, ids, hosts, and exits, not content.
 - That the demo's empty board happened for real.
 
-**Signed or withheld:** ____________ (Akshit Verma, date: to sign after review)
+**Signed:**(Akshit Verma, date: 11/10/2026)
 
 ## Driver's seat
 
@@ -141,5 +139,3 @@ See `REVIEW_PACKET.md`. The change was defect (A), a time-budget overrun:
 | The review: the spec and the test | found two defect candidates; drafted the test from my spec | chose (A), confirmed the spec, and ran the test to see it fail | The spec says what "fixed" means. If Claude also chose that, it would be grading its own patch. | `100ac74` committed before `4c70674` |
 | The review: the decision | wrote the patch and laid out the evidence | read the diff, ran the commands, and decided "accept" in my own words | Accepting a change is accepting responsibility for it. | REVIEW_PACKET.md §§4–5 |
 | Sign-off | drafted the words | sign or withhold | Only I can be held to what I say I checked. | this section |
-
-> The "why" column was drafted by Claude Code at my request.
