@@ -1,0 +1,89 @@
+diff --git a/fall-2026/rithika-s/js2-loop-tools-diff/agent/loop.py b/fall-2026/rithika-s/js2-loop-tools-diff/agent/loop.py
+index cc1c0c49..6c8dc16d 100644
+--- a/fall-2026/rithika-s/js2-loop-tools-diff/agent/loop.py
++++ b/fall-2026/rithika-s/js2-loop-tools-diff/agent/loop.py
+@@ -72,6 +72,9 @@ REQUEST_HEADERS = {"User-Agent": transport_mod.USER_AGENT,
+                    "Accept": "application/json"}
+ 
+ RETRYABLE_KINDS = frozenset({"timeout", "connection", "server_error"})
++# GATE error-policy log 2026-11-10: a 200 with zero postings from a board
++# whose saved state has postings is a failed board, not a valid empty one.
++EMPTY_AFTER_NONEMPTY = "empty_after_nonempty"
+ 
+ 
+ class RunError(Exception):
+@@ -480,6 +483,11 @@ class Runner:
+                              counted="once")
+ 
+         unique = dedupe(postings, on_duplicate)
++        if board["_seen"] and not unique:
++            # Received, so no retry; _fail leaves new unknown and the
++            # state file untouched, and the run cannot end finished.
++            self._fail(board, EMPTY_AFTER_NONEMPTY, 200)
++            return
+         ids = [p["id"] for p in unique]
+         board["status"] = "ok"
+         board["http_status"] = 200
+@@ -791,8 +799,10 @@ def render_report(summary):
+               f"{bud['max_claude_calls']}",
+               "",
+               "## Notes", "",
+-              "- A 200 with zero postings is accepted as a valid empty board "
+-              "(known limit, GATE.md section 4).",
++              "- A 200 with zero postings fails the board "
++              "(`empty_after_nonempty`) if its saved state had postings; "
++              "with no saved state, or an empty one, it is a valid empty "
++              "board (GATE.md error-policy log, 2026-11-10).",
+               ""]
+     return "\n".join(lines)
+ 
+diff --git a/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_independent_check.py b/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_independent_check.py
+index c32c1346..991d5c77 100644
+--- a/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_independent_check.py
++++ b/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_independent_check.py
+@@ -54,12 +54,20 @@ class IndependentCheckTests(unittest.TestCase):
+         self.assertIn("PASS rithika-js2-no-such-board", text)
+ 
+     def test_flags_board_that_had_postings_and_now_reports_zero(self):
+-        # The known limit: the agent says finished, the checker flags it.
++        # GATE error-policy log 2026-11-10: the agent now fails this board
++        # (new unknown). The checker must still catch an agent that does
++        # not, so the summary is rewritten as the old agent reported it.
+         h.write_state(self.root, "scaleai", [1, 2, 3])
+         script = h.default_script()
+         script[h.SCALE] = [h.ok(h.gh_body([]))]
+         h.run(self.root, h.FakeTransport(script))
+-        self.assertEqual(h.board(h.summary(self.root), "scaleai")["new"], 0)
++        self.assertIsNone(h.board(h.summary(self.root), "scaleai")["new"])
++        path = self.root / "out/runs/RUN1/summary.json"
++        data = json.loads(path.read_text())
++        h.board(data, "scaleai").update(status="ok", reason=None,
++                                        http_status=200, postings_seen=0,
++                                        new=0)
++        path.write_text(json.dumps(data))
+         code, text = self.check()
+         self.assertEqual(code, 1)
+         self.assertIn("FLAG scaleai: board previously had 3 postings but "
+diff --git a/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_loop.py b/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_loop.py
+index 14bb3264..f0adeb13 100644
+--- a/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_loop.py
++++ b/fall-2026/rithika-s/js2-loop-tools-diff/tests/test_loop.py
+@@ -367,18 +367,6 @@ class ErrorPolicyTests(LoopCase):
+         self.assertEqual((root / "out/runs/SAME/trace.jsonl").read_bytes(),
+                          trace_before)
+ 
+-    def test_known_limit_zero_postings_accepted_as_empty_board(self):
+-        # GATE section 4 known limit, kept on purpose for this version:
+-        # a 200 with zero postings is a valid empty board, even if the
+-        # board had postings before. The independent check catches it.
+-        root = self.root(boards=[h.BOARDS[0]])
+-        h.write_state(root, "scaleai", [1, 2, 3])
+-        fake = h.FakeTransport({h.SCALE: [h.ok(h.gh_body([]))]})
+-        exit_name, _ = h.run(root, fake)
+-        self.assertEqual(exit_name, loop.FINISHED)
+-        b = h.board(h.summary(root), "scaleai")
+-        self.assertEqual((b["postings_seen"], b["new"]), (0, 0))
+-
+ 
+ class RepeatRuleTests(LoopCase):
+ 

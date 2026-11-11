@@ -1,0 +1,75 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_______________ test_a_trace_outside_the_output_root_is_refused ________________
+
+project = PosixPath('/tmp/pytest-of-root/pytest-36/test_a_trace_outside_the_outpu0')
+policy = Policy(project_root=PosixPath('/tmp/pytest-of-root/pytest-36/test_a_trace_outside_the_outpu0'), output_root=PosixPath(...e'), approve_overwrite=False, allowed_hosts=frozenset({'boards-api.greenhouse.io', 'api.lever.co', 'api.ashbyhq.com'}))
+
+    def test_a_trace_outside_the_output_root_is_refused(project, policy):
+        """The accident that started this, as a test."""
+        outside = project.parent / "trace-escaped.jsonl"
+>       trace = Trace(path=outside, policy=policy)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Trace.__init__() got an unexpected keyword argument 'policy'
+
+tests/test_all_writes_go_through_the_policy.py:39: TypeError
+_____________ test_a_run_report_outside_the_output_root_is_refused _____________
+
+project = PosixPath('/tmp/pytest-of-root/pytest-36/test_a_run_report_outside_the_0')
+policy = Policy(project_root=PosixPath('/tmp/pytest-of-root/pytest-36/test_a_run_report_outside_the_0'), output_root=PosixPath(...e'), approve_overwrite=False, allowed_hosts=frozenset({'boards-api.greenhouse.io', 'api.lever.co', 'api.ashbyhq.com'}))
+
+    def test_a_run_report_outside_the_output_root_is_refused(project, policy):
+        outside = project.parent / "runs-escaped"
+>       trace = Trace(path=project / "evidence" / "runs" / "t.jsonl", policy=policy)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Trace.__init__() got an unexpected keyword argument 'policy'
+
+tests/test_all_writes_go_through_the_policy.py:54: TypeError
+_____________________ test_the_normal_locations_still_work _____________________
+
+project = PosixPath('/tmp/pytest-of-root/pytest-36/test_the_normal_locations_stil0')
+policy = Policy(project_root=PosixPath('/tmp/pytest-of-root/pytest-36/test_the_normal_locations_stil0'), output_root=PosixPath(...e'), approve_overwrite=False, allowed_hosts=frozenset({'boards-api.greenhouse.io', 'api.lever.co', 'api.ashbyhq.com'}))
+
+    def test_the_normal_locations_still_work(project, policy):
+        """The confinement must not have been bought by breaking the default paths."""
+>       trace = Trace(path=project / "evidence" / "runs" / "t.jsonl", policy=policy)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Trace.__init__() got an unexpected keyword argument 'policy'
+
+tests/test_all_writes_go_through_the_policy.py:75: TypeError
+_______ test_every_write_in_the_package_is_reachable_from_a_policy_check _______
+
+    def test_every_write_in_the_package_is_reachable_from_a_policy_check():
+        """A reading of the source, not of behaviour.
+    
+        Any call that puts bytes on disk should sit next to a `check_write`. This
+        counts the write primitives in `agent/` and requires each module that has
+        one to also mention `check_write`, so a new unchecked writer added later
+        shows up here rather than in a sign-off six weeks from now.
+        """
+        import re
+        from pathlib import Path
+    
+        pkg = Path(__file__).resolve().parents[1] / "agent"
+        writers = re.compile(r"\.write_text\(|\.write_bytes\(|\.open\(\s*[\"']a|\.open\(\s*[\"']w")
+        offenders = []
+        for path in sorted(pkg.rglob("*.py")):
+            source = path.read_text(encoding="utf-8")
+            if writers.search(source) and "check_write" not in source:
+                offenders.append(path.name)
+>       assert offenders == [], (
+            f"these modules write to disk without mentioning check_write: {offenders}"
+        )
+E       AssertionError: these modules write to disk without mentioning check_write: ['report.py', 'state.py', 'trace.py']
+E       assert ['report.py',...', 'trace.py'] == []
+E         
+E         Left contains 3 more items, first extra item: 'report.py'
+E         Use -v to get more diff
+
+tests/test_all_writes_go_through_the_policy.py:112: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_all_writes_go_through_the_policy.py::test_a_trace_outside_the_output_root_is_refused
+FAILED tests/test_all_writes_go_through_the_policy.py::test_a_run_report_outside_the_output_root_is_refused
+FAILED tests/test_all_writes_go_through_the_policy.py::test_the_normal_locations_still_work
+FAILED tests/test_all_writes_go_through_the_policy.py::test_every_write_in_the_package_is_reachable_from_a_policy_check
+4 failed in 0.12s

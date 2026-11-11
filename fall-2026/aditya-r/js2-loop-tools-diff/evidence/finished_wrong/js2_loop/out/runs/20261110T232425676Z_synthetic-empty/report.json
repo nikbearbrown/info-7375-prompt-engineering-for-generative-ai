@@ -1,0 +1,66 @@
+{
+ "approval_request": null,
+ "boards": [
+  {
+   "attempts": [
+    {
+     "attempt": 1,
+     "bytes": 35,
+     "content_type": "application/json",
+     "raw": "raw/01_greenhouse_figma_a1.json.gz",
+     "sha256": "107e3256730ffd2a1d50883fe92a53cc5cb8f1a8d60bde7efdd0e12aeb709a8f",
+     "status": 200,
+     "trace_seq": 4
+    }
+   ],
+   "key": "greenhouse:figma",
+   "kind": "suspect-empty",
+   "new": null,
+   "new_ids": null,
+   "observed": null,
+   "reason": "suspect-empty: the jobs array is empty for a board previously observed nonempty",
+   "retried": null,
+   "status": "failed"
+  }
+ ],
+ "budget": {
+  "elapsed_seconds": {
+   "finalization_reserve": 10.0,
+   "limit": 180,
+   "used": 0.002
+  },
+  "http_attempts": {
+   "limit": 8,
+   "used": 1
+  },
+  "model_calls": {
+   "limit": 10,
+   "used": 0
+  }
+ },
+ "budget_reasons": [],
+ "counts": {
+  "attempted": 1,
+  "configured": 1,
+  "failed": 1,
+  "judgments_valid": 0,
+  "pending": 0,
+  "succeeded": 0,
+  "unattempted": 0
+ },
+ "errors": [],
+ "exit_code": 3,
+ "finished_utc": "2026-11-10T23:24:25+00:00",
+ "incomplete_reasons": [
+  "greenhouse:figma: failed — suspect-empty: the jobs array is empty for a board previously observed nonempty"
+ ],
+ "postings": [],
+ "run_id": "20261110T232425676Z_synthetic-empty",
+ "started_utc": "2026-11-10T23:24:25+00:00",
+ "state": {
+  "path": "out/state/seen.json",
+  "published": true,
+  "sha256": "9f56b6e029281fa7a73b124a3c85ab7d2dd02d3cc9e23302476baa2fbb3aa8a8"
+ },
+ "status": "incomplete"
+}

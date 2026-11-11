@@ -1,0 +1,118 @@
+[
+ {
+  "check": "C1",
+  "board": "greenhouse:klaviyo",
+  "raw": "raw/greenhouse-klaviyo-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C1",
+  "board": "greenhouse:hubspotjobs",
+  "raw": "raw/greenhouse-hubspotjobs-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C1",
+  "board": "ashby:linear",
+  "raw": "raw/ashby-linear-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C1",
+  "board": "lever:spotify",
+  "raw": "raw/lever-spotify-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C1",
+  "board": "greenhouse:webflow",
+  "raw": "raw/greenhouse-webflow-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C1",
+  "board": "greenhouse:klaviyoo",
+  "raw": "raw/greenhouse-klaviyoo-a1.json",
+  "result": "OK",
+  "detail": "sha256 matches trace"
+ },
+ {
+  "check": "C2",
+  "board": "greenhouse:klaviyo",
+  "result": "OK",
+  "detail": "report says 152, raw recount says 152"
+ },
+ {
+  "check": "C2",
+  "board": "greenhouse:hubspotjobs",
+  "result": "OK",
+  "detail": "report says 122, raw recount says 122"
+ },
+ {
+  "check": "C2",
+  "board": "ashby:linear",
+  "result": "OK",
+  "detail": "report says 32, raw recount says 32"
+ },
+ {
+  "check": "C2",
+  "board": "lever:spotify",
+  "result": "OK",
+  "detail": "report says 85, raw recount says 85"
+ },
+ {
+  "check": "C2",
+  "board": "greenhouse:webflow",
+  "result": "OK",
+  "detail": "report says 0, raw recount says 0"
+ },
+ {
+  "check": "C2",
+  "board": "greenhouse:klaviyoo",
+  "result": "OK",
+  "detail": "report says None, raw recount says None"
+ },
+ {
+  "check": "C3",
+  "board": "greenhouse:webflow",
+  "reference": {
+   "key": "greenhouse:webflow",
+   "postings": 27,
+   "date": "2026-09-26",
+   "source": "fall-2026/nik-bear-brown/lectern/ATS.md, 'Verified - reachable today' table"
+  },
+  "probes": [
+   {
+    "ats": "greenhouse",
+    "url": "https://boards-api.greenhouse.io/v1/boards/webflow/jobs",
+    "http_status": 200,
+    "postings": 0,
+    "raw": "independent-probes/greenhouse-webflow.json",
+    "sha256": "09aefc0c2d96e9c065aab057f04eaa352d63f19114f01783cfa12c890427f7f8"
+   },
+   {
+    "ats": "ashby",
+    "url": "https://api.ashbyhq.com/posting-api/job-board/webflow",
+    "http_status": 200,
+    "postings": 22,
+    "raw": "independent-probes/ashby-webflow.json",
+    "sha256": "b5e5b4eaf2aa1d35bc7f8a7f32c25773cfa1e590851492b0f0aa2d3b16b4030f"
+   },
+   {
+    "ats": "lever",
+    "url": "https://api.lever.co/v0/postings/webflow?mode=json",
+    "http_status": 404,
+    "postings": null,
+    "raw": "independent-probes/lever-webflow.json",
+    "sha256": "66f6c1fa69105316e3220df0561d630283dadaec8478dab1994692912daefb53"
+   }
+  ],
+  "result": "CONTRADICTED",
+  "detail": "reference says 27 postings on 2026-09-26 (fall-2026/nik-bear-brown/lectern/ATS.md, 'Verified - reachable today' table); ashby has 22 postings for 'webflow' right now (https://api.ashbyhq.com/posting-api/job-board/webflow)"
+ }
+]

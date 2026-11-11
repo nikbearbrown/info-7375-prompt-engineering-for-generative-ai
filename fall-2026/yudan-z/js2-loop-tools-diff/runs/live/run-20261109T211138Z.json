@@ -1,0 +1,68 @@
+{
+ "run": "20261109T211138Z",
+ "exit": "incomplete",
+ "exit_code": 3,
+ "stop_reason": null,
+ "budget": {
+  "limits": {
+   "max_boards": 6,
+   "max_requests": 12,
+   "max_seconds": 120
+  },
+  "boards": 5,
+  "requests": 5,
+  "seconds": 3.052
+ },
+ "boards": [
+  {
+   "system": "greenhouse",
+   "board": "pinterest",
+   "status": "ok",
+   "baseline": true,
+   "postings": 167,
+   "new": 0,
+   "evidence": "evidence/20261109T211138Z-greenhouse-pinterest.json",
+   "new_postings": []
+  },
+  {
+   "system": "greenhouse",
+   "board": "databricks",
+   "status": "ok",
+   "baseline": true,
+   "postings": 918,
+   "new": 0,
+   "evidence": "evidence/20261109T211138Z-greenhouse-databricks.json",
+   "new_postings": []
+  },
+  {
+   "system": "ashby",
+   "board": "ramp",
+   "status": "ok",
+   "baseline": true,
+   "postings": 172,
+   "new": 0,
+   "evidence": "evidence/20261109T211138Z-ashby-ramp.json",
+   "new_postings": []
+  },
+  {
+   "system": "lever",
+   "board": "palantir",
+   "status": "ok",
+   "baseline": true,
+   "postings": 304,
+   "new": 0,
+   "evidence": "evidence/20261109T211138Z-lever-palantir.json",
+   "new_postings": []
+  },
+  {
+   "system": "greenhouse",
+   "board": "no-such-board-js2",
+   "status": "failed",
+   "error": "http 404 https://boards-api.greenhouse.io/v1/boards/no-such-board-js2/jobs?content=true",
+   "attempts": 1
+  }
+ ],
+ "not_reached": [],
+ "trace_path": "C:\\neu is\\26fall\\INFO7375\\js2-loop-tools-diff\\runs\\live\\trace-20261109T211138Z.jsonl",
+ "boards_file": "config/boards.json"
+}

@@ -1,0 +1,13 @@
+NEEDS MAYANK: greenhouse/hubspot
+
+# Run 2026-11-11T00-24-41Z-finished-wrong
+
+**Exit: `finished`.** This says how the loop ended, not whether any answer is right. The independent check is `checker/check.py`.
+
+Requests 3 · seconds 0.852 · boards attempted 3 · budget hit: none
+
+| Board | Result | Postings | New | Relevant new | Note |
+|---|---|---|---|---|---|
+| greenhouse/anthropic | ok | 679 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| greenhouse/hubspot | **error** | — (not 0) | — | — | http-4xx: HTTP 404; state left untouched |
+| ashby/notion | ok | 156 | 0 | 0 | baseline (first time seen: nothing reported as new) |

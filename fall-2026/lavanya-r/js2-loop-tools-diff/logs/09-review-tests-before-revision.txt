@@ -1,0 +1,35 @@
+# Reviewer's tests against patch 7044eaf (before the revision). Command: python3 -B -m unittest tests.test_path_index_review -v
+# Ran: 2026-11-10T22:32:44Z at a6472df
+test_cases (tests.test_path_index_review.TestReviewCases.test_cases) ... 
+  test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='by_year.2025.gpa') ... FAIL
+  test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='education.00.end_date') ... FAIL
+  test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='education.٠.end_date') ... FAIL
+
+======================================================================
+FAIL: test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='by_year.2025.gpa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index_review.py", line 34, in test_cases
+    self.assertIs(path_exists(data, path), expected)
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='education.00.end_date')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index_review.py", line 34, in test_cases
+    self.assertIs(path_exists(data, path), expected)
+AssertionError: True is not False
+
+======================================================================
+FAIL: test_cases (tests.test_path_index_review.TestReviewCases.test_cases) (path='education.٠.end_date')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lavanyarajesh/info-7375-prompt-engineering-for-generative-ai/fall-2026/lavanya-r/js2-loop-tools-diff/tests/test_path_index_review.py", line 34, in test_cases
+    self.assertIs(path_exists(data, path), expected)
+AssertionError: True is not False
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=3)

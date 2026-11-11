@@ -1,0 +1,17 @@
+# Run 2026-11-09T08-10-20Z-error-demo: **ERROR** (exit code 5)
+
+> ESCALATE: every board failed; nothing was observed. Omkar must look.
+
+Requests used 1/12 · boards attempted 1/8 · 0.126 s of 90 s · persona Aarav Patel (fictional)
+
+| Board | Status | Why | Postings | New | Removed | Attempts |
+|---|---|---|---:|---:|---:|---:|
+| `greenhouse:klaviyoo` | error | not_found | null | null | null | 1 |
+
+## Boards with no answer
+
+- `greenhouse:klaviyoo`: **error**, not_found. Postings: null (null = not observed; no value invented).
+
+## New postings since the last run
+
+None among boards that answered.

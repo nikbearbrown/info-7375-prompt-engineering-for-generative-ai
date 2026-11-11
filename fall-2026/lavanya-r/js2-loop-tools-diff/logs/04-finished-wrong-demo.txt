@@ -1,0 +1,68 @@
+# Finished-wrong-answer demo. SEEDED (no network). Ran 2026-11-10T22:29:58Z at commit 8948aa3
+
+## Step 1. JS1 watcher (agent/watch.py, unchanged from JS1). Baseline from a REAL response JS1 saved on 2026-10-30
+$ python3 -B -m agent.watch --from-file ../js1-contract-and-watch/evidence/raw/databricks-2026-10-30T204649Z.json.gz --seeded --state runs/finished-wrong-demo/js1/state.json --raw-dir runs/finished-wrong-demo/js1/raw --report-dir runs/finished-wrong-demo/js1/reports
+# Run 2026-11-10T222958Z — board `databricks`
+
+- **Kind:** seeded (source: `../js1-contract-and-watch/evidence/raw/databricks-2026-10-30T204649Z.json.gz`)
+- **Raw response:** `runs/finished-wrong-demo/js1/raw/databricks-2026-11-10T222958Z.json.gz` (sha256 `22745f513620f3c2…`)
+- **Postings on board:** 903
+- **New since last run:** 0 — baseline run, nothing is new by definition
+
+
+# process exit code: 0
+
+## Step 2. Same JS1 watcher, next run. The board answers 200 with 0 jobs (CONSTRUCTED input)
+$ python3 -B -m agent.watch --from-file runs/finished-wrong-demo/inputs/greenhouse-databricks-EMPTY-constructed.json --seeded --state runs/finished-wrong-demo/js1/state.json --raw-dir runs/finished-wrong-demo/js1/raw --report-dir runs/finished-wrong-demo/js1/reports
+# Run 2026-11-10T223000Z — board `databricks`
+
+- **Kind:** seeded (source: `runs/finished-wrong-demo/inputs/greenhouse-databricks-EMPTY-constructed.json`)
+- **Raw response:** `runs/finished-wrong-demo/js1/raw/databricks-2026-11-10T223000Z.json.gz` (sha256 `107e3256730ffd2a…`)
+- **Postings on board:** 0
+- **New since last run:** 0
+
+
+# process exit code: 0
+
+## Step 3. Independent check (check.py imports nothing from agent/) on step 2's report
+$ python3 -B check.py --js1 runs/finished-wrong-demo/js1/reports/run-databricks-2026-11-10T223000Z.json --raw runs/finished-wrong-demo/js1/raw/databricks-2026-11-10T223000Z.json.gz --previous-count 903
+PASS  recount: report 0, raw 0
+FAIL  empty board reported as 'no new jobs': raw has 0 jobs; report claims 0 new (a quiet day); the previous run saw 903
+
+1 passed, 1 failed
+# process exit code: 1
+
+## Step 4. JS2 loop on the SAME empty response
+$ python3 -B -m agent.loop --boards runs/finished-wrong-demo/boards.json --fixtures runs/finished-wrong-demo/fixtures.json --seeded
+# JS2 run 2026-11-10T223000Z (SEEDED)
+
+- **Exit:** `incomplete` (code 2): greenhouse/databricks: suspicious_empty
+- **Budget used:** 1/10 boards, 1/20 requests, 0.0/120 s
+- **Source:** runs/finished-wrong-demo/fixtures.json
+
+## For me to look at
+
+- greenhouse/databricks: suspicious_empty (HTTP 200 with 0 jobs: not reported as 'no new jobs')
+
+## Boards
+
+| # | ATS | board | status | attempts | jobs | new | state saved |
+|---|---|---|---|---|---|---|---|
+| 1 | greenhouse | databricks | suspicious_empty | 1 | 0 | — | — |
+
+Jobs on boards that worked: 0 (none). Failed boards are not counted as 0.
+
+
+Saved in runs/2026-11-10T223000Z-seeded/ (trace.jsonl, report.json, raw/)
+# process exit code: 2
+
+## Step 5. Independent check on step 4's report
+$ python3 -B check.py runs/2026-11-10T223000Z-seeded/report.json
+PASS  greenhouse/databricks recount: report says 0 jobs, raw bytes say 0
+PASS  greenhouse/databricks empty board: raw has 0 jobs; report must flag it, not say 'no new jobs' (status=suspicious_empty, new=None)
+PASS  total: report total 0, recount of ok boards 0
+PASS  exit honesty: exit=incomplete with 1 board(s) not fully ok
+PASS  request budget: 1 requests in trace, report says 1, limit 20
+
+5 passed, 0 failed
+# process exit code: 0

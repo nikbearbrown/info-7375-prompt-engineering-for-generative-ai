@@ -1,0 +1,31 @@
+# END-TO-END in a fresh copy (rsync of the folder minus caches into a temp dir, as a clone would look). Run by Claude Code at 2026-11-09T08-29-46Z. The temp path is shown as $FRESH.
+## tests
+Ran 66 tests in 0.366s
+
+OK
+## mutants
+CONTROL  passed: the unmutated copy passes every test
+11/11 wrong versions KILLED
+## live run, main watch list
+# Run 2026-11-09T08-29-53Z-e2e: **INCOMPLETE** (exit code 3)
+
+> no answer from: greenhouse:webflow (empty_unverified), greenhouse:klaviyoo (error)
+exit=
+## independent check
+The agent reported **incomplete** (exit code 3).
+This check found **1 contradiction(s)**.
+## edge: --out outside the folder
+EXIT error (code 5): ESCALATE: output folder must be inside the assignment folder
+## edge: unknown ATS and a ../ slug
+| `workday:x` | error | bad_slug: unknown ATS 'workday'; known: greenhouse, ashby, lever | null | null | null | 0 |
+| `greenhouse:../etc` | error | bad_slug: board name '../etc' is not a plain board slug | null | null | null | 0 |
+| `greenhouse:klaviyo` | ok | http_200 | 152 | 0 (baseline) | 0 | 1 |
+
+## edge: missing config
+EXIT error (code 5): ESCALATE: [Errno 2] No such file or directory: '$FRESH/config/nope.json'
+## edge: same label twice in a row
+exit=3
+exit=3
+2026-11-09T08-29-57Z-same
+2026-11-09T08-29-57Z-same-2
+(note added by Claude Code: the blank 'exit=' after the live run is a shell quirk, zsh has no PIPESTATUS; the report line above it shows exit code 3)

@@ -1,0 +1,75 @@
+{
+  "report_version": 2,
+  "generated_at": "2026-11-09T22:01:03Z",
+  "loop_version": "L-v1",
+  "rule_version": "R-v3",
+  "mode": "replay:evidence/seeded/replay-wrong-answer",
+  "label": "SEEDED run 2 of 2: CONSTRUCTED response, HTTP 200 with an empty jobs array",
+  "exit_status": "finished",
+  "complete": true,
+  "is_first_run": false,
+  "policy": {
+    "policy_version": "P-v1",
+    "allowed_hosts": [
+      "api.ashbyhq.com",
+      "api.lever.co",
+      "boards-api.greenhouse.io"
+    ],
+    "allowed_methods": [
+      "GET"
+    ],
+    "output_root": "/home/claude/work/fall-2026/weiting-w/js2-loop-tools-diff/evidence",
+    "readable_subtrees": [
+      "config",
+      "data",
+      "evidence"
+    ],
+    "approve_overwrite": false
+  },
+  "budget": {
+    "boards": 6,
+    "requests": 12,
+    "seconds": 90.0,
+    "retries_per_board": 2
+  },
+  "budget_hit": null,
+  "usage": {
+    "boards_planned": 1,
+    "boards_attempted": 1,
+    "boards_observed": 1,
+    "boards_failed": 0,
+    "boards_skipped": [],
+    "requests_used": 1,
+    "requests_limit": 12,
+    "seconds_used": 0.001,
+    "seconds_limit": 90.0
+  },
+  "boards": [
+    {
+      "board": "greenhouse:reddit",
+      "provider": "greenhouse",
+      "token": "reddit",
+      "status": "ok",
+      "attempts": 1,
+      "deliberate_failure": false,
+      "postings_seen": 0,
+      "raw_response": {
+        "path": "evidence/seeded/wrong-answer/20261109T220103Z-greenhouse-reddit.json",
+        "bytes": 380,
+        "sha256": "dfa9e6f090a401734b450fba0fe63593ee6d527102b8f5e2b73b9531c388d89d"
+      }
+    }
+  ],
+  "final_outcome_per_board": {
+    "greenhouse:reddit": "ok"
+  },
+  "new_postings": 0,
+  "entries": [],
+  "state": {
+    "path": "evidence/seeded/state/seen.json",
+    "sha256_before": "eabd98e8026850f246c769760984d1d26c9d01ad78e7ea2375109c340400b650",
+    "sha256_after": "7401787ec150af31480403ee37f1e896318e9e704534b35385a7c3a735ae2d31"
+  },
+  "trace": "evidence/seeded/runs/trace-20261109T220103Z.jsonl",
+  "run_report_path": "evidence/seeded/runs/run-20261109T220103Z.json"
+}

@@ -1,0 +1,56 @@
+{
+ "run_id": "4-correct-loop",
+ "label": "SIMULATED-empty-figma",
+ "status": "incomplete",
+ "requests_used": 3,
+ "seconds": 0.25,
+ "budgets": {
+  "max_boards": 5,
+  "max_requests": 10,
+  "max_seconds": 60,
+  "request_timeout_seconds": 10
+ },
+ "total_new": 0,
+ "boards": [
+  {
+   "system": "greenhouse",
+   "board": "anthropic",
+   "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs",
+   "result": "ok",
+   "reason": "compared with saved state",
+   "attempts": 1,
+   "count_seen": 679,
+   "count_new": 0,
+   "baseline": false,
+   "new": []
+  },
+  {
+   "system": "greenhouse",
+   "board": "figma",
+   "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+   "result": "suspicious_empty",
+   "reason": "valid response with zero jobs",
+   "attempts": 1,
+   "count_seen": null,
+   "count_new": null,
+   "baseline": null,
+   "new": null
+  },
+  {
+   "system": "ashby",
+   "board": "openai",
+   "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+   "result": "ok",
+   "reason": "compared with saved state",
+   "attempts": 1,
+   "count_seen": 826,
+   "count_new": 0,
+   "baseline": false,
+   "new": []
+  }
+ ],
+ "state_written": {
+  "state": "state_after_correct.json",
+  "approved": false
+ }
+}

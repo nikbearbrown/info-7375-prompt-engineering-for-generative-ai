@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fictional résumé for Job-Search Agent 1",
+  "description": "Only the fields CONTRACT.md reads are required. Email and phone patterns guard against a real résumé.",
+  "type": "object",
+  "required": ["personal", "target_titles", "target_role", "years_experience", "visa", "skills"],
+  "properties": {
+    "personal": {
+      "type": "object",
+      "required": ["name", "location", "email", "phone"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "location": {"type": "string", "minLength": 1},
+        "email": {"type": "string", "pattern": "@example\\.com$"},
+        "phone": {"type": "string", "pattern": "555"}
+      }
+    },
+    "target_titles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "target_role": {
+      "type": "object",
+      "required": ["excluded"],
+      "properties": {
+        "excluded": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "years_experience": {"type": "integer", "minimum": 0},
+    "visa": {
+      "type": "object",
+      "required": ["type", "current_status"],
+      "properties": {
+        "type": {"type": "string", "minLength": 1},
+        "current_status": {"type": "string"}
+      }
+    },
+    "skills": {
+      "type": "object",
+      "required": ["languages", "backend_automation", "database_cloud", "devops_cicd"],
+      "properties": {
+        "languages": {"$ref": "#/$defs/skill_list"},
+        "backend_automation": {"$ref": "#/$defs/skill_list"},
+        "database_cloud": {"$ref": "#/$defs/skill_list"},
+        "devops_cicd": {"$ref": "#/$defs/skill_list"},
+        "familiar_with_not_shipped": {"$ref": "#/$defs/skill_list"}
+      }
+    }
+  },
+  "$defs": {
+    "skill_list": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

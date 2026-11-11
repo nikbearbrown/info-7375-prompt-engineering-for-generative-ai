@@ -1,0 +1,9 @@
+{
+  "_label": "SEEDED / SIMULATED. Not a live run.",
+  "_why": "On 2026-09-26 Lectern ATS.md recorded that Greenhouse slug 'hubspot' returned a valid but EMPTY board (HubSpot's real board is 'hubspotjobs'). On 2026-11-11 the live API returned 404 for 'hubspot' instead (see runs/*-finished-wrong/). This replay reproduces the recorded empty-200 condition so the finished-wrong answer can be shown and checked. The anthropic and notion files are the real bytes from live run 2026-11-11T00-24-30Z-real.",
+  "responses": {
+    "greenhouse/anthropic": {"status": 200, "file": "config/replay/greenhouse__anthropic__a1__200.json", "origin": "live run 2026-11-11T00-24-30Z-real"},
+    "greenhouse/hubspot": {"status": 200, "file": "config/replay/greenhouse-hubspot-empty-200.json", "origin": "CONSTRUCTED: the empty board Lectern ATS.md recorded on 2026-09-26"},
+    "ashby/notion": {"status": 200, "file": "config/replay/ashby__notion__a1__200.json", "origin": "live run 2026-11-11T00-24-30Z-real"}
+  }
+}

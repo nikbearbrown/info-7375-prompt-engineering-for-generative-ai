@@ -1,0 +1,231 @@
+# Full commit history of my local repository, printed with:
+#   git log --reverse --date=iso-strict --format="commit %H%nDate:   %ad%n%n    %s%n" --name-status
+# It covers every commit up to and including the one before the commit that added this file.
+
+commit 317d931709d16cf87a89b00916a6246fc4bd8ea4
+Date:   2026-11-09T15:41:40-05:00
+
+    start: JS1 code copied unchanged (JS1 local commit 51997c8; GitHub aa632cb)
+
+
+A	.gitignore
+A	agent/__init__.py
+A	agent/judge.py
+A	agent/persona.py
+A	agent/report.py
+A	agent/rule.py
+A	agent/run.py
+A	agent/watch.py
+A	config/allowlist.json
+A	persona/resume.json
+A	prompts/contract_v1.txt
+A	prompts/contract_v2.txt
+A	tests/test_contract.py
+commit a78bea862e97b56dcffbce6b9f8b7dd79e69c365
+Date:   2026-11-09T16:08:01-05:00
+
+    GATE.md: exits, budgets, repeat rule, error policy, permission policy, wrong versions (approved by Yudan 2026-11-09)
+
+
+A	GATE.md
+commit ff7a40cadb14cb3bf65d2c6552b933d2a45db714
+Date:   2026-11-09T16:09:54-05:00
+
+    tests from GATE.md and predicted boundary cases, before the loop/tools/policy code exists
+
+
+A	POLICY.md
+A	tests/test_gate.py
+commit 14909bdc61a820f70a9f1c58599f6a0739a3649d
+Date:   2026-11-09T16:11:38-05:00
+
+    loop, tools, policy, three ATS parsers and CLI written against GATE.md and the earlier tests
+
+
+A	agent/ats.py
+A	agent/cli.py
+A	agent/loop.py
+A	agent/policy.py
+A	agent/tools.py
+M	config/allowlist.json
+A	config/boards-wrong-ats.json
+A	config/boards.json
+M	tests/test_gate.py
+commit c7311b143ce1772b8da65ac537617e4979a8707c
+Date:   2026-11-09T16:13:08-05:00
+
+    run 1 (real, baseline, deliberate 404 -> incomplete); finished-wrong-answer demo + independent crosscheck; R3 defect reproduced
+
+
+A	CONTRACT.md
+A	check/crosscheck.py
+A	review/01-reproduce-before.txt
+A	review/reproduce_r3.py
+A	runs/live/evidence/20261109T211138Z-ashby-ramp.json
+A	runs/live/evidence/20261109T211138Z-greenhouse-databricks.json
+A	runs/live/evidence/20261109T211138Z-greenhouse-pinterest.json
+A	runs/live/evidence/20261109T211138Z-lever-palantir.json
+A	runs/live/run-20261109T211138Z.json
+A	runs/live/run-20261109T211138Z.md
+A	runs/live/state/ashby-ramp.json
+A	runs/live/state/greenhouse-databricks.json
+A	runs/live/state/greenhouse-pinterest.json
+A	runs/live/state/lever-palantir.json
+A	runs/live/terminal-run1.txt
+A	runs/live/trace-20261109T211138Z.jsonl
+A	runs/wrong-ats/evidence/20261109T211154Z-greenhouse-pinterest.json
+A	runs/wrong-ats/evidence/20261109T211154Z-greenhouse-ramp.json
+A	runs/wrong-ats/evidence/20261109T211154Z-lever-palantir.json
+A	runs/wrong-ats/run-20261109T211154Z.json
+A	runs/wrong-ats/run-20261109T211154Z.md
+A	runs/wrong-ats/state/greenhouse-pinterest.json
+A	runs/wrong-ats/state/greenhouse-ramp.json
+A	runs/wrong-ats/state/lever-palantir.json
+A	runs/wrong-ats/terminal-agent.txt
+A	runs/wrong-ats/terminal-crosscheck.txt
+A	runs/wrong-ats/trace-20261109T211154Z.jsonl
+commit 20799aadd7349752d2a65fb26deed50486be6a59
+Date:   2026-11-09T16:14:23-05:00
+
+    review: R3 test written before the patch, from Yudan's predictions (fails on the current code)
+
+
+A	review/02-test-before-patch.txt
+A	tests/test_r3_full_state_names.py
+commit b263c285d340eb683c0341e0613c78857bf7349c
+Date:   2026-11-09T16:16:29-05:00
+
+    review: Claude Code session, its diff (uncommitted), behaviour comparison on real data, reproduce-after
+
+
+A	review/03-claude-code-session.jsonl
+A	review/03-claude-code-stderr.txt
+A	review/03-prompt-to-claude-code.txt
+A	review/04-diff.txt
+A	review/05-behaviour-change.txt
+A	review/06-reproduce-after.txt
+A	review/compare_behaviour.py
+commit db56c1eb918c4fa9d545c99f5497c9dfd2c7ad27
+Date:   2026-11-09T20:08:52-05:00
+
+    review: Yudan revises the patch -> two more tests first (Atlanta, Georgia; Remote - Georgia)
+
+
+M	tests/test_r3_full_state_names.py
+commit 76f15a59d6c9f39f322c4d577fff07077ac70606
+Date:   2026-11-09T20:09:53-05:00
+
+    review: revision by the same Claude Code session (Georgia handled; premature 'Revision' wording removed); behaviour re-compared
+
+
+A	review/09-tests-before-revision.txt
+A	review/10-claude-code-revision-session.jsonl
+A	review/10-revision-prompt.txt
+A	review/10-stderr.txt
+A	review/11-diff-after-revision.txt
+A	review/12-behaviour-change-after-revision.txt
+A	review/13-reproduce-after-revision.txt
+commit 30a3ac7187a448caa747e8a2fccbcbcfbe1e8aca
+Date:   2026-11-09T20:30:39-05:00
+
+    GATE revision (approved by Yudan 2026-11-09): never follow redirects; test first (fails now)
+
+
+M	GATE.md
+A	tests/test_redirect.py
+commit eedf18dd6f7f36e750a4f937d3dae7174963dc0f
+Date:   2026-11-09T20:30:47-05:00
+
+    fetch never follows redirects (GATE revision 2026-11-09); redirect test now passes
+
+
+M	agent/tools.py
+commit 59e9c5ca43c3031ab397fb15ae137474293c6b06
+Date:   2026-11-09T20:41:28-05:00
+
+    R3 full state names: accepted by Yudan after one revision (she ran the tests and the comparison herself: review/07, review/08); CONTRACT revision dated
+
+
+M	CONTRACT.md
+M	agent/rule.py
+A	review/07-yudan-ran-tests.txt
+A	review/08-yudan-ran-compare.txt
+commit d7efc488413cbbecbd9df63cf96077da86af334e
+Date:   2026-11-09T20:42:56-05:00
+
+    review packet, finished-wrong-answer write-up, boundary table observed from Yudan's own test run
+
+
+A	FINISHED-WRONG.md
+M	POLICY.md
+A	REVIEW-PACKET.md
+commit 885e9ee138e5ac24f2547fcab1484045df2ceee4
+Date:   2026-11-09T20:44:13-05:00
+
+    test first: a workdir outside runs/ must stop with error before any request (found trying the README commands)
+
+
+A	tests/test_cli.py
+commit e2dfc4b840697a5145b527f0d080030641a66d7a
+Date:   2026-11-09T20:44:15-05:00
+
+    cli: refuse a workdir outside runs/ before any request (exit 2); test_cli passes
+
+
+M	agent/cli.py
+commit 8e852c744209d96d68e422492e5a61bf6720a3ef
+Date:   2026-11-09T20:45:02-05:00
+
+    README with sign-off draft and driver's seat, SOURCES, FRICTIONAL
+
+
+A	FRICTIONAL.md
+A	README.md
+A	SOURCES.md
+commit 869df0e52e5cc37ddd65ff9823760ac21f2d2495
+Date:   2026-11-10T18:45:42-05:00
+
+    Real run 2 (2026-11-10): 34 new postings judged, exit incomplete; review scripts pinned to run 1; docs updated
+
+
+M	FRICTIONAL.md
+M	README.md
+A	review/14-run2-js1-rule-vs-now.txt
+M	review/compare_behaviour.py
+M	review/reproduce_r3.py
+A	review/run2_old_vs_new.py
+A	runs/live/evidence/20261110T234346Z-ashby-ramp.json
+A	runs/live/evidence/20261110T234346Z-greenhouse-databricks.json
+A	runs/live/evidence/20261110T234346Z-greenhouse-pinterest.json
+A	runs/live/evidence/20261110T234346Z-lever-palantir.json
+A	runs/live/run-20261110T234346Z.json
+A	runs/live/run-20261110T234346Z.md
+M	runs/live/state/ashby-ramp.json
+M	runs/live/state/greenhouse-databricks.json
+M	runs/live/state/greenhouse-pinterest.json
+M	runs/live/state/lever-palantir.json
+A	runs/live/terminal-run2.txt
+A	runs/live/trace-20261110T234346Z.jsonl
+commit fa1280b86484dc09c01352919bab7062028acda5
+Date:   2026-11-10T18:49:29-05:00
+
+    Sign-off signed by Yudan Zhou 2026-11-10; remove local init records and user name from saved logs
+
+
+M	FRICTIONAL.md
+M	README.md
+M	review/03-claude-code-session.jsonl
+M	review/07-yudan-ran-tests.txt
+M	review/10-claude-code-revision-session.jsonl
+commit 36ac0e607439ef7d9fc7b45da3d081004067fd6a
+Date:   2026-11-10T18:59:35-05:00
+
+    Review scripts run without git (frozen pre-R3 rule); README note on commit history
+
+
+M	FRICTIONAL.md
+M	README.md
+M	REVIEW-PACKET.md
+M	review/compare_behaviour.py
+A	review/rule_before_r3.py
+M	review/run2_old_vs_new.py

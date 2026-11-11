@@ -1,0 +1,132 @@
+{
+  "report_version": 2,
+  "generated_at": "2026-11-11T00:18:12Z",
+  "loop_version": "L-v1",
+  "rule_version": "R-v3",
+  "mode": "live",
+  "label": null,
+  "exit_status": "incomplete",
+  "complete": false,
+  "is_first_run": true,
+  "policy": {
+    "policy_version": "P-v1",
+    "allowed_hosts": [
+      "api.ashbyhq.com",
+      "api.lever.co",
+      "boards-api.greenhouse.io"
+    ],
+    "allowed_methods": [
+      "GET"
+    ],
+    "output_root": "/Users/wangweiting/Downloads/js2-final/evidence",
+    "readable_subtrees": [
+      "config",
+      "data",
+      "evidence"
+    ],
+    "approve_overwrite": false
+  },
+  "budget": {
+    "boards": 6,
+    "requests": 12,
+    "seconds": 90.0,
+    "retries_per_board": 2
+  },
+  "budget_hit": null,
+  "usage": {
+    "boards_planned": 5,
+    "boards_attempted": 5,
+    "boards_observed": 4,
+    "boards_failed": 1,
+    "boards_skipped": [],
+    "requests_used": 5,
+    "requests_limit": 12,
+    "seconds_used": 1.734,
+    "seconds_limit": 90.0
+  },
+  "boards": [
+    {
+      "board": "greenhouse:reddit",
+      "provider": "greenhouse",
+      "token": "reddit",
+      "status": "ok",
+      "attempts": 1,
+      "deliberate_failure": false,
+      "postings_seen": 157,
+      "raw_response": {
+        "path": "evidence/raw/20261111T001811Z-greenhouse-reddit.json",
+        "bytes": 279785,
+        "sha256": "f9e53e5f788db378e247d4ff7f0844b63c4cb070de21dd5b3ca2ba2abb607615"
+      }
+    },
+    {
+      "board": "lever:spotify",
+      "provider": "lever",
+      "token": "spotify",
+      "status": "ok",
+      "attempts": 1,
+      "deliberate_failure": false,
+      "postings_seen": 85,
+      "raw_response": {
+        "path": "evidence/raw/20261111T001812Z-lever-spotify.json",
+        "bytes": 813069,
+        "sha256": "8303a53fde8c3ec9f000464ea0b04326d0ac50bf7f9a4f687db95418f52035de"
+      }
+    },
+    {
+      "board": "ashby:ramp",
+      "provider": "ashby",
+      "token": "ramp",
+      "status": "ok",
+      "attempts": 1,
+      "deliberate_failure": false,
+      "postings_seen": 177,
+      "raw_response": {
+        "path": "evidence/raw/20261111T001812Z-ashby-ramp.json",
+        "bytes": 2979308,
+        "sha256": "f35232d7d376223a043da726cb878931965773d6ed50f1097944b82d432ddcf5"
+      }
+    },
+    {
+      "board": "ashby:linear",
+      "provider": "ashby",
+      "token": "linear",
+      "status": "ok",
+      "attempts": 1,
+      "deliberate_failure": false,
+      "postings_seen": 33,
+      "raw_response": {
+        "path": "evidence/raw/20261111T001812Z-ashby-linear.json",
+        "bytes": 467923,
+        "sha256": "ac2e34215a8b41df85b357494c444e8df2505cc8d762cfd6951d7f9bd2e3d35a"
+      }
+    },
+    {
+      "board": "greenhouse:js2-no-such-board-9f3a",
+      "provider": "greenhouse",
+      "token": "js2-no-such-board-9f3a",
+      "status": "permanent",
+      "attempts": 1,
+      "deliberate_failure": true,
+      "error_class": "PermanentFailure",
+      "error": "HTTP 404 from https://boards-api.greenhouse.io/v1/boards/js2-no-such-board-9f3a/jobs",
+      "postings_seen": null
+    }
+  ],
+  "final_outcome_per_board": {
+    "greenhouse:reddit": "ok",
+    "lever:spotify": "ok",
+    "ashby:ramp": "ok",
+    "ashby:linear": "ok",
+    "greenhouse:js2-no-such-board-9f3a": "permanent"
+  },
+  "new_postings": 0,
+  "entries": [],
+  "state": {
+    "path": "evidence/state/seen.json",
+    "sha256_before": null,
+    "sha256_after": "0a262b94fb825570139d802a2837489338b56523c5a2bc4eeaab6518a275925d"
+  },
+  "trace": "evidence/runs/trace-20261111T001811Z.jsonl",
+  "run_report_path": "evidence/runs/run-20261111T001812Z.json"
+}

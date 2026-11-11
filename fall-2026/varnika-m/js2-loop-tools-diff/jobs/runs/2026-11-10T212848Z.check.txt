@@ -1,0 +1,11 @@
+# check_run.py at commit 1347f4c5, run 2026-11-10T22:15:39Z
+Independent check of run 2026-11-10T212848Z (the loop said: incomplete)
+  PASS  raw_sha256                               4 raw responses match the trace
+  PASS  independent_count                        every ok board's count matches my own count of its raw response
+  PASS  no_drop_to_zero                          no ok board dropped to zero
+  PASS  new_ids_recomputed                       every ok board's new ids match a recomputation from the earlier raw responses
+  PASS  gone_recomputed                          every ok board's gone count matches its last good run's raw response (or is unknown)
+  PASS  budgets_and_hosts                        4 requests, all to GATE.md hosts, within budget
+  PASS  boards_match_config                      the record's boards are config/boards.json's, and each was fetched or truly a repeat
+  PASS  exit_consistent                          exit incomplete agrees with the boards and the trace
+Verdict: the run's claim is SUPPORTED.

@@ -1,0 +1,188 @@
+{
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "board": "greenhouse:databricks",
+ "cli_json": {
+  "api_error_status": null,
+  "duration_api_ms": 5236,
+  "duration_ms": 4270,
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 1273,
+  "input_attachments_detail": {
+   "cpu_ms": 14,
+   "major_faults": 0,
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 6
+  },
+  "is_error": false,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.000298,
+    "inputTokens": 2845,
+    "maxOutputTokens": 128000,
+    "outputTokens": 27,
+    "provider": "firstParty",
+    "thinkingTokens": 0,
+    "webSearchRequests": 0
+   },
+   "claude-opus-5-5": {
+    "cacheCreationInputTokens": 2485,
+    "cacheReadInputTokens": 1054,
+    "canonicalModel": "claude-opus-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.027998799999999997,
+    "inputTokens": 2,
+    "maxOutputTokens": 128000,
+    "outputTokens": 395,
+    "provider": "firstParty",
+    "thinkingTokens": 155,
+    "webSearchRequests": 0
+   }
+  },
+  "num_turns": 1,
+  "permission_denials": [],
+  "process_turn_index": 0,
+  "queued_turn_count": 0,
+  "result": "{\"posting_id\": 8880402002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"You will position Databricks as the enterprise-wide standard\"}]}, \"explanation\": \"The title 'Account Executive - Strategic Core' contains no eligible role phrase. It also contains no excluded word. Only 'databricks' appears in both the description and the résumé (skills.data_bi), so the requirement of 2 shared skills also fails.\"}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "7606f238-2b2c-4ab3-ac02-e70770309248",
+  "stop_reason": "end_turn",
+  "subagent_stats": {
+   "by_type": {},
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "system": 0,
+    "user": 0
+   },
+   "max_depth": 0,
+   "refused": {
+    "budget": 0,
+    "concurrency_limit": 0,
+    "depth_limit": 0
+   },
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "spawned": 0,
+   "spawned_by_subagents": 0,
+   "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_cpu_ms": 85,
+  "time_to_request_loop_lag_ms": 1,
+  "time_to_request_major_faults": 0,
+  "time_to_request_ms": 132,
+  "time_to_request_phases_ms": {
+   "autocompact": 1,
+   "client_creation": 1,
+   "engine_pickup": 0,
+   "init_message": 1,
+   "input_attachments": 8,
+   "input_hooks": 1,
+   "message_normalization": 1,
+   "message_prep": 1,
+   "model_config_wait": 0,
+   "model_gates": 102,
+   "other": 8,
+   "process_user_input": 1,
+   "query_setup": 0,
+   "request_build": 2,
+   "resume_other": 1,
+   "system_prompt": 0,
+   "tool_pool_refresh": 0,
+   "tool_schema_build": 4
+  },
+  "total_cost_usd": 0.028296799999999997,
+  "ttft_ms": 2601,
+  "ttft_stream_ms": 1272,
+  "turn_start_resume_kind": "none",
+  "type": "result",
+  "usage": {
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2485,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "cache_creation_input_tokens": 2485,
+   "cache_read_input_tokens": 1054,
+   "fallback_credit": null,
+   "inference_geo": "global",
+   "input_tokens": 2,
+   "iterations": [
+    {
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 2485,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_creation_input_tokens": 2485,
+     "cache_read_input_tokens": 1054,
+     "input_tokens": 2,
+     "output_tokens": 395,
+     "type": "message"
+    }
+   ],
+   "output_tokens": 395,
+   "output_tokens_details": {
+    "thinking_tokens": 155
+   },
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "service_tier": "standard",
+   "speed": "standard"
+  },
+  "uuid": "582e6ab9-4d86-45a0-91c5-8c6ce91419cc"
+ },
+ "effort": "medium",
+ "finished_at_utc": "2026-11-10T23:21:28+00:00",
+ "invoked_at_utc": "2026-11-10T23:21:23+00:00",
+ "model_requested": "claude-opus-5-5",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "posting_id_requested": "8880402002",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "prompt_version": "v1",
+ "response_text": "{\"posting_id\": 8880402002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"You will position Databricks as the enterprise-wide standard\"}]}, \"explanation\": \"The title 'Account Executive - Strategic Core' contains no eligible role phrase. It also contains no excluded word. Only 'databricks' appears in both the description and the résumé (skills.data_bi), so the requirement of 2 shared skills also fails.\"}",
+ "returncode": 0,
+ "session_id": "7606f238-2b2c-4ab3-ac02-e70770309248",
+ "stderr_tail": "",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "transport_ok": true,
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8880402002,\n \"title\": \"Account Executive - Strategic Core \",\n \"location\": \"Seoul, South Korea\",\n \"departments\": [\n  \"Enterprise Sales\"\n ],\n \"description\": \"SLSQ128R22 As a Strategic Core Account Executive, your mission will be to lead the executive relationship, overall consumption growth, and cross-enterprise expansion across a select group of Databricks’ largest strategic accounts in Korea. This role is centered on expanding our strategic footprint within complex conglomerates and large enterprises. You will position Databricks as the enterprise-wide standard for data, analytics, and generative AI by identifying new buying centers, driving multi-million-dollar commitments, and accelerating workload consumption. Working as the general manager of your named accounts, you will orchestrate specialized cross-functional teams, executive sponsors, and global partners to unlock mission-critical customer transformations. You will report to the Director of Sales, Korea. The impact you will have: Own and grow total annual contract value (ACV), consumption revenue, and customer lifetime value within a dedicated portfolio of Korea's largest strategic enterprise accounts. Build and execute multi-year strategic account plans that align Databricks capabilities directly with the customer’s strategic transformation roadmaps. Systematically uncover new buying centers and business units across corporate subsidiaries, expanding adoption from initial workloads to company-wide standardization. Build and maintain C-level and board-level relationships across both technology and business functions (CEO, CIO, CDO, BU Presidents). Drive widespread consumption growth by collaborating with customer success, forward-deployed engineering, and professional services teams. Lead complex commercial negotiations, long-term multi-year enterprise license agreements, and consumption commit structures. Coordinate deeply with strategic global and domestic SI partners and Hyperscalers (AWS, Azure, GCP) to deliver mission-critical solutions at enterprise scale. What we look for: 10+ years of experience in enterprise technology sales, managing top-tier named accounts or conglomerate groups in Korea. Proven track record of closing 8-figure / multi-million-dollar complex cloud, PaaS, or enterprise software agreements. Deep expertise in consumption-based business models, workload migration, and cloud/data modernization. Mastery of enterprise sales disciplines (MEDDPICC, Value Realization, Executive Relationship Management, and Matrix Account Planning). Proven experience orchestrating matrixed internal resources (Pre-sales, Customer Success, Product Management, Legal, Executive Sponsors). Established executive networks across major Korean conglomerates. Native-level fluency in Korean is required and fluent, professional business English is preferred. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "3f5b5e3b2982354d7ae80b42eaa17920d79ba6a32ba94d5e5cadb019e7e84cad",
+ "valid": true,
+ "validation_errors": [],
+ "wall_seconds": 5.37
+}

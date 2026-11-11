@@ -1,0 +1,10 @@
+# python3 -m unittest tests.test_transport_socket_guard -v  (Claude Code, 2026-11-10T21:51:43Z, Python 3.9.6)
+test_found_for_a_normal_response (tests.test_transport_socket_guard.SocketIsFoundThroughSock) ... ok
+test_found_for_an_error_response (tests.test_transport_socket_guard.SocketIsFoundThroughSock) ... ok
+test_the_guard_fails_when_the_attribute_is_missing (tests.test_transport_socket_guard.SocketIsFoundThroughSock)
+The guard itself: a response whose fp.raw has no _sock must fail the check, not pass it. ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+OK

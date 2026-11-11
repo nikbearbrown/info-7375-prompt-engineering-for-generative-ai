@@ -1,0 +1,15 @@
+NEEDS MAYANK: greenhouse/mayank-js2-no-such-board
+
+# Run 2026-11-11T00-24-30Z-real
+
+**Exit: `incomplete`.** This says how the loop ended, not whether any answer is right. The independent check is `checker/check.py`.
+
+Requests 4 · seconds 1.225 · boards attempted 4 · budget hit: none
+
+| Board | Result | Postings | New | Relevant new | Note |
+|---|---|---|---|---|---|
+| greenhouse/anthropic | ok | 679 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| greenhouse/hubspotjobs | ok | 122 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| ashby/notion | ok | 156 | 0 | 0 | baseline (first time seen: nothing reported as new) |
+| greenhouse/mayank-js2-no-such-board | **error** | — (not 0) | — | — | http-4xx: HTTP 404; state left untouched |
+| ashby/Notion | skipped | — | — | — | repeat of ashby/notion, no request sent |

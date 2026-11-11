@@ -1,0 +1,40 @@
+# test_review_empty_board.py against the PRE-PATCH agent/loop.py (sha256 c7d135dd46e8ef20…), run by Claude Code at 2026-11-09T08:08:48Z
+test_empty_board_does_not_write_state (tests.test_review_empty_board.EmptyBoard.test_empty_board_does_not_write_state) ... FAIL
+test_empty_board_is_not_finished (tests.test_review_empty_board.EmptyBoard.test_empty_board_is_not_finished) ... FAIL
+test_empty_board_status_and_null_new (tests.test_review_empty_board.EmptyBoard.test_empty_board_status_and_null_new) ... FAIL
+test_non_empty_board_still_ok (tests.test_review_empty_board.EmptyBoard.test_non_empty_board_still_ok) ... ok
+
+======================================================================
+FAIL: test_empty_board_does_not_write_state (tests.test_review_empty_board.EmptyBoard.test_empty_board_does_not_write_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omkarsalian/Desktop/info7375-week01-video/course/fall-2026/omkar-s/js2-loop-tools-diff/tests/test_review_empty_board.py", line 49, in test_empty_board_does_not_write_state
+    self.assertFalse(os.path.exists(tb.path("runs", "state", "greenhouse-webflowx.state.json")))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_board_is_not_finished (tests.test_review_empty_board.EmptyBoard.test_empty_board_is_not_finished)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omkarsalian/Desktop/info7375-week01-video/course/fall-2026/omkar-s/js2-loop-tools-diff/tests/test_review_empty_board.py", line 30, in test_empty_board_is_not_finished
+    self.assertNotEqual(res["exit"]["status"], "finished")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'finished' == 'finished'
+
+======================================================================
+FAIL: test_empty_board_status_and_null_new (tests.test_review_empty_board.EmptyBoard.test_empty_board_status_and_null_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omkarsalian/Desktop/info7375-week01-video/course/fall-2026/omkar-s/js2-loop-tools-diff/tests/test_review_empty_board.py", line 39, in test_empty_board_status_and_null_new
+    self.assertEqual(e["status"], "empty_unverified")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ok' != 'empty_unverified'
+- ok
++ empty_unverified
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.028s
+
+FAILED (failures=3)

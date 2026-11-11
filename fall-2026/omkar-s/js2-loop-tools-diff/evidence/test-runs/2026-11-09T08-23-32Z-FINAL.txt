@@ -1,0 +1,102 @@
+# FINAL code (state read through policy), fixed mutant runner. Run by Claude Code at 2026-11-09T08-23-32Z (python3 3.14.2). loop.py sha256 aeeeef95f2f96d4b…
+test_ashby_mapping (tests.test_ats.Parse.test_ashby_mapping) ... ok
+test_bad_bodies (tests.test_ats.Parse.test_bad_bodies) ... ok
+test_empty_list_parses_to_empty_list_not_none (tests.test_ats.Parse.test_empty_list_parses_to_empty_list_not_none) ... ok
+test_greenhouse (tests.test_ats.Parse.test_greenhouse) ... ok
+test_lever_mapping (tests.test_ats.Parse.test_lever_mapping) ... ok
+test_board_key_case_folds (tests.test_ats.Urls.test_board_key_case_folds) ... ok
+test_slug_cannot_inject_a_path_or_host (tests.test_ats.Urls.test_slug_cannot_inject_a_path_or_host) ... ok
+test_unknown_ats (tests.test_ats.Urls.test_unknown_ats) ... ok
+test_urls_are_on_the_allow_list (tests.test_ats.Urls.test_urls_are_on_the_allow_list) ... ok
+test_check_does_not_import_the_loop (tests.test_independent_check.IndependentCheck.test_check_does_not_import_the_loop) ... ok
+test_empty_board_contradicted_by_other_ats (tests.test_independent_check.IndependentCheck.test_empty_board_contradicted_by_other_ats) ... ok
+test_empty_board_contradicted_by_reference_alone (tests.test_independent_check.IndependentCheck.test_empty_board_contradicted_by_reference_alone) ... ok
+test_empty_board_with_no_evidence_is_unconfirmed_not_ok (tests.test_independent_check.IndependentCheck.test_empty_board_with_no_evidence_is_unconfirmed_not_ok) ... ok
+test_report_count_that_disagrees_with_raw_is_caught (tests.test_independent_check.IndependentCheck.test_report_count_that_disagrees_with_raw_is_caught) ... ok
+test_tampered_raw_file_is_caught (tests.test_independent_check.IndependentCheck.test_tampered_raw_file_is_caught) ... ok
+test_request_budget_never_exceeded (tests.test_loop.Budgets.test_request_budget_never_exceeded) ... ok
+test_invalid_budgets_is_error_exit (tests.test_loop.Config.test_invalid_budgets_is_error_exit) ... EXIT error (code 5): ESCALATE: budgets: max_boards must be a non-negative number
+ok
+test_real_resume_refused_before_any_request (tests.test_loop.Config.test_real_resume_refused_before_any_request) ... EXIT error (code 5): ESCALATE: watchlist: 'boards' must be a non-empty list
+ok
+test_404_is_not_retried (tests.test_loop.ErrorPolicy.test_404_is_not_retried) ... ok
+test_bad_json_is_permanent_and_raw_saved (tests.test_loop.ErrorPolicy.test_bad_json_is_permanent_and_raw_saved) ... ok
+test_retry_never_waits_past_deadline (tests.test_loop.ErrorPolicy.test_retry_never_waits_past_deadline) ... ok
+test_transient_failure_retries_at_most_twice (tests.test_loop.ErrorPolicy.test_transient_failure_retries_at_most_twice) ... ok
+test_transient_then_success (tests.test_loop.ErrorPolicy.test_transient_then_success) ... ok
+test_wrong_schema_for_ats_is_bad_response (tests.test_loop.ErrorPolicy.test_wrong_schema_for_ats_is_bad_response) ... ok
+test_404_board_makes_run_incomplete (tests.test_loop.Exits.test_404_board_makes_run_incomplete) ... ok
+test_budget_exhausted_lists_boards_not_attempted (tests.test_loop.Exits.test_budget_exhausted_lists_boards_not_attempted) ... ok
+test_every_board_failed_is_error_and_escalates (tests.test_loop.Exits.test_every_board_failed_is_error_and_escalates) ... ok
+test_failed_board_has_null_not_zero (tests.test_loop.Exits.test_failed_board_has_null_not_zero) ... ok
+test_max_boards_budget (tests.test_loop.Exits.test_max_boards_budget) ... ok
+test_seconds_budget_stops_before_request (tests.test_loop.Exits.test_seconds_budget_stops_before_request) ... ok
+test_three_boards_two_plus_systems_finished (tests.test_loop.Exits.test_three_boards_two_plus_systems_finished) ... ok
+test_duplicate_board_is_repeat_skipped (tests.test_loop.RepeatRule.test_duplicate_board_is_repeat_skipped) ... ok
+test_state_file_symlinked_outside_is_not_read (tests.test_loop.StateRead.test_state_file_symlinked_outside_is_not_read)
+Added 2026-11-09 after review: the state read used to bypass policy.check_read. ... ok
+test_baseline_then_new_posting_judged (tests.test_loop.WatchAndTrace.test_baseline_then_new_posting_judged) ... ok
+test_every_request_is_an_observation_in_the_trace (tests.test_loop.WatchAndTrace.test_every_request_is_an_observation_in_the_trace) ... ok
+test_run_cannot_overwrite_an_earlier_run (tests.test_loop.WatchAndTrace.test_run_cannot_overwrite_an_earlier_run)
+Two runs with the same label in the same second (fixed clock). Found by the end-to-end ... ok
+test_B10_read_inside_folder (tests.test_policy_boundary.Files.test_B10_read_inside_folder) ... ok
+test_B11_write_config_needs_approval (tests.test_policy_boundary.Files.test_B11_write_config_needs_approval) ... ok
+test_B12_write_config_approved (tests.test_policy_boundary.Files.test_B12_write_config_approved) ... ok
+test_B13_new_file_in_runs (tests.test_policy_boundary.Files.test_B13_new_file_in_runs) ... ok
+test_B14_dotdot_escape (tests.test_policy_boundary.Files.test_B14_dotdot_escape) ... ok
+test_B15_prefix_trick_sibling (tests.test_policy_boundary.Files.test_B15_prefix_trick_sibling) ... ok
+test_B16_symlink_escape (tests.test_policy_boundary.Files.test_B16_symlink_escape) ... ok
+test_B16b_symlink_file_planted_at_final_path (tests.test_policy_boundary.Files.test_B16b_symlink_file_planted_at_final_path) ... ok
+test_B17_overwrite_raw_needs_approval (tests.test_policy_boundary.Files.test_B17_overwrite_raw_needs_approval) ... ok
+test_B18_state_file_overwrite_allowed (tests.test_policy_boundary.Files.test_B18_state_file_overwrite_allowed) ... ok
+test_B19_absolute_outside (tests.test_policy_boundary.Files.test_B19_absolute_outside) ... ok
+test_B20_read_outside_folder (tests.test_policy_boundary.Files.test_B20_read_outside_folder) ... ok
+test_B21_forbidden_actions_never_allowed (tests.test_policy_boundary.Files.test_B21_forbidden_actions_never_allowed) ... ok
+test_B01_allowed_host_get (tests.test_policy_boundary.Network.test_B01_allowed_host_get) ... ok
+test_B02_host_off_allow_list (tests.test_policy_boundary.Network.test_B02_host_off_allow_list) ... ok
+test_B03_suffix_trick_host (tests.test_policy_boundary.Network.test_B03_suffix_trick_host) ... ok
+test_B04_userinfo_trick (tests.test_policy_boundary.Network.test_B04_userinfo_trick) ... ok
+test_B05_plain_http (tests.test_policy_boundary.Network.test_B05_plain_http) ... ok
+test_B06_non_443_port (tests.test_policy_boundary.Network.test_B06_non_443_port) ... ok
+test_B07_post_is_denied (tests.test_policy_boundary.Network.test_B07_post_is_denied) ... ok
+test_B08_auth_header_denied (tests.test_policy_boundary.Network.test_B08_auth_header_denied) ... ok
+test_B09_redirect_refused (tests.test_policy_boundary.Network.test_B09_redirect_refused) ... ok
+test_transport_refuses_before_any_io (tests.test_policy_boundary.Network.test_transport_refuses_before_any_io) ... ok
+test_no_other_module_opens_network_or_writes (tests.test_policy_boundary.OnlyTwoModulesTouchTheWorld.test_no_other_module_opens_network_or_writes) ... ok
+test_empty_board_does_not_write_state (tests.test_review_empty_board.EmptyBoard.test_empty_board_does_not_write_state) ... ok
+test_empty_board_is_not_finished (tests.test_review_empty_board.EmptyBoard.test_empty_board_is_not_finished) ... ok
+test_empty_board_status_and_null_new (tests.test_review_empty_board.EmptyBoard.test_empty_board_status_and_null_new) ... ok
+test_empty_board_trace_and_report_agree (tests.test_review_empty_board.EmptyBoard.test_empty_board_trace_and_report_agree)
+Added during review of patch v1 (REVIEW-PACKET.md, 'Revise'): v1 passed the three tests ... ok
+test_non_empty_board_still_ok (tests.test_review_empty_board.EmptyBoard.test_non_empty_board_still_ok) ... ok
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.286s
+
+OK
+
+# mutants
+CONTROL  passed: the unmutated copy passes every test
+
+W1   KILLED   empty board reported as ok / 'no new jobs'; run can exit finished
+       killed by: test_empty_board_does_not_write_state, test_empty_board_is_not_finished, test_empty_board_status_and_null_new, test_empty_board_trace_and_report_agree
+W2   KILLED   failed board reports 0 postings instead of null
+       killed by: test_transient_failure_retries_at_most_twice, test_failed_board_has_null_not_zero, test_empty_board_status_and_null_new
+W3   KILLED   run says finished although a board failed
+       killed by: test_404_board_makes_run_incomplete, test_duplicate_board_is_repeat_skipped, test_empty_board_is_not_finished
+W4   KILLED   path check uses a string prefix (startswith)
+       killed by: test_B15_prefix_trick_sibling
+W5   KILLED   path check skips realpath (symlinks not resolved)
+       killed by: test_state_file_symlinked_outside_is_not_read, test_B16_symlink_escape, test_B16b_symlink_file_planted_at_final_path
+W6   KILLED   host check by substring
+       killed by: test_B03_suffix_trick_host
+W7   KILLED   a 404 is retried like a transient failure
+       killed by: test_404_is_not_retried, test_failed_board_has_null_not_zero
+W8   KILLED   request budget checked off by one (one request too many)
+       killed by: test_request_budget_never_exceeded, test_budget_exhausted_lists_boards_not_attempted
+W9   KILLED   duplicate board fetched twice
+       killed by: test_duplicate_board_is_repeat_skipped
+W10  KILLED   retries unbounded (retry count ignored)
+       killed by: test_transient_failure_retries_at_most_twice
+
+10/10 wrong versions KILLED

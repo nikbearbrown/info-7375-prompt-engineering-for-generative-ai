@@ -1,0 +1,188 @@
+{
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "board": "greenhouse:databricks",
+ "cli_json": {
+  "api_error_status": null,
+  "duration_api_ms": 5748,
+  "duration_ms": 4458,
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 1462,
+  "input_attachments_detail": {
+   "cpu_ms": 6,
+   "major_faults": 11,
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 3
+  },
+  "is_error": false,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.0003705,
+    "inputTokens": 2905,
+    "maxOutputTokens": 128000,
+    "outputTokens": 160,
+    "provider": "firstParty",
+    "thinkingTokens": 137,
+    "webSearchRequests": 0
+   },
+   "claude-opus-5-5": {
+    "cacheCreationInputTokens": 3600,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-opus-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.036548,
+    "inputTokens": 2,
+    "maxOutputTokens": 128000,
+    "outputTokens": 387,
+    "provider": "firstParty",
+    "thinkingTokens": 151,
+    "webSearchRequests": 0
+   }
+  },
+  "num_turns": 1,
+  "permission_denials": [],
+  "process_turn_index": 0,
+  "queued_turn_count": 0,
+  "result": "{\"posting_id\": 8880398002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"Databricks is looking for a dynamic Digital Native Account Executive\"}]}, \"explanation\": \"The title 'Account Executive - Digital Native' has no eligible role phrase and no excluded words. Only databricks (skills.data_bi) appears in both the résumé and the posting description, so fewer than 2 skills are shared.\"}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "aaae404b-45dd-4335-afda-69dbc6e0c2cf",
+  "stop_reason": "end_turn",
+  "subagent_stats": {
+   "by_type": {},
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "system": 0,
+    "user": 0
+   },
+   "max_depth": 0,
+   "refused": {
+    "budget": 0,
+    "concurrency_limit": 0,
+    "depth_limit": 0
+   },
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "spawned": 0,
+   "spawned_by_subagents": 0,
+   "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_cpu_ms": 228,
+  "time_to_request_loop_lag_ms": 13,
+  "time_to_request_major_faults": 442,
+  "time_to_request_ms": 329,
+  "time_to_request_phases_ms": {
+   "autocompact": 1,
+   "client_creation": 2,
+   "engine_pickup": 5,
+   "init_message": 1,
+   "input_attachments": 4,
+   "input_hooks": 2,
+   "message_normalization": 1,
+   "message_prep": 1,
+   "model_config_wait": 286,
+   "model_gates": 0,
+   "other": 17,
+   "process_user_input": 3,
+   "query_setup": 0,
+   "request_build": 3,
+   "resume_other": 0,
+   "system_prompt": 1,
+   "tool_pool_refresh": 1,
+   "tool_schema_build": 1
+  },
+  "total_cost_usd": 0.0369185,
+  "ttft_ms": 2843,
+  "ttft_stream_ms": 1461,
+  "turn_start_resume_kind": "none",
+  "type": "result",
+  "usage": {
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 3600,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "cache_creation_input_tokens": 3600,
+   "cache_read_input_tokens": 0,
+   "fallback_credit": null,
+   "inference_geo": "global",
+   "input_tokens": 2,
+   "iterations": [
+    {
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 3600,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_creation_input_tokens": 3600,
+     "cache_read_input_tokens": 0,
+     "input_tokens": 2,
+     "output_tokens": 387,
+     "type": "message"
+    }
+   ],
+   "output_tokens": 387,
+   "output_tokens_details": {
+    "thinking_tokens": 151
+   },
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "service_tier": "standard",
+   "speed": "standard"
+  },
+  "uuid": "dd8d7aa0-b632-451c-876e-007d9ec1590e"
+ },
+ "effort": "medium",
+ "finished_at_utc": "2026-11-10T23:21:23+00:00",
+ "invoked_at_utc": "2026-11-10T23:21:16+00:00",
+ "model_requested": "claude-opus-5-5",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "posting_id_requested": "8880398002",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "prompt_version": "v1",
+ "response_text": "{\"posting_id\": 8880398002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"Databricks is looking for a dynamic Digital Native Account Executive\"}]}, \"explanation\": \"The title 'Account Executive - Digital Native' has no eligible role phrase and no excluded words. Only databricks (skills.data_bi) appears in both the résumé and the posting description, so fewer than 2 skills are shared.\"}",
+ "returncode": 0,
+ "session_id": "aaae404b-45dd-4335-afda-69dbc6e0c2cf",
+ "stderr_tail": "",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "transport_ok": true,
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8880398002,\n \"title\": \"Account Executive - Digital Native\",\n \"location\": \"Seoul, South Korea\",\n \"departments\": [\n  \"Enterprise Sales\"\n ],\n \"description\": \"SLSQ128R18 As part of our accelerating growth, Databricks is looking for a dynamic Digital Native Account Executive to join our team in Seoul, Korea. In this role, your primary mission will be to identify, acquire, and expand business opportunities within Korea’s most innovative digital native companies, including high-growth startups, scale-ups, and tech unicorns. You know how to navigate the fast-paced buying cycles of modern engineering cultures, understand complex tech stacks in-depth, and clearly articulate business and architectural value to both technical leaders and executive stakeholders. You will work closely with cross-functional teams and ecosystem partners to deliver tailored solutions that address high-scale data and AI challenges, closing new accounts while expanding usage within existing customers. You will report to the Director of Sales, Korea. The impact you will have: Evangelize the Databricks Data + AI Platform across the Korean Digital Native ecosystem, establishing Databricks as the foundational standard for modern data and GenAI workloads. Prospect, identify, and qualify new pipeline opportunities independently and in collaboration with the Databricks BDR team. Drive end-to-end sales motions from initial contact to contract closure, compressing decision cycles through value-driven validation. Establish strong relationships with C-level and key technical decision-makers, including CTOs, Heads of AI/ML, and VP-level Engineering and Data Architecture roles. Execute a land-and-expand strategy by driving platform consumption, identifying new high-impact data use cases, and steering renewals/upsells within won accounts. Orchestrate internal technical resources (Solutions Architects, Customer Success) and cloud ecosystem partners (AWS, Microsoft Azure, Google Cloud) to maximize sales velocity and customer value. Exceed individual activity, pipeline generation, and annual revenue targets while building a scalable territory plan. What we look for: 5+ years of software/cloud sales experience selling enterprise software, SaaS, or consumption-based PaaS solutions to the Korean market, with an emphasis on digital native/tech sector accounts. Proven track record of exceeding quota in complex sales cycles, selling data, analytics, cloud infrastructure, or AI/ML platforms. Strong command of structured sales methodologies (e.g., MEDDPICC, Value Selling, Command of the Message). Deep understanding of the Digital Native buying process, modern engineering mindsets, and developer/architect evaluation criteria. Demonstrated ability to navigate consumption/usage-based business models and partner co-selling strategies. Exceptional ability to translate complex technical architectures into compelling business outcomes. Native-level fluency in Korean and professional working proficiency in English. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "ebf6bc1c52764135c75400c170e1b333edd1f4dcbf440a415910d19d92d2a83c",
+ "valid": true,
+ "validation_errors": [],
+ "wall_seconds": 6.22
+}

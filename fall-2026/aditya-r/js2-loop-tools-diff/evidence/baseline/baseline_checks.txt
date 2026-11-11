@@ -1,0 +1,48 @@
+# Inherited JS1 offline checks on the imported baseline (run by Claude Code; no JS2 code exists yet).
+# Evidence labels: pytest = local execution over SYNTHETIC fixtures; mutation_check = MUTATION (planted JS1 wrong versions);
+# verify_evidence = REPLAY re-check of JS1's saved LIVE/seeded evidence.
+# REDACTION (2026-11-10, before first push): one absolute local path was replaced by <js2>; output otherwise unchanged.
+# Parent commit: 8257ffb (GATE.md only). Toolchain: Python 3.12.8, pytest 8.3.3, macOS 26.5.1 arm64
+
+$ .venv/bin/python -m pytest -q -p no:cacheprovider
+# started 2026-11-10T21:19:15Z in <js2>
+........................................................................ [100%]
+72 passed in 0.12s
+[exit 0]
+
+$ .venv/bin/python tests/mutation_check.py
+# started 2026-11-10T21:19:15Z in <js2>
+CAUGHT: M1 validator ignores posting_id mismatch (wrong version 1, association)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-association]
+CAUGHT: M2 watch joins judgments by completion order instead of id (wrong version 1)
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_keeps_association_under_out_of_order_completion
+    FAILED tests/test_wrong_versions.py::test_wv1_real_pipeline_rejects_a_swapped_response
+    FAILED tests/test_wrong_versions.py::test_wv2_unsupported_response_is_not_reported_as_evaluated
+CAUGHT: M3 validator skips quote and résumé-evidence checks (wrong version 2)
+    FAILED tests/test_validate.py::test_content_rejections[<lambda>-quote not found]
+[exit 0]
+
+# JS1's verifier needs JS1's evidence/ and experiments/ (not imported). It is run read-only on a temporary
+# extraction of the same JS1 commit (git archive 819f2e9 -> TMP), never on the original JS1 folder.
+
+$ <js2>/.venv/bin/python scripts/verify_evidence.py
+# started 2026-11-10T21:19:16Z in <TMP js1@819f2e9>
+PASS  snapshot hash databricks_20260922T181913Z_wayback.json.gz
+PASS  snapshot hash databricks_20261030T203900Z.json
+PASS  baseline raw response is byte-identical to the archived capture
+PASS  baseline state records exactly the archived ids, all 'baseline'  — 883 ids
+PASS  baseline reported zero new postings
+PASS  live raw response hash matches its metadata
+PASS  live response came from the allow-listed host
+PASS  run 2 reported exactly the ids absent from the baseline  — 258 new
+PASS  no posting reported twice
+PASS  every RECORD recomputes identically  — 258/258
+PASS  every reported JUDGMENT re-validates against its own posting  — 258/258
+PASS  final state: baseline ids + completed new ids, nothing pending
+PASS  prompt v1 unchanged since freeze
+PASS  prompt v2 unchanged since freeze
+PASS  experiment records re-validate with the recorded outcome and frozen prompt hash: experiments/prompt_experiment/raw  — 40/40
+PASS  experiment records re-validate with the recorded outcome and frozen prompt hash: experiments/sampling/raw  — 20/20
+
+ALL CHECKS PASSED
+[exit 0]

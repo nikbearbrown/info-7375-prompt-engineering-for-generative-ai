@@ -1,0 +1,13 @@
+rule.py R3 on 1561 real postings from 3 systems
+  ashby: 0 of 172 fail R3 although the location names a US state in full
+  greenhouse: 364 of 1085 fail R3 although the location names a US state in full
+  lever: 0 of 304 fail R3 although the location names a US state in full
+examples (evidence file, posting id, title):
+  'Mountain View, California; San Francisco, California': 20261109T211138Z-greenhouse-databricks.json 8688861002 Accounting Data & Technology Manager
+  'California; New York; Remote - Colorado; Remote - Georgia; Remote - Ohio; Remote - Oregon; Remote - Pennsylvania; Remote - Texas; Remote - Washington; Remote - Washington D.C.': 20261109T211138Z-greenhouse-databricks.json 8756154002 Accounting Manager, Accounts Receivable
+  'Maryland; Virginia; Washington, D.C.': 20261109T211138Z-greenhouse-databricks.json 8760167002 AI Engineer – Forward Deployed Engineering (AI FDE), U.S. Public Sector (Federal Focus)
+  'Bellevue, Washington; Mountain View, California; San Francisco, California': 20261109T211138Z-greenhouse-databricks.json 7586263002 Associate Product Manager, New Grad (2027 Start)
+  'New York City, New York; San Francisco, California': 20261109T211138Z-greenhouse-databricks.json 8475477002 Business Development Lead, VC/PE
+  'Chicago, Illinois': 20261109T211138Z-greenhouse-databricks.json 8423165002 Business Development Representative
+  'Washington, D.C.': 20261109T211138Z-greenhouse-databricks.json 8423167002 Business Development Representative
+  'Mountain View, California': 20261109T211138Z-greenhouse-databricks.json 8854350002 Candidate Experience Admin (6-month contract) 

@@ -1,0 +1,12 @@
+{
+ "written": "2026-11-10, by Claude Code, before the demonstration was run (see commit order)",
+ "rule": "A board whose previous response contained postings must not end a run with exit 0 (finished / COMPLETE, zero new) when its next response contains none. GATE.md §4: for these selected boards an empty jobs array is suspect-empty, a failure.",
+ "min_prior_postings": 1,
+ "inputs": {
+  "prior": "REPLAY: the LIVE Figma response saved by run 20261110T232115022Z_live (out/runs/20261110T232115022Z_live/raw/02_greenhouse_figma_a1.json.gz, 144 postings)",
+  "later": "SYNTHETIC: evidence/finished_wrong/inputs/empty_SYNTHETIC.json ({\"jobs\": [], \"meta\": {\"total\": 0}})"
+ },
+ "faulty_version": "the inherited single-board agent/watch.py (JS1 logic plus the accepted meta-validation patch). It has no suspect-empty policy; meta.total 0 equals the list length 0, so the count check passes.",
+ "predicted": {"faulty_watch_later_exit": 0, "checker_on_faulty": "contradiction found (exit 1)",
+               "js2_loop_later_exit": 3, "checker_on_js2_loop": "no contradiction (exit 0)"}
+}

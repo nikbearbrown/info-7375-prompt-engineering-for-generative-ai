@@ -1,0 +1,51 @@
+Transcript of the finished-wrong-answer demonstration.
+Run by Claude (Opus 5) in the Cowork cloud container, 2026-11-09, in
+fall-2026/weiting-w/js2-loop-tools-diff/. Verbatim; nothing edited in afterwards.
+Both runs use --replay-from, so no request was made to any host.
+
+$ python3 -m agent watch --boards config/boards-wronganswer.json \
+    --replay-from evidence/seeded/replay-real \
+    --raw-dir evidence/seeded/wrong-answer --runs-dir evidence/seeded/runs \
+    --state evidence/seeded/state/seen.json --label "SEEDED run 1 of 2 ..."
+[FINISHED] complete=True  mode=replay:evidence/seeded/replay-real  loop=L-v1  rule=R-v3
+  boards planned=1 attempted=1 observed=1 failed=0
+  requests 1/12   seconds 0.007/90.0
+  label: SEEDED run 1 of 2: replay of the real 2026-10-31 greenhouse:reddit capture, to give the board a previous count on disk
+  ok        greenhouse:reddit            postings=163  attempts=1
+  first run: every posting recorded as seen, none reported as new.
+
+  run report: evidence/seeded/runs/run-20261109T220101Z.json
+  trace:      evidence/seeded/runs/trace-20261109T220101Z.jsonl
+exit=0
+
+$ python3 -m agent watch --boards config/boards-wronganswer.json \
+    --replay-from evidence/seeded/replay-wrong-answer \
+    --raw-dir evidence/seeded/wrong-answer --runs-dir evidence/seeded/runs \
+    --state evidence/seeded/state/seen.json --label "SEEDED run 2 of 2 ..."
+[FINISHED] complete=True  mode=replay:evidence/seeded/replay-wrong-answer  loop=L-v1  rule=R-v3
+  boards planned=1 attempted=1 observed=1 failed=0
+  requests 1/12   seconds 0.001/90.0
+  label: SEEDED run 2 of 2: CONSTRUCTED response, HTTP 200 with an empty jobs array
+  ok        greenhouse:reddit            postings=0  attempts=1
+  new postings: 0
+
+  run report: evidence/seeded/runs/run-20261109T220103Z.json
+  trace:      evidence/seeded/runs/trace-20261109T220103Z.jsonl
+exit=0
+
+$ python3 tools/crosscheck.py --raw-dir evidence/seeded/wrong-answer \
+    --boards config/boards-wronganswer.json --state evidence/seeded/state/seen.json
+crosscheck: reading evidence/seeded/wrong-answer (never the run report)
+
+board                           latest  previous  floor  state  flags
+greenhouse-reddit                    0       163      1      0  BELOW_FLOOR,SUSPECT_EMPTY,SUSPECT_DROP
+
+<run total>                          0       163      -      -  SUSPECT_TOTAL
+
+FLAG BELOW_FLOOR    greenhouse-reddit
+FLAG SUSPECT_EMPTY  greenhouse-reddit
+FLAG SUSPECT_DROP   greenhouse-reddit
+FLAG SUSPECT_TOTAL  <run total>
+
+crosscheck: 4 flag(s). A flag is not proof of a bug; it is a place I have to look myself.
+exit=1

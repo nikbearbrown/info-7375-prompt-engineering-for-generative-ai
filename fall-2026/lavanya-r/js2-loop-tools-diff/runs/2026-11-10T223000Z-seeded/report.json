@@ -1,0 +1,43 @@
+{
+  "stamp": "2026-11-10T223000Z",
+  "kind": "seeded",
+  "source": "runs/finished-wrong-demo/fixtures.json",
+  "exit": "incomplete",
+  "exit_code": 2,
+  "exit_reason": "greenhouse/databricks: suspicious_empty",
+  "escalate": [
+    "greenhouse/databricks: suspicious_empty (HTTP 200 with 0 jobs: not reported as 'no new jobs')"
+  ],
+  "budget_used": {
+    "boards": 1,
+    "requests": 1,
+    "seconds": 0.0
+  },
+  "limits": {
+    "boards": 10,
+    "requests": 20,
+    "seconds": 120,
+    "request_timeout_seconds": 20,
+    "retry_wait_seconds": 2
+  },
+  "jobs_total_ok_boards": 0,
+  "boards_counted": [],
+  "boards": [
+    {
+      "ats": "greenhouse",
+      "board": "databricks",
+      "status": "suspicious_empty",
+      "reason": "HTTP 200 with 0 jobs: not reported as 'no new jobs'",
+      "jobs": 0,
+      "new_count": null,
+      "new": null,
+      "baseline": null,
+      "state_written": null,
+      "attempts": 1,
+      "raw": [
+        "runs/2026-11-10T223000Z-seeded/raw/greenhouse-databricks-attempt1-http200.body.gz"
+      ],
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs"
+    }
+  ]
+}

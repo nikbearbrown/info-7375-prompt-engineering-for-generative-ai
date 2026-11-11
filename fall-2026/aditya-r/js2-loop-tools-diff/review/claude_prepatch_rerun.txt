@@ -1,0 +1,59 @@
+# Claude Code's independent rerun of Aditya's unchanged test against the unchanged baseline (commit b0e3fb4), 2026-11-10 17:20:37 EST.
+# --basetemp under /tmp so the output carries no local username.
+$ .venv/bin/python -m pytest -q -p no:cacheprovider --basetemp=<tmp> tests/test_aditya_total_mismatch.py
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_inconsistent_total_does_not_succeed_or_change_state ___________
+
+tmp_path = PosixPath('/private<tmp>/test_inconsistent_total_does_n0')
+
+    def test_inconsistent_total_does_not_succeed_or_change_state(tmp_path):
+    
+        # Establish a valid baseline containing one posting.
+        (baseline_file,) = boards(tmp_path, [RELEVANT])
+    
+        baseline_exit = run(
+            args_for(tmp_path, baseline_file, "baseline"),
+            judge_fn=explode,
+        )
+    
+        assert baseline_exit == 0, "The valid baseline must succeed."
+    
+        # Preserve the complete state file for comparison.
+        state_path = tmp_path / "state.json"
+        state_before = state_path.read_bytes()
+    
+        # Match probe P2: one supplied posting, but a declared total of 40.
+        inconsistent_file = tmp_path / "inconsistent.json"
+        inconsistent_file.write_text(
+            json.dumps({
+                "jobs": [RELEVANT],
+                "meta": {"total": 40},
+            }),
+            encoding="utf-8",
+        )
+    
+        inconsistent_exit = run(
+            args_for(tmp_path, inconsistent_file, "inconsistent"),
+            judge_fn=explode,
+        )
+    
+        state_after = state_path.read_bytes()
+    
+        # GATE sections 1 and 4 classify this as incomplete acquisition.
+>       assert inconsistent_exit == 3, (
+            "GATE sections 1 and 4 require incomplete (exit 3) when "
+            "meta.total declares 40 jobs but the response contains only 1; "
+            f"the agent returned {inconsistent_exit}."
+        )
+E       AssertionError: GATE sections 1 and 4 require incomplete (exit 3) when meta.total declares 40 jobs but the response contains only 1; the agent returned 0.
+E       assert 0 == 3
+
+tests/test_aditya_total_mismatch.py:42: AssertionError
+----------------------------- Captured stdout call -----------------------------
+BASELINE: recorded 1 posting ids; 0 reported as new. Report: /private<tmp>/test_inconsistent_total_does_n0/runs/20261110T222037Z_baseline/report.md
+COMPLETE: 0 new posting(s), 0 retried. Report: /private<tmp>/test_inconsistent_total_does_n0/runs/20261110T222037Z_inconsistent/report.md
+=========================== short test summary info ============================
+FAILED tests/test_aditya_total_mismatch.py::test_inconsistent_total_does_not_succeed_or_change_state
+1 failed in 0.04s
+[pytest exit status: 1]

@@ -1,0 +1,22 @@
+{"t": 0.0, "kind": "run_start", "run_id": "20261109T205704Z-live-naive", "label": "live-naive", "empty_guard": false, "budget": {"boards": 6, "requests": 10, "seconds": 60.0}}
+{"kind": "read", "target": "demo/naive.json", "decision": "allow", "reason": "inside a read root"}
+{"kind": "read", "target": "/Users/riyakapadnis/Documents/INFO7375/info-7375-prompt-engineering-for-generative-ai/fall-2026/riya-k/js2-loop-tools-diff/persona/arya-sahni.json", "decision": "allow", "reason": "inside a read root"}
+{"kind": "request", "target": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 0.001, "kind": "request", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "n": 1, "attempt": 1}
+{"t": 2.253, "kind": "response", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "status": 200, "bytes": 10287926}
+{"kind": "write", "target": "runs/demo-naive/raw/greenhouse-anthropic-20261109T205704Z-live-naive-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "write", "target": "runs/demo-naive/raw/greenhouse-anthropic-20261109T205704Z-live-naive-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "write", "target": "runs/demo-naive/state/greenhouse-anthropic.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "state-write", "target": "runs/demo-naive/state/greenhouse-anthropic.json", "decision": "allow", "reason": "adds ids only"}
+{"kind": "write", "target": "runs/demo-naive/state/greenhouse-anthropic.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 2.316, "kind": "board_result", "board": "greenhouse:anthropic", "system": "greenhouse", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "attempts": 1, "http_status": 200, "postings": 676, "status": "ok", "reason": null, "raw_responses": ["runs/demo-naive/raw/greenhouse-anthropic-20261109T205704Z-live-naive-a1.json"], "baseline": true, "new": null, "removed_since_last": 0}
+{"kind": "request", "target": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "decision": "allow", "reason": "allow-listed host, https, GET"}
+{"t": 2.316, "kind": "request", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "n": 2, "attempt": 1}
+{"t": 2.845, "kind": "response", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "status": 200, "bytes": 52}
+{"kind": "write", "target": "runs/demo-naive/raw/smartrecruiters-hubspot-20261109T205704Z-live-naive-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "write", "target": "runs/demo-naive/raw/smartrecruiters-hubspot-20261109T205704Z-live-naive-a1.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "write", "target": "runs/demo-naive/state/smartrecruiters-hubspot.json", "decision": "allow", "reason": "inside output folder"}
+{"kind": "state-write", "target": "runs/demo-naive/state/smartrecruiters-hubspot.json", "decision": "allow", "reason": "adds ids only"}
+{"kind": "write", "target": "runs/demo-naive/state/smartrecruiters-hubspot.json", "decision": "allow", "reason": "inside output folder"}
+{"t": 2.849, "kind": "board_result", "board": "smartrecruiters:hubspot", "system": "smartrecruiters", "url": "https://api.smartrecruiters.com/v1/companies/hubspot/postings", "attempts": 1, "http_status": 200, "postings": 0, "status": "ok", "reason": null, "raw_responses": ["runs/demo-naive/raw/smartrecruiters-hubspot-20261109T205704Z-live-naive-a1.json"], "baseline": true, "new": null, "removed_since_last": 0}
+{"t": 2.849, "kind": "run_end", "exit": "finished", "reason": "all boards read"}

@@ -1,0 +1,61 @@
+test_city_and_full_state (tests.test_r3_full_state_names.R3FullStateNames.test_city_and_full_state) ... FAIL
+test_georgia_the_country (tests.test_r3_full_state_names.R3FullStateNames.test_georgia_the_country) ... ok
+test_js1_behaviour_kept (tests.test_r3_full_state_names.R3FullStateNames.test_js1_behaviour_kept) ... ok
+test_other_countries (tests.test_r3_full_state_names.R3FullStateNames.test_other_countries) ... ok
+test_remote_with_a_state (tests.test_r3_full_state_names.R3FullStateNames.test_remote_with_a_state) ... FAIL
+test_state_name_alone (tests.test_r3_full_state_names.R3FullStateNames.test_state_name_alone) ... FAIL
+test_state_name_inside_another_word_does_not_count (tests.test_r3_full_state_names.R3FullStateNames.test_state_name_inside_another_word_does_not_count) ... ok
+test_washington_dc (tests.test_r3_full_state_names.R3FullStateNames.test_washington_dc) ... FAIL
+
+======================================================================
+FAIL: test_city_and_full_state (tests.test_r3_full_state_names.R3FullStateNames.test_city_and_full_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_r3_full_state_names.py", line 24, in test_city_and_full_state
+    self.assertEqual(r3("San Francisco, California"), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+======================================================================
+FAIL: test_remote_with_a_state (tests.test_r3_full_state_names.R3FullStateNames.test_remote_with_a_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_r3_full_state_names.py", line 31, in test_remote_with_a_state
+    self.assertEqual(r3("Remote - California"), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+======================================================================
+FAIL: test_state_name_alone (tests.test_r3_full_state_names.R3FullStateNames.test_state_name_alone)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_r3_full_state_names.py", line 34, in test_state_name_alone
+    self.assertEqual(r3("California; New York"), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+======================================================================
+FAIL: test_washington_dc (tests.test_r3_full_state_names.R3FullStateNames.test_washington_dc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\neu is\26fall\INFO7375\js2-loop-tools-diff\tests\test_r3_full_state_names.py", line 28, in test_washington_dc
+    self.assertEqual(r3("Washington, D.C."), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.017s
+
+FAILED (failures=4)

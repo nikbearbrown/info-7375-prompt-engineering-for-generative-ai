@@ -1,0 +1,188 @@
+{
+ "argv": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--effort",
+  "medium",
+  "--tools",
+  "",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json",
+  "--system-prompt",
+  "<system prompt sha256=1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15>"
+ ],
+ "board": "greenhouse:databricks",
+ "cli_json": {
+  "api_error_status": null,
+  "duration_api_ms": 6741,
+  "duration_ms": 5274,
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 1353,
+  "input_attachments_detail": {
+   "cpu_ms": 20,
+   "major_faults": 0,
+   "slowest_producer": "session_settings",
+   "slowest_producer_ms": 10
+  },
+  "is_error": false,
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "canonicalModel": "claude-haiku-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.0003957,
+    "inputTokens": 2827,
+    "maxOutputTokens": 128000,
+    "outputTokens": 226,
+    "provider": "firstParty",
+    "thinkingTokens": 200,
+    "webSearchRequests": 0
+   },
+   "claude-opus-5-5": {
+    "cacheCreationInputTokens": 2468,
+    "cacheReadInputTokens": 1054,
+    "canonicalModel": "claude-opus-5-5",
+    "contextWindow": 1000000,
+    "costBasis": "list",
+    "costUSD": 0.030022800000000002,
+    "inputTokens": 2,
+    "maxOutputTokens": 128000,
+    "outputTokens": 503,
+    "provider": "firstParty",
+    "thinkingTokens": 238,
+    "webSearchRequests": 0
+   }
+  },
+  "num_turns": 1,
+  "permission_denials": [],
+  "process_turn_index": 0,
+  "queued_turn_count": 0,
+  "result": "{\"posting_id\": 8927179002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"customer-facing AI team at Databricks\"}]}, \"explanation\": \"The normalized title 'ai forward deployed engineer' contains no eligible role phrase ('ai engineer' is not contiguous there) and no excluded words. Only databricks is shared between skills.data_bi and the description: 'Text2SQL' does not match sql, python and langgraph do not appear, and spark is absent from all four résumé arrays.\"}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "97e59ffc-a7dd-416c-9e42-1edd51e51d64",
+  "stop_reason": "end_turn",
+  "subagent_stats": {
+   "by_type": {},
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "system": 0,
+    "user": 0
+   },
+   "max_depth": 0,
+   "refused": {
+    "budget": 0,
+    "concurrency_limit": 0,
+    "depth_limit": 0
+   },
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "spawned": 0,
+   "spawned_by_subagents": 0,
+   "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_cpu_ms": 67,
+  "time_to_request_loop_lag_ms": 0,
+  "time_to_request_major_faults": 0,
+  "time_to_request_ms": 45,
+  "time_to_request_phases_ms": {
+   "autocompact": 1,
+   "client_creation": 3,
+   "engine_pickup": 0,
+   "init_message": 1,
+   "input_attachments": 12,
+   "input_hooks": 2,
+   "message_normalization": 0,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "model_gates": 5,
+   "other": 10,
+   "process_user_input": 1,
+   "query_setup": 0,
+   "request_build": 3,
+   "resume_other": 0,
+   "system_prompt": 1,
+   "tool_pool_refresh": 1,
+   "tool_schema_build": 4
+  },
+  "total_cost_usd": 0.0304185,
+  "ttft_ms": 3355,
+  "ttft_stream_ms": 1353,
+  "turn_start_resume_kind": "none",
+  "type": "result",
+  "usage": {
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2468,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "cache_creation_input_tokens": 2468,
+   "cache_read_input_tokens": 1054,
+   "fallback_credit": null,
+   "inference_geo": "global",
+   "input_tokens": 2,
+   "iterations": [
+    {
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 2468,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_creation_input_tokens": 2468,
+     "cache_read_input_tokens": 1054,
+     "input_tokens": 2,
+     "output_tokens": 503,
+     "type": "message"
+    }
+   ],
+   "output_tokens": 503,
+   "output_tokens_details": {
+    "thinking_tokens": 238
+   },
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "service_tier": "standard",
+   "speed": "standard"
+  },
+  "uuid": "02df64de-88e7-4b6e-b6ff-bafa617769f0"
+ },
+ "effort": "medium",
+ "finished_at_utc": "2026-11-10T23:21:34+00:00",
+ "invoked_at_utc": "2026-11-10T23:21:28+00:00",
+ "model_requested": "claude-opus-5-5",
+ "models_used": [
+  "claude-haiku-5-5",
+  "claude-opus-5-5"
+ ],
+ "posting_id_requested": "8927179002",
+ "prompt_sha256": "1e86a4a4bf17022ad52945027acae6895e4d3f5be529d8bf3299c7b0aad63a15",
+ "prompt_version": "v1",
+ "response_text": "{\"posting_id\": 8927179002, \"verdict\": \"not_relevant\", \"role_phrase\": {\"pass\": false, \"matched\": null}, \"excluded_terms\": {\"pass\": true, \"found\": []}, \"shared_skills\": {\"pass\": false, \"skills\": [{\"skill\": \"databricks\", \"resume_field\": \"skills.data_bi\", \"posting_field\": \"description\", \"quote\": \"customer-facing AI team at Databricks\"}]}, \"explanation\": \"The normalized title 'ai forward deployed engineer' contains no eligible role phrase ('ai engineer' is not contiguous there) and no excluded words. Only databricks is shared between skills.data_bi and the description: 'Text2SQL' does not match sql, python and langgraph do not appear, and spark is absent from all four résumé arrays.\"}",
+ "returncode": 0,
+ "session_id": "97e59ffc-a7dd-416c-9e42-1edd51e51d64",
+ "stderr_tail": "",
+ "temperature": "not set (not controllable via the Claude Code CLI)",
+ "transport_ok": true,
+ "user_message": "<resume_skills>\n{\n \"skills.languages\": [\n  \"Python\",\n  \"SQL\"\n ],\n \"skills.data_bi\": [\n  \"Databricks\",\n  \"Unity Catalog\",\n  \"Power BI\"\n ],\n \"skills.backend_automation\": [\n  \"LangGraph\",\n  \"MLflow\",\n  \"Mem0\"\n ],\n \"skills.database_cloud\": [\n  \"Delta Lake\",\n  \"AWS\"\n ]\n}\n</resume_skills>\n\n<posting>\n{\n \"posting_id\": 8927179002,\n \"title\": \"AI Forward Deployed Engineer\",\n \"location\": \"London, United Kingdom\",\n \"departments\": [\n  \"Professional Services Operations\"\n ],\n \"description\": \"AI Engineer - FDE (Forward Deployed Engineer) - All Levels Req ID: CSQ427R335 Location: London, United Kingdom Mission The AI Forward Deployed Engineering (AI FDE) team is a highly specialized customer-facing AI team at Databricks. We deliver professional services engagements to help our customers build and productionize first-of-its-kind AI applications. We work cross-functionally to shape long-term strategic priorities and initiatives alongside engineering, product, and developer relations, as well as support internal subject matter expert (SME) teams. We view our team as an ensemble: we look for individuals with strong, unique specializations to improve the overall strength of the team. This team is the right fit for you if you love working with customers, teammates, and fueling your curiosity for the latest trends in GenAI, LLMOps, and ML more broadly. Reporting to: Senior Manager - AI FDE, EMEA The impact you will have: Develop cutting-edge GenAI solutions, incorporating the latest techniques from Databricks AI research to solve customer problems Own production rollouts of consumer and internally facing GenAI applications Serve as a trusted technical advisor to customers across a variety of domains Present at conferences such as Data + AI Summit, recognized as a thought leader internally and externally Collaborate cross-functionally with the product and engineering teams to influence priorities and shape the product roadmap What we look for: Min 4 years experience in DS, ML, AI Experience building GenAI applications, including RAG, multi-agent systems, Text2SQL, fine-tuning, etc., with tools such as HuggingFace, LangChain, and DSPy Expertise in deploying production-grade GenAI applications, including evaluation and optimizations Extensive years of hands-on industry data science experience, leveraging common machine learning and data science tools, i.e. pandas, scikit-learn, PyTorch, etc. Experience building production-grade machine learning deployments on AWS, Azure, or GCP Graduate degree in a quantitative discipline (Computer Science, Engineering, Statistics, Operations Research, etc.) or equivalent practical experience Experience communicating and/or teaching technical concepts to non-technical and technical audiences alike Passion for collaboration, life-long learning, and driving business value through AI [Preferred] Experience using the Databricks Intelligence Platform and Apache Spark™ to process large-scale distributed datasets Willing to travel once every 4-8 weeks to see customers (as needed) About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\"\n}\n</posting>\n\nApply the rule to this posting and reply with the JSON object only.",
+ "user_message_sha256": "a85dea8e514226d1860b660c7a2805ea86c8442f8475e64a0f4934601b75e662",
+ "valid": true,
+ "validation_errors": [],
+ "wall_seconds": 6.27
+}

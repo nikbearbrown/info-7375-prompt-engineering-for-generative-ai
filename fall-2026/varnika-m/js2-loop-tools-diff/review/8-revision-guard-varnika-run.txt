@@ -1,0 +1,12 @@
+# Varnika ran this herself in her own terminal on 2026-11-10, after the revision (HEAD 9ef76bd),
+# and pasted the output to Claude Code. Shell-prompt lines removed (they show her username and machine name).
+# Command: python3 -m unittest tests.test_transport_socket_guard -v
+test_found_for_a_normal_response (tests.test_transport_socket_guard.SocketIsFoundThroughSock) ... ok
+test_found_for_an_error_response (tests.test_transport_socket_guard.SocketIsFoundThroughSock) ... ok
+test_the_guard_fails_when_the_attribute_is_missing (tests.test_transport_socket_guard.SocketIsFoundThroughSock)
+The guard itself: a response whose fp.raw has no _sock must fail the check, not pass it. ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.019s
+
+OK
