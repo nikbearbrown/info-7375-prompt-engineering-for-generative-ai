@@ -33,7 +33,7 @@ cross-check) and C (the seeded run) by hand. Their outputs are in the folders li
     report says "count unknown, not zero."
   - Nine successful boards plus one failure gave `incomplete`, as the gate predicted.
   - Samsara: 314 postings now against 323 on 2026-10-31. **80 are new** since Oct 31, and 89 have disappeared. **None of the 80 has a
-    data title**, so nothing was judged. I checked that by hand against the raw file with a broader match (`data|analytic`) than
+    data title**, so nothing was judged. Claude Code checked that against the raw file with a broader match (`data|analytic`) than
     the rule uses, and found no hits.
 - **B (the live finished-wrong answer):**
   - Every board answered in its provider's shape, so the loop said `finished`. `lever:kraken` was reported as 0 postings and 0 new.

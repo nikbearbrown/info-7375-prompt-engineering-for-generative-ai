@@ -16,18 +16,19 @@
 | The verifier is independent and fails empty boards | `test_W15_verifier_ignores_report_counts`, `test_W19_empty_board_fails_verification`; runs B and C |
 | Config matches the gate | `test_W17_allowlist_matches_gate`, `test_W18_budgets_match_gate` |
 | Each wrong version is actually caught | `scripts/sabotage_check.py`: 19/19 RED (`evidence/tests/04_sabotage_check.txt`) |
-| Samsara compared with the real Oct 31 baseline | run A: 80 new. I recounted by hand from the raw file, and none is data-titled |
+| Samsara compared with the real Oct 31 baseline | run A: 80 new. Claude Code recounted from the raw file at my direction, and none is data-titled |
 
 **How:**
 - **By a test written before reading Claude's code:** the W1–W19 tests and the B01–B18 predictions were committed in `e51d208`, before
   any JS2 code. *Claude wrote those tests too, from GATE.md. What makes them "before" is the commit order, not who typed them.*
-- **By recomputation:** the verifier recounts from raw bytes. I checked by hand that none of Samsara's 80 new titles matches
-  `data|analytic`. Kraken's 92 Ashby postings came from my cross-check outside the agent.
+- **By recomputation:** the verifier recounts from raw bytes. Claude Code checked, at my direction, that none of Samsara's 80 new titles
+  matches `data|analytic`. Kraken's 92 Ashby postings came from the cross-check script, run by Claude Code outside the agent.
 - **With Claude's help:**
   - all the code
   - the GATE.md drafts (my own edit is `a67bdbf`)
   - the boards probe
   - the patch (`afb3877`)
+  - running runs A–D and the Kraken cross-check
   - these documents
 - **By hand:** on 2026-11-10 at 17:31 EST I reran these in my own terminal, and every result matched what was expected (results in
   REVIEW_PACKET.md section 5):

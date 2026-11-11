@@ -25,7 +25,7 @@ recounts from the raw bytes, and treats the report only as the thing being check
 verifier: FAIL (lever:kraken: 0 postings (empty, needs review))
 ```
 
-**Proof that the answer is wrong, not just suspicious.** 26 s later I ran my own cross-check, outside the agent, against Kraken's Ashby
+**Proof that the answer is wrong, not just suspicious.** 26 s later, Claude Code ran my cross-check script, outside the agent, against Kraken's Ashby
 board. Ashby is not on the agent's allow-list. See [evidence/crosscheck/crosscheck_console.txt](evidence/crosscheck/crosscheck_console.txt):
 
 ```
