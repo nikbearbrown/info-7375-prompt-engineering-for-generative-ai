@@ -85,6 +85,10 @@ e51d208  tests first: B01-B18 predictions + W1-W19 tests, before any JS2 code (1
 afb3877  review packet 2/2: the patch (113 OK, 18/18)
 2dfc3b1  sabotage check (19/19 caught)
 024c1f7  runs A-D + cross-check
+5b3bd32  my own reruns of the review commands (all matched)
+2cb9ddb  my review decision: Accept
+75c7368  my signature on the sign-off
+b30ee67  my wording edits to GATE.md (v2.4, no rule changed)
 ```
 
 ## JS1's limits, carried forward
@@ -97,5 +101,5 @@ afb3877  review packet 2/2: the patch (113 OK, 18/18)
 ## Privacy and boundaries
 
 - Fictional persona only. No real résumé, contacts, credentials or transcripts are in this folder.
-- Public, read-only endpoints only, paced at 1 s per host. About 30 agent requests and 1 cross-check request in total.
+- Public, read-only endpoints only, paced at 1 s per host. 27 agent requests (10 in run A, 9 in B, 8 in D) and 1 cross-check request in total.
 - The agent never applies, emails, messages or logs in (GATE.md section 5).

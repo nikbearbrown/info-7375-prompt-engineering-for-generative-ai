@@ -47,7 +47,7 @@
    packet.
 4. **A race between the path check and the write** (a symlink swapped in between), and hard links.
 5. **A real second day for boards 2–9.** B and D ran 27 s and 71 s after A.
-6. **Each site's full terms of use.** I relied on these being public job-board APIs and kept to about 30 paced requests.
+6. **Each site's full terms of use.** I relied on these being public job-board APIs and kept to 27 paced requests.
 7. **The Claude-judge path inside the JS2 loop** (`--no-claude` was used every time).
 8. The verifier trusts earlier reports' lists of unjudged ids.
 
