@@ -98,14 +98,12 @@ follow-up.
 
 ## 6. Decision
 
-**Accept / revise / reject:** ____ *(Ethan's decision, with the evidence it rests on)*
+**Accept / revise / reject: Accept.** *(Ethan, 2026-11-10)*
 
-The evidence points to **accept**:
-- the defect was reproduced before the patch
-- the tests were written first and failed for the right reason
-- the patch touches one function
-- every test passes after it
-- putting W4 back turns its tests red again
+My decision is to Accept.
+Before the patch, the reproduction script showed three URLs being wrongly allowed through: :8443, user:pw@, and user@. I went through the diff myself using the git show commands (git show afb3877 and git show --stat afb3877). It adds 9 lines to check_url and doesn’t remove anything, and jsagent/fetch.py is the only code file it touches, so it stayed within scope.
+After applying it, I reran everything. No URLs got past the gate, all 113 tests passed, and all 18 boundary cases came out right. I also ran the sabotage check, and when I put JS1’s old behavior back, W4 turns red. That tells me the tests actually catch the defect rather than just passing by default.
+I’m accepting this knowing it doesn’t cover the proxy case from section 7, where HTTPS_PROXY could route an allowed URL through a different host. I see that as a separate gap, so I’m recording it as a known limit rather than treating it as a reason to send this patch back for revision.
 
 ## 7. One case my test would still miss
 
