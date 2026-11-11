@@ -1,0 +1,56 @@
+"""The wrong versions from GATE.md section 6, as exact source edits.
+
+Each mutant is applied to a COPY of agent/ in a temp folder; the real code is never touched.
+`old` must occur exactly `count` times, or the runner reports the mutant as STALE (so a refactor
+cannot silently turn a mutant into a no-op that "survives" or is "killed" for the wrong reason).
+"""
+
+MUTANTS = [
+    {"id": "W1", "what": "empty board reported as ok / 'no new jobs'; run can exit finished",
+     "file": "loop.py",
+     "edits": [('                if outcome == "ok" and not parsed:\n', "                if False:\n", 1)]},
+    {"id": "W2", "what": "failed board reports 0 postings instead of null",
+     "file": "loop.py",
+     "edits": [('"status": None, "reason": None, "attempts": [], "postings": None, "new": None,',
+                '"status": None, "reason": None, "attempts": [], "postings": 0, "new": 0,', 1)]},
+    {"id": "W3", "what": "run says finished although a board failed",
+     "file": "loop.py",
+     "edits": [('        if all(s == "ok" for s in statuses):\n', "        if True:\n", 1)]},
+    {"id": "W4", "what": "path check uses a string prefix (startswith)",
+     "file": "policy.py",
+     "edits": [("        return os.path.commonpath([real, root_real]) == root_real\n",
+                "        return real.startswith(root_real)\n", 1)]},
+    {"id": "W5", "what": "path check skips realpath (symlinks not resolved)",
+     "file": "policy.py",
+     "edits": [("    real = os.path.realpath(path)\n", "    real = os.path.normpath(os.path.abspath(path))\n", 1)]},
+    {"id": "W6", "what": "host check by substring",
+     "file": "policy.py",
+     "edits": [("    if host not in ALLOWED_HOSTS:", "    if not any(h in host for h in ALLOWED_HOSTS):", 1)]},
+    {"id": "W7", "what": "a 404 is retried like a transient failure",
+     "file": "loop.py",
+     "edits": [('        return "permanent", "not_found"\n', '        return "transient", "not_found"\n', 1)]},
+    {"id": "W8", "what": "request budget checked off by one (one request too many)",
+     "file": "loop.py",
+     "edits": [('        if self.requests_used >= self.budgets["max_requests"]:\n',
+                '        if self.requests_used > self.budgets["max_requests"]:\n', 1)]},
+    {"id": "W9", "what": "duplicate board fetched twice",
+     "file": "loop.py",
+     "edits": [("            if key in seen:\n", "            if False:\n", 1)]},
+    {"id": "W10", "what": "retries unbounded (retry count ignored)",
+     "file": "loop.py",
+     "edits": [("        for attempt in range(1, retries + 2):\n", "        for attempt in range(1, 100):\n", 1),
+               ("            if attempt > retries:\n", "            if attempt > 98:\n", 1)]},
+    {"id": "W10b", "what": "retry wait ignores the max_seconds deadline (added after review: GATE W10 also names the deadline)",
+     "file": "loop.py",
+     "edits": [("            if self.seconds_left() <= wait:\n", "            if False:\n", 1)]},
+    # Added 2026-11-10 with Omkar's drop rule (GATE.md change log; REVIEW-PACKET.md "Second review").
+    {"id": "W11", "what": "drop rule flags exactly 50% ('more than half' read as 'at least half')",
+     "file": "loop.py",
+     "edits": [("now >= previous * DROP_KEEP_FRACTION", "now > previous * DROP_KEEP_FRACTION", 1)]},
+    {"id": "W12", "what": "drop rule minimum size off by one (a board with exactly 10 is skipped)",
+     "file": "loop.py",
+     "edits": [("previous < DROP_MIN_PREVIOUS", "previous <= DROP_MIN_PREVIOUS", 1)]},
+    {"id": "W13", "what": "first run of a board gives no 'no_baseline' warning",
+     "file": "loop.py",
+     "edits": [("        if not runs:\n            w = ", "        if not runs:\n            return\n            w = ", 1)]},
+]

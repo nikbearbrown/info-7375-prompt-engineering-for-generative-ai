@@ -1,0 +1,17 @@
+# TIMELINE — order of work (stamped by shell at the moment each step finished; Claude Code ran these stamps)
+
+| UTC | Step | Evidence (sha256 of file at that moment) |
+|---|---|---|
+| 2026-11-09T08:01:08Z | GATE.md v1 written; no JS2 code exists yet (agent/ is empty: 0 files) | GATE.md ba73606f6ac23b60… |
+| 2026-11-09T08:01:42Z | POLICY.md boundary predictions (B1–B21) written; agent/policy.py does not exist yet (0 files in agent/) | POLICY-predictions 80606906c9cd90b5… |
+| 2026-11-09T08:07:29Z | agent/ v1 (pre-patch) + 53 tests + 10 mutants written; suite 53/53 OK, mutants 9/10 KILLED, W1 STALE (pre-patch loop has no empty-board check) | loop.py c7d135dd46e8ef20… ; evidence/test-runs/*pre-patch* |
+| 2026-11-09T08:08:48Z | review test tests/test_review_empty_board.py written and run against PRE-PATCH loop.py: see review/test-before-patch.txt | test d0dfb7e92a53d0fa… |
+| 2026-11-09T08:09:13Z | patch v1 applied to agent/loop.py; 57/57 OK; mutants 10/10 KILLED | review/patch-v1.diff, review/test-after-patch-v1.txt |
+| 2026-11-09T08:09:32Z | review: v1 trace says outcome ok for an empty board; test_empty_board_trace_and_report_agree written, fails on v1 | review/test-before-patch-v2.txt, review/v1-trace-contradiction.txt |
+| 2026-11-09T08:10:05Z | patch v2 applied; 58/58 OK; mutants 10/10 KILLED (W1 mutant re-pointed at the v2 line) | review/patch-final.diff, review/patch-v1-to-v2.diff, review/test-after-patch-v2.txt |
+| 2026-11-09T08:11:26Z | final live runs: main-final (incomplete, 3), wrong-answer-postpatch (incomplete, 3), budget-demo (budget_exhausted, 4), error-demo (error, 5); independent check on main-final (1 contradiction: webflow); timeout-demo attempted, did NOT time out | runs/ |
+| 2026-11-09T08:15:29Z | tests/test_independent_check.py added (6 tests; 2 test mistakes fixed, see FRICTIONAL); suite 64/64 OK; docs written | README, TRACE, WRONG-ANSWER, REVIEW-PACKET, POLICY (Actual column), SOURCES, FRICTIONAL |
+| 2026-11-09T08:16:40Z | end-to-end check in a fresh copy found: two runs with the same label in the same second -> exit 5. Fixed in loop.py (new -2 folder); test_run_cannot_overwrite_an_earlier_run rewritten with a fixed clock; 64/64 OK, 10/10 KILLED | review/later-fix-run-dir-collision.diff |
+| 2026-11-09T08:22:59Z | independent TA-style review (fresh subagent, 60/100 as it stood): mutant runner did not copy verify/ -> 08:10:59, 08:15:44 and 08:16 mutant counts INVALID (renamed file); runner fixed with a control run; state read routed through check_read (+1 test, 65 OK); docs corrected (planted defect disclosed, README/TRACE/GATE errata/POLICY notes); hubspot 404 re-probed and saved. NOTE: the 08:15:29 row above was stamped after the fact for work done 08:10:20-08:10:59 | evidence/test-runs/2026-11-09T08-21-17Z-final-code-fixed-mutant-runner.txt |
+| 2026-11-09T08:23:50Z | FINAL: 65 OK, control passed, 10/10 KILLED; live run final-code incomplete (3) | evidence/test-runs/2026-11-09T08-23-32Z-FINAL.txt, runs/2026-11-09T08-23-37Z-final-code/ |
+| 2026-11-09T08:31:15Z | ERRATA for the 08:16:40 row: its diff is now review/later-fixes-after-review.diff, and its '10/10 KILLED' is INVALID (runner bug). Second independent review: request+read decisions traced, W10b mutant (survived → test strengthened), doc errata; FINAL-2: 66 OK, control passed, 11/11 KILLED; live run final (incomplete 3); saved end-to-end | evidence/test-runs/2026-11-09T08-29-26Z-FINAL-2.txt, 2026-11-09T08-29-46Z-END-TO-END-fresh-copy.txt |

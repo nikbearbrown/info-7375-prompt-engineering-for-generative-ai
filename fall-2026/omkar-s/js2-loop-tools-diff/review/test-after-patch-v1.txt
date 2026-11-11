@@ -1,0 +1,38 @@
+# after patch v1 (loop.py sha256 b52ff686353e63c0…), run by Claude Code at 2026-11-09T08:09:03Z
+test_empty_board_does_not_write_state (tests.test_review_empty_board.EmptyBoard.test_empty_board_does_not_write_state) ... ok
+test_empty_board_is_not_finished (tests.test_review_empty_board.EmptyBoard.test_empty_board_is_not_finished) ... ok
+test_empty_board_status_and_null_new (tests.test_review_empty_board.EmptyBoard.test_empty_board_status_and_null_new) ... ok
+test_non_empty_board_still_ok (tests.test_review_empty_board.EmptyBoard.test_non_empty_board_still_ok) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.025s
+
+OK
+# full suite
+----------------------------------------------------------------------
+Ran 57 tests in 0.245s
+
+OK
+# mutants
+W1   KILLED   empty board reported as ok / 'no new jobs'; run can exit finished
+       killed by: test_empty_board_does_not_write_state, test_empty_board_is_not_finished, test_empty_board_status_and_null_new
+W2   KILLED   failed board reports 0 postings instead of null
+       killed by: test_transient_failure_retries_at_most_twice, test_failed_board_has_null_not_zero, test_empty_board_status_and_null_new
+W3   KILLED   run says finished although a board failed
+       killed by: test_404_board_makes_run_incomplete, test_duplicate_board_is_repeat_skipped, test_empty_board_is_not_finished
+W4   KILLED   path check uses a string prefix (startswith)
+       killed by: test_B15_prefix_trick_sibling
+W5   KILLED   path check skips realpath (symlinks not resolved)
+       killed by: test_B16_symlink_escape, test_B16b_symlink_file_planted_at_final_path
+W6   KILLED   host check by substring
+       killed by: test_B03_suffix_trick_host
+W7   KILLED   a 404 is retried like a transient failure
+       killed by: test_404_is_not_retried, test_failed_board_has_null_not_zero
+W8   KILLED   request budget checked off by one (one request too many)
+       killed by: test_request_budget_never_exceeded, test_budget_exhausted_lists_boards_not_attempted
+W9   KILLED   duplicate board fetched twice
+       killed by: test_duplicate_board_is_repeat_skipped
+W10  KILLED   retries unbounded (retry count ignored)
+       killed by: test_transient_failure_retries_at_most_twice
+
+10/10 wrong versions KILLED

@@ -1,0 +1,47 @@
+--- review/before/loop-v1.py	2026-11-09 03:09:32
++++ agent/loop.py	2026-11-09 03:09:42
+@@ -155,6 +155,10 @@
+                     parsed = ats.parse(b["ats"], resp.body)
+                 except ats.BadResponse as e:
+                     outcome, why = "permanent", f"bad_response: {e}"
++                if outcome == "ok" and not parsed:
++                    # GATE section 4: a valid but empty board is evidence of nothing (moved board,
++                    # wrong slug, or a real lull). Classified BEFORE tracing, so trace and report agree.
++                    outcome, why = "empty", "HTTP 200 with zero postings; not reported as 'no new jobs'"
+             obs = {"event": "observation", "board": rec["key"], "attempt": attempt, "url": rec["url"],
+                    "http_status": resp.status, "error_kind": resp.error_kind, "error": resp.error,
+                    "bytes": len(resp.body or b""), "sha256": hashlib.sha256(resp.body or b"").hexdigest(),
+@@ -164,14 +168,12 @@
+             self.trace(obs)
+             rec["attempts"].append({k: obs[k] for k in ("attempt", "http_status", "error_kind", "outcome",
+                                                          "why", "raw", "bytes", "elapsed_s")})
++            if outcome == "empty":
++                # Record what was observed (0), claim nothing new, leave the state untouched,
++                # and keep the run from reporting `finished`. Not retried: same request, same body.
++                rec.update(status="empty_unverified", postings=0, reason=why)
++                return rec, None
+             if outcome == "ok":
+-                if not parsed:
+-                    # GATE section 4: a valid but empty board is evidence of nothing (moved board,
+-                    # wrong slug, or a real lull). Record what was observed (0), claim nothing new,
+-                    # leave the state untouched, and keep the run from reporting `finished`.
+-                    rec.update(status="empty_unverified", postings=0,
+-                               reason="HTTP 200 with zero postings; not reported as 'no new jobs'")
+-                    return rec, None
+                 rec.update(status="ok", reason=why)
+                 return rec, parsed
+             if outcome == "permanent":
+@@ -307,8 +309,11 @@
+     failed = [r for r in result["boards"] if r["status"] != "ok"]
+     if failed:
+         L += ["## Boards with no answer", ""]
+-        L += [f"- `{r['key']}`: **{r['status']}**, {r.get('reason')}. Postings: {_fmt(r.get('postings'))} "
+-              "(null = not observed; no value invented)." for r in failed]
++        L += [f"- `{r['key']}`: **{r['status']}**, {r.get('reason')}. "
++              + ("Postings: 0 observed; new: null (an empty board is not evidence of 'no new jobs')."
++                 if r["status"] == "empty_unverified" else
++                 f"Postings: {_fmt(r.get('postings'))} (null = not observed; no value invented).")
++              for r in failed]
+         L.append("")
+     news = [(r, p) for r in result["boards"] for p in r.get("new_postings") or []]
+     L += ["## New postings since the last run", ""]
