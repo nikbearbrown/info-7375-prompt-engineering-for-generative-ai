@@ -1,5 +1,6 @@
 """Live HTTP (policy-checked, redirects re-checked) and a replay transport for SEEDED runs that
 answers from saved files instead of the network."""
+import http.client
 import json
 import pathlib
 import socket
@@ -34,6 +35,10 @@ class Live:
             if isinstance(e.reason, (socket.timeout, TimeoutError)):
                 raise TimeoutError(f"no answer from {url} in {timeout}s")
             raise ConnectionError(str(e.reason))
+        except (http.client.HTTPException, OSError) as e:
+            # A body cut off mid-read, an SSL failure or a reset connection (added 2026-11-10 after
+            # the third regrade): a network error, so the board fails and the run still ends properly.
+            raise ConnectionError(f"{type(e).__name__}: {e}")
 
 
 class Replay:

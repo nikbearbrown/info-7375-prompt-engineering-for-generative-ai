@@ -44,11 +44,17 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
         line = {"event": event, "at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), **kw}
         files.append(run_dir / "trace.jsonl", (json.dumps(line) + "\n").encode())
 
-    prev = latest_state(files.runs)
-    seen = {k: set(v) for k, v in prev["boards"].items()}
-    last_counts = dict(prev.get("last_counts", {}))
-    trace("start", run_id=run_id, budgets=budgets, boards=[b["name"] for b in boards], previous_state_sequence=prev["sequence"])
     results, requests, done_urls, exhausted, fatal = [], 0, set(), False, None
+    try:
+        prev = latest_state(files.runs)
+        seen = {k: set(v) for k, v in prev["boards"].items()}
+    except (ValueError, KeyError, TypeError, AttributeError) as e:
+        # A state file that cannot be read ends the run as `error` (added 2026-11-10 after the third
+        # regrade), rather than guessing which postings were seen before.
+        fatal = f"a state file in {rel(files.runs / 'state')} cannot be read: {e}"
+        prev, seen = {"sequence": 0, "boards": {}, "last_counts": {}}, {}
+    last_counts = dict(prev.get("last_counts", {}))
+    trace("start", run_id=run_id, budgets=budgets, boards=[b.get("name") for b in boards], previous_state_sequence=prev["sequence"])
 
     if not boards:  # nothing to check is not "finished" (fixed 2026-11-10 after the regrade)
         fatal = "no boards to check: the board list is empty"
@@ -59,7 +65,7 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
         trace("fatal", reason=fatal)
 
     for i, b in enumerate(boards):
-        r = {"name": b["name"], "ats": b["ats"], "token": b["token"], "status": None, "fetched": None, "new": None,
+        r = {"name": b.get("name"), "ats": b.get("ats"), "token": b.get("token"), "status": None, "fetched": None, "new": None,
              "baseline": None, "requests": 0, "error": None, "needs_review": False, "raw_files": [], "new_postings": []}
         results.append(r)
         if fatal:
@@ -69,12 +75,19 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
             exhausted = True
         if exhausted:
             r["status"] = "skipped-budget"
-            trace("skip", board=b["name"], reason="budget")
+            trace("skip", board=r["name"], reason="budget")
             continue
-        url = providers.board_url(b["ats"], b["token"])
+        try:
+            url = providers.board_url(b["ats"], b["token"])
+        except (KeyError, ValueError, TypeError) as e:
+            # A bad board entry (no token, a token with a space) is recorded and the run goes on,
+            # as GATE.md section 5 asks (added 2026-11-10 after the third regrade).
+            r["status"], r["error"], r["needs_review"] = "failed", "bad-config", True
+            trace("board", board=r["name"], status="failed", error="bad-config", detail=str(e))
+            continue
         if url in done_urls:
             r["status"] = "skipped-duplicate"
-            trace("skip", board=b["name"], reason="duplicate", url=url)
+            trace("skip", board=r["name"], reason="duplicate", url=url)
             continue
         done_urls.add(url)
         attempt = 0
@@ -84,12 +97,12 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
                 exhausted = True
                 r["status"] = "skipped-budget" if attempt == 0 else "failed"
                 r["error"] = None if attempt == 0 else "budget ran out before the allowed retry"
-                trace("budget", board=b["name"], requests=requests, seconds=round(used, 1))
+                trace("budget", board=r["name"], requests=requests, seconds=round(used, 1))
                 break
             attempt += 1
             requests += 1
             r["requests"] += 1
-            trace("request", board=b["name"], url=url, attempt=attempt)
+            trace("request", board=r["name"], url=url, attempt=attempt)
             status, body, kind = None, None, None
             try:
                 # A request gets the smaller of its normal timeout and the time left, so the run's
@@ -107,28 +120,28 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
             if body is not None:
                 raw = files.write(run_dir / "raw" / f"{b['ats']}-{b['token']}-attempt{attempt}.json", body)
                 r["raw_files"].append(rel(raw))
-                trace("response", board=b["name"], status=status, bytes=len(body),
+                trace("response", board=r["name"], status=status, bytes=len(body),
                       sha256=hashlib.sha256(body).hexdigest(), raw_file=rel(raw))
             else:
-                trace("no-response", board=b["name"], kind=kind)
+                trace("no-response", board=r["name"], kind=kind)
             if kind is None:
                 try:
                     postings, info = providers.parse(b["ats"], b["token"], status, body)
                 except providers.BadResponse as e:
                     kind = e.kind
             if kind in ("timeout", "server-error") and attempt == 1:
-                trace("retry", board=b["name"], reason=kind)
+                trace("retry", board=r["name"], reason=kind)
                 continue
             if kind:
                 r["status"], r["error"], r["needs_review"] = "failed", kind, True
-                trace("board", board=b["name"], status="failed", error=kind)
+                trace("board", board=r["name"], status="failed", error=kind)
                 break
             key = f"{b['ats']}:{b['token']}"
             r["fetched"] = len(postings)
             r["meta_total"] = info.get("meta_total")
             if not postings:
                 r["status"], r["needs_review"] = "empty", True
-                trace("board", board=b["name"], status="empty", fetched=0,
+                trace("board", board=r["name"], status="empty", fetched=0,
                       note="valid response with no postings; not counted as 'no new jobs'")
                 break
             ids = {p["id"] for p in postings}
@@ -144,7 +157,7 @@ def run(boards, budgets, transport, files, run_id, resume, clock=time.monotonic,
                                           "failed_conditions": rec["failed_conditions"], "justification": rec["justification"],
                                           "judge": rec["judge"]})
             r["status"] = "ok"
-            trace("board", board=b["name"], status="ok", fetched=len(postings), new=len(new), baseline=r["baseline"],
+            trace("board", board=r["name"], status="ok", fetched=len(postings), new=len(new), baseline=r["baseline"],
                   meta_total=r["meta_total"])
             break
         if fatal:

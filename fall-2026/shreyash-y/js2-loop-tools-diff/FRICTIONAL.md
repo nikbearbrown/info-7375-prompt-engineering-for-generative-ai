@@ -150,6 +150,11 @@ Different Lever boards may use `Dev` differently. I still need to test whether a
 - **The check trusted the summary.** It now compares the summary with the trace and recounts new postings from the raw ids.
 - This time the tests replaced the network and stubbed the loop before their first run, so the code before the fix wrote nothing (10 tests, 8 failing, `ebfd405`).
 
+**2026-11-10 21:00, a third independent regrade: four more gaps, fixed test-first.**
+- **Crashes outside the four exits.** A board token with a space, a board with no token, a body cut off mid-read, an SSL error and a corrupt state file each ended the run in a traceback. I had fixed one crash (a posting with no id) an hour earlier without looking for its neighbours. Six tests, committed failing (`c31cfc2`); now each is a failed board or an `error` exit with its exit line.
+- **The check ignored the hashes the trace already recorded.** It now compares them.
+- **The deadline was overstated.** GATE-NOTES said the run could not pass 120 s by more than the time to stop. The HTTP timeout applies to each wait, so a slowly streaming server can hold a request past the limit. Shreyash rewrote that paragraph; I changed the README to match. Not fixed in code.
+
 **What is unresolved.**
 - The Physician Reviewer case: a state-tagged office beats an ad that says "reside in the United States".
 - The location-vs-offices question.

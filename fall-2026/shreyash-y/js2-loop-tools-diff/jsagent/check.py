@@ -3,6 +3,7 @@ state) and recounts from the raw bytes with its own few lines of parsing. It imp
 from the agent, so a bug in the loop or the parsers cannot also hide in the check.
 
   python3 jsagent/check.py runs/<run_id>      (exit 1 when there are findings)"""
+import hashlib
 import json
 import pathlib
 import sys
@@ -21,7 +22,7 @@ def raw_ids(ats, data):
     return {str(j["id"]) for j in jobs}
 
 
-def check_trace(run_dir, s):
+def check_trace(run_dir, s, project_dir):
     """The trace is appended line by line as the run goes; the summary is written at the end. The
     check compares them, so a summary edited afterwards (or a board left out of it) shows up.
     Added 2026-11-10 after the second regrade found the check trusted the summary."""
@@ -30,6 +31,15 @@ def check_trace(run_dir, s):
     if not path.exists():
         return [f"no trace.jsonl next to the summary"]
     events = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    # Each raw file must still hold the bytes the trace recorded when it was saved (added 2026-11-10
+    # after the third regrade: a raw file and summary rewritten together used to pass).
+    for e in events:
+        if e["event"] == "response" and e.get("raw_file") and e.get("sha256"):
+            raw = project_dir / e["raw_file"]
+            if not raw.exists():
+                findings.append(f"{e.get('board')}: the trace recorded {e['raw_file']} but the file is missing")
+            elif hashlib.sha256(raw.read_bytes()).hexdigest() != e["sha256"]:
+                findings.append(f"{e.get('board')}: {e['raw_file']} no longer matches the sha256 the trace recorded")
     start = next((e for e in events if e["event"] == "start"), None)
     end = [e for e in events if e["event"] == "exit"]
     in_summary = [b["name"] for b in s["boards"]]
@@ -49,7 +59,7 @@ def check_trace(run_dir, s):
 def check_run(run_dir, project_dir):
     run_dir, project_dir = pathlib.Path(run_dir), pathlib.Path(project_dir)
     s = json.loads((run_dir / "summary.json").read_text())
-    findings = check_trace(run_dir, s)
+    findings = check_trace(run_dir, s, project_dir)
     states = {}
     for f in (run_dir.parent / "state").glob("state-*.json"):
         st = json.loads(f.read_text())
