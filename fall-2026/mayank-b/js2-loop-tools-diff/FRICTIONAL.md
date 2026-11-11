@@ -51,6 +51,7 @@
   - A probe shows that if `runs/` itself is a symlink, writes still escape.
 - **From Claude:** Claude Code wrote the failing tests and the patch, and found the read-side change and the remaining escape.
 - **Decision (mine):** ACCEPT. I ran the review commands myself and they matched (`REVIEW-PACKET.md`).
+- **Evidence of my run:** `review/05-review-commands-run-by-mayank.txt` (my terminal, 22:37 EST, Python 3.9.6). My first attempt failed with "No such file or directory" because I wasn't in the JS2 folder; the script now works from any folder, and its exit codes now reflect the tests, not the last command in the pipe.
 - **Unresolved:**
   - the `runs/`-is-a-symlink escape needs a new GATE rule (each resolved root must stay inside the resolved project folder);
   - no test yet for the read-side change;

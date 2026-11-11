@@ -20,7 +20,7 @@
 
 ## Language, toolchain, commands
 
-- **Language:** Python 3, **standard library only** (`urllib`, `json`, `pathlib`, `unittest`). No install, no keys. Ran with **Python 3.11.16** on macOS; needs Python ≥ 3.9 (`Path.is_relative_to`).
+- **Language:** Python 3, **standard library only** (`urllib`, `json`, `pathlib`, `unittest`). No install, no keys. Ran with **Python 3.11.16** (Claude Code's runs) and **Python 3.9.6** (my own terminal: `review/05-review-commands-run-by-mayank.txt`) on macOS; needs Python ≥ 3.9 (`Path.is_relative_to`).
 - **Why Python:** the course repo's `scripts/validate_course.py` rejects `.js/.ts` files; my JS1 JavaScript files are on its failure list.
 
 From a fresh clone:
@@ -183,5 +183,5 @@ Evidence points to commits on `main` and to files in this folder. The Claude Cod
 | Predictions | drafted the 16 cases with predicted results | accepted them before any test ran | a prediction written after the run tests nothing | CP2 `9cea561` (before code, CP3 `d725018`) |
 | The loop | wrote `src/jsa/`, the tests, the harness; ran the live runs | decided boards, caps, the deliberate failure and the repeat | how much the agent may spend and try is my decision, not a property of the code | CP3 `d725018`, CP4 `60aec49`, `runs/*-real/trace.jsonl` |
 | Floors for the checker | proposed each floor from a named source | approved them on 2026-11-10 after checking each against Lectern's counts and the live run | the checker is only independent if its expectations aren't the agent's | `config/expected-boards.json` (`_status`) |
-| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | ran the commands myself ("Ran, matched"); decided **ACCEPT**, with the missed case logged as a follow-up | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `6050272`, CP6 `3ab4582`, `REVIEW-PACKET.md` |
+| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | ran the commands myself (saved output: `review/05-review-commands-run-by-mayank.txt`); decided **ACCEPT**, with the missed case logged as a follow-up | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `6050272`, CP6 `3ab4582`, `REVIEW-PACKET.md` |
 | Sign-off | drafted the Checked / Not checked lists from the record | signed: Mayank Bhadrasen, 2026-11-10 | my name goes on it | this section |

@@ -19,6 +19,7 @@
 | 5. The diff | `review/02-patch.diff` (JS2-CP6 `3ab4582`): 1 file, `_resolve` only, +3 −2 |
 | 6. After the patch | `review/03-after-patch.txt`: B8/B8b pass, **50/50** tests, **9/9** wrong versions caught |
 | 7. One case the test still misses | `review/04-still-missed-probe.txt`: **ALLOWED, the write landed outside the project** |
+| 8. **The commands, run by me** | `review/05-review-commands-run-by-mayank.txt` (my terminal, 2026-11-10 22:37 EST) |
 
 ## Reading the diff as a change in behaviour
 
@@ -54,7 +55,7 @@ python3 scripts/wrong_versions.py                         # expect: 9/9 wrong ve
 python3 review/probe_still_missed.py                      # expect: ALLOWED ... outside the project? True
 ```
 
-**Ran by me:** Mayank Bhadrasen, 2026-11-10: ran the commands above; the results matched the expected lines ("Ran, matched").
+**Ran by me:** Mayank Bhadrasen, 2026-11-10: ran the commands above; the results matched the expected lines ("Ran, matched"). Saved output from my own terminal, 22:37 EST, Python 3.9.6, at commit `3db0809`: **`review/05-review-commands-run-by-mayank.txt`**, produced by `bash review/run-review-commands.sh`. Before the patch B8 fails (exit 1); after it, B8 and B8b pass; 50/50 tests; 9/9 wrong versions; the probe still escapes; the diff is `src/jsa/policy.py | 5 +++--`.
 
 ## Decision
 

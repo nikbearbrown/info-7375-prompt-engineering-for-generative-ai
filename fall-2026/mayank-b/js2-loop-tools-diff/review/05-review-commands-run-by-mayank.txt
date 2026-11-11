@@ -1,0 +1,53 @@
+# Review commands run by Mayank Bhadrasen in his own terminal
+# date: 2026-11-10 22:37 EST   commit: 3db0809   python: 3.9.6
+
+# expect: FAIL: before the patch (policy.py as in CP5 6050272), B8 is not refused
+$ git show 6050272:./src/jsa/policy.py > /tmp/js2-policy-before.py && cp src/jsa/policy.py /tmp/js2-policy-after.py && cp /tmp/js2-policy-before.py src/jsa/policy.py; (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write 2>&1 | grep -E "^(Ran|OK|FAILED|AssertionError)"); status=$?; cp /tmp/js2-policy-after.py src/jsa/policy.py; exit $status
+AssertionError: PolicyError not raised
+Ran 1 test in 0.002s
+FAILED (failures=1)
+[exit 1]
+
+# expect: OK: after the patch (current code), B8 and B8b pass
+$ (cd tests && python3 -m unittest test_policy.Paths.test_B8_symlink_escape_on_write test_policy.Paths.test_B8b_returned_path_is_the_resolved_one 2>&1 | grep -E "^(Ran|OK|FAILED)")
+Ran 2 tests in 0.002s
+OK
+[exit 0]
+
+# expect: Ran 50 tests ... OK
+$ python3 -m unittest discover -s tests -p "test_*.py" 2>&1 | grep -E "^(Ran|OK|FAILED)"
+Ran 50 tests in 0.067s
+OK
+[exit 0]
+
+# expect: 9/9 wrong versions caught
+$ python3 scripts/wrong_versions.py
+wrong version                    tests run failed  result
+W1 prefix trick                          1      1  CAUGHT
+W2 symlink escape                        1      1  CAUGHT
+W3 truthy approval                       1      4  CAUGHT
+W4 empty board = fine                    1      1  CAUGHT
+W5 failure as zero                       1      1  CAUGHT
+W6 stopped = success                     1      1  CAUGHT
+W7 repeat counted as progress            1      1  CAUGHT
+W8 host check by substring               1      1  CAUGHT
+W9 state wiped on failure                1      1  CAUGHT
+
+9/9 wrong versions caught
+[exit 0]
+
+# expect: ALLOWED ... outside the project? True (the case the test still misses)
+$ python3 review/probe_still_missed.py
+ALLOWED: write landed at /private/var/folders/v4/xcbrrtwn4jn2xg1h00m6ztpc0000gn/T/js2-elsewhere-arfrlcj5/2026-11-10T00-00-00Z-probe/x.txt
+outside the project? True
+[exit 0]
+
+# expect: the patch changed one source file: src/jsa/policy.py | 5 +++--
+$ git diff --stat 6050272 3ab4582 -- src/jsa
+ fall-2026/mayank-b/js2-loop-tools-diff/src/jsa/policy.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+[exit 0]
+
+# expect: nothing modified by these commands (policy.py restored)
+$ git status --short -- src/
+[exit 0]
