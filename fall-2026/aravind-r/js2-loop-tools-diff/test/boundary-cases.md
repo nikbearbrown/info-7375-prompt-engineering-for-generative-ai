@@ -1,6 +1,8 @@
 # Boundary cases — predicted policy outcomes
 
-Rows **1–41** preserve the original predicted outcomes. Rows **42–43** were added after the first mutation check exposed missing coverage and are explicitly labeled as post-implementation. The final column records actual tests and evidence; a prediction alone is not counted as a pass.
+These are **predictions recorded before execution**, not observed test results. Test `src/policy.mjs` against these rows in an isolated test fixture, and only then populate the result column with `PASS`/`FAIL`, the command, and evidence location. Do not mark a result as passing just because the specification predicts it.
+
+> **Annotation (2026-11-10, after the runs):** Rows **1–41** preserve the original predicted outcomes. Rows **42–43** were added after the first mutation check exposed missing coverage and are explicitly labeled as post-implementation. The final column records actual tests and evidence; a prediction alone is not counted as a pass.
 
 `allow` = policy authorizes action; `deny` = categorically prohibited; `ask` = an in-scope guarded write requiring explicit one-time approval. Without `--approve <path>`, runtime `ask` is refused and logged. A CLI/config violation before starting the loop results in `error`, exit `12`.
 
@@ -59,11 +61,16 @@ Rows **1–41** preserve the original predicted outcomes. Rows **42–43** were 
 - Case **22** needs a **raw-string guard** before `new URL()` normalizes encoded traversal. A parser that strips `%2e%2e` and then rejects an unexpected path happens to deny this example, but does not prove the promised token validation.
 - Greenhouse raw IDs may be numeric; the independent checker and patched `src/state.mjs` normalize them to canonical string IDs. Lever UUIDs must remain strings (never `Number(uuid)`). Duplicate IDs **within one raw response** cause board `error: malformed` with **no state update**, not deletion of the duplicate alone; corrupt persisted state is an integrity `error`.
 - Case **30** uses the same in-memory approval state as case **27**. Recreate only the disposable file before retrying its deletion; starting a new run or choosing a different file would **not** demonstrate consumption. Case **37** tests the separate path-binding guarantee.
-- The graded Lever demonstration uses a **86-posting raw response**, not the earlier 84-posting spot check: `20261110T215021538Z` baseline reported 86 new correctly; `20261110T215313703Z` labeled `mode: replay` falsely reported **86 new again** with zero network requests. The full evidence chain also includes intervening live run `20261110T215039330Z`, which changed corrupted state `[null]` to `[0, null]`. **Checker rule 3 catches invalid saved IDs; rule 2 alone agrees with the false count because its pre-run seen set is corrupt.** See `evidence/check-pre-fix.txt` and `TRACE.md`.
+- For the finished-wrong demonstration, preserve a fresh-state baseline, then a **second run using `--replay <path>` on the identical saved raw response**. Mark the second run `mode: replay` in both the trace and `README.md`; only the second run's repeated `84 new` is the wrong new-job answer. **Checker rule 3 catches the corrupt `[null]` state; rule 2 by itself agrees with the false count because its pre-run seen set is already corrupt.** Run the independent checker after the replay. The pre-patch `src/state.mjs` is the JS1 version under review.
+- **Annotation (2026-11-10, after the runs):** The graded Lever demonstration uses a **86-posting raw response**, not the earlier 84-posting spot check: `20261110T215021538Z` baseline reported 86 new correctly; `20261110T215313703Z` labeled `mode: replay` falsely reported **86 new again** with zero network requests. The full evidence chain also includes intervening live run `20261110T215039330Z`, which changed corrupted state `[null]` to `[0, null]`. **Checker rule 3 catches invalid saved IDs; rule 2 alone agrees with the false count because its pre-run seen set is corrupt.** See `evidence/check-pre-fix.txt` and `TRACE.md`.
 - Cases **38–41** specify the `--replay` file boundary and zero-network behavior. Use a valid single-board configuration for each, and assert **zero fetches** even on invalid paths or missing files. Case 41 is a CLI run error, rather than a normal permission `ask`.
 - Cases **31–33** are CLI-level rather than file/network authorizations. Their `allow`/`deny` predictions refer to accepting or rejecting the command; the expected **run exit** is stated separately.
 - A case that returns `ask` should test the actual no-approval runtime behavior (**refused**) and the matching approval behavior (**allowed**) separately.
 
-## Recorded test evidence
+## Run evidence to add
+
+Record the test command(s), timestamp, platform/Node version, test suite output, observed versus predicted outcome for each case, and the resulting commit hash. Until then, the table is a test plan, not proof of code enforcement.
+
+## Recorded test evidence (added 2026-11-10, after the runs)
 
 The **Actual result** column above names the executed test for each of the 43 boundary cases. The historical post-patch run is in `evidence/node-test-post-patch.txt`; the complete final suite after the duplicate-ID and snapshot-test fixes is in `evidence/node-test-final.txt` (**123/123 passed**, reported 2026-11-10). Duplicate raw IDs are now rejected per board by the provider parsers (`42c9bc52`); that behavior is additionally covered by the provider/loop regression tests. Predictions and recorded outcomes are kept separate, and the final test log must be included in the committed submission.

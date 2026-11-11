@@ -42,6 +42,8 @@ Claude Code ran in the Claude desktop app (model `claude-opus-5-5`). It wrote th
 
 Claude Code also made unsaved HTTP checks of the four boards with `curl` on 2026-11-10 (200 for `stripe`, `airbnb`, `spotify`; 404 for `no-such-board-js2`), which GATE.md cites in "Starting point and boards". It also ran the checker on saved traces while drafting `REVIEW.md` and `TRACE.md`, but the checker output those files quote is from my own runs, saved as `evidence/check-pre-fix.txt` and `evidence/check-post-patch.txt` (`88c3358e`).
 
+**Self-audit, 2026-11-10.** After the first push I audited the submission myself (no external tool). It found that a raw response repeating an id finished as `observed` instead of `error: malformed` (the checker's rule 1 caught it); that the read-only snapshot test only held when not run as administrator; a stale header comment in `src/loop.mjs`; and stale documentation (84 Spotify postings against the actual 86 and 85, passages that read as unfinished, and out-of-date SOURCES.md entries). It led to five commits: `42c9bc52`, `ea5e0198`, `1e698443` and `3cc9c89c` by Claude Code, and `8e8798db`, my documentation edits, which Claude Code committed. `8e8798db` overwrote pre-run passages in `GATE.md` and `test/boundary-cases.md`; the next commit restored them exactly as at `5182422e` and kept the new facts as dated annotations.
+
 Commits I made (not Claude Code): `ce33fd8d`, `aedc7034`, `359ee568`, `b0bc86f9`, `4c7ab6b2`, `4b1336cf`, `17c9225a`, `3aae3352`, `a0dc494a`, `c04d1ecf`, `0310af25`, `c4f9b555`, `0326b046`, `88c3358e`, `634489f9`. I also ran every live and replay run in `out/traces/`. Claude Code made no live run of the loop.
 
 ## Drafted in Claude chat
