@@ -2,7 +2,7 @@
 
 ## My review of the remaining open items, November 10, 2026
 
-*Shreyash's words, typed into the session on 2026-11-10. This replaces a shorter decision paragraph on `Dev` given earlier the same day (in commit `5ed5159`). Claude Code did not change them.*
+*Shreyash's words, typed into the session on 2026-11-10. This replaces a shorter decision paragraph on `Dev` given earlier the same day (in commit `5ed5159`). The last sentence of the `Dev` paragraph was replaced later that evening, after the regrade, also in Shreyash's words. Claude Code did not change them.*
 
 **1. Klaviyo — Posting 7809608003**
 
@@ -44,4 +44,4 @@ The first item explains the discrepancy between review/16 and review/18: the rul
 
 For Palantir Dev, my recommendation is yes, treat it as an engineering department, but only through a documented, provider-specific interpretation. The saved jobs are explicitly Software Engineer internships, and their responsibilities concern software development. However, the raw department value Dev remains ambiguous on its own, so I would not globally equate every Dev department with engineering.
 
-Changing this interpretation would remove the department failure for those postings, but they would still fail the Boston/remote location rule. You should record the decision before changing any code.
+Changing this interpretation would remove the department failure for those postings, but they would still fail the Boston/remote location rule. I decided to record my expected result before making any code changes so that the test would reflect my own reading of the job advertisement rather than the agent's existing output.

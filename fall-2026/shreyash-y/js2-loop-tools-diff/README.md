@@ -137,7 +137,7 @@ The rule is **not** correct in general. Rule v2 revision 3 was accepted with the
 
 ## Sign-off — Job-Search Agent 2
 
-*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10. Lines were added afterwards the same day (the `Dev` decision, rows 21–22, the deadline test, Shreyash's own test, the check-then-write race), and the first sentence of "Not claiming" is Shreyash's wording; Shreyash re-read the whole sign-off and kept the signature on 2026-11-10.*
+*Drafted by Claude Code. Shreyash checked it, accepted the two 2026-11-10 changes (row 21 moved to Checked; the Palantir `Dev` department kept under Not checked), and signed it in the session on 2026-11-10. Lines were added afterwards the same day (the `Dev` decision, rows 21–22, the deadline test, Shreyash's own test, the check-then-write race), the first sentence of "Not claiming" is Shreyash's wording, and so is the end of "How" from "I previously checked" (typed in after the regrade); Shreyash re-read the whole sign-off and kept the signature on 2026-11-10.*
 
 ```text
 Checked:      - Exits, budgets, repeat rule and error policy: tests/test_loop.py (the five GATE.md
@@ -165,8 +165,13 @@ How:          The tests were written by Claude Code from GATE.md and committed b
               (cef009e before f4b553d; 6f4ae08 before the rule patch). I ran the review commands
               myself. The behavior diffs are recomputations over the 685 saved postings. The
               decisions in review/05 and review/18 are mine. On 2026-11-10 I re-ran the full suite
-              (OK), checked all 12 frozen test hashes, and confirmed row 21's prediction was in
-              2b8ed44 before any result (evidence/commands-run-by-shreyash-2026-11-10.txt).
+              (OK) and confirmed row 21's prediction was in 2b8ed44 before any result
+              (evidence/commands-run-by-shreyash-2026-11-10.txt). I previously checked all 12 frozen
+              test hashes. After the subsequent changes, I ran the updated test suite and verified
+              the 16 frozen test hashes. I also checked the test-first deadline fix, reviewed the
+              disputed job advertisements myself, and documented the known Oscar Physician Reviewer
+              limitation as an expected failure. The earlier live runs predate the deadline fix, so
+              I am not claiming that the new deadline behavior was verified in a live run.
 Not checked:  - A real Relevant posting: run 3 judged 6 real new postings, all Not Relevant, so the
                 Relevant path inside the loop ran only in tests. I decided Palantir's "Dev"
                 department should count as engineering for Palantir only (review/19), but that
