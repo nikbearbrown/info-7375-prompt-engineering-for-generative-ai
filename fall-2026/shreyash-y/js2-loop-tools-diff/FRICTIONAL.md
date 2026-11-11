@@ -138,13 +138,13 @@ Different Lever boards may use `Dev` differently. I still need to test whether a
 - **The time budget.** It was not a strict deadline: a request could run its full 20 s past the limit. Shreyash chose to fix it test-first. The test failed on the old loop ("20 not less than or equal to 10", `325e98c6`), and passed after a three-line change in `loop.py`. I also made the check `>=` so a request can't start with 0 s left. The live runs were made before this change.
 - **The check-then-write race and hard links.** Disclosed, not fixed: closing the race properly needs `O_NOFOLLOW` writes relative to an open `runs/` directory, which was too big to add safely on deadline day.
 
-**2026-11-10 20:30, an independent regrade: two gaps, fixed test-first.**
+**2026-11-10 20:29, an independent regrade: two gaps, fixed test-first.**
 - **The read rule was not used where it mattered.** `Files.read` was tested (rows 19–20) but the command line read `--boards` and `--replay` directly. I wrote three tests predicting a refusal and committed them failing (`01aaeb2`), then routed those reads, and the replay's saved responses, through `Files.read`.
 - **An empty board list said `finished`.** Nothing was checked and the independent check passed it. Two tests, committed failing in the same commit; now the loop exits `error` and the check flags a `finished` run with no board checked.
 - **My slip.** The first run of the new boards test had no network guard, so the old code made one live GET to Oscar's public board and wrote throwaway run folders and two state files into `runs/`. I deleted them (never committed), added a guard that replaces the network and sends runs to a temp folder, and re-ran. The before-fix evidence file says so at the top.
 - The live runs were made before this change. `budgets.json`, `GATE.md` and the persona are still read directly at fixed paths.
 
-**2026-11-10 21:00, a second independent regrade: three more gaps, fixed test-first.**
+**2026-11-10 20:44, a second independent regrade: three more gaps, fixed test-first.**
 - **The write root came from the command line.** I had fixed the read side earlier the same evening but not looked at the write side the same way: `--runs-dir runs-evil` wrote into `runs-evil/`, GATE.md's own wrong version 3. My own `tests/test_regrade_gaps.py` even relied on pointing `--runs-dir` outside the folder. The root must now be `runs/` or inside it.
 - **A posting with no id crashed the run**, ending in none of the four exits. It now fails its board as `bad-shape`. A refused read or write stops with exit 4 and one line.
 - **The check trusted the summary.** It now compares the summary with the trace and recounts new postings from the raw ids.
