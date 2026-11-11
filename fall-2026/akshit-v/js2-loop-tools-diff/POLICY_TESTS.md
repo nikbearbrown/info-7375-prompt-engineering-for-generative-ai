@@ -24,4 +24,15 @@ Policy: GATE.md section 6. Code: `agent2/policy.py` and the redirect guard in `a
 
 ## Results after running
 
-_(filled in after the first run)_
+First run: by me, in my own terminal, on 2026-11-10 (`python -B -m unittest discover -s tests -t . -v`). The output is saved in `review/test_run_1_before_patch.txt`.
+
+| # | Predicted | Actual |
+|---|---|---|
+| B01–B06 | refused (except B05: allowed) | **as predicted**: all 6 passed |
+| B07–B11 | allowed for B07; refused for B08–B11 | **as predicted**: all 5 passed (B10 ran as a real Windows junction) |
+| B12 | read allowed, write refused | **as predicted** |
+| B13 | refused | **as predicted** |
+| B14 | refused (needs approval), file kept | **as predicted** |
+| B15 | allowed, file deleted | **as predicted** |
+
+All 15 outcomes matched the predictions. No prediction was changed after the run.
