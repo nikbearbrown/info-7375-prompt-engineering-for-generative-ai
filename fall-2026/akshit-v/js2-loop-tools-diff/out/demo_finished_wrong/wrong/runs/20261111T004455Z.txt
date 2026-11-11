@@ -1,0 +1,23 @@
+# Run 20261111T004455Z  [SEEDED + WRONG VERSION W-a]
+exit: finished  (every planned board was fetched and checked)
+requests used: 3 / 10
+
+## Trace
+  1  t=    0.0s  start            {"boards": ["greenhouse:figma", "lever:spotify", "ashby:snowflake"], "budget": {"max_boards": 5, "max_requests": 10, "max_seconds": 60}, "transport": "SEEDED + WRONG VERSION W-a"}
+  2  t=    0.0s  request          {"board": "greenhouse:figma", "attempt": 1, "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true", "kind": "ok", "status": 200, "bytes": 12, "raw": "out/demo_finished_wrong/wrong/evidence/20261111T004455Z/greenhouse_figma_try1.json", "detail": ""}
+  3  t=    0.0s  board_result     {"board": "greenhouse:figma", "outcome": "ok", "detail": "0 jobs"}
+  4  t=  0.031s  request          {"board": "lever:spotify", "attempt": 1, "url": "https://api.lever.co/v0/postings/spotify?mode=json", "kind": "ok", "status": 200, "bytes": 821002, "raw": "out/demo_finished_wrong/wrong/evidence/20261111T004455Z/lever_spotify_try1.json", "detail": ""}
+  5  t=  0.078s  board_result     {"board": "lever:spotify", "outcome": "ok", "detail": "86 jobs"}
+  6  t=  0.109s  request          {"board": "ashby:snowflake", "attempt": 1, "url": "https://api.ashbyhq.com/posting-api/job-board/snowflake", "kind": "ok", "status": 200, "bytes": 4637353, "raw": "out/demo_finished_wrong/wrong/evidence/20261111T004455Z/ashby_snowflake_try1.json", "detail": ""}
+  7  t=  0.156s  board_result     {"board": "ashby:snowflake", "outcome": "ok", "detail": "373 jobs"}
+  8  t=  0.156s  exit             {"exit": "finished", "cause": "every planned board was fetched and checked", "requests_used": 3}
+
+## Boards
+- greenhouse:figma: ok (0 jobs)
+- lever:spotify: ok (86 jobs)
+- ashby:snowflake: ok (373 jobs)
+
+## New postings (rule verdict = record, recomputable from CONTRACT rule of JS1)
+- greenhouse:figma: 0 new
+- lever:spotify: 0 new
+- ashby:snowflake: 0 new

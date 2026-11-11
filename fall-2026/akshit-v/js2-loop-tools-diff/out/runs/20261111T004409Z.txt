@@ -1,0 +1,26 @@
+# Run 20261111T004409Z  [LIVE]
+exit: incomplete  (failed boards: greenhouse:no-such-board-js2)
+requests used: 4 / 10
+
+## Trace
+  1  t=    0.0s  start            {"boards": ["greenhouse:figma", "lever:spotify", "ashby:snowflake", "greenhouse:no-such-board-js2"], "budget": {"max_boards": 5, "max_requests": 10, "max_seconds": 60}, "transport": "LIVE"}
+  2  t=  0.281s  request          {"board": "greenhouse:figma", "attempt": 1, "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true", "kind": "ok", "status": 200, "bytes": 1674741, "raw": "out/evidence/20261111T004409Z/greenhouse_figma_try1.json", "detail": ""}
+  3  t=  0.421s  board_result     {"board": "greenhouse:figma", "outcome": "ok", "detail": "144 jobs"}
+  4  t=  1.265s  request          {"board": "lever:spotify", "attempt": 1, "url": "https://api.lever.co/v0/postings/spotify?mode=json", "kind": "ok", "status": 200, "bytes": 821002, "raw": "out/evidence/20261111T004409Z/lever_spotify_try1.json", "detail": ""}
+  5  t=  1.312s  board_result     {"board": "lever:spotify", "outcome": "ok", "detail": "86 jobs"}
+  6  t=  1.546s  request          {"board": "ashby:snowflake", "attempt": 1, "url": "https://api.ashbyhq.com/posting-api/job-board/snowflake", "kind": "ok", "status": 200, "bytes": 4637353, "raw": "out/evidence/20261111T004409Z/ashby_snowflake_try1.json", "detail": ""}
+  7  t=  1.578s  board_result     {"board": "ashby:snowflake", "outcome": "ok", "detail": "373 jobs"}
+  8  t=  1.703s  request          {"board": "greenhouse:no-such-board-js2", "attempt": 1, "url": "https://boards-api.greenhouse.io/v1/boards/no-such-board-js2/jobs?content=true", "kind": "http_error", "status": 404, "bytes": 38, "raw": "out/evidence/20261111T004409Z/greenhouse_no-such-board-js2_try1.json", "detail": "HTTP 404"}
+  9  t=  1.703s  board_result     {"board": "greenhouse:no-such-board-js2", "outcome": "failed_not_found", "detail": "HTTP 404"}
+ 10  t=  1.703s  exit             {"exit": "incomplete", "cause": "failed boards: greenhouse:no-such-board-js2", "requests_used": 4}
+
+## Boards
+- greenhouse:figma: ok (144 jobs)
+- lever:spotify: ok (86 jobs)
+- ashby:snowflake: ok (373 jobs)
+- greenhouse:no-such-board-js2: failed_not_found (HTTP 404)
+
+## New postings (rule verdict = record, recomputable from CONTRACT rule of JS1)
+- greenhouse:figma: 0 new
+- lever:spotify: 0 new
+- ashby:snowflake: 0 new
