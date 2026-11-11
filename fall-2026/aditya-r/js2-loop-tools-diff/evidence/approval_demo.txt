@@ -1,0 +1,40 @@
+Started: 2026-11-10 18:36:37 EST
+{
+ "approval_record_expected_at": "approvals/20261110T232115022Z_live.json",
+ "bytes": 374,
+ "destination": "out/approved-shortlists/20261110T232115022Z_live.json",
+ "operation": "create-shortlist-export",
+ "proposed_bytes_file": "out/pending_approval/20261110T232115022Z_live.export.json",
+ "run_id": "20261110T232115022Z_live",
+ "sha256": "df370075878e17c24f98c20e31b4108cb7daa51f60e5862b66a1b101999bbcc6"
+}
+{
+ "caution": "A validated JUDGMENT is an opinion checked for format and cited evidence; it does not prove suitability.",
+ "entries": [],
+ "kind": "shortlist export (local file; not an application or message)",
+ "partial": true,
+ "partial_reason": "source run has unresolved work",
+ "source_run": "20261110T232115022Z_live",
+ "withheld_relevant_without_valid_judgment": 4
+}
+df370075878e17c24f98c20e31b4108cb7daa51f60e5862b66a1b101999bbcc6  out/pending_approval/20261110T232115022Z_live.export.json
+
+WITHOUT approval — expected exit 3
+EXPORT INCOMPLETE (exit 3): pending: no human approval record at approvals/20261110T232115022Z_live.json
+
+[without approval exit: 3]
+
+WITH approval — expected exit 0
+EXPORT FINISHED (exit 0): created out/approved-shortlists/20261110T232115022Z_live.json under the matching approval
+
+[with approval exit: 0]
+
+COMPARE exported bytes — expected exit 0
+
+[byte comparison exit: 0]
+
+REPEAT export — expected exit 2
+EXPORT ERROR (exit 2): refused: out/approved-shortlists/20261110T232115022Z_live.json already exists (create-only)
+
+[repeat export exit: 2]
+Finished: 2026-11-10 18:38:11 EST
