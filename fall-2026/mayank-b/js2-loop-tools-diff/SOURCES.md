@@ -20,7 +20,10 @@
 - **Every gate decision**, answering the question sheet: language, exits, budgets, who changes them, repeat rule, error policy, escalation (4b = A + B + C, my change), independent check, permission policy, approval, wrong versions, review defect. Verbatim in `notes/gate-answers-2026-11-10.md`.
 - **My failure sentence and my own wrong version W9** (a failed board's seen-ids wiped).
 - Accepting the 16 boundary predictions before any test ran (CP2).
-- _Pending (fill in when done):_ approving or changing the checker floors; running the review commands myself; the accept / revise / reject decision; the sign-off; editing FRICTIONAL into my own words.
+- Ran the review commands myself and **accepted** the patch (2026-11-10, `REVIEW-PACKET.md`).
+- Ran `approve` on the real run myself (`runs/2026-11-11T00-24-30Z-real/approval.json`).
+- Signed the sign-off (2026-11-10).
+- _Pending:_ approving or changing the checker floors; editing FRICTIONAL into my own words.
 
 ## What Claude Code contributed (Claude Opus 5.5, in my Claude Code session, 2026-11-05 and 2026-11-10)
 

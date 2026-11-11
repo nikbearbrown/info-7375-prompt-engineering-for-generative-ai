@@ -54,11 +54,11 @@ python3 scripts/wrong_versions.py                         # expect: 9/9 wrong ve
 python3 review/probe_still_missed.py                      # expect: ALLOWED ... outside the project? True
 ```
 
-**Ran by me:** _(Mayank: paste the last line of each, or write "ran, matched"; date it)_
+**Ran by me:** Mayank Bhadrasen, 2026-11-10: ran the commands above; the results matched the expected lines ("Ran, matched").
 
 ## Decision
 
-**Decision (Mayank):** _ACCEPT / REVISE / REJECT, with one sentence of reasons_
+**Decision (Mayank Bhadrasen, 2026-11-10): ACCEPT.** The B8/B8b tests were committed failing before the patch and pass after it; the diff changes one function in policy.py; all 50 tests pass and 9/9 planted wrong versions are still caught. The `runs/`-is-a-symlink escape needs a new rule, so I'm logging it as a follow-up instead of widening this patch.
 
 *Claude's recommendation:* **Accept, and open the missed case as a follow-up rather than widening this patch.** Reasons:
 - the test written first now passes;

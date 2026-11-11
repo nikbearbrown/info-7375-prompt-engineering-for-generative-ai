@@ -145,7 +145,7 @@ See **`REVIEW-PACKET.md`**:
 3. A real timeout or 5xx: those paths were exercised only with a scripted fetch; no live board timed out.
 4. The 60-second cap against a real slow board: tested only with a fake clock.
 5. The title rule on live new jobs: every live board was a baseline, so no job was "new" and the rule never judged a live posting.
-6. A second calendar day, and an `approve` on a real run.
+6. A second calendar day. I ran `approve` on the real run myself (2026-11-11T01:00Z UTC, `runs/2026-11-11T00-24-30Z-real/approval.json`): `state/seen-ids.json` now holds 679 / 122 / 156 ids for the three healthy boards. No later run has used that state yet, so "new since last check" was never shown live.
 7. Board identity for `ashby/greenlight` (unknown), and this time for the other boards (taken from Lectern's 2026-09-26 verification, not re-confirmed by me).
 8. Reads through symlinks are now refused, but no test covers that yet (`REVIEW-PACKET.md`).
 
@@ -157,15 +157,15 @@ See **`REVIEW-PACKET.md`**:
 - That anything here works on Lever or SmartRecruiters.
 - That one evening's runs say anything about reliability over time.
 
-**Signed or withheld:** _Mayank: sign (name, date) or withhold with your reason_
+**Signed or withheld:** Signed: Mayank Bhadrasen, 2026-11-10
 
 ## Driver's seat
 
 | Part | What Claude did | What I did | Why it stays mine | Evidence |
 |---|---|---|---|---|
-| The gate | wrote the question sheet (2026-11-05), then turned my answers into GATE.md with 6 listed edits | chose every rule; chose 4b = A+B+C; wrote my failure sentence and W9 | the rules are the criterion everything is checked against; written by the producer, they would describe its output | `notes/GATE-QUESTIONS.md`, `notes/gate-answers-2026-11-10.md`, GATE.md "Changes Claude made" · CP1 `3ce860b` |
+| The gate | wrote the question sheet (2026-11-05), then turned my answers into GATE.md with 6 listed edits | chose every rule; chose 4b = A+B+C; wrote my failure sentence and W9; ran `approve` on the real run myself | the rules are the criterion everything is checked against; written by the producer, they would describe its output | `notes/GATE-QUESTIONS.md`, `notes/gate-answers-2026-11-10.md`, GATE.md "Changes Claude made" · CP1 `3ce860b` |
 | Predictions | drafted the 16 cases with predicted results | accepted them before any test ran | a prediction written after the run tests nothing | CP2 `1581f58` (before code, CP3 `b8b3fb4`) |
 | The loop | wrote `src/jsa/`, the tests, the harness; ran the live runs | decided boards, caps, the deliberate failure and the repeat | how much the agent may spend and try is my decision, not a property of the code | CP3 `b8b3fb4`, CP4 `ebb7b3f`, `runs/*-real/trace.jsonl` |
 | Floors for the checker | proposed each floor from a named source | _approve or change them_ | the checker is only independent if its expectations aren't the agent's | `config/expected-boards.json` (`_status`) |
-| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | _ran the commands myself; decided accept / revise / reject_ | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `f2e775e`, CP6 `9416437`, `REVIEW-PACKET.md` |
-| Sign-off | drafted the Checked / Not checked lists from the record | _sign or withhold_ | my name goes on it | this section |
+| The review | reproduced the defect with a failing test, wrote the patch, collected the evidence, probed what it misses | ran the commands myself ("Ran, matched"); decided **ACCEPT**, with the missed case logged as a follow-up | the same session wrote the code, the test and the patch, so its agreement is "the first opinion run twice" | CP5 `f2e775e`, CP6 `9416437`, `REVIEW-PACKET.md` |
+| Sign-off | drafted the Checked / Not checked lists from the record | signed: Mayank Bhadrasen, 2026-11-10 | my name goes on it | this section |

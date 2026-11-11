@@ -46,7 +46,13 @@
 - **Found:**
   - The patch also changed **reads**: a read through a link pointing outside was allowed before and refused after. I probed both versions to check this.
   - A probe shows that if `runs/` itself is a symlink, writes still escape.
-- **Unresolved:** that escape; no test yet for the read-side change. _Decision on the patch: Mayank._
+- **Unresolved:** that escape; no test yet for the read-side change.
+- **Decision (mine):** ACCEPT. I ran the review commands myself and they matched (`REVIEW-PACKET.md`).
+
+### 2026-11-10 20:00 · I approved the first real state write
+- **Did:** `python3 agent.py approve 2026-11-11T00-24-30Z-real --approve-state 2026-11-11T00-24-30Z-real`.
+- **Happened:** applied 3 boards (anthropic 679, hubspotjobs 122, notion 156 ids). Nothing was held: the failed board had no proposed state to write, so its state stayed untouched as GATE §4 says (`runs/2026-11-11T00-24-30Z-real/approval.json`).
+- **Unresolved:** no later run has used this state, so a live "new jobs" result was never shown.
 
 ### 2026-11-10 · Smaller things
 - **One wrong prediction:** B7 was refused as predicted, but with `approval-required`, not the `outside-write-root` I predicted (`BOUNDARY-TESTS.md`).
