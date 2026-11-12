@@ -1,0 +1,6 @@
+# kind cluster for the apg sandbox (one control-plane node, default name "kind").
+# Create it: kind create cluster --config sandbox/kind.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane

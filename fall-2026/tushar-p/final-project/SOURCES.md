@@ -21,9 +21,8 @@ Date: Nov 3, 2026
 | kubectl | Pod control from Go via `os/exec` | Apache-2.0 (GitHub license API for `kubernetes/kubectl`, checked Nov 3, 2026) |
 | `python:3.12-slim` image | Sandbox base image (Debian-based) | Image Dockerfiles: MIT (`docker-library/python`). CPython: Python Software Foundation License Version 2 (the `LICENSE` file in `python/cpython`, checked Nov 3, 2026). The Debian packages inside carry their own licenses; not checked |
 | pytest | Task checks inside the sandbox | MIT (GitHub license API for `pytest-dev/pytest`, checked Nov 3, 2026) |
-| `github.com/anthropics/anthropic-sdk-go` | Claude API calls from the agent loop (D2; approved dependency in CLAUDE.md) | Apache-2.0 (GitHub license API, checked Nov 3, 2026) |
-| Claude models via the Anthropic API | The agent the harness will run; model not chosen yet | Anthropic commercial terms |
-| Calico (only if kindnet does not enforce NetworkPolicy) | Enforcing default-deny egress (T1.2) | Apache-2.0 (GitHub license API for `projectcalico/calico`, checked Nov 3, 2026) |
+| `github.com/anthropics/anthropic-sdk-go` (module path `/v2`, pinned v2.4.0 from Oct 27, 2026) | Claude API calls from the agent loop (D2; approved dependency in CLAUDE.md) | Apache-2.0 (GitHub license API, checked Nov 3, 2026) |
+| Claude models via the Anthropic API | The agent the harness runs: `claude-haiku-5-5` (T1.4) | Anthropic commercial terms |
 
 ## What Tushar wrote or did
 
