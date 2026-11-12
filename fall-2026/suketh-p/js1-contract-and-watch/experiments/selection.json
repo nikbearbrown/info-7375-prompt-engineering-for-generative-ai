@@ -1,0 +1,123 @@
+{
+  "seed": 20261028,
+  "source_run": "runs/20261028T102612Z-live",
+  "board_posting_count": 681,
+  "strata_sizes_on_board": {
+    "R": 8,
+    "S": 15,
+    "T": 9,
+    "E": 35,
+    "L": 8,
+    "M": 606
+  },
+  "strata": {
+    "R": "rule: relevant",
+    "S": "rule: fails only skills",
+    "T": "rule: fails only title_seniority",
+    "E": "rule: fails only engineering_role",
+    "L": "rule: fails location (with or without skills), title conditions pass",
+    "M": "rule: fails two or more conditions including engineering_role"
+  },
+  "plan": {
+    "R": {
+      "take": 6,
+      "to_development": 3
+    },
+    "S": {
+      "take": 3,
+      "to_development": 2
+    },
+    "T": {
+      "take": 3,
+      "to_development": 1
+    },
+    "E": {
+      "take": 3,
+      "to_development": 2
+    },
+    "L": {
+      "take": 2,
+      "to_development": 1
+    },
+    "M": {
+      "take": 3,
+      "to_development": 1
+    }
+  },
+  "development": [
+    4613568008,
+    4979585008,
+    5114768008,
+    5198108008,
+    5209196008,
+    5390795008,
+    5399158008,
+    5418610008,
+    5424111008,
+    5427834008
+  ],
+  "held_out": [
+    4616971008,
+    4973067008,
+    5245851008,
+    5358114008,
+    5375371008,
+    5412334008,
+    5436684008,
+    5445760008,
+    5448481008,
+    5450099008
+  ],
+  "sampling": [
+    4613568008,
+    4979585008,
+    5198108008,
+    5399158008,
+    5418610008
+  ],
+  "labeling_order": [
+    4979585008,
+    5198108008,
+    4613568008,
+    5448481008,
+    5399158008,
+    4616971008,
+    5375371008,
+    5427834008,
+    5445760008,
+    5436684008,
+    5450099008,
+    5412334008,
+    5114768008,
+    5390795008,
+    4973067008,
+    5358114008,
+    5245851008,
+    5209196008,
+    5424111008,
+    5418610008
+  ],
+  "stratum_by_id": {
+    "4979585008": "E",
+    "5198108008": "S",
+    "4613568008": "R",
+    "5448481008": "R",
+    "5399158008": "S",
+    "4616971008": "E",
+    "5375371008": "S",
+    "5427834008": "M",
+    "5445760008": "L",
+    "5436684008": "T",
+    "5450099008": "R",
+    "5412334008": "M",
+    "5114768008": "T",
+    "5390795008": "L",
+    "4973067008": "R",
+    "5358114008": "M",
+    "5245851008": "T",
+    "5209196008": "E",
+    "5424111008": "R",
+    "5418610008": "R"
+  },
+  "note": "Chosen by this script before any hand label or Claude result existed. Stratified by rule outcome, so not a random sample of the board. stratum_by_id is not shown on the labeling sheet."
+}
