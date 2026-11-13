@@ -1,0 +1,874 @@
+/**
+ * EarlyBirdFilm.tsx — reel-local Remotion components for the rebuilt INFO 7375
+ * final project pitch film "Early Bird" (Vrajesh Nasit), v1.0, 2026-10-24.
+ * Reel: info-7375-prompt-engineering-for-generative-ai/fall-2026/vrajesh-n/final-project-film
+ *
+ * CLOCK. Every component is a pure function of the frame. Two props carry the
+ * audio clock, written by the reel's build_beats.py --sync after audio lock:
+ *   durationSeconds — measured narration length (calculateMetadata reads it)
+ *   cues            — beat-local seconds where each event lands (mp3/words.json)
+ * A missing cue falls back to a fixed fraction of the beat.
+ *
+ * LOOK. Cream page, warm ink, ONE terracotta accent; readable accent text in
+ * brick (5.6:1); type >= 44px; essential content inside SAFE.
+ *
+ * HONESTY. Early Bird is not built. REAL = the author's saved Commure snapshots
+ * (2026-10-14, 2026-10-23), the ID diff and greenhouse-watch run he ran on
+ * 2026-10-24, and the 2026-10-14 probe. Everything else is PLANNED or CONSTRUCTED.
+ */
+import React, {useEffect, useState} from 'react';
+import {AbsoluteFill, continueRender, delayRender, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {z} from 'zod';
+import {CLAUDE, CLAUDE_FONT} from './tokens/claude';
+import {SAFE} from './tokens/layout';
+
+// ── Palette ───────────────────────────────────────────────────────────────────
+const PAGE = CLAUDE.PAGE;
+const CARD = CLAUDE.CARD;
+const BORDER = CLAUDE.BORDER;
+const INK = CLAUDE.INK;
+const MUTE = '#5D584F';
+const PILL = CLAUDE.PILL;
+const GHOST = CLAUDE.GHOST;
+const ACC = CLAUDE.SPARK;
+const ACC_TXT = '#A44A32';
+const SERIF = CLAUDE_FONT.serif;
+const SANS = CLAUDE_FONT.ui;
+const MONO = '"EarlyBird PT Mono", Consolas, "Courier New", monospace';
+const SHADOW = '0 6px 28px rgba(61,57,41,0.08), 0 1px 3px rgba(61,57,41,0.05)';
+
+// ── Clock helpers ─────────────────────────────────────────────────────────────
+const cl = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const easeOut = (x: number) => 1 - Math.pow(1 - cl(x), 3);
+const easeInOut = (x: number) => {
+  const t = cl(x);
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+};
+const rise = (t: number, start: number, dur = 0.45) => easeOut((t - start) / dur);
+const lin = (t: number, start: number, dur: number) => cl((t - start) / Math.max(dur, 1e-3));
+const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+
+const useClock = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  return {t: frame / fps, frame, fps};
+};
+
+const cueReader = (cues: Record<string, number> | undefined, dur: number) =>
+  (key: string, frac: number): number => {
+    const v = cues ? cues[key] : undefined;
+    return typeof v === 'number' && Number.isFinite(v) ? v : frac * dur;
+  };
+
+const popAt = (frame: number, fps: number, startSec: number) =>
+  spring({frame: frame - Math.round(startSec * fps), fps, config: {damping: 15, stiffness: 170, mass: 0.7}});
+
+const useMono = () => {
+  const [handle] = useState(() => delayRender('EarlyBird: PT Mono'));
+  useEffect(() => {
+    let live = true;
+    new FontFace('EarlyBird PT Mono', `url(${staticFile('fonts/PTMono-Regular.ttf')}) format('truetype')`)
+      .load()
+      .then((f) => {
+        (document.fonts as unknown as {add: (f: FontFace) => void}).add(f);
+      })
+      .catch(() => undefined)
+      .then(() => {
+        if (live) continueRender(handle);
+      });
+    return () => {
+      live = false;
+    };
+  }, [handle]);
+};
+
+const clockSchema = {
+  durationSeconds: z.number().default(20),
+  cues: z.record(z.string(), z.number()).default({}),
+};
+
+// ── Chrome ────────────────────────────────────────────────────────────────────
+const SparkGlyph: React.FC<{size?: number}> = ({size = 46}) => (
+  <svg width={size} height={size} viewBox="-50 -50 100 100" style={{display: 'block', flexShrink: 0}}>
+    {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+      <line key={a} x1={0} y1={-12} x2={0} y2={-46} stroke={ACC} strokeWidth={12}
+        strokeLinecap="round" transform={`rotate(${a})`} />
+    ))}
+  </svg>
+);
+
+const SparkLine: React.FC<{text: string; t: number}> = ({text, t}) => {
+  const o = rise(t, 0.05, 0.45);
+  return (
+    <div style={{position: 'absolute', left: SAFE.x, top: 70, display: 'flex', alignItems: 'center', gap: 22,
+      opacity: o, transform: `translateY(${(1 - o) * 10}px)`}}>
+      <SparkGlyph />
+      <div style={{fontFamily: SERIF, fontSize: 60, lineHeight: 1.15, color: INK, whiteSpace: 'nowrap',
+        letterSpacing: '-0.01em'}}>{text}</div>
+    </div>
+  );
+};
+
+/** Status label, top right: REAL / PLANNED / CONSTRUCTED. REAL is brick-edged. */
+const TopChip: React.FC<{text: string; t: number; real?: boolean}> = ({text, t, real}) => {
+  const o = rise(t, 0.25, 0.45);
+  return (
+    <div style={{position: 'absolute', right: 1920 - SAFE.r, top: 76, padding: '4px 22px', background: PILL,
+      border: `3px solid ${real ? ACC_TXT : PILL}`, borderRadius: 16, fontFamily: SANS, fontSize: 44,
+      lineHeight: 1.2, color: real ? ACC_TXT : MUTE, fontWeight: real ? 700 : 400, whiteSpace: 'nowrap',
+      opacity: o}}>{text}</div>
+  );
+};
+
+const Bug: React.FC = () => (
+  <div style={{position: 'absolute', right: 1920 - SAFE.r, bottom: 1080 - SAFE.b + 6, fontFamily: SANS,
+    fontSize: 26, color: INK, opacity: 0.42, whiteSpace: 'nowrap', letterSpacing: '0.02em'}}>
+    INFO 7375 · Early Bird pitch
+  </div>
+);
+
+const Stage: React.FC<{spark?: string; chip?: string; real?: boolean; t: number; children: React.ReactNode}> = ({
+  spark, chip, real, t, children}) => (
+  <AbsoluteFill style={{background: PAGE, overflow: 'hidden'}}>
+    {children}
+    {spark ? <SparkLine text={spark} t={t} /> : null}
+    {chip ? <TopChip text={chip} t={t} real={real} /> : null}
+    <Bug />
+  </AbsoluteFill>
+);
+
+// ── Primitives ────────────────────────────────────────────────────────────────
+type Anchor = 'start' | 'middle' | 'end';
+type TextProps = {
+  x: number; y: number; size: number; color?: string; font?: string; weight?: number; o?: number;
+  anchor?: Anchor; italic?: boolean; lh?: number; ls?: string; dy?: number; scale?: number; pre?: boolean;
+  children: React.ReactNode;
+};
+const T: React.FC<TextProps> = ({x, y, size, color = INK, font = SANS, weight = 400, o = 1, anchor = 'start',
+  italic, lh = 1.18, ls, dy = 0, scale = 1, pre, children}) => {
+  const tx = anchor === 'middle' ? '-50%' : anchor === 'end' ? '-100%' : '0%';
+  const origin = anchor === 'middle' ? 'center center' : anchor === 'end' ? 'right center' : 'left center';
+  return (
+    <div style={{position: 'absolute', left: x, top: y, fontFamily: font, fontSize: size, fontWeight: weight,
+      fontStyle: italic ? 'italic' : 'normal', color, opacity: o, lineHeight: lh, letterSpacing: ls,
+      whiteSpace: pre ? 'pre' : 'nowrap', transform: `translate(${tx}, ${dy}px) scale(${scale})`, transformOrigin: origin}}>
+      {children}
+    </div>
+  );
+};
+
+const Pill: React.FC<{x: number; y: number; text: string; size?: number; dark?: boolean; o?: number;
+  scale?: number; color?: string; bg?: string; anchor?: Anchor; weight?: number}> = ({x, y, text, size = 46,
+  dark, o = 1, scale = 1, color, bg, anchor = 'start', weight = 500}) => {
+  const tx = anchor === 'middle' ? '-50%' : anchor === 'end' ? '-100%' : '0%';
+  return (
+    <div style={{position: 'absolute', left: x, top: y, padding: `${Math.round(size * 0.16)}px ${Math.round(size * 0.55)}px`,
+      borderRadius: 999, background: bg ?? (dark ? INK : PILL), color: color ?? (dark ? CARD : INK),
+      fontFamily: SANS, fontSize: size, fontWeight: weight, lineHeight: 1.18, whiteSpace: 'nowrap', opacity: o,
+      transform: `translateX(${tx}) scale(${scale})`, transformOrigin: 'left center'}}>
+      {text}
+    </div>
+  );
+};
+
+const Plate: React.FC<{x: number; y: number; w: number; h: number; o?: number; dy?: number; bg?: string;
+  radius?: number; children?: React.ReactNode; clip?: boolean; edge?: string; scale?: number}> = ({x, y, w, h, o = 1,
+  dy = 0, bg = CARD, radius = 22, children, clip, edge = BORDER, scale = 1}) => (
+  <div style={{position: 'absolute', left: x, top: y, width: w, height: h, background: bg,
+    border: `3px solid ${edge}`, borderRadius: radius, boxShadow: SHADOW, opacity: o,
+    transform: `translateY(${dy}px) scale(${scale})`, overflow: clip ? 'hidden' : 'visible', boxSizing: 'border-box'}}>
+    {children}
+  </div>
+);
+
+const Svg: React.FC<{children: React.ReactNode}> = ({children}) => (
+  <svg width={1920} height={1080} viewBox="0 0 1920 1080" style={{position: 'absolute', left: 0, top: 0}}>
+    {children}
+  </svg>
+);
+
+const Stamp: React.FC<{x: number; y: number; text: string; s: number; size?: number; rot?: number}> = ({x, y, text,
+  s, size = 44, rot = -6}) => (
+  <div style={{position: 'absolute', left: x, top: y, padding: '0px 16px', border: `5px solid ${ACC_TXT}`,
+    borderRadius: 10, color: ACC_TXT, background: 'rgba(250,249,245,0.94)', fontFamily: SANS, fontSize: size,
+    fontWeight: 800, letterSpacing: '0.08em', lineHeight: 1.2, whiteSpace: 'nowrap',
+    opacity: cl(s * 1.4), transform: `rotate(${rot}deg) scale(${1.5 - 0.5 * cl(s)})`, transformOrigin: 'center'}}>
+    {text}
+  </div>
+);
+
+/** Check-mark disc centred at (cx, cy); hollow = planned. */
+const Check: React.FC<{cx: number; cy: number; s?: number; hollow?: boolean}> = ({cx, cy, s = 1, hollow}) => (
+  <g transform={`translate(${cx} ${cy}) scale(${s})`}>
+    <circle r={24} fill={hollow ? CARD : INK} stroke={hollow ? ACC_TXT : 'none'} strokeWidth={hollow ? 5 : 0} />
+    <path d="M -10 1 L -3 9 L 11 -8" fill="none" stroke={hollow ? ACC_TXT : CARD} strokeWidth={5}
+      strokeLinecap="round" strokeLinejoin="round" />
+  </g>
+);
+
+const Dash: React.FC<{cx: number; cy: number; o?: number}> = ({cx, cy, o = 1}) => (
+  <line x1={cx - 18} y1={cy} x2={cx + 18} y2={cy} stroke={GHOST} strokeWidth={6} strokeLinecap="round" opacity={o} />
+);
+
+/** The film's recurring object: a rising sun on a horizon line. */
+const Sun: React.FC<{cx: number; horizon: number; r: number; up: number; x0?: number; x1?: number}> = ({cx, horizon,
+  r, up, x0 = SAFE.x, x1 = SAFE.r}) => {
+  const cy = horizon + r * (1 - up) + 8;
+  return (
+    <g>
+      <clipPath id={`ef-sky-${cx}`}><rect x={0} y={0} width={1920} height={horizon} /></clipPath>
+      <g clipPath={`url(#ef-sky-${cx})`}>
+        {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+          const a = (-90 + (i - 3) * 24) * Math.PI / 180;
+          return <line key={i} x1={cx + Math.cos(a) * (r + 22)} y1={cy + Math.sin(a) * (r + 22)}
+            x2={cx + Math.cos(a) * (r + 58)} y2={cy + Math.sin(a) * (r + 58)} stroke={ACC_TXT} strokeWidth={10}
+            strokeLinecap="round" opacity={up} />;
+        })}
+        <circle cx={cx} cy={cy} r={r} fill={ACC_TXT} />
+      </g>
+      <line x1={x0} y1={horizon} x2={x1} y2={horizon} stroke={GHOST} strokeWidth={4} strokeLinecap="round" />
+    </g>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B00 · EfOpen — title over a sunrise; disclosure; a feed of software jobs, none skipped
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efOpenSchema = z.object({
+  ...clockSchema,
+  title: z.string().default('Early Bird'),
+  subtitle: z.string().default('see every new software job, early'),
+  who: z.string().default('Vrajesh N. · INFO 7375'),
+  when: z.string().default('Dec 2026 grad · job hunting'),
+  disclosure: z.string().default('script drafted with Claude from my decisions · synthetic voice'),
+  feed: z.array(z.string()).default(['Software Eng.', 'Full-stack', 'AI Engineer', 'Backend', 'ML Engineer']),
+  kept: z.string().default('kept'),
+  fresh: z.string().default('new'),
+});
+export type EfOpenProps = z.infer<typeof efOpenSchema>;
+
+export const EfOpen: React.FC<EfOpenProps> = (p) => {
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cName = cue('name', 0.03), cVoice = cue('voice', 0.3), cDec = cue('december', 0.5);
+  const cSkip = cue('skip', 0.75), cEarly = cue('early', 0.94);
+  const up = easeInOut(lin(t, 0.1, 2.4));
+  const W = 316, G = 37, Y = 760;
+  return (
+    <Stage t={t}>
+      <Svg><Sun cx={1560} horizon={420} r={96} up={up} x0={1180} x1={1780} /></Svg>
+      <div style={{position: 'absolute', left: SAFE.x, top: 150, opacity: rise(t, 0.1, 0.6),
+        transform: `translateY(${(1 - rise(t, 0.1, 0.6)) * 16}px)`, fontFamily: SERIF, fontSize: 170, lineHeight: 1,
+        color: INK, letterSpacing: '-0.015em', whiteSpace: 'nowrap'}}>
+        {p.title}<span style={{color: ACC_TXT}}>.</span>
+      </div>
+      <T x={SAFE.x + 6} y={340} size={60} font={SERIF} color={MUTE} o={rise(t, 0.6, 0.5)}>{p.subtitle}</T>
+      <Pill x={SAFE.x} y={470} text={p.who} size={44} dark o={rise(t, cName, 0.4)} />
+      <Pill x={SAFE.x + 610} y={470} text={p.when} size={44} o={rise(t, cDec, 0.4)} />
+      <Pill x={SAFE.x} y={580} text={p.disclosure} size={44} color={ACC_TXT} o={rise(t, cVoice, 0.4)} />
+      {p.feed.map((j, i) => {
+        const s = popAt(frame, fps, cSkip + i * 0.16);
+        const last = i === p.feed.length - 1;
+        const lift = last ? easeOut(lin(t, cEarly, 0.5)) : 0;
+        return (
+          <Plate key={j} x={SAFE.x + i * (W + G)} y={Y} w={W} h={160} o={cl(s)} dy={(1 - cl(s)) * 40 - lift * 30}
+            edge={last && lift > 0 ? ACC_TXT : BORDER}>
+            <T x={26} y={24} size={44} weight={700}>{j}</T>
+            <T x={26} y={92} size={44} color={last && lift > 0.5 ? ACC_TXT : MUTE}
+              weight={last && lift > 0.5 ? 700 : 400}>{last && lift > 0.5 ? p.fresh : p.kept}</T>
+          </Plate>
+        );
+      })}
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B01 · EfWhat — three stations: my list → one run → a report of only new roles
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efWhatSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('What it will be.'),
+  chip: z.string().default('PLANNED'),
+  listTitle: z.string().default('my list'),
+  listSub: z.string().default('25–30 companies'),
+  platforms: z.array(z.string()).default(['Greenhouse', 'Lever', 'Ashby']),
+  runCmd: z.string().default('earlybird run'),
+  runSub: z.string().default('new since last run?'),
+  reportTitle: z.string().default('report'),
+  reportRows: z.array(z.string()).default(['software', 'full-stack', 'AI']),
+  reportSub: z.string().default('new postings only'),
+  artifacts: z.array(z.string()).default(['public GitHub repo', 'CLI', 'tests', 'saved responses', 'a report per run']),
+});
+export type EfWhatProps = z.infer<typeof efWhatSchema>;
+
+export const EfWhat: React.FC<EfWhatProps> = (p) => {
+  useMono();
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cAgent = cue('agent', 0.1), cBoards = cue('boards', 0.25), cNew = cue('new', 0.5);
+  const cArt = cue('artifact', 0.65), cRep = cue('report', 0.92);
+  const Y = 220, H = 440, W = 500;
+  const X = [SAFE.x, 720, 1324];
+  const pulse = 1 + 0.035 * Math.sin(cl((t - cRep) / 0.6) * Math.PI);
+  let ax = SAFE.x;
+  return (
+    <Stage spark={p.spark} chip={p.chip} t={t}>
+      <Svg>
+        {[0, 1].map((k) => {
+          const x0 = X[k] + (k === 0 ? W : W - 20) + 8, x1 = X[k + 1] - 8, cy = Y + H / 2;
+          const a = easeInOut(lin(t, k === 0 ? cBoards + 0.6 : cNew, 0.8));
+          return (
+            <g key={k} opacity={a > 0 ? 1 : 0}>
+              <line x1={x0} y1={cy} x2={x0 + (x1 - x0) * a} y2={cy} stroke={GHOST} strokeWidth={5} strokeLinecap="round" />
+              <path d={`M ${x1 - 18} ${cy - 14} L ${x1} ${cy} L ${x1 - 18} ${cy + 14}`} fill="none" stroke={GHOST}
+                strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" opacity={a >= 1 ? 1 : 0} />
+            </g>
+          );
+        })}
+      </Svg>
+      <Plate x={X[0]} y={Y} w={W} h={H} o={rise(t, cBoards - 0.3, 0.45)}>
+        <T x={36} y={30} size={56} font={SERIF}>{p.listTitle}</T>
+        <T x={36} y={110} size={44} color={MUTE}>{p.listSub}</T>
+        {p.platforms.map((pl, i) => (
+          <Pill key={pl} x={36} y={196 + i * 72} text={pl} size={44} o={rise(t, cBoards + 0.2 + i * 0.25, 0.35)} />
+        ))}
+      </Plate>
+      <Plate x={X[1]} y={Y} w={W - 20} h={H} o={rise(t, cAgent, 0.45)}>
+        <T x={(W - 20) / 2} y={150} size={52} font={MONO} anchor="middle">{p.runCmd}</T>
+        <T x={(W - 20) / 2} y={240} size={44} color={MUTE} anchor="middle">{p.runSub}</T>
+      </Plate>
+      <Plate x={X[2]} y={Y} w={W} h={H} o={rise(t, cNew - 0.3, 0.45)} scale={pulse} edge={ACC_TXT}>
+        <T x={36} y={30} size={56} font={SERIF}>{p.reportTitle}</T>
+        {p.reportRows.map((r, i) => (
+          <div key={r} style={{opacity: rise(t, cNew + 0.4 + i * 0.3, 0.35)}}>
+            <svg width={30} height={30} style={{position: 'absolute', left: 36, top: 132 + i * 74}}>
+              <circle cx={15} cy={15} r={13} fill={ACC} />
+            </svg>
+            <T x={84} y={118 + i * 74} size={48} weight={600}>{r}</T>
+          </div>
+        ))}
+        <T x={36} y={350} size={44} color={ACC_TXT} o={rise(t, cNew + 1.4, 0.4)}>{p.reportSub}</T>
+      </Plate>
+      {p.artifacts.map((a, i) => {
+        const s = popAt(frame, fps, cArt + 0.2 + i * 0.4);
+        const x = ax;
+        ax += a.length * 23 + 50 + 22;
+        return <Pill key={a} x={x} y={790} text={a} size={44} o={cl(s)} scale={cl(s, 0, 1.08)} dark={i === 0} />;
+      })}
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B02 · EfExists — two real Commure snapshots as dot grids; 12 new, 11 gone; 5 software
+// One dot = one posting. Left: Oct 14 (80). Right: Oct 23 (81). IDs in both: grey.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efExistsSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('What exists today.'),
+  chip: z.string().default('REAL · my saved files'),
+  board: z.string().default('Commure · public Ashby board'),
+  dayA: z.string().default('Oct 14'),
+  dayB: z.string().default('Oct 23'),
+  countA: z.number().default(80),
+  countB: z.number().default(81),
+  same: z.number().default(69),
+  gone: z.number().default(11),
+  fresh: z.number().default(12),
+  software: z.number().default(5),
+  goneLabel: z.string().default('11 gone'),
+  newLabel: z.string().default('12 new IDs'),
+  splitSoft: z.string().default('5 software engineering'),
+  splitOther: z.string().default('7 not software'),
+  agentNote: z.string().default('the agent: not built yet'),
+});
+export type EfExistsProps = z.infer<typeof efExistsSchema>;
+
+const DotGrid: React.FC<{x: number; y: number; n: number; same: number; mark: number; markStyle: 'hollow' | 'acc';
+  t: number; inAt: number; markAt: number; cols?: number; split?: number; splitAt?: number}> = ({x, y, n, same, mark,
+  markStyle, t, inAt, markAt, cols = 14, split, splitAt = 1e9}) => {
+  const STEP = 54, R = 19;
+  return (
+    <svg width={cols * STEP + 10} height={Math.ceil(n / cols) * STEP + 10}
+      style={{position: 'absolute', left: x, top: y}}>
+      {Array.from({length: n}).map((_, k) => {
+        const cx = 24 + (k % cols) * STEP, cy = 24 + Math.floor(k / cols) * STEP;
+        const o = rise(t, inAt + k * 0.012, 0.25);
+        const isMark = k >= same && k < same + mark;
+        const lit = isMark && t >= markAt;
+        if (isMark && markStyle === 'hollow') {
+          return <circle key={k} cx={cx} cy={cy} r={R - 3} fill={lit ? CARD : INK} stroke={lit ? ACC_TXT : 'none'}
+            strokeWidth={lit ? 5 : 0} opacity={o * (lit ? 1 : 0.45)} />;
+        }
+        const other = split !== undefined && isMark && k - same >= split && t >= splitAt;
+        return <circle key={k} cx={cx} cy={cy} r={R} fill={lit ? (other ? GHOST : ACC_TXT) : INK}
+          opacity={o * (lit ? 1 : 0.45)} />;
+      })}
+    </svg>
+  );
+};
+
+export const EfExists: React.FC<EfExistsProps> = (p) => {
+  const {t} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cData = cue('data', 0.12), cA = cue('fourteenth', 0.3), cB = cue('twentythird', 0.38);
+  const cCount = cue('eighty', 0.45), cNew = cue('twelve', 0.6), cGone = cue('eleven', 0.66);
+  const cSoft = cue('five', 0.76), cOther = cue('seven', 0.9);
+  const GX = [SAFE.x + 10, 1010];
+  return (
+    <Stage spark={p.spark} chip={p.chip} real t={t}>
+      <T x={SAFE.x} y={166} size={46} color={MUTE} o={rise(t, cData, 0.4)}>{p.board}</T>
+      <T x={SAFE.r} y={166} size={44} color={MUTE} anchor="end" o={rise(t, cData + 0.3, 0.4) * (1 - rise(t, cA - 0.3, 0.3))}>
+        {p.agentNote}
+      </T>
+      {[0, 1].map((k) => (
+        <div key={k}>
+          <T x={GX[k]} y={250} size={56} font={SERIF} o={rise(t, (k === 0 ? cA : cB) - 0.2, 0.4)}>{k === 0 ? p.dayA : p.dayB}</T>
+          <T x={GX[k] + 230} y={262} size={44} color={MUTE} o={rise(t, cCount + k * 0.5, 0.4)}>
+            {`${k === 0 ? p.countA : p.countB} postings`}
+          </T>
+        </div>
+      ))}
+      <DotGrid x={GX[0] - 4} y={340} n={p.countA} same={p.same} mark={p.gone} markStyle="hollow" t={t}
+        inAt={cA} markAt={cGone} />
+      <DotGrid x={GX[1] - 4} y={340} n={p.countB} same={p.same} mark={p.fresh} markStyle="acc" t={t}
+        inAt={cB} markAt={cNew} split={p.software} splitAt={cOther} />
+      <Pill x={GX[0]} y={740} text={p.goneLabel} size={44} color={ACC_TXT} o={rise(t, cGone, 0.4)} />
+      <Pill x={GX[1]} y={740} text={p.newLabel} size={44} dark o={rise(t, cNew, 0.4)} />
+      <Pill x={GX[1]} y={836} text={p.splitSoft} size={44} color={ACC_TXT} weight={700} o={rise(t, cSoft, 0.4)} />
+      <T x={GX[1] + 8} y={926} size={44} color={MUTE} o={rise(t, cOther, 0.4)}>{p.splitOther}</T>
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B03 · EfAlternative — phase 1: my greenhouse-watch run on the 12 new postings (REAL);
+// phase 2: what each option covers; Early Bird's difference (PLANNED)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const efRowSchema = z.object({title: z.string(), software: z.boolean(), gwKept: z.boolean()});
+const efOptSchema = z.object({name: z.string(), sub: z.string(), lines: z.array(z.string()), cue: z.string()});
+export const efAlternativeSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('The closest alternative.'),
+  chip: z.string().default('REAL · my run, Oct 24'),
+  chip2: z.string().default('gw: REAL run · Early Bird: PLANNED'),
+  listHead: z.string().default('12 new on Oct 23 (titles shortened)'),
+  gwHead: z.string().default('greenhouse-watch'),
+  gwSub: z.string().default('kept?'),
+  rows: z.array(efRowSchema).default([
+    {title: 'Sr. Software Engineer, Applied AI (RCM)', software: true, gwKept: true},
+    {title: 'Sr. Software Engineer, Claims Intelligence', software: true, gwKept: true},
+    {title: 'Sr. Software Engineer, Autonomous Rev. Ops', software: true, gwKept: true},
+    {title: 'Sr. Software Engineer, Agent Platform', software: true, gwKept: true},
+    {title: 'Sr. Software Engineer, Network Infra.', software: true, gwKept: true},
+    {title: 'Head of Performance Creative', software: false, gwKept: true},
+    {title: 'Field Sales Development Rep.', software: false, gwKept: false},
+    {title: 'Manager, Strategic Partnerships', software: false, gwKept: false},
+    {title: 'Demand Generation Manager', software: false, gwKept: false},
+    {title: 'Growth Marketing Lead', software: false, gwKept: false},
+    {title: 'Staff Product Designer', software: false, gwKept: false},
+    {title: 'Sales Strategy & Operations, Agents', software: false, gwKept: false},
+  ]),
+  why: z.string().default('Python, SQL, remote'),
+  stamp: z.string().default('MARKETING'),
+  tally: z.string().default('kept 6 of 12 · all 5 software + 1 marketing'),
+  options: z.array(efOptSchema).default([
+    {name: 'greenhouse-watch', sub: 'course tool · ran it', lines: ['one board per run', 'keeps resume-word', 'matches over a score'], cue: 'one'},
+    {name: 'LinkedIn Job Match', sub: 'examined', lines: ['LinkedIn jobs only', "can't re-run", 'how it decided'], cue: 'linkedin'},
+    {name: 'Early Bird', sub: 'planned', lines: ['whole list, one run', 'software job = role,', 'not resume overlap'], cue: 'whole'},
+  ]),
+  quote: z.string().default('blocker: “5+ years required”, quoted from the posting'),
+  quoteTag: z.string().default('example'),
+});
+export type EfAlternativeProps = z.infer<typeof efAlternativeSchema>;
+
+export const EfAlternative: React.FC<EfAlternativeProps> = (p) => {
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cRan = cue('ran', 0.1), cSame = cue('same', 0.2), cKept = cue('kept', 0.28), cMkt = cue('marketing', 0.36);
+  const cPhase = cue('one', 0.5), cQuote = cue('quoting', 0.92);
+  const phase2 = rise(t, cPhase - 0.3, 0.5);
+  const ROW0 = 250, STEP = 56, GW = 1400;
+  const mktIdx = p.rows.findIndex((r) => !r.software && r.gwKept);
+  return (
+    <Stage spark={p.spark} chip={phase2 > 0.5 ? p.chip2 : p.chip} real={phase2 <= 0.5} t={t}>
+      {/* phase 1 — the run */}
+      <div style={{position: 'absolute', inset: 0, opacity: 1 - phase2}}>
+        <T x={SAFE.x} y={172} size={44} color={MUTE} o={rise(t, cRan, 0.4)}>{p.listHead}</T>
+        <T x={GW} y={150} size={44} weight={700} anchor="middle" o={rise(t, cKept - 0.6, 0.4)}>{p.gwHead}</T>
+        <T x={GW} y={198} size={44} color={MUTE} anchor="middle" o={rise(t, cKept - 0.4, 0.4)}>{p.gwSub}</T>
+        {p.rows.map((r, i) => (
+          <T key={r.title} x={SAFE.x} y={ROW0 + i * STEP} size={44} o={rise(t, cSame + i * 0.08, 0.3)}
+            color={r.software ? INK : MUTE} weight={r.software ? 600 : 400}>{r.title}</T>
+        ))}
+        {mktIdx >= 0 ? (
+          <div style={{position: 'absolute', left: SAFE.x - 14, top: ROW0 + mktIdx * STEP - 2, width: SAFE.w + 28 - 28,
+            height: STEP - 4, borderRadius: 12, background: ACC, opacity: 0.14 * rise(t, cMkt, 0.4)}} />
+        ) : null}
+        <Svg>
+          {p.rows.map((r, i) => {
+            const cy = ROW0 + i * STEP + 26;
+            const at = cKept + i * 0.1;
+            if (!r.gwKept) return <Dash key={i} cx={GW} cy={cy} o={rise(t, at, 0.3)} />;
+            return <Check key={i} cx={GW} cy={cy} s={cl(popAt(frame, fps, at), 0, 1.1)} />;
+          })}
+        </Svg>
+        {mktIdx >= 0 ? (
+          <>
+            <T x={SAFE.x + 720} y={ROW0 + mktIdx * STEP} size={44} color={ACC_TXT} weight={600}
+              o={rise(t, cMkt + 0.5, 0.4)}>{p.why}</T>
+            <Stamp x={1470} y={ROW0 + mktIdx * STEP - 2} text={p.stamp} s={popAt(frame, fps, cMkt)} size={38} />
+          </>
+        ) : null}
+        <Pill x={SAFE.x} y={936} text={p.tally} size={44} dark o={rise(t, cMkt + 1.6, 0.4)} />
+      </div>
+      {/* phase 2 — what each option covers */}
+      <div style={{position: 'absolute', inset: 0, opacity: phase2}}>
+        {p.options.map((o, j) => {
+          const at = cue(o.cue, 0.5 + j * 0.1);
+          const planned = j === p.options.length - 1;
+          const x = SAFE.x + j * (548 + 42);
+          return (
+            <Plate key={o.name} x={x} y={200} w={548} h={500} o={rise(t, at - 0.2, 0.45)} edge={planned ? ACC_TXT : BORDER}>
+              <T x={34} y={30} size={50} font={SERIF}>{o.name}</T>
+              <T x={34} y={104} size={44} color={planned ? ACC_TXT : MUTE}>{o.sub}</T>
+              {o.lines.map((l, k) => (
+                <T key={l} x={34} y={210 + k * 70} size={44} weight={planned ? 600 : 400}
+                  o={rise(t, at + 0.3 + k * 0.25, 0.35)}>{l}</T>
+              ))}
+            </Plate>
+          );
+        })}
+        <T x={SAFE.x} y={770} size={46} font={SERIF} italic o={rise(t, cQuote - 0.6, 0.45)}>{p.quote}</T>
+        <Pill x={SAFE.x} y={860} text={p.quoteTag} size={44} color={MUTE} o={rise(t, cQuote - 0.2, 0.4)} />
+      </div>
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B04 · EfWho — a sixty-second ring; three steps the reader takes (constructed)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efWhoSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('Who will open it.'),
+  chip: z.string().default('CONSTRUCTED · not built'),
+  reader: z.string().default('hiring manager'),
+  readerSub: z.string().default('full-stack / AI engineering role'),
+  ringLabel: z.string().default('60 s'),
+  steps: z.array(z.object({n: z.string(), text: z.string(), mono: z.boolean(), cue: z.string()})).default([
+    {n: '1', text: 'python -m earlybird run --sample', mono: true, cue: 'command'},
+    {n: '2', text: 'open the report', mono: false, cue: 'report'},
+    {n: '3', text: 'new postings · quoted blockers · tests', mono: false, cue: 'blockers'},
+  ]),
+  sample: z.string().default('labeled sample data'),
+  me: z.string().default('also me, before every application session'),
+});
+export type EfWhoProps = z.infer<typeof efWhoSchema>;
+
+export const EfWho: React.FC<EfWhoProps> = (p) => {
+  useMono();
+  const {t} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cHire = cue('hiring', 0.1), cSixty = cue('sixty', 0.3), cMe = cue('me', 0.86);
+  const sweep = easeInOut(lin(t, cSixty, Math.max(2, cMe - cSixty - 0.4)));
+  const CX = 330, CY = 590, R = 190;
+  const a = -Math.PI / 2 + sweep * Math.PI * 2;
+  const arc = sweep >= 0.999
+    ? `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX - 0.01} ${CY - R}`
+    : `M ${CX} ${CY - R} A ${R} ${R} 0 ${sweep > 0.5 ? 1 : 0} 1 ${CX + R * Math.cos(a)} ${CY + R * Math.sin(a)}`;
+  return (
+    <Stage spark={p.spark} chip={p.chip} t={t}>
+      <Pill x={SAFE.x} y={180} text={p.reader} size={46} dark o={rise(t, cHire, 0.4)} />
+      <T x={SAFE.x + 420} y={188} size={44} color={MUTE} o={rise(t, cHire + 0.4, 0.4)}>{p.readerSub}</T>
+      <Svg>
+        <circle cx={CX} cy={CY} r={R} fill="none" stroke={GHOST} strokeWidth={14} opacity={rise(t, cSixty - 0.3, 0.4)} />
+        {sweep > 0 ? <path d={arc} fill="none" stroke={ACC_TXT} strokeWidth={14} strokeLinecap="round" /> : null}
+      </Svg>
+      <T x={CX} y={CY - 50} size={84} font={SERIF} anchor="middle" o={rise(t, cSixty, 0.4)}>{p.ringLabel}</T>
+      {p.steps.map((s, i) => {
+        const at = cue(s.cue, 0.4 + i * 0.15);
+        const o = rise(t, at - 0.1, 0.4);
+        return (
+          <div key={s.n} style={{opacity: o, transform: `translateX(${(1 - o) * 24}px)`}}>
+            <Pill x={680} y={350 + i * 160} text={s.n} size={48} dark />
+            <T x={790} y={356 + i * 160} size={s.mono ? 44 : 50} font={s.mono ? MONO : SANS}
+              weight={s.mono ? 400 : 600}>{s.text}</T>
+          </div>
+        );
+      })}
+      <T x={790} y={426} size={44} color={MUTE} o={rise(t, cue('command', 0.4) + 0.8, 0.4)}>{p.sample}</T>
+      <Pill x={680} y={880} text={p.me} size={46} o={rise(t, cMe, 0.4)} />
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B05 · EfProves — a ledger: course topic → the evidence I will produce
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efProvesSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('What it will prove.'),
+  chip: z.string().default('PLANNED evidence'),
+  head: z.array(z.string()).default(['course topic', 'evidence I will produce']),
+  rows: z.array(z.object({topic: z.string(), evidence: z.string(), cue: z.string()})).default([
+    {topic: 'Prompt contracts', evidence: 'fixed format from Claude; a validator rejects the rest', cue: 'contracts'},
+    {topic: 'Verification', evidence: 'a rule anyone can recompute, beside a labeled judgment', cue: 'verification'},
+    {topic: 'Agent loops', evidence: 'budgets and honest exit statuses', cue: 'loops'},
+    {topic: 'Evaluation', evidence: '20 postings labeled by hand, 10 held back', cue: 'evaluation'},
+  ]),
+});
+export type EfProvesProps = z.infer<typeof efProvesSchema>;
+
+export const EfProves: React.FC<EfProvesProps> = (p) => {
+  const {t} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const Y0 = 290, STEP = 168, XE = 660;
+  return (
+    <Stage spark={p.spark} chip={p.chip} t={t}>
+      <T x={SAFE.x} y={196} size={44} color={MUTE} o={rise(t, 0.3, 0.4)}>{p.head[0]}</T>
+      <T x={XE} y={196} size={44} color={MUTE} o={rise(t, 0.5, 0.4)}>{p.head[1]}</T>
+      {p.rows.map((r, i) => {
+        const at = cue(r.cue, 0.15 + i * 0.2);
+        const a = rise(t, at - 0.1, 0.4);
+        const b = rise(t, at + 0.5, 0.45);
+        const y = Y0 + i * STEP;
+        return (
+          <div key={r.topic}>
+            <div style={{position: 'absolute', left: SAFE.x, top: y + 118, width: SAFE.w, height: 3, background: BORDER,
+              opacity: a}} />
+            <Pill x={SAFE.x} y={y + 18} text={r.topic} size={46} dark o={a} />
+            <svg width={60} height={40} style={{position: 'absolute', left: XE - 80, top: y + 32, opacity: b}}>
+              <path d="M 4 20 L 50 20 M 36 8 L 50 20 L 36 32" fill="none" stroke={ACC_TXT} strokeWidth={5}
+                strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <T x={XE} y={y + 24} size={46} o={b} dy={(1 - b) * 10}>{r.evidence}</T>
+          </div>
+        );
+      })}
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B06 · EfScope — what is out; the first watcher; its answer key = my 12 real new IDs
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efScopeSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('Out, and first.'),
+  chip: z.string().default('REAL key · PLANNED watcher'),
+  outTitle: z.string().default('Out, on purpose'),
+  outs: z.array(z.string()).default(['auto-apply', 'log in', 'message anyone', 'scrape LinkedIn']),
+  google: z.string().default('Google'),
+  googleOff: z.string().default('Google · unsupported'),
+  keyTitle: z.string().default('answer key · Commure'),
+  keySub: z.string().default('12 new IDs, Oct 14 → Oct 23 (first 8 chars)'),
+  ids: z.array(z.string()).default(['ad72cee4', '7452f7af', 'bf15fcda', '145d71a2', '5265c990', '70cc0958',
+    'd166ec34', 'ec8a2b65', 'edb92988', '0305a47a', '8082621e', '3813f0ae']),
+  watcher: z.string().default('first watcher must report exactly these 12'),
+  watcherTag: z.string().default('planned · anyone can recompute the key'),
+  second: z.string().default('greenhouse-watch also found 12 (real)'),
+});
+export type EfScopeProps = z.infer<typeof efScopeSchema>;
+
+export const EfScope: React.FC<EfScopeProps> = (p) => {
+  useMono();
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cOut = cue('out', 0.02), cUns = cue('unsupported', 0.28), cFirst = cue('first', 0.36);
+  const cKey = cue('key', 0.5), cTwelve = cue('twelve', 0.62), cRecompute = cue('recompute', 0.75);
+  const cInd = cue('independent', 0.88);
+  const outAt = [cOut + 1.0, cOut + 2.2, cOut + 3.3, cOut + 4.6];
+  const off = t >= cUns;
+  const KX = 800;
+  return (
+    <Stage spark={p.spark} chip={p.chip} t={t}>
+      <T x={SAFE.x} y={180} size={54} font={SERIF} o={rise(t, cOut, 0.4)}>{p.outTitle}</T>
+      {p.outs.map((o, i) => {
+        const a = rise(t, outAt[i] - 0.3, 0.3);
+        const strike = easeOut(lin(t, outAt[i] + 0.2, 0.4));
+        return (
+          <div key={o} style={{opacity: a}}>
+            <T x={SAFE.x} y={280 + i * 86} size={48}>{o}</T>
+            <div style={{position: 'absolute', left: SAFE.x, top: 280 + i * 86 + 30, height: 6,
+              width: (o.length * 22 + 10) * strike, background: ACC_TXT, borderRadius: 3}} />
+          </div>
+        );
+      })}
+      <Pill x={SAFE.x} y={650} text={off ? p.googleOff : p.google} size={46} color={off ? MUTE : INK}
+        o={rise(t, cUns - 1.6, 0.4)} />
+      <Plate x={KX} y={180} w={SAFE.r - KX} h={520} o={rise(t, cFirst, 0.45)} edge={ACC_TXT}>
+        <T x={34} y={26} size={50} font={SERIF}>{p.keyTitle}</T>
+        <T x={34} y={98} size={44} color={MUTE} o={rise(t, cKey, 0.4)}>{p.keySub}</T>
+        {p.ids.map((id, k) => {
+          const s = popAt(frame, fps, cKey + 0.3 + k * 0.1);
+          return (
+            <div key={id} style={{position: 'absolute', left: 34 + (k % 4) * 248, top: 190 + Math.floor(k / 4) * 96,
+              padding: '6px 14px', borderRadius: 12, background: PILL, fontFamily: MONO, fontSize: 44, color: INK,
+              opacity: cl(s), transform: `scale(${cl(s, 0, 1.06)})`, whiteSpace: 'nowrap'}}>{id}</div>
+          );
+        })}
+      </Plate>
+      <Pill x={KX} y={736} text={p.watcher} size={44} dark o={rise(t, cTwelve, 0.4)} />
+      <T x={KX + 8} y={818} size={44} color={MUTE} o={rise(t, cRecompute, 0.4)}>{p.watcherTag}</T>
+      <Pill x={KX} y={900} text={p.second} size={44} color={ACC_TXT} weight={700} o={rise(t, cInd, 0.4)} />
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B07 · EfRisk — three real ways words mislead; the counter; the four mitigations
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efRiskSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('What could break it.'),
+  chip: z.string().default('REAL titles'),
+  question: z.string().default('is it a software job?'),
+  cases: z.array(z.object({pre: z.string(), hit: z.string(), post: z.string(), note: z.string(), stamp: z.string(),
+    cue: z.string()})).default([
+    {pre: 'Sales Strategy & Operations, ', hit: 'Agents', post: '', note: 'Commure · Oct 23', stamp: 'SALES', cue: 'agents'},
+    {pre: 'Head of Performance Creative', hit: '', post: '', note: 'gw kept it: Python, SQL', stamp: 'MARKETING', cue: 'python'},
+    {pre: 'Account Executive, ', hit: 'AI', post: ' Sales', note: 'Stripe · Oct 14 probe', stamp: 'SALES', cue: 'account'},
+  ]),
+  matched: z.number().default(789),
+  of: z.string().default('of 2,156 titles matched'),
+  ofSub: z.string().default('my probe’s keyword rule'),
+  fixes: z.array(z.string()).default(['rule before code', 'hand-label postings', 'audit 30 rejects', 'quote, or reject']),
+});
+export type EfRiskProps = z.infer<typeof efRiskSchema>;
+
+export const EfRisk: React.FC<EfRiskProps> = (p) => {
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cDecide = cue('deciding', 0.08), cMatch = cue('matched', 0.55);
+  const cFix = [cue('rule', 0.7), cue('hand', 0.76), cue('audit', 0.82), cue('quotes', 0.94)];
+  const n = p.matched * easeOut(lin(t, cMatch, 1.2));
+  return (
+    <Stage spark={p.spark} chip={p.chip} real t={t}>
+      <T x={SAFE.x} y={172} size={50} font={SERIF} italic o={rise(t, cDecide, 0.4)}>{p.question}</T>
+      {p.cases.map((c, i) => {
+        const at = cue(c.cue, 0.2 + i * 0.15);
+        const y = 270 + i * 196;
+        const o = rise(t, at - 0.4, 0.4);
+        return (
+          <Plate key={c.pre} x={SAFE.x} y={y} w={1020} h={166} o={o}>
+            <T x={30} y={22} size={46} weight={600}>
+              {c.pre}{c.hit ? <span style={{color: ACC_TXT, textDecoration: 'underline'}}>{c.hit}</span> : null}{c.post}
+            </T>
+            <T x={30} y={94} size={44} color={MUTE}>{c.note}</T>
+            <Stamp x={1020 - 50 - c.stamp.length * 32} y={88} text={c.stamp} s={popAt(frame, fps, at + 0.3)} size={38} />
+          </Plate>
+        );
+      })}
+      <T x={1200} y={250} size={150} font={SERIF} color={ACC_TXT} o={rise(t, cMatch - 0.2, 0.3)}>{fmt(n)}</T>
+      <T x={1206} y={430} size={44} o={rise(t, cMatch + 0.6, 0.4)}>{p.of}</T>
+      <T x={1206} y={488} size={44} color={MUTE} o={rise(t, cMatch + 0.9, 0.4)}>{p.ofSub}</T>
+      {p.fixes.map((f, i) => {
+        const s = popAt(frame, fps, cFix[i]);
+        return <Pill key={f} x={1200} y={600 + i * 92} text={f} size={46} dark={i === 0} o={cl(s)} scale={cl(s, 0, 1.08)} />;
+      })}
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B08 · EfWhyMe — skill | where it is shown; then what is new to me
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efWhyMeSchema = z.object({
+  ...clockSchema,
+  spark: z.string().default('Why this project.'),
+  haveTitle: z.string().default('Already have'),
+  have: z.array(z.object({skill: z.string(), proof: z.string(), cue: z.string()})).default([
+    {skill: 'Python + FastAPI', proof: 'Market-Data-Service repo · Duma Info Services', cue: 'python'},
+    {skill: 'job-listing filter', proof: 'Screenr Chrome extension (public repo)', cue: 'screenr'},
+    {skill: 'LangGraph assistant', proof: 'SWE intern, Wave Life Sciences (resume)', cue: 'wave'},
+    {skill: 'Claude Code test agents', proof: 'same internship (resume)', cue: 'claude'},
+  ]),
+  newTitle: z.string().default('New to me'),
+  fresh: z.array(z.object({name: z.string(), cue: z.string()})).default([
+    {name: 'contracts + tests first', cue: 'contracts'},
+    {name: 'held-out evaluation', cue: 'evaluation'},
+    {name: 'permissions in code', cue: 'permissions'},
+    {name: 'human approval gate', cue: 'gate'},
+  ]),
+});
+export type EfWhyMeProps = z.infer<typeof efWhyMeSchema>;
+
+export const EfWhyMe: React.FC<EfWhyMeProps> = (p) => {
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cNew = cue('contracts', 0.72);
+  const XP = 720;
+  return (
+    <Stage spark={p.spark} t={t}>
+      <T x={SAFE.x} y={176} size={54} font={SERIF} o={rise(t, 0.4, 0.4)}>{p.haveTitle}</T>
+      {p.have.map((h, i) => {
+        const at = cue(h.cue, 0.2 + i * 0.12);
+        const y = 270 + i * 104;
+        return (
+          <div key={h.skill}>
+            <Pill x={SAFE.x} y={y} text={h.skill} size={44} dark o={rise(t, at - 0.1, 0.4)} />
+            <T x={XP} y={y + 6} size={44} color={MUTE} o={rise(t, at + 0.4, 0.4)}>{h.proof}</T>
+          </div>
+        );
+      })}
+      <div style={{position: 'absolute', left: SAFE.x, top: 700, width: SAFE.w, height: 3, background: BORDER,
+        opacity: rise(t, cNew - 0.6, 0.4)}} />
+      <T x={SAFE.x} y={730} size={54} font={SERIF} color={ACC_TXT} o={rise(t, cNew - 0.5, 0.4)}>{p.newTitle}</T>
+      {p.fresh.map((f, i) => {
+        const s = popAt(frame, fps, cue(f.cue, 0.75 + i * 0.06));
+        return <Pill key={f.name} x={SAFE.x + (i % 2) * 860} y={830 + Math.floor(i / 2) * 88} text={f.name} size={44}
+          o={cl(s)} scale={cl(s, 0, 1.06)} />;
+      })}
+    </Stage>
+  );
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// B09 · EfOutro — the title returns with the sun; author; colophon
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export const efOutroSchema = z.object({
+  ...clockSchema,
+  title: z.string().default('Early Bird'),
+  verbs: z.array(z.string()).default(['see every new job', 'evidence in front of me', 'I apply']),
+  course: z.string().default('INFO 7375 · Final Project Pitch'),
+  author: z.string().default('Vrajesh Nasit'),
+  colophon: z.array(z.string()).default([
+    'Script drafted with Claude from my decisions · synthetic Kokoro voice',
+    'REAL: Commure board saved Oct 14 + Oct 23 · greenhouse-watch run by me Oct 24',
+    'Labels: REAL · PLANNED · CONSTRUCTED · sources in SOURCES.md',
+  ]),
+});
+export type EfOutroProps = z.infer<typeof efOutroSchema>;
+
+export const EfOutro: React.FC<EfOutroProps> = (p) => {
+  const {t, frame, fps} = useClock();
+  const cue = cueReader(p.cues, p.durationSeconds);
+  const cVerb = [cue('see', 0.2), cue('evidence', 0.34), cue('apply', 0.48)];
+  const cName = cue('name', 0.6);
+  const titleIn = rise(t, 0.1, 0.6);
+  const up = easeInOut(lin(t, 0.2, 1.6));
+  const widths = p.verbs.map((v) => v.length * 23 + 50);
+  let vx = SAFE.x;
+  return (
+    <AbsoluteFill style={{background: PAGE}}>
+      <Svg><Sun cx={1560} horizon={360} r={110} up={up} x0={1250} x1={1780} /></Svg>
+      <div style={{position: 'absolute', left: SAFE.x, top: 150, opacity: titleIn, transform: `translateY(${(1 - titleIn) * 16}px)`,
+        fontFamily: SERIF, fontSize: 160, lineHeight: 1, color: INK, letterSpacing: '-0.015em', whiteSpace: 'nowrap'}}>
+        {p.title}<span style={{color: ACC_TXT}}>.</span>
+      </div>
+      {p.verbs.map((v, i) => {
+        const s = popAt(frame, fps, cVerb[i]);
+        const x = vx;
+        vx += widths[i] + 24;
+        return <Pill key={v} x={x} y={400} text={v} size={46} o={cl(s)} scale={cl(s, 0, 1.08)} dark={i === 2} />;
+      })}
+      <T x={SAFE.x} y={540} size={46} color={MUTE} o={rise(t, cName - 0.4, 0.45)}>{p.course}</T>
+      <T x={SAFE.x} y={604} size={70} font={SERIF} o={rise(t, cName, 0.45)}>{p.author}</T>
+      {p.colophon.map((c, i) => (
+        <T key={c} x={SAFE.x} y={780 + i * 64} size={44} color={MUTE} o={rise(t, 0.8 + i * 0.25, 0.5)}>{c}</T>
+      ))}
+    </AbsoluteFill>
+  );
+};
