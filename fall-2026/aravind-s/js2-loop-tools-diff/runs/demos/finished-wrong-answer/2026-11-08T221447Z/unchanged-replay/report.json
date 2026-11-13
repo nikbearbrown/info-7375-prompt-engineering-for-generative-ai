@@ -1,0 +1,189 @@
+{
+  "run_id": "2026-11-08T222026Z",
+  "started_at": "2026-11-08T22:20:26Z",
+  "source": "replay of the saved answers in runs/source/2026-11-08T221447Z, not a live run",
+  "exit": "incomplete",
+  "exit_code": 1,
+  "reasons": [
+    "greenhouse-no-such-board-js2-test unverified: the board answered HTTP 404, not 200"
+  ],
+  "gate_version": "1.0",
+  "contract_version": "0.1",
+  "budgets": {
+    "boards": 5,
+    "requests": 10,
+    "claude_calls": 20,
+    "seconds": 600
+  },
+  "used": {
+    "boards": 4,
+    "requests": 4,
+    "claude_calls": 0,
+    "seconds": 0.3
+  },
+  "approval": null,
+  "boards": [
+    {
+      "key": "ashby-openai",
+      "system": "ashby",
+      "name": "openai",
+      "company": "OpenAI",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "deliberate_failure": false,
+      "status": "read",
+      "reason": "",
+      "needs_you": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "retry": false,
+          "status": 200,
+          "bytes": 13641063,
+          "sha256": "7aff4139e7e97306874e8b0cf659a2e4ad9ca5703261dda5c7885154c3e62d04",
+          "file": "attempt-1.json.gz",
+          "seconds": 0.13
+        }
+      ],
+      "postings": 816,
+      "baseline": true,
+      "new": [],
+      "gone": [],
+      "judged_after_waiting": [],
+      "waiting_gone": [],
+      "still_waiting": [],
+      "mapped_from": {},
+      "state": "updated after this report (the trace records the write)"
+    },
+    {
+      "key": "greenhouse-verkada",
+      "system": "greenhouse",
+      "name": "verkada",
+      "company": "Verkada",
+      "url": "https://boards-api.greenhouse.io/v1/boards/verkada/jobs?content=true",
+      "deliberate_failure": false,
+      "status": "read",
+      "reason": "",
+      "needs_you": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "retry": false,
+          "status": 200,
+          "bytes": 4091423,
+          "sha256": "c2ad7305148deb4aa9f09787c5a43c48e0f9978ae5e5805179a97d560f855127",
+          "file": "attempt-1.json.gz",
+          "seconds": 0.04
+        }
+      ],
+      "postings": 343,
+      "baseline": true,
+      "new": [],
+      "gone": [],
+      "judged_after_waiting": [],
+      "waiting_gone": [],
+      "still_waiting": [],
+      "mapped_from": {
+        "id": "id",
+        "title": "title",
+        "jobUrl": "absolute_url",
+        "employmentType": "metadata \"Employment Type\"",
+        "location": "location.name (split at ;)",
+        "descriptionPlain": "content (HTML entities decoded, tags removed)"
+      },
+      "state": "updated after this report (the trace records the write)"
+    },
+    {
+      "key": "lever-palantir",
+      "system": "lever",
+      "name": "palantir",
+      "company": "Palantir",
+      "url": "https://api.lever.co/v0/postings/palantir?mode=json",
+      "deliberate_failure": false,
+      "status": "read",
+      "reason": "",
+      "needs_you": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "retry": false,
+          "status": 200,
+          "bytes": 5942874,
+          "sha256": "8ce0bf74addf9535ad893e502af565854d1d01450ae81712ea94f1db4b052ca9",
+          "file": "attempt-1.json.gz",
+          "seconds": 0.03
+        }
+      ],
+      "postings": 305,
+      "baseline": true,
+      "new": [],
+      "gone": [],
+      "judged_after_waiting": [],
+      "waiting_gone": [],
+      "still_waiting": [],
+      "mapped_from": {
+        "id": "id",
+        "title": "text",
+        "jobUrl": "hostedUrl",
+        "employmentType": "categories.commitment",
+        "location": "categories.allLocations (or categories.location), with country",
+        "descriptionPlain": "descriptionPlain, then each of lists (heading and items), then additionalPlain"
+      },
+      "state": "updated after this report (the trace records the write)"
+    },
+    {
+      "key": "greenhouse-no-such-board-js2-test",
+      "system": "greenhouse",
+      "name": "no-such-board-js2-test",
+      "company": "(made-up name)",
+      "url": "https://boards-api.greenhouse.io/v1/boards/no-such-board-js2-test/jobs?content=true",
+      "deliberate_failure": true,
+      "status": "unverified",
+      "reason": "the board answered HTTP 404, not 200",
+      "needs_you": "check the board name, or try again later",
+      "attempts": [
+        {
+          "attempt": 1,
+          "retry": false,
+          "status": 404,
+          "bytes": 38,
+          "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe",
+          "file": "attempt-1.json.gz",
+          "seconds": 0.0
+        }
+      ],
+      "postings": null,
+      "baseline": null,
+      "new": [],
+      "gone": [],
+      "judged_after_waiting": [],
+      "waiting_gone": [],
+      "still_waiting": [],
+      "mapped_from": {
+        "id": "id",
+        "title": "title",
+        "jobUrl": "absolute_url",
+        "employmentType": "metadata \"Employment Type\"",
+        "location": "location.name (split at ;)",
+        "descriptionPlain": "content (HTML entities decoded, tags removed)"
+      },
+      "state": "kept exactly as it was"
+    }
+  ],
+  "repeats_skipped": [],
+  "counts": {
+    "boards_listed": 4,
+    "boards_read": 3,
+    "boards_unverified": 1,
+    "boards_not_visited": 0,
+    "repeats_skipped": 0,
+    "postings": 1464,
+    "new": 0,
+    "gone": 0,
+    "new_relevant_rule": 0,
+    "new_relevant_claude": 0,
+    "judged_after_waiting": 0,
+    "waiting_for_claude": 0
+  },
+  "exit_line": "Exit: incomplete (code 1). greenhouse-no-such-board-js2-test unverified: the board answered HTTP 404, not 200.",
+  "counts_line": "4 boards: 3 read, 1 unverified, 0 not visited. 1464 postings in the answers read, 0 new since the last run, 0 gone since the last run, 0 new and relevant by the rule, 0 new and relevant in Claude's judgment, 0 waiting for Claude."
+}
