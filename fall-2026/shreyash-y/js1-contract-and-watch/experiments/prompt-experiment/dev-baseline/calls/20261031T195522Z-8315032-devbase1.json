@@ -1,0 +1,177 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:55:22+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8315032,
+    "tag": "devbase1",
+    "raw_text": "{\"posting_id\": 8315032, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Product Manager, Marketplace' contains none of the target_roles phrases, and it contains the excluded whole word 'Manager' (conditions 1 and 6). Its departments value 'Product & Design' is not an allowed department, and its location and offices place it in a hybrid New York, NY role with no US-remote option, which fails the Boston, MA location and remote_ok check (conditions 2 and 3). The content mentions at most one résumé skill, SQL, and requires 6+ years of experience, which exceeds the 3-year limit tied to experience_years (conditions 4 and 5).\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8315032,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Senior Product Manager, Marketplace' contains none of the target_roles phrases, and it contains the excluded whole word 'Manager' (conditions 1 and 6). Its departments value 'Product & Design' is not an allowed department, and its location and offices place it in a hybrid New York, NY role with no US-remote option, which fails the Boston, MA location and remote_ok check (conditions 2 and 3). The content mentions at most one résumé skill, SQL, and requires 6+ years of experience, which exceeds the 3-year limit tied to experience_years (conditions 4 and 5)."
+    },
+    "session_id": "785a9b05-ef79-473d-b9ec-8865670c1d43",
+    "cost_usd": 0.0342414
+  },
+  "cli_output": {
+    "duration_api_ms": 5766,
+    "stop_reason": "end_turn",
+    "session_id": "785a9b05-ef79-473d-b9ec-8865670c1d43",
+    "total_cost_usd": 0.0342414,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2933,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 529,
+      "output_tokens_details": {
+        "thinking_tokens": 199
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 2933,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 529,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 2933,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 2933
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 529,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 2933,
+        "webSearchRequests": 0,
+        "costUSD": 0.0342414,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 199,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 2933,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8315032, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Product Manager, Marketplace' contains none of the target_roles phrases, and it contains the excluded whole word 'Manager' (conditions 1 and 6). Its departments value 'Product & Design' is not an allowed department, and its location and offices place it in a hybrid New York, NY role with no US-remote option, which fails the Boston, MA location and remote_ok check (conditions 2 and 3). The content mentions at most one résumé skill, SQL, and requires 6+ years of experience, which exceeds the 3-year limit tied to experience_years (conditions 4 and 5).\"}",
+    "ttft_ms": 3249,
+    "type": "result",
+    "duration_ms": 7906,
+    "uuid": "b235b9d1-7893-4d5c-89b5-5c1cb8198bca",
+    "ttft_stream_ms": 1229,
+    "time_to_request_ms": 96,
+    "time_to_request_phases_ms": {
+      "other": 16,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 26,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 4,
+      "engine_pickup": 0,
+      "message_prep": 2,
+      "model_config_wait": 0,
+      "autocompact": 2,
+      "query_setup": 13,
+      "model_gates": 6,
+      "tool_schema_build": 0,
+      "message_normalization": 1,
+      "client_creation": 19,
+      "request_build": 3
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 46,
+    "time_to_request_cpu_ms": 130,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 23,
+      "cpu_ms": 34,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1229,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

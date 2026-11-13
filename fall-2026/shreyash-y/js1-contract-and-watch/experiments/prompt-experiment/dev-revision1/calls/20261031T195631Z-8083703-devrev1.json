@@ -1,0 +1,175 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:56:31+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/revision-1-quote-evidence.md",
+    "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+    "posting_id": 8083703,
+    "tag": "devrev1",
+    "raw_text": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against the résumé's target_roles, the posting title \\\"Senior Data Scientist\\\" contains none of the required role phrases (Condition 1), and the posting departments value \\\"Data\\\" is not an allowed department (Condition 2). Against the résumé's location and remote_ok, the posting location \\\"New York, New York, United States\\\" and content stating \\\"This position is based in our New York City office, requiring a hybrid work schedule\\\" fail the Boston-or-US-remote requirement (Condition 3). Against the résumé's experience_years, the content requires \\\"4+ years of industry or other quantitative technical fields\\\" (Condition 5). Condition 4 passes because the content mentions the résumé skills SQL and Python, and Condition 6 passes because the title has no excluded word and the content describes a paid, full-time role with no explicit relocation requirement.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8083703,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "Against the résumé's target_roles, the posting title \"Senior Data Scientist\" contains none of the required role phrases (Condition 1), and the posting departments value \"Data\" is not an allowed department (Condition 2). Against the résumé's location and remote_ok, the posting location \"New York, New York, United States\" and content stating \"This position is based in our New York City office, requiring a hybrid work schedule\" fail the Boston-or-US-remote requirement (Condition 3). Against the résumé's experience_years, the content requires \"4+ years of industry or other quantitative technical fields\" (Condition 5). Condition 4 passes because the content mentions the résumé skills SQL and Python, and Condition 6 passes because the title has no excluded word and the content describes a paid, full-time role with no explicit relocation requirement."
+    },
+    "session_id": "9c31c38c-90d4-47cb-8f23-5cf7733d9b55",
+    "cost_usd": 0.043172
+  },
+  "cli_output": {
+    "duration_api_ms": 5316,
+    "stop_reason": "end_turn",
+    "session_id": "9c31c38c-90d4-47cb-8f23-5cf7733d9b55",
+    "total_cost_usd": 0.043172,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3968,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 571,
+      "output_tokens_details": {
+        "thinking_tokens": 176
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3968,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 571,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 3968,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3968
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 571,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 3968,
+        "webSearchRequests": 0,
+        "costUSD": 0.043172,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 176,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3968,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against the résumé's target_roles, the posting title \\\"Senior Data Scientist\\\" contains none of the required role phrases (Condition 1), and the posting departments value \\\"Data\\\" is not an allowed department (Condition 2). Against the résumé's location and remote_ok, the posting location \\\"New York, New York, United States\\\" and content stating \\\"This position is based in our New York City office, requiring a hybrid work schedule\\\" fail the Boston-or-US-remote requirement (Condition 3). Against the résumé's experience_years, the content requires \\\"4+ years of industry or other quantitative technical fields\\\" (Condition 5). Condition 4 passes because the content mentions the résumé skills SQL and Python, and Condition 6 passes because the title has no excluded word and the content describes a paid, full-time role with no explicit relocation requirement.\"}",
+    "ttft_ms": 2400,
+    "type": "result",
+    "duration_ms": 8459,
+    "uuid": "33484423-53e0-4b69-8e16-1568979c7a15",
+    "ttft_stream_ms": 855,
+    "time_to_request_ms": 110,
+    "time_to_request_phases_ms": {
+      "other": 21,
+      "system_prompt": 1,
+      "resume_other": 1,
+      "process_user_input": 2,
+      "input_attachments": 26,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 4,
+      "engine_pickup": 1,
+      "message_prep": 3,
+      "model_config_wait": 2,
+      "autocompact": 6,
+      "query_setup": 0,
+      "model_gates": 12,
+      "tool_schema_build": 0,
+      "message_normalization": 1,
+      "client_creation": 24,
+      "request_build": 4
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 60,
+    "time_to_request_cpu_ms": 133,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 24,
+      "cpu_ms": 29,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 856,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

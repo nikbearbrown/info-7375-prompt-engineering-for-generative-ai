@@ -1,0 +1,177 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:57:35+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8264978,
+    "tag": "hobase1",
+    "raw_text": "{\"posting_id\": 8264978, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Technical Program Manager' contains none of the target_roles phrases and includes the excluded whole word 'Manager', and the departments value 'Product & Design' is not an allowed department. The location and offices are New York, NY (hybrid, 3 in-office days), not Boston, MA, and the posting offers no US remote option, so remote_ok does not apply. The content mentions only one résumé skill (SQL) and requires 5+ years of experience, which exceeds the applicant's experience_years of 3.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8264978,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Technical Program Manager' contains none of the target_roles phrases and includes the excluded whole word 'Manager', and the departments value 'Product & Design' is not an allowed department. The location and offices are New York, NY (hybrid, 3 in-office days), not Boston, MA, and the posting offers no US remote option, so remote_ok does not apply. The content mentions only one résumé skill (SQL) and requires 5+ years of experience, which exceeds the applicant's experience_years of 3."
+    },
+    "session_id": "fba085d1-b91d-40d5-acfa-4f66c7af5c81",
+    "cost_usd": 0.0348934
+  },
+  "cli_output": {
+    "duration_api_ms": 4394,
+    "stop_reason": "end_turn",
+    "session_id": "fba085d1-b91d-40d5-acfa-4f66c7af5c81",
+    "total_cost_usd": 0.0348934,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3242,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 438,
+      "output_tokens_details": {
+        "thinking_tokens": 142
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3242,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 438,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 3242,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3242
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 438,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 3242,
+        "webSearchRequests": 0,
+        "costUSD": 0.0348934,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 142,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3242,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8264978, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Technical Program Manager' contains none of the target_roles phrases and includes the excluded whole word 'Manager', and the departments value 'Product & Design' is not an allowed department. The location and offices are New York, NY (hybrid, 3 in-office days), not Boston, MA, and the posting offers no US remote option, so remote_ok does not apply. The content mentions only one résumé skill (SQL) and requires 5+ years of experience, which exceeds the applicant's experience_years of 3.\"}",
+    "ttft_ms": 2065,
+    "type": "result",
+    "duration_ms": 6327,
+    "uuid": "6e35a105-3cd3-48d7-8484-40d9601a9f91",
+    "ttft_stream_ms": 808,
+    "time_to_request_ms": 64,
+    "time_to_request_phases_ms": {
+      "other": 9,
+      "system_prompt": 0,
+      "resume_other": 1,
+      "process_user_input": 2,
+      "input_attachments": 11,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 4,
+      "engine_pickup": 0,
+      "message_prep": 1,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 25,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 3,
+      "request_build": 3
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 0,
+    "time_to_request_cpu_ms": 118,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 9,
+      "cpu_ms": 20,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 808,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}
