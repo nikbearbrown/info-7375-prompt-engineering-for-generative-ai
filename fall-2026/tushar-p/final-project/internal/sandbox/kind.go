@@ -284,6 +284,11 @@ func (k *Kind) manifest() obj {
 				"name":            "sandbox",
 				"image":           k.Image,
 				"imagePullPolicy": "Never", // image comes from kind load, never a registry
+				// The working directory of every kubectl exec. kubectl exec
+				// has no option for it, so it is set here rather than left to
+				// the image's WORKDIR: the policy resolves relative paths
+				// against /workspace, so commands must run there.
+				"workingDir": "/workspace",
 				"securityContext": obj{
 					"allowPrivilegeEscalation": false,
 					"capabilities":             obj{"drop": []string{"ALL"}},

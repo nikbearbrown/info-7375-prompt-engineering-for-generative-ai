@@ -11,7 +11,10 @@ Read `PLAN.md` before any work. Work only on the task ID named in the prompt.
 ## Rules
 - Investigate before fixing. Show the cause before changing code.
 - Never write, read out, or commit secrets. `ANTHROPIC_API_KEY` comes from the environment only.
-- Do not edit `tasks/*/check.sh`, `tasks/*/contract.json`, `tasks/split.json`, or any `*_test.go` file Tushar wrote, unless the prompt says so.
+- Code files (Go, tests, task contracts, `check.sh`, scripts): edit without asking. List every changed file in your summary with the reason.
+- Any change to `tasks/*/check.sh`, `tasks/*/contract.json`, or an already-committed `*_test.go` goes at the top of the summary, marked "CHECK/TEST CHANGE", with what changed and why.
+- `tasks/split.json` is frozen once T3.2 commits it. Never edit it after that.
+- Ask before pushing.
 - Do not write or edit `FRICTIONAL.md`.
 - Prefer the Go standard library. Ask before adding any dependency.
 - Approved dependency: `github.com/anthropics/anthropic-sdk-go`.

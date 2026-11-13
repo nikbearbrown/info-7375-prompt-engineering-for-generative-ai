@@ -1,0 +1,14 @@
+{
+  "id": "003-slugify",
+  "goal": "Fix the bug in the textkit package so that every test in tests/test_slugify.py passes, without changing the test file.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 12,
+  "max_total_tokens": 150000,
+  "max_cost_usd": 0.03,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_slugify.py"]
+  }
+}

@@ -3,6 +3,10 @@
   "goal": "Fix the bug in the calc package so that every test in tests/test_ops.py passes, without changing the test file.",
   "allowed_tools": ["read_file", "write_file", "run_command"],
   "max_steps": 10,
+  "max_total_tokens": 100000,
+  "max_cost_usd": 0.02,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
   "required_output": {
     "tests_pass": true,
     "unchanged_files": ["tests/test_ops.py"]

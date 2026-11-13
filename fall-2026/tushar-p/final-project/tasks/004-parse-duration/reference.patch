@@ -1,0 +1,24 @@
+--- a/timeparse/duration.py
++++ b/timeparse/duration.py
+@@ -1,6 +1,11 @@
+ """Parse short duration strings."""
+ 
++import re
+ 
++# Optional hours, then minutes, then seconds, each digits 0-9 and a unit.
++_DURATION = re.compile(r"(?:([0-9]+)h)?(?:([0-9]+)m)?(?:([0-9]+)s)?")
++
++
+ def parse_duration(text):
+     """Return the number of seconds in a duration such as "1h30m".
+ 
+@@ -23,4 +28,8 @@
+     "1.5h" (not a whole number), "1m1h" (wrong order), "1h1h" (unit
+     repeated), "1 h" (space), and "-5s" (sign).
+     """
+-    raise NotImplementedError
++    match = _DURATION.fullmatch(text)
++    if match is None or not text:
++        raise ValueError(f"not a duration: {text!r}")
++    hours, minutes, seconds = (int(g) if g else 0 for g in match.groups())
++    return hours * 3600 + minutes * 60 + seconds

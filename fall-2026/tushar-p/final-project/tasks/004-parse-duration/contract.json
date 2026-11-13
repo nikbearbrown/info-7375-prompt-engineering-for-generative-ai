@@ -1,0 +1,14 @@
+{
+  "id": "004-parse-duration",
+  "goal": "Implement parse_duration in the timeparse package as its docstring describes, so that every test in tests/test_duration.py passes, without changing the test file.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 12,
+  "max_total_tokens": 150000,
+  "max_cost_usd": 0.03,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_duration.py"]
+  }
+}

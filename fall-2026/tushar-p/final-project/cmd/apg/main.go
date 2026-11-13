@@ -6,10 +6,7 @@ package main
 
 import (
 	"context"
-	"crypto/rand"
-	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -20,17 +17,36 @@ import (
 	"strings"
 	"time"
 
+	"github.com/tushar-patel28/agent-proving-ground/internal/budget"
+	"github.com/tushar-patel28/agent-proving-ground/internal/gate"
 	"github.com/tushar-patel28/agent-proving-ground/internal/loop"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
+	"github.com/tushar-patel28/agent-proving-ground/internal/stop"
 	"github.com/tushar-patel28/agent-proving-ground/internal/trace"
 )
 
 // model is the agent's model for now; contracts do not choose it yet.
 const model = "claude-haiku-5-5"
 
-const usage = `usage: apg run <task> [--no-agent] [--tasks dir] [--traces dir]
+// maxReplyTokens caps each model reply. The budget check assumes every
+// reply could use all of it. (16,000 until T2.3; task 001's longest reply
+// so far was 304 tokens.)
+const maxReplyTokens = 4096
+
+// Time limits for the harness's own steps. The agent's limit comes from
+// the contract (timeout_seconds); these are separate so that the check and
+// the cleanup still run after the agent times out.
+const (
+	setupTimeout = 5 * time.Minute // start the pod, copy the repo in
+	checkTimeout = 3 * time.Minute // copy in and run the hidden check
+	gateTimeout  = 2 * time.Minute // each diff build for the gate (the person's think time has no limit)
+	stopTimeout  = time.Minute     // delete the pod
+)
+
+const usage = `usage: apg run <task> [--no-agent] [--tasks dir] [--traces dir] [--out dir]
   <task> is the task number, e.g. 001
-  --no-agent runs only the hidden check`
+  --no-agent runs only the hidden check
+  --out is where the human gate writes patches (default out/)`
 
 // Process exit codes.
 const (
@@ -61,11 +77,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	// NotifyContext cancels ctx on Ctrl-C, so the run stops early but the
-	// pod still gets deleted (Stop uses its own context).
+	// pod still gets deleted (Stop uses its own context). Each phase of the
+	// run sets its own time limit under ctx (runTask).
 	ctx, stopSignals := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stopSignals()
-	ctx, cancel := context.WithTimeout(ctx, 10*time.Minute)
-	defer cancel()
 
 	sb, err := sandbox.NewKind()
 	if err != nil {
@@ -76,15 +91,22 @@ func run(args []string, stdout, stderr io.Writer) int {
 	if !opts.noAgent {
 		client = loop.NewAnthropicClient()
 	}
-	tr := runTask(ctx, sb, sb.PodName(), tk, client)
+	// The human gate. It prompts on stderr, so stdout keeps only the result
+	// line. Without a terminal on stdin it always defers.
+	g := &gate.Config{In: os.Stdin, Out: stderr, Interactive: isTerminal(os.Stdin), OutDir: opts.outDir}
+	tr := runTask(ctx, sb, sb.PodName(), tk, client, g)
 
 	path, err := trace.Write(opts.tracesDir, tr)
 	if err != nil {
 		fmt.Fprintf(stderr, "apg run: write trace: %v\n", err)
 		path = "<not written>"
 	}
-	fmt.Fprintf(stdout, "%s  %s  steps=%d  reason=%s  trace=%s\n",
-		tk.Short, tr.Verdict, len(tr.Steps), tr.ExitReason, path)
+	decision := "none"
+	if tr.Gate != nil {
+		decision = tr.Gate.Decision
+	}
+	fmt.Fprintf(stdout, "%s  %s  steps=%d  reason=%s  gate=%s  trace=%s\n",
+		tk.Short, tr.Verdict, len(tr.Steps), tr.ExitReason, decision, path)
 	if tr.Error != "" {
 		fmt.Fprintf(stderr, "apg run: %s\n", tr.Error)
 	}
@@ -104,6 +126,7 @@ type runOpts struct {
 	noAgent   bool
 	tasksDir  string
 	tracesDir string
+	outDir    string
 }
 
 // parseRunArgs accepts flags before or after the task number.
@@ -114,6 +137,7 @@ func parseRunArgs(args []string) (runOpts, error) {
 	fs.BoolVar(&o.noAgent, "no-agent", false, "run only the check")
 	fs.StringVar(&o.tasksDir, "tasks", "tasks", "tasks directory")
 	fs.StringVar(&o.tracesDir, "traces", "traces", "traces directory")
+	fs.StringVar(&o.outDir, "out", "out", "gate output directory")
 
 	// flag.Parse stops at the first non-flag argument ("001"). So: parse,
 	// take one positional argument, and parse again on what follows, until
@@ -147,7 +171,8 @@ type task struct {
 	// From contract.json.
 	Goal         string
 	AllowedTools []string
-	MaxSteps     int
+	Limits       budget.Limits // the contract's limits, with harness defaults for the ones it leaves out
+	FromContract []string      // which limits the contract set, by JSON name
 }
 
 // A task number is exactly three digits, so it is safe inside a glob.
@@ -189,6 +214,13 @@ func findTask(tasksDir, short string) (task, error) {
 		Goal         string   `json:"goal"`
 		AllowedTools []string `json:"allowed_tools"`
 		MaxSteps     int      `json:"max_steps"`
+
+		// Optional budget fields. Pointers, so a missing field (nil) can be
+		// told apart from one set to 0, which is an error.
+		MaxTotalTokens      *int64   `json:"max_total_tokens"`
+		MaxCostUSD          *float64 `json:"max_cost_usd"`
+		TimeoutSeconds      *float64 `json:"timeout_seconds"`
+		MaxPolicyViolations *int     `json:"max_policy_violations"`
 	}
 	if err := json.Unmarshal(b, &contract); err != nil {
 		return task{}, fmt.Errorf("task %s: contract.json: %w", tk.ID, err)
@@ -203,7 +235,46 @@ func findTask(tasksDir, short string) (task, error) {
 	case contract.MaxSteps <= 0:
 		return task{}, fmt.Errorf("task %s: max_steps must be positive", tk.ID)
 	}
-	tk.Goal, tk.AllowedTools, tk.MaxSteps = contract.Goal, contract.AllowedTools, contract.MaxSteps
+	tk.Goal, tk.AllowedTools = contract.Goal, contract.AllowedTools
+	tk.FromContract = []string{"max_steps"}
+	tk.Limits = budget.Limits{
+		MaxSteps:            contract.MaxSteps,
+		MaxTotalTokens:      budget.DefaultMaxTotalTokens,
+		MaxCostUSD:          budget.DefaultMaxCostUSD,
+		Timeout:             budget.DefaultTimeout,
+		MaxPolicyViolations: budget.DefaultMaxPolicyViolations,
+	}
+	// Each optional field, if present, must be positive and replaces the default.
+	bad := func(name string) error { return fmt.Errorf("task %s: %s must be positive", tk.ID, name) }
+	if v := contract.MaxTotalTokens; v != nil {
+		if *v <= 0 {
+			return task{}, bad("max_total_tokens")
+		}
+		tk.Limits.MaxTotalTokens = *v
+		tk.FromContract = append(tk.FromContract, "max_total_tokens")
+	}
+	if v := contract.MaxCostUSD; v != nil {
+		if *v <= 0 {
+			return task{}, bad("max_cost_usd")
+		}
+		tk.Limits.MaxCostUSD = *v
+		tk.FromContract = append(tk.FromContract, "max_cost_usd")
+	}
+	if v := contract.TimeoutSeconds; v != nil {
+		if *v <= 0 {
+			return task{}, bad("timeout_seconds")
+		}
+		// Seconds (float) to a time.Duration, which counts nanoseconds.
+		tk.Limits.Timeout = time.Duration(*v * float64(time.Second))
+		tk.FromContract = append(tk.FromContract, "timeout_seconds")
+	}
+	if v := contract.MaxPolicyViolations; v != nil {
+		if *v <= 0 {
+			return task{}, bad("max_policy_violations")
+		}
+		tk.Limits.MaxPolicyViolations = *v
+		tk.FromContract = append(tk.FromContract, "max_policy_violations")
+	}
 	return tk, nil
 }
 
@@ -211,7 +282,17 @@ func findTask(tasksDir, short string) (task, error) {
 // client is nil), then copies in and runs the check, and always stops the
 // sandbox. Every host command goes into the trace. It never returns an
 // error: failures become exit_reason "error" in the trace.
-func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, client loop.Client) *trace.Trace {
+//
+// Each phase has its own context and time limit, all under ctx (which
+// Ctrl-C cancels): setup, the agent (the contract's timeout), and the
+// check. So when the agent's deadline passes, only the agent's context is
+// done; the check still runs, and Stop, which uses a fresh context of its
+// own, still deletes the pod.
+//
+// After the verdict, while the pod is still alive, the human gate runs (if
+// g is not nil and the harness did not fail): it is the only way a change
+// leaves the sandbox.
+func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, client loop.Client, g *gate.Config) *trace.Trace {
 	start := time.Now().UTC()
 	tr := &trace.Trace{
 		SchemaVersion: trace.SchemaVersion,
@@ -224,123 +305,191 @@ func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, clien
 	// makes it variadic: it takes any number of Results.
 	rec := func(phase string, rs ...sandbox.Result) {
 		for _, r := range rs {
-			tr.Commands = append(tr.Commands, trace.Command{Phase: phase, Result: r})
+			// ActorFor marks the command as the harness's own work, unless
+			// the phase is agent (schema v1).
+			tr.Commands = append(tr.Commands, trace.Command{Phase: phase, Actor: trace.ActorFor(phase), Result: r})
 		}
 	}
 
-	// agent runs between setup and the check. It is a closure so it can
-	// fill in tr; with no client it does nothing.
-	agent := func() error {
-		if client == nil {
-			return nil
+	// The stop condition (internal/stop): it fingerprints /workspace after
+	// every agent step and runs the hidden check when something changed.
+	checker := stop.New(sb, tk.Check, rec)
+
+	var loopExit trace.ExitReason // set when a limit or a mid-run pass stopped the agent loop
+	checkExit, err := func() (int, error) {
+		// A func literal called at once: its defers (the cancels) run when
+		// it returns, before Stop below.
+		setupCtx, cancel := context.WithTimeout(ctx, setupTimeout)
+		defer cancel()
+		if err := setup(setupCtx, sb, tk, rec); err != nil {
+			return 0, err
 		}
-		cfg := loop.Config{
-			Model:     model,
-			Goal:      tk.Goal,
-			Tools:     tk.AllowedTools,
-			MaxSteps:  tk.MaxSteps,
-			MaxTokens: 16000,
+		if err := checker.Baseline(setupCtx); err != nil {
+			return 0, fmt.Errorf("setup: %w", err)
 		}
-		res, err := loop.Run(ctx, client, sb, cfg, func(r sandbox.Result) { rec(trace.PhaseAgent, r) })
-		tr.Model, tr.Steps, tr.LoopStop = model, res.Steps, res.Stop
-		tr.TotalInputTokens, tr.TotalOutputTokens, tr.EstimatedCostUSD = res.InputTokens, res.OutputTokens, res.CostUSD
+
+		if client != nil {
+			var err error
+			loopExit, err = runAgent(ctx, sb, tk, client, checker, rec, tr)
+			if err != nil {
+				return 0, fmt.Errorf("agent: %w", err)
+			}
+		}
+		if loopExit == trace.ReasonCheckPassed {
+			// A step made the check pass; that run is the verdict.
+			return 0, nil
+		}
+
+		// The final check, after every other exit. It gets its own context
+		// from ctx, not the agent's (which may have timed out).
+		checkCtx, cancel := context.WithTimeout(ctx, checkTimeout)
+		defer cancel()
+		return checker.Run(checkCtx, trace.TriggerFinal, 0)
+	}()
+	tr.CheckRuns = checker.Runs
+
+	// The exit reason says why the run stopped; the verdict is the check's
+	// result, whatever stopped the loop (D11). After a harness error the
+	// check did not run, so the verdict is FAIL.
+	switch {
+	case err != nil:
+		tr.ExitReason, tr.Verdict, tr.Error = trace.ReasonError, trace.VerdictFail, err.Error()
+	default:
+		code := checkExit
+		tr.Check = trace.Check{Ran: true, ExitCode: &code}
+		tr.Verdict = trace.VerdictFail
+		tr.ExitReason = trace.ReasonCheckFailed
+		if checkExit == 0 {
+			tr.Verdict, tr.ExitReason = trace.VerdictPass, trace.ReasonCheckPassed
+		}
+		if loopExit != "" {
+			tr.ExitReason = loopExit
+		}
+	}
+
+	// The human gate, while the pod is still alive. Its outcome goes in
+	// tr.Gate only; exit_reason stays the loop's (D23).
+	if g != nil {
 		if err != nil {
-			return fmt.Errorf("agent: %w", err)
+			tr.Gate = &trace.Gate{Decision: gate.DecisionSkipped, Reason: "the run failed (harness error): nothing is exported", Shown: []string{}, DecidedAt: time.Now().UTC()}
+		} else {
+			sum := gate.Summary{CheckRan: tr.Check.Ran, CheckExit: tr.Check.ExitCode, Verdict: tr.Verdict, ExitReason: tr.ExitReason}
+			rg := gate.Run(ctx, *g, tr.RunID, sum, buildDiff(sb, tk, checker, rec))
+			tr.Gate = &rg
 		}
-		return nil
 	}
 
-	checkExit, err := setupAndCheck(ctx, sb, tk, rec, agent)
-
-	// Stop always runs, with a fresh context: ctx may have timed out or been
-	// cancelled by Ctrl-C. A failed Stop is recorded but does not change the
-	// verdict (the pod also deletes itself after an hour).
-	stopCtx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	// Stop always runs, with a fresh context: ctx may have been cancelled by
+	// Ctrl-C, and a phase may have timed out. A failed Stop is recorded but
+	// does not change the verdict (the pod also deletes itself after an hour).
+	stopCtx, cancel := context.WithTimeout(context.Background(), stopTimeout)
 	defer cancel()
 	r, stopErr := sb.Stop(stopCtx)
 	rec(trace.PhaseStop, r)
 	if stopErr != nil {
 		fmt.Fprintf(os.Stderr, "apg run: warning: stop %s: %v\n", pod, stopErr)
 	}
-
-	switch {
-	case err != nil:
-		tr.ExitReason, tr.Verdict, tr.Error = trace.ReasonError, trace.VerdictFail, err.Error()
-	case checkExit == 0:
-		tr.ExitReason, tr.Verdict = trace.ReasonCheckPassed, trace.VerdictPass
-	default:
-		tr.ExitReason, tr.Verdict = trace.ReasonCheckFailed, trace.VerdictFail
-	}
 	tr.EndedAt = time.Now().UTC()
 	return tr
 }
 
-// setupAndCheck returns the check's exit code, or an error if the harness
-// itself failed (so a broken run is never reported as check_failed).
-func setupAndCheck(ctx context.Context, sb sandbox.Sandbox, tk task, rec func(string, ...sandbox.Result), agent func() error) (int, error) {
+// runAgent runs the agent loop under the contract's timeout and fills in
+// the agent fields of tr. It returns what stopped the loop early (a limit,
+// or check_passed from a mid-run check; "" if the model ended its turn) or
+// a harness error.
+func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, client loop.Client, checker *stop.Checker, rec func(string, ...sandbox.Result), tr *trace.Trace) (trace.ExitReason, error) {
+	cfg := loop.Config{
+		Model:     model,
+		Goal:      tk.Goal,
+		Tools:     tk.AllowedTools,
+		Limits:    tk.Limits,
+		MaxTokens: maxReplyTokens,
+		Stop:      checker,
+	}
+	// The wall-clock budget: agentCtx is done when Timeout passes (or when
+	// ctx is cancelled). cancel frees its timer if the loop ends early.
+	agentCtx, cancel := context.WithTimeout(ctx, tk.Limits.Timeout)
+	defer cancel()
+	began := time.Now()
+	res, err := loop.Run(agentCtx, client, sb, cfg, func(phase string, step int, r sandbox.Result) {
+		tr.Commands = append(tr.Commands, trace.Command{Phase: phase, Actor: trace.ActorFor(phase), Step: step, Result: r})
+	})
+	elapsed := time.Since(began)
+
+	tr.Model, tr.Steps, tr.LoopStop = model, res.Steps, res.Stop
+	tr.Budget = &trace.Budget{
+		Limits: trace.BudgetLimits{
+			MaxSteps:            tk.Limits.MaxSteps,
+			MaxTotalTokens:      tk.Limits.MaxTotalTokens,
+			MaxCostUSD:          tk.Limits.MaxCostUSD,
+			TimeoutSeconds:      tk.Limits.Timeout.Seconds(),
+			MaxPolicyViolations: tk.Limits.MaxPolicyViolations,
+			MaxReplyTokens:      maxReplyTokens,
+		},
+		FromContract: tk.FromContract,
+		Used: trace.BudgetUsed{
+			Steps:            res.Used.Steps,
+			InputTokens:      res.Used.InputTokens,
+			OutputTokens:     res.Used.OutputTokens,
+			TotalTokens:      res.Used.TotalTokens(),
+			CostUSD:          res.Used.CostUSD,
+			AgentSeconds:     elapsed.Seconds(),
+			PolicyViolations: res.Used.PolicyViolations,
+			CountTokensCalls: res.CountTokensCalls,
+		},
+	}
+	return res.Exit, err
+}
+
+// setup starts the sandbox and copies the repo into /workspace.
+func setup(ctx context.Context, sb sandbox.Sandbox, tk task, rec func(string, ...sandbox.Result)) error {
 	rs, err := sb.Start(ctx)
 	rec(trace.PhaseStart, rs...)
 	if err != nil {
-		return 0, fmt.Errorf("start: %w", err)
+		return fmt.Errorf("start: %w", err)
 	}
 
-	// Setup. The trailing "/." makes kubectl cp copy the repo's contents
-	// into /workspace instead of creating /workspace/repo. (filepath.Join
-	// would drop the ".", so the string is built by hand.)
+	// The trailing "/." makes kubectl cp copy the repo's contents into
+	// /workspace instead of creating /workspace/repo. (filepath.Join would
+	// drop the ".", so the string is built by hand.)
 	r, err := sb.CopyIn(ctx, tk.Repo+string(filepath.Separator)+".", "/workspace")
 	rec(trace.PhaseSetup, r)
 	if err != nil {
-		return 0, fmt.Errorf("copy repo: %w", err)
+		return fmt.Errorf("copy repo: %w", err)
 	}
 	r, err = sb.Exec(ctx, "ls", "-A", "/workspace")
 	rec(trace.PhaseSetup, r)
 	if err != nil || r.ExitCode != 0 || strings.TrimSpace(r.Stdout) == "" {
-		return 0, fmt.Errorf("workspace empty after copy (exit %d, err %v)", r.ExitCode, err)
+		return fmt.Errorf("workspace empty after copy (exit %d, err %v)", r.ExitCode, err)
 	}
-
-	// Agent. An agent failure (API or sandbox error) ends the run as
-	// "error" without running the check.
-	if err := agent(); err != nil {
-		return 0, err
-	}
-
-	// Check: copied in only now, after setup and the agent, into a
-	// directory with a random name so nothing can be planted there in
-	// advance. Known gap: a process the agent left running could still find
-	// and change it before it runs (T2.x).
-	b := make([]byte, 8)
-	if _, err := rand.Read(b); err != nil {
-		return 0, err
-	}
-	checkDir := "/tmp/apg-check-" + hex.EncodeToString(b)
-	r, err = sb.Exec(ctx, "mkdir", "-m", "700", checkDir)
-	rec(trace.PhaseCheck, r)
-	if err != nil || r.ExitCode != 0 {
-		return 0, fmt.Errorf("mkdir %s (exit %d, err %v)", checkDir, r.ExitCode, err)
-	}
-	r, err = sb.CopyIn(ctx, tk.Check, checkDir+"/check.sh")
-	rec(trace.PhaseCheck, r)
-	if err != nil {
-		return 0, fmt.Errorf("copy check: %w", err)
-	}
-	r, err = sb.Exec(ctx, "bash", checkDir+"/check.sh")
-	rec(trace.PhaseCheck, r)
-	if err != nil {
-		return 0, fmt.Errorf("run check: %w", err)
-	}
-	if err := remoteExit(r); err != nil {
-		return 0, fmt.Errorf("run check: %w", err)
-	}
-	return r.ExitCode, nil
+	return nil
 }
 
-// remoteExit tells a non-zero exit from the check apart from kubectl
-// failing (for example, the pod is gone). When the command in the pod exits
-// non-zero, kubectl exec prints "command terminated with exit code N" on
-// stderr; any other non-zero exit is kubectl's own failure.
-func remoteExit(r sandbox.Result) error {
-	if r.ExitCode == 0 || strings.Contains(r.Stderr, "command terminated with exit code") {
-		return nil
+// buildDiff returns the gate's diff builder for this run: kill whatever is
+// still running in the pod, copy /workspace out to a fresh host temp dir,
+// and diff it against the task's original repo. The gate calls it twice
+// for an approval: once to show the diff, once more just before export.
+func buildDiff(sb sandbox.Sandbox, tk task, checker *stop.Checker, rec func(string, ...sandbox.Result)) gate.BuildFunc {
+	return func(ctx context.Context) ([]byte, error) {
+		ctx, cancel := context.WithTimeout(ctx, gateTimeout)
+		defer cancel()
+		if _, err := checker.Kill(ctx, trace.PhaseGate); err != nil {
+			return nil, err
+		}
+		tmp, err := os.MkdirTemp("", "apg-gate-*")
+		if err != nil {
+			return nil, err
+		}
+		defer os.RemoveAll(tmp) // the copy is only needed to build the diff
+		// kubectl cp to a path that does not exist yet creates it with
+		// /workspace's contents. The content is untrusted: kubectl cp
+		// refuses archive paths that would land outside it.
+		ws := filepath.Join(tmp, "ws")
+		r, err := sb.CopyOut(ctx, "/workspace", ws)
+		rec(trace.PhaseGate, r)
+		if err != nil {
+			return nil, fmt.Errorf("copy /workspace out: %w", err)
+		}
+		return gate.Diff(tk.Repo, ws)
 	}
-	return errors.New("kubectl exec failed: " + strings.TrimSpace(r.Stderr))
 }

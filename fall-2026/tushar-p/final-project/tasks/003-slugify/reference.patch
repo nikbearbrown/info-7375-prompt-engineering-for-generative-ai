@@ -1,0 +1,17 @@
+--- a/textkit/slug.py
++++ b/textkit/slug.py
+@@ -1,6 +1,8 @@
+ """Turn titles into URL slugs."""
+ 
++import re
+ 
++
+ def slugify(title):
+     """Return a URL slug for title.
+ 
+@@ -8,4 +10,4 @@
+     letters or digits becomes a single hyphen, and the slug never starts
+     or ends with a hyphen. A title with no ASCII letters or digits gives "".
+     """
+-    return title.lower().replace(" ", "-")
++    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")

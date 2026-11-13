@@ -3,9 +3,11 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
 
-	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
+	"github.com/tushar-patel28/agent-proving-ground/internal/budget"
 )
 
 func TestParseRunArgs(t *testing.T) {
@@ -82,8 +84,42 @@ func TestRealTask001(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if tk.MaxSteps != 10 || len(tk.AllowedTools) != 3 || tk.Goal == "" {
+	if tk.Limits.MaxSteps != 10 || len(tk.AllowedTools) != 3 || tk.Goal == "" {
 		t.Errorf("contract not loaded: %+v", tk)
+	}
+	want := budget.Limits{MaxSteps: 10, MaxTotalTokens: 100_000, MaxCostUSD: 0.02, Timeout: 300 * time.Second, MaxPolicyViolations: 3}
+	if tk.Limits != want || len(tk.FromContract) != 5 {
+		t.Errorf("budget = %+v from %v, want %+v from all five fields", tk.Limits, tk.FromContract, want)
+	}
+}
+
+// Budget fields the contract leaves out get the harness defaults, and a
+// field set to zero or less is rejected.
+func TestContractBudgetDefaultsAndErrors(t *testing.T) {
+	root := t.TempDir()
+	makeTask(t, root, "001-x", "001-x") // max_steps 3, no budget fields
+	tk, err := findTask(root, "001")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := budget.Limits{MaxSteps: 3, MaxTotalTokens: budget.DefaultMaxTotalTokens, MaxCostUSD: budget.DefaultMaxCostUSD,
+		Timeout: budget.DefaultTimeout, MaxPolicyViolations: budget.DefaultMaxPolicyViolations}
+	if tk.Limits != want || strings.Join(tk.FromContract, ",") != "max_steps" {
+		t.Errorf("limits = %+v from %v, want defaults %+v", tk.Limits, tk.FromContract, want)
+	}
+
+	for _, field := range []string{`"max_total_tokens": 0`, `"max_cost_usd": -1`, `"timeout_seconds": 0`, `"max_policy_violations": 0`} {
+		t.Run(field, func(t *testing.T) {
+			root := t.TempDir()
+			makeTask(t, root, "001-x", "001-x")
+			c := `{"id": "001-x", "goal": "g", "allowed_tools": ["read_file"], "max_steps": 3, ` + field + `}`
+			if err := os.WriteFile(filepath.Join(root, "001-x", "contract.json"), []byte(c), 0o644); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := findTask(root, "001"); err == nil {
+				t.Errorf("%s should be rejected", field)
+			}
+		})
 	}
 }
 
@@ -104,21 +140,5 @@ func TestFindTaskRejectsIncompleteContracts(t *testing.T) {
 				t.Error("incomplete contract should be rejected")
 			}
 		})
-	}
-}
-
-func TestRemoteExit(t *testing.T) {
-	ok := []sandbox.Result{
-		{ExitCode: 0},
-		{ExitCode: 1, Stderr: "command terminated with exit code 1\n"},
-	}
-	for _, r := range ok {
-		if err := remoteExit(r); err != nil {
-			t.Errorf("%+v: unexpected error %v", r, err)
-		}
-	}
-	gone := sandbox.Result{ExitCode: 1, Stderr: `Error from server (NotFound): pods "apg-x" not found`}
-	if err := remoteExit(gone); err == nil {
-		t.Error("a kubectl failure must not count as the check's exit code")
 	}
 }

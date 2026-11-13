@@ -12,9 +12,11 @@ import (
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 )
 
-// good returns a valid trace; tests change one field at a time.
+// good returns a valid v1 trace (a --no-agent run whose check failed);
+// tests change one field at a time.
 func good() *Trace {
 	start := time.Date(2026, 11, 12, 5, 1, 2, 0, time.UTC)
+	exit := 1
 	return &Trace{
 		SchemaVersion: SchemaVersion,
 		RunID:         "20261112T050102Z-1a2b3c4d",
@@ -24,6 +26,7 @@ func good() *Trace {
 		EndedAt:       start.Add(9 * time.Second),
 		Commands: []Command{{
 			Phase: PhaseCheck,
+			Actor: ActorHarness,
 			Result: sandbox.Result{
 				Args:     []string{"kubectl", "exec", "apg-1a2b3c4d", "--", "bash", "/tmp/check.sh"},
 				Stdout:   "> assert 3 == 3.5\n1 failed, 3 passed\n",
@@ -32,6 +35,7 @@ func good() *Trace {
 		}},
 		ExitReason: ReasonCheckFailed,
 		Verdict:    VerdictFail,
+		Check:      Check{Ran: true, ExitCode: &exit},
 	}
 }
 
@@ -50,7 +54,7 @@ func TestValidate(t *testing.T) {
 		{"empty task", func(tr *Trace) { tr.TaskID = "" }, true},
 		{"unknown reason", func(tr *Trace) { tr.ExitReason = "model_said_done" }, true},
 		{"bad verdict", func(tr *Trace) { tr.Verdict = "pass" }, true},
-		{"wrong schema", func(tr *Trace) { tr.SchemaVersion = 1 }, true},
+		{"wrong schema", func(tr *Trace) { tr.SchemaVersion = 0 }, true},
 	}
 	for _, tc := range tests {
 		// t.Run makes each row its own subtest, named in the output.
@@ -155,7 +159,7 @@ func TestAgentFieldsOmittedWithoutAgent(t *testing.T) {
 		t.Fatal(err)
 	}
 	b, _ := os.ReadFile(path)
-	for _, key := range []string{`"model"`, `"loop_stop"`, `"total_input_tokens"`, `"estimated_cost_usd"`} {
+	for _, key := range []string{`"model"`, `"loop_stop"`, `"budget"`, `"gate"`} {
 		if strings.Contains(string(b), key) {
 			t.Errorf("no-agent trace should not contain %s", key)
 		}
@@ -166,7 +170,11 @@ func TestStepRoundTrip(t *testing.T) {
 	code := 1
 	tr := good()
 	tr.Model, tr.LoopStop = "claude-haiku-5-5", "end_turn"
-	tr.TotalInputTokens, tr.TotalOutputTokens, tr.EstimatedCostUSD = 300, 40, 0.00005
+	tr.Budget = &Budget{
+		Limits:       BudgetLimits{MaxSteps: 10, MaxTotalTokens: 100_000, MaxCostUSD: 0.02, TimeoutSeconds: 300, MaxPolicyViolations: 3, MaxReplyTokens: 4096},
+		FromContract: []string{"max_steps"},
+		Used:         BudgetUsed{Steps: 2, InputTokens: 300, OutputTokens: 40, TotalTokens: 340, CostUSD: 0.00005, CountTokensCalls: 2},
+	}
 	tr.Steps = []Step{
 		{N: 1, StopReason: "tool_use", Tool: "run_command", Input: `{"command":"pytest -q"}`,
 			Output: "exit_code: 1", ExitCode: &code, InputTokens: 100, OutputTokens: 20},
@@ -185,7 +193,7 @@ func TestStepRoundTrip(t *testing.T) {
 		t.Errorf("round trip mismatch:\n got %+v\nwant %+v", got, *tr)
 	}
 	// Step 2 ran nothing in the sandbox, so it has no exit_code at all.
-	if strings.Count(string(b), `"exit_code"`) != 2 { // one in commands, one in step 1
-		t.Errorf("want exit_code only on the command and step 1:\n%s", b)
+	if strings.Count(string(b), `"exit_code"`) != 3 { // the command, the check, and step 1
+		t.Errorf("want exit_code only on the command, the check, and step 1:\n%s", b)
 	}
 }

@@ -1,0 +1,19 @@
+--- a/shop/cart.py
++++ b/shop/cart.py
+@@ -17,6 +17,6 @@
+         """Return the total in whole cents (an int): for each line, the
+         discounted unit price times the quantity, summed over all lines."""
+         total = 0
+-        for _name, unit_cents, _quantity, discount in self.lines:
+-            total += apply_discount(unit_cents, discount)
++        for _name, unit_cents, quantity, discount in self.lines:
++            total += apply_discount(unit_cents, discount) * quantity
+         return total
+--- a/shop/pricing.py
++++ b/shop/pricing.py
+@@ -6,4 +6,4 @@
+ 
+     percent is from 0 to 100. The result is an int.
+     """
+-    return price_cents * (100 - percent) / 100
++    return price_cents * (100 - percent) // 100

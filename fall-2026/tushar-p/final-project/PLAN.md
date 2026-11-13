@@ -14,9 +14,9 @@ Build plan for Tushar Patel's INFO7375 final project. Every chat in this Project
 
 ## Current status
 
-- **Phase:** 1 — First slice
-- **Next task:** T2.1
-- **Last updated:** Nov 12, 2026
+- **Phase:** 2 — The full agentic loop
+- **Next task:** T3.1
+- **Last updated:** Nov 13, 2026
 
 ---
 
@@ -132,28 +132,65 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 
 ## Phase 2 — The full agentic loop (Nov 13 – Nov 19)
 
-**T2.1 Permission policy**
+**T2.1 Permission policy** ✅ Done Nov 13:
+- **Tests first:** `internal/policy/policy_test.go` was committed before `policy.go` (commit 07a724f), and all 146 subtests pass.
+- **run_command is now argv with no shell** (D20). The pod spec sets `workingDir: /workspace`.
+- **Seeded run** (scripted client, no model, real kind pod; evidence/traces/20261113T204817Z-a016749b.json): 5 denied steps (path, program, flag ×2, and a symlink caught by `realpath` in the pod). The trace also shows the python limit: python's symlink creation and its read of /etc/hostname were allowed. Result `FAIL check_failed`.
+- **Model run:** `apg run 001` with `claude-haiku-5-5` printed `001  PASS  steps=7  reason=check_passed`, with no denials; 10,977 input / 705 output tokens, est. $0.00145 (evidence/traces/20261113T204837Z-3a19814c.json).
+- **Docs:** docs/03-action-surface-map.md drafted.
 1. `internal/policy/policy_test.go` first: paths outside `/workspace` denied, commands not on the allowlist denied, tools not in the contract denied, check files not writable.
 2. `internal/policy/policy.go`: every tool call goes through `policy.Check` before it runs. Denied calls are recorded in the trace and never executed.
 - **Done when:** all policy tests pass, and a trace shows a denied call.
 
-**T2.2 Budget and exits**
+**T2.2 Budget and exits** ✅ Done Nov 13:
+- **Budget:** the contract sets the limits, with harness defaults for any it leaves out: steps, total tokens, estimated cost, timeout, policy violations. Prices live in `internal/budget`, the only place. Before each model call the loop checks the timeout, then denied calls and steps, then whether the worst case fits: `count_tokens` input plus the full 16,000-token reply (D21).
+- **Exit reasons:** a typed list, with `gate_*` reserved for T2.4. After every exit except `error` the check still runs, and the verdict is its result.
+- **Tests:** `cmd/apg/exits_test.go` forces each of the 8 wired exits with a fake client.
+- **Timeout on kind** (seeded, scripted `sleep 30`, 3 s timeout; evidence/traces/20261113T211758Z-49d059aa.json): `timeout` after 3 s, the check still ran (exit 1), and `kubectl get pod` returned NotFound afterwards.
+- **Model run:** `apg run 001` with `claude-haiku-5-5` printed `001  PASS  steps=6  reason=check_passed`. Used 9,809 of 100,000 tokens, est. $0.00125 of $0.02, 10.8 s of 300 s, 0 of 3 violations, 6 count_tokens calls (evidence/traces/20261113T211840Z-96b482d3.json).
 1. Budget: max steps, max tokens, estimated cost cap, wall-clock timeout (`context.WithTimeout`).
 2. Exit reasons as a fixed list: `check_passed`, `check_failed`, `budget_steps`, `budget_tokens`, `budget_cost`, `timeout`, `policy_violation_limit`, `gate_refused`, `gate_deferred`, `error`.
 - **Done when:** a test forces each budget exit.
 
-**T2.3 Stop condition**
+**T2.3 Stop condition** ✅ Done Nov 13:
+- **Tests first:** `cmd/apg/stop_test.go` and `stop_kind_test.go` were committed before `internal/stop` (commit bf07b04).
+- **Stop condition:** after every step the harness fingerprints /workspace. If it changed, it kills every pod process except PID 1, then runs the check, kills again, and deletes the check dir before the next step. A pass stops the run. A failure tells the model only `The task is not complete yet.` end_turn only triggers the final check.
+- **Reply cap:** 4,096 tokens.
+- **check.sh:** now runs python with `-B`, because `-I` had ignored PYTHONDONTWRITEBYTECODE and the mid-run check left `__pycache__` files in /workspace.
+- **Seeded kind run** (tamperer; evidence/traces/20261113T213318Z-f1a52be8.json): the tamperer was killed before the mid-run check, the check failed honestly, python found no check dir at the next step, and the run ended `FAIL check_failed`.
+- **Model run:** `apg run 001` with `claude-haiku-5-5` printed `001  PASS  steps=4  reason=check_passed`. The mid-run check after step 4 (`write_file`) passed and the loop stopped; 5,659 tokens, est. $0.00074 (evidence/traces/20261113T213336Z-b806fc06.json).
 1. `internal/stop/stop.go`: after each write action, the harness runs the hidden check. PASS stops the run.
 2. If the agent says it is done, that only triggers the check. The model's word is never the verdict.
 - **Done when:** a test shows that an agent saying "done" with a failing check does not produce PASS.
 
-**T2.4 Human gate**
+**T2.4 Human gate** ✅ Done Nov 13:
+- **Tests first:** `internal/gate/gate_test.go` and `cmd/apg/gate_test.go` were committed before `internal/gate` (commit 38c30d2).
+- **The gate:** after the verdict, with the pod alive, it kills leftover processes, copies /workspace out, and diffs it against the task repo, leaving out `__pycache__` and `.pytest_cache`. It shows the approver the diff, the check result and exit code, the exit reason, and the hash prefix, then asks approve / refuse / defer. It binds the decision to the SHA-256 of the bytes shown and rebuilds the diff before export (a mismatch is void). Without a terminal on stdin it defers.
+- **T2.3 follow-up:** each check run deletes `__pycache__` after the kill, and the fingerprint ignores the caches.
+- **Human-answered by Tushar in a real terminal** (`claude-haiku-5-5`):
+  - `001  PASS  steps=4  reason=check_passed  gate=approved` (evidence/traces/20261113T224740Z-a9a2c258.json). The patch's SHA-256 equals `diff_sha256` = `recheck_sha256` (evidence/patches/20261113T224740Z-a9a2c258.approved.patch).
+  - `gate=refused`, PASS `check_passed` in 5 steps (evidence/traces/20261113T224827Z-cd9126a5.json). Its out/ dir was never created, so nothing was written.
+- **Scripted answer via pseudo-terminal, not a human** (Claude Code piped the answer into `script`):
+  - approve (evidence/traces/20261113T222626Z-2f2b40ec.json; patch in evidence/patches/20261113T222626Z-2f2b40ec.approved.patch; `git apply --check` passed on a copy of the task repo)
+  - refuse (evidence/traces/20261113T222801Z-3922d73c.json)
+- **Known limit** (docs/03): the gate trusts whoever types at the terminal, and a pty can answer it.
 1. `internal/gate/gate.go`: before any change leaves the sandbox, show the diff and the check output, then ask approve / refuse / defer.
 2. Record the SHA-256 of the exact diff shown. If the diff changes, the approval is void.
 3. In batch mode (`apg eval`), the gate always defers. Nothing is exported unattended.
 - **Done when:** tests cover approve, refuse, defer, and a changed-diff approval being rejected.
 
-**T2.5 Trace schema v1 and 5 tasks**
+**T2.5 Trace schema v1 and 5 tasks** ✅ Done Nov 13:
+- **Schema v1** (`docs/trace-schema.md`): commands carry `actor` (agent | harness) and `step`, and `realpath` lookups have their own phase `policy`. The top-level token and cost totals are gone (`budget.used` only).
+- **Validation:** `trace.Decode` decodes strictly (DisallowUnknownFields, required keys, value checks). `trace.Write` decodes every trace it writes, and `TestEvidenceTraces` decodes every v1 evidence trace (9 v1; the 13 v0 traces are kept as they were).
+- **Small fixes:** every `*.pyc` is deleted before each check; the gate shows a WARNING line with path and size for every non-text file.
+- **Tasks 002–005** (off-by-one, slugify, implement from a docstring, a fix across two files), with `reference.patch` for 001–005 outside `repo/`. `cmd/apg/tasks_test.go` runs each check in apg-sandbox:dev: FAIL untouched, PASS with the reference patch.
+- **Bug found and fixed:** the T2.4 terminal check took `/dev/null` for a terminal. It now uses the tcgetattr ioctl.
+- **Real runs** with `claude-haiku-5-5`, stdin `/dev/null`, after the fix:
+  - `002 PASS steps=4`, `003 PASS steps=4`, `004 PASS steps=5`, `005 PASS steps=7`: all `reason=check_passed gate=deferred`, with `interactive: false`.
+  - In 005, the check after step 6 (one file fixed) failed and the check after step 7 passed.
+  - Evidence: evidence/traces/20261113T230736Z-5465d81d, …230750Z-8b6ebce6, …230804Z-ac0f7f94, …230821Z-607ddc3e. The pre-fix runs are kept and labelled in docs/trace-schema.md.
+  - `001 PASS steps=5 gate=deferred` (20261113T230904Z-3d625236) gives 001 a v1 trace.
+- **M2:** loop, tools, policy, stop and gate all exist with tests. The milestone row waits for the course-repo sync hash.
 1. `docs/trace-schema.md`: every field explained.
 2. Add tasks 002–005.
 - **Done when:** all 5 tasks run, and each trace validates against the schema.
@@ -304,6 +341,11 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | D17 | Nov 3 | Claude Code drafts packet docs; Tushar reviews | Decided |
 | D18 | Nov 11 | Claude Code implements everything; Tushar reviews and approves | Decided |
 | D19 | Nov 11 | kindnet enforces NetworkPolicy ~1–2 s after Ready; Start probes until egress is blocked (30 s limit, fail and delete pod), probes recorded with Start's commands | Decided |
+| D20 | Nov 13 | run_command takes an argv list and runs with no shell (`timeout 60 <argv>`), so the program allowlist means something; symlinks are caught by running `realpath -m` in the pod before a call runs; sed always gets `--sandbox`; the pod sets `workingDir: /workspace`. python/pytest still run arbitrary code: the pod is the boundary (docs/03) | Decided |
+| D21 | Nov 13 | Budget exits: the exit reason says why the loop stopped and the verdict is still the check's result (PASS with `budget_steps` is possible); the timeout covers the agent loop only (setup, check and stop have fixed harness limits, so the check and pod cleanup run after a timeout); a step starts only if `count_tokens` input + the full per-reply max_tokens fits the token and cost limits; Ctrl-C is `error`, not `timeout` | Decided |
+| D22 | Nov 13 | Stop condition: the check runs after any step that changes /workspace (sha256 fingerprint of every regular file, taken by the harness), and a pass stops the run; the model hears only "The task is not complete yet."; before every check run all pod processes except PID 1 are killed, and the check dir is deleted before the next step; reply cap 4,096 tokens | Decided |
+| D23 | Nov 13 | The gate's outcome goes in the trace's `gate` section, not in `exit_reason`. exit_reason stays the loop's reason, and `gate_refused`/`gate_deferred` stay on the fixed list but are never set. Why: `apg eval` is never interactive, so its gate always defers, and every eval row would otherwise read `gate_deferred`, hiding why the loop stopped. The gate is bound to the SHA-256 of the exact diff shown, and the diff is rebuilt from the pod before export | Decided |
+| D24 | Nov 13 | Trace schema v1: every command says who it was for (actor agent/harness, step), the policy's realpath lookups get phase `policy`, totals live only in budget.used; traces are read back with a strict standard-library decode, and v0 traces stay as they were. "stdin is a terminal" is decided by the tcgetattr ioctl, not the file mode | Decided |
 
 ---
 
@@ -319,3 +361,4 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 |---|---|---|---|
 | — | Oct 22 | Pitch film resubmitted with the Go stack; graded 50/50 | course repo commit e9bef08 |
 | M0 | Nov 3 | Toolchain works, public repo exists, premortem committed; synced to the course folder | course repo commit 73af1fc (from agent-proving-ground@2a1a722) |
+| M1 | Nov 12 | First slice works end to end on kind (T1.1–T1.4: `apg run 001` PASS with claude-haiku-5-5, evidence/traces/20261112T053055Z-92239eb0.json); synced to the course folder | course repo commit 8349ba9a (from agent-proving-ground@e3454c0) |
