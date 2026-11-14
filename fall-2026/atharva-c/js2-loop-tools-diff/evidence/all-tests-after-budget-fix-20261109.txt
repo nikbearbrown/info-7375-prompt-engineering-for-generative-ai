@@ -1,0 +1,49 @@
+test_board_budget (tests.test_loop.LoopTests.test_board_budget) ... ok
+test_crash_is_reported_as_error (tests.test_loop.LoopTests.test_crash_is_reported_as_error) ... ok
+test_finished_when_every_board_has_jobs (tests.test_loop.LoopTests.test_finished_when_every_board_has_jobs) ... ok
+test_non_json_fails_without_retry (tests.test_loop.LoopTests.test_non_json_fails_without_retry) ... ok
+test_off_list_host_ends_run_with_error_before_any_request (tests.test_loop.LoopTests.test_off_list_host_ends_run_with_error_before_any_request) ... ok
+test_other_4xx_not_retried (tests.test_loop.LoopTests.test_other_4xx_not_retried) ... ok
+test_replay_reproduces_report (tests.test_loop.LoopTests.test_replay_reproduces_report) ... ok
+test_request_budget (tests.test_loop.LoopTests.test_request_budget) ... ok
+test_request_budget_used_up_between_boards (tests.test_loop.LoopTests.test_request_budget_used_up_between_boards) ... ok
+test_timeout_then_success_retries_once (tests.test_loop.LoopTests.test_timeout_then_success_retries_once) ... ok
+test_wv01_empty_board_is_incomplete_not_finished (tests.test_loop.LoopTests.test_wv01_empty_board_is_incomplete_not_finished) ... ok
+test_wv02_skipped_duplicate_uses_no_budget (tests.test_loop.LoopTests.test_wv02_skipped_duplicate_uses_no_budget) ... ok
+test_wv03_url_variants_fetched_once (tests.test_loop.LoopTests.test_wv03_url_variants_fetched_once) ... ok
+test_wv04_404_not_retried (tests.test_loop.LoopTests.test_wv04_404_not_retried) ... ok
+test_wv05_persistent_500_tried_exactly_twice (tests.test_loop.LoopTests.test_wv05_persistent_500_tried_exactly_twice) ... ok
+test_wv10_waits_2_seconds_before_retry (tests.test_loop.LoopTests.test_wv10_waits_2_seconds_before_retry) ... ok
+test_wv11_failed_board_has_no_job_count (tests.test_loop.LoopTests.test_wv11_failed_board_has_no_job_count) ... ok
+test_wv12_time_budget_checked_between_boards (tests.test_loop.LoopTests.test_wv12_time_budget_checked_between_boards) ... ok
+test_b01_host_not_on_allow_list (tests.test_policy.PolicyBoundaryTests.test_b01_host_not_on_allow_list) ... ok
+test_b02_lookalike_host (tests.test_policy.PolicyBoundaryTests.test_b02_lookalike_host) ... ok
+test_b03_post_to_allowed_host (tests.test_policy.PolicyBoundaryTests.test_b03_post_to_allowed_host) ... ok
+test_b04_dotdot_traversal (tests.test_policy.PolicyBoundaryTests.test_b04_dotdot_traversal) ... ok
+test_b05_prefix_lookalike_folder (tests.test_policy.PolicyBoundaryTests.test_b05_prefix_lookalike_folder) ... ok
+test_b06_symlink_escape (tests.test_policy.PolicyBoundaryTests.test_b06_symlink_escape) ... ok
+test_b07_absolute_path (tests.test_policy.PolicyBoundaryTests.test_b07_absolute_path) ... ok
+test_b08_read_boards_json (tests.test_policy.PolicyBoundaryTests.test_b08_read_boards_json) ... ok
+test_b09_write_boards_json_without_approve (tests.test_policy.PolicyBoundaryTests.test_b09_write_boards_json_without_approve) ... ok
+test_b10_write_boards_json_with_approve (tests.test_policy.PolicyBoundaryTests.test_b10_write_boards_json_with_approve) ... ok
+test_b11_get_allowed_host (tests.test_policy.PolicyBoundaryTests.test_b11_get_allowed_host) ... ok
+test_b12_write_inside_out (tests.test_policy.PolicyBoundaryTests.test_b12_write_inside_out) ... ok
+test_devops_engineer_is_go (tests.test_skills.RealPostingTests.test_devops_engineer_is_go) ... ok
+test_director_pm_is_not_react (tests.test_skills.RealPostingTests.test_director_pm_is_not_react) ... ok
+test_frontend_engineer_is_react (tests.test_skills.RealPostingTests.test_frontend_engineer_is_react) ... ok
+test_network_engineer_is_go (tests.test_skills.RealPostingTests.test_network_engineer_is_go) ... ok
+test_product_designer_is_not_go (tests.test_skills.RealPostingTests.test_product_designer_is_not_go) ... ok
+test_labeled_phrases (tests.test_skills.SkillPhraseTests.test_labeled_phrases) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.020s
+
+OK
+run-20261110-025737Z: incomplete | bad failed
+  a                      ok              2 jobs, 2 new
+  bad                    failed          HTTP 404 (not retried)
+  used: 2 boards, 2 requests, 0.0 s  ->  out/run-20261110-025737Z/
+replay-20261110-025737Z-of-run-20261110-025737Z: incomplete | bad failed
+  a                      ok              2 jobs, 2 new
+  bad                    failed          HTTP 404 (not retried)
+  used: 2 boards, 2 requests, 0.0 s  ->  out/replay-20261110-025737Z-of-run-20261110-025737Z/
