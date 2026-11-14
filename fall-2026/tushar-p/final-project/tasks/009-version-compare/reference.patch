@@ -1,0 +1,29 @@
+--- a/versions/compare.py
++++ b/versions/compare.py
+@@ -13,6 +13,24 @@
+     - Two pre-releases of the same version compare by their tags as plain
+       strings: "1.0.0-alpha" is older than "1.0.0-beta".
+     """
+-    if a == b:
++    numbers_a, pre_a = _parse(a)
++    numbers_b, pre_b = _parse(b)
++    if numbers_a != numbers_b:
++        return -1 if numbers_a < numbers_b else 1
++    if pre_a == pre_b:
+         return 0
+-    return -1 if a < b else 1
++    if not pre_a:  # a release is newer than its pre-releases
++        return 1
++    if not pre_b:
++        return -1
++    return -1 if pre_a < pre_b else 1
++
++
++def _parse(version):
++    """Return (numbers, pre-release tag) for version, with trailing zeros
++    dropped so that "1.0" and "1.0.0" give the same numbers."""
++    core, _, pre = version.partition("-")
++    numbers = [int(part) for part in core.split(".")]
++    while numbers and numbers[-1] == 0:
++        numbers.pop()
++    return numbers, pre

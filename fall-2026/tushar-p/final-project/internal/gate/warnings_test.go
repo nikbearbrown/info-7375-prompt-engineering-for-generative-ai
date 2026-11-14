@@ -61,3 +61,21 @@ func TestGateRepeatsWarnings(t *testing.T) {
 		t.Errorf("shown = %v (package Shown = %v)", g.Shown, Shown)
 	}
 }
+
+// Eval (batch) mode defers even when stdin is a terminal and the answer
+// would be "approve": nothing is shown, nothing is approved.
+func TestBatchModeAlwaysDefers(t *testing.T) {
+	c, out := cfg(t, "approve\n", true) // Interactive: true, as if stdin were a terminal
+	c.Batch = true
+	calls := 0
+	g := Run(context.Background(), c, "run1", summary, builds(&calls, patch))
+	if g.Decision != DecisionDeferred || !g.Batch || len(g.Shown) != 0 || !strings.Contains(g.Reason, "eval mode") {
+		t.Fatalf("gate = %+v, want deferred in eval mode, nothing shown", g)
+	}
+	if out.Len() != 0 {
+		t.Errorf("printed in batch mode: %q", out.String())
+	}
+	if got := files(t, c.OutDir); slices.Contains(got, "run1/approved.patch") || !slices.Contains(got, "run1/pending.patch") {
+		t.Errorf("files = %v, want pending only", got)
+	}
+}

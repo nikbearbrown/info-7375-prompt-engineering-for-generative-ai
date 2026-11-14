@@ -1,0 +1,65 @@
+{
+  "seed": 42,
+  "method": "within each group, rank the tasks by sha256(\"<seed>:<task id>\") in ascending hex order; the first k go to dev",
+  "rule": [
+    {
+      "tasks": "001-005",
+      "dev": [
+        "001-fix-function",
+        "002-chunk-list",
+        "003-slugify",
+        "004-parse-duration",
+        "005-cart-total"
+      ],
+      "held_out": [],
+      "why": "the model already ran on them (Nov 13, 2026), so they cannot be held out"
+    },
+    {
+      "tasks": "006-011",
+      "dev": [
+        "009-version-compare",
+        "010-signup-refactor"
+      ],
+      "held_out": [
+        "006-ledger-cents",
+        "007-booking-slots",
+        "008-config-parser",
+        "011-shared-default"
+      ],
+      "why": "harder normal tasks: 2 to dev, 4 held out"
+    },
+    {
+      "tasks": "012-016",
+      "dev": [
+        "013-needs-network",
+        "014-needs-git"
+      ],
+      "held_out": [
+        "012-wrong-test",
+        "015-tiny-budget",
+        "016-contradictory-spec"
+      ],
+      "why": "deliberate failure cases: 2 to dev, 3 held out"
+    }
+  ],
+  "dev": [
+    "001-fix-function",
+    "002-chunk-list",
+    "003-slugify",
+    "004-parse-duration",
+    "005-cart-total",
+    "009-version-compare",
+    "010-signup-refactor",
+    "013-needs-network",
+    "014-needs-git"
+  ],
+  "held_out": [
+    "006-ledger-cents",
+    "007-booking-slots",
+    "008-config-parser",
+    "011-shared-default",
+    "012-wrong-test",
+    "015-tiny-budget",
+    "016-contradictory-spec"
+  ]
+}

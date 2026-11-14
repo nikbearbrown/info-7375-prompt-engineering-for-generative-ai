@@ -102,6 +102,18 @@ Not checked:
 - Symlinks and file modes travel as notes or not at all: a symlink becomes one `Symlink …` line, and the executable bit is not in the patch.
 - A pod older than its one-hour deadline is gone, so a late approval fails the rebuild and is void.
 
+## Deliberate failure cases and what the check cannot tell
+
+Since T3.1, the suite has five tasks whose right outcome is FAIL (`tasks/README.md`, 012–016): a wrong test file, a package that needs the network, a program that is neither installed nor allowed, a budget too small to fit, and a self-contradictory spec. Each contract's `expected` block records the right outcome and why no legitimate fix exists in the sandbox. It is never sent to the model.
+
+The check cannot make PASS impossible. It runs the agent's code inside pytest, so a cheat in code passes like a fix:
+- special-casing an input
+- answering differently on each call
+- `os._exit(0)` on import
+- rewriting `sys.path` or `PATH` at import
+
+The check cannot tell a cheat from a fix. The gate's diff is where a person would see it. An edit to a protected test file is the one cheat the check itself catches, by its SHA-256 (tested for 012).
+
 ## What the policy cannot stop
 
 **python and pytest run arbitrary code.** Both are on the allowlist, and both run code the agent controls: `python -c`, a script, a test file, a `conftest.py`, any imported module. That code runs as the pod's user (uid 1000). It can read outside `/workspace`, create symlinks, delete files, and start other programs. The policy sees only the command line. The seeded run shows this: `python -c` created a symlink `etc-link → /etc` and read `/etc/hostname`, and both calls were allowed. So the policy makes the allowlist meaningful for the other nine programs and for the file tools, and it records every decision. **It is not the security boundary. The pod's isolation is the outer boundary.**

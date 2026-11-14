@@ -1,0 +1,19 @@
+{
+  "id": "015-tiny-budget",
+  "goal": "Fix the geo package so that every test in tests/test_geo.py passes, without changing the test file.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 1,
+  "max_total_tokens": 200000,
+  "max_cost_usd": 0.05,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_geo.py"]
+  },
+  "expected": {
+    "verdict": "FAIL",
+    "likely_exit_reasons": ["budget_steps"],
+    "why_no_fix": "max_steps is 1: one model call. The two bugs are in geo/shapes.py and geo/units.py, which the agent has not seen. It needs at least one step to read the code and one to write the fix; a one-step fix would have to guess both bugs blind. The task itself is ordinary and could be fixed with more steps."
+  }
+}

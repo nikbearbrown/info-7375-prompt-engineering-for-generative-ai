@@ -9,8 +9,9 @@
 // the diff is built again from the pod; if its hash differs, the approval
 // is void and nothing is exported.
 //
-// Without a terminal on stdin the gate always defers: nothing is exported
-// unattended. The agent has no tool that reaches this package.
+// Without a terminal on stdin, or in eval (batch) mode, the gate always
+// defers: nothing is exported unattended. The agent has no tool that
+// reaches this package.
 package gate
 
 import (
@@ -52,6 +53,7 @@ type Config struct {
 	In          io.Reader // the approver's answers (the harness's stdin)
 	Out         io.Writer // where the diff and the question go (stderr)
 	Interactive bool      // stdin is a terminal; if false, the gate always defers
+	Batch       bool      // eval mode (apg eval): the gate always defers, whatever Interactive says
 	OutDir      string    // patches go to OutDir/<run_id>/
 	Now         func() time.Time
 }
@@ -79,7 +81,7 @@ func Run(ctx context.Context, cfg Config, runID string, sum Summary, build Build
 	if now == nil {
 		now = time.Now
 	}
-	g := trace.Gate{Interactive: cfg.Interactive, Shown: []string{}}
+	g := trace.Gate{Interactive: cfg.Interactive, Batch: cfg.Batch, Shown: []string{}}
 	// done fills in the decision and the time, and returns the record.
 	done := func(decision, reason string) trace.Gate {
 		g.Decision, g.Reason, g.DecidedAt = decision, reason, now().UTC()
@@ -95,13 +97,17 @@ func Run(ctx context.Context, cfg Config, runID string, sum Summary, build Build
 	}
 	g.DiffSHA256, g.DiffBytes = sha(diff), len(diff)
 
-	if !cfg.Interactive {
+	if cfg.Batch || !cfg.Interactive {
 		path, err := writePending(cfg.OutDir, runID, diff, g.DiffSHA256)
 		if err != nil {
 			return done(DecisionError, err.Error())
 		}
 		g.ExportedPath = path
-		return done(DecisionDeferred, "stdin is not a terminal, so the gate defers: nothing is exported unattended")
+		reason := "stdin is not a terminal, so the gate defers: nothing is exported unattended"
+		if cfg.Batch {
+			reason = "eval mode: the gate always defers; nothing is exported unattended"
+		}
+		return done(DecisionDeferred, reason)
 	}
 
 	show(cfg.Out, runID, diff, g.DiffSHA256, sum)

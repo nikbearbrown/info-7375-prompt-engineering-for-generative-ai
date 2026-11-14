@@ -1,0 +1,15 @@
+{
+  "id": "011-shared-default",
+  "goal": "Fix the tagging package so that every test in tests/test_tags.py passes, without changing the test file.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 15,
+  "max_total_tokens": 200000,
+  "max_cost_usd": 0.05,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_tags.py"]
+  },
+  "expected": {"verdict": "PASS"}
+}

@@ -1,0 +1,17 @@
+--- a/confparse/parser.py
++++ b/confparse/parser.py
+@@ -148,8 +148,13 @@
+     """Return raw without its inline comment: everything from the first ";"
+     or "#" that is outside double quotes."""
+     in_quotes = False
++    escaped = False  # the previous character was a backslash inside quotes
+     for i, ch in enumerate(raw):
+-        if ch == '"':
++        if escaped:
++            escaped = False
++        elif ch == "\\" and in_quotes:
++            escaped = True
++        elif ch == '"':
+             in_quotes = not in_quotes
+         elif ch in ";#" and not in_quotes:
+             return raw[:i]

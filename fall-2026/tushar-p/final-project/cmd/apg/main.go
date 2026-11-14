@@ -2,11 +2,14 @@
 //
 //	apg run 001               run the agent, then the hidden check (T1.4)
 //	apg run 001 --no-agent    run only the hidden check (T1.3)
+//	apg eval --set dev        run every dev task, compare with the expected outcomes (T3.3)
+//	apg show <run_id>         print a trace step by step (T3.4)
 package main
 
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -61,8 +64,14 @@ func main() {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
+	if len(args) > 0 && args[0] == "eval" {
+		return evalMain(args[1:], stdout, stderr)
+	}
+	if len(args) > 0 && args[0] == "show" {
+		return showMain(args[1:], stdout, stderr)
+	}
 	if len(args) == 0 || args[0] != "run" {
-		fmt.Fprintln(stderr, usage)
+		fmt.Fprintf(stderr, "%s\n%s\n%s\n", usage, evalUsage, showUsage)
 		return exitError
 	}
 	opts, err := parseRunArgs(args[1:])
@@ -173,6 +182,18 @@ type task struct {
 	AllowedTools []string
 	Limits       budget.Limits // the contract's limits, with harness defaults for the ones it leaves out
 	FromContract []string      // which limits the contract set, by JSON name
+	Expected     expectation   // the right outcome (T3.1); never sent to the model
+}
+
+// expectation is a task's right outcome, from contract.json "expected".
+// Normal tasks expect PASS. A deliberate failure case expects FAIL, with
+// the exit reasons a run will most likely end with and the reason no
+// legitimate fix exists inside the sandbox. Only the goal is ever sent to
+// the model; this is for the harness and for whoever reads the results.
+type expectation struct {
+	Verdict           string   `json:"verdict"`                       // PASS or FAIL
+	LikelyExitReasons []string `json:"likely_exit_reasons,omitempty"` // FAIL tasks only
+	WhyNoFix          string   `json:"why_no_fix,omitempty"`          // FAIL tasks only
 }
 
 // A task number is exactly three digits, so it is safe inside a glob.
@@ -221,6 +242,8 @@ func findTask(tasksDir, short string) (task, error) {
 		MaxCostUSD          *float64 `json:"max_cost_usd"`
 		TimeoutSeconds      *float64 `json:"timeout_seconds"`
 		MaxPolicyViolations *int     `json:"max_policy_violations"`
+
+		Expected *expectation `json:"expected"` // optional when parsing; every real task has one (tasks_test.go)
 	}
 	if err := json.Unmarshal(b, &contract); err != nil {
 		return task{}, fmt.Errorf("task %s: contract.json: %w", tk.ID, err)
@@ -236,6 +259,12 @@ func findTask(tasksDir, short string) (task, error) {
 		return task{}, fmt.Errorf("task %s: max_steps must be positive", tk.ID)
 	}
 	tk.Goal, tk.AllowedTools = contract.Goal, contract.AllowedTools
+	if e := contract.Expected; e != nil {
+		if err := e.validate(); err != nil {
+			return task{}, fmt.Errorf("task %s: expected: %w", tk.ID, err)
+		}
+		tk.Expected = *e
+	}
 	tk.FromContract = []string{"max_steps"}
 	tk.Limits = budget.Limits{
 		MaxSteps:            contract.MaxSteps,
@@ -417,6 +446,7 @@ func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, client loop.Clie
 	elapsed := time.Since(began)
 
 	tr.Model, tr.Steps, tr.LoopStop = model, res.Steps, res.Stop
+	tr.PromptVersion = loop.PromptVersion()
 	tr.Budget = &trace.Budget{
 		Limits: trace.BudgetLimits{
 			MaxSteps:            tk.Limits.MaxSteps,
@@ -492,4 +522,27 @@ func buildDiff(sb sandbox.Sandbox, tk task, checker *stop.Checker, rec func(stri
 		}
 		return gate.Diff(tk.Repo, ws)
 	}
+}
+
+// validate checks an expectation: PASS with nothing else, or FAIL with at
+// least one exit reason from the fixed list and a written reason.
+func (e expectation) validate() error {
+	switch e.Verdict {
+	case trace.VerdictPass:
+		if len(e.LikelyExitReasons) > 0 || e.WhyNoFix != "" {
+			return errors.New("a PASS task takes no likely_exit_reasons or why_no_fix")
+		}
+	case trace.VerdictFail:
+		if len(e.LikelyExitReasons) == 0 || strings.TrimSpace(e.WhyNoFix) == "" {
+			return errors.New("a FAIL task needs likely_exit_reasons and why_no_fix")
+		}
+		for _, r := range e.LikelyExitReasons {
+			if !trace.ValidExitReason(r) {
+				return fmt.Errorf("likely exit reason %q is not on the fixed list", r)
+			}
+		}
+	default:
+		return fmt.Errorf("verdict %q, want PASS or FAIL", e.Verdict)
+	}
+	return nil
 }

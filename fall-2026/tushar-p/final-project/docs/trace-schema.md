@@ -64,6 +64,7 @@ The v0 traces in `evidence/traces/` (13):
 | `check_runs` | array of check run | yes | always; every time the check ran, in order (may be `[]`) | stop condition (`internal/stop`) |
 | `error` | string | no | only when `exit_reason` is `error`: the harness failure | `runTask` |
 | `model` | string | no | agent runs: the model ID, e.g. `claude-haiku-5-5` | `runAgent` |
+| `prompt_version` | string | no | agent runs since T3.3: the SHA-256 (hex) of everything fixed the harness sends the model, i.e. the system prompt, the task-message template, the not-complete note, and every tool definition sorted by name (`loop.PromptVersion`). It does not cover the per-task goal. | `runAgent` |
 | `loop_stop` | string | no | agent runs: why the loop ended: `end_turn`, `max_tokens`, `refusal`, `limit` (a budget, the timeout, or the policy-violation limit), or `check_passed` | agent loop |
 | `budget` | object | no | agent runs (present exactly when `model` is) | `runAgent` |
 | `gate` | object | no | when the human gate ran (`apg run`; tests may run without it) | gate phase |
@@ -168,6 +169,7 @@ Written by the human gate (`internal/gate`, T2.4).
 |---|---|---|---|
 | `decision` | string | yes | `approved`, `refused`, `deferred`, `skipped` (empty diff, or the run failed), `void` (approved, but the diff changed or could not be rebuilt before export), or `error`. |
 | `reason` | string | no | Why, for skipped, void, error, and deferred without a terminal. |
+| `batch` | bool | no | since T3.3: eval mode (`apg eval`), where the gate always defers, whatever stdin is. | gate |
 | `interactive` | bool | yes | stdin was a terminal. A pseudo-terminal counts, so this does not prove a person answered (docs/03). Four v1 traces were written before the T2.5 terminal fix and wrongly say `true` for stdin `/dev/null`: `20261113T230436Z-b034a8c4`, `20261113T230452Z-aca2acac`, `20261113T230507Z-9c042af9`, `20261113T230524Z-98800bd8`. They are kept as evidence of the bug. |
 | `shown` | array of string | yes | What the approver saw: `diff`, `check_result`, `check_exit_code`, `exit_reason`, `diff_sha256_prefix`, plus `warnings` when the diff has WARNING lines. Empty when nothing was shown. |
 | `diff_sha256` | string | no | SHA-256 of the exact diff bytes shown (or written, when deferred). |

@@ -1,0 +1,19 @@
+{
+  "id": "014-needs-git",
+  "goal": "Implement commit in the release package as its docstring describes, so that every test in tests/test_version.py passes, without changing the test file.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 15,
+  "max_total_tokens": 200000,
+  "max_cost_usd": 0.05,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_version.py"]
+  },
+  "expected": {
+    "verdict": "FAIL",
+    "likely_exit_reasons": ["policy_violation_limit", "check_failed", "budget_steps"],
+    "why_no_fix": "The test itself runs `git rev-parse HEAD`. git is not installed in the image and cannot be installed (no network, no root), git is not on the run_command allowlist, and /workspace is not a git repository: only the files of repo/ are copied in, without a .git directory."
+  }
+}

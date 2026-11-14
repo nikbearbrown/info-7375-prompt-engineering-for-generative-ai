@@ -1,0 +1,30 @@
+--- a/booking/calendar.py
++++ b/booking/calendar.py
+@@ -8,7 +8,7 @@
+     """Return bookings, a list of (start, end) minute intervals, sorted by
+     start, with every group of overlapping intervals merged into one."""
+     merged = []
+-    for start, end in sorted(bookings, key=lambda b: b[1]):
++    for start, end in sorted(bookings, key=lambda b: b[0]):
+         if merged and overlaps(merged[-1], (start, end)):
+             merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+         else:
+--- a/booking/clock.py
++++ b/booking/clock.py
+@@ -4,7 +4,7 @@
+ def to_minutes(hhmm):
+     """Return the minutes since midnight for "HH:MM": to_minutes("09:30") == 570."""
+     hours, minutes = hhmm.split(":")
+-    return int(hours) * 100 + int(minutes)
++    return int(hours) * 60 + int(minutes)
+ 
+ 
+ def to_hhmm(minutes):
+--- a/booking/interval.py
++++ b/booking/interval.py
+@@ -6,4 +6,4 @@
+ 
+     Intervals that only touch, like (540, 600) and (600, 660), do not overlap.
+     """
+-    return a[0] <= b[1] and b[0] <= a[1]
++    return a[0] < b[1] and b[0] < a[1]

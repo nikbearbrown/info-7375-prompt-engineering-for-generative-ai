@@ -86,9 +86,10 @@ type Trace struct {
 	Error         string     `json:"error,omitempty"` // harness error; omitempty drops it when ""
 
 	// Agent fields. omitempty leaves them out of --no-agent traces.
-	Model    string  `json:"model,omitempty"`
-	LoopStop string  `json:"loop_stop,omitempty"` // why the agent loop ended: end_turn | max_tokens | refusal | limit | check_passed
-	Budget   *Budget `json:"budget,omitempty"`    // limits and totals used; pointer: nil (omitted) without an agent
+	Model         string  `json:"model,omitempty"`
+	PromptVersion string  `json:"prompt_version,omitempty"` // SHA-256 of everything fixed the harness sends the model (loop.PromptVersion); since T3.3
+	LoopStop      string  `json:"loop_stop,omitempty"`      // why the agent loop ended: end_turn | max_tokens | refusal | limit | check_passed
+	Budget        *Budget `json:"budget,omitempty"`         // limits and totals used; pointer: nil (omitted) without an agent
 
 	Gate *Gate `json:"gate,omitempty"` // the human gate (T2.4); nil when no gate ran
 }
@@ -99,6 +100,7 @@ type Gate struct {
 	Decision      string    `json:"decision"`                 // approved | refused | deferred | skipped | void | error
 	Reason        string    `json:"reason,omitempty"`         // why, for skipped / void / error
 	Interactive   bool      `json:"interactive"`              // stdin was a terminal
+	Batch         bool      `json:"batch,omitempty"`          // eval mode: the gate always deferred (T3.3)
 	Shown         []string  `json:"shown"`                    // what the approver saw; empty when nothing was shown
 	DiffSHA256    string    `json:"diff_sha256,omitempty"`    // SHA-256 of the exact diff bytes shown (or written, when deferred)
 	DiffBytes     int       `json:"diff_bytes"`               // length of that diff

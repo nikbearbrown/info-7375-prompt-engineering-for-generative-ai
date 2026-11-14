@@ -12,11 +12,14 @@ package loop
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
 	"path"
+	"sort"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -47,6 +50,44 @@ const (
 // NotCompleteNote is all the model is told after a failed check: not the
 // check's output, exit code, or file names. The check stays hidden.
 const NotCompleteNote = "The task is not complete yet."
+
+// taskMessage is the first user message: %s is the contract's goal and %d
+// its max_steps.
+const taskMessage = "Task: %s\n\nYou have at most %d turns."
+
+// PromptVersion returns the SHA-256 (hex) of everything fixed that the
+// harness sends the model: the system prompt, the task-message template,
+// the not-complete note, and every tool definition (name, description,
+// input schema), sorted by name. Traces and the eval log record it, so a
+// result can always be tied to the exact prompt it was produced with. It
+// does not cover the goal (per task, in contract.json) or the tool results.
+func PromptVersion() string {
+	names := make([]string, 0, len(toolDefs))
+	for name := range toolDefs {
+		names = append(names, name)
+	}
+	sort.Strings(names) // map order is random; the hash must not be
+	tools := make([]anthropic.ToolParam, 0, len(names))
+	for _, name := range names {
+		tools = append(tools, toolDefs[name])
+	}
+	return promptVersion(systemPrompt, taskMessage, NotCompleteNote, tools)
+}
+
+// promptVersion hashes the given parts as one JSON object.
+func promptVersion(system, task, note string, tools []anthropic.ToolParam) string {
+	b, err := json.Marshal(struct {
+		System      string                `json:"system"`
+		TaskMessage string                `json:"task_message"`
+		NotComplete string                `json:"not_complete_note"`
+		Tools       []anthropic.ToolParam `json:"tools"`
+	}{system, task, note, tools})
+	if err != nil {
+		panic(err) // fixed, hand-written values: a failure here is a bug
+	}
+	sum := sha256.Sum256(b)
+	return hex.EncodeToString(sum[:])
+}
 
 // Stopper is the stop condition the harness runs after every step
 // (internal/stop): fingerprint /workspace and, if it changed, run the
@@ -153,7 +194,7 @@ func Run(ctx context.Context, client Client, sb sandbox.Sandbox, cfg Config, rec
 	// messages is the whole conversation; each request resends all of it.
 	messages := []anthropic.MessageParam{
 		anthropic.NewUserMessage(anthropic.NewTextBlock(fmt.Sprintf(
-			"Task: %s\n\nYou have at most %d turns.", cfg.Goal, lim.MaxSteps))),
+			taskMessage, cfg.Goal, lim.MaxSteps))),
 	}
 
 	for n := 1; ; n++ {

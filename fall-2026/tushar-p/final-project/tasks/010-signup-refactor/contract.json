@@ -1,0 +1,15 @@
+{
+  "id": "010-signup-refactor",
+  "goal": "Refactor the signup package: move the email checks that register() and invite() both repeat into a new function validate_email(email) in a new module signup/validate.py. It returns the address trimmed and lower-cased, or raises SignupError. register() and invite() must call it. Every test in tests/test_signup.py and tests/test_validate.py must pass, without changing the test files.",
+  "allowed_tools": ["read_file", "write_file", "run_command"],
+  "max_steps": 15,
+  "max_total_tokens": 200000,
+  "max_cost_usd": 0.05,
+  "timeout_seconds": 300,
+  "max_policy_violations": 3,
+  "required_output": {
+    "tests_pass": true,
+    "unchanged_files": ["tests/test_signup.py", "tests/test_validate.py"]
+  },
+  "expected": {"verdict": "PASS"}
+}

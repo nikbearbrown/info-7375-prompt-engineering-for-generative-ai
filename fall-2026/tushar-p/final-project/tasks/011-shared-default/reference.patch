@@ -1,0 +1,25 @@
+--- a/tagging/tags.py
++++ b/tagging/tags.py
+@@ -1,7 +1,7 @@
+ """Tag lists."""
+ 
+ 
+-def add_tag(tag, tags=[]):
++def add_tag(tag, tags=None):
+     """Return a new list: tags with tag added at the end, unless it is
+     already there.
+ 
+@@ -9,7 +9,10 @@
+     passed in is never changed. Called without tags, it starts from an
+     empty list.
+     """
++    # A default of [] would be one list shared by every call, so None
++    # stands for "no list", and the result is always a fresh copy.
++    result = list(tags) if tags is not None else []
+     tag = tag.lower()
+-    if tag not in tags:
+-        tags.append(tag)
+-    return tags
++    if tag not in result:
++        result.append(tag)
++    return result

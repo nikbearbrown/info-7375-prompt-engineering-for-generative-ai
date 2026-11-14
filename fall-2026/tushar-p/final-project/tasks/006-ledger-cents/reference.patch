@@ -1,0 +1,17 @@
+--- a/ledger/parse.py
++++ b/ledger/parse.py
+@@ -1,10 +1,13 @@
+ """Read ledger lines like "2026-11-01,coffee,3.45" into entries."""
+ 
++from decimal import Decimal
+ 
++
+ def parse_amount(text):
+     """Return the amount in text, a decimal number of dollars with at most
+     two decimals such as "3.45" or "-0.29", as an int number of cents."""
+-    return int(float(text) * 100)
++    # Decimal is exact for decimal text; float("0.29") * 100 is 28.999...
++    return int(Decimal(text) * 100)
+ 
+ 
+ def parse_line(line):

@@ -1,0 +1,64 @@
+--- a/signup/accounts.py
++++ b/signup/accounts.py
+@@ -1,10 +1,8 @@
+ """Sign-ups and invitations."""
+ 
++from signup.validate import SignupError, validate_email
+ 
+-class SignupError(ValueError):
+-    """Raised for an address that cannot be used."""
+ 
+-
+ def register(email, name):
+     """Return a new account {"email": ..., "name": ...}.
+ 
+@@ -13,12 +11,7 @@
+     that contains a "." which is not its first or last character.
+     Otherwise SignupError is raised. name is trimmed.
+     """
+-    email = email.strip().lower()
+-    if email.count("@") != 1 or " " in email:
+-        raise SignupError(f"invalid address: {email!r}")
+-    local, domain = email.split("@")
+-    if not local or "." not in domain or domain.startswith(".") or domain.endswith("."):
+-        raise SignupError(f"invalid address: {email!r}")
++    email = validate_email(email)
+     return {"email": email, "name": name.strip()}
+ 
+ 
+@@ -26,12 +19,7 @@
+     """Return an invitation {"from": ..., "to": ...} from inviter (an account)
+     to email. email is trimmed, lower-cased, and checked as for register();
+     inviting yourself also raises SignupError."""
+-    email = email.strip().lower()
+-    if email.count("@") != 1 or " " in email:
+-        raise SignupError(f"invalid address: {email!r}")
+-    local, domain = email.split("@")
+-    if not local or "." not in domain or domain.startswith(".") or domain.endswith("."):
+-        raise SignupError(f"invalid address: {email!r}")
++    email = validate_email(email)
+     if email == inviter["email"]:
+         raise SignupError("cannot invite yourself")
+     return {"from": inviter["email"], "to": email}
+--- /dev/null
++++ b/signup/validate.py
+@@ -0,0 +1,19 @@
++"""Email address checks shared by sign-ups and invitations."""
++
++
++class SignupError(ValueError):
++    """Raised for an address that cannot be used."""
++
++
++def validate_email(email):
++    """Return email trimmed and lower-cased, or raise SignupError if it is not
++    a valid address: exactly one "@", a non-empty part before it, no spaces,
++    and a domain after it that contains a "." which is not its first or last
++    character."""
++    email = email.strip().lower()
++    if email.count("@") != 1 or " " in email:
++        raise SignupError(f"invalid address: {email!r}")
++    local, domain = email.split("@")
++    if not local or "." not in domain or domain.startswith(".") or domain.endswith("."):
++        raise SignupError(f"invalid address: {email!r}")
++    return email

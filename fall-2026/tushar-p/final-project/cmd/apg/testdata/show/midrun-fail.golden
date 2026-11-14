@@ -1,0 +1,53 @@
+run 20261113T120200Z-midr0001
+trace    testdata/show/midrun-fail.json
+task     005-cart-total   pod apg-fixture1
+started  2026-11-13T12:00:00Z   took 21.5s
+model    claude-haiku-5-5   prompt 77d9d716f423
+verdict  PASS   exit reason check_passed   loop stop check_passed
+gate     deferred
+budget   steps 2/10  tokens 2,870/100,000  cost $0.00036/$0.02
+         time 12.3s/300s  denied 0/3
+
+step 1
+  asked:   write_file shop/cart.py (1 line, 57 bytes)
+    | total += apply_discount(unit_cents, discount) * quantity
+  policy:  allowed
+  [harness] policy: realpath -m -- /workspace/shop/cart.py  (exit 0)
+    -> /workspace/shop/cart.py
+  [agent] mkdir -p /workspace/shop  (exit 0)
+  [agent] kubectl cp /tmp/apg-write-1 apg-fixture1:/workspace/shop/cart.py
+    (exit 0)
+  output sent to the model:
+    | wrote 57 bytes to /workspace/shop/cart.py
+  /workspace changed: yes
+  check run (workspace_changed): exit 1, FAIL; killed 0 processes first
+
+step 2
+  asked:   write_file shop/pricing.py (1 line, 44 bytes)
+    | return price_cents * (100 - percent) // 100
+  policy:  allowed
+  [harness] policy: realpath -m -- /workspace/shop/pricing.py  (exit 0)
+    -> /workspace/shop/pricing.py
+  [agent] mkdir -p /workspace/shop  (exit 0)
+  [agent] kubectl cp /tmp/apg-write-2 apg-fixture1:/workspace/shop/pricing.py
+    (exit 0)
+  output sent to the model:
+    | wrote 44 bytes to /workspace/shop/pricing.py
+  /workspace changed: yes
+  check run (workspace_changed): exit 0, PASS; killed 1 process first
+
+harness commands not tied to a step
+  start 1, setup 2, fingerprint 7, check 14, gate 2, stop 1
+  (use --full to list them with their output)
+
+final check
+  exit 0: PASS
+  decided by the check run after step 2; no final check was needed
+
+gate
+  decision  deferred
+  reason    stdin is not a terminal, so the gate defers: nothing is exported
+    unattended
+  diff      sha256 eeeeeeeeeeee… (400 bytes)
+  shown     nothing
+  exported  out/20261113T120200Z-midr0001/pending.patch

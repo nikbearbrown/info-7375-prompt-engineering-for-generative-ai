@@ -1,0 +1,77 @@
+run 20261113T120000Z-pass0001
+trace    testdata/show/pass.json
+task     001-fix-function   pod apg-fixture1
+started  2026-11-13T12:00:00Z   took 21.5s
+model    claude-haiku-5-5   prompt 77d9d716f423
+verdict  PASS   exit reason check_passed   loop stop check_passed
+gate     approved (interactive)
+budget   steps 2/10  tokens 2,700/100,000  cost $0.00034/$0.02
+         time 12.3s/300s  denied 0/3
+
+step 1
+  model said:
+    | Let me look at the code first.
+  asked:   read_file calc/ops.py
+  policy:  allowed
+  [harness] policy: realpath -m -- /workspace/calc/ops.py  (exit 0)
+    -> /workspace/calc/ops.py
+  [agent] cat /workspace/calc/ops.py  (exit 0)
+  output sent to the model:
+    | line 1 of calc/ops.py
+    | line 2 of calc/ops.py
+    | line 3 of calc/ops.py
+    | line 4 of calc/ops.py
+    | line 5 of calc/ops.py
+    | line 6 of calc/ops.py
+    | line 7 of calc/ops.py
+    | line 8 of calc/ops.py
+    | line 9 of calc/ops.py
+    | line 10 of calc/ops.py
+    | line 11 of calc/ops.py
+    | line 12 of calc/ops.py
+    | line 13 of calc/ops.py
+    | line 14 of calc/ops.py
+    | line 15 of calc/ops.py
+    | line 16 of calc/ops.py
+    | line 17 of calc/ops.py
+    | line 18 of calc/ops.py
+    | line 19 of calc/ops.py
+    | line 20 of calc/ops.py
+    … 30 more lines (use --full)
+  /workspace changed: no
+
+step 2
+  model said:
+    | The bug is floor division; fixing it.
+  asked:   write_file calc/ops.py (6 lines, 116 bytes)
+    | """Basic arithmetic operations."""
+    |
+    |
+    | def divide(a, b):
+    |     """Return a divided by b as a float."""
+    |     return a / b
+  policy:  allowed
+  [harness] policy: realpath -m -- /workspace/calc/ops.py  (exit 0)
+    -> /workspace/calc/ops.py
+  [agent] mkdir -p /workspace/calc  (exit 0)
+  [agent] kubectl cp /tmp/apg-write-123 apg-fixture1:/workspace/calc/ops.py
+    (exit 0)
+  output sent to the model:
+    | wrote 116 bytes to /workspace/calc/ops.py
+  /workspace changed: yes
+  check run (workspace_changed): exit 0, PASS; killed 0 processes first
+
+harness commands not tied to a step
+  start 1, setup 2, fingerprint 5, check 7, gate 4, stop 1
+  (use --full to list them with their output)
+
+final check
+  exit 0: PASS
+  decided by the check run after step 2; no final check was needed
+
+gate
+  decision  approved (interactive)
+  diff      sha256 cbdbe61d2d21… (193 bytes)
+  recheck   sha256 cbdbe61d2d21… (matches the diff shown)
+  shown     diff, check_result, check_exit_code, exit_reason, diff_sha256_prefix
+  exported  out/20261113T120000Z-pass0001/approved.patch

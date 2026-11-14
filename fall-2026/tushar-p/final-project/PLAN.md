@@ -14,8 +14,8 @@ Build plan for Tushar Patel's INFO7375 final project. Every chat in this Project
 
 ## Current status
 
-- **Phase:** 2 — The full agentic loop
-- **Next task:** T3.1
+- **Phase:** 3 — Task suite and evaluation harness
+- **Next task:** T4.1
 - **Last updated:** Nov 13, 2026
 
 ---
@@ -201,25 +201,62 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 
 ## Phase 3 — Task suite and evaluation harness (Nov 20 – Nov 23)
 
-**T3.1 Grow the suite to 12–20 tasks**
+**T3.1 Grow the suite to 12–20 tasks** ✅ Done Nov 13: 16 tasks, listed in `tasks/README.md` with purpose and expected outcome.
+- **Normal tasks (expected PASS), 11:** six harder ones were added:
+  - 006: a symptom far from its cause
+  - 007: a fix across three files
+  - 008: a 191-line module
+  - 009: an edge case the obvious fix misses
+  - 010: a refactor
+  - 011: a mutable default
+- **Deliberate failure cases (expected FAIL), 5:**
+  - 012: wrong test
+  - 013: needs network
+  - 014: needs git
+  - 015: `max_steps` 1
+  - 016: contradictory spec
+- **Contracts:** every contract has `expected` (verdict; for FAIL, likely exit reasons and `why_no_fix`), which is never sent to the model (tested).
+- **Verified without the model** in apg-sandbox:dev:
+  - every check FAILs untouched
+  - every PASS task PASSes with its reference.patch
+  - for 012, the corrected test passes pytest but the check FAILs on the hash
+  - by hand: 009's obvious fix fails 7 of 11 cases, and each two-of-three fix for 007 fails
+- **No agent run** on 006–016.
 1. Include at least 5 deliberate failure cases, each meant to make the system say no. Ideas: a task that tempts editing the tests, a task that needs network, a task that needs a forbidden tool, a task that cannot fit the budget, a task with an impossible spec.
 - **Done when:** every task has a contract, a check, and a one-line purpose in `tasks/README.md`.
 
-**T3.2 Freeze the split (before any prompt tuning)**
+**T3.2 Freeze the split (before any prompt tuning)** ✅ Done Nov 13:
+- **Split commit** `26b5305`: `tasks/split.json` was drawn by `scripts/split` with Tushar's rule and seed 42.
+- **dev (9):** 001–005, 009, 010, 013, 014. **held-out (7):** 006, 007, 008, 011, 012, 015, 016.
+- **Prompt history:** no prompt or tool-description change since 10abc03 (T2.3), and no model has run on a held-out task (docs/07-evidence.md).
+- **012:** 012-wrong-test is held-out, so its Phase 6 controlled-failure runs come after T5 and are labelled as such.
 1. `tasks/split.json`: dev vs held-out.
 2. Commit it. Write the commit hash in `docs/07-evidence.md`.
 - **Done when:** the split commit exists and no prompt tuning happened before it.
 
-**T3.3 `apg eval`**
+**T3.3 `apg eval`** ✅ Done Nov 13:
+- **The command:** `apg eval --set dev|held-out [--runs N]`, on the same code path as `apg run`.
+  - Its gate always defers (eval mode, not stdin), and held-out needs `--held-out-ok`.
+  - It prints the table (task, expected, verdict, outcome, steps, denied, exit reason, cost) and the summary.
+  - It appends to results/eval-log.jsonl and regenerates results/EVAL-LOG.md.
+- **Prompt version:** traces and the log record `prompt_version`.
+- **First dev eval** (commit 0345130, eval 20261114T010304Z-8011b8a0, `claude-haiku-5-5`): 7/7 expected-PASS tasks passed, and the system said no on 2/2 failure cases (013, 014). There were 0 UNEXPECTED rows, at an estimated $0.0161 over 3.9 min (docs/07-evidence.md).
 1. Runs a set of tasks, prints the results table (task, PASS/FAIL, steps, denied (blocked tool calls), exit reason, cost), and appends to `results/eval-log.jsonl`.
 2. Each eval-log entry records the model and the contract version.
 - **Done when:** `apg eval --set dev` prints the table.
 
-**T3.4 `apg show <trace>`**
+**T3.4 `apg show <trace>`** ✅ Done Nov 13:
+- **The command:** `apg show <run_id | path> [--full]` reads a v1 trace strictly; a v0 trace gets a notice and its header only.
+- **Header:** run, task, model, prompt version, verdict, exit reason, gate, and budget used/limit.
+- **Per step:** what the model said and asked for, the policy verdict (rule and reason when denied), the commands tagged with the step, marked `[agent]` or `[harness]`, the output cut to 20 lines unless `--full`, whether /workspace changed, and the check runs after it.
+- **At the end:** the harness commands not tied to a step, the final check, and the gate.
+- **Format:** plain text up to 80 columns, colour only on a terminal.
+- **Tests:** golden tests on 4 fixtures, plus `--full`. All 31 evidence traces print without error.
+- **Real use:** shown on the first dev eval's 013 and 014 traces.
 1. Readable step-by-step trace printout in the terminal.
 - **Done when:** `apg show traces/<run_id>.json` prints every step.
 
-**Milestone M3:** suite frozen, eval command works.
+**Milestone M3:** suite frozen, eval command works. (Reached with T3.4 on Nov 13; the milestone row waits for the course-repo sync.)
 
 ---
 
@@ -346,6 +383,7 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | D22 | Nov 13 | Stop condition: the check runs after any step that changes /workspace (sha256 fingerprint of every regular file, taken by the harness), and a pass stops the run; the model hears only "The task is not complete yet."; before every check run all pod processes except PID 1 are killed, and the check dir is deleted before the next step; reply cap 4,096 tokens | Decided |
 | D23 | Nov 13 | The gate's outcome goes in the trace's `gate` section, not in `exit_reason`. exit_reason stays the loop's reason, and `gate_refused`/`gate_deferred` stay on the fixed list but are never set. Why: `apg eval` is never interactive, so its gate always defers, and every eval row would otherwise read `gate_deferred`, hiding why the loop stopped. The gate is bound to the SHA-256 of the exact diff shown, and the diff is rebuilt from the pod before export | Decided |
 | D24 | Nov 13 | Trace schema v1: every command says who it was for (actor agent/harness, step), the policy's realpath lookups get phase `policy`, totals live only in budget.used; traces are read back with a strict standard-library decode, and v0 traces stay as they were. "stdin is a terminal" is decided by the tcgetattr ioctl, not the file mode | Decided |
+| D25 | Nov 13 | Dev/held-out split frozen at 26b5305 (seed 42, Tushar's rule; drawn by ranking sha256("<seed>:<task id>") within each group). The split is never redrawn because of where a task lands; 012-wrong-test stays held-out and its Phase 6 runs are labelled controlled-failure runs | Decided |
 
 ---
 
@@ -362,3 +400,4 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | — | Oct 22 | Pitch film resubmitted with the Go stack; graded 50/50 | course repo commit e9bef08 |
 | M0 | Nov 3 | Toolchain works, public repo exists, premortem committed; synced to the course folder | course repo commit 73af1fc (from agent-proving-ground@2a1a722) |
 | M1 | Nov 12 | First slice works end to end on kind (T1.1–T1.4: `apg run 001` PASS with claude-haiku-5-5, evidence/traces/20261112T053055Z-92239eb0.json); synced to the course folder | course repo commit 8349ba9a (from agent-proving-ground@e3454c0) |
+| M2 | Nov 13 | Loop, tools, policy, state, stop, and gate all exist with tests (T2.1–T2.5: tasks 001–005 PASS with claude-haiku-5-5, traces validate against schema v1, evidence/traces/20261113T230736Z-5465d81d … 230904Z-3d625236); synced to the course folder | course repo commit 0429df05 (from agent-proving-ground@cd192a8) |
