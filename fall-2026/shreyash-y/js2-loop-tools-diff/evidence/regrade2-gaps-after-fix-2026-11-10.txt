@@ -1,0 +1,33 @@
+# Regrade 2 gaps, test run AFTER the fix, 2026-11-10 20:45 EST.
+# Command: python3 -m unittest tests.test_regrade2_gaps -v (the allowed-run test prints its own run lines)
+test_a_board_dropped_from_the_summary_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_board_dropped_from_the_summary_is_flagged) ... ok
+test_a_new_count_that_the_raw_ids_do_not_support_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_new_count_that_the_raw_ids_do_not_support_is_flagged) ... ok
+test_an_exit_that_differs_from_the_trace_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_an_exit_that_differs_from_the_trace_is_flagged) ... ok
+test_the_untouched_run_has_no_findings (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_the_untouched_run_has_no_findings) ... ok
+test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly (tests.test_regrade2_gaps.MalformedPosting.test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly) ... ok
+test_a_folder_inside_runs_is_allowed_and_a_second_run_with_the_same_id_needs_approval (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_a_folder_inside_runs_is_allowed_and_a_second_run_with_the_same_id_needs_approval) ... ok
+test_a_folder_outside_the_project_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_a_folder_outside_the_project_is_refused) ... ok
+GATE.md wrong version 3, through the command line. ... ok
+test_the_assignment_folder_itself_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_the_assignment_folder_itself_is_refused) ... ok
+`python3 -m jsagent` goes through cli.entry, which turns a refusal into exit 4 and one line. ... ok
+Ran 10 tests in 0.030s
+OK
+
+# full suite
+Ran 115 tests in 0.207s
+OK (expected failures=1)
+
+# the check on the saved runs
+$ python3 jsagent/check.py runs/20261110T002501Z
+no findings
+$ python3 jsagent/check.py runs/20261110T011708Z
+no findings
+$ python3 jsagent/check.py runs/20261110T204749Z
+no findings
+$ python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED
+oscar: the response lists 20 jobs but its own meta.total says 199
+oscar: 179 of 199 postings disappeared since the previous run (more than half in one run is not believable without a second look)
+
+$ python3 -m jsagent run --runs-dir runs-evil
+stopped: outside-runs: --runs-dir runs-evil resolves to <folder>/runs-evil, outside <folder>/runs
+exit code: 4

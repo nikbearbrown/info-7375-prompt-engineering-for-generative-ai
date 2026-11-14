@@ -1,0 +1,18 @@
+# Mutation check by Claude Code, 2026-11-09 19:24 EST: each line breaks the real code in a scratch copy the way one GATE.md wrong version would, and runs the full suite.
+wv3-prefix: FAILED (failures=2)
+wv1-empty-ok: FAILED (failures=1)
+wv4-retry-404: FAILED (failures=5)
+wv2-finished-anyway: FAILED (failures=3)
+wv5-count-failed: FAILED (failures=1)
+symlink-follow: OK
+# Reading (Claude Code): five of six mutations were caught. 'symlink-follow' (deleting the
+# is_symlink refusal in Files._writable) survived. Boundary row 11 (a symlink leading outside runs/)
+# is still refused because the resolved real path is outside. So the is_symlink line is a second
+# layer that no test exercises on its own; a symlink inside runs/ pointing at a file inside runs/
+# would still be stopped by the overwrite-approval guard. Left as found, not hidden.
+
+# 2026-11-10, after review: row 21 (tests/test_policy_symlink.py) was added, predicted and committed
+# first (2b8ed44). It writes through a symlink inside runs/ that points to a not-yet-existing
+# file inside runs/. The same 'symlink-follow' mutation was re-run on the full suite:
+symlink-follow (re-run with row 21): FAILED (failures=1)   <- now caught, by test_21 only
+symlink-follow (re-run, strengthened row 21): FAILED (failures=1)

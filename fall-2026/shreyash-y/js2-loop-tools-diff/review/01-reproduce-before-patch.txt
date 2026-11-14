@@ -1,0 +1,20 @@
+# Run by Claude Code on 2026-11-09 19:26 EST, BEFORE the rule v2 patch (jsagent/rule.py is still JS1's v1).
+# Command: python3 -m unittest tests.test_rule_v2 -v
+test_boston_hybrid_passes (tests.test_rule_v2.ConstructedEdges.test_boston_hybrid_passes) ... ok
+test_company_history_years_ignored (tests.test_rule_v2.ConstructedEdges.test_company_history_years_ignored) ... ok
+test_hybrid_word_about_methods_is_not_hybrid_work (tests.test_rule_v2.ConstructedEdges.test_hybrid_word_about_methods_is_not_hybrid_work) ... ok
+test_mandatory_years_still_count (tests.test_rule_v2.ConstructedEdges.test_mandatory_years_still_count) ... FAIL
+test_preferred_years_do_not_count (tests.test_rule_v2.ConstructedEdges.test_preferred_years_do_not_count) ... FAIL
+test_remote_massachusetts_office_passes (tests.test_rule_v2.ConstructedEdges.test_remote_massachusetts_office_passes) ... ok
+test_remote_single_other_state_office_fails (tests.test_rule_v2.ConstructedEdges.test_remote_single_other_state_office_fails) ... FAIL
+test_remote_state_list_with_massachusetts_passes (tests.test_rule_v2.ConstructedEdges.test_remote_state_list_with_massachusetts_passes) ... FAIL
+test_6555819_c3_hybrid_despite_remote_tag (tests.test_rule_v2.RealDefects.test_6555819_c3_hybrid_despite_remote_tag) ... FAIL
+test_7783904003_c5_years_of_responsibility (tests.test_rule_v2.RealDefects.test_7783904003_c5_years_of_responsibility) ... FAIL
+test_8083703_c5_four_years_without_the_word_experience (tests.test_rule_v2.RealDefects.test_8083703_c5_four_years_without_the_word_experience) ... FAIL
+test_8172223_c3_remote_states_exclude_massachusetts (tests.test_rule_v2.RealDefects.test_8172223_c3_remote_states_exclude_massachusetts) ... FAIL
+test_8250366_c3_hybrid_despite_remote_new_york_tag (tests.test_rule_v2.RealDefects.test_8250366_c3_hybrid_despite_remote_new_york_tag) ... FAIL
+test_8319419_c5_long_phrase (tests.test_rule_v2.RealDefects.test_8319419_c5_long_phrase) ... FAIL
+test_four_positives (tests.test_rule_v2.RealPositivesStayRelevant.test_four_positives) ... ok
+
+Ran 15 tests in 0.022s
+FAILED (failures=10)

@@ -1,0 +1,20 @@
+{"event": "start", "at": "2026-11-10T20:47:49+00:00", "run_id": "20261110T204749Z", "budgets": {"max_boards": 6, "max_requests": 12, "max_seconds": 120}, "boards": ["oscar", "klaviyo", "linear", "palantir", "oscarhealth-doesnotexist", "whoop"], "previous_state_sequence": 2}
+{"event": "request", "at": "2026-11-10T20:47:49+00:00", "board": "oscar", "url": "https://boards-api.greenhouse.io/v1/boards/oscar/jobs?content=true", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:49+00:00", "board": "oscar", "status": 200, "bytes": 2056797, "sha256": "2cce5ca44bd641bf368db95180f7c3c67cf032cb96d1e427143664e9e35c06f9", "raw_file": "runs/20261110T204749Z/raw/greenhouse-oscar-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:49+00:00", "board": "oscar", "status": "ok", "fetched": 192, "new": 2, "baseline": false, "meta_total": 192}
+{"event": "request", "at": "2026-11-10T20:47:49+00:00", "board": "klaviyo", "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:50+00:00", "board": "klaviyo", "status": 200, "bytes": 2763035, "sha256": "c0cda30b8a2812623d97c7bed396613d70afba9bdf0e9b0c7ee2ed853fbce797", "raw_file": "runs/20261110T204749Z/raw/greenhouse-klaviyo-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:50+00:00", "board": "klaviyo", "status": "ok", "fetched": 148, "new": 0, "baseline": false, "meta_total": 148}
+{"event": "request", "at": "2026-11-10T20:47:50+00:00", "board": "linear", "url": "https://api.ashbyhq.com/posting-api/job-board/linear?includeCompensation=false", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:50+00:00", "board": "linear", "status": 200, "bytes": 467923, "sha256": "ac2e34215a8b41df85b357494c444e8df2505cc8d762cfd6951d7f9bd2e3d35a", "raw_file": "runs/20261110T204749Z/raw/ashby-linear-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:50+00:00", "board": "linear", "status": "ok", "fetched": 33, "new": 1, "baseline": false, "meta_total": null}
+{"event": "request", "at": "2026-11-10T20:47:50+00:00", "board": "palantir", "url": "https://api.lever.co/v0/postings/palantir?mode=json", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:51+00:00", "board": "palantir", "status": 200, "bytes": 5927140, "sha256": "8bf628ff1e2bc32a98c9e2c344f75f267e3de5b41daf375d3aec8f25e4dceb84", "raw_file": "runs/20261110T204749Z/raw/lever-palantir-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:51+00:00", "board": "palantir", "status": "ok", "fetched": 304, "new": 3, "baseline": false, "meta_total": null}
+{"event": "request", "at": "2026-11-10T20:47:51+00:00", "board": "oscarhealth-doesnotexist", "url": "https://api.lever.co/v0/postings/oscarhealth-doesnotexist?mode=json", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:52+00:00", "board": "oscarhealth-doesnotexist", "status": 404, "bytes": 41, "sha256": "66f6c1fa69105316e3220df0561d630283dadaec8478dab1994692912daefb53", "raw_file": "runs/20261110T204749Z/raw/lever-oscarhealth-doesnotexist-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:52+00:00", "board": "oscarhealth-doesnotexist", "status": "failed", "error": "not-found"}
+{"event": "request", "at": "2026-11-10T20:47:52+00:00", "board": "whoop", "url": "https://api.lever.co/v0/postings/whoop?mode=json", "attempt": 1}
+{"event": "response", "at": "2026-11-10T20:47:53+00:00", "board": "whoop", "status": 200, "bytes": 2, "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945", "raw_file": "runs/20261110T204749Z/raw/lever-whoop-attempt1.json"}
+{"event": "board", "at": "2026-11-10T20:47:53+00:00", "board": "whoop", "status": "empty", "fetched": 0, "note": "valid response with no postings; not counted as 'no new jobs'"}
+{"event": "exit", "at": "2026-11-10T20:47:53+00:00", "exit": "incomplete", "requests": 6, "seconds": 3.78, "needs_review": ["oscarhealth-doesnotexist", "whoop"]}

@@ -1,0 +1,30 @@
+# Reading of patch revision 3 by Claude Code, 2026-11-09 (review/14 tests, review/15 behavior diff).
+#
+# Tests: 93/93 pass; no test file edited for rev 3 (tests.frozen.sha256 checks).
+# 685 real postings: 0 verdict changes against v1, rev 1 or rev 2. No condition 5 quotes the perk.
+#
+# Condition 5, v1 -> rev 3:
+# - 8 dropped failures. All are the "Preferred skills: 4+ years" and "Preferred experience
+#   (guidance, not gates) 8+ years" postings. That follows Shreyash's mandatory-only decision.
+# - 42 new failures. Every distinct phrase read is a mandatory requirement v1 missed ("10+ years
+#   in enterprise software sales", "8+ years in a Solutions Engineering...", "5+ years of
+#   responsibility operating and scaling..."). One is quoted as "6+ years of clinical practice
+#   Bonus points": the flattened text runs into the next heading, but the years are under the
+#   requirements, so mandatory is right.
+#
+# Condition 3, v1 -> rev 3:
+# - 8 dropped failures. All are Oscar "Remote" jobs whose ad says "reside in one of the following
+#   states: Arizona, California, Colorado, ..." with Massachusetts in the list. Under Shreyash's
+#   decision they can be done from Massachusetts, so they pass.
+# - 45 new failures. Remote limited to listed states without Massachusetts, "Remote (State)"
+#   offices, and ads saying "commutable distance" or "hybrid work schedule".
+#
+# A case the tests would still miss (seen while reading, not fixed): "Physician Reviewer -
+# Utilization Management" has the office "Remote (Arizona)" but the ad says "reside in the United
+# States". Rev 3 trusts the office tag and fails condition 3. The verdict is unchanged (the title
+# fails condition 1), but a software job written the same way would be wrongly rejected. Also still
+# open: the Klaviyo location-vs-offices case (location San Francisco, office Boston), which
+# Shreyash has not decided.
+#
+# Against Shreyash's experiment-2 hand labels: failed sets 18/20 (v1), 19/20 (rev 1, rev 2, rev 3).
+# The one miss left is 7809608003, the likely hand-label slip on skills.

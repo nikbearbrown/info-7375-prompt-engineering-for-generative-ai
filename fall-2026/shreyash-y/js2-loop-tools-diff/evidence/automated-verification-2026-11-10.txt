@@ -1,0 +1,29 @@
+# Automated verification, run by Claude Code (not by Shreyash) on 2026-11-10 20:48 EST, in this folder after the second regrade's fixes.
+# Shreyash's own runs are in evidence/commands-run-by-shreyash-2026-11-10.txt.
+
+$ python3 -m unittest discover -s tests -t . 2>&1 | grep -E "^Ran|^OK|^FAILED"
+Ran 115 tests in 0.212s
+OK (expected failures=1)
+
+$ shasum -a 256 -c tests.frozen.sha256
+tests/test_policy.py: OK
+tests/test_loop.py: OK
+tests/test_check.py: OK
+tests/wrong_versions.py: OK
+tests/fakes.py: OK
+tests/test_rule_v2.py: OK
+tests/fixtures/js1_real_postings.json: OK
+tests/test_rule_v2_regression.py: OK
+tests/fixtures/linear_perk_postings.json: OK
+tests/test_rule_v2_mandatory.py: OK
+tests/fixtures/dropped_requirement_postings.json: OK
+tests/test_policy_symlink.py: OK
+tests/test_policy_nested_symlink.py: OK
+tests/test_loop_deadline.py: OK
+tests/test_shreyash_physician_reviewer.py: OK
+tests/fixtures/physician_reviewer.json: OK
+tests/test_regrade_gaps.py: OK
+tests/test_regrade2_gaps.py: OK
+
+$ shasum -a 256 -c tests.frozen.sha256 | grep -c ": OK"
+18

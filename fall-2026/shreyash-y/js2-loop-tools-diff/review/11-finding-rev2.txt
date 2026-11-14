@@ -1,0 +1,22 @@
+# Finding on patch revision 2, by Claude Code, 2026-11-09 (review/09 and review/10).
+#
+# Rev 2 fixed the perk misread: 0 of 685 real postings quote "thereafter". The 16-posting
+# regression test and the 86-test suite pass. Rev 2 also restored 20 Palantir experience
+# requirements that rev 1 had silently dropped. That defect in rev 1 went unseen because only a
+# sample of rev 1's diff was read; it is listed here so the record is complete.
+#
+# Rev 2 is still wrong. review/10 lists the postings where a condition that failed under v1 passes
+# under rev 2. On condition 5 there are about 37 lines, on Klaviyo and Palantir, all now "no
+# experience requirement stated", while their ads state one: "4+ years' experience as a corporate
+# or securities attorney", "8+ years of IT audit experience", "4+ years of professional software
+# development experience". Causes, seen in three of the ads:
+#  - headings the section finder does not know ("What We Require:", "Education and Experience:");
+#  - an inline "preferred" / "a plus" at the end of one bullet switches every later bullet to
+#    "preferred";
+#  - early words such as "compensation" leave no requirements heading, and the fallback keeps only
+#    the intro.
+# The 86 tests did not catch it: no test has a mandatory requirement after an inline "preferred".
+#
+# The condition 3 lines in review/10 (8 Oscar "Remote" jobs with a New York office) are a separate
+# question; they are checked in review/16. (Corrected 2026-11-10: this line first said review/12, a
+# file that was never written; that check went into review/16.)
