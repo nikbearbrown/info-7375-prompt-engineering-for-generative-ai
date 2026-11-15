@@ -88,6 +88,11 @@ def main():
              f"**{caught} of {len(rows)} deliberate bugs were caught by the test suite.**", "",
              "| id | deliberate bug | result | suite output |", "|---|---|---|---|"]
     lines += [f"| {m} | {w} | {r} | `{o}` |" for m, w, r, o in rows]
+    if any(m == "M7" and r.startswith("SURVIVED") for m, _, r, _ in rows):
+        lines += ["", "**Why M7 survives.** With the id-pattern check removed, a path-like id such as "
+                  "`../../persona/aarav-patel.resume` is still refused: the server looks ids up in an in-memory "
+                  "table built from the saved run and never uses an id as a file path. The pattern check is a "
+                  "second guard, so no test can tell it is gone. Kept and reported rather than hidden."]
     with open(os.path.join(ROOT, "tests", "mutation-log.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print("\n".join(lines))
