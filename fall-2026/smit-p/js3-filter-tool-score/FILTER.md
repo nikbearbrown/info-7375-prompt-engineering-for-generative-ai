@@ -140,6 +140,6 @@ Each candidate was measured alone, as v1.0 plus one change (`src/measure_filter.
 no longer inherited); title bonus, points per skill and the 4-year cut-off unchanged.
 
 **Caveat.** The held-out results for every candidate were shown before Smit chose, so the
-held-out set is no longer untouched for v1.1. The three held-out errors that remain (two
-Engineering Manager / Forward Deployed titles outside the role words, and an Android job with
+held-out set is no longer untouched for v1.1. The three held-out errors that remain (an Engineering
+Manager title and a Forward Deployed Engineer title, both outside the role words, and an Android job with
 no résumé skills) were not used to design any change.
