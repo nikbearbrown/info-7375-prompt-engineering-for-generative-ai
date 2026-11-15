@@ -1,0 +1,240 @@
+{
+ "run_id": "live-20261114",
+ "labels": "audit/hand-verdicts.json",
+ "results": [
+  {
+   "change": "v1.0 (no change)",
+   "config": {},
+   "dev": {
+    "tp": 1,
+    "fp": 4,
+    "fn": 3,
+    "tn": 30,
+    "cannot_tell": 0,
+    "errors": 7,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Web (reject R6, hand: relevant)",
+     "Software Engineer - C++ (keep R6, hand: not_relevant)",
+     "Software Engineer - AI Platforms (keep R6, hand: not_relevant)",
+     "Software Engineer Intern (Summer 2027) (keep R6, hand: not_relevant)",
+     "Software Engineer - Application Platform (keep R6, hand: not_relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 29,
+    "cannot_tell": 0,
+    "errors": 3,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R1, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)"
+    ]
+   },
+   "kept_in_full_run": 6
+  },
+  {
+   "change": "A: years uses the LARGEST lower bound",
+   "config": {
+    "years_bound": "largest"
+   },
+   "dev": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 3,
+    "tn": 33,
+    "cannot_tell": 0,
+    "errors": 4,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Web (reject R6, hand: relevant)",
+     "Software Engineer Intern (Summer 2027) (keep R6, hand: not_relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 29,
+    "cannot_tell": 0,
+    "errors": 3,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R1, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)"
+    ]
+   },
+   "kept_in_full_run": 3
+  },
+  {
+   "change": "B: intern/internship/PhD are level words (R2)",
+   "config": {
+    "extra_level_words": [
+     "intern",
+     "internship",
+     "phd"
+    ]
+   },
+   "dev": {
+    "tp": 1,
+    "fp": 3,
+    "fn": 3,
+    "tn": 31,
+    "cannot_tell": 0,
+    "errors": 6,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Web (reject R6, hand: relevant)",
+     "Software Engineer - C++ (keep R6, hand: not_relevant)",
+     "Software Engineer - AI Platforms (keep R6, hand: not_relevant)",
+     "Software Engineer - Application Platform (keep R6, hand: not_relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 29,
+    "cannot_tell": 0,
+    "errors": 3,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R1, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)"
+    ]
+   },
+   "kept_in_full_run": 5
+  },
+  {
+   "change": "C: 1 skill is enough (R6)",
+   "config": {
+    "min_skills": 1
+   },
+   "dev": {
+    "tp": 2,
+    "fp": 4,
+    "fn": 2,
+    "tn": 30,
+    "cannot_tell": 0,
+    "errors": 6,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R1, hand: relevant)",
+     "Software Engineer - C++ (keep R6, hand: not_relevant)",
+     "Software Engineer - AI Platforms (keep R6, hand: not_relevant)",
+     "Software Engineer Intern (Summer 2027) (keep R6, hand: not_relevant)",
+     "Software Engineer - Application Platform (keep R6, hand: not_relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 3,
+    "tn": 28,
+    "cannot_tell": 0,
+    "errors": 4,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R1, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)",
+     "Software Engineer - Machine Learning (keep R6, hand: not_relevant)"
+    ]
+   },
+   "kept_in_full_run": 8
+  },
+  {
+   "change": "D: allow 'Manager, Software Engineering'",
+   "config": {
+    "allow_eng_manager": true
+   },
+   "dev": {
+    "tp": 1,
+    "fp": 4,
+    "fn": 3,
+    "tn": 30,
+    "cannot_tell": 0,
+    "errors": 7,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R6, hand: relevant)",
+     "Software Engineer, Profile & Community, Web (reject R6, hand: relevant)",
+     "Software Engineer - C++ (keep R6, hand: not_relevant)",
+     "Software Engineer - AI Platforms (keep R6, hand: not_relevant)",
+     "Software Engineer Intern (Summer 2027) (keep R6, hand: not_relevant)",
+     "Software Engineer - Application Platform (keep R6, hand: not_relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 29,
+    "cannot_tell": 0,
+    "errors": 3,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R6, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)"
+    ]
+   },
+   "kept_in_full_run": 6
+  },
+  {
+   "change": "v1.1 = A + B + C (adopted)",
+   "config": {
+    "years_bound": "largest",
+    "extra_level_words": [
+     "intern",
+     "internship",
+     "phd"
+    ],
+    "min_skills": 1,
+    "allow_eng_manager": false
+   },
+   "dev": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 2,
+    "tn": 34,
+    "cannot_tell": 0,
+    "errors": 2,
+    "n": 38,
+    "wrong": [
+     "Manager, Software Engineering - AI Infrastructure (reject R1, hand: relevant)",
+     "Fullstack Engineer - Backstage (reject R4, hand: relevant)"
+    ]
+   },
+   "held_out": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "tn": 29,
+    "cannot_tell": 0,
+    "errors": 3,
+    "n": 33,
+    "wrong": [
+     "Manager, Software Engineering - Design Systems Adherence (reject R1, hand: relevant)",
+     "Forward Deployed Engineer (reject R1, hand: relevant)",
+     "Software Engineer, Profile & Community, Android (reject R6, hand: relevant)"
+    ]
+   },
+   "kept_in_full_run": 3
+  }
+ ]
+}

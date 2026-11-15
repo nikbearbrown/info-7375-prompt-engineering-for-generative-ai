@@ -27,7 +27,8 @@ def posting(title="Software Engineer, Payments", location="New York, NY", countr
 
 
 def verdict(**kw):
-    return flt.judge(posting(**kw), SKILLS)
+    """The tests below pin FILTER.md v1.0; class V1_1 tests the adopted changes."""
+    return flt.judge(posting(**kw), SKILLS, flt.V1_0)
 
 
 class Skills(unittest.TestCase):
@@ -197,10 +198,41 @@ class WrongVersion2_IgnoresLocation(unittest.TestCase):
 class Evidence(unittest.TestCase):
     def test_every_quote_occurs_in_the_posting(self):
         p = posting(text="Python and Kafka on AWS. 2+ years of experience.")
-        v = flt.judge(p, SKILLS)
+        v = flt.judge(p, SKILLS, flt.V1_0)
         whole = " ".join([p["title"], p["location"] or "", p["text"]])
         for e in v["evidence"]:
             self.assertIn(e["quote"], whole)
+
+
+class V1_1(unittest.TestCase):
+    """FILTER.md v1.1: changes A, B, C (added after the audit, 2026-11-14)."""
+
+    def v(self, **kw):
+        return flt.judge(posting(**kw), SKILLS, flt.V1_1)
+
+    def test_a_largest_years_bound(self):
+        # the false friend from the audit: "including 3+ years" is a sub-requirement of 5+
+        t = "Python and Java. Bring 5+ years of professional experience, including 3+ years of experience with Ruby."
+        v = self.v(text=t)
+        self.assertEqual((v["verdict"], v["rule"]), ("reject", "R5"))
+        self.assertEqual(flt.judge(posting(text=t), SKILLS, flt.V1_0)["verdict"], "keep")
+
+    def test_b_interns_rejected(self):
+        for t in ["Software Engineer Intern (Summer 2027)", "PhD Intern, Software Engineer - Graphics",
+                  "Software Engineer Internship"]:
+            with self.subTest(title=t):
+                self.assertEqual(self.v(title=t)["rule"], "R2")
+
+    def test_b_internal_is_not_intern(self):
+        self.assertEqual(self.v(title="Software Engineer, Internal Tools")["verdict"], "keep")
+
+    def test_c_one_skill_kept_zero_rejected(self):
+        self.assertEqual(self.v(text="We use Python and Go.")["verdict"], "keep")
+        v = self.v(text="We use Go and Kotlin.")
+        self.assertEqual((v["verdict"], v["rule"]), ("reject", "R6"))
+
+    def test_default_is_v1_1(self):
+        self.assertEqual(flt.judge(posting(), SKILLS)["filter_version"], "1.1")
 
 
 if __name__ == "__main__":

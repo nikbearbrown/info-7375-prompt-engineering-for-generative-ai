@@ -9,7 +9,7 @@ Standard library only.
 import html
 import re
 
-FILTER_VERSION = "1.0"
+FILTER_VERSION = "1.1"
 
 ROLE_WORDS = ["software engineer", "software developer", "backend engineer", "back-end engineer",
               "back end engineer", "full stack engineer", "full-stack engineer",
@@ -21,6 +21,15 @@ MAX_YEARS = 4          # 4 or more years -> reject
 TITLE_BONUS = 2
 POINTS_PER_SKILL = 1
 EXCLUDED_SKILL_GROUPS = {"familiar_with_not_shipped"}
+
+# Each candidate change measured in the audit is one switch here, so it can be tried alone.
+# V1_0 is FILTER.md version 1.0; see FILTER.md's change log for which switches were adopted.
+V1_0 = {"version": "1.0", "years_bound": "smallest", "extra_level_words": [], "min_skills": MIN_SKILLS,
+        "allow_eng_manager": False}
+# v1.1 = v1.0 + changes A, B, C, adopted by Smit on 2026-11-14 after measuring (FILTER.md change log).
+V1_1 = {**V1_0, "version": "1.1", "years_bound": "largest",
+        "extra_level_words": ["intern", "internship", "phd"], "min_skills": 1}
+CURRENT = V1_1
 
 US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
              "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
@@ -109,8 +118,10 @@ def location_is_us(location, country):
     return None, ("location", location)
 
 
-def years_requirement(text):
-    """("ok"|"too_many"|"unclear"|"not_stated", quote or None)."""
+def years_requirement(text, bound="smallest"):
+    """("ok"|"too_many"|"unclear"|"not_stated", quote or None, sentence or None).
+
+    bound="smallest" (v1.0): the smallest lower bound decides. bound="largest": the largest does."""
     reqs, unnumbered = [], None
     for sentence in _SENTENCE_SPLIT.split(text or ""):
         if not find_whole("experience", sentence):
@@ -124,7 +135,8 @@ def years_requirement(text):
         if not found and unnumbered is None and _YEARS_NO_NUMBER.search(sentence):
             unnumbered = sentence.strip()
     if reqs:
-        lower, upper, quote, sentence = min(reqs, key=lambda r: r[0])
+        pick = min if bound == "smallest" else max
+        lower, upper, quote, sentence = pick(reqs, key=lambda r: r[0])
         if lower >= MAX_YEARS:
             return "too_many", quote, sentence
         if upper is not None and upper >= MAX_YEARS:
@@ -135,7 +147,8 @@ def years_requirement(text):
     return "not_stated", None, None
 
 
-def judge(posting, skills):
+def judge(posting, skills, config=None):
+    cfg = {**V1_0, **(config if config is not None else CURRENT)}
     title = posting.get("title") or ""
     text = posting.get("text") or ""
     evidence = []
@@ -147,7 +160,7 @@ def judge(posting, skills):
             score = POINTS_PER_SKILL * len(found) + bonus
         return {"posting_id": posting.get("id"), "board": posting.get("board"), "title": title,
                 "verdict": verdict, "rule": rule, "reason": reason, "evidence": evidence,
-                "skills": list(found), "score": score, "filter_version": FILTER_VERSION}
+                "skills": list(found), "score": score, "filter_version": cfg["version"]}
 
     found, both = [], title + "\n" + text
     for s in skills:
@@ -157,12 +170,16 @@ def judge(posting, skills):
             evidence.append({"check": "skill", "field": "title" if m.start() < len(title) else "text",
                              "quote": m.group(0), "context": sentence_around(both, m.start(), m.end())})
 
-    role = next((m for m in (find_whole(w, title) for w in ROLE_WORDS) if m), None)
+    role_words = ROLE_WORDS + (["manager, software engineering"] if cfg["allow_eng_manager"] else [])
+    role = next((m for m in (find_whole(w, title) for w in role_words) if m), None)
     if not role:
         return out("reject", "R1", "title has no role word", found)
     evidence.insert(0, {"check": "role", "field": "title", "quote": role.group(0)})
 
-    senior = next((m for m in (find_whole(w, title) for w in SENIORITY_WORDS) if m), None)
+    level_words = SENIORITY_WORDS + cfg["extra_level_words"]
+    if cfg["allow_eng_manager"] and role.group(0).lower().startswith("manager"):
+        level_words = [w for w in level_words if w != "manager"]
+    senior = next((m for m in (find_whole(w, title) for w in level_words) if m), None)
     if senior:
         evidence.insert(1, {"check": "seniority", "field": "title", "quote": senior.group(0)})
         return out("reject", "R2", f"title contains seniority word «{senior.group(0)}»", found)
@@ -177,7 +194,7 @@ def judge(posting, skills):
     if us is False:
         return out("reject", "R4", f"location is not in the US: «{quote}»", found)
 
-    status, yq, ysent = years_requirement(text)
+    status, yq, ysent = years_requirement(text, cfg["years_bound"])
     if yq:
         evidence.insert(2, {"check": "years", "field": "text", "quote": yq, "context": ysent})
     if status == "too_many":
@@ -185,6 +202,6 @@ def judge(posting, skills):
     if status == "unclear":
         return out("cannot_tell", "R5", f"I cannot tell how many years are required: «{yq}»", found)
 
-    if len(found) < MIN_SKILLS:
-        return out("reject", "R6", f"{len(found)} résumé skill(s) found, {MIN_SKILLS} needed", found)
+    if len(found) < cfg["min_skills"]:
+        return out("reject", "R6", f"{len(found)} résumé skill(s) found, {cfg['min_skills']} needed", found)
     return out("keep", "R6", f"{len(found)} résumé skills found", found)

@@ -20,10 +20,12 @@ def load_skills():
         return flt.resume_skills(json.load(f))
 
 
-def run(run_id, judge=flt.judge, version=flt.FILTER_VERSION):
+def run(run_id, config=None):
+    config = config or flt.CURRENT
+    version = config["version"]
     postings, unreadable, manifest = load_run(run_id)
     skills = load_skills()
-    verdicts = [judge(p, skills) for p in postings]
+    verdicts = [flt.judge(p, skills, config) for p in postings]
     out = {"run_id": run_id, "filter_version": version,
            "boards": {b["board"]: b["status"] for b in manifest["boards"]},
            "unreadable": [{"board": p["board"], "id": p["id"]} for p in unreadable],
@@ -37,7 +39,9 @@ def run(run_id, judge=flt.judge, version=flt.FILTER_VERSION):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-id", required=True)
-    out, path = run(ap.parse_args().run_id)
+    ap.add_argument("--version", choices=["1.0", "1.1"], default=flt.FILTER_VERSION)
+    a = ap.parse_args()
+    out, path = run(a.run_id, flt.V1_0 if a.version == "1.0" else flt.V1_1)
     v = out["verdicts"]
     print(f"{len(v)} postings judged, {len(out['unreadable'])} unreadable -> {os.path.relpath(path, ROOT)}")
     print("verdicts:", dict(collections.Counter(x["verdict"] for x in v)))
