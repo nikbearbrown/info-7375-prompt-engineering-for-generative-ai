@@ -34,7 +34,7 @@ from this folder.
 python3 -m unittest discover -s tests -v
 ```
 
-That runs 43 offline tests. Next, the deliberate-bug check, which writes `tests/mutation-log.md`:
+That runs 43 offline tests (one starts the tool server as a process). Next, the deliberate-bug check, which writes `tests/mutation-log.md`:
 
 ```bash
 python3 tests/mutation_check.py
@@ -149,8 +149,8 @@ persona/                  fictional résumé (Aarav Patel, @example.com, 555 pho
 | Wrong version 2 (location ignored) is caught: same posting flips US / Brazil / empty | `WrongVersion2_*`; mutant W2 caught |
 | Each filter rule R1–R6, v1.0 and v1.1 | `test_filter.py` (33 tests; the first 27 committed before the code) |
 | Collector refuses off-list hosts and http; a failed board is not judged; raw saved byte-for-byte | `test_parts.py` `Collector` |
-| Tool server offers one read-only tool and refuses paths, extra arguments, undeclared tools and methods | `test_parts.py` `ToolServer`; real transcript `client-session-20261114` |
-| The tests notice deliberate bugs | `tests/mutation-log.md`: 11 of 12 caught; the survivor is explained |
+| Tool server offers one read-only tool and refuses paths, extra arguments, undeclared tools and methods; a real session changes no file but its transcript | `test_parts.py` `ToolServer`, `ToolServerWrites` (mutant M11 caught); real transcript `client-session-20261114` |
+| The tests notice deliberate bugs | `tests/mutation-log.md`: 12 of 13 caught; the survivor (M7) is explained |
 | The filter against my own judgment | my 71 hand verdicts (`AUDIT.md`) |
 | The shortlist claims against the posting text | my 18 claim labels (`SHORTLIST.md`) |
 | Report numbers match the saved data | recomputation: `audit.py score`, `measure_filter.py`, `run_claude.py --score` |

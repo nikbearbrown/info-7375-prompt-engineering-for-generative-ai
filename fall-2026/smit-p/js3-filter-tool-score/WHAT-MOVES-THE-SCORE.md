@@ -17,8 +17,8 @@ effect on postings Smit labeled but nothing was tuned on (the 33 held-out postin
 - **The prompt:** one added sentence telling Claude to abstain when years or level are not
   stated removed Claude's one wrong "keep", at the price of abstaining on a job Smit
   judged relevant.
-- **The context:** giving Claude the tool's summary instead of the posting text made it
-  abstain six times as often.
+- **The context:** giving Claude the tool's summary instead of the posting text made it answer
+  "cannot_tell" on 6 of 33 postings instead of 0.
 - **The setting:** switching from Sonnet to Haiku changed almost nothing on these 33.
 - **Persistence:** the same configuration run twice gave a different answer on 1 posting
   in 33. Nothing here is trained, so neither a change nor a non-change across sessions is
@@ -93,8 +93,10 @@ What each change shows:
   description), Claude abstained on near-miss titles, because the tool output for a title
   reject holds no description. Less context made it more cautious, not more wrong. It also
   stopped being an independent check, since it saw only what the filter chose to show.
-- **Setting.** Haiku agreed with Sonnet on 32 of 33. At $0.03 against $0.52 for these 33
-  calls, the cheaper model would do for this task, on this evidence.
+- **Setting.** Haiku agreed with Sonnet on 32 of 33. Haiku's 33 calls cost $0.03; Sonnet's
+  cost $0.52 in the baseline and $0.15 in the identical repeat (prompt caching lowers repeat
+  runs, so cost is not a property of the model alone). On this evidence, the cheaper model
+  would do for this task.
 - **Not done: the tool list.** Giving Claude the `score_posting` tool as an extra object was
   run only as a demonstration (`TOOL-SERVER.md`), not measured on held-out labels.
 

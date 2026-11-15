@@ -94,9 +94,49 @@ class ToolServer(unittest.TestCase):
     def test_notifications_get_no_reply(self):
         self.assertIsNone(self.ask({"jsonrpc": "2.0", "method": "notifications/initialized"}))
 
-    def test_writes_only_its_transcript(self):
-        self.s.log("client->server", "{}")
-        self.assertEqual(os.listdir(self.tmp.name), ["t.jsonl"])
+
+
+class ToolServerWrites(unittest.TestCase):
+    """Separate class on purpose: no setUp builds a server before the 'before' snapshot."""
+
+    def test_a_real_session_writes_only_its_transcript(self):
+        """Run the server as a process, send good and bad requests, and compare every file under
+        this folder (content and write time) before and after: the only new or changed file may
+        be the session transcript."""
+        import hashlib
+        import subprocess
+
+        def snapshot():
+            out = {}
+            for d, dirs, files in os.walk(ROOT):
+                dirs[:] = [x for x in dirs if x not in ("__pycache__", ".git")]
+                for f in files:
+                    path = os.path.join(d, f)
+                    with open(path, "rb") as fh:  # content AND write time: a rewrite with equal bytes counts
+                        out[os.path.relpath(path, ROOT)] = (hashlib.sha256(fh.read()).hexdigest(),
+                                                            os.stat(path).st_mtime_ns)
+            return out
+        name = "unittest-write-check"
+        transcript = os.path.join("transcripts", name + ".jsonl")
+        if os.path.exists(os.path.join(ROOT, transcript)):
+            os.remove(os.path.join(ROOT, transcript))
+        before = snapshot()
+        lines = [{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}},
+                 {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "score_posting",
+                  "arguments": {"board": "figma", "posting_id": "5691911004"}}},
+                 {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "score_posting",
+                  "arguments": {"board": "figma", "posting_id": "5691911004", "write_to": "runs/x.json"}}}]
+        try:
+            p = subprocess.run([sys.executable, os.path.join(ROOT, "src", "mcp_server.py"), "--transcript-name", name],
+                               input="\n".join(json.dumps(x) for x in lines) + "\n", capture_output=True,
+                               text=True, cwd=ROOT, timeout=60)
+            self.assertEqual(len(p.stdout.strip().splitlines()), 3)
+            after = snapshot()
+            changed = {k for k in set(before) | set(after) if before.get(k) != after.get(k)}
+            self.assertEqual(changed, {transcript})
+        finally:
+            if os.path.exists(os.path.join(ROOT, transcript)):
+                os.remove(os.path.join(ROOT, transcript))
 
 
 class ClaimChecker(unittest.TestCase):

@@ -44,6 +44,7 @@ into version 1.1.
 - Both Claude judge prompts in `prompts/` and the choice of the four one-change configurations.
 - The audit sampling design (strata, seed, dev/held-out split) and the fact cards Smit judged from.
 - The claim checker's rules in `src/shortlist.py`.
+- A read-only TA-style review by a separate Claude agent (2026-11-14), and the fixes it led to (FRICTIONAL F18).
 - Running the live collection, all tool-server sessions, and all 165 Claude judge calls.
 - First drafts of README.md, AUDIT.md, SHORTLIST.md, TOOL-SERVER.md,
   WHAT-MOVES-THE-SCORE.md, this file, and the FRICTIONAL.md event log.

@@ -45,13 +45,20 @@ Start it by hand: `python3 src/mcp_server.py --transcript-name my-try` (then typ
 
 To rerun: `python3 src/mcp_client.py stdio-session --name <new>`; for Claude Code, see README.
 
+**One edit to a transcript, disclosed.** In `mslearn-session-20261114.jsonl` the two
+documentation bodies Microsoft returned (41 KB and 53 KB of Microsoft's text) are cut to their
+first 600 characters, marked `"redacted": true`, with the byte count and SHA-256 of the full
+message. That keeps a public repository from republishing Microsoft's pages. Every other line,
+and every line of every other transcript, is as recorded. The unedited file is in
+`transcripts/full/` on Smit's machine (git-ignored) and can be checked against the hashes.
+
 ## Evaluation 1: my server, as if someone else wrote it
 
 **Declared vs actual**
 
 | Declared | What it actually did (evidence) |
 |---|---|
-| one tool, read-only, closed world | `tools/list` returned exactly one tool. A test checks the server writes only its transcript (`ToolServer.test_writes_only_its_transcript`). It has no network code |
+| one tool, read-only, closed world | `tools/list` returned exactly one tool. A test checks the server writes only its transcript (`ToolServer.test_a_real_session_writes_only_its_transcript` runs the server as a process and hashes every file in the folder before and after). It has no network code |
 | arguments: exactly `board`, `posting_id` | `write_to` was refused with `isError: true` (transcript id 7) |
 | `posting_id` is an id, not a path | `../../persona/aarav-patel.resume` was refused (id 5). Deleting the pattern check does not change this, because ids are only looked up in memory. That is why mutant M7 survives (`tests/mutation-log.md`) |
 | tools only | `resources/list` → `-32601` (id 9). Undeclared `read_file` → `-32602` (id 8) |

@@ -124,6 +124,11 @@ on its own it made held-out worse (3 → 4 errors).
    filter was wrong" here means "the filter disagreed with Smit", not "the filter broke its
    own rule".
 
+4. **Time taken.** The 71 verdicts and 3 clarifying answers were given between 19:01 and 19:09
+   US Eastern on 2026-11-14 (commits `de37311d` → `03368121`), mostly three postings per
+   question. That is about 7 seconds per posting. Most were sales, legal or senior titles, but
+   a reader should weigh the close calls with that speed in mind.
+
 ## Not covered by this audit
 
 - Postings the boards did not return. Only one collection run (2026-11-14) was audited.
