@@ -30,10 +30,13 @@ AUDIT = os.path.join(ROOT, "audit")
 
 def fact_card(p):
     """What a person needs to judge relevance by hand, taken from the posting, not from the filter."""
-    status, quote, sentence = flt.years_requirement(p["text"])
+    # Every sentence that gives years of experience, not just the one the filter used:
+    # a person judging by hand must see all of them (the filter's pick is what is being audited).
+    sentences = [s.strip() for s in flt._SENTENCE_SPLIT.split(p["text"] or "")
+                 if flt.find_whole("experience", s) and (flt._YEARS.search(s) or flt._YEARS_NO_NUMBER.search(s))]
     return {"board": p["board"], "id": p["id"], "title": p["title"], "location": p["location"],
             "country": p["country"], "url": p["url"],
-            "experience_sentence": sentence or "(no years-of-experience sentence found)",
+            "experience_sentences": list(dict.fromkeys(sentences)),
             "has_description": bool((p["text"] or "").strip())}
 
 
