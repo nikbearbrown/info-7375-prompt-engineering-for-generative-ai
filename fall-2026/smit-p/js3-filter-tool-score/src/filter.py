@@ -88,12 +88,21 @@ def resume_skills(resume):
     return out
 
 
+_BOUNDARY = re.compile(r"[!?;\n•]|\.(?=\s|$)")
+_NOT_A_BOUNDARY = ("e.g.", "i.e.", "vs.", "etc.,")
+
+
 def sentence_around(text, start, end):
-    """The sentence (or bullet) of `text` that contains text[start:end]."""
-    left = max(text.rfind(c, 0, start) for c in ".!?;\n•")
-    rights = [i for i in (text.find(c, end) for c in ".!?;\n•") if i != -1]
-    right = min(rights) + 1 if rights else len(text)
-    return text[left + 1:right].strip()
+    """The sentence (or bullet) of `text` that contains text[start:end], for display as evidence.
+
+    A period ends a sentence only when followed by a space or the end ("Node.js" does not), and
+    not after e.g. / i.e. / vs. (the first version split "(e.g. React/TypeScript)" in two)."""
+    cuts = [m.start() for m in _BOUNDARY.finditer(text)
+            if not text[max(0, m.start() - 4):m.start() + 2].lower().endswith(_NOT_A_BOUNDARY)
+            and not text[max(0, m.start() - 3):m.start() + 1].lower() in ("e.g.", "i.e.")]
+    left = max([c for c in cuts if c < start], default=-1)
+    right = min([c for c in cuts if c >= end], default=len(text) - 1)
+    return text[left + 1:right + 1].strip()
 
 
 def location_is_us(location, country):

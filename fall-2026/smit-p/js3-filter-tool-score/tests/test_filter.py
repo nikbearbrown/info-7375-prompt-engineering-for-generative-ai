@@ -203,6 +203,13 @@ class Evidence(unittest.TestCase):
         for e in v["evidence"]:
             self.assertIn(e["quote"], whole)
 
+    def test_context_is_the_whole_sentence(self):
+        t = "Experience with front-end (e.g. React/TypeScript) and Node.js services. Python is used too."
+        ctx = {e["quote"]: e["context"] for e in flt.judge(posting(text=t), SKILLS, flt.V1_0)["evidence"]
+               if e["check"] == "skill"}
+        self.assertEqual(ctx["TypeScript"], "Experience with front-end (e.g. React/TypeScript) and Node.js services.")
+        self.assertEqual(ctx["Python"], "Python is used too.")
+
 
 class V1_1(unittest.TestCase):
     """FILTER.md v1.1: changes A, B, C (added after the audit, 2026-11-14)."""

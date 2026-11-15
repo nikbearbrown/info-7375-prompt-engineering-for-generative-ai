@@ -95,12 +95,45 @@ def clopper_pearson(k, n, alpha=0.05):
     return lower, upper
 
 
+def score(run_id):
+    """Filter (v1.0 as audited, and v1.1) against the hand verdicts, per stratum."""
+    postings, _, _ = load_run(run_id)
+    by_key = {(p["board"], p["id"]): p for p in postings}
+    with open(os.path.join(ROOT, "persona", "aarav-patel.resume.json"), encoding="utf-8") as f:
+        skills = flt.resume_skills(json.load(f))
+    with open(os.path.join(AUDIT, "sample.json"), encoding="utf-8") as f:
+        items = {(i["board"], i["id"]): i for i in json.load(f)["items"]}
+    with open(os.path.join(AUDIT, "hand-verdicts.json"), encoding="utf-8") as f:
+        hand = {(v["board"], v["id"]): v["hand_verdict"] for v in json.load(f)["verdicts"]}
+    out = {"run_id": run_id, "strata": {}}
+    for version, cfg in (("1.0", flt.V1_0), ("1.1", flt.V1_1)):
+        for stratum in ("random_reject", "kept", "close_call", "near_miss", "all"):
+            keys = [k for k, i in items.items() if stratum == "all" or stratum in i["strata"]]
+            wrong = []
+            for k in keys:
+                v = flt.judge(by_key[k], skills, cfg)
+                if (v["verdict"] == "keep") != (hand[k] == "relevant"):
+                    wrong.append({"board": k[0], "id": k[1], "title": by_key[k]["title"],
+                                  "filter": f"{v['verdict']} {v['rule']}", "hand": hand[k]})
+            lo, hi = clopper_pearson(len(wrong), len(keys))
+            out["strata"].setdefault(stratum, {})[version] = {
+                "n": len(keys), "wrong": len(wrong), "ci95": [round(lo, 4), round(hi, 4)], "items": wrong}
+    with open(os.path.join(AUDIT, "audit-numbers.json"), "w", encoding="utf-8") as f:
+        json.dump(out, f, indent=1, ensure_ascii=False)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["sample"])
+    ap.add_argument("cmd", choices=["sample", "score"])
     ap.add_argument("--run-id", required=True)
     ap.add_argument("--version", default=flt.FILTER_VERSION)
     a = ap.parse_args()
+    if a.cmd == "score":
+        for stratum, by_v in score(a.run_id)["strata"].items():
+            for version, r in by_v.items():
+                print(f"v{version} {stratum:13} wrong {r['wrong']:2}/{r['n']:2}  95% CI {r['ci95']}")
+        return
     out = sample(a.run_id, a.version)
     c = collections.Counter(s for i in out["items"] for s in i["strata"])
     print(f"{len(out['items'])} postings to judge by hand; strata {dict(c)}; "
