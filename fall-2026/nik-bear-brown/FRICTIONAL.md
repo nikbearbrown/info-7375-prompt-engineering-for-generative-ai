@@ -588,3 +588,5 @@ One line per push to GitHub: the date and the commit note. The commit ID for eac
 | 2026-10-20 | docs(fall-2026): remove eight software-product companies from the shared watch list |
 | 2026-10-20 | docs(fall-2026): remove HubSpot from the shared watch list; Miro stays |
 | 2026-10-22 | docs(fall-2026): log my midterm topic list and the question bank request |
+| 2026-11-16 | Exam practice prompt: add one-word short commands (help, question, exam, drill, topics, hint, another) |
+| 2026-11-16 | docs(fall-2026): GitHub pushes row for the short-commands commit |
