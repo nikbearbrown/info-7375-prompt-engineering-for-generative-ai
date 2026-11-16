@@ -1,14 +1,20 @@
-"""JS3 seal tooling: the counts step and the draw (SEAL.md v1; FILTER.md v1 §3).
+"""JS3 seal tooling: the counts step, the draw and the replacement draw (SEAL.md v1.3; FILTER.md v1 §3).
 
 Run from the JS3 folder:
     python3.13 tools/seal_draw.py counts
     python3.13 tools/seal_draw.py draw --final P O --js3 P O
+    python3.13 tools/seal_draw.py replace-js3 --final P O --exposed P O --js3 P O
 
 P and O are the numbers of "product" and "other" postings in a set.
 
-Neither subcommand ever prints a posting id or a title. counts prints
-counts only; draw prints the four set sizes only. The ids go to files in
+No subcommand ever prints a posting id or a title. counts prints counts
+only; draw and replace-js3 print set sizes only. The ids go to files in
 vault/, the titles go nowhere.
+
+replace-js3 (SEAL.md §8) re-derives the final's set and the exposed set (the
+first JS3 set, retired) from the same ranking, checks them against the
+committed vault files byte for byte, and writes the next ranks after the
+exposed set in each group to vault/js3_heldout_ids_v2.tsv.
 
 Standard library only.
 """
@@ -34,7 +40,9 @@ SEAL_OTHER_DRAWN = 5 + 8
 JS3_ROOT = Path(__file__).resolve().parent.parent
 VAULT = "vault"
 FINAL_FILE = "final_heldout_ids.tsv"
-JS3_FILE = "js3_heldout_ids.tsv"
+JS3_FILE = "js3_heldout_ids.tsv"  # the first JS3 set; since SEAL.md v1.3 §8, the exposed set
+JS3_V2_FILE = "js3_heldout_ids_v2.tsv"  # SEAL.md §8: JS3's held-out set from now on
+SEAL_HEADER = ("board_key", "id", "group", "rank")
 
 J1 = "../js1-contract-and-watch/"
 J2 = "../js2-loop-tools-diff/"
@@ -439,24 +447,113 @@ def cmd_draw(root, corpus, sources, named, final, js3, out):
               f"JS3's held-out set: product {js3[0]}, other {js3[1]}\n")
 
 
+# ---------------------------------------------------------------- replacement draw (SEAL.md §8)
+
+def set_text(rows):
+    """A set file's text exactly as draw writes it: the header, then one line per (board, id, group, rank)."""
+    return "\n".join(["\t".join(SEAL_HEADER)] + ["\t".join(row) for row in rows]) + "\n"
+
+
+def replacement_sets(groups, final, exposed, js3):
+    """(final's rows, exposed rows, replacement rows). Each size is (product, other).
+
+    The final's set and the exposed set are re-derived with draw_sets, the code
+    that wrote the committed files. The replacement takes, in each group, the
+    next ranks after the exposed set.
+    """
+    for index, name in enumerate(("product", "other")):
+        needed = final[index] + exposed[index] + js3[index]
+        if needed > len(groups[name]):
+            raise SealError(f"the {name} group has {len(groups[name])} postings; the final's, exposed and "
+                            f"replacement ranges need {needed}")
+    sets = draw_sets(groups, final, exposed)
+    replacement = []
+    for index, name in enumerate(("product", "other")):
+        start = final[index] + exposed[index]
+        replacement += [(b, i, name, rank(b, i)) for b, i in ranked(groups[name])[start:start + js3[index]]]
+    return sets["final"], sets["js3"], replacement
+
+
+def check_committed(vault, file_name, rows):
+    """Stop unless vault/<file_name> is byte for byte the file draw would write for rows. Never prints a row."""
+    shown = f"{VAULT}/{file_name}"
+    try:
+        actual = (Path(vault) / file_name).read_bytes()
+    except OSError as exc:
+        raise SealError(f"cannot read {shown} ({type(exc).__name__}); nothing written") from exc
+    expected = set_text(rows).encode("utf-8")
+    if actual == expected:
+        return
+    got, want = actual.splitlines(), expected.splitlines()
+    if len(got) != len(want):
+        detail = f"it has {len(got)} lines, the re-derived set has {len(want)}"
+    else:
+        differing = [number for number, (a, b) in enumerate(zip(got, want), start=1) if a != b]
+        detail = f"line {differing[0]} differs" if differing else "its line endings differ"
+    raise SealError(f"{shown} does not match the re-derived set: {detail}; nothing written")
+
+
+def _rank_range(start, n):
+    return f"ranks {start + 1}-{start + n}" if n else "no ranks"
+
+
+def cmd_replace_js3(root, corpus, sources, named, final, exposed, js3, out):
+    if min(final + exposed + js3) < 0:
+        raise SealError("set sizes must be 0 or more")
+    vault = Path(root) / VAULT
+    target = vault / JS3_V2_FILE
+    if target.exists():
+        raise SealError(f"refusing to overwrite: {VAULT}/{JS3_V2_FILE}")
+    state = build(root, corpus, sources, named)
+    product = len(state["groups"]["product"])
+    # SEAL.md §8 with §4's half-rule: the exposed set returns to the development pool, so the
+    # sealed product postings are the final's plus the replacement's.
+    sealed_product = final[0] + js3[0]
+    if 2 * sealed_product > product:
+        raise SealError(f"{sealed_product} sealed product postings (final's {final[0]} + replacement's {js3[0]}) "
+                        f"would leave less than half of the product group ({product}) in the development "
+                        f"pool (SEAL.md §4, §8)")
+    final_rows, exposed_rows, replacement = replacement_sets(state["groups"], final, exposed, js3)
+    check_committed(vault, FINAL_FILE, final_rows)
+    check_committed(vault, JS3_FILE, exposed_rows)
+    with open(target, "x", encoding="utf-8") as handle:  # "x": never overwrite
+        handle.write(set_text(replacement))
+    p_start, o_start = final[0] + exposed[0], final[1] + exposed[1]
+    out.write(f"final's set: product {final[0]}, other {final[1]}; matches {VAULT}/{FINAL_FILE}\n"
+              f"exposed set: product {exposed[0]}, other {exposed[1]}; matches {VAULT}/{JS3_FILE}\n"
+              f"JS3's held-out set v2: product {js3[0]} ({_rank_range(p_start, js3[0])}), "
+              f"other {js3[1]} ({_rank_range(o_start, js3[1])}); written to {VAULT}/{JS3_V2_FILE}\n"
+              f"sealed product postings: {sealed_product} of {product}; the development pool keeps "
+              f"{product - sealed_product}\n")
+
+
 # ---------------------------------------------------------------- command line
 
 def main(argv=None, root=JS3_ROOT, corpus=CORPUS, sources=SEEN_SOURCES, named=SEEN_NAMED,
          sums_dirs=SHA256SUMS_DIRS, out=None, err=None):
     out = out or sys.stdout
     err = err or sys.stderr
-    parser = argparse.ArgumentParser(prog="seal_draw.py", description="JS3 seal: counts, then the draw (SEAL.md v1).")
+    parser = argparse.ArgumentParser(prog="seal_draw.py",
+                                     description="JS3 seal: counts, the draw, the replacement draw (SEAL.md v1.3).")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("counts", help="print counts only; write vault/corpus_manifest.tsv, seen_ids.tsv, counts.txt")
     draw = sub.add_parser("draw", help="write vault/final_heldout_ids.tsv and vault/js3_heldout_ids.tsv")
     draw.add_argument("--final", nargs=2, type=int, required=True, metavar=("P", "O"))
     draw.add_argument("--js3", nargs=2, type=int, required=True, metavar=("P", "O"))
+    replace = sub.add_parser("replace-js3", help="check the committed sets, then write vault/js3_heldout_ids_v2.tsv "
+                                                 "(SEAL.md §8)")
+    replace.add_argument("--final", nargs=2, type=int, required=True, metavar=("P", "O"))
+    replace.add_argument("--exposed", nargs=2, type=int, required=True, metavar=("P", "O"))
+    replace.add_argument("--js3", nargs=2, type=int, required=True, metavar=("P", "O"))
     args = parser.parse_args(argv)
     try:
         if args.command == "counts":
             cmd_counts(root, corpus, sources, named, sums_dirs, out)
-        else:
+        elif args.command == "draw":
             cmd_draw(root, corpus, sources, named, tuple(args.final), tuple(args.js3), out)
+        else:
+            cmd_replace_js3(root, corpus, sources, named, tuple(args.final), tuple(args.exposed),
+                            tuple(args.js3), out)
     except SealError as exc:
         err.write(f"error: {exc}\n")
         return 1

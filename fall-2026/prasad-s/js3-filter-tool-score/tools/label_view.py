@@ -1,7 +1,7 @@
 """JS3 labeling viewer: JS3's held-out postings, one at a time, for hand labels.
 
-FILTER.md v1 §2 (the posting's own text) and §5 (hand verdicts); SEAL.md v1.2
-§§1, 6, 7. Run from the JS3 folder:
+FILTER.md v1 §2 (the posting's own text) and §5 (hand verdicts); SEAL.md v1.3
+§§1, 6, 7, 8. Run from the JS3 folder:
 
     python3.13 tools/label_view.py list
     python3.13 tools/label_view.py show N
@@ -11,8 +11,11 @@ FILTER.md v1 §2 (the posting's own text) and §5 (hand verdicts); SEAL.md v1.2
 show prints a posting's board key and id, then its title, location and text,
 cleaned as FILTER.md F1 says, and nothing else: no rule verdict, score,
 condition, skill match, highlight, group, rank, URL, date, department or
-compensation. Only JS3's held-out set can be shown; the final's set never is
-(SEAL.md §1, §7). The tool never writes a file.
+compensation. Only JS3's held-out set can be shown: since SEAL.md §8 that is
+vault/js3_heldout_ids_v2.tsv. The final's set never is (SEAL.md §1, §7), and
+neither is the exposed set, vault/js3_heldout_ids.tsv (the first JS3 set,
+retired by §8). Every command reads all three files and refuses if any two
+share a posting. The tool never writes a file.
 
 Standard library only.
 """
@@ -31,7 +34,7 @@ if str(_JS3) not in sys.path:
 
 from tools import seal_draw  # noqa: E402  CORPUS, its file reader, the rank and F1's title cleanup
 
-SET_SIZE = 30  # SEAL.md v1.2 §4: JS3's held-out set is 22 product + 8 other
+SET_SIZE = 30  # SEAL.md v1.3 §4, §8: JS3's held-out set (v2) is 22 product + 8 other
 SEAL_HEADER = ("board_key", "id", "group", "rank")
 LABEL_HEADER = ("position", "board_key", "id", "verdict", "parts", "evidence")
 VERDICTS = ("worth", "not_worth", "unclear")  # FILTER.md §5
@@ -48,7 +51,7 @@ class ViewError(Exception):
     """A refusal or an error. Nothing from any posting is printed."""
 
 
-# ---------------------------------------------------------------- the two sets
+# ---------------------------------------------------------------- the three sets
 
 def read_seal_file(path, name):
     """[(rank, board, id)] from a draw output. Any doubt about the file refuses."""
@@ -76,30 +79,43 @@ def read_seal_file(path, name):
 
 
 def load_sets(root):
-    """(JS3's set as [(board, id)] in position order, the final's set as {(board, id)}).
+    """(JS3's set as [(board, id)] in position order, the final's set, the exposed set), the last two as {(board, id)}.
 
-    Positions follow the rank column, lowest first, across both groups. A
-    posting in both sets refuses every command (SEAL.md §1).
+    JS3's set is the v2 file (SEAL.md §8). Positions follow the rank column,
+    lowest first, across both groups. A posting in any two of the three sets
+    refuses every command (SEAL.md §1, §8).
     """
     vault = Path(root) / seal_draw.VAULT
-    js3_name = f"{seal_draw.VAULT}/{seal_draw.JS3_FILE}"
-    js3_rows = read_seal_file(vault / seal_draw.JS3_FILE, js3_name)
-    final_rows = read_seal_file(vault / seal_draw.FINAL_FILE, f"{seal_draw.VAULT}/{seal_draw.FINAL_FILE}")
+
+    def read(file_name):
+        return read_seal_file(vault / file_name, f"{seal_draw.VAULT}/{file_name}")
+
+    js3_rows = read(seal_draw.JS3_V2_FILE)
+    final_rows = read(seal_draw.FINAL_FILE)
+    exposed_rows = read(seal_draw.JS3_FILE)
     if len(js3_rows) != SET_SIZE:
-        raise ViewError(f"{js3_name} holds {len(js3_rows)} postings; SEAL.md §4 says {SET_SIZE}")
+        raise ViewError(f"{seal_draw.VAULT}/{seal_draw.JS3_V2_FILE} holds {len(js3_rows)} postings; "
+                        f"SEAL.md §4 says {SET_SIZE}")
     js3 = [(b, i) for _, b, i in sorted(js3_rows)]
     final = {(b, i) for _, b, i in final_rows}
-    if set(js3) & final:
-        raise ViewError("a posting is in both JS3's set and the final's set; refusing (SEAL.md §1)")
-    return js3, final
+    exposed = {(b, i) for _, b, i in exposed_rows}
+    named = (("JS3's set", set(js3)), ("the final's set", final), ("the exposed set", exposed))
+    for index, (a_name, a) in enumerate(named):
+        for b_name, b in named[index + 1:]:
+            if a & b:
+                raise ViewError(f"a posting is in both {a_name} and {b_name}; refusing (SEAL.md §1, §8)")
+    return js3, final, exposed
 
 
-def position_of(arg, js3, final):
+def position_of(arg, js3, final, exposed):
     """show takes a position 1-30 and nothing else."""
     if _DIGITS.fullmatch(arg) and 1 <= int(arg) <= SET_SIZE:
         return int(arg)
     if any(arg == posting_id for _, posting_id in final):
         raise ViewError(f"refused: {arg} is an id in the final's set, which is never shown in JS3 (SEAL.md §1, §7)")
+    if any(arg == posting_id for _, posting_id in exposed):
+        raise ViewError(f"refused: {arg} is an id in the exposed set, the first JS3 set, retired by SEAL.md §8; "
+                        f"show takes a position 1-{SET_SIZE} (see list)")
     if any(arg == posting_id for _, posting_id in js3):
         raise ViewError(f"refused: show takes a position 1-{SET_SIZE} (see list), not an id")
     raise ViewError(f"refused: {arg!r} is not a position 1-{SET_SIZE}, and not an id in JS3's set")
@@ -197,7 +213,7 @@ def show_lines(board, posting_id, job):
 
 # ---------------------------------------------------------------- labels file (FILTER.md §5)
 
-def check_labels(text, js3, final):
+def check_labels(text, js3, final, exposed):
     """Every problem in a filled labels file. A problem never quotes a cell."""
     problems = []
     lines = [line.rstrip("\r") for line in text.split("\n")]
@@ -226,6 +242,8 @@ def check_labels(text, js3, final):
             if (board, posting_id) != js3[p - 1]:
                 if (board, posting_id) in final:
                     problems.append(f"{where}: names an id in the final's set")
+                elif (board, posting_id) in exposed:
+                    problems.append(f"{where}: names an id in the exposed set (the first JS3 set, SEAL.md §8)")
                 else:
                     problems.append(f"{where}: board_key and id do not match JS3's set at this position")
         if verdict not in VERDICTS:
@@ -251,30 +269,30 @@ def check_labels(text, js3, final):
 # ---------------------------------------------------------------- commands
 
 def cmd_list(root, out):
-    js3, _ = load_sets(root)
+    js3, _, _ = load_sets(root)
     out.write("".join(f"{p}\t{board}\t{posting_id}\n" for p, (board, posting_id) in enumerate(js3, start=1)))
 
 
 def cmd_show(root, corpus, arg, out):
-    js3, final = load_sets(root)
-    board, posting_id = js3[position_of(arg, js3, final) - 1]
+    js3, final, exposed = load_sets(root)
+    board, posting_id = js3[position_of(arg, js3, final, exposed) - 1]
     job = find_job(root, corpus, board, posting_id)
     out.write("\n".join(show_lines(board, posting_id, job)) + "\n")
 
 
 def cmd_template(root, out):
-    js3, _ = load_sets(root)
+    js3, _, _ = load_sets(root)
     rows = [f"{p}\t{board}\t{posting_id}\t\t\t" for p, (board, posting_id) in enumerate(js3, start=1)]
     out.write("\n".join(["\t".join(LABEL_HEADER)] + rows) + "\n")
 
 
 def cmd_check(root, path, out):
-    js3, final = load_sets(root)
+    js3, final, exposed = load_sets(root)
     try:
         text = Path(path).read_text(encoding="utf-8-sig")  # read only; a spreadsheet's BOM is allowed
     except (OSError, UnicodeDecodeError) as exc:
         raise ViewError(f"cannot read {path} ({type(exc).__name__})") from exc
-    problems = check_labels(text, js3, final)
+    problems = check_labels(text, js3, final, exposed)
     out.write("ok\n" if not problems else "\n".join(problems) + "\n")
     return 1 if problems else 0
 

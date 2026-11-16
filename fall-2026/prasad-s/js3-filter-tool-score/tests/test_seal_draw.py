@@ -252,8 +252,196 @@ class TestRankAndDraw(unittest.TestCase):
             self.assertEqual(code, 0, err)
 
 
+class TestReplaceJs3(unittest.TestCase):
+    """SEAL.md §8: the next ranks after the exposed set, same seed, same pool, same ranking.
+
+    The constructed pool: 16 product postings (17 less one seen) and 10 other.
+    The committed files come from draw --final 2 1 --js3 3 2, so the exposed
+    set is product ranks 3-5 and other ranks 2-3.
+    """
+
+    FINAL, EXPOSED, JS3 = ("2", "1"), ("3", "2"), ("4", "3")
+
+    def make(self, tmp):
+        product = [(1000 + i, f"Product Constructed {i}") for i in range(17)]
+        other = [(f"o-{i}", f"Designer Constructed {i}") for i in range(10)]
+        return Fixture(tmp, [
+            (GH, "c/gh.json", "2026-01-01T00:00:00Z", gh_jobs(*product)),
+            (AB, "c/ab.json", "2026-01-01T00:00:00Z", ab_jobs(*other)),
+        ], seen=["1016"])
+
+    def order(self, group):
+        """The pool's group in rank order, computed independently of seal_draw."""
+        keys = ([(GH, str(1000 + i)) for i in range(16)] if group == "product"
+                else [(AB, f"o-{i}") for i in range(10)])
+        return sorted(keys, key=lambda key: independent_rank(*key))
+
+    def set_file(self, product_keys, other_keys):
+        lines = ["board_key\tid\tgroup\trank"]
+        lines += [f"{b}\t{i}\tproduct\t{independent_rank(b, i)}" for b, i in product_keys]
+        lines += [f"{b}\t{i}\tother\t{independent_rank(b, i)}" for b, i in other_keys]
+        return "\n".join(lines) + "\n"
+
+    def drawn(self, tmp):
+        fx = self.make(tmp)
+        code, _, err = fx.run("draw", "--final", *self.FINAL, "--js3", *self.EXPOSED)
+        self.assertEqual(code, 0, err)
+        return fx
+
+    def replace(self, fx, final=FINAL, exposed=EXPOSED, js3=JS3):
+        return fx.run("replace-js3", "--final", *final, "--exposed", *exposed, "--js3", *js3)
+
+    def committed(self, tmp):
+        vault = Path(tmp) / "vault"
+        return {name: (vault / name).read_bytes() for name in ("final_heldout_ids.tsv", "js3_heldout_ids.tsv")
+                if (vault / name).exists()}
+
+    def assert_nothing_written(self, tmp, run, needle):
+        """run() must fail with needle, print nothing, write no v2 file and leave the committed files as they were."""
+        before = self.committed(tmp)
+        code, out, err = run()
+        self.assertEqual((code, out), (1, ""), err)
+        self.assertIn(needle, err)
+        self.assertFalse((Path(tmp) / "vault" / "js3_heldout_ids_v2.tsv").exists())
+        self.assertEqual(self.committed(tmp), before)
+        return err
+
+    def test_takes_exactly_the_next_ranks_after_the_exposed_set(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = self.drawn(tmp)
+            before = self.committed(tmp)
+            code, out, err = self.replace(fx)
+            self.assertEqual(code, 0, err)
+            product, other = self.order("product"), self.order("other")
+            # the committed files are what this test expects them to be ...
+            self.assertEqual(before["final_heldout_ids.tsv"].decode(), self.set_file(product[:2], other[:1]))
+            self.assertEqual(before["js3_heldout_ids.tsv"].decode(), self.set_file(product[2:5], other[1:3]))
+            # ... the replacement is the next ranks in each group, in draw's format ...
+            v2 = (Path(tmp) / "vault" / "js3_heldout_ids_v2.tsv").read_text(encoding="utf-8")
+            self.assertEqual(v2, self.set_file(product[5:9], other[3:6]))
+            # ... the committed files are untouched, and the seen posting is never drawn
+            self.assertEqual(self.committed(tmp), before)
+            self.assertNotIn("\t1016\t", v2)
+            self.assertEqual(out,
+                             "final's set: product 2, other 1; matches vault/final_heldout_ids.tsv\n"
+                             "exposed set: product 3, other 2; matches vault/js3_heldout_ids.tsv\n"
+                             "JS3's held-out set v2: product 4 (ranks 6-9), other 3 (ranks 4-6); "
+                             "written to vault/js3_heldout_ids_v2.tsv\n"
+                             "sealed product postings: 6 of 16; the development pool keeps 10\n")
+            for _, posting_id in product + other:
+                self.assertNotIn(posting_id, out + err)
+            self.assertNotIn("Constructed", out + v2)
+
+    def test_stops_if_a_committed_file_does_not_match(self):
+        product = self.order("product")
+
+        def swap(lines):
+            lines[1], lines[2] = lines[2], lines[1]
+            return lines
+
+        def other_posting(lines):
+            b, i = product[12]
+            lines[1] = f"{b}\t{i}\tproduct\t{independent_rank(b, i)}"
+            return lines
+
+        mutations = {
+            "two rows swapped": (swap, "line 2 differs"),
+            "a row missing": (lambda lines: lines[:-2] + lines[-1:], "the re-derived set has"),
+            "a row added": (lambda lines: lines[:-1] + [lines[-2], ""], "the re-derived set has"),
+            "a different posting, its rank correct": (other_posting, "line 2 differs"),
+            "a blank line at the end": (lambda lines: lines + [""], "the re-derived set has"),
+            "a changed header": (lambda lines: ["board_key\tid\tgroup\tRANK"] + lines[1:], "line 1 differs"),
+        }
+        names = ("final_heldout_ids.tsv", "js3_heldout_ids.tsv")
+        for name in names:
+            other_name = names[1 - names.index(name)]
+            for case, (mutate, detail) in mutations.items():
+                with self.subTest(file=name, case=case), tempfile.TemporaryDirectory() as tmp:
+                    fx = self.drawn(tmp)
+                    path = Path(tmp) / "vault" / name
+                    path.write_text("\n".join(mutate(path.read_text(encoding="utf-8").split("\n"))),
+                                    encoding="utf-8")
+                    err = self.assert_nothing_written(tmp, lambda: self.replace(fx), f"vault/{name} does not match")
+                    self.assertIn(detail, err)
+                    self.assertIn("nothing written", err)
+                    self.assertNotIn(other_name, err)
+            with self.subTest(file=name, case="missing"), tempfile.TemporaryDirectory() as tmp:
+                fx = self.drawn(tmp)
+                (Path(tmp) / "vault" / name).unlink()
+                self.assert_nothing_written(tmp, lambda: self.replace(fx), f"cannot read vault/{name}")
+
+    def test_stops_if_the_sizes_do_not_match_the_committed_files(self):
+        cases = (
+            ({"final": ("2", "2")}, "vault/final_heldout_ids.tsv does not match"),
+            ({"final": ("1", "1")}, "vault/final_heldout_ids.tsv does not match"),
+            ({"exposed": ("3", "3")}, "vault/js3_heldout_ids.tsv does not match"),
+            ({"exposed": ("4", "2")}, "vault/js3_heldout_ids.tsv does not match"),
+        )
+        for sizes, needle in cases:
+            with self.subTest(sizes=sizes), tempfile.TemporaryDirectory() as tmp:
+                fx = self.drawn(tmp)
+                self.assert_nothing_written(tmp, lambda: self.replace(fx, **sizes), needle)
+
+    def test_refuses_to_overwrite(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = self.drawn(tmp)
+            write(tmp, "vault/js3_heldout_ids_v2.tsv", "constructed earlier replacement\n")
+            before = self.committed(tmp)
+            code, out, err = self.replace(fx)
+            self.assertEqual((code, out), (1, ""))
+            self.assertIn("refusing to overwrite: vault/js3_heldout_ids_v2.tsv", err)
+            self.assertEqual((Path(tmp) / "vault/js3_heldout_ids_v2.tsv").read_text(),
+                             "constructed earlier replacement\n")
+            self.assertEqual(self.committed(tmp), before)
+
+    def test_half_rule_counts_the_final_and_the_replacement_not_the_exposed_set(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            # 2 + 6 = 8 sealed of 16: exactly half, allowed, although 2 + 3 + 6 = 11 leave the pool's first ranks
+            fx = self.drawn(tmp)
+            code, out, err = self.replace(fx, js3=("6", "0"))
+            self.assertEqual(code, 0, err)
+            self.assertIn("sealed product postings: 8 of 16; the development pool keeps 8\n", out)
+            self.assertIn("other 0 (no ranks)", out)
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = self.drawn(tmp)  # 2 + 7 = 9 sealed of 16: more than half
+            self.assert_nothing_written(tmp, lambda: self.replace(fx, js3=("7", "0")), "less than half")
+
+    def test_each_group_must_hold_all_three_ranges(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = self.drawn(tmp)  # other: 1 + 2 + 8 = 11 > 10
+            self.assert_nothing_written(tmp, lambda: self.replace(fx, js3=("4", "8")),
+                                        "the other group has 10 postings")
+        product, other = self.order("product"), self.order("other")
+        for js3, expect_ok in ((("6", "0"), False), (("5", "0"), True)):
+            with self.subTest(js3=js3), tempfile.TemporaryDirectory() as tmp:
+                # draw itself refuses an exposed set of 9 (2 + 9 > half of 16), so the committed files are
+                # written here by hand, in draw's format, from the independent ranking
+                fx = self.make(tmp)
+                write(tmp, "vault/final_heldout_ids.tsv", self.set_file(product[:2], other[:1]))
+                write(tmp, "vault/js3_heldout_ids.tsv", self.set_file(product[2:11], other[1:3]))
+                run = lambda: self.replace(fx, exposed=("9", "2"), js3=js3)  # noqa: E731
+                if expect_ok:  # 2 + 9 + 5 = 16: the whole group, allowed; 2 + 5 = 7 sealed
+                    code, _, err = run()
+                    self.assertEqual(code, 0, err)
+                    self.assertEqual((Path(tmp) / "vault/js3_heldout_ids_v2.tsv").read_text(encoding="utf-8"),
+                                     self.set_file(product[11:16], []))
+                else:  # 2 + 9 + 6 = 17 > 16, though 2 + 6 = 8 sealed passes the half-rule
+                    err = self.assert_nothing_written(tmp, run, "the product group has 16 postings")
+                    self.assertIn("need 17", err)
+
+    def test_negative_size_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = self.drawn(tmp)
+            self.assert_nothing_written(tmp, lambda: self.replace(fx, js3=("-1", "3")), "0 or more")
+
+    def test_file_names(self):
+        self.assertEqual(seal_draw.FINAL_FILE, "final_heldout_ids.tsv")
+        self.assertEqual(seal_draw.JS3_FILE, "js3_heldout_ids.tsv")
+        self.assertEqual(seal_draw.JS3_V2_FILE, "js3_heldout_ids_v2.tsv")
+
+
 class TestCounts(unittest.TestCase):
-    TITLES = ["Product Zebracorn Constructed", "Quasar Wrangler Constructed", "  product   OKAPI constructed "]
+    TITLES =["Product Zebracorn Constructed", "Quasar Wrangler Constructed", "  product   OKAPI constructed "]
 
     def make(self, tmp):
         return Fixture(tmp, [

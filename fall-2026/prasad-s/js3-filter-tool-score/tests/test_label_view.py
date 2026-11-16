@@ -22,6 +22,8 @@ AB = "ashby:constructedab"
 JS3_PRODUCT = [(GH, str(810000 + i)) for i in range(22)]
 JS3_OTHER = [(AB, f"c-ab-{i:02d}") for i in range(8)]
 FINAL = [(GH, str(710000 + i)) for i in range(15)] + [(AB, f"c-fin-{i:02d}") for i in range(5)]
+# SEAL.md §8: the first JS3 set, retired; laid out like it, 22 product + 8 other.
+EXPOSED = [(GH, str(760000 + i)) for i in range(22)] + [(AB, f"c-exp-{i:02d}") for i in range(8)]
 
 
 def rank(board, posting_id):
@@ -78,12 +80,15 @@ def ab_job(posting_id, **fields):
 
 
 class Fixture:
-    """A constructed JS3 folder: vault/ with both sets, and a constructed corpus."""
+    """A constructed JS3 folder: vault/ with the three sets, and a constructed corpus."""
 
-    def __init__(self, tmp, js3_tsv=None, final_tsv=None, files=None, gh_overrides=None, ab_overrides=None):
+    def __init__(self, tmp, js3_tsv=None, final_tsv=None, files=None, gh_overrides=None, ab_overrides=None,
+                 exposed_tsv=None):
         self.root = Path(tmp)
-        write(self.root, "vault/js3_heldout_ids.tsv",
+        write(self.root, "vault/js3_heldout_ids_v2.tsv",
               js3_tsv if js3_tsv is not None else seal_tsv([("product", JS3_PRODUCT), ("other", JS3_OTHER)]))
+        write(self.root, "vault/js3_heldout_ids.tsv",
+              exposed_tsv if exposed_tsv is not None else seal_tsv([("product", EXPOSED[:22]), ("other", EXPOSED[22:])]))
         write(self.root, "vault/final_heldout_ids.tsv",
               final_tsv if final_tsv is not None else seal_tsv([("product", FINAL[:15]), ("other", FINAL[15:])]))
         if files is None:
@@ -456,6 +461,128 @@ class TestCheck(unittest.TestCase):
             code, out, err = Fixture(tmp).run("check", str(Path(tmp) / "no_such_labels.tsv"))
             self.assertEqual((code, out), (1, ""))
             self.assertIn("cannot read", err)
+
+    def test_exposed_set_rows_are_named(self):
+        rows = self.valid_rows()
+        rows[8][1], rows[8][2] = EXPOSED[0]
+        code, out, _ = self.run_check(self.labels_text(rows))
+        self.assertEqual(code, 1)
+        self.assertEqual(out, "line 10 (position 9): names an id in the exposed set (the first JS3 set, SEAL.md §8)\n")
+
+    def test_a_labels_file_for_the_exposed_set_fails_on_every_row(self):
+        # e.g. the first set's labels checked by mistake: all 30 rows name the exposed set
+        rows = self.valid_rows()
+        for p, key in enumerate(by_rank(EXPOSED), start=1):
+            rows[p - 1][1], rows[p - 1][2] = key
+        code, out, _ = self.run_check(self.labels_text(rows))
+        self.assertEqual(code, 1)
+        self.assertEqual(len(out.splitlines()), 30)
+        self.assertTrue(all("names an id in the exposed set" in line for line in out.splitlines()))
+
+
+# ---------------------------------------------------------------- the three sets (SEAL.md §8)
+
+class TestThreeSets(unittest.TestCase):
+    def assert_refused(self, result, needle):
+        code, out, err = result
+        self.assertEqual(code, 1)
+        self.assertEqual(out, "")
+        self.assertIn(needle, err)
+
+    def test_every_command_uses_the_v2_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            expected = by_rank(JS3_PRODUCT + JS3_OTHER)
+            _, listed, _ = fx.run("list")
+            _, template, _ = fx.run("template")
+            self.assertEqual([tuple(line.split("\t")[1:3]) for line in listed.splitlines()], expected)
+            self.assertEqual([tuple(line.split("\t")[1:3]) for line in template.splitlines()[1:]], expected)
+            for _, posting_id in EXPOSED:
+                self.assertNotIn(posting_id, listed + template)
+            code, out, err = fx.run("show", "1")
+            self.assertEqual(code, 0, err)
+            self.assertIn(f"id: {expected[0][1]}\n", out)
+
+    def test_missing_v2_file_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            (fx.root / "vault/js3_heldout_ids_v2.tsv").unlink()
+            for argv in (("list",), ("show", "1"), ("template",)):
+                with self.subTest(argv=argv):
+                    self.assert_refused(fx.run(*argv), "vault/js3_heldout_ids_v2.tsv")
+
+    def test_missing_exposed_file_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            (fx.root / "vault/js3_heldout_ids.tsv").unlink()
+            for argv in (("list",), ("show", "1"), ("template",)):
+                with self.subTest(argv=argv):
+                    self.assert_refused(fx.run(*argv), "vault/js3_heldout_ids.tsv")
+
+    def test_exposed_file_ranks_are_recomputed(self):
+        tsv = seal_tsv([("product", EXPOSED[:22]), ("other", EXPOSED[22:])]).replace(rank(*EXPOSED[3]), "f" * 64)
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assert_refused(Fixture(tmp, exposed_tsv=tsv).run("list"), "vault/js3_heldout_ids.tsv line")
+
+    def test_any_two_sets_sharing_a_posting_refuse_every_command(self):
+        cases = {
+            "both JS3's set and the final's set": {
+                "final_tsv": seal_tsv([("product", FINAL[:14] + [JS3_PRODUCT[5]]), ("other", FINAL[15:])])},
+            "both JS3's set and the exposed set": {
+                "exposed_tsv": seal_tsv([("product", EXPOSED[:22]), ("other", EXPOSED[22:29] + [JS3_OTHER[2]])])},
+            "both the final's set and the exposed set": {
+                "exposed_tsv": seal_tsv([("product", EXPOSED[:21] + [FINAL[0]]), ("other", EXPOSED[22:])])},
+        }
+        for needle, files in cases.items():
+            with tempfile.TemporaryDirectory() as tmp:
+                fx = Fixture(tmp, **files)
+                write(tmp, "labels.tsv", "position\n")
+                for argv in (("list",), ("show", "1"), ("template",), ("check", str(Path(tmp) / "labels.tsv"))):
+                    with self.subTest(pair=needle, argv=argv):
+                        self.assert_refused(fx.run(*argv), needle)
+
+    def test_exposed_ids_refused_by_show(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            for _, posting_id in (EXPOSED[0], EXPOSED[21], EXPOSED[-1]):
+                with self.subTest(posting_id=posting_id):
+                    self.assert_refused(fx.run("show", posting_id), "exposed set")
+
+    def test_reads_what_replace_js3_writes(self):
+        """End to end on a constructed corpus: draw, replace-js3, then list and show."""
+        product = [str(500000 + i) for i in range(80)]
+        other = [f"c-int-{i:02d}" for i in range(25)]
+        files = [
+            (GH, "corpus/gh.json", "2026-01-01T00:00:00Z",
+             {"jobs": [gh_job(i, title=f"Product Constructed {i}") for i in product]}),
+            (AB, "corpus/ab.json", "2026-01-01T00:00:00Z",
+             {"jobs": [ab_job(i, title=f"Designer Constructed {i}") for i in other]}),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = []
+            for board, rel, utc, body in files:
+                write(tmp, rel, body)
+                corpus.append((board, rel, utc))
+
+            def seal(*argv):
+                out, err = io.StringIO(), io.StringIO()
+                code = seal_draw.main(list(argv), root=Path(tmp), corpus=corpus, sources=(), named=(),
+                                      sums_dirs=(), out=out, err=err)
+                self.assertEqual(code, 0, err.getvalue())
+
+            seal("draw", "--final", "15", "5", "--js3", "22", "8")
+            seal("replace-js3", "--final", "15", "5", "--exposed", "22", "8", "--js3", "22", "8")
+            p_order = by_rank([(GH, i) for i in product])
+            o_order = by_rank([(AB, i) for i in other])
+            out, err = io.StringIO(), io.StringIO()
+            code = label_view.main(["list"], root=Path(tmp), corpus=corpus, out=out, err=err)
+            self.assertEqual(code, 0, err.getvalue())
+            listed = [tuple(line.split("\t")[1:3]) for line in out.getvalue().splitlines()]
+            self.assertEqual(listed, by_rank(p_order[37:59] + o_order[13:21]))  # SEAL.md §8: 38-59 and 14-21
+            out, err = io.StringIO(), io.StringIO()
+            code = label_view.main(["show", "30"], root=Path(tmp), corpus=corpus, out=out, err=err)
+            self.assertEqual(code, 0, err.getvalue())
+            self.assertIn(f"id: {listed[29][1]}\n", out.getvalue())
 
 
 class TestConstants(unittest.TestCase):
