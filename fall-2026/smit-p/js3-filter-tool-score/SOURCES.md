@@ -30,9 +30,9 @@ into version 1.1.
 - 71 hand verdicts for the reject audit, from fact cards (`audit/hand-verdicts.json`).
 - 18 claim labels for the shortlist (`audit/shortlist-hand-labels.json`).
 - Which measured changes became FILTER v1.1 (A, B, C) and the reason for C.
-- Review and signature of the sign-off in README.md. **Not done yet.**
-- The trust decisions on both tool servers. **Not done yet.**
-- My own entries in FRICTIONAL.md. **Not done yet.**
+- Review and signature of the sign-off in README.md (signed 2026-11-16).
+- The trust decisions on both tool servers (2026-11-16).
+- My answers in FRICTIONAL.md, selected by me from statements Claude offered (2026-11-16).
 
 ## Contributed by Claude (Claude Code, Opus 5.5, session of 2026-11-14)
 

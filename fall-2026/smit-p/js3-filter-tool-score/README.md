@@ -138,9 +138,6 @@ persona/                  fictional résumé (Aarav Patel, @example.com, 555 pho
 
 ## Sign-off — Job-Search Agent 3
 
-> **DRAFT by Claude. Not signed.** Smit must read every line, correct anything that is not
-> true for him, decide the two trust decisions, and then sign or withhold.
-
 **Checked**
 
 | Property | Test or check |
@@ -175,9 +172,9 @@ rejects; that the prompt revision made Claude better (it moved errors into abste
 that any behavior here was learned or trained; that the claim checker is right where it
 disagrees with me.
 
-**Trust decisions:** my tool server: ____________ · Microsoft Learn MCP server: ____________
+**Trust decisions (mine, 2026-11-16):** my tool server: **trust, local use only**, over stdio with the data folder fixed at start; not for exposing over a network (it has no authentication). · Microsoft Learn MCP server: **a read-only documentation source only, with its outputs treated as untrusted text**; not added to this job agent and not connected in a session that holds private files.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed:** Smit P., 2026-11-16. Drafted by Claude; I read it and confirmed that it is true for me. As stated above, I did not write the code or the tests.
 
 ## Driver's seat
 

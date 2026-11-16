@@ -4,8 +4,8 @@
 
 This is an honest log of what went wrong, what was tried, what was accepted or rejected, and
 what is still unresolved while building Job-Search Agent 3 on 2026-11-14. Each entry traces
-to a commit, a file or a test. **The section "In my own words" is for me (Smit) to write.**
-A log drafted by Claude is not my account.
+to a commit, a file or a test. The last section holds my own answers,
+selected by me from statements Claude offered. A log drafted by Claude is not my account.
 
 ## Log of events (drafted by Claude from the session; each item is traceable)
 
@@ -31,10 +31,31 @@ A log drafted by Claude is not my account.
 | F18 | A separate Claude reviewer (given only the brief and this folder, read-only) regraded everything: all numbers recomputed identically. It found a test that could not fail (the "writes only its transcript" test never ran the server), an impossible ratio ("six times" against 0), a cost comparison that ignored caching, two past-tense claims with no commit behind them, 53 KB of Microsoft's text in a public transcript, and that the 71 hand verdicts took about 8 minutes | the test now runs the server as a process and hashes every file. A new mutant (M11: server writes a stray file) **survived twice** before the test caught it: first because `setUp` built a server before the "before" snapshot, then because a rewrite with equal bytes looked unchanged. Now caught. Wording fixed, the transcript redacted with hashes, the timing disclosed in AUDIT.md | accepted | `tests/mutation-log.md`, TOOL-SERVER.md, AUDIT.md note 4 |
 | — | **Not done:** the tool-list change measured on held-out; Claude judge on dev; a second collection day; any test written by Smit before reading Claude's code | stated in README "Not checked" | — | README |
 
-## In my own words (Smit — to write)
+## My answers (selected by Smit from statements Claude offered, 2026-11-16)
 
-- What surprised me:
-- What I checked myself, and how:
-- What I would not have caught without the audit or the claim labels:
-- What I accepted, changed or rejected from Claude, and why:
-- What is still unresolved:
+I asked Claude to write this section. It would not write my opinions as mine, so it offered
+statements and I picked the ones that are true for me. The selections are mine; the sentences
+are Claude's wording.
+
+- **What surprised me:**
+  - One wrong rule about years ("including 3+ years") made 3 of the filter's 6 keeps wrong.
+  - Claude gave a different answer on one posting when the identical setup was run twice.
+- **What I checked myself, and how:**
+  - I judged 71 postings by hand from fact cards that did not show the filter's verdict.
+  - I labeled the 18 shortlist claims against the quoted posting text.
+  - I spent two days reading the code and the reports so I can explain any verdict.
+- **What I would not have caught without the audit or the claim labels:**
+  - Without the audit I would have trusted the filter's 6 keeps; 4 were wrong.
+  - Without the claim check I would not have seen that the top-ranked job's skills only appear in "e.g." lists.
+  - Without the audit math I would have read 2 of 30 as a 7% miss rate, not a range from about 1% to 22%.
+- **What I accepted, changed or rejected from Claude, and why:**
+  - I kept my "supported" labels where Claude's checker said "insufficient", because I read the claims differently.
+  - I kept my verdict that two Engineering Manager roles are relevant when Claude asked if I meant it.
+- **What is still unresolved:**
+  - The abstention rule still does not fire when years or level are simply not stated.
+  - Good web and Android jobs are missed because JavaScript, React and Kotlin are not in the résumé skills.
+  - Giving Claude the tool was demonstrated but never measured on held-out labels.
+- **Offered but not selected:** that the filter never abstaining surprised me; that the
+  surviving mutant surprised me; that I chose the v1.1 changes after reading the results
+  (FILTER.md records that Smit chose them on 2026-11-14; this statement was simply not picked); that I chose C anyway;
+  that I changed three verdicts when asked; that the held-out set having been seen is unresolved.
