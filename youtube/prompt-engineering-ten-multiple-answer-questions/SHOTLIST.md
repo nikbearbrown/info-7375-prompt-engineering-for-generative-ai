@@ -1,0 +1,50 @@
+# Shot list
+
+## BIDEA
+Hello. This is Liam, in for Bear. Prompt Engineering has ten multiple-answer questions, worth fifty points in total. Each contains five statements. The task is to judge each statement, not guess a pattern in the boxes.
+
+## BDEFS
+Four terms. A statement: one claim that is either true or false on its own. Checked: ticked, to say you believe the statement is true. A near-synonym: a word that means almost the same as another, but not quite. And an exact term: the one word that names a thing precisely.
+
+## B00
+Ten questions are worth five points each. Every question gives five statements, A to E. Judge each statement on its own. Check true statements and leave false statements unchecked. The five case questions make up the other fifty points.
+
+## B01
+Each statement is worth one point. So the whole question is worth five.
+
+## B02
+A statement scores its point in two cases. You checked it, and it is true. Or you left it unchecked, and it is false. In every other case, it scores zero.
+
+## B03
+So there is no penalty beyond the point you miss, and it is not all or nothing. Get one statement wrong, and you still keep the other four. It is five small decisions.
+
+## B09
+Judge each statement alone. Do not hunt for a pattern in how many are true. Any number of the five may be true. The wording and the evidence determine your decision, not the other boxes.
+
+## B10
+The deciding phrase is inside the statement. In Prompt Engineering, being able to call a tool is not the same as being authorized to use it. Judge the actual permission and target, not a familiar technical word.
+
+## B11
+Do not use words like always or never as clues. They are not a reliable sign either way. Judge the claim, not the signal word.
+
+## B13
+For practice, try marking a printed question by hand, cold, before looking at notes or feedback. Treat each statement as a separate decision.
+
+## B14
+Then submit your attempt and read the feedback for every statement. Especially the ones you got wrong. The reasons are where the distinctions are taught.
+
+## B16
+Now, three common mistakes. One: reading the statement the way you hope it is, not the way it is written.
+
+## B17
+Two: skipping a statement because it looks familiar. A familiar word can sit inside a false claim.
+
+## B18
+Three: treating a half-true statement as true. A statement is true only if all of it is true.
+
+## BHTF
+Your turn. In your Prompt Engineering practice project, ask: Give me one multiple-answer question with five statements. Wait for my answer before explaining. Check every statement independently, and explain why each claim is true or false.
+
+## BOUT
+Prompt Engineering: Ten Multiple-Answer Questions. At Nik Bear Brown.
+
