@@ -10,3 +10,8 @@ The supplied source has these unresolved items. They are preserved rather than s
 6. Assignment structure confirmed: every 10 days, 100 points = 60 implementation + 10 Frictional + 10 GitHub version posting + 20 Relative Quartile. Existing exercises/quizzes are ungraded Assessments; explainers/Progress Reels are optional within comparative quality. Canvas must publish the schedule anchor, exact deadlines, assignment count/final cutoff, and covered Assessments for each cycle. No calendar dates or per-cycle scope have been invented.
 
 Instructional adaptation already requested: Claude-only model use, Python-only implementations, from-scratch mechanisms in place of framework-dependent builds, and an explicit distinction between toy parameter training and Claude inference. The original broad AI-tool examples are superseded for this course's practical stack.
+
+
+## 2026-11-16 exam-practice update
+
+Nik requested five 10-point cases, each with five specific guiding questions, and ten 5-point multiple-answer items (50/50 total). Local current guides and standalone Claude Project practice prompt implement this. Historical practice papers/keys remain unchanged. The compact term list prioritizes prompting, agents, loops, generation and tools and says the inventory is still being narrowed; exact final topic coverage and exam duration are not inferred from this update. One synthetic full sample passed independent assistant-agent blind review (50/50 statement agreement and five case diagnoses/checks aligned). No live Claude test or general reliability guarantee is claimed.
