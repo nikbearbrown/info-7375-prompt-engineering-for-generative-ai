@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any draw
-Version: v1.3 — 2026-11-16
+**Version:** v1.4 — 2026-11-16
 **Rests on:** FILTER.md v1 (JS3-CP1), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
 
 ## 1. The two sets
@@ -71,8 +71,8 @@ The final's set gets no labels in JS3 — none written, none kept anywhere.
 - Look at any sealed posting's rule verdict before Friday.
 - Change a sealed set, in either direction, because of anything seen in the development pool.
 
-## 8 The first set is retired — 2026-11-16
-
+## 8. The first set is retired — 2026-11-16
+This section is written and committed before the replacement draw runs.
 What happened. On 2026-11-16, the first JS3 set's 30 labels, with short quotes from the postings, were pasted into the Claude.ai review chat before their hash was committed. Claude.ai helps choose the changes measured on Friday, so that set can no longer measure them blind.
 
 The decision. The first set (vault/js3_heldout_ids.tsv) is retired as JS3's held-out set and becomes development data. Its file stays exactly as drawn. Its labels, kept in ~/js3-vault/js3_set1_exposed_labels.tsv, become development labels.
@@ -91,3 +91,4 @@ A new rule. Nothing from the v2 set is pasted into any chat: not its ids, not it
 - **v1.1 — 2026-11-15.** Three dated additions, all from checks run before any draw: §2 records the seen-list check (51 ids, all in the corpus; 8172510 kept as seen) and the corpus hash check (18 of 20 match, none mismatches); §4 records the counts (product 162, other 1,085; the pool is 1,247) and that the sizes stand, leaving 125 product postings in the development pool; §5 records the seed's full hash as first committed and that the coming rebase does not change the seed.
 - **v1.2 — 2026-11-15.** Records the draw (§6, JS3-CP2d) and completes the checks: §2 gives 8172510's reason and the completed hash accounting (19 files match a recorded hash; the 2026-10-26 file has none; none mismatches), and the header cites FILTER.md v1 by its checkpoint (JS3-CP1) instead of the hash the rebase will replace. No rule changes.
 - **v1.3 — 2026-11-16.** §8 added. The first JS3 set's labels were pasted into the Claude.ai review chat before their hash was committed, so the set is retired to development data and replaced by the next ranks under the same seed and ranking (product 38–59, other 14–21; vault/js3_heldout_ids_v2.tsv). The final's set does not move. §8 also adds the rule that nothing from the v2 set is pasted into any chat or leaves ~/js3-vault/ until Friday. No change to the seed, the ranking, the sizes, or the final's set.
+- **v1.4 — 2026-11-16.** Formatting fixes (the Version line and the §8 heading) and one sentence in §8 saying it was written and committed before the replacement draw. No rule changes.
