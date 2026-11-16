@@ -2,8 +2,8 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any draw
-**Version:** v1.1 — 2026-11-15
-**Rests on:** FILTER.md v1 (a6ac8bb), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
+**Version:** v1.2 — 2026-11-15
+**Rests on:** FILTER.md v1 (JS3-CP1), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
 
 ## 1. The two sets
 
@@ -20,7 +20,7 @@ Every posting already seen is left out of the pool. "Seen" means opened, labeled
 
 I have opened no posting since Friday 2026-11-13.
 
-**Checked, 2026-11-15.** The seen list (vault/seen_ids.tsv) holds 51 ids, and every one of them is in the corpus. 8172510 is kept as seen. The corpus files were checked against their committed SHA-256: 18 of 20 match, and none mismatches.
+**Checked, 2026-11-15.** The seen list (vault/seen_ids.tsv) holds 51 ids, and every one of them is in the corpus. 8172510 is kept as seen: CONTRACT §1 quotes it as the example id from the raw file, so I have looked at that record — keeping it costs one posting, while drawing it could spoil a set. The corpus files were checked against the hashes recorded when they were collected: 18 match (8 in SHA256SUMS.txt, 10 in sidecars). The 2026-10-25 file matches the hash in CONTRACT §1 by my own shasum, which makes 19. The 2026-10-26 file has no recorded hash. None mismatches.
 
 ## 3. The two groups
 
@@ -62,6 +62,8 @@ JS3's labels are kept outside the repo, in `~/js3-vault/`. On Monday, when the l
 
 The final's set gets no labels in JS3 — none written, none kept anywhere.
 
+**Drawn, 2026-11-15 (JS3-CP2d).** The draw was run with: `python3.13 tools/seal_draw.py draw --final 15 5 --js3 22 8` (sizes per §4). It wrote two files: vault/final_heldout_ids.tsv (the final's set) and vault/js3_heldout_ids.tsv (JS3's held-out set). I checked the output with the shell: (1) 20 + 30 postings — the final's set holds 20, JS3's holds 30; (2) the groups split 15/5 and 22/8, as §4 requires; (3) no posting is in both sets; (4) no drawn posting is on the seen list; (5) one rank recomputed with shasum, matching. The command and the checks are recorded here, in the file, because the submission zip has no .git folder: a reader of the zip would never see a commit message.
+
 ## 7. What I won't do
 
 - Draw again with a different seed. If a bug in the draw is found and fixed, the rerun uses the same seed, and both outputs are kept.
@@ -73,3 +75,4 @@ The final's set gets no labels in JS3 — none written, none kept anywhere.
 
 - **v1 — 2026-11-15.** Written and committed before any draw. The design (§§1–7) was proposed by Claude (Claude.ai); the decisions are mine.
 - **v1.1 — 2026-11-15.** Three dated additions, all from checks run before any draw: §2 records the seen-list check (51 ids, all in the corpus; 8172510 kept as seen) and the corpus hash check (18 of 20 match, none mismatches); §4 records the counts (product 162, other 1,085; the pool is 1,247) and that the sizes stand, leaving 125 product postings in the development pool; §5 records the seed's full hash as first committed and that the coming rebase does not change the seed.
+- **v1.2 — 2026-11-15.** Records the draw (§6, JS3-CP2d) and completes the checks: §2 gives 8172510's reason and the completed hash accounting (19 files match a recorded hash; the 2026-10-26 file has none; none mismatches), and the header cites FILTER.md v1 by its checkpoint (JS3-CP1) instead of the hash the rebase will replace. No rule changes.
