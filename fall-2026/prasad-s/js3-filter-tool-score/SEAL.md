@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any draw
-**Version:** v1 — 2026-11-15
+**Version:** v1.1 — 2026-11-15
 **Rests on:** FILTER.md v1 (a6ac8bb), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
 
 ## 1. The two sets
@@ -19,6 +19,8 @@ The pool is FILTER.md §3's corpus: the 20 frozen responses, one copy per postin
 Every posting already seen is left out of the pool. "Seen" means opened, labeled, judged or sampled in JS1 or JS2: the 20 JS1 hand labels, the sampling postings, the action-surface posting (8154295), the 29 postings JS1's run 2 judged, whose Claude replies are saved, and 8250475, the one new posting from JS2's run 2 — and anything else the earlier work looked at. The seen list is built by a script from the committed JS1 and JS2 files, not from memory, and I check it before the draw. A posting that was seen and still got drawn would spoil the set it landed in, because its label could no longer be written blind.
 
 I have opened no posting since Friday 2026-11-13.
+
+**Checked, 2026-11-15.** The seen list (vault/seen_ids.tsv) holds 51 ids, and every one of them is in the corpus. 8172510 is kept as seen. The corpus files were checked against their committed SHA-256: 18 of 20 match, and none mismatches.
 
 ## 3. The two groups
 
@@ -40,9 +42,13 @@ If the product group is too small to fill both sets at these sizes and still lea
 
 The counts step runs first, before any draw, and prints counts only — group sizes, seen counts, pool sizes; no ids, no titles. The final sizes are written into this file, in a dated line under this section, before the draw runs.
 
+**Counts, 2026-11-15.** The counts run (vault/counts.txt) gives a product group of 162 and an other group of 1,085 — a pool of 1,247, the 1,298 corpus postings less the 51 seen. The sizes stand as written: the final's set 15 + 5, JS3's set 22 + 8. Between them the sets take 37 product postings, which leaves 125 product postings in the development pool — more than half of 162.
+
 ## 5. Seed and ranking
 
 The seed is **a6ac8bbb** — the first 8 characters of the CP1 commit, which holds FILTER.md v1. It cannot have been chosen to steer the draw: the hash was fixed by a commit made before this file existed, and no draw has been computed with it, or with any other seed, so there is no result it could have been chosen for.
+
+**Seed note, 2026-11-15.** The seed is taken from JS3-CP1's hash as first committed: a6ac8bbb229a0dfcf0647e79ac4c89534f7bc207. JS3-CP1 will be rebased onto the shared main before pushing, and the rebase will give it a new hash. The seed does not change: it names the commit as first committed, not the hash the rebase produces.
 
 Each posting's rank is the SHA-256 of `a6ac8bbb:<board key>:<id>`, written in lowercase hex. Within each group, postings are ordered by rank, lowest first.
 
@@ -66,3 +72,4 @@ The final's set gets no labels in JS3 — none written, none kept anywhere.
 ## Changelog
 
 - **v1 — 2026-11-15.** Written and committed before any draw. The design (§§1–7) was proposed by Claude (Claude.ai); the decisions are mine.
+- **v1.1 — 2026-11-15.** Three dated additions, all from checks run before any draw: §2 records the seen-list check (51 ids, all in the corpus; 8172510 kept as seen) and the corpus hash check (18 of 20 match, none mismatches); §4 records the counts (product 162, other 1,085; the pool is 1,247) and that the sizes stand, leaving 125 product postings in the development pool; §5 records the seed's full hash as first committed and that the coming rebase does not change the seed.
