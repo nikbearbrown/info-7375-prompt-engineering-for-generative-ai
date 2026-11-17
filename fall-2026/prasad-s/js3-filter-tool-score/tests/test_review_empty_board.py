@@ -15,10 +15,12 @@ W5, as written in GATE.md v0.3 §6:
     greenhouse:duolingo.
 
 Setup: a temporary project folder (LoopCase from test_loop.py: _send replaced
-by a script keyed by URL, any socket fails the test, no seeding). Run 1's state
-file, state/state_2026-11-07T000611Z.json, is copied into it unchanged; the
-real state/ is only read. Duolingo's one scripted answer is a 200 whose body is
-the bytes of evidence/constructed/duolingo_EMPTY_constructed_2026-11-07.json.
+by a script keyed by URL, any socket fails the test, no seeding). Both files
+come from tests/fixtures/js2/, JS2's files copied there byte for byte, and are
+only read: run 1's state file, state/state_2026-11-07T000611Z.json, is copied
+into the temporary project unchanged, and Duolingo's one scripted answer is a
+200 whose body is the bytes of
+evidence/constructed/duolingo_EMPTY_constructed_2026-11-07.json.
 The run's clock starts after run 1's state file, so the run's own state file
 is a later one. The four assertions are W5's four, and nothing more.
 """
@@ -30,6 +32,9 @@ from datetime import datetime, timedelta, timezone
 from support import JS1 as PROJECT  # support's name for this project folder (carried over from JS1)
 from test_loop import GH, LoopCase, ok
 
+# These two files are JS2's (run 1's state file and the constructed empty body), copied
+# unchanged, so the test needs nothing outside tests/.
+SOURCE = PROJECT / "tests" / "fixtures" / "js2"
 BOARD = "greenhouse:duolingo"
 RUN1_STATE = "state/state_2026-11-07T000611Z.json"
 EMPTY_BODY = "evidence/constructed/duolingo_EMPTY_constructed_2026-11-07.json"
@@ -46,10 +51,10 @@ class W5EmptyBoardWithSavedIds(LoopCase):
 
     def test_W5_board_with_saved_ids_returning_zero_jobs_is_failed_not_empty(self):
         (self.root / "state").mkdir()
-        shutil.copy(PROJECT / RUN1_STATE, self.root / RUN1_STATE)
-        saved_before = json.loads((PROJECT / RUN1_STATE).read_text(encoding="utf-8"))[BOARD]
+        shutil.copy(SOURCE / RUN1_STATE, self.root / RUN1_STATE)
+        saved_before = json.loads((SOURCE / RUN1_STATE).read_text(encoding="utf-8"))[BOARD]
         self.assertEqual(len(saved_before), 59)  # the premise: run 1 saved 59 duolingo ids
-        body = (PROJECT / EMPTY_BODY).read_bytes()
+        body = (SOURCE / EMPTY_BODY).read_bytes()
         self.on(GH, "duolingo", ok(body))
 
         report = self.go()
