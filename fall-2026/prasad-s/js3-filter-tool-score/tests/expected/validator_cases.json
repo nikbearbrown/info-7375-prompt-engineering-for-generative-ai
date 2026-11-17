@@ -1,0 +1,235 @@
+{
+  "note": "Constructed validator cases, written by hand by Prasad on 2026-10-26, before any code. Not real Claude replies.",
+  "posting": {
+    "title": "Product Manager, Payments",
+    "location": "SF, SEA, NYC",
+    "content": "We use Python and SQL every day."
+  },
+  "cases": [
+    {
+      "id": "V01",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "accepted",
+      "why": "Right format, and every cited value is real and in the right field."
+    },
+    {
+      "id": "V02",
+      "reply_lines": [
+        "```",
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match.",
+        "```"
+      ],
+      "expect": "rejected",
+      "why": "Markdown fences are not part of the format. §6 says wrappers are correctly rejected, never stripped or repaired before validation."
+    },
+    {
+      "id": "V03",
+      "reply_lines": [
+        "Here is my answer:",
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "A lead-in sentence is not one of the allowed lines, so the reply is rejected even though the rest is well formed."
+    },
+    {
+      "id": "V04",
+      "reply_lines": [
+        "VERDICT: maybe",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "The verdict value must be exactly relevant or not_relevant. 'maybe' is not an allowed value."
+    },
+    {
+      "id": "V05",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python, SQL",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "One field=value pair per line, split on the first '='. The cited skills value is the single string 'Python, SQL', which is not a skill in the resume, so the citation check fails."
+    },
+    {
+      "id": "V06",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=New York",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "'New York' is not one of the resume's skills (it belongs to locations), so the citation does not exist in the field it claims to cite."
+    },
+    {
+      "id": "V07",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=Tableau",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "'Tableau' appears nowhere in the posting's content, so the citation cites a term that is not there."
+    },
+    {
+      "id": "V08",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=SF, SEA, NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "accepted",
+      "why": "Yes, the whole value is in the posting: split on the first '=', the value is 'SF, SEA, NYC', which is exactly the posting's location. Commas inside a value are part of the value."
+    },
+    {
+      "id": "V09",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL"
+      ],
+      "expect": "rejected",
+      "why": "The REASON line is required. A reply missing one of the required lines is not the format in §6."
+    },
+    {
+      "id": "V10",
+      "reply_lines": [
+        "REASON: Title, location and two skills all match.",
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL"
+      ],
+      "expect": "rejected",
+      "why": "The format fixes the order of the lines as well as their content, with REASON last. The right lines in the wrong order are not the format."
+    },
+    {
+      "id": "V11",
+      "reply_lines": [
+        "verdict: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "My decision: rejected. §6 says exactly the lines specified, and the label is 'VERDICT' in capitals. A lowercase label is a different line, not a matching one."
+    },
+    {
+      "id": "V12",
+      "reply_lines": [
+        "VERDICT: not_relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "accepted",
+      "why": "The validator checks format and that every cited value exists in the resume and the posting. It does not check whether the verdict agrees with the rule or with its own citations, so this passes validation and is recorded as not_relevant. The disagreement is a judging error, not a validation failure."
+    },
+    {
+      "id": "V13",
+      "reply_lines": [
+        "VERDICT: relevant",
+        "RESUME_FIELD: target_titles=Product Manager",
+        "RESUME_FIELD: locations=NYC",
+        "RESUME_FIELD: skills=Python",
+        "RESUME_FIELD: skills=SQL",
+        "POSTING_FIELD: title=Product Manager",
+        "POSTING_FIELD: location.name=NYC",
+        "POSTING_FIELD: content=Python",
+        "POSTING_FIELD: content=SQL",
+        "POSTING_FIELD: salary=200000",
+        "REASON: Title, location and two skills all match."
+      ],
+      "expect": "rejected",
+      "why": "'salary' is not one of the allowed posting field names in §6 (title, location.name, content), so the line is not part of the format."
+    }
+  ]
+}
+

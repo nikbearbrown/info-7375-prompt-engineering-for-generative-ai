@@ -1,0 +1,97 @@
+{
+  "note": "Constructed refusal cases, written by hand by Prasad on 2026-10-26, before any code.",
+  "url_cases": [
+    {
+      "id": "U01",
+      "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true",
+      "expect": "allowed",
+      "why": "This is the one fetch URL in §1, on the allow-listed host."
+    },
+    {
+      "id": "U02",
+      "url": "https://boards.greenhouse.io/stripe",
+      "expect": "refused",
+      "why": "The public web page, not the API. The host is boards.greenhouse.io, not boards-api.greenhouse.io, and it is not the one fetch URL in §1."
+    },
+    {
+      "id": "U03",
+      "url": "https://job-boards.greenhouse.io/stripe/jobs/8172510",
+      "expect": "refused",
+      "why": "A posting's absolute_url. Host job-boards.greenhouse.io is not allow-listed; the agent fetches the one board URL only and never follows posting links."
+    },
+    {
+      "id": "U04",
+      "url": "https://api.lever.co/v0/postings/somecompany",
+      "expect": "refused",
+      "why": "A different board provider. api.lever.co is not the allow-listed host."
+    },
+    {
+      "id": "U05",
+      "url": "http://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true",
+      "expect": "refused",
+      "why": "Right host and path but http, not https. §1 fixes one URL and allows no other URL form, and the scheme is part of the form."
+    },
+    {
+      "id": "U06",
+      "url": "https://boards-api.greenhouse.io.evil.com/v1/boards/stripe/jobs",
+      "expect": "refused",
+      "why": "Look at the host: it is boards-api.greenhouse.io.evil.com, a subdomain of evil.com. The allow-listed name is only a prefix of it, so an exact host match refuses it."
+    },
+    {
+      "id": "U07",
+      "url": "https://evil.com/?next=boards-api.greenhouse.io",
+      "expect": "refused",
+      "why": "The actual host is evil.com. The allow-listed name appears only inside a query parameter, which does not make the URL allowed."
+    },
+    {
+      "id": "U08",
+      "url": "https://api.anthropic.com/v1/messages",
+      "expect": "refused",
+      "why": "A model endpoint. The agent never calls one: Claude runs outside the agent, and api.anthropic.com is not the allow-listed host."
+    }
+  ],
+  "resume_cases": [
+    {
+      "id": "P01",
+      "change": {},
+      "expect": "runs",
+      "why": "The final persona from §1, unchanged."
+    },
+    {
+      "id": "P02",
+      "change": {"email": "alex@gmail.com"},
+      "expect": "refused",
+      "why": "The email must be at example.com, the reserved fictional domain. A gmail address could be a real person's, so the persona is no longer clearly fictional."
+    },
+    {
+      "id": "P03",
+      "change": {"email": "alex@notexample.com"},
+      "expect": "refused",
+      "why": "The trick: the address ends in 'example.com' but not in '@example.com'. The domain is notexample.com, a different, registrable domain, so the suffix check fails."
+    },
+    {
+      "id": "P04",
+      "change": {"phone": "617-555-0142"},
+      "expect": "runs",
+      "why": "My decision: it is a 555 number, with 555 as the exchange, so it satisfies §1 as written. But the wording is unclear about whether an area code may come first, so this is an amendment candidate, like S07."
+    },
+    {
+      "id": "P05",
+      "remove": ["skills"],
+      "expect": "refused",
+      "why": "A required field is missing. Without skills, C3 cannot be evaluated at all, so the agent refuses to run with an incomplete persona."
+    },
+    {
+      "id": "P06",
+      "change": {"skills": ["Python", "SQL"]},
+      "expect": "runs",
+      "why": "Nothing in §1 sets a minimum above two, and C3 needs at least two distinct skills. Two is exactly enough, so the persona still works."
+    },
+    {
+      "id": "P07",
+      "change": {"target_titles": []},
+      "expect": "refused",
+      "why": "The field is present but empty. With no target titles, C1 can never pass and no posting could ever be relevant, so the persona is invalid rather than just narrow."
+    }
+  ]
+}
