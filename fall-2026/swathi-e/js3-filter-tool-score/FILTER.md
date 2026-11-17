@@ -36,8 +36,10 @@ R4 Location. Keep only postings in the US, or remote postings that allow
    country is rejected.
    Why: Priya can work only in the US.
 R5 Experience (description). Keep if it asks for 0-1 years, or says new grad,
-   entry level or early career. Reject if its minimum is more than 1 year
-   (e.g. "2+ years", "3-5 years") or it says it is not for new graduates.
+   entry level or early career. A stated range qualifies only if the whole
+   range is within 0-1 years: reject if any part of it is more than 1 year
+   (e.g. "2+ years", "0-2 years", "3-5 years"), or if it says it is not for
+   new graduates.
    If no experience is stated: evaluate the responsibilities and skills; if
    the evidence is still insufficient, the answer is "I cannot tell".
    Why: Priya has 0-1 years; my JS1 labels failed mostly on experience.
@@ -83,3 +85,12 @@ skills and description.
 
 ## Change log (rules added, cut or rejected after measuring)
 (none yet: version 1)
+
+## Revision (2026-11-17, before any code)
+- R5 reworded: a stated experience range qualifies only if the whole range
+  is within 0-1 years. A range whose upper end is more than 1 year (e.g.
+  "0-2 years", "1-3 years") is rejected, even if it starts at 0.
+  Why: R5's original wording ("minimum more than 1 year") would have kept
+  "0-2 years", which contradicts wrong version 4. Claude Code pointed out the
+  conflict; I chose to reject such ranges, because I want the entire stated
+  range to be within 0-1 years. No other rule, weight or threshold changed.
