@@ -26,6 +26,15 @@ type Kind struct {
 	Image     string
 	CPU       string // limit and request, e.g. "500m"
 	Memory    string // limit and request, e.g. "256Mi"
+	// Scratch is the size of /workspace and of /tmp, each an in-memory
+	// (tmpfs) volume. The kernel enforces it: a write past it fails with
+	// "No space left on device" and the pod keeps working. tmpfs pages
+	// count against Memory. (D29)
+	Scratch string
+	// Disk is the ephemeral-storage limit: the rest of the container's
+	// writable layer (/home/apg, /var/tmp, ...). The kubelet enforces it
+	// by evicting the pod, some seconds after the limit is passed. (D29)
+	Disk string
 
 	pod string // pod name, unique per run
 
@@ -52,6 +61,8 @@ func NewKind() (*Kind, error) {
 		Image:     "apg-sandbox:dev",
 		CPU:       "500m",
 		Memory:    "256Mi",
+		Scratch:   "32Mi", // the task repos are 20 KiB or less
+		Disk:      "64Mi",
 		pod:       "apg-" + hex.EncodeToString(b), // e.g. apg-1a2b3c4d
 	}, nil
 }
@@ -260,7 +271,12 @@ func (k *Kind) manifest() obj {
 			},
 		})
 	}
-	resources := obj{"cpu": k.CPU, "memory": k.Memory}
+	resources := obj{"cpu": k.CPU, "memory": k.Memory, "ephemeral-storage": k.Disk}
+	// scratch is an emptyDir volume kept in memory (tmpfs). sizeLimit
+	// becomes the tmpfs size, so the kernel refuses writes past it.
+	scratch := func(name string) obj {
+		return obj{"name": name, "emptyDir": obj{"medium": "Memory", "sizeLimit": k.Scratch}}
+	}
 	items = append(items, obj{
 		"apiVersion": "v1",
 		"kind":       "Pod",
@@ -274,6 +290,7 @@ func (k *Kind) manifest() obj {
 			"enableServiceLinks":           false, // no service env vars in the pod
 			"restartPolicy":                "Never",
 			"activeDeadlineSeconds":        3600, // pod ends itself if Stop never runs
+			"volumes":                      []any{scratch("workspace"), scratch("tmp")},
 			"securityContext": obj{
 				"runAsNonRoot":   true,
 				"runAsUser":      1000,
@@ -289,6 +306,12 @@ func (k *Kind) manifest() obj {
 				// the image's WORKDIR: the policy resolves relative paths
 				// against /workspace, so commands must run there.
 				"workingDir": "/workspace",
+				// The size-capped volumes replace the image's /workspace and
+				// /tmp directories (D29).
+				"volumeMounts": []any{
+					obj{"name": "workspace", "mountPath": "/workspace"},
+					obj{"name": "tmp", "mountPath": "/tmp"},
+				},
 				"securityContext": obj{
 					"allowPrivilegeEscalation": false,
 					"capabilities":             obj{"drop": []string{"ALL"}},

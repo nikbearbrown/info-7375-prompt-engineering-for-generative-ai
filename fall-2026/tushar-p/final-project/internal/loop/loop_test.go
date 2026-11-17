@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"unicode/utf8"
 
 	"github.com/anthropics/anthropic-sdk-go/v2"
 
@@ -311,7 +312,7 @@ func TestRunCommandOutputAndTruncation(t *testing.T) {
 	if s.IsError || s.ExitCode == nil || *s.ExitCode != 1 {
 		t.Errorf("non-zero exit is data, not a tool error: %+v", s)
 	}
-	if !strings.Contains(s.Output, "...[truncated") || len(s.Output) > maxOutput+100 {
+	if !strings.Contains(s.Output, " bytes cut ...]") || len(s.Output) > maxOutput+100 {
 		t.Errorf("output not truncated: len=%d", len(s.Output))
 	}
 	if strings.Contains(s.Output, "command terminated") {
@@ -325,10 +326,17 @@ func TestRunCommandOutputAndTruncation(t *testing.T) {
 }
 
 func TestTruncateKeepsUTF8Valid(t *testing.T) {
-	s := strings.Repeat("a", maxOutput-1) + "é" + "tail" // é straddles the cut
+	// é (2 bytes) straddles the head cut, and another straddles the tail cut.
+	s := strings.Repeat("a", headBytes-1) + "é" + strings.Repeat("b", 100) + "é" + strings.Repeat("c", tailBytes-1)
 	got := truncate(s)
-	if !strings.HasPrefix(got, strings.Repeat("a", maxOutput-1)+"\n...[truncated") {
-		t.Errorf("cut inside a character: %q", got[maxOutput-5:])
+	if !strings.HasPrefix(got, strings.Repeat("a", headBytes-1)+"\n[... ") {
+		t.Errorf("head cut inside a character: %q", got[headBytes-5:headBytes+10])
+	}
+	if !strings.HasSuffix(got, " bytes cut ...]\n"+strings.Repeat("c", tailBytes-1)) {
+		t.Errorf("tail cut inside a character: %q", got[len(got)-tailBytes-10:len(got)-tailBytes+5])
+	}
+	if !utf8.ValidString(got) {
+		t.Error("result is not valid UTF-8")
 	}
 }
 

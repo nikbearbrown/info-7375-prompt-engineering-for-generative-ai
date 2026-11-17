@@ -4,3 +4,11 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
+    # podPidsLimit caps the processes in each pod (D28, T4.4). Kubernetes has
+    # no pod-spec field for this; it is a kubelet setting. Without it, code
+    # the agent runs through python could fork until the node runs out of
+    # PIDs, and could outrun the harness's kill loop (internal/stop).
+    kubeadmConfigPatches:
+      - |
+        kind: KubeletConfiguration
+        podPidsLimit: 256

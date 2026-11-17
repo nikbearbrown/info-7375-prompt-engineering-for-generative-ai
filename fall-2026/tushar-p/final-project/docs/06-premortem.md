@@ -36,6 +36,7 @@ Written before the build. Each entry is a prediction, not a result. Tushar chose
 - **Independent check:** the calendar. M1 ("first slice works end to end on kind") either exists by Nov 12 or does not.
 - **Impact:** no time for evaluation and the packet, which carry most of the grade.
 - **Prevention / recovery:** T0.5 does kind by hand first. If Nov 12 passes, Claude Code writes `internal/sandbox/docker.go` behind the same interface; log why (friction log in the claude.ai Project, then FRICTIONAL.md at the end) and the Decision log (D16).
+- **Outcome (Nov 17, 2026):** it did not happen. M1, the first slice working end to end on kind, was reached on Nov 12. `internal/sandbox/docker.go` was never written, and no Docker fallback ships (D27).
 
 ## P5 — A runaway loop burns tokens and money
 

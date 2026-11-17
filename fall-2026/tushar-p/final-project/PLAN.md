@@ -14,9 +14,9 @@ Build plan for Tushar Patel's INFO7375 final project. Every chat in this Project
 
 ## Current status
 
-- **Phase:** 3 — Task suite and evaluation harness
-- **Next task:** T4.1
-- **Last updated:** Nov 13, 2026
+- **Phase:** 5 — Evaluation runs
+- **Next task:** T5.1
+- **Last updated:** Nov 17, 2026
 
 ---
 
@@ -190,7 +190,7 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
   - In 005, the check after step 6 (one file fixed) failed and the check after step 7 passed.
   - Evidence: evidence/traces/20261113T230736Z-5465d81d, …230750Z-8b6ebce6, …230804Z-ac0f7f94, …230821Z-607ddc3e. The pre-fix runs are kept and labelled in docs/trace-schema.md.
   - `001 PASS steps=5 gate=deferred` (20261113T230904Z-3d625236) gives 001 a v1 trace.
-- **M2:** loop, tools, policy, stop and gate all exist with tests. The milestone row waits for the course-repo sync hash.
+- **M2:** loop, tools, policy, stop and gate all exist with tests.
 1. `docs/trace-schema.md`: every field explained.
 2. Add tasks 002–005.
 - **Done when:** all 5 tasks run, and each trace validates against the schema.
@@ -241,6 +241,7 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
   - It appends to results/eval-log.jsonl and regenerates results/EVAL-LOG.md.
 - **Prompt version:** traces and the log record `prompt_version`.
 - **First dev eval** (commit 0345130, eval 20261114T010304Z-8011b8a0, `claude-haiku-5-5`): 7/7 expected-PASS tasks passed, and the system said no on 2/2 failure cases (013, 014). There were 0 UNEXPECTED rows, at an estimated $0.0161 over 3.9 min (docs/07-evidence.md).
+- **D26 follow-up (Nov 17):** after the truncation fix (f74abc8), a second dev eval (20261117T230910Z-4e9d72ef) gave the same result: 7/7 passed, 2/2 said no, 0 UNEXPECTED, est. $0.0176 over 3m51s. In 014 the model now saw the `FileNotFoundError` for git (docs/07-evidence.md).
 1. Runs a set of tasks, prints the results table (task, PASS/FAIL, steps, denied (blocked tool calls), exit reason, cost), and appends to `results/eval-log.jsonl`.
 2. Each eval-log entry records the model and the contract version.
 - **Done when:** `apg eval --set dev` prints the table.
@@ -256,18 +257,40 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 1. Readable step-by-step trace printout in the terminal.
 - **Done when:** `apg show traces/<run_id>.json` prints every step.
 
-**Milestone M3:** suite frozen, eval command works. (Reached with T3.4 on Nov 13; the milestone row waits for the course-repo sync.)
+**Milestone M3:** suite frozen, eval command works. (Reached with T3.4 on Nov 13.)
 
 ---
 
 ## Phase 4 — Isolation proof (Nov 24 – Nov 29, light)
 
-**T4.1 Isolation tests**
+**T4.1 Isolation tests** ✅ Done Nov 17:
+- **Tests:** `internal/sandbox/isolation_test.go` and `storage_test.go` try to break each pod limit from inside a real kind pod. The memory, fork and disk tests refuse to start unless their limit is confirmed first.
+- **Fixture output** at 0a7511a (`evidence/isolation/20261117-isolation.txt`); every limit held:
+  - non-root: uid 1000, setuid(0) EPERM
+  - capabilities: all sets zero
+  - no privilege escalation: NoNewPrivs 1, setuid `mount` fails, user namespace EPERM
+  - writes outside /workspace and /tmp: EACCES
+  - service-account token: none, API server blocked
+  - egress: blocked
+  - CPU: 0.50 CPUs under load
+  - memory: OOM-killed at 240 MiB
+  - processes: fork EAGAIN after 252
+- **Limits added in this task:**
+  - D28: `podPidsLimit: 256` in `sandbox/kind.yaml`, and the cluster was recreated.
+  - D29: 32Mi tmpfs `/workspace` and `/tmp`, plus a 64Mi ephemeral-storage limit.
+- **Rerun after D29** at 9eed69c (`evidence/isolation/20261117-isolation-d29.txt`):
+  - all of the above held again;
+  - /workspace and /tmp refused writes past 32 MiB (ENOSPC), and the pod stayed usable;
+  - 96 MiB in /home/apg got the pod evicted after 14 s.
+- **Dev eval after D29** (eval 20261117T234541Z-d3faff4f, at 9eed69c): 7/7 passed, 2/2 said no, 0 UNEXPECTED, est. $0.0147 (docs/07).
+- **Still a documented gap:** the root filesystem is not read-only (docs/03).
+- **Docs:** docs/03, docs/07.
+- **Commit labels:** commits 0a7511a and 84bc3a5 are labelled "T4.4". That label came from a restructure of this phase into T4.1–T4.4 that was reverted the same day. They belong to this task.
 1. One test per sandbox limit: no network, non-root, no service-account token, CPU and memory limits enforced.
 2. Save the results for `docs/07-evidence.md`.
 - **Done when:** every limit has a passing test and the results are saved.
 
-**Milestone M4:** isolation tests pass, results saved.
+**Milestone M4:** isolation tests pass, results saved. (Reached Nov 17 with T4.1. The course sync is not done yet.)
 
 ---
 
@@ -374,7 +397,7 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | D13 | Oct 23 | Personal repo public from the start | Decided |
 | D14 | Nov 3 | Claude Code writes the agent loop (pitch said hand-written; noted in README changes and driver's seat) | Decided |
 | D15 | Nov 3 | Add apg compare, denied column, apg show, FAILURES.md, demo.sh | Decided |
-| D16 | Nov 3 | Kubernetes (kind) from the start; Docker sandbox only as fallback after Nov 12 | Decided |
+| D16 | Nov 3 | Kubernetes (kind) from the start; Docker sandbox only as fallback after Nov 12 | Decided; the fallback was never needed or built (D27) |
 | D17 | Nov 3 | Claude Code drafts packet docs; Tushar reviews | Decided |
 | D18 | Nov 11 | Claude Code implements everything; Tushar reviews and approves | Decided |
 | D19 | Nov 11 | kindnet enforces NetworkPolicy ~1–2 s after Ready; Start probes until egress is blocked (30 s limit, fail and delete pod), probes recorded with Start's commands | Decided |
@@ -384,6 +407,10 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | D23 | Nov 13 | The gate's outcome goes in the trace's `gate` section, not in `exit_reason`. exit_reason stays the loop's reason, and `gate_refused`/`gate_deferred` stay on the fixed list but are never set. Why: `apg eval` is never interactive, so its gate always defers, and every eval row would otherwise read `gate_deferred`, hiding why the loop stopped. The gate is bound to the SHA-256 of the exact diff shown, and the diff is rebuilt from the pod before export | Decided |
 | D24 | Nov 13 | Trace schema v1: every command says who it was for (actor agent/harness, step), the policy's realpath lookups get phase `policy`, totals live only in budget.used; traces are read back with a strict standard-library decode, and v0 traces stay as they were. "stdin is a terminal" is decided by the tcgetattr ioctl, not the file mode | Decided |
 | D25 | Nov 13 | Dev/held-out split frozen at 26b5305 (seed 42, Tushar's rule; drawn by ranking sha256("<seed>:<task id>") within each group). The split is never redrawn because of where a task lands; 012-wrong-test stays held-out and its Phase 6 runs are labelled controlled-failure runs | Decided |
+| D26 | Nov 17 | Tool output keeps head and tail: a tool result (and step text/input) over 8,192 bytes keeps its first 4,096 and last 4,096 bytes with `[... N bytes cut ...]` between; before, only the first 8,192 were kept. Made in response to dev run 014 (evidence/traces/20261114T010633Z-9ee17ef3.json, step 6), where the head-only cut dropped pytest's last 544 bytes, which held `FileNotFoundError: ... 'git'`, and the model wrongly concluded /workspace was not a git repository (the check saw the full output; the verdict was right). Made before any held-out run. A harness fix, not a prompt change: the system prompt and tool descriptions are unchanged (prompt_version stays 77d9d716f423, pinned by a test); each trace records the settings in `truncation`. Done now rather than in T5.1 so it does not mix into the contract A vs B comparison. Limit: run_command's exit code, stdout and stderr are cut as one text, so with long stdout and long stderr the end of stdout can still be cut | Decided |
+| D27 | Nov 17 | Cutoff decision (T4.3 of the original Docker-first plan, commit 96375d2): kind is the default and the only sandbox; no Docker fallback (`internal/sandbox/docker.go`) is written or ships. Task 001 ran on kind on Nov 12 (M1), and every run since has used kind. Docker is used only to build `apg-sandbox:dev`, and by `cmd/apg/tasks_test.go`, which runs each check against the image without a pod | Decided |
+| D28 | Nov 17 | Kubelet `podPidsLimit: 256` in `sandbox/kind.yaml` (the pod spec has no pids field; until now configz read -1, no limit), so a fork loop from python cannot exhaust the node's PIDs, and the kill loop faces at most 256 processes. The cluster was recreated from the config. It is a harness environment change made before any held-out run; both dev evals ran without it. A read-only root filesystem is documented in docs/03 and deferred (Tushar's decision); for disk see D29 | Decided |
+| D29 | Nov 17 | Disk is capped two ways. /workspace and /tmp are in-memory emptyDir volumes (tmpfs) with sizeLimit 32Mi each: the kernel refuses a write past it (ENOSPC), and the pod keeps working. The rest of the container's writable layer (/home/apg, /var/tmp, ...) has an ephemeral-storage limit of 64Mi, which the kubelet enforces by evicting the pod some seconds after it is passed. Why both: tested on the cluster, an ephemeral-storage limit alone did not stop a write (100 MiB past 64Mi succeeded); the pod was evicted ~20 s later and could not be used. So only a kernel-enforced size can make the write fail. Sizes: the task repos are 20 KiB or less. tmpfs pages count against the 256Mi memory limit. An evicted pod ends a run with harness errors (not tested end to end). It is a pod spec change made before any held-out run, so the dev eval was rerun after it. The read-only root filesystem stays a documented gap | Decided |
 
 ---
 
@@ -401,3 +428,4 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | M0 | Nov 3 | Toolchain works, public repo exists, premortem committed; synced to the course folder | course repo commit 73af1fc (from agent-proving-ground@2a1a722) |
 | M1 | Nov 12 | First slice works end to end on kind (T1.1–T1.4: `apg run 001` PASS with claude-haiku-5-5, evidence/traces/20261112T053055Z-92239eb0.json); synced to the course folder | course repo commit 8349ba9a (from agent-proving-ground@e3454c0) |
 | M2 | Nov 13 | Loop, tools, policy, state, stop, and gate all exist with tests (T2.1–T2.5: tasks 001–005 PASS with claude-haiku-5-5, traces validate against schema v1, evidence/traces/20261113T230736Z-5465d81d … 230904Z-3d625236); synced to the course folder | course repo commit 0429df05 (from agent-proving-ground@cd192a8) |
+| M3 | Nov 13 | Suite frozen, eval command works (T3.1–T3.4: 16 tasks, dev/held-out split frozen at 26b5305; `apg eval --set dev` 7/7 expected-PASS passed and 2/2 failure cases said no, eval 20261114T010304Z-8011b8a0; `apg show` prints every step); synced to the course folder | course repo commit 16227643 (from agent-proving-ground@48ee9c9) |

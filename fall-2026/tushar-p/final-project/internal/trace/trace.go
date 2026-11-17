@@ -91,7 +91,20 @@ type Trace struct {
 	LoopStop      string  `json:"loop_stop,omitempty"`      // why the agent loop ended: end_turn | max_tokens | refusal | limit | check_passed
 	Budget        *Budget `json:"budget,omitempty"`         // limits and totals used; pointer: nil (omitted) without an agent
 
+	// How long tool output was cut (D26). Absent in traces before D26,
+	// whose output was cut head-only at 8,192 bytes.
+	Truncation *Truncation `json:"truncation,omitempty"`
+
 	Gate *Gate `json:"gate,omitempty"` // the human gate (T2.4); nil when no gate ran
+}
+
+// Truncation is how the agent loop cut long tool results (and step text
+// and input): output over LimitBytes keeps its first HeadBytes and last
+// TailBytes, with a "[... N bytes cut ...]" marker in between (D26).
+type Truncation struct {
+	LimitBytes int `json:"limit_bytes"`
+	HeadBytes  int `json:"head_bytes"`
+	TailBytes  int `json:"tail_bytes"`
 }
 
 // Gate is the human gate's record: what was shown, what was decided, and
@@ -317,6 +330,9 @@ func (t *Trace) Validate() error {
 	if (t.Model != "") != (t.Budget != nil) {
 		errs = append(errs, errors.New("model and budget must be set together (an agent run) or not at all"))
 	}
+	if c := t.Truncation; c != nil && (c.HeadBytes <= 0 || c.TailBytes <= 0 || c.HeadBytes+c.TailBytes != c.LimitBytes) {
+		errs = append(errs, fmt.Errorf("truncation %+v: head and tail must be positive and add up to the limit", *c))
+	}
 	if t.Gate != nil && !validDecisions[t.Gate.Decision] {
 		errs = append(errs, fmt.Errorf("gate decision %q", t.Gate.Decision))
 	}
@@ -331,15 +347,16 @@ var validDecisions = map[string]bool{
 // required lists, for each JSON object in a trace, the keys that must be
 // present. Keys left out of this list are optional (omitempty).
 var required = map[string][]string{
-	"trace":     {"schema_version", "run_id", "task_id", "pod", "started_at", "ended_at", "commands", "steps", "exit_reason", "verdict", "check", "check_runs"},
-	"command":   {"phase", "actor", "args", "stdout", "stderr", "exit_code"},
-	"step":      {"n", "stop_reason", "input_tokens", "output_tokens"},
-	"check":     {"ran"},
-	"check_run": {"after_step", "trigger", "exit_code", "passed", "killed", "workspace_sha256", "changed_workspace"},
-	"budget":    {"limits", "from_contract", "used"},
-	"limits":    {"max_steps", "max_total_tokens", "max_cost_usd", "timeout_seconds", "max_policy_violations", "max_reply_tokens"},
-	"used":      {"steps", "input_tokens", "output_tokens", "total_tokens", "cost_usd", "agent_seconds", "policy_violations", "count_tokens_calls"},
-	"gate":      {"decision", "interactive", "shown", "diff_bytes", "decided_at"},
+	"trace":      {"schema_version", "run_id", "task_id", "pod", "started_at", "ended_at", "commands", "steps", "exit_reason", "verdict", "check", "check_runs"},
+	"command":    {"phase", "actor", "args", "stdout", "stderr", "exit_code"},
+	"step":       {"n", "stop_reason", "input_tokens", "output_tokens"},
+	"check":      {"ran"},
+	"check_run":  {"after_step", "trigger", "exit_code", "passed", "killed", "workspace_sha256", "changed_workspace"},
+	"budget":     {"limits", "from_contract", "used"},
+	"limits":     {"max_steps", "max_total_tokens", "max_cost_usd", "timeout_seconds", "max_policy_violations", "max_reply_tokens"},
+	"used":       {"steps", "input_tokens", "output_tokens", "total_tokens", "cost_usd", "agent_seconds", "policy_violations", "count_tokens_calls"},
+	"gate":       {"decision", "interactive", "shown", "diff_bytes", "decided_at"},
+	"truncation": {"limit_bytes", "head_bytes", "tail_bytes"},
 }
 
 // Decode reads one v1 trace strictly, with the standard library only:
@@ -426,9 +443,12 @@ func checkRequired(b []byte) error {
 			return err
 		}
 	}
-	if raw, ok := top["gate"]; ok {
-		if _, err := object(raw, "gate", "gate"); err != nil {
-			return err
+	// Optional sections: when present, all their keys must be there.
+	for _, key := range []string{"gate", "truncation"} {
+		if raw, ok := top[key]; ok {
+			if _, err := object(raw, key, key); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
