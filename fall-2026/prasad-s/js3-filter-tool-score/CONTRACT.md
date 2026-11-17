@@ -1,9 +1,9 @@
-# CONTRACT.md — Job-Search Agent 1: The Contract and the Watch (amended for JS2 in v0.5)
+# CONTRACT.md — Job-Search Agent 1: The Contract and the Watch (amended for JS2 in v0.5 and for JS3 in v0.9)
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.8 — 2026-11-07. Amends v0.7 (JS2-CP5b-v0.7); see §9 and the v0.5 to v0.8 sections at the end of this file. v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
-**Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. Everything else in §§1–8 stands as v0.4 left it.  
+**Version:** v0.9 — 2026-11-17. Amends v0.8 (JS2, as submitted at `64e00c7`) for JS3; see §9 and the v0.9 section at the end of this file. v0.8 was 2026-11-07 and amended v0.7; v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.  
+**Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. For JS3, the v0.9 section adds that FILTER.md v1 supersedes §4's missing-field note and §8, and that SEAL.md governs the held-out sets. Everything else in §§1–8 stands as v0.4 left it.
 **Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
 
@@ -88,6 +88,7 @@
   are mine. Main changes: [an honest identity on every request; an
   empty board with saved ids is a failure, its line per W5; labels to
   GATE v0.3 and CONTRACT v0.8; two known limits.]
+- **2026-11-17 — v0.9.** Written for JS3 after JS2 was copied in unchanged (JS3-CP4a and CP4b) and before any JS3 filter code. It records how this contract sits under FILTER.md v1 and SEAL.md, which were written and committed first (JS3-CP1, JS3-CP2a); no rule here changes except where FILTER.md already says so. Claude (Claude.ai) typed this entry and the v0.9 section at my request; the decisions are mine. Main changes: [FILTER.md v1 supersedes §4's missing-field note (F7) and §8 (FILTER.md §5) for JS3; SEAL.md governs the held-out sets; JS3's seal and labeling tools run outside the agent, like JS1's helpers; the W5 test reads its two JS2 files from tests/fixtures/js2/; this folder starts with no state of its own, so the agent's first run here is a baseline.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -500,6 +501,8 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-11-07 | §4, v0.7 item 6 and E16 | zero jobs on a board with saved ids was ok → "failed — empty board", its line in W5's wording (GATE.md v0.3; v0.8, item 2) | the CP7 demo; the W5 test failed first (JS2-CP8b); the patch was reviewed and accepted (JS2-CP8c) | 109/109 (JS2-CP8c) |
 | 2026-11-07 | §2 outputs | the report labeled gate v0.2 and contract v0.6 → gate v0.3 and contract v0.8, from JS2-CP8e (v0.8, item 3) | run 1's report carried a stale label | the suite, after JS2-CP8e |
 | 2026-11-07 | §4 | not stated → two more known limits recorded (v0.8, item 4) | found on review of JS2-CP8c | none: recorded, not tested |
+| 2026-11-17 | §4 (missing field) | "If a field is missing, that condition is `false`" → for JS3, FILTER.md v1 F7: when a missing field would decide the verdict, the posting is `cannot_tell`, reported in its own list (v0.9, item 2) | the JS3 brief asks when the agent must say "I cannot tell"; a false condition on a field nobody saw is a verdict the text doesn't support (FILTER.md F7) | none yet: F7 is built next, and W8 (FILTER.md §4) pins it |
+| 2026-11-17 | §8 | hand labels apply §4 by hand → for JS3, FILTER.md §5: whether a posting is worth the persona's time; JS1's and JS2's labels keep §8 (v0.9, item 3) | under §8, the audit could only find code bugs, and no rule change could ever beat the labels | none: a labeling rule, not code |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -818,3 +821,13 @@ Amends v0.7. Written after the W5 patch (JS2-CP8c) and before run 2.
      That is correct, but no test pins it.
    - A partial drop, such as 59 jobs falling to 3, is not caught (GATE.md
      v0.3 changelog).
+
+## v0.9 — 2026-11-17 (JS3)
+Amends v0.8 for JS3. FILTER.md v1 (JS3-CP1) and SEAL.md (from JS3-CP2a) were written and committed before this section, and it does not repeat them.
+
+1. Started from: JS2 at `64e00c7`, copied into js3-filter-tool-score/ unchanged via git archive (JS3-CP4a): agent/, tests/, tools/, this file, GATE.md, config.json, resume_persona.json and .gitignore, with diff -r and cmp clean. The loop, its five boards, its budgets and its permission policy (GATE.md v0.3) carry over unchanged.
+2. The filter: FILTER.md v1 is JS3's filter. Its F1–F6 are §4 unchanged. F7 replaces §4's note "If a field is missing, that condition is `false`": when a missing field would decide the verdict, the posting is `cannot_tell`. F8 adds a ranking. Where this contract and FILTER.md disagree in JS3, FILTER.md governs.
+3. Hand labels: in JS3 they follow FILTER.md §5 (worth / not_worth / unclear), not §8. JS1's and JS2's labels keep their §8 meaning and are not relabeled.
+4. The held-out sets are drawn, labeled and sealed under SEAL.md. The final project's set is never opened in JS3.
+5. Tools outside the agent: tools/seal_draw.py and tools/label_view.py run outside the agent and its permission layer, like JS1's helpers (v0.7 E20). They read the corpus where it lives, in js1-contract-and-watch/ and js2-loop-tools-diff/; seal_draw writes only in vault/, and label_view writes nothing. The agent itself is unchanged and still reads and writes only inside this folder (GATE.md §5).
+6. The W5 test reads JS2's run-1 state file and the constructed empty body from tests/fixtures/js2/, copied byte for byte (JS3-CP4b). This folder has no state/ or evidence/ of its own yet, so the agent's first run here is a baseline, and no JS2 state is ever read as JS3's.
