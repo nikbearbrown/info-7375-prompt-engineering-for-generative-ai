@@ -17,6 +17,12 @@ neither is the exposed set, vault/js3_heldout_ids.tsv (the first JS3 set,
 retired by §8). Every command reads all three files and refuses if any two
 share a posting. The tool never writes a file.
 
+No message contains a posting id, a board key next to a position, or a
+repeated argument: error and check messages get pasted into chats, and
+SEAL.md v1.5 §8 keeps the v2 set out of them. Ids appear only in list's
+output, in show's posting lines, and in template's rows (the labels file
+itself, which stays in ~/js3-vault/).
+
 Standard library only.
 """
 
@@ -108,17 +114,24 @@ def load_sets(root):
 
 
 def position_of(arg, js3, final, exposed):
-    """show takes a position 1-30 and nothing else."""
+    """show takes a position 1-30 and nothing else.
+
+    A refusal says which kind of argument it was and never repeats it: the
+    argument may be a posting id, and refusals get pasted (SEAL.md §8).
+    """
     if _DIGITS.fullmatch(arg) and 1 <= int(arg) <= SET_SIZE:
         return int(arg)
     if any(arg == posting_id for _, posting_id in final):
-        raise ViewError(f"refused: {arg} is an id in the final's set, which is never shown in JS3 (SEAL.md §1, §7)")
+        raise ViewError(f"refused: the argument is an id in the final's set, which is never shown in JS3 "
+                        f"(SEAL.md §1, §7); show takes a position 1-{SET_SIZE} (see list)")
     if any(arg == posting_id for _, posting_id in exposed):
-        raise ViewError(f"refused: {arg} is an id in the exposed set, the first JS3 set, retired by SEAL.md §8; "
-                        f"show takes a position 1-{SET_SIZE} (see list)")
+        raise ViewError(f"refused: the argument is an id in the exposed set, the first JS3 set, retired by "
+                        f"SEAL.md §8; show takes a position 1-{SET_SIZE} (see list)")
     if any(arg == posting_id for _, posting_id in js3):
-        raise ViewError(f"refused: show takes a position 1-{SET_SIZE} (see list), not an id")
-    raise ViewError(f"refused: {arg!r} is not a position 1-{SET_SIZE}, and not an id in JS3's set")
+        raise ViewError(f"refused: the argument is an id in JS3's set; show takes a position 1-{SET_SIZE} "
+                        f"(see list), not an id")
+    raise ViewError(f"refused: the argument is not a position 1-{SET_SIZE}, and not an id in JS3's set, "
+                    f"the final's set or the exposed set")
 
 
 # ---------------------------------------------------------------- the posting's own text (FILTER.md §2, F1)
@@ -126,7 +139,7 @@ def position_of(arg, js3, final, exposed):
 def _ats(board):
     ats = board.split(":", 1)[0]
     if ats not in ("greenhouse", "ashby"):
-        raise ViewError(f"unknown ATS in board key {board!r}")
+        raise ViewError("unknown ATS in a posting's board key")
     return ats
 
 
@@ -260,9 +273,9 @@ def check_labels(text, js3, final, exposed):
                 problems.append(f"{where}: parts lists a part twice")
         if not evidence.strip():
             problems.append(f"{where}: evidence is empty")
-    for p, (board, posting_id) in enumerate(js3, start=1):
+    for p in range(1, len(js3) + 1):
         if p not in first_line:
-            problems.append(f"position {p} ({board} {posting_id}): no row")
+            problems.append(f"position {p}: no row")
     return problems
 
 
@@ -291,17 +304,34 @@ def cmd_check(root, path, out):
     try:
         text = Path(path).read_text(encoding="utf-8-sig")  # read only; a spreadsheet's BOM is allowed
     except (OSError, UnicodeDecodeError) as exc:
-        raise ViewError(f"cannot read {path} ({type(exc).__name__})") from exc
+        raise ViewError(f"cannot read the labels file ({type(exc).__name__})") from exc  # PATH is not repeated
     problems = check_labels(text, js3, final, exposed)
     out.write("ok\n" if not problems else "\n".join(problems) + "\n")
     return 1 if problems else 0
 
 
+class _UsageError(Exception):
+    pass
+
+
+class _Parser(argparse.ArgumentParser):
+    """argparse's own errors repeat the argument they reject ("invalid choice: ...",
+    "unrecognized arguments: ..."), and an argument may be a posting id. This
+    parser's errors repeat nothing; main prints one fixed usage line instead.
+    Subparsers are made from the same class."""
+
+    def error(self, message):
+        raise _UsageError()
+
+
+USAGE = "label_view.py list | show N | template | check PATH"
+
+
 def main(argv=None, root=seal_draw.JS3_ROOT, corpus=seal_draw.CORPUS, out=None, err=None):
     out = out or sys.stdout
     err = err or sys.stderr
-    parser = argparse.ArgumentParser(prog="label_view.py",
-                                     description="Show JS3's held-out postings for hand labels (FILTER.md §5).")
+    parser = _Parser(prog="label_view.py",
+                     description="Show JS3's held-out postings for hand labels (FILTER.md §5).")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("list", help="positions 1-30 with board key and id, in rank order")
     show = sub.add_parser("show", help="one posting's board key, id, title, location and text")
@@ -309,7 +339,11 @@ def main(argv=None, root=seal_draw.JS3_ROOT, corpus=seal_draw.CORPUS, out=None, 
     sub.add_parser("template", help="print an empty labels TSV to stdout; never writes a file")
     check = sub.add_parser("check", help="validate a filled labels file; never changes it")
     check.add_argument("path", metavar="PATH")
-    args = parser.parse_args(argv)
+    try:
+        args = parser.parse_args(argv)
+    except _UsageError:
+        err.write(f"error: not a valid command line; usage: {USAGE}\n")
+        return 2
     try:
         if args.command == "list":
             cmd_list(root, out)

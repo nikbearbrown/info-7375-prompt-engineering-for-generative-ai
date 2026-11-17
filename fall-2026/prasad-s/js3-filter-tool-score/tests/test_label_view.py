@@ -117,6 +117,11 @@ def position(key):
     return by_rank(JS3_PRODUCT + JS3_OTHER).index(key) + 1
 
 
+def leaked(text):
+    """Every posting id or board key from the three constructed sets that text contains (SEAL.md v1.5 §8)."""
+    return [s for s in [GH, AB] + [i for _, i in JS3_PRODUCT + JS3_OTHER + FINAL + EXPOSED] if s in text]
+
+
 def snapshot(root):
     return {(str(p), p.stat().st_size, p.stat().st_mtime_ns) for p in Path(root).rglob("*")}
 
@@ -361,6 +366,43 @@ class TestRefusals(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             self.assert_refused(Fixture(tmp, files=files).run("show", str(position(key))), "not in the corpus")
 
+    def test_show_refusals_name_the_kind_and_never_repeat_the_argument(self):
+        """SEAL.md v1.5 §8: refusals get pasted into chats, so they carry no id and never echo the argument."""
+        final_kind = "the argument is an id in the final's set"
+        exposed_kind = "the argument is an id in the exposed set"
+        js3_kind = "the argument is an id in JS3's set"
+        neither = "the argument is not a position 1-30, and not an id in JS3's set, the final's set or the exposed set"
+        cases = [
+            (FINAL[0][1], final_kind), (FINAL[14][1], final_kind), (FINAL[-1][1], final_kind),
+            (EXPOSED[0][1], exposed_kind), (EXPOSED[21][1], exposed_kind), (EXPOSED[-1][1], exposed_kind),
+            (JS3_PRODUCT[0][1], js3_kind), (JS3_PRODUCT[-1][1], js3_kind), (JS3_OTHER[-1][1], js3_kind),
+            ("999999", neither), ("c-unknown-77", neither), ("31", neither), ("100", neither),
+            ("abc", neither), ("1.5", neither), ("-7", neither), (GH, neither), (f"{GH}:{JS3_PRODUCT[0][1]}", neither),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            for arg, kind in cases:
+                with self.subTest(arg=arg):
+                    code, out, err = fx.run("show", arg)
+                    self.assertEqual((code, out), (1, ""), err)
+                    self.assertIn(kind, err)
+                    self.assertNotIn(arg, err)
+                    self.assertEqual(leaked(err), [])
+
+    def test_command_line_errors_never_repeat_an_argument(self):
+        """argparse would echo these ("invalid choice: ...", "unrecognized arguments: ...")."""
+        some_id = JS3_PRODUCT[0][1]
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            for argv in ((), (some_id,), ("show",), ("show", "1", some_id), ("show", f"-x{some_id}"),
+                         ("list", some_id), ("template", f"--{some_id}"), ("check",),
+                         ("check", "labels.tsv", some_id)):
+                with self.subTest(argv=argv):
+                    code, out, err = fx.run(*argv)
+                    self.assertEqual((code, out), (2, ""))
+                    self.assertEqual(err, "error: not a valid command line; usage: "
+                                          "label_view.py list | show N | template | check PATH\n")
+
 
 # ---------------------------------------------------------------- check
 
@@ -417,7 +459,7 @@ class TestCheck(unittest.TestCase):
 
         cases = {
             "header": (lambda rows: rows, "line 1: the header is not", "position\tboard\tid\tverdict\tparts\tevidence"),
-            "missing row": (lambda rows: rows[:6] + rows[7:], "position 7 (", None),
+            "missing row": (lambda rows: rows[:6] + rows[7:], "position 7: no row", None),
             "duplicate": (lambda rows: rows + [list(rows[2])], "position 3 is already on line 4", None),
             "position out of range": (edit(5, 0, "31"), "position is not a whole number 1-30", None),
             "position not a number": (edit(5, 0, "five"), "position is not a whole number 1-30", None),
@@ -468,6 +510,77 @@ class TestCheck(unittest.TestCase):
         code, out, _ = self.run_check(self.labels_text(rows))
         self.assertEqual(code, 1)
         self.assertEqual(out, "line 10 (position 9): names an id in the exposed set (the first JS3 set, SEAL.md §8)\n")
+
+    def test_no_check_message_names_an_id(self):
+        """SEAL.md v1.5 §8: check's output gets pasted, so on any bad file it carries no id and no board key."""
+        expected = by_rank(JS3_PRODUCT + JS3_OTHER)
+
+        def cell(position, column, value):
+            def apply(rows):
+                rows[position - 1][column] = value
+                return rows
+            return apply
+
+        def put(position, key):
+            def apply(rows):
+                rows[position - 1][1], rows[position - 1][2] = key
+                return rows
+            return apply
+
+        def put_all(keys):
+            def apply(rows):
+                for p, key in enumerate(keys, start=1):
+                    rows[p - 1][1], rows[p - 1][2] = key
+                return rows
+            return apply
+
+        def everything_at_once(rows):
+            rows = rows[:25]  # positions 26-30 missing
+            for mutate in (cell(1, 0, "31"), cell(2, 0, expected[1][1]), put(3, expected[9]), put(4, FINAL[0]),
+                           put(5, EXPOSED[0]), put(6, (AB, "c-unknown-01")), cell(7, 3, "maybe"),
+                           lambda r: cell(8, 4, "skills")(cell(8, 3, "unclear")(r)), cell(9, 5, " "),
+                           cell(10, 5, f"{expected[10][1]}\tsee {expected[10][0]}")):
+                rows = mutate(rows)
+            return rows + [list(rows[11]), rows[12][:4]]
+
+        cases = {
+            "header is a data row": (lambda rows: rows, "\t".join([str(1), *expected[0], "worth", "-", "x"])),
+            "every row missing": (lambda rows: [], None),
+            "every other row missing": (lambda rows: rows[::2], None),
+            "duplicate position": (lambda rows: rows + [list(rows[4])], None),
+            "position out of range": (cell(3, 0, "31"), None),
+            "position cell holds an id": (cell(3, 0, expected[2][1]), None),
+            "another JS3 posting at this position": (put(3, expected[10]), None),
+            "a posting from the final's set": (put(3, FINAL[2]), None),
+            "a posting from the exposed set": (put(3, EXPOSED[2]), None),
+            "an unknown posting": (put(3, (GH, "999999")), None),
+            "board key and id swapped": (put(3, (expected[2][1], expected[2][0])), None),
+            "bad verdict": (cell(3, 3, "maybe"), None),
+            "bad parts": (lambda rows: cell(3, 4, "role,role")(cell(3, 3, "not_worth")(rows)), None),
+            "empty evidence": (cell(3, 5, ""), None),
+            "tab in evidence, an id inside it": (cell(3, 5, f"{expected[3][1]}\tmore"), None),
+            "too few columns": (lambda rows: rows[:2] + [rows[2][:3]] + rows[3:], None),
+            "every row from the exposed set": (put_all(by_rank(EXPOSED)), None),
+            "every row it can from the final's set": (put_all(by_rank(FINAL)), None),
+            "everything at once": (everything_at_once, "position\tboard\tid"),
+        }
+        for name, (mutate, header) in cases.items():
+            with self.subTest(case=name):
+                rows = mutate(self.valid_rows())
+                text = self.labels_text(rows, header) if header else self.labels_text(rows)
+                code, out, err = self.run_check(text)
+                self.assertEqual(code, 1, out)
+                self.assertNotEqual(out, "")
+                self.assertEqual(leaked(out + err), [])
+        code, out, err = self.run_check("")
+        self.assertEqual((code, leaked(out + err)), (1, []))
+
+    def test_unreadable_path_is_not_repeated(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / f"labels_{JS3_PRODUCT[0][1]}.tsv"
+            code, out, err = Fixture(tmp).run("check", str(path))
+            self.assertEqual((code, out), (1, ""))
+            self.assertEqual(err, "error: cannot read the labels file (FileNotFoundError)\n")
 
     def test_a_labels_file_for_the_exposed_set_fails_on_every_row(self):
         # e.g. the first set's labels checked by mistake: all 30 rows name the exposed set
@@ -540,6 +653,35 @@ class TestThreeSets(unittest.TestCase):
                 for argv in (("list",), ("show", "1"), ("template",), ("check", str(Path(tmp) / "labels.tsv"))):
                     with self.subTest(pair=needle, argv=argv):
                         self.assert_refused(fx.run(*argv), needle)
+
+    def test_set_and_corpus_refusals_name_no_id(self):
+        """Every refusal before show prints a posting carries no id and no board key (SEAL.md v1.5 §8)."""
+        v2 = seal_tsv([("product", JS3_PRODUCT), ("other", JS3_OTHER)])
+        key = JS3_PRODUCT[0]
+        gh_ids = [i for _, i in JS3_PRODUCT + FINAL[:15] if i != key[1]]
+        cases = {
+            "v2 and final overlap": {"final_tsv": seal_tsv([("product", FINAL[:14] + [key]), ("other", FINAL[15:])])},
+            "v2 and exposed overlap": {"exposed_tsv": seal_tsv([("product", EXPOSED[:21] + [key]),
+                                                                 ("other", EXPOSED[22:])])},
+            "final and exposed overlap": {"exposed_tsv": seal_tsv([("product", EXPOSED[:21] + [FINAL[3]]),
+                                                                    ("other", EXPOSED[22:])])},
+            "a posting listed twice": {"js3_tsv": v2 + v2.splitlines()[1] + "\n"},
+            "an edited rank": {"js3_tsv": v2.replace(rank(*key), "0" * 64)},
+            "an extra column": {"js3_tsv": v2.replace(f"\t{key[1]}\tproduct\t", f"\t{key[1]}\tproduct\textra\t")},
+            "a wrong size": {"js3_tsv": seal_tsv([("product", JS3_PRODUCT[:21]), ("other", JS3_OTHER)])},
+            "the posting is not in the corpus": {"files": [(GH, "corpus/gh.json", "2026-01-01T00:00:00Z",
+                                                            {"jobs": [gh_job(i) for i in gh_ids]})]},
+        }
+        for name, kwargs in cases.items():
+            with tempfile.TemporaryDirectory() as tmp:
+                fx = Fixture(tmp, **kwargs)
+                for argv in (("list",), ("show", str(position(key)))):
+                    with self.subTest(case=name, argv=argv):
+                        code, out, err = fx.run(*argv)
+                        if name == "the posting is not in the corpus" and argv == ("list",):
+                            continue  # list does not read the corpus
+                        self.assertEqual((code, out), (1, ""), err)
+                        self.assertEqual(leaked(err), [])
 
     def test_exposed_ids_refused_by_show(self):
         with tempfile.TemporaryDirectory() as tmp:
