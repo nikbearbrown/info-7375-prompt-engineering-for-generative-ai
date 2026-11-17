@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any JS3 code and before any posting was opened for JS3
-**Version:** v1 — 2026-11-15
+**Version:** v1.1 — 2026-11-17
 **Started from:** JS2, js2-loop-tools-diff/ at 64e00c7: its rule (CONTRACT.md v0.8 §4) and GATE.md v0.3. The Reallocation Engine is not used. Lectern is reference only, as it was in JS2: cited in SOURCES.md, no code copied.
 **Pointer:** This file supersedes, for JS3, CONTRACT §4's "If a field is missing, that condition is false" (→ F7 below) and CONTRACT §8 (→ §5 here). CONTRACT.md gets a v0.9 row in its §9 pointing here when the JS2 folder is copied in.
 
@@ -21,6 +21,8 @@ v1 is JS2's rule exactly as agent/rule.py runs it at 64e00c7, plus two additions
 | F6 | Verdict: relevant if C1 and C2 both pass and the score is 2 or more; otherwise not_relevant | This is §4 unchanged: the gates decide what the role is and where it is, the threshold is part of the verdict, and nothing outside the three conditions enters | §4; rule.py:9, :74–75 |
 | F7 | Missing field (new in v1): a field is missing when it is absent, null, or empty after F1's cleanup. The posting is judged on the fields it has: if a checkable condition already fails — a present title that is not a target title, a present location that fails F4, a present text scoring under 2 — the verdict is not_relevant as usual. cannot_tell applies only when every checkable condition passes and the missing field is the one that would decide the verdict (a target title and score 2+, with no location). cannot_tell postings are reported in their own list, with the missing field named; they are never on the shortlist and never counted as rejects | §4's "missing means false" invented a verdict the text doesn't support; but a posting already settled by a field it has does not become undecidable because another field is absent | new; amends §4 |
 | F8 | Ranking (new in v1): by score, high to low; ties broken by board key in alphabetical order — ashby:notion, greenhouse:duolingo, greenhouse:robinhood, greenhouse:stripe — then by posting id, ids compared as strings, as in GATE §3 | Alphabetical, so the order can be worked out from the keys alone; dates stay out because §4's rule never uses posting date (W7) | new |
+
+**Clarified, 2026-11-17 (v1.1).** "Empty after F1's cleanup" in F7 means empty once leading and trailing whitespace is trimmed. A text that cleans to whitespace only is missing, just like a title or a location that trims to nothing. Decided during the build, before the filter judged any posting.
 
 **The score and §4.** The score is C3's own count, given a name — the same number §4 already computed, now written down so rankings and audits can cite it. Nothing new enters the verdict, and no other score is added to it or merged with it: not Claude's judgment (§6), not approval counts, not anything from outside the posting.
 
@@ -86,6 +88,7 @@ W1–W5 are JS1's and JS2's (CONTRACT §5, GATE §6). Every test input below is 
 (Brief: "Version it" and "Record every rule you added, cut, or rejected after measuring.")
 
 - **v1 — 2026-11-15.** Written before any JS3 code and before any posting was opened for JS3. Reviewed by Claude (Claude.ai), 2026-11-13 to 2026-11-15; the decisions are mine. Claude.ai proposed the section layout and rule IDs, the W6–W8 candidates, and the leans I adopted (F7, F8, §2's disagreeing spans, §3's unreadable file, the verdict names). Main contents: JS2's rule carried over unchanged as F1–F6; F7 (missing fields, cannot_tell) and F8 (ranking) added; evidence rules for shortlist claims (§2); the frozen 20-file corpus and its sources (§3); wrong versions W6–W8 (§4); hand verdicts for JS3 (§5).
+- **v1.1 — 2026-11-17.** One clarification to F7, under the §1 table: a text that is only whitespace after cleanup is missing. Claude Code asked during the FILTER v1 build; the decision is mine. No posting had been judged. No other rule changes.
 
 | Date | Rule | Added / cut / rejected | Measured on | Before → after | Decision |
 |---|---|---|---|---|---|
