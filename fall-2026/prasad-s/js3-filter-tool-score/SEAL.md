@@ -72,18 +72,24 @@ The final's set gets no labels in JS3 — none written, none kept anywhere.
 - Change a sealed set, in either direction, because of anything seen in the development pool.
 
 ## 8. The first set is retired — 2026-11-16
+
 This section is written and committed before the replacement draw runs.
-What happened. On 2026-11-16, the first JS3 set's 30 labels, with short quotes from the postings, were pasted into the Claude.ai review chat before their hash was committed. Claude.ai helps choose the changes measured on Friday, so that set can no longer measure them blind.
 
-The decision. The first set (vault/js3_heldout_ids.tsv) is retired as JS3's held-out set and becomes development data. Its file stays exactly as drawn. Its labels, kept in ~/js3-vault/js3_set1_exposed_labels.tsv, become development labels.
+**What happened.** On 2026-11-16, the first JS3 set's 30 labels, with short quotes from the postings, were pasted into the Claude.ai review chat before their hash was committed. Claude.ai helps choose the changes measured on Friday, so that set can no longer measure them blind.
 
-The replacement. Same seed, same pool, same ranking. In each group, the replacement takes the next ranks after the first set: product ranks 38 to 59 and other ranks 14 to 21, which makes 22 + 8. It is written to vault/js3_heldout_ids_v2.tsv. This is not a second draw with a different seed (§7): the seed and the ranking do not change. The final's set does not move, because it holds the lowest ranks, as §5 designed.
+**The decision.** The first set (vault/js3_heldout_ids.tsv) is retired as JS3's held-out set and becomes development data. Its file stays exactly as drawn. Its labels, kept in ~/js3-vault/js3_set1_exposed_labels.tsv, become development labels.
 
-The half-rule still holds. The sealed product postings are 15 + 22 = 37, so the development pool keeps 125 of 162. That 125 includes the first set's 22.
+**The replacement.** Same seed, same pool, same ranking. In each group, the replacement takes the next ranks after the first set: product ranks 38 to 59 and other ranks 14 to 21, which makes 22 + 8. It is written to vault/js3_heldout_ids_v2.tsv. This is not a second draw with a different seed (§7): the seed and the ranking do not change. The final's set does not move, because it holds the lowest ranks, as §5 designed.
+
+**The half-rule still holds.** The sealed product postings are 15 + 22 = 37, so the development pool keeps 125 of 162. That 125 includes the first set's 22.
 
 From now on, "JS3's held-out set" means the v2 set, everywhere in this file.
 
-A new rule. Nothing from the v2 set is pasted into any chat: not its ids, not its postings, not its labels. Nothing from it leaves ~/js3-vault/ until Friday.
+**A new rule.** Nothing from the v2 set is pasted into any chat: not its ids, not its postings, not its labels. Its labels stay in ~/js3-vault/ until Friday.
+
+**Replacement drawn, 2026-11-16 (JS3-CP3e).** The replacement was drawn with `python3.13 tools/seal_draw.py replace-js3 --final 15 5 --exposed 22 8 --js3 22 8`. Before writing anything, the tool re-derived the final's set and the first set from the ranking and found both committed files matched byte for byte; then it wrote vault/js3_heldout_ids_v2.tsv. I checked the output with the shell: (1) 30 postings, 22 product + 8 other; (2) 80 postings across the three sets, none in two of them; (3) none on the seen list; (4) the rank of the v2 set's first row, recomputed with shasum, matching. I ran these checks after the draw on 2026-11-16, and again, from freshly rebuilt files, before writing this line.
+
+**Labeled, 2026-11-16 (JS3-CP3f).** I labeled the v2 set's 30 postings by hand under FILTER.md §5, in ~/js3-vault/js3_heldout_labels.tsv, and `python3.13 tools/label_view.py check` printed ok. Its SHA-256 is f144c95d62db6b5c3263216bb388932460b8ae8e533106d503dd83b4c4965cd9, recorded in vault/js3_heldout_labels.sha256; a backup outside the repo has the same hash. No posting raised a case §5 does not cover, so there are no notes and FILTER.md is unchanged. The file stays in ~/js3-vault/ until Friday. While I was fixing the file's format, one check output pasted into the review chat showed three v2 ids: ids only, no titles and no labels. The check's message will be changed to print positions only.
 
 ## Changelog
 
@@ -92,3 +98,4 @@ A new rule. Nothing from the v2 set is pasted into any chat: not its ids, not it
 - **v1.2 — 2026-11-15.** Records the draw (§6, JS3-CP2d) and completes the checks: §2 gives 8172510's reason and the completed hash accounting (19 files match a recorded hash; the 2026-10-26 file has none; none mismatches), and the header cites FILTER.md v1 by its checkpoint (JS3-CP1) instead of the hash the rebase will replace. No rule changes.
 - **v1.3 — 2026-11-16.** §8 added. The first JS3 set's labels were pasted into the Claude.ai review chat before their hash was committed, so the set is retired to development data and replaced by the next ranks under the same seed and ranking (product 38–59, other 14–21; vault/js3_heldout_ids_v2.tsv). The final's set does not move. §8 also adds the rule that nothing from the v2 set is pasted into any chat or leaves ~/js3-vault/ until Friday. No change to the seed, the ranking, the sizes, or the final's set.
 - **v1.4 — 2026-11-16.** Formatting fixes (the Version line and the §8 heading) and one sentence in §8 saying it was written and committed before the replacement draw. No rule changes.
+- **v1.5 — 2026-11-16.** §8 records the replacement draw (JS3-CP3e) and the labeling of the v2 set (JS3-CP3f): the command, the checks, the labels' SHA-256, and the three v2 ids that appeared in the review chat. §8's lead-ins are now bold, a blank line follows its first sentence, and its last rule now says the labels stay in ~/js3-vault/ (the v2 ids are committed in vault/, so "nothing from it" was too broad). Claude (Claude.ai) typed this version's text at my request; the facts and decisions are mine. No rule changes.
