@@ -94,3 +94,21 @@ skills and description.
   "0-2 years", which contradicts wrong version 4. Claude Code pointed out the
   conflict; I chose to reject such ranges, because I want the entire stated
   range to be within 0-1 years. No other rule, weight or threshold changed.
+
+## Revision (2026-11-17, before any JS3 filter code): R2 sections
+- R2 reads only description sections whose heading is on my "counts" list:
+  responsibilities, what you'll do, the impact you will have, minimum
+  requirements, qualifications, what we look for, who you are, preferred
+  qualifications.
+- These headings are boilerplate and never count for R2: about the company,
+  who we are, benefits, diversity, compliance, pay range, interview process,
+  mission. Greenhouse's content-intro and content-conclusion blocks are
+  boilerplate too.
+- "About the team" does not count. Text under an unknown heading, or with no
+  heading, does not count.
+- An "Analyst" posting with no recognized responsibilities or skills section:
+  the answer is "I cannot tell".
+- R5 and R6 still read the whole description.
+  Why: Claude Code checked the real headings on Databricks, Stripe and Plaid
+  on 2026-11-17; I chose these lists so Data/AI words in company text cannot
+  make an Analyst role relevant.
