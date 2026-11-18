@@ -523,5 +523,29 @@ class Decisions(unittest.TestCase):
         self.assertEqual(res["verdict"], "I cannot tell")
 
 
+class Order(unittest.TestCase):
+    def test_O1_shortlist_sorted_by_score_then_board_then_id(self):
+        """O1, FILTER.md Revision (2026-11-17, before any JS3 filter code): shortlist order. SIMULATED
+        evaluated entries: only shortlisted entries are kept, sorted by score (highest first), ties
+        broken by board name, then posting id; the order is the same whatever the input order."""
+        entries = [
+            {"board": "stripe", "id": "200", "verdict": "shortlisted", "score": 6},
+            {"board": "databricks", "id": "300", "verdict": "shortlisted", "score": 6},
+            {"board": "plaid", "id": "p-1", "verdict": "shortlisted", "score": 8},
+            {"board": "databricks", "id": "100", "verdict": "shortlisted", "score": 6},
+            {"board": "stripe", "id": "150", "verdict": "not shortlisted", "score": 4},
+            {"board": "plaid", "id": "p-2", "verdict": "rejected", "score": None},
+            {"board": "databricks", "id": "050", "verdict": "shortlisted", "score": 5},
+            {"board": "stripe", "id": "250", "verdict": "I cannot tell", "score": None},
+        ]
+        expected = [("plaid", "p-1"), ("databricks", "100"), ("databricks", "300"), ("stripe", "200"),
+                    ("databricks", "050")]
+        f = jf()
+        for order in (entries, list(reversed(entries))):
+            with no_network():
+                ordered = f.order_shortlist(order)
+            self.assertEqual([(e["board"], e["id"]) for e in ordered], expected)
+
+
 if __name__ == "__main__":
     unittest.main()

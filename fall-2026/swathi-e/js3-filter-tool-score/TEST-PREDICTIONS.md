@@ -81,6 +81,7 @@ rejected or "I cannot tell".
 | D4 | SIM | "1+ years": R5 fail, `rejected` | D4 |
 | D5 | SIM | EEO "citizenship status", export-control paragraph: not rejected (`shortlisted`); "must be a U.S. citizen", "will not sponsor": `rejected` | D5 |
 | D6 | SIM | Japanese description: `I cannot tell` | D6 |
+| O1 | SIM | `order_shortlist` keeps only shortlisted entries, in the order plaid p-1 (8), databricks 100 (6), databricks 300 (6), stripe 200 (6), databricks 050 (5), for either input order | Revision: shortlist order |
 
 Wrong versions 2, 4, 5 and 6 are checked by R6b, R5c, E4 and E3.
 
