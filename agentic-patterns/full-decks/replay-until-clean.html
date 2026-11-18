@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Replay until clean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Replay until clean">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Replay until clean">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Loop</p>
+      <h1 class="t-opening rise g2">Replay until clean</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Start from nothing. Fix what stops you. Start again.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one loop pattern: replay until clean. It shows the shape of the pattern, the nine loops that use it, the way it fails, and how to pick it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Replay until clean, the sixth loop pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">One pass can be luck, or it can be leftover state. Run the whole thing again from nothing until it comes through clean.</h2>
+      <div class="speaker-notes" hidden>
+        <p>A loop is a prompt plus a real check plus a stop rule. In this pattern the check is a clean replay: the same scenario, started from nothing.</p>
+        <p>Say this plainly: the ten loop patterns are a grouping made by reading a catalog of 85 submitted loops. The grouping is a judgment, and none of these loops has been tested on real runs for this deck. Treat what follows as a synthesis from reading, not as results.</p>
+      </div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">The same scenario, from scratch, until a clean run</p>
+      <div class="speaker-notes" hidden><p>Two slides: the cycle with its check and its stop rule, and one replay drawn run by run.</p></div>
+    </section>
+
+    <!-- 5 SHAPE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The cycle">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">Every fix sends the run back to the very start</h2>
+      <div class="diagram build" data-build="shape" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, pattern 6. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three empty places.</p>
+        <p><strong>Step 1:</strong> the problem. It works for the people who built it, or it passes once by luck.</p>
+        <p><strong>Step 2:</strong> run the same scenario from scratch.</p>
+        <p><strong>Step 3:</strong> the run finds an obstacle. Fix that obstacle.</p>
+        <p><strong>Step 4:</strong> restart the whole thing. Do not resume from where it stopped.</p>
+        <p><strong>Step 5:</strong> stop after a clean run, or after N clean runs in a row. In the terms of a loop, the real check is the clean replay and the stop rule is the clean run or the streak.</p>
+      </div>
+    </section>
+
+    <!-- 6 REPLAY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="One replay, run by run">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">One replay, run by run</p>
+      <h2 class="t-chart">Each run gets further, and every run starts at step 1</h2>
+      <div class="diagram build" data-build="replay" style="flex-basis:570px"></div>
+      <p class="source">Source: the loop tree, pattern 6, and loop 039. The runs are a seeded simulation; counts are computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> a first-time setup of eight steps. Three of the steps hide an obstacle. Their positions come from a seeded draw, so every replay of this slide matches.</p>
+        <p><strong>Step 1:</strong> run 1 starts at step 1 and stops at the first obstacle. That obstacle is fixed.</p>
+        <p><strong>Step 2:</strong> run 2 starts again at step 1. It passes the fixed step and stops at the next obstacle.</p>
+        <p><strong>Step 3:</strong> run 3, from step 1 again, reaches the third obstacle.</p>
+        <p><strong>Step 4:</strong> run 4 goes from step 1 to step 8 with nothing in the way. That is the clean run.</p>
+        <p><strong>Step 5:</strong> the cost. Four runs and 21 steps for one clean run of 8. The entry for the easy onboarding loop says it directly: restarting the whole flow is slow.</p>
+      </div>
+    </section>
+
+    <!-- 7 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The loops">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">The loops</h2>
+      <p class="sub-section rise g3">Nine loops, three kinds of replay</p>
+      <div class="speaker-notes" hidden><p>Two slides: the nine child loops in their three groups, and the streak that two of them use as a stop rule.</p></div>
+    </section>
+
+    <!-- 8 CHILDREN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Nine loops">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The children</p>
+      <h2 class="t-chart">Nine loops replay in three ways</h2>
+      <div class="diagram build" data-build="children" style="flex-basis:570px"></div>
+      <p class="source">Source: the loop tree, pattern 6. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> nine loops share this shape. They differ in what is replayed.</p>
+        <p><strong>Step 1:</strong> start from nothing and follow only the docs. A fresh clone that follows only the README, a first-time user in a clean browser, and a restore of a randomly chosen real backup.</p>
+        <p><strong>Step 2:</strong> the same task, scored the same way each pass. A real task in a browser scored on one checklist, a 747 rendered from nine fixed angles, a rebuilt page, and a thumbnail scored against a fixed threshold. The entries for these warn that the scoring is a judgment.</p>
+        <p><strong>Step 3:</strong> a streak of N passes in a row. The quality streak loop and the test stabilizer loop. The next slide walks through that stop rule.</p>
+      </div>
+    </section>
+
+    <!-- 9 STREAK -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The streak">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">The streak as a stop rule</p>
+      <h2 class="t-chart">One failure sends the streak back to zero</h2>
+      <div class="diagram build" data-build="streak" style="flex-basis:600px"></div>
+      <p class="source">Source: loops 009 and 044, Forward Future Loop Library. The runs are a seeded simulation; every count is computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the bar is five passes in a row, chosen before the first run. The suite starts with three flaky causes.</p>
+        <p><strong>Step 1:</strong> one pass, then a failure. The streak restarts at zero. In the quality streak loop the failure becomes permanent regression coverage. In the test stabilizer loop one root cause is fixed.</p>
+        <p><strong>Step 2:</strong> two passes, then a second failure. Back to zero again.</p>
+        <p><strong>Step 3:</strong> four passes in a row, one short of the bar, and then a failure. The streak is zero again. This is why the entries call the streak a tough bar that is hard to fake.</p>
+        <p><strong>Step 4:</strong> five in a row. Stop. It took 15 full runs, and the entries name that cost: many full runs cost time. This blends two loops, 009 and 044, into one picture.</p>
+      </div>
+    </section>
+
+    <!-- 10 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">Leftover state makes a broken run look clean</p>
+      <div class="speaker-notes" hidden><p>The pattern needs one thing: a truly clean start. Without it the replay is not a replay.</p></div>
+    </section>
+
+    <!-- 11 LEFTOVER -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Leftover state">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The failure</p>
+      <h2 class="t-chart">A run can pass because of what the last run left behind</h2>
+      <div class="diagram build" data-build="leftover" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, pattern 6, "Needs" and "Fails when". The two runs are illustrative.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same eight steps, about to be run twice.</p>
+        <p><strong>Step 1:</strong> restarted on the same machine, the run passes every step. It looks clean.</p>
+        <p><strong>Step 2:</strong> look at what earlier runs left behind: cookies, accounts, caches. Step 5 passed only because of them.</p>
+        <p><strong>Step 3:</strong> restarted from a truly clean start, the same run stops at step 5. The obstacle was there all along.</p>
+        <p><strong>Step 4:</strong> the pattern needs a truly clean start. It fails when leftover state makes the run look fine. The two runs on this slide are made up to show the point.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part four</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">It works for the builders. Does it work from nothing?</p>
+      <div class="speaker-notes" hidden><p>How to pick the pattern and the child loop, the pattern it is most easily confused with, and a checklist.</p></div>
+    </section>
+
+    <!-- 13 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Picking the pattern">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Pick the pattern from the problem, then the closest child</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, "How to use the tree" and patterns 2 and 6. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the tree is used top down.</p>
+        <p><strong>Step 1:</strong> start from the problem you have. If it works for the people who built it, or passed once by luck, the pattern is replay until clean.</p>
+        <p><strong>Step 2:</strong> then pick the child closest to your subject: a setup or restore from nothing, one task scored the same way each pass, or a suite that must pass N times in a row.</p>
+        <p><strong>Step 3:</strong> if none fits, write your own child. Keep the pattern's shape and supply your own check.</p>
+        <p><strong>Step 4:</strong> the pair to tell apart. Both fix things one after another. The difference is the check. Burn down a worklist reruns the same scan and stops when the list is empty. Replay until clean restarts the whole scenario and stops after a clean run. The loop tree does not compare the two directly; this contrast is built from their shape lines.</p>
+      </div>
+    </section>
+
+    <!-- 14 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you run a replay loop</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, pattern 6, and the entries for loops 009, 036 and 044. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 3:</strong> when the pattern fits. The first is its problem, the second its shape, the third what it needs.</p>
+        <p><strong>Steps 4 to 7:</strong> when it breaks. Leftover state is the loop tree's own failure. The other three come from the cautions in the loop entries, which are a reading of the catalog and not the catalog's own words: skipped hard cases, a quarantined test, and a score that is a judgment.</p>
+      </div>
+    </section>
+
+    <!-- 15 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">A pass counts when the run started from nothing. Restart the whole thing, and choose the streak before you begin.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: a replay you cannot start clean is not this pattern, and a check that is a judgment needs a second reader. Next in the set: Plan before building, for an idea that is still too vague to hand to an agent.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Replay until clean";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shared: one cell of an 8-step scenario ---------- */
+  var SCN_STEPS = 8;
+  var CELL = {
+    idle: [SUBTLE, FAMILIAR, BASE, 1.5, null], ok: ["#FFFFFF", INK, INK, 2.5, null],
+    stop: [RED, RED, "#FFFFFF", 2.5, null], skip: ["#FFFFFF", FAMILIAR, BASE, 1.5, "6 6"],
+    held: [TINT, INK, INK, 2.5, null]
+  };
+  function cell(svg, x, y, w, h, n, state) {
+    var st = CELL[state], g = svg.append("g");
+    box(g, x, y, w, h, { fill: st[0], stroke: st[1], sw: st[3], dash: st[4] });
+    txt(g, x + w / 2, y + h / 2 + 9, "step " + n, { size: 25, weight: 700, anchor: "middle", fill: st[2] });
+    return g;
+  }
+
+  /* ---------- shape: run from scratch, fix, restart, stop on a clean run ---------- */
+  function renderShape(el, k, anim) {
+    var svg = svgFor(el, W, 590, "The replay cycle with its check and its stop rule",
+      "The problem: it works for the people who built it, or passes once by luck. Run the same scenario from scratch. If the run finds an obstacle, fix that obstacle and restart the whole thing. Stop after a clean run, or N in a row. A loop is a prompt plus a real check plus a stop rule; here the real check is a clean replay.");
+    label(svg, 0, 26, "THE PROBLEM", { size: 24 });
+    if (k >= 1) {
+      var p = txt(svg, 0, 68, "It works for the people who built it, or passes once by luck.", { size: 28, weight: 700 });
+      if (A(anim, k, 1)) fadeIn(p, 0, 450);
+    }
+    var y = 104, h = 130;
+    var NODES = [
+      { x: 0, w: 390, t: "STOP", d: "after a clean run, or N in a row", at: 5 },
+      { x: 505, w: 390, t: "RUN THE SCENARIO", d: "the same one, from scratch", at: 2 },
+      { x: 1010, w: 389, t: "FIX THE OBSTACLE", d: "the one this run found", at: 3 }
+    ];
+    NODES.forEach(function (n, i) {
+      var on = k >= n.at, g = svg.append("g");
+      box(g, n.x, y, n.w, h, { fill: on ? (i === 0 ? INK : "#FFFFFF") : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, n.x + n.w / 2, y + (on ? 58 : 76), n.t, { size: 30, weight: 900, anchor: "middle", ls: 1.5, fill: on ? (i === 0 ? "#FFFFFF" : INK) : BASE });
+      if (on) txt(g, n.x + n.w / 2, y + 100, n.d, { size: 24, anchor: "middle", fill: i === 0 ? "#FFFFFF" : BODY });
+      if (A(anim, k, n.at)) fadeIn(g, 0, 400);
+    });
+    if (k >= 3) {
+      var a1 = svg.append("g");
+      arrow(a1, 901, y + 65, 1004, y + 65, INK, 3);
+      txt(a1, 952, y + 48, "obstacle", { size: 24, weight: 700, anchor: "middle", fill: RED });
+      if (A(anim, k, 3)) fadeIn(a1, 0, 300);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      var rp = g4.append("path").attr("d", "M1205," + (y + h + 6) + " L1205,300 L700,300 L700," + (y + h + 22))
+        .attr("fill", "none").attr("stroke", INK).attr("stroke-width", 4);
+      var ah = arrowHead(g4, 700, y + h + 6, "up", INK);
+      var rt = txt(g4, 952, 340, "restart the whole thing", { size: 28, weight: 900, anchor: "middle" });
+      if (A(anim, k, 4)) { drawIn(rp, 0, 800); fadeIn(ah, 750, 200); fadeIn(rt, 800, 400); }
+    }
+    if (k >= 5) {
+      var a2 = svg.append("g");
+      arrow(a2, 499, y + 65, 396, y + 65, INK, 3);
+      txt(a2, 447, y + 48, "clean", { size: 24, weight: 700, anchor: "middle" });
+      var g5 = svg.append("g");
+      label(g5, 0, 404, "A LOOP IS", { size: 24 });
+      var parts = [["a prompt", false], ["a real check", true], ["a stop rule", false]];
+      parts.forEach(function (pt, i) {
+        var x = i * 370;
+        box(g5, x, 420, 300, 60, { fill: pt[1] ? INK : "#FFFFFF", sw: 2 });
+        txt(g5, x + 150, 459, pt[0], { size: 26, weight: pt[1] ? 900 : 400, anchor: "middle", fill: pt[1] ? "#FFFFFF" : INK });
+        if (i < 2) txt(g5, x + 335, 460, "+", { size: 30, anchor: "middle", fill: MUTED });
+      });
+      txt(g5, 0, 530, "Here the real check is a clean replay: the whole scenario, run again from nothing.", { size: 28, weight: 700 });
+      txt(g5, 0, 572, "The stop rule: one clean run, or N clean runs in a row.", { size: 26, fill: BODY });
+      if (A(anim, k, 5)) { fadeIn(a2, 0, 300); fadeIn(g5, 250, 500); }
+    }
+  }
+
+  /* ---------- replay: seeded obstacles, every run starts at step 1 ---------- */
+  var REPLAY = (function () {
+    var seed = 5, n = 3, pool = [];
+    for (var s = 2; s <= SCN_STEPS; s++) pool.push(s);
+    var obst = shuffle(pool, rng(seed)).slice(0, n).sort(function (a, b) { return a - b; });
+    var runs = obst.map(function (o) { return { reach: o, clean: false }; });
+    runs.push({ reach: SCN_STEPS, clean: true });
+    var total = 0; runs.forEach(function (r) { total += r.reach; });
+    return { seed: seed, obst: obst, runs: runs, total: total };
+  })();
+  function renderReplay(el, k, anim) {
+    var R = REPLAY, svg = svgFor(el, W, 570, "A replay of an 8-step setup with 3 hidden obstacles",
+      "Four runs, each starting at step 1. Run 1 stops at step " + R.obst[0] + ". Run 2 stops at step " + R.obst[1] + ". Run 3 stops at step " + R.obst[2] + ". Run 4 reaches step 8 with no obstacle: a clean run. In all, " + R.runs.length + " runs and " + R.total + " steps for one clean run of 8 steps.");
+    label(svg, 0, 26, "A FIRST-TIME SETUP OF " + SCN_STEPS + " STEPS, WITH " + R.obst.length + " HIDDEN OBSTACLES", { size: 24 });
+    var cw = 108, gap = 10, x0 = 150;
+    R.runs.forEach(function (r, i) {
+      var y = 46 + i * 92, on = k >= i + 1;
+      txt(svg, 0, y + 48, "run " + (i + 1), { size: 27, weight: 900, fill: on ? INK : BASE });
+      for (var n = 1; n <= SCN_STEPS; n++) {
+        var state = !on ? "idle" : (n < r.reach || r.clean ? "ok" : (n === r.reach ? "stop" : "skip"));
+        var g = cell(svg, x0 + (n - 1) * (cw + gap), y, cw, 76, n, state);
+        if (A(anim, k, i + 1) && n <= r.reach) g.attr("opacity", 0.12).transition().delay((n - 1) * 170).duration(260).attr("opacity", 1);
+      }
+      if (on) {
+        var t = r.clean
+          ? txt(svg, x0 + SCN_STEPS * (cw + gap) + 14, y + 48, "clean run", { size: 27, weight: 900 })
+          : txt(svg, x0 + SCN_STEPS * (cw + gap) + 14, y + 48, "fix step " + r.reach, { size: 27, weight: 900, fill: RED });
+        if (r.clean) { var c = svg.append("g"); check(c, x0 + SCN_STEPS * (cw + gap) + 166, y + 40, 15, INK); if (A(anim, k, i + 1)) fadeIn(c, r.reach * 170 + 200, 300); }
+        if (A(anim, k, i + 1)) fadeIn(t, r.reach * 170, 300);
+      }
+    });
+    if (k >= R.runs.length + 1) {
+      var g5 = svg.append("g");
+      txt(g5, 0, 456, R.runs.length + " runs and " + R.total + " steps, for one clean run of " + SCN_STEPS + " steps.", { size: 28, weight: 900 });
+      txt(g5, 0, 496, R.obst.join(" + ") + " + " + SCN_STEPS + " = " + R.total + ". Every run starts at step 1. Restarting the whole flow is slow.", { size: 26, fill: BODY });
+      if (A(anim, k, R.runs.length + 1)) fadeIn(g5, 0, 500);
+    }
+    txt(svg, 0, 556, "Inputs: " + SCN_STEPS + " steps; " + R.obst.length + " obstacles placed by a seeded draw (seed " + R.seed + "). A run stops at the first obstacle not yet fixed.", { size: 24, fill: MUTED });
+  }
+
+  /* ---------- children: nine loops in three groups ---------- */
+  var GROUPS = [
+    { name: "START FROM NOTHING, FOLLOW ONLY THE DOCS", loops: [
+      ["025", "The fresh-clone loop", "follow only the README in a disposable clone until it runs"],
+      ["039", "The easy onboarding loop", "a first-time user in a clean browser: fix one obstacle, restart"],
+      ["049", "The Recovery Proof loop", "restore randomly chosen real backups and check them"]] },
+    { name: "THE SAME TASK, SCORED THE SAME WAY EACH PASS", loops: [
+      ["036", "The UI/UX Score Loop", "do a real task in a browser, score each screen on one checklist"],
+      ["021", "The Boeing 747 benchmark", "build a 747 in Three.js, render nine fixed angles, fix each"],
+      ["022", "War Loops: frontend reconstruction", "rebuild a real page, repair the weakest fidelity signals"],
+      ["026", "The Infinite Clickbait thumbnail loop", "ten concepts, score the top three, improve the winner"]] },
+    { name: "A STREAK OF N PASSES IN A ROW", loops: [
+      ["009", "The quality streak loop", "each failure becomes a regression test; the streak restarts"],
+      ["044", "The test stabilizer loop", "fix one flaky root cause at a time until N stable full runs"]] }
+  ];
+  function renderChildren(el, k, anim) {
+    var count = 0; GROUPS.forEach(function (g) { count += g.loops.length; });
+    var svg = svgFor(el, W, 570, count + " loops in " + GROUPS.length + " groups under replay until clean",
+      "Group 1, start from nothing and follow only the docs: 025 the fresh-clone loop, 039 the easy onboarding loop, 049 the Recovery Proof loop. Group 2, the same task scored the same way each pass: 036 the UI/UX Score Loop, 021 the Boeing 747 benchmark, 022 War Loops frontend reconstruction, 026 the Infinite Clickbait thumbnail loop. Group 3, a streak of N passes in a row: 009 the quality streak loop, 044 the test stabilizer loop.");
+    var y = 0;
+    GROUPS.forEach(function (gr, i) {
+      var on = k >= i + 1, g = svg.append("g"), top = y;
+      g.append("rect").attr("x", 0).attr("y", top + 4).attr("width", W).attr("height", 40).attr("fill", on ? INK : SUBTLE);
+      txt(g, 16, top + 33, gr.name, { size: 24, weight: 900, ls: 1.5, fill: on ? "#FFFFFF" : BASE });
+      txt(g, W - 16, top + 33, gr.loops.length + " loops", { size: 24, weight: 700, family: MONO, anchor: "end", fill: on ? "#FFFFFF" : BASE });
+      y += 44;
+      gr.loops.forEach(function (lp, j) {
+        var ry = y + 36 + j * 42;
+        if (on) {
+          var row = svg.append("g");
+          txt(row, 16, ry, lp[0], { size: 24, weight: 700, family: MONO });
+          txt(row, 84, ry, lp[1], { size: 24, weight: 700 });
+          txt(row, 580, ry, lp[2], { size: 24, fill: BODY });
+          if (A(anim, k, i + 1)) row.attr("opacity", 0).transition().delay(150 + j * 140).duration(350).attr("opacity", 1);
+        }
+      });
+      y += gr.loops.length * 42 + 22;
+      if (A(anim, k, i + 1)) fadeIn(g, 0, 300);
+    });
+  }
+
+  /* ---------- streak: N in a row, reset on any failure (seeded) ---------- */
+  var STREAK = (function () {
+    var seed = 2, N = 5, C = 3, P = 0.15, r = rng(seed), causes = C, streak = 0, runs = [], fails = 0;
+    while (streak < N && runs.length < 60) {
+      var fired = false;
+      for (var j = 0; j < causes; j++) { if (r() < P) fired = true; }
+      if (fired) { fails++; causes--; runs.push({ pass: false, before: streak, streak: 0, fails: fails, causes: causes }); streak = 0; }
+      else { streak++; runs.push({ pass: true, streak: streak, fails: fails, causes: causes }); }
+    }
+    var cuts = [];
+    runs.forEach(function (x, i) { if (!x.pass) cuts.push(i + 1); });
+    cuts.push(runs.length);
+    return { seed: seed, N: N, C: C, P: P, runs: runs, fails: fails, cuts: cuts };
+  })();
+  function renderStreak(el, k, anim) {
+    var S = STREAK, shown = k === 0 ? 0 : S.cuts[k - 1], prevShown = k <= 1 ? 0 : S.cuts[k - 2];
+    var last = shown ? S.runs[shown - 1] : { streak: 0, fails: 0, causes: S.C, pass: true };
+    var svg = svgFor(el, W, 600, "A streak of " + S.N + " passes in a row, reset by each failure",
+      "A row of " + S.runs.length + " full runs: " + S.runs.map(function (x) { return x.pass ? "pass" : "fail"; }).join(", ") + ". Each failure resets the streak to zero. The streak reaches " + S.N + " on run " + S.runs.length + ", after " + S.fails + " failures.");
+    label(svg, 0, 26, "FULL RUNS, IN ORDER. THE NUMBER IS THE STREAK AFTER EACH RUN.", { size: 24 });
+    var bw = 76, gap = 10;
+    S.runs.forEach(function (x, i) {
+      var px = i * (bw + gap), on = i < shown, g = svg.append("g");
+      box(g, px, 46, bw, 76, { fill: on ? (x.pass ? INK : RED) : SUBTLE, stroke: on ? (x.pass ? INK : RED) : FAMILIAR, sw: 1.5 });
+      if (on) txt(g, px + bw / 2, 96, String(x.streak), { size: 34, weight: 700, family: MONO, anchor: "middle", fill: "#FFFFFF" });
+      txt(g, px + bw / 2, 154, String(i + 1), { size: 24, anchor: "middle", fill: on ? MUTED : BASE });
+      if (anim && k >= 1 && i >= prevShown && i < shown) g.attr("opacity", 0.15).transition().delay((i - prevShown) * 260).duration(300).attr("opacity", 1);
+    });
+    txt(svg, S.runs.length * (bw + gap) + 6, 154, "run", { size: 24, fill: MUTED });
+    var cols = [
+      ["STREAK", last.streak + " of " + S.N, last.pass && last.streak === S.N ? INK : (shown && !last.pass ? RED : INK)],
+      ["FULL RUNS SO FAR", String(shown), INK],
+      ["REGRESSION TESTS ADDED", String(last.fails), INK],
+      ["FLAKY CAUSES LEFT", String(last.causes), INK]
+    ];
+    var xs = [0, 290, 650, 1070];
+    cols.forEach(function (c, i) {
+      label(svg, xs[i], 232, c[0], { size: 24 });
+      txt(svg, xs[i], 306, c[1], { size: 64, weight: 700, family: MONO, fill: c[2] });
+    });
+    if (k >= 1) {
+      var g2 = svg.append("g"), delay = anim ? (shown - prevShown) * 260 : 0;
+      if (!last.pass) {
+        txt(g2, 0, 396, "Run " + shown + " failed at a streak of " + last.before + ". The streak restarts at 0.", { size: 28, weight: 900, fill: RED });
+        txt(g2, 0, 440, "The failure becomes a permanent regression test (009), and one root cause is fixed (044).", { size: 26, fill: BODY });
+      } else {
+        txt(g2, 0, 396, S.N + " in a row on run " + shown + ": stop. N was chosen before the first run.", { size: 28, weight: 900 });
+        txt(g2, 0, 440, "It took " + shown + " full runs and " + S.fails + " resets. Many full runs cost time.", { size: 26, fill: BODY });
+      }
+      if (anim) fadeIn(g2, delay, 400);
+    }
+    txt(svg, 0, 540, "Inputs: N = " + S.N + "; " + S.C + " flaky causes, each fails a run " + (S.P * 100).toFixed(0) + "% of the time; a failure fixes one cause.", { size: 24, fill: MUTED });
+    txt(svg, 0, 576, "Seeded draw (seed " + S.seed + "), so every replay of this slide matches.", { size: 24, fill: MUTED });
+  }
+
+  /* ---------- leftover: the same run on a used machine and from a clean start ---------- */
+  function renderLeftover(el, k, anim) {
+    var HID = 5, cw = 120, gap = 14;
+    var svg = svgFor(el, W, 590, "The same 8-step run on a used machine and from a clean start",
+      "Restarted on the same machine, all 8 steps pass and the run looks clean. Leftover state from earlier runs, cookies, accounts and caches, is why step " + HID + " passed. Restarted from a truly clean start, the run stops at step " + HID + ". Needs a truly clean start. Fails when leftover state makes it look fine.");
+    label(svg, 0, 26, "RESTARTED ON THE SAME MACHINE", { size: 24, fill: k >= 1 ? MUTED : BASE });
+    var n, g;
+    for (n = 1; n <= SCN_STEPS; n++) {
+      g = cell(svg, (n - 1) * (cw + gap), 46, cw, 90, n, k < 1 ? "idle" : (n === HID && k >= 2 ? "held" : "ok"));
+      if (A(anim, k, 1)) g.attr("opacity", 0.12).transition().delay((n - 1) * 150).duration(260).attr("opacity", 1);
+    }
+    if (k >= 1) {
+      var r1 = svg.append("g");
+      check(r1, 1112, 88, 16, INK);
+      txt(r1, 1146, 100, "looks clean", { size: 28, weight: 900 });
+      if (A(anim, k, 1)) fadeIn(r1, SCN_STEPS * 150, 350);
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g"), cx = (HID - 1) * (cw + gap) + cw / 2;
+      g2.append("path").attr("d", "M" + cx + ",140 L" + cx + ",166 M440,166 L910,166").attr("stroke", INK).attr("stroke-width", 2.5).attr("fill", "none");
+      label(g2, 0, 212, "LEFTOVER STATE", { size: 24, fill: INK });
+      ["cookies", "accounts", "caches"].forEach(function (s, i) {
+        box(g2, 440 + i * 160, 174, 150, 56, { fill: TINT, sw: 2 });
+        txt(g2, 515 + i * 160, 211, s, { size: 25, weight: 700, anchor: "middle" });
+      });
+      txt(g2, 940, 196, "left behind by earlier runs.", { size: 24, fill: BODY });
+      txt(g2, 940, 228, "Step " + HID + " passed only because of it.", { size: 24, weight: 700 });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 500);
+    }
+    label(svg, 0, 296, "RESTARTED FROM A TRULY CLEAN START", { size: 24, fill: k >= 3 ? MUTED : BASE });
+    for (n = 1; n <= SCN_STEPS; n++) {
+      g = cell(svg, (n - 1) * (cw + gap), 316, cw, 90, n, k < 3 ? "idle" : (n < HID ? "ok" : (n === HID ? "stop" : "skip")));
+      if (A(anim, k, 3) && n <= HID) g.attr("opacity", 0.12).transition().delay((n - 1) * 150).duration(260).attr("opacity", 1);
+    }
+    if (k >= 3) {
+      var r2 = svg.append("g");
+      cross(r2, 1112, 360, 14, RED);
+      txt(r2, 1146, 352, "obstacle found", { size: 28, weight: 900, fill: RED });
+      txt(r2, 1146, 388, "at step " + HID, { size: 26, fill: RED });
+      if (A(anim, k, 3)) fadeIn(r2, HID * 150, 350);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      txt(g4, 0, 478, "Needs: a truly clean start.", { size: 28, weight: 900 });
+      txt(g4, 0, 524, "Fails when leftover state (cookies, accounts, caches) makes it look fine.", { size: 28, weight: 900, fill: RED });
+      txt(g4, 0, 572, "The two runs are illustrative.", { size: 24, fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- choose: problem, pattern, child, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Picking replay until clean, then the closest child loop",
+      "The problem: it works for the people who built it, or passes once by luck. The pattern: replay until clean. Then the closest child: a setup, an onboarding or a restore from nothing, loops 025, 039, 049; one task scored the same way each pass, loops 036, 021, 022, 026; a suite that must pass N times in a row, loops 009, 044. If none fits, write your own child: keep the pattern's shape, supply your own check. Tell these apart: replay until clean, where the check is a clean replay and the whole scenario restarts; burn down a worklist, where the check is a scan that is rerun until the list is empty.");
+    label(svg, 0, 26, "THE PROBLEM YOU HAVE", { size: 24, fill: k >= 1 ? MUTED : BASE });
+    var on1 = k >= 1, g1 = svg.append("g");
+    box(g1, 0, 42, 900, 78, { fill: on1 ? "#FFFFFF" : SUBTLE, stroke: on1 ? INK : FAMILIAR, sw: on1 ? 2.5 : 1.5 });
+    txt(g1, 24, 91, "It works for the people who built it, or passes once by luck.", { size: 26, weight: 700, fill: on1 ? INK : BASE });
+    if (on1) {
+      var ga = svg.append("g");
+      arrow(ga, 908, 81, 968, 81, INK, 3);
+      box(ga, 976, 42, 423, 78, { fill: INK });
+      txt(ga, 1187, 92, "Replay until clean", { size: 30, weight: 900, anchor: "middle", fill: "#FFFFFF" });
+      if (A(anim, k, 1)) fadeIn(ga, 200, 400);
+    }
+    var KIDS = [
+      ["a setup, an onboarding or a restore, from nothing", "025 · 039 · 049"],
+      ["one task, scored the same way each pass", "036 · 021 · 022 · 026"],
+      ["a suite that must pass N times in a row", "009 · 044"]
+    ];
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      label(g2, 0, 166, "THEN THE CLOSEST CHILD", { size: 24 });
+      KIDS.forEach(function (r, i) {
+        var y = 182 + i * 62;
+        box(g2, 0, y, W - 1, 52, { sw: 2 });
+        txt(g2, 24, y + 35, r[0], { size: 26 });
+        txt(g2, W - 24, y + 35, r[1], { size: 26, weight: 700, family: MONO, anchor: "end" });
+      });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 450);
+    }
+    if (k >= 3) {
+      var t3 = txt(svg, 0, 398, "None fits? Write your own child: keep the pattern's shape, supply your own check.", { size: 26, weight: 700 });
+      if (A(anim, k, 3)) fadeIn(t3, 0, 400);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      label(g4, 0, 444, "TELL THESE APART", { size: 24 });
+      box(g4, 0, 460, 680, 136, { sw: 2.5 });
+      txt(g4, 26, 504, "Replay until clean", { size: 30, weight: 900 });
+      wrap(g4, 26, 544, "The check is a clean replay. Restart the whole scenario. Stop after a clean run.", 52, { size: 24, fill: BODY });
+      box(g4, 720, 460, 678, 136, { sw: 2.5 });
+      txt(g4, 746, 504, "Burn down a worklist", { size: 30, weight: 900 });
+      wrap(g4, 746, 544, "The check is a scan. Rerun the same scan. Stop when the list is empty.", 52, { size: 24, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- checks: three that fit, four that break ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Seven checks before running a replay loop",
+      "Fits when: it works for the builders and nobody has tried it from nothing; the same scenario can be run again from scratch; you can get a truly clean start. Breaks when: leftover state survives the restart, such as cookies, accounts or caches; hard cases are skipped to protect the streak; a flaky test is quarantined and counted as fixed; the score is a judgment call, not a fixed check.");
+    var fits = [
+      "It works for the builders, and nobody has tried it from nothing.",
+      "The same scenario can be run again from scratch.",
+      "You can get a truly clean start."
+    ];
+    var breaks = [
+      "Leftover state survives the restart: cookies, accounts, caches.",
+      "Hard cases are skipped to protect the streak.",
+      "A flaky test is quarantined and counted as fixed.",
+      "The score is a judgment call, not a fixed check."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    fits.concat(breaks).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    shape: { steps: 5, render: renderShape },
+    replay: { steps: REPLAY.runs.length + 1, render: renderReplay },
+    children: { steps: GROUPS.length, render: renderChildren },
+    streak: { steps: STREAK.cuts.length, render: renderStreak },
+    leftover: { steps: 4, render: renderLeftover },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

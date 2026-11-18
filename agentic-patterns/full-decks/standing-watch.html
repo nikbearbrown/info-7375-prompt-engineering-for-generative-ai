@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Standing watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Standing watch">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Standing watch">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Loop</p>
+      <h1 class="t-opening rise g2">Standing watch</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Wake, look, do one bounded thing or nothing, leave a record.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one loop pattern: the standing watch. It shows the shape of the pattern, the seven loops that share it, the two ways it fails, and how to tell it from its neighbours.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Standing watch, the eighth loop pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">A standing watch does recurring work that no one has to remember. On most wake-ups it should find nothing, say so, and stop.</h2>
+      <div class="speaker-notes" hidden>
+        <p>The pattern is for work that recurs: errors to sweep, a changelog to keep current, a refund to chase. The loop wakes on a schedule, looks at fresh state, does one bounded thing or nothing, and leaves a record.</p>
+        <p>A caveat that holds for the whole loop family. A loop is a prompt plus a real check plus a stop rule. Grouping the 85 loops into ten patterns is a judgment from reading the catalog. None of these loops has been tested on real runs for this deck, so treat the pattern as a reading, not a result.</p>
+      </div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Wake on a schedule, look at fresh state, act once or not at all, leave a record</p>
+      <div class="speaker-notes" hidden><p>Two slides: the cycle, then a run of 24 wake-ups to show what a healthy watch looks like over time.</p></div>
+    </section>
+
+    <!-- 5 SHAPE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The cycle">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">Every wake-up ends in a record, even when there is nothing to do</h2>
+      <div class="diagram build" data-build="shape" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 8. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the problem this pattern answers: recurring work that should happen without anyone remembering.</p>
+        <p><strong>Step 1:</strong> the loop wakes on a schedule. Nobody starts it.</p>
+        <p><strong>Step 2:</strong> it looks at fresh state. It does not rely on what it saw last time.</p>
+        <p><strong>Step 3:</strong> two exits. If something changed, it does one bounded thing. If nothing changed, it does nothing. The second exit is the one the pattern needs most.</p>
+        <p><strong>Step 4:</strong> either way it leaves a record, then sleeps until the next wake-up.</p>
+        <p><strong>Step 5:</strong> a loop is a prompt plus a real check plus a stop rule. Reading this pattern that way: the check is the look at fresh state, and the stop rule is the clean "nothing to do" exit. That mapping is this deck's reading of the shape.</p>
+      </div>
+    </section>
+
+    <!-- 6 TIMELINE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="A run of wake-ups">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">A run of wake-ups</p>
+      <h2 class="t-chart">Most wake-ups find nothing, and that is the loop working</h2>
+      <div class="diagram build" data-build="timeline" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 8. The run is a seeded simulation; every count is computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> 24 wake-ups on a fixed schedule. At each one, the chance that something changed since the last look is 0.2. The seed is fixed, so the run is the same every time.</p>
+        <p><strong>Step 1:</strong> the world. Something changed before 5 of the 24 wake-ups.</p>
+        <p><strong>Step 2:</strong> the watch. It does one bounded thing at those 5 wake-ups and exits at the other 19. It leaves a record all 24 times.</p>
+        <p><strong>Step 3:</strong> the counts. 19 of 24 wake-ups did nothing but leave a record. A watch that is quiet most of the time is doing its job. The numbers are a simulation with stated inputs, not data from a real loop.</p>
+      </div>
+    </section>
+
+    <!-- 7 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The loops">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">The loops</h2>
+      <p class="sub-section rise g3">Seven loops, four kinds of recurring work</p>
+      <div class="speaker-notes" hidden><p>The pattern is the parent. The seven loops are its children, each with its own subject.</p></div>
+    </section>
+
+    <!-- 8 CHILDREN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven loops, four groups">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The seven loops</p>
+      <h2 class="t-chart">Seven loops stand four kinds of watch</h2>
+      <div class="diagram build" data-build="children" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, pattern 8. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> watch errors and changes. 004 reads production logs and fixes an actionable error, or stops if nothing is actionable. 008 reviews the day's changes each night and updates the release notes. 018 turns meaningful public product changes into a short podcast episode on a schedule.</p>
+        <p><strong>Step 2:</strong> coordinate many repos or workers. 030 wakes every five minutes, triages repos and hands bounded work to dedicated threads. 085 classifies worker health, splits a large search into tracked chunks and reallocates by throughput.</p>
+        <p><strong>Step 3:</strong> keep context alive for future agents. 047 builds a verified daily story of repo activity, goals and open threads.</p>
+        <p><strong>Step 4:</strong> chase an errand to the end. 050 starts a refund claim, watches replies and deadlines, and keeps the case moving until the money arrives. That makes seven loops in four groups. Each loop is filed once, under the pattern its check belongs to.</p>
+      </div>
+    </section>
+
+    <!-- 9 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">It keeps acting when nothing changed, or it has more authority than you meant</p>
+      <div class="speaker-notes" hidden><p>The loop tree names one need and two failures. The need is a clean "nothing to do" exit. The failures are acting when nothing changed, and holding more authority than you intended.</p></div>
+    </section>
+
+    <!-- 10 BUSY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="No clean exit">
+      <div class="rule"></div>
+      <span class="evidence">Simulation (seeded)</span>
+      <p class="eyebrow">No clean exit</p>
+      <h2 class="t-chart">The same 24 wake-ups, with no clean exit: it acts every time</h2>
+      <div class="diagram build" data-build="busy" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 8, "Needs" and "Fails when". Same seeded run; counts computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same run as before. Something changed before 5 of the 24 wake-ups, and the watch with a clean exit acted 5 times.</p>
+        <p><strong>Step 1:</strong> now a watch with no "nothing to do" exit. It acts on every wake-up.</p>
+        <p><strong>Step 2:</strong> the counts. 24 actions, and 19 of them on a world that had not changed.</p>
+        <p><strong>Step 3:</strong> this is the first failure the loop tree names: the loop keeps acting when nothing changed. The fix is the pattern's one stated need, a clean "nothing to do" exit.</p>
+      </div>
+    </section>
+
+    <!-- 11 AUTHORITY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Authority">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Authority</p>
+      <h2 class="t-chart">A heartbeat automates the looking. It does not grant authority.</h2>
+      <div class="diagram build" data-build="authority" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 8, "Fails when", and the entries for loops 004, 030 and 050. The cautions are a reading, not the catalog's.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three of the seven loops, read for one thing: where each one stops.</p>
+        <p><strong>Step 1:</strong> 004 reads logs, traces a root cause, fixes and verifies on its own. It ends in a pull request, not an unreviewed deploy. Its entry also warns that it needs production telemetry, which is sensitive, and that a root-cause guess can be wrong.</p>
+        <p><strong>Step 2:</strong> 030 wakes every five minutes and hands out bounded work. It requires proof and permission before anything lands, so approvals still need a human.</p>
+        <p><strong>Step 3:</strong> 050 acts on your behalf outside your own systems. It must stay truthful and within the permissions you granted.</p>
+        <p><strong>Step 4:</strong> the second failure the loop tree names: the watch has more authority than you intended. A schedule makes the looking automatic. It does not decide what the loop is allowed to do.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part four</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">When the work recurs and no one should have to remember it</p>
+      <div class="speaker-notes" hidden><p>The loop tree's advice: pick the pattern from the problem you have, then the child closest to your subject.</p></div>
+    </section>
+
+    <!-- 13 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Picking the pattern">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Pick the pattern from the problem, then the loop from the subject</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, patterns 2, 8 and 9, and "How to use the tree". The contrast is built from the patterns' own Problem and Shape lines.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three problems that can look alike.</p>
+        <p><strong>Step 1:</strong> recurring work that should happen without anyone remembering is a standing watch.</p>
+        <p><strong>Step 2:</strong> a pile of small known problems is a worklist to burn down: it stops when the list is empty. Needing the agent to stop and report is an audit, gate or handoff.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. Both look and both leave something written. A standing watch may then do one bounded thing. An audit gives a verdict and hands control back to a human. It does not act.</p>
+        <p><strong>Step 4:</strong> if no child loop fits your subject, write your own. Keep the pattern's shape and supply your own check. The loop tree also notes that a few loops fit two patterns, and names 004 as one of them. Each loop is filed once.</p>
+      </div>
+    </section>
+
+    <!-- 14 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you leave a watch running</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, pattern 8: Problem, Shape, Needs and Fails when.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> the pattern fits when the work recurs, each wake-up looks at fresh state, each wake-up does one bounded thing or nothing, and every wake-up leaves a record.</p>
+        <p><strong>Steps 5 to 7:</strong> it breaks when there is no clean "nothing to do" exit, when it has more authority than you intended, or when it keeps acting though nothing changed.</p>
+      </div>
+    </section>
+
+    <!-- 15 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">A good watch is quiet most of the time. Give it a clean exit, and no more authority than you meant.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this reading: results from real runs. This pattern comes from reading a catalog of loops, not from testing them. Next in the set: Audit, gate and handoff, the pattern for when the agent should stop and report, not keep acting.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Standing watch";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shape: wake, look, act once or not at all, leave a record ---------- */
+  function renderShape(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The standing watch cycle",
+      "The problem: recurring work that should happen without anyone remembering. The cycle: wake on a schedule, look at fresh state, then one of two exits. If something changed, do one bounded thing. If nothing changed, do nothing. Either way leave a record, then sleep until the next wake-up. A loop is a prompt plus a real check plus a stop rule; here the check is the look at fresh state and the stop rule is the clean nothing-to-do exit.");
+    label(svg, 0, 26, "THE PROBLEM", { size: 24 });
+    txt(svg, 0, 68, "Recurring work that should happen without anyone remembering.", { size: 28, weight: 700 });
+    function cell(x, y, w, h, top, bottom, on, o) {
+      o = o || {};
+      var g = svg.append("g");
+      box(g, x, y, w, h, { fill: on ? (o.fill || "#FFFFFF") : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? (o.sw || 2.5) : 1.5 });
+      txt(g, x + w / 2, y + 46, top, o.cond
+        ? { size: 24, weight: 700, ls: 1.5, anchor: "middle", fill: on ? MUTED : BASE }
+        : { size: 30, weight: 900, ls: 2, anchor: "middle", fill: on ? INK : BASE });
+      txt(g, x + w / 2, y + 86, bottom, o.cond
+        ? { size: 28, weight: 900, anchor: "middle", fill: on ? INK : BASE }
+        : { size: 24, anchor: "middle", fill: on ? BODY : BASE });
+      return g;
+    }
+    var g1 = cell(0, 190, 240, 110, "WAKE", "on a schedule", k >= 1);
+    if (A(anim, k, 1)) fadeIn(g1, 0, 400);
+    var g2 = cell(300, 190, 240, 110, "LOOK", "at fresh state", k >= 2);
+    if (k >= 2) { var a2 = svg.append("g"); arrow(a2, 246, 245, 294, 245, INK, 3); if (A(anim, k, 2)) { fadeIn(a2, 0, 300); fadeIn(g2, 150, 400); } }
+    var g3 = cell(620, 120, 400, 110, "IF SOMETHING CHANGED", "do one bounded thing", k >= 3, { cond: true });
+    var g4 = cell(620, 260, 400, 110, "IF NOTHING CHANGED", "do nothing", k >= 3, { cond: true, sw: 4 });
+    if (k >= 3) {
+      var a3 = svg.append("g");
+      arrow(a3, 546, 232, 614, 180, INK, 3);
+      arrow(a3, 546, 258, 614, 310, INK, 3);
+      var note = txt(svg, 820, 404, "the clean exit the pattern needs", { size: 24, weight: 700, anchor: "middle" });
+      if (A(anim, k, 3)) { fadeIn(a3, 0, 300); fadeIn(g3, 150, 400); fadeIn(g4, 500, 400); fadeIn(note, 900, 400); }
+    }
+    var g5 = cell(1100, 190, 300, 110, "RECORD", "left every time", k >= 4, { fill: TINT });
+    if (k >= 4) {
+      var a4 = svg.append("g");
+      arrow(a4, 1026, 180, 1094, 232, INK, 3);
+      arrow(a4, 1026, 310, 1094, 258, INK, 3);
+      var back = svg.append("g");
+      var p = back.append("path").attr("d", "M1250,306 L1250,440 L120,440 L120,320").attr("fill", "none").attr("stroke", INK).attr("stroke-width", 3);
+      var ah = arrowHead(back, 120, 306, "up", INK);
+      var t = txt(back, 685, 476, "then sleep until the next wake-up", { size: 26, weight: 700, anchor: "middle" });
+      if (A(anim, k, 4)) { fadeIn(a4, 0, 300); fadeIn(g5, 150, 400); drawIn(p, 600, 900); fadeIn(ah, 1450, 200); fadeIn(t, 1500, 400); }
+    }
+    if (k >= 5) {
+      var s = svg.append("g");
+      label(s, 0, 514, "A LOOP IS", { size: 24 });
+      box(s, 150, 526, 190, 56, { sw: 1.5 });
+      txt(s, 245, 563, "a prompt", { size: 25, anchor: "middle" });
+      txt(s, 358, 563, "+", { size: 28, weight: 700, anchor: "middle" });
+      box(s, 376, 526, 220, 56, { fill: INK });
+      txt(s, 486, 563, "a real check", { size: 25, weight: 700, anchor: "middle", fill: "#FFFFFF" });
+      txt(s, 614, 563, "+", { size: 28, weight: 700, anchor: "middle" });
+      box(s, 632, 526, 200, 56, { fill: INK });
+      txt(s, 732, 563, "a stop rule", { size: 25, weight: 700, anchor: "middle", fill: "#FFFFFF" });
+      txt(s, 856, 548, "Here the check is the look at fresh state.", { size: 24, fill: BODY });
+      txt(s, 856, 580, "The stop rule is the “nothing to do” exit.", { size: 24, fill: BODY });
+      if (A(anim, k, 5)) fadeIn(s, 0, 500);
+    }
+  }
+
+  /* ---------- shared: one seeded run of wake-ups (used by the timeline and the failure beside it) ---------- */
+  var WATCH = (function () {
+    var N = 24, P = 0.2, SEED = 14, r = rng(SEED), changed = [];
+    for (var i = 0; i < N; i++) changed.push(r() < P);
+    var c = changed.filter(Boolean).length;
+    return { N: N, P: P, SEED: SEED, changed: changed, changes: c, quiet: N - c };
+  })();
+  function slotX(i) { return 293 + i * 46.25; }
+  function rowLabel(svg, cy, a, b, color) {
+    txt(svg, 0, cy - 2, a, { size: 26, weight: 700, fill: color || INK });
+    txt(svg, 0, cy + 28, b, { size: 24, fill: MUTED });
+  }
+  function worldRow(svg, cy, on, anim) {
+    var g = svg.append("g");
+    WATCH.changed.forEach(function (c, i) {
+      var m;
+      if (!on) { g.append("circle").attr("cx", slotX(i)).attr("cy", cy).attr("r", 4).attr("fill", GRID); return; }
+      if (c) m = g.append("rect").attr("x", slotX(i) - 13).attr("y", cy - 13).attr("width", 26).attr("height", 26).attr("fill", INK);
+      else m = g.append("circle").attr("cx", slotX(i)).attr("cy", cy).attr("r", 4).attr("fill", BASE);
+      if (anim) fadeIn(m, i * 60, 250);
+    });
+    return g;
+  }
+  /* mode "exit": acts only on a change. mode "busy": acts on every wake-up. */
+  function watchRow(svg, cy, mode, anim) {
+    var g = svg.append("g");
+    WATCH.changed.forEach(function (c, i) {
+      var acts = mode === "busy" || c, wasted = mode === "busy" && !c;
+      var m = g.append("circle").attr("cx", slotX(i)).attr("cy", cy).attr("r", 15)
+        .attr("fill", acts ? (wasted ? RED : INK) : "#FFFFFF").attr("stroke", wasted ? RED : INK).attr("stroke-width", 2.5);
+      if (anim) fadeIn(m, i * 70, 250);
+    });
+    return g;
+  }
+  function recordMark(g, x, cy) {
+    g.append("rect").attr("x", x - 9).attr("y", cy - 12).attr("width", 18).attr("height", 24).attr("fill", "#FFFFFF").attr("stroke", MUTED).attr("stroke-width", 2);
+    g.append("path").attr("d", "M" + (x - 5) + "," + (cy - 3) + " L" + (x + 5) + "," + (cy - 3) + " M" + (x - 5) + "," + (cy + 4) + " L" + (x + 5) + "," + (cy + 4)).attr("stroke", MUTED).attr("stroke-width", 2);
+  }
+  function recordRow(svg, cy, anim) {
+    var g = svg.append("g");
+    WATCH.changed.forEach(function (c, i) {
+      var m = g.append("g"); recordMark(m, slotX(i), cy);
+      if (anim) fadeIn(m, i * 70 + 150, 250);
+    });
+    return g;
+  }
+  function axisRow(svg, y) {
+    txt(svg, 0, y, "wake-up", { size: 24, fill: MUTED });
+    [1, 4, 8, 12, 16, 20, 24].forEach(function (n) { txt(svg, slotX(n - 1), y, String(n), { size: 24, family: MONO, fill: MUTED, anchor: "middle" }); });
+  }
+  function inputsLine(prefix) {
+    return prefix + WATCH.N + " wake-ups on a fixed schedule. Chance that something changed since the last one: " + WATCH.P + ". Seed " + WATCH.SEED + ".";
+  }
+
+  /* ---------- timeline: a healthy watch over 24 wake-ups ---------- */
+  function renderTimeline(el, k, anim) {
+    var N = WATCH.N, c = WATCH.changes, q = WATCH.quiet;
+    var svg = svgFor(el, W, 600, "A seeded run of " + N + " wake-ups for a standing watch",
+      "Seeded simulation: " + N + " wake-ups, chance of a change at each one " + WATCH.P + ", seed " + WATCH.SEED + ". Something changed before " + c + " of the wake-ups. The watch did one bounded thing at those " + c + " and exited cleanly at the other " + q + ". It left a record at all " + N + ".");
+    txt(svg, 0, 28, inputsLine("Inputs: "), { size: 24, fill: BODY });
+    rowLabel(svg, 106, "The world", "what changed");
+    rowLabel(svg, 206, "The watch", "what it did");
+    rowLabel(svg, 300, "The record", "left every time");
+    worldRow(svg, 110, k >= 1, A(anim, k, 1));
+    if (k >= 2) { watchRow(svg, 210, "exit", A(anim, k, 2)); recordRow(svg, 300, A(anim, k, 2)); }
+    else WATCH.changed.forEach(function (x, i) {
+      svg.append("circle").attr("cx", slotX(i)).attr("cy", 210).attr("r", 4).attr("fill", GRID);
+      svg.append("circle").attr("cx", slotX(i)).attr("cy", 300).attr("r", 4).attr("fill", GRID);
+    });
+    axisRow(svg, 366);
+    if (k >= 1) {
+      var l1 = svg.append("g");
+      l1.append("rect").attr("x", 270).attr("y", 398).attr("width", 22).attr("height", 22).attr("fill", INK);
+      txt(l1, 304, 417, "something changed", { size: 24 });
+      if (A(anim, k, 1)) fadeIn(l1, 600, 300);
+    }
+    if (k >= 2) {
+      var l2 = svg.append("g");
+      l2.append("circle").attr("cx", 571).attr("cy", 409).attr("r", 11).attr("fill", INK);
+      txt(l2, 594, 417, "one bounded action", { size: 24 });
+      l2.append("circle").attr("cx", 861).attr("cy", 409).attr("r", 10).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2.5);
+      txt(l2, 884, 417, "nothing to do, exit", { size: 24 });
+      recordMark(l2, 1160, 409);
+      txt(l2, 1182, 417, "record left", { size: 24 });
+      if (A(anim, k, 2)) fadeIn(l2, 600, 300);
+    }
+    if (k >= 3) {
+      var cg = svg.append("g");
+      [["WAKE-UPS", N, INK], ["CHANGES FOUND", c, INK], ["BOUNDED ACTIONS", c, INK], ["CLEAN EXITS", q, INK], ["RECORDS LEFT", N, INK]].forEach(function (d, i) {
+        var x = i * 280;
+        label(cg, x, 470, d[0], { size: 24 });
+        var n = txt(cg, x, 532, String(d[1]), { size: 56, weight: 700, family: MONO, fill: d[2] });
+        if (A(anim, k, 3)) n.text("0").transition().delay(i * 150).duration(700).tween("text", function () {
+          var it = d3.interpolateRound(0, d[1]), self = d3.select(this); return function (t) { self.text(String(it(t))); };
+        });
+      });
+      var line = txt(cg, 0, 584, q + " of " + N + " wake-ups did nothing but leave a record. That is the loop working.", { size: 28, weight: 700 });
+      if (A(anim, k, 3)) { fadeIn(cg, 0, 400); fadeIn(line, 1200, 400); }
+    }
+  }
+
+  /* ---------- children: seven loops in four groups ---------- */
+  var GROUPS = [
+    { name: "WATCH ERRORS AND CHANGES", x: 0, y: 26, loops: [
+      ["004", "The production error sweep", "fixes an actionable production error, or stops"],
+      ["008", "The nightly changelog loop", "updates release notes from the day's changes"],
+      ["018", "The product update podcast loop", "turns public product changes into a short episode"]] },
+    { name: "COORDINATE MANY REPOS OR WORKERS", x: 720, y: 26, loops: [
+      ["030", "The five-minute repository maintainer loop", "triages repos and hands out bounded work"],
+      ["085", "The fleet overwatch efficiency loop", "tracks worker health and reallocates a big search"]] },
+    { name: "KEEP CONTEXT ALIVE FOR FUTURE AGENTS", x: 0, y: 400, loops: [
+      ["047", "The Living Story loop", "keeps a verified daily story of repo activity"]] },
+    { name: "CHASE AN ERRAND TO THE END", x: 720, y: 400, loops: [
+      ["050", "The refund follow-up loop", "chases a refund claim until the money arrives"]] }
+  ];
+  function renderChildren(el, k, anim) {
+    var nLoops = 0; GROUPS.forEach(function (g) { nLoops += g.loops.length; });
+    var svg = svgFor(el, W, 590, "The seven standing-watch loops in four groups",
+      "Watch errors and changes: 004 the production error sweep, 008 the nightly changelog loop, 018 the product update podcast loop. Coordinate many repos or workers: 030 the five-minute repository maintainer loop, 085 the fleet overwatch efficiency loop. Keep context alive for future agents: 047 the Living Story loop. Chase an errand to the end: 050 the refund follow-up loop. " + nLoops + " loops in " + GROUPS.length + " groups.");
+    GROUPS.forEach(function (gr, i) {
+      if (k < i + 1) return;
+      var g = svg.append("g");
+      label(g, gr.x, gr.y, gr.name, { size: 24, fill: INK });
+      gr.loops.forEach(function (lp, j) {
+        var y = gr.y + 20 + j * 108;
+        box(g, gr.x, y, 680, 96, { sw: 2.5 });
+        txt(g, gr.x + 22, y + 42, lp[0], { size: 28, weight: 700, family: MONO });
+        txt(g, gr.x + 100, y + 42, lp[1], { size: 26, weight: 700 });
+        txt(g, gr.x + 100, y + 78, lp[2], { size: 24, fill: BODY });
+      });
+      if (A(anim, k, i + 1)) slideIn(g, true, gr.x ? 30 : -30);
+    });
+    if (k >= 4) {
+      var s = txt(svg, 0, 566, nLoops + " loops in " + GROUPS.length + " groups. Each loop is filed once, under the pattern its check belongs to.", { size: 26, weight: 700 });
+      if (A(anim, k, 4)) fadeIn(s, 500, 400);
+    }
+  }
+
+  /* ---------- busy: the same run with no clean exit ---------- */
+  function renderBusy(el, k, anim) {
+    var N = WATCH.N, c = WATCH.changes, q = WATCH.quiet;
+    var svg = svgFor(el, W, 600, "The same " + N + " wake-ups for a watch with no clean exit",
+      "Same seeded run: something changed before " + c + " of " + N + " wake-ups. A watch with a clean exit acted " + c + " times, never when nothing had changed. A watch with no clean exit acted " + N + " times, " + q + " of them when nothing had changed.");
+    txt(svg, 0, 28, inputsLine("Same run: "), { size: 24, fill: BODY });
+    rowLabel(svg, 96, "The world", "what changed");
+    rowLabel(svg, 196, "With a clean exit", "acts on a change");
+    rowLabel(svg, 296, "With no clean exit", "acts every time", k >= 1 ? RED : INK);
+    worldRow(svg, 100, true, false);
+    watchRow(svg, 200, "exit", false);
+    if (k >= 1) watchRow(svg, 300, "busy", A(anim, k, 1));
+    else WATCH.changed.forEach(function (x, i) { svg.append("circle").attr("cx", slotX(i)).attr("cy", 300).attr("r", 4).attr("fill", GRID); });
+    axisRow(svg, 366);
+    if (k >= 2) {
+      var g = svg.append("g");
+      label(g, 0, 420, "WITH A CLEAN EXIT", { size: 24 });
+      txt(g, 0, 478, c + " actions", { size: 44, weight: 700, family: MONO });
+      txt(g, 0, 518, "0 of them when nothing had changed", { size: 26, fill: BODY });
+      label(g, 720, 420, "WITH NO CLEAN EXIT", { size: 24, fill: RED });
+      var n = txt(g, 720, 478, N + " actions", { size: 44, weight: 700, family: MONO, fill: RED });
+      txt(g, 720, 518, q + " of them when nothing had changed", { size: 26, weight: 700, fill: RED });
+      if (A(anim, k, 2)) {
+        fadeIn(g, 0, 400);
+        n.text(c + " actions").transition().delay(300).duration(900).tween("text", function () {
+          var it = d3.interpolateRound(c, N), self = d3.select(this); return function (t) { self.text(it(t) + " actions"); };
+        });
+      }
+    }
+    if (k >= 3) {
+      var b = svg.append("g");
+      txt(b, 0, 576, "Needs: a clean “nothing to do” exit.", { size: 27, weight: 700 });
+      txt(b, 720, 576, "Fails when it keeps acting when nothing changed.", { size: 27, weight: 700, fill: RED });
+      if (A(anim, k, 3)) fadeIn(b, 0, 500);
+    }
+  }
+
+  /* ---------- authority: where three of the loops stop ---------- */
+  function renderAuthority(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Where three standing-watch loops stop",
+      "004 the production error sweep reads logs, traces a root cause, fixes and verifies on its own; it stops at a pull request, not an unreviewed deploy. 030 the five-minute repository maintainer loop wakes, triages and hands out bounded work on its own; it needs proof and permission before anything lands. 050 the refund follow-up loop watches replies and deadlines on its own; it acts for you outside and must stay within granted permissions. The pattern fails when the watch has more authority than you intended.");
+    var rows = [
+      ["004", "The production error sweep",
+        "Reads production logs, traces an actionable error to its root cause, fixes it, verifies.",
+        "Opens a PR. Not an unreviewed deploy."],
+      ["030", "The five-minute repository maintainer loop",
+        "Wakes every five minutes, triages repos, hands bounded work to dedicated Codex threads.",
+        "Proof and permission before anything lands. Approvals still need a human."],
+      ["050", "The refund follow-up loop",
+        "Starts a refund claim, watches replies and deadlines, keeps the case moving.",
+        "Acts for you outside. Must stay truthful and within granted permissions."]
+    ];
+    label(svg, 0, 26, "THE LOOP", { size: 24 });
+    label(svg, 420, 26, "DOES ON ITS OWN", { size: 24 });
+    label(svg, 930, 26, "WHERE IT STOPS", { size: 24, fill: RED });
+    rows.forEach(function (r, i) {
+      if (k < i + 1) return;
+      var y = 46 + i * 138, h = 118, g = svg.append("g");
+      box(g, 0, y, 380, h, { sw: 2.5 });
+      txt(g, 22, y + 42, r[0], { size: 30, weight: 700, family: MONO });
+      wrap(g, 22, y + 76, r[1], 28, { size: 24, weight: 700 });
+      box(g, 420, y, 470, h, { fill: SUBTLE, stroke: FAMILIAR });
+      wrap(g, 442, y + 38, r[2], 36, { size: 24, fill: BODY });
+      var bar = g.append("rect").attr("x", 904).attr("y", y).attr("width", 8).attr("height", h).attr("fill", RED);
+      var stop = g.append("g");
+      box(stop, 930, y, 470, h, { sw: 2.5 });
+      wrap(stop, 952, y + (r[3].length > 40 ? 40 : 54), r[3], 34, { size: 25, weight: 700 });
+      if (A(anim, k, i + 1)) { slideIn(g, true, -30); fadeIn(bar, 450, 300); fadeIn(stop, 650, 400); }
+    });
+    if (k >= 4) {
+      var b = svg.append("g");
+      txt(b, 0, 506, "Fails when the watch has more authority than you intended.", { size: 28, weight: 700, fill: RED });
+      txt(b, 0, 552, "The heartbeat automates observation, not authority.", { size: 28, weight: 700 });
+      if (A(anim, k, 4)) fadeIn(b, 0, 500);
+    }
+  }
+
+  /* ---------- choose: the problem picks the pattern, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 590, "Picking the pattern from the problem",
+      "Recurring work that should happen without anyone remembering: Standing watch. A pile of small known-type problems no one will fix by hand: Burn down a worklist. You need the agent to stop, report or hand over, not keep acting: Audit, gate and handoff. Tell these apart: a standing watch looks at fresh state, then does one bounded thing or nothing; an audit, gate and handoff inspects or gates, gives a verdict with evidence, and returns control to a human. If no child loop fits your subject, write your own: keep the shape, supply your own check.");
+    var rows = [
+      ["Recurring work that should happen without anyone remembering", "Standing watch", 1],
+      ["A pile of small known-type problems no one will fix by hand", "Burn down a worklist", 2],
+      ["You need the agent to stop, report or hand over, not keep acting", "Audit, gate and handoff", 2]
+    ];
+    label(svg, 0, 26, "THE PROBLEM YOU HAVE", { size: 24 });
+    label(svg, 880, 26, "THE PATTERN", { size: 24 });
+    rows.forEach(function (r, i) {
+      var y = 46 + i * 100, on = k >= r[2], g = svg.append("g");
+      box(g, 0, y, 820, 84, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 52, r[0], { size: 25, weight: on ? 700 : 400, fill: on ? INK : BASE });
+      if (!on) return;
+      var p = svg.append("g");
+      arrow(p, 826, y + 42, 874, y + 42, INK, 3);
+      if (i === 0) { box(p, 880, y, 520, 84, { fill: INK }); txt(p, 904, y + 52, r[1], { size: 27, weight: 900, fill: "#FFFFFF" }); }
+      else { box(p, 880, y, 520, 84, { stroke: BASE, dash: "6 6" }); txt(p, 904, y + 52, r[1], { size: 27, weight: 700, fill: BODY }); }
+      if (A(anim, k, r[2])) fadeIn(p, (i === 2 ? 450 : 150), 400);
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 376, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 394, 680, 150, { sw: 2.5 });
+      txt(g3, 26, 442, "Standing watch", { size: 30, weight: 900 });
+      wrap(g3, 26, 484, "Looks at fresh state, then does one bounded thing or nothing.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 394, 680, 150, { sw: 2.5 });
+      txt(g3, 746, 442, "Audit, gate and handoff", { size: 30, weight: 900 });
+      wrap(g3, 746, 484, "Inspects or gates, gives a verdict with evidence, and returns control to a human.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    if (k >= 4) {
+      var t = txt(svg, 0, 580, "If no child loop fits your subject, write your own: keep the shape, supply your own check.", { size: 24, weight: 700 });
+      if (A(anim, k, 4)) fadeIn(t, 0, 400);
+    }
+  }
+
+  /* ---------- checks: four that fit, three that break ---------- */
+  function renderChecks(el, k, anim) {
+    var fits = [
+      "The work recurs, and no one should have to remember it.",
+      "Each wake-up looks at fresh state.",
+      "Each wake-up does one bounded thing, or nothing.",
+      "Every wake-up leaves a record."
+    ];
+    var breaks = [
+      "There is no clean “nothing to do” exit.",
+      "It has more authority than you intended.",
+      "It keeps acting when nothing changed."
+    ];
+    var svg = svgFor(el, W, 590, "Seven checks before leaving a standing watch running",
+      "Fits when: " + fits.join(" ") + " Breaks when: " + breaks.join(" "));
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    fits.concat(breaks).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    shape: { steps: 5, render: renderShape },
+    timeline: { steps: 3, render: renderTimeline },
+    children: { steps: 4, render: renderChildren },
+    busy: { steps: 3, render: renderBusy },
+    authority: { steps: 4, render: renderAuthority },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Evidence ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Evidence ledger">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Evidence ledger">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Loop</p>
+      <h1 class="t-opening rise g2">Evidence ledger</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">List every claim. Attach the evidence. Close every row.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one loop pattern: the evidence ledger. It shows the shape of the pattern, the loops that use it, the way it fails, and how to tell whether it fits your problem.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is the evidence ledger, the fifth loop pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">Claims are easy to overstate. A ledger gives every claim a row, and the run stops only when no row is open.</h2>
+      <div class="speaker-notes" hidden>
+        <p>A loop is a prompt plus a real check plus a stop rule. In this pattern the check is the evidence attached to each claim, for and against, and the stop rule is that every row has reached an ending.</p>
+        <p>Be plain about what this is. The loops come from a public catalog of submitted ideas. Grouping them into ten patterns is a judgment made from reading them. None of it has been tested on real agent runs.</p>
+      </div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">A row for every claim, evidence on both sides, one of four endings</p>
+      <div class="speaker-notes" hidden><p>Two slides: the four steps of the shape, then a small ledger run from five open rows to none.</p></div>
+    </section>
+
+    <!-- 5 SHAPE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The shape of the loop">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">Every claim gets a row, evidence on both sides, and an ending</h2>
+      <div class="diagram build" data-build="shape" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 5. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the problem. Claims about a product, a topic or a person are easy to overstate.</p>
+        <p><strong>Step 1:</strong> list every claim or requirement. Nothing is checked yet. The list is the worklist.</p>
+        <p><strong>Step 2:</strong> attach evidence to each one, for it and against it.</p>
+        <p><strong>Step 3:</strong> settle each row. It ends supported, narrowed, flagged or unresolved.</p>
+        <p><strong>Step 4:</strong> stop when nothing is open.</p>
+        <p><strong>Step 5:</strong> a loop is a prompt plus a real check plus a stop rule. Here the check is the evidence on each row, and the stop rule is a count of open rows.</p>
+      </div>
+    </section>
+
+    <!-- 6 LEDGER -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="A ledger run">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">A ledger, run to the end</p>
+      <h2 class="t-chart">The run stops when no row is open</h2>
+      <div class="diagram build" data-build="ledger" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, pattern 5. The product and its five claims are made up. Counts are computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty ledger. The example is made up: a product page that makes five claims.</p>
+        <p><strong>Step 1:</strong> list the claims. All five rows start open.</p>
+        <p><strong>Step 2:</strong> attach evidence. Dark dots are evidence for. Red dots are evidence against. One claim has nothing either way.</p>
+        <p><strong>Step 3:</strong> two claims have evidence for and none against. They end supported. Three rows are still open.</p>
+        <p><strong>Step 4:</strong> the offline claim holds for reading and fails for editing. The claim is narrowed to the part the evidence supports. Loop 032 does this for product claims: fix the product or narrow the claim.</p>
+        <p><strong>Step 5:</strong> the customer count has no evidence either way. It is flagged. It is not called false.</p>
+        <p><strong>Step 6:</strong> the speed claim has one result for and one against. It is recorded as unresolved. Nothing is open, so the loop stops.</p>
+        <p>The loop tree names the four endings and does not define them. The one-line readings on this slide are this deck's, drawn from the loop entries.</p>
+      </div>
+    </section>
+
+    <!-- 7 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The loops">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">The loops</h2>
+      <p class="sub-section rise g3">Eighteen loops, six kinds of claim</p>
+      <div class="speaker-notes" hidden><p>This is the largest pattern in the loop tree. First the six groups, then one loop walked through.</p></div>
+    </section>
+
+    <!-- 8 CHILDREN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Six groups of loops">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The children</p>
+      <h2 class="t-chart">Eighteen loops keep a ledger for six kinds of claim</h2>
+      <div class="diagram build" data-build="children" style="flex-basis:590px"></div>
+      <p class="source">Source: the loop tree, pattern 5. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> six empty groups. Each loop sits under the pattern its check belongs to.</p>
+        <p><strong>Step 1:</strong> does the product do what it says? Four loops compare claims, contracts and definitions of done with current evidence.</p>
+        <p><strong>Step 2:</strong> is the research claim true? Five loops check sources, papers, contested claims and hypotheses.</p>
+        <p><strong>Step 3:</strong> research that ends in a deliverable: a memo or a paper where every claim is traceable.</p>
+        <p><strong>Step 4:</strong> what do users actually say? Four loops work from interviews, personas and transcripts.</p>
+        <p><strong>Step 5:</strong> commerce: one loop, where the claim is that a product will make a margin.</p>
+        <p><strong>Step 6:</strong> extract a reusable method from past work, and validate it on a second case or a fresh replay.</p>
+        <p><strong>Step 7:</strong> the total is counted from the list: six groups, eighteen loops.</p>
+      </div>
+    </section>
+
+    <!-- 9 WALK 072 -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Loop 072 walked through">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">One loop, walked through</p>
+      <h2 class="t-chart">072: every source is logged, for and against</h2>
+      <div class="diagram build" data-build="walk" style="flex-basis:610px"></div>
+      <p class="source">Source: loop 072, The claim-ledger research loop, Forward Future Loop Library. The claim and its sources are made up.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> loop 072 is for a contested claim that a decision rests on. The claim and the three sources here are made up.</p>
+        <p><strong>Step 1:</strong> provenance. For each source the loop records where it came from.</p>
+        <p><strong>Step 2:</strong> polarity. Each source is marked for or against, and the evidence against is counted too. Here it is two for and one against.</p>
+        <p><strong>Step 3:</strong> negative checks. A search that came back empty is written down with its scope.</p>
+        <p><strong>Step 4:</strong> confidence. The entry's cautions: the loop is slow, and absence of evidence is not disproof unless the scope of the search supports it. The pros and cons in the at-a-glance list are a reading, not the catalog's own words.</p>
+      </div>
+    </section>
+
+    <!-- 10 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">A blank counted as disproof, or a source that does not exist</p>
+      <div class="speaker-notes" hidden><p>The ledger is only as good as what is attached to its rows. Both failures put something false in the evidence column.</p></div>
+    </section>
+
+    <!-- 11 FAILS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two ways it fails">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The failures</p>
+      <h2 class="t-chart">A blank is not disproof. A made-up source is not evidence.</h2>
+      <div class="diagram build" data-build="fails" style="flex-basis:610px"></div>
+      <p class="source">Source: the loop tree, pattern 5, "Needs" and "Fails when". Cautions from loops 061, 070, 072 and 078. The two rows are illustrative.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> a row where the search found nothing for the claim and nothing against it.</p>
+        <p><strong>Step 2:</strong> the wrong ending calls the claim false. Nothing said it was false. The right ending flags it as not verified.</p>
+        <p><strong>Step 3:</strong> a row whose only evidence is a citation that cannot be found.</p>
+        <p><strong>Step 4:</strong> the wrong ending marks it supported. The right ending flags it. Several loops in this pattern carry the same rule: no invented citations, data or quotes.</p>
+        <p><strong>Step 5:</strong> what the pattern needs and when it fails, in the loop tree's words.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part four</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Pick the pattern from the problem, then the child closest to your subject</p>
+      <div class="speaker-notes" hidden><p>Two questions, the pattern it is most easily confused with, and a checklist.</p></div>
+    </section>
+
+    <!-- 13 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two questions">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Two questions decide whether a ledger fits</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, patterns 4 and 5 and "How to use the tree". Loop 034 from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> start from the problem you have. If the risk is an overstated claim, this is the pattern.</p>
+        <p><strong>Step 2:</strong> the pattern needs access to real sources. Without them there is nothing real to put on a row.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. In a ledger the check is evidence on each claim. In "Maker is not the checker" the check is an independent reviewer. The loop tree notes that loop 034 fits both, and it is filed under the reviewer pattern. Its entry carries the caution that agreement is not truth.</p>
+        <p><strong>Step 4:</strong> if no child loop fits your subject, write your own: keep the shape and supply your own check.</p>
+      </div>
+    </section>
+
+    <!-- 14 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you run an evidence ledger</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, pattern 5, and the entries for loops 032, 059, 063 and 083.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> when the pattern fits. The first two are the pattern's problem and its need. The third comes from loop 063: define what counts as meaningful evidence first. The fourth comes from loops 032 and 083: a narrowed claim or a clear no-go is a valid outcome.</p>
+        <p><strong>Steps 5 to 7:</strong> when it breaks. The first two are the loop tree's failure conditions. The third is loop 059's caution: one vivid quote is not a pattern.</p>
+      </div>
+    </section>
+
+    <!-- 15 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">Give every claim a row, with evidence for and against. Stop only when no row is open.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: running these loops on real work and seeing where they hold. So far this is a reading of the catalog, not a test. Next in the set: Replay until clean, where the check is a clean run from scratch.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Evidence ledger";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shape: list, attach evidence, settle, stop ---------- */
+  function renderShape(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The shape of the evidence ledger loop",
+      "The problem: claims about a product, a topic or a person are easy to overstate. Four steps in a row: list every claim or requirement; attach evidence for the claim and against it; settle each row as supported, narrowed, flagged or unresolved; stop when nothing is open. A loop is a prompt plus a real check plus a stop rule. Here the real check is the evidence attached to each row, and the stop rule is that no row is still open.");
+    label(svg, 0, 26, "THE PROBLEM", { size: 24 });
+    txt(svg, 0, 68, "Claims about a product, a topic or a person are easy to overstate.", { size: 28, weight: 700 });
+    var S = [
+      ["LIST", "every claim", "or requirement"],
+      ["ATTACH EVIDENCE", "for the claim", "and against it"],
+      ["SETTLE EACH ROW", "supported, narrowed,", "flagged or unresolved"],
+      ["STOP", "when nothing", "is open"]
+    ];
+    var bw = 320, gap = 40, y = 100, h = 190;
+    S.forEach(function (s, i) {
+      var on = k >= i + 1, x = i * (bw + gap), g = svg.append("g");
+      box(g, x, y, bw - 1, h, { fill: on ? (i === 1 ? TINT : "#FFFFFF") : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, x + 24, y + 42, "STEP " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, x + 24, y + 88, s[0], { size: 28, weight: 900, fill: on ? INK : BASE });
+      if (on) {
+        txt(g, x + 24, y + 132, s[1], { size: 25, fill: BODY });
+        txt(g, x + 24, y + 166, s[2], { size: 25, fill: BODY });
+        if (A(anim, k, i + 1)) fadeIn(g, 0, 400);
+      }
+      if (i > 0 && on) {
+        var a = svg.append("g");
+        arrow(a, x - gap + 5, y + h / 2, x - 6, y + h / 2, INK, 3);
+        if (A(anim, k, i + 1)) fadeIn(a, 0, 300);
+      }
+    });
+    if (k >= 5) {
+      var g5 = svg.append("g");
+      label(g5, 0, 346, "A LOOP IS", { size: 24 });
+      box(g5, 0, 364, 300, 80, { sw: 1.5 });
+      txt(g5, 150, 414, "a prompt", { size: 26, anchor: "middle" });
+      txt(g5, 340, 416, "+", { size: 34, weight: 700, anchor: "middle" });
+      box(g5, 380, 364, 300, 80, { fill: INK });
+      txt(g5, 530, 414, "a real check", { size: 26, weight: 900, anchor: "middle", fill: "#FFFFFF" });
+      txt(g5, 720, 416, "+", { size: 34, weight: 700, anchor: "middle" });
+      box(g5, 760, 364, 300, 80, { fill: INK });
+      txt(g5, 910, 414, "a stop rule", { size: 26, weight: 900, anchor: "middle", fill: "#FFFFFF" });
+      var p1 = g5.append("path").attr("d", "M520," + (y + h + 6) + " L520,348").attr("fill", "none").attr("stroke", INK).attr("stroke-width", 3);
+      arrowHead(g5, 520, 362, "down", INK);
+      var p2 = g5.append("path").attr("d", "M1240," + (y + h + 6) + " L1240,326 L910,326 L910,348").attr("fill", "none").attr("stroke", INK).attr("stroke-width", 3);
+      arrowHead(g5, 910, 362, "down", INK);
+      txt(g5, 0, 506, "Here the real check is the evidence attached to each row.", { size: 28, weight: 700 });
+      txt(g5, 0, 552, "The stop rule is a count: no row is still open.", { size: 26, fill: BODY });
+      if (A(anim, k, 5)) { fadeIn(g5, 0, 500); drawIn(p1, 200, 400); drawIn(p2, 200, 600); }
+    }
+  }
+
+  /* ---------- ledger: five made-up claims settle into four end states ---------- */
+  var LEDGER = [
+    { c: "Syncs across devices", f: 2, a: 0, end: "supported", at: 3 },
+    { c: "Works offline", f: 1, a: 1, end: "narrowed", at: 4, to: "Reading works offline" },
+    { c: "Used by 10,000 teams", f: 0, a: 0, end: "flagged", at: 5 },
+    { c: "Twice as fast as before", f: 1, a: 1, end: "unresolved", at: 6 },
+    { c: "Exports to PDF", f: 2, a: 0, end: "supported", at: 3 }
+  ];
+  var END_STATES = ["supported", "narrowed", "flagged", "unresolved"];
+  function openAt(k) { return k < 1 ? 0 : LEDGER.filter(function (r) { return k < r.at; }).length; }
+  function statusBadge(g, x, y, state) {
+    var st = {
+      open: ["#FFFFFF", BASE, MUTED, "6 6", 1.5], supported: [INK, INK, "#FFFFFF", null, 2.5],
+      narrowed: ["#FFFFFF", INK, INK, null, 2.5], flagged: [TINT, RED, RED, null, 2.5],
+      unresolved: [SUBTLE, INK, INK, "6 6", 2.5]
+    }[state];
+    box(g, x, y, 230, 50, { fill: st[0], stroke: st[1], dash: st[3], sw: st[4] });
+    txt(g, x + 115, y + 34, state, { size: 25, weight: 700, anchor: "middle", fill: st[2] });
+  }
+  function renderLedger(el, k, anim) {
+    var open = openAt(k), prev = openAt(k - 1);
+    var svg = svgFor(el, W, 580, "A ledger of five claims settling until none is open",
+      "A table of five made-up product claims with evidence for, evidence against and a status. Syncs across devices: 2 for, 0 against, supported. Works offline: 1 for, 1 against, narrowed to reading works offline. Used by 10,000 teams: none found either way, flagged. Twice as fast as before: 1 for, 1 against, unresolved. Exports to PDF: 2 for, 0 against, supported. The count of open rows falls from 5 to 3, 2, 1 and 0, and the loop stops.");
+    label(svg, 20, 26, "CLAIM", { size: 24 });
+    label(svg, 520, 26, "FOR", { size: 24 });
+    label(svg, 690, 26, "AGAINST", { size: 24 });
+    label(svg, 880, 26, "STATUS", { size: 24 });
+    LEDGER.forEach(function (r, i) {
+      var y = 44 + i * 84, g = svg.append("g"), done = k >= r.at;
+      if (k < 1) { box(g, 0, y, 1110, 74, { fill: "#FFFFFF", stroke: FAMILIAR, dash: "6 6" }); return; }
+      box(g, 0, y, 1110, 74, { fill: "#FFFFFF", stroke: GRID, sw: 2 });
+      if (r.to && done) {
+        txt(g, 20, y + 30, r.c, { size: 24, fill: MUTED }).attr("text-decoration", "line-through");
+        var nt = txt(g, 20, y + 62, r.to, { size: 25, weight: 700 });
+        if (A(anim, k, r.at)) fadeIn(nt, 300, 400);
+      } else txt(g, 20, y + 46, r.c, { size: 26 });
+      if (k >= 2) {
+        var ev = g.append("g");
+        if (r.f === 0) txt(ev, 520, y + 45, "none found", { size: 24, fill: MUTED });
+        d3.range(r.f).forEach(function (j) { ev.append("circle").attr("cx", 534 + j * 36).attr("cy", y + 37).attr("r", 12).attr("fill", INK); });
+        if (r.a === 0) txt(ev, 690, y + 45, r.f === 0 ? "none found" : "none", { size: 24, fill: MUTED });
+        d3.range(r.a).forEach(function (j) { ev.append("circle").attr("cx", 704 + j * 36).attr("cy", y + 37).attr("r", 12).attr("fill", RED); });
+        if (A(anim, k, 2)) fadeIn(ev, i * 220, 350);
+      }
+      var b = g.append("g");
+      statusBadge(b, 880, y + 12, done ? r.end : "open");
+      if (A(anim, k, r.at)) fadeIn(b, 0, 450);
+      if (A(anim, k, 1)) slideIn(g, true, -30);
+    });
+    if (k >= 1) {
+      var gp = svg.append("g");
+      label(gp, 1150, 70, "ROWS OPEN", { size: 24 });
+      var num = txt(gp, 1150, 180, String(open), { size: 110, weight: 700, family: MONO, fill: INK });
+      if (anim && open !== prev) num.text(String(prev)).transition().duration(700).tween("text", function () {
+        var it = d3.interpolateRound(prev, open), self = d3.select(this); return function (t) { self.text(it(t)); };
+      });
+      if (open > 0) txt(gp, 1150, 240, "keep going", { size: 26, fill: MUTED });
+      else {
+        txt(gp, 1150, 240, "Nothing is open.", { size: 28, weight: 700 });
+        txt(gp, 1150, 286, "Stop.", { size: 36, weight: 900 });
+        END_STATES.forEach(function (s, j) {
+          var n = LEDGER.filter(function (r) { return r.end === s; }).length;
+          txt(gp, 1150, 346 + j * 36, n + " " + s, { size: 25, fill: BODY });
+        });
+        if (A(anim, k, 6)) fadeIn(gp, 0, 400);
+      }
+    }
+    var CAP = ["",
+      "List every claim. Every row starts open.",
+      "Attach the evidence for each claim, and the evidence against it.",
+      "Evidence for and none against: supported.",
+      "The evidence backs part of the claim: narrow the claim to that part.",
+      "No evidence either way: flagged. It is not called false.",
+      "Evidence that conflicts: recorded as unresolved, not forced."];
+    if (k >= 1) { var c = txt(svg, 0, 504, CAP[k], { size: 26, fill: BODY }); if (anim) fadeIn(c, 200, 400); }
+    if (k >= 6) {
+      var c2 = txt(svg, 0, 552, "Every row ended in one of four states. Nothing is open, so the loop stops.", { size: 28, weight: 700 });
+      if (A(anim, k, 6)) fadeIn(c2, 600, 400);
+    }
+  }
+
+  /* ---------- children: eighteen loops in six groups ---------- */
+  var GROUPS = [
+    { t: "Does the product do what it says", ids: ["032", "076", "010", "028"], eg: "032 The promise-to-proof loop" },
+    { t: "Is the research claim true", ids: ["062", "070", "072", "073", "063"], eg: "072 The claim-ledger research loop" },
+    { t: "Research that ends in a deliverable", ids: ["052", "061"], eg: "052 The research-to-artifact loop" },
+    { t: "What do users actually say", ids: ["059", "071", "078", "079"], eg: "079 The empathy saturation loop" },
+    { t: "Commerce", ids: ["083"], eg: "083 The viral product margin audit loop" },
+    { t: "Extract a reusable method from past work", ids: ["045", "046"], eg: "045 The artifact-to-skill loop" }
+  ];
+  function renderChildren(el, k, anim) {
+    var total = d3.sum(GROUPS, function (g) { return g.ids.length; });
+    var svg = svgFor(el, W, 590, "The child loops of the evidence ledger pattern, in six groups",
+      "Six groups. Does the product do what it says: loops 032, 076, 010 and 028. Is the research claim true: 062, 070, 072, 073 and 063. Research that ends in a deliverable: 052 and 061. What do users actually say: 059, 071, 078 and 079. Commerce: 083. Extract a reusable method from past work: 045 and 046. That is 18 loops in 6 groups.");
+    var cw = 453, ch = 240;
+    GROUPS.forEach(function (gr, i) {
+      var x = (i % 3) * (cw + 20), y = 10 + Math.floor(i / 3) * (ch + 20), on = k >= i + 1, g = svg.append("g");
+      box(g, x, y, cw, ch, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5, dash: on ? null : "6 6" });
+      if (!on) return;
+      wrap(g, x + 24, y + 46, gr.t, 26, { size: 27, weight: 900 });
+      txt(g, x + cw - 24, y + 54, String(gr.ids.length), { size: 46, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x + 24, y + 138, gr.ids.join("  "), { size: 26, weight: 700, family: MONO });
+      wrap(g, x + 24, y + 180, gr.eg, 30, { size: 24, fill: BODY });
+      if (A(anim, k, i + 1)) fadeIn(g, 0, 450);
+    });
+    if (k >= 7) {
+      var c = txt(svg, 0, 566, GROUPS.length + " groups, " + total + " loops, one shape: claims, evidence, and a status for every row.", { size: 28, weight: 700 });
+      if (A(anim, k, 7)) fadeIn(c, 0, 450);
+    }
+  }
+
+  /* ---------- walk: loop 072, the claim-ledger research loop ---------- */
+  var SOURCES = [
+    { s: "Vendor survey", p: "self-reported, published by a seller", pol: "for" },
+    { s: "Published study", p: "measured, peer-reviewed", pol: "against" },
+    { s: "One team's dashboard", p: "internal, a single team", pol: "for" }
+  ];
+  function renderWalk(el, k, anim) {
+    var nFor = SOURCES.filter(function (s) { return s.pol === "for"; }).length, nAg = SOURCES.length - nFor;
+    var svg = svgFor(el, W, 610, "Loop 072 recording provenance, polarity, a negative check and confidence for one claim",
+      "A made-up contested claim: remote teams ship faster. Three made-up sources. A vendor survey, self-reported and published by a seller, points for. A published study, measured and peer-reviewed, points against. One team's dashboard, internal and from a single team, points for. Count: 2 for, 1 against. Negative check: two databases searched for a second study against, none found, recorded with its scope. Confidence: low. Pros: transparent and it counts evidence against too. Cons: slow, and absence of evidence is not disproof unless the scope supports it.");
+    label(svg, 0, 26, "A CONTESTED CLAIM (MADE UP)", { size: 24 });
+    box(svg, 0, 44, W - 1, 64, { sw: 2.5 });
+    txt(svg, 24, 86, "“Remote teams ship faster.”", { size: 28, weight: 700 });
+    label(svg, 20, 146, "SOURCE", { size: 24 });
+    if (k >= 1) label(svg, 330, 146, "PROVENANCE", { size: 24 });
+    if (k >= 2) label(svg, 800, 146, "POLARITY", { size: 24 });
+    SOURCES.forEach(function (s, i) {
+      var y = 164 + i * 72, g = svg.append("g");
+      box(g, 0, y, 1000, 62, { stroke: GRID, sw: 2 });
+      txt(g, 20, y + 40, s.s, { size: 26, weight: 700 });
+      if (k >= 1) { var p = txt(g, 330, y + 40, s.p, { size: 25, fill: BODY }); if (A(anim, k, 1)) fadeIn(p, i * 250, 350); }
+      if (k >= 2) {
+        var b = g.append("g"), ag = s.pol === "against";
+        box(b, 800, y + 8, 170, 46, { fill: ag ? TINT : INK, stroke: ag ? RED : INK, sw: 2.5 });
+        txt(b, 885, y + 40, s.pol, { size: 25, weight: 700, anchor: "middle", fill: ag ? RED : "#FFFFFF" });
+        if (A(anim, k, 2)) fadeIn(b, i * 250, 350);
+      }
+    });
+    if (k >= 2) {
+      var gc = svg.append("g");
+      label(gc, 1060, 146, "EVIDENCE COUNT", { size: 24 });
+      txt(gc, 1060, 232, "for", { size: 28 });
+      txt(gc, 1250, 240, String(nFor), { size: 66, weight: 700, family: MONO });
+      txt(gc, 1060, 332, "against", { size: 28, fill: RED });
+      txt(gc, 1250, 340, String(nAg), { size: 66, weight: 700, family: MONO, fill: RED });
+      if (A(anim, k, 2)) fadeIn(gc, 800, 400);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      box(g3, 0, 386, W - 1, 62, { fill: TINT, stroke: INK, sw: 2 });
+      txt(g3, 20, 426, "NEGATIVE CHECK", { size: 24, weight: 900, ls: 1.5 });
+      txt(g3, 330, 426, "Searched two databases for a second study against. None found.", { size: 25, fill: INK });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 450);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      box(g4, 0, 458, W - 1, 62, { sw: 2.5 });
+      txt(g4, 20, 498, "CONFIDENCE", { size: 24, weight: 900, ls: 1.5 });
+      txt(g4, 330, 498, "Low. " + nFor + " weaker sources for, " + nAg + " measured source against.", { size: 25, weight: 700 });
+      txt(g4, 0, 560, "The empty search is recorded with its scope. It is not counted as proof.", { size: 26, fill: BODY });
+      txt(g4, 0, 600, "Absence of evidence isn't disproof unless the scope supports it. The loop is slow.", { size: 26, weight: 700, fill: RED });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 450);
+    }
+  }
+
+  /* ---------- fails: absence as disproof, and an invented source ---------- */
+  function renderFails(el, k, anim) {
+    var svg = svgFor(el, W, 610, "Two ways an evidence ledger fails",
+      "Left, absence treated as disproof: the claim used by 10,000 teams has no evidence found for or against. The wrong ending calls it false, because no evidence said so. The right ending flags it as could not verify. Right, an invented source: the claim twice as fast as before cites a benchmark that cannot be found. The wrong ending marks it supported on a source no one saw. The right ending flags it, source not found. Needs: access to real sources. Fails when absence of evidence is treated as disproof, or sources are invented.");
+    var P = [
+      { x: 0, at: 1, head: "ABSENCE TREATED AS DISPROOF", claim: "Used by 10,000 teams", ev: "for: none found.  against: none found.",
+        wrong: ["called false", "no evidence said so"], right: ["flagged", "could not verify"],
+        notes: ["Loop 072: absence of evidence isn't disproof unless the scope supports it.", "Loop 070: a network failure isn't proof a DOI is invalid."] },
+      { x: 720, at: 3, head: "AN INVENTED SOURCE", claim: "Twice as fast as before", ev: "for: a cited benchmark that cannot be found.",
+        wrong: ["supported", "on a source no one saw"], right: ["flagged", "source not found"],
+        notes: ["Loop 070 checks that cited papers exist.", "Loops 061 and 078: no invented citations, data or quotes."] }
+    ];
+    P.forEach(function (p) {
+      var on = k >= p.at, g = svg.append("g");
+      label(g, p.x, 26, p.head, { size: 24, fill: on ? RED : BASE });
+      box(g, p.x, 44, 678, 150, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5, dash: on ? null : "6 6" });
+      if (!on) return;
+      txt(g, p.x + 24, 80, "ONE ROW OF THE LEDGER", { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      txt(g, p.x + 24, 124, p.claim, { size: 30, weight: 700 });
+      txt(g, p.x + 24, 166, p.ev, { size: 24, fill: BODY });
+      if (A(anim, k, p.at)) fadeIn(g, 0, 450);
+      if (k < p.at + 1) return;
+      var o = svg.append("g");
+      box(o, p.x, 214, 329, 130, { fill: TINT, stroke: RED, sw: 2.5 });
+      txt(o, p.x + 22, 250, "WRONG ENDING", { size: 24, weight: 900, ls: 1.5, fill: RED });
+      txt(o, p.x + 22, 294, p.wrong[0], { size: 30, weight: 900, fill: RED });
+      txt(o, p.x + 22, 328, p.wrong[1], { size: 24, fill: RED });
+      cross(o, p.x + 292, 244, 12, RED);
+      box(o, p.x + 349, 214, 329, 130, { sw: 2.5 });
+      txt(o, p.x + 371, 250, "RIGHT ENDING", { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      txt(o, p.x + 371, 294, p.right[0], { size: 30, weight: 900 });
+      txt(o, p.x + 371, 328, p.right[1], { size: 24, fill: BODY });
+      check(o, p.x + 641, 246, 13, INK);
+      var ly = wrap(o, p.x, 388, p.notes[0], 52, { size: 24, fill: BODY });
+      wrap(o, p.x, ly + 44, p.notes[1], 52, { size: 24, fill: BODY });
+      if (A(anim, k, p.at + 1)) fadeIn(o, 0, 450);
+    });
+    if (k >= 5) {
+      var g5 = svg.append("g");
+      txt(g5, 0, 556, "Needs: access to real sources.", { size: 28, weight: 700 });
+      txt(g5, 0, 600, "Fails when absence of evidence is treated as disproof, or sources are invented.", { size: 28, weight: 900, fill: RED });
+      if (A(anim, k, 5)) fadeIn(g5, 0, 450);
+    }
+  }
+
+  /* ---------- choose: two questions, the look-alike pair, and writing your own child ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Two questions that decide whether an evidence ledger fits",
+      "Question 1: is the problem an overstated claim? Yes, evidence ledger. No, pick the pattern from your problem. Question 2: can you reach real sources? Yes, run the ledger. No, there is no evidence to attach. Tell these apart: in an evidence ledger the check is evidence attached to each claim and every row ends in a status; in maker is not the checker the check is an independent reviewer and it ends when the reviewer's bar is met. Loop 034, two models converging, fits both, and agreement between them is not truth. If no child fits your subject, keep the pattern's shape and supply your own check.");
+    var Q = [
+      { q: "Is the problem an overstated claim?", a: ["yes", "Evidence ledger"], b: ["no", "Pick from your problem"] },
+      { q: "Can you reach real sources?", a: ["yes", "Run the ledger"], b: ["no", "No evidence to attach"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 640, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 27, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 646, y + 52, 696, y + 52, INK, 3);
+      box(ga, 700, y, 340, 104, { fill: INK });
+      txt(ga, 724, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 724, y + 80, r.a[1], { size: 25, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1060, y, 338, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1082, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1082, y + 80, r.b[1], { size: 24, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 264, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 282, 680, 160, { sw: 2.5 });
+      txt(g3, 26, 330, "Evidence ledger", { size: 32, weight: 900 });
+      wrap(g3, 26, 376, "The check is evidence attached to each claim. Every row ends in a status.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 282, 678, 160, { sw: 2.5 });
+      txt(g3, 746, 330, "Maker is not the checker", { size: 32, weight: 900 });
+      wrap(g3, 746, 376, "The check is an independent reviewer. It ends when the reviewer's bar is met.", 50, { size: 25, fill: BODY });
+      txt(g3, 0, 486, "Loop 034, two models converging, fits both. Agreement between them isn't truth.", { size: 26, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    if (k >= 4) {
+      var c = txt(svg, 0, 546, "No child fits your subject? Keep the pattern's shape and supply your own check.", { size: 28, weight: 700 });
+      if (A(anim, k, 4)) fadeIn(c, 0, 450);
+    }
+  }
+
+  /* ---------- checks: four that fit, three that break ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Seven checks before running an evidence ledger",
+      "Fits when: the problem is a claim that is easy to overstate; you can reach real sources; what counts as evidence is defined first; a narrowed claim or a no-go is an accepted result. Breaks when: absence of evidence is treated as disproof; sources are invented; one vivid quote is counted as a pattern.");
+    var fits = [
+      "The problem is a claim that is easy to overstate.",
+      "You can reach real sources.",
+      "What counts as evidence is defined first.",
+      "A narrowed claim or a no-go is an accepted result."
+    ];
+    var breaks = [
+      "Absence of evidence is treated as disproof.",
+      "Sources are invented.",
+      "One vivid quote is counted as a pattern."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    fits.concat(breaks).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    shape: { steps: 5, render: renderShape },
+    ledger: { steps: 6, render: renderLedger },
+    children: { steps: 7, render: renderChildren },
+    walk: { steps: 4, render: renderWalk },
+    fails: { steps: 5, render: renderFails },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
