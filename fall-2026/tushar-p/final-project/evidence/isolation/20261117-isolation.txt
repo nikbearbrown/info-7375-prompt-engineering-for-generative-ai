@@ -1,0 +1,109 @@
+# Fixture output: go test on real kind pods (no model). T4.4 isolation tests, plus TestKindEgressBlocked (T1.2).
+# Date: 2026-11-17T23:28:12Z
+# Commit: 0a7511a3b1c6ea0bafc4e8cbed52380850c11ec1  uncommitted changes: none (git status listed only this new evidence/isolation/ file)
+# kind v0.33.0 go1.27.0 darwin/arm64
+# Node: v1.37.0 containerd://2.3.4 7.0.12-linuxkit
+# Kubelet podPidsLimit: 256
+# Command: go test -v -count=1 -run 'TestIsolation|TestKindEgressBlocked|TestKindConfigPidsLimit' ./internal/sandbox/
+
+=== RUN   TestIsolation
+=== RUN   TestIsolation/non_root
+    isolation_test.go:87: id: exit=0
+    isolation_test.go:87:   uid=1000(apg) gid=1000(apg) groups=1000(apg)
+    isolation_test.go:100: PID 1's ids and setuid(0): exit=0
+    isolation_test.go:100:   pid1 Uid: 1000 1000 1000 1000
+    isolation_test.go:100:   pid1 Gid: 1000 1000 1000 1000
+    isolation_test.go:100:   setuid(0) errno 1
+=== RUN   TestIsolation/capabilities
+    isolation_test.go:118: capability sets and privileged calls: exit=0
+    isolation_test.go:118:   CapInh: 0000000000000000
+    isolation_test.go:118:   CapPrm: 0000000000000000
+    isolation_test.go:118:   CapEff: 0000000000000000
+    isolation_test.go:118:   CapBnd: 0000000000000000
+    isolation_test.go:118:   CapAmb: 0000000000000000
+    isolation_test.go:118:   chown(file, 0, 0) errno 1
+    isolation_test.go:118:   setgroups([0]) errno 1
+=== RUN   TestIsolation/no_privilege_escalation
+    isolation_test.go:135: no_new_privs, seccomp, user namespace: exit=0
+    isolation_test.go:135:   NoNewPrivs: 1
+    isolation_test.go:135:   Seccomp: 2
+    isolation_test.go:135:   unshare(CLONE_NEWUSER) errno 1
+    isolation_test.go:142: setuid programs in the image: exit=1
+    isolation_test.go:142:   /usr/bin/su
+    isolation_test.go:142:   /usr/bin/newgrp
+    isolation_test.go:142:   /usr/bin/mount
+    isolation_test.go:142:   /usr/bin/umount
+    isolation_test.go:142:   /usr/bin/chsh
+    isolation_test.go:142:   /usr/bin/gpasswd
+    isolation_test.go:142:   /usr/bin/passwd
+    isolation_test.go:142:   /usr/bin/chfn
+    isolation_test.go:142:   find: ‘/var/cache/apt/archives/partial’: Permission denied
+    isolation_test.go:142:   find: ‘/var/cache/ldconfig’: Permission denied
+    isolation_test.go:142:   find: ‘/var/lib/apt/lists/partial’: Permission denied
+    isolation_test.go:142:   find: ‘/root’: Permission denied
+    isolation_test.go:142:   find: ‘/etc/ssl/private’: Permission denied
+    isolation_test.go:148: mount -t tmpfs none /tmp/apg-mnt: exit=32
+    isolation_test.go:148:   mount: /tmp/apg-mnt: must be superuser to use mount.
+    isolation_test.go:148:          dmesg(1) may have more information after failed mount system call.
+=== RUN   TestIsolation/writes_outside_workspace
+    isolation_test.go:170: create a file in each directory: exit=0
+    isolation_test.go:170:   DENIED / errno 13
+    isolation_test.go:170:   DENIED /etc errno 13
+    isolation_test.go:170:   DENIED /usr errno 13
+    isolation_test.go:170:   DENIED /usr/local/lib/python3.12/site-packages errno 13
+    isolation_test.go:170:   DENIED /var errno 13
+    isolation_test.go:170:   DENIED /root errno 13
+    isolation_test.go:170:   DENIED /opt errno 13
+    isolation_test.go:170:   WRITABLE /workspace
+    isolation_test.go:170:   WRITABLE /tmp
+    isolation_test.go:170:   WRITABLE /var/tmp
+    isolation_test.go:170:   WRITABLE /dev/shm
+    isolation_test.go:170:   WRITABLE /home/apg
+    isolation_test.go:170:   DENIED /etc/passwd errno 13
+=== RUN   TestIsolation/no_service_account_token
+    isolation_test.go:200: service-account token and API server: exit=0
+    isolation_test.go:200:   /var/run/secrets/kubernetes.io exists: False
+    isolation_test.go:200:   token files: []
+    isolation_test.go:200:   api server 10.96.0.1 443 from env
+    isolation_test.go:200:   api server blocked: TimeoutError
+=== RUN   TestIsolation/cpu_limit
+    isolation_test.go:229: 4 busy processes for 3 s: exit=0
+    isolation_test.go:229:   cpu.max 50000 100000
+    isolation_test.go:229:   wall_seconds 3.029
+    isolation_test.go:229:   cpu_seconds 1.528
+    isolation_test.go:229:   cpus_used 0.504
+    isolation_test.go:229:   throttled_periods 31
+--- PASS: TestIsolation (15.09s)
+    --- PASS: TestIsolation/non_root (0.15s)
+    --- PASS: TestIsolation/capabilities (0.06s)
+    --- PASS: TestIsolation/no_privilege_escalation (0.32s)
+    --- PASS: TestIsolation/writes_outside_workspace (0.06s)
+    --- PASS: TestIsolation/no_service_account_token (5.08s)
+    --- PASS: TestIsolation/cpu_limit (3.16s)
+=== RUN   TestIsolationMemory
+    isolation_test.go:267: cgroup memory settings: exit=0
+    isolation_test.go:267:   memory.max 268435456
+    isolation_test.go:267:   memory.swap.max 0
+    isolation_test.go:290: memory hog: exit=137, last MiB printed=240, stderr="command terminated with exit code 137"
+    isolation_test.go:308: pod status (phase, terminated reason): "Running OOMKilled" exit=0
+--- PASS: TestIsolationMemory (6.03s)
+=== RUN   TestIsolationPids
+    isolation_test.go:341: kubelet configz podPidsLimit: 256
+    isolation_test.go:372: fork until it fails (cap 400): exit=0
+    isolation_test.go:372:   forked 252
+    isolation_test.go:372:   fork error EAGAIN
+    isolation_test.go:372:   reaped 252
+    isolation_test.go:386: echo ok after the fork test: exit=0
+    isolation_test.go:386:   ok
+--- PASS: TestIsolationPids (7.01s)
+=== RUN   TestKindConfigPidsLimit
+--- PASS: TestKindConfigPidsLimit (0.00s)
+=== RUN   TestKindEgressBlocked
+    kind_test.go:258: control (no policy): exit=0 connected
+    kind_test.go:258: control (no policy): exit=0 ('172.66.147.243', 443)
+    kind_test.go:274: Start's egress probes: [open blocked]
+    kind_test.go:292: sandbox (policy on) tcp 1.1.1.1:443: blocked, exit=1 TimeoutError: timed out
+    kind_test.go:292: sandbox (policy on) dns example.com: blocked, exit=124 
+--- PASS: TestKindEgressBlocked (24.09s)
+PASS
+ok  	github.com/tushar-patel28/agent-proving-ground/internal/sandbox	52.470s

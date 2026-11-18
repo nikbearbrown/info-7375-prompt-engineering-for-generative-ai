@@ -57,6 +57,6 @@ Each item is a "Done when" line in `PLAN.md`; none has happened yet.
 
 ## Changed since the pitch brief
 
-- **D16:** Kubernetes (kind) from the start. The brief planned Docker first, then a move to kind; Docker is now only a fallback if task 001 cannot run on kind by Thu Nov 12.
+- **D16:** Kubernetes (kind) from the start. The brief planned Docker first, then a move to kind. Task 001 ran on kind on Nov 12, so the Docker fallback was never needed. kind is the only sandbox, and no Docker sandbox ships (D27). Docker builds the sandbox image only.
 - **D14:** Claude Code writes the agent loop. The brief said Tushar would write it by hand; the official Anthropic Go SDK is unchanged (D2).
 - **D15:** added `apg compare`, the denied column, `apg show`, `FAILURES.md`, and `demo.sh`.

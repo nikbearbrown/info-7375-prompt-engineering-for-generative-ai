@@ -1,0 +1,813 @@
+{
+  "metadata": {
+    "slug": "prompt-engineering-five-case-questions",
+    "title": "Prompt Engineering: Five Questions for Every Case",
+    "topic": "PROMPT ENGINEERING",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "claude-liam",
+    "persona": "Liam (in for Bear)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "pronounce": {
+      "Konnichiwa": "k\u02cco\u028an\u02c8i\u02d0t\u0283i\u02d0w\u02cc\u0251\u02d0",
+      "Divya": "d\u02c8\u026avj\u0259"
+    },
+    "caption_policy": "none",
+    "greeting_language": "Japanese (Konnichiwa)",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt"
+    ],
+    "bookend_exempt_reason": "show-tell style (Bear, 2026-09-26): opens on the hesitant writer + terms card, no verdict card; Your Turn is the Claude.ai composer; spoken outro stays.",
+    "audience": "Prompt Engineering for Generative AI students preparing with practice questions",
+    "bookloop_policy": "Standalone film, first of the playlist 'How to take Professor Bear's exams' (never numbered). No book, chapter or course named; no person icon. Nothing from any 4TAs folder.",
+    "source_doc": "public practice-exam-01.md, practice-exam-01-KEY.md and README.md of the Fall 2026 exam folder (sources/)",
+    "playlist": "Prompt Engineering, Exam Prep",
+    "playlist_note": "intended playlist; never uploaded by this build",
+    "tags": [
+      "case exam",
+      "how to take an exam",
+      "AI agents",
+      "evaluating AI output",
+      "planted flaw",
+      "evidence",
+      "Professor Bear",
+      "Nik Bear Brown"
+    ],
+    "chapter_number": 2,
+    "review_status": "draft",
+    "adapted_from": "/Users/bear/Documents/CoWork/bear-textbooks/books/exam-prep/youtube/show-tell-what-is-a-case-exam",
+    "build": {
+      "at": "2026-11-15T22:18:11",
+      "cut": "master",
+      "filled": 15,
+      "of": 15,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' \u2014 COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hello. This is Liam, in for Bear. Prompt Engineering has five case-style questions worth fifty points. Each case asks five specific questions about the evidence. You do not write an open-ended essay. You answer those five questions directly.",
+      "estimated_duration_s": 15.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types 'How do I memorise for Professor Bear's exams?'"
+          },
+          {
+            "at": 0.5,
+            "event": "backspaces 'memorise for' and types 'judge an agent's work in'"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "How do I write a long exam essay?",
+            "triggerWords": "write a long exam essay",
+            "replacementWords": "answer five specific questions",
+            "fontSize": 72,
+            "charMs": 80,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "prompt-engineering-five-case-questions",
+            "banner": "",
+            "contextTitle": "Case exams",
+            "contextFontSize": 56,
+            "durationSeconds": 13.93
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-11-16T03:09:20.755053+00:00"
+          }
+        }
+      },
+      "lead_silence_s": 0.8,
+      "motion_claim": "The writer types the naive study question (memorise) and corrects it to the real skill: judging an agent's work.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "actual_duration_s": 13.93,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 13.958333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "BDEFS",
+      "act": "terms",
+      "lane": "bookend",
+      "proof_gate": "CARD",
+      "narration_text": "Four terms. A planted flaw: a deliberate mistake the exam author hid in the agent's work. The exact term: the precise name for that kind of mistake. An evidence request: one check anyone could run to settle a claim. And scope: what the request or the claim actually covers, and no more.",
+      "estimated_duration_s": 18.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "'planted flaw' lands"
+          },
+          {
+            "at": 0.35,
+            "event": "'exact term' lands"
+          },
+          {
+            "at": 0.6,
+            "event": "'evidence request' lands"
+          },
+          {
+            "at": 0.85,
+            "event": "'scope' lands"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeDefinitions",
+          "props": {
+            "title": "Terms In This Film",
+            "terms": [
+              {
+                "term": "planted flaw",
+                "meaning": "a mistake the exam author hid in the agent's work"
+              },
+              {
+                "term": "exact term",
+                "meaning": "the precise name for that kind of mistake"
+              },
+              {
+                "term": "evidence request",
+                "meaning": "one check anyone could run to settle a claim"
+              },
+              {
+                "term": "scope",
+                "meaning": "what the request or claim covers, and no more"
+              }
+            ],
+            "folderLabel": "@NikBearBrown",
+            "durationSeconds": 15.339
+          },
+          "rendered": {
+            "out": "media/BDEFS.mp4",
+            "at": "2026-11-16T03:10:15.129841+00:00"
+          }
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "TERMS card: four terms, one line each."
+      },
+      "actual_duration_s": 15.339,
+      "audio_file": "mp3/beat-BDEFS.mp3",
+      "render_duration_s": 15.375,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BDEFS.mp4",
+        "filled_by": "remotion:ClaudeDefinitions",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The full exam is worth one hundred points. Five cases contribute fifty points. Ten multiple-answer questions contribute the other fifty. The case section tests whether you can judge an agent\u2019s work, not whether you can write a long essay.",
+      "estimated_duration_s": 14.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A stack of notes labelled 'recall' takes an ink cross and slides away; a dark agent block lands with a report page rising from it; a scan ring sweeps the page ('judge').",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "recall stack crossed out"
+          },
+          {
+            "at": 0.45,
+            "event": "agent and report land"
+          },
+          {
+            "at": 0.8,
+            "event": "scan ring on the report: judge"
+          }
+        ],
+        "manim": {
+          "class": "B00_Judge"
+        },
+        "motion_claim": "A stack of notes labelled 'recall' takes an ink cross and slides away; a dark agent block lands with a report page rising from it; a scan ring sweeps the page ('judge')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 13.42,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 13.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Every case in Professor Bear's exams has the same four pieces. The first is a scenario: a situation with a stakeholder, who is whoever will rely on the work, and a goal they want met.",
+      "estimated_duration_s": 12.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A white scenario page lands; a tray ('stakeholder') lands beside it; a ring with a dot ('goal') draws on the page.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "scenario page"
+          },
+          {
+            "at": 0.5,
+            "event": "stakeholder tray"
+          },
+          {
+            "at": 0.8,
+            "event": "goal ring"
+          }
+        ],
+        "manim": {
+          "class": "B01_Scenario"
+        },
+        "motion_claim": "A white scenario page lands; a tray ('stakeholder') lands beside it; a ring with a dot ('goal') draws on the page."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 10.795,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 10.833333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The second piece is the instruction: the short request that was sent to the agent, in plain words.",
+      "estimated_duration_s": 6.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A slip rides from the scenario page into the dark agent block, which lights its port.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "slip lifts"
+          },
+          {
+            "at": 0.55,
+            "event": "slip enters the agent"
+          },
+          {
+            "at": 0.85,
+            "event": "port lights"
+          }
+        ],
+        "manim": {
+          "class": "B02_Instruction"
+        },
+        "motion_claim": "A slip rides from the scenario page into the dark agent block, which lights its port."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.739,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 5.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The third is the agent's output. It is confident and well written, and it contains at least one planted flaw. Planted means the exam author put it there on purpose, so there is at least one to find.",
+      "estimated_duration_s": 13.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The agent produces a report page with three lines and a check; one line is ringed in terracotta ('planted flaw').",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "report page rises"
+          },
+          {
+            "at": 0.5,
+            "event": "confident check"
+          },
+          {
+            "at": 0.85,
+            "event": "one line ringed"
+          }
+        ],
+        "manim": {
+          "class": "B03_Output"
+        },
+        "motion_claim": "The agent produces a report page with three lines and a check; one line is ringed in terracotta ('planted flaw')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 10.944,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 10.958333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Every case prints five specific questions. First, identify a real defect and explain why. Second, name the precise concept. Third, propose an evidence check. Fourth, write a corrected instruction. Fifth, explain the consequence plainly. The wording points you to this case\u2019s claim, evidence and decision-maker.",
+      "estimated_duration_s": 17.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four small pages land in a row, numbered one to four, each with a one-word label ('term', 'check', 'fix', 'plain').",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "page one: term"
+          },
+          {
+            "at": 0.4,
+            "event": "page two: check"
+          },
+          {
+            "at": 0.6,
+            "event": "page three: fix"
+          },
+          {
+            "at": 0.85,
+            "event": "page four: plain"
+          }
+        ],
+        "manim": {
+          "class": "B04_Probes"
+        },
+        "motion_claim": "Four small pages land in a row, numbered one to four, each with a one-word label ('term', 'check', 'fix', 'plain')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 17.17,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 17.208333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Now, how it is scored. Each case is worth ten points, in five rows. Finding a real defect, and justifying it, is worth three. Using the exact term, two. Asking for evidence, two. Giving a fix or next step, two. And keeping to scope, and saying it in plain language, one.",
+      "estimated_duration_s": 18.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Five blocks stack into a column of ten units, in order: 'defect 3', 'term 2', 'evidence 2', 'fix 2', 'scope 1'.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "flaw block"
+          },
+          {
+            "at": 0.45,
+            "event": "term, evidence, fix blocks"
+          },
+          {
+            "at": 0.85,
+            "event": "scope block"
+          }
+        ],
+        "manim": {
+          "class": "B11_Scored"
+        },
+        "motion_claim": "Five blocks stack into a column of ten units, in order: 'defect 3', 'term 2', 'evidence 2', 'fix 2', 'scope 1'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.211,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 15.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "One rule sits over all of it. If you name no real defect, with a reason a grader can check, the case is capped at five out of ten, however good the rest sounds. The author's planted flaw is the one they expect, but you do not have to guess it. Any real defect counts, if you can show why.",
+      "estimated_duration_s": 21.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The same column of ten units; a slab labelled 'cap 5' drops onto the fifth unit and the units above it go ghost grey.",
+        "show": [
+          {
+            "at": 0.25,
+            "event": "column of ten"
+          },
+          {
+            "at": 0.6,
+            "event": "cap drops"
+          },
+          {
+            "at": 0.85,
+            "event": "upper units ghosted"
+          }
+        ],
+        "manim": {
+          "class": "B12_Cap"
+        },
+        "motion_claim": "The same column of ten units; a slab labelled 'cap 5' drops onto the fifth unit and the units above it go ghost grey."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.04,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 15.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Short numbered answers are enough. Answer the five questions that were actually asked. Grammar, polish and length earn nothing. Specific reasoning grounded in the case earns credit, including for writers working in a second language.",
+      "estimated_duration_s": 14.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A page of tidy handwriting ('polish') sits to the left with a zero; a checklist page on the right takes ticks one by one as precise slips land on it.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "polish page: zero"
+          },
+          {
+            "at": 0.5,
+            "event": "checklist"
+          },
+          {
+            "at": 0.85,
+            "event": "ticks land"
+          }
+        ],
+        "manim": {
+          "class": "B13_Checklist"
+        },
+        "motion_claim": "A page of tidy handwriting ('polish') sits to the left with a zero; a checklist page on the right takes ticks one by one as precise slips land on it."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 12.63,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 12.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Now, how to approach one. Read the prompt contract: task, allowed tools, target, and required output. Compare that with what the agent actually did. A claim that it finished is not proof that it followed the contract.",
+      "estimated_duration_s": 12.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The report page with one claim line; a scan ring lands on it with the word 'evidence?'; a second page beside it ('observed') is the only one that reaches the log server.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "claim line"
+          },
+          {
+            "at": 0.5,
+            "event": "ring: evidence?"
+          },
+          {
+            "at": 0.85,
+            "event": "observed page connects to the log"
+          }
+        ],
+        "manim": {
+          "class": "B14_Evidence"
+        },
+        "motion_claim": "The report page with one claim line; a scan ring lands on it with the word 'evidence?'; a second page beside it ('observed') is the only one that reaches the log server."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 12.16,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 12.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Ask for observable proof. Run this. Show me the failing test. Open the log. Never just say, double-check it, because the agent can double-check and say the same thing again.",
+      "estimated_duration_s": 10.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A looped arrow from the agent back to its own page takes an ink cross ('double-check'); a cable to a server takes a check ('show the log').",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "self-loop crossed"
+          },
+          {
+            "at": 0.55,
+            "event": "cable to the server"
+          },
+          {
+            "at": 0.85,
+            "event": "check"
+          }
+        ],
+        "manim": {
+          "class": "B16_Proof"
+        },
+        "motion_claim": "A looped arrow from the agent back to its own page takes an ink cross ('double-check'); a cable to a server takes a check ('show the log')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.515,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 9.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Give a fix precise enough to execute, a message the agent could act on with no more questions. And keep to scope, which means answering what the case asks, and saying no more than the evidence supports.",
+      "estimated_duration_s": 13.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A slip with numbered lines rides into the agent; then a dashed boundary draws around the case page and a second page outside it ('not asked') takes a cross.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "precise slip enters the agent"
+          },
+          {
+            "at": 0.6,
+            "event": "boundary draws"
+          },
+          {
+            "at": 0.85,
+            "event": "outside page crossed"
+          }
+        ],
+        "manim": {
+          "class": "B17_Scope"
+        },
+        "motion_claim": "A slip with numbered lines rides into the agent; then a dashed boundary draws around the case page and a second page outside it ('not asked') takes a cross."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.435,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 11.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Your turn. In your Prompt Engineering practice project, ask: Give me one case with five specific questions. Wait for my answers. Check that you received five questions, not an essay prompt. Check that the points add to ten.",
+      "estimated_duration_s": 50.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "Composer opens \u2014 'Your turn.'"
+          },
+          {
+            "at": 0.1,
+            "event": "the prompt types in full"
+          },
+          {
+            "at": 0.8,
+            "event": "two check lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "PROMPT ENGINEERING \u00b7 YOUR TURN",
+            "segment": "Prompt Engineering: Five Questions for Every Case",
+            "command": "Your turn. In your Prompt Engineering practice project, ask: Give me one case with five specific questions. Wait for my answers. Check that you received five questions, not an essay prompt. Check that the points add to ten.",
+            "runningText": "Suggested practice request \u00b7 not a live session",
+            "output": [
+              "Five case-specific questions, totaling ten points.",
+              "No real exam answers supplied."
+            ],
+            "folderLabel": "@NikBearBrown",
+            "modelLabel": "Practice example",
+            "effortLabel": "Review",
+            "durationSeconds": 12.16
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-11-16T03:11:00.129032+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 12.16,
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "render_duration_s": 12.166666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-11-15T22:18:11"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Prompt Engineering: Five Questions for Every Case. At Nik Bear Brown.",
+      "estimated_duration_s": 4.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; handle; mascot"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Prompt Engineering: Five Questions for Every Case",
+            "slug": "show-tell-what-is-a-case-exam",
+            "handle": "@NikBearBrown",
+            "subline": "",
+            "durationSeconds": 5.608
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-16T03:11:22.482390+00:00"
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 5.608,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 5.625,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-15T22:18:11"
+      }
+    }
+  ]
+}

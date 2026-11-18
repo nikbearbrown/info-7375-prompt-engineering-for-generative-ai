@@ -1,0 +1,811 @@
+{
+  "metadata": {
+    "slug": "prompt-engineering-ten-multiple-answer-questions",
+    "title": "Prompt Engineering: Ten Multiple-Answer Questions",
+    "topic": "PROMPT ENGINEERING",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "claude-liam",
+    "persona": "Liam (in for Bear)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "greeting_language": "Mandarin Chinese (Ni hao)",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt"
+    ],
+    "bookend_exempt_reason": "show-tell style (Bear, 2026-09-26): opens on the hesitant writer + terms card (Bear, 2026-09-26: 'add hesitant writer as the first beat and key terms like tldr uses as the second'), no verdict card; Your Turn is the Claude.ai composer; spoken outro stays.",
+    "audience": "Prompt Engineering for Generative AI students preparing with practice questions",
+    "source_doc": "SOURCES.md",
+    "playlist": "Prompt Engineering, Exam Prep",
+    "tags": [
+      "exam preparation",
+      "multiple-answer questions",
+      "true or false",
+      "study tips",
+      "vocabulary",
+      "AI literacy",
+      "Claude",
+      "Nik Bear Brown"
+    ],
+    "chapter_number": 1,
+    "review_status": "draft",
+    "adapted_from": "/Users/bear/Documents/CoWork/bear-textbooks/books/exam-prep/youtube/show-tell-five-true-or-false",
+    "build": {
+      "at": "2026-11-15T22:17:58",
+      "cut": "master",
+      "filled": 16,
+      "of": 16,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' \u2014 COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hello. This is Liam, in for Bear. Prompt Engineering has ten multiple-answer questions, worth fifty points in total. Each contains five statements. The task is to judge each statement, not guess a pattern in the boxes.",
+      "estimated_duration_s": 16.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types 'How do I guess the pattern in the multiple-answer boxes?'"
+          },
+          {
+            "at": 0.6,
+            "event": "backspaces 'guess the pattern' -> 'judge each statement'"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "How do I guess the answer pattern?",
+            "triggerWords": "guess the answer pattern",
+            "replacementWords": "judge each statement",
+            "fontSize": 68,
+            "charMs": 70,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "prompt-engineering-ten-multiple-answer-questions",
+            "banner": "",
+            "durationSeconds": 12.39
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-11-16T03:09:13.983999+00:00"
+          }
+        }
+      },
+      "lead_silence_s": 0.8,
+      "motion_claim": "The writer types the naive question (how to guess a pattern in the boxes) and corrects it to the real one (how to judge each statement).",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "actual_duration_s": 12.39,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 12.416666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "BDEFS",
+      "act": "terms",
+      "lane": "bookend",
+      "proof_gate": "CARD",
+      "narration_text": "Four terms. A statement: one claim that is either true or false on its own. Checked: ticked, to say you believe the statement is true. A near-synonym: a word that means almost the same as another, but not quite. And an exact term: the one word that names a thing precisely.",
+      "estimated_duration_s": 19.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "'statement' lands"
+          },
+          {
+            "at": 0.35,
+            "event": "'checked' lands"
+          },
+          {
+            "at": 0.6,
+            "event": "'near-synonym' lands"
+          },
+          {
+            "at": 0.85,
+            "event": "'exact term' lands"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeDefinitions",
+          "props": {
+            "title": "Terms In This Film",
+            "terms": [
+              {
+                "term": "statement",
+                "meaning": "one claim, true or false on its own"
+              },
+              {
+                "term": "checked",
+                "meaning": "ticked, to say you believe it is true"
+              },
+              {
+                "term": "near-synonym",
+                "meaning": "a word that means almost the same, but not quite"
+              },
+              {
+                "term": "exact term",
+                "meaning": "the one word that names a thing precisely"
+              }
+            ],
+            "folderLabel": "@NikBearBrown",
+            "durationSeconds": 14.7
+          },
+          "rendered": {
+            "out": "media/BDEFS.mp4",
+            "at": "2026-11-16T03:10:06.457110+00:00"
+          }
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "TERMS card: four terms, one line each."
+      },
+      "actual_duration_s": 14.7,
+      "audio_file": "mp3/beat-BDEFS.mp3",
+      "render_duration_s": 14.708333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BDEFS.mp4",
+        "filled_by": "remotion:ClaudeDefinitions",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Ten questions are worth five points each. Every question gives five statements, A to E. Judge each statement on its own. Check true statements and leave false statements unchecked. The five case questions make up the other fifty points.",
+      "estimated_duration_s": 14.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A question card; five rows A to E draw in, each a box and a line; ink checks land in three boxes; labels 'statement' and 'checked'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "the card, then rows A to E"
+          },
+          {
+            "at": 0.6,
+            "event": "checks land in three boxes"
+          }
+        ],
+        "manim": {
+          "class": "B00_FiveStatements"
+        },
+        "motion_claim": "A question card; five rows A to E draw in, each a box and a line; ink checks land in three boxes; labels 'statement' and 'checked'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 13.18,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 13.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Each statement is worth one point. So the whole question is worth five.",
+      "estimated_duration_s": 5.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The card with its rows; a coin pops up beside each row, then all five coins slide into a tray; a large 5 lands.",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "a coin beside each row"
+          },
+          {
+            "at": 0.7,
+            "event": "five coins into the tray; 5"
+          }
+        ],
+        "manim": {
+          "class": "B01_OnePointEach"
+        },
+        "motion_claim": "The card with its rows; a coin pops up beside each row, then all five coins slide into a tray; a large 5 lands."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 4.5,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 4.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "A statement scores its point in two cases. You checked it, and it is true. Or you left it unchecked, and it is false. In every other case, it scores zero.",
+      "estimated_duration_s": 11.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A two-by-two grid: checked / unchecked across, true / false down; coins land in checked-true and unchecked-false; ink crosses in the other two.",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "coin in checked-and-true"
+          },
+          {
+            "at": 0.55,
+            "event": "coin in unchecked-and-false"
+          },
+          {
+            "at": 0.85,
+            "event": "crosses in the other two"
+          }
+        ],
+        "manim": {
+          "class": "B02_TwoCases"
+        },
+        "motion_claim": "A two-by-two grid: checked / unchecked across, true / false down; coins land in checked-true and unchecked-false; ink crosses in the other two."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.79,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 8.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "So there is no penalty beyond the point you miss, and it is not all or nothing. Get one statement wrong, and you still keep the other four. It is five small decisions.",
+      "estimated_duration_s": 12.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Five coins in a row; an ink cross lands on one and it greys; the other four slide into the tray; a large 4.",
+        "show": [
+          {
+            "at": 0.35,
+            "event": "cross on one coin"
+          },
+          {
+            "at": 0.65,
+            "event": "four coins into the tray; 4"
+          }
+        ],
+        "manim": {
+          "class": "B03_FiveDecisions"
+        },
+        "motion_claim": "Five coins in a row; an ink cross lands on one and it greys; the other four slide into the tray; a large 4."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.07,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 9.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Judge each statement alone. Do not hunt for a pattern in how many are true. Any number of the five may be true. The wording and the evidence determine your decision, not the other boxes.",
+      "estimated_duration_s": 15.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four mini cards in a row with one, two, three and four ink checks; numerals beneath; the label '1 to 4'.",
+        "show": [
+          {
+            "at": 0.45,
+            "event": "four mini cards drop in with 1, 2, 3, 4 checks"
+          },
+          {
+            "at": 0.85,
+            "event": "label"
+          }
+        ],
+        "manim": {
+          "class": "B09_NoPattern"
+        },
+        "motion_claim": "Four mini cards in a row with one, two, three and four ink checks; numerals beneath; the label '1 to 4'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.92,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 9.958333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The deciding phrase is inside the statement. In Prompt Engineering, being able to call a tool is not the same as being authorized to use it. Judge the actual permission and target, not a familiar technical word.",
+      "estimated_duration_s": 9.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two sentence lines made of word slabs, identical but for one slab; the odd slab is ringed; an ink check beside the first line and a cross beside the second; 'one word'.",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "two lines"
+          },
+          {
+            "at": 0.7,
+            "event": "the odd slab ringed"
+          },
+          {
+            "at": 0.9,
+            "event": "check, cross"
+          }
+        ],
+        "manim": {
+          "class": "B10_OneWord"
+        },
+        "motion_claim": "Two sentence lines made of word slabs, identical but for one slab; the odd slab is ringed; an ink check beside the first line and a cross beside the second; 'one word'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.97,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 12.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Do not use words like always or never as clues. They are not a reliable sign either way. Judge the claim, not the signal word.",
+      "estimated_duration_s": 9.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two slabs 'always' and 'never' each take an ink cross; below, a statement line is ringed and takes a check ('claim').",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "crosses over 'always' and 'never'"
+          },
+          {
+            "at": 0.8,
+            "event": "the claim line ringed, checked"
+          }
+        ],
+        "manim": {
+          "class": "B11_SignalWords"
+        },
+        "motion_claim": "Two slabs 'always' and 'never' each take an ink cross; below, a statement line is ringed and takes a check ('claim')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.62,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 7.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "For practice, try marking a printed question by hand, cold, before looking at notes or feedback. Treat each statement as a separate decision.",
+      "estimated_duration_s": 12.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A printed question card takes checks drawn by a pencil; a notes stack at the right takes an ink cross; labels 'cold' and 'notes'.",
+        "show": [
+          {
+            "at": 0.35,
+            "event": "checks land"
+          },
+          {
+            "at": 0.75,
+            "event": "cross on the notes"
+          }
+        ],
+        "manim": {
+          "class": "B13_Cold"
+        },
+        "motion_claim": "A printed question card takes checks drawn by a pencil; a notes stack at the right takes an ink cross; labels 'cold' and 'notes'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.490667,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 8.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then submit your attempt and read the feedback for every statement. Especially the ones you got wrong. The reasons are where the distinctions are taught.",
+      "estimated_duration_s": 10.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The student's card at left; a key sheet slides in at right with a mark and a reason line per row; the two rows that differ are ringed; labels 'key' and 'reason'.",
+        "show": [
+          {
+            "at": 0.25,
+            "event": "key sheet slides in"
+          },
+          {
+            "at": 0.55,
+            "event": "reason lines draw"
+          },
+          {
+            "at": 0.85,
+            "event": "the wrong rows ringed"
+          }
+        ],
+        "manim": {
+          "class": "B14_KeyAndReasons"
+        },
+        "motion_claim": "The student's card at left; a key sheet slides in at right with a mark and a reason line per row; the two rows that differ are ringed; labels 'key' and 'reason'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.064,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 8.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Now, three common mistakes. One: reading the statement the way you hope it is, not the way it is written.",
+      "estimated_duration_s": 7.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A written line of slabs; a ghost line above it with a different slab ('hoped'); the ghost lifts away and the real odd slab is ringed ('written').",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "the ghost line"
+          },
+          {
+            "at": 0.75,
+            "event": "ghost lifts; real slab ringed"
+          }
+        ],
+        "manim": {
+          "class": "B16_Hoped"
+        },
+        "motion_claim": "A written line of slabs; a ghost line above it with a different slab ('hoped'); the ghost lifts away and the real odd slab is ringed ('written')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 6.27,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 6.291666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Two: skipping a statement because it looks familiar. A familiar word can sit inside a false claim.",
+      "estimated_duration_s": 6.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A card with rows; a dotted arc hops over row C ('skipped'); then C takes a ring and an ink cross.",
+        "show": [
+          {
+            "at": 0.3,
+            "event": "the arc hops over C"
+          },
+          {
+            "at": 0.75,
+            "event": "ring and cross on C"
+          }
+        ],
+        "manim": {
+          "class": "B17_Skipped"
+        },
+        "motion_claim": "A card with rows; a dotted arc hops over row C ('skipped'); then C takes a ring and an ink cross."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.89,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 5.916666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Three: treating a half-true statement as true. A statement is true only if all of it is true.",
+      "estimated_duration_s": 6.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A statement line: the left half solid, the right half grey with a cross; its box stays empty ('half true').",
+        "show": [
+          {
+            "at": 0.35,
+            "event": "the right half greys; cross"
+          },
+          {
+            "at": 0.8,
+            "event": "the box stays empty"
+          }
+        ],
+        "manim": {
+          "class": "B18_HalfTrue"
+        },
+        "motion_claim": "A statement line: the left half solid, the right half grey with a cross; its box stays empty ('half true')."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style (Bear, 2026-09-26): one drawn isometric scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.57,
+      "audio_file": "mp3/beat-B18.mp3",
+      "render_duration_s": 5.583333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B18.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Your turn. In your Prompt Engineering practice project, ask: Give me one multiple-answer question with five statements. Wait for my answer before explaining. Check every statement independently, and explain why each claim is true or false.",
+      "estimated_duration_s": 49.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "Composer opens: 'Your turn.'"
+          },
+          {
+            "at": 0.1,
+            "event": "the prompt types in full"
+          },
+          {
+            "at": 0.8,
+            "event": "two check lines land"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "PROMPT ENGINEERING \u00b7 YOUR TURN",
+            "segment": "Prompt Engineering: Ten Multiple-Answer Questions",
+            "command": "Your turn. In your Prompt Engineering practice project, ask: Give me one multiple-answer question with five statements. Wait for my answer before explaining. Check every statement independently, and explain why each claim is true or false.",
+            "runningText": "Suggested practice request \u00b7 not a live session",
+            "output": [
+              "Five independent statements, totaling five points.",
+              "No real exam answers supplied."
+            ],
+            "folderLabel": "@NikBearBrown",
+            "modelLabel": "Practice example",
+            "effortLabel": "Review",
+            "durationSeconds": 13.16
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": "2026-11-16T03:10:54.549573+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 13.16,
+      "audio_file": "mp3/beat-BHTF.mp3",
+      "render_duration_s": 13.166666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BHTF.mp4",
+        "filled_by": "remotion:ClaudeComposerAsk",
+        "at": "2026-11-15T22:17:58"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Prompt Engineering: Ten Multiple-Answer Questions. At Nik Bear Brown.",
+      "estimated_duration_s": 6.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; handle; mascot"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Prompt Engineering: Ten Multiple-Answer Questions",
+            "slug": "show-tell-five-true-or-false",
+            "handle": "@NikBearBrown",
+            "subline": "",
+            "durationSeconds": 5.522667
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-16T03:11:21.046031+00:00"
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 5.522667,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 5.541666666666667,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-15T22:17:58"
+      }
+    }
+  ]
+}

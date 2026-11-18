@@ -36,7 +36,21 @@ import (
 
 // maxOutput caps each tool result (sent to the model and kept in the trace)
 // and each step's text. 8 << 10 is 8 * 1024 = 8 KiB.
-const maxOutput = 8 << 10
+//
+// A longer string keeps its first headBytes and its last tailBytes, with a
+// marker in between (D26). The tail matters: pytest prints the real error
+// on its last lines, and a head-only cut hid it in dev run 014.
+const (
+	maxOutput = 8 << 10
+	headBytes = 4 << 10
+	tailBytes = maxOutput - headBytes
+)
+
+// OutputLimits returns the truncation settings, for the trace, so runs
+// before and after D26 can be told apart.
+func OutputLimits() trace.Truncation {
+	return trace.Truncation{LimitBytes: maxOutput, HeadBytes: headBytes, TailBytes: tailBytes}
+}
 
 // Why the loop ended (trace field loop_stop).
 const (
@@ -480,7 +494,7 @@ func runTool(ctx context.Context, sb sandbox.Sandbox, d policy.Decision, name st
 		}
 		code := r.ExitCode
 		if code != 0 {
-			return toolOutput{text: "error: " + cleanStderr(r.Stderr), exitCode: &code, isError: true}, nil
+			return toolOutput{text: errorText(r.Stderr), exitCode: &code, isError: true}, nil
 		}
 		return toolOutput{text: truncate(r.Stdout), exitCode: &code}, nil
 
@@ -518,7 +532,7 @@ func writeFile(ctx context.Context, sb sandbox.Sandbox, p, content string, rec f
 	}
 	if r.ExitCode != 0 {
 		code := r.ExitCode
-		return toolOutput{text: "error: " + cleanStderr(r.Stderr), exitCode: &code, isError: true}, nil
+		return toolOutput{text: errorText(r.Stderr), exitCode: &code, isError: true}, nil
 	}
 
 	f, err := os.CreateTemp("", "apg-write-*")
@@ -544,7 +558,7 @@ func writeFile(ctx context.Context, sb sandbox.Sandbox, p, content string, rec f
 		// A failed copy (for example, the path is an existing directory)
 		// is reported to the model; the harness carries on.
 		code := r.ExitCode
-		return toolOutput{text: "error: " + cleanStderr(r.Stderr), exitCode: &code, isError: true}, nil
+		return toolOutput{text: errorText(r.Stderr), exitCode: &code, isError: true}, nil
 	}
 	code := 0
 	return toolOutput{text: fmt.Sprintf("wrote %d bytes to %s", len(content), p), exitCode: &code}, nil
@@ -552,6 +566,8 @@ func writeFile(ctx context.Context, sb sandbox.Sandbox, p, content string, rec f
 
 // cleanStderr drops kubectl's own "command terminated with exit code N"
 // line, which is noise for the model (the exit code is reported anyway).
+// It does not truncate: each text sent to the model is truncated once, as
+// a whole, so it carries at most one cut marker (D26).
 func cleanStderr(s string) string {
 	var keep []string
 	for _, line := range strings.Split(s, "\n") {
@@ -559,20 +575,36 @@ func cleanStderr(s string) string {
 			keep = append(keep, line)
 		}
 	}
-	return truncate(strings.TrimRight(strings.Join(keep, "\n"), "\n"))
+	return strings.TrimRight(strings.Join(keep, "\n"), "\n")
 }
 
-// truncate cuts s to maxOutput bytes without splitting a UTF-8 character
-// and says how much was cut.
+// errorText is the tool result for a failed sandbox command.
+func errorText(stderr string) string {
+	return truncate("error: " + cleanStderr(stderr))
+}
+
+// truncate returns s unchanged if it fits in maxOutput bytes. Otherwise it
+// keeps the first headBytes and the last tailBytes and puts a marker in
+// between that says how many bytes were cut (D26). Neither cut lands
+// inside a multi-byte UTF-8 character.
 func truncate(s string) string {
 	if len(s) <= maxOutput {
 		return s
 	}
-	cut := maxOutput
-	// RuneStart reports whether a byte begins a character; step back until
-	// it does, so the cut never lands inside a multi-byte character.
-	for cut > 0 && !utf8.RuneStart(s[cut]) {
-		cut--
+	// The head is s[:h]. utf8.RuneStart reports whether a byte begins a
+	// character; if s[h] does not, h is in the middle of one, so step back
+	// until it is not. The head then ends on a whole character.
+	h := headBytes
+	for h > 0 && !utf8.RuneStart(s[h]) {
+		h--
 	}
-	return s[:cut] + fmt.Sprintf("\n...[truncated %d bytes]", len(s)-cut)
+	// The tail is s[t:]. If s[t] continues a character, step forward to the
+	// next character's first byte, so the tail starts on a whole character.
+	t := len(s) - tailBytes
+	for t < len(s) && !utf8.RuneStart(s[t]) {
+		t++
+	}
+	// len(s) > maxOutput = headBytes + tailBytes, so h <= headBytes < t and
+	// the two parts never overlap.
+	return s[:h] + fmt.Sprintf("\n[... %d bytes cut ...]\n", t-h) + s[t:]
 }

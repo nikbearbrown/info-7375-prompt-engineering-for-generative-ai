@@ -447,6 +447,10 @@ func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, client loop.Clie
 
 	tr.Model, tr.Steps, tr.LoopStop = model, res.Steps, res.Stop
 	tr.PromptVersion = loop.PromptVersion()
+	// A local copy, so the trace can point at it (Go cannot take the
+	// address of a function's return value directly).
+	cut := loop.OutputLimits()
+	tr.Truncation = &cut
 	tr.Budget = &trace.Budget{
 		Limits: trace.BudgetLimits{
 			MaxSteps:            tk.Limits.MaxSteps,

@@ -67,6 +67,7 @@ The v0 traces in `evidence/traces/` (13):
 | `prompt_version` | string | no | agent runs since T3.3: the SHA-256 (hex) of everything fixed the harness sends the model, i.e. the system prompt, the task-message template, the not-complete note, and every tool definition sorted by name (`loop.PromptVersion`). It does not cover the per-task goal. | `runAgent` |
 | `loop_stop` | string | no | agent runs: why the loop ended: `end_turn`, `max_tokens`, `refusal`, `limit` (a budget, the timeout, or the policy-violation limit), or `check_passed` | agent loop |
 | `budget` | object | no | agent runs (present exactly when `model` is) | `runAgent` |
+| `truncation` | object | no | agent runs since D26 (Nov 17, 2026): how long tool output was cut (see below). Absent in earlier traces, whose output was cut head-only. | `runAgent` (`loop.OutputLimits`) |
 | `gate` | object | no | when the human gate ran (`apg run`; tests may run without it) | gate phase |
 
 **`exit_reason`**, the fixed list:
@@ -109,16 +110,30 @@ One model turn and the (at most one) tool call it made. Written by the agent loo
 |---|---|---|---|
 | `n` | int | yes | always; 1-based, consecutive |
 | `stop_reason` | string | yes | always: the API's stop reason (`tool_use`, `end_turn`, `max_tokens`, `refusal`) |
-| `text` | string | no | the model wrote text this turn (truncated to 8 KiB) |
+| `text` | string | no | the model wrote text this turn (cut as in `truncation`) |
 | `tool` | string | no | the turn called a tool |
-| `input` | string | no | the tool input as raw JSON text (truncated) |
-| `output` | string | no | the result sent back to the model (truncated); for a denied call, `denied by policy (rule: …): …` |
+| `input` | string | no | the tool input as raw JSON text (cut as in `truncation`) |
+| `output` | string | no | the result sent back to the model, exactly as sent (cut as in `truncation`); for a denied call, `denied by policy (rule: …): …` |
 | `exit_code` | int | no | something ran in the sandbox for this call |
 | `is_error` | bool | no | the result was sent to the model as an error |
 | `verdict` | string | no | the turn called a tool: `allowed` or `denied` (T2.1) |
 | `rule`, `reason` | string | no | denied calls: the policy rule (`tool`, `input`, `path`, `check_file`, `program`, `flag`) and the reason sent to the model |
 | `workspace_changed` | bool | no | the step changed `/workspace`, so the check ran after it (T2.3) |
 | `input_tokens`, `output_tokens` | int | yes | always: this call's usage from the API (output includes thinking) |
+
+## truncation
+
+Since D26 (Nov 17, 2026). Written by `runAgent` from `loop.OutputLimits()`. A step's `output` (what the model was sent), `text` and `input` are cut the same way. The commands' `stdout` and `stderr` are never cut.
+
+| Field | Type | Req. | Meaning |
+|---|---|---|---|
+| `limit_bytes` | int | yes | A string up to this length is kept byte-for-byte (8,192). |
+| `head_bytes` | int | yes | A longer one keeps at most this many bytes from its start (4,096)… |
+| `tail_bytes` | int | yes | …and at most this many from its end (4,096), with `\n[... N bytes cut ...]\n` in between. N is the exact number of bytes dropped. Neither cut splits a UTF-8 character, so a part can be up to 3 bytes shorter. `head_bytes + tail_bytes = limit_bytes`. |
+
+Each text sent to the model is cut once, as a whole. For `run_command`, that text is the exit code, stdout and stderr together. So if stdout and stderr are both long, the end of stdout can still fall in the cut.
+
+**Before D26** (every trace without `truncation`, including the first dev eval at bdc7873), strings over 8,192 bytes kept only their first 8,192 bytes, followed by `\n...[truncated N bytes]`. In dev run 014 (`evidence/traces/20261114T010633Z-9ee17ef3.json`, step 6), that cut hid pytest's final error from the model.
 
 ## check
 
