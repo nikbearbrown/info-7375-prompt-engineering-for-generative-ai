@@ -209,6 +209,12 @@ body.notes-open #notes{display:block}
 .evidence{font-size:24px; letter-spacing:0.1em}
 .diagram svg text{font-kerning:normal}
 .diagram{cursor:pointer}
+
+/* case setup slide: a beat that tells the viewer what a named case is before its numbers */
+.case-setup .bullets{margin-top:64px; gap:44px; max-width:1560px}
+.case-setup .bullets li{font-size:38px; line-height:1.4}
+.case-setup .bullets li::before{margin-top:calc((38px * 1.4 - 14px) / 2)}
+.case-setup .source{margin-top:56px}
 </style>
 </head>
 <body>
@@ -317,10 +323,26 @@ body.notes-open #notes{display:block}
     </section>
 
     <!-- 9 FILL -->
+    <section class="slide s-text case-setup" aria-roledescription="slide" data-title="The case">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The case: a billing-support agent</p>
+      <h2 class="t-chart">A customer asks a phone company's chatbot why her bill went up $34</h2>
+      <ul class="bullets">
+        <li><span><strong>The agent.</strong> A support chatbot built on ReAct. The book calls it Helios.</span></li>
+        <li><span><strong>Its record.</strong> In its pilot it answered 91% of billing questions on the first contact.</span></li>
+        <li><span><strong>Its tools.</strong> Look up the account, the bill and the device payment plan. Every answer goes into its context.</span></li>
+        <li><span><strong>Its window.</strong> 8,192 tokens, shared by every tool result, every thought and the reply.</span></li>
+      </ul>
+      <p class="source">Source: Chapter 3, "The Scenario". Paraphrased.</p>
+      <div class="speaker-notes" hidden>
+        <p>Before the numbers, the story. A customer opens a support chat with her phone company: her bill went up by $34 this month, and she was told last month that the problem was fixed. The company's support agent is a ReAct system that did well in its pilot. It answers by calling lookup tools one at a time, and every result stays in its context window, which holds 8,192 tokens. The next slide follows that window as the tool results arrive.</p>
+      </div>
+    </section>
     <section class="slide s-diagram" aria-roledescription="slide" data-title="The window fills">
       <div class="rule"></div>
       <span class="evidence">Illustrative data</span>
-      <p class="eyebrow">The Helios case</p>
+      <p class="eyebrow">The billing agent, call by call</p>
       <h2 class="t-chart">Three tool calls used 7,700 of 8,192 tokens</h2>
       <div class="diagram build" data-build="fill" style="flex-basis:600px"></div>
       <p class="source">Source: Chapter 3, "The Scenario". Token counts are the chapter's; totals are added in code.</p>

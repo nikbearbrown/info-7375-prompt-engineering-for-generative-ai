@@ -209,6 +209,12 @@ body.notes-open #notes{display:block}
 .evidence{font-size:24px; letter-spacing:0.1em}
 .diagram svg text{font-kerning:normal}
 .diagram{cursor:pointer}
+
+/* case setup slide: a beat that tells the viewer what a named case is before its numbers */
+.case-setup .bullets{margin-top:64px; gap:44px; max-width:1560px}
+.case-setup .bullets li{font-size:38px; line-height:1.4}
+.case-setup .bullets li::before{margin-top:calc((38px * 1.4 - 14px) / 2)}
+.case-setup .source{margin-top:56px}
 </style>
 </head>
 <body>
@@ -318,10 +324,25 @@ body.notes-open #notes{display:block}
     </section>
 
     <!-- 9 STALE PLAN -->
+    <section class="slide s-text case-setup" aria-roledescription="slide" data-title="The case">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The case: a warranty claim</p>
+      <h2 class="t-chart">A customer files a warranty claim, and the agent plans all eight steps before it starts</h2>
+      <ul class="bullets">
+        <li><span><strong>The task.</strong> Handle one warranty claim from start to finish. The steps include looking up the order, checking the warranty, checking stock for a replacement and checking for fraud.</span></li>
+        <li><span><strong>The end.</strong> An email to the customer and a note in the customer-records system.</span></li>
+        <li><span><strong>The test.</strong> The book's companion notebook makes step 3, the stock check, fail on purpose, to see what the rest of the plan does.</span></li>
+      </ul>
+      <p class="source">Source: Chapter 3, "The Failure Cases", failure case 2. Paraphrased.</p>
+      <div class="speaker-notes" hidden>
+        <p>Before the failure, the task. A customer asks for a warranty replacement. A Plan-and-Execute agent writes its whole plan, eight steps, before any tool answers. One of those steps, step 3, checks whether a replacement is in stock. The book's notebook makes that stock check fail on purpose. The next slide shows what the executor does with the failure.</p>
+      </div>
+    </section>
     <section class="slide s-diagram" aria-roledescription="slide" data-title="Stale-plan execution">
       <div class="rule"></div>
       <span class="evidence">Illustrative data</span>
-      <p class="eyebrow">The failure case</p>
+      <p class="eyebrow">The warranty claim: step 3 fails</p>
       <h2 class="t-chart">Step 3 failed. Steps 4 to 8 ran anyway.</h2>
       <div class="diagram build" data-build="stale" style="flex-basis:570px"></div>
       <p class="source">Source: Chapter 3, "The Failure Cases", failure case 2, and "Plan-and-Execute Deep Dive", Implementation. Step count computed as 8 − 3.</p>
