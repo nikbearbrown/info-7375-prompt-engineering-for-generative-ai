@@ -7,7 +7,14 @@ the rule and the trace treat Greenhouse and Ashby the same way.
 A body that is not JSON, or JSON of the wrong shape, raises ParseError: per
 GATE.md's Revision that board is failed, never treated as empty. A posting
 without an id or a title is the wrong shape (approved 2026-11-04).
+
+JS3 change (approved 2026-11-17): include_description=True also returns
+"description_html": Greenhouse "content" (requested with ?content=true; the API
+escapes the HTML once more, so it is unescaped once) or Ashby "descriptionHtml".
+A missing or empty description becomes "". With the default (False) the output
+is exactly as in JS2.
 """
+import html
 import json
 
 
@@ -37,15 +44,19 @@ def _id_and_title(job, index, system):
     return str(job_id), title
 
 
-def parse_greenhouse(body):
+def parse_greenhouse(body, include_description=False):
     postings = []
     for i, job in enumerate(_load_jobs(body, "greenhouse")):
         job_id, title = _id_and_title(job, i, "greenhouse")
         location = job.get("location")
         name = location.get("name") if isinstance(location, dict) else None
-        postings.append({"id": job_id, "title": title,
-                         "location": name if isinstance(name, str) else "",
-                         "url": job.get("absolute_url")})
+        posting = {"id": job_id, "title": title,
+                   "location": name if isinstance(name, str) else "",
+                   "url": job.get("absolute_url")}
+        if include_description:
+            content = job.get("content")
+            posting["description_html"] = html.unescape(content) if isinstance(content, str) else ""
+        postings.append(posting)
     return postings, 0
 
 
@@ -57,7 +68,7 @@ def _address_country(holder):
     return country.strip() if isinstance(country, str) and country.strip() else None
 
 
-def parse_ashby(body):
+def parse_ashby(body, include_description=False):
     """isListed false postings are skipped and counted; secondaryLocations are
     joined after the primary location with "; " (GATE.md Revision 2026-11-04).
     Each place is followed by its own address's addressCountry in parentheses
@@ -81,8 +92,11 @@ def parse_ashby(body):
                 names.append(name)
                 country = _address_country(holder)
                 places.append(f"{name} ({country})" if country else name)
-        postings.append({"id": job_id, "title": title, "location": "; ".join(places),
-                         "url": job.get("jobUrl")})
+        posting = {"id": job_id, "title": title, "location": "; ".join(places), "url": job.get("jobUrl")}
+        if include_description:
+            description = job.get("descriptionHtml")
+            posting["description_html"] = description if isinstance(description, str) else ""
+        postings.append(posting)
     return postings, unlisted
 
 
