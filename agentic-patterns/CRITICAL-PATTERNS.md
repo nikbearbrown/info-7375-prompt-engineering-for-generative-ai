@@ -2,7 +2,7 @@
 
 **Status: DRAFT, 2026-11-18, for TA review. The instructor has not signed it off.** Condensed by Claude from the instructor's agentic best-practices collection (48 practices, the 20 pattern decks in this folder, 85 loops). The decks are listed in the [README](README.md). The course chapters name almost none of these patterns (only ReAct, in passing); the sources are listed under each section.
 
-**Executive summary.** Five practices hold under every pattern: write a testable handoff, decide what the agent does and what a person keeps, check the world rather than the report, prove the check can fail, and let "cannot verify" be an answer. Then come three families of patterns. **Workflows** fix the steps in code. **Reasoning patterns** set how a model orders its own steps. **Loop patterns** repeat a step until a real check passes. Start with the simplest design that works (one model call, then a workflow, then an agent) and add autonomy only when the task needs it.
+**Executive summary.** Five practices hold under every pattern: write a testable handoff, decide what the agent does and what a person keeps, check the world rather than the report, prove the check can fail, and let "cannot verify" be an answer. Then come the three classes of patterns (the [three-classes deck](three-classes.html) defines them with real examples). **Workflows** fix the steps in code. **Reasoning patterns** set how a model orders its own steps. **Loop patterns** repeat a step until a real check passes. Start with the simplest design that works (one model call, then a workflow, then an agent) and add autonomy only when the task needs it.
 
 ## 1. Five practices every pattern rests on
 

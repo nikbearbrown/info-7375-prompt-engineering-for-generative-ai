@@ -1,11 +1,12 @@
 # Agentic patterns
 
-**Twenty agentic patterns, each as a full deck and a shorter worked-example deck, plus a one-page condensed list.** Start with the one-page list. Open a full deck to learn a pattern: its shape, how it fails and when to use it. Then open its worked example to see it on one small task.
+**Start with [three-classes.html](three-classes.html): what an agentic pattern is, the agentic loop, and the three classes every pattern belongs to.** Reasoning: the model decides the next step. Workflow: code decides. Loop check: a check decides whether to go round again. The three classes are what you need to know first; the twenty detailed patterns below sit inside them, each as a full deck and a shorter worked-example deck, plus a one-page condensed list.
 
 ## Where everything is
 
 | What | Where | Length |
 |---|---|---|
+| **Start here:** the three classes (reasoning, workflow, loop check), defined, with real examples | [three-classes.html](three-classes.html) | 17 slides |
 | **Condensed:** every pattern on one page, plus the five practices they all rest on | [CRITICAL-PATTERNS.md](CRITICAL-PATTERNS.md) | One page |
 | **Simpler decks:** one worked example per pattern (a concrete task, a bounded run, a check, a stop rule) | [worked-examples/](worked-examples/) | 10 slides each |
 | **Full decks:** the pattern itself, how it fails, when to use it | [full-decks/](full-decks/) | 16 slides each |
