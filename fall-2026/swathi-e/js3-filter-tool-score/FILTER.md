@@ -112,3 +112,28 @@ skills and description.
   Why: Claude Code checked the real headings on Databricks, Stripe and Plaid
   on 2026-11-17; I chose these lists so Data/AI words in company text cannot
   make an Analyst role relevant.
+
+## Revision (2026-11-17, before any JS3 filter code): decisions D1-D7
+- D1: R7 counts topic words only in the same "counts" sections as R2, never
+  in boilerplate. Why: "About Databricks" mentions data and AI on every
+  Databricks posting.
+- D2: "Remote" with no country: "I cannot tell".
+- D3: R5 when no experience is stated: early-career words (new grad, entry
+  level, early career, university) count as early-career evidence only when
+  they describe the actual job, meaning in the title or in a "counts"
+  section, not in company boilerplate or text about unrelated programs;
+  otherwise "I cannot tell".
+- D4: "1+ years" is rejected: its upper end is open, so it is not within
+  0-1 years.
+- D5: R6 rejects only requirement wording: "must be a U.S. citizen",
+  "U.S. citizenship is required", a required "security clearance", "will
+  not sponsor", "unable to sponsor", "without sponsorship". Not counted: the
+  export-control "Compliance" paragraph and "citizenship status" in
+  equal-opportunity text.
+- D6: A description not in English: "I cannot tell".
+- D7: One complete, dated live collection run with descriptions is kept as
+  evidence, with its original raw responses unchanged. The files are checked
+  for private information before they are committed. The audit and the
+  real-data tests use this saved run.
+  Why: Claude Code's test design (2026-11-17) found these cases FILTER.md
+  did not settle; I chose each answer.
