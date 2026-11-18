@@ -137,3 +137,15 @@ skills and description.
   real-data tests use this saved run.
   Why: Claude Code's test design (2026-11-17) found these cases FILTER.md
   did not settle; I chose each answer.
+
+## Revision (2026-11-17, before any JS3 filter code): topic words and the threshold
+- Finding (Claude Code, while writing the tests): every scored posting already
+  has the 2 early-career points (R5 with D3), so role (3) + early-career (2)
+  reaches the threshold of 5. In version 1, topic words never change a
+  verdict; at most they could rank the shortlist. How the shortlist is
+  ordered is not yet specified in this file.
+- The "role match plus two topic words" path in the threshold's "Why" cannot
+  happen in a real evaluation; that "Why" was wrong.
+- I keep version 1 unchanged (weights 3/2/1, topic cap 3, threshold 5) as my
+  baseline. Whether topic words should change verdicts (e.g. threshold 6) is
+  a candidate one-change experiment, to be measured on held-out labels.
