@@ -11,6 +11,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 )
 
@@ -167,11 +168,11 @@ func TestShortOutputUnchanged(t *testing.T) {
 }
 
 // D26 changed only how tool output is formatted, not what the harness
-// tells the model up front. This pins the prompt version. Update it only
-// on purpose, when the prompt or a tool description changes (T5.1).
+// tells the model up front. This pins the prompt version of contract A,
+// the prompt every run before T5.1 used (see also contracts_test.go).
 func TestPromptVersionUnchangedByD26(t *testing.T) {
 	const want = "77d9d716f4239fa8b9be66353e4aa88b4c880a2833dd8d9f215c60b449021be7"
-	if got := PromptVersion(); got != want {
+	if got := PromptVersion(contracts.MustGet("A").System); got != want {
 		t.Errorf("PromptVersion = %s, want %s", got, want)
 	}
 }

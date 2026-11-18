@@ -5,13 +5,16 @@ import (
 	"testing"
 
 	"github.com/anthropics/anthropic-sdk-go/v2"
+
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 )
 
 // PromptVersion is a stable SHA-256, and it changes when any one part of
 // what the harness sends changes.
 func TestPromptVersion(t *testing.T) {
-	v := PromptVersion()
-	if !regexp.MustCompile(`^[0-9a-f]{64}$`).MatchString(v) || v != PromptVersion() {
+	systemPrompt := contracts.MustGet(contracts.Default).System
+	v := PromptVersion(systemPrompt)
+	if !regexp.MustCompile(`^[0-9a-f]{64}$`).MatchString(v) || v != PromptVersion(systemPrompt) {
 		t.Fatalf("PromptVersion = %q, want a stable hex SHA-256", v)
 	}
 	tools := []anthropic.ToolParam{toolDefs["read_file"], toolDefs["run_command"], toolDefs["write_file"]}

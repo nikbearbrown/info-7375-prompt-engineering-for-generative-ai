@@ -256,7 +256,11 @@ func showHeader(p *printer, tr *trace.Trace, path string) {
 		if pv == "" {
 			pv = "(not recorded)"
 		}
-		p.line(0, fmt.Sprintf("model    %s   prompt %s", tr.Model, pv))
+		contract := "" // traces before T5.1 do not name one
+		if tr.PromptContract != "" {
+			contract = "   contract " + tr.PromptContract
+		}
+		p.line(0, fmt.Sprintf("model    %s%s   prompt %s", tr.Model, contract, pv))
 	} else {
 		p.line(0, "model    (no agent)")
 	}

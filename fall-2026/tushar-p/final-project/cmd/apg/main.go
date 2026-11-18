@@ -1,9 +1,11 @@
 // Command apg runs tasks in the sandbox and records a trace.
 //
 //	apg run 001               run the agent, then the hidden check (T1.4)
+//	apg run 001 --contract B  the same, with prompt contract B's system prompt (T5.1; default A)
 //	apg run 001 --no-agent    run only the hidden check (T1.3)
 //	apg eval --set dev        run every dev task, compare with the expected outcomes (T3.3)
 //	apg show <run_id>         print a trace step by step (T3.4)
+//	apg compare <a> <b>       compare two groups of evals from the eval log (T5.3; read-only)
 package main
 
 import (
@@ -20,6 +22,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/budget"
 	"github.com/tushar-patel28/agent-proving-ground/internal/gate"
 	"github.com/tushar-patel28/agent-proving-ground/internal/loop"
@@ -46,8 +49,9 @@ const (
 	stopTimeout  = time.Minute     // delete the pod
 )
 
-const usage = `usage: apg run <task> [--no-agent] [--tasks dir] [--traces dir] [--out dir]
+const usage = `usage: apg run <task> [--contract A|B] [--no-agent] [--tasks dir] [--traces dir] [--out dir]
   <task> is the task number, e.g. 001
+  --contract picks the prompt contract, i.e. the system prompt (default A; contracts/)
   --no-agent runs only the hidden check
   --out is where the human gate writes patches (default out/)`
 
@@ -70,8 +74,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 	if len(args) > 0 && args[0] == "show" {
 		return showMain(args[1:], stdout, stderr)
 	}
+	if len(args) > 0 && args[0] == "compare" {
+		return compareMain(args[1:], stdout, stderr) // read-only: no sandbox, no model client
+	}
 	if len(args) == 0 || args[0] != "run" {
-		fmt.Fprintf(stderr, "%s\n%s\n%s\n", usage, evalUsage, showUsage)
+		fmt.Fprintf(stderr, "%s\n%s\n%s\n%s\n", usage, evalUsage, showUsage, compareUsage)
 		return exitError
 	}
 	opts, err := parseRunArgs(args[1:])
@@ -103,7 +110,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// The human gate. It prompts on stderr, so stdout keeps only the result
 	// line. Without a terminal on stdin it always defers.
 	g := &gate.Config{In: os.Stdin, Out: stderr, Interactive: isTerminal(os.Stdin), OutDir: opts.outDir}
-	tr := runTask(ctx, sb, sb.PodName(), tk, client, g)
+	tr := runTaskWith(ctx, sb, sb.PodName(), tk, opts.contract, client, g)
 
 	path, err := trace.Write(opts.tracesDir, tr)
 	if err != nil {
@@ -132,6 +139,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 type runOpts struct {
 	task      string
+	contract  contracts.Contract // the prompt contract (--contract)
 	noAgent   bool
 	tasksDir  string
 	tracesDir string
@@ -147,6 +155,7 @@ func parseRunArgs(args []string) (runOpts, error) {
 	fs.StringVar(&o.tasksDir, "tasks", "tasks", "tasks directory")
 	fs.StringVar(&o.tracesDir, "traces", "traces", "traces directory")
 	fs.StringVar(&o.outDir, "out", "out", "gate output directory")
+	contract := fs.String("contract", contracts.Default, "prompt contract: A or B")
 
 	// flag.Parse stops at the first non-flag argument ("001"). So: parse,
 	// take one positional argument, and parse again on what follows, until
@@ -166,6 +175,11 @@ func parseRunArgs(args []string) (runOpts, error) {
 		return o, fmt.Errorf("want exactly one task, got %d", len(positional))
 	}
 	o.task = positional[0]
+	c, err := contracts.Get(*contract) // *contract: the value the flag pointer holds
+	if err != nil {
+		return o, err
+	}
+	o.contract = c
 	return o, nil
 }
 
@@ -321,7 +335,15 @@ func findTask(tasksDir, short string) (task, error) {
 // After the verdict, while the pod is still alive, the human gate runs (if
 // g is not nil and the harness did not fail): it is the only way a change
 // leaves the sandbox.
+//
+// runTask uses the default prompt contract (A); the tests call it.
 func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, client loop.Client, g *gate.Config) *trace.Trace {
+	return runTaskWith(ctx, sb, pod, tk, contracts.MustGet(contracts.Default), client, g)
+}
+
+// runTaskWith is runTask with the prompt contract c, whose system prompt
+// the agent gets. apg run and apg eval call it with --contract.
+func runTaskWith(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, c contracts.Contract, client loop.Client, g *gate.Config) *trace.Trace {
 	start := time.Now().UTC()
 	tr := &trace.Trace{
 		SchemaVersion: trace.SchemaVersion,
@@ -359,7 +381,7 @@ func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, clien
 
 		if client != nil {
 			var err error
-			loopExit, err = runAgent(ctx, sb, tk, client, checker, rec, tr)
+			loopExit, err = runAgent(ctx, sb, tk, c, client, checker, rec, tr)
 			if err != nil {
 				return 0, fmt.Errorf("agent: %w", err)
 			}
@@ -422,13 +444,14 @@ func runTask(ctx context.Context, sb sandbox.Sandbox, pod string, tk task, clien
 	return tr
 }
 
-// runAgent runs the agent loop under the contract's timeout and fills in
-// the agent fields of tr. It returns what stopped the loop early (a limit,
+// runAgent runs the agent loop with prompt contract c's system prompt,
+// under the task contract's timeout, and fills in the agent fields of tr. It returns what stopped the loop early (a limit,
 // or check_passed from a mid-run check; "" if the model ended its turn) or
 // a harness error.
-func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, client loop.Client, checker *stop.Checker, rec func(string, ...sandbox.Result), tr *trace.Trace) (trace.ExitReason, error) {
+func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, c contracts.Contract, client loop.Client, checker *stop.Checker, rec func(string, ...sandbox.Result), tr *trace.Trace) (trace.ExitReason, error) {
 	cfg := loop.Config{
 		Model:     model,
+		System:    c.System,
 		Goal:      tk.Goal,
 		Tools:     tk.AllowedTools,
 		Limits:    tk.Limits,
@@ -446,7 +469,8 @@ func runAgent(ctx context.Context, sb sandbox.Sandbox, tk task, client loop.Clie
 	elapsed := time.Since(began)
 
 	tr.Model, tr.Steps, tr.LoopStop = model, res.Steps, res.Stop
-	tr.PromptVersion = loop.PromptVersion()
+	tr.PromptVersion = loop.PromptVersion(c.System)
+	tr.PromptContract = c.Name
 	// A local copy, so the trace can point at it (Go cannot take the
 	// address of a function's return value directly).
 	cut := loop.OutputLimits()

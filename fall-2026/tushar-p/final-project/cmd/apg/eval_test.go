@@ -12,6 +12,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/loop"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 	"github.com/tushar-patel28/agent-proving-ground/internal/trace"
@@ -143,7 +144,7 @@ func TestEvalEndToEnd(t *testing.T) {
 		t.Fatal(err)
 	}
 	checkExits := []int{0, 1, 0} // what each task's check returns, in split order
-	opts := evalOpts{set: "dev", runs: 2, tasksDir: tasksDir, tracesDir: filepath.Join(root, "traces"),
+	opts := evalOpts{set: "dev", contract: "A", runs: 2, tasksDir: tasksDir, tracesDir: filepath.Join(root, "traces"),
 		outDir: filepath.Join(root, "out"), resultsDir: filepath.Join(root, "results")}
 
 	evalOnce := func() (int, string, *stopClient) {
@@ -192,7 +193,7 @@ func TestEvalEndToEnd(t *testing.T) {
 		t.Fatalf("eval log: %d entries, %v", len(entries), err)
 	}
 	e := entries[0]
-	if e.GitCommit != "abc1234" || !e.GitDirty || e.Model != model || e.PromptVersion != loop.PromptVersion() ||
+	if e.GitCommit != "abc1234" || !e.GitDirty || e.Model != model || e.PromptVersion != loop.PromptVersion(contracts.MustGet("A").System) || e.PromptContract != "A" ||
 		e.Set != "dev" || e.Runs != 2 || !e.Complete || len(e.Rows) != 6 || len(e.SplitSHA256) != 64 || e.EvalID == "" {
 		t.Errorf("entry = %+v", e)
 	}
@@ -210,7 +211,7 @@ func TestEvalEndToEnd(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if tr.PromptVersion != loop.PromptVersion() || tr.Gate == nil || !tr.Gate.Batch || tr.Gate.Decision != "deferred" || len(tr.Gate.Shown) != 0 {
+		if tr.PromptVersion != loop.PromptVersion(contracts.MustGet("A").System) || tr.PromptContract != "A" || tr.Gate == nil || !tr.Gate.Batch || tr.Gate.Decision != "deferred" || len(tr.Gate.Shown) != 0 {
 			t.Errorf("trace %s: prompt %q gate %+v", r.Trace, tr.PromptVersion, tr.Gate)
 		}
 	}
@@ -220,7 +221,7 @@ func TestEvalEndToEnd(t *testing.T) {
 	if err := json.Unmarshal(bytes.TrimSpace(raw), &keys); err != nil {
 		t.Fatal(err)
 	}
-	for _, k := range []string{"eval_id", "timestamp", "git_commit", "git_dirty", "model", "prompt_version", "split_sha256", "set", "runs", "complete", "rows", "summary"} {
+	for _, k := range []string{"eval_id", "timestamp", "git_commit", "git_dirty", "model", "prompt_version", "prompt_contract", "split_sha256", "set", "runs", "complete", "rows", "summary"} {
 		if _, ok := keys[k]; !ok {
 			t.Errorf("eval-log line lacks %q", k)
 		}

@@ -15,8 +15,8 @@ Build plan for Tushar Patel's INFO7375 final project. Every chat in this Project
 ## Current status
 
 - **Phase:** 5 — Evaluation runs
-- **Next task:** T5.1
-- **Last updated:** Nov 17, 2026
+- **Next task:** T6.1
+- **Last updated:** Nov 18, 2026
 
 ---
 
@@ -290,25 +290,53 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 2. Save the results for `docs/07-evidence.md`.
 - **Done when:** every limit has a passing test and the results are saved.
 
-**Milestone M4:** isolation tests pass, results saved. (Reached Nov 17 with T4.1. The course sync is not done yet.)
+**Milestone M4:** isolation tests pass, results saved. (Reached Nov 17 with T4.1.)
 
 ---
 
 ## Phase 5 — Evaluation runs (Nov 30 – Dec 3)
 
-**T5.1 Two prompt contracts**
+**T5.1 Two prompt contracts** ✅ Done Nov 17
 1. Write contract A and contract B (for example, terse vs detailed instructions).
 2. Run both on the held-out set, at least 3 runs each, same model and settings.
 - **Done when:** the eval log holds both, with pass rates side by side.
+- **Part 1 done Nov 17** (step 1, not step 2):
+  - **Contracts:** `contracts/A-system.txt` (the system prompt used since 10abc03, byte for byte) and `contracts/B-system.txt` (Tushar's text, D30). Only the system prompt differs.
+  - **Flag:** `apg run` and `apg eval` take `--contract A|B` (default A), and traces and eval-log lines record `prompt_contract`.
+  - **Prompt versions:** A `77d9d716f423…` (unchanged), B `3de39bebb4df…`. Code commit `052b62b`.
+  - **B dev smoke run** (eval 20261118T030515Z-43a418b4, at 052b62b): 7/7 passed, 2/2 said no, 0 UNEXPECTED, 0 denied, 0 harness errors, est. $0.0178. No mechanical problem, and B was not reworded (docs/07).
+  - **Part 2 done Nov 17:**
+    - **Predictions:** Tushar's predictions were committed and pushed first (`6d7bafe`, docs/t5-predictions.md).
+    - **Runs:** five rounds of held-out × (A, then B) at 6d7bafe, ten eval-log lines (20261118T034100Z-57e06904 … 20261118T035741Z-b3379786), 70 runs, 0 harness errors.
+    - **Normal tasks:** A 20/20, B 20/20.
+    - **Failure tasks:** said no 15/15 under each contract, 0 UNEXPECTED PASS.
+    - **Denied calls:** A 0, B 4 (all on 008).
+    - **Est. cost:** A $0.04711, B $0.06637.
+    - **Where:** results in docs/07-evidence.md, and Tushar's scoring in docs/t5-predictions.md.
 
-**T5.2 Honest limits**
+**T5.2 Honest limits** ✅ Done Nov 18
 1. In `docs/07-evidence.md`, write what a sample of this size can and cannot show.
+- **Limits:** "Honest limits (T5.2)" in docs/07, ten points: size, ceiling, differences, what the check can tell, who looked at what, task authorship, when B was written, harness changes, cost estimates, and the 008 placeholder writes.
+- **Diff review:** Tushar reviewed all 40 held-out normal-task PASS diffs (docs/07, "Review of the 40 held-out PASS diffs (T5.2)", verbatim). The review sheet is `results/t5-held-out-diffs.md`, built by `scripts/review/gen_sheet.py`. He found:
+  - no test edits and no special-casing
+  - 3 diffs with leftover files (008)
+  - 7 of 10 diffs on 011 that miss the documented lowercase storage
+  - an escape-handling discrepancy between the 008 reference and the agent patches
+- **What a PASS means:** passing the frozen checks, not meeting the full docstring.
+- **FAILURES.md:** started with F1–F3 from the review. No check, test, contract, reference patch or result was changed.
 
-**T5.3 `apg compare <run-a> <run-b>`**
+**T5.3 `apg compare <run-a> <run-b>`** ✅ Done Nov 18
 1. Prints per-task changes and the pass-rate delta between two runs (a prompt or model change).
 - **Done when:** `apg compare` on the two T5.1 contract runs prints per-task changes and the pass-rate delta.
+- **Command:** `apg compare <side-a> <side-b> [--force] [--log file] [--traces dir]` (`cmd/apg/compare.go`). It is read-only: no model calls, no sandbox, no files written.
+- **Sides:** each side is an eval ID, a list of eval IDs, or a filter (`set`, `contract`, `commit`, `model`).
+- **What it reads and checks:** it reads `results/eval-log.jsonl` and every cited trace strictly, and stops if a trace disagrees with its row.
+- **Warnings:** printed before the tables when the sides differ in set, split hash, model, commit, truncation, runs per task, a task's expected outcome or its contract.json. A different set or split hash is refused unless `--force`.
+- **Output:** per task and in totals (normal, failure, all), with deltas. Failure tasks show "returned FAIL". No significance tests.
+- **Golden test:** on the T5.1 data, it reproduced all 14 per-task rows and 6 per-contract rows of docs/07 exactly, with docs/07 unchanged (`TestCompareT51MatchesDocs07`).
+- **Output saved:** `evidence/compare/20261118-t51-a-vs-b.txt` (fixture output).
 
-**Milestone M5:** comparison results saved, limits written.
+**Milestone M5:** comparison results saved, limits written. (Reached Nov 18 with T5.2 and T5.3.)
 
 ---
 
@@ -411,6 +439,7 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | D27 | Nov 17 | Cutoff decision (T4.3 of the original Docker-first plan, commit 96375d2): kind is the default and the only sandbox; no Docker fallback (`internal/sandbox/docker.go`) is written or ships. Task 001 ran on kind on Nov 12 (M1), and every run since has used kind. Docker is used only to build `apg-sandbox:dev`, and by `cmd/apg/tasks_test.go`, which runs each check against the image without a pod | Decided |
 | D28 | Nov 17 | Kubelet `podPidsLimit: 256` in `sandbox/kind.yaml` (the pod spec has no pids field; until now configz read -1, no limit), so a fork loop from python cannot exhaust the node's PIDs, and the kill loop faces at most 256 processes. The cluster was recreated from the config. It is a harness environment change made before any held-out run; both dev evals ran without it. A read-only root filesystem is documented in docs/03 and deferred (Tushar's decision); for disk see D29 | Decided |
 | D29 | Nov 17 | Disk is capped two ways. /workspace and /tmp are in-memory emptyDir volumes (tmpfs) with sizeLimit 32Mi each: the kernel refuses a write past it (ENOSPC), and the pod keeps working. The rest of the container's writable layer (/home/apg, /var/tmp, ...) has an ephemeral-storage limit of 64Mi, which the kubelet enforces by evicting the pod some seconds after it is passed. Why both: tested on the cluster, an ephemeral-storage limit alone did not stop a write (100 MiB past 64Mi succeeded); the pod was evicted ~20 s later and could not be used. So only a kernel-enforced size can make the write fail. Sizes: the task repos are 20 KiB or less. tmpfs pages count against the 256Mi memory limit. An evicted pod ends a run with harness errors (not tested end to end). It is a pod spec change made before any held-out run, so the dev eval was rerun after it. The read-only root filesystem stays a documented gap | Decided |
+| D30 | Nov 17 | Prompt contract B for T5.1 is Tushar's text in `contracts/B-system.txt`, byte for byte (curly quotes included, no trailing newline): 2,695 bytes, SHA-256 `5bd2572217f96e5b5c97a6ce63555ae22a5fbc9ad64902e31d6f2942ba9000c4`, prompt version `3de39bebb4df2df5dc08888860563ab53dbb6511287fa102b6aa2a7f5728e775`. Contract A is the existing system prompt (`contracts/A-system.txt`, 623 bytes, SHA-256 `217dbb8f78d6…`, prompt version `77d9d716f423…`). A and B differ only in the system prompt: the task template, tools and not-complete note are shared, which a test checks on every request. Both are frozen after the B dev smoke run (eval 20261118T030515Z-43a418b4, no mechanical problem). B was not reworded because of dev results. Tests pin both files' bytes and prompt versions | Decided |
 
 ---
 
@@ -429,3 +458,5 @@ Goal: one task, one kind pod, one trace file, one PASS/FAIL line.
 | M1 | Nov 12 | First slice works end to end on kind (T1.1–T1.4: `apg run 001` PASS with claude-haiku-5-5, evidence/traces/20261112T053055Z-92239eb0.json); synced to the course folder | course repo commit 8349ba9a (from agent-proving-ground@e3454c0) |
 | M2 | Nov 13 | Loop, tools, policy, state, stop, and gate all exist with tests (T2.1–T2.5: tasks 001–005 PASS with claude-haiku-5-5, traces validate against schema v1, evidence/traces/20261113T230736Z-5465d81d … 230904Z-3d625236); synced to the course folder | course repo commit 0429df05 (from agent-proving-ground@cd192a8) |
 | M3 | Nov 13 | Suite frozen, eval command works (T3.1–T3.4: 16 tasks, dev/held-out split frozen at 26b5305; `apg eval --set dev` 7/7 expected-PASS passed and 2/2 failure cases said no, eval 20261114T010304Z-8011b8a0; `apg show` prints every step); synced to the course folder | course repo commit 16227643 (from agent-proving-ground@48ee9c9) |
+| M4 | Nov 17 | Isolation tests pass, results saved (T4.1: every pod limit held from inside a real kind pod, with the pids limit D28 and the disk caps D29; evidence/isolation/20261117-isolation.txt and 20261117-isolation-d29.txt); synced to the course folder | course repo commit 1fe748fa (from agent-proving-ground@e95e947) |
+| M5 | Nov 18 | Comparison results saved, limits written (T5.2: docs/07 "Honest limits (T5.2)" and Tushar's review of the 40 held-out PASS diffs; T5.3: `apg compare` on the T5.1 data, evidence/compare/20261118-t51-a-vs-b.txt); course-folder sync not done yet | evidence/compare/20261118-t51-a-vs-b.txt; results/t5-held-out-diffs.md |
