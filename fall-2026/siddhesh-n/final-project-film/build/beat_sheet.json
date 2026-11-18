@@ -37,10 +37,10 @@
       "INFO 7375"
     ],
     "build": {
-      "at": "2026-10-14T16:17:12",
+      "at": "2026-10-24T14:31:42",
       "cut": "master",
-      "filled": 14,
-      "of": 14,
+      "filled": 15,
+      "of": 15,
       "slates": [],
       "skin_warnings": [
         "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk",
@@ -101,7 +101,7 @@
         "status": "VIDEO",
         "src": "media/BIDEA.mp4",
         "filled_by": "media",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -148,11 +148,8 @@
                 "meaning": "questions I solve by hand first: the key"
               }
             ],
-            "folderLabel": "@nikam0420"
-          },
-          "rendered": {
-            "out": "media/BDEFS.mp4",
-            "at": "2026-10-14T20:10:29.847777+00:00"
+            "folderLabel": "@nikam0420",
+            "durationSeconds": 14.21
           }
         }
       },
@@ -166,8 +163,8 @@
       "build": {
         "status": "VIDEO",
         "src": "media/BDEFS.mp4",
-        "filled_by": "remotion:ClaudeDefinitions",
-        "at": "2026-10-14T16:17:12"
+        "filled_by": "media",
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -175,45 +172,49 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "Here is the project in one sentence. CheckedSQL will let a marketing analyst ask a question in plain English, have Claude write the S Q L, run it on a campaign database, and show the answer with the query and a check.",
-      "estimated_duration_s": 16.8,
+      "narration_text": "One sentence. CheckedSQL will let a marketing analyst ask a campaign question in plain English, have Claude write the S Q L, run it on the data, and show the answer beside the query, scored against an answer key.",
+      "estimated_duration_s": 15.6,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "A question page slides into a dark database stack; its lights come on; a query page comes out the other side and an ink check lands beside it.",
+        "visual_intent": "The real test question 'Which channel had the highest ROAS?' slides into a dark Claude block (planned), a SQL page comes out, runs on the campaigns table, and the answer 'Search' lands with a check.",
         "show": [
           {
             "at": 0.15,
-            "event": "question page slides in"
+            "event": "question card"
           },
           {
-            "at": 0.4,
-            "event": "database lights"
+            "at": 0.35,
+            "event": "Claude block"
           },
           {
-            "at": 0.7,
-            "event": "query page out, check"
+            "at": 0.55,
+            "event": "SQL page into the data"
+          },
+          {
+            "at": 0.8,
+            "event": "answer Search + check"
           }
         ],
         "manim": {
           "class": "B00_OneSentence"
         },
-        "motion_claim": "A question page slides into a dark database stack; its lights come on; a query page comes out the other side and an ink check lands beside it."
+        "motion_claim": "The real test question 'Which channel had the highest ROAS?' slides into a dark Claude block (planned), a SQL page comes out, runs on the campaigns table, and the answer 'Search' lands with a check."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 12.1,
+      "actual_duration_s": 12.07,
       "audio_file": "mp3/beat-B00.mp3",
-      "render_duration_s": 12.125,
+      "render_duration_s": 12.083333333333334,
       "build": {
         "status": "MANIM",
         "src": "manim/B00.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -221,53 +222,41 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "When it's done, it will be a GitHub repository with four things. A synthetic campaign dataset. The question tool, written in Python. A test set of about thirty questions. And an evaluation log that records every pass and every miss.",
-      "estimated_duration_s": 16.0,
+      "narration_text": "When it's done, it will be a GitHub repository, and part of it already runs. On October twenty-fourth, with Claude's help, I built the synthetic dataset, ten test questions with an answer key, and the checker. Still to come: the prompt contract, the Claude step, and the evaluation log.",
+      "estimated_duration_s": 19.6,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "An open kraft box (the repo) sits on stage; a dark data block, a tool page, a stack of test pages and a log page drop into it one by one.",
+        "visual_intent": "An open repo box. Three solid parts drop in, labelled with their real file names. Three ghost outlines for the parts still to build.",
         "show": [
           {
-            "at": 0.1,
-            "event": "open box"
-          },
-          {
             "at": 0.3,
-            "event": "dataset block"
+            "event": "three real files drop in"
           },
           {
-            "at": 0.5,
-            "event": "tool page"
-          },
-          {
-            "at": 0.65,
-            "event": "test stack"
-          },
-          {
-            "at": 0.85,
-            "event": "log page"
+            "at": 0.75,
+            "event": "three ghost outlines draw"
           }
         ],
         "manim": {
           "class": "B01_Repo"
         },
-        "motion_claim": "An open kraft box (the repo) sits on stage; a dark data block, a tool page, a stack of test pages and a log page drop into it one by one."
+        "motion_claim": "An open repo box. Three solid parts drop in, labelled with their real file names. Three ghost outlines for the parts still to build."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 13.33,
+      "actual_duration_s": 15.21,
       "audio_file": "mp3/beat-B01.mp3",
-      "render_duration_s": 13.333333333333334,
+      "render_duration_s": 15.25,
       "build": {
         "status": "MANIM",
         "src": "manim/B01.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -275,41 +264,41 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "I looked at two real alternatives. The first is one I built: a Tableau dashboard for my marketing campaign project. It answers the questions I planned in advance. A new question means building a new view.",
-      "estimated_duration_s": 14.4,
+      "narration_text": "Why would anyone care? The first alternative is a fixed dashboard, like the Tableau dashboard in my marketing campaign project, which I made with AI help. It answers the questions planned in advance. A new question means building a new view.",
+      "estimated_duration_s": 16.4,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "A dashboard panel with grey bars grows; a new question page slides toward it and bounces back.",
+        "visual_intent": "A dashboard with three coloured channel bars grows; a new question card slides toward it and bounces back.",
         "show": [
           {
-            "at": 0.25,
-            "event": "dashboard bars grow"
+            "at": 0.4,
+            "event": "dashboard bars"
           },
           {
-            "at": 0.75,
-            "event": "new question bounces off"
+            "at": 0.8,
+            "event": "new question bounces"
           }
         ],
         "manim": {
           "class": "B02_Dashboard"
         },
-        "motion_claim": "A dashboard panel with grey bars grows; a new question page slides toward it and bounces back."
+        "motion_claim": "A dashboard with three coloured channel bars grows; a new question card slides toward it and bounces back."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 11.63,
+      "actual_duration_s": 13.08,
       "audio_file": "mp3/beat-B02.mp3",
-      "render_duration_s": 11.666666666666666,
+      "render_duration_s": 13.083333333333334,
       "build": {
         "status": "MANIM",
         "src": "manim/B02.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -317,45 +306,49 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "The second is pasting a question into a general chat assistant. It writes a query, and some can run code on an uploaded file, but there's no fixed test set, so no record of how often it's right on my questions. CheckedSQL's difference: every answer is run, shown with its query, and scored against answers I checked by hand.",
-      "estimated_duration_s": 23.6,
+      "narration_text": "The second is a general chat assistant. On October twenty-fourth, I gave ChatGPT my campaign data and asked which channel had the highest ROAS. It answered Search, which is right. But there is no fixed test set, so no record of how often it is right on my questions, or which ones it gets wrong. CheckedSQL runs every answer, shows its query, and scores it.",
+      "estimated_duration_s": 26.0,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "A chat window passes a query page out; then the page rides through a gate made of a stack of test pages, and a check lands.",
+        "visual_intent": "My real ChatGPT answer (cropped screenshot, Oct 24) framed; an arrow to 'Search'; my answer-key card agrees with a check; then a row of ten questions with only one answered: one answer is not a record.",
         "show": [
           {
-            "at": 0.2,
-            "event": "chat window, query out"
+            "at": 0.25,
+            "event": "screenshot"
           },
           {
-            "at": 0.7,
-            "event": "page through the test gate"
+            "at": 0.4,
+            "event": "arrow to its answer"
           },
           {
-            "at": 0.85,
-            "event": "check"
+            "at": 0.5,
+            "event": "key agrees"
+          },
+          {
+            "at": 0.75,
+            "event": "1 of 10"
           }
         ],
         "manim": {
-          "class": "B03_Scored"
+          "class": "B03_ChatTest"
         },
-        "motion_claim": "A chat window passes a query page out; then the page rides through a gate made of a stack of test pages, and a check lands."
+        "motion_claim": "My real ChatGPT answer (cropped screenshot, Oct 24) framed; an arrow to 'Search'; my answer-key card agrees with a check; then a row of ten questions with only one answered: one answer is not a record."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 17.66,
+      "actual_duration_s": 19.11,
       "audio_file": "mp3/beat-B03.mp3",
-      "render_duration_s": 17.666666666666668,
+      "render_duration_s": 19.125,
       "build": {
         "status": "MANIM",
         "src": "manim/B03.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -363,14 +356,14 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "The target role is data analyst, and the first reader is a hiring manager. In the first sixty seconds, they'll open the README, see the score table from the test set, and run one command that prints the query, the answer, and whether it matched.",
-      "estimated_duration_s": 18.0,
+      "narration_text": "Who opens it? A hiring manager for a data analyst role. In the first sixty seconds, they open the README, run one command, python three checker dot P Y, and see a score table. That command already works today.",
+      "estimated_duration_s": 15.6,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "A README window opens with a grey score table; a dark terminal strip slides under it and a check appears; a large '60 s' sits beside it.",
+        "visual_intent": "'60 s'; a README window; a dark terminal strip with the real command and the real score line '10/10'.",
         "show": [
           {
             "at": 0.2,
@@ -378,30 +371,30 @@
           },
           {
             "at": 0.45,
-            "event": "README window"
+            "event": "README"
           },
           {
             "at": 0.75,
-            "event": "terminal strip, check"
+            "event": "terminal + score"
           }
         ],
         "manim": {
           "class": "B04_SixtySeconds"
         },
-        "motion_claim": "A README window opens with a grey score table; a dark terminal strip slides under it and a check appears; a large '60 s' sits beside it."
+        "motion_claim": "'60 s'; a README window; a dark terminal strip with the real command and the real score line '10/10'."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 13.38,
+      "actual_duration_s": 12.82,
       "audio_file": "mp3/beat-B04.mp3",
-      "render_duration_s": 13.416666666666666,
+      "render_duration_s": 12.833333333333334,
       "build": {
         "status": "MANIM",
         "src": "manim/B04.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -409,49 +402,41 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "What will it prove? That I write S Q L and define marketing metrics correctly, which I already do. And that I can use what this course teaches: a prompt contract, verification against known answers, and a repeatable evaluation. The evidence: the test set, the log, and a write-up of every failure.",
-      "estimated_duration_s": 20.8,
+      "narration_text": "What will it prove? That I can get marketing metrics right and check them against an answer key. And three course skills: a prompt contract, verification against known answers, and evaluation I can repeat. Verification and evaluation now have real evidence: the checker and its score table. The contract is next.",
+      "estimated_duration_s": 20.4,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Three pages stand in a row: contract, verification, evaluation; a terracotta dot lands on each as it is named, then the log page slides under them.",
+        "visual_intent": "Three cards: contract (ghost, planned), verification and evaluation (solid, each gets a check); an evidence page slides under the two real ones.",
         "show": [
           {
-            "at": 0.4,
-            "event": "contract"
-          },
-          {
-            "at": 0.55,
-            "event": "verification"
+            "at": 0.35,
+            "event": "three cards"
           },
           {
             "at": 0.7,
-            "event": "evaluation"
-          },
-          {
-            "at": 0.85,
-            "event": "log page"
+            "event": "checks on the real two"
           }
         ],
         "manim": {
           "class": "B05_Proves"
         },
-        "motion_claim": "Three pages stand in a row: contract, verification, evaluation; a terracotta dot lands on each as it is named, then the log page slides under them."
+        "motion_claim": "Three cards: contract (ghost, planned), verification and evaluation (solid, each gets a check); an evidence page slides under the two real ones."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 16.04,
+      "actual_duration_s": 16.75,
       "audio_file": "mp3/beat-B05.mp3",
-      "render_duration_s": 16.041666666666668,
+      "render_duration_s": 16.75,
       "build": {
         "status": "MANIM",
         "src": "manim/B05.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -459,87 +444,117 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "What's out. It will not change the database. It will only run read-only queries, on this one campaign schema. No dashboards, and no real company data.",
-      "estimated_duration_s": 10.4,
+      "narration_text": "What's out: it will never change the database. The checker already refuses anything but a single read-only SELECT. One schema, no dashboards, and no real company data: these twenty-four rows are synthetic.",
+      "estimated_duration_s": 12.8,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "The dark database stack; an arrow out of it gets a check (read); an arrow into it is crossed out (write).",
+        "visual_intent": "The campaigns table; a write arrow is crossed out; a read arrow gets a check, labelled SELECT only; '24 rows · synthetic'.",
         "show": [
           {
             "at": 0.25,
-            "event": "read arrow + check"
+            "event": "write crossed"
           },
           {
-            "at": 0.6,
-            "event": "write arrow crossed"
+            "at": 0.5,
+            "event": "SELECT only + check"
+          },
+          {
+            "at": 0.8,
+            "event": "24 rows"
           }
         ],
         "manim": {
           "class": "B06_ReadOnly"
         },
-        "motion_claim": "The dark database stack; an arrow out of it gets a check (read); an arrow into it is crossed out (write)."
+        "motion_claim": "The campaigns table; a write arrow is crossed out; a read arrow gets a check, labelled SELECT only; '24 rows · synthetic'."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 9.11,
+      "actual_duration_s": 11.88,
       "audio_file": "mp3/beat-B06.mp3",
-      "render_duration_s": 9.125,
+      "render_duration_s": 11.916666666666666,
       "build": {
         "status": "MANIM",
         "src": "manim/B06.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
       "beat_id": "B07",
       "act": "pitch",
-      "lane": "manim",
-      "proof_gate": "SHOW",
-      "narration_text": "What comes first: the test set and the checker, before any Claude call. I'll write ten questions, work out their answers by hand, and run my own queries through the checker as a baseline. You'll know it ran when one command prints a score table. Then Claude gets the same ten.",
-      "estimated_duration_s": 20.4,
+      "lane": "card",
+      "proof_gate": "CARD",
+      "narration_text": "What came first was the baseline, before any Claude call: ten questions, an answer key worked out from the totals, and baseline S Q L drafted with Claude. The checker printed ten out of ten. Then I added two deliberately wrong queries that average ROAS row by row. The checker failed both.",
+      "estimated_duration_s": 20.8,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
-        "type": "GRAPHIC",
+        "type": "REMOTION",
         "source": "own",
-        "visual_intent": "Ten small question pages in a row pass through a grey gate one after another; ink checks appear above them.",
         "show": [
           {
-            "at": 0.2,
-            "event": "ten pages"
+            "at": 0.05,
+            "event": "real score rows land"
           },
           {
             "at": 0.6,
-            "event": "through the gate"
-          },
-          {
-            "at": 0.85,
-            "event": "checks"
+            "event": "lens stops on the trap row"
           }
         ],
-        "manim": {
-          "class": "B07_Baseline"
-        },
-        "motion_claim": "Ten small question pages in a row pass through a grey gate one after another; ink checks appear above them."
+        "remotion": {
+          "pattern": "ShowTellCard",
+          "props": {
+            "kind": "focus",
+            "heading": "Baseline run, Oct 24 (real)",
+            "focus": 2,
+            "items": [
+              {
+                "label": "Q03 overall ROAS",
+                "value": "2.74 PASS"
+              },
+              {
+                "label": "Q06 best channel",
+                "value": "Search PASS"
+              },
+              {
+                "label": "Q06 trap: row average",
+                "value": "Email FAIL"
+              },
+              {
+                "label": "Q07 Email ROAS",
+                "value": "2.29 PASS"
+              },
+              {
+                "label": "Score",
+                "value": "10/10"
+              }
+            ],
+            "durationSeconds": 15.85,
+            "cues": [
+              0.606,
+              0.706
+            ]
+          }
+        }
       },
-      "qc": {
-        "sparse_by_design": true,
-        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
-      },
-      "actual_duration_s": 14.46,
+      "cue_phrases": [
+        "ten out of ten",
+        "two deliberately wrong"
+      ],
+      "actual_duration_s": 15.85,
       "audio_file": "mp3/beat-B07.mp3",
-      "render_duration_s": 14.5,
+      "render_duration_s": 15.875,
       "build": {
-        "status": "MANIM",
-        "src": "manim/B07.mp4",
-        "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "status": "VIDEO",
+        "src": "media/B07.mp4",
+        "filled_by": "media",
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -547,45 +562,41 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "What could sink it: an answer that looks right but isn't. ROAS is a ratio. Average it row by row, and you get a different number than total revenue over total spend, and both look plausible. My fix: put the metric definitions in the prompt contract, and add ratio questions to the test set, so this mistake gets caught and logged.",
-      "estimated_duration_s": 24.4,
+      "narration_text": "What could sink it? An answer that looks right but isn't. These are Email's eight real rows. Four of them spend almost nothing and return fourteen to twenty times that. Average the row ratios, and Email's ROAS comes out at nine point seven five.",
+      "estimated_duration_s": 17.6,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Two grey bars of different heights labelled 'row average' and 'total ÷ total'; a check lands on the total bar and a test page slides in.",
+        "visual_intent": "Eight blue bars, one per Email row, height = that row's ROAS; four tower; a dashed line lands at 9.75, labelled row average.",
         "show": [
           {
-            "at": 0.3,
-            "event": "two bars grow"
+            "at": 0.4,
+            "event": "eight row bars grow"
           },
           {
-            "at": 0.7,
-            "event": "check on total"
-          },
-          {
-            "at": 0.85,
-            "event": "test page"
+            "at": 0.8,
+            "event": "average line 9.75"
           }
         ],
         "manim": {
-          "class": "B08_Ratio"
+          "class": "B08_RowTrap"
         },
-        "motion_claim": "Two grey bars of different heights labelled 'row average' and 'total ÷ total'; a check lands on the total bar and a test page slides in."
+        "motion_claim": "Eight blue bars, one per Email row, height = that row's ROAS; four tower; a dashed line lands at 9.75, labelled row average."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 17.69,
+      "actual_duration_s": 13.59,
       "audio_file": "mp3/beat-B08.mp3",
-      "render_duration_s": 17.708333333333332,
+      "render_duration_s": 13.625,
       "build": {
         "status": "MANIM",
         "src": "manim/B08.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -593,14 +604,60 @@
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "Why this project? It's a mix. S Q L, PostgreSQL and pandas, I already have. My marketing campaign analytics repository on GitHub computes click-through rate and return on ad spend with them. New to me are calling Claude from Python, writing prompt contracts, and building an evaluation harness. That's the part I'm here to learn.",
-      "estimated_duration_s": 22.0,
+      "narration_text": "Divide total revenue by total spend instead, and Email is two point two nine. The best channel is Search, not Email. Both numbers look plausible. My fix: the metric definition goes in the prompt contract, and the test set has ratio questions, so this mistake gets caught, as it just was.",
+      "estimated_duration_s": 20.4,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Left: a closed taped box (have). Right: an open box that pages drop into (new).",
+        "visual_intent": "The 9.75 ghost bar is crossed out; three channel bars at their true ROAS (Email 2.29, Search 3.98, Social 1.05); a check lands on Search.",
+        "show": [
+          {
+            "at": 0.25,
+            "event": "true bars"
+          },
+          {
+            "at": 0.55,
+            "event": "check on Search"
+          },
+          {
+            "at": 0.85,
+            "event": "test page"
+          }
+        ],
+        "manim": {
+          "class": "B09_TotalFix"
+        },
+        "motion_claim": "The 9.75 ghost bar is crossed out; three channel bars at their true ROAS (Email 2.29, Search 3.98, Social 1.05); a check lands on Search."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.83,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 15.833333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-10-24T14:31:42"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "pitch",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why this project? Mostly to learn. My earlier marketing campaign repository was built with a lot of AI help, so it shows the domain I care about, metrics like click-through rate and return on ad spend, more than it proves I can code alone. New to me: writing and checking S Q L myself, calling Claude from Python, prompt contracts, and evaluation. This project is how I'll prove those.",
+      "estimated_duration_s": 27.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Left: a closed taped box labelled have: campaign KPIs (repo built with AI help). Right: an open box that four pages drop into, labelled new.",
         "show": [
           {
             "at": 0.2,
@@ -612,64 +669,64 @@
           }
         ],
         "manim": {
-          "class": "B09_HaveNew"
+          "class": "B10_HaveNew"
         },
-        "motion_claim": "Left: a closed taped box (have). Right: an open box that pages drop into (new)."
+        "motion_claim": "Left: a closed taped box labelled have: campaign KPIs (repo built with AI help). Right: an open box that four pages drop into, labelled new."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 17.83,
-      "audio_file": "mp3/beat-B09.mp3",
-      "render_duration_s": 17.833333333333332,
+      "actual_duration_s": 20.5,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 20.5,
       "build": {
         "status": "MANIM",
-        "src": "manim/B09.mp4",
+        "src": "manim/B10.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
-      "beat_id": "B10",
+      "beat_id": "B11",
       "act": "pitch",
       "lane": "manim",
       "proof_gate": "SHOW",
-      "narration_text": "What exists today: my two earlier GitHub repositories, and this pitch. Nothing of CheckedSQL is built yet. The dataset, the tool, the test set and the log will exist. What I don't know yet is whether thirty questions is enough. I'll find out by watching whether new questions keep finding new kinds of failure.",
-      "estimated_duration_s": 21.6,
+      "narration_text": "So, what exists today: my two earlier repositories, this film, and the first piece of CheckedSQL: the dataset, the questions, the answer key, and the checker. What will exist: the prompt contract, the Claude step, thirty questions, and the evaluation log. What I don't know yet is whether thirty is enough. I'll find out by watching whether new questions keep finding new kinds of failure.",
+      "estimated_duration_s": 26.0,
       "voice": "am_onyx",
       "engine": "kokoro",
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Left: two solid boxes (today). Right: four ghost-outlined boxes (will), drawn one by one.",
+        "visual_intent": "Left: solid boxes for what exists (two repos, film, checker). Right: ghost boxes for what will exist, drawn one by one.",
         "show": [
           {
-            "at": 0.15,
+            "at": 0.2,
             "event": "today boxes"
           },
           {
-            "at": 0.45,
+            "at": 0.55,
             "event": "will boxes draw"
           }
         ],
         "manim": {
-          "class": "B10_TodayWill"
+          "class": "B11_TodayWill"
         },
-        "motion_claim": "Left: two solid boxes (today). Right: four ghost-outlined boxes (will), drawn one by one."
+        "motion_claim": "Left: solid boxes for what exists (two repos, film, checker). Right: ghost boxes for what will exist, drawn one by one."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "actual_duration_s": 16.47,
-      "audio_file": "mp3/beat-B10.mp3",
-      "render_duration_s": 16.5,
+      "actual_duration_s": 19.05,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 19.083333333333332,
       "build": {
         "status": "MANIM",
-        "src": "manim/B10.mp4",
+        "src": "manim/B11.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     },
     {
@@ -716,7 +773,7 @@
         "status": "MANIM",
         "src": "manim/BOUT.mp4",
         "filled_by": "manim",
-        "at": "2026-10-14T16:17:12"
+        "at": "2026-10-24T14:31:42"
       }
     }
   ]

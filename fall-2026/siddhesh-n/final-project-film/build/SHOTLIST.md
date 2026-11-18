@@ -1,20 +1,27 @@
-# SHOTLIST — checkedsql-pitch
+# SHOTLIST — checkedsql-pitch (v2, 2026-10-24)
 
-Every body drawing carries the on-screen tag "sketch · planned" (it shows something that will exist, not something built). No `ShowTellCard` beats: none passed the card test, so every body beat is a drawing.
+Every body scene has a top line: on the left, which of the seven assignment questions it answers; on the right, an honesty badge.
+**REAL** (filled dot) means it shows something that ran or real data, with the date. **PLANNED** (hollow dot) means a sketch of something not built yet.
+Channel colours are fixed for the whole film: Email blue, Search green, Social ochre.
 
-| Beat | Lane | Picture | Brief question |
-|---|---|---|---|
-| BIDEA | Remotion | BrutalistHesitantWriter — "answer" corrected to "prove its answers to" | framing |
-| BDEFS | Remotion | ClaudeDefinitions — ROAS, prompt contract, test set (folder label @nikam0420) | terms |
-| B00 | Manim | question page → database lights → query page out, check | 1 What is it |
-| B01 | Manim | open repo box; dataset block, tool page, test stack, log page drop in | 1 the artifact |
-| B02 | Manim | dashboard bars grow; a new question bounces off | 2 alternative 1 |
-| B03 | Manim | chat window passes a query out; it rides through a test-set gate; check | 2 alternative 2 + difference |
-| B04 | Manim | "60 s", README window with score rows, terminal strip, check | 3 who / first 60 s |
-| B05 | Manim | contract / verification / evaluation pages; a dot lands on each; log page | 4 what it proves |
-| B06 | Manim | database; write arrow crossed out, read arrow checked | 5 what is out |
-| B07 | Manim | ten question pages; scan line; ten checks | 5 what comes first |
-| B08 | Manim | two bars: row average vs total ÷ total; check on total; test page | 6 the risk |
-| B09 | Manim | closed box "have", open box "new" filling with pages | 7 why this project |
-| B10 | Manim | two solid boxes "today", four ghost boxes "will exist" | exists vs will exist |
-| BOUT | Manim | my own title card: title, name, @nikam0420, small box drops | outro (not ClaudeTitleOutro: it hard-codes the instructor's handle) |
+| Beat | Lane | Question | Badge | Picture |
+|---|---|---|---|---|
+| BIDEA | Remotion | framing | — | BrutalistHesitantWriter: "answer" corrected to "prove its answers to" |
+| BDEFS | Remotion | terms | — | ClaudeDefinitions: ROAS, prompt contract, test set |
+| B00 | Manim | 1 What is it | PLANNED | the real test question → Claude block → SQL page → campaigns table → answer "Search" ✓ |
+| B01 | Manim | 1 the artifact | PART REAL | repo box: three real files drop in (`campaigns.csv`, `questions.json`, `checker.py`); three still-to-build parts listed |
+| B02 | Manim | 2 alternative 1 | SKETCH of real project | dashboard with the three channel colours; a new question bounces off |
+| B03 | Manim | 2 alternative 2 | REAL test | my own chat-assistant screenshot, the answer ringed, beside the answer key |
+| B04 | Manim | 3 who opens it | REAL | "60 s"; README; terminal with the real `python3 checker.py` and `Score: 10/10` |
+| B05 | Manim | 4 what it proves | PART REAL | contract (ghost, next) · verification ✓ · evaluation ✓, with their evidence files |
+| B06 | Manim | 5 what's out | REAL | write arrow crossed; read arrow "SELECT only" ✓ (the checker enforces it); "24 rows · synthetic" |
+| B07 | card `focus` | 5 what came first | REAL | the real baseline score table; the lens stops on the trap row |
+| B08 | Manim | 6 the risk | REAL DATA | Email's eight row ROAS bars (20×, 2×, …); the row-average line lands at 9.75 |
+| B09 | Manim | 6 the fix | REAL DATA | 9.75 crossed out; true ROAS bars Email 2.29 · Search 3.98 · Social 1.05; ✓ on Search; test page Q06·Q07 |
+| B10 | Manim | 7 why this project | REAL repos | have box (SQL · pandas · KPIs) vs new box filling (Claude API · contracts · evals) |
+| B11 | Manim | exists vs will | PART REAL | solid boxes for what exists; ghost boxes for what will; "30?" |
+| BOUT | Manim | outro | — | my own title card (not ClaudeTitleOutro: it hard-codes the instructor's handle) |
+
+## Why a card (show-tell card test)
+
+**B07 `focus`** is the only card. It passes all three parts of the test. The idea *is* a set of real numbers in a table. The lens stopping on one row *is* the claim ("the checker failed the trap"). And a drawing of boxes can't show a score table as clearly. Every value on it comes from `checkedsql/results/baseline.md` (run 2026-10-24).

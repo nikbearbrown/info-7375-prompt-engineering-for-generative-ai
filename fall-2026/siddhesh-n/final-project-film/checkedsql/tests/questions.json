@@ -1,0 +1,16 @@
+[
+  {"id": "Q01", "question": "What was the total ad spend?", "type": "number", "expected": 14185, "tolerance": 0},
+  {"id": "Q02", "question": "What was the total revenue?", "type": "number", "expected": 38860, "tolerance": 0},
+  {"id": "Q03", "question": "What was the overall ROAS?", "type": "number", "expected": 2.74, "tolerance": 0.005,
+   "note": "ROAS = total revenue / total spend (prompt-contract definition)"},
+  {"id": "Q04", "question": "What was the overall click-through rate, in percent?", "type": "number", "expected": 2.82, "tolerance": 0.005},
+  {"id": "Q05", "question": "Which channel had the most conversions?", "type": "text", "expected": "Search"},
+  {"id": "Q06", "question": "Which channel had the highest ROAS?", "type": "text", "expected": "Search",
+   "note": "THE RATIO TRAP: averaging ROAS row by row picks Email (9.75); total revenue / total spend picks Search (3.98)"},
+  {"id": "Q07", "question": "What was the ROAS of the Email channel?", "type": "number", "expected": 2.29, "tolerance": 0.005,
+   "note": "ratio question: row-average gives 9.75"},
+  {"id": "Q08", "question": "What was the conversion rate on Mobile, in percent?", "type": "number", "expected": 5.44, "tolerance": 0.005,
+   "note": "conversions / clicks"},
+  {"id": "Q09", "question": "Which week had the highest profit (revenue minus spend)?", "type": "number", "expected": 4, "tolerance": 0},
+  {"id": "Q10", "question": "How many rows lost money (revenue below spend)?", "type": "number", "expected": 3, "tolerance": 0}
+]

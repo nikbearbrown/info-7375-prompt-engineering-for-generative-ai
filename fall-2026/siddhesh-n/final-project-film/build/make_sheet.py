@@ -75,92 +75,120 @@ OPEN = [
         qc={"sparse_by_design": True, "sparse_reason": "TERMS card: three prerequisites, one line each."}),
 ]
 
+# ── facts from the user's own test (fill from the real screenshot; never invent) ──
+CHAT_TOOL = "ChatGPT"            # which assistant was used
+CHAT_DATE = "October twenty-fourth"
+CHAT_ANSWER = "Search"          # the channel it named, exactly as it said it
+CHAT_RIGHT = True                # True / False once known
+
+if CHAT_RIGHT is True:
+    chat_line = (f"It answered {CHAT_ANSWER}, which is right. But there is no fixed test set, so no record of "
+                 "how often it is right on my questions, or which ones it gets wrong.")
+elif CHAT_RIGHT is False:
+    chat_line = (f"It answered {CHAT_ANSWER}. The right answer is Search. It looked plausible, and nothing "
+                 "told me it was wrong: there was no test set and no score.")
+else:
+    raise SystemExit("set CHAT_ANSWER / CHAT_RIGHT from the real screenshot first")
+
 B = [
     beat("B00",
-         "Here is the project in one sentence. CheckedSQL will let a marketing analyst ask a question in plain "
-         "English, have Claude write the S Q L, run it on a campaign database, and show the answer with the "
-         "query and a check.",
+         "One sentence. CheckedSQL will let a marketing analyst ask a campaign question in plain English, have "
+         "Claude write the S Q L, run it on the data, and show the answer beside the query, scored against an "
+         "answer key.",
          "B00_OneSentence",
-         "A question page slides into a dark database stack; its lights come on; a query page comes out the other side and an ink check lands beside it.",
-         [{"at": 0.15, "event": "question page slides in"}, {"at": 0.4, "event": "database lights"},
-          {"at": 0.7, "event": "query page out, check"}]),
+         "The real test question 'Which channel had the highest ROAS?' slides into a dark Claude block (planned), a SQL page comes out, runs on the campaigns table, and the answer 'Search' lands with a check.",
+         [{"at": 0.15, "event": "question card"}, {"at": 0.35, "event": "Claude block"},
+          {"at": 0.55, "event": "SQL page into the data"}, {"at": 0.8, "event": "answer Search + check"}]),
     beat("B01",
-         "When it's done, it will be a GitHub repository with four things. A synthetic campaign dataset. The "
-         "question tool, written in Python. A test set of about thirty questions. And an evaluation log that "
-         "records every pass and every miss.",
+         "When it's done, it will be a GitHub repository, and part of it already runs. On October "
+         "twenty-fourth, with Claude's help, I built the synthetic dataset, ten test questions with an answer key, and the checker. "
+         "Still to come: the prompt contract, the Claude step, and the evaluation log.",
          "B01_Repo",
-         "An open kraft box (the repo) sits on stage; a dark data block, a tool page, a stack of test pages and a log page drop into it one by one.",
-         [{"at": 0.1, "event": "open box"}, {"at": 0.3, "event": "dataset block"},
-          {"at": 0.5, "event": "tool page"}, {"at": 0.65, "event": "test stack"}, {"at": 0.85, "event": "log page"}]),
+         "An open repo box. Three solid parts drop in, labelled with their real file names. Three ghost outlines for the parts still to build.",
+         [{"at": 0.3, "event": "three real files drop in"}, {"at": 0.75, "event": "three ghost outlines draw"}]),
     beat("B02",
-         "I looked at two real alternatives. The first is one I built: a Tableau dashboard for my marketing "
-         "campaign project. It answers the questions I planned in advance. A new question means building a "
-         "new view.",
+         "Why would anyone care? The first alternative is a fixed dashboard, like the Tableau dashboard in my "
+         "marketing campaign project, which I made with AI help. It answers the questions planned in advance. "
+         "A new question means building a new view.",
          "B02_Dashboard",
-         "A dashboard panel with grey bars grows; a new question page slides toward it and bounces back.",
-         [{"at": 0.25, "event": "dashboard bars grow"}, {"at": 0.75, "event": "new question bounces off"}]),
+         "A dashboard with three coloured channel bars grows; a new question card slides toward it and bounces back.",
+         [{"at": 0.4, "event": "dashboard bars"}, {"at": 0.8, "event": "new question bounces"}]),
     beat("B03",
-         "The second is pasting a question into a general chat assistant. It writes a query, and some can run "
-         "code on an uploaded file, but there's no fixed test set, so no record of how often it's right on my "
-         "questions. CheckedSQL's difference: every answer is run, shown with its query, and scored against "
-         "answers I checked by hand.",
-         "B03_Scored",
-         "A chat window passes a query page out; then the page rides through a gate made of a stack of test pages, and a check lands.",
-         [{"at": 0.2, "event": "chat window, query out"}, {"at": 0.7, "event": "page through the test gate"},
-          {"at": 0.85, "event": "check"}]),
+         f"The second is a general chat assistant. On {CHAT_DATE}, I gave {CHAT_TOOL} my campaign data and asked "
+         f"which channel had the highest ROAS. {chat_line} CheckedSQL runs every answer, shows its query, and scores it.",
+         "B03_ChatTest",
+         "My real ChatGPT answer (cropped screenshot, Oct 24) framed; an arrow to 'Search'; my answer-key card agrees with a check; then a row of ten questions with only one answered: one answer is not a record.",
+         [{"at": 0.25, "event": "screenshot"}, {"at": 0.4, "event": "arrow to its answer"}, {"at": 0.5, "event": "key agrees"}, {"at": 0.75, "event": "1 of 10"}]),
     beat("B04",
-         "The target role is data analyst, and the first reader is a hiring manager. In the first sixty seconds, "
-         "they'll open the README, see the score table from the test set, and run one command that prints the "
-         "query, the answer, and whether it matched.",
+         "Who opens it? A hiring manager for a data analyst role. In the first sixty seconds, they open the "
+         "README, run one command, python three checker dot P Y, and see a score table. That command already works today.",
          "B04_SixtySeconds",
-         "A README window opens with a grey score table; a dark terminal strip slides under it and a check appears; a large '60 s' sits beside it.",
-         [{"at": 0.2, "event": "60 s"}, {"at": 0.45, "event": "README window"},
-          {"at": 0.75, "event": "terminal strip, check"}]),
+         "'60 s'; a README window; a dark terminal strip with the real command and the real score line '10/10'.",
+         [{"at": 0.2, "event": "60 s"}, {"at": 0.45, "event": "README"}, {"at": 0.75, "event": "terminal + score"}]),
     beat("B05",
-         "What will it prove? That I write S Q L and define marketing metrics correctly, which I already do. And "
-         "that I can use what this course teaches: a prompt contract, verification against known answers, and a "
-         "repeatable evaluation. The evidence: the test set, the log, and a write-up of every failure.",
+         "What will it prove? That I can get marketing metrics right and check them against an answer key. "
+         "And three course skills: a prompt contract, verification against known answers, and evaluation I can repeat. "
+         "Verification and evaluation now have real evidence: the checker and its score table. The contract is next.",
          "B05_Proves",
-         "Three pages stand in a row: contract, verification, evaluation; a terracotta dot lands on each as it is named, then the log page slides under them.",
-         [{"at": 0.4, "event": "contract"}, {"at": 0.55, "event": "verification"},
-          {"at": 0.7, "event": "evaluation"}, {"at": 0.85, "event": "log page"}]),
+         "Three cards: contract (ghost, planned), verification and evaluation (solid, each gets a check); an evidence page slides under the two real ones.",
+         [{"at": 0.35, "event": "three cards"}, {"at": 0.7, "event": "checks on the real two"}]),
     beat("B06",
-         "What's out. It will not change the database. It will only run read-only queries, on this one campaign "
-         "schema. No dashboards, and no real company data.",
+         "What's out: it will never change the database. The checker already refuses anything but a single "
+         "read-only SELECT. One schema, no dashboards, and no real company data: these twenty-four rows are synthetic.",
          "B06_ReadOnly",
-         "The dark database stack; an arrow out of it gets a check (read); an arrow into it is crossed out (write).",
-         [{"at": 0.25, "event": "read arrow + check"}, {"at": 0.6, "event": "write arrow crossed"}]),
-    beat("B07",
-         "What comes first: the test set and the checker, before any Claude call. I'll write ten questions, work "
-         "out their answers by hand, and run my own queries through the checker as a baseline. You'll know it ran "
-         "when one command prints a score table. Then Claude gets the same ten.",
-         "B07_Baseline",
-         "Ten small question pages in a row pass through a grey gate one after another; ink checks appear above them.",
-         [{"at": 0.2, "event": "ten pages"}, {"at": 0.6, "event": "through the gate"}, {"at": 0.85, "event": "checks"}]),
+         "The campaigns table; a write arrow is crossed out; a read arrow gets a check, labelled SELECT only; '24 rows · synthetic'.",
+         [{"at": 0.25, "event": "write crossed"}, {"at": 0.5, "event": "SELECT only + check"}, {"at": 0.8, "event": "24 rows"}]),
+]
+
+BASELINE = remotion(
+    "B07", "pitch",
+    "What came first was the baseline, before any Claude call: ten questions, an answer key worked out from "
+    "the totals, and baseline S Q L drafted with Claude. The checker printed ten out of ten. Then I added two deliberately wrong "
+    "queries that average ROAS row by row. The checker failed both.",
+    "ShowTellCard",
+    {"kind": "focus", "heading": "Baseline run, Oct 24 (real)", "focus": 2,
+     "items": [{"label": "Q03 overall ROAS", "value": "2.74 PASS"},
+               {"label": "Q06 best channel", "value": "Search PASS"},
+               {"label": "Q06 trap: row average", "value": "Email FAIL"},
+               {"label": "Q07 Email ROAS", "value": "2.29 PASS"},
+               {"label": "Score", "value": "10/10"}],
+     "durationSeconds": 14.0},
+    [{"at": 0.05, "event": "real score rows land"}, {"at": 0.6, "event": "lens stops on the trap row"}],
+    gate="CARD", lane="card",
+    cue_phrases=["ten out of ten", "two deliberately wrong"])
+BASELINE["lane"] = "card"
+
+B += [BASELINE,
     beat("B08",
-         "What could sink it: an answer that looks right but isn't. ROAS is a ratio. Average it row by row, and "
-         "you get a different number than total revenue over total spend, and both look plausible. My fix: put "
-         "the metric definitions in the prompt contract, and add ratio questions to the test set, so this mistake "
-         "gets caught and logged.",
-         "B08_Ratio",
-         "Two grey bars of different heights labelled 'row average' and 'total ÷ total'; a check lands on the total bar and a test page slides in.",
-         [{"at": 0.3, "event": "two bars grow"}, {"at": 0.7, "event": "check on total"}, {"at": 0.85, "event": "test page"}]),
+         "What could sink it? An answer that looks right but isn't. These are Email's eight real rows. Four of "
+         "them spend almost nothing and return fourteen to twenty times that. Average the row ratios, and Email's "
+         "ROAS comes out at nine point seven five.",
+         "B08_RowTrap",
+         "Eight blue bars, one per Email row, height = that row's ROAS; four tower; a dashed line lands at 9.75, labelled row average.",
+         [{"at": 0.4, "event": "eight row bars grow"}, {"at": 0.8, "event": "average line 9.75"}]),
     beat("B09",
-         "Why this project? It's a mix. S Q L, PostgreSQL and pandas, I already have. My marketing campaign "
-         "analytics repository on GitHub computes click-through rate and return on ad spend with them. New to me "
-         "are calling Claude from Python, writing prompt contracts, and building an evaluation harness. That's the "
-         "part I'm here to learn.",
-         "B09_HaveNew",
-         "Left: a closed taped box (have). Right: an open box that pages drop into (new).",
-         [{"at": 0.2, "event": "have box"}, {"at": 0.6, "event": "new box fills"}]),
+         "Divide total revenue by total spend instead, and Email is two point two nine. The best channel is "
+         "Search, not Email. Both numbers look plausible. My fix: the metric definition goes in the prompt "
+         "contract, and the test set has ratio questions, so this mistake gets caught, as it just was.",
+         "B09_TotalFix",
+         "The 9.75 ghost bar is crossed out; three channel bars at their true ROAS (Email 2.29, Search 3.98, Social 1.05); a check lands on Search.",
+         [{"at": 0.25, "event": "true bars"}, {"at": 0.55, "event": "check on Search"}, {"at": 0.85, "event": "test page"}]),
     beat("B10",
-         "What exists today: my two earlier GitHub repositories, and this pitch. Nothing of CheckedSQL is built "
-         "yet. The dataset, the tool, the test set and the log will exist. What I don't know yet is whether "
-         "thirty questions is enough. I'll find out by watching whether new questions keep finding new kinds of "
-         "failure.",
-         "B10_TodayWill",
-         "Left: two solid boxes (today). Right: four ghost-outlined boxes (will), drawn one by one.",
-         [{"at": 0.15, "event": "today boxes"}, {"at": 0.45, "event": "will boxes draw"}]),
+         "Why this project? Mostly to learn. My earlier marketing campaign repository was built with a lot of AI "
+         "help, so it shows the domain I care about, metrics like click-through rate and return on ad spend, more "
+         "than it proves I can code alone. New to me: writing and checking S Q L myself, calling Claude from "
+         "Python, prompt contracts, and evaluation. This project is how I'll prove those.",
+         "B10_HaveNew",
+         "Left: a closed taped box labelled have: campaign KPIs (repo built with AI help). Right: an open box that four pages drop into, labelled new.",
+         [{"at": 0.2, "event": "have box"}, {"at": 0.6, "event": "new box fills"}]),
+    beat("B11",
+         "So, what exists today: my two earlier repositories, this film, and the first piece of CheckedSQL: the "
+         "dataset, the questions, the answer key, and the checker. What will exist: the prompt contract, the "
+         "Claude step, thirty questions, and the evaluation log. What I don't know yet is whether thirty is "
+         "enough. I'll find out by watching whether new questions keep finding new kinds of failure.",
+         "B11_TodayWill",
+         "Left: solid boxes for what exists (two repos, film, checker). Right: ghost boxes for what will exist, drawn one by one.",
+         [{"at": 0.2, "event": "today boxes"}, {"at": 0.55, "event": "will boxes draw"}]),
 ]
 
 BOUT = {"beat_id": "BOUT", "act": "outro", "lane": "manim", "proof_gate": "SHOW",
