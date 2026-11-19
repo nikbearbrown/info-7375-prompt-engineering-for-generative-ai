@@ -45,6 +45,9 @@ THRESHOLD = rule.SKILLS_NEEDED  # F6: a score of 2 or more
 # FILTER.md §5's seniority words, the list the level option is measured with.
 SENIORITY_WORDS = ("Senior", "Staff", "Lead", "Group", "Principal", "Director", "Head of")
 DEFAULT_OPTIONS = {"skills_needed": THRESHOLD, "seniority_words": None, "max_years": None}
+# FILTER.md v2: F6 (v2), the skills threshold is 0, so C3 only asks that the text exist; F9, level by
+# title (the seniority words); F10, level by text (a stated minimum above 3 years). v1 stays the default.
+V2_OPTIONS = {"skills_needed": 0, "seniority_words": SENIORITY_WORDS, "max_years": 3}
 
 # The years pattern (option max_years). A stated minimum is a number of one or two digits, then
 # optionally "+" or a range to a second number (hyphen, en dash, em dash or "to", spaces allowed,
