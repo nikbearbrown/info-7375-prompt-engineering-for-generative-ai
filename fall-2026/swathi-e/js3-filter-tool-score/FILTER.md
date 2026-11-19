@@ -226,3 +226,11 @@ No broad US city-name lookup in R4 yet.
 Why: the audit exposed city-only locations ("SEA", "Chicago") as a
 limitation, but none of the 48 final verdicts changed solely because of it.
 It stays a documented limitation for future evaluation.
+
+### Addendum (2026-11-19) — optional statements in R5
+An optional word makes an experience statement optional only when it is in
+the same clause (commas, semicolons and full stops are boundaries).
+"ideal"/"ideally" are removed from the optional words because in this data
+they mostly describe the domain, not the requirement.
+Found by existing test W3 (Plaid 4d2f0d16: "3+ years of relevant FP&A
+experience, ideally in Corporate Finance..."), which must stay unchanged.
