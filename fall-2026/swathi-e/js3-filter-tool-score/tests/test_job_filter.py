@@ -33,6 +33,8 @@ import parsers  # noqa: E402
 import rule  # noqa: E402
 
 REAL_NOV5_PLAID = HERE / "runs" / "2026-11-05T23-11-48-228373-0500" / "005-plaid-request.json"
+REAL_NOV17_STRIPE = HERE / "runs" / "2026-11-17T21-47-06-167440-0500" / "003-stripe-request.json"
+REAL_NOV17_DATABRICKS = HERE / "runs" / "2026-11-17T21-47-06-167440-0500" / "001-databricks-request.json"
 FRAUD_ANALYST = "1bcfe93d-97bd-4618-b81e-dc308ef69d30"
 VERDICTS = {"shortlisted", "not shortlisted", "rejected", "I cannot tell"}
 
@@ -97,6 +99,15 @@ def real_plaid():
     with no_network():
         postings, _ = parsers.parse_ashby(REAL_NOV5_PLAID.read_bytes(), include_description=True)
     return {p["id"]: p for p in postings}
+
+
+def real_nov17(raw_file, posting_id):
+    """One REAL posting from the saved Nov 17 LIVE run (Greenhouse), parsed with its description, read-only."""
+    with no_network():
+        postings, _ = parsers.parse_greenhouse(raw_file.read_bytes(), include_description=True)
+    found = [p for p in postings if str(p["id"]) == posting_id]
+    assert len(found) == 1, (raw_file.name, posting_id, len(found))
+    return found[0]
 
 
 class R1Role(unittest.TestCase):
@@ -260,6 +271,94 @@ class R5Experience(unittest.TestCase):
         res = evaluate(self.with_experience("This role is not for new graduates."))
         self.assertEqual(res["verdict"], "rejected")
 
+    def test_R5f_n_or_more_years_is_rejected(self):
+        """R5f, FILTER.md R5 and D4: "N or more years" is open-ended, so it is rejected, like "N+ years".
+        Regression found in the JS3 audit (2026-11-18): REAL Stripe 8248088 asks "7 or more years of
+        cross-border tax experience" and the filter said "I cannot tell". SIMULATED "7 or more years"
+        and "1 or more years" (the D4 boundary), then the REAL posting from the saved Nov 17 run."""
+        for text, quote in (("7 or more years of cross-border tax experience.", "7 or more years"),
+                            ("1 or more years of experience.", "1 or more years")):
+            with self.subTest(text=text):
+                res = evaluate(self.with_experience(text))
+                self.assertEqual(result(res, "R5"), "fail")
+                self.assertEqual(res["verdict"], "rejected")
+                self.assertTrue(any(quote in q for q in res["rules"]["R5"]["quotes"]))
+        with no_network():
+            postings, _ = parsers.parse_greenhouse(REAL_NOV17_STRIPE.read_bytes(), include_description=True)
+        real = [p for p in postings if str(p["id"]) == "8248088"]
+        self.assertEqual(len(real), 1)
+        res = evaluate(real[0])
+        self.assertEqual(result(res, "R5"), "fail")
+        self.assertEqual(res["verdict"], "rejected")
+        self.assertTrue(any("7 or more years" in q for q in res["rules"]["R5"]["quotes"]))
+
+    def test_R5g_more_experience_phrasings_are_rejected(self):
+        """R5g, FILTER.md change log 2026-11-19 (R5 parsing). SIMULATED: each adopted phrasing asks for
+        more than 1 year, so R5 fails with a quote containing the phrase."""
+        cases = (("7 years or more of experience in data engineering.", "7 years or more"),
+                 ("At least seven years of experience in data engineering.", "seven years"),
+                 ("Minimum of 5 years of experience in data engineering.", "5 years"),
+                 ("Minimum 5 years of experience in data engineering.", "Minimum 5 years"),
+                 ("Five (5) years of experience in data engineering.", "Five (5) years"),
+                 ("5 years+ of experience in data engineering.", "5 years+"),
+                 ("4 years' experience in data engineering.", "4 years'"),
+                 ("4 years’ experience in data engineering.", "4 years’"))
+        for text, phrase in cases:
+            with self.subTest(text=text):
+                res = evaluate(self.with_experience(text))
+                self.assertEqual(result(res, "R5"), "fail")
+                self.assertEqual(res["verdict"], "rejected")
+                self.assertTrue(any(phrase in q for q in res["rules"]["R5"]["quotes"]))
+
+    def test_R5h_years_of_education_are_not_work_experience(self):
+        """R5h, FILTER.md change log 2026-11-19 (only professional work experience counts). SIMULATED:
+        years of university education or study next to "0-1 years of experience" do not reject."""
+        for text in ("Two years of university education or equivalent experience.",
+                     "At least two years of university study in computer science."):
+            with self.subTest(text=text):
+                res = evaluate(posting(description=stripe_html(
+                    ("Responsibilities", "Build machine learning features in Python."),
+                    ("Who you are", "0-1 years of experience."), ("Education", text))))
+                self.assertEqual(result(res, "R5"), "pass")
+                self.assertEqual(res["verdict"], "shortlisted")
+
+    def test_R5i_largest_mandatory_minimum_decides(self):
+        """R5i, FILTER.md change log 2026-11-19 (largest required minimum decides). SIMULATED, in the
+        shape of Stripe 8384287: "one (1) year" and "five (5) years" both mandatory: R5 fails, quoting
+        "five (5) years". "one (1) year" alone fits 0-1 years: R5 passes."""
+        res = evaluate(posting(description=stripe_html(
+            ("Responsibilities", "Build machine learning features in Python."),
+            ("Minimum requirements", "Must have one (1) year of experience in SQL."),
+            ("Qualifications", "Must also have five (5) years of experience in Python."))))
+        self.assertEqual(result(res, "R5"), "fail")
+        self.assertTrue(any("five (5) years" in q for q in res["rules"]["R5"]["quotes"]))
+        res = evaluate(self.with_experience("Must have one (1) year of experience in SQL.", heading="Minimum requirements"))
+        self.assertEqual(result(res, "R5"), "pass")
+
+    def test_R5j_optional_experience_does_not_reject(self):
+        """R5j, FILTER.md change log 2026-11-19 (optional statements do not reject). SIMULATED: more
+        than 1 year stated as a plus, preferred, recommended, or under a "Preferred qualifications"
+        heading, next to "0-1 years of experience": R5 passes."""
+        optional = (("Who you are", "3+ years of experience is a plus."),
+                    ("Who you are", "8+ years of related experience preferred."),
+                    ("Who you are", "Recommended: 2+ years of experience with Spark."),
+                    ("Preferred qualifications", "5+ years of experience in data engineering."))
+        for heading, text in optional:
+            with self.subTest(text=text):
+                res = evaluate(posting(description=stripe_html(
+                    ("Responsibilities", "Build machine learning features in Python."),
+                    ("Minimum requirements", "0-1 years of experience."), (heading, text))))
+                self.assertEqual(result(res, "R5"), "pass")
+                self.assertEqual(res["verdict"], "shortlisted")
+
+    def test_R5k_explicit_alternatives(self):
+        """R5k, FILTER.md change log 2026-11-19 (alternatives joined by "or"). SIMULATED: a line rejects
+        only if every alternative asks for more than 1 year."""
+        res = evaluate(self.with_experience("MS plus 2 years of experience, or BS plus 3 years of experience."))
+        self.assertEqual(result(res, "R5"), "fail")
+        res = evaluate(self.with_experience("PhD with 0-1 years of experience, or MS with 2+ years of experience."))
+        self.assertEqual(result(res, "R5"), "pass")
+
 
 class R6Authorization(unittest.TestCase):
     def with_text(self, text, heading="Who you are"):
@@ -291,6 +390,43 @@ class R6Authorization(unittest.TestCase):
         for p in real:
             with self.subTest(id=p["id"]):
                 self.assertNotEqual(result(evaluate(p), "R6"), "fail")
+
+    def test_R6d_explicit_citizenship_and_clearance_requirements_reject(self):
+        """R6d, FILTER.md change log 2026-11-19 (R6 wording). SIMULATED requirement sentences each
+        reject; then REAL databricks 8760167002 (Nov 17 run), whose "U.S. citizenship and eligibility
+        for a U.S. government secret clearance are required" version 1 left as "I cannot tell"."""
+        for text in ("U.S. citizenship and eligibility for a U.S. government secret clearance are required "
+                     "to access classified information.",
+                     "This role requires U.S. citizenship.",
+                     "Must have an active Secret clearance.",
+                     "This role requires an active Top Secret Clearance.",
+                     "Required: Candidates have active Top Secret / TS/SCI clearance."):
+            with self.subTest(text=text):
+                res = evaluate(self.with_text(text))
+                self.assertEqual(result(res, "R6"), "fail")
+                self.assertEqual(res["verdict"], "rejected")
+        res = evaluate(real_nov17(REAL_NOV17_DATABRICKS, "8760167002"))
+        self.assertEqual(result(res, "R6"), "fail")
+        self.assertEqual(res["verdict"], "rejected")
+        self.assertTrue(any("U.S. citizenship" in q for q in res["rules"]["R6"]["quotes"]))
+
+    def test_R6e_non_restrictive_mentions_do_not_reject(self):
+        """R6e, FILTER.md change log 2026-11-19 (not counted). SIMULATED mentions of government
+        customers, security work, regulatory clearance, citizenship status, and clearance as preferred
+        or an advantage: R6 passes and the posting is shortlisted. Then REAL databricks 8206138002
+        (audit row 33, "Eligibility for security clearance; existing clearance is an advantage."):
+        R6 passes."""
+        for text in ("You will build data platforms for government customers and security teams.",
+                     "Execute regulatory clearance strategies required for acquisitions.",
+                     EEO,
+                     "Eligibility for security clearance; existing clearance is an advantage.",
+                     "An active security clearance is preferred.",
+                     "[Preferred] Active US security clearance (i.e. Top Secret, or TS/SCI)."):
+            with self.subTest(text=text):
+                res = evaluate(self.with_text(text))
+                self.assertEqual(result(res, "R6"), "pass")
+                self.assertEqual(res["verdict"], "shortlisted")
+        self.assertEqual(result(evaluate(real_nov17(REAL_NOV17_DATABRICKS, "8206138002")), "R6"), "pass")
 
 
 class R7Topics(unittest.TestCase):
@@ -489,6 +625,28 @@ class Decisions(unittest.TestCase):
                 res = evaluate(p)
                 self.assertEqual(result(res, "R5"), "pass")
                 self.assertEqual(res["points"]["early"], 2)
+
+    def test_U1_university_in_description_is_not_early_career_evidence(self):
+        """U1, FILTER.md change log 2026-11-19 (university false friend). SIMULATED: "university" only in
+        description text, with no experience stated: R5 cannot tell, "I cannot tell". Then REAL Stripe
+        8186445 (Nov 17 run), which version 1 passed on "(in a university or professional setting)"
+        alone: R5 no longer passes."""
+        for text in ("You have worked on coding projects in a university or professional setting.",
+                     "Two years of university education or equivalent experience."):
+            with self.subTest(text=text):
+                res = evaluate(posting(description=stripe_html(
+                    ("Responsibilities", "Build machine learning features in Python."), ("Who you are", text))))
+                self.assertEqual(result(res, "R5"), "cannot tell")
+                self.assertEqual(res["verdict"], "I cannot tell")
+        self.assertNotEqual(result(evaluate(real_nov17(REAL_NOV17_STRIPE, "8186445")), "R5"), "pass")
+
+    def test_U2_university_in_the_title_still_counts(self):
+        """U2, FILTER.md change log 2026-11-19 (university counts in the job title). SIMULATED title
+        "Machine Learning Engineer, University Graduate" with no experience stated: R5 passes, early 2."""
+        res = evaluate(posting(title="Machine Learning Engineer, University Graduate",
+                               description=stripe_html(("Responsibilities", "Build machine learning features."))))
+        self.assertEqual(result(res, "R5"), "pass")
+        self.assertEqual(res["points"]["early"], 2)
 
     def test_D4_one_plus_years_is_rejected(self):
         """D4, FILTER.md Revision (decisions D1-D7): "1+ years" is rejected (open upper end). SIMULATED."""

@@ -56,6 +56,7 @@ rejected or "I cannot tell".
 | R5c | SIM | "0-2 years": R5 fail, `rejected` | Revision: R5 ranges; wrong version 4 |
 | R5d | SIM + REAL | "2–4 years" (en dash): `rejected`; real d2c9d8b1 rejected by R5, quote contains "4–6 years" | R5 |
 | R5e | SIM | "not for new graduates": `rejected` | R5 |
+| R5f | SIM + REAL | Added 2026-11-18 after the JS3 audit, against the existing filter code. "7 or more years", "1 or more years": R5 fail, `rejected`, quote contains the phrase; real Stripe 8248088 (Nov 17 run) R5 fail, `rejected`, quote contains "7 or more years". Predicted against the current code: **fails** (R5 "cannot tell") until R5 reads "N or more years" | R5, D4 |
 | R6a | SIM | Citizenship required, security clearance required, will not / unable to sponsor, without sponsorship: R6 fail, `rejected` | R6, D5 |
 | R6b | SIM | Export-control "Compliance" paragraph: R6 pass, `shortlisted` | R6; wrong version 2 |
 | R6c | REAL | Posting 7072d96d ("sponsorship assets"): R6 not fail | R6, D5 |
@@ -101,3 +102,26 @@ job). So every scored posting already has early 2. With a role match, that is
 words therefore cannot change any verdict, and the "role + 2 topic words"
 path (SC2) cannot happen in a real evaluation. SC2 and SC3 check the score
 arithmetic directly instead.
+
+## Added 2026-11-19: version 1.1 regression tests (FILTER.md change log 2026-11-19)
+
+Written by Claude Code on 2026-11-19 from the decisions recorded in FILTER.md
+("Change log: Rules changed after measuring — 2026-11-19", commit `4a6dcfb`).
+These are **predictions** against the unchanged version 1 code (`job_filter.py`
+as committed at `6e6b4bf`), recorded before the tests were run. They are not
+results. R5f is listed above. Data: SIM = built in the test; REAL = the saved
+Nov 17 LIVE run, `runs/2026-11-17T21-47-06-167440-0500/`, read-only.
+
+| Test | Data | Expected after the change | Predicted against version 1 | FILTER.md item |
+|---|---|---|---|---|
+| R5g | SIM | "7 years or more", "At least seven years", "Minimum of 5 years", "Minimum 5 years", "Five (5) years", "5 years+", "4 years' experience", "4 years’ experience": R5 fail, `rejected`, quote contains the phrase | **fails** on "At least seven years", "Five (5) years", "5 years+", "4 years'", "4 years’" (R5 "cannot tell"); **passes** on "7 years or more", "Minimum of 5 years", "Minimum 5 years" (version 1's "N years … experience" and "minimum of" patterns already match them) | change log: R5 parsing |
+| R5h | SIM | "Two years of university education…", "At least two years of university study…" next to "0-1 years of experience": R5 pass, `shortlisted` | **passes** (a guard: version 1 reads neither as years) | change log: R5, education is not experience |
+| R5i | SIM | "one (1) year" + "five (5) years", both mandatory: R5 fail, quote contains "five (5) years"; "one (1) year" alone: R5 pass | **fails** (R5 "cannot tell": version 1 reads neither) | change log: R5, largest minimum decides |
+| R5j | SIM | "3+ years … is a plus", "8+ years … preferred", "Recommended: 2+ years…", "5+ years…" under "Preferred qualifications", each next to "0-1 years": R5 pass, `shortlisted` | **fails** (version 1 rejects every stated "N+ years") | change log: R5, optional statements |
+| R5k | SIM | "MS plus 2 years…, or BS plus 3 years…": R5 fail; "PhD with 0-1 years…, or MS with 2+ years…": R5 pass | **fails** on the second line (version 1 rejects the "2+ years" alternative) | change log: R5, alternatives |
+| R6d | SIM + REAL | "U.S. citizenship and eligibility for a U.S. government secret clearance are required…", "requires U.S. citizenship", "Must have an active Secret clearance", "requires an active Top Secret Clearance", "Required: … TS/SCI clearance": R6 fail, `rejected`; real databricks 8760167002: R6 fail, `rejected`, quote contains "U.S. citizenship" | **fails** (version 1 matches only "security clearance" and "U.S. citizenship is required") | change log: R6 wording |
+| R6e | SIM + REAL | Government customers, regulatory clearance, equal-opportunity "citizenship status", clearance as an advantage or preferred: R6 pass, `shortlisted`; real databricks 8206138002 (audit row 33): R6 pass | **passes** (a guard against over-matching) | change log: R6, not counted |
+| U1 | SIM + REAL | "university" only in description text, no experience stated: R5 cannot tell, `I cannot tell`; real Stripe 8186445: R5 not pass | **fails** (version 1 counts "university" in a counts section) | change log: university false friend |
+| U2 | SIM | "University Graduate" in the title, no experience stated: R5 pass, early 2 | **passes** (version 1 already counts the title) | change log: university in the title |
+
+Every other existing test should still pass against version 1.
