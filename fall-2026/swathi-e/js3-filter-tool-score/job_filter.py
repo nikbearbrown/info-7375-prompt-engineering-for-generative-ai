@@ -14,7 +14,8 @@ import descriptions
 import loop
 import rule
 
-SOURCE = "filter v1 (record)"
+VERSION = "v1.1"  # FILTER.md change log 2026-11-19
+SOURCE = f"filter {VERSION} (record)"
 JS3_URLS = {"greenhouse": loop.URLS["greenhouse"] + "?content=true", "ashby": loop.URLS["ashby"]}
 
 # R1 role (title), R2 "Analyst", R3 seniority (title)
@@ -28,7 +29,16 @@ SENIORITY_TERMS = ("Senior", "Sr", "Sr.", "Staff", "Principal", "Lead", "Leader"
 EARLY_WORDS = ("new grad", "entry level", "early career", "university")
 # R6 requirement wording (D5)
 R6_PATTERNS = (r"must be (?:a )?U\.?S\.? citizens?", r"U\.?S\.? citizenship (?:is )?required",
-               r"will not sponsor", r"unable to sponsor", r"without sponsorship")
+               r"will not sponsor", r"unable to sponsor", r"without sponsorship",
+               # change log 2026-11-19: citizenship required in the same sentence
+               r"requires? U\.?S\.? citizenship",
+               r"U\.?S\.? citizenship\b(?:(?!\.\s)[^\n]){0,120}?\b(?:is|are)\s+required")
+# R6 clearance (change log 2026-11-19): a qualified clearance with requirement wording on the same line,
+# unless that line calls it preferred, an advantage or a plus
+_CLEARANCE = re.compile(r"(?:security|secret|top\s+secret|TS/SCI|government|active)\b[^.\n;]{0,40}?\bclearances?\b"
+                        r"|\bclearances?\b[^.\n;]{0,30}?(?:TS/SCI|secret)", re.I)
+_REQUIRED = re.compile(r"(?<!\w)(?:required|requires|require|must|mandatory)(?!\w)", re.I)
+_CLEARANCE_OPTIONAL = re.compile(r"(?<!\w)(?:preferred|advantage|a plus)(?!\w)", re.I)
 # R7 topic words and the score
 TOPIC_WORDS = ("machine learning", "deep learning", "LLM", "NLP", "Python", "SQL", "Spark", "data pipeline",
                "statistics")
@@ -57,12 +67,28 @@ _EARLY = {
 }
 _NOT_FOR_NEW_GRADS = re.compile(r"not (?:for|open to|suitable for) new[\s-]+grad(?:uate)?s?", re.I)
 _DASH = r"\s*(?:-|–|—|to)\s*"
-_YEARS = (  # (pattern, kind)
-    (re.compile(r"(?<![\d.])(\d+)" + _DASH + r"(\d+)\s*\+?\s*(?:years?|yrs?)(?!\w)", re.I), "range"),
-    (re.compile(r"(?<![\d.])(\d+)\s*\+\s*(?:years?|yrs?)(?!\w)", re.I), "plus"),
-    (re.compile(r"(?:at least|minimum of|a minimum of|more than|over)\s+(\d+)\s*(?:years?|yrs?)(?!\w)", re.I), "plus"),
-    (re.compile(r"(?<![\d.\-–+])(\d+)\s*(?:years?|yrs?)\s+(?:of\s+)?(?:\w+\s+){0,3}?experience", re.I), "single"),
+# change log 2026-11-19: written-out numbers, optionally followed by the digit: "seven", "five (5)"
+_WORD_NUMBERS = {w: i for i, w in enumerate(
+    ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"), start=1)}
+_NUM = r"(?:\d+|" + "|".join(_WORD_NUMBERS) + r")(?:\s*\(\d+\))?"
+_Y = r"(?:years?|yrs?)(?!\w)"
+_YEARS = (  # (pattern, kind); group 1 (and 2 for a range) is the number
+    (re.compile(r"(?<![\d.])(\d+)" + _DASH + r"(\d+)\s*\+?\s*" + _Y, re.I), "range"),
+    (re.compile(r"(?<![\d.])(\d+)\s*\+\s*" + _Y, re.I), "plus"),
+    (re.compile(r"(?<![\d.\w])(" + _NUM + r")\s*" + _Y + r"\s*\+", re.I), "plus"),  # "5 years+"
+    (re.compile(r"(?<![\d.\w])(" + _NUM + r")\s+or\s+more\s+" + _Y, re.I), "plus"),  # "7 or more years"
+    (re.compile(r"(?<![\d.\w])(" + _NUM + r")\s*" + _Y + r"['’]?\s+or\s+more", re.I), "plus"),  # "7 years or more"
+    (re.compile(r"(?:at least|minimum of|a minimum of|minimum|more than|over)\s+(" + _NUM + r")\s*\+?\s*" + _Y, re.I),
+     "plus"),
+    (re.compile(r"(?<![\d.\-–+\w])(" + _NUM + r")\s*" + _Y + r"['’]?\s+(?:of\s+)?(?:[\w'’-]+\s+){0,3}?experience",
+                re.I), "single"),
 )
+# change log 2026-11-19: years of education are not work experience; optional statements do not reject
+_EDUCATION = re.compile(r"\s*(?:of\s+)?(?:\S+\s+){0,2}?(?:degree|education|study|studies|coursework|schooling)(?!\w)",
+                        re.I)
+# addendum 2026-11-19: an optional word counts only in the statement's clause; "ideal"/"ideally" removed
+_OPTIONAL = re.compile(r"(?<!\w)(?:preferred|a plus|nice to have|bonus|recommended)(?!\w)", re.I)
+_OPTIONAL_HEADING = re.compile(r"(?<!\w)(?:preferred|nice to have|bonus)(?!\w)", re.I)
 
 
 def _quote(text, start, end):
@@ -92,18 +118,66 @@ def _is_english(text):
     return bool(letters) and sum(c.isascii() for c in letters) / len(letters) >= 0.5
 
 
-def _experience_statements(text):
-    """[(low, high, quote)] for stated experience in years; high is None for open-ended."""
+def _number(token):
+    """5 from "5", "five" or "five (5)"; the digit in parentheses wins."""
+    digits = re.findall(r"\d+", token)
+    return int(digits[-1]) if digits else _WORD_NUMBERS[token.strip().lower()]
+
+
+def _line_at(text, pos):
+    start = text.rfind("\n", 0, pos) + 1
+    end = text.find("\n", pos)
+    return start, len(text) if end == -1 else end
+
+
+def _clause_at(text, start, end):
+    """The clause around [start, end): commas, semicolons, full stops and line ends are boundaries."""
+    before = max(text.rfind(c, 0, start) for c in ",;.\n") + 1
+    after = [i for i in (text.find(c, end) for c in ",;.\n") if i != -1]
+    return text[before:min(after) if after else len(text)]
+
+
+def _is_education(text, m):
+    """True when one of the first words after "years" (before "experience" or the end of the clause) names
+    education, as in "two years of university education"."""
+    years = list(re.finditer(_Y, m.group(), re.I))[-1]
+    after = text[m.start() + years.end():]
+    clause = re.split(r"experience|[.;,\n]", after, maxsplit=1, flags=re.I)[0]
+    return bool(_EDUCATION.match(clause))
+
+
+def _experience_statements(text, optional_lines=frozenset()):
+    """[(low, high, quote)] for mandatory work experience stated in years; high is None for open-ended.
+
+    Change log 2026-11-19 and addendum: years of education and optional statements (an optional word in
+    the statement's clause, or a line in optional_lines) are left out; on a line whose statements are
+    alternatives joined by "or", the alternatives above 1 year are left out when another alternative fits
+    0-1 years.
+    """
     found, taken = [], []
     for pattern, kind in _YEARS:
         for m in pattern.finditer(text):
             if any(s < m.end() and m.start() < e for s, e in taken):
                 continue
             taken.append((m.start(), m.end()))
-            low = int(m.group(1))
-            high = int(m.group(2)) if kind == "range" else (low if kind == "single" else None)
-            found.append((low, high, _quote(text, m.start(), m.end())))
-    return found
+            line = text[slice(*_line_at(text, m.start()))]
+            if (_is_education(text, m) or _OPTIONAL.search(_clause_at(text, m.start(), m.end()))
+                    or line.strip() in optional_lines):
+                continue
+            low = _number(m.group(1))
+            high = _number(m.group(2)) if kind == "range" else (low if kind == "single" else None)
+            found.append((m.start(), m.end(), low, high, _quote(text, m.start(), m.end())))
+    found.sort()
+    kept = []
+    for i, (start, end, low, high, quote) in enumerate(found):
+        same_line = [f for f in found if _line_at(text, f[0]) == _line_at(text, start)]
+        alternatives = len(same_line) > 1 and all(
+            re.search(r"(?<!\w)or(?!\w)", text[a[1]:b[0]]) for a, b in zip(same_line, same_line[1:]))
+        fits = lambda f: f[3] is not None and f[3] <= 1
+        if alternatives and not fits(found[i]) and any(fits(f) for f in same_line):
+            continue
+        kept.append((low, high, quote))
+    return kept
 
 
 def score_points(role, early, topics):
@@ -194,13 +268,16 @@ def evaluate(posting):
         claims["in the US"] = ("contradicted" if foreign else "insufficient", location if foreign else None,
                                "location" if foreign else None)
 
-    # R5 experience (whole description); early-career words only in the title or a counts section (D3)
+    # R5 experience (whole description); early-career words only in the title or a counts section (D3);
+    # "university" only in the title (change log 2026-11-19)
     not_for = _NOT_FOR_NEW_GRADS.search(text)
-    statements = _experience_statements(text)
+    optional_lines = frozenset(line.strip() for s in sections if _OPTIONAL_HEADING.search(s.heading)
+                               for line in s.text.split("\n"))
+    statements = _experience_statements(text, optional_lines)
     too_much = [(lo, hi, q) for lo, hi, q in statements if hi is None or hi > 1]
     fits = [(lo, hi, q) for lo, hi, q in statements if hi is not None and hi <= 1]
     early_hits = [(w, q) for w, pat in _EARLY.items()
-                  for src in (title, counts_text) for m in [pat.search(src)] if m
+                  for src in ((title,) if w == "university" else (title, counts_text)) for m in [pat.search(src)] if m
                   for q in [_quote(src, m.start(), m.end())]]
     if not_for:
         q = _quote(text, not_for.start(), not_for.end())
@@ -225,8 +302,8 @@ def evaluate(posting):
         if m:
             r6.append(_quote(text, m.start(), m.end()))
     for line in text.split("\n"):
-        m = re.search(r"security clearance", line, re.I)
-        if m and re.search(r"(?<!\w)(?:required|requires|require|must)(?!\w)", line, re.I):
+        m = _CLEARANCE.search(line)
+        if m and _REQUIRED.search(line) and not _CLEARANCE_OPTIONAL.search(line):
             r6.append(_quote(line, m.start(), m.end()))
     rules["R6"] = (_rule("fail", "requires citizenship or clearance, or will not sponsor", r6) if r6
                    else _rule("pass", "no citizenship, clearance or sponsorship requirement wording"))

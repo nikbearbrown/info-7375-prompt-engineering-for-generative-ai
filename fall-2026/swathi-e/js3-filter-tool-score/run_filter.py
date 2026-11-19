@@ -6,7 +6,8 @@ For each board in the run's trace.json, it takes the raw response of that
 board's successful request, checks its sha256 against the trace, parses it with
 descriptions, and evaluates every posting. Boards that failed in the run are
 listed as failed, with no postings. The results are written once (never
-overwritten) to runs/filter-<run id>/results.json, with a reference to the run,
+overwritten) to runs/filter-<version>-<run id>/results.json (version 1 wrote
+runs/filter-<run id>/results.json), with a reference to the run,
 each raw file and its sha256, and the sha256 of FILTER.md, job_filter.py,
 descriptions.py and parsers.py, so the results can be recomputed.
 """
@@ -58,7 +59,7 @@ def filter_run(run_dir, pol):
     shortlist = [{"board": e["board"], "posting_id": e["posting_id"], "title": e["title"], "score": e["score"]}
                  for e in job_filter.order_shortlist([{**r, "id": r["posting_id"]} for r in results])]
     return {
-        "label": f"record: filter v1 applied offline to the saved LIVE collection run {trace['run_id']}",
+        "label": f"record: filter {job_filter.VERSION} applied offline to the saved LIVE collection run {trace['run_id']}",
         "source_run": {"run_id": trace["run_id"], "trace": (run_dir / "trace.json").relative_to(pol.root).as_posix(),
                        "trace_sha256": sha256(run_dir / "trace.json"), "exit": trace["exit"]},
         "code": {f: sha256(HERE / f) for f in ("FILTER.md", "job_filter.py", "descriptions.py", "parsers.py")},
@@ -74,7 +75,7 @@ def main(argv=None):
     pol = policy_module.Policy(HERE)
     run_dir = Path(argv[0])
     out = filter_run(run_dir, pol)
-    path = pol.write_evidence(Path("runs") / f"filter-{run_dir.name}" / "results.json",
+    path = pol.write_evidence(Path("runs") / f"filter-{job_filter.VERSION}-{run_dir.name}" / "results.json",
                               json.dumps(out, indent=2, ensure_ascii=False).encode("utf-8"))
     print(out["label"])
     for name, b in out["boards"].items():
