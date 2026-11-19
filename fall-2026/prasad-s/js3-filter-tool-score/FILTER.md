@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any JS3 code and before any posting was opened for JS3
-**Version:** v1.1 — 2026-11-17
+**Version:** v2 — 2026-11-19
 **Started from:** JS2, js2-loop-tools-diff/ at 64e00c7: its rule (CONTRACT.md v0.8 §4) and GATE.md v0.3. The Reallocation Engine is not used. Lectern is reference only, as it was in JS2: cited in SOURCES.md, no code copied.
 **Pointer:** This file supersedes, for JS3, CONTRACT §4's "If a field is missing, that condition is false" (→ F7 below) and CONTRACT §8 (→ §5 here). CONTRACT.md gets a v0.9 row in its §9 pointing here when the JS2 folder is copied in.
 
@@ -24,11 +24,22 @@ v1 is JS2's rule exactly as agent/rule.py runs it at 64e00c7, plus two additions
 
 **Clarified, 2026-11-17 (v1.1).** "Empty after F1's cleanup" in F7 means empty once leading and trailing whitespace is trimmed. A text that cleans to whitespace only is missing, just like a title or a location that trims to nothing. Decided during the build, before the filter judged any posting.
 
+**v2, 2026-11-19: three rule changes, each measured before it was adopted (§6).** C3 no longer decides the verdict, and a fourth condition, C4 (level), is added. F1–F4, F7 and F8 are unchanged.
+
+| ID | Rule | Reason (one line) | Origin |
+|---|---|---|---|
+| F5 (v2) | Score: still the number of distinct persona skills in the cleaned text, 0–5; it now only orders the shortlist (F8) | Skills are evidence of fit (§5), not a gate; ranking by them keeps them visible without rejecting a posting for leaving them out | changed in v2 |
+| F6 (v2) | Verdict: relevant if C1, C2 and C4 pass and the text is present (C3 now only asks that the text exist: skills_needed 0); not_relevant if any present condition fails; cannot_tell under F7 | The audit's only wrong rejects (2 of 94) were product-management postings with a score of 0: the five persona skills rarely appear in PM postings (AUDIT.md §7) | fitted on the audit labels (§6) |
+| F9 | Level by title (C4): fails if the cleaned title contains, as a whole word and case-insensitively, one of Senior, Staff, Lead, Group, Principal, Director, Head of | The false friend (AUDIT.md §8): "Product Manager" matches inside Staff and Senior titles, because PM ladders put the level word first | §5's level words, hand-set; new in v2 |
+| F10 | Level by text (C4): fails if the cleaned text states a minimum above 3 years ("5+ years", "5 years", "5–8 years", "5 to 8 years"; a range is read by its low end) | Plain Product Manager titles can still ask for 5+ or 8+ years (AUDIT.md §8) | the persona's max_years_required (3), inherited; new in v2; the pattern is YEARS in agent/filter.py |
+
+**Known limits of F9 and F10,** written down before the held-out measurement: F10 reads a number of years anywhere in the text, so company history such as "over the past 10 years" fails C4 (a known false positive, not seen in the audit), and it misses numbers in words ("five years") and decimals ("3.5 years"). F9's "Group" and "Lead" would also catch a title such as "Product Manager, Group Payments" (not seen in the audit). The closest-call flag keeps v1's definition, for comparison with v1.
+
 **The score and §4.** The score is C3's own count, given a name — the same number §4 already computed, now written down so rankings and audits can cite it. Nothing new enters the verdict, and no other score is added to it or merged with it: not Claude's judgment (§6), not approval counts, not anything from outside the posting.
 
 **Closest calls.** Postings one step from flipping: both gates pass and the score is 1 or 2 — one skill short of the threshold, or exactly on it — or the score is 2 or more and exactly one gate fails. The audit reads these first, because any rule change moves them before it moves anything else.
 
-**Not in the rule.** Posting date, max_years_required, isRemote, workplaceType and Claude's judgment stay out — §4 and v0.5 item 3 keep them out, and v1 changes none of that.
+**Not in the rule.** Posting date, isRemote, workplaceType and Claude's judgment stay out, as §4 and v0.5 item 3 keep them out. max_years_required stayed out of v1; v2 uses it, in F10.
 
 **Known gaps, not yet rules.** CONTRACT §4's known consequences and v0.5 item 8 already list the gaps (SQL inside NoSQL counts; "roadmap" is not "roadmapping"; the rest). They are not restated here. The audit tests them first, and v2 decides each one after measuring.
 
@@ -89,7 +100,15 @@ W1–W5 are JS1's and JS2's (CONTRACT §5, GATE §6). Every test input below is 
 
 - **v1 — 2026-11-15.** Written before any JS3 code and before any posting was opened for JS3. Reviewed by Claude (Claude.ai), 2026-11-13 to 2026-11-15; the decisions are mine. Claude.ai proposed the section layout and rule IDs, the W6–W8 candidates, and the leans I adopted (F7, F8, §2's disagreeing spans, §3's unreadable file, the verdict names). Main contents: JS2's rule carried over unchanged as F1–F6; F7 (missing fields, cannot_tell) and F8 (ranking) added; evidence rules for shortlist claims (§2); the frozen 20-file corpus and its sources (§3); wrong versions W6–W8 (§4); hand verdicts for JS3 (§5).
 - **v1.1 — 2026-11-17.** One clarification to F7, under the §1 table: a text that is only whitespace after cleanup is missing. Claude Code asked during the FILTER v1 build; the decision is mine. No posting had been judged. No other rule changes.
-
+- **v2 — 2026-11-19.** Three rules changed after measuring: F6's skills threshold goes from 2 to 0, so the score only orders the shortlist, and F9 (level by title) and F10 (level by text) add C4. Measured with tools/measure.py on the 94 audited development postings, against pass 4 of my hand labels; the held-out set (SEAL.md) was not used. I chose these after seeing the development results, so the numbers below are fitted to the audit; the held-out measurement on 2026-11-20 is the independent one. Claude (Claude.ai) typed the v2 text at my request; the decisions are mine.
 | Date | Rule | Added / cut / rejected | Measured on | Before → after | Decision |
 |---|---|---|---|---|---|
-| (empty in v1; filled from the audit) | | | | | |
+| 2026-11-19 | F6: skills threshold 2 → 1 (T1) | rejected | 94 audited postings, pass 4 (output/measure_2026-11-19T194702Z/) | kept worth / kept not_worth / missed worth: 0/0/2 → 0/4/2 | keeps 4 wrong postings and neither right one |
+| 2026-11-19 | F6: skills threshold 2 → 0 (T0), alone | rejected alone | same | 0/0/2 → 2/25/0 | finds both, but lets in 25 wrong ones: the false friend (AUDIT.md §8) |
+| 2026-11-19 | F9 (S), alone | no effect alone | same | 0/0/2 → 0/0/2 | C3 still rejects everything |
+| 2026-11-19 | F10 (Y), alone | no effect alone | same | 0/0/2 → 0/0/2 | C3 still rejects everything |
+| 2026-11-19 | T0 + F9 | rejected | same | 0/0/2 → 2/5/0 | leaves 5 plain Product Manager titles asking for more than 3 years |
+| 2026-11-19 | T0 + F10 | rejected | same | 0/0/2 → 2/5/0 | leaves 5 Staff or Senior titles whose text states no years over 3 |
+| 2026-11-19 | T0 + F9 + F10 | **added: v2** | same | 0/0/2 → 2/0/0 | keeps both and nothing wrong; 2 kept of 1,248 development postings |
+| 2026-11-19 | T1 + F9 + F10 | rejected | same | 0/0/2 → 0/0/2 | a threshold of 1 still rejects both |
+| 2026-11-19 | the first measurement, against pass 3 | superseded | output/measure_2026-11-19T191106Z/ | T0 + F9 + F10 missed one posting marked worth | its text states "7+ years"; my verdict had missed it, so pass 4 corrected it (AUDIT.md §7) |
