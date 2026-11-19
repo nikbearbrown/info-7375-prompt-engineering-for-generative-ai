@@ -1,0 +1,133 @@
+# Note added 2026-10-31: the home-folder path in this output is masked as /Users/[user] (privacy); nothing else was changed.
+# 2026-10-28 06:19:19 EDT — python3 -m unittest (RED: tests only, no jobwatch package yet)
+.FFEEEEEEE
+======================================================================
+ERROR: tests.test_inputs (unittest.loader._FailedTest.tests.test_inputs)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_inputs
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_inputs.py", line 7, in <module>
+    from jobwatch import board, resume
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_normalize (unittest.loader._FailedTest.tests.test_normalize)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_normalize
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_normalize.py", line 5, in <module>
+    from jobwatch import normalize
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_rule (unittest.loader._FailedTest.tests.test_rule)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_rule
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_rule.py", line 6, in <module>
+    from jobwatch import board, rule
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_run (unittest.loader._FailedTest.tests.test_run)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_run
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_run.py", line 10, in <module>
+    from jobwatch import net, run, state
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_state_and_net (unittest.loader._FailedTest.tests.test_state_and_net)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_state_and_net
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_state_and_net.py", line 9, in <module>
+    from jobwatch import net, state
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_validator (unittest.loader._FailedTest.tests.test_validator)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_validator
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_validator.py", line 7, in <module>
+    from jobwatch import judge
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+ERROR: tests.test_wrong_versions_caught (unittest.loader._FailedTest.tests.test_wrong_versions_caught)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_wrong_versions_caught
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_wrong_versions_caught.py", line 7, in <module>
+    from tests import wrong_versions
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/wrong_versions.py", line 9, in <module>
+    from jobwatch import judge, run
+ModuleNotFoundError: No module named 'jobwatch'
+
+
+======================================================================
+FAIL: test_rule_command_recomputes_one_record (tests.test_cli.CommandLineTest.test_rule_command_recomputes_one_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_cli.py", line 39, in test_rule_command_recomputes_one_record
+    self.assertEqual(proc.returncode, 0, proc.stderr)
+AssertionError: 1 != 0 : /opt/anaconda3/bin/python3: No module named jobwatch
+
+
+======================================================================
+FAIL: test_seeded_baseline_runs_from_the_command_line (tests.test_cli.CommandLineTest.test_seeded_baseline_runs_from_the_command_line)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/[user]/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js1-contract-and-watch/tests/test_cli.py", line 31, in test_seeded_baseline_runs_from_the_command_line
+    self.assertEqual(proc.returncode, 0, proc.stderr)
+AssertionError: 1 != 0 : /opt/anaconda3/bin/python3: No module named jobwatch
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.032s
+
+FAILED (failures=2, errors=7)
+exit code: 1

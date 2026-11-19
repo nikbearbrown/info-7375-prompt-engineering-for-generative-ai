@@ -1,0 +1,11 @@
+# SEEDED demonstration (action surface 3). Not a live run. 2026-10-31 08:49:49 EDT, code at 7752e69
+$ python3 -m jobwatch run --from-file action-surface/3-agent/CONSTRUCTED-seeded-baseline-without-5418610008.json.gz --resume persona/alex_morgan.json --state action-surface/3-agent/state.json --out action-surface/3-agent/runs
+20261031T124949Z-seeded: SEEDED replay, 680 postings, baseline (first run): 0 reported as new
+  evidence: action-surface/3-agent/runs/20261031T124949Z-seeded
+exit code: 0
+$ python3 -m jobwatch run --from-file runs/20261028T102612Z-live/raw_response.json.gz --resume persona/alex_morgan.json --state action-surface/3-agent/state.json --out action-surface/3-agent/runs
+20261031T124950Z-seeded: SEEDED replay, 681 postings, 1 new since last run
+  5418610008 Data Engineer, GTM | rule (record): relevant | Claude (model judgment): relevant
+  evidence: action-surface/3-agent/runs/20261031T124950Z-seeded
+exit code: 0
+# finished 08:49:56 EDT
