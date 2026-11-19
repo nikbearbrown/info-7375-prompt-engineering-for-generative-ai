@@ -1,0 +1,12 @@
+JS3 reject audit (AUDIT.md v1) of output/filter_v1_2026-11-17T210612Z/. Counts only: no ids.
+audited postings: 94, each labeled once and counted in every group it is in
+group A (random rejects): n 30, wrong (worth) 0, unclear 0, confirmed (not_worth) 30
+  rate of wrong rejects: 0/30 = 0.0%; exact Clopper-Pearson 95% interval 0.0% to 11.6%
+group B (closest calls): n 42, wrong (worth) 3, unclear 0, confirmed (not_worth) 39
+  chosen, not random: counts only, no rate (AUDIT.md §5)
+group C (both gates pass): n 27, wrong (worth) 4, unclear 0, confirmed (not_worth) 23
+  chosen, not random: counts only, no rate (AUDIT.md §5)
+all audited: n 94, wrong (worth) 6, unclear 0, confirmed (not_worth) 88
+exposed postings audited (SEAL.md §8): 3
+false-friend candidates: 24
+written to: audit/compare_2026-11-19T024632Z/
