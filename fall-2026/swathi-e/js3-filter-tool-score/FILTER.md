@@ -155,3 +155,74 @@ skills and description.
   name, then posting id, so the order is the same on every run.
   Why: in version 1 topic words never change a verdict, so this is where they
   matter: postings with more topic words are listed first.
+
+## Change log: Rules changed after measuring — 2026-11-19
+Decisions discussed 2026-11-18 (with Claude Chat and Claude Code), recorded
+2026-11-19. Evidence: the JS3 reject audit (`audit/HUMAN_AUDIT.csv`, 48
+postings) and Claude Code's scan of all 1,832 descriptions of the saved Nov 17
+run (`audit/AUDIT-REPORT.md`). The rules above are unchanged; this entry says
+what version 1.1 changes. Because these changes come from the audit, the same
+48 labels cannot be held-out evidence for version 1.1.
+
+### ADOPTED — R5 experience-requirement parsing
+R5 also recognizes these ways of stating required professional experience:
+- "N or more years" and "N years or more"
+- "at least N years", including written-out numbers ("at least seven years")
+- "minimum of N years" and "minimum N years"
+- "five (5) years" and similar word-plus-digit numbers
+- "N years+" (the plus after "years")
+- apostrophe forms such as "4 years' experience" / "4 years’ experience"
+Rules for applying them:
+- Only professional work experience counts. A number of years of education
+  ("two years of university education", years of a degree, study or
+  coursework) is not an experience requirement.
+- Optional statements do not reject: a statement on a line that says it is
+  preferred, a plus, nice to have, a bonus, ideal or recommended, or that sits
+  under a "preferred" / "nice to have" / "bonus" heading, is not mandatory.
+- When a line explicitly offers alternatives joined by "or" (e.g. "MS plus 2
+  years, or BS plus 3 years"), the line rejects only if every alternative asks
+  for more than 1 year.
+- When several mandatory requirements appear, the largest required minimum
+  decides: one mandatory requirement above 1 year rejects, even if another
+  line asks for "one (1) year".
+Why: the audit found row 47 (Stripe 8248088, "7 or more years of cross-border
+tax experience") as "I cannot tell"; the scan found the other forms above
+missed in the saved run.
+
+### ADOPTED — University false-friend correction (D3)
+"university" counts as early-career evidence only in the job title (e.g. a
+"University Graduate" title), not in description text.
+Why: "in a university or professional setting" and "Two years of university
+education" made R5 pass with 2 early-career points while saying nothing about
+the job's level; five postings passed R5 on this word alone.
+
+### ADOPTED — R6 authorization and clearance wording
+R6 also rejects explicit exclusionary requirements:
+- U.S. citizenship stated as required in the same sentence, e.g. "U.S.
+  citizenship and eligibility for a U.S. government secret clearance are
+  required", "requires U.S. citizenship";
+- a secret, top secret, TS/SCI, active, government or security clearance
+  stated with requirement wording (required, requires, require, must,
+  mandatory) on the same line.
+Not counted: mentions of government customers, security work, regulatory
+clearance, "citizenship status" in equal-opportunity text, the export-control
+paragraph, and clearance described as preferred, an advantage or a plus.
+Why: the scan found "U.S. citizenship and eligibility for a U.S. government
+secret clearance are required" on databricks 8760167002, which version 1
+left as "I cannot tell".
+
+### REJECTED — Spark false-friend adjustment
+No special handling of "Spark" ("powered by Apache Spark™") at this stage.
+Why: topic-word matches did not determine the final verdicts in version 1,
+so the change is not justified by the measured outcomes.
+
+### REJECTED — Word-ending adjustments
+No added stemming or word-ending matching (e.g. "LLMs", "data pipelines").
+Why: these topic-word variants did not affect final version 1 verdicts in the
+measured audit.
+
+### REJECTED FOR NOW — US city-list expansion
+No broad US city-name lookup in R4 yet.
+Why: the audit exposed city-only locations ("SEA", "Chicago") as a
+limitation, but none of the 48 final verdicts changed solely because of it.
+It stays a documented limitation for future evaluation.
