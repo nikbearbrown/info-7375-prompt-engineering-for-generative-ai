@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any draw
-**Version:** v1.4 — 2026-11-16
+**Version:** v1.6 — 2026-11-19
 **Rests on:** FILTER.md v1 (JS3-CP1), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
 
 ## 1. The two sets
@@ -91,6 +91,15 @@ From now on, "JS3's held-out set" means the v2 set, everywhere in this file.
 
 **Labeled, 2026-11-16 (JS3-CP3f).** I labeled the v2 set's 30 postings by hand under FILTER.md §5, in ~/js3-vault/js3_heldout_labels.tsv, and `python3.13 tools/label_view.py check` printed ok. Its SHA-256 is f144c95d62db6b5c3263216bb388932460b8ae8e533106d503dd83b4c4965cd9, recorded in vault/js3_heldout_labels.sha256; a backup outside the repo has the same hash. No posting raised a case §5 does not cover, so there are no notes and FILTER.md is unchanged. The file stays in ~/js3-vault/ until Friday. While I was fixing the file's format, one check output pasted into the review chat showed three v2 ids: ids only, no titles and no labels. The check's message will be changed to print positions only.
 
+## 9. The reveal — written 2026-11-19, before it
+
+The audit (AUDIT.md §7) found that my first-pass labels misapplied §5's level rule: I read Staff PM as an ordinary PM title. The held-out labels were written on 2026-11-16, before I knew that, so they may carry the same slip. They stay sealed and unchanged until the reveal, which runs in this order:
+
+1. The labels file is checked against vault/js3_heldout_labels.sha256. A mismatch stops everything.
+2. Before any filter version is run on the held-out set, every held-out label is re-checked under FILTER.md §5 as written, for the slips the audit found: a seniority title marked worth with no years of 3 or less quoted; a worth with no level evidence; a role §5 rules out (Product Operations, Engineering Manager and the like) marked worth; and an unclear that §5 can decide. Each posting in question is re-read with label_view, and each change is written with its §5 sentence.
+3. The re-checked labels go in a new file, ~/js3-vault/js3_heldout_labels_r2.tsv, and its SHA-256 is committed before any filter version is scored. The sealed file is never edited.
+4. Only then are the filter versions scored, against both files: the labels as sealed, and the re-checked labels. Both results are reported.
+
 ## Changelog
 
 - **v1 — 2026-11-15.** Written and committed before any draw. The design (§§1–7) was proposed by Claude (Claude.ai); the decisions are mine.
@@ -99,3 +108,4 @@ From now on, "JS3's held-out set" means the v2 set, everywhere in this file.
 - **v1.3 — 2026-11-16.** §8 added. The first JS3 set's labels were pasted into the Claude.ai review chat before their hash was committed, so the set is retired to development data and replaced by the next ranks under the same seed and ranking (product 38–59, other 14–21; vault/js3_heldout_ids_v2.tsv). The final's set does not move. §8 also adds the rule that nothing from the v2 set is pasted into any chat or leaves ~/js3-vault/ until Friday. No change to the seed, the ranking, the sizes, or the final's set.
 - **v1.4 — 2026-11-16.** Formatting fixes (the Version line and the §8 heading) and one sentence in §8 saying it was written and committed before the replacement draw. No rule changes.
 - **v1.5 — 2026-11-16.** §8 records the replacement draw (JS3-CP3e) and the labeling of the v2 set (JS3-CP3f): the command, the checks, the labels' SHA-256, and the three v2 ids that appeared in the review chat. §8's lead-ins are now bold, a blank line follows its first sentence, and its last rule now says the labels stay in ~/js3-vault/ (the v2 ids are committed in vault/, so "nothing from it" was too broad). Claude (Claude.ai) typed this version's text at my request; the facts and decisions are mine. No rule changes.
+- **v1.6 — 2026-11-19.** §9 added: the reveal procedure, written before the reveal, after the audit found a level slip in my first-pass labels. Claude (Claude.ai) typed it at my request; the decision is mine. No change to the sealed sets or the labels.
