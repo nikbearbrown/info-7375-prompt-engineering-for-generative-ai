@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-18, before the audit draw and before any audit verdict
-**Version:** v1.1 — 2026-11-19
+**Version:** v1.2 — 2026-11-19
 **Rests on:** FILTER.md v1.1 (JS3-CP5a) and its first run, output/filter_v1_2026-11-17T210612Z/ (JS3-CP5d). Hand verdicts follow FILTER.md §5. The 50 sealed postings (SEAL.md) are not in this audit: the run never judged them.
 
 ## 1. What the audit is for
@@ -65,6 +65,9 @@ What the numbers can say:
 - **Group (A):** 0 wrong rejects out of 30, with an exact 95% interval of 0% to 11.6%. A sample this size cannot rule out that up to about 1 reject in 9 across the corpus is wrong. It says the rejects are mostly right; it does not say they are all right.
 - **Groups (B) and (C)** were chosen, not drawn at random, so their counts are not corpus rates. They show where the wrong rejects are: all 3 are product-management postings with a target title and a workable location, rejected by C3 with scores of 0, 0 and 1 (positions 8, 58 and 62).
 - **Kept sample:** none could be audited, because FILTER v1 kept no posting.
+**Pass 4 and the kept sample, 2026-11-19.** Measuring FILTER v2's candidate rules found one more slip: row 62's text states "Minimum requirements 7+ years of product management experience", and my pass-3 verdict had marked it worth. Pass 4 (audit/hand_verdicts_r4.tsv, JS3-CP7e) corrects that one row. Its comparison (audit/compare_2026-11-19T194307Z/, JS3-CP7f) gives group (A) 0 wrong of 30 (0% to 11.6%), group (B) 0 of 42 and group (C) 2 of 27: 2 wrong of 94 in all (rows 8 and 58), both killed by C3 with a score of 0. The correction was found by the rule, not by re-reading, and it makes the filter look better, so it is recorded as found by the rule (audit/recheck_notes.txt). FILTER v2 was measured on pass 4 (FILTER.md §6).
+
+**The kept sample** (§2): FILTER v2 keeps 2 development postings (output/filter_v2_2026-11-19T201210Z/), so both are the kept sample. Both were already audited and keep their verdicts: both worth (rows 8 and 58). Two of two kept postings are worth; a sample of 2 supports no rate. SHORTLIST.md labels every claim the agent makes about them.
 
 ## 8. False friends found
 
@@ -79,3 +82,4 @@ In FILTER v1 this false friend causes no wrong keep, because C3 rejects all 25 o
 ## Changelog
 - **v1 — 2026-11-18.** Written and committed before the audit draw. Claude (Claude.ai) proposed the design (A1–A5) and typed this text at my request; the decisions are mine.
 - **v1.1 — 2026-11-19.** §7 and §8 written, after all three passes and their comparisons. Claude (Claude.ai) typed them at my request from the committed files; the facts and decisions are mine.
+- **v1.2 — 2026-11-19.** Pass 4 and the kept sample added to §7. Claude (Claude.ai) typed them at my request from the committed files; the facts and decisions are mine.
