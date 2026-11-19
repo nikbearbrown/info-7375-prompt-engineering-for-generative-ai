@@ -112,9 +112,9 @@ class Fixture:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
-    def run(self, now=MEASURE_TIME):
+    def run(self, *argv, now=MEASURE_TIME):
         out, err = io.StringIO(), io.StringIO()
-        code = measure.main([], root=self.root, corpus=self.corpus, now=now, out=out, err=err)
+        code = measure.main(list(argv), root=self.root, corpus=self.corpus, now=now, out=out, err=err)
         return code, out.getvalue(), err.getvalue()
 
     def read(self, name):
@@ -122,14 +122,16 @@ class Fixture:
 
     def rows(self, name):
         lines = self.read(name).splitlines()
+        if lines and lines[0].startswith("hand labels: "):  # table.tsv's first line names the hand file
+            lines = lines[1:]
         return [dict(zip(lines[0].split("\t"), line.split("\t"))) for line in lines[1:]]
 
 
-def expected_row(variant, fx):
+def expected_row(variant, fx, labels=None):
     column = VARIANTS.index(variant)
     outcome = {"R": "kept", "N": "rejected", "T": "cannot_tell"}
     cells = {f"{o}_{h}": 0 for o in ("kept", "rejected", "cannot_tell") for h in ("worth", "not_worth", "unclear")}
-    for posting_id, (hand, _) in fx.hand().items():
+    for posting_id, (hand, _) in (labels or fx.hand()).items():
         cells[f"{outcome[EXPECTED[posting_id][column]]}_{hand}"] += 1
     letters = [EXPECTED[i][column] for i in EXPECTED]
     return {"audited": str(len(fx.listed)), **{k: str(v) for k, v in cells.items()}, "judged": str(len(EXPECTED)),
@@ -261,6 +263,63 @@ class TestStops(unittest.TestCase):
             path = fx.root / "corpus/gh.json"
             path.write_bytes(path.read_bytes() + b" ")
             self.assert_stops(fx, "corpus/gh.json: SHA-256 does not match vault/corpus_manifest.tsv")
+
+
+class TestHandOption(unittest.TestCase):
+    OTHER = "audit/hand_other.tsv"
+
+    def all_worth(self, fx):
+        return {posting_id: ("worth", "-") for posting_id in fx.listed}
+
+    def assert_table(self, fx, out, first_line, labels):
+        self.assertEqual(out, fx.read("table.tsv"))
+        self.assertEqual(out.splitlines()[:2], [first_line, "\t".join(measure.TABLE_HEADER)])
+        for row in fx.rows("table.tsv"):
+            with self.subTest(variant=row["variant"]):
+                self.assertEqual({k: v for k, v in row.items() if k not in ("variant", "options")},
+                                 expected_row(row["variant"], fx, labels))
+
+    def test_the_default_is_r3(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            fx.write(self.OTHER, fx.hand_text(self.all_worth(fx)))  # present, but not asked for
+            code, out, err = fx.run()
+            self.assertEqual(code, 0, err)
+            self.assert_table(fx, out, "hand labels: audit/hand_verdicts_r3.tsv", fx.hand())
+
+    def test_hand_reads_another_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            fx.write(self.OTHER, fx.hand_text(self.all_worth(fx)))
+            (fx.root / measure.HAND_FILE).unlink()  # so r3 cannot be what is read
+            code, out, err = fx.run("--hand", self.OTHER)
+            self.assertEqual(code, 0, err)
+            self.assert_table(fx, out, f"hand labels: {self.OTHER}", self.all_worth(fx))
+            rows = {r["variant"]: r for r in fx.rows("table.tsv")}
+            self.assertEqual((rows["v1"]["kept_worth"], rows["v1"]["kept_not_worth"]), ("2", "0"))
+
+    def test_hand_takes_an_absolute_path(self):
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory() as elsewhere:
+            fx = Fixture(tmp)
+            path = Path(elsewhere) / "hand.tsv"
+            path.write_text(fx.hand_text(self.all_worth(fx)), encoding="utf-8")
+            code, out, err = fx.run("--hand", str(path))
+            self.assertEqual(code, 0, err)
+            self.assert_table(fx, out, f"hand labels: {path}", self.all_worth(fx))
+
+    def test_a_hand_file_that_fails_check_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fx = Fixture(tmp)
+            labels = self.all_worth(fx)
+            labels[fx.listed[-1]] = ("worth", "role")  # parts must be - for worth
+            fx.write(self.OTHER, fx.hand_text(labels))
+            code, out, err = fx.run("--hand", self.OTHER)
+            self.assertEqual((code, out), (1, ""))
+            self.assertIn(f"{self.OTHER} does not pass the audit check (1 problems", err)
+            self.assertFalse((fx.root / "output" / FOLDER).exists())
+            code, out, err = fx.run("--hand", "audit/no_such_file.tsv")
+            self.assertEqual((code, out), (1, ""))
+            self.assertIn("cannot read the hand-verdict file", err)
 
 
 class TestVariants(unittest.TestCase):

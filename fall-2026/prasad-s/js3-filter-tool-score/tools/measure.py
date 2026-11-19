@@ -2,7 +2,7 @@
 
 A tool outside the agent, run from the JS3 folder:
 
-    python3.13 tools/measure.py
+    python3.13 tools/measure.py [--hand PATH]
 
 It loads the corpus, the persona and the sealed sets exactly as
 tools/filter_run.py does (its own functions: the SHA-256 check against
@@ -11,13 +11,15 @@ and judges the development postings, the corpus minus the final's set and
 JS3's held-out set, under each variant in VARIANTS. Sealed postings are
 never judged and never written.
 
-The hand labels are audit/hand_verdicts_r3.tsv (pass 3, AUDIT.md §7), matched
+The hand labels are the file given with --hand, by default
+audit/hand_verdicts_r3.tsv (pass 3, AUDIT.md §7), so the committed run can be
+reproduced. A relative PATH is read from the JS3 folder. The file is matched
 to postings through audit/audit_list.tsv and validated by tools/audit.py's
-own checks. For each variant, on the audited postings, it counts kept
-(relevant), rejected (not_relevant) and cannot_tell, each against worth,
-not_worth and unclear; F7 makes cannot_tell neither kept nor rejected, so it
-has its own columns (decision 2026-11-19). Over every judged development
-posting it counts how many the variant keeps.
+own checks, and table.tsv names it on its first line. For each variant, on
+the audited postings, it counts kept (relevant), rejected (not_relevant) and
+cannot_tell, each against worth, not_worth and unclear; F7 makes cannot_tell
+neither kept nor rejected, so it has its own columns (decision 2026-11-19).
+Over every judged development posting it counts how many the variant keeps.
 
 Writes one new folder, output/measure_<UTC>/, and refuses if it exists:
 table.tsv (one row per variant) and kept_<variant>.tsv for each variant
@@ -40,7 +42,7 @@ if str(_JS3) not in sys.path:
 from agent import filter as filter_v1  # noqa: E402
 from tools import audit, filter_run, seal_draw  # noqa: E402
 
-HAND_FILE = "audit/hand_verdicts_r3.tsv"  # pass 3, the pass the changes are measured on (AUDIT.md §7)
+HAND_FILE = "audit/hand_verdicts_r3.tsv"  # the --hand default: pass 3 (AUDIT.md §7), the committed measurement's
 MAX_YEARS = 3  # FILTER.md §5: level is read against a maximum of 3 years (resume_persona.json max_years_required)
 SENIORITY = {"seniority_words": filter_v1.SENIORITY_WORDS}
 VARIANTS = (
@@ -90,16 +92,16 @@ def development_postings(root, corpus):
     return persona, {key: posting for key, posting in latest.items() if key not in sealed}
 
 
-def hand_verdicts(root, development):
-    """{(board, id): hand verdict} from audit/hand_verdicts_r3.tsv, checked by tools/audit.py."""
+def hand_verdicts(root, development, hand=HAND_FILE):
+    """{(board, id): hand verdict} from the hand-verdict file, checked by tools/audit.py."""
     try:
         state = audit.load_list(root)  # audit_list.tsv, re-derived from the run and the seed, byte for byte
-        text = audit.read_hand(Path(root) / HAND_FILE)
+        text = audit.read_hand(Path(root) / hand)  # an absolute PATH stays absolute
     except audit.AuditError as exc:
         raise MeasureError(str(exc)) from exc
     problems = audit.check_hand(text, state)
     if problems:
-        raise MeasureError(f"{HAND_FILE} does not pass the audit check ({len(problems)} problems; "
+        raise MeasureError(f"{hand} does not pass the audit check ({len(problems)} problems; "
                            f"run tools/audit.py check on it)")
     labels = {state["keys"][position - 1]: verdict for position, (verdict, _, _) in audit.parse_hand(text).items()}
     if not set(labels) <= set(development):
@@ -147,15 +149,15 @@ def _tsv(header, rows):
     return "\n".join("\t".join(cells) for cells in [list(header)] + rows) + "\n"
 
 
-def run(root, corpus, now, out):
+def run(root, corpus, now, out, hand=HAND_FILE):
     folder = "measure_" + now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     target = Path(root) / filter_run.OUTPUT_DIR / folder
     if target.exists():
         raise MeasureError(f"refusing to overwrite: {filter_run.OUTPUT_DIR}/{folder}/")
     persona, development = development_postings(root, corpus)
-    labels = hand_verdicts(root, development)
+    labels = hand_verdicts(root, development, hand)
     rows, kept = measure(development, persona, labels)
-    texts = {"table.tsv": _tsv(TABLE_HEADER, rows)}
+    texts = {"table.tsv": f"hand labels: {hand}\n" + _tsv(TABLE_HEADER, rows)}
     for name, _ in VARIANTS:
         texts[f"kept_{name}.tsv"] = _tsv(KEPT_HEADER, [[_cell(r["board_key"]), _cell(r["posting_id"]), _cell(r["title"]),
                                                         _cell(r["location"]), _cell(reasons(r))] for r in kept[name]])
@@ -173,9 +175,12 @@ def run(root, corpus, now, out):
 def main(argv=None, root=_JS3, corpus=seal_draw.CORPUS, now=None, out=None, err=None):
     out = out or sys.stdout
     err = err or sys.stderr
-    argparse.ArgumentParser(prog="measure.py", description="Candidate FILTER changes on the JS3 corpus.").parse_args(argv)
+    parser = argparse.ArgumentParser(prog="measure.py", description="Candidate FILTER changes on the JS3 corpus.")
+    parser.add_argument("--hand", default=HAND_FILE, metavar="PATH",
+                        help=f"the hand-verdict file to measure against (default: {HAND_FILE})")
+    args = parser.parse_args(argv)
     try:
-        run(root, corpus, now or datetime.now(timezone.utc), out)
+        run(root, corpus, now or datetime.now(timezone.utc), out, hand=args.hand)
     except MeasureError as exc:
         err.write(f"error: {exc}\n")
         return 1
