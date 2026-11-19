@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-18, before the audit draw and before any audit verdict
-**Version:** v1 — 2026-11-18
+**Version:** v1.1 — 2026-11-19
 **Rests on:** FILTER.md v1.1 (JS3-CP5a) and its first run, output/filter_v1_2026-11-17T210612Z/ (JS3-CP5d). Hand verdicts follow FILTER.md §5. The 50 sealed postings (SEAL.md) are not in this audit: the run never judged them.
 
 ## 1. What the audit is for
@@ -39,10 +39,43 @@ The seed is js3-audit-2026-11-18, fixed here before the draw. Each reject's rank
 A false friend is a word the rule matched for the wrong reason. After the hand verdicts are committed, the comparison lists every audited posting where a condition passed but the hand verdict failed that part: C1 passed, but role or level failed by hand; or C2 passed, but location failed by hand. It also shows each matched skill in its sentence. At least one false friend is named in §8, taken from those rows, specific to PM/APM roles, with the posting and the matched word.
 
 ## 7. Results
-(Written after the comparison.)
+
+The audit ran in three passes, all on the same 94 postings and the same run, and every pass is committed.
+
+| Pass | Hand verdicts | When | What changed |
+|---|---|---|---|
+| 1 | audit/hand_verdicts.tsv (JS3-CP6d) | Blind, before any comparison | — |
+| 2 | audit/hand_verdicts_r2.tsv (JS3-CP6f) | After the first comparison (JS3-CP6e) | 19 rows, under §5 as written: 12 Staff and 1 Senior title with no years of 3 or less stated; 3 rows whose text asks for more than 3 years; 2 unclear rows decided; and 1 edit that landed on row 31 when it was meant for row 32 |
+| 3 | audit/hand_verdicts_r3.tsv (JS3-CP6i) | After the second comparison (JS3-CP6g) | 4 slips from pass 2 corrected: rows 31 and 32 (the off-by-one), and rows 45 and 60, where skills or a Product Operations title had rescued a role §5 rules out |
+
+Every change is in audit/recheck_notes.txt, with the §5 sentence that decides it. Passes 2 and 3 were not blind: I made them after seeing the comparisons. Every change in them moved a verdict toward not_worth, which makes FILTER v1 look better, so all of them are listed. The cause of most of pass 2: I read Staff PM as an ordinary PM title, when on most PM ladders it sits above Senior.
+
+Wrong rejects (a reject whose hand verdict is worth), by pass:
+
+| Group | n | Pass 1 | Pass 2 | Pass 3 |
+|---|---|---|---|---|
+| (A) random rejects | 30 | 0 | 0 | 0 |
+| (B) closest calls | 42 | 4 | 3 | 1 |
+| (C) both gates pass | 27 | 21 | 4 | 3 |
+| All audited | 94 | 22 | 6 | 3 |
+
+Pass 1 also had 2 unclear verdicts; passes 2 and 3 have none. Pass 3 follows §5 as written, and it is the pass the rule changes are measured on (audit/compare_2026-11-19T030012Z/).
+
+What the numbers can say:
+- **Group (A):** 0 wrong rejects out of 30, with an exact 95% interval of 0% to 11.6%. A sample this size cannot rule out that up to about 1 reject in 9 across the corpus is wrong. It says the rejects are mostly right; it does not say they are all right.
+- **Groups (B) and (C)** were chosen, not drawn at random, so their counts are not corpus rates. They show where the wrong rejects are: all 3 are product-management postings with a target title and a workable location, rejected by C3 with scores of 0, 0 and 1 (positions 8, 58 and 62).
+- **Kept sample:** none could be audited, because FILTER v1 kept no posting.
 
 ## 8. False friends found
-(Written after the comparison.)
+
+**"Product Manager", matched inside "Staff Product Manager" and "Senior Product Manager".** F3 passes a title that contains a target title, and "Product Manager" is a target title, so a Staff or Senior title passes C1. The word is right; the level is not. In pass 3, 25 audited postings passed C1 while my verdict failed them on level (audit/compare_2026-11-19T030012Z/false_friend_candidates.tsv):
+- 20 are Staff (12) or Senior (8) Product Manager titles. The title word matched for the wrong reason: the seniority word in front of it puts the role above Alex's 3 years.
+- 5 are plain Product Manager titles whose text asks for more than 3 years ("5+ years", "8+ years", "6–10+ years"). Here the title word matched for the right reason. What fails is the level, which no v1 rule reads (CONTRACT §4 leaves max_years_required out).
+
+Why it is specific to PM roles: PM ladders put the level in front of the role word (APM, PM, Senior PM, Staff PM, Principal or Group PM), so a role-word match cannot see the level. I made the same mistake myself in pass 1, and the audit caught it (§7). CONTRACT §4 already listed Senior, Staff and Lead Product Manager passing C1 as a known consequence; the audit turns that note into a measured count.
+
+In FILTER v1 this false friend causes no wrong keep, because C3 rejects all 25 of these postings anyway. It turns into 25 wrong keeps the moment C3 is loosened, which is what the 3 wrong rejects call for. So a change to C3 is measured together with a change for level (FILTER.md v2).
 
 ## Changelog
 - **v1 — 2026-11-18.** Written and committed before the audit draw. Claude (Claude.ai) proposed the design (A1–A5) and typed this text at my request; the decisions are mine.
+- **v1.1 — 2026-11-19.** §7 and §8 written, after all three passes and their comparisons. Claude (Claude.ai) typed them at my request from the committed files; the facts and decisions are mine.
