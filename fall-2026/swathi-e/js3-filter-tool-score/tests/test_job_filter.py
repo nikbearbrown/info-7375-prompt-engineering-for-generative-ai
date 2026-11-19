@@ -359,6 +359,27 @@ class R5Experience(unittest.TestCase):
         res = evaluate(self.with_experience("PhD with 0-1 years of experience, or MS with 2+ years of experience."))
         self.assertEqual(result(res, "R5"), "pass")
 
+    def test_R5l_mandatory_experience_stays_mandatory(self):
+        """R5l, FILTER.md change log 2026-11-19 and its addendum (optional words count only in the same
+        clause; "ideal"/"ideally" are not optional words; only education years are not experience).
+        (a) SIMULATED, R5j-style, with the wording of REAL Plaid 4d2f0d16 (test W3): "3+ years …,
+        ideally in Corporate Finance…" next to "0-1 years": R5 fails. (b) SIMULATED "5 years of
+        post-graduate experience": R5 fails. (c) REAL Stripe 8226211 (Nov 17 run), "A minimum of 5+
+        years full-cycle university recruiting experience": R5 fails, quoting it."""
+        res = evaluate(posting(description=stripe_html(
+            ("Responsibilities", "Build machine learning features in Python."),
+            ("Minimum requirements", "0-1 years of experience."),
+            ("Who you are", "3+ years of relevant FP&A experience, ideally in Corporate Finance, G&A support, "
+                            "or a broader FP&A role."))))
+        self.assertEqual(result(res, "R5"), "fail")
+        self.assertEqual(res["verdict"], "rejected")
+        res = evaluate(self.with_experience("5 years of post-graduate experience."))
+        self.assertEqual(result(res, "R5"), "fail")
+        self.assertEqual(res["verdict"], "rejected")
+        res = evaluate(real_nov17(REAL_NOV17_STRIPE, "8226211"))
+        self.assertEqual(result(res, "R5"), "fail")
+        self.assertTrue(any("5+ years full-cycle university recruiting" in q for q in res["rules"]["R5"]["quotes"]))
+
 
 class R6Authorization(unittest.TestCase):
     def with_text(self, text, heading="Who you are"):

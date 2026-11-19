@@ -125,3 +125,19 @@ Nov 17 LIVE run, `runs/2026-11-17T21-47-06-167440-0500/`, read-only.
 | U2 | SIM | "University Graduate" in the title, no experience stated: R5 pass, early 2 | **passes** (version 1 already counts the title) | change log: university in the title |
 
 Every other existing test should still pass against version 1.
+
+## Added 2026-11-19: R5l (FILTER.md addendum 2026-11-19, optional words by clause)
+
+Written by Claude Code on 2026-11-19 from the addendum committed at `c0790a4`.
+**Predictions** against the CURRENT uncommitted version 1.1 implementation (the
+line-level optional rule with "ideal"/"ideally", and the education check
+narrowed to degree/education/study/coursework/schooling), recorded before
+running. Not results.
+
+| Test | Data | Expected after the addendum | Predicted against the current implementation | FILTER.md item |
+|---|---|---|---|---|
+| R5l (a) | SIM | W3 wording "3+ years of relevant FP&A experience, ideally in Corporate Finance, G&A support, or a broader FP&A role." next to "0-1 years": R5 fail, `rejected` | **fails** (R5 pass: "ideally" on the line makes the 3+ years optional, so only "0-1 years" counts) | addendum |
+| R5l (b) | SIM | "5 years of post-graduate experience.": R5 fail, `rejected` | **fails** (R5 "cannot tell": not education, but the "N years … experience" pattern's 3-word window does not accept the hyphenated word "post-graduate", so no statement is found; version 1 has the same gap) | change log: R5 (only education years are not experience) |
+| R5l (c) | REAL | Stripe 8226211 "A minimum of 5+ years full-cycle university recruiting experience…": R5 fail, quote contains "5+ years full-cycle university recruiting" | **passes** (the narrowed education check already counts it; R5l stops after the first failing assertion, so (c) runs only once (a) and (b) pass) | change log: R5 (only education years are not experience) |
+
+W3 and every other existing test are unchanged.
