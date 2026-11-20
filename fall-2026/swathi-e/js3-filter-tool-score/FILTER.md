@@ -234,3 +234,5 @@ the same clause (commas, semicolons and full stops are boundaries).
 they mostly describe the domain, not the requirement.
 Found by existing test W3 (Plaid 4d2f0d16: "3+ years of relevant FP&A
 experience, ideally in Corporate Finance..."), which must stay unchanged.
+
+2026-11-20 — REJECTED after measuring: threshold 5 → 6. See heldout/EXPERIMENT-REPORT.md.
