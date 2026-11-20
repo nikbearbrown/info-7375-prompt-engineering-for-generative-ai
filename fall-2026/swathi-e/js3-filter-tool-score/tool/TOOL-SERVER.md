@@ -330,3 +330,5 @@ it takes precedence.
   - the original is kept locally and not committed;
   - the original's SHA-256 is recorded;
   - every redaction is disclosed in the committed copy.
+
+**Confirmed (2026-11-20, Swathi):** the rate-limit counting reading in §1 above is approved as written.
