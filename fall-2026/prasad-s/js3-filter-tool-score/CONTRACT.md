@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde  
 **Date written (before any run):** 2026-10-25  
-**Version:** v0.10 — 2026-11-17. Amends v0.9 (JS3) to name a third tool outside the agent; see §9 and the v0.10 section at the end of this file. v0.9 amended v0.8 (JS2, as submitted at `64e00c7`) for JS3; v0.8 was 2026-11-07 and amended v0.7; v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.
+**Version:** v0.11 — 2026-11-20. Amends v0.10 (JS3) to name the MCP tool server and its client; see §9 and the v0.11 section at the end of this file. v0.10 named filter_run; v0.9 amended v0.8 (JS2, as submitted at `64e00c7`) for JS3; v0.8 was 2026-11-07 and amended v0.7; v0.5 amended v0.4 (`bff5356`) for JS2. v0.4 was 2026-10-27; v0.3 was `13f40e9`, v0.2 was `5cd4c28`, v0.1 was `b27b1a8`.
 **Pointer:** the v0.5 section at the end of this file supersedes §1 items 1, 3, 4 and 7, §3 item 1, and §6's Claude judge for JS2. It also changes §1 item 5 (no replies are collected in JS2), the `state.json` path in §1 item 6, and §2's other outputs, and it adds Ashby's fields to §2 and §4. For JS3, the v0.9 section adds that FILTER.md v1 supersedes §4's missing-field note and §8, and that SEAL.md governs the held-out sets. Everything else in §§1–8 stands as v0.4 left it.
 **Board:** five boards, per GATE.md §0 (and v0.5, item 1): Greenhouse — tokens `stripe`, `duolingo`, `robinhood`; Ashby — names `notion`, `js2nosuchboard`  
 **Language / toolchain:** Python 3.11 or newer (3.11 is the floor because CI checks 3.11), standard library only, tests with `unittest`. On my machine: Python 3.13.17, run as `python3.13` (the Mac's default `python3` is 3.9.6, which is too old). Test command: `python3.13 -m unittest discover -s tests -v`. No `pip install` is required or permitted for v1.
@@ -108,6 +108,7 @@
   and label_view as a tool outside the agent; it reads the corpus in place 
   and writes only a new output/filter_v1_<UTC>/ folder; agent/filter.py is 
   plain functions with no I/O.]
+- **2026-11-20 — v0.11.** Written after the MCP server and client were built and committed (JS3-CP10a), before the server first ran on the corpus or was registered with Claude Code. Claude Code's build report pointed out that v0.10 named neither tool nor the transcripts/ folder. Claude (Claude.ai) typed this entry and the v0.11 section at my request; the decisions are mine. Main changes: [tools/mcp_server.py and tools/mcp_client.py are tools outside the agent; the server reads only the corpus, the manifest, the two sealed id files and the persona, writes only transcripts/, and refuses sealed postings; a third-party server is probed only in a throwaway folder.]
 
 > This contract was written before I asked Claude to implement anything.
 > Implementation must match this document. If implementation and contract
@@ -523,6 +524,7 @@ Other failures are possible; this is the minimum I commit to checking first.
 | 2026-11-17 | §4 (missing field) | "If a field is missing, that condition is `false`" → for JS3, FILTER.md v1 F7: when a missing field would decide the verdict, the posting is `cannot_tell`, reported in its own list (v0.9, item 2) | the JS3 brief asks when the agent must say "I cannot tell"; a false condition on a field nobody saw is a verdict the text doesn't support (FILTER.md F7) | none yet: F7 is built next, and W8 (FILTER.md §4) pins it |
 | 2026-11-17 | §8 | hand labels apply §4 by hand → for JS3, FILTER.md §5: whether a posting is worth the persona's time; JS1's and JS2's labels keep §8 (v0.9, item 3) | under §8, the audit could only find code bugs, and no rule change could ever beat the labels | none: a labeling rule, not code |
 | 2026-11-17 | v0.9 item 5 | two tools outside the agent (seal_draw, label_view) → three: tools/filter_run.py too, reading the corpus in place and writing only a new output/filter_v1_<UTC>/ folder (v0.10) | the FILTER v1 build added a batch tool, and Claude Code's report noticed v0.9 did not name it | the full suite, run by me after the FILTER v1 build |
+| 2026-11-20 | v0.10 item 1 | three tools outside the agent → five: tools/mcp_server.py and tools/mcp_client.py too; transcripts/ is a new folder they write (v0.11) | the MCP tool server (JS3 brief, Chapter 8) | 379/379, run by me after the MCP build |
 
 ### v0.4 — decisions made during CP3 (2026-10-27)
 
@@ -857,3 +859,10 @@ Amends v0.9 item 5.
 
 1. Tools outside the agent are now three. tools/filter_run.py joins tools/seal_draw.py and tools/label_view.py. Like them, it runs outside the agent and its permission layer (v0.7 E20) and reads the corpus where it lives, in js1-contract-and-watch/ and js2-loop-tools-diff/. Before judging, it checks every corpus file against vault/corpus_manifest.tsv. It writes only a new folder, output/filter_v1_<UTC>/, and never overwrites one. It never judges or writes a sealed posting (SEAL.md); only their count appears.
 2. agent/filter.py is plain functions with no I/O. It calls agent/rule.py's judge for C1–C3 and adds FILTER.md's F7 and F8. The agent's loop does not call it.
+
+## v0.11 — 2026-11-20 (JS3, after the MCP build, before its first run)
+Amends v0.10 item 1.
+
+1. Tools outside the agent are now five. tools/mcp_server.py offers FILTER v2 to Claude as one MCP tool, score_posting, over stdio. It reads only the corpus files (where they live, checked against vault/corpus_manifest.tsv), vault/corpus_manifest.tsv, vault/final_heldout_ids.tsv, vault/js3_heldout_ids_v2.tsv and resume_persona.json. It writes only its transcript, transcripts/mcp_server_<UTC>.jsonl, a new file per start. It makes no network request. It refuses every posting in the two sealed sets before looking anything up, and it never returns a posting's text.
+2. tools/mcp_client.py is a scripted stdio client for probing MCP servers, this one or someone else's. It writes only the transcript file named on its command line, and never overwrites one. A third-party server it starts gets only a throwaway folder outside the repository to work in.
+3. The server is registered with Claude Code at local scope, which is stored in ~/.claude.json, not in this repository; no .mcp.json is committed.
