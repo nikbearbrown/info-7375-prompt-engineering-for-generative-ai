@@ -81,3 +81,27 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **The narrower "I cannot tell" rule.** The agent abstains on role, seniority, location, or a missing description. Years and sponsorship reject only when contradicted.
   - **The capped label sample.** Every role-phrase title, plus 30 random bare-"analyst" titles and 40 random others.
 - **What was committed:** `FILTER.md`, this log, `.gitignore`, and the board probe (`probe/`), all before any filter, scorer, or tool-server code existed.
+
+## 2026-11-20 — Collector, frozen corpus, label sheet
+- **What Claude built, starting from my JS2 code:**
+  - The adapters now keep each posting's full description as plain text, plus department, every location, country, and workplace where the system gives them (`text.py`, `adapters.py`).
+  - Raw 200 responses are saved gzip-compressed.
+  - The budget is FILTER.md's: 15 boards, 35 requests, 180 s.
+  - A run's summary keeps no posting text.
+- **Tests: 62, all passing.**
+  - 49 were carried over from JS2. Two changes there: the raw file name is now `.json.gz`, and the board-budget test uses 16 boards instead of 6.
+  - 13 are new (`tests/test_collect.py`): the text parsing for each system, the gzip round trip, the frozen corpus, and checks that the code's numbers match FILTER.md.
+- **Identity names.** Before the run, Claude read the 7 Greenhouse boards' own names (7 small GETs) and used them as the configured employers, so the identity check could pass.
+- **Live collection** (`runs/2026-11-20T131355Z_corpus`):
+  - Exit `finished`: 19 requests in 30.2 s, all 12 boards ok, 4,102 postings.
+  - The raw responses were 53.5 MB and are stored as 5.0 MB. The largest file is 0.97 MB, so no write needed my approval.
+  - `config/corpus.json` freezes this run as the corpus.
+- **Data quirks found:**
+  - 7 Stripe postings have the literal word `LOCATION` as their location. The real place is in a second field ("India Locations", "Italy Locations").
+  - 2 postings have no description text.
+- **The label sample** (`labels.py`, seed 20261120):
+  - **Population:** 22 role-phrase titles, 104 bare-"analyst" titles, and 3,976 others.
+  - **Sample:** all 22, plus 30 and 40 random, for 92 postings, split 62 tuning and 30 held-out.
+  - **Files:** `state/labels/labels.csv` (for me to fill in), `postings.md` (the full text to read), and `split.json`.
+  - The sheet shows no filter verdict, and no filter code exists yet.
+- **Unresolved: the held-out set may have no "yes".** Judging only by title and location, every likely match for Riley (US, not senior) landed in tuning. The 7 role-phrase postings in held-out are all senior or outside the US. If my labels agree, the held-out set can show false keeps but never a missed match.
