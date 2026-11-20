@@ -1,0 +1,132 @@
+# Regrade 2 gaps, test run BEFORE the fix, 2026-11-10 20:44 EST. Command: python3 -m unittest tests.test_regrade2_gaps -v
+# The network is replaced in every test and the loop is stubbed in the refusal cases, so nothing is fetched or written outside temp folders and runs/_test-regrade2 (removed after each test).
+test_a_board_dropped_from_the_summary_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_board_dropped_from_the_summary_is_flagged) ... FAIL
+test_a_new_count_that_the_raw_ids_do_not_support_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_new_count_that_the_raw_ids_do_not_support_is_flagged) ... FAIL
+test_an_exit_that_differs_from_the_trace_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_an_exit_that_differs_from_the_trace_is_flagged) ... FAIL
+test_the_untouched_run_has_no_findings (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_the_untouched_run_has_no_findings) ... ok
+test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly (tests.test_regrade2_gaps.MalformedPosting.test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly) ... ERROR
+test_a_folder_inside_runs_is_allowed_and_a_second_run_with_the_same_id_needs_approval (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_a_folder_inside_runs_is_allowed_and_a_second_run_with_the_same_id_needs_approval) ... ok
+test_a_folder_outside_the_project_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_a_folder_outside_the_project_is_refused) ... FAIL
+test_runs_evil_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_runs_evil_is_refused)
+GATE.md wrong version 3, through the command line. ... FAIL
+test_the_assignment_folder_itself_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_the_assignment_folder_itself_is_refused) ... FAIL
+test_the_command_stops_cleanly_with_exit_4_not_a_traceback (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_the_command_stops_cleanly_with_exit_4_not_a_traceback)
+`python3 -m jsagent` goes through cli.entry, which turns a refusal into exit 4 and one line. ... ERROR
+
+======================================================================
+ERROR: test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly (tests.test_regrade2_gaps.MalformedPosting.test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 101, in test_a_posting_with_no_id_fails_its_board_and_the_run_still_ends_properly
+    rep = loop.run([{"name": "x", "ats": "lever", "token": "x"}], BUDGETS,
+                   fakes.FakeTransport({url: [(200, body)]}), policy.Files(self.project, self.runs),
+                   run_id="r1", resume=self.view, clock=fakes.FakeClock())
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/loop.py", line 116, in run
+    postings, info = providers.parse(b["ats"], b["token"], status, body)
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/providers.py", line 86, in parse
+    return [_lever(j, token) for j in data], {}
+            ~~~~~~^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/providers.py", line 56, in _lever
+    return {"id": str(job["id"]), "board_token": token, "title": (job.get("text") or "").strip(),
+                      ~~~^^^^^^
+KeyError: 'id'
+
+======================================================================
+ERROR: test_the_command_stops_cleanly_with_exit_4_not_a_traceback (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_the_command_stops_cleanly_with_exit_4_not_a_traceback)
+`python3 -m jsagent` goes through cli.entry, which turns a refusal into exit 4 and one line.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 81, in test_the_command_stops_cleanly_with_exit_4_not_a_traceback
+    code = cli.entry(["run", "--runs-dir", "runs-evil"])
+           ^^^^^^^^^
+AttributeError: module 'jsagent.__main__' has no attribute 'entry'
+
+======================================================================
+FAIL: test_a_board_dropped_from_the_summary_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_board_dropped_from_the_summary_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 151, in test_a_board_dropped_from_the_summary_is_flagged
+    self.assertTrue(any("gone" in f for f in findings), findings)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : []
+
+======================================================================
+FAIL: test_a_new_count_that_the_raw_ids_do_not_support_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_a_new_count_that_the_raw_ids_do_not_support_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 144, in test_a_new_count_that_the_raw_ids_do_not_support_is_flagged
+    self.assertTrue(any("new" in f and "3" in f for f in findings), findings)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : []
+
+======================================================================
+FAIL: test_an_exit_that_differs_from_the_trace_is_flagged (tests.test_regrade2_gaps.CheckDoesNotTrustTheSummary.test_an_exit_that_differs_from_the_trace_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 157, in test_an_exit_that_differs_from_the_trace_is_flagged
+    self.assertTrue(any("trace" in f for f in findings), findings)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : []
+
+======================================================================
+FAIL: test_a_folder_outside_the_project_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_a_folder_outside_the_project_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 66, in test_a_folder_outside_the_project_is_refused
+    self.refused(t)
+    ~~~~~~~~~~~~^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 52, in refused
+    cli.main(["run", "--runs-dir", runs_dir, "--run-id", "never-made"])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/__main__.py", line 34, in main
+    rep = loop.run(boards, budgets, t, files, run_id, view)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 50, in reached
+    raise AssertionError(f"the run started with --runs-dir {runs_dir}")
+AssertionError: the run started with --runs-dir /var/folders/r0/9dx27nmx021b7_yd_5cmc1pm0000gn/T/tmpl207sz1k
+
+======================================================================
+FAIL: test_runs_evil_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_runs_evil_is_refused)
+GATE.md wrong version 3, through the command line.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 57, in test_runs_evil_is_refused
+    self.refused("runs-evil")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 52, in refused
+    cli.main(["run", "--runs-dir", runs_dir, "--run-id", "never-made"])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/__main__.py", line 34, in main
+    rep = loop.run(boards, budgets, t, files, run_id, view)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 50, in reached
+    raise AssertionError(f"the run started with --runs-dir {runs_dir}")
+AssertionError: the run started with --runs-dir runs-evil
+
+======================================================================
+FAIL: test_the_assignment_folder_itself_is_refused (tests.test_regrade2_gaps.RunsDirOnTheCommandLine.test_the_assignment_folder_itself_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 61, in test_the_assignment_folder_itself_is_refused
+    self.refused(".")
+    ~~~~~~~~~~~~^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 52, in refused
+    cli.main(["run", "--runs-dir", runs_dir, "--run-id", "never-made"])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/jsagent/__main__.py", line 34, in main
+    rep = loop.run(boards, budgets, t, files, run_id, view)
+  File "/Users/shreyashyadav/Project Shrey/info7375/course/fall-2026/shreyash-y/js2-loop-tools-diff/tests/test_regrade2_gaps.py", line 50, in reached
+    raise AssertionError(f"the run started with --runs-dir {runs_dir}")
+AssertionError: the run started with --runs-dir .
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.032s
+
+FAILED (failures=6, errors=2)
+run r1: exit incomplete  (requests 6/12, seconds 0.0/120)
+  oscar                      greenhouse failed            fetched -     new -    error not-found  NEEDS REVIEW
+  klaviyo                    greenhouse failed            fetched -     new -    error not-found  NEEDS REVIEW
+  linear                     ashby      failed            fetched -     new -    error not-found  NEEDS REVIEW
+  palantir                   lever      failed            fetched -     new -    error not-found  NEEDS REVIEW
+  oscarhealth-doesnotexist   lever      failed            fetched -     new -    error not-found  NEEDS REVIEW
+  whoop                      lever      failed            fetched -     new -    error not-found  NEEDS REVIEW
+summary: runs/_test-regrade2/r1/summary.md   trace: runs/_test-regrade2/r1/trace.jsonl
