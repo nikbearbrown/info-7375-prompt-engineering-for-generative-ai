@@ -1,0 +1,727 @@
+{
+  "run_id": "2026-10-31T231042Z",
+  "started_at": "2026-10-31T23:10:42Z",
+  "source": "live fetch",
+  "board_url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+  "response_sha256": "64cbf679bd52b760b1db08b19bc51ae29d489281b5633d48d0e82093783cce87",
+  "response_bytes": 13509762,
+  "resume": "jane-doe.json",
+  "contract_version": "0.1",
+  "code_sha256": "31e795a933a1e2e6342f3591bf9d609296b6ee0ad7f9308510efd5a7b8dc92b4",
+  "git_head": "3a4a83151fdd42aa5032a9b96cc6d7d33808e255",
+  "baseline": false,
+  "postings": 810,
+  "counts": {
+    "new": 7,
+    "gone": 11,
+    "new_relevant_rule": 0,
+    "new_relevant_claude": 0
+  },
+  "counts_line": "Run 2026-10-31T231042Z. 810 postings in the response, 7 new since the last run, 11 gone since the last run, 0 new and relevant by the rule, 0 new and relevant in Claude's judgment.",
+  "new": [
+    {
+      "id": "36a746ab-66a6-4f3e-b164-3ca8fa9e0658",
+      "title": "Senior Counsel, AI Product",
+      "locations": "Washington, DC; San Francisco",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/36a746ab-66a6-4f3e-b164-3ca8fa9e0658",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 3,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "secondaryLocations[0].location",
+            "posting_value": "San Francisco",
+            "resume_field": "preferences.regions",
+            "resume_value": [
+              "California"
+            ],
+            "because": "Posting secondaryLocations[0].location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Senior Counsel, AI Product",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Senior Counsel, AI Product\" contains the level word \"Senior\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3.",
+            "number": 3,
+            "name": "level"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting secondaryLocations[0].location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+          "Check 3 (level): FAILS. Posting title \"Senior Counsel, AI Product\" contains the level word \"Senior\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title \"Senior Counsel, AI Product\" has the level word Senior, and its role (Counsel) is not in the résumé's title_includes. The posting also asks for 8+ years of experience, above the résumé's 3 years.",
+        "resume_fields": [
+          "preferences.title_includes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "Senior Counsel, AI Product",
+          "Have 8+ years of experience"
+        ],
+        "record": "claude/eab06a5f7c.json",
+        "lines": [
+          "Justification: The title \"Senior Counsel, AI Product\" has the level word Senior, and its role (Counsel) is not in the résumé's title_includes. The posting also asks for 8+ years of experience, above the résumé's 3 years.",
+          "Résumé fields cited: preferences.title_includes, experience.full_time_years",
+          "Posting fields cited: title, descriptionPlain",
+          "Quotes: \"Senior Counsel, AI Product\"; \"Have 8+ years of experience\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/eab06a5f7c.json."
+        ]
+      }
+    },
+    {
+      "id": "18b4427e-b168-475e-a1e2-92a86c73f0f0",
+      "title": "Applied AI Delivery Lead - Mountain View",
+      "locations": "San Francisco",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/18b4427e-b168-475e-a1e2-92a86c73f0f0",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 3,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "location",
+            "posting_value": "San Francisco",
+            "resume_field": "preferences.regions",
+            "resume_value": [
+              "California"
+            ],
+            "because": "Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Applied AI Delivery Lead - Mountain View",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Applied AI Delivery Lead - Mountain View\" contains the level word \"Lead\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3.",
+            "number": 3,
+            "name": "level"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+          "Check 3 (level): FAILS. Posting title \"Applied AI Delivery Lead - Mountain View\" contains the level word \"Lead\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title \"Applied AI Delivery Lead\" contains the level word \"Lead\" and does not name any role in the résumé's title_includes. The posting also asks for 7+ years of experience, while the résumé has 3.",
+        "resume_fields": [
+          "preferences.title_includes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "Applied AI Delivery Lead - Mountain View",
+          "7+ years of experience leading complex enterprise technology deployments"
+        ],
+        "record": "claude/d61cdb83a3.json",
+        "lines": [
+          "Justification: The title \"Applied AI Delivery Lead\" contains the level word \"Lead\" and does not name any role in the résumé's title_includes. The posting also asks for 7+ years of experience, while the résumé has 3.",
+          "Résumé fields cited: preferences.title_includes, experience.full_time_years",
+          "Posting fields cited: title, descriptionPlain",
+          "Quotes: \"Applied AI Delivery Lead - Mountain View\"; \"7+ years of experience leading complex enterprise technology deployments\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/d61cdb83a3.json."
+        ]
+      }
+    },
+    {
+      "id": "2df14230-1cb5-4727-a34e-f480303e4212",
+      "title": "Manufacturing Quality Engineer, Data Center Equipment",
+      "locations": "US - Remote",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/2df14230-1cb5-4727-a34e-f480303e4212",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 4,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "location",
+            "posting_value": "US - Remote",
+            "resume_field": "preferences.remote_locations",
+            "resume_value": [
+              "US - Remote",
+              "Remote - US",
+              "United States - Remote"
+            ],
+            "because": "Posting location is \"US - Remote\", which is one of résumé preferences.remote_locations [\"US - Remote\", \"Remote - US\", \"United States - Remote\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": true,
+            "posting_field": "title",
+            "posting_value": "Manufacturing Quality Engineer, Data Center Equipment",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Manufacturing Quality Engineer, Data Center Equipment\" contains none of the level words (CONTRACT.md, check 3); résumé experience.full_time_years is 3.",
+            "number": 3,
+            "name": "level"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Manufacturing Quality Engineer, Data Center Equipment",
+            "resume_field": "preferences.title_includes",
+            "resume_value": [
+              "Software Engineer",
+              "Software Developer",
+              "Backend Engineer",
+              "Back-end Engineer",
+              "Full Stack Engineer",
+              "Full-Stack Engineer",
+              "Infrastructure Engineer",
+              "Platform Engineer",
+              "Data Engineer",
+              "Reliability Engineer"
+            ],
+            "because": "The role part of the title, \"Manufacturing Quality Engineer\", contains none of résumé preferences.title_includes.",
+            "number": 4,
+            "name": "role"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting location is \"US - Remote\", which is one of résumé preferences.remote_locations [\"US - Remote\", \"Remote - US\", \"United States - Remote\"].",
+          "Check 3 (level): passes. Posting title \"Manufacturing Quality Engineer, Data Center Equipment\" contains none of the level words (CONTRACT.md, check 3); résumé experience.full_time_years is 3.",
+          "Check 4 (role): FAILS. The role part of the title, \"Manufacturing Quality Engineer\", contains none of résumé preferences.title_includes."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title \"Manufacturing Quality Engineer\" is not among the résumé's title_includes roles. The posting also asks for at least 10 years of data center experience, well above the résumé's 3 years of full-time experience.",
+        "resume_fields": [
+          "preferences.title_includes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "At least 10 years of data center industry experience spanning quality engineering and project management."
+        ],
+        "record": "claude/38c31aa71e.json",
+        "lines": [
+          "Justification: The title \"Manufacturing Quality Engineer\" is not among the résumé's title_includes roles. The posting also asks for at least 10 years of data center experience, well above the résumé's 3 years of full-time experience.",
+          "Résumé fields cited: preferences.title_includes, experience.full_time_years",
+          "Posting fields cited: title, descriptionPlain",
+          "Quotes: \"At least 10 years of data center industry experience spanning quality engineering and project management.\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/38c31aa71e.json."
+        ]
+      }
+    },
+    {
+      "id": "ec0aa7c7-8995-4e01-9939-594a94549f85",
+      "title": "Applied AI Delivery Lead - London",
+      "locations": "London, UK",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/ec0aa7c7-8995-4e01-9939-594a94549f85",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 2,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": false,
+            "posting_field": "location, secondaryLocations",
+            "posting_value": "\"London, UK\"",
+            "resume_field": "preferences.regions, preferences.cities, preferences.remote_locations",
+            "resume_value": [
+              [
+                "California"
+              ],
+              [
+                "Austin",
+                "Boston",
+                "Cambridge",
+                "New York",
+                "Seattle",
+                "Bellevue",
+                "Redmond"
+              ],
+              [
+                "US - Remote",
+                "Remote - US",
+                "United States - Remote"
+              ]
+            ],
+            "because": "Posting locations \"London, UK\" match none of résumé preferences.regions [\"California\"], preferences.cities [\"Austin\", \"Boston\", \"Cambridge\", \"New York\", \"Seattle\", \"Bellevue\", \"Redmond\"] or preferences.remote_locations [\"US - Remote\", \"Remote - US\", \"United States - Remote\"] (region and city count only with country United States).",
+            "number": 2,
+            "name": "location"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): FAILS. Posting locations \"London, UK\" match none of résumé preferences.regions [\"California\"], preferences.cities [\"Austin\", \"Boston\", \"Cambridge\", \"New York\", \"Seattle\", \"Bellevue\", \"Redmond\"] or preferences.remote_locations [\"US - Remote\", \"Remote - US\", \"United States - Remote\"] (region and city count only with country United States)."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The role is in London, UK, which matches none of the preferred regions, cities or remote locations. The title also has the level word \"Lead\", and \"Applied AI Delivery Lead\" names no role in title_includes. The posting asks for 7+ years of experience, while the résumé has 3.",
+        "resume_fields": [
+          "preferences.regions",
+          "preferences.cities",
+          "preferences.title_includes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "location",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "Applied AI Delivery Lead - London",
+          "7+ years of experience leading complex enterprise technology deployments"
+        ],
+        "record": "claude/2082102736.json",
+        "lines": [
+          "Justification: The role is in London, UK, which matches none of the preferred regions, cities or remote locations. The title also has the level word \"Lead\", and \"Applied AI Delivery Lead\" names no role in title_includes. The posting asks for 7+ years of experience, while the résumé has 3.",
+          "Résumé fields cited: preferences.regions, preferences.cities, preferences.title_includes, experience.full_time_years",
+          "Posting fields cited: title, location, descriptionPlain",
+          "Quotes: \"Applied AI Delivery Lead - London\"; \"7+ years of experience leading complex enterprise technology deployments\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/2082102736.json."
+        ]
+      }
+    },
+    {
+      "id": "d769a04e-c300-454a-8c68-1c93d04a6bb6",
+      "title": "Research Program Manager, Safety Systems",
+      "locations": "San Francisco",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/d769a04e-c300-454a-8c68-1c93d04a6bb6",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 3,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "location",
+            "posting_value": "San Francisco",
+            "resume_field": "preferences.regions",
+            "resume_value": [
+              "California"
+            ],
+            "because": "Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Research Program Manager, Safety Systems",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Research Program Manager, Safety Systems\" contains the level word \"Manager\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3.",
+            "number": 3,
+            "name": "level"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+          "Check 3 (level): FAILS. Posting title \"Research Program Manager, Safety Systems\" contains the level word \"Manager\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title \"Research Program Manager, Safety Systems\" has the role \"Research Program Manager\", which is not in title_includes and contains the excluded word \"Research\". It also asks for 5+ years of experience versus the résumé's 3.",
+        "resume_fields": [
+          "preferences.title_includes",
+          "preferences.title_excludes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "Research Program Manager, Safety Systems",
+          "Have 5+ years of experience in technical safety work"
+        ],
+        "record": "claude/c170c9e015.json",
+        "lines": [
+          "Justification: The title \"Research Program Manager, Safety Systems\" has the role \"Research Program Manager\", which is not in title_includes and contains the excluded word \"Research\". It also asks for 5+ years of experience versus the résumé's 3.",
+          "Résumé fields cited: preferences.title_includes, preferences.title_excludes, experience.full_time_years",
+          "Posting fields cited: title, descriptionPlain",
+          "Quotes: \"Research Program Manager, Safety Systems\"; \"Have 5+ years of experience in technical safety work\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/c170c9e015.json."
+        ]
+      }
+    },
+    {
+      "id": "687d42ab-42dd-4ab7-9675-2468896746e9",
+      "title": "Lead Counsel, Commercial (Energy - Infrastructure)",
+      "locations": "San Francisco",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/687d42ab-42dd-4ab7-9675-2468896746e9",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 3,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "location",
+            "posting_value": "San Francisco",
+            "resume_field": "preferences.regions",
+            "resume_value": [
+              "California"
+            ],
+            "because": "Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Lead Counsel, Commercial (Energy - Infrastructure)",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Lead Counsel, Commercial (Energy - Infrastructure)\" contains the level word \"Lead\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3.",
+            "number": 3,
+            "name": "level"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+          "Check 3 (level): FAILS. Posting title \"Lead Counsel, Commercial (Energy - Infrastructure)\" contains the level word \"Lead\". The level words are fixed in CONTRACT.md, check 3, so no résumé value is compared; the résumé field behind the check is experience.full_time_years 3."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title contains the level word \"Lead\" and the role \"Counsel\" is not in the résumé's title_includes. The posting also asks for 10+ years of legal experience, above the résumé's 3 years.",
+        "resume_fields": [
+          "preferences.title_includes",
+          "experience.full_time_years"
+        ],
+        "posting_fields": [
+          "title",
+          "descriptionPlain"
+        ],
+        "quotes": [
+          "Lead Counsel, Commercial (Energy - Infrastructure)",
+          "10+ years of legal experience"
+        ],
+        "record": "claude/1af2917c65.json",
+        "lines": [
+          "Justification: The title contains the level word \"Lead\" and the role \"Counsel\" is not in the résumé's title_includes. The posting also asks for 10+ years of legal experience, above the résumé's 3 years.",
+          "Résumé fields cited: preferences.title_includes, experience.full_time_years",
+          "Posting fields cited: title, descriptionPlain",
+          "Quotes: \"Lead Counsel, Commercial (Energy - Infrastructure)\"; \"10+ years of legal experience\"",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/1af2917c65.json."
+        ]
+      }
+    },
+    {
+      "id": "65dd3a22-32f8-4559-875a-bbb923664c87",
+      "title": "Product Growth",
+      "locations": "San Francisco; New York City",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/65dd3a22-32f8-4559-875a-bbb923664c87",
+      "rule": {
+        "judge": "rule",
+        "label": "record",
+        "verdict": "not_relevant",
+        "deciding_check": 4,
+        "checks": [
+          {
+            "passed": true,
+            "posting_field": "employmentType",
+            "posting_value": "FullTime",
+            "resume_field": "preferences.employment_types",
+            "resume_value": [
+              "FullTime"
+            ],
+            "because": "Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+            "number": 1,
+            "name": "employment type"
+          },
+          {
+            "passed": true,
+            "posting_field": "location",
+            "posting_value": "San Francisco",
+            "resume_field": "preferences.regions",
+            "resume_value": [
+              "California"
+            ],
+            "because": "Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+            "number": 2,
+            "name": "location"
+          },
+          {
+            "passed": true,
+            "posting_field": "title",
+            "posting_value": "Product Growth",
+            "resume_field": "experience.full_time_years",
+            "resume_value": 3,
+            "because": "Posting title \"Product Growth\" contains none of the level words (CONTRACT.md, check 3); résumé experience.full_time_years is 3.",
+            "number": 3,
+            "name": "level"
+          },
+          {
+            "passed": false,
+            "posting_field": "title",
+            "posting_value": "Product Growth",
+            "resume_field": "preferences.title_includes",
+            "resume_value": [
+              "Software Engineer",
+              "Software Developer",
+              "Backend Engineer",
+              "Back-end Engineer",
+              "Full Stack Engineer",
+              "Full-Stack Engineer",
+              "Infrastructure Engineer",
+              "Platform Engineer",
+              "Data Engineer",
+              "Reliability Engineer"
+            ],
+            "because": "The role part of the title, \"Product Growth\", contains none of résumé preferences.title_includes.",
+            "number": 4,
+            "name": "role"
+          }
+        ],
+        "cautions": [],
+        "lines": [
+          "Check 1 (employment type): passes. Posting employmentType is \"FullTime\"; résumé preferences.employment_types is [\"FullTime\"].",
+          "Check 2 (location): passes. Posting location \"San Francisco\" has address region \"California\" in the United States, which is in résumé preferences.regions [\"California\"].",
+          "Check 3 (level): passes. Posting title \"Product Growth\" contains none of the level words (CONTRACT.md, check 3); résumé experience.full_time_years is 3.",
+          "Check 4 (role): FAILS. The role part of the title, \"Product Growth\", contains none of résumé preferences.title_includes."
+        ]
+      },
+      "claude": {
+        "judge": "claude",
+        "label": "judgment",
+        "verdict": "not_relevant",
+        "valid": true,
+        "model": "claude-sonnet-5-5",
+        "date": "2026-10-31",
+        "prompt": {
+          "file": "baseline.txt",
+          "sha256": "d616ca168220aafe6142bf01629832efbec5f6117007148d75fc290199e3712a"
+        },
+        "justification": "The title \"Product Growth\" does not name any role in the résumé's title_includes (Software Engineer, Backend Engineer, etc.), so the role check fails. Employment type and New York location would otherwise fit.",
+        "resume_fields": [
+          "preferences.title_includes"
+        ],
+        "posting_fields": [
+          "title"
+        ],
+        "quotes": [],
+        "record": "claude/079ed7ecb5.json",
+        "lines": [
+          "Justification: The title \"Product Growth\" does not name any role in the résumé's title_includes (Software Engineer, Backend Engineer, etc.), so the role check fails. Employment type and New York location would otherwise fit.",
+          "Résumé fields cited: preferences.title_includes",
+          "Posting fields cited: title",
+          "Quotes: none",
+          "Model claude-sonnet-5-5, 2026-10-31, prompt baseline.txt (SHA-256 d616ca168220); call saved as claude/079ed7ecb5.json."
+        ]
+      }
+    }
+  ],
+  "gone": [
+    {
+      "id": "1eb6ef0f-0e51-46d3-b888-c1a4c22c190a",
+      "title": "Enterprise Account Associate- EMEA (French Speaking)"
+    },
+    {
+      "id": "56e699e0-421f-40d1-aad1-20cf6609794f",
+      "title": "Strategic Finance, B2B Partnerships"
+    },
+    {
+      "id": "609cb338-a168-42c1-8e77-5837826136b1",
+      "title": "Program Manager, Partner Content & Storytelling"
+    },
+    {
+      "id": "43ba8b53-4643-4544-bb21-f13efe99e0a0",
+      "title": "Product Designer, Youth"
+    },
+    {
+      "id": "60be7108-c540-4839-87a8-41f19a75c1ce",
+      "title": "Global Head of Events"
+    },
+    {
+      "id": "923eebc8-5591-4057-892f-5825de1a5460",
+      "title": "HR Business Partner, EMEA"
+    },
+    {
+      "id": "70042d81-4db6-4c5c-bdb2-76c133ee2917",
+      "title": "Machine Learning Engineer, Growth"
+    },
+    {
+      "id": "3d064454-c0c3-4225-bc2c-6d8c0f8735b2",
+      "title": "Backend Software Engineer, Cooperative AI (Evals) "
+    },
+    {
+      "id": "d95a5b8b-35fb-4ae2-9f6c-594ed24e49f7",
+      "title": "Software Engineer"
+    },
+    {
+      "id": "6fd09d8c-f1d9-4c60-bb47-f63d8a96c10b",
+      "title": "Content Marketing Manager, Events"
+    },
+    {
+      "id": "9711a982-851c-4f55-a5ae-080ea4bad520",
+      "title": "Events Designer, Business Marketing"
+    }
+  ]
+}

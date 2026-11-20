@@ -1,0 +1,522 @@
+{
+ "way": "file",
+ "started_at": "2026-10-30T10:34:04Z",
+ "task": "Read posting.json and resume.json in the current folder. Judge whether the posting is relevant for the job seeker by the rules you were given. Reply with one JSON object and nothing else, with exactly these keys: \"verdict\" (\"relevant\" or \"not_relevant\"), \"justification\" (one to three sentences), \"resume_fields\", \"posting_fields\" and \"quotes\" (as in the rules).",
+ "command": [
+  "~/Library/Application Support/Claude/claude-code/2.1.309/5af865b9901c/claude.app/Contents/MacOS/claude",
+  "--print",
+  "--output-format",
+  "stream-json",
+  "--verbose",
+  "--model",
+  "claude-sonnet-5-5",
+  "--system-prompt",
+  "<the system prompt in prompts/baseline.txt>",
+  "--strict-mcp-config",
+  "--mcp-config",
+  "{\"mcpServers\":{}}",
+  "--disable-slash-commands",
+  "--safe-mode",
+  "--restricted",
+  "--permission-mode",
+  "dontAsk",
+  "--permission-prompts",
+  "none",
+  "--no-session-persistence",
+  "--tools",
+  "Read",
+  "--allowedTools",
+  "Read"
+ ],
+ "claude_code": {
+  "claude_code_version": "2.1.309",
+  "model": "claude-sonnet-5-5",
+  "apiKeySource": "none",
+  "permissionMode": "dontAsk",
+  "tools": [
+   "Read"
+  ],
+  "mcp_servers": [],
+  "memory_paths": null
+ },
+ "tool_calls": [
+  {
+   "tool": "Read",
+   "input": {
+    "file_path": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/posting.json"
+   }
+  },
+  {
+   "tool": "Read",
+   "input": {
+    "file_path": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/resume.json"
+   }
+  }
+ ],
+ "tool_results": [
+  {
+   "is_error": null,
+   "content_head": "1\t{\n2\t \"title\": \"Software Engineer, Applied Emerging Talent (2027)\",\n3\t \"location\": \"San Francisco\",\n4\t \"secondaryLocations\": [],\n5\t \"workplaceType\": \"Hybrid\",\n6\t \"employmentType\": \"FullTime\",\n7\t \"descriptionPlain\": \"About the Team\\n\\nThe Applied team works across research, engineering, product, and design to bring OpenAI\\u2019s technology to the world. We seek to learn from deployment and broadly distribute the benefits of AI, while ensuring that this powerful tool is used responsibly and safely. We aim to make our innovative tools globally accessible, transcending geographic, economic, or platform barriers. Our commitment is to facilitate the use of AI to enhance lives, fostered by rigorous insights into how people use our products.\\n\\n\\u00a0\\n\\nAbout the Role\\n\\nWe are seeking Software Engineers (Emerging Talent) to join our Applied Engineering team. You\\u2019ll work in a highly iterative, collaborative, fast-paced environment to bring our technology to millions of users around the world, and ensure it\\u2019s delivered with safety and reliability in mind. We value engineers who are self-starters, care deeply about the end user experience, and take pride in building products to solve customer needs.\\n\\n\\u00a0\\n\\n In this role, you will:\\n\\n - Own the development of new customer-facing ChatGPT and OpenAI API features and product experiences end-to-end\\n\\n - Talk to users to understand their problems and design solutions to address them\\n\\n - Collaborate with a cross-functional team of engineers, researchers, product managers, designers, and operations folks to create cutting-edge products\\n\\n - Optimize applications for speed and scale\\n\\n - Create a diverse and inclusive culture that makes all feel welcome.\\n\\n\\u00a0\\n\\nYour background looks something like:\\n\\n - Bachelor's or Master\\u2019s degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience\\n\\n - 0-1 years of experience in software engineering or a releva",
+   "chars": 5205
+  },
+  {
+   "is_error": null,
+   "content_head": "1\t{\n2\t \"_comment\": \"FICTIONAL PERSONA. This person is not real: every name, school, employer, date and number below is made up, and nothing is ever sent or applied for in this name. She has a situation like the author's (F-1 student, not a U.S. person, needs H-1B sponsorship later, earliest full-time start May 2027, backend new grad) but none of his identity. Layout adapted from the Reallocation Engine's search/examples/priya-nair/resume.example.json (MIT). The fields the rule reads are named in CONTRACT.md, In.\",\n3\t \"fictional\": true,\n4\t \"headline\": \"Backend software engineer finishing an MS in Computer Science in May 2027, with 3 years of industry experience before the master's\",\n5\t \"education\": [\n6\t  {\n7\t   \"institution\": \"Example State University\",\n8\t   \"location\": \"United States\",\n9\t   \"degree\": \"MS, Computer Science\",\n10\t   \"start_date\": \"2025-08\",\n11\t   \"end_date\": \"2027-05\",\n12\t   \"status\": \"in progress\",\n13\t   \"coursework\": [\n14\t    \"Distributed Systems\",\n15\t    \"Database Systems\",\n16\t    \"Cloud Computing\"\n17\t   ]\n18\t  },\n19\t  {\n20\t   \"institution\": \"Example Institute of Technology\",\n21\t   \"location\": \"outside the United States\",\n22\t   \"degree\": \"BS, Computer Science\",\n23\t   \"start_date\": \"2017-08\",\n24\t   \"end_date\": \"2021-05\",\n25\t   \"status\": \"completed\"\n26\t  }\n27\t ],\n28\t \"experience\": {\n29\t  \"full_time_years\": 3,\n30\t  \"roles\": [\n31\t   {\n32\t    \"company\": \"Example Logistics Ltd.\",\n33\t    \"location\": \"outside the United States\",\n34\t    \"title\": \"Software Engineer\",\n35\t    \"start_date\": \"2021-07\",\n36\t    \"end_date\": \"2024-07\",\n37\t    \"bullets\": [\n38\t     \"Built and ran Java and Python REST services for shipment tracking, backed by PostgreSQL and Redis.\",\n39\t     \"Moved a nightly batch job to an event-driven pipeline on Kafka, so tracking updates arrived within minutes.\",\n40\t     \"Added tracing and alerts to the team's services and took part in the on-call rotation.\"\n41\t    ]\n42\t   }\n43\t  ]\n44\t },\n45\t \"projects\": [\n46\t  {\n47\t   \"name\": \"rate-limited API gatew",
+   "chars": 3916
+  }
+ ],
+ "permission_denials": [],
+ "num_turns": 3,
+ "reply": "{\"verdict\":\"relevant\",\"justification\":\"This is a full-time Software Engineer role in San Francisco, which is in California, one of the résumé's preferred regions. The title has no level word and no excluded word. The posting has no citizenship, clearance or sponsorship restriction and states no start date. It asks for 0-1 years of experience, and the résumé has 3.\",\"resume_fields\":[\"preferences.employment_types\",\"preferences.regions\",\"preferences.title_includes\",\"preferences.title_excludes\",\"work_authorization.us_person\",\"work_authorization.needs_sponsorship\",\"availability.earliest_full_time_start\",\"experience.full_time_years\"],\"posting_fields\":[\"title\",\"location\",\"employmentType\",\"descriptionPlain\"],\"quotes\":[\"Software Engineer, Applied Emerging Talent (2027)\",\"0-1 years of experience in software engineering or a relevant field\"]}",
+ "exit_code": 0,
+ "seconds": 5.29,
+ "cost_usd_cli_estimate": 0.0327462,
+ "files_left_in_the_folder": [
+  {
+   "name": "posting.json",
+   "bytes": 5189,
+   "sha256": "a7b19f9f370354098d1729876c2672e92bc613a4a356aea22e1e7a318dbf6b7b"
+  },
+  {
+   "name": "resume.json",
+   "bytes": 3460,
+   "sha256": "ba7103787ede531119c20d88ff063a9ac0e762de1e439b8aa493516a2f8039e6"
+  }
+ ],
+ "events": [
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l",
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "tools": [
+    "Read"
+   ],
+   "mcp_servers": [],
+   "model": "claude-sonnet-5-5",
+   "permissionMode": "dontAsk",
+   "slash_commands": [],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.309",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "Explore",
+    "general-purpose",
+    "Plan"
+   ],
+   "skills": [],
+   "plugins": [
+    {
+     "name": "cc-plugin-sec-default",
+     "path": "builtin",
+     "source": "cc-plugin-sec-default@builtin"
+    },
+    {
+     "name": "cc-plugin-agents-md",
+     "path": "builtin",
+     "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+     "name": "cc-plugin-plugin-authoring",
+     "path": "builtin",
+     "source": "cc-plugin-plugin-authoring@builtin"
+    }
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "interrupt_send_now_v1",
+    "interrupt_requeue_taken_v1",
+    "msg_lifecycle_v1",
+    "request_marker_lists_v1",
+    "lifecycle_wakeup_source_v1",
+    "sdk_mcp_tools_list_changed",
+    "sdk_mcp_manifests",
+    "mcp_read_resource_v1",
+    "mcp_tool_ui_meta_v1",
+    "ui_surface_v1",
+    "mcp_call_result_not_for_model_v1"
+   ],
+   "analytics_disabled": true,
+   "product_feedback_disabled": true,
+   "uuid": "c805f06a-66b9-47a1-af8e-bfb1d14e39ee",
+   "original_cwd": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l",
+   "additional_directories": [],
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "per_turn_effort_active": true,
+   "view_mode": "default"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGh9PbnE1gVQxXqwgzT",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01Wc54ijMAgdWekWiiNHBuA8",
+      "name": "Read",
+      "input": {
+       "file_path": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/posting.json"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 2722,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2722
+     },
+     "output_tokens": 16,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "e5270350-5e6f-4b1d-ad94-614e6c87fed2",
+   "timestamp": "2026-10-30T10:34:06.125Z",
+   "request_id": "req_011CgYGh8o8KgFRubJFxhcqi"
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01Wc54ijMAgdWekWiiNHBuA8",
+      "type": "tool_result",
+      "content": "1\t{\n2\t \"title\": \"Software Engineer, Applied Emerging Talent (2027)\",\n3\t \"location\": \"San Francisco\",\n4\t \"secondaryLocations\": [],\n5\t \"workplaceType\": \"Hybrid\",\n6\t \"employmentType\": \"FullTime\",\n7\t \"descriptionPlain\": \"About the Team\\n\\nThe Applied team works across research, engineering, product, and design to bring OpenAI\\u2019s technology to the world. We seek to learn from deployment and broadly distribute the benefits of AI, while ensuring that this powerful tool is used responsibly and safely. We aim to make our innovative tools globally accessible, transcending geographic, economic, or platform barriers. Our commitment is to facilitate the use of AI to enhance lives, fostered by rigorous insights into how people use our products.\\n\\n\\u00a0\\n\\nAbout the Role\\n\\nWe are seeking Software Engineers (Emerging Talent) to join our Applied Engineering team. You\\u2019ll work in a highly iterative, collaborative, fast-paced environment to bring our technology to millions of users around the world, and ensure it\\u2019s delivered with safety and reliability in mind. We value engineers who are self-starters, care deeply about the end user experience, and take pride in building products to solve customer needs.\\n\\n\\u00a0\\n\\n In this role, you will:\\n\\n - Own the development of new customer-facing ChatGPT and OpenAI API features and product experiences end-to-end\\n\\n - Talk to users to understand their problems and design solutions to address them\\n\\n - Collaborate with a cross-functional team of engineers, researchers, product managers, designers, and operations folks to create cutting-edge products\\n\\n - Optimize applications for speed and scale\\n\\n - Create a diverse and inclusive culture that makes all feel welcome.\\n\\n\\u00a0\\n\\nYour background looks something like:\\n\\n - Bachelor's or Master\\u2019s degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience\\n\\n - 0-1 years of experience in software engineering or a relevant field\\n\\n - Proficiency with JavaScript, React, and some backend languages (we use Python)\\n\\n - Some experience with relational databases like Postgres/MySQL\\n\\n - Interest in AI/ML (direct experience not required)\\n\\n - Ability to move fast in an environment where things are sometimes loosely defined and may have competing priorities or deadlines\\n\\n\\n\\nAbout OpenAI\\n\\nOpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity.\\u00a0\\n\\nWe are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic. \\n\\nFor additional information, please see OpenAI\\u2019s Affirmative Action and Equal Employment Opportunity Policy Statement https://cdn.openai.com/policies/eeo-policy-statement.pdf.\\n\\nBackground checks for applicants will be administered in accordance with applicable law, and qualified applicants with arrest or conviction records will be considered for employment consistent with those laws, including the San Francisco Fair Chance Ordinance, the Los Angeles County Fair Chance Ordinance for Employers, and the California Fair Chance Act, for US-based candidates. For unincorporated Los Angeles County workers: we reasonably believe that criminal history may have a direct, adverse and negative relationship with the following job duties, potentially resulting in the withdrawal of a conditional offer of employment: protect computer hardware entrusted to you from theft, loss or damage; return all computer hardware in your possession (including the data contained therein) upon termination of employment or end of assignment; and maintain the confidentiality of proprietary, confidential, and non-public information. In addition, job duties require access to secure and protected information technology systems and related data security obligations.\\n\\nTo notify OpenAI that you believe this job posting is non-compliant, please submit a report through this form https://form.asana.com/?d=57018692298241&k=5MqR40fZd7jlxVUh5J-UeA. No response will be provided to inquiries unrelated to job posting compliance.\\n\\nWe are committed to providing reasonable accommodations to applicants with disabilities, and requests can be made via this link https://form.asana.com/?k=bQ7w9h3iexRlicUdWRiwvg&d=57018692298241.\\n\\nOpenAI Global Applicant Privacy Policy https://cdn.openai.com/policies/global-employee-and-contractor-privacy-policy.pdf\\n\\nAt OpenAI, we believe artificial intelligence has the potential to help people solve immense global challenges, and we want the upside of AI to be widely shared. Join us in shaping the future of technology.\"\n8\t}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "3a9c17b2-efc7-457b-b42c-62e87992c843",
+   "timestamp": "2026-10-30T10:34:06.151Z",
+   "tool_use_result": {
+    "type": "text",
+    "file": {
+     "filePath": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/posting.json",
+     "content": "{\n \"title\": \"Software Engineer, Applied Emerging Talent (2027)\",\n \"location\": \"San Francisco\",\n \"secondaryLocations\": [],\n \"workplaceType\": \"Hybrid\",\n \"employmentType\": \"FullTime\",\n \"descriptionPlain\": \"About the Team\\n\\nThe Applied team works across research, engineering, product, and design to bring OpenAI\\u2019s technology to the world. We seek to learn from deployment and broadly distribute the benefits of AI, while ensuring that this powerful tool is used responsibly and safely. We aim to make our innovative tools globally accessible, transcending geographic, economic, or platform barriers. Our commitment is to facilitate the use of AI to enhance lives, fostered by rigorous insights into how people use our products.\\n\\n\\u00a0\\n\\nAbout the Role\\n\\nWe are seeking Software Engineers (Emerging Talent) to join our Applied Engineering team. You\\u2019ll work in a highly iterative, collaborative, fast-paced environment to bring our technology to millions of users around the world, and ensure it\\u2019s delivered with safety and reliability in mind. We value engineers who are self-starters, care deeply about the end user experience, and take pride in building products to solve customer needs.\\n\\n\\u00a0\\n\\n In this role, you will:\\n\\n - Own the development of new customer-facing ChatGPT and OpenAI API features and product experiences end-to-end\\n\\n - Talk to users to understand their problems and design solutions to address them\\n\\n - Collaborate with a cross-functional team of engineers, researchers, product managers, designers, and operations folks to create cutting-edge products\\n\\n - Optimize applications for speed and scale\\n\\n - Create a diverse and inclusive culture that makes all feel welcome.\\n\\n\\u00a0\\n\\nYour background looks something like:\\n\\n - Bachelor's or Master\\u2019s degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience\\n\\n - 0-1 years of experience in software engineering or a relevant field\\n\\n - Proficiency with JavaScript, React, and some backend languages (we use Python)\\n\\n - Some experience with relational databases like Postgres/MySQL\\n\\n - Interest in AI/ML (direct experience not required)\\n\\n - Ability to move fast in an environment where things are sometimes loosely defined and may have competing priorities or deadlines\\n\\n\\n\\nAbout OpenAI\\n\\nOpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity.\\u00a0\\n\\nWe are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic. \\n\\nFor additional information, please see OpenAI\\u2019s Affirmative Action and Equal Employment Opportunity Policy Statement https://cdn.openai.com/policies/eeo-policy-statement.pdf.\\n\\nBackground checks for applicants will be administered in accordance with applicable law, and qualified applicants with arrest or conviction records will be considered for employment consistent with those laws, including the San Francisco Fair Chance Ordinance, the Los Angeles County Fair Chance Ordinance for Employers, and the California Fair Chance Act, for US-based candidates. For unincorporated Los Angeles County workers: we reasonably believe that criminal history may have a direct, adverse and negative relationship with the following job duties, potentially resulting in the withdrawal of a conditional offer of employment: protect computer hardware entrusted to you from theft, loss or damage; return all computer hardware in your possession (including the data contained therein) upon termination of employment or end of assignment; and maintain the confidentiality of proprietary, confidential, and non-public information. In addition, job duties require access to secure and protected information technology systems and related data security obligations.\\n\\nTo notify OpenAI that you believe this job posting is non-compliant, please submit a report through this form https://form.asana.com/?d=57018692298241&k=5MqR40fZd7jlxVUh5J-UeA. No response will be provided to inquiries unrelated to job posting compliance.\\n\\nWe are committed to providing reasonable accommodations to applicants with disabilities, and requests can be made via this link https://form.asana.com/?k=bQ7w9h3iexRlicUdWRiwvg&d=57018692298241.\\n\\nOpenAI Global Applicant Privacy Policy https://cdn.openai.com/policies/global-employee-and-contractor-privacy-policy.pdf\\n\\nAt OpenAI, we believe artificial intelligence has the potential to help people solve immense global challenges, and we want the upside of AI to be widely shared. Join us in shaping the future of technology.\"\n}",
+     "numLines": 8,
+     "startLine": 1,
+     "totalLines": 8
+    }
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_01Wc54ijMAgdWekWiiNHBuA8",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGh9PbnE1gVQxXqwgzT",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_019RKQpxKmeMjh4E87WfaKbE",
+      "name": "Read",
+      "input": {
+       "file_path": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/resume.json"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 2722,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2722
+     },
+     "output_tokens": 16,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "3e5a15aa-4c14-4411-ba2d-3a6b3a7bda4d",
+   "timestamp": "2026-10-30T10:34:06.427Z",
+   "request_id": "req_011CgYGh8o8KgFRubJFxhcqi"
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_019RKQpxKmeMjh4E87WfaKbE",
+      "type": "tool_result",
+      "content": "1\t{\n2\t \"_comment\": \"FICTIONAL PERSONA. This person is not real: every name, school, employer, date and number below is made up, and nothing is ever sent or applied for in this name. She has a situation like the author's (F-1 student, not a U.S. person, needs H-1B sponsorship later, earliest full-time start May 2027, backend new grad) but none of his identity. Layout adapted from the Reallocation Engine's search/examples/priya-nair/resume.example.json (MIT). The fields the rule reads are named in CONTRACT.md, In.\",\n3\t \"fictional\": true,\n4\t \"headline\": \"Backend software engineer finishing an MS in Computer Science in May 2027, with 3 years of industry experience before the master's\",\n5\t \"education\": [\n6\t  {\n7\t   \"institution\": \"Example State University\",\n8\t   \"location\": \"United States\",\n9\t   \"degree\": \"MS, Computer Science\",\n10\t   \"start_date\": \"2025-08\",\n11\t   \"end_date\": \"2027-05\",\n12\t   \"status\": \"in progress\",\n13\t   \"coursework\": [\n14\t    \"Distributed Systems\",\n15\t    \"Database Systems\",\n16\t    \"Cloud Computing\"\n17\t   ]\n18\t  },\n19\t  {\n20\t   \"institution\": \"Example Institute of Technology\",\n21\t   \"location\": \"outside the United States\",\n22\t   \"degree\": \"BS, Computer Science\",\n23\t   \"start_date\": \"2017-08\",\n24\t   \"end_date\": \"2021-05\",\n25\t   \"status\": \"completed\"\n26\t  }\n27\t ],\n28\t \"experience\": {\n29\t  \"full_time_years\": 3,\n30\t  \"roles\": [\n31\t   {\n32\t    \"company\": \"Example Logistics Ltd.\",\n33\t    \"location\": \"outside the United States\",\n34\t    \"title\": \"Software Engineer\",\n35\t    \"start_date\": \"2021-07\",\n36\t    \"end_date\": \"2024-07\",\n37\t    \"bullets\": [\n38\t     \"Built and ran Java and Python REST services for shipment tracking, backed by PostgreSQL and Redis.\",\n39\t     \"Moved a nightly batch job to an event-driven pipeline on Kafka, so tracking updates arrived within minutes.\",\n40\t     \"Added tracing and alerts to the team's services and took part in the on-call rotation.\"\n41\t    ]\n42\t   }\n43\t  ]\n44\t },\n45\t \"projects\": [\n46\t  {\n47\t   \"name\": \"rate-limited API gateway\",\n48\t   \"type\": \"coursework\",\n49\t   \"start_date\": \"2025-09\",\n50\t   \"end_date\": \"2025-12\",\n51\t   \"bullets\": [\n52\t    \"A token-bucket rate limiter in Go in front of three small services, with load tests.\"\n53\t   ]\n54\t  }\n55\t ],\n56\t \"skills\": {\n57\t  \"languages\": [\n58\t   \"Python\",\n59\t   \"Java\",\n60\t   \"Go\",\n61\t   \"SQL\"\n62\t  ],\n63\t  \"backend\": [\n64\t   \"REST APIs\",\n65\t   \"gRPC\",\n66\t   \"PostgreSQL\",\n67\t   \"Redis\",\n68\t   \"Kafka\"\n69\t  ],\n70\t  \"cloud_and_tools\": [\n71\t   \"Docker\",\n72\t   \"Kubernetes\",\n73\t   \"AWS\",\n74\t   \"GitHub Actions\"\n75\t  ]\n76\t },\n77\t \"work_authorization\": {\n78\t  \"status\": \"F-1 student; OPT from May 2027\",\n79\t  \"us_person\": false,\n80\t  \"needs_sponsorship\": true,\n81\t  \"note\": \"Will need H-1B sponsorship after OPT.\"\n82\t },\n83\t \"availability\": {\n84\t  \"earliest_full_time_start\": \"2027-05\"\n85\t },\n86\t \"preferences\": {\n87\t  \"employment_types\": [\n88\t   \"FullTime\"\n89\t  ],\n90\t  \"regions\": [\n91\t   \"California\"\n92\t  ],\n93\t  \"cities\": [\n94\t   \"Austin\",\n95\t   \"Boston\",\n96\t   \"Cambridge\",\n97\t   \"New York\",\n98\t   \"Seattle\",\n99\t   \"Bellevue\",\n100\t   \"Redmond\"\n101\t  ],\n102\t  \"remote_locations\": [\n103\t   \"US - Remote\",\n104\t   \"Remote - US\",\n105\t   \"United States - Remote\"\n106\t  ],\n107\t  \"title_includes\": [\n108\t   \"Software Engineer\",\n109\t   \"Software Developer\",\n110\t   \"Backend Engineer\",\n111\t   \"Back-end Engineer\",\n112\t   \"Full Stack Engineer\",\n113\t   \"Full-Stack Engineer\",\n114\t   \"Infrastructure Engineer\",\n115\t   \"Platform Engineer\",\n116\t   \"Data Engineer\",\n117\t   \"Reliability Engineer\"\n118\t  ],\n119\t  \"title_excludes\": [\n120\t   \"Frontend\",\n121\t   \"Front-end\",\n122\t   \"Android\",\n123\t   \"iOS\",\n124\t   \"Mobile\",\n125\t   \"Firmware\",\n126\t   \"Hardware\",\n127\t   \"Embedded\",\n128\t   \"Camera\",\n129\t   \"Robotics\",\n130\t   \"Machine Learning\",\n131\t   \"ML\",\n132\t   \"Research\",\n133\t   \"Security\",\n134\t   \"Forward Deployed\",\n135\t   \"Solutions\",\n136\t   \"Support\",\n137\t   \"Sales\",\n138\t   \"Network\"\n139\t  ]\n140\t }\n141\t}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "7717b89a-6aab-4ab8-a76e-7a7a87c08860",
+   "timestamp": "2026-10-30T10:34:06.447Z",
+   "tool_use_result": {
+    "type": "text",
+    "file": {
+     "filePath": "/private/var/folders/sd/j139_rmn74q23xj8kg4t339w0000gn/T/job-agent-surface-file-wt0p2o9l/resume.json",
+     "content": "{\n \"_comment\": \"FICTIONAL PERSONA. This person is not real: every name, school, employer, date and number below is made up, and nothing is ever sent or applied for in this name. She has a situation like the author's (F-1 student, not a U.S. person, needs H-1B sponsorship later, earliest full-time start May 2027, backend new grad) but none of his identity. Layout adapted from the Reallocation Engine's search/examples/priya-nair/resume.example.json (MIT). The fields the rule reads are named in CONTRACT.md, In.\",\n \"fictional\": true,\n \"headline\": \"Backend software engineer finishing an MS in Computer Science in May 2027, with 3 years of industry experience before the master's\",\n \"education\": [\n  {\n   \"institution\": \"Example State University\",\n   \"location\": \"United States\",\n   \"degree\": \"MS, Computer Science\",\n   \"start_date\": \"2025-08\",\n   \"end_date\": \"2027-05\",\n   \"status\": \"in progress\",\n   \"coursework\": [\n    \"Distributed Systems\",\n    \"Database Systems\",\n    \"Cloud Computing\"\n   ]\n  },\n  {\n   \"institution\": \"Example Institute of Technology\",\n   \"location\": \"outside the United States\",\n   \"degree\": \"BS, Computer Science\",\n   \"start_date\": \"2017-08\",\n   \"end_date\": \"2021-05\",\n   \"status\": \"completed\"\n  }\n ],\n \"experience\": {\n  \"full_time_years\": 3,\n  \"roles\": [\n   {\n    \"company\": \"Example Logistics Ltd.\",\n    \"location\": \"outside the United States\",\n    \"title\": \"Software Engineer\",\n    \"start_date\": \"2021-07\",\n    \"end_date\": \"2024-07\",\n    \"bullets\": [\n     \"Built and ran Java and Python REST services for shipment tracking, backed by PostgreSQL and Redis.\",\n     \"Moved a nightly batch job to an event-driven pipeline on Kafka, so tracking updates arrived within minutes.\",\n     \"Added tracing and alerts to the team's services and took part in the on-call rotation.\"\n    ]\n   }\n  ]\n },\n \"projects\": [\n  {\n   \"name\": \"rate-limited API gateway\",\n   \"type\": \"coursework\",\n   \"start_date\": \"2025-09\",\n   \"end_date\": \"2025-12\",\n   \"bullets\": [\n    \"A token-bucket rate limiter in Go in front of three small services, with load tests.\"\n   ]\n  }\n ],\n \"skills\": {\n  \"languages\": [\n   \"Python\",\n   \"Java\",\n   \"Go\",\n   \"SQL\"\n  ],\n  \"backend\": [\n   \"REST APIs\",\n   \"gRPC\",\n   \"PostgreSQL\",\n   \"Redis\",\n   \"Kafka\"\n  ],\n  \"cloud_and_tools\": [\n   \"Docker\",\n   \"Kubernetes\",\n   \"AWS\",\n   \"GitHub Actions\"\n  ]\n },\n \"work_authorization\": {\n  \"status\": \"F-1 student; OPT from May 2027\",\n  \"us_person\": false,\n  \"needs_sponsorship\": true,\n  \"note\": \"Will need H-1B sponsorship after OPT.\"\n },\n \"availability\": {\n  \"earliest_full_time_start\": \"2027-05\"\n },\n \"preferences\": {\n  \"employment_types\": [\n   \"FullTime\"\n  ],\n  \"regions\": [\n   \"California\"\n  ],\n  \"cities\": [\n   \"Austin\",\n   \"Boston\",\n   \"Cambridge\",\n   \"New York\",\n   \"Seattle\",\n   \"Bellevue\",\n   \"Redmond\"\n  ],\n  \"remote_locations\": [\n   \"US - Remote\",\n   \"Remote - US\",\n   \"United States - Remote\"\n  ],\n  \"title_includes\": [\n   \"Software Engineer\",\n   \"Software Developer\",\n   \"Backend Engineer\",\n   \"Back-end Engineer\",\n   \"Full Stack Engineer\",\n   \"Full-Stack Engineer\",\n   \"Infrastructure Engineer\",\n   \"Platform Engineer\",\n   \"Data Engineer\",\n   \"Reliability Engineer\"\n  ],\n  \"title_excludes\": [\n   \"Frontend\",\n   \"Front-end\",\n   \"Android\",\n   \"iOS\",\n   \"Mobile\",\n   \"Firmware\",\n   \"Hardware\",\n   \"Embedded\",\n   \"Camera\",\n   \"Robotics\",\n   \"Machine Learning\",\n   \"ML\",\n   \"Research\",\n   \"Security\",\n   \"Forward Deployed\",\n   \"Solutions\",\n   \"Support\",\n   \"Sales\",\n   \"Network\"\n  ]\n }\n}",
+     "numLines": 141,
+     "startLine": 1,
+     "totalLines": 141
+    }
+   },
+   "tool_result_meta": [
+    {
+     "id": "toolu_019RKQpxKmeMjh4E87WfaKbE",
+     "permission_decision": {
+      "decision": "accept",
+      "source": "config",
+      "reason_type": "rule"
+     }
+    }
+   ]
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "0705a223-bec5-4f49-afc6-1822631083d4"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 270,
+   "estimated_tokens_delta": 220,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "20906cf8-2092-4c31-9bcc-e6df54bc5fa0"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGhGeRAC2t3f8PzRn26",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQSrQgKEAgTGAI4AUIIdGhpbmtpbmcSDPJEfpZC7rFQOQHszxoMWSwpAFqXZl0nx5CoIjCDJuT1c1YMPXRdhcIu1OzS3vIWvbn1iWzY5Je/g4QH/jCNGOaXysmxYqdgAPBoXUEqygcotoRZOfRWIU+4W1iaeN/Xv8W5RnrQoCCOdaOhMnn+2n69vZpXqLGU6k0vWpbE0lsoLNY0pjuc8tjUslxzpey9JqW+QQpPQgTrKp1RVn+LjwV5rbRvEna4y87zswNrDIyFQBKN98cwaYlKSre8L3/mx9prmSncsdTZCiKKdEAbMYmxH+2Y9Oxcz1R5j/AS2t3cj7VO6rCzkpwAS4K1G0A/3s/I03MI2EY5QBIhZaw/Yb8PgQThcdFnDh1p1yaPYmbcNiyX4hv+lTAEGi/XvgbOzhP2US4+MNTzbbpELLINUeCLXyR8JrIgxmyc5UbeAag6lg9J/GcwRouVHYx4jKIFn2XD5vR478NWk/yt/dgco7i974LGppnHQ6vKfXq2uNEu2U9ejJ2NX7X22yUq7UCJC7heZQKm3np4GlsIgucakq9/6/AHHh1EU79aQX3pT11VYDsx/Dzc9O+2GuPfAkIKUrN8xzNCy5WCaeKRNC0cVVDfdumhH96Ade5Ko8IOgU8Ee6J3lbM7emAnx4VeNXC6Ky/GANjeF2FVQ1QKAUbPZGYfc/5XzpVfoqzRqn6q/+8wVYhxHT+x/Bt+llogGFa6gUtPGOhFchWcMxjy4JRt92AALoBjgjOjey4pO0OwXsG2KhdESJhl72IOO+qtxjLfZh3xnWMB7j4/JBiTwfRdvM0IufW7OQhkx/xyFTboyUytcK7jylB8apy2jlxFyTrdRmkEJv/FPbPe/FhsCcprjIrtVLv6/5pbWpmKdrK03EwkUKdCbZIvExfFXNC+au0925vImBBlV31OsP0k8qgyGVcZkCHGuy0iQcvKoCLHwA8wGHRn/XcXoPUWOY+LPxPZcF0hwUUrAReF40dk9qxm9XHDUEmWJxLf7f4mY/3p9QwLBOC9Y8heQaoPCZgAF0CpUUgQjHpPfxCjrfYxi0NT1AtzulZaufy1I8n7b8Vis0kYSWhtUusnBZ3pH21dZMrR7MvxrDbfbA5+8QbGg68rrwP6UZuCx1CxyTh01rlZQgIJ1UsWNlk57F01NWzj+eGz1tmc8SmJtcao5QbukjZIogNkNEr1pICU2AjBQvOwdViHcC/u4h1T93wubd3cA/tjPVltaWXp+s3PvoG2sFbVSMBObgq4Hm3OtG6tNDYOwFXywtGyqBUUX42AtpsERXr16aDjL1+vKnUv21jnVcsKWGVlmws9tQWrbh7jB+p4i+O9GquY74ivflXyb0nXK5Eop5u/u2+qGVnbTsBLwGMThBZY+WqhFp3L57bxoa9/RlX/J1rUlJIZ5D8lGAE="
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3852,
+     "cache_read_input_tokens": 2722,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3852
+     },
+     "output_tokens": 3,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "cd0ce33a-ef95-4e57-b118-51a7744c841e",
+   "timestamp": "2026-10-30T10:34:09.832Z",
+   "request_id": "req_011CgYGhG1DtN8ihJLK9NW8w",
+   "thinking_duration_ms": 2324,
+   "thinking_display": "updates"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011CgYGhGeRAC2t3f8PzRn26",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "text",
+      "text": "{\"verdict\":\"relevant\",\"justification\":\"This is a full-time Software Engineer role in San Francisco, which is in California, one of the résumé's preferred regions. The title has no level word and no excluded word. The posting has no citizenship, clearance or sponsorship restriction and states no start date. It asks for 0-1 years of experience, and the résumé has 3.\",\"resume_fields\":[\"preferences.employment_types\",\"preferences.regions\",\"preferences.title_includes\",\"preferences.title_excludes\",\"work_authorization.us_person\",\"work_authorization.needs_sponsorship\",\"availability.earliest_full_time_start\",\"experience.full_time_years\"],\"posting_fields\":[\"title\",\"location\",\"employmentType\",\"descriptionPlain\"],\"quotes\":[\"Software Engineer, Applied Emerging Talent (2027)\",\"0-1 years of experience in software engineering or a relevant field\"]}"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 3852,
+     "cache_read_input_tokens": 2722,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3852
+     },
+     "output_tokens": 3,
+     "service_tier": "standard",
+     "inference_geo": "global",
+     "speed": "standard"
+    },
+    "input_transformations": [],
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "uuid": "e4269f53-a3ef-4dc2-8675-23caff150102",
+   "timestamp": "2026-10-30T10:34:09.837Z",
+   "request_id": "req_011CgYGhG1DtN8ihJLK9NW8w"
+  },
+  {
+   "duration_api_ms": 5092,
+   "stop_reason": "end_turn",
+   "session_id": "b327874d-059b-4315-8bd6-6948400ad9af",
+   "total_cost_usd": 0.0327462,
+   "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 6574,
+    "cache_read_input_tokens": 2722,
+    "output_tokens": 617,
+    "output_tokens_details": {
+     "thinking_tokens": 122
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 6574,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "modelUsage": {
+    "claude-sonnet-5-5": {
+     "inputTokens": 4,
+     "outputTokens": 617,
+     "cacheReadInputTokens": 2722,
+     "cacheCreationInputTokens": 6574,
+     "webSearchRequests": 0,
+     "costUSD": 0.0327462,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 122,
+     "canonicalModel": "claude-sonnet-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "safety_stops": 0,
+   "is_error": false,
+   "num_turns": 3,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"verdict\":\"relevant\",\"justification\":\"This is a full-time Software Engineer role in San Francisco, which is in California, one of the résumé's preferred regions. The title has no level word and no excluded word. The posting has no citizenship, clearance or sponsorship restriction and states no start date. It asks for 0-1 years of experience, and the résumé has 3.\",\"resume_fields\":[\"preferences.employment_types\",\"preferences.regions\",\"preferences.title_includes\",\"preferences.title_excludes\",\"work_authorization.us_person\",\"work_authorization.needs_sponsorship\",\"availability.earliest_full_time_start\",\"experience.full_time_years\"],\"posting_fields\":[\"title\",\"location\",\"employmentType\",\"descriptionPlain\"],\"quotes\":[\"Software Engineer, Applied Emerging Talent (2027)\",\"0-1 years of experience in software engineering or a relevant field\"]}",
+   "ttft_ms": 1410,
+   "type": "result",
+   "duration_ms": 5132,
+   "uuid": "f1a640de-216e-45a4-ac02-05828c792fba",
+   "ttft_stream_ms": 730,
+   "time_to_request_ms": 16,
+   "first_content_frame_ms": 731,
+   "queued_turn_count": 0,
+   "result_index": 0,
+   "model_usage_since_last_result": {
+    "claude-sonnet-5-5": {
+     "inputTokens": 4,
+     "outputTokens": 617,
+     "cacheReadInputTokens": 2722,
+     "cacheCreationInputTokens": 6574,
+     "webSearchRequests": 0,
+     "costUSD": 0.0327462,
+     "contextWindow": 1000000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 122,
+     "canonicalModel": "claude-sonnet-5-5",
+     "provider": "firstParty",
+     "costBasis": "list"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,76 @@
+{
+  "_comment": "FICTIONAL PERSONA. This person is not real: every name, school, employer, date and number below is made up, and nothing is ever sent or applied for in this name. She has a situation like the author's (F-1 student, not a U.S. person, needs H-1B sponsorship later, earliest full-time start May 2027, backend new grad) but none of his identity. Layout adapted from the Reallocation Engine's search/examples/priya-nair/resume.example.json (MIT). The fields the rule reads are named in CONTRACT.md, In.",
+  "fictional": true,
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "phone": "(555) 555-0142",
+  "links": ["https://example.com/jane-doe"],
+  "headline": "Backend software engineer finishing an MS in Computer Science in May 2027, with 3 years of industry experience before the master's",
+  "education": [
+    {
+      "institution": "Example State University",
+      "location": "United States",
+      "degree": "MS, Computer Science",
+      "start_date": "2025-08",
+      "end_date": "2027-05",
+      "status": "in progress",
+      "coursework": ["Distributed Systems", "Database Systems", "Cloud Computing"]
+    },
+    {
+      "institution": "Example Institute of Technology",
+      "location": "outside the United States",
+      "degree": "BS, Computer Science",
+      "start_date": "2017-08",
+      "end_date": "2021-05",
+      "status": "completed"
+    }
+  ],
+  "experience": {
+    "full_time_years": 3,
+    "roles": [
+      {
+        "company": "Example Logistics Ltd.",
+        "location": "outside the United States",
+        "title": "Software Engineer",
+        "start_date": "2021-07",
+        "end_date": "2024-07",
+        "bullets": [
+          "Built and ran Java and Python REST services for shipment tracking, backed by PostgreSQL and Redis.",
+          "Moved a nightly batch job to an event-driven pipeline on Kafka, so tracking updates arrived within minutes.",
+          "Added tracing and alerts to the team's services and took part in the on-call rotation."
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "rate-limited API gateway",
+      "type": "coursework",
+      "start_date": "2025-09",
+      "end_date": "2025-12",
+      "bullets": ["A token-bucket rate limiter in Go in front of three small services, with load tests."]
+    }
+  ],
+  "skills": {
+    "languages": ["Python", "Java", "Go", "SQL"],
+    "backend": ["REST APIs", "gRPC", "PostgreSQL", "Redis", "Kafka"],
+    "cloud_and_tools": ["Docker", "Kubernetes", "AWS", "GitHub Actions"]
+  },
+  "work_authorization": {
+    "status": "F-1 student; OPT from May 2027",
+    "us_person": false,
+    "needs_sponsorship": true,
+    "note": "Will need H-1B sponsorship after OPT."
+  },
+  "availability": {
+    "earliest_full_time_start": "2027-05"
+  },
+  "preferences": {
+    "employment_types": ["FullTime"],
+    "regions": ["California"],
+    "cities": ["Austin", "Boston", "Cambridge", "New York", "Seattle", "Bellevue", "Redmond"],
+    "remote_locations": ["US - Remote", "Remote - US", "United States - Remote"],
+    "title_includes": ["Software Engineer", "Software Developer", "Backend Engineer", "Back-end Engineer", "Full Stack Engineer", "Full-Stack Engineer", "Infrastructure Engineer", "Platform Engineer", "Data Engineer", "Reliability Engineer"],
+    "title_excludes": ["Frontend", "Front-end", "Android", "iOS", "Mobile", "Firmware", "Hardware", "Embedded", "Camera", "Robotics", "Machine Learning", "ML", "Research", "Security", "Forward Deployed", "Solutions", "Support", "Sales", "Network"]
+  }
+}
