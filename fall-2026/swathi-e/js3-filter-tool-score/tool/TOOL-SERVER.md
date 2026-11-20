@@ -287,3 +287,46 @@ errors (a result with `isError: true`).
 3. **Filesystem server version: deferred to the evaluation step.** I will
    provide or approve a verifiable source for the pin then. Until then,
    nothing is installed or run.
+
+## Amendment (2026-11-20, Swathi): rate limit, handshake cases, privacy
+Added after the tests were committed (`ae93c19`) and before any server code.
+The sections above are unchanged; where this amendment differs from them,
+it takes precedence.
+
+### 1. Rate limit
+- **Why:** the 2025-11-25 tools page says "Servers MUST: … Rate limit tool
+  invocations".
+- **The limit:** at most 20 `tools/call` requests per second per session.
+  A call beyond that is a tool execution error: a result with
+  `isError: true` and the text "rate limit exceeded".
+- **Recovery:** once the one-second window has passed, calls succeed again.
+- **How it is applied (Claude Code's reading, for me to confirm):**
+  - It is a sliding one-second window over the calls the server accepted.
+  - A call is counted when it passes the protocol checks, that is
+    initialization, the params shape and the tool name. This includes calls
+    that then fail argument validation or name an unknown posting.
+  - Calls refused for the rate limit are not counted.
+  - Protocol errors such as an unknown tool are returned before the limit is
+    applied.
+  - Each session (each server process) has its own window.
+
+### 2. Handshake cases
+- **Requests after `initialize` but before `notifications/initialized`** are
+  served normally. This is lenient, because the spec constrains the client.
+- **A second `initialize`** in the same session gets error -32600, with the
+  message "already initialized".
+
+### 3. Privacy of run outputs and transcripts
+- **The existing run.** `tool/test-runs/before-implementation.txt` (commit
+  `ae93c19`) contains absolute home-directory paths in its tracebacks. It
+  stays as committed, with no history rewrite. This is a disclosed privacy
+  note.
+- **New run outputs must not contain absolute home-directory paths.** They
+  are checked for "/Users/" before they are committed.
+- **Transcripts get the same check.** The transcript privacy check (§5)
+  searches for "/Users/".
+- **Raw protocol transcripts are preserved unchanged.**
+- **If a redaction is ever necessary:**
+  - the original is kept locally and not committed;
+  - the original's SHA-256 is recorded;
+  - every redaction is disclosed in the committed copy.
