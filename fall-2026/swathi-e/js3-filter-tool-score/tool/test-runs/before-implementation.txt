@@ -1,0 +1,631 @@
+# python3 -m unittest discover -s tool/tests -v   (run 2026-11-20 11:01:34 EST, before tool/server.py exists; Python 3.12.2)
+ls: tool/server.py: No such file or directory
+test_A1_missing_and_extra_arguments (test_server.A_ArgumentErrors.test_A1_missing_and_extra_arguments) ... FAIL
+test_A2_wrong_types (test_server.A_ArgumentErrors.test_A2_wrong_types) ... FAIL
+test_A3_unknown_boards (test_server.A_ArgumentErrors.test_A3_unknown_boards) ... FAIL
+test_A4_id_format_per_board (test_server.A_ArgumentErrors.test_A4_id_format_per_board) ... FAIL
+test_A5_unknown_posting (test_server.A_ArgumentErrors.test_A5_unknown_posting) ... FAIL
+test_B1_imports_exclude_network_and_process_modules (test_server.B_Boundaries.test_B1_imports_exclude_network_and_process_modules) ... ERROR
+test_B2_runtime_audit_events_only_expected (test_server.B_Boundaries.test_B2_runtime_audit_events_only_expected) ... FAIL
+test_B3_transcript_records_every_line_both_ways (test_server.B_Boundaries.test_B3_transcript_records_every_line_both_ways) ... FAIL
+test_B4_oversized_line_recorded_truncated (test_server.B_Boundaries.test_B4_oversized_line_recorded_truncated) ... FAIL
+test_B5_each_session_new_transcript (test_server.B_Boundaries.test_B5_each_session_new_transcript) ... FAIL
+test_B6_refuses_to_start_if_results_file_changed (test_server.B_Boundaries.test_B6_refuses_to_start_if_results_file_changed) ... ERROR
+test_E1_malformed_json (test_server.E_ProtocolErrors.test_E1_malformed_json) ... FAIL
+test_E2_batch_array (test_server.E_ProtocolErrors.test_E2_batch_array) ... FAIL
+test_E3_null_id (test_server.E_ProtocolErrors.test_E3_null_id) ... FAIL
+test_E4_missing_or_wrong_jsonrpc (test_server.E_ProtocolErrors.test_E4_missing_or_wrong_jsonrpc) ... FAIL
+test_E5_unknown_methods (test_server.E_ProtocolErrors.test_E5_unknown_methods) ... FAIL
+test_E6_unknown_tool (test_server.E_ProtocolErrors.test_E6_unknown_tool) ... FAIL
+test_E7_malformed_call_params (test_server.E_ProtocolErrors.test_E7_malformed_call_params) ... FAIL
+test_E8_oversized_line_refused_and_server_continues (test_server.E_ProtocolErrors.test_E8_oversized_line_refused_and_server_continues) ... FAIL
+test_E9_stdout_only_jsonrpc (test_server.E_ProtocolErrors.test_E9_stdout_only_jsonrpc) ... FAIL
+test_N1_shortlisted (test_server.N_Normal.test_N1_shortlisted) ... FAIL
+test_N2_rejected (test_server.N_Normal.test_N2_rejected) ... FAIL
+test_N3_cannot_tell (test_server.N_Normal.test_N3_cannot_tell) ... FAIL
+test_N4_not_shortlisted_and_plaid (test_server.N_Normal.test_N4_not_shortlisted_and_plaid) ... FAIL
+test_N5_every_posting_matches_results_json (test_server.N_Normal.test_N5_every_posting_matches_results_json) ... FAIL
+test_P1_initialize_same_version (test_server.P_Protocol.test_P1_initialize_same_version) ... FAIL
+test_P2_initialize_other_version_gets_2025_11_25 (test_server.P_Protocol.test_P2_initialize_other_version_gets_2025_11_25) ... FAIL
+test_P3_initialized_notification_gets_no_response (test_server.P_Protocol.test_P3_initialized_notification_gets_no_response) ... FAIL
+test_P4_tools_before_initialize_refused (test_server.P_Protocol.test_P4_tools_before_initialize_refused) ... FAIL
+test_P5_ping_before_initialize (test_server.P_Protocol.test_P5_ping_before_initialize) ... FAIL
+test_P6_tools_list_one_tool (test_server.P_Protocol.test_P6_tools_list_one_tool) ... FAIL
+test_P7_string_ids_echoed (test_server.P_Protocol.test_P7_string_ids_echoed) ... FAIL
+test_P8_unknown_notification_ignored (test_server.P_Protocol.test_P8_unknown_notification_ignored) ... FAIL
+test_P9_end_of_input_exits_cleanly (test_server.P_Protocol.test_P9_end_of_input_exits_cleanly) ... FAIL
+test_X1_path_like_posting_ids_rejected (test_server.X_PathTricks.test_X1_path_like_posting_ids_rejected) ... FAIL
+test_X2_path_like_boards_rejected (test_server.X_PathTricks.test_X2_path_like_boards_rejected) ... FAIL
+test_X3_path_like_tool_names_are_unknown_tools (test_server.X_PathTricks.test_X3_path_like_tool_names_are_unknown_tools) ... FAIL
+
+======================================================================
+ERROR: test_B1_imports_exclude_network_and_process_modules (test_server.B_Boundaries.test_B1_imports_exclude_network_and_process_modules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 463, in test_B1_imports_exclude_network_and_process_modules
+    tree = ast.parse(SERVER.read_text(encoding="utf-8"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/server.py'
+
+======================================================================
+ERROR: test_B6_refuses_to_start_if_results_file_changed (test_server.B_Boundaries.test_B6_refuses_to_start_if_results_file_changed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 563, in test_B6_refuses_to_start_if_results_file_changed
+    shutil.copy2(SERVER, root / "tool" / "server.py")
+  File "/opt/anaconda3/lib/python3.12/shutil.py", line 475, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/opt/anaconda3/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/server.py'
+
+======================================================================
+FAIL: test_A1_missing_and_extra_arguments (test_server.A_ArgumentErrors.test_A1_missing_and_extra_arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 382, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A2_wrong_types (test_server.A_ArgumentErrors.test_A2_wrong_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 382, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A3_unknown_boards (test_server.A_ArgumentErrors.test_A3_unknown_boards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 382, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A4_id_format_per_board (test_server.A_ArgumentErrors.test_A4_id_format_per_board)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 382, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A5_unknown_posting (test_server.A_ArgumentErrors.test_A5_unknown_posting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 382, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B2_runtime_audit_events_only_expected (test_server.B_Boundaries.test_B2_runtime_audit_events_only_expected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 482, in test_B2_runtime_audit_events_only_expected
+    s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B3_transcript_records_every_line_both_ways (test_server.B_Boundaries.test_B3_transcript_records_every_line_both_ways)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 521, in test_B3_transcript_records_every_line_both_ways
+    s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B4_oversized_line_recorded_truncated (test_server.B_Boundaries.test_B4_oversized_line_recorded_truncated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 537, in test_B4_oversized_line_recorded_truncated
+    s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B5_each_session_new_transcript (test_server.B_Boundaries.test_B5_each_session_new_transcript)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 552, in test_B5_each_session_new_transcript
+    a.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E1_malformed_json (test_server.E_ProtocolErrors.test_E1_malformed_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E2_batch_array (test_server.E_ProtocolErrors.test_E2_batch_array)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E3_null_id (test_server.E_ProtocolErrors.test_E3_null_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E4_missing_or_wrong_jsonrpc (test_server.E_ProtocolErrors.test_E4_missing_or_wrong_jsonrpc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E5_unknown_methods (test_server.E_ProtocolErrors.test_E5_unknown_methods)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E6_unknown_tool (test_server.E_ProtocolErrors.test_E6_unknown_tool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E7_malformed_call_params (test_server.E_ProtocolErrors.test_E7_malformed_call_params)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E8_oversized_line_refused_and_server_continues (test_server.E_ProtocolErrors.test_E8_oversized_line_refused_and_server_continues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E9_stdout_only_jsonrpc (test_server.E_ProtocolErrors.test_E9_stdout_only_jsonrpc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 322, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N1_shortlisted (test_server.N_Normal.test_N1_shortlisted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 292, in test_N1_shortlisted
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N2_rejected (test_server.N_Normal.test_N2_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 296, in test_N2_rejected
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N3_cannot_tell (test_server.N_Normal.test_N3_cannot_tell)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 300, in test_N3_cannot_tell
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N4_not_shortlisted_and_plaid (test_server.N_Normal.test_N4_not_shortlisted_and_plaid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 304, in test_N4_not_shortlisted_and_plaid
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N5_every_posting_matches_results_json (test_server.N_Normal.test_N5_every_posting_matches_results_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 309, in test_N5_every_posting_matches_results_json
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P1_initialize_same_version (test_server.P_Protocol.test_P1_initialize_same_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 216, in test_P1_initialize_same_version
+    r = self.s.initialize()
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P2_initialize_other_version_gets_2025_11_25 (test_server.P_Protocol.test_P2_initialize_other_version_gets_2025_11_25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 224, in test_P2_initialize_other_version_gets_2025_11_25
+    r = self.s.initialize(version="2024-11-05")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P3_initialized_notification_gets_no_response (test_server.P_Protocol.test_P3_initialized_notification_gets_no_response)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 228, in test_P3_initialized_notification_gets_no_response
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P4_tools_before_initialize_refused (test_server.P_Protocol.test_P4_tools_before_initialize_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 234, in test_P4_tools_before_initialize_refused
+    self.assertError(self.s.request("tools/list", id_=1), -32600, 1)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P5_ping_before_initialize (test_server.P_Protocol.test_P5_ping_before_initialize)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 240, in test_P5_ping_before_initialize
+    self.assertEqual(self.s.request("ping", id_="p"), {"jsonrpc": "2.0", "id": "p", "result": {}})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P6_tools_list_one_tool (test_server.P_Protocol.test_P6_tools_list_one_tool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 243, in test_P6_tools_list_one_tool
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P7_string_ids_echoed (test_server.P_Protocol.test_P7_string_ids_echoed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 261, in test_P7_string_ids_echoed
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P8_unknown_notification_ignored (test_server.P_Protocol.test_P8_unknown_notification_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 266, in test_P8_unknown_notification_ignored
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P9_end_of_input_exits_cleanly (test_server.P_Protocol.test_P9_end_of_input_exits_cleanly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 271, in test_P9_end_of_input_exits_cleanly
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X1_path_like_posting_ids_rejected (test_server.X_PathTricks.test_X1_path_like_posting_ids_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 422, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X2_path_like_boards_rejected (test_server.X_PathTricks.test_X2_path_like_boards_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 422, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X3_path_like_tool_names_are_unknown_tools (test_server.X_PathTricks.test_X3_path_like_tool_names_are_unknown_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 422, in setUp
+    self.s.initialize()
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 146, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 143, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "/Users/swathibabaeswarappa/INFO7375/01-explainer-video/course-repo/fall-2026/swathi-e/js3-filter-tool-score/tool/tests/test_server.py", line 129, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+----------------------------------------------------------------------
+Ran 37 tests in 0.437s
+
+FAILED (failures=35, errors=2)
+# exit code: 1
