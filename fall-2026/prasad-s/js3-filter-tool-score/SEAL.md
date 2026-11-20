@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any draw
-**Version:** v1.6 — 2026-11-19
+**Version:** v1.7 — 2026-11-20
 **Rests on:** FILTER.md v1 (JS3-CP1), §3 (the corpus) and §5 (the hand verdicts). This file is committed before any draw, for the same reason FILTER.md came before the build: a rule written after the draw could be bent to fit it.
 
 ## 1. The two sets
@@ -100,6 +100,12 @@ The audit (AUDIT.md §7) found that my first-pass labels misapplied §5's level 
 3. The re-checked labels go in a new file, ~/js3-vault/js3_heldout_labels_r2.tsv, and its SHA-256 is committed before any filter version is scored. The sealed file is never edited.
 4. Only then are the filter versions scored, against both files: the labels as sealed, and the re-checked labels. Both results are reported.
 
+## 10. The reveal — 2026-11-20
+
+It ran in §9's order. (1) The sealed labels file matched vault/js3_heldout_labels.sha256 (shasum -c: OK). (2) The re-check read every worth row: positions 15, 23 and 24 (there were no unclear rows). 15 states "Minimum requirements 8+ years" and 24 "Minimum requirements 10+ years", so both became not_worth on level; 23 states 5+ years only under Preferred Qualifications, and stays worth under FILTER.md §5 as clarified that day (v2.1). (3) The re-checked file's SHA-256 (3a95104f12c6…, vault/js3_heldout_labels_r2.sha256) was committed (JS3-CP11b) before any filter version was scored. (4) Both files were scored (output/measure_heldout_2026-11-20T205452Z/, JS3-CP11f). Each table records its file's SHA-256, and both match the committed hashes. After scoring, both label files, the re-check notes and the exposed first set's labels were copied into vault/ (JS3-CP11g), and shasum -c matched both again.
+
+What the re-check could and could not do: it re-read only worth and unclear rows, so it could only move labels toward not_worth, which favours the stricter filters. That is why both files' results are reported (MEASURE.md). Two of the three worth labels as sealed had missed a minimum-years requirement, the same slip the audit found (AUDIT.md §7).
+
 ## Changelog
 
 - **v1 — 2026-11-15.** Written and committed before any draw. The design (§§1–7) was proposed by Claude (Claude.ai); the decisions are mine.
@@ -109,3 +115,4 @@ The audit (AUDIT.md §7) found that my first-pass labels misapplied §5's level 
 - **v1.4 — 2026-11-16.** Formatting fixes (the Version line and the §8 heading) and one sentence in §8 saying it was written and committed before the replacement draw. No rule changes.
 - **v1.5 — 2026-11-16.** §8 records the replacement draw (JS3-CP3e) and the labeling of the v2 set (JS3-CP3f): the command, the checks, the labels' SHA-256, and the three v2 ids that appeared in the review chat. §8's lead-ins are now bold, a blank line follows its first sentence, and its last rule now says the labels stay in ~/js3-vault/ (the v2 ids are committed in vault/, so "nothing from it" was too broad). Claude (Claude.ai) typed this version's text at my request; the facts and decisions are mine. No rule changes.
 - **v1.6 — 2026-11-19.** §9 added: the reveal procedure, written before the reveal, after the audit found a level slip in my first-pass labels. Claude (Claude.ai) typed it at my request; the decision is mine. No change to the sealed sets or the labels.
+- **v1.7 — 2026-11-20.** §10 records the reveal. Claude (Claude.ai) typed it at my request from the committed files; the facts are mine.

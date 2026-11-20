@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-18, before the audit draw and before any audit verdict
-**Version:** v1.2 — 2026-11-19
+**Version:** v1.3 — 2026-11-20
 **Rests on:** FILTER.md v1.1 (JS3-CP5a) and its first run, output/filter_v1_2026-11-17T210612Z/ (JS3-CP5d). Hand verdicts follow FILTER.md §5. The 50 sealed postings (SEAL.md) are not in this audit: the run never judged them.
 
 ## 1. What the audit is for
@@ -69,6 +69,8 @@ What the numbers can say:
 
 **The kept sample** (§2): FILTER v2 keeps 2 development postings (output/filter_v2_2026-11-19T201210Z/), so both are the kept sample. Both were already audited and keep their verdicts: both worth (rows 8 and 58). Two of two kept postings are worth; a sample of 2 supports no rate. SHORTLIST.md labels every claim the agent makes about them.
 
+**Pass 5, 2026-11-20.** FILTER.md §5 v2.1, decided during the held-out re-check, says years stated only under preferred qualifications do not fail level. Rows 31, 57, 71 and 72 were re-read for it: 57, 71 and 72 state minimum requirements and are unchanged; row 31 states "Preferred Qualifications 6–10+ years" only, so it became worth (audit/hand_verdicts_r5.tsv, JS3-CP11c). Pass 5's comparison (audit/compare_2026-11-20T205044Z/) gives 3 wrong rejects of 94 (rows 8, 31 and 58), all in group (C); group (A) is still 0 of 30. Against pass 5, FILTER v2 keeps 2 of the 3 and misses row 31, because F10 counts preferred years (FILTER.md §6).
+
 ## 8. False friends found
 
 **"Product Manager", matched inside "Staff Product Manager" and "Senior Product Manager".** F3 passes a title that contains a target title, and "Product Manager" is a target title, so a Staff or Senior title passes C1. The word is right; the level is not. In pass 3, 25 audited postings passed C1 while my verdict failed them on level (audit/compare_2026-11-19T030012Z/false_friend_candidates.tsv):
@@ -83,3 +85,4 @@ In FILTER v1 this false friend causes no wrong keep, because C3 rejects all 25 o
 - **v1 — 2026-11-18.** Written and committed before the audit draw. Claude (Claude.ai) proposed the design (A1–A5) and typed this text at my request; the decisions are mine.
 - **v1.1 — 2026-11-19.** §7 and §8 written, after all three passes and their comparisons. Claude (Claude.ai) typed them at my request from the committed files; the facts and decisions are mine.
 - **v1.2 — 2026-11-19.** Pass 4 and the kept sample added to §7. Claude (Claude.ai) typed them at my request from the committed files; the facts and decisions are mine.
+- **v1.3 — 2026-11-20.** Pass 5 added to §7. Claude (Claude.ai) typed it at my request; the facts and decisions are mine.
