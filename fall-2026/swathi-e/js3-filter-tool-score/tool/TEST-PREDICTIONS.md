@@ -111,3 +111,53 @@ traceback.
   sessions are deleted by `tearDownModule`. Only files the tests themselves
   created are removed. The preserved transcripts come from the separate
   scripted-client and Claude Code sessions in §5.
+
+## Amendment (2026-11-20): tests changed or added for the contract amendment
+These tests follow the TOOL-SERVER.md amendment (commit `ff32302`). They
+were written before any server code. Every test above that is not listed
+here is unchanged.
+
+| Test | New or changed | Reason | Expected once implemented |
+|---|---|---|---|
+| N5 | Changed | With 20 calls per second per session, 1,832 calls in one session would hit the limit | All 1,832 postings are checked as before, in 92 sessions of at most 20 calls each. Each record equals `results.json` and `isError` is false |
+| P10 | New | Amendment §2 | A second `initialize` gets -32600 with the message exactly "already initialized" |
+| P11 | New | Amendment §2 | Without `notifications/initialized`, `tools/list` and `tools/call` are served normally after `initialize` |
+| R1 | New | Amendment §1, the limit enforced | Of 25 calls sent at once, the first 20 have `isError` false. Calls 21–25 have `isError` true, with text containing "rate limit exceeded". Ids are in order |
+| R2 | New | Amendment §1, recovery | After the 21st call is refused and 1.1 s pass, the next call succeeds |
+| R3 | New | Amendment §1, per session | After session A hits the limit, a new session B is served at once |
+| Module | Changed | Amendment §3, privacy | `setUpModule` changes to the js3 directory, and the server path is relative. The suite is run as `python3 tool/tests/test_server.py -v`, so tracebacks name files by relative path. A saved run must not contain "/Users/"; it is checked before commit |
+
+**Correction, recorded after the first attempt (2026-11-20).**
+- **What happened.** The run command in the Module row, `python3
+  tool/tests/test_server.py -v`, did not keep paths relative. Since Python
+  3.9 a script's `__file__` is absolute, so tracebacks still showed the
+  home-directory path, 159 lines containing "/Users/".
+- **That output is not committed.** It is kept locally (SHA-256
+  `a62bbea2ab290072b40d88ed09afd4c1bdf3c7de5c79b7364e4003b4d5ae53ed`);
+  otherwise it had the predicted 40 FAIL and 2 ERROR.
+- **The fix.** The suite is now launched through `runpy.run_path` with the
+  relative path, as shown in the test file's docstring, and the run was
+  repeated. No test changed.
+
+Totals: 37 tests before this amendment, and 42 now (P10, P11, R1, R2, R3).
+
+### Prediction for the run before implementation
+`tool/server.py` still does not exist.
+
+| Tests | Predicted result | Why |
+|---|---|---|
+| The 37 earlier tests | Same as before: FAIL "the server closed stdout", or ERROR `FileNotFoundError` for B1 and B6 | `server.py` is missing |
+| N5 | FAIL "the server closed stdout" | First call, first session |
+| P10, P11, R1–R3 | FAIL "the server closed stdout" | `server.py` is missing |
+
+Prediction: 42 tests, 40 FAIL and 2 ERROR (B1, B6), no passes. The
+protected-file check passes. The saved output
+(`tool/test-runs/before-implementation-2.txt`) is predicted to contain no
+"/Users/".
+
+### Interpretation recorded in the amendment, for confirmation
+- **How the limit counts.** Calls are counted in a sliding one-second
+  window, when they pass the protocol checks. Rate-limited calls are not
+  counted, and an unknown tool is a protocol error before the limit applies.
+- **What the tests pin down.** R1–R3 test only the limit, recovery and
+  per-session behavior. They do not test the counting details.

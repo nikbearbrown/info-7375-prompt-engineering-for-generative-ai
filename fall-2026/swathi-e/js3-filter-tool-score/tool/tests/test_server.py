@@ -1,6 +1,12 @@
 """Tests for tool/server.py against tool/TOOL-SERVER.md, written before the server.
 
-    python3 -m unittest discover -s tool/tests
+    python3 -c "import runpy, sys; sys.argv = ['tool/tests/test_server.py', '-v']; runpy.run_path(sys.argv[0], run_name='__main__')"
+
+(from js3-filter-tool-score/). Run this way, tracebacks name this file by
+relative path, so saved run outputs contain no absolute home-directory paths
+(TOOL-SERVER.md amendment, 2026-11-20); `python3 tool/tests/test_server.py`
+does not, because Python makes a script's __file__ absolute.
+`python3 -m unittest discover -s tool/tests` also runs the tests.
 
 Every test starts the server as a real subprocess (python3 tool/server.py)
 and talks to it over stdin/stdout, one JSON line per message, as an MCP client
@@ -10,7 +16,7 @@ before the server exists, are recorded in tool/TEST-PREDICTIONS.md.
 Groups: P protocol and initialization, N normal calls, E protocol errors,
 A argument errors (tool execution errors), X path tricks, B declared
 boundaries (imports, runtime audit events, transcripts, integrity, protected
-files). The tests read results.json and other files read-only; the only
+files), R rate limit (amendment 2026-11-20). The tests read results.json and other files read-only; the only
 files they remove are transcripts created by their own server sessions.
 Written by Claude Code.
 """
@@ -28,7 +34,7 @@ import time
 import unittest
 
 HERE = Path(__file__).resolve().parents[2]  # js3-filter-tool-score/
-SERVER = HERE / "tool" / "server.py"
+SERVER = Path("tool") / "server.py"  # relative: setUpModule changes to HERE
 TRANSCRIPTS = HERE / "tool" / "transcripts"
 RESULTS_REL = "runs/filter-v1.1-2026-11-17T21-47-06-167440-0500/results.json"
 RESULTS = HERE / RESULTS_REL
@@ -36,6 +42,7 @@ RESULTS_SHA256 = "a7f90a74cfd3c82324e55502439684f0234599cde74789fd0736808e2e5ede
 RUN_ID = "2026-11-17T21-47-06-167440-0500"
 PROTOCOL = "2025-11-25"
 TIMEOUT = 5.0
+RATE_LIMIT = 20  # tools/call per second per session (TOOL-SERVER.md amendment, 2026-11-20)
 
 # real postings from results.json: (board, posting id, recorded verdict)
 SHORTLISTED = ("databricks", "6865698002", "shortlisted")
@@ -68,6 +75,7 @@ _before = {}
 
 
 def setUpModule():
+    os.chdir(HERE)  # relative paths in every message (amendment 2026-11-20, privacy)
     _before.update(_protected_hashes())
 
 
@@ -271,6 +279,21 @@ class P_Protocol(ServerTest):
         self.s.initialize()
         self.assertEqual(self.s.close(), 0)
 
+    def test_P10_second_initialize_refused(self):  # amendment 2026-11-20, §2
+        self.s.initialize()
+        r = self.s.request("initialize", {"protocolVersion": PROTOCOL, "capabilities": {},
+                                          "clientInfo": {"name": "test_server.py", "version": "1"}}, id_=10)
+        self.assertError(r, -32600, 10)
+        self.assertEqual(r["error"]["message"], "already initialized")
+
+    def test_P11_served_before_initialized_notification(self):  # amendment 2026-11-20, §2
+        r = self.s.request("initialize", {"protocolVersion": PROTOCOL, "capabilities": {},
+                                          "clientInfo": {"name": "test_server.py", "version": "1"}}, id_=0)
+        self.assertEqual(r["result"]["protocolVersion"], PROTOCOL)
+        self.assertEqual(self.s.request("tools/list", id_=1)["result"]["tools"][0]["name"], "score_posting")
+        r = self.s.call({"board": SHORTLISTED[0], "posting_id": SHORTLISTED[1]}, id_=2)
+        self.assertIs(r["result"]["isError"], False)
+
 
 # ---------- N: normal calls (§1) ----------
 class N_Normal(ServerTest):
@@ -306,13 +329,19 @@ class N_Normal(ServerTest):
         self.check_posting(*PLAID)
 
     def test_N5_every_posting_matches_results_json(self):
-        self.s.initialize()
+        # changed 2026-11-20 for the rate limit: one session per 20 postings, never more than 20 calls a session
         data = json.loads(RESULTS.read_text(encoding="utf-8"))
-        for i, rec in enumerate(data["results"]):
-            r = self.s.call({"board": rec["board"], "posting_id": str(rec["posting_id"])}, id_=100 + i)
-            self.assertEqual(r["id"], 100 + i)
-            self.assertEqual(r["result"]["structuredContent"]["record"], rec)
         self.assertEqual(len(data["results"]), 1832)
+        for start in range(0, len(data["results"]), RATE_LIMIT):
+            s = Session()
+            self.addCleanup(s.close)
+            s.initialize()
+            for i, rec in enumerate(data["results"][start:start + RATE_LIMIT], start):
+                r = s.call({"board": rec["board"], "posting_id": str(rec["posting_id"])}, id_=100 + i)
+                self.assertEqual(r["id"], 100 + i)
+                self.assertIs(r["result"]["isError"], False)
+                self.assertEqual(r["result"]["structuredContent"]["record"], rec)
+            s.close()
 
 
 # ---------- E: protocol errors (§2 errors table) ----------
@@ -433,6 +462,44 @@ class X_PathTricks(ServerTest):
     def test_X3_path_like_tool_names_are_unknown_tools(self):
         r = self.s.call({"board": "stripe", "posting_id": "8172508"}, name="../score_posting", id_=3)
         self.assertError(r, -32602, 3)
+
+
+# ---------- R: rate limit (TOOL-SERVER.md amendment 2026-11-20, §1) ----------
+class R_RateLimit(ServerTest):
+    def setUp(self):
+        super().setUp()
+        self.s.initialize()
+
+    def burst(self, n, first_id=100):
+        """Send n valid calls without waiting, then read the n responses (well within one second)."""
+        args = {"board": SHORTLISTED[0], "posting_id": SHORTLISTED[1]}
+        for i in range(n):
+            self.s.send({"jsonrpc": "2.0", "id": first_id + i, "method": "tools/call",
+                         "params": {"name": "score_posting", "arguments": args}})
+        return [self.s.recv() for _ in range(n)]
+
+    def test_R1_limit_enforced(self):
+        responses = self.burst(RATE_LIMIT + 5)
+        self.assertEqual([r["id"] for r in responses], list(range(100, 100 + RATE_LIMIT + 5)))
+        for r in responses[:RATE_LIMIT]:
+            self.assertIs(r["result"]["isError"], False)
+        for r in responses[RATE_LIMIT:]:
+            self.assertToolError(r, id_=r["id"], contains="rate limit exceeded")
+
+    def test_R2_recovers_after_window(self):
+        responses = self.burst(RATE_LIMIT + 1)
+        self.assertToolError(responses[-1], id_=responses[-1]["id"], contains="rate limit exceeded")
+        time.sleep(1.1)
+        r = self.s.call({"board": SHORTLISTED[0], "posting_id": SHORTLISTED[1]}, id_=500)
+        self.assertIs(r["result"]["isError"], False)
+
+    def test_R3_limit_is_per_session(self):
+        self.burst(RATE_LIMIT + 1)
+        other = Session()
+        self.addCleanup(other.close)
+        other.initialize()
+        r = other.call({"board": SHORTLISTED[0], "posting_id": SHORTLISTED[1]}, id_=1)
+        self.assertIs(r["result"]["isError"], False)
 
 
 # ---------- B: declared boundaries (§3, §5) ----------
