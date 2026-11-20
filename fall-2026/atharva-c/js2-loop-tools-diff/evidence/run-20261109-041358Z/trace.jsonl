@@ -1,0 +1,14 @@
+{"t": 0.0, "event": "start", "boards": 4, "budget": {"_note": "Protected file (GATE.md > Budgets). Changed only by a dated, committed edit to GATE.md first; the agent may write it only with --approve.", "max_boards": 5, "max_requests": 15, "max_seconds": 60, "retry_wait_seconds": 2, "request_timeout_seconds": 10}}
+{"t": 0.0, "event": "request", "board": "robinhood", "url": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs", "attempt": 1, "request_no": 1}
+{"t": 0.288, "event": "response", "board": "robinhood", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.29, "event": "ok", "board": "robinhood", "jobs": 150, "new": 150}
+{"t": 0.29, "event": "request", "board": "affirm", "url": "https://boards-api.greenhouse.io/v1/boards/affirm/jobs", "attempt": 1, "request_no": 2}
+{"t": 0.434, "event": "response", "board": "affirm", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.437, "event": "ok", "board": "affirm", "jobs": 222, "new": 222}
+{"t": 0.437, "event": "request", "board": "wealthfront", "url": "https://api.lever.co/v0/postings/wealthfront?mode=json", "attempt": 1, "request_no": 3}
+{"t": 1.356, "event": "response", "board": "wealthfront", "attempt": 1, "result": "HTTP 200"}
+{"t": 1.36, "event": "ok", "board": "wealthfront", "jobs": 23, "new": 23}
+{"t": 1.36, "event": "request", "board": "nonexistent-co-xyz", "url": "https://boards-api.greenhouse.io/v1/boards/nonexistent-co-xyz/jobs", "attempt": 1, "request_no": 4}
+{"t": 1.453, "event": "response", "board": "nonexistent-co-xyz", "attempt": 1, "result": "HTTP 404"}
+{"t": 1.453, "event": "failed", "board": "nonexistent-co-xyz", "reason": "HTTP 404 (not retried)"}
+{"t": 1.453, "event": "exit", "status": "incomplete", "reason": "nonexistent-co-xyz failed"}

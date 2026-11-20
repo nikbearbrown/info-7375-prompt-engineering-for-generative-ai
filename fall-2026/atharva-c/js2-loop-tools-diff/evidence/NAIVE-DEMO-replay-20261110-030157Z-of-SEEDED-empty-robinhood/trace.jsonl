@@ -1,0 +1,12 @@
+{"t": 0.0, "event": "start", "boards": 3, "budget": {"_note": "Protected file (GATE.md > Budgets). Changed only by a dated, committed edit to GATE.md first; the agent may write it only with --approve.", "max_boards": 5, "max_requests": 15, "max_seconds": 60, "retry_wait_seconds": 2, "request_timeout_seconds": 10}}
+{"t": 0.0, "event": "request", "board": "robinhood", "url": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs", "attempt": 1, "request_no": 1}
+{"t": 0.0, "event": "response", "board": "robinhood", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.0, "event": "flagged", "board": "robinhood", "reason": "empty-response"}
+{"t": 0.0, "event": "naive-accepted-empty", "board": "robinhood"}
+{"t": 0.0, "event": "request", "board": "affirm", "url": "https://boards-api.greenhouse.io/v1/boards/affirm/jobs", "attempt": 1, "request_no": 2}
+{"t": 0.0, "event": "response", "board": "affirm", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.001, "event": "ok", "board": "affirm", "jobs": 221, "new": 0}
+{"t": 0.001, "event": "request", "board": "wealthfront", "url": "https://api.lever.co/v0/postings/wealthfront?mode=json", "attempt": 1, "request_no": 3}
+{"t": 0.001, "event": "response", "board": "wealthfront", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.001, "event": "ok", "board": "wealthfront", "jobs": 23, "new": 0}
+{"t": 0.001, "event": "exit", "status": "finished", "reason": "every board returned at least one job; nothing flagged or failed"}

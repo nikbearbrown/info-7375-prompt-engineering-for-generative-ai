@@ -1,0 +1,39 @@
+test_board_budget (tests.test_loop.LoopTests.test_board_budget) ... ok
+test_crash_is_reported_as_error (tests.test_loop.LoopTests.test_crash_is_reported_as_error) ... ok
+test_finished_when_every_board_has_jobs (tests.test_loop.LoopTests.test_finished_when_every_board_has_jobs) ... ok
+test_non_json_fails_without_retry (tests.test_loop.LoopTests.test_non_json_fails_without_retry) ... ok
+test_off_list_host_ends_run_with_error_before_any_request (tests.test_loop.LoopTests.test_off_list_host_ends_run_with_error_before_any_request) ... ok
+test_other_4xx_not_retried (tests.test_loop.LoopTests.test_other_4xx_not_retried) ... ok
+test_replay_reproduces_report (tests.test_loop.LoopTests.test_replay_reproduces_report) ... ok
+test_request_budget (tests.test_loop.LoopTests.test_request_budget) ... ok
+test_request_budget_used_up_between_boards (tests.test_loop.LoopTests.test_request_budget_used_up_between_boards) ... FAIL
+test_timeout_then_success_retries_once (tests.test_loop.LoopTests.test_timeout_then_success_retries_once) ... ok
+test_wv01_empty_board_is_incomplete_not_finished (tests.test_loop.LoopTests.test_wv01_empty_board_is_incomplete_not_finished) ... ok
+test_wv02_skipped_duplicate_uses_no_budget (tests.test_loop.LoopTests.test_wv02_skipped_duplicate_uses_no_budget) ... ok
+test_wv03_url_variants_fetched_once (tests.test_loop.LoopTests.test_wv03_url_variants_fetched_once) ... ok
+test_wv04_404_not_retried (tests.test_loop.LoopTests.test_wv04_404_not_retried) ... ok
+test_wv05_persistent_500_tried_exactly_twice (tests.test_loop.LoopTests.test_wv05_persistent_500_tried_exactly_twice) ... ok
+test_wv10_waits_2_seconds_before_retry (tests.test_loop.LoopTests.test_wv10_waits_2_seconds_before_retry) ... ok
+test_wv11_failed_board_has_no_job_count (tests.test_loop.LoopTests.test_wv11_failed_board_has_no_job_count) ... ok
+test_wv12_time_budget_checked_between_boards (tests.test_loop.LoopTests.test_wv12_time_budget_checked_between_boards) ... ok
+
+======================================================================
+FAIL: test_request_budget_used_up_between_boards (tests.test_loop.LoopTests.test_request_budget_used_up_between_boards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/arc/Projects/INFO7375/fall-2026/atharva-c/js2-loop-tools-diff/tests/test_loop.py", line 220, in test_request_budget_used_up_between_boards
+    self.assertIn("not reached", self.board(report, "c")["reason"])
+AssertionError: 'not reached' not found in 'stopped mid-board: request budget of 2 used'
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.018s
+
+FAILED (failures=1)
+run-20261110-025708Z: incomplete | bad failed
+  a                      ok              2 jobs, 2 new
+  bad                    failed          HTTP 404 (not retried)
+  used: 2 boards, 2 requests, 0.0 s  ->  out/run-20261110-025708Z/
+replay-20261110-025708Z-of-run-20261110-025708Z: incomplete | bad failed
+  a                      ok              2 jobs, 2 new
+  bad                    failed          HTTP 404 (not retried)
+  used: 2 boards, 2 requests, 0.0 s  ->  out/replay-20261110-025708Z-of-run-20261110-025708Z/

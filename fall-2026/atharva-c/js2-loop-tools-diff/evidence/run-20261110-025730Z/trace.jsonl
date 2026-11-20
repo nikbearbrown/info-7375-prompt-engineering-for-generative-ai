@@ -1,0 +1,9 @@
+{"t": 0.0, "event": "start", "boards": 4, "budget": {"_note": "DEMO ONLY. Not the real budget (that is budget.json, set in GATE.md). Allows only 2 requests so a run on the 4 boards hits budget-exhausted. Used once for the budget-exhausted demonstration.", "max_boards": 5, "max_requests": 2, "max_seconds": 60, "retry_wait_seconds": 2, "request_timeout_seconds": 10}}
+{"t": 0.0, "event": "request", "board": "robinhood", "url": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs", "attempt": 1, "request_no": 1}
+{"t": 0.176, "event": "response", "board": "robinhood", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.177, "event": "ok", "board": "robinhood", "jobs": 153, "new": 0}
+{"t": 0.178, "event": "request", "board": "affirm", "url": "https://boards-api.greenhouse.io/v1/boards/affirm/jobs", "attempt": 1, "request_no": 2}
+{"t": 0.32, "event": "response", "board": "affirm", "attempt": 1, "result": "HTTP 200"}
+{"t": 0.321, "event": "ok", "board": "affirm", "jobs": 221, "new": 0}
+{"t": 0.322, "event": "budget-exhausted", "reason": "request budget of 2 used"}
+{"t": 0.322, "event": "exit", "status": "budget-exhausted", "reason": "request budget of 2 used"}
