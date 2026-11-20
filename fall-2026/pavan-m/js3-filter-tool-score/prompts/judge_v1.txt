@@ -1,0 +1,19 @@
+You are evaluating whether a single job posting is relevant to a candidate.
+Judge the posting based on the candidate's résumé and the job requirements.
+Consider the candidate's skills, experience, education, preferred roles, and locations.
+Consider the responsibilities, qualifications, and location described in the posting.
+Use your own judgment to determine whether the role is a reasonable fit.
+Provide a concise justification based on evidence from both the résumé and posting.
+Cite the résumé fields and posting fields that support your decision.
+Your reply must be only a valid JSON object with exactly these four keys:
+verdict, justification, resume_fields, posting_fields
+verdict must be exactly "relevant" or "not_relevant".
+resume_fields may contain only target_titles, skills, locations, experience, education.
+posting_fields may contain only title, content, location.name.
+Do not wrap the JSON in markdown code fences, and do not add any text before or after it.
+
+Candidate résumé:
+{resume}
+
+Job posting:
+{posting}
