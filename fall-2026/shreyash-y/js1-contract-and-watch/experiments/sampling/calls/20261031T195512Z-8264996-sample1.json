@@ -1,0 +1,176 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:55:12+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8264996,
+    "tag": "sample1",
+    "raw_text": "{\"posting_id\": 8264996, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Market Researcher, Insurance Product & Marketing' contains none of the qualifying role phrases from the target_roles list, and the department 'Product & Design' is not an allowed department. The posting's location and offices show a hybrid New York, NY role with 3 required in-office days, which is neither in Boston nor remote, so it does not fit the résumé's location and remote_ok preferences. The content mentions none of the résumé's ten skills and requires 5+ years of experience, which exceeds the 3-year limit tied to experience_years; the title contains no excluded words, so condition 6 passes.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8264996,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "skills",
+        "experience_years",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Senior Market Researcher, Insurance Product & Marketing' contains none of the qualifying role phrases from the target_roles list, and the department 'Product & Design' is not an allowed department. The posting's location and offices show a hybrid New York, NY role with 3 required in-office days, which is neither in Boston nor remote, so it does not fit the résumé's location and remote_ok preferences. The content mentions none of the résumé's ten skills and requires 5+ years of experience, which exceeds the 3-year limit tied to experience_years; the title contains no excluded words, so condition 6 passes."
+    },
+    "session_id": "8412beb1-d541-4b41-b0d5-d2027d99dcc3",
+    "cost_usd": 0.0366614
+  },
+  "cli_output": {
+    "duration_api_ms": 4787,
+    "stop_reason": "end_turn",
+    "session_id": "8412beb1-d541-4b41-b0d5-d2027d99dcc3",
+    "total_cost_usd": 0.0366614,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3398,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 464,
+      "output_tokens_details": {
+        "thinking_tokens": 138
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3398,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 464,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 3398,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3398
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 464,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 3398,
+        "webSearchRequests": 0,
+        "costUSD": 0.0366614,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 138,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3398,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8264996, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Market Researcher, Insurance Product & Marketing' contains none of the qualifying role phrases from the target_roles list, and the department 'Product & Design' is not an allowed department. The posting's location and offices show a hybrid New York, NY role with 3 required in-office days, which is neither in Boston nor remote, so it does not fit the résumé's location and remote_ok preferences. The content mentions none of the résumé's ten skills and requires 5+ years of experience, which exceeds the 3-year limit tied to experience_years; the title contains no excluded words, so condition 6 passes.\"}",
+    "ttft_ms": 3912,
+    "type": "result",
+    "duration_ms": 8949,
+    "uuid": "6f42752e-2b4a-4408-9000-cf22ec62eaa1",
+    "ttft_stream_ms": 2345,
+    "time_to_request_ms": 1676,
+    "time_to_request_phases_ms": {
+      "other": 15,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 9,
+      "input_attachments": 55,
+      "input_hooks": 7,
+      "tool_pool_refresh": 2,
+      "init_message": 6,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 2,
+      "query_setup": 1,
+      "model_gates": 1570,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 2,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 63,
+    "time_to_request_cpu_ms": 341,
+    "time_to_request_major_faults": 6,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 40,
+      "cpu_ms": 17,
+      "major_faults": 1
+    },
+    "first_content_frame_ms": 2345,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

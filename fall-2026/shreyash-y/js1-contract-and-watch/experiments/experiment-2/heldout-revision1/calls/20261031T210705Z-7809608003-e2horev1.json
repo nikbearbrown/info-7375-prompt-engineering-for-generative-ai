@@ -1,0 +1,172 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T21:07:05+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/revision-1-quote-evidence.md",
+    "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+    "posting_id": 7809608003,
+    "tag": "e2horev1",
+    "raw_text": "{\"posting_id\": 7809608003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"content\"], \"justification\": \"The title contains \\\"Software Engineer\\\" (a target_roles match), the department is \\\"Engineering\\\", and the location is \\\"Boston, MA\\\", so conditions 1–3 pass. Condition 4 fails because only one résumé skill appears in the content (\\\"Python-based data platform tooling\\\"); the other nine skills are not stated. Condition 5 fails because the content requires \\\"12+ years of software engineering experience\\\", which is more than the 3-year limit (experience_years: 3). Condition 6 fails because the title \\\"Senior Lead Software Engineer - Data Platform\\\" contains the excluded whole word \\\"Lead\\\".\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 7809608003,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "skills",
+        "experience_years",
+        "location",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "content"
+      ],
+      "justification": "The title contains \"Software Engineer\" (a target_roles match), the department is \"Engineering\", and the location is \"Boston, MA\", so conditions 1–3 pass. Condition 4 fails because only one résumé skill appears in the content (\"Python-based data platform tooling\"); the other nine skills are not stated. Condition 5 fails because the content requires \"12+ years of software engineering experience\", which is more than the 3-year limit (experience_years: 3). Condition 6 fails because the title \"Senior Lead Software Engineer - Data Platform\" contains the excluded whole word \"Lead\"."
+    },
+    "session_id": "86313675-ee6b-438c-a7de-6dfb175491f6",
+    "cost_usd": 0.044751
+  },
+  "cli_output": {
+    "duration_api_ms": 4770,
+    "stop_reason": "end_turn",
+    "session_id": "86313675-ee6b-438c-a7de-6dfb175491f6",
+    "total_cost_usd": 0.044751,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 4323,
+      "cache_read_input_tokens": 995,
+      "output_tokens": 498,
+      "output_tokens_details": {
+        "thinking_tokens": 183
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 4323,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 498,
+          "cache_read_input_tokens": 995,
+          "cache_creation_input_tokens": 4323,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 4323
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 498,
+        "cacheReadInputTokens": 995,
+        "cacheCreationInputTokens": 4323,
+        "webSearchRequests": 0,
+        "costUSD": 0.044751,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 183,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 4323,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 7809608003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"content\"], \"justification\": \"The title contains \\\"Software Engineer\\\" (a target_roles match), the department is \\\"Engineering\\\", and the location is \\\"Boston, MA\\\", so conditions 1–3 pass. Condition 4 fails because only one résumé skill appears in the content (\\\"Python-based data platform tooling\\\"); the other nine skills are not stated. Condition 5 fails because the content requires \\\"12+ years of software engineering experience\\\", which is more than the 3-year limit (experience_years: 3). Condition 6 fails because the title \\\"Senior Lead Software Engineer - Data Platform\\\" contains the excluded whole word \\\"Lead\\\".\"}",
+    "ttft_ms": 2460,
+    "type": "result",
+    "duration_ms": 7422,
+    "uuid": "62f209c3-c42f-4398-965d-e4c0edc57966",
+    "ttft_stream_ms": 977,
+    "time_to_request_ms": 199,
+    "time_to_request_phases_ms": {
+      "other": 47,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 8,
+      "input_attachments": 38,
+      "input_hooks": 2,
+      "tool_pool_refresh": 3,
+      "init_message": 6,
+      "engine_pickup": 0,
+      "message_prep": 2,
+      "model_config_wait": 0,
+      "autocompact": 2,
+      "query_setup": 0,
+      "model_gates": 1,
+      "tool_schema_build": 1,
+      "message_normalization": 2,
+      "client_creation": 81,
+      "request_build": 5
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 148,
+    "time_to_request_cpu_ms": 98,
+    "time_to_request_major_faults": 190,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 32,
+      "cpu_ms": 24,
+      "major_faults": 53
+    },
+    "first_content_frame_ms": 977,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

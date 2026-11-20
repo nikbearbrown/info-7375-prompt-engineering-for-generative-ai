@@ -1,0 +1,175 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:55:23+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8083703,
+    "tag": "sample1",
+    "raw_text": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Data Scientist' contains none of the required phrases (condition 1), and its department 'Data' is not on the allowed list (condition 2). The posting location and offices are New York, NY, with a hybrid schedule of 3 in-office days per week, which does not match the résumé location of Boston, MA or the remote_ok preference (condition 3). The content requires 4+ years of experience, which exceeds the 3-year limit and the résumé's 3 experience_years (condition 5). Skills pass because the content mentions Python and SQL, and no excluded title words or contract-only terms appear (condition 6 passes).\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8083703,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Senior Data Scientist' contains none of the required phrases (condition 1), and its department 'Data' is not on the allowed list (condition 2). The posting location and offices are New York, NY, with a hybrid schedule of 3 in-office days per week, which does not match the résumé location of Boston, MA or the remote_ok preference (condition 3). The content requires 4+ years of experience, which exceeds the 3-year limit and the résumé's 3 experience_years (condition 5). Skills pass because the content mentions Python and SQL, and no excluded title words or contract-only terms appear (condition 6 passes)."
+    },
+    "session_id": "e9712f0e-3e7c-45f5-b74a-febb304c399d",
+    "cost_usd": 0.016158399999999996
+  },
+  "cli_output": {
+    "duration_api_ms": 4923,
+    "stop_reason": "end_turn",
+    "session_id": "e9712f0e-3e7c-45f5-b74a-febb304c399d",
+    "total_cost_usd": 0.016158399999999996,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 624,
+      "cache_read_input_tokens": 3292,
+      "output_tokens": 525,
+      "output_tokens_details": {
+        "thinking_tokens": 196
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 624,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 525,
+          "cache_read_input_tokens": 3292,
+          "cache_creation_input_tokens": 624,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 624
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 525,
+        "cacheReadInputTokens": 3292,
+        "cacheCreationInputTokens": 624,
+        "webSearchRequests": 0,
+        "costUSD": 0.016158399999999996,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 196,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 624,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Data Scientist' contains none of the required phrases (condition 1), and its department 'Data' is not on the allowed list (condition 2). The posting location and offices are New York, NY, with a hybrid schedule of 3 in-office days per week, which does not match the résumé location of Boston, MA or the remote_ok preference (condition 3). The content requires 4+ years of experience, which exceeds the 3-year limit and the résumé's 3 experience_years (condition 5). Skills pass because the content mentions Python and SQL, and no excluded title words or contract-only terms appear (condition 6 passes).\"}",
+    "ttft_ms": 2506,
+    "type": "result",
+    "duration_ms": 7587,
+    "uuid": "61e7a9a9-7a85-4e29-b1a6-197dcd1e7b43",
+    "ttft_stream_ms": 792,
+    "time_to_request_ms": 66,
+    "time_to_request_phases_ms": {
+      "other": 9,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 13,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 3,
+      "engine_pickup": 0,
+      "message_prep": 1,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 20,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 9,
+      "request_build": 4
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 15,
+    "time_to_request_cpu_ms": 114,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 11,
+      "cpu_ms": 22,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 792,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}
