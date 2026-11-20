@@ -2,7 +2,7 @@
 
 **Author:** Prasad Shinde
 **Written:** 2026-11-15, before any JS3 code and before any posting was opened for JS3
-**Version:** v2 — 2026-11-19
+**Version:** v2.1 — 2026-11-20
 **Started from:** JS2, js2-loop-tools-diff/ at 64e00c7: its rule (CONTRACT.md v0.8 §4) and GATE.md v0.3. The Reallocation Engine is not used. Lectern is reference only, as it was in JS2: cited in SOURCES.md, no code copied.
 **Pointer:** This file supersedes, for JS3, CONTRACT §4's "If a field is missing, that condition is false" (→ F7 below) and CONTRACT §8 (→ §5 here). CONTRACT.md gets a v0.9 row in its §9 pointing here when the JS2 folder is copied in.
 
@@ -94,6 +94,7 @@ W1–W5 are JS1's and JS2's (CONTRACT §5, GATE §6). Every test input below is 
 - **How the three parts combine:** worth when role, level and location all pass; not_worth when any one of them fails; unclear only when none of them fails and one of them cannot be decided from the text — no location at all, or two spans that disagree, as in §2. This mirrors F7: a failure settles the verdict, and only an undecidable part, with nothing failed, leaves the verdict open.
 - **Never used:** anything outside the posting's own text — no company reputation, no salary sites, nothing I know about the company from elsewhere — and never the rule's verdict or Claude's, neither of which I look at while labeling.
 - **JS1 and JS2 labels:** they keep their §8 meaning and are not re-labeled under this section. §5's verdicts begin with JS3.
+- **Clarified, 2026-11-20 (v2.1).** Years stated only under preferred qualifications do not fail level; years under minimum or required qualifications do, as §5 already says. The reason: a preferred qualification is not a requirement, so a posting that prefers 5+ years still invites someone with fewer. Decided during the held-out re-check (SEAL.md §9), before any filter version was scored on the held-out set, for a case §5 did not cover. F10 does not draw this line: it fails C4 on any stated minimum, preferred included, so on such a posting the rule and this standard disagree (a known limit of F10).
 
 ## 6. Changelog and measured changes
 (Brief: "Version it" and "Record every rule you added, cut, or rejected after measuring.")
@@ -101,6 +102,7 @@ W1–W5 are JS1's and JS2's (CONTRACT §5, GATE §6). Every test input below is 
 - **v1 — 2026-11-15.** Written before any JS3 code and before any posting was opened for JS3. Reviewed by Claude (Claude.ai), 2026-11-13 to 2026-11-15; the decisions are mine. Claude.ai proposed the section layout and rule IDs, the W6–W8 candidates, and the leans I adopted (F7, F8, §2's disagreeing spans, §3's unreadable file, the verdict names). Main contents: JS2's rule carried over unchanged as F1–F6; F7 (missing fields, cannot_tell) and F8 (ranking) added; evidence rules for shortlist claims (§2); the frozen 20-file corpus and its sources (§3); wrong versions W6–W8 (§4); hand verdicts for JS3 (§5).
 - **v1.1 — 2026-11-17.** One clarification to F7, under the §1 table: a text that is only whitespace after cleanup is missing. Claude Code asked during the FILTER v1 build; the decision is mine. No posting had been judged. No other rule changes.
 - **v2 — 2026-11-19.** Three rules changed after measuring: F6's skills threshold goes from 2 to 0, so the score only orders the shortlist, and F9 (level by title) and F10 (level by text) add C4. Measured with tools/measure.py on the 94 audited development postings, against pass 4 of my hand labels; the held-out set (SEAL.md) was not used. I chose these after seeing the development results, so the numbers below are fitted to the audit; the held-out measurement on 2026-11-20 is the independent one. Claude (Claude.ai) typed the v2 text at my request; the decisions are mine.
+- **v2.1 — 2026-11-20.** One clarification to §5: years under preferred qualifications do not fail level. Decided during the held-out re-check, before scoring. F10 is unchanged, so on such postings it now disagrees with §5. No rule changes.
 | Date | Rule | Added / cut / rejected | Measured on | Before → after | Decision |
 |---|---|---|---|---|---|
 | 2026-11-19 | F6: skills threshold 2 → 1 (T1) | rejected | 94 audited postings, pass 4 (output/measure_2026-11-19T194702Z/) | kept worth / kept not_worth / missed worth: 0/0/2 → 0/4/2 | keeps 4 wrong postings and neither right one |
