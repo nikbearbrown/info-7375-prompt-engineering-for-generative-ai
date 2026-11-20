@@ -274,3 +274,283 @@ only 2026-07-28 would behave. The contract's Known limitation still applies.
 > **TRUST DECISION (written by Swathi)**
 >
 > I trust this server to pull my saved job scores and filter results, though I wouldn’t rely on it on its own to decide if a job is actually right for me. Seeing all 42 tests pass—and personally testing both a valid and an invalid request in Claude Code—gave me solid confidence that it works as expected. That said, it doesn't run inside an OS-level sandbox, and I've only tested it on one version of Claude Code so far. If anything changed to let it access other files, make network calls, or perform additional write operations, I’d definitely re-evaluate it before trusting it again.
+
+## 2. External server: `@modelcontextprotocol/server-filesystem` 2.4.0 (code reading only)
+
+Dated 2026-11-20. Drafted by Claude Code. **This is a code-reading
+evaluation, not an observation:** the package was downloaded and read, but
+never installed, run, connected to a client or given a directory. No
+protocol transcript of this server exists. Contract §6 allowed this
+fallback, "clearly labeled as code-reading, not observation".
+
+How package files are cited: `dist/server.js:262` means line 262 of that
+file in the published 2.4.0 tarball. These are the compiled JavaScript files
+that would run. The TypeScript source in the GitHub repository was not read.
+
+### 2.1 Version selection
+
+- **Evaluated: 2.4.0.** The npm registry gives its publish time as
+  2026-11-18T09:19:39.880Z, and the `latest` dist-tag pointed to 2.4.0 on
+  2026-11-20 (`npm view … time`, `npm view … dist-tags`).
+- **How the version was chosen (provenance).**
+  1. **Claude Chat** first recommended 2.2.0, based on release age: the
+     newest release at least two weeks old. 2.2.0 was published
+     2026-11-04T21:36:25.362Z, 16 days before this evaluation. 2.3.0
+     (2026-11-11) and 2.4.0 (2026-11-18) were newer than two weeks.
+  2. **ChatGPT** identified security advisory GHSA-7m4x-rv66-mxhh, which
+     affects 2.2.0.
+  3. **Claude Chat** independently checked the advisory and revised its
+     recommendation.
+  4. **Swathi** approved version 2.4.0 and the code-reading approach.
+
+  These steps took place outside this Claude Code session. Claude Code
+  verified the advisory and the release information below on 2026-11-20,
+  after the version was chosen.
+- **Why the age-based recommendation of 2.2.0 was rejected.**
+  - **Advisory GHSA-7m4x-rv66-mxhh** (repository advisory, state
+    "published", published 2026-11-11T07:24:37Z, read on 2026-11-20 through
+    `https://api.github.com/repos/modelcontextprotocol/servers/security-advisories/GHSA-7m4x-rv66-mxhh`;
+    page `https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-7m4x-rv66-mxhh`):
+    - Summary: "server-filesystem: `move_file`'s same-device rename leaves
+      the source unpinned — a swapped source parent moves an outside file
+      into the allowed directories, where it becomes readable".
+    - Severity medium, CVSS 3.1 score 5.0
+      (`AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:L/A:N`), CWE-367 (time-of-check
+      time-of-use race).
+    - Affected: npm `@modelcontextprotocol/server-filesystem` "< 2.3.0",
+      patched in "2.3.0". The date-versioned releases ">= 2025.1.14,
+      <= 2026.8.31" are also affected, with no patched version.
+    - The reporter's "Confirmed version: v2.2.0". The advisory quotes the
+      vulnerable 2.2.0 code: `renameIntoDirectory` called
+      `fs.renameSync(sourcePath, path.basename(destinationPath))` with the
+      source as an absolute path that "the kernel resolves at rename time —
+      after validation".
+    - The global advisory database (`/advisories/GHSA-7m4x-rv66-mxhh`) and
+      OSV returned 404 on 2026-11-20. The npm bulk advisory endpoint
+      returned no advisories for 2.2.0, 2.3.0 or 2.4.0. The repository
+      advisory above is therefore the source.
+  - **So 2.2.0 is affected by a published advisory**, and an age rule alone
+    would have chosen a known-vulnerable version.
+- **Release information** (GitHub releases API, read on 2026-11-20). The
+  repository's release tags are monorepo versions, not package versions.
+  - Release `v2.4.0` (2026-11-11T07:07:16Z) ships filesystem **2.3.0**. It
+    lists the GHSA-7m4x-rv66-mxhh fix ("`move_file` moves only the source it
+    checked") and GHSA-p9cv-8g75-4xcg (reads anchored to the checked
+    directory).
+  - Release `v2.5.0` (2026-11-18T09:13:14Z) ships filesystem **2.4.0**. Its
+    table says filesystem is affected in "all versions before 2.4.0, and
+    date versions 2025.1.14 through 2026.8.31", fixed in 2.4.0. The fix is
+    GHSA-rq2p-q7c4-6g27: directory listings stay with the checked
+    directory. It adds: "**On Windows a listing is not yet anchored**
+    (#5600)".
+  - So 2.3.0 also had a fix that only 2.4.0 includes. This evaluation did
+    not read GHSA-p9cv-8g75-4xcg or GHSA-rq2p-q7c4-6g27 themselves, only the
+    release notes that cite them.
+- **Node.js requirement.** 2.4.0 declares `"engines": {"node": ">=24"}`
+  (`package.json`; README "Requirements": "Node.js 24 or later"). The
+  installed Node.js here is v23.4.0, with npm 10.9.2.
+- **No `gitHead`.** `npm view @modelcontextprotocol/server-filesystem@2.4.0
+  gitHead` returned nothing. The registry metadata does not name the source
+  commit (see row S2 below for the provenance attestation).
+- **Why code reading, not a downgrade or a new environment.**
+  - Running 2.4.0 needs Node.js 24 or later. Swathi chose not to upgrade
+    Node.js or otherwise change the local environment for this evaluation.
+    Running it would also mean installing the package's dependencies and
+    executing package code, which this code-reading approach avoids.
+  - Downgrading to a version that runs on Node 23 would mean evaluating an
+    older release than the patched one. 2.2.0 is known-vulnerable
+    (GHSA-7m4x-rv66-mxhh), and older 2.x releases precede further fixes.
+  - Code reading evaluates the exact published 2.4.0 files, with no change
+    to the machine. Its limits are stated in §2.5.
+
+### 2.2 Obtaining the exact published package
+
+All commands were run on 2026-11-20 from a throwaway directory outside the
+repository, `/tmp/fs-eval.7UEKGk`. It was created with `mktemp -d
+/tmp/fs-eval.XXXXXX`, and its path holds no username.
+
+```bash
+npm view @modelcontextprotocol/server-filesystem@2.4.0 name version time dist engines dependencies gitHead repository bin --json
+cd /tmp/fs-eval.7UEKGk
+npm pack --ignore-scripts --cache /tmp/fs-eval.7UEKGk/npm-cache @modelcontextprotocol/server-filesystem@2.4.0
+echo "sha512-$(openssl dgst -sha512 -binary modelcontextprotocol-server-filesystem-2.4.0.tgz | base64)"
+```
+
+- **The npm cache was kept inside the throwaway directory** (`--cache`), so
+  nothing was written to the home-directory npm cache.
+- **The registry metadata:**
+  - `dist.integrity`
+    `sha512-BoT8Gws5MsetfAey4vDyuzy8WYQES6mGYLSShuqSNGAC0X0NBV4p78/R78KfW4RkxtWz+zxhS9jwhzJrQUTt2Q==`;
+  - `dist.shasum` `172f7d8fcd0d85205db041291a47f05bb2042d92`;
+  - `fileCount` 14 and `unpackedSize` 227330;
+  - `repository` `git+https://github.com/modelcontextprotocol/servers.git`;
+  - `bin` `mcp-server-filesystem` → `dist/index.js`.
+- **Integrity verification: passed.**
+  - The computed SHA-512 of the tarball is
+    `sha512-BoT8Gws5MsetfAey4vDyuzy8WYQES6mGYLSShuqSNGAC0X0NBV4p78/R78KfW4RkxtWz+zxhS9jwhzJrQUTt2Q==`,
+    identical to the registry value and to the value Swathi gave.
+  - The SHA-1 is `172f7d8f…2d92`, equal to `dist.shasum`. The SHA-256 is
+    `a785e3dadbf58a5fce6fbb006b883c925772c254e880da4866a4c418fc746e3f`.
+- **The archive was inspected before extraction.** Python's `tarfile` was
+  run with `-I` from a script outside the archive.
+  - It has 14 members, all regular files under `package/`: `package.json`,
+    `README.md` and 12 files in `dist/`.
+  - There are no symlinks, hard links or device entries, no absolute paths
+    and no `..` components.
+  - It was then extracted with `tar -xzf … --no-same-owner` into a
+    subdirectory, and `find -type l` found 0 links.
+- **Inspected files (SHA-256 of each extracted file):**
+
+  | File | Lines | SHA-256 |
+  |---|---:|---|
+  | `package.json` | — | `4d524b3d5ba59990c1396cdbcea5e54b10aceacb6e8bebe886bd45f27831d43f` |
+  | `README.md` | — | `7314bb305332a61ae6b2fe997cec775d5cc1daf6456e62d63e27a0d975293e81` |
+  | `dist/index.js` | 268 | `4e7e0c6e39fa416d9368ff0d0a4b9c2d5351be30c76e6e45eced03394b6ede31` |
+  | `dist/server.js` | 916 | `531a121b9c3eef3d0651cb71d3447b3b42ccd928450095637dfa0ad99a042807` |
+  | `dist/lib.js` | 1006 | `986bd4ecc96be578102ae5ce4ec695e6a5a99dfa1e347ae2dda58f7b1bc8191c` |
+  | `dist/pinned-directory.js` | 856 | `b98cd3a2fc747616608eb396437e4727119904d99ed00991a467dfaf22c5ecff` |
+  | `dist/path-validation.js` | 181 | `8526d7e173165c71503cd3c533c8ef1ed97ec01ce8589a61e6c8f25ed87de537` |
+  | `dist/path-utils.js` | 150 | `d7effde9b096a332dd1e531a8dc47e65117cf5bf387ee937aaba71b5f649b2d2` |
+  | `dist/allowed-directories.js` | 61 | `aba75864d20452b0f08e63e1a3e193eecd814bc66a3ddfffef9e756ec3f6e8a0` |
+  | `dist/roots-utils.js` | 83 | `47a44576958fbfba80419e3dffd5db1d6e48d85ad0cd810f060fbcf932a28124` |
+  | `dist/read-only-directories.js` | 109 | `86298eafe35cc6e21e6ae82259512c0d228043c934a08963f8561dc4119a57df` |
+  | `dist/file-resources.js` | 189 | `60e2787929d8c67ebd5e849be7bc0f8e31bdaa536df66202f2d0620b3f6672b7` |
+  | `dist/http.js` | 86 | `f4b5488baa8bb049e56bddee3fefc9af02d7f2552ffc2e0b6379df8ab19d2719` |
+  | `dist/version.js` | 35 | `044a3819acfb25e8038eb742845502eb255fa719aaa158b4befad5a58a44854d` |
+
+  Not every line of every file was read. The cited lines and the functions
+  they belong to were read. Elsewhere the reading was targeted searches
+  (for example, every `validatePath` call site, and imports of `http`,
+  `child_process` and `process.env`).
+- **Not done:** no `npm install`, no dependency download, no Node.js
+  upgrade, no execution of package code, and no Claude Code registration.
+
+### 2.3 Declared vs actual (by code inspection)
+
+Statuses: **matched by code inspection** (the code does what is declared, as
+far as reading shows), **not matched by code inspection**, and **not
+verifiable by code reading**. A "matched" row is a statement about the code
+as read, not proof of runtime behavior.
+
+**Tools, schemas and annotations**
+
+| # | Declared | Code evidence | Finding | Status |
+|---|---|---|---|---|
+| T1 | 16 tools (README "Tools", lines 151–350, and the annotations table, lines 385–402) | `dist/server.js:262–790`: `read_file` (deprecated alias), `read_text_file`, `read_media_file`, `read_multiple_files`, `write_file`, `append_file`, `edit_file`, `create_directory`, `list_directory`, `list_directory_with_sizes`, `directory_tree`, `move_file`, `copy_file`, `search_files`, `get_file_info`, `list_allowed_directories` | The same 16 tools are registered. There is also one resource template, `file://{+path}` (`dist/file-resources.js:124–189`) | matched by code inspection |
+| T2 | Annotations: 10 read tools `readOnlyHint: true`; write tools as in the README table (lines 385–402) | Annotation blocks at `dist/server.js:267–272, 285–290, 316–321, 371–376, 402–407, 425–430, 454–459, 476–481, 500–505, 526–531, 607–612, 659–664, 684–689, 709–714, 748–753, 773–778` | Every value matches the table. For example, `move_file` has `readOnlyHint: false`, `destructiveHint: true` (`:659–664`), and `write_file` has `destructiveHint: true` (`:402–407`) | matched by code inspection |
+| T3 | Input schemas: path arguments are strings, described as "Absolute, or relative to an allowed directory; it must resolve inside the allowed directories" | `dist/server.js:33–147` (zod schemas); `PATH_RULE` at `:33` | Most path arguments carry the rule. `copy_file`'s `source` and `destination` (`:125–130`) and `read_multiple_files`' `paths` (`:57–62`) do not, though their handlers validate them the same way (`:691–692`, `:380`). The JSON Schema sent to clients is produced by the SDK from these zod objects, so its exact form (for example, whether extra properties are refused) cannot be read here | not verifiable by code reading (the rendering is in the SDK) |
+| T4 | `--read-only` serves only tools annotated `readOnlyHint: true` (README line 41) | `dist/server.js:229–237`: a tool without `readOnlyHint === true` is removed after registration | As declared. The annotation is used here as an enforcement key inside the server, not as a promise to the client | matched by code inspection |
+
+**Read, write and move capabilities**
+
+| # | Declared | Code evidence | Finding | Status |
+|---|---|---|---|---|
+| C1 | Reads: content, media, several files, listings, tree, name search, metadata, allowed-directory list, file resources | `validatePath(…, "read")` at `dist/server.js:241, 323, 380, 507, 533, 542, 619, 716, 755`; `dist/lib.js:987`; `dist/file-resources.js:154` | Every read path goes through `validatePath`. `list_allowed_directories` (`dist/server.js:779–789`) returns the allowed and read-only directory paths themselves | matched by code inspection |
+| C2 | Writes: create or overwrite (`write_file`), append, edit, `create_directory`, `copy_file` (never overwrites) | `validatePath(…, "write", readOnlyDirectories)` at `dist/server.js:409, 432, 461, 483, 692`; `dist/lib.js:417–432` (exclusive create, then overwrite in place); `dist/lib.js:534–546` (copy refuses an existing destination) | `write_file` overwrites an existing file without confirmation, as its description says ("overwrite existing files without warning", `dist/server.js:397–399`) | matched by code inspection |
+| C3 | Move: "Both source and destination must be within allowed directories"; fails if the destination exists | `dist/server.js:665–668` (both validated in "move" mode); `dist/lib.js:499–526` (`lstat` the destination, refuse if anything is there) | As declared. A move removes the source from its original place | matched by code inspection |
+| C4 | Read-only directories (`--read-only-dir`) refuse writes and moves, even through a symlink, and Roots never lift them (README lines 47–59) | `dist/lib.js:331–337` (`assertWritable` on the resolved path for every non-read access); `dist/read-only-directories.js:90–102` (write and move checks); `:38–54` (startup refuses an unresolvable marking) | As declared | matched by code inspection |
+
+**Allowed directories, Roots and path validation**
+
+| # | Declared | Code evidence | Finding | Status |
+|---|---|---|---|---|
+| A1 | The server may touch only its allowed directories, given on the command line (README lines 17–19) | `dist/index.js:29–84` (each directory resolved, both spellings kept, missing ones dropped with a warning); `dist/index.js:187–203` | As declared for the command line | matched by code inspection |
+| A2 | Containment check on a separator boundary, null bytes refused | `dist/path-validation.js:94–181`; null byte `:104`; boundary `:171–179`; Windows-only refusals `:116–124` | A sibling such as `/allowed-evil` does not match `/allowed`. The check compares strings after `path.resolve`, and symlinks are handled separately (A4) | matched by code inspection |
+| A3 | Relative paths resolve against an allowed directory | `dist/lib.js:128–145`; with no allowed directories, the fallback is `process.cwd()` (`:129–132`) | The fallback result is still checked against the allow-list (`dist/lib.js:352–365`), so with none it is refused | matched by code inspection |
+| A4 | Symlinks: a path is resolved to its real location and checked; a symlink leaving the allowed directories is refused (README lines 86, 128) | `dist/lib.js:366–375` (`realpath`, then re-check); `:376–391` and `:266–330` (for a path that does not exist yet, each existing component is realpath'd and checked) | As declared, at check time. Use-time protection is A6 | matched by code inspection |
+| A5 | **Client-provided Roots replace the command-line directories** on a 2025-era connection unless `--confine-roots` is given (README lines 64–84: "Roots notified by Client to Server, completely replace any server-side Allowed directories when provided") | `dist/server.js:802–822` (`allowedDirectories = [...validatedRootDirs]`); `:835–848` and `dist/allowed-directories.js:47–61` (`--confine-roots` keeps only the overlap); `dist/roots-utils.js:59–83` (any existing directory named by a root is accepted) | As declared. **Without `--confine-roots`, a 2025-era client can widen access to any directory it names as a Root**, not only narrow it | matched by code inspection |
+| A6 | Use-time anchoring on Linux and macOS: every write, every content or metadata read and every listing acts from inside the checked directory (README line 128) | `dist/pinned-directory.js:1–45` (design), `:166–207` (`chdir`, then `getcwd` check), `:214–233` (open relative to the anchor, identity check), `:840–856` (listing reads `.` inside the anchor); `dist/lib.js:88–93` | The mechanism is present as described. Whether it closes every race at run time cannot be shown by reading | matched by code inspection (runtime not verified) |
+| A7 | Windows limit: a parent directory swapped during an operation is not protected (README lines 131–134); listings not anchored there (release v2.5.0, #5600) | `dist/pinned-directory.js:38–45`; `:144–148` (the `getcwd` check is skipped on Windows) | A disclosed gap, present as disclosed | matched by code inspection (disclosed limitation) |
+| A8 | Hard links: checks are path-based, so editing a file hard-linked from outside changes it there too (README lines 190–197) | `dist/lib.js:459–465` (`overwriteInPlace` checks the type and identity of the file, not its link count); `dist/lib.js:409–411` (`hardLinks` reported by `get_file_info`) | A disclosed gap, present as disclosed: content outside the allowed directories can change through a hard link inside them | matched by code inspection (disclosed limitation) |
+
+**The advisory fix, network and dependencies**
+
+| # | Declared | Code evidence | Finding | Status |
+|---|---|---|---|---|
+| G1 | GHSA-7m4x-rv66-mxhh fixed in 2.3.0 and later: "A move within one device first takes the source out of its own checked directory under a fresh name" (release `v2.4.0` notes) | `dist/pinned-directory.js:338–442` (`renameIntoDirectory`). Step 1, anchored in the source's directory, renames the source to a random name (`:363–371`, `stagingName` at `:304–306`). Step 2, anchored in the destination's directory, moves it and checks it by inode and device (`:375–393`). On failure it puts the source back (`:398–441`). `dist/lib.js:499–520` calls it | **The fix is present in the published 2.4.0 code.** The source is no longer passed to `fs.renameSync` as an absolute path from the destination's anchor, as in the 2.2.0 code quoted by the advisory. The cross-device path pins the source through `openSourceInDirectory` (`dist/pinned-directory.js:516–546`, `:650–671`) | matched by code inspection (no race was run) |
+| G2 | GHSA-rq2p-q7c4-6g27 (2.4.0): listings stay with the checked directory on Linux and macOS | `dist/lib.js:88–93` (`listValidatedDirectory` returns `readDirectoryInPlace`); `dist/pinned-directory.js:840–856` | Present as described. The advisory itself was not read, only the release note | matched by code inspection |
+| N1 | No network over stdio; Streamable HTTP only when chosen, bound to loopback by default (README lines 410–435) | `dist/index.js:156–179` (HTTP only with `--transport streamable-http`); `dist/http.js:17, 21, 27–36, 47–72` (`node:http`, default host `127.0.0.1`, widened by the `HOST` environment variable); no `child_process`, `net` or `fetch` in the 12 `dist/` files (search) | Within the package files, as declared. The SDK dependencies that handle the protocol and stdio were not read | matched by code inspection (package files only) |
+| S1 | Dependencies (`package.json`) | `@modelcontextprotocol/server` ^2.3.1, `@modelcontextprotocol/node` ^2.1.1, `zod` ^4.2.0, `diff` ^8.0.3, `minimatch` ^11.0.4. The devDependencies are not shipped | **None of these was downloaded or read.** They include the code that parses JSON-RPC, applies the input schemas, chooses the protocol era (`serveStdio`) and sends `roots/list`. Version ranges (`^`) mean an install could resolve different versions over time. Node.js built-ins used (`fs`, `path`, `crypto`, `node:http` and others) were not audited either | not verifiable by code reading |
+| S2 | Source of the published files | `gitHead` absent. The npm provenance attestation (`https://registry.npmjs.org/-/npm/v1/attestations/@modelcontextprotocol%2fserver-filesystem@2.4.0`) has a subject SHA-512 equal to the tarball's, and names workflow `.github/workflows/release.yml` at `refs/tags/v2.5.0`, commit `c799c8552b0f27b7a33a7b9233773da144dddcf5` | The attestation's signature was not verified, and the GitHub source at that commit was not compared with `dist/` | not verifiable by code reading |
+| P1 | Protocol: both eras on stdio (2026-07-28 `server/discover`, and 2025-era `initialize` then Roots) | `dist/index.js:5–8, 195–213` (`serveStdio` from the SDK); `dist/server.js:868–914` (Roots only after a 2025-era `initialize`) | The era choice and message handling are in the SDK (S1) | not verifiable by code reading |
+
+Totals: 22 rows. 18 matched by code inspection, 0 not matched by code
+inspection, and 4 not verifiable by code reading (T3, S1, S2 and P1).
+- A7 and A8 are disclosed limitations, present as disclosed.
+- A6, G1 and N1 carry the qualifiers shown in their rows. Their runtime
+  side is a limit of this evaluation (§2.5).
+
+### 2.4 What a compatible client is NOT entitled to
+
+- **Access outside the authorized directories.**
+  - Every tool and the file resource validate their paths against the
+    allowed directories, with symlinks resolved (C1–C3, A2–A4).
+  - **But the authorized set is not fixed by the operator alone.** On a
+    2025-era connection, without `--confine-roots`, the client's Roots
+    replace the command-line directories (A5). Connecting does not entitle
+    a client to choose its own scope; the operator should start the server
+    with `--confine-roots`, or treat Roots as client-controlled.
+  - **Hard links reach outside by design** (A8): content outside the
+    allowed directories can change through a hard-linked name inside them.
+- **Unrestricted write or move operations.**
+  - The write tools overwrite (`write_file`), edit, append, create
+    directories, copy, and move (which deletes the source), all inside the
+    allowed directories (C2, C3).
+  - `--read-only` and `--read-only-dir` narrow this (T4, C4), but only if
+    the operator starts the server with them. A default start allows every
+    write tool everywhere in the allowed directories.
+  - Nothing in the code asks for confirmation. The MCP tools page leaves
+    that to the client ("Clients **SHOULD**: Prompt for user confirmation
+    on sensitive operations"), and in my own session that was Claude Code's
+    permission prompt (§1.4).
+- **Assuming tool declarations or annotations guarantee safe behavior.**
+  - The annotations in 2.4.0 match the README table (T2). They are still
+    hints: the 2025-11-25 tools page says clients "MUST consider tool
+    annotations to be untrusted unless they come from trusted servers"
+    (contract §2).
+  - The match was established here by reading one published version. A
+    different version, or a modified copy, could declare one thing and do
+    another. This server uses `readOnlyHint` itself for `--read-only`
+    (T4), so a wrong annotation there would also weaken that mode.
+- **Assuming the allowed-directory restriction is OS-level sandboxing.**
+  - The restriction is the server's own code checking paths (A2–A6). The
+    process runs with the permissions of whoever starts it.
+  - The README's "sandboxed directories" wording (lines 441, 528) refers to
+    Docker mounts, which this evaluation did not use.
+  - On Windows, the use-time anchoring is explicitly not in place (A7).
+
+### 2.5 Limits of this evaluation
+
+- **No runtime execution and no protocol transcript.** The server was never
+  started. Nothing in §2.3 was observed, and there is no counterpart to the
+  T1–T3 transcripts of Section 1.
+- **Code inspection only, and partial.** The compiled `dist/` files of one
+  published version were read, at the cited lines and through targeted
+  searches, not exhaustively. Reading is not proof of runtime security. In
+  particular, the anchoring (A6) and the advisory fix (G1) were not tested
+  against a real race.
+- **Dependencies not independently audited** (S1). The SDK packages that
+  parse messages, enforce schemas and run the stdio transport were not
+  downloaded or read. Neither were `zod`, `diff`, `minimatch` or the
+  Node.js built-ins.
+- **No proof of security under concurrent filesystem changes.** The
+  advisories fixed in 2.3.0 and 2.4.0 were all time-of-check/time-of-use
+  races. The code's own comments (`dist/pinned-directory.js:1–45`) and the
+  README (lines 128–134) describe the remaining Windows gap. Reading cannot
+  show that no other race remains on Linux or macOS.
+- **Integrity verification is not trustworthiness.** The SHA-512 match shows
+  that the downloaded tarball is the one the registry describes. It does
+  not show that the code is safe, that it matches the GitHub source (S2),
+  or that the publisher is trustworthy.
+- **The advisory database was only partly reachable.** The global advisory
+  and OSV lookups returned 404, and the npm bulk endpoint returned nothing,
+  so GHSA-7m4x-rv66-mxhh was read from the repository advisory only. The
+  two other GHSAs (p9cv, rq2p) were seen only through release notes.
+- **Platform.** The code paths differ by platform (darwin, win32, others).
+  Nothing was run on any platform, including this macOS machine.
+
+### 2.6 Trust decision
+
+> **TRUST DECISION (written by Swathi)**
+>
+> I would be much more cautious about trusting this Filesystem server since it has broader filesystem capabilities and can read, overwrite, and move files. Confirming the package integrity and locating the security fix in version 2.4.0 gave me some reassurance, but I haven't tested its runtime behavior or audited its dependencies. If I were to use it, I would limit it to a dedicated directory, enable the --confine-roots option, and manually approve all write or move requests. I would definitely want to test it in an isolated environment before trusting it with important or personal files.
