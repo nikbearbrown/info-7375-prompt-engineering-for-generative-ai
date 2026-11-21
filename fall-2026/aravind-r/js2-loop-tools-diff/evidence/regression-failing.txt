@@ -1,0 +1,730 @@
+TAP version 13
+# Subtest: correct first observation of a Lever board: all three rules pass
+ok 1 - correct first observation of a Lever board: all three rules pass
+  ---
+  duration_ms: 6.85925
+  ...
+# Subtest: correct second observation: 0 new expected and claimed, state unchanged: passes
+ok 2 - correct second observation: 0 new expected and claimed, state unchanged: passes
+  ---
+  duration_ms: 2.125625
+  ...
+# Subtest: pre-fix baseline shape (post-run state [null]): rule 3 fails; rules 1 and 2 pass
+ok 3 - pre-fix baseline shape (post-run state [null]): rule 3 fails; rules 1 and 2 pass
+  ---
+  duration_ms: 2.27575
+  ...
+# Subtest: pre-fix replay shape (pre [null], 3 new claimed again): rule 2 agrees with the false claim, rule 3 catches it
+ok 4 - pre-fix replay shape (pre [null], 3 new claimed again): rule 2 agrees with the false claim, rule 3 catches it
+  ---
+  duration_ms: 2.31675
+  ...
+# Subtest: rule 2 fails a wrong new-id claim against a valid pre-run set
+ok 5 - rule 2 fails a wrong new-id claim against a valid pre-run set
+  ---
+  duration_ms: 1.77925
+  ...
+# Subtest: rule 1 fails a success claimed on an empty response
+ok 6 - rule 1 fails a success claimed on an empty response
+  ---
+  duration_ms: 0.653167
+  ...
+# Subtest: rule 1 fails a success claimed on a raw response with duplicate or null ids
+ok 7 - rule 1 fails a success claimed on a raw response with duplicate or null ids
+  ---
+  duration_ms: 1.612625
+  ...
+# Subtest: a failed board must not change state and must not claim new ids
+ok 8 - a failed board must not change state and must not claim new ids
+  ---
+  duration_ms: 4.419667
+  ...
+# Subtest: rule 3: Greenhouse ids persisted as numbers are not canonical strings
+ok 9 - rule 3: Greenhouse ids persisted as numbers are not canonical strings
+  ---
+  duration_ms: 2.180166
+  ...
+# Subtest: wrong version 16: the checker ignores the loop report and the trace counts
+ok 10 - wrong version 16: the checker ignores the loop report and the trace counts
+  ---
+  duration_ms: 2.022209
+  ...
+# Subtest: the checker reads nothing outside out/
+ok 11 - the checker reads nothing outside out/
+  ---
+  duration_ms: 1.045791
+  ...
+# Subtest: id canonicalization: Greenhouse decimal, Lever UUID strings only
+ok 12 - id canonicalization: Greenhouse decimal, Lever UUID strings only
+  ---
+  duration_ms: 0.129708
+  ...
+# Subtest: CLI with no --trace is a usage error, exit 2
+ok 13 - CLI with no --trace is a usage error, exit 2
+  ---
+  duration_ms: 26.148375
+  ...
+# Subtest: a run with no observations does not pass: NO OBSERVATIONS (run status: error), non-passing exit
+ok 14 - a run with no observations does not pass: NO OBSERVATIONS (run status: error), non-passing exit
+  ---
+  duration_ms: 4.712
+  ...
+# Subtest: a passing run and a no-observation run together still exit non-passing
+ok 15 - a passing run and a no-observation run together still exit non-passing
+  ---
+  duration_ms: 4.08325
+  ...
+# Subtest: rule: every constructed posting gets the hand-computed verdict and first failed gate, by id
+ok 16 - rule: every constructed posting gets the hand-computed verdict and first failed gate, by id
+  ---
+  duration_ms: 5.944
+  ...
+# Subtest: Wrong version 1 (misaligned verdicts): an off-by-one pairing is caught by checking by id
+ok 17 - Wrong version 1 (misaligned verdicts): an off-by-one pairing is caught by checking by id
+  ---
+  duration_ms: 15.130542
+  ...
+# Subtest: Wrong version 2 (uncited justification): the validator rejects a gate with no field cited
+ok 18 - Wrong version 2 (uncited justification): the validator rejects a gate with no field cited
+  ---
+  duration_ms: 0.590708
+  ...
+# Subtest: Wrong version 3 (constant judge): an always-relevant judge fails on the known not-relevant postings
+ok 19 - Wrong version 3 (constant judge): an always-relevant judge fails on the known not-relevant postings
+  ---
+  duration_ms: 0.235667
+  ...
+# Subtest: Wrong version 4 (seen-id bug): baseline reports none; the seeded second run reports exactly the new ids
+ok 20 - Wrong version 4 (seen-id bug): baseline reports none; the seeded second run reports exactly the new ids
+  ---
+  duration_ms: 1.203292
+  ...
+# Subtest: Gate details as written: title cut, case-insensitive location, sentence-scoped years
+ok 21 - Gate details as written: title cut, case-insensitive location, sentence-scoped years
+  ---
+  duration_ms: 0.121333
+  ...
+# Subtest: Refuses: hosts off the allow-list, plain http, and redirects
+ok 22 - Refuses: hosts off the allow-list, plain http, and redirects
+  ---
+  duration_ms: 1.168584
+  ...
+# Subtest: Refuses: a résumé with a real-looking email or phone does not validate
+ok 23 - Refuses: a résumé with a real-looking email or phone does not validate
+  ---
+  duration_ms: 1.039167
+  ...
+# Subtest: watch CLI refuses to start on a failing persona (exit 3) and writes nothing
+ok 24 - watch CLI refuses to start on a failing persona (exit 3) and writes nothing
+  ---
+  duration_ms: 31.330833
+  ...
+# Subtest: watch CLI end to end on the constructed fixture: baseline then a labeled seeded run
+ok 25 - watch CLI end to end on the constructed fixture: baseline then a labeled seeded run
+  ---
+  duration_ms: 92.219458
+  ...
+# Subtest: Claude validator: rejects anything but the fixed format; an invalid reply is recorded, not repaired
+ok 26 - Claude validator: rejects anything but the fixed format; an invalid reply is recorded, not repaired
+  ---
+  duration_ms: 0.852791
+  ...
+# Subtest: Gate 2 revision 2026-10-31: junior title terms match whole words only
+ok 27 - Gate 2 revision 2026-10-31: junior title terms match whole words only
+  ---
+  duration_ms: 0.133375
+  ...
+# Subtest: v2 schema: evidence object required and well-formed; quote fidelity recorded, not enforced
+ok 28 - v2 schema: evidence object required and well-formed; quote fidelity recorded, not enforced
+  ---
+  duration_ms: 0.252084
+  ...
+# Subtest: normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10
+ok 29 - normal four-board run: three observed, the 404 recorded as an error (not 0 jobs), run incomplete, exit 10
+  ---
+  duration_ms: 32.930542
+  ...
+# Subtest: second consecutive failing run escalates gh-broken; successes reset to zero; Greenhouse ids unchanged
+ok 30 - second consecutive failing run escalates gh-broken; successes reset to zero; Greenhouse ids unchanged
+  ---
+  duration_ms: 23.237708
+  ...
+# Subtest: --max-requests 2: budget-exhausted, exit 11, two requests, unattempted boards listed
+ok 31 - --max-requests 2: budget-exhausted, exit 11, two requests, unattempted boards listed
+  ---
+  duration_ms: 8.847667
+  ...
+# Subtest: --max-requests 20 is rejected before networking: error, exit 12, zero requests, trace says why
+ok 32 - --max-requests 20 is rejected before networking: error, exit 12, zero requests, trace says why
+  ---
+  duration_ms: 1.691208
+  ...
+# Subtest: --judge claude is rejected before any subprocess or network action: exit 12
+ok 33 - --judge claude is rejected before any subprocess or network action: exit 12
+  ---
+  duration_ms: 1.523458
+  ...
+# Subtest: empty list, no prior state: empty (unverified), no state written, exit 10
+ok 34 - empty list, no prior state: empty (unverified), no state written, exit 10
+  ---
+  duration_ms: 3.735458
+  ...
+# Subtest: empty list with prior seen ids: suspect: empty, state bytes unchanged, exit 10
+ok 35 - empty list with prior seen ids: suspect: empty, state bytes unchanged, exit 10
+  ---
+  duration_ms: 7.144208
+  ...
+# Subtest: malformed body: error: malformed, no retry, no state, raw body still saved
+ok 36 - malformed body: error: malformed, no retry, no state, raw body still saved
+  ---
+  duration_ms: 2.989708
+  ...
+# Subtest: HTTP 503 then 200: one counted retry after 2 s, then observed
+ok 37 - HTTP 503 then 200: one counted retry after 2 s, then observed
+  ---
+  duration_ms: 5.416542
+  ...
+# Subtest: pre-run and post-run state snapshots are saved read-only for the checker
+ok 38 - pre-run and post-run state snapshots are saved read-only for the checker
+  ---
+  duration_ms: 12.395292
+  ...
+# Subtest: row 38 (loop): --replay out/raw/lv-spotify.json makes zero requests and is labeled mode: replay
+ok 39 - row 38 (loop): --replay out/raw/lv-spotify.json makes zero requests and is labeled mode: replay
+  ---
+  duration_ms: 2.812167
+  ...
+# Subtest: row 39 (loop): --replay out/raw/../state/lv-spotify.json: error, exit 12, zero requests
+ok 40 - row 39 (loop): --replay out/raw/../state/lv-spotify.json: error, exit 12, zero requests
+  ---
+  duration_ms: 1.497417
+  ...
+# Subtest: row 40 (loop): --replay of a symlink escaping out/raw/: error, exit 12, zero requests
+ok 41 - row 40 (loop): --replay of a symlink escaping out/raw/: error, exit 12, zero requests
+  ---
+  duration_ms: 1.947041
+  ...
+# Subtest: row 41 (loop): --replay of a missing file: error, exit 12, no fallback request
+ok 42 - row 41 (loop): --replay of a missing file: error, exit 12, no fallback request
+  ---
+  duration_ms: 1.685
+  ...
+# Subtest: --replay with a multi-board config is an error before any action
+ok 43 - --replay with a multi-board config is an error before any action
+  ---
+  duration_ms: 1.664541
+  ...
+# Subtest: timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10
+ok 44 - timeout (injected clock): a hanging board times out at 15 s, retries once after 2 s, times out again: error: timeout, exit 10
+  ---
+  duration_ms: 2.646334
+  ...
+# Subtest: timeout (injected clock): begun with 3 s left, the request is aborted at the deadline and not retried: exit 11
+ok 45 - timeout (injected clock): begun with 3 s left, the request is aborted at the deadline and not retried: exit 11
+  ---
+  duration_ms: 2.680709
+  ...
+# Subtest: timeout then 200 (the shape of the pre-fix baseline): events are appended as they happen, in order
+ok 46 - timeout then 200 (the shape of the pre-fix baseline): events are appended as they happen, in order
+  ---
+  duration_ms: 4.1005
+  ...
+# Subtest: replay leaves an existing out/failures.json byte for byte
+ok 47 - replay leaves an existing out/failures.json byte for byte
+  ---
+  duration_ms: 4.090375
+  ...
+# Subtest: replay does not create out/failures.json
+ok 48 - replay does not create out/failures.json
+  ---
+  duration_ms: 3.567916
+  ...
+# Subtest: the direct-fetch pattern catches direct calls and ignores other names
+ok 49 - the direct-fetch pattern catches direct calls and ignores other names
+  ---
+  duration_ms: 1.16525
+  ...
+# Subtest: no file in src/ other than policy.mjs calls fetch( directly
+ok 50 - no file in src/ other than policy.mjs calls fetch( directly
+  ---
+  duration_ms: 6.970125
+  ...
+# Subtest: row 01 [allow]: GET Greenhouse stripe jobs?content=true
+ok 51 - row 01 [allow]: GET Greenhouse stripe jobs?content=true
+  ---
+  duration_ms: 25.191291
+  ...
+# Subtest: row 02 [allow]: GET Lever spotify ?mode=json
+ok 52 - row 02 [allow]: GET Lever spotify ?mode=json
+  ---
+  duration_ms: 0.163084
+  ...
+# Subtest: row 03 [deny]: GET example.com: host off-list
+ok 53 - row 03 [deny]: GET example.com: host off-list
+  ---
+  duration_ms: 0.124459
+  ...
+# Subtest: row 04 [deny]: GET boards-api.greenhouse.io.evil.example: suffix trick
+ok 54 - row 04 [deny]: GET boards-api.greenhouse.io.evil.example: suffix trick
+  ---
+  duration_ms: 0.0735
+  ...
+# Subtest: row 05 [deny]: GET over http://
+ok 55 - row 05 [deny]: GET over http://
+  ---
+  duration_ms: 0.137292
+  ...
+# Subtest: row 06 [deny]: POST Lever .../apply
+ok 56 - row 06 [deny]: POST Lever .../apply
+  ---
+  duration_ms: 0.113708
+  ...
+# Subtest: row 07 [deny]: GET Greenhouse jobs/123/questions: extra path segment
+ok 57 - row 07 [deny]: GET Greenhouse jobs/123/questions: extra path segment
+  ---
+  duration_ms: 0.119917
+  ...
+# Subtest: row 08 [deny]: allow-listed GET answered by 301 -> evil.example is not followed
+ok 58 - row 08 [deny]: allow-listed GET answered by 301 -> evil.example is not followed
+  ---
+  duration_ms: 0.358
+  ...
+# Subtest: row 09 [deny]: GET with user:pw@ in the URL
+ok 59 - row 09 [deny]: GET with user:pw@ in the URL
+  ---
+  duration_ms: 0.151458
+  ...
+# Subtest: row 10 [allow]: create out/traces/run.json
+ok 60 - row 10 [allow]: create out/traces/run.json
+  ---
+  duration_ms: 2.80475
+  ...
+# Subtest: row 11 [deny]: create out/../boards.json
+ok 61 - row 11 [deny]: create out/../boards.json
+  ---
+  duration_ms: 2.065042
+  ...
+# Subtest: row 12 [deny]: create out-evil/x.json beside out/
+ok 62 - row 12 [deny]: create out-evil/x.json beside out/
+  ---
+  duration_ms: 1.930625
+  ...
+# Subtest: row 13 [deny]: create out/link/x.json where out/link -> outside temp dir
+ok 63 - row 13 [deny]: create out/link/x.json where out/link -> outside temp dir
+  ---
+  duration_ms: 2.141666
+  ...
+# Subtest: row 14 [allow]: read boards.json inside the project
+ok 64 - row 14 [allow]: read boards.json inside the project
+  ---
+  duration_ms: 1.728208
+  ...
+# Subtest: row 15 [deny]: overwrite boards.json
+ok 65 - row 15 [deny]: overwrite boards.json
+  ---
+  duration_ms: 4.818375
+  ...
+# Subtest: row 16 [deny]: read path.join(os.homedir(), ".ssh", "id_ed25519")
+ok 66 - row 16 [deny]: read path.join(os.homedir(), ".ssh", "id_ed25519")
+  ---
+  duration_ms: 1.563292
+  ...
+# Subtest: row 17 [ask]: delete out/state/gh-stripe.json without approval
+ok 67 - row 17 [ask]: delete out/state/gh-stripe.json without approval
+  ---
+  duration_ms: 2.509917
+  ...
+# Subtest: row 18 [ask]: overwrite out/state/gh-stripe.json with a smaller seen-id set, no approval
+ok 68 - row 18 [ask]: overwrite out/state/gh-stripe.json with a smaller seen-id set, no approval
+  ---
+  duration_ms: 3.809125
+  ...
+# Subtest: row 19 [deny]: mailto:recruiter@example.com
+ok 69 - row 19 [deny]: mailto:recruiter@example.com
+  ---
+  duration_ms: 0.092917
+  ...
+# Subtest: row 20 [deny]: POST Greenhouse jobs
+ok 70 - row 20 [deny]: POST Greenhouse jobs
+  ---
+  duration_ms: 0.098917
+  ...
+# Subtest: row 21 [deny]: GET jobs.lever.co/.../apply (a posting applyUrl)
+ok 71 - row 21 [deny]: GET jobs.lever.co/.../apply (a posting applyUrl)
+  ---
+  duration_ms: 0.105792
+  ...
+# Subtest: row 22 [deny]: GET .../boards/%2e%2e/jobs: raw-string guard, before new URL() normalizes
+ok 72 - row 22 [deny]: GET .../boards/%2e%2e/jobs: raw-string guard, before new URL() normalizes
+  ---
+  duration_ms: 0.187834
+  ...
+# Subtest: row 23 [allow]: GET https://BOARDS-API.GREENHOUSE.IO/...: hostname lowercased, then exact
+ok 73 - row 23 [allow]: GET https://BOARDS-API.GREENHOUSE.IO/...: hostname lowercased, then exact
+  ---
+  duration_ms: 0.199625
+  ...
+# Subtest: row 24 [deny]: GET trailing-dot hostname
+ok 74 - row 24 [deny]: GET trailing-dot hostname
+  ---
+  duration_ms: 0.050458
+  ...
+# Subtest: row 25 [deny]: GET on port 8443
+ok 75 - row 25 [deny]: GET on port 8443
+  ---
+  duration_ms: 0.078208
+  ...
+# Subtest: row 26 [deny]: allow-listed GET with Authorization: Bearer test
+ok 76 - row 26 [deny]: allow-listed GET with Authorization: Bearer test
+  ---
+  duration_ms: 0.055833
+  ...
+# Subtest: row 27 [allow]: delete out/state/gh-stripe.json with --approve out/state/gh-stripe.json
+ok 77 - row 27 [allow]: delete out/state/gh-stripe.json with --approve out/state/gh-stripe.json
+  ---
+  duration_ms: 3.792542
+  ...
+# Subtest: row 28 [allow]: read out/state/gh-stripe.json
+ok 78 - row 28 [allow]: read out/state/gh-stripe.json
+  ---
+  duration_ms: 2.054125
+  ...
+# Subtest: row 29 [allow]: shrink out/state/gh-stripe.json with matching --approve
+ok 79 - row 29 [allow]: shrink out/state/gh-stripe.json with matching --approve
+  ---
+  duration_ms: 4.301667
+  ...
+# Subtest: row 30 [ask]: second guarded delete of the same path in the same run, after row 27 consumed the approval
+ok 80 - row 30 [ask]: second guarded delete of the same path in the same run, after row 27 consumed the approval
+  ---
+  duration_ms: 3.019375
+  ...
+# Subtest: row 31 [allow]: --max-requests 2 with 4 distinct boards: accepted; only 2 requests sent
+ok 81 - row 31 [allow]: --max-requests 2 with 4 distinct boards: accepted; only 2 requests sent
+  ---
+  duration_ms: 0.569333
+  ...
+# Subtest: row 32 [deny]: --max-requests 20: rejected, not clamped
+ok 82 - row 32 [deny]: --max-requests 20: rejected, not clamped
+  ---
+  duration_ms: 0.157083
+  ...
+# Subtest: row 33 [deny]: --judge claude
+ok 83 - row 33 [deny]: --judge claude
+  ---
+  duration_ms: 0.116958
+  ...
+# Subtest: row 34 [deny retry]: stubbed 429 with Retry-After: 30: rate-limited, no second request
+ok 84 - row 34 [deny retry]: stubbed 429 with Retry-After: 30: rate-limited, no second request
+  ---
+  duration_ms: 0.137541
+  ...
+# Subtest: row 35 [allow one retry]: stubbed 429 with Retry-After: 2: one retry after 2 s, and never a third attempt
+ok 85 - row 35 [allow one retry]: stubbed 429 with Retry-After: 2: one retry after 2 s, and never a third attempt
+  ---
+  duration_ms: 0.571417
+  ...
+# Subtest: row 36 [allow, capped at 3 s]: GET begun with 3 s of wall clock left: timeout 3 s, fetch aborted at the deadline
+ok 86 - row 36 [allow, capped at 3 s]: GET begun with 3 s of wall clock left: timeout 3 s, fetch aborted at the deadline
+  ---
+  duration_ms: 0.282833
+  ...
+# Subtest: row 37 [ask]: delete out/state/gh-airbnb.json with an unconsumed --approve for gh-stripe.json
+ok 87 - row 37 [ask]: delete out/state/gh-airbnb.json with an unconsumed --approve for gh-stripe.json
+  ---
+  duration_ms: 1.431667
+  ...
+# Subtest: row 38 [allow]: --replay out/raw/lv-spotify.json
+ok 88 - row 38 [allow]: --replay out/raw/lv-spotify.json
+  ---
+  duration_ms: 1.349959
+  ...
+# Subtest: row 39 [deny]: --replay out/raw/../state/lv-spotify.json (an existing file, but not under out/raw/)
+ok 89 - row 39 [deny]: --replay out/raw/../state/lv-spotify.json (an existing file, but not under out/raw/)
+  ---
+  duration_ms: 1.963833
+  ...
+# Subtest: row 40 [deny]: --replay out/raw/escape.json, a symlink to a file outside out/raw/
+ok 90 - row 40 [deny]: --replay out/raw/escape.json, a symlink to a file outside out/raw/
+  ---
+  duration_ms: 2.018167
+  ...
+# Subtest: row 41 [deny]: --replay out/raw/missing.json
+ok 91 - row 41 [deny]: --replay out/raw/missing.json
+  ---
+  duration_ms: 1.323292
+  ...
+# Subtest: row 42 [deny]: GET https://evilboards-api.greenhouse.io/...: a host ending in an allowed host
+ok 92 - row 42 [deny]: GET https://evilboards-api.greenhouse.io/...: a host ending in an allowed host
+  ---
+  duration_ms: 0.076083
+  ...
+# Subtest: row 43 [deny retry]: stubbed HTTP 404 on an allow-listed board: exactly one request, board error: not found
+ok 93 - row 43 [deny retry]: stubbed HTTP 404 on an allow-listed board: exactly one request, board error: not found
+  ---
+  duration_ms: 4.004667
+  ...
+# Subtest: every row of test/boundary-cases.md has a test, with its prediction copied verbatim
+ok 94 - every row of test/boundary-cases.md has a test, with its prediction copied verbatim
+  ---
+  duration_ms: 0.467
+  ...
+# Subtest: LIMITS in src/policy.mjs match the GATE.md budget table and retry rules
+ok 95 - LIMITS in src/policy.mjs match the GATE.md budget table and retry rules
+  ---
+  duration_ms: 0.29225
+  ...
+# Subtest: an out/ that is itself a symlink to outside the project is refused
+ok 96 - an out/ that is itself a symlink to outside the project is refused
+  ---
+  duration_ms: 0.421416
+  ...
+# Subtest: provider URLs are the allow-listed ones
+ok 97 - provider URLs are the allow-listed ones
+  ---
+  duration_ms: 0.601667
+  ...
+# Subtest: greenhouse: one fetch through the policy session, redirect manual, timeout min(15 s, remaining)
+ok 98 - greenhouse: one fetch through the policy session, redirect manual, timeout min(15 s, remaining)
+  ---
+  duration_ms: 28.34
+  ...
+# Subtest: greenhouse: an invalid token is refused before any fetch
+ok 99 - greenhouse: an invalid token is refused before any fetch
+  ---
+  duration_ms: 0.188375
+  ...
+# Subtest: lever: one fetch through the policy session, redirect manual, timeout min(15 s, remaining)
+ok 100 - lever: one fetch through the policy session, redirect manual, timeout min(15 s, remaining)
+  ---
+  duration_ms: 0.138083
+  ...
+# Subtest: lever: an invalid token is refused before any fetch
+ok 101 - lever: an invalid token is refused before any fetch
+  ---
+  duration_ms: 0.107625
+  ...
+# Subtest: greenhouse parse: jobs kept, ids passed through unchanged; malformed bodies are errors, not 0 jobs
+ok 102 - greenhouse parse: jobs kept, ids passed through unchanged; malformed bodies are errors, not 0 jobs
+  ---
+  duration_ms: 0.117084
+  ...
+# Subtest: lever parse: UUID ids stay strings; applyUrl is not kept; malformed bodies are errors
+ok 103 - lever parse: UUID ids stay strings; applyUrl is not kept; malformed bodies are errors
+  ---
+  duration_ms: 0.089333
+  ...
+# Subtest: 1. fresh Lever UUIDs: save, then load returns exactly those strings
+not ok 104 - 1. fresh Lever UUIDs: save, then load returns exactly those strings
+  ---
+  duration_ms: 8.194125
+  location: '/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:35:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   null
+    -   '2a55d6c9-c564-443a-be3e-a3851db5a93b',
+    -   '2d67c471-9015-41c0-a041-b982ec4a14fd',
+    -   'f263a2af-0a4e-4540-a0f6-adb3655e027b'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '2a55d6c9-c564-443a-be3e-a3851db5a93b'
+    1: '2d67c471-9015-41c0-a041-b982ec4a14fd'
+    2: 'f263a2af-0a4e-4540-a0f6-adb3655e027b'
+  actual:
+    0: ~
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/aravindravi/Desktop/Northeastern/Coursework/Fall%2026/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:39:10)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    node:internal/test_runner/harness:255:12
+    node:internal/process/task_queues:140:7
+    AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+    AsyncResource.runMicrotask (node:internal/process/task_queues:137:8)
+  ...
+# Subtest: 2. second cycle: load, add one new UUID, save, load returns exact strings; no number, no null
+not ok 105 - 2. second cycle: load, add one new UUID, save, load returns exact strings; no number, no null
+  ---
+  duration_ms: 1.306167
+  location: '/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:42:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   null
+    -   '2a55d6c9-c564-443a-be3e-a3851db5a93b',
+    -   '2d67c471-9015-41c0-a041-b982ec4a14fd',
+    -   'f263a2af-0a4e-4540-a0f6-adb3655e027b'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '2a55d6c9-c564-443a-be3e-a3851db5a93b'
+    1: '2d67c471-9015-41c0-a041-b982ec4a14fd'
+    2: 'f263a2af-0a4e-4540-a0f6-adb3655e027b'
+  actual:
+    0: ~
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/aravindravi/Desktop/Northeastern/Coursework/Fall%2026/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 3. repeat: the same UUIDs observed again yield 0 new ids
+not ok 106 - 3. repeat: the same UUIDs observed again yield 0 new ids
+  ---
+  duration_ms: 1.579625
+  location: '/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:53:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    reported new: ["2a55d6c9-c564-443a-be3e-a3851db5a93b","2d67c471-9015-41c0-a041-b982ec4a14fd","f263a2af-0a4e-4540-a0f6-adb3655e027b"]
+    
+    3 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/aravindravi/Desktop/Northeastern/Coursework/Fall%2026/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:58:10)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 4. legacy state: numeric Greenhouse ids load as decimal strings
+not ok 107 - 4. legacy state: numeric Greenhouse ids load as decimal strings
+  ---
+  duration_ms: 1.039458
+  location: '/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:61:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   5416444,
+    +   5601879,
+    +   5895430
+    -   '5416444',
+    -   '5601879',
+    -   '5895430'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '5416444'
+    1: '5601879'
+    2: '5895430'
+  actual:
+    0: 5416444
+    1: 5601879
+    2: 5895430
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/aravindravi/Desktop/Northeastern/Coursework/Fall%2026/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:65:10)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 5. corrupt state: a Lever state file holding [0, null] makes load throw STATE_INTEGRITY
+not ok 108 - 5. corrupt state: a Lever state file holding [0, null] makes load throw STATE_INTEGRITY
+  ---
+  duration_ms: 1.153875
+  location: '/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:68:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/aravindravi/Desktop/Northeastern/Coursework/Fall%2026/Prompt_Engineering_Agentic_AI/info-7375-prompt-engineering-for-generative-ai/fall-2026/aravind-r/js2-loop-tools-diff/test/state-regression.test.mjs:71:10)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: WV7: a 404 is never retried, and a failing 5xx is retried exactly once
+ok 109 - WV7: a 404 is never retried, and a failing 5xx is retried exactly once
+  ---
+  duration_ms: 31.962417
+  ...
+# Subtest: WV8: the request budget is checked before each request: --max-requests N sends at most N
+ok 110 - WV8: the request budget is checked before each request: --max-requests N sends at most N
+  ---
+  duration_ms: 31.4615
+  ...
+# Subtest: WV8: a retry the request budget cannot fit is not sent; the run is budget-exhausted
+ok 111 - WV8: a retry the request budget cannot fit is not sent; the run is budget-exhausted
+  ---
+  duration_ms: 3.61475
+  ...
+# Subtest: WV9: the run with the deliberately broken board is never finished; the controlled three-board run is
+ok 112 - WV9: the run with the deliberately broken board is never finished; the controlled three-board run is
+  ---
+  duration_ms: 12.303416
+  ...
+# Subtest: WV11: a duplicate configured board is fetched once and logged skipped: duplicate
+ok 113 - WV11: a duplicate configured board is fetched once and logged skipped: duplicate
+  ---
+  duration_ms: 3.147417
+  ...
+# Subtest: WV12: the loop cannot reach a judge subprocess: --judge claude refused, and no subprocess module in its import graph
+ok 114 - WV12: the loop cannot reach a judge subprocess: --judge claude refused, and no subprocess module in its import graph
+  ---
+  duration_ms: 4.153292
+  ...
+# Subtest: WV15: a CLI flag cannot raise a budget: 9, 20, 0 and non-numbers are rejected before networking
+ok 115 - WV15: a CLI flag cannot raise a budget: 9, 20, 0 and non-numbers are rejected before networking
+  ---
+  duration_ms: 14.448625
+  ...
+# Subtest: WV6: a failed board keeps its prior state byte for byte and reports no count
+ok 116 - WV6: a failed board keeps its prior state byte for byte and reports no count
+  ---
+  duration_ms: 5.76025
+  ...
+# Subtest: WV17: an ordinary drop in live postings does not shrink the cumulative seen-id state
+ok 117 - WV17: an ordinary drop in live postings does not shrink the cumulative seen-id state
+  ---
+  duration_ms: 4.752042
+  ...
+# Subtest: WV19: a request begun near the 60 s deadline gets only the time remaining as its timeout
+ok 118 - WV19: a request begun near the 60 s deadline gets only the time remaining as its timeout
+  ---
+  duration_ms: 3.366458
+  ...
+# Subtest: wall clock: once the 60 s budget is spent, remaining boards are not attempted (exit 11)
+ok 119 - wall clock: once the 60 s budget is spent, remaining boards are not attempted (exit 11)
+  ---
+  duration_ms: 3.106
+  ...
+1..119
+# tests 119
+# suites 0
+# pass 114
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 233.670708
