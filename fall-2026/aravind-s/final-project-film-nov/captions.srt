@@ -1,0 +1,369 @@
+1
+00:00:00,300 --> 00:00:04,613
+Hi, I'm Aravind, and this is a synthetic
+voice reading the script.
+
+2
+00:00:04,613 --> 00:00:07,739
+This film is about my final project,
+Klaxon.
+
+3
+00:00:08,233 --> 00:00:11,213
+Klaxon is an AI on-call engineer for a
+payments system.
+
+4
+00:00:11,213 --> 00:00:14,031
+When something breaks, it works out what
+went wrong,
+
+5
+00:00:14,031 --> 00:00:17,444
+shows its evidence, and asks a person
+before changing anything.
+
+6
+00:00:17,444 --> 00:00:21,432
+Then it checks what a dashboard can miss:
+whether the money is right.
+
+7
+00:00:21,933 --> 00:00:23,945
+That last check is why it matters.
+
+8
+00:00:23,945 --> 00:00:25,897
+In one run on my own test system,
+
+9
+00:00:25,897 --> 00:00:29,684
+a bad deploy made the ledger count some
+payments more than once.
+
+10
+00:00:29,684 --> 00:00:31,754
+The other alert rules stayed quiet.
+
+11
+00:00:31,754 --> 00:00:36,796
+Only the money check failed: our books
+were $461 ahead of the payment provider's.
+
+12
+00:00:37,300 --> 00:00:40,653
+An engineer, or an AI agent, could close
+an incident like that
+
+13
+00:00:40,653 --> 00:00:44,222
+because everything looks healthy, while
+the books are still wrong.
+
+14
+00:00:44,222 --> 00:00:47,555
+With Klaxon, a fix isn't done until the
+money is checked.
+
+15
+00:00:48,067 --> 00:00:53,095
+The industry calls this an AI SRE, an AI
+site reliability engineer.
+
+16
+00:00:53,095 --> 00:00:58,273
+Resolve AI raised $125 million at a $1
+billion valuation in February,
+
+17
+00:00:58,273 --> 00:01:01,876
+Traversal $120 million in November, and
+Datadog,
+
+18
+00:01:01,876 --> 00:01:04,978
+AWS and Microsoft now offer their own.
+
+19
+00:01:05,467 --> 00:01:06,772
+What did they get?
+
+20
+00:01:06,772 --> 00:01:12,643
+Microsoft says its agent has mitigated
+over 35,000 incidents in its own services.
+
+21
+00:01:12,643 --> 00:01:17,283
+But on ITBench, a research benchmark,
+agents on state-of-the-art
+
+22
+00:01:17,283 --> 00:01:21,013
+models resolved only 11.4% of its SRE
+scenarios.
+
+23
+00:01:21,500 --> 00:01:25,610
+The open-source agent I looked at,
+HolmesGPT, can check a deploy by
+
+24
+00:01:25,610 --> 00:01:29,659
+asking a model to compare error rates,
+latency, restarts and logs.
+
+25
+00:01:29,659 --> 00:01:34,081
+In its docs, I didn't find a built-in
+check that the money is right.
+
+26
+00:01:34,567 --> 00:01:35,612
+So why build mine?
+
+27
+00:01:35,612 --> 00:01:39,561
+Klaxon is a small copy of this idea, with
+the check I couldn't find:
+
+28
+00:01:39,561 --> 00:01:42,523
+after a fix, code, not the model, checks
+the money.
+
+29
+00:01:42,523 --> 00:01:45,910
+And Klaxon changes nothing until a person
+approves it.
+
+30
+00:01:46,400 --> 00:01:48,230
+It all runs on synthetic data.
+
+31
+00:01:48,230 --> 00:01:51,706
+A small payments system runs in Docker on
+my Mac: an API,
+
+32
+00:01:51,706 --> 00:01:56,402
+a fake provider that sends signed
+webhooks, Kafka, and a double-entry ledger.
+
+33
+00:01:56,402 --> 00:01:58,476
+Simulated customers make payments,
+
+34
+00:01:58,476 --> 00:02:02,202
+and six faults with known causes are
+injected on purpose.
+
+35
+00:02:02,700 --> 00:02:06,529
+When an alert fires, Klaxon asks Claude
+for one step at a time:
+
+36
+00:02:06,529 --> 00:02:11,392
+call one of eight read-only tools, served
+by an MCP server written from scratch,
+
+37
+00:02:11,392 --> 00:02:15,046
+or give a diagnosis that cites the tool
+calls behind it.
+
+38
+00:02:15,533 --> 00:02:17,592
+Here is a real run from week seven.
+
+39
+00:02:17,592 --> 00:02:21,240
+The money alert fired, and in 25 seconds
+and three tool calls,
+
+40
+00:02:21,240 --> 00:02:24,182
+Klaxon found the cause: a ledger deploy
+that books
+
+41
+00:02:24,182 --> 00:02:26,888
+every message without checking for
+duplicates.
+
+42
+00:02:26,888 --> 00:02:29,138
+It asked to roll that deploy back.
+
+43
+00:02:29,633 --> 00:02:33,708
+I approved it by typing its id in my own
+terminal, 70 seconds later.
+
+44
+00:02:33,708 --> 00:02:36,883
+Code then checked the result: healthy,
+cause removed,
+
+45
+00:02:36,883 --> 00:02:40,848
+but the money still wrong, because a
+rollback repairs nothing.
+
+46
+00:02:41,333 --> 00:02:43,868
+Weeks one to seven are built and public.
+
+47
+00:02:43,868 --> 00:02:48,620
+Planned by December 4th: a multi-agent
+version, the webhook receiver in Go,
+
+48
+00:02:48,620 --> 00:02:52,164
+a 72-run comparison of the loops, and a
+safety pass.
+
+49
+00:02:52,667 --> 00:02:53,877
+Do I have what I need?
+
+50
+00:02:53,877 --> 00:02:57,453
+There is no API key and no token credits:
+every call goes through
+
+51
+00:02:57,453 --> 00:03:00,974
+my university's Claude seat, using Claude
+Code in headless mode.
+
+52
+00:03:00,974 --> 00:03:05,375
+It isn't billed per call, but it has
+usage limits, so big batches run overnight.
+
+53
+00:03:05,375 --> 00:03:08,676
+Dollar figures are estimates at API
+prices, not money spent.
+
+54
+00:03:08,676 --> 00:03:11,072
+Compute is my Mac and GitHub's free CI.
+
+55
+00:03:11,567 --> 00:03:14,928
+I made the decisions, reviewed and
+accepted every week,
+
+56
+00:03:14,928 --> 00:03:16,883
+and typed every approval myself.
+
+57
+00:03:16,883 --> 00:03:19,945
+Claude Code wrote the code under my
+direction.
+
+58
+00:03:20,433 --> 00:03:21,819
+How will I know it works?
+
+59
+00:03:21,819 --> 00:03:25,587
+Eight test cases, each with its right
+answer written before any run:
+
+60
+00:03:25,587 --> 00:03:30,326
+the six faults, a false alarm, and a
+fault where the tools can't see the deploys.
+
+61
+00:03:30,833 --> 00:03:31,901
+I check three things.
+
+62
+00:03:31,901 --> 00:03:33,273
+Did it name the real cause?
+
+63
+00:03:33,273 --> 00:03:37,035
+A keyword rule written in advance and a
+Claude judge that never sees which
+
+64
+00:03:37,035 --> 00:03:40,492
+model wrote it both grade that, checked
+against my own blind labels.
+
+65
+00:03:40,492 --> 00:03:42,627
+Did it name an action only where one fits?
+
+66
+00:03:42,627 --> 00:03:47,147
+And when I approve an action, does code
+find the system healthy and the money right?
+
+67
+00:03:47,633 --> 00:03:51,111
+The first results, from 48 runs on two
+Claude models:
+
+68
+00:03:51,111 --> 00:03:55,442
+Opus named the cause in all 18 of its
+fault runs, by both graders.
+
+69
+00:03:55,442 --> 00:03:58,251
+No run named an action where none fits.
+
+70
+00:03:58,767 --> 00:04:02,531
+What didn't work yet: on the false alarm,
+no run named an action,
+
+71
+00:04:02,531 --> 00:04:07,338
+but each grader found only one run in six
+that said plainly that nothing was wrong.
+
+72
+00:04:07,338 --> 00:04:10,060
+And every fault was known while I built
+Klaxon,
+
+73
+00:04:10,060 --> 00:04:13,438
+so this is not yet a test on faults it
+has never seen.
+
+74
+00:04:13,933 --> 00:04:17,275
+So it works if the 72 comparison runs
+keep naming causes
+
+75
+00:04:17,275 --> 00:04:20,676
+with no wrong actions, the false alarm
+gets called false,
+
+76
+00:04:20,676 --> 00:04:24,078
+and code keeps catching fixes that leave
+the money wrong.
+
+77
+00:04:24,078 --> 00:04:28,016
+It fails on a confident wrong cause, or
+an action where none fits.
+
+78
+00:04:28,016 --> 00:04:30,354
+Klaxon, by Aravind Sundaravadivelu.

@@ -1,0 +1,33 @@
+duplicate-delivery (fault): Payments counted twice in the books
+  right answer: The fault's recorded cause: a deploy of the ledger consumer without its dedupe (LEDGER_HANDLER=naive): every webhook the provider sends again, after an acknowledgement it never got, is booked a second time.
+  action that fits: rollback_deploy ledger-consumer
+
+poison-message (fault): The ledger stops booking: a poison message
+  right answer: The fault's recorded cause: a deploy of the ledger consumer that retries unreadable messages forever (BAD_EVENTS=retry), then one unreadable event from the provider (a payment.updated with its amount as a decimal string): the ledger consumer is stuck on it, and books nothing behind it.
+  action that fits: rollback_deploy ledger-consumer
+
+provider-outage (fault): Payments fail: the provider hangs, and our circuit breaker fails fast
+  right answer: The fault's recorded cause: the provider's charge and refund API hangs (5 s, then 503): our payments API's calls to it time out, each after 3 attempts, until its circuit breaker opens, after 5 calls in a row got no answer; from then on it fails fast, answering 503 'outcome unknown' at once without calling the provider, and lets one trial call through 10 s after it opened, and again after each trial that fails.
+  action that fits: none
+
+money-unit (fault): Customers charged 100 times the amount: a money-unit bug
+  right answer: The fault's recorded cause: a deploy of the payments API with a money-unit bug (CHARGE_AMOUNT_UNIT=dollars): it reads each payment's amount, already in cents, as dollars and converts it to cents again, so the provider charges every customer 100 times the amount, while our own records keep the right one.
+  action that fits: rollback_deploy payments-api
+
+secret-rotation (fault): The books stop catching up: our webhook receiver refuses every webhook
+  right answer: The fault's recorded cause: a deploy of the webhook receiver with a rotated secret the provider does not sign with (WEBHOOK_SECRET_VERSION=v2, while the provider signs with v1): every webhook fails its signature check and is refused with a 400, so no event reaches Kafka, and the provider keeps sending them again, with backoff.
+  action that fits: rollback_deploy webhook-receiver
+
+pool-exhaustion (fault): Payments fail: the payments API's database pool runs dry
+  right answer: The fault's recorded cause: a deploy of the payments API with a connection leak (REFUND_CONNECTION=kept): reading a payment's refunds takes a connection from its database pool of 10 and never gives it back, so after about ten refunds the pool is empty, and every request waits for a connection until the pool's 5 s timeout, then fails with a 500.
+  action that fits: rollback_deploy payments-api
+
+false-alarm (false alarm): A false alarm: the ledger consumer group said to be 250 messages behind, on a healthy stack
+  right answer: Nothing is wrong: the ledger consumer group is not behind (under traffic its lag stays near 0), so the alert is false. A right diagnosis says so, from a tool that read the lag, proposes no fix (kind none) and names no action.
+  action that fits: none
+
+missing-deploys (missing evidence): Payments counted twice in the books, with docker withheld from the tools
+  right answer: The ledger consumer books a second time every webhook the provider sends again: its dedupe is gone (fault 1's recorded cause, which a deploy brought). Docker did not answer the two tools that read it, so the deploy list and the containers' health could not be read: a right diagnosis says what it could not check, and claims no deploy it has no evidence for. Rolling the ledger consumer back still fits the remedy: code plans a rollback from the deploy log, not from the tools.
+  action that fits: rollback_deploy ledger-consumer
+  withheld: recent_deploys, service_health: each call gets 'docker did not answer within 15 s: is Docker Desktop running?'
+
