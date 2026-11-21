@@ -1,6 +1,6 @@
 # The gate: SponsorSQL contract and required tests
 
-Written 2026-11-21 13:10 EST and committed **before** the agent code in `sponsorsql/`. Drafted by Claude in Claude Code at the owner's request; owner review is recorded in [SIGNOFF.md](SIGNOFF.md), not assumed here. The model-facing rules are in [evals/PROMPT-CONTRACT.md](evals/PROMPT-CONTRACT.md).
+Written 2026-11-21 13:10 EST and committed **before** the agent code in `sponsorsql/`. Drafted by Claude in Claude Code at the owner's request; owner review is recorded in [SIGNOFF.md](SIGNOFF.md), not assumed here. The model-facing rules are in [evals/PROMPT-CONTRACT-v1.md](evals/PROMPT-CONTRACT-v1.md) (v1; the final version is [evals/PROMPT-CONTRACT-v2.md](evals/PROMPT-CONTRACT-v2.md)).
 
 ## What the system is for
 
