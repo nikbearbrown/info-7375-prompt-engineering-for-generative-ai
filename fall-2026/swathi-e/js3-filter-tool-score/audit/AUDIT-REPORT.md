@@ -1,6 +1,6 @@
 # AUDIT-REPORT.md — JS3 reject audit, filter v1 and v1.1
 
-**DRAFT for Swathi's review, not yet approved.** Drafted by Claude Code on
+Reviewed and approved by Swathi, 2026-11-20. Drafted by Claude Code on
 2026-11-18 and revised 2026-11-19. Every number here was recomputed from
 committed files.
 

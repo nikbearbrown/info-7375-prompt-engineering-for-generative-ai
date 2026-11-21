@@ -1,6 +1,6 @@
 # EXPERIMENT-REPORT.md — threshold 5 vs 6 on held-out postings
 
-Draft, 2026-11-20. Drafted by Claude Code from the committed records;
+Reviewed and approved by Swathi, 2026-11-20. Drafted by Claude Code from the committed records;
 decisions and labels are Swathi Baba Eswarappa's.
 
 ## Purpose and pre-registered hypothesis
