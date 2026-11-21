@@ -1,0 +1,23 @@
+{
+  "set": "held-out",
+  "frozen": "2026-11-21, before any model proposal for these questions existed; scored once, with the final contract only",
+  "answer_key": "heldout-key.json",
+  "answer_key_sha256": "5fd8c4e7b9b87b0309ac5e146a627a6526334680226acab2ab0add1f5a8ed4f6",
+  "questions": [
+    {"id": "H1", "key_q": "h1",
+     "question": "How many certified H-1B cases with a Business Analyst job title have a recorded worksite in Texas?",
+     "output": "One row, one column: the number of cases."},
+    {"id": "H2", "key_q": "h2",
+     "question": "Which employers filed the most certified H-1B cases, for any job title, with a recorded worksite in Boston, MA? Return the top ten.",
+     "output": "Columns: employer_name, cases. Ten rows, highest cases first."},
+    {"id": "H3", "key_q": "h3",
+     "question": "What is the median offered annual base wage for certified H-1B Data Scientist cases with a recorded worksite in California?",
+     "output": "One row, one column: the median in US dollars."},
+    {"id": "H4", "key_q": "h4",
+     "question": "For certified H-1B cases coded as Data Scientists (SOC 15-2051), how many cases are at each prevailing-wage level, including blank?",
+     "output": "Columns: wage_level, cases. One row per level, including blank."},
+    {"id": "H5", "key_q": "h5",
+     "question": "How many H-1B cases with a Data Engineer job title were denied?",
+     "output": "One row, one column: the number of cases."}
+  ]
+}
