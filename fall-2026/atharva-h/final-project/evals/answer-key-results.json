@@ -1,0 +1,5296 @@
+{
+  "source_sha256": "f8ca8448a528671f784d3692923775a13741c99caec2816b2fe30c8885bd28b3",
+  "populated_rows": 437496,
+  "case_status_control": {
+    "Certified - Withdrawn": 26303,
+    "Withdrawn": 7224,
+    "Certified": 401412,
+    "Denied": 2557
+  },
+  "visa_class_control": {
+    "H-1B": 426952,
+    "E-3 Australian": 7671,
+    "H-1B1 Singapore": 1219,
+    "H-1B1 Chile": 1654
+  },
+  "definitions": {
+    "case": "one populated spreadsheet row, not a worker position or visa approval",
+    "certified": "CASE_STATUS exactly Certified; Certified - Withdrawn is separate",
+    "title": "case-insensitive whole phrase after punctuation becomes spaces; senior titles are included",
+    "worksite": "the one WORKSITE_CITY/STATE pair disclosed on this row; additional worksites cannot be located from this file",
+    "employer": "EMPLOYER_NAME as filed, including spelling variants, except Q7's explicitly named Capgemini variants",
+    "wage": "WAGE_RATE_OF_PAY_FROM where WAGE_UNIT_OF_PAY is Year; other units are excluded rather than converted"
+  },
+  "q1_massachusetts_employers_top10": [
+    {
+      "name": "General Hospital Corporation",
+      "cases": 8
+    },
+    {
+      "name": "Brigham and Women's Hospital",
+      "cases": 5
+    },
+    {
+      "name": "Boston Medical Center Corporation",
+      "cases": 4
+    },
+    {
+      "name": "SCHNEIDER ELECTRIC USA, INC.",
+      "cases": 4
+    },
+    {
+      "name": "Staples, Inc.",
+      "cases": 4
+    },
+    {
+      "name": "CarGurus, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Federal Express Corporation",
+      "cases": 2
+    },
+    {
+      "name": "Logging-in.com, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Massachusetts Mutual Life Insurance Company",
+      "cases": 2
+    },
+    {
+      "name": "Olympus Corporation of the Americas",
+      "cases": 2
+    }
+  ],
+  "q1_total_cases": 116,
+  "q2_boston_cases": 40,
+  "q2_matching_rows": [
+    {
+      "sheet_row": 8272,
+      "case_number": "I-200-25306-357292",
+      "employer": "Gupta Media Holdings LLC",
+      "job_title": "Marketing Data Analyst II",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 24187,
+      "case_number": "I-200-25307-360814",
+      "employer": "CarGurus, Inc.",
+      "job_title": "Senior Product Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 43289,
+      "case_number": "I-200-25322-419286",
+      "employer": "Brigham and Women's Hospital",
+      "job_title": "Data Analyst I",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 47607,
+      "case_number": "I-200-25324-425744",
+      "employer": "Tufts Medical Center, Inc.",
+      "job_title": "Data Analyst III (Stroke Center Data Analyst)",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 76062,
+      "case_number": "I-200-25350-486041",
+      "employer": "Apexsync Technologies LLC",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 82326,
+      "case_number": "I-200-25356-502465",
+      "employer": "Cisco Systems, Inc.",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 83166,
+      "case_number": "I-200-25360-510905",
+      "employer": "Cermax Corp.",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 88831,
+      "case_number": "I-200-25364-516437",
+      "employer": "Brigham and Women's Hospital",
+      "job_title": "Data Analyst II",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 110282,
+      "case_number": "I-200-26016-567907",
+      "employer": "Federal Express Corporation",
+      "job_title": "Sr Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 128453,
+      "case_number": "I-200-26028-597827",
+      "employer": "Federal Express Corporation",
+      "job_title": "Sr Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 144993,
+      "case_number": "I-200-26041-630477",
+      "employer": "Langan Engineering and Environmental Services, LLC",
+      "job_title": "GIS/Environmental Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 146472,
+      "case_number": "I-200-26042-633674",
+      "employer": "General Hospital Corporation",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 149851,
+      "case_number": "I-200-26043-638165",
+      "employer": "Beth Israel Deaconess Medical Center,Inc.",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 188214,
+      "case_number": "I-200-26071-699123",
+      "employer": "TRUSTEES OF BOSTON UNIVERSITY",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 193259,
+      "case_number": "I-200-26076-710016",
+      "employer": "SCHNEIDER ELECTRIC USA, INC.",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 196991,
+      "case_number": "I-200-26077-712461",
+      "employer": "General Hospital Corporation",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 199932,
+      "case_number": "I-200-26079-718102",
+      "employer": "Boston Medical Center Corporation",
+      "job_title": "Senior Quality Improvement Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 201994,
+      "case_number": "I-200-26082-721531",
+      "employer": "Grantham, Mayo, Van Otterloo & Co. LLC",
+      "job_title": "Research Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 204978,
+      "case_number": "I-200-26083-727151",
+      "employer": "PUBLIC PARTNERSHIPS LLC",
+      "job_title": "Sr. Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 224163,
+      "case_number": "I-200-26092-752707",
+      "employer": "General Hospital Corporation",
+      "job_title": "Data Analyst, Senior",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 227972,
+      "case_number": "I-200-26093-754528",
+      "employer": "Chewy, Inc.",
+      "job_title": "Senior Merchandising Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 232590,
+      "case_number": "I-200-26097-764867",
+      "employer": "General Hospital Corporation",
+      "job_title": "Data Analyst II",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 233841,
+      "case_number": "I-200-26097-764314",
+      "employer": "General Hospital Corporation",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 253383,
+      "case_number": "I-200-26104-791444",
+      "employer": "Boston Medical Center Corporation",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 261348,
+      "case_number": "I-200-26106-801304",
+      "employer": "Brigham and Women's Hospital",
+      "job_title": "Data Analyst II",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 281295,
+      "case_number": "I-200-26113-826705",
+      "employer": "Brigham and Women's Hospital",
+      "job_title": "Data Analyst 1",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 312711,
+      "case_number": "I-200-26125-868856",
+      "employer": "SCHNEIDER ELECTRIC USA, INC.",
+      "job_title": "Senior Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 312902,
+      "case_number": "I-200-26125-870052",
+      "employer": "Fidelity Technology Group, LLC d/b/a Fidelity Investments",
+      "job_title": "Principal IT Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 319314,
+      "case_number": "I-200-26127-883161",
+      "employer": "CarGurus, Inc.",
+      "job_title": "Senior Product Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 328770,
+      "case_number": "I-200-26131-896590",
+      "employer": "SCHNEIDER ELECTRIC USA, INC.",
+      "job_title": "Digital Transformation Program & Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 329205,
+      "case_number": "I-200-26131-891660",
+      "employer": "Zscaler, Inc.",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 330194,
+      "case_number": "I-200-26131-896238",
+      "employer": "Ehomie Boston Inc.",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 352524,
+      "case_number": "I-200-26139-928842",
+      "employer": "Plymouth Rock Home Assurance Corporation",
+      "job_title": "Senior Marketing Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 361654,
+      "case_number": "I-200-26141-937649",
+      "employer": "SCHNEIDER ELECTRIC USA, INC.",
+      "job_title": "Strategic Intelligence Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 364819,
+      "case_number": "I-200-26142-944460",
+      "employer": "xBK LLC",
+      "job_title": "Senior Specialist Data Analyst & BI",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 381482,
+      "case_number": "I-200-26152-969754",
+      "employer": "89 Degrees, Inc.",
+      "job_title": "Technical Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 390248,
+      "case_number": "I-200-26154-977090",
+      "employer": "Plymouth Rock Assurance Corporation",
+      "job_title": "Marketing Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 396522,
+      "case_number": "I-200-26156-986082",
+      "employer": "Workato Inc.",
+      "job_title": "Customer Success Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 400965,
+      "case_number": "I-200-26159-990419",
+      "employer": "Logging-in.com, LLC",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    },
+    {
+      "sheet_row": 437415,
+      "case_number": "I-200-26174-041858",
+      "employer": "Brigham and Women's Hospital",
+      "job_title": "Data Analyst",
+      "worksite_city": "BOSTON",
+      "worksite_state": "MA"
+    }
+  ],
+  "q3_cities_top10": [
+    {
+      "name": "MCLEAN, VA",
+      "cases": 210
+    },
+    {
+      "name": "NEW YORK, NY",
+      "cases": 179
+    },
+    {
+      "name": "CHICAGO, IL",
+      "cases": 107
+    },
+    {
+      "name": "PLANO, TX",
+      "cases": 92
+    },
+    {
+      "name": "ATLANTA, GA",
+      "cases": 79
+    },
+    {
+      "name": "RICHMOND, VA",
+      "cases": 71
+    },
+    {
+      "name": "AUSTIN, TX",
+      "cases": 62
+    },
+    {
+      "name": "DALLAS, TX",
+      "cases": 62
+    },
+    {
+      "name": "HOUSTON, TX",
+      "cases": 55
+    },
+    {
+      "name": "JERSEY CITY, NJ",
+      "cases": 47
+    }
+  ],
+  "q3_total_cases_with_city_and_state": 3780,
+  "q4_median_annual_base_wage_by_state": {
+    "AL": {
+      "median_usd": 64230.0,
+      "cases": 15
+    },
+    "AR": {
+      "median_usd": 107213.44,
+      "cases": 58
+    },
+    "AZ": {
+      "median_usd": 95555.0,
+      "cases": 54
+    },
+    "CA": {
+      "median_usd": 123531.0,
+      "cases": 403
+    },
+    "CO": {
+      "median_usd": 95371.82,
+      "cases": 26
+    },
+    "CT": {
+      "median_usd": 97687.5,
+      "cases": 34
+    },
+    "DC": {
+      "median_usd": 93078.5,
+      "cases": 18
+    },
+    "DE": {
+      "median_usd": 92198.0,
+      "cases": 15
+    },
+    "FL": {
+      "median_usd": 91125.0,
+      "cases": 121
+    },
+    "GA": {
+      "median_usd": 93974.0,
+      "cases": 128
+    },
+    "IA": {
+      "median_usd": 85218.0,
+      "cases": 9
+    },
+    "ID": {
+      "median_usd": 88982.0,
+      "cases": 3
+    },
+    "IL": {
+      "median_usd": 95000.0,
+      "cases": 181
+    },
+    "IN": {
+      "median_usd": 82500.0,
+      "cases": 39
+    },
+    "KS": {
+      "median_usd": 78998.0,
+      "cases": 21
+    },
+    "KY": {
+      "median_usd": 83616.0,
+      "cases": 11
+    },
+    "LA": {
+      "median_usd": 71930.5,
+      "cases": 6
+    },
+    "MA": {
+      "median_usd": 100021.5,
+      "cases": 104
+    },
+    "MD": {
+      "median_usd": 84323.0,
+      "cases": 47
+    },
+    "ME": {
+      "median_usd": 61500.0,
+      "cases": 2
+    },
+    "MI": {
+      "median_usd": 86965.0,
+      "cases": 81
+    },
+    "MN": {
+      "median_usd": 97032.0,
+      "cases": 31
+    },
+    "MO": {
+      "median_usd": 80000.0,
+      "cases": 39
+    },
+    "MS": {
+      "median_usd": 76250.0,
+      "cases": 2
+    },
+    "MT": {
+      "median_usd": 105000.0,
+      "cases": 1
+    },
+    "NC": {
+      "median_usd": 102939.0,
+      "cases": 94
+    },
+    "ND": {
+      "median_usd": 71906.0,
+      "cases": 1
+    },
+    "NE": {
+      "median_usd": 85592.0,
+      "cases": 11
+    },
+    "NH": {
+      "median_usd": 89700.0,
+      "cases": 21
+    },
+    "NJ": {
+      "median_usd": 109491.0,
+      "cases": 165
+    },
+    "NM": {
+      "median_usd": 75939.99,
+      "cases": 6
+    },
+    "NV": {
+      "median_usd": 80226.0,
+      "cases": 13
+    },
+    "NY": {
+      "median_usd": 109491.0,
+      "cases": 241
+    },
+    "OH": {
+      "median_usd": 83000.0,
+      "cases": 70
+    },
+    "OK": {
+      "median_usd": 75358.0,
+      "cases": 17
+    },
+    "OR": {
+      "median_usd": 80288.0,
+      "cases": 6
+    },
+    "PA": {
+      "median_usd": 92925.0,
+      "cases": 125
+    },
+    "RI": {
+      "median_usd": 98571.0,
+      "cases": 6
+    },
+    "SC": {
+      "median_usd": 85097.87,
+      "cases": 14
+    },
+    "SD": {
+      "median_usd": 75000.0,
+      "cases": 1
+    },
+    "TN": {
+      "median_usd": 88022.5,
+      "cases": 52
+    },
+    "TX": {
+      "median_usd": 96034.0,
+      "cases": 501
+    },
+    "UT": {
+      "median_usd": 96250.0,
+      "cases": 34
+    },
+    "VA": {
+      "median_usd": 92458.0,
+      "cases": 337
+    },
+    "VT": {
+      "median_usd": 58157.0,
+      "cases": 1
+    },
+    "WA": {
+      "median_usd": 116000.0,
+      "cases": 93
+    },
+    "WI": {
+      "median_usd": 112799.0,
+      "cases": 22
+    },
+    "WV": {
+      "median_usd": 85000.0,
+      "cases": 3
+    },
+    "WY": {
+      "median_usd": 52437.0,
+      "cases": 1
+    }
+  },
+  "q4_total_annual_wage_cases": 3284,
+  "q5_wage_levels": {
+    "I": 1027,
+    "II": 1609,
+    "III": 516,
+    "IV": 226,
+    "[blank]": 402
+  },
+  "q5_total_cases": 3780,
+  "q6_level_i_data_role_employers_count": 1114,
+  "q6_level_i_data_role_cases": 1659,
+  "q6_level_i_data_role_employers_top10": [
+    {
+      "name": "McKinsey & Company, Inc. United States",
+      "cases": 44
+    },
+    {
+      "name": "MCKINSEY & COMPANY, INC. UNITED STATES",
+      "cases": 30
+    },
+    {
+      "name": "Amazon.com Services LLC",
+      "cases": 29
+    },
+    {
+      "name": "WAL-MART ASSOCIATES, INC.",
+      "cases": 23
+    },
+    {
+      "name": "ARTIFINT TECHNOLOGIES LLC",
+      "cases": 14
+    },
+    {
+      "name": "AUGMENTED REALITY TECHNOLOGIES LLC",
+      "cases": 13
+    },
+    {
+      "name": "ROBOTICS TECHNOLOGIES LLC",
+      "cases": 11
+    },
+    {
+      "name": "ARTIFICIAL INTELLIGENCE LLC",
+      "cases": 9
+    },
+    {
+      "name": "CLOUD SOCIAL TECHNOLOGIES LLC",
+      "cases": 9
+    },
+    {
+      "name": "Insight Global, LLC",
+      "cases": 9
+    }
+  ],
+  "q6_level_i_data_role_all_employers": [
+    {
+      "name": "McKinsey & Company, Inc. United States",
+      "cases": 44
+    },
+    {
+      "name": "MCKINSEY & COMPANY, INC. UNITED STATES",
+      "cases": 30
+    },
+    {
+      "name": "Amazon.com Services LLC",
+      "cases": 29
+    },
+    {
+      "name": "WAL-MART ASSOCIATES, INC.",
+      "cases": 23
+    },
+    {
+      "name": "ARTIFINT TECHNOLOGIES LLC",
+      "cases": 14
+    },
+    {
+      "name": "AUGMENTED REALITY TECHNOLOGIES LLC",
+      "cases": 13
+    },
+    {
+      "name": "ROBOTICS TECHNOLOGIES LLC",
+      "cases": 11
+    },
+    {
+      "name": "ARTIFICIAL INTELLIGENCE LLC",
+      "cases": 9
+    },
+    {
+      "name": "CLOUD SOCIAL TECHNOLOGIES LLC",
+      "cases": 9
+    },
+    {
+      "name": "Insight Global, LLC",
+      "cases": 9
+    },
+    {
+      "name": "Johns Hopkins University",
+      "cases": 9
+    },
+    {
+      "name": "Northwestern University",
+      "cases": 8
+    },
+    {
+      "name": "ARTIFICIAL INTELLIGENCE STAFFING LLC",
+      "cases": 7
+    },
+    {
+      "name": "CLOUD ANALYTICS TECHNOLOGIES LLC",
+      "cases": 6
+    },
+    {
+      "name": "Exel, Inc.",
+      "cases": 6
+    },
+    {
+      "name": "FL Tech Solutions, LLC.",
+      "cases": 6
+    },
+    {
+      "name": "Info Tech Inc",
+      "cases": 6
+    },
+    {
+      "name": "MACHINE INTELLIGENCE LLC",
+      "cases": 6
+    },
+    {
+      "name": "Midland Credit Management, Inc",
+      "cases": 6
+    },
+    {
+      "name": "ROBOTICS STAFFING LLC",
+      "cases": 6
+    },
+    {
+      "name": "RPA TECHNOLOGIES LLC",
+      "cases": 6
+    },
+    {
+      "name": "TT Commerce & Global Services LLC",
+      "cases": 6
+    },
+    {
+      "name": "AI TECHNOLOGIES LLC",
+      "cases": 5
+    },
+    {
+      "name": "Asta CRS, Inc.",
+      "cases": 5
+    },
+    {
+      "name": "Beacon Hill Solutions Group LLC",
+      "cases": 5
+    },
+    {
+      "name": "Brigham and Women's Hospital",
+      "cases": 5
+    },
+    {
+      "name": "Cartesian, Inc",
+      "cases": 5
+    },
+    {
+      "name": "Mid-Atlantic Permanente Medical Group",
+      "cases": 5
+    },
+    {
+      "name": "RiskSpan, Inc.",
+      "cases": 5
+    },
+    {
+      "name": "ZestFinance, Inc.",
+      "cases": 5
+    },
+    {
+      "name": "American Technology Consulting, LLC",
+      "cases": 4
+    },
+    {
+      "name": "BEACONFIRE STAFFING SOLUTIONS INC.",
+      "cases": 4
+    },
+    {
+      "name": "Denago EV Corporation",
+      "cases": 4
+    },
+    {
+      "name": "Fuyao Glass America Inc.",
+      "cases": 4
+    },
+    {
+      "name": "HHA Hospital Medicine of Texas, PLLC",
+      "cases": 4
+    },
+    {
+      "name": "LexisNexis Risk Solutions Inc.",
+      "cases": 4
+    },
+    {
+      "name": "MH Sub I LLC",
+      "cases": 4
+    },
+    {
+      "name": "NYU Grossman School of Medicine",
+      "cases": 4
+    },
+    {
+      "name": "Populus Group LLC",
+      "cases": 4
+    },
+    {
+      "name": "Rivian Automotive, LLC",
+      "cases": 4
+    },
+    {
+      "name": "Saven Technologies Incorporated",
+      "cases": 4
+    },
+    {
+      "name": "TANISHA SYSTEMS INC",
+      "cases": 4
+    },
+    {
+      "name": "TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA",
+      "cases": 4
+    },
+    {
+      "name": "The Leland Stanford, Jr University",
+      "cases": 4
+    },
+    {
+      "name": "TikTok USDS Joint Venture LLC",
+      "cases": 4
+    },
+    {
+      "name": "10Jumps Inc.",
+      "cases": 3
+    },
+    {
+      "name": "7TH Sky Technologies LLC",
+      "cases": 3
+    },
+    {
+      "name": "AXLE INFORMATICS",
+      "cases": 3
+    },
+    {
+      "name": "Aktra, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Amazing Grace Institute",
+      "cases": 3
+    },
+    {
+      "name": "Anthony Brown Pharmacy Inc",
+      "cases": 3
+    },
+    {
+      "name": "Ascendion, Inc. (Formerly known as Collabera, Inc.)",
+      "cases": 3
+    },
+    {
+      "name": "BROADRANGE TECHNOLOGIES INC",
+      "cases": 3
+    },
+    {
+      "name": "BorderX Media LLC",
+      "cases": 3
+    },
+    {
+      "name": "CBRE, INC.",
+      "cases": 3
+    },
+    {
+      "name": "California SoftTech Inc",
+      "cases": 3
+    },
+    {
+      "name": "Community Connections of New York, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Divihn Integration Inc",
+      "cases": 3
+    },
+    {
+      "name": "ERP Integrated Solutions, LLC",
+      "cases": 3
+    },
+    {
+      "name": "EVGateway",
+      "cases": 3
+    },
+    {
+      "name": "Epitec, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "ExlService.com, LLC",
+      "cases": 3
+    },
+    {
+      "name": "Firefly Pros, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "G Ashley Inc",
+      "cases": 3
+    },
+    {
+      "name": "General Hospital Corporation",
+      "cases": 3
+    },
+    {
+      "name": "GuruNanda, LLC.",
+      "cases": 3
+    },
+    {
+      "name": "Havix Group Inc.",
+      "cases": 3
+    },
+    {
+      "name": "HotelKey, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Human Services Research Institute, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "ICF Resources, LLC",
+      "cases": 3
+    },
+    {
+      "name": "KFORCE INC.",
+      "cases": 3
+    },
+    {
+      "name": "KOLIBRI DATA SOLUTIONS LLC",
+      "cases": 3
+    },
+    {
+      "name": "Nordstrom, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Phoenix Innovations LLC",
+      "cases": 3
+    },
+    {
+      "name": "RESOURCE INNOVATIVE TECHNOLOGIES LLC",
+      "cases": 3
+    },
+    {
+      "name": "RxCloud",
+      "cases": 3
+    },
+    {
+      "name": "SARANSH INC",
+      "cases": 3
+    },
+    {
+      "name": "STRATEDGE IT CONSULTING INC",
+      "cases": 3
+    },
+    {
+      "name": "SVASTHA INFOTECH INC",
+      "cases": 3
+    },
+    {
+      "name": "SYNAPSIQ LLC",
+      "cases": 3
+    },
+    {
+      "name": "Shakti Group Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Staples, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Synergyassure, Inc",
+      "cases": 3
+    },
+    {
+      "name": "The University of Alabama at Birmingham",
+      "cases": 3
+    },
+    {
+      "name": "UNITED TEKINFO HUB LLC.",
+      "cases": 3
+    },
+    {
+      "name": "VIRTUAL REALITY TECHNOLOGIES LLC",
+      "cases": 3
+    },
+    {
+      "name": "VSQUARE INFOTECH, INC.",
+      "cases": 3
+    },
+    {
+      "name": "Virginia Commonwealth University",
+      "cases": 3
+    },
+    {
+      "name": "4D Systems, LLC",
+      "cases": 2
+    },
+    {
+      "name": "ABB Inc.",
+      "cases": 2
+    },
+    {
+      "name": "ADVENTIST HEALTH SYSTEM SUNBELT HEALTHCARE CORP.",
+      "cases": 2
+    },
+    {
+      "name": "AGNETO INC",
+      "cases": 2
+    },
+    {
+      "name": "AGREEYA SOLUTIONS, INC.",
+      "cases": 2
+    },
+    {
+      "name": "AMOREPACIFIC US, INC.",
+      "cases": 2
+    },
+    {
+      "name": "ANB Systems LLC",
+      "cases": 2
+    },
+    {
+      "name": "Akkodis E&T, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Applied Medical Resources Corporation",
+      "cases": 2
+    },
+    {
+      "name": "Aramark Management, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Arthur J. Gallagher Service Company, LLC",
+      "cases": 2
+    },
+    {
+      "name": "B & L Health, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "BAP POWER CORPORATION",
+      "cases": 2
+    },
+    {
+      "name": "BIPO Service USA Corp",
+      "cases": 2
+    },
+    {
+      "name": "Baker College Professional Services Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Baptist Health",
+      "cases": 2
+    },
+    {
+      "name": "Barclays Services Corp.",
+      "cases": 2
+    },
+    {
+      "name": "Boston Medical Center Corporation",
+      "cases": 2
+    },
+    {
+      "name": "CANVAS INFOTECH, INC.",
+      "cases": 2
+    },
+    {
+      "name": "CHRISTUS Health",
+      "cases": 2
+    },
+    {
+      "name": "CITADEL AMERICAS SERVICES LLC",
+      "cases": 2
+    },
+    {
+      "name": "Capital One Services, LLC",
+      "cases": 2
+    },
+    {
+      "name": "CarePoint Health, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Certified Kernel Tech LLC",
+      "cases": 2
+    },
+    {
+      "name": "Child Mind Institute, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Collaborate Solutions Inc.",
+      "cases": 2
+    },
+    {
+      "name": "DataSync, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Drexel University",
+      "cases": 2
+    },
+    {
+      "name": "Epsilon Data Management LLC",
+      "cases": 2
+    },
+    {
+      "name": "FUTURE TECHNOLOGIES LLC",
+      "cases": 2
+    },
+    {
+      "name": "FirstKey Homes, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Fivezeds Inc",
+      "cases": 2
+    },
+    {
+      "name": "Flatiron Health, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Flexon Technologies Inc",
+      "cases": 2
+    },
+    {
+      "name": "GFT Infrastructure, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Global Lending Services LLC",
+      "cases": 2
+    },
+    {
+      "name": "Granules Pharmaceuticals, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Gupta Media Holdings LLC",
+      "cases": 2
+    },
+    {
+      "name": "HAINAN HNAT - MANAGEMENT (US) LLC",
+      "cases": 2
+    },
+    {
+      "name": "HALO Branded Solutions, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "HLH Holdings, LLC.",
+      "cases": 2
+    },
+    {
+      "name": "IMPERIAL BAG & PAPER CO LLC",
+      "cases": 2
+    },
+    {
+      "name": "IQLogg, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Infinite Computer Solutions, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Infotree Global Solutions LLC",
+      "cases": 2
+    },
+    {
+      "name": "Intercontinental Exchange Holdings, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Interon IT Solutions LLC",
+      "cases": 2
+    },
+    {
+      "name": "Ipsos MMA, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "J&J Solutions Consulting Inc",
+      "cases": 2
+    },
+    {
+      "name": "JUNIPER SQUARE INC.",
+      "cases": 2
+    },
+    {
+      "name": "JUPITER RESEARCH INC.",
+      "cases": 2
+    },
+    {
+      "name": "James Madison University",
+      "cases": 2
+    },
+    {
+      "name": "KNITTECH INC",
+      "cases": 2
+    },
+    {
+      "name": "Kcube Consulting Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Krasan Consulting Services, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "LUMINAVTECH LLC",
+      "cases": 2
+    },
+    {
+      "name": "Level 3 Communications LLC",
+      "cases": 2
+    },
+    {
+      "name": "Linxbot Inc.",
+      "cases": 2
+    },
+    {
+      "name": "LiveMindz Services Inc",
+      "cases": 2
+    },
+    {
+      "name": "MMB GLOBAL TECH LLC",
+      "cases": 2
+    },
+    {
+      "name": "MYSAPIT LLC",
+      "cases": 2
+    },
+    {
+      "name": "Maersk Logistics & Services USA Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Marketech International Corporation USA",
+      "cases": 2
+    },
+    {
+      "name": "Mindshire Consulting LLC",
+      "cases": 2
+    },
+    {
+      "name": "Mouser Electronics, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "My Life Registry LLC",
+      "cases": 2
+    },
+    {
+      "name": "Mylan Inc.",
+      "cases": 2
+    },
+    {
+      "name": "National Oilwell Varco, L..P",
+      "cases": 2
+    },
+    {
+      "name": "Neptune IT Solutions, LLC",
+      "cases": 2
+    },
+    {
+      "name": "NovaGigs, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Oakland County Government",
+      "cases": 2
+    },
+    {
+      "name": "Octagon IT LLC",
+      "cases": 2
+    },
+    {
+      "name": "PECO Energy, An Exelon Company",
+      "cases": 2
+    },
+    {
+      "name": "PERFUME CENTER OF AMERICA INC.",
+      "cases": 2
+    },
+    {
+      "name": "PHOTON INFOTECH, INC.",
+      "cases": 2
+    },
+    {
+      "name": "PLUTOSOFT TECHNOLOGIES LLC",
+      "cases": 2
+    },
+    {
+      "name": "PRECISION TECHNOLOGIES CORP",
+      "cases": 2
+    },
+    {
+      "name": "Pet1click Corp",
+      "cases": 2
+    },
+    {
+      "name": "PhyCARE Solutions, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Pi Square Technologies LLC",
+      "cases": 2
+    },
+    {
+      "name": "PlayQ Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Polyplex USA LLC",
+      "cases": 2
+    },
+    {
+      "name": "Prism One Solutions LLC",
+      "cases": 2
+    },
+    {
+      "name": "Private National Mortgage Acceptance Company, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Pronto General Agency, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Pyramid Consulting, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Qcentrio, Inc",
+      "cases": 2
+    },
+    {
+      "name": "Quantum Integrators Group LLC",
+      "cases": 2
+    },
+    {
+      "name": "RGA Enterprise Services Company",
+      "cases": 2
+    },
+    {
+      "name": "RiseIT Solutions Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Rising Pharma Holdings, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Ryder System, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "SANDBOX TECHNOLOGIES LLC",
+      "cases": 2
+    },
+    {
+      "name": "SCALIAN CORPORATION",
+      "cases": 2
+    },
+    {
+      "name": "SM Advan Technology, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "SMBC Capital Markets, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "ST. JUDE CHILDREN'S RESEARCH HOSPITAL",
+      "cases": 2
+    },
+    {
+      "name": "STECK SYSTEMS, INC",
+      "cases": 2
+    },
+    {
+      "name": "SWIFT BEEF COMPANY, A JBS USA SUBSIDIARY",
+      "cases": 2
+    },
+    {
+      "name": "SWIFTX INC",
+      "cases": 2
+    },
+    {
+      "name": "Samrajya Services LLC",
+      "cases": 2
+    },
+    {
+      "name": "SelectHealth, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "SiENVIRONMENTAL, LLC",
+      "cases": 2
+    },
+    {
+      "name": "Siemens Medical Solutions USA, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Super Micro Computer, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Surgeon's Data Science Collective, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Synapse Tech Services Inc.",
+      "cases": 2
+    },
+    {
+      "name": "TECHPRO SOLUTIONS, INC.",
+      "cases": 2
+    },
+    {
+      "name": "Technical Information And Professional Solutions, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Texas A&M University",
+      "cases": 2
+    },
+    {
+      "name": "The Methodist Hospital Research Institute",
+      "cases": 2
+    },
+    {
+      "name": "The Research Institute at Nationwide Children's Hospital",
+      "cases": 2
+    },
+    {
+      "name": "ThinkBIo.Ai, Inc",
+      "cases": 2
+    },
+    {
+      "name": "Tioga Black Gold Hotel LLC",
+      "cases": 2
+    },
+    {
+      "name": "Treta IT Inc",
+      "cases": 2
+    },
+    {
+      "name": "TriNet USA, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Truman Medical Center, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "UNIVERSITY OF CALIFORNIA, SAN DIEGO",
+      "cases": 2
+    },
+    {
+      "name": "University of California, Berkeley",
+      "cases": 2
+    },
+    {
+      "name": "University of Illinois Chicago",
+      "cases": 2
+    },
+    {
+      "name": "University of Massachusetts Office of the President",
+      "cases": 2
+    },
+    {
+      "name": "University of Nebraska Medical Center",
+      "cases": 2
+    },
+    {
+      "name": "University of Oklahoma",
+      "cases": 2
+    },
+    {
+      "name": "University of South Carolina",
+      "cases": 2
+    },
+    {
+      "name": "University of Utah",
+      "cases": 2
+    },
+    {
+      "name": "VYUSOFT INC",
+      "cases": 2
+    },
+    {
+      "name": "Valon Technologies, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Varian Medical Systems, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Vistex, Inc.",
+      "cases": 2
+    },
+    {
+      "name": "WELLNECITY, LLC",
+      "cases": 2
+    },
+    {
+      "name": "WISESTEP STAFFING LLC",
+      "cases": 2
+    },
+    {
+      "name": "Washington University",
+      "cases": 2
+    },
+    {
+      "name": "Xsolla (USA), Inc.",
+      "cases": 2
+    },
+    {
+      "name": "Zeus Solutions Inc",
+      "cases": 2
+    },
+    {
+      "name": "Zyliq Inc",
+      "cases": 2
+    },
+    {
+      "name": "190 Personnel LLC",
+      "cases": 1
+    },
+    {
+      "name": "22nd Century Technologies, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "321 Health Pharmacy Inc",
+      "cases": 1
+    },
+    {
+      "name": "3C Environmental Solutions Inc.",
+      "cases": 1
+    },
+    {
+      "name": "4 U WIRELESS INC",
+      "cases": 1
+    },
+    {
+      "name": "4AISoft LLC",
+      "cases": 1
+    },
+    {
+      "name": "6COM, INC",
+      "cases": 1
+    },
+    {
+      "name": "8 Net, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "AAZ ENTERPRISES INC.",
+      "cases": 1
+    },
+    {
+      "name": "ABACUS SERVICE CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "ABC PRODUCTS INC.",
+      "cases": 1
+    },
+    {
+      "name": "AC Disaster Consulting, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ACE American Insurance Company",
+      "cases": 1
+    },
+    {
+      "name": "ACIES TRANSPORT LLC",
+      "cases": 1
+    },
+    {
+      "name": "ACSIA Long Term Care, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ADC Solutions USA, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ADM Investor Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "AFK MEDIA GROUP CORP",
+      "cases": 1
+    },
+    {
+      "name": "AGILISIUM CONSULTING LLC",
+      "cases": 1
+    },
+    {
+      "name": "AI RandomTrees, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ALLIED OMS NEWCO, LL",
+      "cases": 1
+    },
+    {
+      "name": "AMAZON.COM SERVICES LLC",
+      "cases": 1
+    },
+    {
+      "name": "AMERISOURCEBERGEN SERVICES CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "AMG TECHNOLOGY",
+      "cases": 1
+    },
+    {
+      "name": "AMPS Solar",
+      "cases": 1
+    },
+    {
+      "name": "AP Northeast Management LLC",
+      "cases": 1
+    },
+    {
+      "name": "APL Logistics Americas, Ltd.",
+      "cases": 1
+    },
+    {
+      "name": "APLOMB TECHNOLOGIES INC.",
+      "cases": 1
+    },
+    {
+      "name": "AR INFOTEK SOLUTIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "ARCANE SYSTEMS INC",
+      "cases": 1
+    },
+    {
+      "name": "ASUITECH SOLUTIONS INC",
+      "cases": 1
+    },
+    {
+      "name": "ATOLYE LLC",
+      "cases": 1
+    },
+    {
+      "name": "AVEnterprise, Inc",
+      "cases": 1
+    },
+    {
+      "name": "AVM Consulting, Inc",
+      "cases": 1
+    },
+    {
+      "name": "AVSI SYSTEMS LLC",
+      "cases": 1
+    },
+    {
+      "name": "AYRAS TECHNOLOGIES LLC",
+      "cases": 1
+    },
+    {
+      "name": "Acmefog Commerce Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Across China (USA) Inc",
+      "cases": 1
+    },
+    {
+      "name": "Activate, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Active Media Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Actonia, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Adnet Advertising Agency Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Adtran Networks North America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Advantech Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Advocate Health, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Agovx, LLC",
+      "cases": 1
+    },
+    {
+      "name": "AidenAI, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Airbus Americas, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Aissi Inc",
+      "cases": 1
+    },
+    {
+      "name": "Akal Purkh Group Corp",
+      "cases": 1
+    },
+    {
+      "name": "Albatross America Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Alchatek, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Alchemy Geopolymer Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Alegent Health-Bergan Mercy Health",
+      "cases": 1
+    },
+    {
+      "name": "Alif Farms LLC",
+      "cases": 1
+    },
+    {
+      "name": "Alignment Healthcare, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Alliant Bank",
+      "cases": 1
+    },
+    {
+      "name": "Alliant Cooperative Data Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Altair Global Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "Amarthy IT Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Amazing Energy Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "American Academy of Ophthalmology",
+      "cases": 1
+    },
+    {
+      "name": "American Dental Excellence",
+      "cases": 1
+    },
+    {
+      "name": "American Honda Motor Co., Inc.",
+      "cases": 1
+    },
+    {
+      "name": "American Marketing & Publishing L.L.C.",
+      "cases": 1
+    },
+    {
+      "name": "American Psychiatric Association",
+      "cases": 1
+    },
+    {
+      "name": "Amistad Community Health Center, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Anagh Technologies Inc",
+      "cases": 1
+    },
+    {
+      "name": "Anesthesia Consulting & Management, LP",
+      "cases": 1
+    },
+    {
+      "name": "Anicca Data Science Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Anoki Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Aon Risk Services, Inc. of Maryland",
+      "cases": 1
+    },
+    {
+      "name": "Apex Fintech Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "Apex Technology Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Apexsync Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "Apollo Mission Critical Engineering LLC",
+      "cases": 1
+    },
+    {
+      "name": "Apple Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Aqua Divers Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Arbella Insurance Group",
+      "cases": 1
+    },
+    {
+      "name": "Arcadis U.S., Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Archer Aviation Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Archtec Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Arcus Technologies",
+      "cases": 1
+    },
+    {
+      "name": "Arizona State",
+      "cases": 1
+    },
+    {
+      "name": "Arizona State University",
+      "cases": 1
+    },
+    {
+      "name": "Arkansas Department of Transportation",
+      "cases": 1
+    },
+    {
+      "name": "Arthur D. Little, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Arthur Lawrence US LLC",
+      "cases": 1
+    },
+    {
+      "name": "Arvato USA LLC",
+      "cases": 1
+    },
+    {
+      "name": "Asamanta Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ascension Health Alliance d/b/a Ascension Health",
+      "cases": 1
+    },
+    {
+      "name": "Ashley Management Services Inc",
+      "cases": 1
+    },
+    {
+      "name": "Aspire Indiana, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Astera Labs INC",
+      "cases": 1
+    },
+    {
+      "name": "Astera Software Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Astra Consulting Corp,",
+      "cases": 1
+    },
+    {
+      "name": "Astreya Partners, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Athena Tech, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Athreya, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "AtkinsRealis USA Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Atlas Technical Consultants LLC",
+      "cases": 1
+    },
+    {
+      "name": "Avco Consulting, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Avenue Code, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Avero, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Aveva Drug Delivery Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Avnet, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Axle Informatics LLC",
+      "cases": 1
+    },
+    {
+      "name": "B-Stock Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "BH Security, LLC",
+      "cases": 1
+    },
+    {
+      "name": "BLUE PLANET INC.",
+      "cases": 1
+    },
+    {
+      "name": "BLUE WATER PHARMACY LLC",
+      "cases": 1
+    },
+    {
+      "name": "BMG Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "BNS INTERNATIONAL INC",
+      "cases": 1
+    },
+    {
+      "name": "BOFA SECURITIES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "BRIGHT MIND SOLUTIONS LLC.",
+      "cases": 1
+    },
+    {
+      "name": "BY HW CONSULTING LLC",
+      "cases": 1
+    },
+    {
+      "name": "BYTEDANCE INC.",
+      "cases": 1
+    },
+    {
+      "name": "Baanyan Software Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Bahwan Cybertek Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Bakell LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ball Bounce and Sport, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Baltimore Aircoil Company, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Baltimore Crisis Response Center",
+      "cases": 1
+    },
+    {
+      "name": "Baltimore Crisis Response, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Baltimore Washington Medical Center, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Bangor Savings Bank",
+      "cases": 1
+    },
+    {
+      "name": "Bank of Utah",
+      "cases": 1
+    },
+    {
+      "name": "Banner Health",
+      "cases": 1
+    },
+    {
+      "name": "Bayone Solutions, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Belden Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Beth Israel Deaconess Medical Center,Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Biz-Metric Partners, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Blue Cross and Blue Shield of Kansas, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Blue Onion Labs, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Board of Regents of the University of Nebraska",
+      "cases": 1
+    },
+    {
+      "name": "Boston Beer Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Brave Resources Inc",
+      "cases": 1
+    },
+    {
+      "name": "Brennan Industries, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Brillian Network & Automation Integrated System AZ USA, LLC",
+      "cases": 1
+    },
+    {
+      "name": "BriteVox Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Broadleaf, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Brohawks Capital LLC",
+      "cases": 1
+    },
+    {
+      "name": "Bronson Healthcare Group",
+      "cases": 1
+    },
+    {
+      "name": "Budget Hearing Aids LLC",
+      "cases": 1
+    },
+    {
+      "name": "BuggyBusters, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Bureau Veritas North America, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Butler County Community Health Consortium",
+      "cases": 1
+    },
+    {
+      "name": "C&Y GLOBAL HOLDINGS, LLC",
+      "cases": 1
+    },
+    {
+      "name": "C-A-L Ranch Stores",
+      "cases": 1
+    },
+    {
+      "name": "C1ST TECHNOLOGIES LLC",
+      "cases": 1
+    },
+    {
+      "name": "CAC AUTO GROUP ATLANTA LLC.",
+      "cases": 1
+    },
+    {
+      "name": "CARFAX Admin LLC",
+      "cases": 1
+    },
+    {
+      "name": "CARROLLTON REGIONAL PHARMACY, LLC",
+      "cases": 1
+    },
+    {
+      "name": "CBC GROUP INC",
+      "cases": 1
+    },
+    {
+      "name": "CC Devco LLC",
+      "cases": 1
+    },
+    {
+      "name": "CCJ & Associates, LLC",
+      "cases": 1
+    },
+    {
+      "name": "CDW Direct, LLC",
+      "cases": 1
+    },
+    {
+      "name": "CES Consulting LLC",
+      "cases": 1
+    },
+    {
+      "name": "CICC US Securities Inc.",
+      "cases": 1
+    },
+    {
+      "name": "CINFRACS INC",
+      "cases": 1
+    },
+    {
+      "name": "CINTURI TECHNOLOGIES LLC.",
+      "cases": 1
+    },
+    {
+      "name": "CITADEL ENTERPRISE AMERICAS SERVICES LLC",
+      "cases": 1
+    },
+    {
+      "name": "CMA CGM (AMERICA) LLC",
+      "cases": 1
+    },
+    {
+      "name": "CODE CONNECT INC",
+      "cases": 1
+    },
+    {
+      "name": "COGNIER INC",
+      "cases": 1
+    },
+    {
+      "name": "COMPNOVA, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "COMPUTER MANAGEMENT AND INFORMATION SOLUTIONS INC.",
+      "cases": 1
+    },
+    {
+      "name": "COOLIBAR INC",
+      "cases": 1
+    },
+    {
+      "name": "CRH AMERICAS MATERIALS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "CRIF Select Corp.",
+      "cases": 1
+    },
+    {
+      "name": "CROSS SENSE ANALYTICS LLC",
+      "cases": 1
+    },
+    {
+      "name": "CS WIND AMERICA, INC.",
+      "cases": 1
+    },
+    {
+      "name": "CSAT Solutions, LP",
+      "cases": 1
+    },
+    {
+      "name": "CSCS LLC",
+      "cases": 1
+    },
+    {
+      "name": "CWI, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Caliber Holdings LLC",
+      "cases": 1
+    },
+    {
+      "name": "California Capital Insurance Company",
+      "cases": 1
+    },
+    {
+      "name": "Cambrex International, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Campus Multimedia LLC",
+      "cases": 1
+    },
+    {
+      "name": "Canid, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Capital Blue Cross",
+      "cases": 1
+    },
+    {
+      "name": "Capital District Transportation Authority",
+      "cases": 1
+    },
+    {
+      "name": "Capital Group Companies Global",
+      "cases": 1
+    },
+    {
+      "name": "Carilion Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Caris MPI, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Carnival Corporation Ltd.",
+      "cases": 1
+    },
+    {
+      "name": "Cartesian, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Case Western Reserve University",
+      "cases": 1
+    },
+    {
+      "name": "Catalytic Consulting, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Caterpillar Inc",
+      "cases": 1
+    },
+    {
+      "name": "Caterpillar Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cellular World LLC",
+      "cases": 1
+    },
+    {
+      "name": "Cenergy International Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Centene Management Company, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Centene Management Company, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Central Link Distro Inc",
+      "cases": 1
+    },
+    {
+      "name": "CentralBOS Employee Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Charter Communications, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Chi Management Group, LP",
+      "cases": 1
+    },
+    {
+      "name": "Chicago Public Schools",
+      "cases": 1
+    },
+    {
+      "name": "Children's Crisis Treatment Center, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "China Telecom (Americas) Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Chiricahua Community Health Centers, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cinarra Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cinergy Technology, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Cisco Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "City of Hope National Medical Center",
+      "cases": 1
+    },
+    {
+      "name": "City of Mankato",
+      "cases": 1
+    },
+    {
+      "name": "City of Philadelphia",
+      "cases": 1
+    },
+    {
+      "name": "Civitas Engineering Group, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Clearwater Analytics, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Cleveland Clinic Foundation",
+      "cases": 1
+    },
+    {
+      "name": "ClimateWorks Foundation, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "CluePoints Inc.",
+      "cases": 1
+    },
+    {
+      "name": "CodeIT Inc",
+      "cases": 1
+    },
+    {
+      "name": "Cogent Integrated Business Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Cognitus Consulting, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Collabera LLC",
+      "cases": 1
+    },
+    {
+      "name": "Colorado State University Pueblo",
+      "cases": 1
+    },
+    {
+      "name": "Columbia Construction Company",
+      "cases": 1
+    },
+    {
+      "name": "Columbia Data Analytics, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Community Family Advocates Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Community Strategies, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Concepts Information Technology, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Concord Systems USA",
+      "cases": 1
+    },
+    {
+      "name": "ConsultAdd Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Consumerinfo.com, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Content Square, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Contract Manufacturing NE LLC",
+      "cases": 1
+    },
+    {
+      "name": "CooperSurgical Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Corptax, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Crawford, Murphy & Tilly, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Create Music Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Credit Sesame, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Creditly Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Crislu Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Crocus LLC",
+      "cases": 1
+    },
+    {
+      "name": "Crowley Webb & Associates, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cumming Management Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cummins Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Cybersoft Technologies, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "DDS Lab, LLC",
+      "cases": 1
+    },
+    {
+      "name": "DELTA ELECTRONICS (USA) INC.",
+      "cases": 1
+    },
+    {
+      "name": "DESMATA INC",
+      "cases": 1
+    },
+    {
+      "name": "DEVANSH LAB WERKS INC",
+      "cases": 1
+    },
+    {
+      "name": "DISH Network LLC",
+      "cases": 1
+    },
+    {
+      "name": "DLR Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "DUE TORRE CORP.",
+      "cases": 1
+    },
+    {
+      "name": "DaVita, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Dallas Independent School District",
+      "cases": 1
+    },
+    {
+      "name": "DatabaseUSA.com LLC",
+      "cases": 1
+    },
+    {
+      "name": "Datalogiqs Inc",
+      "cases": 1
+    },
+    {
+      "name": "Datassential, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Datavant, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Decision Minds, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Dhabawale LLC",
+      "cases": 1
+    },
+    {
+      "name": "Dharani Jasthi DMD P.C",
+      "cases": 1
+    },
+    {
+      "name": "Digicom Electronics, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Domestic & General USA Resources",
+      "cases": 1
+    },
+    {
+      "name": "Douglas R. Crabtree",
+      "cases": 1
+    },
+    {
+      "name": "Dylign, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Dynamics, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Dynata, LLC",
+      "cases": 1
+    },
+    {
+      "name": "EAK Distribution LLC",
+      "cases": 1
+    },
+    {
+      "name": "ECHOSPARK TECHNOLOGIES LLC",
+      "cases": 1
+    },
+    {
+      "name": "EDF Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ELITE LINK LLC",
+      "cases": 1
+    },
+    {
+      "name": "EMEC Consulting Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "EMR Management Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ENLIGHT GROWTH IT, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ENTERPRISE BUSINESS SOLUTIONS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "EPIK SOLUTIONS",
+      "cases": 1
+    },
+    {
+      "name": "EQUI-TEK LLC.",
+      "cases": 1
+    },
+    {
+      "name": "EVERGREEN ENTERPRISES OF VIRGINIA, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Eagle Flexible Packaging, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Eastern Wyoming Community College District",
+      "cases": 1
+    },
+    {
+      "name": "Eclat Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Eduvision, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Electrolux Consumer Products Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Elevance Health, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Elite RF LLC",
+      "cases": 1
+    },
+    {
+      "name": "Elkhart County Government",
+      "cases": 1
+    },
+    {
+      "name": "Ellington Management Group, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Emory Healthcare, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Employer Direct Healthcare, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Employer Flexible",
+      "cases": 1
+    },
+    {
+      "name": "Endava Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Endurance Services Limited DBA Sompo",
+      "cases": 1
+    },
+    {
+      "name": "Energy Exemplar, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Enpro Associates, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Enterprise Solutions, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Epickx Inc",
+      "cases": 1
+    },
+    {
+      "name": "Essen Care Management, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Essential Hub, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Etekserve Inc",
+      "cases": 1
+    },
+    {
+      "name": "Eurofins Microbiology Laboratories, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Evenflo Company, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Evergreen Roadworks, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Exalync, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Excellence Emergency Hospital",
+      "cases": 1
+    },
+    {
+      "name": "Exelon Business Services Company LLC",
+      "cases": 1
+    },
+    {
+      "name": "Exemplis LLC",
+      "cases": 1
+    },
+    {
+      "name": "FARMASI US LLC",
+      "cases": 1
+    },
+    {
+      "name": "FCP Fund Manager LLP",
+      "cases": 1
+    },
+    {
+      "name": "FEDERAL HOME LOAN BANK OF TOPEKA",
+      "cases": 1
+    },
+    {
+      "name": "FIRSTNET GLOBAL LLC",
+      "cases": 1
+    },
+    {
+      "name": "FKQ Marketing, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "FPT USA Corporation",
+      "cases": 1
+    },
+    {
+      "name": "FRIENDLY FRANCHISEES CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "FSE Diya Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Falconi Consultants For Results Corp.",
+      "cases": 1
+    },
+    {
+      "name": "Fanatics Retail Group Fulfillment LLC",
+      "cases": 1
+    },
+    {
+      "name": "FedEx Freight, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Federal Express Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Firefly Pros Inc",
+      "cases": 1
+    },
+    {
+      "name": "First Horizon Bank",
+      "cases": 1
+    },
+    {
+      "name": "FlexiSpot, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Fluke Electronics Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Flyhigh Staffing LLC",
+      "cases": 1
+    },
+    {
+      "name": "Foot Locker Corporate Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Formosa Plastics Corporation, U.S.A.",
+      "cases": 1
+    },
+    {
+      "name": "Forshare Co., LTD",
+      "cases": 1
+    },
+    {
+      "name": "Foundation, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Fouress Synergy LLC",
+      "cases": 1
+    },
+    {
+      "name": "Frontier Investment Group LLC",
+      "cases": 1
+    },
+    {
+      "name": "Fullhouse Logistics Inc",
+      "cases": 1
+    },
+    {
+      "name": "Future Commodities International, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Fuyao Glass South Carolina, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "GKFF Parks Conservancy",
+      "cases": 1
+    },
+    {
+      "name": "GRANITE TELECOMMUNICATIONS, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Gainwell Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "Galleher, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ganahl Lumber Company",
+      "cases": 1
+    },
+    {
+      "name": "Gates Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Gateway Commercial Bank",
+      "cases": 1
+    },
+    {
+      "name": "General Dynamics Information Technology, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "General Materials LLC",
+      "cases": 1
+    },
+    {
+      "name": "Geneses Tech Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Georgia Foods, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Geotab USA, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Gestamp Chattanooga, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Get Covered LLC",
+      "cases": 1
+    },
+    {
+      "name": "Global Visse Inc",
+      "cases": 1
+    },
+    {
+      "name": "Globus Medical, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "GoPath Laboratories, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Goffa International Corp.",
+      "cases": 1
+    },
+    {
+      "name": "Golden Coast Distro Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Golden Ivy Marketing Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Grays Harbor County Public Hospital District No. 1",
+      "cases": 1
+    },
+    {
+      "name": "Greating Shipping Company",
+      "cases": 1
+    },
+    {
+      "name": "Green Wave Ingredients Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Grid Dynamics Holdings, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Growth Wireless LLC",
+      "cases": 1
+    },
+    {
+      "name": "Gusto, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "H Mart Logistics Inc.",
+      "cases": 1
+    },
+    {
+      "name": "H-E-B, LP",
+      "cases": 1
+    },
+    {
+      "name": "HBSS CONNECT CORP",
+      "cases": 1
+    },
+    {
+      "name": "HIH Logistics Inc",
+      "cases": 1
+    },
+    {
+      "name": "HM Electronics, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "HSBC Technology & Services (USA) Inc.",
+      "cases": 1
+    },
+    {
+      "name": "HV Manco LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hancock Pharmacy V LLC",
+      "cases": 1
+    },
+    {
+      "name": "Harmonia Distro Inc",
+      "cases": 1
+    },
+    {
+      "name": "Hartford Communities That Care Inc",
+      "cases": 1
+    },
+    {
+      "name": "Hatch Stamping Company LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hazen and Sawyer, D.P.C.",
+      "cases": 1
+    },
+    {
+      "name": "Health One Alliance, LLC",
+      "cases": 1
+    },
+    {
+      "name": "HealthEquity, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Healthcare Strategy Group, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hearst Autos, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Heli America Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Hellmuth, Obata & Kassabaum, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Hengli America Corporation",
+      "cases": 1
+    },
+    {
+      "name": "HexaCorp LLC",
+      "cases": 1
+    },
+    {
+      "name": "HistoGenetics LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hitrust LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ho Lam, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Holistic Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Home Depot Management Company LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hooke Laboratories, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Hornblower Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Hub Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Hudson Peaks Consulting LLC.",
+      "cases": 1
+    },
+    {
+      "name": "IB Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ICE DATA SERVICES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "IDFL Laboratory and Institute Inc.",
+      "cases": 1
+    },
+    {
+      "name": "IDI Consulting, LLC",
+      "cases": 1
+    },
+    {
+      "name": "IKON-TECH SERVICES LLC",
+      "cases": 1
+    },
+    {
+      "name": "IND Inc",
+      "cases": 1
+    },
+    {
+      "name": "INDUS GROUP INC.",
+      "cases": 1
+    },
+    {
+      "name": "INDUS VALLEY CONSULTANTS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "ING Financial Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "INMAR, INC.",
+      "cases": 1
+    },
+    {
+      "name": "INSIGHT MATRIX",
+      "cases": 1
+    },
+    {
+      "name": "IOASIZ INC",
+      "cases": 1
+    },
+    {
+      "name": "IPG DXTRA, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "IT Automation, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ITLIZE GLOBAL LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Iberia Foods LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ideal Source Inc",
+      "cases": 1
+    },
+    {
+      "name": "Idexcel Inc",
+      "cases": 1
+    },
+    {
+      "name": "Imbed Biosciences Inc",
+      "cases": 1
+    },
+    {
+      "name": "Imperva, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Imprint Payments, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Incept Data Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Indiana University",
+      "cases": 1
+    },
+    {
+      "name": "Indus Valley Partners Corp.",
+      "cases": 1
+    },
+    {
+      "name": "InnovAccer Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Innovation AI",
+      "cases": 1
+    },
+    {
+      "name": "Insight Direct USA, Inc",
+      "cases": 1
+    },
+    {
+      "name": "InsightTech Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Insyt Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Intradiem, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Intuitive Surgical Operations, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "JAS Forwarding (USA), Inc.",
+      "cases": 1
+    },
+    {
+      "name": "JD LOGISTICS UNITED STATES COMPANY",
+      "cases": 1
+    },
+    {
+      "name": "JFROG, INC.",
+      "cases": 1
+    },
+    {
+      "name": "JNS RX, LLC",
+      "cases": 1
+    },
+    {
+      "name": "JOBLY SOLUTIONS, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "JOHNSON CONTROLS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "JPMorgan Chase & Co.",
+      "cases": 1
+    },
+    {
+      "name": "Jet Speed Plumbing Inc",
+      "cases": 1
+    },
+    {
+      "name": "JetFile Technologies, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Jetro Holdings LLC",
+      "cases": 1
+    },
+    {
+      "name": "Jiayun International Logistics LLC",
+      "cases": 1
+    },
+    {
+      "name": "Johns Hopkins Health System Corporation",
+      "cases": 1
+    },
+    {
+      "name": "KANSHE INFOTECH INC",
+      "cases": 1
+    },
+    {
+      "name": "KARWELL TECHNOLOGIIES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "KATALYST HEALTHCARES & LIFE SCIENCES INC.",
+      "cases": 1
+    },
+    {
+      "name": "KATBOTZ LLC",
+      "cases": 1
+    },
+    {
+      "name": "KINGSTON TECHNOLOGIES INC",
+      "cases": 1
+    },
+    {
+      "name": "KODESYSTEMS LLC",
+      "cases": 1
+    },
+    {
+      "name": "KTech Products, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Kalamazoo County Community Mental Health Authority",
+      "cases": 1
+    },
+    {
+      "name": "Kanerika Inc",
+      "cases": 1
+    },
+    {
+      "name": "Kay Kay Overseas Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Kiewit Engineering Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Kittelson & Associates, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Known Global LLC",
+      "cases": 1
+    },
+    {
+      "name": "Kosma Tech Inc",
+      "cases": 1
+    },
+    {
+      "name": "Kyyba, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "LACTALIS AMERICAN GROUP, INC.",
+      "cases": 1
+    },
+    {
+      "name": "LIHE NEOSYN BIOMERIDIAN TECHNOLOGY INC",
+      "cases": 1
+    },
+    {
+      "name": "LIN R ROGERS ELECTRICAL CONTRACTORS INC.",
+      "cases": 1
+    },
+    {
+      "name": "LOCAL INITIATIVE HEALTH AUTHORITY FOR LOS ANGELES COUNTY",
+      "cases": 1
+    },
+    {
+      "name": "LOCUS BIOSCIENCES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "LOCUS, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "LORIAN HOME SYSTEMS, INC",
+      "cases": 1
+    },
+    {
+      "name": "LTC America LLC",
+      "cases": 1
+    },
+    {
+      "name": "LUCID INFOSYSTEMS LLC",
+      "cases": 1
+    },
+    {
+      "name": "LUMEE SANTA MONICA LLC",
+      "cases": 1
+    },
+    {
+      "name": "LXA Group, Inc",
+      "cases": 1
+    },
+    {
+      "name": "La Cite Development LLC",
+      "cases": 1
+    },
+    {
+      "name": "Labaton Keller Sucharow LLP",
+      "cases": 1
+    },
+    {
+      "name": "Laboratory Sciences of Arizona, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Lake 5 Media, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Langan Engineering and Environmental Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Lead IT Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Lendnext Mortgage CorporaOon",
+      "cases": 1
+    },
+    {
+      "name": "Lichten & Liss-Riordan, P.C.",
+      "cases": 1
+    },
+    {
+      "name": "Life Science Dynamics USA LLC",
+      "cases": 1
+    },
+    {
+      "name": "Lincare Inc.",
+      "cases": 1
+    },
+    {
+      "name": "LinkedIn Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Lizard Storage Group Inc",
+      "cases": 1
+    },
+    {
+      "name": "Lob.com, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Locally Compact, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Logging-In.com LLC",
+      "cases": 1
+    },
+    {
+      "name": "Logic Rise Technologies INC",
+      "cases": 1
+    },
+    {
+      "name": "Longwood Medical Group LLC",
+      "cases": 1
+    },
+    {
+      "name": "Luxoft USA, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Lyft, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "M9 Consulting, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "MARS IT Corp.",
+      "cases": 1
+    },
+    {
+      "name": "MASC Inc",
+      "cases": 1
+    },
+    {
+      "name": "MEDIABRANDS WORLDWIDE, INC.",
+      "cases": 1
+    },
+    {
+      "name": "MSA Worldwide, LLC",
+      "cases": 1
+    },
+    {
+      "name": "MSG Entertainment Holdings, LLC",
+      "cases": 1
+    },
+    {
+      "name": "MSI Express, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "MUKTANAND HOSPITALITY, LLC",
+      "cases": 1
+    },
+    {
+      "name": "MYR Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mack Trucks, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Magna Services of America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mail Media, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mama Lola's, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Mandarich Law Group, LLP",
+      "cases": 1
+    },
+    {
+      "name": "Mangobytes LLC",
+      "cases": 1
+    },
+    {
+      "name": "Mankind America LLC",
+      "cases": 1
+    },
+    {
+      "name": "Markimex, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Markit North America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Marquette University",
+      "cases": 1
+    },
+    {
+      "name": "Maryland International School",
+      "cases": 1
+    },
+    {
+      "name": "Massey Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mayura Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "McCann Yan Holdings, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "MedStar Medical Group-Southern Maryland, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Medha Transportation LLC",
+      "cases": 1
+    },
+    {
+      "name": "Mega Valley Capital Management LLC",
+      "cases": 1
+    },
+    {
+      "name": "Memorial Sloan Kettering Cancer Center",
+      "cases": 1
+    },
+    {
+      "name": "Mental Health Association, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Menzo Technologies Corp",
+      "cases": 1
+    },
+    {
+      "name": "Merryville Oil Co",
+      "cases": 1
+    },
+    {
+      "name": "Meta Platforms, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Metro Home Health Care Services Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mid Minnesota Federal Credit Union",
+      "cases": 1
+    },
+    {
+      "name": "Middleborough Hospitality LLC",
+      "cases": 1
+    },
+    {
+      "name": "Midland Fortune Supply Chain Management Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Milliman Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Milliman, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mills Automotive Group, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Miniso Depot CA, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Minth North America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mizuho Orthopedic Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mobile Apps Enterprises LLC",
+      "cases": 1
+    },
+    {
+      "name": "Modus Health Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Momentum Youth Holdings, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Monolithic Power Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Monster Energy Company",
+      "cases": 1
+    },
+    {
+      "name": "Moody's Analytics, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Morgan and Morgan, P.A.",
+      "cases": 1
+    },
+    {
+      "name": "Morton St. Trading Opco LLC",
+      "cases": 1
+    },
+    {
+      "name": "Mountain Division, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Mphasis Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Mullen Coughlin LLC",
+      "cases": 1
+    },
+    {
+      "name": "NATIONAL RUBBER CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "NEW DOVER TECH LLC",
+      "cases": 1
+    },
+    {
+      "name": "NEW JERSEY FAMILY PLANNING LEAGUE, INC.",
+      "cases": 1
+    },
+    {
+      "name": "NOVA Financial & Investment Corporation",
+      "cases": 1
+    },
+    {
+      "name": "NOVAMEGHA  LLC",
+      "cases": 1
+    },
+    {
+      "name": "NOVANT HEALTH",
+      "cases": 1
+    },
+    {
+      "name": "NRG Kiosk LLC",
+      "cases": 1
+    },
+    {
+      "name": "NXGN Management LLC",
+      "cases": 1
+    },
+    {
+      "name": "NXTORDER INC",
+      "cases": 1
+    },
+    {
+      "name": "NY PLATES AND REGISTRATION SOLUTION CORP.",
+      "cases": 1
+    },
+    {
+      "name": "Natera, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "National Board of Osteopathic Medical Examiners, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "National Government Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "National Railroad Passenger Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Navy Federal Credit Union",
+      "cases": 1
+    },
+    {
+      "name": "Near North Health Service Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Neoteksoft Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Nepa Wholesale Inc.",
+      "cases": 1
+    },
+    {
+      "name": "New Era Cap, LLC",
+      "cases": 1
+    },
+    {
+      "name": "New York Bone and Joint Specialists PLLC",
+      "cases": 1
+    },
+    {
+      "name": "Nexamentes LLC",
+      "cases": 1
+    },
+    {
+      "name": "Nexla Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Next Gen Software Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Nidaan Systems Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Nile Tech Inc",
+      "cases": 1
+    },
+    {
+      "name": "North, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Northern Illinois University",
+      "cases": 1
+    },
+    {
+      "name": "Northern Kentucky University",
+      "cases": 1
+    },
+    {
+      "name": "Northwestern Mutual Life Insurance Company",
+      "cases": 1
+    },
+    {
+      "name": "Norton Lilly International, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Novozen Healthcare LLC",
+      "cases": 1
+    },
+    {
+      "name": "OPENX TECHNOLOGIES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "ORABASE SOLUTIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "OST INC",
+      "cases": 1
+    },
+    {
+      "name": "OVEARSEAS FOOD TRADING LTD",
+      "cases": 1
+    },
+    {
+      "name": "Objectways Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ocean Mental Health Services Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Octagos Health, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Octave Holdings and Investments",
+      "cases": 1
+    },
+    {
+      "name": "Octek Consulting, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Odyssey Reinsurance Company",
+      "cases": 1
+    },
+    {
+      "name": "Oklahoma Policy, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Ola MD LLC",
+      "cases": 1
+    },
+    {
+      "name": "Onus Global Fulfillment Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Onward Climate LLC",
+      "cases": 1
+    },
+    {
+      "name": "Open Road Integrated Media Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Optimal, inc.",
+      "cases": 1
+    },
+    {
+      "name": "Optimum Media, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Orien Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Orion Systems Integrators LLC",
+      "cases": 1
+    },
+    {
+      "name": "Osceola Staffing Holdings, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Osmose Utilities Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "PACIFIC CONSULTANCY SERVICES LLC",
+      "cases": 1
+    },
+    {
+      "name": "PACO Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "PBR Inc.",
+      "cases": 1
+    },
+    {
+      "name": "PC Connection, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "PCI Energy Solutions",
+      "cases": 1
+    },
+    {
+      "name": "PHI Service Company, An Exelon Company",
+      "cases": 1
+    },
+    {
+      "name": "PINACLE IT CORP LLC",
+      "cases": 1
+    },
+    {
+      "name": "PRIMUS Global Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "PSM 101 LLC.",
+      "cases": 1
+    },
+    {
+      "name": "PYRAMID TECHNOLOGY SOLUTIONS, INC",
+      "cases": 1
+    },
+    {
+      "name": "Pacific Sports, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Palo Alto Veterans Institute for Research",
+      "cases": 1
+    },
+    {
+      "name": "Pan86 LLC",
+      "cases": 1
+    },
+    {
+      "name": "Panjabi Aa Gye Oye Inc",
+      "cases": 1
+    },
+    {
+      "name": "Pay With Spire, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Pendleton Immigration Service LLC",
+      "cases": 1
+    },
+    {
+      "name": "Perennial Autonomy LLC",
+      "cases": 1
+    },
+    {
+      "name": "Perry Ellis International, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Pharmaron US Clinical Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Phoenix Business Solutions, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Pilot Travel Centers LLC",
+      "cases": 1
+    },
+    {
+      "name": "Pinnacle Technical Resources, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Piper Companies, LLC",
+      "cases": 1
+    },
+    {
+      "name": "PitchBook Data, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Pitsco Education, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Piventrics LLC",
+      "cases": 1
+    },
+    {
+      "name": "Pivotal Systems Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Plymouth Rock Assurance Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Pragmatic IT Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Premier PV LLC",
+      "cases": 1
+    },
+    {
+      "name": "Premus Solutions",
+      "cases": 1
+    },
+    {
+      "name": "Prescient Technologies Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Prestige Closter LLC",
+      "cases": 1
+    },
+    {
+      "name": "Prime Healthcare Management, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Prodapt North America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Progate Technologies INC",
+      "cases": 1
+    },
+    {
+      "name": "Prohealth Practice Management, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Prompt Gem Importers, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Purpose Financial, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "QUALITY 1ST PRODUCE INC.",
+      "cases": 1
+    },
+    {
+      "name": "Quadric IT, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Quality Gold, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Quanta Technology LLC",
+      "cases": 1
+    },
+    {
+      "name": "QvalFocus Inc.",
+      "cases": 1
+    },
+    {
+      "name": "R SYSTEMS INC.",
+      "cases": 1
+    },
+    {
+      "name": "R3 Mobile Management Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "RDI USA Inc.",
+      "cases": 1
+    },
+    {
+      "name": "RE Tech Advisors Inc.",
+      "cases": 1
+    },
+    {
+      "name": "RELIG STAFFING, INC.",
+      "cases": 1
+    },
+    {
+      "name": "ROUNDVIEW TECHNOLOGIES, LLC",
+      "cases": 1
+    },
+    {
+      "name": "RPWM Partners, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Raapid Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Ram Global Diamond Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Rave Distribution LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ray Klein, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Ray of Eden LLC",
+      "cases": 1
+    },
+    {
+      "name": "Recharge Capital Advisors LLC",
+      "cases": 1
+    },
+    {
+      "name": "Redfin Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Refinitiv US LLC",
+      "cases": 1
+    },
+    {
+      "name": "Relish Works, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Republic Finance, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Resonance Consultancy Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Resource Innovations Inc.",
+      "cases": 1
+    },
+    {
+      "name": "RevSpring, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Rochester Institute of Technology",
+      "cases": 1
+    },
+    {
+      "name": "Rockland Trust Company",
+      "cases": 1
+    },
+    {
+      "name": "Rokt US Corp.",
+      "cases": 1
+    },
+    {
+      "name": "Romark Management LLC",
+      "cases": 1
+    },
+    {
+      "name": "Roundex Inc",
+      "cases": 1
+    },
+    {
+      "name": "Rums Department, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Run Payments LLC",
+      "cases": 1
+    },
+    {
+      "name": "Ryan Business and Technology Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "S R International, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "SAI CPA SERVICES",
+      "cases": 1
+    },
+    {
+      "name": "SANNISOFT LLC",
+      "cases": 1
+    },
+    {
+      "name": "SAVANNAH CHATHAM COUNTY PUBLIC SCHOOL SYSTEM",
+      "cases": 1
+    },
+    {
+      "name": "SC Management LLC",
+      "cases": 1
+    },
+    {
+      "name": "SCHNEIDER ELECTRIC USA, INC.",
+      "cases": 1
+    },
+    {
+      "name": "SEGULA TECHNOLOGIES USA, INC.",
+      "cases": 1
+    },
+    {
+      "name": "SF GLOBAL LLC",
+      "cases": 1
+    },
+    {
+      "name": "SILA Solutions Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "SISMOS SOLUTIONS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "SPDI CA LLC",
+      "cases": 1
+    },
+    {
+      "name": "SPDI VENTURE LLC",
+      "cases": 1
+    },
+    {
+      "name": "SPECTRAL MD, INC.",
+      "cases": 1
+    },
+    {
+      "name": "SPG Consulting Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "SPRUCE TECHNOLOGY INC.",
+      "cases": 1
+    },
+    {
+      "name": "SRI KRISHNA JEWELLERS INC.",
+      "cases": 1
+    },
+    {
+      "name": "ST. JUDE MEDICAL BUSINESS SERVICES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "STARK PHARMA SOLUTIONS INC.",
+      "cases": 1
+    },
+    {
+      "name": "STRATUS CONSULTANTS LLC",
+      "cases": 1
+    },
+    {
+      "name": "STYLE MELODY INC",
+      "cases": 1
+    },
+    {
+      "name": "SUNIXA SOLUTIONS, INC.",
+      "cases": 1
+    },
+    {
+      "name": "SVT IT Infotech INC",
+      "cases": 1
+    },
+    {
+      "name": "SWVE Management Holdco LLC",
+      "cases": 1
+    },
+    {
+      "name": "SYSINTEL, INC.",
+      "cases": 1
+    },
+    {
+      "name": "Safron Rock Inc",
+      "cases": 1
+    },
+    {
+      "name": "Sagitec Solutions, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Sai Life Sciences, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Salem Infotech Inc",
+      "cases": 1
+    },
+    {
+      "name": "Salud Healthcare Holdings LLC",
+      "cases": 1
+    },
+    {
+      "name": "Salute Mission Critical Holdings Topco, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Samkee America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Samsara Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Samsung HME America, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Scadea Software Solutions Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Schaeffler Group USA Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Schonfeld Strategic Advisors LLC",
+      "cases": 1
+    },
+    {
+      "name": "Schupan & Sons, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Sedaa",
+      "cases": 1
+    },
+    {
+      "name": "Sedgwick Claims Management Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "See’s Candies, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Semiconductor Components Industries, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Sentara Health",
+      "cases": 1
+    },
+    {
+      "name": "Sharp Decisions, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Sharp Healthcare",
+      "cases": 1
+    },
+    {
+      "name": "Shelter Mutual Insurance Company",
+      "cases": 1
+    },
+    {
+      "name": "Shive-Hattery Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "SimpleTire LLC",
+      "cases": 1
+    },
+    {
+      "name": "Simpler Trading, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Sky Alliance Group, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Sns Info Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Sodexo, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Softtechers LLC",
+      "cases": 1
+    },
+    {
+      "name": "Soiree Hospitality Group, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Solar Electric Systems, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Solstice Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Southwest Sales, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Space Auto Group Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Spacelabs Healthcare, LLC.",
+      "cases": 1
+    },
+    {
+      "name": "Spotline, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Squad Software Inc",
+      "cases": 1
+    },
+    {
+      "name": "St. Bernard’s Hospital, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "St. Luke's Cataract & Laser Institute, P.A.",
+      "cases": 1
+    },
+    {
+      "name": "StaffCo of Brooklyn, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Startech Networks Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Stetson University",
+      "cases": 1
+    },
+    {
+      "name": "Sticky.io, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Stratas Advisors LLC",
+      "cases": 1
+    },
+    {
+      "name": "Stratus Technology Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Subex Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Sunlight Technologies Inc",
+      "cases": 1
+    },
+    {
+      "name": "Sunrise Wholesale, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Sunrise Wholesalers Inc",
+      "cases": 1
+    },
+    {
+      "name": "Sycamore Informatics Inc",
+      "cases": 1
+    },
+    {
+      "name": "Symphony Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Symposia Studio LLC",
+      "cases": 1
+    },
+    {
+      "name": "Synopsys, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Syracuse University",
+      "cases": 1
+    },
+    {
+      "name": "TALLGRID TECHNOLOGIES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "TEA Intelligent System Inc.",
+      "cases": 1
+    },
+    {
+      "name": "TECHMINDS GROUP, LLC",
+      "cases": 1
+    },
+    {
+      "name": "TECHSARA SOLUTIONS INC",
+      "cases": 1
+    },
+    {
+      "name": "TEK GIGZ LLC",
+      "cases": 1
+    },
+    {
+      "name": "TEKBLU LLC",
+      "cases": 1
+    },
+    {
+      "name": "TEKROK INC",
+      "cases": 1
+    },
+    {
+      "name": "TERESA PHARMA LLC.",
+      "cases": 1
+    },
+    {
+      "name": "THE NASSAU COMPANIES OF NEW YORK",
+      "cases": 1
+    },
+    {
+      "name": "THE PRINCIPAL CONSULTING, INC.",
+      "cases": 1
+    },
+    {
+      "name": "TIMESOFT SOLUTIONS LLC.",
+      "cases": 1
+    },
+    {
+      "name": "TLD ACE Corporation",
+      "cases": 1
+    },
+    {
+      "name": "TORO IMPORTS LLC",
+      "cases": 1
+    },
+    {
+      "name": "TRGRP, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "TRIANGLE HOME FASHIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "TRUSTEES OF BOSTON UNIVERSITY",
+      "cases": 1
+    },
+    {
+      "name": "Tah Operations LLC",
+      "cases": 1
+    },
+    {
+      "name": "Tango Management Consulting LLC",
+      "cases": 1
+    },
+    {
+      "name": "Team Research Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Teamwave Tech INC",
+      "cases": 1
+    },
+    {
+      "name": "Tech Rakers, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "TechMetro LLC",
+      "cases": 1
+    },
+    {
+      "name": "TechMind Software Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Techpoint, LLC",
+      "cases": 1
+    },
+    {
+      "name": "TekSyntax, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Tekbiz Solutions LLC",
+      "cases": 1
+    },
+    {
+      "name": "Tekhub Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Temple University Hospital, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Tenaska, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Tenet Advisors, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Teresa RX INC",
+      "cases": 1
+    },
+    {
+      "name": "Texas A&M University-Kingsville",
+      "cases": 1
+    },
+    {
+      "name": "Texas Gaushala",
+      "cases": 1
+    },
+    {
+      "name": "The Automation Space LLC",
+      "cases": 1
+    },
+    {
+      "name": "The City of Paterson",
+      "cases": 1
+    },
+    {
+      "name": "The Curators of the University of Missouri",
+      "cases": 1
+    },
+    {
+      "name": "The Fountain Group, LLC",
+      "cases": 1
+    },
+    {
+      "name": "The Henry M Jackson Foundation",
+      "cases": 1
+    },
+    {
+      "name": "The Henry M. Jackson Foundation",
+      "cases": 1
+    },
+    {
+      "name": "The J.P Farley Corporation",
+      "cases": 1
+    },
+    {
+      "name": "The Reinalt-Thomas Corporation",
+      "cases": 1
+    },
+    {
+      "name": "The Research Foundation for Mental Hygiene, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "The University of Alabama",
+      "cases": 1
+    },
+    {
+      "name": "The University of Phoenix, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "The University of Southern California",
+      "cases": 1
+    },
+    {
+      "name": "The University of Tennessee Health Science Center",
+      "cases": 1
+    },
+    {
+      "name": "The University of Texas at Austin",
+      "cases": 1
+    },
+    {
+      "name": "The University of Texas at Dallas",
+      "cases": 1
+    },
+    {
+      "name": "The University of Vermont and State Agricultural College",
+      "cases": 1
+    },
+    {
+      "name": "The University of Virginia",
+      "cases": 1
+    },
+    {
+      "name": "Tianjiuhua Group Corp",
+      "cases": 1
+    },
+    {
+      "name": "Tianjiuhua LLC.",
+      "cases": 1
+    },
+    {
+      "name": "TikTok U.S. Data Security Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Todo International Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Top Greener Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Toyota Material Handling Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Traba Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Trade Capital Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Tramontina USA, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Transcontinental Energy Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "Trestellae Inc",
+      "cases": 1
+    },
+    {
+      "name": "Tresume LLC",
+      "cases": 1
+    },
+    {
+      "name": "Tri Global Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "Tribless LLC",
+      "cases": 1
+    },
+    {
+      "name": "Trimble Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Truly Free, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Turnberry Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Twinwing Labs, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Two Rivers Dental P.C.",
+      "cases": 1
+    },
+    {
+      "name": "U.S. Renal Care, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "UBS Asset Management (Americas) LLC",
+      "cases": 1
+    },
+    {
+      "name": "UNIVERSITY OF CALIFORNIA, IRVINE",
+      "cases": 1
+    },
+    {
+      "name": "UNIVERSITY OF MIAMI",
+      "cases": 1
+    },
+    {
+      "name": "US Convertors LLC",
+      "cases": 1
+    },
+    {
+      "name": "US Technologies Corporation",
+      "cases": 1
+    },
+    {
+      "name": "USA Airfish Logistic LLC",
+      "cases": 1
+    },
+    {
+      "name": "USA Cinema Services LLC",
+      "cases": 1
+    },
+    {
+      "name": "Uncommon Goods LLC",
+      "cases": 1
+    },
+    {
+      "name": "Under Technologies, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Unify Solutions Inc",
+      "cases": 1
+    },
+    {
+      "name": "Unika Health Inc",
+      "cases": 1
+    },
+    {
+      "name": "Unisoft Technology Inc.",
+      "cases": 1
+    },
+    {
+      "name": "United HealthCare Services, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "United Way of West Florida, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "University of California, Los Angeles",
+      "cases": 1
+    },
+    {
+      "name": "University of Georgia; OGE",
+      "cases": 1
+    },
+    {
+      "name": "University of Idaho",
+      "cases": 1
+    },
+    {
+      "name": "University of Maryland Baltimore",
+      "cases": 1
+    },
+    {
+      "name": "University of Maryland, College Park",
+      "cases": 1
+    },
+    {
+      "name": "University of Minnesota",
+      "cases": 1
+    },
+    {
+      "name": "University of Nevada, Reno",
+      "cases": 1
+    },
+    {
+      "name": "University of New Mexico",
+      "cases": 1
+    },
+    {
+      "name": "University of Pittsburgh",
+      "cases": 1
+    },
+    {
+      "name": "Utah Tech University",
+      "cases": 1
+    },
+    {
+      "name": "VDNKR, INC.",
+      "cases": 1
+    },
+    {
+      "name": "VEN SOLUTIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "VENYATECH SOLUTIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "VIJAYA CONSULTANCY SERVICES, INC.",
+      "cases": 1
+    },
+    {
+      "name": "VINNAR SERVICES INC.",
+      "cases": 1
+    },
+    {
+      "name": "VIRTUSA CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "VITEL GLOBAL COMMUNICATIONS LLC",
+      "cases": 1
+    },
+    {
+      "name": "VIVA Manufacturing, LLC",
+      "cases": 1
+    },
+    {
+      "name": "VS TECH INC",
+      "cases": 1
+    },
+    {
+      "name": "VTX Holdings, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Valley Queen Cheese Factory, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ValuePro, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Vay Technology Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Vehil LLC",
+      "cases": 1
+    },
+    {
+      "name": "Veolia North America LLC",
+      "cases": 1
+    },
+    {
+      "name": "Vero Broadband, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Vertisystem Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Virtual Systems Solutions, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Volante Technologies Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Voya Services Company",
+      "cases": 1
+    },
+    {
+      "name": "WM Reply Inc.",
+      "cases": 1
+    },
+    {
+      "name": "WORLD FRESH MARKET",
+      "cases": 1
+    },
+    {
+      "name": "WP Company LLC d/b/a The Washington Post",
+      "cases": 1
+    },
+    {
+      "name": "WPCA Fulfillment, LLC",
+      "cases": 1
+    },
+    {
+      "name": "WSU-Foundation",
+      "cases": 1
+    },
+    {
+      "name": "WWEX Franchise Holdings, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Wall Street Consulting LLC",
+      "cases": 1
+    },
+    {
+      "name": "Washington State University",
+      "cases": 1
+    },
+    {
+      "name": "WebExxa Technologies LLC",
+      "cases": 1
+    },
+    {
+      "name": "Weee! Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Weida Freight System, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Weill Cornell Medical College",
+      "cases": 1
+    },
+    {
+      "name": "Welbe Health, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Welcome Real Estate Services, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Wellmark, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "West Ocean Distro Inc.",
+      "cases": 1
+    },
+    {
+      "name": "West Ocean Inc.",
+      "cases": 1
+    },
+    {
+      "name": "West Virginia University",
+      "cases": 1
+    },
+    {
+      "name": "Western Illinois University",
+      "cases": 1
+    },
+    {
+      "name": "Western Michigan University Homer Stryker M.D. School of Medicine",
+      "cases": 1
+    },
+    {
+      "name": "Western Technical College",
+      "cases": 1
+    },
+    {
+      "name": "Western Union, LLC",
+      "cases": 1
+    },
+    {
+      "name": "Westernacher & Partner Consulting, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Westlock Controls Corporation",
+      "cases": 1
+    },
+    {
+      "name": "Willdan Energy Company",
+      "cases": 1
+    },
+    {
+      "name": "Workato Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Worldscape Inc",
+      "cases": 1
+    },
+    {
+      "name": "Worldwide PackPro Inc",
+      "cases": 1
+    },
+    {
+      "name": "Wyzia Financial USA LLC",
+      "cases": 1
+    },
+    {
+      "name": "XCMG America Financial LLC",
+      "cases": 1
+    },
+    {
+      "name": "XENONINFOTEK, INC.",
+      "cases": 1
+    },
+    {
+      "name": "XSUNT CORPORATION",
+      "cases": 1
+    },
+    {
+      "name": "Xclusive Trading North Texas LLC",
+      "cases": 1
+    },
+    {
+      "name": "Yogya Tech LLC",
+      "cases": 1
+    },
+    {
+      "name": "Yotta Systems Inc",
+      "cases": 1
+    },
+    {
+      "name": "Yum Connect, LLC",
+      "cases": 1
+    },
+    {
+      "name": "ZAIN BUSINESS INC",
+      "cases": 1
+    },
+    {
+      "name": "ZASPAR TECHNOLOGIES LLC",
+      "cases": 1
+    },
+    {
+      "name": "ZT Group Int'l, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ZT Group Int'l, Inc. d/b/a ZT Systems",
+      "cases": 1
+    },
+    {
+      "name": "Zacks Investment Management, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Zenith Software Solutions, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Zertain Inc",
+      "cases": 1
+    },
+    {
+      "name": "ZestFinance, Inc",
+      "cases": 1
+    },
+    {
+      "name": "Zions Bancorporation, N.A.",
+      "cases": 1
+    },
+    {
+      "name": "Zume IT, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "Zync Technologies, LLC",
+      "cases": 1
+    },
+    {
+      "name": "comScore, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "ektello, LLC",
+      "cases": 1
+    },
+    {
+      "name": "i3 Verticals LLC",
+      "cases": 1
+    },
+    {
+      "name": "iHealth Labs, Inc.",
+      "cases": 1
+    },
+    {
+      "name": "iKrusher Inc.",
+      "cases": 1
+    },
+    {
+      "name": "iRobot Corporation",
+      "cases": 1
+    }
+  ],
+  "q7_capgemini_case_count": 51,
+  "q7_capgemini_spellings": {
+    "CAPGEMINI AMERICA INC": 7,
+    "Capgemini America Inc": 43,
+    "Capgemini America, Inc.": 1
+  },
+  "q7_capgemini_titles_top10": [
+    {
+      "name": "Data Analyst 3",
+      "cases": 16
+    },
+    {
+      "name": "Business Analyst 3",
+      "cases": 14
+    },
+    {
+      "name": "Data Analyst 2",
+      "cases": 11
+    },
+    {
+      "name": "Business Analyst 2",
+      "cases": 8
+    },
+    {
+      "name": "Business Analyst 4",
+      "cases": 2
+    }
+  ],
+  "q7_capgemini_all_titles": [
+    {
+      "name": "Data Analyst 3",
+      "cases": 16
+    },
+    {
+      "name": "Business Analyst 3",
+      "cases": 14
+    },
+    {
+      "name": "Data Analyst 2",
+      "cases": 11
+    },
+    {
+      "name": "Business Analyst 2",
+      "cases": 8
+    },
+    {
+      "name": "Business Analyst 4",
+      "cases": 2
+    }
+  ],
+  "q8_soc_data_scientist_titles_top10": [
+    {
+      "name": "Data Scientist",
+      "cases": 2636
+    },
+    {
+      "name": "Data Engineer",
+      "cases": 1321
+    },
+    {
+      "name": "Data Analyst",
+      "cases": 1053
+    },
+    {
+      "name": "Business Intelligence Analyst",
+      "cases": 647
+    },
+    {
+      "name": "Senior Data Scientist",
+      "cases": 603
+    },
+    {
+      "name": "Business Analyst",
+      "cases": 493
+    },
+    {
+      "name": "Senior Data Analyst",
+      "cases": 397
+    },
+    {
+      "name": "Data Engineer II",
+      "cases": 345
+    },
+    {
+      "name": "Machine Learning Engineer",
+      "cases": 320
+    },
+    {
+      "name": "Data Scientist II",
+      "cases": 294
+    }
+  ],
+  "q8_total_h1b_cases_all_statuses": 28646,
+  "q9_certified_data_analyst_cases_by_decision_month": {
+    "2025-10": 6,
+    "2025-11": 276,
+    "2025-12": 244,
+    "2026-01": 261,
+    "2026-02": 221,
+    "2026-03": 258,
+    "2026-04": 701,
+    "2026-05": 879,
+    "2026-06": 934
+  },
+  "q9_total_cases": 3780,
+  "q10_certified_withdrawn_employers_top10": [
+    {
+      "name": "Johns Hopkins University",
+      "cases": 6
+    },
+    {
+      "name": "CAPGEMINI AMERICA INC",
+      "cases": 5
+    },
+    {
+      "name": "TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA",
+      "cases": 5
+    },
+    {
+      "name": "Northwestern University",
+      "cases": 4
+    },
+    {
+      "name": "Stier Solutions Inc",
+      "cases": 4
+    },
+    {
+      "name": "Brightside Benefit, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "Mail Media, Inc.",
+      "cases": 3
+    },
+    {
+      "name": "UNIVERSITY OF CALIFORNIA, SAN DIEGO",
+      "cases": 3
+    },
+    {
+      "name": "VIRTUSA CORPORATION",
+      "cases": 3
+    },
+    {
+      "name": "ACE American Insurance Company",
+      "cases": 2
+    }
+  ],
+  "q10_total_cases": 223,
+  "amazon_data_services_spelling_diagnostic_all_statuses": {
+    "Amazon Data Services, Inc": 849,
+    "AMAZON DATA SERVICES, INC.": 32,
+    "Amazon Data Services, Inc.": 315,
+    "Amazon Data Services, Inc.`": 7
+  }
+}
