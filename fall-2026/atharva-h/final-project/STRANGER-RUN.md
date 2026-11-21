@@ -15,16 +15,18 @@ If nobody is available, write that here, and keep part B as the record of the cl
 ## Part B: clean-checkout test (done by Claude on 2026-11-21, not a stranger)
 
 **What was done:**
-- The committed folder (commit `07a677b`) was exported with `git archive` into an empty scratch directory, so only committed files were present. There was no `state/`, no `outputs/`, no database, and no data except `data/README.md`.
+- The committed folder was exported with `git archive` into an empty scratch directory, so only committed files were present. There was no `state/`, no `outputs/`, no database, and no data except `data/README.md`.
 - The README steps were then followed with macOS's built-in `/usr/bin/python3` (3.9.6), not the Homebrew Python used during development.
-- Log: [evidence/clean-checkout.log](evidence/clean-checkout.log). It's a **filtered summary**: real command output, trimmed to the summary lines with `head`/`tail`, with the commands written as headers (for example `<workbook>` stands for the local workbook path). It isn't a full raw transcript.
+- It was done twice: before the independent review (commit `07a677b`, [evidence/clean-checkout-07a677b.log](evidence/clean-checkout-07a677b.log)) and after the review fixes (commit `a8cbf96d`, [evidence/clean-checkout.log](evidence/clean-checkout.log)).
+- Both logs are **filtered summaries**: real command output, trimmed to the summary lines.
 
-| Step | Result |
-|---|---|
-| `python3 -m unittest discover -s tests -t .` | 28 tests, OK |
-| `python3 -m sponsorsql load <workbook> data/fy2026q3.sqlite` | 437,496 rows loaded; checksum verified |
-| `python3 -m sponsorsql evaluate` (held-out) | 5/5, policy denials 0 |
-| `python3 -m sponsorsql failures` | 10/10 as predicted; controlled failure as predicted |
+| Step | Before review (`07a677b`) | After review fixes (`a8cbf96d`) |
+|---|---|---|
+| `python3 -m unittest discover -s tests -t .` | 28 tests, OK | 43 tests, OK |
+| `python3 -m sponsorsql load <workbook> data/fy2026q3.sqlite` | 437,496 rows; checksum verified | 437,496 rows; checksum verified |
+| `python3 -m sponsorsql evaluate` (development, v2) | not run | 9/10 |
+| `python3 -m sponsorsql evaluate` (held-out) | 5/5 | 5/5 |
+| `python3 -m sponsorsql failures` | 10/10 as predicted; controlled failure as predicted | 10/10 as predicted; controlled failure as predicted |
 
 **Limits of part B:**
 - The same Mac, the same user account and the same Claude session that built the project.

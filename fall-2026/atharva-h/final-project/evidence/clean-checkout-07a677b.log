@@ -1,0 +1,19 @@
+# clean checkout of commit 07a677b into an empty folder (2026-11-21 13:34 EST)
+$ ls data state outputs 2>&1
+ls: outputs: No such file or directory
+ls: state: No such file or directory
+data:
+README.md
+$ /usr/bin/python3 --version
+Python 3.9.6
+$ /usr/bin/python3 -m unittest discover -s tests -t .
+Ran 28 tests in 0.614s
+
+OK
+$ /usr/bin/python3 -m sponsorsql load <workbook> data/fy2026q3.sqlite
+loaded 437,496 populated rows into data/fy2026q3.sqlite
+$ /usr/bin/python3 -m sponsorsql evaluate (held-out)
+held-out: 5/5 pass (policy denials 0, executed SQL failing policy 0)
+$ /usr/bin/python3 -m sponsorsql failures
+deliberate failure cases behaving as predicted: 10/10
+  C1   trigger pass=False  recovery pass=True  as predicted

@@ -1,5 +1,5 @@
-# clean checkout of commit 07a677b into an empty folder (2026-11-21 13:34 EST)
-$ ls data state outputs 2>&1
+# clean checkout of commit a8cbf96d into an empty folder (2026-11-21 13:52 EST); output trimmed to summary lines
+$ ls data state outputs
 ls: outputs: No such file or directory
 ls: state: No such file or directory
 data:
@@ -7,13 +7,15 @@ README.md
 $ /usr/bin/python3 --version
 Python 3.9.6
 $ /usr/bin/python3 -m unittest discover -s tests -t .
-Ran 28 tests in 0.614s
+Ran 43 tests in 0.638s
 
 OK
-$ /usr/bin/python3 -m sponsorsql load <workbook> data/fy2026q3.sqlite
+$ /usr/bin/python3 -m sponsorsql load /Users/atharvahambir/Desktop/INFO-7375/sponsorsql/data/LCA_Disclosure_Data_FY2026_Q3.xlsx data/fy2026q3.sqlite
 loaded 437,496 populated rows into data/fy2026q3.sqlite
-$ /usr/bin/python3 -m sponsorsql evaluate (held-out)
-held-out: 5/5 pass (policy denials 0, executed SQL failing policy 0)
-$ /usr/bin/python3 -m sponsorsql failures
+$ /usr/bin/python3 -m sponsorsql evaluate --db data/fy2026q3.sqlite --set evals/dev-questions.json --responses evals/proposals/round2-dev-responses.json --contract evals/PROMPT-CONTRACT-v2.md --out /tmp/x.json
+development: 9/10 pass (policy denials 0)
+$ /usr/bin/python3 -m sponsorsql evaluate --db data/fy2026q3.sqlite --set evals/heldout-questions.json --responses evals/proposals/heldout-responses.json --contract evals/PROMPT-CONTRACT-v2.md --out /tmp/x.json
+held-out: 5/5 pass (policy denials 0)
+$ /usr/bin/python3 -m sponsorsql failures --db data/fy2026q3.sqlite --out /tmp/x.json
 deliberate failure cases behaving as predicted: 10/10
   C1   trigger pass=False  recovery pass=True  as predicted
