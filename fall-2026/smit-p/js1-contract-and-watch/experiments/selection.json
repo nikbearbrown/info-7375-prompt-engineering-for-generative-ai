@@ -1,0 +1,36 @@
+{
+ "_method": "v2 (replaces selection-v1-degenerate.json, which drew 19/20 senior-titled postings). From runs/raw-20261024T192545-live.json: postings with 'engineer' in the title (n=52), split into non-senior titles (no senior/sr/staff/principal/manager/lead/director/head, n=6) and senior titles (n=46). random.Random(7375): 10 from each stratum (or all non-senior if fewer), half of each to development and half to held-out. Fixed 2026-10-24 before any labelling or prompting.",
+ "raw_file": "runs/raw-20261024T192545-live.json",
+ "dev": [
+  7716341,
+  8284841,
+  8165656,
+  8154749,
+  8154705,
+  8238604,
+  8232153,
+  8312713,
+  7592146,
+  8257909
+ ],
+ "held_out": [
+  8224032,
+  8095365,
+  8238592,
+  8263303,
+  7747259,
+  8053132,
+  8281533,
+  7968034,
+  8074955,
+  8274152
+ ],
+ "sampling_5": [
+  7716341,
+  8284841,
+  8165656,
+  8154749,
+  8154705
+ ],
+ "_method_erratum": "2026-10-28: the _method text says '10 from each stratum (or all non-senior if fewer)'. What the code actually did: all 6 non-senior postings + 14 senior ones (20 - 6), split 3+7 into development and 3+7 into held-out. The id lists below are what was used."
+}
