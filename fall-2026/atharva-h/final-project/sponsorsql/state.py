@@ -37,6 +37,7 @@ class RunState:
         self.stop_reason = None
         self.result = None
         self.view_hash = None
+        self.view_text = None
         self.decision = None
         self.export_path = None
 
@@ -54,7 +55,7 @@ class RunState:
     def to_dict(self):
         return {key: getattr(self, key) for key in (
             "run_id", "question", "qid", "adapter", "contract", "started", "finished",
-            "used", "stop_reason", "view_hash", "decision", "export_path", "steps", "result")}
+            "used", "stop_reason", "view_hash", "view_text", "decision", "export_path", "steps", "result")}
 
     def save(self, state_dir):
         state_dir = Path(state_dir)

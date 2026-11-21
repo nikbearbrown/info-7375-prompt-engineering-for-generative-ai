@@ -40,6 +40,8 @@ def cmd_ask(args):
     state = agent.run(args.question, adapter, args.db, args.contract, qid=args.qid,
                       output_shape=args.output or "", budget=Budget(), gate_mode=args.gate,
                       decision_file=args.decision_file, state_dir=args.state, outputs_dir=args.outputs)
+    if args.gate == "none" and state.view_text:
+        print(state.view_text)
     print(f"\nrun {state.run_id}: stop = {state.stop_reason}")
     print(f"adapter: {state.adapter}")
     if state.view_hash:

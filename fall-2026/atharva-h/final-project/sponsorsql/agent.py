@@ -151,6 +151,7 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
     # gate
     view = gate_mod.build_view(question, proposal, answer, evidence, check_note)
     state.view_hash = gate_mod.view_hash(view)
+    state.view_text = view
     decision = gate_mod.decide(view, gate_mode, decision_file, input_fn, output_fn)
     state.decision = decision.decision
     state.add("gate", mode=gate_mode, decision=decision.decision, approver=decision.approver,
