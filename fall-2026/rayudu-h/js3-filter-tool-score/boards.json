@@ -1,0 +1,11 @@
+{
+  "_note": "Boards chosen by Hemanth (GATE.md). The last two entries fail on purpose: (a) a board name that does not exist, (b) a real board (OpenAI on Ashby) with a 0.001 s time limit.",
+  "budgets": {"max_boards": 6, "max_requests": 10, "max_seconds": 120, "request_timeout": 30, "max_claude": 25},
+  "boards": [
+    {"system": "greenhouse", "board": "anthropic"},
+    {"system": "ashby", "board": "notion"},
+    {"system": "ashby", "board": "perplexity"},
+    {"system": "ashby", "board": "notion-does-not-exist-js2", "deliberate_failure": "a: bad name"},
+    {"system": "ashby", "board": "openai", "timeout": 0.001, "deliberate_failure": "b: timeout (GATE amendment A1)"}
+  ]
+}
