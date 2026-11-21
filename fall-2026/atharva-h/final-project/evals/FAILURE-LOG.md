@@ -30,7 +30,17 @@ Every failed case, with what the model's SQL did, what the key expected, and the
 
 ## Held-out: contract v2, scored once (`results/heldout-contract-v2.json`)
 
-*Filled in after the single held-out run.*
+**5/5 pass.** Third, separate SQL-writer subagent; 1 tool use; contract v2 unchanged after development round 2.
+
+| Q | Result | Answer | Note |
+|---|---|---|---|
+| H1 | Pass | 564 Business Analyst cases in Texas | Count check: answer 564 = 564 matching rows |
+| H2 | Pass | Top ten Boston employers, any title (Wayfair LLC 158, Amazon.com Services LLC 156, …) | — |
+| H3 | Pass | Median annual base wage, Data Scientist, California: $174,304.00 (1,595 Year-unit cases) | **Defect found in SponsorSQL, not in the model:** the model labelled this median `answer_type: "count"`, so the count-versus-rows check compared 174,304 with 1,595 rows and showed **"MISMATCH"** in the gate view. That warning is a false alarm. Cause: the contract offers only `count`, `ranking` and `table`, with no type for a single non-count value, and the check trusts the label. Not patched after the held-out run; listed as an open fix in `../transfer-reflection.md`. |
+| H4 | Pass | Wage levels for SOC 15-2051 certified H-1B: I 4,455 · II 9,747 · III 5,102 · IV 4,332 · [blank] 3,076 | — |
+| H5 | Pass | 20 denied H-1B Data Engineer cases | Count check: 20 = 20 matching rows |
+
+**What 5/5 can and cannot show:** five questions, one file, one model run each. It shows that contract v2 carried over to questions it was not tuned on (new title phrases, a new state, a median, a denied status, an untitled ranking). It does not estimate accuracy on arbitrary questions; with five items, one more failure would drop the score to 4/5.
 
 ## Unsafe SQL
 
