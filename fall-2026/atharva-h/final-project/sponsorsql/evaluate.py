@@ -15,7 +15,17 @@ def _s(value):
 
 
 def _i(value):
-    return int(float(value))
+    """A whole number, or an error: 40.9 must not pass as 40 (independent review, finding 8)."""
+    number = float(value)
+    if number != int(number):
+        raise ValueError(f"{value!r} is not a whole number")
+    return int(number)
+
+
+def _single(rows):
+    if len(rows) != 1 or len(rows[0]) != 1:
+        raise ValueError(f"expected one row with one column, got {len(rows)} row(s)")
+    return rows[0][0]
 
 
 def _pairs(rows, upper=False):
@@ -23,6 +33,16 @@ def _pairs(rows, upper=False):
     for row in rows:
         label = ", ".join(_s(v) for v in row[:-1])
         out.append((label.upper() if upper else label, _i(row[-1])))
+    return out
+
+
+def _unique(items):
+    """Build a dict, failing on a repeated label instead of merging or overwriting."""
+    out = {}
+    for label, value in items:
+        if label in out:
+            raise ValueError(f"label {label!r} appears more than once")
+        out[label] = value
     return out
 
 
@@ -40,66 +60,53 @@ def _key_pairs(items):
     return [(x["name"], x["cases"]) for x in items]
 
 
+def _levels(rows):
+    return _unique(((_s(r[0]) or "[blank]"), _i(r[1])) for r in rows)
+
+
 def compare(key_q, columns, rows, key):
-    """Return (passed, actual, expected) for one question."""
+    """Return (passed, actual, expected) for one question. A wrong shape raises ValueError."""
     if key_q in ("q1", "q10"):
         exp = _key_pairs(key["q1_massachusetts_employers_top10" if key_q == "q1"
                               else "q10_certified_withdrawn_employers_top10"])
         act = _pairs(rows)
     elif key_q == "q2":
-        exp = key["q2_boston_cases"]
-        act = _i(rows[0][0]) if rows and len(rows[0]) == 1 else None
+        exp, act = key["q2_boston_cases"], _i(_single(rows))
     elif key_q == "q3":
         exp = [(n.upper(), c) for n, c in _key_pairs(key["q3_cities_top10"])]
         act = _pairs(rows, upper=True)
     elif key_q == "q4":
         exp = {s: {"median_usd": v["median_usd"], "cases": v["cases"]}
                for s, v in key["q4_median_annual_base_wage_by_state"].items()}
-        act = {}
-        for state, median, cases in _named(columns, rows, ("state", "median", "case")):
-            if median is not None:
-                act[_s(state)] = {"median_usd": round(float(median), 2), "cases": _i(cases)}
+        act = _unique((_s(state), {"median_usd": None if median is None else round(float(median), 2),
+                                   "cases": _i(cases)})
+                      for state, median, cases in _named(columns, rows, ("state", "median", "case")))
     elif key_q == "q5":
-        exp = key["q5_wage_levels"]
-        act = {(_s(r[0]) or "[blank]"): _i(r[1]) for r in rows}
+        exp, act = key["q5_wage_levels"], _levels(rows)
     elif key_q in ("q6", "q7"):
         source = key["q6_level_i_data_role_all_employers" if key_q == "q6" else "q7_capgemini_all_titles"]
         exp = {x["name"]: x["cases"] for x in source}
-        act = {}
-        for label, cases in _pairs(rows):
-            act[label] = act.get(label, 0) + cases
+        act = _unique(_pairs(rows))
     elif key_q == "q8":
         exp = _key_pairs(key["q8_soc_data_scientist_titles_top10"])
         act = _pairs(rows)[:10]
     elif key_q == "q9":
         exp = key["q9_certified_data_analyst_cases_by_decision_month"]
-        act = {_s(r[0])[:7]: _i(r[1]) for r in rows}
+        act = _unique((_s(r[0]), _i(r[1])) for r in rows)
     elif key_q in ("h1", "h5"):
-        exp = key[f"{key_q}_count"]
-        act = _i(rows[0][0]) if rows and len(rows[0]) == 1 else None
+        exp, act = key[f"{key_q}_count"], _i(_single(rows))
     elif key_q == "h2":
         exp = _key_pairs(key["h2_boston_employers_top10"])
         act = _pairs(rows)
     elif key_q == "h3":
         exp = key["h3_median_usd"]
-        act = round(float(rows[0][0]), 2) if rows and rows[0][0] is not None else None
+        value = _single(rows)
+        act = None if value is None else round(float(value), 2)
     elif key_q == "h4":
-        exp = key["h4_wage_levels"]
-        act = {(_s(r[0]) or "[blank]"): _i(r[1]) for r in rows}
+        exp, act = key["h4_wage_levels"], _levels(rows)
     else:
         raise KeyError(f"no comparator for {key_q}")
     return act == exp, act, exp
-
-
-def _recheck(results):
-    """Re-run the text policy over every SQL string that was executed; should be 0."""
-    from .policy import check_text
-    bad = 0
-    for r in results:
-        for sql in (r.get("sql"), r.get("rows_sql")):
-            if sql and not check_text(sql).allowed:
-                bad += 1
-    return bad
 
 
 def sha256_file(path):
@@ -149,6 +156,8 @@ def run_set(question_set, responses, db_path, contract_path, state_dir, budget=N
         "contract": Path(contract_path).name, "contract_sha256": sha256_file(contract_path),
         "adapter": adapter.label, "passes": passes, "total": len(results),
         "policy_denials_total": sum(r["policy_denials"] for r in results),
-        "executed_sql_failing_policy": _recheck(results),
+        "unsafe_sql_note": ("No model reply in this run was denied by the policy, so the policy was not "
+                            "exercised by model output here. Evidence that unsafe SQL is stopped comes from "
+                            "tests 1-4 and failure cases F1-F4."),
         "results": results,
     }

@@ -1,0 +1,840 @@
+{
+  "set": "development",
+  "question_set_sha256": "49e1948274ef325a669f026331cf30268ac68ca08656be7cda508c096fc7fc98",
+  "answer_key_sha256": "db93d4dc65f6e54523fb46383c24770b212755d8873818654f97053f9eb47da0",
+  "responses_file": "round1-dev-responses.json",
+  "responses_sha256": "16209795e9dae58d6bb9da8e9445ac23c5f90469dd837d933b3fd6ad68102f43",
+  "contract": "PROMPT-CONTRACT-v1.md",
+  "contract_sha256": "5c1bc910f2b776f2b4478ce83e24b62a52c1ceb45cfc0cc4f7e5b9279444b4e9",
+  "adapter": "recorded Claude reply, replayed: Claude Code subagent (general-purpose agent spawned from the owner's Claude Code session; model inherited: claude-opus-5-5), 2026-11-21",
+  "passes": 4,
+  "total": 10,
+  "policy_denials_total": 0,
+  "unsafe_sql_note": "No model reply in this run was denied by the policy, so the policy was not exercised by model output here. Evidence that unsafe SQL is stopped comes from tests 1-4 and failure cases F1-F4.",
+  "results": [
+    {
+      "id": "D1",
+      "question": "Which employers filed the most certified H-1B Data Analyst cases in Massachusetts? Return the top ten.",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184941Z-be0ef8",
+      "interpretation": "Counts source rows (one per LCA case) where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', JOB_TITLE contains 'data analyst' (case-insensitive substring, so titles like 'Senior Data Analyst' count; no other title classes added), and the recorded worksite state is Massachusetts (WORKSITE_STATE 'MA'). Employers are grouped by EMPLOYER_NAME exactly as filed; spelling or punctuation variants of the same company are not merged. Results are ranked by case count descending, then employer name alphabetically, and limited to the top ten as the question asks.",
+      "sql": "SELECT EMPLOYER_NAME AS employer_name, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') GROUP BY EMPLOYER_NAME ORDER BY cases DESC, employer_name ASC LIMIT 10",
+      "rows_sql": "WITH top_employers AS (SELECT EMPLOYER_NAME, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') GROUP BY EMPLOYER_NAME ORDER BY cases DESC, EMPLOYER_NAME ASC LIMIT 10) SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') AND EMPLOYER_NAME IN (SELECT EMPLOYER_NAME FROM top_employers) ORDER BY EMPLOYER_NAME ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": [
+        [
+          "General Hospital Corporation",
+          8
+        ],
+        [
+          "Brigham and Women's Hospital",
+          5
+        ],
+        [
+          "Boston Medical Center Corporation",
+          4
+        ],
+        [
+          "SCHNEIDER ELECTRIC USA, INC.",
+          4
+        ],
+        [
+          "Staples, Inc.",
+          4
+        ],
+        [
+          "CarGurus, Inc.",
+          2
+        ],
+        [
+          "Federal Express Corporation",
+          2
+        ],
+        [
+          "Logging-in.com, LLC",
+          2
+        ],
+        [
+          "Massachusetts Mutual Life Insurance Company",
+          2
+        ],
+        [
+          "Olympus Corporation of the Americas",
+          2
+        ]
+      ],
+      "expected": [
+        [
+          "General Hospital Corporation",
+          8
+        ],
+        [
+          "Brigham and Women's Hospital",
+          5
+        ],
+        [
+          "Boston Medical Center Corporation",
+          4
+        ],
+        [
+          "SCHNEIDER ELECTRIC USA, INC.",
+          4
+        ],
+        [
+          "Staples, Inc.",
+          4
+        ],
+        [
+          "CarGurus, Inc.",
+          2
+        ],
+        [
+          "Federal Express Corporation",
+          2
+        ],
+        [
+          "Logging-in.com, LLC",
+          2
+        ],
+        [
+          "Massachusetts Mutual Life Insurance Company",
+          2
+        ],
+        [
+          "Olympus Corporation of the Americas",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "D2",
+      "question": "How many certified H-1B Data Analyst cases have a recorded worksite in Boston, MA?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184941Z-7b03d4",
+      "interpretation": "Counts source rows (one per LCA case) where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', JOB_TITLE contains 'data analyst' (case-insensitive substring; no other title classes added), and the single recorded worksite is Boston, MA (WORKSITE_CITY 'Boston' and WORKSITE_STATE 'MA', compared case-insensitively after trimming). Source rows are counted, not distinct case numbers.",
+      "sql": "SELECT COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS')",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') ORDER BY sheet_row ASC",
+      "check": "answer 40 matches 40 matching rows",
+      "policy_denials": 0,
+      "actual": 40,
+      "expected": 40
+    },
+    {
+      "id": "D3",
+      "question": "Which ten cities have the most certified H-1B Data Analyst cases?",
+      "pass": false,
+      "stop_reason": "budget_exhausted",
+      "run_id": "20261121T184941Z-04d332",
+      "interpretation": null,
+      "sql": null,
+      "rows_sql": null,
+      "check": null,
+      "policy_denials": 0,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "id": "D4",
+      "question": "What is the median offered annual base wage for certified H-1B Data Analyst cases, by state?",
+      "pass": false,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184951Z-e8cd57",
+      "interpretation": "Uses source rows where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', and JOB_TITLE contains 'data analyst' (case-insensitive substring; no other title classes added). 'Offered annual base wage' is taken as WAGE_RATE_OF_PAY_FROM, the lower bound of the filed base-wage range (not total compensation), restricted to rows whose WAGE_UNIT_OF_PAY is 'Year' with a non-blank wage; hourly, weekly, bi-weekly, and monthly rows are excluded rather than annualized, because no hours/weeks convention is given. The wage text is cast to a number after stripping '$' and commas. Grouped by the recorded WORKSITE_STATE as filed. Median is the middle value, or the average of the two middle values when the count is even. 'cases' is the number of rows used for that state's median.",
+      "sql": "WITH w AS (SELECT WORKSITE_STATE AS state, CAST(REPLACE(REPLACE(TRIM(WAGE_RATE_OF_PAY_FROM), '$', ''), ',', '') AS REAL) AS wage FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND LOWER(TRIM(WAGE_UNIT_OF_PAY)) = 'year' AND TRIM(COALESCE(WAGE_RATE_OF_PAY_FROM, '')) <> ''), ranked AS (SELECT state, wage, ROW_NUMBER() OVER (PARTITION BY state ORDER BY wage) AS rn, COUNT(*) OVER (PARTITION BY state) AS n FROM w) SELECT state, AVG(wage) AS median_usd, MAX(n) AS cases FROM ranked WHERE rn IN ((n + 1) / 2, (n + 2) / 2) GROUP BY state ORDER BY state ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND LOWER(TRIM(WAGE_UNIT_OF_PAY)) = 'year' AND TRIM(COALESCE(WAGE_RATE_OF_PAY_FROM, '')) <> '' ORDER BY WORKSITE_STATE ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": {
+        "AL": {
+          "median_usd": 64230.0,
+          "cases": 15
+        },
+        "AR": {
+          "median_usd": 107213.44,
+          "cases": 58
+        },
+        "AZ": {
+          "median_usd": 95555.0,
+          "cases": 55
+        },
+        "CA": {
+          "median_usd": 123531.0,
+          "cases": 403
+        },
+        "CO": {
+          "median_usd": 95371.82,
+          "cases": 26
+        },
+        "CT": {
+          "median_usd": 97687.5,
+          "cases": 34
+        },
+        "DC": {
+          "median_usd": 93078.5,
+          "cases": 18
+        },
+        "DE": {
+          "median_usd": 92198.0,
+          "cases": 15
+        },
+        "FL": {
+          "median_usd": 91125.0,
+          "cases": 120
+        },
+        "GA": {
+          "median_usd": 93974.0,
+          "cases": 128
+        },
+        "IA": {
+          "median_usd": 85218.0,
+          "cases": 9
+        },
+        "ID": {
+          "median_usd": 88982.0,
+          "cases": 3
+        },
+        "IL": {
+          "median_usd": 95000.0,
+          "cases": 183
+        },
+        "IN": {
+          "median_usd": 82500.0,
+          "cases": 39
+        },
+        "KS": {
+          "median_usd": 78998.0,
+          "cases": 21
+        },
+        "KY": {
+          "median_usd": 83616.0,
+          "cases": 11
+        },
+        "LA": {
+          "median_usd": 71930.5,
+          "cases": 6
+        },
+        "MA": {
+          "median_usd": 100043.0,
+          "cases": 103
+        },
+        "MD": {
+          "median_usd": 84323.0,
+          "cases": 47
+        },
+        "ME": {
+          "median_usd": 61500.0,
+          "cases": 2
+        },
+        "MI": {
+          "median_usd": 86965.0,
+          "cases": 81
+        },
+        "MN": {
+          "median_usd": 97032.0,
+          "cases": 31
+        },
+        "MO": {
+          "median_usd": 80000.0,
+          "cases": 39
+        },
+        "MS": {
+          "median_usd": 76250.0,
+          "cases": 2
+        },
+        "MT": {
+          "median_usd": 105000.0,
+          "cases": 1
+        },
+        "NC": {
+          "median_usd": 102294.0,
+          "cases": 93
+        },
+        "ND": {
+          "median_usd": 71906.0,
+          "cases": 1
+        },
+        "NE": {
+          "median_usd": 85592.0,
+          "cases": 11
+        },
+        "NH": {
+          "median_usd": 89700.0,
+          "cases": 21
+        },
+        "NJ": {
+          "median_usd": 109491.0,
+          "cases": 163
+        },
+        "NM": {
+          "median_usd": 75939.99,
+          "cases": 6
+        },
+        "NV": {
+          "median_usd": 80226.0,
+          "cases": 13
+        },
+        "NY": {
+          "median_usd": 109491.0,
+          "cases": 241
+        },
+        "OH": {
+          "median_usd": 83000.0,
+          "cases": 71
+        },
+        "OK": {
+          "median_usd": 75358.0,
+          "cases": 17
+        },
+        "OR": {
+          "median_usd": 80288.0,
+          "cases": 6
+        },
+        "PA": {
+          "median_usd": 92258.36,
+          "cases": 121
+        },
+        "RI": {
+          "median_usd": 98571.0,
+          "cases": 6
+        },
+        "SC": {
+          "median_usd": 85097.87,
+          "cases": 14
+        },
+        "SD": {
+          "median_usd": 75000.0,
+          "cases": 1
+        },
+        "TN": {
+          "median_usd": 88022.5,
+          "cases": 52
+        },
+        "TX": {
+          "median_usd": 96034.0,
+          "cases": 499
+        },
+        "UT": {
+          "median_usd": 96250.0,
+          "cases": 34
+        },
+        "VA": {
+          "median_usd": 92458.0,
+          "cases": 337
+        },
+        "VT": {
+          "median_usd": 58157.0,
+          "cases": 1
+        },
+        "WA": {
+          "median_usd": 115500.0,
+          "cases": 92
+        },
+        "WI": {
+          "median_usd": 112799.0,
+          "cases": 22
+        },
+        "WV": {
+          "median_usd": 85000.0,
+          "cases": 3
+        },
+        "WY": {
+          "median_usd": 52437.0,
+          "cases": 1
+        }
+      },
+      "expected": {
+        "AL": {
+          "median_usd": 64230.0,
+          "cases": 15
+        },
+        "AR": {
+          "median_usd": 107213.44,
+          "cases": 58
+        },
+        "AZ": {
+          "median_usd": 95555.0,
+          "cases": 54
+        },
+        "CA": {
+          "median_usd": 123531.0,
+          "cases": 403
+        },
+        "CO": {
+          "median_usd": 95371.82,
+          "cases": 26
+        },
+        "CT": {
+          "median_usd": 97687.5,
+          "cases": 34
+        },
+        "DC": {
+          "median_usd": 93078.5,
+          "cases": 18
+        },
+        "DE": {
+          "median_usd": 92198.0,
+          "cases": 15
+        },
+        "FL": {
+          "median_usd": 91125.0,
+          "cases": 121
+        },
+        "GA": {
+          "median_usd": 93974.0,
+          "cases": 128
+        },
+        "IA": {
+          "median_usd": 85218.0,
+          "cases": 9
+        },
+        "ID": {
+          "median_usd": 88982.0,
+          "cases": 3
+        },
+        "IL": {
+          "median_usd": 95000.0,
+          "cases": 181
+        },
+        "IN": {
+          "median_usd": 82500.0,
+          "cases": 39
+        },
+        "KS": {
+          "median_usd": 78998.0,
+          "cases": 21
+        },
+        "KY": {
+          "median_usd": 83616.0,
+          "cases": 11
+        },
+        "LA": {
+          "median_usd": 71930.5,
+          "cases": 6
+        },
+        "MA": {
+          "median_usd": 100021.5,
+          "cases": 104
+        },
+        "MD": {
+          "median_usd": 84323.0,
+          "cases": 47
+        },
+        "ME": {
+          "median_usd": 61500.0,
+          "cases": 2
+        },
+        "MI": {
+          "median_usd": 86965.0,
+          "cases": 81
+        },
+        "MN": {
+          "median_usd": 97032.0,
+          "cases": 31
+        },
+        "MO": {
+          "median_usd": 80000.0,
+          "cases": 39
+        },
+        "MS": {
+          "median_usd": 76250.0,
+          "cases": 2
+        },
+        "MT": {
+          "median_usd": 105000.0,
+          "cases": 1
+        },
+        "NC": {
+          "median_usd": 102939.0,
+          "cases": 94
+        },
+        "ND": {
+          "median_usd": 71906.0,
+          "cases": 1
+        },
+        "NE": {
+          "median_usd": 85592.0,
+          "cases": 11
+        },
+        "NH": {
+          "median_usd": 89700.0,
+          "cases": 21
+        },
+        "NJ": {
+          "median_usd": 109491.0,
+          "cases": 165
+        },
+        "NM": {
+          "median_usd": 75939.99,
+          "cases": 6
+        },
+        "NV": {
+          "median_usd": 80226.0,
+          "cases": 13
+        },
+        "NY": {
+          "median_usd": 109491.0,
+          "cases": 241
+        },
+        "OH": {
+          "median_usd": 83000.0,
+          "cases": 70
+        },
+        "OK": {
+          "median_usd": 75358.0,
+          "cases": 17
+        },
+        "OR": {
+          "median_usd": 80288.0,
+          "cases": 6
+        },
+        "PA": {
+          "median_usd": 92925.0,
+          "cases": 125
+        },
+        "RI": {
+          "median_usd": 98571.0,
+          "cases": 6
+        },
+        "SC": {
+          "median_usd": 85097.87,
+          "cases": 14
+        },
+        "SD": {
+          "median_usd": 75000.0,
+          "cases": 1
+        },
+        "TN": {
+          "median_usd": 88022.5,
+          "cases": 52
+        },
+        "TX": {
+          "median_usd": 96034.0,
+          "cases": 501
+        },
+        "UT": {
+          "median_usd": 96250.0,
+          "cases": 34
+        },
+        "VA": {
+          "median_usd": 92458.0,
+          "cases": 337
+        },
+        "VT": {
+          "median_usd": 58157.0,
+          "cases": 1
+        },
+        "WA": {
+          "median_usd": 116000.0,
+          "cases": 93
+        },
+        "WI": {
+          "median_usd": 112799.0,
+          "cases": 22
+        },
+        "WV": {
+          "median_usd": 85000.0,
+          "cases": 3
+        },
+        "WY": {
+          "median_usd": 52437.0,
+          "cases": 1
+        }
+      }
+    },
+    {
+      "id": "D5",
+      "question": "Which prevailing-wage levels do certified H-1B Data Analyst cases use, and how many cases are at each level (including blank)?",
+      "pass": false,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184951Z-30c3c1",
+      "interpretation": "Counts source rows where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', and JOB_TITLE contains 'data analyst' (case-insensitive substring; no other title classes added). Grouped by PW_WAGE_LEVEL after trimming; NULL and empty values are combined into one row labeled '(blank)'. Ordered by wage level.",
+      "sql": "SELECT COALESCE(NULLIF(TRIM(PW_WAGE_LEVEL), ''), '(blank)') AS wage_level, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' GROUP BY wage_level ORDER BY wage_level ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' ORDER BY COALESCE(NULLIF(TRIM(PW_WAGE_LEVEL), ''), '(blank)') ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": {
+        "(blank)": 402,
+        "I": 1026,
+        "II": 1605,
+        "III": 514,
+        "IV": 226
+      },
+      "expected": {
+        "I": 1027,
+        "II": 1609,
+        "III": 516,
+        "IV": 226,
+        "[blank]": 402
+      }
+    },
+    {
+      "id": "D6",
+      "question": "Which employers filed certified H-1B Level I cases with Data Analyst, Business Analyst, or BI Analyst titles?",
+      "pass": false,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184952Z-edb34a",
+      "interpretation": "Counts source rows where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', PW_WAGE_LEVEL is 'I' (after trimming), and JOB_TITLE matches one of the three named title classes by case-insensitive substring: 'data analyst', 'business analyst', or 'bi analyst'. 'Business intelligence analyst' is treated as the spelled-out form of BI Analyst and included; no other title classes are added. Employers are grouped by EMPLOYER_NAME exactly as filed (variants not merged). Every matching employer is returned, no LIMIT, ranked by case count descending then employer name alphabetically.",
+      "sql": "SELECT EMPLOYER_NAME AS employer_name, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND TRIM(PW_WAGE_LEVEL) = 'I' AND (LOWER(JOB_TITLE) LIKE '%data analyst%' OR LOWER(JOB_TITLE) LIKE '%business analyst%' OR LOWER(JOB_TITLE) LIKE '%bi analyst%' OR LOWER(JOB_TITLE) LIKE '%business intelligence analyst%') GROUP BY EMPLOYER_NAME ORDER BY cases DESC, employer_name ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND TRIM(PW_WAGE_LEVEL) = 'I' AND (LOWER(JOB_TITLE) LIKE '%data analyst%' OR LOWER(JOB_TITLE) LIKE '%business analyst%' OR LOWER(JOB_TITLE) LIKE '%bi analyst%' OR LOWER(JOB_TITLE) LIKE '%business intelligence analyst%') ORDER BY EMPLOYER_NAME ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": "could not score: label 'Certified Kernel Tech LLC' appears more than once",
+      "expected": null
+    },
+    {
+      "id": "D7",
+      "question": "Has Capgemini America filed certified H-1B cases for Data Analyst, Business Analyst, or BI Analyst titles, and under which titles?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184952Z-6e33e0",
+      "interpretation": "Counts source rows where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', EMPLOYER_NAME contains 'capgemini america' (case-insensitive substring, so suffixes like ', Inc.' match; TRADE_NAME_DBA is not used), and JOB_TITLE matches one of the three named title classes by case-insensitive substring: 'data analyst', 'business analyst', or 'bi analyst' ('business intelligence analyst' included as the spelled-out form of BI Analyst; no other classes added). Grouped by JOB_TITLE exactly as filed. Every matching title is returned, ranked by case count descending then title alphabetically. Zero rows means no such certified filings in this quarter's data.",
+      "sql": "SELECT JOB_TITLE AS job_title, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(EMPLOYER_NAME) LIKE '%capgemini america%' AND (LOWER(JOB_TITLE) LIKE '%data analyst%' OR LOWER(JOB_TITLE) LIKE '%business analyst%' OR LOWER(JOB_TITLE) LIKE '%bi analyst%' OR LOWER(JOB_TITLE) LIKE '%business intelligence analyst%') GROUP BY JOB_TITLE ORDER BY cases DESC, job_title ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(EMPLOYER_NAME) LIKE '%capgemini america%' AND (LOWER(JOB_TITLE) LIKE '%data analyst%' OR LOWER(JOB_TITLE) LIKE '%business analyst%' OR LOWER(JOB_TITLE) LIKE '%bi analyst%' OR LOWER(JOB_TITLE) LIKE '%business intelligence analyst%') ORDER BY JOB_TITLE ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": {
+        "Data Analyst 3": 16,
+        "Business Analyst 3": 14,
+        "Data Analyst 2": 11,
+        "Business Analyst 2": 8,
+        "Business Analyst 4": 2
+      },
+      "expected": {
+        "Data Analyst 3": 16,
+        "Business Analyst 3": 14,
+        "Data Analyst 2": 11,
+        "Business Analyst 2": 8,
+        "Business Analyst 4": 2
+      }
+    },
+    {
+      "id": "D8",
+      "question": "Which job titles are most used for H-1B cases coded as Data Scientists (SOC 15-2051)?",
+      "pass": false,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184952Z-58d83f",
+      "interpretation": "Counts source rows where VISA_CLASS is exactly 'H-1B' and SOC_CODE begins with '15-2051' (trimmed prefix match, so formats like '15-2051.00' are included). No case-status filter is applied because the question does not ask for one, so all statuses (Certified, Certified - Withdrawn, Withdrawn, Denied) are counted. Grouped by JOB_TITLE exactly as filed, ranked by case count descending then title alphabetically, limited to ten as the output shape asks.",
+      "sql": "SELECT JOB_TITLE AS job_title, COUNT(*) AS cases FROM lca WHERE TRIM(VISA_CLASS) = 'H-1B' AND TRIM(SOC_CODE) LIKE '15-2051%' GROUP BY JOB_TITLE ORDER BY cases DESC, job_title ASC LIMIT 10",
+      "rows_sql": "WITH top_titles AS (SELECT JOB_TITLE, COUNT(*) AS cases FROM lca WHERE TRIM(VISA_CLASS) = 'H-1B' AND TRIM(SOC_CODE) LIKE '15-2051%' GROUP BY JOB_TITLE ORDER BY cases DESC, JOB_TITLE ASC LIMIT 10) SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(VISA_CLASS) = 'H-1B' AND TRIM(SOC_CODE) LIKE '15-2051%' AND JOB_TITLE IN (SELECT JOB_TITLE FROM top_titles) ORDER BY JOB_TITLE ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": [
+        [
+          "Data Scientist",
+          2631
+        ],
+        [
+          "Data Engineer",
+          1321
+        ],
+        [
+          "Data Analyst",
+          1053
+        ],
+        [
+          "Business Intelligence Analyst",
+          641
+        ],
+        [
+          "Senior Data Scientist",
+          601
+        ],
+        [
+          "Business Analyst",
+          489
+        ],
+        [
+          "Senior Data Analyst",
+          397
+        ],
+        [
+          "Data Engineer II",
+          345
+        ],
+        [
+          "Machine Learning Engineer",
+          314
+        ],
+        [
+          "Data Scientist II",
+          294
+        ]
+      ],
+      "expected": [
+        [
+          "Data Scientist",
+          2636
+        ],
+        [
+          "Data Engineer",
+          1321
+        ],
+        [
+          "Data Analyst",
+          1053
+        ],
+        [
+          "Business Intelligence Analyst",
+          647
+        ],
+        [
+          "Senior Data Scientist",
+          603
+        ],
+        [
+          "Business Analyst",
+          493
+        ],
+        [
+          "Senior Data Analyst",
+          397
+        ],
+        [
+          "Data Engineer II",
+          345
+        ],
+        [
+          "Machine Learning Engineer",
+          320
+        ],
+        [
+          "Data Scientist II",
+          294
+        ]
+      ]
+    },
+    {
+      "id": "D9",
+      "question": "How many certified H-1B Data Analyst cases were decided each month?",
+      "pass": false,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184952Z-ddb399",
+      "interpretation": "Counts source rows where CASE_STATUS is exactly 'Certified' (not 'Certified - Withdrawn'), VISA_CLASS is exactly 'H-1B', and JOB_TITLE contains 'data analyst' (case-insensitive substring; no other title classes added). Month is the first seven characters (YYYY-MM) of the ISO DECISION_DATE. One row per month present, in month order.",
+      "sql": "SELECT SUBSTR(DECISION_DATE, 1, 7) AS month, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' GROUP BY month ORDER BY month ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' ORDER BY SUBSTR(DECISION_DATE, 1, 7) ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": {
+        "2025-10": 6,
+        "2025-11": 277,
+        "2025-12": 243,
+        "2026-01": 260,
+        "2026-02": 221,
+        "2026-03": 256,
+        "2026-04": 696,
+        "2026-05": 877,
+        "2026-06": 937
+      },
+      "expected": {
+        "2025-10": 6,
+        "2025-11": 276,
+        "2025-12": 244,
+        "2026-01": 261,
+        "2026-02": 221,
+        "2026-03": 258,
+        "2026-04": 701,
+        "2026-05": 879,
+        "2026-06": 934
+      }
+    },
+    {
+      "id": "D10",
+      "question": "Which employers had the most H-1B Data Analyst cases certified and then withdrawn?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184952Z-1e565b",
+      "interpretation": "'Certified and then withdrawn' is read as CASE_STATUS exactly 'Certified - Withdrawn' (distinct from 'Certified' and from plain 'Withdrawn', which are excluded). Also VISA_CLASS is exactly 'H-1B' and JOB_TITLE contains 'data analyst' (case-insensitive substring; no other title classes added). Source rows are counted; employers are grouped by EMPLOYER_NAME exactly as filed (variants not merged). Ranked by case count descending then employer name alphabetically, limited to ten as the output shape asks.",
+      "sql": "SELECT EMPLOYER_NAME AS employer_name, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified - Withdrawn' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' GROUP BY EMPLOYER_NAME ORDER BY cases DESC, employer_name ASC LIMIT 10",
+      "rows_sql": "WITH top_employers AS (SELECT EMPLOYER_NAME, COUNT(*) AS cases FROM lca WHERE TRIM(CASE_STATUS) = 'Certified - Withdrawn' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' GROUP BY EMPLOYER_NAME ORDER BY cases DESC, EMPLOYER_NAME ASC LIMIT 10) SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE TRIM(CASE_STATUS) = 'Certified - Withdrawn' AND TRIM(VISA_CLASS) = 'H-1B' AND LOWER(JOB_TITLE) LIKE '%data analyst%' AND EMPLOYER_NAME IN (SELECT EMPLOYER_NAME FROM top_employers) ORDER BY EMPLOYER_NAME ASC, sheet_row ASC",
+      "check": "",
+      "policy_denials": 0,
+      "actual": [
+        [
+          "Johns Hopkins University",
+          6
+        ],
+        [
+          "CAPGEMINI AMERICA INC",
+          5
+        ],
+        [
+          "TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA",
+          5
+        ],
+        [
+          "Northwestern University",
+          4
+        ],
+        [
+          "Stier Solutions Inc",
+          4
+        ],
+        [
+          "Brightside Benefit, Inc.",
+          3
+        ],
+        [
+          "Mail Media, Inc.",
+          3
+        ],
+        [
+          "UNIVERSITY OF CALIFORNIA, SAN DIEGO",
+          3
+        ],
+        [
+          "VIRTUSA CORPORATION",
+          3
+        ],
+        [
+          "ACE American Insurance Company",
+          2
+        ]
+      ],
+      "expected": [
+        [
+          "Johns Hopkins University",
+          6
+        ],
+        [
+          "CAPGEMINI AMERICA INC",
+          5
+        ],
+        [
+          "TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA",
+          5
+        ],
+        [
+          "Northwestern University",
+          4
+        ],
+        [
+          "Stier Solutions Inc",
+          4
+        ],
+        [
+          "Brightside Benefit, Inc.",
+          3
+        ],
+        [
+          "Mail Media, Inc.",
+          3
+        ],
+        [
+          "UNIVERSITY OF CALIFORNIA, SAN DIEGO",
+          3
+        ],
+        [
+          "VIRTUSA CORPORATION",
+          3
+        ],
+        [
+          "ACE American Insurance Company",
+          2
+        ]
+      ]
+    }
+  ]
+}

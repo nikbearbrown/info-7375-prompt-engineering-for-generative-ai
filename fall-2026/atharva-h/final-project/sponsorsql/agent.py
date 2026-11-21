@@ -32,8 +32,26 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
         budget=Budget(), gate_mode="interactive", decision_file=None,
         state_dir="state", outputs_dir="outputs", expected_sha=SOURCE_SHA256,
         input_fn=input, output_fn=print):
+    """Run one question. Any unexpected error is recorded as a stop, never lost."""
     contract_path = Path(contract_path)
     state = RunState(question, qid, adapter.label, contract_path.name)
+    try:
+        return _run(state, question, adapter, db_path, contract_path, qid, output_shape, budget,
+                    gate_mode, decision_file, state_dir, outputs_dir, expected_sha,
+                    input_fn, output_fn)
+    except Exception as exc:  # independent review, finding 7
+        if state.stop_reason is None:
+            state.stop("stopped_error", error=f"{type(exc).__name__}: {exc}")
+        state.save(state_dir)
+        return state
+
+
+def _remaining(started, budget):
+    return budget.question_seconds - (time.monotonic() - started)
+
+
+def _run(state, question, adapter, db_path, contract_path, qid, output_shape, budget,
+         gate_mode, decision_file, state_dir, outputs_dir, expected_sha, input_fn, output_fn):
     started = time.monotonic()
 
     # observe
@@ -57,7 +75,7 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
     accepted = None
     try:
         for attempt in range(budget.max_proposals):
-            if time.monotonic() - started > budget.question_seconds:
+            if _remaining(started, budget) <= 0:
                 state.stop("budget_exhausted", budget="question_seconds")
                 break
             text = prompt.build(contract_text, question, output_shape, feedback)
@@ -90,8 +108,10 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
                     break
             if denied is None:
                 try:
-                    answer = policy.execute(con, proposal.sql, budget.statement_seconds, budget.answer_rows)
-                    evidence = policy.execute(con, proposal.rows_sql, budget.statement_seconds, budget.display_rows)
+                    limit = max(0.1, min(budget.statement_seconds, _remaining(started, budget)))
+                    answer = policy.execute(con, proposal.sql, limit, budget.answer_rows)
+                    limit = max(0.1, min(budget.statement_seconds, _remaining(started, budget)))
+                    evidence = policy.execute(con, proposal.rows_sql, limit, budget.display_rows)
                 except policy.PolicyDenied as exc:
                     denied = str(exc)
                 except policy.BudgetExceeded as exc:
@@ -118,7 +138,8 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
             if proposal.answer_type == "count":
                 value = _single_int(answer)
                 try:
-                    behind = policy.count_rows(con, proposal.rows_sql, budget.statement_seconds)
+                    behind = policy.count_rows(con, proposal.rows_sql,
+                                               max(0.1, min(budget.statement_seconds, _remaining(started, budget))))
                 except Exception as exc:
                     behind, check_note = None, f"could not count matching rows ({exc})"
                 if value is not None and behind is not None:
@@ -149,7 +170,8 @@ def run(question, adapter, db_path, contract_path, qid="adhoc", output_shape="",
                     "evidence_rows": evidence.total_rows, "check": check_note}
 
     # gate
-    view = gate_mod.build_view(question, proposal, answer, evidence, check_note)
+    view = gate_mod.build_view(question, proposal, answer, evidence, check_note,
+                               source_sha=meta.get("source_sha256"))
     state.view_hash = gate_mod.view_hash(view)
     state.view_text = view
     decision = gate_mod.decide(view, gate_mode, decision_file, input_fn, output_fn)

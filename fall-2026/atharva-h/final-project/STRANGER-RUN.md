@@ -17,7 +17,7 @@ If nobody is available, write that here, and keep part B as the record of the cl
 **What was done:**
 - The committed folder (commit `07a677b`) was exported with `git archive` into an empty scratch directory, so only committed files were present. There was no `state/`, no `outputs/`, no database, and no data except `data/README.md`.
 - The README steps were then followed with macOS's built-in `/usr/bin/python3` (3.9.6), not the Homebrew Python used during development.
-- Full log: [evidence/clean-checkout.log](evidence/clean-checkout.log).
+- Log: [evidence/clean-checkout.log](evidence/clean-checkout.log). It's a **filtered summary**: real command output, trimmed to the summary lines with `head`/`tail`, with the commands written as headers (for example `<workbook>` stands for the local workbook path). It isn't a full raw transcript.
 
 | Step | Result |
 |---|---|

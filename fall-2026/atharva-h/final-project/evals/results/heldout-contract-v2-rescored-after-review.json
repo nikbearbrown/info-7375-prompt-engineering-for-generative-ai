@@ -1,0 +1,180 @@
+{
+  "set": "held-out",
+  "question_set_sha256": "2f9890891fb7ee5bf633f756e323ce2ee03214cfdf86853c3cc63008c932350e",
+  "answer_key_sha256": "5fd8c4e7b9b87b0309ac5e146a627a6526334680226acab2ab0add1f5a8ed4f6",
+  "responses_file": "heldout-responses.json",
+  "responses_sha256": "ee8e69bc959b6ba3dcff7a6e62c0421bab52fc8d1cc66b42253cc8890eff5c3c",
+  "contract": "PROMPT-CONTRACT-v2.md",
+  "contract_sha256": "8ab5cf98a2876dd2b9f94dd6b940d2702f402351457263830aa1a8f50e67f16d",
+  "adapter": "recorded Claude reply, replayed: Claude Code subagent (a new general-purpose agent, separate from both development rounds; model inherited: claude-opus-5-5), 2026-11-21",
+  "passes": 5,
+  "total": 5,
+  "policy_denials_total": 0,
+  "unsafe_sql_note": "No model reply in this run was denied by the policy, so the policy was not exercised by model output here. Evidence that unsafe SQL is stopped comes from tests 1-4 and failure cases F1-F4.",
+  "results": [
+    {
+      "id": "H1",
+      "question": "How many certified H-1B cases with a Business Analyst job title have a recorded worksite in Texas?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T184959Z-b27776",
+      "interpretation": "Counts source rows (not distinct case numbers) where CASE_STATUS = 'Certified' exactly (Certified - Withdrawn excluded), VISA_CLASS = 'H-1B' exactly (H-1B1 and E-3 excluded), and title_has(JOB_TITLE, 'business analyst') = 1. That is a whole-phrase title match: 'Senior Business Analyst' and 'Business-Analyst' match; 'Business Analysts', 'Business Systems Analyst' and other unnamed classes do not. Worksite means the row's single recorded WORKSITE_STATE, normalized with UPPER(TRIM(...)) and matched to 'TX' (or the spelled-out 'TEXAS' if present). Additional worksites are not in this table.",
+      "sql": "SELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'business analyst') = 1 AND UPPER(TRIM(WORKSITE_STATE)) IN ('TX', 'TEXAS')",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'business analyst') = 1 AND UPPER(TRIM(WORKSITE_STATE)) IN ('TX', 'TEXAS') ORDER BY sheet_row",
+      "check": "answer 564 matches 564 matching rows",
+      "policy_denials": 0,
+      "actual": 564,
+      "expected": 564
+    },
+    {
+      "id": "H2",
+      "question": "Which employers filed the most certified H-1B cases, for any job title, with a recorded worksite in Boston, MA? Return the top ten.",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T185000Z-b86b5f",
+      "interpretation": "Ranks employers by count of source rows where CASE_STATUS = 'Certified' exactly, VISA_CLASS = 'H-1B' exactly, with no job-title filter, and the row's single recorded worksite is Boston, MA (UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' and UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS')). Employers are grouped and labelled by TRIM(EMPLOYER_NAME) without merging different spellings; a NULL or empty name is labelled '[blank]'. Ordered by cases descending, then employer name ascending, top 10 as requested.",
+      "sql": "SELECT CASE WHEN EMPLOYER_NAME IS NULL OR TRIM(EMPLOYER_NAME) = '' THEN '[blank]' ELSE TRIM(EMPLOYER_NAME) END AS employer_name, COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') GROUP BY 1 ORDER BY 2 DESC, 1 ASC LIMIT 10",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') AND (CASE WHEN EMPLOYER_NAME IS NULL OR TRIM(EMPLOYER_NAME) = '' THEN '[blank]' ELSE TRIM(EMPLOYER_NAME) END) IN (SELECT CASE WHEN EMPLOYER_NAME IS NULL OR TRIM(EMPLOYER_NAME) = '' THEN '[blank]' ELSE TRIM(EMPLOYER_NAME) END FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND UPPER(TRIM(WORKSITE_STATE)) IN ('MA', 'MASSACHUSETTS') GROUP BY 1 ORDER BY COUNT(*) DESC, 1 ASC LIMIT 10) ORDER BY TRIM(EMPLOYER_NAME), sheet_row",
+      "check": "",
+      "policy_denials": 0,
+      "actual": [
+        [
+          "Wayfair LLC",
+          158
+        ],
+        [
+          "Amazon.com Services LLC",
+          156
+        ],
+        [
+          "Dana-Farber Cancer Institute",
+          153
+        ],
+        [
+          "Ernst & Young U.S. LLP",
+          129
+        ],
+        [
+          "Vertex Pharmaceuticals Incorporated",
+          119
+        ],
+        [
+          "Children's Hospital Corporation",
+          114
+        ],
+        [
+          "Brigham and Women's Hospital",
+          98
+        ],
+        [
+          "Amazon Development Center U.S., Inc.",
+          91
+        ],
+        [
+          "Fidelity Technology Group, LLC d/b/a Fidelity Investments",
+          91
+        ],
+        [
+          "General Hospital Corporation",
+          87
+        ]
+      ],
+      "expected": [
+        [
+          "Wayfair LLC",
+          158
+        ],
+        [
+          "Amazon.com Services LLC",
+          156
+        ],
+        [
+          "Dana-Farber Cancer Institute",
+          153
+        ],
+        [
+          "Ernst & Young U.S. LLP",
+          129
+        ],
+        [
+          "Vertex Pharmaceuticals Incorporated",
+          119
+        ],
+        [
+          "Children's Hospital Corporation",
+          114
+        ],
+        [
+          "Brigham and Women's Hospital",
+          98
+        ],
+        [
+          "Amazon Development Center U.S., Inc.",
+          91
+        ],
+        [
+          "Fidelity Technology Group, LLC d/b/a Fidelity Investments",
+          91
+        ],
+        [
+          "General Hospital Corporation",
+          87
+        ]
+      ]
+    },
+    {
+      "id": "H3",
+      "question": "What is the median offered annual base wage for certified H-1B Data Scientist cases with a recorded worksite in California?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T185000Z-548af0",
+      "interpretation": "Median of the offered annual base wage, CAST(WAGE_RATE_OF_PAY_FROM AS REAL), the lower bound of the filed wage range and not total compensation. Uses only rows where WAGE_UNIT_OF_PAY = 'Year'; other units are excluded, not converted. Filters are CASE_STATUS = 'Certified' exactly, VISA_CLASS = 'H-1B' exactly, title_has(JOB_TITLE, 'data scientist') = 1 (whole-phrase match; 'Senior Data Scientist' matches, 'Data Scientists' and unnamed classes do not), and the row's single recorded WORKSITE_STATE is California (UPPER(TRIM(...)) IN ('CA', 'CALIFORNIA')). Uses the provided median() aggregate.",
+      "sql": "SELECT median(CAST(WAGE_RATE_OF_PAY_FROM AS REAL)) AS median_annual_wage_usd FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'data scientist') = 1 AND UPPER(TRIM(WORKSITE_STATE)) IN ('CA', 'CALIFORNIA') AND WAGE_UNIT_OF_PAY = 'Year'",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'data scientist') = 1 AND UPPER(TRIM(WORKSITE_STATE)) IN ('CA', 'CALIFORNIA') AND WAGE_UNIT_OF_PAY = 'Year' ORDER BY sheet_row",
+      "check": "MISMATCH: answer 174304 but 1595 matching rows",
+      "policy_denials": 0,
+      "actual": 174304.0,
+      "expected": 174304.0
+    },
+    {
+      "id": "H4",
+      "question": "For certified H-1B cases coded as Data Scientists (SOC 15-2051), how many cases are at each prevailing-wage level, including blank?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T185002Z-470ec8",
+      "interpretation": "Counts source rows by prevailing-wage level where CASE_STATUS = 'Certified' exactly, VISA_CLASS = 'H-1B' exactly, and SOC code 15-2051 (Data Scientists). The SOC match is SUBSTR(TRIM(SOC_CODE), 1, 7) = '15-2051', so any O*NET suffix such as '.00' is included; no job-title filter is applied. Levels are grouped by TRIM(PW_WAGE_LEVEL); NULL or empty values are labelled '[blank]' and kept as their own row.",
+      "sql": "SELECT CASE WHEN PW_WAGE_LEVEL IS NULL OR TRIM(PW_WAGE_LEVEL) = '' THEN '[blank]' ELSE TRIM(PW_WAGE_LEVEL) END AS wage_level, COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND SUBSTR(TRIM(SOC_CODE), 1, 7) = '15-2051' GROUP BY 1 ORDER BY 1 ASC",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND SUBSTR(TRIM(SOC_CODE), 1, 7) = '15-2051' ORDER BY sheet_row",
+      "check": "",
+      "policy_denials": 0,
+      "actual": {
+        "I": 4455,
+        "II": 9747,
+        "III": 5102,
+        "IV": 4332,
+        "[blank]": 3076
+      },
+      "expected": {
+        "I": 4455,
+        "II": 9747,
+        "III": 5102,
+        "IV": 4332,
+        "[blank]": 3076
+      }
+    },
+    {
+      "id": "H5",
+      "question": "How many H-1B cases with a Data Engineer job title were denied?",
+      "pass": true,
+      "stop_reason": "answered_not_released",
+      "run_id": "20261121T185002Z-23f910",
+      "interpretation": "Counts source rows (not distinct case numbers) where CASE_STATUS = 'Denied' exactly, VISA_CLASS = 'H-1B' exactly, and title_has(JOB_TITLE, 'data engineer') = 1. That is a whole-phrase title match: 'Senior Data Engineer' and 'Data-Engineer' match; 'Data Engineers', 'Big Data Engineering' and unnamed classes do not. No worksite filter.",
+      "sql": "SELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Denied' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'data engineer') = 1",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Denied' AND VISA_CLASS = 'H-1B' AND title_has(JOB_TITLE, 'data engineer') = 1 ORDER BY sheet_row",
+      "check": "answer 20 matches 20 matching rows",
+      "policy_denials": 0,
+      "actual": 20,
+      "expected": 20
+    }
+  ]
+}

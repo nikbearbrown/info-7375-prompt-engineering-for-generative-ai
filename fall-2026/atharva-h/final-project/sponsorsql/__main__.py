@@ -66,8 +66,7 @@ def cmd_evaluate(args):
     report = evaluate.run_set(args.set, args.responses, args.db, args.contract, args.state)
     _write_json(args.out, report)
     print(f"{report['set']}: {report['passes']}/{report['total']} pass "
-          f"(policy denials {report['policy_denials_total']}, "
-          f"executed SQL failing policy {report['executed_sql_failing_policy']})")
+          f"(policy denials {report['policy_denials_total']})")
     for r in report["results"]:
         print(f"  {r['id']:4} {'PASS' if r['pass'] else 'FAIL'}  stop={r['stop_reason']}")
 

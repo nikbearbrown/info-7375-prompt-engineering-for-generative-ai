@@ -44,4 +44,8 @@ Every failed case, with what the model's SQL did, what the key expected, and the
 
 ## Unsafe SQL
 
-Policy denials in development rounds 1 and 2: **0**. Executed SQL failing the policy re-check: **0**. Unsafe SQL was exercised only through the scripted failure cases F1–F3 (`results/failures-2026-11-21.json`), where it was denied before execution and the table still had 437,496 rows afterwards.
+No model reply in any round was denied by the policy: the model never attempted unsafe SQL. So "0 unsafe SQL executed" is true, but it isn't evidence about the policy. (An earlier "executed SQL failing policy" field re-checked SQL that could only run after passing the same check; it was removed after the independent review, finding 2.) The policy itself is evidenced by tests 1–4 and the scripted failure cases F1–F4 (`results/failures-2026-11-21.json`, `results/failures-after-review.json`), where unsafe SQL was denied before execution and the table still had 437,496 rows afterwards.
+
+## Re-scored after the independent review
+
+The comparators were made stricter: single values must be one row and one column; counts must be whole numbers; labels must be unique. The same saved replies were then re-scored (`results/*-rescored-after-review.json`, `../evidence/rescore-after-review.log`): **development v1 4/10, development v2 9/10, held-out 5/5. No case changed.** The replies, contracts and keys were not changed.

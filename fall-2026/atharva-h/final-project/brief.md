@@ -11,7 +11,7 @@ International students looking for data jobs in the U.S. want to know which empl
 - the SQL query that produced it
 - the matching public rows
 
-That way the person asking can see the data they're getting is correct.
+That way the person asking can see how the number was produced, and check it for themselves.
 
 ## Who owns it, who is affected
 

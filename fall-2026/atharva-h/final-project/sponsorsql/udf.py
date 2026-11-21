@@ -8,9 +8,12 @@ import re
 import statistics
 
 
+MAX_INPUT_CHARS = 1000  # job titles are short; a cap keeps one call from running for seconds
+
+
 def normalized(value):
     """Lower-case, turn every run of non-alphanumerics into one space, trim."""
-    return re.sub(r"[^a-z0-9]+", " ", (value or "").casefold()).strip()
+    return re.sub(r"[^a-z0-9]+", " ", (value or "")[:MAX_INPUT_CHARS].casefold()).strip()
 
 
 def title_has(title, phrase):

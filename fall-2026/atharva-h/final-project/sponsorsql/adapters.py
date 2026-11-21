@@ -11,6 +11,7 @@ import json
 import os
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -66,12 +67,17 @@ class ClaudeCLIAdapter:
         self.calls += 1
         if not self.binary:
             raise ModelUnavailable("claude CLI not found; set SPONSORSQL_CLAUDE_BIN")
+        # Run from an empty folder so the model can't open project files such as the
+        # answer keys (independent review, finding 14).
         try:
-            done = subprocess.run(
-                [self.binary, "-p", prompt, "--output-format", "json", "--max-turns", "1"],
-                capture_output=True, text=True, timeout=self.timeout, check=False)
+            with tempfile.TemporaryDirectory(prefix="sponsorsql-cli-") as empty:
+                done = subprocess.run(
+                    [self.binary, "-p", prompt, "--output-format", "json", "--max-turns", "1"],
+                    capture_output=True, text=True, timeout=self.timeout, check=False, cwd=empty)
         except subprocess.TimeoutExpired as exc:
             raise ModelUnavailable("claude CLI timed out") from exc
+        except OSError as exc:
+            raise ModelUnavailable(f"claude CLI could not start: {exc}") from exc
         try:
             reply = json.loads(done.stdout)
         except json.JSONDecodeError as exc:

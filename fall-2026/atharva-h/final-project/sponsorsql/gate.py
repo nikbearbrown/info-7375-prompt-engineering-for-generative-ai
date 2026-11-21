@@ -26,7 +26,20 @@ class Decision:
 
 def _cell(value):
     text = "" if value is None else str(value)
-    return text.replace("|", "/").replace("\n", " ")
+    return text.replace("|", "\\|").replace("\n", " ").replace("\r", " ")
+
+
+def _model_text(value):
+    """Model-written text on one line, so it can't imitate a system line (review finding 5)."""
+    flat = " ".join(str(value or "").split())
+    return flat.replace("**", "").replace("#", "")
+
+
+def result_digest(result):
+    """SHA-256 of every kept row, so rows past the display limit still bind the view (finding 6)."""
+    payload = json.dumps({"columns": list(result.columns), "rows": [list(r) for r in result.rows],
+                          "total_rows": result.total_rows}, default=str, ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def table(columns, rows, limit):
@@ -38,16 +51,23 @@ def table(columns, rows, limit):
 
 def build_view(question, proposal, answer, evidence, check, source_sha=SOURCE_SHA256,
                answer_limit=25, evidence_limit=20):
-    """The exact text a person sees at the gate. Deterministic for the same inputs."""
+    """The exact text a person sees at the gate. Deterministic for the same inputs.
+
+    Lines starting with a bold label are written by SponsorSQL. Text the model
+    wrote is flattened to one line and introduced as model-written.
+    """
     parts = [
         "# SponsorSQL answer for review",
         "",
-        f"**Question:** {question}",
-        f"**Source:** FY2026 Q3 LCA disclosure workbook, SHA-256 {source_sha}",
-        f"**Interpretation:** {proposal.interpretation}",
+        f"**Question:** {_model_text(question)}",
+        f"**Source checksum recorded in this database:** {source_sha}",
+        f"**Full answer SHA-256 (all rows):** {result_digest(answer)}",
+        f"**Full evidence SHA-256 (rows kept):** {result_digest(evidence)}",
+        "",
+        "Model-written interpretation (not checked by SponsorSQL): " + _model_text(proposal.interpretation),
     ]
     if proposal.limits:
-        parts.append("**Limits:** " + "; ".join(proposal.limits))
+        parts.append("Model-written limits: " + _model_text("; ".join(proposal.limits)))
     parts += ["", "## Answer", f"{answer.total_rows} row(s)"
               + (f", first {answer_limit} shown" if answer.total_rows > answer_limit else ""),
               "", table(answer.columns, answer.rows, answer_limit),
@@ -58,7 +78,7 @@ def build_view(question, proposal, answer, evidence, check, source_sha=SOURCE_SH
               "", table(evidence.columns, evidence.rows, evidence_limit),
               "", "```sql", proposal.rows_sql, "```"]
     if check:
-        parts += ["", f"**Check:** {check}"]
+        parts += ["", f"**SponsorSQL count-versus-rows check:** {check}"]
     parts += ["", "An LCA filing is not a job offer, a visa approval, or a promise of sponsorship."]
     return "\n".join(parts) + "\n"
 
@@ -76,6 +96,8 @@ def decide(view_text, mode, decision_file=None, input_fn=input, output_fn=print)
             data = json.loads(Path(decision_file).read_text(encoding="utf-8"))
         except (OSError, TypeError, json.JSONDecodeError) as exc:
             return Decision("defer", "", "", current, f"no readable decision file ({exc})")
+        if not isinstance(data, dict):
+            return Decision("defer", "", "", current, "decision file is not a JSON object")
         if data.get("view_hash") != current:
             return Decision("defer", data.get("approver", ""), data.get("note", ""),
                             data.get("view_hash", ""), "decision was made for a different view")

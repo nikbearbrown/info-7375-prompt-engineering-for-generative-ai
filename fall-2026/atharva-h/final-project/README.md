@@ -9,7 +9,7 @@ You ask a plain-English question about the U.S. Department of Labor's public **L
 1. refuses questions it must never answer: contact details, immigration predictions, requests to change data
 2. asks Claude for one SQL query plus a second query that lists the rows behind the answer
 3. checks both against a read-only permission policy enforced in code, and runs them under time budgets
-4. shows you the answer, the SQL, and the matching public rows, so you can see the number is right
+4. shows you the answer, the SQL, and the matching public rows, so you can see how the number was produced, and check it
 5. stops at a **human gate**: you approve, refuse or defer. Only an approval bound to the exact view you saw writes a report.
 
 An LCA filing is not a job offer, a visa approval, or a promise of sponsorship. SponsorSQL never says otherwise.
@@ -23,17 +23,21 @@ An LCA filing is not a job offer, a visa approval, or a promise of sponsorship. 
 | Development, contract v1 | 4/10, failing as predicted in [pre-mortem.md](pre-mortem.md) |
 | Development, contract v2 | **9/10** |
 | Held-out (frozen first, scored once) | **5/5** |
-| Unsafe SQL executed | **0** |
+| Unsafe SQL executed | 0. No model reply attempted unsafe SQL, so this number isn't evidence by itself; the policy is evidenced by tests and failure cases F1–F4. |
 | Deliberate failure cases | **10/10** behaved as predicted |
-| Controlled failure | Triggered, caught by the independent key, recovered (owner review pending) |
+| Controlled failure | A replication of the October draft's failure: triggered on purpose, caught by the independent key, recovered (owner review pending) |
+| Independent review | 18 findings, none judged a false positive. 9 led to code changes (some only partial), and 9 are acknowledged in the docs. Re-scoring with stricter comparators left 4/10, 9/10 and 5/5 unchanged. [audit-note.md](audit-note.md) |
 
-The model replies were real Claude output from separate Claude Code subagents, saved word for word and **replayed**. The live `claude -p` path was not run (CLI not logged in). Full detail, including what this can't show: [evidence.md](evidence.md) and [evals/FAILURE-LOG.md](evals/FAILURE-LOG.md).
+**Important limits:**
+- **Contract v2 was used for scoring before the owner reviewed it**, so the held-out set is spent on an unapproved contract.
+- The answer keys share their definitions with the system, so the scores measure how well Claude turns the stated rules into SQL, not correctness against an outside source.
+- The model replies were real Claude output from separate Claude Code subagents, saved word for word and **replayed**. The live `claude -p` path was not run (CLI not logged in). Full detail, including what this can't show: [evidence.md](evidence.md) and [evals/FAILURE-LOG.md](evals/FAILURE-LOG.md).
 
 ## Run it
 
 ```bash
 cd fall-2026/atharva-h/final-project
-python3 -m unittest discover -s tests -t .          # 28 tests, no data needed
+python3 -m unittest discover -s tests -t .          # 43 tests, no data needed
 ```
 
 With the real data (a 252 MB public download, then about 70 s to load):
@@ -96,4 +100,4 @@ Course devices: [CONTRACT.md](CONTRACT.md) (the gate: contract and tests before 
 
 ## Folder map
 
-`sponsorsql/` the agent · `tests/` 28 tests · `evals/` questions, keys, contracts, recorded replies, results · `evidence/` raw command output · `data/` local data (not committed)
+`sponsorsql/` the agent · `tests/` 43 tests · `evals/` questions, keys, contracts, recorded replies, results · `evidence/` raw command output · `data/` local data (not committed)

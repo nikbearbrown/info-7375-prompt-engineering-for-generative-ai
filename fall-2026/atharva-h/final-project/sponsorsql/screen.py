@@ -6,7 +6,7 @@ from dataclasses import dataclass
 RULES = (
     ("contact_data",
      re.compile(r"\b(e-?mails?|phones?|telephone|contact (person|details|info\w*)|"
-                r"point of contact|poc|attorneys?|lawyers?|preparers?|addresses?)\b", re.I),
+                r"point of contact|poc|attorneys?|lawyers?|preparers?|address(es)?)\b", re.I),
      "Contact, attorney, preparer and address data are not loaded and are never revealed."),
     ("immigration_prediction",
      re.compile(r"\b(will|would|could|can)\b[^?]*\b(i|my|me|he|she|they|someone)\b[^?]*"
@@ -16,6 +16,10 @@ RULES = (
      re.compile(r"\b(chances?|odds|probability|likel(y|ihood)|guarantee\w*)\b[^?]*"
                 r"\b(approv\w*|sponsor\w*|visa|selected|lottery)\b", re.I),
      "SponsorSQL does not estimate approval or sponsorship odds; an LCA is not an approval."),
+    ("immigration_prediction",
+     re.compile(r"\b(expect|realistic|realistically|will .* sponsor me)\b[^?]*"
+                r"\b(approv\w*|sponsor\w*|visa|selected|lottery)\b", re.I),
+     "SponsorSQL does not predict approval or sponsorship for anyone."),
     ("modification",
      re.compile(r"\b(delete|drop|update|insert|modify|change|alter|overwrite)\b[^?]*"
                 r"\b(data|table|records?|rows?|answer key|key|database)\b", re.I),

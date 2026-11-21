@@ -16,6 +16,7 @@ STOP_REASONS = (
     "stopped_policy_denials",  # repeated unsafe or off-policy SQL
     "budget_exhausted",        # proposals or wall-clock time used up
     "source_mismatch",         # database is not the checked workbook
+    "stopped_error",           # an unexpected error; recorded instead of crashing
 )
 
 

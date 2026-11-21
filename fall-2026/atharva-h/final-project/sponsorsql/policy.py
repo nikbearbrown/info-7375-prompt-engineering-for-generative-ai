@@ -25,7 +25,7 @@ ALLOWED_FUNCTIONS = frozenset({
     "count", "sum", "avg", "min", "max", "total", "group_concat",
     "lower", "upper", "trim", "ltrim", "rtrim", "substr", "substring", "length",
     "replace", "instr", "coalesce", "ifnull", "nullif", "iif", "round", "abs",
-    "date", "strftime", "printf", "format", "like", "glob", "typeof",
+    "date", "strftime", "like", "glob", "typeof",
     "row_number", "rank", "dense_rank", "lag", "lead",
     "median", "norm", "title_has",
 })
@@ -36,6 +36,8 @@ FORBIDDEN = re.compile(
     re.IGNORECASE,
 )
 MAX_SQL_CHARS = 8000
+MAX_VALUE_BYTES = 10_000_000   # SQLite string/blob size limit, where Python supports setlimit (3.11+)
+QUOTED = re.compile(r"'(?:[^']|'')*'|\"(?:[^\"]|\"\")*\"|`[^`]*`|\[[^\]]*\]")
 
 
 class PolicyDenied(Exception):
@@ -64,8 +66,14 @@ class ExecResult:
 
 
 def _without_literals(sql):
-    """Replace single-quoted string literals with '' so keywords inside them are ignored."""
-    return re.sub(r"'(?:[^']|'')*'", "''", sql)
+    """Blank out quoted text before scanning for keywords.
+
+    One left-to-right pass over single-quoted strings, double-quoted identifiers,
+    backtick and [bracket] identifiers, so a quote character inside one kind
+    cannot make the scanner swallow the rest of the statement (independent
+    review, finding 4).
+    """
+    return QUOTED.sub("''", sql)
 
 
 def check_text(sql) -> PolicyResult:
@@ -107,6 +115,8 @@ def open_readonly(db_path) -> sqlite3.Connection:
         raise FileNotFoundError(f"database not found: {path}")
     con = sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)
     con.execute("PRAGMA query_only = ON")
+    if hasattr(con, "setlimit"):  # Python 3.11+: cap any single string or blob
+        con.setlimit(sqlite3.SQLITE_LIMIT_LENGTH, MAX_VALUE_BYTES)
     udf.register(con)
     con.set_authorizer(authorizer)
     return con
@@ -158,7 +168,7 @@ def execute(con, sql, seconds, keep_rows) -> ExecResult:
 
 def _reraise(exc):
     text = str(exc).lower()
-    if "not authorized" in text or "prohibited" in text:
+    if "not authorized" in text or "prohibited" in text or "one statement at a time" in text:
         raise PolicyDenied(f"authorizer denied: {exc}") from exc
     if "interrupt" in text:
         raise BudgetExceeded("statement exceeded its time budget") from exc
