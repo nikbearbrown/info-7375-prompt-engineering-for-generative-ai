@@ -1,0 +1,125 @@
+{
+  "note": "Group assignment for HELDOUT.csv. Open only after my labels are committed.",
+  "plan": "HELDOUT-PLAN.md (commit 4cbb88c)",
+  "runs": {
+    "new": "runs/2026-11-19T17-31-47-142253-0500",
+    "not new if in": "runs/2026-11-17T21-47-06-167440-0500"
+  },
+  "seeds": {
+    "group_a": 20261119,
+    "group_b": 20261120,
+    "shuffle": 20261121
+  },
+  "group_a_rule": {
+    "terms (whole word or phrase, case-insensitive)": [
+      "new grad",
+      "graduate",
+      "early career",
+      "entry level",
+      "junior",
+      "AI",
+      "machine learning",
+      "ML",
+      "data"
+    ],
+    "excluded": "titles with intern, interns, internship or internships"
+  },
+  "method": "New = (board, posting id) absent from the Nov 17 raw responses. Pools sorted by (board, posting id). Group A: all eligible if 10 or fewer, else random.Random(20261119).sample(eligible, 10). Group B: random.Random(20261120).sample(new postings not in Group A, 10). Rows A then B, shuffled with random.Random(20261121). Script: make_heldout_sample.py.",
+  "pool_sizes": {
+    "new per board": {
+      "databricks": 33,
+      "plaid": 2,
+      "stripe": 25
+    },
+    "new total": 60,
+    "eligible for Group A": 12,
+    "Group B pool": 50
+  },
+  "groups": {
+    "A": [
+      {
+        "board": "databricks",
+        "posting_id": "8948868002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8948870002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8948900002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8930374002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8793863002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8929894002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8930378002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8952028002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8937360002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8130876"
+      }
+    ],
+    "B": [
+      {
+        "board": "stripe",
+        "posting_id": "7917880"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8350917"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8172495"
+      },
+      {
+        "board": "plaid",
+        "posting_id": "2602117d-bfcc-407a-ae28-ea3a7c7aa216"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8949593002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8930381002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8893778002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7370967"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8893767002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7901987"
+      }
+    ]
+  },
+  "total": 20
+}
