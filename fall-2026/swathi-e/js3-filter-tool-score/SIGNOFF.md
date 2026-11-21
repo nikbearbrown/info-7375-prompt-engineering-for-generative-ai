@@ -6,28 +6,32 @@ from the committed records; I reviewed every row. The driver's seat is my
 text, written with ChatGPT reference drafts that I revised, reviewed and
 approved (see `SOURCES.md`). My decision is my own.
 
-"How" uses three kinds of check:
-- **By me:** my own observation or judgment (Swathi).
-- **AI-assisted:** a check where an AI tool did part of the work, named.
-- **Automated:** a test or script whose result anyone can rerun.
+"How" uses the assignment's categories:
+- **by hand:** my own observation or judgment (Swathi).
+- **by a test I wrote before reading Claude's code:** not used for any row.
+  Claude Code wrote the tests from my FILTER.md and contract, with
+  predictions recorded before the code.
+- **by recomputation:** a result recomputed from the committed files.
+- **with Claude's help (say which parts):** the parts Claude did are named
+  in the row.
 
 ## Checked (which property, by which test)
 
 | Property | Test / evidence | How |
 |---|---|---|
-| The filter applies FILTER.md's rules R1–R7, the score numbers and the evidence rules | `tests/test_job_filter.py`: R1a–R1b, R2a–R2e, R3a–R3b, R4a–R4c, R5a–R5l, R6a–R6e, R7a–R7b, SC1–SC7, E1–E5, D1–D6, U1–U2, O1. Tests and predictions `5024095`, before the filter code `6e6b4bf` | Automated. Claude Code wrote the tests from my FILTER.md and recorded predictions before the code |
-| My six "wrong versions" are caught | W1 (false friend "training"), R6b (export-control paragraph), W3 (title-only rule on 8 real Plaid postings), R5c ("0-2 years"), E4 (missing description is "I cannot tell"), E3 (no sponsorship sentence is "insufficient") | Automated |
-| The v1.1 rule changes do what the change log says, and nothing else broke | R5f–R5l, R6d, R6e, U1, U2 (tests `bb08b32`, `bf291f2`, before the code `2c3ef12`); all 113 tests pass, W3 unchanged | Automated; rule decisions by me, discussed with Claude Chat and Claude Code |
-| Reject audit: 30 random rejects, close calls and every kept posting judged by hand | `audit/HUMAN_AUDIT.csv` (`fed055f`), 48 rows against `AUDIT-RULE.md`; sample drawn by `make_audit_sample.py` (seed 20261117) | By me. Rows 1–4 before seeing a ChatGPT-assisted draft; rows 5–48 after seeing it. Not blind |
-| What the 0/30 result can and cannot show | `audit/AUDIT-REPORT.md` §A: rule-of-three bound 3/30 = 10% (Clopper–Pearson 9.5%), for the rejected pool only | Automated recomputation by Claude Code from the committed files |
-| Every shortlist claim is labeled against the posting text | `shortlist/CLAIMS.csv` (`f4dadb2`): 21 claims, 17 supported, 4 insufficient, 0 contradicted | By me, with Claude Chat and ChatGPT feedback on R6 and R3. Claude Code checked values, exact quotes and unchanged columns, and changed nothing |
-| One change at a time, on held-out labels | Threshold 5 → 6; 20 labels committed before any filter run (`b09f9ce`); `measure_heldout.py` (`698efbb`) | By me (labels; row 1 after consulting ChatGPT, rows 2–20 independent). Automated measurement |
-| The saved results can be recomputed | On 2026-11-20, `run_filter.py` and `measure_heldout.py` in a scratch copy reproduced every verdict and score; only the recorded FILTER.md hash differed (FILTER.md gained a change-log line in `e8299de`) | Automated, run by Claude Code |
-| The tool server does what its contract declares | `tool/tests/test_server.py`, 42 tests: P1–P11, N1–N5 (all 1,832 postings), E1–E9, A1–A5, X1–X3, R1–R3, B1–B6. Written before the server (`ae93c19`, `bdaf8ac`); before 40 FAIL / 2 ERROR, after 42 OK (`de027ed`) | Automated. Claude Code wrote the tests from the contract I decided |
-| Observed file access matched the declared boundaries during the tested adversarial session | B2: Python audit hook over an adversarial session (one read of the results file, one new transcript, no network, process, remove or rename events) | Automated (it observes, it does not confine) |
-| A real client can use it, and a path trick fails at the server | `tool/transcripts/2026-11-20T18-21-07-980276Z-9425.jsonl` (`4fd59d6`): `server/discover` → -32601 → `initialize` 2025-11-25; lines 10–11, `../../etc/passwd` rejected by the server | By me (I ran the Claude Code session and approved the second call in manual mode). AI-assisted: Claude Code inspected the transcript |
-| No blocking privacy findings in the three protocol transcripts | `tool/privacy_scan.py` (`c4be37b`): 0 blocking hits on all three transcripts | Automated, run by Claude Code before each commit |
-| The Filesystem server 2.4.0 package is the published one, and contains the GHSA-7m4x-rv66-mxhh fix | SHA-512 equal to the registry's `dist.integrity`; `dist/pinned-directory.js:338–442` (`tool/EVALUATION.md` §2) | Automated (hash). AI-assisted: code reading by Claude Code. Not run |
+| The filter applies FILTER.md's rules R1–R7, the score numbers and the evidence rules | `tests/test_job_filter.py`: R1a–R1b, R2a–R2e, R3a–R3b, R4a–R4c, R5a–R5l, R6a–R6e, R7a–R7b, SC1–SC7, E1–E5, D1–D6, U1–U2, O1. Tests and predictions `5024095`, before the filter code `6e6b4bf` | with Claude's help: Claude Code wrote the tests from my FILTER.md, with predictions recorded before the code |
+| My six "wrong versions" are caught | W1 (false friend "training"), R6b (export-control paragraph), W3 (title-only rule on 8 real Plaid postings), R5c ("0-2 years"), E4 (missing description is "I cannot tell"), E3 (no sponsorship sentence is "insufficient") | with Claude's help: Claude Code wrote the tests from my FILTER.md, with predictions recorded before the code |
+| The v1.1 rule changes do what the change log says, and nothing else broke | R5f–R5l, R6d, R6e, U1, U2 (tests `bb08b32`, `bf291f2`, before the code `2c3ef12`); all 113 tests pass, W3 unchanged | with Claude's help: Claude Code wrote the tests from my FILTER.md, with predictions recorded before the code; rule decisions by me, discussed with Claude Chat and Claude Code |
+| Reject audit: 30 random rejects, close calls and every kept posting judged by hand | `audit/HUMAN_AUDIT.csv` (`fed055f`), 48 rows against `AUDIT-RULE.md`; sample drawn by `make_audit_sample.py` (seed 20261117) | by hand. Rows 1–4 before seeing a ChatGPT-assisted draft; rows 5–48 after seeing it. Not blind |
+| What the 0/30 result can and cannot show | `audit/AUDIT-REPORT.md` §A: rule-of-three bound 3/30 = 10% (Clopper–Pearson 9.5%), for the rejected pool only | by recomputation, with Claude's help: Claude Code recomputed the bounds from the committed files |
+| Every shortlist claim is labeled against the posting text | `shortlist/CLAIMS.csv` (`f4dadb2`): 21 claims, 17 supported, 4 insufficient, 0 contradicted | by hand, with Claude Chat and ChatGPT feedback on R6 and R3. with Claude's help: Claude Code checked values, exact quotes and unchanged columns, and changed nothing |
+| One change at a time, on held-out labels | Threshold 5 → 6; 20 labels committed before any filter run (`b09f9ce`); `measure_heldout.py` (`698efbb`) | by hand (labels; row 1 after consulting ChatGPT, rows 2–20 independent). with Claude's help: Claude Code wrote and ran `measure_heldout.py` |
+| The saved results can be recomputed | On 2026-11-20, `run_filter.py` and `measure_heldout.py` in a scratch copy reproduced every verdict and score; only the recorded FILTER.md hash differed (FILTER.md gained a change-log line in `e8299de`) | by recomputation, with Claude's help: Claude Code ran the recomputation |
+| The tool server does what its contract declares | `tool/tests/test_server.py`, 42 tests: P1–P11, N1–N5 (all 1,832 postings), E1–E9, A1–A5, X1–X3, R1–R3, B1–B6. Written before the server (`ae93c19`, `bdaf8ac`); before 40 FAIL / 2 ERROR, after 42 OK (`de027ed`) | with Claude's help: Claude Code wrote the tests from the contract I decided, with predictions recorded before the code |
+| Observed file access matched the declared boundaries during the tested adversarial session | B2: Python audit hook over an adversarial session (one read of the results file, one new transcript, no network, process, remove or rename events) | with Claude's help: Claude Code wrote test B2 from my contract, with predictions recorded before the code (it observes, it does not confine) |
+| A real client can use it, and a path trick fails at the server | `tool/transcripts/2026-11-20T18-21-07-980276Z-9425.jsonl` (`4fd59d6`): `server/discover` → -32601 → `initialize` 2025-11-25; lines 10–11, `../../etc/passwd` rejected by the server | by hand (I ran the Claude Code session and approved the second call in manual mode). with Claude's help: Claude Code inspected the transcript |
+| No blocking privacy findings in the three protocol transcripts | `tool/privacy_scan.py` (`c4be37b`): 0 blocking hits on all three transcripts | with Claude's help: Claude Code wrote `tool/privacy_scan.py` and ran it before each commit |
+| The Filesystem server 2.4.0 package is the published one, and contains the GHSA-7m4x-rv66-mxhh fix | SHA-512 equal to the registry's `dist.integrity`; `dist/pinned-directory.js:338–442` (`tool/EVALUATION.md` §2) | by recomputation (the SHA-512 hash), with Claude's help: Claude Code computed the hash and did the code reading. Not run |
 
 ## Not checked
 
@@ -88,6 +92,6 @@ approved (see `SOURCES.md`). My decision is my own.
 | Judging whether a posting is worth my time | Pull out key details from job descriptions, highlight requirements, surface exact quotes, and flag anything missing or ambiguous. | Read the actual posting, weigh whether it fits Priya’s profile, verify the quoted evidence, and make the final call without assuming silence means eligibility. | A posting can hit all the right keywords and still be a bad fit once you look closely at experience, graduation dates, or sponsorship rules. Deciding whether a role is worth applying to takes human judgment, so I shouldn't hand that off to Claude. | `audit/HUMAN_AUDIT.csv`, `heldout/HELDOUT.csv`, `shortlist/CLAIMS.csv` |
 | The tool server and trusting a server | Help build the server, write and run tests, check protocol transcripts, surface security issues, evaluate whether what the server declares matches its observed behavior, and identify anything that remains unverified. | Decide what tools and capabilities the server can expose, approve its access boundaries, review the audit findings, and choose how much trust to give it. | Passing tests or following the MCP spec doesn’t automatically make a server safe to trust. Before letting a tool interact with my files or environment, I need to know what it can reach, what’s been verified, and what hasn’t been tested yet. | `tool/TOOL-SERVER.md`, `tool/EVALUATION.md` §1.5, §2.6 |
 
-## Signed
+## Signed or withheld
 
 Signed: Swathi Baba Eswarappa, 2026-11-20.

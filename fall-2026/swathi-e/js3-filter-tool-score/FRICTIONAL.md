@@ -11,6 +11,7 @@ entries for factual consistency (see `SOURCES.md`).
 - **What I noticed / why it mattered:** A job can require three or more years of experience while only saying a specific domain is "ideal." Treating the whole sentence as optional could let roles requiring more experience slip past the experience check.
 - **What I changed:** I approved scoping the optional check to the same clause and dropping "ideal" and "ideally" from the optional keywords, adding a new regression test before updating the code.
 - **Rejected:** I rejected Option B (editing the existing test to fit the new rule) because the code needed to satisfy the original requirement, not have the test weakened to pass.
+- **Still unresolved:** The experience filter can still misinterpret "preferred" inside parentheses and treat a mandatory experience requirement as optional.
 - **Evidence:** FILTER.md R5 addendum, TEST-PREDICTIONS.md R5l, commits c0790a4, bf291f2, 2c3ef12.
 
 ## 2. Protecting the held-out experiment
@@ -20,6 +21,7 @@ entries for factual consistency (see `SOURCES.md`).
 - **What I noticed / why it mattered:** Seeing pre-generated verdicts before labeling the postings myself would bias my decisions and compromise the independence of the held-out check.
 - **What I changed:** I approved temporarily moving the state file so the collector treated the run as a clean baseline without generating verdicts; Claude Code then restored the original state file unchanged after the collection.
 - **Rejected:** I rejected running the collector normally and hiding its output, since the verdicts would still be generated and saved in the trace.
+- **Still unresolved:** The collector still uses the inherited JS1 title rule during normal collection, so future held-out collections need the same precaution.
 - **Evidence:** HELDOUT-PLAN.md, commits 4cbb88c, 831d6af.
 
 ## 3. Correcting the R6 shortlist labels
@@ -29,6 +31,7 @@ entries for factual consistency (see `SOURCES.md`).
 - **What I noticed / why it mattered:** Not mentioning a restriction isn't the same as confirming visa sponsorship or F-1 OPT eligibility—I was treating missing information as positive proof.
 - **What I changed:** After re-checking the evidence rules and the original postings, I updated all four R6 labels to `insufficient` and expanded the notes to explain what was missing.
 - **Rejected:** I rejected keeping the original `supported` labels because they couldn't be backed up by an actual quote from the text.
+- **Still unresolved:** None of the four shortlisted postings explicitly confirms sponsorship or F-1 OPT eligibility, so all four still require human verification.
 - **Evidence:** shortlist/CLAIMS.csv (f4dadb2), shortlist/SHORTLIST.md, Labeling provenance (bf15eaf).
 
 ## 4. Questioning the external server recommendation
@@ -38,6 +41,7 @@ entries for factual consistency (see `SOURCES.md`).
 - **What I noticed / why it mattered:** A release being older doesn't make it safer—I needed to check actual security advisories rather than relying on release age alone.
 - **What I changed:** I switched to evaluating version `2.4.0` instead, and since my local Node.js version didn't meet its requirement, I chose to have Claude Code evaluate the published package by inspecting its compiled JavaScript rather than installing or running it.
 - **Rejected:** I rejected the original age-based recommendation once the vulnerability was flagged, and I also chose not to upgrade my local Node environment just to run an external server.
+- **Still unresolved:** The Filesystem server was never executed, its dependencies were not audited, and I have no runtime transcript to verify its actual behavior.
 - **Evidence:** tool/EVALUATION.md Section 2.1 and row G1, commit b3eb3dd, advisory GHSA-7m4x-rv66-mxhh.
 
 ## 5. Recognizing the limitations of AI-assisted audit labels
@@ -47,4 +51,5 @@ entries for factual consistency (see `SOURCES.md`).
 - **What I noticed / why it mattered:** Even though I read every posting and made the final call myself, seeing suggested labels upfront could nudge my thinking—meaning the full 48-row set couldn't count as a blind, independent evaluation.
 - **What I changed:** I logged how each row was judged, preserved the original audit records, and disclosed that limitation in the audit report, then created a fresh held-out sample for Chapter 9 (and documented the guidance I got on its first row).
 - **Rejected:** I decided against treating the AI-assisted audit labels as independent held-out evidence when evaluating the updated filter.
+- **Still unresolved:** I cannot measure how much seeing ChatGPT's suggested judgments influenced my decisions for rows 5–48.
 - **Evidence:** audit/HUMAN_AUDIT.csv (fed055f), audit/AUDIT-REPORT.md Section F (815064e), HELDOUT-PLAN.md (4cbb88c), heldout/HELDOUT.csv (b09f9ce).
