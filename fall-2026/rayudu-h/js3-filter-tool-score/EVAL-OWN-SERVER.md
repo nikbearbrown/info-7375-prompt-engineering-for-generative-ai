@@ -67,4 +67,6 @@ Speaking MCP correctly doesn't entitle a client to any of these:
 
 ## 5. Trust decision
 
-Pending Hemanth's decision.
+**Trusted, read-only, for this folder only.** Hemanth chose this ("T1 a") on Nov 22, 2026, at 5:36 PM EST, from Claude's recommended option. The conditions:
+- **"Kept" is the filter's opinion, not Hemanth's judgment.** A human still decides what is worth Priya's time.
+- **Snippets are not yet trusted as safe for Claude to act on,** because prompt injection through a posting has not been tested.

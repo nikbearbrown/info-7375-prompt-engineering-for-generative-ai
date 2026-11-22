@@ -97,4 +97,8 @@ Sources: `evals/filesystem-probe.json` and `evals/filesystem-roots.json` (with p
 
 ## 6. Trust decision
 
-Pending Hemanth's decision (section 7 records it).
+**Trusted only under conditions.** Hemanth chose this ("T2 a") on Nov 22, 2026, at 5:36 PM EST, from Claude's recommended option. The conditions:
+1. Point it at a **throwaway folder**, never this repo or anything personal.
+2. The client **allows only the read tools**: in Claude Code, `--allowedTools` naming only the read tools.
+3. Use a client whose **roots are fixed to that same folder**, or one that **doesn't declare roots**. Otherwise the client, not the operator, decides what the server can reach (section 3, case R).
+4. **Re-check on a supported runtime** (Node ≥ 24) before relying on it. These results come from Node 23.11.0.
