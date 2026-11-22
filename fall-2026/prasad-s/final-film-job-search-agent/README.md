@@ -16,8 +16,11 @@ what I will add to it. It follows the professor's four parts, in order:
    or didn't.
 
 ## Decisions, 2026-11-21
-- Voice: Kokoro, a synthetic text-to-speech voice run locally, reading my
-  words. SOURCES.md will disclose it.
+- Voice: Kokoro am_onyx, a synthetic text-to-speech voice run locally,
+  reading my words, picked by ear over af_bella on 2026-11-21. SOURCES.md
+  will disclose it. "Prasad" uses my Assignment 1 phoneme override
+  (week-01-video/tools/kokoro_phoneme_override.py), run in place and
+  unchanged.
 - Length: about 4 minutes, no more than 5. Part 1 ends before 1:00.
 - The detail goes in APPENDIX.md (not yet written), submitted with the film.
 - Toolkit: Brutalist (brutalist.art) at revision 22264a3, the same as my
