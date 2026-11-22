@@ -82,46 +82,57 @@ for b in beats:
 # Scene fields. One drawn Manim scene per beat. The class name starts with the beat id:
 # run.sh slots each clip by the text before the first underscore, and the pacing helpers in
 # scenes.py find the beat's narration and measured audio the same way. "label" is the
-# provenance label SHOTLIST.md gives the beat, shown top left for the whole beat ("" = none).
+# provenance label SHOTLIST.md gives the beat, shown top right for the whole beat ("" = none);
+# PARTS is the small part label, top left for the whole beat, on every beat but B1 and B17.
 # "show" lists what appears, each with the spoken phrase it waits for (None = no phrase).
+PARTS = {**{b: "1 · What and why" for b in ("B2", "B3")},
+         **{b: "2 · What others have done" for b in ("B4", "B5", "B6", "B7")},
+         **{b: "3 · How I'm building it" for b in ("B8", "B9", "B10", "B11", "B12")},
+         **{b: "4 · How I'll know it worked" for b in ("B13", "B14", "B15", "B16")}}
 SPARSE = ("show-tell style: one drawn picture per beat on a cream stage, with labels; the voice "
           "carries the explanation. Only underfill and clustered are waived; edge-bleed, "
           "empty-frame and contrast still apply.")
 SCENES = {
     "B1": ("B1_OpeningCard", "",
-           "Opening card for the whole beat: 'WorthLoop · Prasad Shinde' / 'Narration: synthetic "
-           "voice (Kokoro am_onyx). Words: Prasad Shinde.'",
-           [(None, "both card lines, from the first frame"), (None, "an ink rule and a dot draw in")]),
+           "Opening card for the whole beat: the title 'WorthLoop', and under it the tagline 'Worth "
+           "your time, or it doesn't make the loop.' A small footer, up for all of B1: 'Voice: "
+           "synthetic (Kokoro) · Script: Prasad Shinde'.",
+           [(None, "title, tagline and footer, from the first frame"), (None, "an ink rule and a dot draw in")]),
     "B2": ("B2_Packet", "ILLUSTRATION",
-           "A posting becomes a packet (posting, answers, why it fits); an Approve button; a "
-           "'Never submits' stamp.",
+           "A posting becomes a packet (posting, answers, why it fits); an Approve button, which the "
+           "cursor clicks: the button presses in, fills with the accent color, and reads 'Approved'; "
+           "a 'Never submits' stamp.",
            [(None, "a posting on a dark plinth"), ("drafts a packet", "a shallow packet tray"),
             ("the posting", "the posting moves into the tray"), ("the answers", "an answers page drops in"),
             ("why it fits", "a why-it-fits page drops in"), ("The person approves", "Approve button, cursor"),
+            (None, "the click: the button presses in, fills with the accent color, reads 'Approved'"),
             ("WorthLoop never", "'Never submits' stamp")]),
     "B3": ("B3_Flood", "",
-           "'≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; "
-           "applications pile up while the number counts up to 254.",
-           [(None, "a job ad"), ("hiring is flooded", "an application pile starts"),
+           "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line "
+           "'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
+           [(None, "the title 'Why it matters', from the first frame; a job ad"), ("Hiring is flooded", "an application pile starts"),
             ("In July 2026", "source line"), ("about 254", "the number counts up to ≈254 as pages pile up"),
             ("employers drown", "more applications pile on")]),
-    "B4": ("B4_ApplyTools", "",
-           "Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', source "
-           "line 'Washington Post, Mar 2026'.",
+    "B4": ("B4_ApplyTools", "ILLUSTRATION",
+           "ILLUSTRATION, because the form is made up. Group 1, 'Tools that apply for you': wrong "
+           "info, wrong fields; 'snake oil', and under it a small gloss, 'snake oil: a product sold "
+           "on promises it can't keep'; source line 'Washington Post, Mar 2026'.",
            [(None, "group header"), ("Employers say", "an application form"),
             ("wrong information", "values drop into the fields; 'wrong info'"),
             ("wrong fields", "a cross beside each field; 'wrong fields'"),
-            ("One company", "'snake oil' and its source line")]),
+            ("One company", "'snake oil', its gloss and its source line")]),
     "B5": ("B5_Funnel", "",
            "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar "
-           "shrinking as its number is spoken; source line 'career-ops README'. Bar widths "
-           "are not to scale; each bar is labeled with its number.",
-           [(None, "group header"), ("One checked", "740 listings bar; source line"), ("68", "bar shrinks: 68 applications"),
-            ("12 interviews", "bar shrinks: 12 interviews"), ("one offer", "bar shrinks: 1 offer")]),
+           "shrinking as its number is spoken, except that '1 offer' comes in at '12 interviews', so "
+           "it stays readable; a small 'bars not to scale' note; source line 'career-ops README'.",
+           [(None, "group header"), ("One checked", "740 listings bar; source line; 'bars not to scale'"),
+            ("68", "bar shrinks: 68 applications"),
+            ("12 interviews", "bar shrinks: 12 interviews, then 1 offer")]),
     "B6": ("B6_PaymentChecks", "",
-           "Group 3, 'Approval checks from AI payments': AP2's rule, quoted as AP2's; AsAsked and "
-           "Mandate Shield named; 'Oct: payments pitch → job applications'.",
-           [(None, "group header"), ("One standard", "AP2's rule, quoted, with its source line"),
+           "Group 3, 'Approval checks from AI payments': AP2's rule, paraphrased with no quote marks, "
+           "'AP2 (v0.2): the approval screen must be non-agentic — plain code, not AI', with its "
+           "source line; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'.",
+           [(None, "group header"), ("One standard", "AP2's rule, paraphrased, with its source line"),
             ("In October", "'Oct: payments pitch'"), ("others built", "AsAsked and Mandate Shield"),
             ("so I carried", "arrow to 'job applications'")]),
     "B7": ("B7_NotFound", "",
@@ -137,11 +148,11 @@ SCENES = {
            "(Greenhouse), Notion (Ashby).",
            [("Alex Rivera", "Alex Rivera card"), ("It reads", "the four boards under Greenhouse and Ashby")]),
     "B9": ("B9_Evidence", "CONSTRUCTED",
-           "An evidence card laid out by condition: Title (C1), Place (C2), then C4 with Level and "
-           "Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, "
-           "Years ✓. Then '→ packet (planned)'.",
-           [("Here is one", "the evidence card"), ("title fits", "Title (C1) ✓"), ("level fits", "C4, Level ✓"),
-            ("place fits", "Place (C2) ✓"), ("years fit", "Years ✓"), ("It will become", "→ packet (planned)"),
+           "An evidence card laid out by condition, with no condition ids on screen: Title, Place, "
+           "then Level with Years beneath it. Its lines are revealed in spoken order: Title ✓, "
+           "Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'.",
+           [("Here is one", "the evidence card"), ("title fits", "Title ✓"), ("level fits", "Level ✓"),
+            ("place fits", "Place ✓"), ("years fit", "Years ✓"), ("It will become", "→ packet (planned)"),
             ("the posting, draft", "a page drops into the packet"), ("draft answers", "a page drops in"),
             ("and the evidence", "a page drops in")]),
     "B10": ("B10_Plug", "",
@@ -154,7 +165,8 @@ SCENES = {
     "B11": ("B11_Fingerprint", "PLANNED",
             "Packet → fingerprint. One word in the packet is highlighted and changed, and the "
             "fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 "
-            "of the two example packet texts, trimmed to 12 characters (computed in scenes.py). "
+            "of the two example packet texts, trimmed to 12 characters (computed in scenes.py). The "
+            "example answer uses a skill in Alex's profile (js3-filter-tool-score/resume_persona.json). "
             "'Approve = plain code; the AI can't press it.'",
             [(None, "Approve button"), ("plain code", "'Approve = plain code; the AI can't press it.'"),
              ("The approval will be tied", "the example packet"),
@@ -162,11 +174,12 @@ SCENES = {
              ("and the fingerprint changes", "the fingerprint scrambles into the new one")]),
     "B12": ("B12_Laptop", "",
             "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, "
-            "filter, scorer; Next: packet, gate.",
+            "filter, scorer; Next: packet, gate, brought in early enough to stay on screen for at "
+            "least 1.5 s.",
             [("my laptop", "laptop; 'Laptop'"), ("free tools", "'free tools'"), ("no paid credits", "'no paid credits'"),
              ("Claude comes", "'Claude via university'"), ("Built so far", "Built"), ("the watcher", "✓ watcher"),
-             ("the filter", "✓ filter"), ("the scorer", "✓ scorer"), ("Next", "Next"), ("the packet", "packet"),
-             ("the gate", "gate")]),
+             ("the filter", "✓ filter"), ("the scorer", "✓ scorer"),
+             (None, "right after the scorer: Next, packet, gate")]),
     "B13": ("B13_Locked", "",
             "A locked box: '20 postings, sealed Nov 15'; '≈1 in 30 worth it'; 'likely 0 or 1; "
             "exact count reported'.",
@@ -203,7 +216,7 @@ for b in beats:
         "act": "show-tell", "lane": "manim", "proof_gate": "SHOW",
         "shot": {"type": "GRAPHIC", "source": "own", "visual_intent": intent,
                  "show": [{"cue": cue, "event": event} for cue, event in show],
-                 "manim": {"class": cls, "tag": label}, "motion_claim": intent},
+                 "manim": {"class": cls, "tag": label, "part": PARTS.get(b["beat_id"], "")}, "motion_claim": intent},
         "qc": {"sparse_by_design": True, "sparse_reason": SPARSE}})
 
 sheet = {"metadata": {

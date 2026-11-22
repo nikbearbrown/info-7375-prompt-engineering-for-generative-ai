@@ -18,7 +18,7 @@ B1 — I'm Prasad. I'm building WorthLoop, an agent that watches job boards for 
 
 B2 — For a posting that passes, it shows its evidence and drafts a packet: the posting, the answers, and why it fits. The person approves that exact packet, or it goes nowhere. WorthLoop never submits anything itself.
 
-B3 — Why it matters: hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.
+B3 — Why it matters. Hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.
 
 ## Part 2: What others have done
 
@@ -26,7 +26,7 @@ B4 — First, tools that apply for you. Employers say they put the wrong informa
 
 B5 — Second, open-source agents score jobs and let you press Submit. One checked 740 listings for its maker: 68 applications, 12 interviews, one offer.
 
-B6 — Third, approval checks come from AI payments. One standard, AP2, says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.
+B6 — Third, approval checks come from AI payments. One standard there says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.
 
 B7 — What I didn't find in the job tools: a test locked before tuning, or approval tied to the exact packet. My last test showed why: my filter missed the one posting worth applying to, reading "prefers five years" as a hard rule.
 

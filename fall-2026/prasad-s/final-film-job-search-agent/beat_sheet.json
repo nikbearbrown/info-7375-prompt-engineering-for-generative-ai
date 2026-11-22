@@ -23,7 +23,7 @@
     "audience": "INFO 7375 reviewers of the final project",
     "source_doc": "NARRATION.md (this folder)",
     "build": {
-      "at": "2026-11-22T14:58:34",
+      "at": "2026-11-22T16:13:19",
       "cut": "review",
       "filled": 17,
       "of": 17,
@@ -52,11 +52,11 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Opening card for the whole beat: 'WorthLoop · Prasad Shinde' / 'Narration: synthetic voice (Kokoro am_onyx). Words: Prasad Shinde.'",
+        "visual_intent": "Opening card for the whole beat: the title 'WorthLoop', and under it the tagline 'Worth your time, or it doesn't make the loop.' A small footer, up for all of B1: 'Voice: synthetic (Kokoro) · Script: Prasad Shinde'.",
         "show": [
           {
             "cue": null,
-            "event": "both card lines, from the first frame"
+            "event": "title, tagline and footer, from the first frame"
           },
           {
             "cue": null,
@@ -65,9 +65,10 @@
         ],
         "manim": {
           "class": "B1_OpeningCard",
-          "tag": ""
+          "tag": "",
+          "part": ""
         },
-        "motion_claim": "Opening card for the whole beat: 'WorthLoop · Prasad Shinde' / 'Narration: synthetic voice (Kokoro am_onyx). Words: Prasad Shinde.'"
+        "motion_claim": "Opening card for the whole beat: the title 'WorthLoop', and under it the tagline 'Worth your time, or it doesn't make the loop.' A small footer, up for all of B1: 'Voice: synthetic (Kokoro) · Script: Prasad Shinde'."
       },
       "qc": {
         "sparse_by_design": true,
@@ -78,7 +79,7 @@
         "status": "MANIM",
         "src": "manim/B1.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -94,7 +95,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "A posting becomes a packet (posting, answers, why it fits); an Approve button; a 'Never submits' stamp.",
+        "visual_intent": "A posting becomes a packet (posting, answers, why it fits); an Approve button, which the cursor clicks: the button presses in, fills with the accent color, and reads 'Approved'; a 'Never submits' stamp.",
         "show": [
           {
             "cue": null,
@@ -121,15 +122,20 @@
             "event": "Approve button, cursor"
           },
           {
+            "cue": null,
+            "event": "the click: the button presses in, fills with the accent color, reads 'Approved'"
+          },
+          {
             "cue": "WorthLoop never",
             "event": "'Never submits' stamp"
           }
         ],
         "manim": {
           "class": "B2_Packet",
-          "tag": "ILLUSTRATION"
+          "tag": "ILLUSTRATION",
+          "part": "1 · What and why"
         },
-        "motion_claim": "A posting becomes a packet (posting, answers, why it fits); an Approve button; a 'Never submits' stamp."
+        "motion_claim": "A posting becomes a packet (posting, answers, why it fits); an Approve button, which the cursor clicks: the button presses in, fills with the accent color, and reads 'Approved'; a 'Never submits' stamp."
       },
       "qc": {
         "sparse_by_design": true,
@@ -140,15 +146,15 @@
         "status": "MANIM",
         "src": "manim/B2.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
       "beat_id": "B3",
-      "narration_text": "Why it matters: hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.",
+      "narration_text": "Why it matters. Hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.",
       "estimated_duration_s": 17.2,
       "engine": "kokoro",
-      "actual_duration_s": 17.13,
+      "actual_duration_s": 17.0,
       "audio_file": "mp3/beat-B3.mp3",
       "act": "show-tell",
       "lane": "manim",
@@ -156,14 +162,14 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "'≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
+        "visual_intent": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
         "show": [
           {
             "cue": null,
-            "event": "a job ad"
+            "event": "the title 'Why it matters', from the first frame; a job ad"
           },
           {
-            "cue": "hiring is flooded",
+            "cue": "Hiring is flooded",
             "event": "an application pile starts"
           },
           {
@@ -181,20 +187,21 @@
         ],
         "manim": {
           "class": "B3_Flood",
-          "tag": ""
+          "tag": "",
+          "part": "1 · What and why"
         },
-        "motion_claim": "'≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254."
+        "motion_claim": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "render_duration_s": 17.166666666666668,
+      "render_duration_s": 17.0,
       "build": {
         "status": "MANIM",
         "src": "manim/B3.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -210,7 +217,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', source line 'Washington Post, Mar 2026'.",
+        "visual_intent": "ILLUSTRATION, because the form is made up. Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', and under it a small gloss, 'snake oil: a product sold on promises it can't keep'; source line 'Washington Post, Mar 2026'.",
         "show": [
           {
             "cue": null,
@@ -230,14 +237,15 @@
           },
           {
             "cue": "One company",
-            "event": "'snake oil' and its source line"
+            "event": "'snake oil', its gloss and its source line"
           }
         ],
         "manim": {
           "class": "B4_ApplyTools",
-          "tag": ""
+          "tag": "ILLUSTRATION",
+          "part": "2 · What others have done"
         },
-        "motion_claim": "Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', source line 'Washington Post, Mar 2026'."
+        "motion_claim": "ILLUSTRATION, because the form is made up. Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', and under it a small gloss, 'snake oil: a product sold on promises it can't keep'; source line 'Washington Post, Mar 2026'."
       },
       "qc": {
         "sparse_by_design": true,
@@ -248,7 +256,7 @@
         "status": "MANIM",
         "src": "manim/B4.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -264,7 +272,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken; source line 'career-ops README'. Bar widths are not to scale; each bar is labeled with its number.",
+        "visual_intent": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken, except that '1 offer' comes in at '12 interviews', so it stays readable; a small 'bars not to scale' note; source line 'career-ops README'.",
         "show": [
           {
             "cue": null,
@@ -272,7 +280,7 @@
           },
           {
             "cue": "One checked",
-            "event": "740 listings bar; source line"
+            "event": "740 listings bar; source line; 'bars not to scale'"
           },
           {
             "cue": "68",
@@ -280,18 +288,15 @@
           },
           {
             "cue": "12 interviews",
-            "event": "bar shrinks: 12 interviews"
-          },
-          {
-            "cue": "one offer",
-            "event": "bar shrinks: 1 offer"
+            "event": "bar shrinks: 12 interviews, then 1 offer"
           }
         ],
         "manim": {
           "class": "B5_Funnel",
-          "tag": ""
+          "tag": "",
+          "part": "2 · What others have done"
         },
-        "motion_claim": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken; source line 'career-ops README'. Bar widths are not to scale; each bar is labeled with its number."
+        "motion_claim": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken, except that '1 offer' comes in at '12 interviews', so it stays readable; a small 'bars not to scale' note; source line 'career-ops README'."
       },
       "qc": {
         "sparse_by_design": true,
@@ -302,15 +307,15 @@
         "status": "MANIM",
         "src": "manim/B5.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
       "beat_id": "B6",
-      "narration_text": "Third, approval checks come from AI payments. One standard, AP2, says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.",
+      "narration_text": "Third, approval checks come from AI payments. One standard there says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.",
       "estimated_duration_s": 15.6,
       "engine": "kokoro",
-      "actual_duration_s": 13.14,
+      "actual_duration_s": 12.82,
       "audio_file": "mp3/beat-B6.mp3",
       "act": "show-tell",
       "lane": "manim",
@@ -318,7 +323,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Group 3, 'Approval checks from AI payments': AP2's rule, quoted as AP2's; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'.",
+        "visual_intent": "Group 3, 'Approval checks from AI payments': AP2's rule, paraphrased with no quote marks, 'AP2 (v0.2): the approval screen must be non-agentic — plain code, not AI', with its source line; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'.",
         "show": [
           {
             "cue": null,
@@ -326,7 +331,7 @@
           },
           {
             "cue": "One standard",
-            "event": "AP2's rule, quoted, with its source line"
+            "event": "AP2's rule, paraphrased, with its source line"
           },
           {
             "cue": "In October",
@@ -343,20 +348,21 @@
         ],
         "manim": {
           "class": "B6_PaymentChecks",
-          "tag": ""
+          "tag": "",
+          "part": "2 · What others have done"
         },
-        "motion_claim": "Group 3, 'Approval checks from AI payments': AP2's rule, quoted as AP2's; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'."
+        "motion_claim": "Group 3, 'Approval checks from AI payments': AP2's rule, paraphrased with no quote marks, 'AP2 (v0.2): the approval screen must be non-agentic — plain code, not AI', with its source line; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'."
       },
       "qc": {
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "render_duration_s": 13.166666666666666,
+      "render_duration_s": 12.833333333333334,
       "build": {
         "status": "MANIM",
         "src": "manim/B6.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -397,7 +403,8 @@
         ],
         "manim": {
           "class": "B7_NotFound",
-          "tag": ""
+          "tag": "",
+          "part": "2 · What others have done"
         },
         "motion_claim": "The two 'not found' lines; then 'My last test: missed the one worth-it posting — read 'prefers 5+ years' as a rule', the posting sliding past the filter as it's spoken; source line 'JS3 held-out test · MEASURE.md'."
       },
@@ -410,7 +417,7 @@
         "status": "MANIM",
         "src": "manim/B7.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -439,7 +446,8 @@
         ],
         "manim": {
           "class": "B8_Alex",
-          "tag": "FICTIONAL"
+          "tag": "FICTIONAL",
+          "part": "3 · How I'm building it"
         },
         "motion_claim": "Alex Rivera card, labeled FICTIONAL; the four boards: Stripe, Robinhood, Duolingo (Greenhouse), Notion (Ashby)."
       },
@@ -452,7 +460,7 @@
         "status": "MANIM",
         "src": "manim/B8.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -468,7 +476,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "An evidence card laid out by condition: Title (C1), Place (C2), then C4 with Level and Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'.",
+        "visual_intent": "An evidence card laid out by condition, with no condition ids on screen: Title, Place, then Level with Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'.",
         "show": [
           {
             "cue": "Here is one",
@@ -476,15 +484,15 @@
           },
           {
             "cue": "title fits",
-            "event": "Title (C1) ✓"
+            "event": "Title ✓"
           },
           {
             "cue": "level fits",
-            "event": "C4, Level ✓"
+            "event": "Level ✓"
           },
           {
             "cue": "place fits",
-            "event": "Place (C2) ✓"
+            "event": "Place ✓"
           },
           {
             "cue": "years fit",
@@ -509,9 +517,10 @@
         ],
         "manim": {
           "class": "B9_Evidence",
-          "tag": "CONSTRUCTED"
+          "tag": "CONSTRUCTED",
+          "part": "3 · How I'm building it"
         },
-        "motion_claim": "An evidence card laid out by condition: Title (C1), Place (C2), then C4 with Level and Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'."
+        "motion_claim": "An evidence card laid out by condition, with no condition ids on screen: Title, Place, then Level with Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'."
       },
       "qc": {
         "sparse_by_design": true,
@@ -522,7 +531,7 @@
         "status": "MANIM",
         "src": "manim/B9.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -567,7 +576,8 @@
         ],
         "manim": {
           "class": "B10_Plug",
-          "tag": ""
+          "tag": "",
+          "part": "3 · How I'm building it"
         },
         "motion_claim": "Claude → plug (MCP) → scorer, the plug connecting as it's named; 'rules in code'; '10 requests' and '60 s' as two limit chips."
       },
@@ -580,7 +590,7 @@
         "status": "MANIM",
         "src": "manim/B10.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -596,7 +606,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). 'Approve = plain code; the AI can't press it.'",
+        "visual_intent": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). The example answer uses a skill in Alex's profile (js3-filter-tool-score/resume_persona.json). 'Approve = plain code; the AI can't press it.'",
         "show": [
           {
             "cue": null,
@@ -625,9 +635,10 @@
         ],
         "manim": {
           "class": "B11_Fingerprint",
-          "tag": "PLANNED"
+          "tag": "PLANNED",
+          "part": "3 · How I'm building it"
         },
-        "motion_claim": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). 'Approve = plain code; the AI can't press it.'"
+        "motion_claim": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). The example answer uses a skill in Alex's profile (js3-filter-tool-score/resume_persona.json). 'Approve = plain code; the AI can't press it.'"
       },
       "qc": {
         "sparse_by_design": true,
@@ -638,7 +649,7 @@
         "status": "MANIM",
         "src": "manim/B11.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -654,7 +665,7 @@
       "shot": {
         "type": "GRAPHIC",
         "source": "own",
-        "visual_intent": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate.",
+        "visual_intent": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate, brought in early enough to stay on screen for at least 1.5 s.",
         "show": [
           {
             "cue": "my laptop",
@@ -689,23 +700,16 @@
             "event": "✓ scorer"
           },
           {
-            "cue": "Next",
-            "event": "Next"
-          },
-          {
-            "cue": "the packet",
-            "event": "packet"
-          },
-          {
-            "cue": "the gate",
-            "event": "gate"
+            "cue": null,
+            "event": "right after the scorer: Next, packet, gate"
           }
         ],
         "manim": {
           "class": "B12_Laptop",
-          "tag": ""
+          "tag": "",
+          "part": "3 · How I'm building it"
         },
-        "motion_claim": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate."
+        "motion_claim": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate, brought in early enough to stay on screen for at least 1.5 s."
       },
       "qc": {
         "sparse_by_design": true,
@@ -716,7 +720,7 @@
         "status": "MANIM",
         "src": "manim/B12.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -753,7 +757,8 @@
         ],
         "manim": {
           "class": "B13_Locked",
-          "tag": ""
+          "tag": "",
+          "part": "4 · How I'll know it worked"
         },
         "motion_claim": "A locked box: '20 postings, sealed Nov 15'; '≈1 in 30 worth it'; 'likely 0 or 1; exact count reported'."
       },
@@ -766,7 +771,7 @@
         "status": "MANIM",
         "src": "manim/B13.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -811,7 +816,8 @@
         ],
         "manim": {
           "class": "B14_Checks",
-          "tag": ""
+          "tag": "",
+          "part": "4 · How I'll know it worked"
         },
         "motion_claim": "The five pass checks, ticking in as the narration lists them; closing line 'any one fails → it didn't work'."
       },
@@ -824,7 +830,7 @@
         "status": "MANIM",
         "src": "manim/B14.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -861,7 +867,8 @@
         ],
         "manim": {
           "class": "B15_Traps",
-          "tag": ""
+          "tag": "",
+          "part": "4 · How I'll know it worked"
         },
         "motion_claim": "All five traps with their right answers, as in OUTLINE.md Part 4; the two spoken ones (Staff, 'prefers 5+ years') highlighted, the other three dimmed but readable."
       },
@@ -874,7 +881,7 @@
         "status": "MANIM",
         "src": "manim/B15.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -923,7 +930,8 @@
         ],
         "manim": {
           "class": "B16_Controlled",
-          "tag": "PLANNED"
+          "tag": "PLANNED",
+          "part": "4 · How I'll know it worked"
         },
         "motion_claim": "Five steps light up in order: predict → change packet → caught → refused → re-approve; then 'Stranger run: clean machine'."
       },
@@ -936,7 +944,7 @@
         "status": "MANIM",
         "src": "manim/B16.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     },
     {
@@ -969,7 +977,8 @@
         ],
         "manim": {
           "class": "B17_End",
-          "tag": ""
+          "tag": "",
+          "part": ""
         },
         "motion_claim": "End card: 'WorthLoop · INFO 7375 Final Project Film · Nov 2026', fading slowly to black as the line ends."
       },
@@ -982,7 +991,7 @@
         "status": "MANIM",
         "src": "manim/B17.mp4",
         "filled_by": "manim",
-        "at": "2026-11-22T14:58:34"
+        "at": "2026-11-22T16:13:19"
       }
     }
   ]

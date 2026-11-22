@@ -206,8 +206,19 @@ def hold(self):
 
 
 def tag(s):
-    """The beat's label from SHOTLIST.md (ILLUSTRATION, CONSTRUCTED, PLANNED, FICTIONAL): top left, whole beat."""
-    return T(s, 32, bold=True).move_to([-6.0, 3.0, 0], aligned_edge=LEFT)
+    """The beat's label from SHOTLIST.md (ILLUSTRATION, CONSTRUCTED, PLANNED, FICTIONAL): top right, whole beat."""
+    return T(s, 32, bold=True).move_to([6.0, 3.05, 0], aligned_edge=RIGHT)
+
+
+PARTS = {**{b: "1 · What and why" for b in ("B2", "B3")},
+         **{b: "2 · What others have done" for b in ("B4", "B5", "B6", "B7")},
+         **{b: "3 · How I'm building it" for b in ("B8", "B9", "B10", "B11", "B12")},
+         **{b: "4 · How I'll know it worked" for b in ("B13", "B14", "B15", "B16")}}
+
+
+def part(self):
+    """The small part label from SHOTLIST.md: top left, whole beat (every beat but B1 and B17)."""
+    return T(PARTS[_bid(self)], 32).move_to([-6.0, 3.05, 0], aligned_edge=LEFT)
 
 
 def lab(s, x, y, size=38, color=INK):
@@ -289,10 +300,10 @@ def laptop(x, y, s=1.0):
 # three lines joined with newlines, before and after one word changes, trimmed to 12 hex
 # characters. They are computed here, never typed in.
 PACKET_LINES = ("Posting: Product Analyst, New York",
-                "Answer: I run A/B tests in SQL.",
+                "Answer: I run A/B testing in SQL.",      # A/B testing, SQL and Python are all in Alex's profile
                 "Evidence: title, level, place, years")
 PACKET_A = "\n".join(PACKET_LINES)
-PACKET_B = PACKET_A.replace("tests in SQL.", "tests in Python.")
+PACKET_B = PACKET_A.replace("testing in SQL.", "testing in Python.")
 FP_A = _hashlib.sha256(PACKET_A.encode("utf-8")).hexdigest()[:12]
 FP_B = _hashlib.sha256(PACKET_B.encode("utf-8")).hexdigest()[:12]
 _rng = _random.Random(7375)
@@ -309,12 +320,13 @@ TRAPS = ("Staff PM posting → not a fit: over the level ceiling",
 # ═════════════════════════════ WorthLoop scenes, B1-B17 ═════════════════════════════
 class B1_OpeningCard(Scene):
     def construct(self):
-        # The opening card is B1's whole picture (decided 2026-11-22): both lines up from the first frame.
-        title = T("WorthLoop · Prasad Shinde", 72).move_to([0, 0.75, 0])
-        credit = T("Narration: synthetic voice (Kokoro am_onyx). Words: Prasad Shinde.", 32).move_to([0, -0.95, 0])
-        rule = Line([-4.2, -0.15, 0], [4.2, -0.15, 0], color=INK, stroke_width=5)
-        spark = Dot([4.2, -0.15, 0], radius=0.1, color=TERRA)
-        self.add(title, credit)
+        # The opening card is B1's whole picture: title, tagline and the disclosure footer, from the first frame.
+        title = T("WorthLoop", 120).move_to([0, 1.0, 0])
+        tagline = T("Worth your time, or it doesn't make the loop.", 44).move_to([0, -0.85, 0])
+        footer = T("Voice: synthetic (Kokoro) · Script: Prasad Shinde", 32).move_to([0, -2.9, 0])
+        rule = Line([-3.6, -0.15, 0], [3.6, -0.15, 0], color=INK, stroke_width=5)
+        spark = Dot([3.6, -0.15, 0], radius=0.1, color=TERRA)
+        self.add(title, tagline, footer)
         go(self, None, Create(rule), rt=0.6)
         go(self, None, FadeIn(spark), rt=0.3)
         hold(self)
@@ -322,7 +334,7 @@ class B1_OpeningCard(Scene):
 
 class B2_Packet(Scene):
     def construct(self):
-        self.add(tag("ILLUSTRATION"))
+        self.add(part(self), tag("ILLUSTRATION"))
         P = Iso(-4.7, -0.3, 1.0)
         plinth = P.box(-0.2, -0.2, -0.25, 1.6, 1.9, 0.25, DARK_TOP, DARK_L, DARK_R)
         posting = P.page(0, 0, 0, 1.2, 1.5)
@@ -338,6 +350,7 @@ class B2_Packet(Scene):
         path = ArcBetweenPoints(np.array(posting.get_center()), np.array(Bx.p(1.0, 0.95, 0.31)), angle=-PI / 3)
         btn = button(-4.5, 0.2)
         approve = lab("Approve", -4.5, 0.2, 40)
+        approved = lab("Approved", -4.5, 0.2, 40)
         tap = cursor(-3.55, -0.05, 0.5)
         stamp = T("Never submits", 44, bold=True).move_to([-4.5, -1.6, 0])
         rules = VGroup(Line([-6.2, -1.15, 0], [-2.8, -1.15, 0], color=INK, stroke_width=6),
@@ -351,6 +364,9 @@ class B2_Packet(Scene):
         go(self, "why it fits", FadeIn(why, shift=DOWN * 0.8), FadeIn(names[2]), rt=0.45)
         go(self, "The person approves", FadeIn(btn), FadeIn(approve), rt=0.4)
         go(self, None, FadeIn(tap, shift=LEFT * 0.4), rt=0.35)
+        go(self, None, VGroup(btn, approve).animate.scale(0.9), rt=0.15)                 # the click presses it in
+        go(self, None, btn.animate.scale(1 / 0.9).set_fill(TERRA, 1).set_stroke(TERRA), ReplacementTransform(approve, approved),
+           rt=0.3)                                                                         # accent fill, "Approved"
         go(self, "WorthLoop never", Create(rules), FadeIn(stamp), rt=0.5, lead=0.4)
         hold(self)
 
@@ -368,9 +384,11 @@ class B3_Flood(Scene):
         label = lab("applicants per job ad", 3.35, -0.4, 40)
         values = (12, 40, 75, 110, 150, 190, 222, 245, 254)
         nums = [lab(f"≈{v}", 3.35, 0.75, 120) for v in values]
+        title = lab("Why it matters", 0, 2.45, 48)
 
+        self.add(part(self), title)
         go(self, None, FadeIn(ad), rt=0.5)
-        go(self, "hiring is flooded", FadeIn(plinth), *[FadeIn(p, shift=DOWN * 0.4) for p in pages[:2]], rt=0.5)
+        go(self, "Hiring is flooded", FadeIn(plinth), *[FadeIn(p, shift=DOWN * 0.4) for p in pages[:2]], rt=0.5)
         go(self, "In July 2026", FadeIn(source), rt=0.4)
         go(self, "about 254", FadeIn(nums[0]), FadeIn(label), FadeIn(pages[2], shift=DOWN * 0.4), rt=0.2)
         for i in range(1, len(values)):
@@ -381,7 +399,7 @@ class B3_Flood(Scene):
 
 class B4_ApplyTools(Scene):
     def construct(self):
-        head = lab_l("1 · Tools that apply for you", -6.0, 2.85, 44)
+        head = lab_l("Group 1 · Tools that apply for you", -6.0, 2.35, 44)
         form = card(5.6, 3.9, -3.0, -0.35)
         ys = (0.85, -0.25, -1.35)
         names = VGroup(*[lab_l(s, -5.45, y, 36) for s, y in zip(("name", "email", "experience"), ys)])
@@ -392,41 +410,45 @@ class B4_ApplyTools(Scene):
         marks = [cross(0.25, y, s=0.17, w=7) for y in ys]
         info = lab_l("wrong info", 1.2, 0.85, 40)
         fields = lab_l("wrong fields", 1.2, -0.25, 40)
-        quote = lab_l("“snake oil”", 1.2, -1.35, 56)
-        source = src("Washington Post, Mar 2026", 1.2, -2.15, left=True)
+        quote = lab_l("“snake oil”", 1.2, -1.15, 56)
+        gloss = [lab_l("snake oil: a product sold on", 1.2, -1.85, 32), lab_l("promises it can't keep", 1.2, -2.3, 32)]
+        source = src("Washington Post, Mar 2026", 1.2, -2.95, left=True)
 
-        self.add(head)
+        self.add(part(self), tag("ILLUSTRATION"), head)       # the form is made up
         go(self, "Employers say", FadeIn(form), FadeIn(names), FadeIn(slots), rt=0.5)
         go(self, "wrong information", *[FadeIn(v, shift=DOWN * 0.5) for v in vals], FadeIn(info), rt=0.5)
         go(self, "wrong fields", *[Create(m) for m in marks], FadeIn(fields), rt=0.5)
-        go(self, "One company", FadeIn(quote), FadeIn(source), rt=0.5)
+        go(self, "One company", FadeIn(quote), *[FadeIn(g) for g in gloss], FadeIn(source), rt=0.5)
         hold(self)
 
 
 class B5_Funnel(Scene):
     def construct(self):
-        head = lab_l("2 · Open-source agents", -6.0, 2.85, 44)
-        ys = (1.55, 0.55, -0.45, -1.45)
+        head = lab_l("Group 2 · Open-source agents", -6.0, 2.35, 44)
+        ys = (1.4, 0.4, -0.6, -1.6)
         bars = [Rectangle(width=w, height=0.62, fill_color=BAR1, fill_opacity=1, stroke_width=0).move_to([-1.6, y, 0])
                 for w, y in zip((7.0, 4.6, 2.6, 1.0), ys)]                      # not to scale: a funnel
         names = [lab_l(s, 2.5, y, 36) for s, y in zip(("740 listings", "68 applications", "12 interviews", "1 offer"), ys)]
-        source = src("career-ops README", 2.5, -2.45, left=True)
+        source = src("career-ops README", 2.5, -2.6, left=True)
+        note = lab("bars not to scale", -1.6, -2.6, 32)
 
-        self.add(head)
-        go(self, "One checked", GrowFromCenter(bars[0]), FadeIn(names[0]), FadeIn(source), rt=0.5)
+        self.add(part(self), head)
+        go(self, "One checked", GrowFromCenter(bars[0]), FadeIn(names[0]), FadeIn(source), FadeIn(note), rt=0.5)
         go(self, "68", ReplacementTransform(bars[0].copy(), bars[1]), FadeIn(names[1]), rt=0.5)
-        go(self, "12 interviews", ReplacementTransform(bars[1].copy(), bars[2]), FadeIn(names[2]), rt=0.45)
-        go(self, "one offer", ReplacementTransform(bars[2].copy(), bars[3]), FadeIn(names[3]), rt=0.4)
+        # "1 offer" comes in with "12 interviews" so it stays readable; both land before Gate V's 85% sample.
+        until(self, "12 interviews", 0.3)
+        self.play(ReplacementTransform(bars[1].copy(), bars[2]), FadeIn(names[2]), run_time=0.25)
+        self.play(ReplacementTransform(bars[2].copy(), bars[3]), FadeIn(names[3]), run_time=0.2)
         hold(self)
 
 
 class B6_PaymentChecks(Scene):
     def construct(self):
-        head = lab_l("3 · Approval checks from AI payments", -6.0, 2.85, 44)
-        quote_card = card(7.3, 1.45, -2.2, 1.45)
-        q1 = lab_l("AP2: “The following role MUST be", -5.55, 1.75, 36)
-        q2 = lab_l("non-agentic: Trusted Surface.”", -5.55, 1.15, 36)
-        source = src("AP2 specification v0.2", 1.9, 1.45, left=True)
+        head = lab_l("Group 3 · Approval checks from AI payments", -6.0, 2.35, 44)
+        # AP2's rule, paraphrased: no quote marks (decided 2026-11-22).
+        rule1 = lab_l("AP2 (v0.2): the approval screen must be non-agentic —", -5.6, 1.55, 36)
+        rule2 = baseline(lab_l("plain code, not AI", -5.6, 0.85, 36), 0.85, 1)
+        source = baseline(src("AP2 specification v0.2", 1.6, 0.85, left=True), 0.85)
         A1, A2 = Iso(-4.6, -1.25, 0.6), Iso(-1.4, -1.25, 0.6)
         asked = VGroup(*on_base(A1, 0, 0, 0, 1.1, 1.1, 1.0, pad=0.15, base_h=0.2))
         shield = VGroup(*on_base(A2, 0, 0, 0, 1.1, 1.1, 1.0, pad=0.15, base_h=0.2))
@@ -435,8 +457,8 @@ class B6_PaymentChecks(Scene):
         link = arrow([-1.3, -2.85, 0], [0.1, -2.85, 0])
         jobs = lab_l("job applications", 0.35, -2.85, 38)
 
-        self.add(head)
-        go(self, "One standard", FadeIn(quote_card), FadeIn(q1), FadeIn(q2), FadeIn(source), rt=0.5)
+        self.add(part(self), head)
+        go(self, "One standard", FadeIn(rule1), FadeIn(rule2), FadeIn(source), rt=0.5)
         go(self, "In October", FadeIn(pitch), rt=0.4)
         go(self, "others built", FadeIn(asked, shift=DOWN * 0.3), FadeIn(n1), FadeIn(shield, shift=DOWN * 0.3),
            FadeIn(n2), rt=0.6)
@@ -446,21 +468,22 @@ class B6_PaymentChecks(Scene):
 
 class B7_NotFound(Scene):
     def construct(self):
-        ys = (2.75, 2.05)
+        ys = (2.35, 1.7)
         misses = [lab_l(s, -5.55, y, 38) for s, y in zip(("Not found: a test locked before tuning",
                                                            "Not found: approval tied to the exact packet"), ys)]
         marks = [cross(-6.0, y, s=0.16, w=6) for y in ys]
-        track = Line([-5.6, -0.95, 0], [5.6, -0.95, 0], color=DEEP_KRAFT, stroke_width=6)
-        F = Iso(-0.35, -0.75, 0.85)
+        track = Line([-5.6, -1.1, 0], [5.6, -1.1, 0], color=DEEP_KRAFT, stroke_width=6)
+        F = Iso(-0.35, -0.9, 0.85)
         fbase, fbox = on_base(F, 0, 0, 0, 1.2, 1.2, 1.0, pad=0.15, base_h=0.2)
         light = Dot(F.p(0.3, 0, 0.75), radius=0.09, color=GHOST)            # stays unlit: nothing kept
-        filt = lab_l("filter", 0.95, 0.35, 36)
-        posting = Iso(-4.9, -1.45, 0.8).page(0, 0, 0, 1.0, 1.2)            # the worth-it posting
+        filt = lab_l("filter", 0.95, 0.2, 36)
+        posting = Iso(-4.9, -1.6, 0.8).page(0, 0, 0, 1.0, 1.2)             # the worth-it posting
         posting.set_z_index(3)
-        line_a = lab("My last test: missed the one worth-it posting —", 0, -1.95, 36)
-        line_b = lab("read ‘prefers 5+ years’ as a rule", 0, -2.55, 36)
+        line_a = lab("My last test: missed the one worth-it posting —", 0, -2.05, 36)
+        line_b = lab("read ‘prefers 5+ years’ as a rule", 0, -2.6, 36)
         source = src("JS3 held-out test · MEASURE.md", 0, -3.12)
 
+        self.add(part(self))
         go(self, "a test locked", Create(marks[0]), FadeIn(misses[0]), rt=0.4)
         go(self, "or approval tied", Create(marks[1]), FadeIn(misses[1]), rt=0.4)
         go(self, "My last test", Create(track), FadeIn(VGroup(fbase, fbox, light)), FadeIn(filt), FadeIn(posting),
@@ -472,7 +495,7 @@ class B7_NotFound(Scene):
 
 class B8_Alex(Scene):
     def construct(self):
-        self.add(tag("FICTIONAL"))
+        self.add(part(self), tag("FICTIONAL"))
         person = card(4.2, 4.4, -3.6, -0.3)
         head = Circle(radius=0.5, fill_color=BAR2, fill_opacity=1, stroke_color=INK, stroke_width=4).move_to([-3.6, 0.85, 0])
         body = RoundedRectangle(width=2.0, height=1.0, corner_radius=0.45, fill_color=BAR2, fill_opacity=1,
@@ -492,13 +515,14 @@ class B8_Alex(Scene):
 
 class B9_Evidence(Scene):
     def construct(self):
-        self.add(tag("CONSTRUCTED"))
-        ev = card(6.4, 5.2, -2.6, -0.45)
-        title = lab_l("Evidence", -5.4, 1.6, 40, bold=True)
-        rows = {"title": lab_l("Title (C1)", -5.4, 0.75), "place": lab_l("Place (C2)", -5.4, -0.05),
-                "c4": lab_l("C4", -5.4, -0.85), "level": lab_l("Level", -4.8, -1.6), "years": lab_l("Years", -4.8, -2.35)}
+        self.add(part(self), tag("CONSTRUCTED"))
+        ev = card(6.4, 4.4, -2.6, -0.25)
+        title = lab_l("Evidence", -5.4, 1.4, 40, bold=True)
+        # Laid out by condition, with no condition ids on screen: Title, Place, then Level with Years beneath it.
+        rows = {"title": lab_l("Title", -5.4, 0.6), "place": lab_l("Place", -5.4, -0.15),
+                "level": lab_l("Level", -5.4, -0.9), "years": lab_l("Years", -4.8, -1.65)}
         ticks = {k: check(-0.35, y, s=0.22, color=INK, w=8)
-                 for k, y in (("title", 0.75), ("place", -0.05), ("level", -1.6), ("years", -2.35))}
+                 for k, y in (("title", 0.6), ("place", -0.15), ("level", -0.9), ("years", -1.65))}
         Pk = Iso(2.6, -1.55, 0.8)
         pk_back, pk_front = tray(Pk, 0, 0, w=2.2, d=1.8, h=0.5)
         pages = [Pk.page(0.3 + 0.3 * i, 0.25 + 0.2 * i, 0.31 + 0.06 * i, 1.1, 0.9) for i in range(3)]
@@ -509,7 +533,7 @@ class B9_Evidence(Scene):
 
         go(self, None, FadeIn(ev), FadeIn(title), rt=0.5)
         go(self, "title fits", FadeIn(rows["title"]), Create(ticks["title"]), rt=0.4)
-        go(self, "level fits", FadeIn(rows["c4"]), FadeIn(rows["level"]), Create(ticks["level"]), rt=0.4)
+        go(self, "level fits", FadeIn(rows["level"]), Create(ticks["level"]), rt=0.4)
         go(self, "place fits", FadeIn(rows["place"]), Create(ticks["place"]), rt=0.4)
         go(self, "years fit", FadeIn(rows["years"]), Create(ticks["years"]), rt=0.4)
         go(self, "It will become", GrowArrow(link), FadeIn(VGroup(pk_back, pk_front)), FadeIn(pk_lab), rt=0.5)
@@ -540,6 +564,7 @@ class B10_Plug(Scene):
         chips = [VGroup(pill(-1.4, -2.6, 3.0, fill=BAR3), lab("10 requests", -1.4, -2.6, 38)),
                  VGroup(pill(1.7, -2.6, 1.6, fill=BAR3), lab("60 s", 1.7, -2.6, 38))]
 
+        self.add(part(self))
         go(self, None, FadeIn(claude), FadeIn(c_lab), rt=0.5)
         go(self, "the scorer", FadeIn(scorer), FadeIn(socket), FadeIn(s_lab), rt=0.4)
         go(self, "through a standard plug", FadeIn(plug), Create(cable), FadeIn(p_lab), rt=0.35)
@@ -553,11 +578,11 @@ class B10_Plug(Scene):
 
 class B11_Fingerprint(Scene):
     def construct(self):
-        self.add(tag("PLANNED"))
+        self.add(part(self), tag("PLANNED"))
         btn = button(-3.9, -1.25)
         approve = lab("Approve", -3.9, -1.25, 40)
         caption = lab("Approve = plain code; the AI can't press it.", -1.6, -2.4, 36)
-        pk = card(7.1, 2.45, -2.6, 1.35)
+        pk = card(7.3, 2.45, -2.5, 1.35)
         lines = [lab_l(s, -5.85, y, 34) for s, y in zip(PACKET_LINES, (2.0, 1.35, 0.7))]
         changed = lab_l(PACKET_B.split("\n")[1], -5.85, 1.35, 34)
         changed.shift(np.array(lines[1][0].get_center()) - np.array(changed[0].get_center()))   # same baseline
@@ -568,10 +593,10 @@ class B11_Fingerprint(Scene):
                                     stroke_opacity=0).set_z_index(1)
         mark_new = SurroundingRectangle(new_word, buff=0.07, fill_color=BAR3, fill_opacity=1, stroke_width=0,
                                         stroke_opacity=0).set_z_index(1)
-        link = arrow([1.15, 1.35, 0], [1.95, 1.35, 0], tip=0.35)
-        fp_box = card(3.9, 0.95, 4.05, 1.35)
-        fp_lab = lab("fingerprint", 4.05, 2.25, 38)
-        prints = [Text(s, font="Menlo", color=INK, font_size=36).move_to([4.05, 1.35, 0]).set_z_index(2)
+        link = arrow([1.35, 1.35, 0], [2.1, 1.35, 0], tip=0.35)
+        fp_box = card(3.9, 0.95, 4.15, 1.35)
+        fp_lab = lab("fingerprint", 4.15, 2.25, 38)
+        prints = [Text(s, font="Menlo", color=INK, font_size=36).move_to([4.15, 1.35, 0]).set_z_index(2)
                   for s in (FP_A, *SCRAMBLE, FP_B)]
 
         go(self, None, FadeIn(btn), FadeIn(approve), rt=0.5)
@@ -601,6 +626,7 @@ class B12_Laptop(Scene):
         n_items = [(lab_l(s, 1.7, yy, 38), Square(side_length=0.36, fill_opacity=0, stroke_color=INK, stroke_width=4)
                     .move_to([1.3, yy, 0])) for s, yy in (("packet", -1.85), ("gate", -2.45))]
 
+        self.add(part(self))
         go(self, "my laptop", FadeIn(lap), FadeIn(words["laptop"]), rt=0.4)
         go(self, "free tools", FadeIn(dots[0]), FadeIn(words["free"]), rt=0.3)
         go(self, "no paid credits", FadeIn(dots[1]), FadeIn(words["credits"]), rt=0.3)
@@ -608,9 +634,8 @@ class B12_Laptop(Scene):
         go(self, "Built so far", FadeIn(built), rt=0.3)
         for (text, tick), cue in zip(b_items, ("the watcher", "the filter", "the scorer")):
             go(self, cue, FadeIn(text), Create(tick), rt=0.3)
-        go(self, "Next", FadeIn(nxt), rt=0.3)
-        for (text, box), cue in zip(n_items, ("the packet", "the gate")):
-            go(self, cue, FadeIn(text), FadeIn(box), rt=0.3)
+        # "Next: packet, gate" comes in right after "the scorer", so it stays on screen for at least 1.5 s.
+        go(self, None, FadeIn(nxt), *[FadeIn(m) for pair in n_items for m in pair], rt=0.35)
         hold(self)
 
 
@@ -628,6 +653,7 @@ class B13_Locked(Scene):
         l2 = lab_l("≈1 in 30 worth it", -1.4, -0.1, 40)
         l3 = lab_l("likely 0 or 1; exact count reported", -1.4, -1.3, 40)
 
+        self.add(part(self))
         go(self, None, FadeIn(base), FadeIn(box), FadeIn(lock), FadeIn(keyhole), FadeIn(shackle_open), FadeIn(l1), rt=0.4)
         go(self, "locked", FadeOut(shackle_open), FadeIn(shackle_shut, shift=DOWN * 0.25), FadeIn(seal), rt=0.4)
         go(self, "about one in thirty", FadeIn(l2), rt=0.4)
@@ -640,6 +666,7 @@ class B14_Checks(Scene):
         items = (("misses none", "misses none"), ("keeps at most two of the rest", "keeps at most two"),
                  ("every claim matches Alex's profile", "every claim"), ("every fingerprint matches", "every fingerprint"),
                  ("all five traps handled", "all five traps"))
+        self.add(part(self))
         for (text, cue), y in zip(items, (2.3, 1.4, 0.5, -0.4, -1.3)):
             box = Square(side_length=0.5, fill_color=CARD, fill_opacity=1, stroke_color=INK, stroke_width=5).move_to([-5.3, y, 0])
             go(self, cue, FadeIn(box), FadeIn(lab_l(text, -4.75, y, 40)), Create(check(-5.33, y, s=0.2, color=INK, w=7)), rt=0.45)
@@ -654,6 +681,7 @@ class B15_Traps(Scene):
         rows = [lab_l(s, -5.75, y, 32) for s, y in zip(TRAPS, ys)]
         marks = [Dot([-6.05, y, 0], radius=0.1, color=TERRA) for y in ys[:2]]       # the two spoken traps
 
+        self.add(part(self))
         go(self, None, LaggedStart(*[FadeIn(r) for r in rows], lag_ratio=0.15), rt=0.9)
         go(self, "Two:", *[r.animate.set_color(DIMTXT) for r in rows[2:]], rt=0.5)
         go(self, "a Staff title", FadeIn(marks[0], scale=0.5), rt=0.3)
@@ -663,7 +691,7 @@ class B15_Traps(Scene):
 
 class B16_Controlled(Scene):
     def construct(self):
-        self.add(tag("PLANNED"))
+        self.add(part(self), tag("PLANNED"))
         xs = (-5.0, -2.5, 0.0, 2.5, 5.0)
         names = ("predict", "change packet", "caught", "refused", "re-approve")
         cues = ("I write the expected", "Then I change", "A separate check", "refuse it", "make me approve")
