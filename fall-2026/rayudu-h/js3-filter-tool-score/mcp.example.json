@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "jsagent": {
+      "type": "stdio",
+      "command": "/ABSOLUTE/PATH/TO/js3-filter-tool-score/.venv/bin/python",
+      "args": [
+        "/ABSOLUTE/PATH/TO/js3-filter-tool-score/scripts/mcp_tap.py",
+        "--log", "/ABSOLUTE/PATH/TO/js3-filter-tool-score/transcripts/claude-try-server-side.jsonl",
+        "--",
+        "/ABSOLUTE/PATH/TO/js3-filter-tool-score/.venv/bin/python",
+        "/ABSOLUTE/PATH/TO/js3-filter-tool-score/scripts/run_mcp_server.py"
+      ]
+    }
+  }
+}
