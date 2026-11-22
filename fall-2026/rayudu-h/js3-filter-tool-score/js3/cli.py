@@ -112,6 +112,18 @@ def cmd_label(a) -> int:
     return 0
 
 
+def cmd_shortlist(a) -> int:
+    from . import shortlist
+    out = shortlist.build()
+    d = ROOT / "shortlist"
+    d.mkdir(exist_ok=True)
+    (d / "claims.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+    for e in out["entries"]:
+        bad = sum(1 for c in e["claims"] if not c["valid"])
+        print(f"{e['answer']['answer']:<15} {e['score']:>4} {e['title'][:60]:<60} invalid={bad} {e['models_used']}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -121,6 +133,8 @@ def main(argv=None) -> int:
     sp.set_defaults(fn=cmd_sample)
     sub.add_parser("audit", help="recompute the reject audit from the committed files").set_defaults(
         fn=lambda a: (print(__import__("js3.audit", fromlist=["run"]).run()), 0)[1])
+    sub.add_parser("shortlist", help="top-N kept postings, every claim labeled by Claude with a checked quote"
+                   ).set_defaults(fn=cmd_shortlist)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
