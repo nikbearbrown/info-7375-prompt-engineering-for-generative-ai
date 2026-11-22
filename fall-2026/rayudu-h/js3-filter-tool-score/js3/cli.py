@@ -85,6 +85,33 @@ def cmd_sample(a) -> int:
     return 0
 
 
+def cmd_label(a) -> int:
+    """Record Hemanth's verdicts, as given in chat, e.g.  1n 2y 3? 7n:too-senior"""
+    import csv
+    import re as _re
+    from .labeling import VERDICTS
+    path = ROOT / "audit" / "labels.csv"
+    rows = list(csv.DictReader(open(path, newline="")))
+    by_item = {int(r["item"]): r for r in rows}
+    stamp = dt.datetime.now().astimezone().isoformat(timespec="seconds")
+    for tok in a.verdicts:
+        m = _re.fullmatch(r"(\d+)([yn?])(?::(.*))?", tok.strip())
+        if not m:
+            raise SystemExit(f"cannot read {tok!r} (expected e.g. 3y, 4n, 5?, 7n:reason)")
+        item, v, note = int(m.group(1)), VERDICTS[m.group(2)], (m.group(3) or "").replace("-", " ")
+        row = by_item[item]
+        if row["verdict"] and row["verdict"] != v and not a.change:
+            raise SystemExit(f"item {item} already labeled {row['verdict']!r}; use --change to change it")
+        row.update(verdict=v, note=note or row.get("note", ""), labeled_at=stamp)
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["item", "key", "verdict", "note", "labeled_at"])
+        w.writeheader()
+        w.writerows(rows)
+    done = sum(1 for r in rows if r["verdict"])
+    print(f"recorded {len(a.verdicts)} verdicts at {stamp}; {done}/{len(rows)} labeled")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -92,6 +119,10 @@ def main(argv=None) -> int:
     sp = sub.add_parser("sample", help="draw the held-out and audit samples; write the blind labeling sheet")
     sp.add_argument("--version", default="1.0")
     sp.set_defaults(fn=cmd_sample)
+    lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
+    lp.add_argument("verdicts", nargs="+")
+    lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
+    lp.set_defaults(fn=cmd_label)
     a = ap.parse_args(argv)
     return a.fn(a)
 
