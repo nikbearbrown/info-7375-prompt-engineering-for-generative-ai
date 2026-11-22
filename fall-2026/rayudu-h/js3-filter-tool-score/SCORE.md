@@ -64,6 +64,7 @@ The baseline is JS1's judge as-is: prompt v2, context = titles + skills, model `
 | **E2** | **the prompt:** v2 → v3, where the rule paragraph is replaced by the labeling question "is this posting worth the candidate's time to read in full?" | claude-sonnet-5-5 | **21** | 38%–67% | **0** | 0 | **19** | 21 | **21** |
 | E3 | **the context:** adds education, months of experience, target roles, Boston, open to remote, needs sponsorship (no contact fields) | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 |
 | E4 | **a setting:** model `sonnet` → `haiku` | claude-haiku-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 |
+| **E5** | **the context, under prompt v3:** E2 plus the same profile fields as E3. One change from **E2**; added after the first round (Nov 22, 6:11–6:12 PM) | claude-sonnet-5-5 | 21 | 38%–67% | 0 | 0 | 19 | 21 | **0 (vs E2)** |
 
 All 200 answers passed the output contract; there were no abstentions and no invalid answers. The raw records, with prompt hashes, times and the model each call reported, are in `experiments/E*.jsonl`.
 
@@ -76,7 +77,12 @@ All 200 answers passed the output contract; there were no abstentions and no inv
   - Agreement fell from 28 to 21, with only 40 postings and overlapping intervals. But all 21 flips went the same way, against a noise floor of zero.
 - **The context and the model moved nothing (0 flips each).** Prompt v2 makes the verdict a rule: title words, skills, management words, "Location never decides". Both models applied it identically, and the rule gives the extra context nothing to act on.
   - So "context doesn't matter" is **not** what this shows. It shows that context can't matter **under a rule-bound prompt**.
-  - Testing context under v3 would be a second change (prompt and context together), so it wasn't run.
+- **E5 tested the context where it could matter, under the open prompt.** That's one change from E2, defined and committed before it ran.
+  - The verdicts didn't move: 0 flips, still "not relevant" for all 40.
+  - **The reasons and the certainty did move.** Confidence went from medium to high on 14 postings (high: 23 → 37 of 40).
+  - The justifications now cite the new context: "8 months" in 33 of them, the target roles in 29, sponsorship in 13. In E2, 1 justification mentioned sponsorship.
+  - Example: "matches the candidate's secondary target (Data Engineer)… But the content asks for '7+ years of experience' and the candidate has 8 months."
+  - **More context made Claude surer of the same answer.** It didn't bring Claude any closer to Hemanth's judgment.
 - **The filter (27/40) and the v2 judge (28/40) are nearly the same instrument.** v2 embeds JS1's rule, which overlaps the filter. With 40 postings the two can't be told apart (intervals 52%–80% and 55%–82%).
 - **Not done:** changing the **tool list** (e.g. Claude with and without `search_new_postings`). No run measured it.
 

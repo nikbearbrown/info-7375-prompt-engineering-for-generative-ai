@@ -26,12 +26,13 @@ Threshold fit table (audit labels, threshold-decided postings only):
 
 ## Claude-judge changes (one object at a time; each run is 40 fresh `claude -p` calls)
 
-| exp | change | model used | agree / 40 | Wilson 95% | TP | FP | FN | TN | abstain | invalid | flips vs E0a |
+| exp | change | model used | agree / 40 | Wilson 95% | TP | FP | FN | TN | abstain | invalid | flips vs its baseline |
 |---|---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|
 | E0a | baseline (run 1) | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | — |
-| E0b | baseline (run 2): same everything | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 |
-| E2 | the prompt: v2 -> v3 | claude-sonnet-5-5 | 21 | 38%–67% | 0 | 0 | 19 | 21 | 0 | 0 | 21 |
-| E3 | the context: + profile fields | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 |
-| E4 | a setting: model sonnet -> haiku | claude-haiku-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 |
+| E0b | baseline (run 2): same everything | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 (vs E0a) |
+| E2 | the prompt: v2 -> v3 | claude-sonnet-5-5 | 21 | 38%–67% | 0 | 0 | 19 | 21 | 0 | 0 | 21 (vs E0a) |
+| E3 | the context: + profile fields | claude-sonnet-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 (vs E0a) |
+| E4 | a setting: model sonnet -> haiku | claude-haiku-5-5 | 28 | 55%–82% | 14 | 7 | 5 | 14 | 0 | 0 | 0 (vs E0a) |
+| E5 | the context, under prompt v3: + profile fields | claude-sonnet-5-5 | 21 | 38%–67% | 0 | 0 | 19 | 21 | 0 | 0 | 0 (vs E2) |
 
-Calls made from 2026-11-22T17:38:37-05:00 to 2026-11-22T17:43:07-05:00.
+Calls made from 2026-11-22T17:38:37-05:00 to 2026-11-22T18:12:25-05:00.

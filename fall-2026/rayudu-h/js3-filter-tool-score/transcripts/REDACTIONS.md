@@ -4,6 +4,8 @@ Written by `scripts/redact_transcripts.py` (running totals in `redactions.json`)
 
 | file | replaced |
 |---|---|
+| SEEDED-injection-2026-11-22T181241-client-side.jsonl | home path: 1, rate_limit_info: 1, total_cost_usd: 1, credential_expires_at: 1 |
+| SEEDED-injection-2026-11-22T181241-server-side.jsonl | home path: 2 |
 | claude-2026-11-22T161613-client-side.jsonl | credential_expires_at: 1, home path: 3, rate_limit_info: 1, total_cost_usd: 1 |
 | claude-2026-11-22T161613-server-side.jsonl | home path: 2 |
 | claude-2026-11-22T161733-client-side.jsonl | credential_expires_at: 1, home path: 3, rate_limit_info: 1, total_cost_usd: 1 |
