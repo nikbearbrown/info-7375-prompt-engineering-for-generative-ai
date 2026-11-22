@@ -5,6 +5,7 @@ Claude-judge experiments (each one call per held-out posting, a fresh `claude -p
     E2        the prompt:   v2 -> v3 (the rule paragraph replaced by the labeling question)
     E3        the context:  titles + skills -> plus education, target roles, location, remote, sponsorship
     E4        a setting:    model sonnet -> haiku
+    E5        the context again, but under prompt v3 (one change from E2, added after the first round)
 Filter-file experiments (deterministic, no Claude):
     E1a       FILTER.md v1.0 -> v1.1 (the accepted X1)
     E1b       v1.1 with the threshold fitted on the AUDIT labels (never the held-out ones)
@@ -30,6 +31,9 @@ CONFIGS = {
     "E2": {"prompt": "v3", "context": "titles+skills", "model": "sonnet", "what": "the prompt: v2 -> v3"},
     "E3": {"prompt": "v2", "context": "profile", "model": "sonnet", "what": "the context: + profile fields"},
     "E4": {"prompt": "v2", "context": "titles+skills", "model": "haiku", "what": "a setting: model sonnet -> haiku"},
+    # added after the first round (Nov 22): context under the open prompt; ONE change from E2, not from E0a
+    "E5": {"prompt": "v3", "context": "profile", "model": "sonnet", "what": "the context, under prompt v3: + profile fields",
+           "base": "E2"},
 }
 # From persona/priya-nair.resume.json and persona/priya-nair.profile.yml (fictional). No contact fields.
 PROFILE_EXTRA = {
@@ -149,13 +153,14 @@ def report() -> str:
 
     L += ["", "## Claude-judge changes (one object at a time; each run is 40 fresh `claude -p` calls)", "",
           "| exp | change | model used | agree / 40 | Wilson 95% | TP | FP | FN | TN | abstain | invalid | "
-          "flips vs E0a |", "|---|---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|"]
+          "flips vs its baseline |", "|---|---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|"]
     runs = {e: load_run(e) for e in CONFIGS if (EXP_DIR / f"{e}.jsonl").exists()}
-    base = {k: r["verdict"] for k, r in runs.get("E0a", {}).items()}
     for e, recs in runs.items():
+        base_name = CONFIGS[e].get("base", "E0a")
+        base = {k: r["verdict"] for k, r in runs.get(base_name, {}).items()}
         pred = {k: r["verdict"] for k, r in recs.items()}
         m = agreement(pred, labels)
-        flips = sum(1 for k in keys if base and pred.get(k) != base.get(k))
+        flips = f"{sum(1 for k in keys if base and pred.get(k) != base.get(k))} (vs {base_name})"
         used = sorted({u for r in recs.values() for u in r["models_used"]})
         L.append(f"| {e} | {CONFIGS[e]['what']} | {', '.join(used)} | {m['agree']} | "
                  f"{m['agree_ci'][0]:.0%}–{m['agree_ci'][1]:.0%} | {m['TP']} | {m['FP']} | {m['FN']} | {m['TN']} | "

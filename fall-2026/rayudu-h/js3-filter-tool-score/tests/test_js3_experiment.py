@@ -6,12 +6,13 @@ from js3 import experiment
 from jsagent import resume as resume_mod
 
 
-def test_each_experiment_changes_exactly_one_object_from_the_baseline():
+def test_each_experiment_changes_exactly_one_object_from_its_baseline():
     base = experiment.CONFIGS["E0a"]
     assert experiment.CONFIGS["E0b"] == {**base, "what": experiment.CONFIGS["E0b"]["what"]}
-    for name in ("E2", "E3", "E4"):
+    for name in ("E2", "E3", "E4", "E5"):
         cfg = experiment.CONFIGS[name]
-        changed = [k for k in ("prompt", "context", "model") if cfg[k] != base[k]]
+        ref = experiment.CONFIGS[cfg.get("base", "E0a")]
+        changed = [k for k in ("prompt", "context", "model") if cfg[k] != ref[k]]
         assert len(changed) == 1, (name, changed)
 
 
