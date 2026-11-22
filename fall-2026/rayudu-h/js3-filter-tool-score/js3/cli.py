@@ -119,6 +119,8 @@ def main(argv=None) -> int:
     sp = sub.add_parser("sample", help="draw the held-out and audit samples; write the blind labeling sheet")
     sp.add_argument("--version", default="1.0")
     sp.set_defaults(fn=cmd_sample)
+    sub.add_parser("audit", help="recompute the reject audit from the committed files").set_defaults(
+        fn=lambda a: (print(__import__("js3.audit", fromlist=["run"]).run()), 0)[1])
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
