@@ -90,7 +90,7 @@ def cmd_label(a) -> int:
     import csv
     import re as _re
     from .labeling import VERDICTS
-    path = ROOT / "audit" / "labels.csv"
+    path = ROOT / a.file
     rows = list(csv.DictReader(open(path, newline="")))
     by_item = {int(r["item"]): r for r in rows}
     stamp = dt.datetime.now().astimezone().isoformat(timespec="seconds")
@@ -149,6 +149,18 @@ def cmd_experiment(a) -> int:
     return 0
 
 
+def cmd_x1test(a) -> int:
+    from . import x1test
+    if a.action == "draw":
+        out = x1test.draw()
+        print(json.dumps(out["population"]))
+    else:
+        text = x1test.report()
+        (ROOT / "audit" / "x1-results.md").write_text(text)
+        print(text)
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -166,9 +178,13 @@ def main(argv=None) -> int:
     ep.add_argument("action", choices=["run", "report"])
     ep.add_argument("names", nargs="*")
     ep.set_defaults(fn=cmd_experiment)
+    xp = sub.add_parser("x1test", help="out-of-sample test of X1: draw | report")
+    xp.add_argument("action", choices=["draw", "report"])
+    xp.set_defaults(fn=cmd_x1test)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
+    lp.add_argument("--file", default="audit/labels.csv", help="which labels file (audit/x1-labels.csv for the X1 test)")
     lp.set_defaults(fn=cmd_label)
     a = ap.parse_args(argv)
     return a.fn(a)
