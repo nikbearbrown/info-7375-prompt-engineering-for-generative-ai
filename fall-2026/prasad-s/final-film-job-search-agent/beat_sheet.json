@@ -2,9 +2,34 @@
   "metadata": {
     "slug": "job-search-agent-film",
     "title": "WorthLoop",
+    "topic": "WORTHLOOP · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "worthloop",
     "voice_kokoro": "am_onyx",
     "engine": "kokoro",
-    "source_doc": "NARRATION.md (this folder)"
+    "clock": "narration",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Course final project film, not a channel episode: it opens on its own opening card (B1) instead of a composer cold open, has no verdict card and no Your Turn composer, and carries no channel handle or persona. It ends on its own end card (B17), not a BOUT outro, which bookend_check.py cannot exempt; that script is not called by art run or art final.",
+    "audience": "INFO 7375 reviewers of the final project",
+    "source_doc": "NARRATION.md (this folder)",
+    "build": {
+      "at": "2026-11-22T14:58:34",
+      "cut": "review",
+      "filled": 17,
+      "of": 17,
+      "slates": [],
+      "skin_warnings": []
+    }
   },
   "beats": [
     {
@@ -20,6 +45,40 @@
           "from": "pɹˈæsæd",
           "to": "pɹəsˈɑːd"
         }
+      },
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Opening card for the whole beat: 'WorthLoop · Prasad Shinde' / 'Narration: synthetic voice (Kokoro am_onyx). Words: Prasad Shinde.'",
+        "show": [
+          {
+            "cue": null,
+            "event": "both card lines, from the first frame"
+          },
+          {
+            "cue": null,
+            "event": "an ink rule and a dot draw in"
+          }
+        ],
+        "manim": {
+          "class": "B1_OpeningCard",
+          "tag": ""
+        },
+        "motion_claim": "Opening card for the whole beat: 'WorthLoop · Prasad Shinde' / 'Narration: synthetic voice (Kokoro am_onyx). Words: Prasad Shinde.'"
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 10.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B1.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
       }
     },
     {
@@ -28,7 +87,61 @@
       "estimated_duration_s": 14.4,
       "engine": "kokoro",
       "actual_duration_s": 11.99,
-      "audio_file": "mp3/beat-B2.mp3"
+      "audio_file": "mp3/beat-B2.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A posting becomes a packet (posting, answers, why it fits); an Approve button; a 'Never submits' stamp.",
+        "show": [
+          {
+            "cue": null,
+            "event": "a posting on a dark plinth"
+          },
+          {
+            "cue": "drafts a packet",
+            "event": "a shallow packet tray"
+          },
+          {
+            "cue": "the posting",
+            "event": "the posting moves into the tray"
+          },
+          {
+            "cue": "the answers",
+            "event": "an answers page drops in"
+          },
+          {
+            "cue": "why it fits",
+            "event": "a why-it-fits page drops in"
+          },
+          {
+            "cue": "The person approves",
+            "event": "Approve button, cursor"
+          },
+          {
+            "cue": "WorthLoop never",
+            "event": "'Never submits' stamp"
+          }
+        ],
+        "manim": {
+          "class": "B2_Packet",
+          "tag": "ILLUSTRATION"
+        },
+        "motion_claim": "A posting becomes a packet (posting, answers, why it fits); an Approve button; a 'Never submits' stamp."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 12.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B2.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B3",
@@ -36,7 +149,53 @@
       "estimated_duration_s": 17.2,
       "engine": "kokoro",
       "actual_duration_s": 17.13,
-      "audio_file": "mp3/beat-B3.mp3"
+      "audio_file": "mp3/beat-B3.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "'≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
+        "show": [
+          {
+            "cue": null,
+            "event": "a job ad"
+          },
+          {
+            "cue": "hiring is flooded",
+            "event": "an application pile starts"
+          },
+          {
+            "cue": "In July 2026",
+            "event": "source line"
+          },
+          {
+            "cue": "about 254",
+            "event": "the number counts up to ≈254 as pages pile up"
+          },
+          {
+            "cue": "employers drown",
+            "event": "more applications pile on"
+          }
+        ],
+        "manim": {
+          "class": "B3_Flood",
+          "tag": ""
+        },
+        "motion_claim": "'≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 17.166666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B3.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B4",
@@ -44,7 +203,53 @@
       "estimated_duration_s": 10.0,
       "engine": "kokoro",
       "actual_duration_s": 8.6,
-      "audio_file": "mp3/beat-B4.mp3"
+      "audio_file": "mp3/beat-B4.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', source line 'Washington Post, Mar 2026'.",
+        "show": [
+          {
+            "cue": null,
+            "event": "group header"
+          },
+          {
+            "cue": "Employers say",
+            "event": "an application form"
+          },
+          {
+            "cue": "wrong information",
+            "event": "values drop into the fields; 'wrong info'"
+          },
+          {
+            "cue": "wrong fields",
+            "event": "a cross beside each field; 'wrong fields'"
+          },
+          {
+            "cue": "One company",
+            "event": "'snake oil' and its source line"
+          }
+        ],
+        "manim": {
+          "class": "B4_ApplyTools",
+          "tag": ""
+        },
+        "motion_claim": "Group 1, 'Tools that apply for you': wrong info, wrong fields; 'snake oil', source line 'Washington Post, Mar 2026'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 8.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B4.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B5",
@@ -52,7 +257,53 @@
       "estimated_duration_s": 9.2,
       "engine": "kokoro",
       "actual_duration_s": 10.28,
-      "audio_file": "mp3/beat-B5.mp3"
+      "audio_file": "mp3/beat-B5.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken; source line 'career-ops README'. Bar widths are not to scale; each bar is labeled with its number.",
+        "show": [
+          {
+            "cue": null,
+            "event": "group header"
+          },
+          {
+            "cue": "One checked",
+            "event": "740 listings bar; source line"
+          },
+          {
+            "cue": "68",
+            "event": "bar shrinks: 68 applications"
+          },
+          {
+            "cue": "12 interviews",
+            "event": "bar shrinks: 12 interviews"
+          },
+          {
+            "cue": "one offer",
+            "event": "bar shrinks: 1 offer"
+          }
+        ],
+        "manim": {
+          "class": "B5_Funnel",
+          "tag": ""
+        },
+        "motion_claim": "Group 2, 'Open-source agents': the career-ops funnel 740 → 68 → 12 → 1, each bar shrinking as its number is spoken; source line 'career-ops README'. Bar widths are not to scale; each bar is labeled with its number."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 10.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B5.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B6",
@@ -60,7 +311,53 @@
       "estimated_duration_s": 15.6,
       "engine": "kokoro",
       "actual_duration_s": 13.14,
-      "audio_file": "mp3/beat-B6.mp3"
+      "audio_file": "mp3/beat-B6.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Group 3, 'Approval checks from AI payments': AP2's rule, quoted as AP2's; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'.",
+        "show": [
+          {
+            "cue": null,
+            "event": "group header"
+          },
+          {
+            "cue": "One standard",
+            "event": "AP2's rule, quoted, with its source line"
+          },
+          {
+            "cue": "In October",
+            "event": "'Oct: payments pitch'"
+          },
+          {
+            "cue": "others built",
+            "event": "AsAsked and Mandate Shield"
+          },
+          {
+            "cue": "so I carried",
+            "event": "arrow to 'job applications'"
+          }
+        ],
+        "manim": {
+          "class": "B6_PaymentChecks",
+          "tag": ""
+        },
+        "motion_claim": "Group 3, 'Approval checks from AI payments': AP2's rule, quoted as AP2's; AsAsked and Mandate Shield named; 'Oct: payments pitch → job applications'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 13.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B6.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B7",
@@ -68,7 +365,53 @@
       "estimated_duration_s": 16.8,
       "engine": "kokoro",
       "actual_duration_s": 13.03,
-      "audio_file": "mp3/beat-B7.mp3"
+      "audio_file": "mp3/beat-B7.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The two 'not found' lines; then 'My last test: missed the one worth-it posting — read 'prefers 5+ years' as a rule', the posting sliding past the filter as it's spoken; source line 'JS3 held-out test · MEASURE.md'.",
+        "show": [
+          {
+            "cue": "a test locked",
+            "event": "Not found: a test locked before tuning"
+          },
+          {
+            "cue": "or approval tied",
+            "event": "Not found: approval tied to the exact packet"
+          },
+          {
+            "cue": "My last test",
+            "event": "track, filter, the worth-it posting, first test line, source line"
+          },
+          {
+            "cue": "missed the one",
+            "event": "the posting slides past the filter"
+          },
+          {
+            "cue": "reading",
+            "event": "second test line"
+          }
+        ],
+        "manim": {
+          "class": "B7_NotFound",
+          "tag": ""
+        },
+        "motion_claim": "The two 'not found' lines; then 'My last test: missed the one worth-it posting — read 'prefers 5+ years' as a rule', the posting sliding past the filter as it's spoken; source line 'JS3 held-out test · MEASURE.md'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 13.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B7.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B8",
@@ -76,7 +419,41 @@
       "estimated_duration_s": 10.0,
       "engine": "kokoro",
       "actual_duration_s": 8.85,
-      "audio_file": "mp3/beat-B8.mp3"
+      "audio_file": "mp3/beat-B8.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Alex Rivera card, labeled FICTIONAL; the four boards: Stripe, Robinhood, Duolingo (Greenhouse), Notion (Ashby).",
+        "show": [
+          {
+            "cue": "Alex Rivera",
+            "event": "Alex Rivera card"
+          },
+          {
+            "cue": "It reads",
+            "event": "the four boards under Greenhouse and Ashby"
+          }
+        ],
+        "manim": {
+          "class": "B8_Alex",
+          "tag": "FICTIONAL"
+        },
+        "motion_claim": "Alex Rivera card, labeled FICTIONAL; the four boards: Stripe, Robinhood, Duolingo (Greenhouse), Notion (Ashby)."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 8.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B8.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B9",
@@ -84,7 +461,69 @@
       "estimated_duration_s": 16.0,
       "engine": "kokoro",
       "actual_duration_s": 14.57,
-      "audio_file": "mp3/beat-B9.mp3"
+      "audio_file": "mp3/beat-B9.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "An evidence card laid out by condition: Title (C1), Place (C2), then C4 with Level and Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'.",
+        "show": [
+          {
+            "cue": "Here is one",
+            "event": "the evidence card"
+          },
+          {
+            "cue": "title fits",
+            "event": "Title (C1) ✓"
+          },
+          {
+            "cue": "level fits",
+            "event": "C4, Level ✓"
+          },
+          {
+            "cue": "place fits",
+            "event": "Place (C2) ✓"
+          },
+          {
+            "cue": "years fit",
+            "event": "Years ✓"
+          },
+          {
+            "cue": "It will become",
+            "event": "→ packet (planned)"
+          },
+          {
+            "cue": "the posting, draft",
+            "event": "a page drops into the packet"
+          },
+          {
+            "cue": "draft answers",
+            "event": "a page drops in"
+          },
+          {
+            "cue": "and the evidence",
+            "event": "a page drops in"
+          }
+        ],
+        "manim": {
+          "class": "B9_Evidence",
+          "tag": "CONSTRUCTED"
+        },
+        "motion_claim": "An evidence card laid out by condition: Title (C1), Place (C2), then C4 with Level and Years beneath it. Its lines are revealed in spoken order: Title ✓, Level ✓, Place ✓, Years ✓. Then '→ packet (planned)'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 14.583333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B9.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B10",
@@ -92,7 +531,57 @@
       "estimated_duration_s": 14.0,
       "engine": "kokoro",
       "actual_duration_s": 10.52,
-      "audio_file": "mp3/beat-B10.mp3"
+      "audio_file": "mp3/beat-B10.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Claude → plug (MCP) → scorer, the plug connecting as it's named; 'rules in code'; '10 requests' and '60 s' as two limit chips.",
+        "show": [
+          {
+            "cue": null,
+            "event": "Claude"
+          },
+          {
+            "cue": "the scorer",
+            "event": "the scorer and its socket"
+          },
+          {
+            "cue": "through a standard plug",
+            "event": "the plug (MCP) appears and connects; a light turns on"
+          },
+          {
+            "cue": "Rules in the code",
+            "event": "rules in code"
+          },
+          {
+            "cue": "ten requests",
+            "event": "chip: 10 requests"
+          },
+          {
+            "cue": "sixty seconds",
+            "event": "chip: 60 s"
+          }
+        ],
+        "manim": {
+          "class": "B10_Plug",
+          "tag": ""
+        },
+        "motion_claim": "Claude → plug (MCP) → scorer, the plug connecting as it's named; 'rules in code'; '10 requests' and '60 s' as two limit chips."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 10.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B11",
@@ -100,7 +589,57 @@
       "estimated_duration_s": 14.0,
       "engine": "kokoro",
       "actual_duration_s": 11.2,
-      "audio_file": "mp3/beat-B11.mp3"
+      "audio_file": "mp3/beat-B11.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). 'Approve = plain code; the AI can't press it.'",
+        "show": [
+          {
+            "cue": null,
+            "event": "Approve button"
+          },
+          {
+            "cue": "plain code",
+            "event": "'Approve = plain code; the AI can't press it.'"
+          },
+          {
+            "cue": "The approval will be tied",
+            "event": "the example packet"
+          },
+          {
+            "cue": "fingerprint of the packet",
+            "event": "→ fingerprint"
+          },
+          {
+            "cue": "change one word",
+            "event": "one word highlighted, then changed"
+          },
+          {
+            "cue": "and the fingerprint changes",
+            "event": "the fingerprint scrambles into the new one"
+          }
+        ],
+        "manim": {
+          "class": "B11_Fingerprint",
+          "tag": "PLANNED"
+        },
+        "motion_claim": "Packet → fingerprint. One word in the packet is highlighted and changed, and the fingerprint scrambles into a different one. The two fingerprints are the real SHA-256 of the two example packet texts, trimmed to 12 characters (computed in scenes.py). 'Approve = plain code; the AI can't press it.'"
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 11.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B12",
@@ -108,7 +647,77 @@
       "estimated_duration_s": 13.2,
       "engine": "kokoro",
       "actual_duration_s": 10.71,
-      "audio_file": "mp3/beat-B12.mp3"
+      "audio_file": "mp3/beat-B12.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate.",
+        "show": [
+          {
+            "cue": "my laptop",
+            "event": "laptop; 'Laptop'"
+          },
+          {
+            "cue": "free tools",
+            "event": "'free tools'"
+          },
+          {
+            "cue": "no paid credits",
+            "event": "'no paid credits'"
+          },
+          {
+            "cue": "Claude comes",
+            "event": "'Claude via university'"
+          },
+          {
+            "cue": "Built so far",
+            "event": "Built"
+          },
+          {
+            "cue": "the watcher",
+            "event": "✓ watcher"
+          },
+          {
+            "cue": "the filter",
+            "event": "✓ filter"
+          },
+          {
+            "cue": "the scorer",
+            "event": "✓ scorer"
+          },
+          {
+            "cue": "Next",
+            "event": "Next"
+          },
+          {
+            "cue": "the packet",
+            "event": "packet"
+          },
+          {
+            "cue": "the gate",
+            "event": "gate"
+          }
+        ],
+        "manim": {
+          "class": "B12_Laptop",
+          "tag": ""
+        },
+        "motion_claim": "'Laptop · free tools · no paid credits · Claude via university'; Built ✓ watcher, filter, scorer; Next: packet, gate."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 10.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B13",
@@ -116,7 +725,49 @@
       "estimated_duration_s": 22.0,
       "engine": "kokoro",
       "actual_duration_s": 15.74,
-      "audio_file": "mp3/beat-B13.mp3"
+      "audio_file": "mp3/beat-B13.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A locked box: '20 postings, sealed Nov 15'; '≈1 in 30 worth it'; 'likely 0 or 1; exact count reported'.",
+        "show": [
+          {
+            "cue": null,
+            "event": "the box, open lock, '20 postings, sealed Nov 15'"
+          },
+          {
+            "cue": "locked",
+            "event": "the lock closes; tape seals it"
+          },
+          {
+            "cue": "about one in thirty",
+            "event": "'≈1 in 30 worth it'"
+          },
+          {
+            "cue": "none, or one",
+            "event": "'likely 0 or 1; exact count reported'"
+          }
+        ],
+        "manim": {
+          "class": "B13_Locked",
+          "tag": ""
+        },
+        "motion_claim": "A locked box: '20 postings, sealed Nov 15'; '≈1 in 30 worth it'; 'likely 0 or 1; exact count reported'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 15.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B14",
@@ -124,7 +775,57 @@
       "estimated_duration_s": 16.4,
       "engine": "kokoro",
       "actual_duration_s": 13.46,
-      "audio_file": "mp3/beat-B14.mp3"
+      "audio_file": "mp3/beat-B14.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The five pass checks, ticking in as the narration lists them; closing line 'any one fails → it didn't work'.",
+        "show": [
+          {
+            "cue": "misses none",
+            "event": "✓ misses none"
+          },
+          {
+            "cue": "keeps at most two",
+            "event": "✓ keeps at most two of the rest"
+          },
+          {
+            "cue": "every claim",
+            "event": "✓ every claim matches Alex's profile"
+          },
+          {
+            "cue": "every fingerprint",
+            "event": "✓ every fingerprint matches"
+          },
+          {
+            "cue": "all five traps",
+            "event": "✓ all five traps handled"
+          },
+          {
+            "cue": "One failure",
+            "event": "any one fails → it didn't work"
+          }
+        ],
+        "manim": {
+          "class": "B14_Checks",
+          "tag": ""
+        },
+        "motion_claim": "The five pass checks, ticking in as the narration lists them; closing line 'any one fails → it didn't work'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 13.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B15",
@@ -132,7 +833,49 @@
       "estimated_duration_s": 19.6,
       "engine": "kokoro",
       "actual_duration_s": 15.21,
-      "audio_file": "mp3/beat-B15.mp3"
+      "audio_file": "mp3/beat-B15.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "All five traps with their right answers, as in OUTLINE.md Part 4; the two spoken ones (Staff, 'prefers 5+ years') highlighted, the other three dimmed but readable.",
+        "show": [
+          {
+            "cue": null,
+            "event": "the five traps and their answers"
+          },
+          {
+            "cue": "Two:",
+            "event": "the three unspoken traps dim"
+          },
+          {
+            "cue": "a Staff title",
+            "event": "the Staff trap is marked"
+          },
+          {
+            "cue": "And \"prefers",
+            "event": "the 'prefers 5+ years' trap is marked"
+          }
+        ],
+        "manim": {
+          "class": "B15_Traps",
+          "tag": ""
+        },
+        "motion_claim": "All five traps with their right answers, as in OUTLINE.md Part 4; the two spoken ones (Staff, 'prefers 5+ years') highlighted, the other three dimmed but readable."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 15.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B16",
@@ -140,7 +883,61 @@
       "estimated_duration_s": 18.8,
       "engine": "kokoro",
       "actual_duration_s": 14.14,
-      "audio_file": "mp3/beat-B16.mp3"
+      "audio_file": "mp3/beat-B16.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Five steps light up in order: predict → change packet → caught → refused → re-approve; then 'Stranger run: clean machine'.",
+        "show": [
+          {
+            "cue": null,
+            "event": "five unlit steps"
+          },
+          {
+            "cue": "I write the expected",
+            "event": "predict"
+          },
+          {
+            "cue": "Then I change",
+            "event": "change packet"
+          },
+          {
+            "cue": "A separate check",
+            "event": "caught"
+          },
+          {
+            "cue": "refuse it",
+            "event": "refused"
+          },
+          {
+            "cue": "make me approve",
+            "event": "re-approve"
+          },
+          {
+            "cue": "Last, someone",
+            "event": "laptop; 'Stranger run: clean machine'"
+          }
+        ],
+        "manim": {
+          "class": "B16_Controlled",
+          "tag": "PLANNED"
+        },
+        "motion_claim": "Five steps light up in order: predict → change packet → caught → refused → re-approve; then 'Stranger run: clean machine'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 14.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     },
     {
       "beat_id": "B17",
@@ -148,7 +945,45 @@
       "estimated_duration_s": 8.8,
       "engine": "kokoro",
       "actual_duration_s": 6.74,
-      "audio_file": "mp3/beat-B17.mp3"
+      "audio_file": "mp3/beat-B17.mp3",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "End card: 'WorthLoop · INFO 7375 Final Project Film · Nov 2026', fading slowly to black as the line ends.",
+        "show": [
+          {
+            "cue": null,
+            "event": "the end card, from the first frame"
+          },
+          {
+            "cue": null,
+            "event": "an ink rule and a dot draw in"
+          },
+          {
+            "cue": null,
+            "event": "a slow fade to black over about the last 1.6 s"
+          }
+        ],
+        "manim": {
+          "class": "B17_End",
+          "tag": ""
+        },
+        "motion_claim": "End card: 'WorthLoop · INFO 7375 Final Project Film · Nov 2026', fading slowly to black as the line ends."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 6.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T14:58:34"
+      }
     }
   ]
 }
