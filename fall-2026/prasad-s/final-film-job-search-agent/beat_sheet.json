@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "slug": "job-search-agent-film",
+    "title": "WorthLoop",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "source_doc": "NARRATION.md (this folder)"
+  },
+  "beats": [
+    {
+      "beat_id": "B1",
+      "narration_text": "I'm Prasad. I'm building WorthLoop, an agent that watches job boards for one person. It judges each new posting, and it prepares an application only for the ones worth their time.",
+      "estimated_duration_s": 12.4,
+      "engine": "kokoro",
+      "actual_duration_s": 10.52,
+      "audio_file": "mp3/beat-B1.mp3",
+      "tts_phoneme_overrides": {
+        "Prasad": {
+          "count": 1,
+          "from": "pɹˈæsæd",
+          "to": "pɹəsˈɑːd"
+        }
+      }
+    },
+    {
+      "beat_id": "B2",
+      "narration_text": "For a posting that passes, it shows its evidence and drafts a packet: the posting, the answers, and why it fits. The person approves that exact packet, or it goes nowhere. WorthLoop never submits anything itself.",
+      "estimated_duration_s": 14.4,
+      "engine": "kokoro",
+      "actual_duration_s": 11.99,
+      "audio_file": "mp3/beat-B2.mp3"
+    },
+    {
+      "beat_id": "B3",
+      "narration_text": "Why it matters: hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.",
+      "estimated_duration_s": 17.2,
+      "engine": "kokoro",
+      "actual_duration_s": 17.13,
+      "audio_file": "mp3/beat-B3.mp3"
+    },
+    {
+      "beat_id": "B4",
+      "narration_text": "First, tools that apply for you. Employers say they put the wrong information in the wrong fields. One company's HR chief called them snake oil.",
+      "estimated_duration_s": 10.0,
+      "engine": "kokoro",
+      "actual_duration_s": 8.6,
+      "audio_file": "mp3/beat-B4.mp3"
+    },
+    {
+      "beat_id": "B5",
+      "narration_text": "Second, open-source agents score jobs and let you press Submit. One checked 740 listings for its maker: 68 applications, 12 interviews, one offer.",
+      "estimated_duration_s": 9.2,
+      "engine": "kokoro",
+      "actual_duration_s": 10.28,
+      "audio_file": "mp3/beat-B5.mp3"
+    },
+    {
+      "beat_id": "B6",
+      "narration_text": "Third, approval checks come from AI payments. One standard, AP2, says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.",
+      "estimated_duration_s": 15.6,
+      "engine": "kokoro",
+      "actual_duration_s": 13.14,
+      "audio_file": "mp3/beat-B6.mp3"
+    },
+    {
+      "beat_id": "B7",
+      "narration_text": "What I didn't find in the job tools: a test locked before tuning, or approval tied to the exact packet. My last test showed why: my filter missed the one posting worth applying to, reading \"prefers five years\" as a hard rule.",
+      "estimated_duration_s": 16.8,
+      "engine": "kokoro",
+      "actual_duration_s": 13.03,
+      "audio_file": "mp3/beat-B7.mp3"
+    },
+    {
+      "beat_id": "B8",
+      "narration_text": "WorthLoop works for Alex Rivera, a fictional job seeker — no real person's data is in it. It reads the public job boards of four companies.",
+      "estimated_duration_s": 10.0,
+      "engine": "kokoro",
+      "actual_duration_s": 8.85,
+      "audio_file": "mp3/beat-B8.mp3"
+    },
+    {
+      "beat_id": "B9",
+      "narration_text": "Here is one made-up posting, labeled constructed. WorthLoop checks it against Alex's rules and shows its evidence: title fits, level fits, place fits, years fit. It will become a packet: the posting, draft answers from Alex's profile, and the evidence.",
+      "estimated_duration_s": 16.0,
+      "engine": "kokoro",
+      "actual_duration_s": 14.57,
+      "audio_file": "mp3/beat-B9.mp3"
+    },
+    {
+      "beat_id": "B10",
+      "narration_text": "Claude reaches the first tool, the scorer, through a standard plug; the rest come next. Rules in the code say what each tool may do, and each run stops at ten requests or sixty seconds.",
+      "estimated_duration_s": 14.0,
+      "engine": "kokoro",
+      "actual_duration_s": 10.52,
+      "audio_file": "mp3/beat-B10.mp3"
+    },
+    {
+      "beat_id": "B11",
+      "narration_text": "Release will need the person's approval, through plain code, not AI — the AI cannot approve for you. The approval will be tied to a fingerprint of the packet: change one word, and the fingerprint changes.",
+      "estimated_duration_s": 14.0,
+      "engine": "kokoro",
+      "actual_duration_s": 11.2,
+      "audio_file": "mp3/beat-B11.mp3"
+    },
+    {
+      "beat_id": "B12",
+      "narration_text": "It runs on my laptop, with free tools and no paid credits; Claude comes through my university's access. Built so far: the watcher, the filter, the scorer. Next: the packet and the gate.",
+      "estimated_duration_s": 13.2,
+      "engine": "kokoro",
+      "actual_duration_s": 10.71,
+      "audio_file": "mp3/beat-B12.mp3"
+    },
+    {
+      "beat_id": "B13",
+      "narration_text": "The test set was locked before any tuning, and my tools are built to skip its postings. Worth-it postings are rare — about one in thirty in my last test — so twenty postings will likely hold none, or one. I'll report the exact count; if it holds none, I'll add more by a rule written first.",
+      "estimated_duration_s": 22.0,
+      "engine": "kokoro",
+      "actual_duration_s": 15.74,
+      "audio_file": "mp3/beat-B13.mp3"
+    },
+    {
+      "beat_id": "B14",
+      "narration_text": "It worked only if every check passes — misses none, keeps at most two of the rest, every claim matches Alex's profile, every fingerprint matches, all five traps handled. One failure anywhere, and it didn't. Pass or fail, not a success rate.",
+      "estimated_duration_s": 16.4,
+      "engine": "kokoro",
+      "actual_duration_s": 13.46,
+      "audio_file": "mp3/beat-B14.mp3"
+    },
+    {
+      "beat_id": "B15",
+      "narration_text": "Five traps are set on purpose, each with its right answer written first. Two: a Staff title is too senior for Alex, who looks for roles asking three years or less. And \"prefers five years\" is not a rejection; prefers still invites fewer — the mistake my last test caught.",
+      "estimated_duration_s": 19.6,
+      "engine": "kokoro",
+      "actual_duration_s": 15.21,
+      "audio_file": "mp3/beat-B15.mp3"
+    },
+    {
+      "beat_id": "B16",
+      "narration_text": "The controlled failure: I write the expected result down first. Then I change a packet after approval, on purpose. A separate check must catch it, refuse it, and make me approve again. Last, someone who didn't build it runs it from the instructions, on a clean machine.",
+      "estimated_duration_s": 18.8,
+      "engine": "kokoro",
+      "actual_duration_s": 14.14,
+      "audio_file": "mp3/beat-B16.mp3"
+    },
+    {
+      "beat_id": "B17",
+      "narration_text": "That's WorthLoop, so far. The packet and the gate come next — and the test will say whether it works. Thanks for watching.",
+      "estimated_duration_s": 8.8,
+      "engine": "kokoro",
+      "actual_duration_s": 6.74,
+      "audio_file": "mp3/beat-B17.mp3"
+    }
+  ]
+}

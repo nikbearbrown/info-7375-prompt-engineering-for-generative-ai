@@ -3,7 +3,7 @@
 Final Project Film, INFO 7375. Prasad Shinde. Written 2026-11-22.
 
 My words, to be voiced by Kokoro am_onyx, a synthetic voice. I read each
-source on 2026-11-22. The spoken beats are B1 to B16; the opening card
+source on 2026-11-22. The spoken beats are B1 to B17; the opening card
 and "On screen:" lines are on-screen text, not spoken.
 
 ## Opening card (on screen, not spoken)
@@ -28,7 +28,7 @@ B5 — Second, open-source agents score jobs and let you press Submit. One check
 
 B6 — Third, approval checks come from AI payments. One standard, AP2, says the asking screen must be plain code, not AI. In October I pitched that check for payments; others built it well, so I carried it to job applications.
 
-B7 — What I didn't find in theirs: a test locked before tuning, or approval tied to the exact packet. My last test showed why: my filter missed the one posting worth applying to, reading "prefers five years" as a hard rule.
+B7 — What I didn't find in the job tools: a test locked before tuning, or approval tied to the exact packet. My last test showed why: my filter missed the one posting worth applying to, reading "prefers five years" as a hard rule.
 
 ## Part 3: Methods
 
@@ -53,3 +53,7 @@ B14 — It worked only if every check passes — misses none, keeps at most two 
 B15 — Five traps are set on purpose, each with its right answer written first. Two: a Staff title is too senior for Alex, who looks for roles asking three years or less. And "prefers five years" is not a rejection; prefers still invites fewer — the mistake my last test caught.
 
 B16 — The controlled failure: I write the expected result down first. Then I change a packet after approval, on purpose. A separate check must catch it, refuse it, and make me approve again. Last, someone who didn't build it runs it from the instructions, on a clean machine.
+
+## Closing
+
+B17 — That's WorthLoop, so far. The packet and the gate come next — and the test will say whether it works. Thanks for watching.
