@@ -1,6 +1,8 @@
 # FILTER.md: Job-Search Agent 3
 
-**Version 1.0, Nov 22, 2026.**
+**Version 1.1, Nov 22, 2026.**
+- v1.0 was written before any JS3 code (commit `12c826a`).
+- v1.1 adds one rule change after the reject audit (section 6; `AUDIT.md`).
 - This document **is** the filter. The code reads the fenced `filter` block in section 2 and nothing else.
 - Every result records the filter version and the SHA-256 of this file.
 - Changes are logged in section 6. Words that were added, cut or rejected are each logged with their measurement, following the format of the instructor's Lectern `keywords.json`.
@@ -35,7 +37,7 @@ Matching is by whole word or whole phrase, ignoring case: `(?<![A-Za-z0-9])word(
 | R6 | Ray and Kubeflow add **+0.25** each but do **not** count as a skill for R8 | She knows them but hasn't shipped them | 0.25: inherited (`weights.skill_unshipped`); not counting for R8: JS1 rule (Hemanth, Oct 31) | 0 |
 | R7 | **+0.5** if the text has "MS" | Priya's degree; a posting that names it fits her | inherited (`weights.degree`) | 15 postings |
 | R8 | A posting with **no R4 skill** is never kept | A role with none of her skills is not for her | inherited ("a job with zero skill hits is never relevant") and the JS1 rule | — |
-| R9 | A **seniority word in the title** subtracts **2.0**, counted once: Staff, Principal, Senior, Sr, Lead | Priya is early-career (Hemanth's JS1 reason: "very senior position") | Hemanth, Q3 = b (Nov 22); −2.0: hand-set (Claude's recommended default, which Hemanth accepted) | 322 titles |
+| R9 | A **seniority word in the title** subtracts **2.0**, counted once: Staff, Principal, Senior, Sr, Lead. **From v1.1, "Staff" inside "Technical Staff" doesn't count** | Priya is early-career (Hemanth's JS1 reason: "very senior position"). Perplexity calls every engineer "Member of Technical Staff", which is a title, not a level | Hemanth, Q3 = b (Nov 22); −2.0: hand-set (Claude's recommended default, which Hemanth accepted); the "Technical Staff" exception: Hemanth, X1 (Nov 22, after the audit) | 322 titles (v1.0); 66 of them are "Technical Staff" titles |
 | R10 | **Kept** if the score is **≥ 3.0** and R8 holds | A role word plus one skill (4.5) passes. With a seniority word (2.5), it takes two skills. Without a role word, it takes three skills (3.5), or two skills plus "MS" (3.0) | 3.0: inherited (`threshold`); Hemanth, Q6 = a | — |
 | R11 | **Location never decides.** It is shown and checked as claim C4 | Priya is open to remote; a location filter would throw out 94% of postings without anyone reading them | Hemanth, Q4 = a (as in JS1). The inherited ±1.0 location weight is **cut** | Boston 12 · remote 64 · elsewhere 1,100 |
 | R12 | **Sponsorship is not scored.** It is checked as claim C5 | No posting states sponsorship for the specific role. Every Anthropic posting carries the same company-wide paragraph ("We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate"). Notion and Perplexity use "sponsor" only for events and partners | Hemanth, Q5 = b | 815 of 815 Anthropic postings carry that paragraph. Notion and Perplexity: 0 postings say whether they sponsor the candidate (Perplexity's "Global Mobility Lead" talks about visas only because that is the job's subject) |
@@ -44,7 +46,7 @@ Matching is by whole word or whole phrase, ignoring case: `(?<![A-Za-z0-9])word(
 
 ```filter
 {
-  "filter_version": "1.0",
+  "filter_version": "1.1",
   "matching": "whole word or phrase, ignore case",
   "role_words_title": ["AI", "Engineer", "Engineering", "ML", "Machine Learning", "Data"],
   "exclude_title_words": ["Manager", "Director", "Head", "Intern", "Internship", "VP", "Vice President", "Chief",
@@ -54,6 +56,8 @@ Matching is by whole word or whole phrase, ignoring case: `(?<![A-Za-z0-9])word(
   "skills_unshipped": ["Ray", "Kubeflow"],
   "degree_terms": ["MS"],
   "seniority_title_words": ["Staff", "Principal", "Senior", "Sr", "Lead"],
+  "seniority_ignore_phrases": ["Technical Staff"],
+  "role_ignore_phrases": [],
   "weights": {"role_word": 3.0, "skill": 1.0, "skill_any": 0.5, "skill_unshipped": 0.25, "degree": 0.5, "seniority": -2.0},
   "max_skill_hits": 8,
   "threshold": 3.0,
@@ -128,6 +132,10 @@ Each entry gives: date · version · change · who asked · measurement · decis
 |---|---|---|---|---|---|
 | Nov 22, 2026 | 1.0 | First version: R1–R14 | Hemanth (Q1–Q7), Claude (R13, tie-break, sections 3–5) | Hits in section 2; precision and misses **not measured yet** (that's the audit, `AUDIT.md`) | written before any JS3 code |
 | Nov 22, 2026 | 1.0 | **Kept the bare word "Account"** in R2. Rejected the alternative: the phrases "Account Executive" and "Account Manager" | Hemanth: "c without phrases" | Claude measured this before the decision: "Account" also removes 3 engineering titles ("Staff+ Software Engineer, Account Abuse", "Staff+ Software Engineer, Account Abuse (Machine Learning)", "Staff+ Software Engineer, Account Creation") | kept; the audit will show the cost |
+| Nov 22, 2026 | **1.1** | **Added (X1):** "Staff" inside "Technical Staff" is not a seniority word (`seniority_ignore_phrases`). **False friend:** Perplexity titles every engineer "Member of Technical Staff" | Claude proposed it after the audit; Hemanth: "X1 accept" | On the 55 audit labels (`AUDIT.md`): **39 → 42 correct** (+4 relevant postings now kept, +1 kept that Hemanth marked not relevant). Corpus: kept 194 → 212; 18 postings flip from rejected to kept, all Perplexity "Technical Staff" titles. The audit labels found the problem, so this in-sample gain flatters the change; the held-out test is in `SCORE.md` | **accepted** |
+| Nov 22, 2026 | 1.1 | **Rejected (X2):** drop the seniority penalty (R9) entirely | Claude measured it as the alternative that follows Hemanth's verdicts (11 of 14 senior-titled audit postings marked relevant); Hemanth: "X2 reject" | 39 → 42 correct, no better than X1. Kept 194 → 254 (60 more). It would reverse Hemanth's Q3 answer | **rejected** |
+| Nov 22, 2026 | 1.1 | **Rejected (X3):** drop "must name one of Priya's skills" (R8) | Claude; Hemanth: "X3 reject" | 39 → 40 correct; kept 194 → 266 (72 more). R8 rejected 7 of the random rejects that Hemanth wanted. Dropping R8 brings back only 2 of those 7; the other 5 still score below the threshold. It also adds a false keep | **rejected** |
+| Nov 22, 2026 | 1.1 | **Rejected (X4):** "Data Center" doesn't count as the role word "Data" (`role_ignore_phrases`). **False friend:** "Data" in "Data Center" (35 titles) | Claude; Hemanth: "X4 Reject" | 39 → 39 correct; 0 corpus postings change, because every "Data Center" title is already rejected by R8. The false friend does no harm today only because another rule blocks it | **rejected**; kept here as a known false friend |
 
 ## 7. Decision record
 
@@ -142,3 +150,5 @@ Each entry gives: date · version · change · who asked · measurement · decis
 | Q7 | Shortlist size | (same reply) | R14 (10) |
 
 **Status of Claude's proposals** (R13, the R14 tie-break, sections 3, 4 and 5): **accepted by Hemanth** ("accept") on Nov 22, 2026, at 2:07 PM EST, without changes.
+
+**After the reject audit** (Nov 22, 3:33 PM EST), for the measured changes X1–X4, Hemanth replied: "X1 accept, X2 reject, X3 reject, X4 Reject". Claude had recommended exactly this and had pointed out the tension with Q3 (section 6, X2).

@@ -17,19 +17,31 @@ def find(terms, text: str) -> list:
     return find_words(text or "", terms)
 
 
+def without(phrases, text: str) -> str:
+    """Text with each phrase (whole words, any case) blanked out, so words inside it do not match."""
+    for ph in phrases or []:
+        text = _phrase_re(ph).sub(" ", text)
+    return text
+
+
+def _phrase_re(ph: str):
+    import re
+    return re.compile(r"(?<![A-Za-z0-9])" + r"\s+".join(map(re.escape, ph.split())) + r"(?![A-Za-z0-9])", re.I)
+
+
 def score(posting: dict, flt: dict) -> dict:
     w = flt["weights"]
     title = (posting.get("title") or "").strip()
     text = (posting.get("text") or "").strip()
     both = title + "\n" + text
 
-    role = find(flt["role_words_title"], title)
+    role = find(flt["role_words_title"], without(flt.get("role_ignore_phrases"), title))
     excluded = find(flt["exclude_title_words"], title) + find(flt["exclude_text_phrases"], text)
     skills_all = find(flt["skills"], both)
     skills = skills_all[: flt["max_skill_hits"]]
     unshipped = find(flt["skills_unshipped"], both)
     degree = find(flt["degree_terms"], text)
-    seniority = find(flt["seniority_title_words"], title)
+    seniority = find(flt["seniority_title_words"], without(flt.get("seniority_ignore_phrases"), title))
 
     parts = []                                            # (rule, points, why)
     if role:
