@@ -40,28 +40,36 @@ fall-2026/prasad-s/.
   final-project-film/.
 - B7 and B15, my filter missed the one worth-it posting in my last test,
   reading "prefers five years" as a hard rule:
-  js3-filter-tool-score/MEASURE.md lines 39 and 46; FILTER.md line 34
-  (F10).
+  js3-filter-tool-score/MEASURE.md lines 39 and 46;
+  js3-filter-tool-score/FILTER.md line 34 (F10).
 - B8, the public job boards of four companies:
-  js3-filter-tool-score/config.json; GATE.md lines 12-16.
+  js3-filter-tool-score/config.json lists five boards, and four are
+  watched: js3-filter-tool-score/GATE.md lines 12-15 are the four
+  watched boards; line 16 is a fifth that fails on purpose.
 - B9, the filter checks title, level, place and years:
   js3-filter-tool-score/FILTER.md lines 18 (F3), 33 (F9), 19 (F4) and
   34 (F10).
 - B10, the scorer is reached through MCP, rules in code limit each tool,
   and a run stops at 10 requests or 60 seconds:
-  js3-filter-tool-score/tools/mcp_server.py; agent/policy.py;
-  agent/run.py lines 30-34; GATE.md lines 34-36.
+  js3-filter-tool-score/tools/mcp_server.py;
+  js3-filter-tool-score/agent/policy.py;
+  js3-filter-tool-score/agent/run.py lines 30-34;
+  js3-filter-tool-score/GATE.md lines 34-36.
 - B12, free tools and no paid credits, with Claude through the
   university: js3-filter-tool-score/README.md (Python standard library
   only); the course repo's AGENTS.md lines 7-10.
 - B13, the test set: 20 postings, drawn and sealed on 2026-11-15 before
-  any tuning (SEAL.md lines 39 and 65; commit 449a200b). The tools skip
-  or refuse it: tools/mcp_server.py, tools/filter_run.py,
-  tools/measure.py.
+  any tuning (js3-filter-tool-score/SEAL.md lines 39 and 65; commit
+  449a200b; the first rule changes, v2, came on 2026-11-19,
+  js3-filter-tool-score/FILTER.md line 104, so "before any tuning"
+  rests on dates). The tools skip or refuse it:
+  js3-filter-tool-score/tools/mcp_server.py,
+  js3-filter-tool-score/tools/filter_run.py,
+  js3-filter-tool-score/tools/measure.py.
 - B13, about one in thirty worth it in my last test: 1 of 30 after my
   re-check; js3-filter-tool-score/MEASURE.md line 32.
 - B15, a Staff title is too senior for Alex, who looks for roles asking
-  three years or less: FILTER.md line 33 (F9);
+  three years or less: js3-filter-tool-score/FILTER.md line 33 (F9);
   js3-filter-tool-score/resume_persona.json line 8 (max_years_required
   3).
 
