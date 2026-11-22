@@ -134,6 +134,21 @@ def cmd_shortlist_final(a) -> int:
     return 0
 
 
+def cmd_experiment(a) -> int:
+    from . import experiment
+    if a.action == "run":
+        for exp in a.names:
+            recs = experiment.run(exp)
+            ok = sum(1 for r in recs if r["valid"])
+            print(f"{exp}: {len(recs)} calls, {ok} valid, models {sorted({u for r in recs for u in r['models_used']})}")
+    else:
+        text = experiment.report()
+        (ROOT / "experiments").mkdir(exist_ok=True)
+        (ROOT / "experiments" / "report.md").write_text(text)
+        print(text)
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -147,6 +162,10 @@ def main(argv=None) -> int:
                    ).set_defaults(fn=cmd_shortlist)
     sub.add_parser("shortlist-final", help="apply the hand check and write the final shortlist"
                    ).set_defaults(fn=cmd_shortlist_final)
+    ep = sub.add_parser("experiment", help="held-out experiments: run E0a|E0b|E2|E3|E4, or report")
+    ep.add_argument("action", choices=["run", "report"])
+    ep.add_argument("names", nargs="*")
+    ep.set_defaults(fn=cmd_experiment)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
