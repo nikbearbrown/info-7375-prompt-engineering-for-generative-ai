@@ -1,0 +1,90 @@
+{
+  "package": "@modelcontextprotocol/server-filesystem@2.2.0",
+  "run_at": "2026-11-22T16:21:01-05:00",
+  "results": [
+    {
+      "case": "1 list allowed directories",
+      "tool": "list_allowed_directories",
+      "arguments": {},
+      "reply": "Allowed directories:\n<sandbox>/allowed"
+    },
+    {
+      "case": "2 read inside",
+      "tool": "read_text_file",
+      "arguments": {
+        "path": "<sandbox>/allowed/note.txt"
+      },
+      "reply": "CONSTRUCTED: a note inside the allowed folder.\n"
+    },
+    {
+      "case": "3 '..' escape",
+      "tool": "read_text_file",
+      "arguments": {
+        "path": "<sandbox>/allowed/../outside/secret.txt"
+      },
+      "reply": "isError: Access denied - path outside allowed directories: <sandbox>/outside/secret.txt not in <sandbox>/allowed"
+    },
+    {
+      "case": "4 prefix trick (CVE-2025-53110)",
+      "tool": "read_text_file",
+      "arguments": {
+        "path": "<sandbox>/allowed-evil/secret.txt"
+      },
+      "reply": "isError: Access denied - path outside allowed directories: <sandbox>/allowed-evil/secret.txt not in <sandbox>/allowed"
+    },
+    {
+      "case": "5 symlink read escape (CVE-2025-53109)",
+      "tool": "read_text_file",
+      "arguments": {
+        "path": "<sandbox>/allowed/link/secret.txt"
+      },
+      "reply": "isError: Access denied - symlink target outside allowed directories: <sandbox>/outside/secret.txt not in <sandbox>/allowed"
+    },
+    {
+      "case": "6 write inside",
+      "tool": "write_file",
+      "arguments": {
+        "path": "<sandbox>/allowed/written.txt",
+        "content": "CONSTRUCTED write inside.\n"
+      },
+      "reply": "Successfully wrote to <sandbox>/allowed/written.txt"
+    },
+    {
+      "case": "7 symlink write escape",
+      "tool": "write_file",
+      "arguments": {
+        "path": "<sandbox>/allowed/link/pwned.txt",
+        "content": "CONSTRUCTED.\n"
+      },
+      "reply": "isError: Access denied - symlink target outside allowed directories: <sandbox>/outside not in <sandbox>/allowed"
+    },
+    {
+      "case": "8 list the parent",
+      "tool": "list_directory",
+      "arguments": {
+        "path": "<sandbox>"
+      },
+      "reply": "isError: Access denied - path outside allowed directories: <sandbox> not in <sandbox>/allowed"
+    },
+    {
+      "case": "9 relative path",
+      "tool": "read_text_file",
+      "arguments": {
+        "path": "note.txt"
+      },
+      "reply": "CONSTRUCTED: a note inside the allowed folder.\n"
+    },
+    {
+      "case": "10 unknown tool",
+      "tool": "delete_everything",
+      "arguments": {
+        "path": "<sandbox>/allowed"
+      },
+      "reply": "JSON-RPC error -32602: Tool delete_everything not found"
+    }
+  ],
+  "on_disk_after": {
+    "allowed/written.txt exists": true,
+    "outside/pwned.txt exists": false
+  }
+}

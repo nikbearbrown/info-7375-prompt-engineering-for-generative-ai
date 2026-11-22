@@ -26,7 +26,11 @@ def scrub(obj, counts):
             scrub(x, counts)
 
 
+LEDGER = ROOT / "transcripts" / "redactions.json"
+
+
 def main():
+    ledger = json.loads(LEDGER.read_text()) if LEDGER.exists() else {}
     rows = []
     for f in sorted((ROOT / "transcripts").glob("*.jsonl")):
         text = f.read_text(encoding="utf-8")
@@ -40,12 +44,17 @@ def main():
                 out.append(json.dumps(obj, ensure_ascii=False))
             text = "\n".join(out) + "\n"
         f.write_text(text, encoding="utf-8")
-        rows.append((f.name, counts))
+        total = ledger.setdefault(f.name, {})
+        for k, v in counts.items():
+            if v:
+                total[k] = total.get(k, 0) + v
+    LEDGER.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n")
     lines = ["# Redactions in transcripts/", "",
-             "Written by `scripts/redact_transcripts.py`. Everything else in each file is verbatim.", "",
-             "| file | replaced (count in this run) |", "|---|---|"]
-    for name, counts in rows:
-        lines.append(f"| {name} | " + (", ".join(f"{k}: {v}" for k, v in counts.items() if v) or "nothing new") + " |")
+             "Written by `scripts/redact_transcripts.py` (running totals in `redactions.json`). "
+             "Everything else in each file is verbatim.", "",
+             "| file | replaced |", "|---|---|"]
+    for name in sorted(ledger):
+        lines.append(f"| {name} | " + (", ".join(f"{k}: {v}" for k, v in ledger[name].items()) or "nothing") + " |")
     (ROOT / "transcripts" / "REDACTIONS.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

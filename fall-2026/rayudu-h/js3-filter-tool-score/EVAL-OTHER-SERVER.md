@@ -52,3 +52,49 @@ The sandbox: `allowed/note.txt`; `allowed-evil/secret.txt` (prefix trick); `outs
 | R | **Roots:** a client that declares the `roots` capability and answers `roots/list` with `<sandbox>/outside` | **the allowed folder becomes `outside/`**: `outside/secret.txt` readable, `allowed/note.txt` refused (uncertain) | the server's earlier documentation said client roots **replace** the folders given on the command line. If that still holds, a client widens or moves the sandbox just by being "compatible" |
 
 The results are added below the predictions after the probe runs, and the predictions are not edited.
+
+## 3. What it actually did (phase 2, Nov 22, 2026, 4:20–4:21 PM EST)
+
+Sources: `evals/filesystem-probe.json` and `evals/filesystem-roots.json` (with paths shortened to `<sandbox>`), and the full transcripts `transcripts/other-filesystem-probe-*.jsonl` and `…-roots-*.jsonl`.
+
+| # | Predicted | Actual reply | As predicted? |
+|---|---|---|---|
+| 1 | `allowed` only | "Allowed directories: <sandbox>/allowed" | yes |
+| 2 | allowed | the note's text | yes |
+| 3 | refused | "Access denied - path outside allowed directories: <sandbox>/outside/secret.txt not in <sandbox>/allowed" | yes |
+| 4 | refused | "Access denied - path outside allowed directories: <sandbox>/allowed-evil/secret.txt not in <sandbox>/allowed" | yes. The prefix-trick fix holds in 2.2.0 |
+| 5 | refused | "Access denied - symlink target outside allowed directories: <sandbox>/outside/secret.txt …" | yes. The symlink fix holds for reads |
+| 6 | allowed; the file exists | "Successfully wrote to <sandbox>/allowed/written.txt"; on disk afterwards, `allowed/written.txt` exists | yes |
+| 7 | refused; nothing outside | "Access denied - symlink target outside allowed directories: <sandbox>/outside …"; `outside/pwned.txt` does **not** exist | yes. The fix holds for writes |
+| 8 | refused | "Access denied - path outside allowed directories: <sandbox> not in <sandbox>/allowed" | yes |
+| 9 | refused (uncertain) | **allowed**: the note's text | **no.** A relative path resolves against the allowed folder, not the server's working directory. This is harmless here, but our prediction was wrong |
+| 10 | an error | JSON-RPC error −32602 "Tool delete_everything not found" | yes |
+| R | the sandbox moves to `outside/` (uncertain) | When the client declared `roots`, the server sent **`roots/list`** to the client right after initialization, before it answered the first tool call. Our client answered `<sandbox>/outside`. Then `list_allowed_directories` returned "<sandbox>/outside", `outside/secret.txt` **was readable**, and `allowed/note.txt` was **refused**. The server's own stderr said: "Effective allowed directories (from the client's Roots, which replaced the command-line directories)" | **yes, and this is the main finding** |
+
+**Containment held** for every escape we tried (`..`, prefix trick, symlink read, symlink write, parent folder). The two published bugs are fixed in this version, as far as these five cases can show.
+
+**What the folder can't contain is who decides the folder.**
+- A client that speaks MCP correctly and declares `roots` **replaced** the operator's command-line choice with its own folder.
+- No tool call and no error was involved, and the user was told nothing: the notice went only to the server's stderr.
+- The declarations don't reveal this. `list_allowed_directories` describes the folders as "the list of directories that this server is allowed to access", and nothing in `tools/list` says a client can change that list.
+
+## 4. Declared versus actual
+
+| Declared | Actual |
+|---|---|
+| "Only works within allowed directories" (every file tool) | **Held** for `..`, the prefix trick, symlink reads and writes, and the parent folder |
+| The allowed directories are the ones it was started with (the command line, and `list_allowed_directories`) | **Not fixed.** The client's roots replace them silently |
+| Annotations: `readOnlyHint` false on 6 tools | **True.** It writes (case 6). Its `destructiveHint: false` on `append_file` and `copy_file` is the server's own opinion; we didn't test overwrite or append on important files |
+| Capabilities include `resources` | **Not probed** |
+| Requires Node ≥ 24 (`package.json` engines) | It **ran on Node 23.11.0** with only a warning; behavior on a supported runtime wasn't checked |
+
+## 5. What a compatible client is not entitled to
+
+- **To have its requests honored outside the allowed folders.** Our five escapes were refused, which is correct.
+- **To assume the server is read-only.** Six tools change files. A client should allow-list only the read tools if reading is all it needs. In Claude Code that's `--allowedTools` naming only the read tools.
+- **To treat annotations as guarantees.** `readOnlyHint`, `destructiveHint` and `idempotentHint` are the server's claims about itself.
+- **To decide the sandbox.** Our probe shows the server lets it anyway. That's the gap: an MCP-compatible client *can* move the sandbox through `roots`, whether or not the operator meant to allow that. Claude Code declares `roots` (see our own server's transcript, `capabilities: {"roots": {"listChanged": true}}`), so in practice the folder may be whatever the client's roots are, not the folder typed on the command line.
+
+## 6. Trust decision
+
+Pending Hemanth's decision (section 7 records it).
