@@ -124,6 +124,16 @@ def cmd_shortlist(a) -> int:
     return 0
 
 
+def cmd_shortlist_final(a) -> int:
+    from . import shortlist
+    data = shortlist.finalize()
+    (ROOT / "shortlist" / "final.json").write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    (ROOT / "shortlist" / "shortlist-claims.md").write_text(shortlist.render(data))
+    for i, e in enumerate(data["entries"], 1):
+        print(f"#{i:<3}{e['answer']['answer']:<15}{e['title']}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -135,6 +145,8 @@ def main(argv=None) -> int:
         fn=lambda a: (print(__import__("js3.audit", fromlist=["run"]).run()), 0)[1])
     sub.add_parser("shortlist", help="top-N kept postings, every claim labeled by Claude with a checked quote"
                    ).set_defaults(fn=cmd_shortlist)
+    sub.add_parser("shortlist-final", help="apply the hand check and write the final shortlist"
+                   ).set_defaults(fn=cmd_shortlist_final)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
