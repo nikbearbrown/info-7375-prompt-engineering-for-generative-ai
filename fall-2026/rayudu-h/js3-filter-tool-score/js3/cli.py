@@ -63,10 +63,35 @@ def cmd_filter(a) -> int:
     return 0
 
 
+def load_results(version: str) -> list:
+    with open(ROOT / "filter-runs" / f"v{version}" / "results.jsonl") as f:
+        return [json.loads(line) for line in f]
+
+
+def cmd_sample(a) -> int:
+    from . import labeling, sample
+    seed_info = json.loads((ROOT / "audit" / "seed.json").read_text())
+    results = load_results(a.version)
+    s = sample.draw(results, seed=seed_info["seed"])
+    s["results_file"] = f"filter-runs/v{a.version}/results.jsonl"
+    (ROOT / "audit" / "samples.json").write_text(json.dumps(s, indent=2) + "\n")
+    keys = s["heldout"] + s["audit_random_rejects"] + s["audit_closest"] + s["audit_kept"]
+    c = corpus.load()
+    items = labeling.build(keys, c["postings"], seed=seed_info["seed"] + 1)
+    labeling.write_sheet(items, ROOT / "audit" / "labeling-sheet.md")
+    labeling.write_template(items, ROOT / "audit" / "labels.csv")
+    print(f"drew {len(keys)} postings: heldout {len(s['heldout'])}, random rejects {len(s['audit_random_rejects'])}, "
+          f"closest {len(s['audit_closest'])}, kept {len(s['audit_kept'])}; population {s['population']}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("filter", help="run FILTER.md on everything collected").set_defaults(fn=cmd_filter)
+    sp = sub.add_parser("sample", help="draw the held-out and audit samples; write the blind labeling sheet")
+    sp.add_argument("--version", default="1.0")
+    sp.set_defaults(fn=cmd_sample)
     a = ap.parse_args(argv)
     return a.fn(a)
 
