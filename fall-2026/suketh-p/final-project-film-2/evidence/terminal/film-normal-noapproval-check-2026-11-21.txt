@@ -1,0 +1,8 @@
+js2-loop-tools-diff % python3 -I checks/independent_check.py runs/film-normal-noapproval-2026-11-21 --state-before ../../../../../evidence/state-before-film-normal-noapproval.json --state-after ../../../../../evidence/state-after-film-normal-noapproval.json
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 9616765 bytes, 635 jobs
+  greenhouse/databricks: saved body is HTTP 200, 9797078 bytes, 895 jobs
+  ashby/linear: saved body is HTTP 200, 448777 bytes, 32 jobs
+  state file unchanged between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
+[exit 0]

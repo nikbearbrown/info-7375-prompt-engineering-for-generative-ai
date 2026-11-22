@@ -1,0 +1,9 @@
+js2-loop-tools-diff % python3 -m jobwatch run --run-id film-failure-2026-11-21 --failure-control
+run film-failure-2026-11-21: incomplete — not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional
+  greenhouse/anthropic                     usable                 jobs=635 new=83
+  greenhouse/databricks                    usable                 jobs=895 new=88
+  ashby/linear                             usable                 jobs=32 new=1
+  greenhouse/jobwatch-no-such-board-js2    failed-as-expected     jobs=unknown (HTTP 404, as expected for the failure control)
+  used 4 boards, 4 requests, 2.035 s; state advanced: False
+  evidence: runs/film-failure-2026-11-21/ (results.md, trace.md, raw/)
+[exit 3]
