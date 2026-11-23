@@ -135,3 +135,29 @@ explained (B09); the questions and database named, and Q02's question shown (B10
 into scope (B13) and risk (B14); separate "today" and "next" rows and a new closing line, "Running SQL
 is easy. Being right is the test." (B16). Two phrases were trimmed to stay under 4:00.
 
+
+
+## Stage 7: four-part final cut, v4 (2026-11-22 to 2026-11-23)
+
+Instructions to Claude Code: the reposted Final Project Film brief (four parts in order:
+executive summary, introduction, methods, evaluation), pasted by me. Claude read the v3 reel,
+mapped its beats onto the four parts, and drafted `reel/SCRIPT-v4-four-parts.md`. My answers
+before the build: Claude access = my Claude Code plan; pass bar = keep the draft; script = build it.
+My notes after watching the first cut: add a line from "AI data assistant" to the report card
+(B05); make the ending sound like a conclusion (B20). Then "okay now its good".
+
+```bash
+cp -R films/riya-k-ground-truth-sql-v2 films/riya-k-ground-truth-sql-v4   # v3 reel, kept intact
+cd films/riya-k-ground-truth-sql-v4
+python3 make_sheet.py && cat _kit_header.py _body.py > scenes.py         # 20 beats
+source <brutalist.art>/.venv/bin/activate
+python3 <brutalist.art>/runtime/scripts/generate_audio_kokoro.py .        # must come before ./art run
+python3 <brutalist.art>/runtime/qc/manim_layout_audit.py scenes.py --class <Scene> --curve-strict   # pre-audit each scene
+cd <brutalist.art> && ./art run <reel> && ./art final <reel>
+python3 <reel>/burn_captions.py renders/riya-k-ground-truth-sql-v4.mp4 <out>.mp4
+# re-renders after fixes: move manim/BNN.mp4 aside, then ./art run again (it skips filled beats)
+python3 <brutalist.art>/runtime/scripts/generate_audio_kokoro.py <reel> --only B20   # after the B20 wording change
+```
+
+Word timings for captions: faster-whisper `base.en`, `word_timestamps=True`, on each `mp3/beat-BNN.mp3`.
+What went wrong on the way is in FRICTIONAL.md.
