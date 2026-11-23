@@ -253,7 +253,7 @@ a verdict is a version bump.
 
 **What measuring showed.** F-v1 as frozen, run over all 452 postings, put
 **zero** of them in front of the scorer (`reports/f-v1-as-frozen.txt`, commit
-`ed9d7d1`). All 295 postings that carry a body were stopped by a gate: 167 at
+`abd696c1`). All 295 postings that carry a body were stopped by a gate: 167 at
 F1 and 104 at F2, both correctly, and **24 at F3**.
 
 Those 24 are titles F2 had already accepted — "Software Engineer, Backend,

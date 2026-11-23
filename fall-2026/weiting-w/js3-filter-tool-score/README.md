@@ -31,10 +31,10 @@ abstain when the text does not settle the question.
 
 ```
 git log --oneline -- fall-2026/weiting-w/js3-filter-tool-score
-git show --stat ee698f2
+git show --stat 921e590b
 ```
 
-`ee698f2` contains `FILTER.md` and `.gitignore` and nothing else. Each
+`921e590b` contains `FILTER.md` and `.gitignore` and nothing else. Each
 amendment after it is **two commits — the document, then the code** — so the
 order is checkable rather than asserted.
 
@@ -148,7 +148,7 @@ written down is just a thing that did not happen.
 
 **Checked** — which properties, by which of my own tests:
 
-1. *The filter was written before the code.* `git show --stat ee698f2` is two
+1. *The filter was written before the code.* `git show --stat 921e590b` is two
    files; each amendment is a document commit then a code commit.
 2. *`inherited/` differs from JS2 only in its import lines.*
    `tests/test_inherited_is_unchanged.py` compares every file line by line and

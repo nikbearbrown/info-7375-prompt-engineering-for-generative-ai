@@ -338,22 +338,22 @@ transcript stays on my machine per the assignment's privacy rule.
 
 | what the commit was for | commit |
 |---|---|
-| FILTER.md frozen alone, before any code | `ee698f2` |
-| F-v1 implemented as frozen, plus the measurement showing it is inert | `ed9d7d1` |
-| A1 written up, document first | `12ad9e8` |
-| A2 written up, with the predicted effect computed first | `2e47c65` |
-| A1 and A2 applied, both predictions pinned as tests | `b9ff488` |
-| the tool server, both transcripts, both evaluations | `5335b7b` |
-| the source-grounded shortlist | `adff571` |
-| A3 written up, document first | `79b4573` |
-| A3 applied, and the range bug its own test found | `5eb1bc0` |
-| what moves the score, four objects one at a time | `e86eaa6` |
-| SOURCES, FRICTIONAL, and the audit analyser written before the labels | `8b7a5bc` |
-| README, sign-off, driver's seat | `1e49fb4` |
-| a script so this submission does not repeat JS2's §0 defect | `82ed301` |
-| the reject audit, everything not needing the labels | `0a25bd2` |
-| A4 written up, document and heading table first | `bef72d8` |
-| A5 written up, document first | `c48c2cd` |
+| FILTER.md frozen alone, before any code | `921e590b` |
+| F-v1 implemented as frozen, plus the measurement showing it is inert | `abd696c1` |
+| A1 written up, document first | `1d5d9255` |
+| A2 written up, with the predicted effect computed first | `6b091ee6` |
+| A1 and A2 applied, both predictions pinned as tests | `f70afda1` |
+| the tool server, both transcripts, both evaluations | `eb1248d1` |
+| the source-grounded shortlist | `a3d9068d` |
+| A3 written up, document first | `6d41e44a` |
+| A3 applied, and the range bug its own test found | `81e7c001` |
+| what moves the score, four objects one at a time | `455d7519` |
+| SOURCES, FRICTIONAL, and the audit analyser written before the labels | `fbdf076d` |
+| README, sign-off, driver's seat | `a9ab3e39` |
+| a script so this submission does not repeat JS2's §0 defect | `3770f333` |
+| the reject audit, everything not needing the labels | `107b1c37` |
+| A4 written up, document and heading table first | `5eeb0599` |
+| A5 written up, document first | `38e18db7` |
 
 Each amendment is **document before code**, in two commits, so the order is
 checkable: `git log --oneline -- fall-2026/weiting-w/js3-filter-tool-score`.
