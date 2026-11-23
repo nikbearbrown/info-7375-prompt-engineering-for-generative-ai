@@ -1,6 +1,8 @@
 # FILTER.md — the gate
 
-**Version:** v1.0 · **Written:** Nov 23, 2026 · **Status:** written before any filter code (`agent/filter.py` does not exist at the commit that adds this file).
+**Version:** v1.1 (documentation correction; the rules are still v1.0) · **Written:** Nov 23, 2026 · **Status:** written before any filter code (`agent/filter.py` does not exist at the commit that adds this file, `0041401`).
+
+> **Correction (v1.1, Nov 23):** the text below is v1.0 as committed, left unchanged. One survey fact in it is **wrong**: Affirm's `Software Engineer II, Backend` does **not** ask for "5+ years". It asks for **"1.5+ years"**. See the v1.1 changelog row for what this affects.
 
 **Persona:** Sam Rivera (fictional, `examples/persona.example.json`): new grad / early career (0–2 years), wants **software engineering** roles in the **United States** (remote or on-site), skills Python, Go, React, TypeScript, SQL, Java.
 
@@ -111,5 +113,6 @@ Each is a plausible filter or ranking that is wrong in a way the Nov 23 data wou
 | Version | Date | Change | Measured? |
 |---|---|---|---|
 | v1.0 | Nov 23, 2026 | First version, written before the filter code. | No — nothing has been run yet. |
+| v1.1 | Nov 23, 2026 | **Correction of a false survey fact; no rule changed.** v1.0 says Affirm's `Software Engineer II, Backend` asks for "5+ years" (in R2's reason, and as W2's example). The posting says "1.5+ years". The survey regex Claude used read whole numbers only, so it took the "5" after the decimal point. Re-checked from the text of all 23 `Engineer II` titles in the Nov 23 run (counted by script): 16 ask for 1.5+ years, 2 for 2+ years, 2 for 3+ years (`Software Engineer II, Backend (Test Infra)`: "3+ years of experience in test automation"), 2 say "No fixed minimum years of experience required" (`Software Engineer II - CIAM`), and 1 gives no years (`Software Engineer II, Full stack (Open Banking)`). **What this changes:** (1) R2's reason no longer has its example. The rule still stands, because the years in the body vary within one title level (1.5+ to 3+ inside `Engineer II`). (2) W2's real example is now `Software Engineer II, Backend (Test Infra)` (Remote US, `affirm:7727320003`): W2 would treat it as junior, but it asks for 3+ years, and my hand label is reject. (3) R2 as written ("N+ years") has the same decimal bug as the survey regex, so `agent/filter.py` must read "1.5+" as 1.5, with a test written before the code. | Checked by re-reading the matched sentences, not by running the filter (none exists yet). |
 
 Every later change records the rule added, cut or rejected, the reason, and the measurement that led to it (Step 2 reject audit, Step 2d held-out labels).
