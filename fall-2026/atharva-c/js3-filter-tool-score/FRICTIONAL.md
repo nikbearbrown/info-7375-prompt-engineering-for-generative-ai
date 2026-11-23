@@ -22,4 +22,4 @@
 * **What I changed:** FILTER.md v1.1, a documentation correction only. v1.0's text is left as committed, with a correction note at the top and a v1.1 changelog row. No rule changed. W2 gets a real example (`Software Engineer II, Backend (Test Infra)`, 3+ years, my label reject). The filter must read "1.5+" as 1.5, so that test comes first tomorrow.
 * **What I learned:** a fact in the spec was produced by the same kind of regex the filter will use, with the same bug. The spec was only checked by reading the matched sentences, which caught it here.
 * **Still open:** nothing has been run against the labels yet. Day 2 is to write the tests, then `agent/filter.py`, then the audit.
-* **Reference commits:** `215f29a` (labels); TODO: the commit with this entry and FILTER.md v1.1.
+* **Reference commits:** `215f29a` (labels, committed alone), `5b192f5` (FILTER.md v1.1 correction and this entry).
