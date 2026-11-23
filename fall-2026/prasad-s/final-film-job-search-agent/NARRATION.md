@@ -18,7 +18,7 @@ B1 — I'm Prasad. I'm building WorthLoop, an agent that watches job boards for 
 
 B2 — For a posting that passes, it shows its evidence and drafts a packet: the posting, the answers, and why it fits. The person approves that exact packet, or it goes nowhere. WorthLoop never submits anything itself.
 
-B3 — Why it matters. Hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.
+B3 — It matters because hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.
 
 ## Part 2: What others have done
 

@@ -5,8 +5,9 @@ It builds the 17 narration beats, B1-B17, from NARRATION.md in this folder, and 
 one the scene fields the toolkit needs to render it as a drawn Manim beat (act, lane,
 proof_gate, shot, qc), modeled on the pitch film's make_sheet.py (final-project-film/). What
 each beat shows follows SHOTLIST.md; the scenes are in scenes.py, one class per beat, named
-<beat id>_<Name>. Voice: Kokoro am_onyx (metadata.voice_kokoro); engine "kokoro" on every
-beat.
+<beat id>_<Name>. Voice: Kokoro am_onyx (metadata.voice_kokoro); engine "kokoro-paused" on
+every beat, so the toolkit's generate_audio_kokoro.py skips them: tools/voice_with_pauses.py
+voices them, with pauses at sentence and clause ends.
 
 Each narration_text is exactly that beat's line in NARRATION.md, without the "B# — " label.
 The opening card and the "On screen:" line are on-screen text, not narration: neither
@@ -15,9 +16,9 @@ becomes a beat or part of one. The opening card will be B1's picture.
 Refuses to write if any narration_text contains "Shinde", or if NARRATION.md does not hold
 exactly 17 beats, B1 to B17, in order.
 
-Re-run after audio generation: it keeps each beat's measured actual_duration_s and
-audio_file, and B1's tts_phoneme_overrides (written by the Assignment 1 override), but only
-while that beat's narration_text is unchanged. A beat whose text changed loses them and
+Re-run after audio generation: it keeps each beat's measured actual_duration_s, audio_file
+and pieces, and B1's tts_phoneme_overrides (all written by tools/voice_with_pauses.py), but
+only while that beat's narration_text is unchanged. A beat whose text changed loses them and
 needs new audio. It never writes or changes a narration or audio field itself.
 
 Do NOT re-run it after `art final`: it rewrites the sheet and drops the build stamps.
@@ -33,7 +34,7 @@ TITLE = "WorthLoop"
 VOICE = "am_onyx"
 N_BEATS = 17
 LABEL = re.compile(r"^(B\d+) — (.+)$")
-KEEP = ("actual_duration_s", "audio_file", "tts_phoneme_overrides")
+KEEP = ("actual_duration_s", "audio_file", "tts_phoneme_overrides", "pieces")
 
 old = {}
 if (HERE / "beat_sheet.json").exists() and (HERE / "beat_sheet.json").stat().st_size:
@@ -70,7 +71,7 @@ for line in (HERE / "NARRATION.md").read_text(encoding="utf-8").splitlines():
     if m:
         bid, text = m.group(1), m.group(2).strip()
         beats.append(carry({"beat_id": bid, "narration_text": text,
-                            "estimated_duration_s": est(text), "engine": "kokoro"}))
+                            "estimated_duration_s": est(text), "engine": "kokoro-paused"}))
 
 ids = [b["beat_id"] for b in beats]
 if ids != [f"B{i}" for i in range(1, N_BEATS + 1)]:
