@@ -3,7 +3,8 @@
 **Written before any JS3 code existed, and committed alone so the ordering is
 checkable in git.** Frozen 2026-11-23.
 
-**Filter version F-v1. Scorer version S-v1. Evidence rules E-v1.**
+**Filter version F-v2 (frozen as F-v1; see §7 A1). Scorer version S-v1.
+Evidence rules E-v1.**
 
 This is layer 3 of my own job-search agent. Layers 1 and 2
 (`fall-2026/weiting-w/js1-contract-and-watch`,
@@ -247,3 +248,66 @@ commit. A change to a word list or a weight is an amendment; a change that moves
 a verdict is a version bump.
 
 - 2026-11-23 — none at freeze time.
+
+### A1 — 2026-11-23. F3 inverts from an allowlist to a denylist. **F-v1 → F-v2.**
+
+**What measuring showed.** F-v1 as frozen, run over all 452 postings, put
+**zero** of them in front of the scorer (`reports/f-v1-as-frozen.txt`, commit
+`ed9d7d1`). All 295 postings that carry a body were stopped by a gate: 167 at
+F1 and 104 at F2, both correctly, and **24 at F3**.
+
+Those 24 are titles F2 had already accepted — "Software Engineer, Backend,
+Developer API", "Software Engineer, Frontend", "Machine Learning Engineer",
+"Backend Engineer - Data Platform". F3 rejected them because
+`target_job_families` is `['software engineering', 'machine learning', 'data
+science']`, which is **Greenhouse's `Job Family` vocabulary**. Ashby writes
+`Engineering` in a field it calls `department`; Lever writes `Platform`,
+`Music`, `Subscriptions R&D` in `categories.team`.
+
+So the gate was testing which words a board chose, not what the job is. The
+same posting passes or fails depending on which applicant-tracking system the
+company bought. §5 said the gates were inherited and not to be re-litigated
+here; that was written before I knew the inherited list was single-board.
+
+**The change.** F3 keeps its purpose — stop a posting filed under a function
+that is not engineering, which is how "Software Engineer" inside a Sales org
+gets caught — but it can no longer require a positive match, because there is
+no vocabulary the three systems share. It becomes a **denylist of functions
+that are not engineering organisations anywhere**, applied to whatever family
+field that provider sends:
+
+```
+sales, marketing, legal, finance, accounting, payroll, tax,
+human resources, people & talent, recruiting, pr & communications,
+government affairs, business development, deal desk, customer experience,
+advertising, music business, music marketing
+```
+
+Matched as a substring of the lower-cased family value, so "Advertising Sales
+- Enterprise" and "Music Marketing" are caught by one entry each. A posting
+whose family field is absent or `null` **passes** F3: absence is not denial
+(E3), and F2 has already read the title.
+
+**Why a denylist and not a per-board allowlist of engineering orgs.** An
+allowlist would need me to decide that Spotify's "Experience" and
+"Personalization" are engineering and "Music" is not, which is a guess about
+one company's org chart dressed up as a rule. The denylist only asserts things
+that hold at any company: a posting filed under Payroll is not a software
+engineering job whatever its title says.
+
+**Honesty about how this list was built.** I wrote it **after** seeing all 69
+distinct family values the four boards use and after seeing how many postings
+each choice admits. That makes it fitted to this corpus, not derived from
+first principles, and an over-generous denylist shows up as false positives —
+which is exactly what the kept-sample half of the audit in §6 is for. The
+counts before and after are in `reports/reject-audit.md`.
+
+**A version bump, not a letter bump**, because it moves verdicts: F-v1 → F-v2.
+The predicted effect, written here before the code changed: the 24 postings
+above move from `gated` to being scored, and no posting moves the other way,
+because a denylist can only ever admit more than an allowlist that shared none
+of its vocabulary. `tests/test_amendment_a1.py` asserts exactly that, naming
+the 24.
+
+**Not changed by A1:** F1, F2 and F4 stand as inherited. One change per
+amendment.
