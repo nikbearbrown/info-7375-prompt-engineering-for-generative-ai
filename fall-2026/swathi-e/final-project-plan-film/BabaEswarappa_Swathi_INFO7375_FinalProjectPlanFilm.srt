@@ -1,0 +1,367 @@
+1
+00:00:00,000 --> 00:00:04,233
+My final project is a supervised job-
+search agent for international students.
+
+2
+00:00:04,233 --> 00:00:07,311
+It finds early-career jobs on company job
+boards,
+
+3
+00:00:07,311 --> 00:00:10,005
+sets aside the ones that don't fit,
+
+4
+00:00:10,005 --> 00:00:12,314
+and for each job that remains,
+
+5
+00:00:12,314 --> 00:00:15,392
+shows the evidence a student needs before
+applying,
+
+6
+00:00:15,392 --> 00:00:20,010
+including whether the employer has a
+public record of sponsoring work visas.
+
+7
+00:00:20,310 --> 00:00:24,505
+It matters because students on OPT have
+limited time to find work,
+
+8
+00:00:24,505 --> 00:00:26,253
+and many employers won't sponsor.
+
+9
+00:00:26,253 --> 00:00:28,701
+A wrong "this job fits" wastes days.
+
+10
+00:00:28,701 --> 00:00:31,498
+A wrong "they sponsor" can cost much more.
+
+11
+00:00:31,498 --> 00:00:33,595
+So the agent shows its evidence,
+
+12
+00:00:33,595 --> 00:00:35,343
+says when it isn't sure,
+
+13
+00:00:35,343 --> 00:00:38,490
+and doesn't apply or send anything on its
+own.
+
+14
+00:00:38,790 --> 00:00:40,702
+Good tools already exist.
+
+15
+00:00:40,702 --> 00:00:46,918
+USCIS publishes an H-1B Employer Data Hub
+with approval and denial counts by
+
+16
+00:00:46,918 --> 00:00:48,830
+employer, back to 2009.
+
+17
+00:00:48,830 --> 00:00:53,612
+The Department of Labor publishes case-
+level disclosure files every quarter.
+
+18
+00:00:53,612 --> 00:00:58,871
+Sites like MyVisaJobs and H1BGrader turn
+this data into employer search,
+
+19
+00:00:58,871 --> 00:01:04,130
+and browser extensions like Interstride's
+flag sponsors on LinkedIn and Indeed.
+
+20
+00:01:04,430 --> 00:01:07,002
+These tools answer an important question
+well:
+
+21
+00:01:07,002 --> 00:01:08,839
+has this employer sponsored before?
+
+22
+00:01:08,839 --> 00:01:10,676
+I'm adding a narrower one:
+
+23
+00:01:10,676 --> 00:01:12,513
+what does this posting say,
+
+24
+00:01:12,513 --> 00:01:15,819
+and how does that compare with the
+employer's record?
+
+25
+00:01:15,819 --> 00:01:17,289
+My agent shows both,
+
+26
+00:01:17,289 --> 00:01:18,758
+cites each, flags differences,
+
+27
+00:01:18,758 --> 00:01:21,330
+and leaves the decision to a person.
+
+28
+00:01:21,630 --> 00:01:23,794
+This builds on completed work.
+
+29
+00:01:23,794 --> 00:01:26,391
+In Job-Search Agents 1 to 3,
+
+30
+00:01:26,391 --> 00:01:28,988
+I wrote filter rules before code,
+
+31
+00:01:28,988 --> 00:01:32,017
+and collected 1,832 public postings from
+Databricks,
+
+32
+00:01:32,017 --> 00:01:34,614
+Stripe and Plaid on November 17.
+
+33
+00:01:34,614 --> 00:01:36,345
+Version 1 shortlisted 4.
+
+34
+00:01:36,345 --> 00:01:40,240
+I reviewed 30 random rejections and judged
+none relevant,
+
+35
+00:01:40,240 --> 00:01:46,300
+though a sample that small can't rule out
+a miss rate up to about
+
+36
+00:01:46,300 --> 00:01:50,628
+ten percent. Version 1.1 then fixed gaps
+the audit found,
+
+37
+00:01:50,628 --> 00:01:54,090
+changing 7 verdicts; the shortlist stayed
+at 4.
+
+38
+00:01:54,390 --> 00:01:58,323
+The new data is the Labor Department's
+disclosure files.
+
+39
+00:01:58,323 --> 00:02:03,568
+An employer must get a Labor Condition
+Application certified before filing an
+
+40
+00:02:03,568 --> 00:02:07,501
+H-1B petition, so these records show
+historical sponsorship activity,
+
+41
+00:02:07,501 --> 00:02:11,872
+not a visa approval or a promise for this
+job.
+
+42
+00:02:11,872 --> 00:02:14,494
+I'll count only certified H-1B cases,
+
+43
+00:02:14,494 --> 00:02:16,242
+list withdrawn certifications separately,
+
+44
+00:02:16,242 --> 00:02:18,864
+and leave out H-1B1 and E-3.
+
+45
+00:02:18,864 --> 00:02:21,924
+If a posting says it won't sponsor,
+
+46
+00:02:21,924 --> 00:02:25,420
+that comes first; the employer's history
+is context.
+
+47
+00:02:25,720 --> 00:02:28,081
+The agent will run as a loop:
+
+48
+00:02:28,081 --> 00:02:29,430
+collect, filter, match, check,
+
+49
+00:02:29,430 --> 00:02:33,815
+record, stop. Outside sources are read-
+only; it writes only to its own memory,
+
+50
+00:02:33,815 --> 00:02:35,501
+audit log, and decision records.
+
+51
+00:02:35,501 --> 00:02:37,525
+Each run has a fixed budget,
+
+52
+00:02:37,525 --> 00:02:39,886
+and stops when the queue is empty,
+
+53
+00:02:39,886 --> 00:02:41,235
+the budget is spent,
+
+54
+00:02:41,235 --> 00:02:43,259
+or an error limit is hit,
+
+55
+00:02:43,259 --> 00:02:45,620
+not because the model says it's done.
+
+56
+00:02:45,920 --> 00:02:48,666
+I'll approve, refuse, or defer each job,
+
+57
+00:02:48,666 --> 00:02:52,981
+and each decision is tied to the exact
+evidence I saw.
+
+58
+00:02:52,981 --> 00:02:54,942
+The student in this project,
+
+59
+00:02:54,942 --> 00:02:56,512
+Priya Nair, is fictional.
+
+60
+00:02:56,512 --> 00:03:00,042
+Resources: my university's Claude Code
+seat covers model access,
+
+61
+00:03:00,042 --> 00:03:05,534
+within usage limits; job-board APIs need
+no key; government data is free; my laptop
+
+62
+00:03:05,534 --> 00:03:08,280
+is enough. Details are in my appendix.
+
+63
+00:03:08,580 --> 00:03:10,693
+First, I'll hand-label 60 employers:
+
+64
+00:03:10,693 --> 00:03:15,342
+20 for development, and 40 locked away as
+a held-out test,
+
+65
+00:03:15,342 --> 00:03:17,878
+including employers with no qualifying
+records.
+
+66
+00:03:17,878 --> 00:03:23,372
+Missed matches count only employers that
+truly have records; the rest are checked
+
+67
+00:03:23,372 --> 00:03:24,640
+for false matches.
+
+68
+00:03:24,940 --> 00:03:28,786
+A separate checker will re-verify each
+claim against the raw files:
+
+69
+00:03:28,786 --> 00:03:30,883
+the right employer, the right source,
+
+70
+00:03:30,883 --> 00:03:33,330
+and whether the record supports the
+sentence.
+
+71
+00:03:33,330 --> 00:03:37,525
+I'll trigger one wrong match on purpose to
+show it gets caught,
+
+72
+00:03:37,525 --> 00:03:41,720
+plus at least five deliberate failure
+cases and tests that try forbidden
+
+73
+00:03:41,720 --> 00:03:42,070
+actions.
+
+74
+00:03:42,370 --> 00:03:43,914
+My proposed pass line:
+
+75
+00:03:43,914 --> 00:03:46,231
+zero wrong matches, zero unsupported
+claims,
+
+76
+00:03:46,231 --> 00:03:48,933
+zero unauthorized actions, every planted
+difference flagged,
+
+77
+00:03:48,933 --> 00:03:51,250
+and at most two missed matches.
+
+78
+00:03:51,250 --> 00:03:52,408
+After any fix,
+
+79
+00:03:52,408 --> 00:03:57,813
+the first held-out result stays on record;
+a re-run is only a regression test.
+
+80
+00:03:57,813 --> 00:04:00,129
+The employers are chosen on purpose,
+
+81
+00:04:00,129 --> 00:04:02,059
+so this tests my rules,
+
+82
+00:04:02,059 --> 00:04:03,990
+not a general error rate.
+
+83
+00:04:03,990 --> 00:04:05,920
+These are targets, not results.
