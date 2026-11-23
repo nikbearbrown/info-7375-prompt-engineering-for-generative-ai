@@ -10,8 +10,12 @@ to check that rather than taking this docstring's word for it.
 
 The prompt is an *object* in the Chapter 9 sense: a thing with content I chose,
 which changes the system's behaviour when I change it, and which was not
-trained. `reports/what-moves-the-score.md` changes it once, from P-v1 to P-v2,
-and records both real responses with the date they were obtained.
+trained. `reports/what-moves-the-score.md` changes it one object at a time and records
+every real response with the date it was obtained. Three variants exist for
+that reason: P-v1 (loose rules, full body), P-v2 (strict rules, scored spans
+only) and P-v3 (strict rules, full body). P-v1 -> P-v2 changes the prompt
+*and* the context at once, which is the mistake the chapter is about; P-v3 is
+what isolates them.
 """
 
 from __future__ import annotations
@@ -43,7 +47,7 @@ def render(version: str, decision) -> str:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("version", choices=["P-v1", "P-v2"])
+    ap.add_argument("version", choices=["P-v1", "P-v2", "P-v3"])
     ap.add_argument("identity", nargs="?")
     ap.add_argument("--first", action="store_true", help="the top-scoring entry")
     args = ap.parse_args(argv)
