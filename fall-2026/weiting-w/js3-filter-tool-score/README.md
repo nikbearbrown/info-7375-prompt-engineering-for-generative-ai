@@ -110,7 +110,7 @@ number any caller can set is not a declared number.
 | `inherited/` | JS2's adapters, R-v3 and the persona, copied with import lines rewritten and a test holding that claim |
 | `toolserver/` | the MCP server, 241 lines, standard library |
 | `tools/` | the audit form, the audit analyser, the shortlist, the prompt renderer, both transcript drivers |
-| `reports/reject-audit.md` | 30+ rejects judged by hand, blind, plus the near-threshold and kept samples |
+| `reports/reject-audit.md` | 48 postings judged by hand, blind: 39 agreed, **3 disagreed**, 6 unsure |
 | `reports/shortlist.md` | 4 entries, 18 claims, each labelled against a span |
 | `reports/tool-evaluation.md` | both servers, same three questions, two trust decisions |
 | `reports/what-moves-the-score.md` | one object at a time, measured |
@@ -172,6 +172,10 @@ written down is just a thing that did not happen.
    schema.* `tests/test_toolserver.py`.
 9. *The shortlist's claim totals and both worked cases.*
    `tests/test_shortlist_claims.py`.
+10. *The audit's numbers are recomputable from the labels in the repository.*
+    `tests/test_audit_results.py` re-runs `tools/analyse_audit.py` over
+    `audit/labels-weiting.json` and pins all of them, including the one I
+    like least — see "Not claiming".
 
 **How** — honestly split:
 
@@ -182,9 +186,11 @@ written down is just a thing that did not happen.
 - *By recomputation:* the amendment tables, recomputed over all 452 postings
   on every test run rather than stored.
 - *By hand, by me:* the **48 blind labels** in `audit/labels-weiting.json`,
-  which are the whole of `reports/reject-audit.md`; accepting A1, A2 and A3
-  after reading each prediction and measurement; and declining a fourth
-  amendment to `MIN_WALL_YEARS`.
+  taken on 2026-11-23T22:24Z against a standard I wrote down first and applied
+  to all 48. They are the whole of `reports/reject-audit.md`. Also: accepting
+  A1 through A5 after reading each prediction and measurement, reversing my
+  own recorded rejection of A4 once I measured instead of estimating, and
+  declining to move `MIN_WALL_YEARS` even after the audit gave me a reason to.
 - *With Claude's help:* everything else. Claude (Opus 5) wrote `FILTER.md`,
   every module, every test, the tool server and every report, in one session
   on 2026-11-23. It also found three defects against its own work unasked, the
@@ -204,10 +210,14 @@ written down is just a thing that did not happen.
 2. **157 postings (35% of the corpus) have no text at all.** Greenhouse sends
    no description on the endpoint JS2 called. They are in `cannot_score`,
    counted separately, and nothing in any report here speaks to them.
-3. **`MIN_WALL_YEARS = 3` disagrees with an ordinary reading.** P-v3 read
-   "Minimum 1 year of experience" as disqualifying; `evidence.py` labels the
-   same posting `insufficient`. A number I picked against a reading anyone
-   would make, left for the audit to settle.
+3. **`MIN_WALL_YEARS = 3` is wrong and I did not change it.** The audit's
+   **only false positive** is `Software Engineer, Backend, Credit`, which the
+   filter shortlisted at 6 and I rejected: its requirements say "2+ years of
+   backend engineering experience", and 2 is below the 3 I hand-set in A3.
+   P-v3 had already read "Minimum 1 year" the same way. This is now the
+   best-evidenced next change in the repository, and it is still one labelled
+   posting, which is a reason to look rather than a mandate to move a
+   constant on the last evening.
 4. **E-v1a cannot read "Senior" as a contradiction**, and the obvious repair
    is wrong — it would mislabel a posting whose sentence is "Partner closely
    with senior and staff ML engineers", where the adjective is about the
@@ -250,9 +260,14 @@ written down is just a thing that did not happen.
 - **Nothing here was trained.** No gradient descent, no fine-tuning, no model
   call. The one fitted number is the threshold, fitted by trying each integer
   and counting agreements. A behaviour that persists is a file that persists.
+- **The shortlist is not endorsed, including by me.** Of the four postings the
+  filter finally offers, I labelled one `yes`, one `no` and two `unsure`,
+  blind. That is the least flattering number here and it is asserted in
+  `tests/test_audit_results.py` so it cannot quietly disappear from a later
+  draft.
 - **It is not a system anyone should job-hunt with.** It reads 65% of what it
-  collects, offers four postings out of 452, and cannot tell you, for any one
-  of the four, whether it will take a new graduate.
+  collects, offers four postings out of 452, and cannot tell you, for three of
+  the four, whether they will take a new graduate.
 
 **Signed:** Weiting Wang — 2026-11-23
 

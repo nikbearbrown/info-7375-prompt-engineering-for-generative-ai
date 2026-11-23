@@ -1,0 +1,156 @@
+{
+ "labels_from": "Weiting Wang",
+ "labelled_on": "2026-11-23T22:24:36.583Z",
+ "blind": "The form showed no score, no bucket and no gate. Order shuffled.",
+ "form_seed": 20261123,
+ "split_seed": 20261123,
+ "filter_version": "F-v2",
+ "scorer_version": "S-v5",
+ "baseline_threshold": 6,
+ "counts": {
+  "labelled": 48,
+  "decided": 42,
+  "unsure": 6,
+  "agree": 39,
+  "disagree": 3,
+  "filter_missed_something_she_wanted": 2,
+  "filter_kept_something_she_did_not": 1
+ },
+ "by_stratum": {
+  "random_reject": {
+   "agree": 28,
+   "disagree": 1
+  },
+  "near_threshold": {
+   "agree": 10,
+   "disagree": 2
+  },
+  "kept": {
+   "agree": 7,
+   "disagree": 2
+  }
+ },
+ "her_labels": {
+  "no": 39,
+  "yes": 3,
+  "unsure": 6
+ },
+ "unsure_rows": [
+  {
+   "identity": "ashby:939892e5-5273-4bfc-8c41-a6c51cabb228",
+   "title": "Software Engineer, Backend, Comms Platform",
+   "board": "ashby:ramp",
+   "bucket": "below_threshold",
+   "score": 4
+  },
+  {
+   "identity": "ashby:198150d6-789a-4ef8-999f-93a49656d4f1",
+   "title": "Software Engineer, Engineering Platform",
+   "board": "ashby:ramp",
+   "bucket": "below_threshold",
+   "score": 4
+  },
+  {
+   "identity": "greenhouse:8240716",
+   "title": "Frontend Engineer, Ads Campaign Manager",
+   "board": "greenhouse:reddit",
+   "bucket": "gated",
+   "score": null
+  },
+  {
+   "identity": "lever:186b763a-2a61-4563-8813-ff6b40c9c8a7",
+   "title": "Backend Engineer - Data Platform",
+   "board": "lever:spotify",
+   "bucket": "shortlisted",
+   "score": 6
+  },
+  {
+   "identity": "ashby:be496b52-cfbf-494e-b862-61fb4a188b24",
+   "title": "Software Engineer, Production Engineering",
+   "board": "ashby:ramp",
+   "bucket": "below_threshold",
+   "score": 4
+  },
+  {
+   "identity": "lever:19c12e29-b6d4-4d97-9053-48238fb7c381",
+   "title": "Machine Learning Engineer - Subscriptions",
+   "board": "lever:spotify",
+   "bucket": "shortlisted",
+   "score": 6
+  }
+ ],
+ "disagreements": [
+  {
+   "identity": "greenhouse:8203478",
+   "title": "Staff Machine Learning Engineer, AI Security",
+   "board": "greenhouse:reddit",
+   "strata": [
+    "random_reject"
+   ],
+   "her": "yes",
+   "her_bool": true,
+   "bucket": "gated",
+   "gate_failed": "G1_title_block",
+   "score": null,
+   "filter_kept": false
+  },
+  {
+   "identity": "ashby:5598f7b8-4ae2-4105-a2b4-2d0f55c54c40",
+   "title": "Software Engineer, Backend, Credit",
+   "board": "ashby:ramp",
+   "strata": [
+    "kept",
+    "near_threshold"
+   ],
+   "her": "no",
+   "her_bool": false,
+   "bucket": "shortlisted",
+   "gate_failed": null,
+   "score": 6,
+   "filter_kept": true
+  },
+  {
+   "identity": "ashby:b614563f-3ce6-4dca-b5ba-0e5a6c8bda27",
+   "title": "Software Engineer, Forward Deployed, AI Solutions",
+   "board": "ashby:ramp",
+   "strata": [
+    "kept",
+    "near_threshold"
+   ],
+   "her": "yes",
+   "her_bool": true,
+   "bucket": "below_threshold",
+   "gate_failed": null,
+   "score": 4,
+   "filter_kept": false
+  }
+ ],
+ "threshold_refit": {
+  "scoreable_and_decided": 13,
+  "train_n": 6,
+  "held_out_n": 7,
+  "best_t_on_train": 7,
+  "agreement_on_train": "6/6",
+  "held_out_at_best_t": "6/7",
+  "held_out_at_baseline_6": "6/7",
+  "all_candidates_on_train": {
+   "-6": "0/6",
+   "-5": "0/6",
+   "-4": "0/6",
+   "-3": "0/6",
+   "-2": "0/6",
+   "-1": "1/6",
+   "0": "1/6",
+   "1": "1/6",
+   "2": "1/6",
+   "3": "4/6",
+   "4": "4/6",
+   "5": "5/6",
+   "6": "5/6",
+   "7": "6/6",
+   "8": "6/6",
+   "9": "6/6",
+   "10": "6/6"
+  }
+ }
+}

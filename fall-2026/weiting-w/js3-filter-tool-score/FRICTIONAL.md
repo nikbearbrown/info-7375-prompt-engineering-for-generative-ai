@@ -198,10 +198,23 @@ Both are defensible — A3 hand-set 3 as "already outside what a new graduate
 has" — but they disagree about a real posting, and the disagreement is between
 a number I picked and a reading anyone would make.
 
-**Left alone on purpose.** Changing it would be a fourth amendment on the last
-evening, and the hand audit is the thing that should settle where the line
-goes. Writing it down costs nothing; guessing at 8pm costs the audit its
-meaning.
+**Left alone on purpose**, and then the audit answered it.
+
+The audit's **only false positive** — the single posting the filter kept and I
+rejected, blind — is `Software Engineer, Backend, Credit`, whose requirements
+read "**2+ years** of backend engineering experience". `MIN_WALL_YEARS` is 3,
+so S6 never fired and the posting kept its six points.
+
+So the number I hand-set and declined to revisit is wrong, in the direction
+two independent things now point: a model reading a posting, and a blind hand
+label.
+
+**Still not changed.** One labelled posting is a reason to look, not a mandate
+to move a constant, and moving it after seeing which way the audit went is the
+one kind of change this whole structure exists to prevent — every other
+amendment here predicted its effect before it was applied, and this one would
+be fitted to a sample of one. It is named in README.md's sign-off as the
+best-evidenced next change, which is what an audit is supposed to produce.
 
 ## 6. The strict prompt looked better and was worse
 

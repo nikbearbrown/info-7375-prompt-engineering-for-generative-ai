@@ -63,7 +63,110 @@ The question on every row was the same:
 
 ## 3. My verdicts against the filter's
 
-<!-- AUDIT RESULTS -->
+Labelled **2026-11-23T22:24Z**, 48 of 48, blind. Raw file:
+`audit/labels-weiting.json`. Analysis: `audit/audit-analysis.json`, produced
+by `tools/analyse_audit.py`, which was written and smoke-tested **before the
+labels existed** so the analysis could not be shaped by the numbers.
+
+**My standard, written before I started and applied to all 48:** a posting
+gets `yes` if a new graduate could plausibly get it, it is an engineering role
+that involves writing code, and I have touched at least part of the stack;
+`no` if it is clearly not an engineering role or clearly wants someone
+senior; `unsure` if there is not enough to go on.
+
+| | |
+|---|---|
+| labelled | **48** |
+| decided (`yes` / `no`) | **42** |
+| `unsure` | **6** |
+| agreed with the filter | **39** |
+| **disagreed** | **3** |
+| I wanted it, the filter did not keep it | **2** |
+| the filter kept it, I did not want it | **1** |
+
+By stratum — note that the strata record **how each posting was sampled**,
+under S-v2, and the agreement is measured against the **current** filter,
+S-v5. Two amendments have moved buckets since the draw; the sampling is a
+historical fact and the verdict is a current one.
+
+| stratum | agreed | disagreed |
+|---|---|---|
+| random rejects | 28 | 1 |
+| within ±2 of the threshold | 10 | 2 |
+| kept (as of the draw) | 7 | 2 |
+
+**I checked 48 postings and disagreed with the filter on 3.** That is the
+sentence. Not 94%, not a false-negative rate — see §4, which was written
+before this number existed.
+
+### The three disagreements, which are the whole point of doing this
+
+**1. `Staff Machine Learning Engineer, AI Security` — I said yes, F1 rejected
+it on the word "staff".**
+
+Greenhouse, no body text, `Machine Learning` family, Remote - United States.
+I judged it on a title, a location and a department, which is all the filter
+had too.
+
+The filter is doing exactly what JS1 told it to: `title_block` contains
+`staff`, and a new graduate does not get a Staff role. I still said yes, and
+on reflection the reason is that **the form asked a different question than
+the gate answers.** It asked "would you want this on your shortlist?" — worth
+my time to look at — and F1 answers "could you get this?" Those come apart on
+a remote-US ML role at a company I would like to work at.
+
+This is not an argument for deleting F1. It is 1 posting out of 48, and the
+same gate correctly removed 302 postings including a dozen other Staff ML
+roles I labelled `no`. What it is: evidence that **"eligible" and "worth
+seeing" are two filters, and this submission only built one.**
+
+**2. `Software Engineer, Backend, Credit` — the filter shortlisted it at 6, I
+said no.** The only false positive in the sample, and it is the exact case
+`FRICTIONAL.md` §5 flagged and deliberately left for this audit to settle:
+
+> - **2+ years** of backend engineering experience
+
+`MIN_WALL_YEARS` is **3**, so S6 did not fire and the posting kept its six
+points. I rejected it. The number I hand-set in A3 and then declined to change
+on the last evening is wrong in the direction the audit now shows, and it is
+wrong on the only false positive the audit found.
+
+**Still not changed**, and the reason has not improved — it is one labelled
+posting, and one posting is a reason to look rather than a mandate to move a
+constant. But it is no longer my guess against P-v3's reading: it is my guess
+against P-v3's reading **and** a blind label. That is the best-evidenced next
+change in this repository and it is named as such in README.md's sign-off.
+
+**3. `Software Engineer, Forward Deployed, AI Solutions` — I said yes, it
+scored 4 and fell below the threshold.** Its two points came from "Strong
+coding ability in Python, TypeScript/JavaScript, Java, Go, or similar" in a
+requirements section; nothing else in it matched a signal word. It is a
+near-threshold false negative, which is precisely what the ±2 stratum exists
+to surface, and the honest reading is that the word lists are narrow rather
+than that the threshold is high: a posting can be a good engineering job
+without containing six of my words.
+
+### What the shortlist itself got
+
+Of the **4 postings the filter currently shortlists**, I labelled:
+
+| posting | my label |
+|---|---|
+| Full Stack Engineer - Music (8) | **yes** |
+| Software Engineer, Backend, Credit (6) | **no** |
+| Backend Engineer - Data Platform (6) | unsure |
+| Machine Learning Engineer - Subscriptions (6) | unsure |
+
+**One clear yes out of four.** That is the least flattering number in this
+submission and it is the one worth keeping in view: the filter's final output
+is four postings, and its author, judging blind, endorsed one of them,
+rejected one, and could not decide about two.
+
+The two `unsure` labels are not a failure of the filter — they are both real
+engineering roles whose postings do not say whether a new graduate may apply,
+which is the same `insufficient` that E-v1a assigns them in
+`reports/shortlist.md`. The filter and I are stuck on the same missing
+sentence.
 
 ## 4. What a sample this size can show — written before the numbers existed
 
@@ -94,7 +197,46 @@ worth naming before any number is read:
 
 ## 5. The threshold, refit on held-out labels
 
-<!-- THRESHOLD RESULTS -->
+Method fixed before the labels were read (`FILTER.md` §6,
+`reports/what-moves-the-score.md` §4): split the labelled postings that the
+scorer actually scored into a training half and a held-out half with seed
+`20261123`, pick the T that best matches the labels **on the training half
+only**, and report its agreement **on the held-out half** against the
+baseline.
+
+| | |
+|---|---|
+| labelled, decided, and scoreable | **13** |
+| training half | 6 |
+| held-out half | 7 |
+| best T on the training half | **7** (6 of 6) |
+| that T on the held-out half | **6 of 7** |
+| baseline T = 6 on the held-out half | **6 of 7** |
+
+**The refit changes nothing.** T = 7 matches the held-out labels exactly as
+often as T = 6 does, and the threshold stays at 6.
+
+Two things make even that statement weaker than it looks, and both are
+properties of the sample rather than of the filter:
+
+- **The training half cannot tell 7 from 10.** Agreement on it is 6/6 for
+  T = 7, 8, 9 **and** 10 — every threshold above 6 fits six postings
+  equally well, and "best" picked the smallest only because the loop
+  scans upward. A procedure whose answer is decided by iteration order has
+  not identified anything.
+- **13 postings reached this calculation**, out of 452. The scorer scores 24;
+  of those I labelled 18 and decided 13. Six held-out postings cannot
+  distinguish two thresholds that differ by one point.
+
+So the honest output is the sentence FILTER.md §6 required in advance:
+**T = 7 agreed with me on 6 of 7 held-out postings, against 6 of 7 for
+T = 6.** No improvement, no rate, and no change to the filter.
+
+**What would have been dishonest here** is reporting the training number. On
+the training half the refit looks perfect — 6 of 6 against 5 of 6 for the
+baseline — and that number means nothing, because it is the number the refit
+was chosen to maximise. The held-out half is the whole reason the split
+exists, and it says the refit found nothing.
 
 ## 6. The 157 postings this audit cannot speak to
 
