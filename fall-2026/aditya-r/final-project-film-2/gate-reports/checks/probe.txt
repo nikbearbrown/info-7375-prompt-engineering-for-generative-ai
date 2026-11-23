@@ -1,0 +1,72 @@
+## ffprobe
+codec_name=h264
+codec_type=video
+width=3840
+height=2160
+pix_fmt=yuv420p
+r_frame_rate=24/1
+nb_frames=4635
+codec_name=aac
+codec_type=audio
+sample_rate=48000
+channels=2
+r_frame_rate=0/0
+nb_frames=9054
+duration=193.125000
+size=21391364
+
+## loudness (ebur128 summary)
+Summary:
+
+  Integrated loudness:
+    I:         -24.2 LUFS
+    Threshold: -34.6 LUFS
+
+  Loudness range:
+    LRA:         5.7 LU
+    Threshold: -44.7 LUFS
+    LRA low:   -27.6 LUFS
+    LRA high:  -22.0 LUFS
+[out#0/null @ 0x7abf03c300] video:1919KiB audio:36211KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 4635 fps=1380 q=-0.0 Lsize=N/A time=00:03:13.12 bitrate=N/A speed=57.5x elapsed=0:00:03.35
+
+## silences >= 0.6 s at -50 dB
+silence_start: 6.616187
+silence_end: 7.235229 | silence_duration: 0.619042
+silence_start: 27.278396
+silence_end: 27.948438 | silence_duration: 0.670042
+silence_start: 38.838271
+silence_end: 39.503187 | silence_duration: 0.664917
+silence_start: 54.472604
+silence_end: 55.152104 | silence_duration: 0.6795
+silence_start: 66.098646
+silence_end: 66.830146 | silence_duration: 0.7315
+silence_start: 74.557146
+silence_end: 75.165667 | silence_duration: 0.608521
+silence_start: 89.715417
+silence_end: 90.38125 | silence_duration: 0.665833
+silence_start: 98.737792
+silence_end: 99.416979 | silence_duration: 0.679187
+silence_start: 112.45475
+silence_end: 113.067292 | silence_duration: 0.612542
+silence_start: 120.29675
+silence_end: 121.019667 | silence_duration: 0.722917
+silence_start: 125.349333
+silence_end: 125.966292 | silence_duration: 0.616958
+silence_start: 137.326979
+silence_end: 138.044833 | silence_duration: 0.717854
+silence_start: 147.790437
+silence_end: 148.404833 | silence_duration: 0.614396
+silence_start: 154.188187
+silence_end: 154.995479 | silence_duration: 0.807292
+silence_start: 168.549917
+silence_end: 169.168125 | silence_duration: 0.618208
+silence_start: 179.249937
+silence_end: 179.915812 | silence_duration: 0.665875
+silence_start: 188.758625
+silence_end: 189.383437 | silence_duration: 0.624812
+silence_start: 191.588687
+silence_end: 193.125 | silence_duration: 1.536312
+
+## full decode
+exit 0; errors: none
