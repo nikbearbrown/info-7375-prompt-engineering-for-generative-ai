@@ -111,7 +111,7 @@ SCENES = {
     "B3": ("B3_Flood", "",
            "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line "
            "'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
-           [(None, "the title 'Why it matters', from the first frame; a job ad"), ("Hiring is flooded", "an application pile starts"),
+           [(None, "the title 'Why it matters', from the first frame; a job ad"), ("hiring is flooded", "an application pile starts"),
             ("In July 2026", "source line"), ("about 254", "the number counts up to ≈254 as pages pile up"),
             ("employers drown", "more applications pile on")]),
     "B4": ("B4_ApplyTools", "ILLUSTRATION",

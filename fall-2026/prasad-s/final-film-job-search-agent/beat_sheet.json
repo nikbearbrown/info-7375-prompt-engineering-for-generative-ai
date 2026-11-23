@@ -21,7 +21,15 @@
     ],
     "bookend_exempt_reason": "Course final project film, not a channel episode: it opens on its own opening card (B1) instead of a composer cold open, has no verdict card and no Your Turn composer, and carries no channel handle or persona. It ends on its own end card (B17), not a BOUT outro, which bookend_check.py cannot exempt; that script is not called by art run or art final.",
     "audience": "INFO 7375 reviewers of the final project",
-    "source_doc": "NARRATION.md (this folder)"
+    "source_doc": "NARRATION.md (this folder)",
+    "build": {
+      "at": "2026-11-22T19:54:22",
+      "cut": "master",
+      "filled": 17,
+      "of": 17,
+      "slates": [],
+      "skin_warnings": []
+    }
   },
   "beats": [
     {
@@ -38,6 +46,23 @@
           "to": "pɹəsˈɑːd"
         }
       },
+      "pieces": [
+        {
+          "text": "I'm Prasad.",
+          "start_s": 0.0,
+          "end_s": 1.03
+        },
+        {
+          "text": "I'm building WorthLoop, an agent that watches job boards for one person.",
+          "start_s": 1.33,
+          "end_s": 5.4
+        },
+        {
+          "text": "It judges each new posting, and it prepares an application only for the ones worth their time.",
+          "start_s": 5.7,
+          "end_s": 10.78
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -66,23 +91,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "I'm Prasad.",
-          "start_s": 0.0,
-          "end_s": 1.03
-        },
-        {
-          "text": "I'm building WorthLoop, an agent that watches job boards for one person.",
-          "start_s": 1.33,
-          "end_s": 5.4
-        },
-        {
-          "text": "It judges each new posting, and it prepares an application only for the ones worth their time.",
-          "start_s": 5.7,
-          "end_s": 10.78
-        }
-      ]
+      "render_duration_s": 10.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B1.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B2",
@@ -91,6 +106,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 12.34,
       "audio_file": "mp3/beat-B2.mp3",
+      "pieces": [
+        {
+          "text": "For a posting that passes, it shows its evidence and drafts a packet:",
+          "start_s": 0.0,
+          "end_s": 3.73
+        },
+        {
+          "text": "the posting, the answers, and why it fits.",
+          "start_s": 3.88,
+          "end_s": 6.24
+        },
+        {
+          "text": "The person approves that exact packet, or it goes nowhere.",
+          "start_s": 6.54,
+          "end_s": 9.72
+        },
+        {
+          "text": "WorthLoop never submits anything itself.",
+          "start_s": 10.02,
+          "end_s": 12.34
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -143,76 +180,21 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "For a posting that passes, it shows its evidence and drafts a packet:",
-          "start_s": 0.0,
-          "end_s": 3.73
-        },
-        {
-          "text": "the posting, the answers, and why it fits.",
-          "start_s": 3.88,
-          "end_s": 6.24
-        },
-        {
-          "text": "The person approves that exact packet, or it goes nowhere.",
-          "start_s": 6.54,
-          "end_s": 9.72
-        },
-        {
-          "text": "WorthLoop never submits anything itself.",
-          "start_s": 10.02,
-          "end_s": 12.34
-        }
-      ]
+      "render_duration_s": 12.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B2.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B3",
       "narration_text": "It matters because hiring is flooded. In July 2026, Greenhouse — whose software runs many job pages — said job ads on its platform draw about 254 applicants each. Job seekers waste hours on postings that were never a fit, and employers drown in applications.",
       "estimated_duration_s": 17.2,
       "engine": "kokoro-paused",
-      "act": "show-tell",
-      "lane": "manim",
-      "proof_gate": "SHOW",
-      "shot": {
-        "type": "GRAPHIC",
-        "source": "own",
-        "visual_intent": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
-        "show": [
-          {
-            "cue": null,
-            "event": "the title 'Why it matters', from the first frame; a job ad"
-          },
-          {
-            "cue": "Hiring is flooded",
-            "event": "an application pile starts"
-          },
-          {
-            "cue": "In July 2026",
-            "event": "source line"
-          },
-          {
-            "cue": "about 254",
-            "event": "the number counts up to ≈254 as pages pile up"
-          },
-          {
-            "cue": "employers drown",
-            "event": "more applications pile on"
-          }
-        ],
-        "manim": {
-          "class": "B3_Flood",
-          "tag": "",
-          "part": "1 · What and why"
-        },
-        "motion_claim": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254."
-      },
-      "qc": {
-        "sparse_by_design": true,
-        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
-      },
-      "audio_file": "mp3/beat-B3.mp3",
       "actual_duration_s": 18.07,
+      "audio_file": "mp3/beat-B3.mp3",
       "pieces": [
         {
           "text": "It matters because hiring is flooded.",
@@ -239,7 +221,54 @@
           "start_s": 12.63,
           "end_s": 18.07
         }
-      ]
+      ],
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254.",
+        "show": [
+          {
+            "cue": null,
+            "event": "the title 'Why it matters', from the first frame; a job ad"
+          },
+          {
+            "cue": "hiring is flooded",
+            "event": "an application pile starts"
+          },
+          {
+            "cue": "In July 2026",
+            "event": "source line"
+          },
+          {
+            "cue": "about 254",
+            "event": "the number counts up to ≈254 as pages pile up"
+          },
+          {
+            "cue": "employers drown",
+            "event": "more applications pile on"
+          }
+        ],
+        "manim": {
+          "class": "B3_Flood",
+          "tag": "",
+          "part": "1 · What and why"
+        },
+        "motion_claim": "The title 'Why it matters' at the top. '≈254 applicants per job ad', source line 'Greenhouse, via Fortune, Jul 2026'; applications pile up while the number counts up to 254."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "render_duration_s": 18.083333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B3.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B4",
@@ -248,6 +277,23 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 8.89,
       "audio_file": "mp3/beat-B4.mp3",
+      "pieces": [
+        {
+          "text": "First, tools that apply for you.",
+          "start_s": 0.0,
+          "end_s": 1.98
+        },
+        {
+          "text": "Employers say they put the wrong information in the wrong fields.",
+          "start_s": 2.28,
+          "end_s": 5.56
+        },
+        {
+          "text": "One company's HR chief called them snake oil.",
+          "start_s": 5.86,
+          "end_s": 8.89
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -288,23 +334,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "First, tools that apply for you.",
-          "start_s": 0.0,
-          "end_s": 1.98
-        },
-        {
-          "text": "Employers say they put the wrong information in the wrong fields.",
-          "start_s": 2.28,
-          "end_s": 5.56
-        },
-        {
-          "text": "One company's HR chief called them snake oil.",
-          "start_s": 5.86,
-          "end_s": 8.89
-        }
-      ]
+      "render_duration_s": 8.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B4.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B5",
@@ -313,6 +349,23 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 10.08,
       "audio_file": "mp3/beat-B5.mp3",
+      "pieces": [
+        {
+          "text": "Second, open-source agents score jobs and let you press Submit.",
+          "start_s": 0.0,
+          "end_s": 3.54
+        },
+        {
+          "text": "One checked 740 listings for its maker:",
+          "start_s": 3.84,
+          "end_s": 6.85
+        },
+        {
+          "text": "68 applications, 12 interviews, one offer.",
+          "start_s": 7.0,
+          "end_s": 10.08
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -349,23 +402,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Second, open-source agents score jobs and let you press Submit.",
-          "start_s": 0.0,
-          "end_s": 3.54
-        },
-        {
-          "text": "One checked 740 listings for its maker:",
-          "start_s": 3.84,
-          "end_s": 6.85
-        },
-        {
-          "text": "68 applications, 12 interviews, one offer.",
-          "start_s": 7.0,
-          "end_s": 10.08
-        }
-      ]
+      "render_duration_s": 10.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B5.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B6",
@@ -374,6 +417,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 13.65,
       "audio_file": "mp3/beat-B6.mp3",
+      "pieces": [
+        {
+          "text": "Third, approval checks come from AI payments.",
+          "start_s": 0.0,
+          "end_s": 2.69
+        },
+        {
+          "text": "One standard there says the asking screen must be plain code, not AI.",
+          "start_s": 2.99,
+          "end_s": 7.02
+        },
+        {
+          "text": "In October I pitched that check for payments;",
+          "start_s": 7.32,
+          "end_s": 10.16
+        },
+        {
+          "text": "others built it well, so I carried it to job applications.",
+          "start_s": 10.31,
+          "end_s": 13.65
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -414,28 +479,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Third, approval checks come from AI payments.",
-          "start_s": 0.0,
-          "end_s": 2.69
-        },
-        {
-          "text": "One standard there says the asking screen must be plain code, not AI.",
-          "start_s": 2.99,
-          "end_s": 7.02
-        },
-        {
-          "text": "In October I pitched that check for payments;",
-          "start_s": 7.32,
-          "end_s": 10.16
-        },
-        {
-          "text": "others built it well, so I carried it to job applications.",
-          "start_s": 10.31,
-          "end_s": 13.65
-        }
-      ]
+      "render_duration_s": 13.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B6.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B7",
@@ -444,6 +494,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 14.28,
       "audio_file": "mp3/beat-B7.mp3",
+      "pieces": [
+        {
+          "text": "What I didn't find in the job tools:",
+          "start_s": 0.0,
+          "end_s": 2.44
+        },
+        {
+          "text": "a test locked before tuning, or approval tied to the exact packet.",
+          "start_s": 2.59,
+          "end_s": 6.34
+        },
+        {
+          "text": "My last test showed why:",
+          "start_s": 6.64,
+          "end_s": 8.7
+        },
+        {
+          "text": "my filter missed the one posting worth applying to, reading \"prefers five years\" as a hard rule.",
+          "start_s": 8.85,
+          "end_s": 14.28
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -484,28 +556,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "What I didn't find in the job tools:",
-          "start_s": 0.0,
-          "end_s": 2.44
-        },
-        {
-          "text": "a test locked before tuning, or approval tied to the exact packet.",
-          "start_s": 2.59,
-          "end_s": 6.34
-        },
-        {
-          "text": "My last test showed why:",
-          "start_s": 6.64,
-          "end_s": 8.7
-        },
-        {
-          "text": "my filter missed the one posting worth applying to, reading \"prefers five years\" as a hard rule.",
-          "start_s": 8.85,
-          "end_s": 14.28
-        }
-      ]
+      "render_duration_s": 14.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B7.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B8",
@@ -514,6 +571,23 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 9.25,
       "audio_file": "mp3/beat-B8.mp3",
+      "pieces": [
+        {
+          "text": "WorthLoop works for Alex Rivera, a fictional job seeker —",
+          "start_s": 0.0,
+          "end_s": 3.33
+        },
+        {
+          "text": "no real person's data is in it.",
+          "start_s": 3.48,
+          "end_s": 6.02
+        },
+        {
+          "text": "It reads the public job boards of four companies.",
+          "start_s": 6.32,
+          "end_s": 9.25
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -542,23 +616,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "WorthLoop works for Alex Rivera, a fictional job seeker —",
-          "start_s": 0.0,
-          "end_s": 3.33
-        },
-        {
-          "text": "no real person's data is in it.",
-          "start_s": 3.48,
-          "end_s": 6.02
-        },
-        {
-          "text": "It reads the public job boards of four companies.",
-          "start_s": 6.32,
-          "end_s": 9.25
-        }
-      ]
+      "render_duration_s": 9.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B8.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B9",
@@ -567,6 +631,33 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 16.03,
       "audio_file": "mp3/beat-B9.mp3",
+      "pieces": [
+        {
+          "text": "Here is one made-up posting, labeled constructed.",
+          "start_s": 0.0,
+          "end_s": 3.09
+        },
+        {
+          "text": "WorthLoop checks it against Alex's rules and shows its evidence:",
+          "start_s": 3.39,
+          "end_s": 7.02
+        },
+        {
+          "text": "title fits, level fits, place fits, years fit.",
+          "start_s": 7.17,
+          "end_s": 10.1
+        },
+        {
+          "text": "It will become a packet:",
+          "start_s": 10.4,
+          "end_s": 12.09
+        },
+        {
+          "text": "the posting, draft answers from Alex's profile, and the evidence.",
+          "start_s": 12.24,
+          "end_s": 16.03
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -623,33 +714,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Here is one made-up posting, labeled constructed.",
-          "start_s": 0.0,
-          "end_s": 3.09
-        },
-        {
-          "text": "WorthLoop checks it against Alex's rules and shows its evidence:",
-          "start_s": 3.39,
-          "end_s": 7.02
-        },
-        {
-          "text": "title fits, level fits, place fits, years fit.",
-          "start_s": 7.17,
-          "end_s": 10.1
-        },
-        {
-          "text": "It will become a packet:",
-          "start_s": 10.4,
-          "end_s": 12.09
-        },
-        {
-          "text": "the posting, draft answers from Alex's profile, and the evidence.",
-          "start_s": 12.24,
-          "end_s": 16.03
-        }
-      ]
+      "render_duration_s": 16.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B9.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B10",
@@ -658,6 +729,23 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 10.81,
       "audio_file": "mp3/beat-B10.mp3",
+      "pieces": [
+        {
+          "text": "Claude reaches the first tool, the scorer, through a standard plug;",
+          "start_s": 0.0,
+          "end_s": 3.4
+        },
+        {
+          "text": "the rest come next.",
+          "start_s": 3.55,
+          "end_s": 4.92
+        },
+        {
+          "text": "Rules in the code say what each tool may do, and each run stops at ten requests or sixty seconds.",
+          "start_s": 5.22,
+          "end_s": 10.81
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -702,23 +790,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Claude reaches the first tool, the scorer, through a standard plug;",
-          "start_s": 0.0,
-          "end_s": 3.4
-        },
-        {
-          "text": "the rest come next.",
-          "start_s": 3.55,
-          "end_s": 4.92
-        },
-        {
-          "text": "Rules in the code say what each tool may do, and each run stops at ten requests or sixty seconds.",
-          "start_s": 5.22,
-          "end_s": 10.81
-        }
-      ]
+      "render_duration_s": 10.833333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B11",
@@ -727,6 +805,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 11.71,
       "audio_file": "mp3/beat-B11.mp3",
+      "pieces": [
+        {
+          "text": "Release will need the person's approval, through plain code, not AI —",
+          "start_s": 0.0,
+          "end_s": 3.69
+        },
+        {
+          "text": "the AI cannot approve for you.",
+          "start_s": 3.84,
+          "end_s": 5.78
+        },
+        {
+          "text": "The approval will be tied to a fingerprint of the packet:",
+          "start_s": 6.08,
+          "end_s": 9.06
+        },
+        {
+          "text": "change one word, and the fingerprint changes.",
+          "start_s": 9.21,
+          "end_s": 11.71
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -771,28 +871,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Release will need the person's approval, through plain code, not AI —",
-          "start_s": 0.0,
-          "end_s": 3.69
-        },
-        {
-          "text": "the AI cannot approve for you.",
-          "start_s": 3.84,
-          "end_s": 5.78
-        },
-        {
-          "text": "The approval will be tied to a fingerprint of the packet:",
-          "start_s": 6.08,
-          "end_s": 9.06
-        },
-        {
-          "text": "change one word, and the fingerprint changes.",
-          "start_s": 9.21,
-          "end_s": 11.71
-        }
-      ]
+      "render_duration_s": 11.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B12",
@@ -801,6 +886,38 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 12.65,
       "audio_file": "mp3/beat-B12.mp3",
+      "pieces": [
+        {
+          "text": "It runs on my laptop, with free tools and no paid credits;",
+          "start_s": 0.0,
+          "end_s": 3.55
+        },
+        {
+          "text": "Claude comes through my university's access.",
+          "start_s": 3.7,
+          "end_s": 6.19
+        },
+        {
+          "text": "Built so far:",
+          "start_s": 6.49,
+          "end_s": 7.69
+        },
+        {
+          "text": "the watcher, the filter, the scorer.",
+          "start_s": 7.84,
+          "end_s": 9.94
+        },
+        {
+          "text": "Next:",
+          "start_s": 10.24,
+          "end_s": 10.924
+        },
+        {
+          "text": "the packet and the gate.",
+          "start_s": 11.074,
+          "end_s": 12.654
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -857,38 +974,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "It runs on my laptop, with free tools and no paid credits;",
-          "start_s": 0.0,
-          "end_s": 3.55
-        },
-        {
-          "text": "Claude comes through my university's access.",
-          "start_s": 3.7,
-          "end_s": 6.19
-        },
-        {
-          "text": "Built so far:",
-          "start_s": 6.49,
-          "end_s": 7.69
-        },
-        {
-          "text": "the watcher, the filter, the scorer.",
-          "start_s": 7.84,
-          "end_s": 9.94
-        },
-        {
-          "text": "Next:",
-          "start_s": 10.24,
-          "end_s": 10.924
-        },
-        {
-          "text": "the packet and the gate.",
-          "start_s": 11.074,
-          "end_s": 12.654
-        }
-      ]
+      "render_duration_s": 12.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B13",
@@ -897,6 +989,38 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 17.66,
       "audio_file": "mp3/beat-B13.mp3",
+      "pieces": [
+        {
+          "text": "The test set was locked before any tuning, and my tools are built to skip its postings.",
+          "start_s": 0.0,
+          "end_s": 4.74
+        },
+        {
+          "text": "Worth-it postings are rare —",
+          "start_s": 5.04,
+          "end_s": 6.78
+        },
+        {
+          "text": "about one in thirty in my last test —",
+          "start_s": 6.93,
+          "end_s": 9.04
+        },
+        {
+          "text": "so twenty postings will likely hold none, or one.",
+          "start_s": 9.19,
+          "end_s": 12.15
+        },
+        {
+          "text": "I'll report the exact count;",
+          "start_s": 12.45,
+          "end_s": 14.37
+        },
+        {
+          "text": "if it holds none, I'll add more by a rule written first.",
+          "start_s": 14.52,
+          "end_s": 17.66
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -933,38 +1057,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "The test set was locked before any tuning, and my tools are built to skip its postings.",
-          "start_s": 0.0,
-          "end_s": 4.74
-        },
-        {
-          "text": "Worth-it postings are rare —",
-          "start_s": 5.04,
-          "end_s": 6.78
-        },
-        {
-          "text": "about one in thirty in my last test —",
-          "start_s": 6.93,
-          "end_s": 9.04
-        },
-        {
-          "text": "so twenty postings will likely hold none, or one.",
-          "start_s": 9.19,
-          "end_s": 12.15
-        },
-        {
-          "text": "I'll report the exact count;",
-          "start_s": 12.45,
-          "end_s": 14.37
-        },
-        {
-          "text": "if it holds none, I'll add more by a rule written first.",
-          "start_s": 14.52,
-          "end_s": 17.66
-        }
-      ]
+      "render_duration_s": 17.666666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B14",
@@ -973,6 +1072,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 14.9,
       "audio_file": "mp3/beat-B14.mp3",
+      "pieces": [
+        {
+          "text": "It worked only if every check passes —",
+          "start_s": 0.0,
+          "end_s": 2.23
+        },
+        {
+          "text": "misses none, keeps at most two of the rest, every claim matches Alex's profile, every fingerprint matches, all five traps handled.",
+          "start_s": 2.38,
+          "end_s": 9.7
+        },
+        {
+          "text": "One failure anywhere, and it didn't.",
+          "start_s": 10.0,
+          "end_s": 12.02
+        },
+        {
+          "text": "Pass or fail, not a success rate.",
+          "start_s": 12.32,
+          "end_s": 14.9
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -1017,28 +1138,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "It worked only if every check passes —",
-          "start_s": 0.0,
-          "end_s": 2.23
-        },
-        {
-          "text": "misses none, keeps at most two of the rest, every claim matches Alex's profile, every fingerprint matches, all five traps handled.",
-          "start_s": 2.38,
-          "end_s": 9.7
-        },
-        {
-          "text": "One failure anywhere, and it didn't.",
-          "start_s": 10.0,
-          "end_s": 12.02
-        },
-        {
-          "text": "Pass or fail, not a success rate.",
-          "start_s": 12.32,
-          "end_s": 14.9
-        }
-      ]
+      "render_duration_s": 14.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B15",
@@ -1047,6 +1153,38 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 16.41,
       "audio_file": "mp3/beat-B15.mp3",
+      "pieces": [
+        {
+          "text": "Five traps are set on purpose, each with its right answer written first.",
+          "start_s": 0.0,
+          "end_s": 3.89
+        },
+        {
+          "text": "Two:",
+          "start_s": 4.19,
+          "end_s": 4.689
+        },
+        {
+          "text": "a Staff title is too senior for Alex, who looks for roles asking three years or less.",
+          "start_s": 4.839,
+          "end_s": 9.489
+        },
+        {
+          "text": "And \"prefers five years\" is not a rejection;",
+          "start_s": 9.789,
+          "end_s": 12.399
+        },
+        {
+          "text": "prefers still invites fewer —",
+          "start_s": 12.549,
+          "end_s": 14.279
+        },
+        {
+          "text": "the mistake my last test caught.",
+          "start_s": 14.429,
+          "end_s": 16.409
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -1083,38 +1221,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "Five traps are set on purpose, each with its right answer written first.",
-          "start_s": 0.0,
-          "end_s": 3.89
-        },
-        {
-          "text": "Two:",
-          "start_s": 4.19,
-          "end_s": 4.689
-        },
-        {
-          "text": "a Staff title is too senior for Alex, who looks for roles asking three years or less.",
-          "start_s": 4.839,
-          "end_s": 9.489
-        },
-        {
-          "text": "And \"prefers five years\" is not a rejection;",
-          "start_s": 9.789,
-          "end_s": 12.399
-        },
-        {
-          "text": "prefers still invites fewer —",
-          "start_s": 12.549,
-          "end_s": 14.279
-        },
-        {
-          "text": "the mistake my last test caught.",
-          "start_s": 14.429,
-          "end_s": 16.409
-        }
-      ]
+      "render_duration_s": 16.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B16",
@@ -1123,6 +1236,33 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 16.23,
       "audio_file": "mp3/beat-B16.mp3",
+      "pieces": [
+        {
+          "text": "The controlled failure:",
+          "start_s": 0.0,
+          "end_s": 1.76
+        },
+        {
+          "text": "I write the expected result down first.",
+          "start_s": 1.91,
+          "end_s": 4.3
+        },
+        {
+          "text": "Then I change a packet after approval, on purpose.",
+          "start_s": 4.6,
+          "end_s": 7.57
+        },
+        {
+          "text": "A separate check must catch it, refuse it, and make me approve again.",
+          "start_s": 7.87,
+          "end_s": 11.57
+        },
+        {
+          "text": "Last, someone who didn't build it runs it from the instructions, on a clean machine.",
+          "start_s": 11.87,
+          "end_s": 16.23
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -1171,33 +1311,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "The controlled failure:",
-          "start_s": 0.0,
-          "end_s": 1.76
-        },
-        {
-          "text": "I write the expected result down first.",
-          "start_s": 1.91,
-          "end_s": 4.3
-        },
-        {
-          "text": "Then I change a packet after approval, on purpose.",
-          "start_s": 4.6,
-          "end_s": 7.57
-        },
-        {
-          "text": "A separate check must catch it, refuse it, and make me approve again.",
-          "start_s": 7.87,
-          "end_s": 11.57
-        },
-        {
-          "text": "Last, someone who didn't build it runs it from the instructions, on a clean machine.",
-          "start_s": 11.87,
-          "end_s": 16.23
-        }
-      ]
+      "render_duration_s": 16.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     },
     {
       "beat_id": "B17",
@@ -1206,6 +1326,28 @@
       "engine": "kokoro-paused",
       "actual_duration_s": 7.74,
       "audio_file": "mp3/beat-B17.mp3",
+      "pieces": [
+        {
+          "text": "That's WorthLoop, so far.",
+          "start_s": 0.0,
+          "end_s": 1.75
+        },
+        {
+          "text": "The packet and the gate come next —",
+          "start_s": 2.05,
+          "end_s": 3.94
+        },
+        {
+          "text": "and the test will say whether it works.",
+          "start_s": 4.09,
+          "end_s": 6.19
+        },
+        {
+          "text": "Thanks for watching.",
+          "start_s": 6.49,
+          "end_s": 7.74
+        }
+      ],
       "act": "show-tell",
       "lane": "manim",
       "proof_gate": "SHOW",
@@ -1238,28 +1380,13 @@
         "sparse_by_design": true,
         "sparse_reason": "show-tell style: one drawn picture per beat on a cream stage, with labels; the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
       },
-      "pieces": [
-        {
-          "text": "That's WorthLoop, so far.",
-          "start_s": 0.0,
-          "end_s": 1.75
-        },
-        {
-          "text": "The packet and the gate come next —",
-          "start_s": 2.05,
-          "end_s": 3.94
-        },
-        {
-          "text": "and the test will say whether it works.",
-          "start_s": 4.09,
-          "end_s": 6.19
-        },
-        {
-          "text": "Thanks for watching.",
-          "start_s": 6.49,
-          "end_s": 7.74
-        }
-      ]
+      "render_duration_s": 7.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-22T19:54:22"
+      }
     }
   ]
 }

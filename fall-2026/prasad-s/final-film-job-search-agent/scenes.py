@@ -1,9 +1,11 @@
 # scenes.py — WorthLoop final project film (job-search-agent-film): 17 drawn Manim beats, B1-B17.
 #
 # What each beat shows follows SHOTLIST.md. The show-tell drawing kit (brutalist.art
-# skills/make/show-tell/templates/iso_kit.py, toolkit revision 22264a3) is pasted below unchanged,
-# as the skill says: Gate A copies only scenes.py, so the kit cannot be imported. Then this
-# film's helpers (go/at/hold and friends from the pitch film's scenes.py), then one Scene per beat.
+# skills/make/show-tell/templates/iso_kit.py, toolkit revision 22264a3) is pasted below, as the
+# skill says: Gate A copies only scenes.py, so the kit cannot be imported. It is unchanged except
+# its cue helper (until() and the sheet loading above it), which now times each cue from the
+# beat's voiced pieces. Then this film's helpers (go/at/hold and friends from the pitch film's
+# scenes.py), then one Scene per beat.
 #
 # Class names start with the beat id (B1_…, …, B17_…): run.sh slots each clip by the text
 # before the first underscore, and the kit's pacing reads the beat's narration and measured
@@ -128,12 +130,20 @@ def pill(x, y, w, h=0.62, fill="#FFFFFF"):
 
 
 # ═════════════════════════════ pacing (narration is the clock) ═════════════════════════════
+# This film's change to the kit: cues are timed from each beat's "pieces" in beat_sheet.json,
+# the sentences and clauses tools/voice_with_pauses.py voiced, with their start_s and end_s in
+# the beat's audio. Without the sheet there is no timing, and that is allowed only under Gate
+# A's stand-in for Manim, which runs construct() on a copy of scenes.py alone and renders
+# nothing; a real render without the sheet raises.
+_SHEET_PATH = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "beat_sheet.json")
 try:
-    _SHEET = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "beat_sheet.json")))
-    _TARGET = {b["beat_id"]: float(b.get("actual_duration_s") or b.get("estimated_duration_s") or 0) for b in _SHEET["beats"]}
-    _NARR = {b["beat_id"]: b["narration_text"] for b in _SHEET["beats"]}
-except Exception:
-    _TARGET, _NARR = {}, {}
+    with open(_SHEET_PATH, encoding="utf-8") as _f:
+        _SHEET = _json.load(_f)
+except FileNotFoundError:
+    _SHEET = None
+_BEATS = {b["beat_id"]: b for b in _SHEET["beats"]} if _SHEET else {}
+_TARGET = {bid: float(b.get("actual_duration_s") or b.get("estimated_duration_s") or 0) for bid, b in _BEATS.items()}
+_NARR = {bid: b["narration_text"] for bid, b in _BEATS.items()}
 
 
 def _elapsed(self):
@@ -141,13 +151,40 @@ def _elapsed(self):
     return float(rt) if isinstance(rt, (int, float)) else 0.0
 
 
+def _stand_in():
+    """True only under Gate A's stand-in for Manim: a module built in memory, with no file."""
+    import sys as _sys
+    return getattr(_sys.modules.get("manim"), "__file__", None) is None
+
+
+def cue_time(bid, phrase):
+    """Seconds into beat `bid`'s audio at which `phrase` is spoken.
+
+    The first piece whose text contains the phrase (case-insensitive) is used: the piece's
+    start, plus the phrase's character offset in the piece ÷ the piece's length × the piece's
+    duration. A phrase in no piece raises, naming the beat and the phrase, so a cue can never
+    silently fire at 0."""
+    if _SHEET is None:
+        if _stand_in():
+            return None
+        raise RuntimeError(f"{bid}: cue {phrase!r}: no beat_sheet.json beside scenes.py")
+    pieces = (_BEATS.get(bid) or {}).get("pieces")
+    if not pieces:
+        raise RuntimeError(f"{bid}: cue {phrase!r}: the beat has no pieces in beat_sheet.json")
+    want = phrase.lower()
+    for p in pieces:
+        offset = p["text"].lower().find(want)
+        if offset >= 0:
+            return p["start_s"] + offset / len(p["text"]) * (p["end_s"] - p["start_s"])
+    raise RuntimeError(f"{bid}: cue phrase {phrase!r} is in none of the beat's pieces")
+
+
 def until(self, phrase, lead=0.25):
-    """Wait until `phrase` is spoken (its character share of the narration × the measured audio)."""
-    bid = type(self).__name__.split("_")[0]
-    n, target = _NARR.get(bid, ""), _TARGET.get(bid, 0)
-    if not n or not target or phrase not in n:
+    """Wait until `lead` seconds before `phrase` is spoken (cue_time)."""
+    t = cue_time(type(self).__name__.split("_")[0], phrase)
+    if t is None:
         return
-    gap = target * n.index(phrase) / len(n) - lead - _elapsed(self)
+    gap = t - lead - _elapsed(self)
     if gap > 0.05:
         self.wait(gap)
 
@@ -388,7 +425,7 @@ class B3_Flood(Scene):
 
         self.add(part(self), title)
         go(self, None, FadeIn(ad), rt=0.5)
-        go(self, "Hiring is flooded", FadeIn(plinth), *[FadeIn(p, shift=DOWN * 0.4) for p in pages[:2]], rt=0.5)
+        go(self, "hiring is flooded", FadeIn(plinth), *[FadeIn(p, shift=DOWN * 0.4) for p in pages[:2]], rt=0.5)
         go(self, "In July 2026", FadeIn(source), rt=0.4)
         go(self, "about 254", FadeIn(nums[0]), FadeIn(label), FadeIn(pages[2], shift=DOWN * 0.4), rt=0.2)
         for i in range(1, len(values)):
