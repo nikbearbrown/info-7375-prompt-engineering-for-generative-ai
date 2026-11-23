@@ -21,17 +21,23 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-SCORER_VERSION = "S-v1"
+SCORER_VERSION = "S-v2"
 
 #: name -> (words, points each, cap). Straight from the FILTER.md §1 table.
 SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
+    # `infrastructure` cut by A2: 206/295 postings, 177/177 on ashby:ramp,
+    # from the company boilerplate "Ramp is building the smart infrastructure
+    # for finance teams". A word in every posting distinguishes none of them.
     "S1_core": (
         ("api", "backend", "distributed systems", "database", "microservice",
-         "microservices", "infrastructure"),
+         "microservices"),
         2, 6,
     ),
+    # `go` cut by A2: 55 matches, at most 9 the language, 46 the English verb
+    # ("you'll go deep", "go-to-market"). `golang` appears nowhere in the
+    # corpus, so the Go language is simply undetectable here. Stated cost.
     "S2_language": (
-        ("python", "java", "c++", "typescript", "javascript", "go", "rust", "c#"),
+        ("python", "java", "c++", "typescript", "javascript", "rust", "c#"),
         2, 4,
     ),
     "S3_graphics": (
@@ -43,9 +49,18 @@ SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
         ("machine learning", "pytorch", "tensorflow", "model training", "inference"),
         2, 4,
     ),
+    # `0-2 years` / `1-2 years` cut by A2: one match in the corpus, on
+    # "1-2 years of quota-carrying SaaS sales experience". A year range states
+    # how much experience is wanted, not that new graduates may apply.
+    #
+    # None of the phrases that remain occurs in any of the 295 postings, so
+    # S5 cannot fire on this corpus at all. That is not a bug: none of these
+    # four boards said in words that a posting was open to new graduates.
+    # tests/test_amendment_a2.py pins it, so the day a board does say it, the
+    # test fails and this comment gets rewritten.
     "S5_newgrad": (
         ("new grad", "new graduate", "entry level", "entry-level", "early career",
-         "university graduate", "0-2 years", "1-2 years"),
+         "university graduate"),
         4, 4,
     ),
     "S6_experience_wall": (

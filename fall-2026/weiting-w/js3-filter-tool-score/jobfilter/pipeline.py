@@ -20,10 +20,11 @@ from dataclasses import dataclass, field
 
 from inherited import rule as inherited_rule
 
+from . import gates
 from . import score as scorer
 from .corpus import Posting
 
-FILTER_VERSION = "F-v1"
+FILTER_VERSION = "F-v2"
 
 SHORTLISTED = "shortlisted"
 BELOW_THRESHOLD = "below_threshold"
@@ -68,12 +69,30 @@ class Decision:
 def decide(posting: Posting, persona: dict) -> Decision:
     """One posting through F-v1: four inherited gates, then S-v1."""
     verdict = inherited_rule.judge(posting.for_rule(), persona)
-    if verdict["verdict"] != "relevant":
+    if verdict["verdict"] != "relevant" and verdict["gate_failed"] != "G3_job_family":
+        # F1, F2 and F4 stand as inherited (FILTER.md §7 A1).
         return Decision(
             posting=posting,
             bucket=GATED,
             gate_failed=verdict["gate_failed"],
             gate_evidence=verdict["justification"],
+        )
+
+    # F3 after A1: a denylist, applied to whatever family field the provider
+    # sent. The inherited allowlist is not consulted at all.
+    denied_by = gates.f3_rejects(posting.job_family)
+    if denied_by is not None:
+        return Decision(
+            posting=posting,
+            bucket=GATED,
+            gate_failed="F3_job_family",
+            gate_evidence=[{
+                "rule": gates.F3_VERSION,
+                "resume_field": "NON_ENGINEERING_FUNCTIONS",
+                "resume_value": denied_by,
+                "posting_field": "job_family",
+                "evidence": posting.job_family,
+            }],
         )
 
     if not posting.has_body:
