@@ -3,8 +3,8 @@
 **Written before any JS3 code existed, and committed alone so the ordering is
 checkable in git.** Frozen 2026-11-23.
 
-**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v4 (frozen as
-S-v1; §7 A2, A3, A4). Evidence rules E-v1a (§7 A3).**
+**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v5 (frozen as
+S-v1; §7 A2–A5). Evidence rules E-v1a (§7 A3).**
 
 This is layer 3 of my own job-search agent. Layers 1 and 2
 (`fall-2026/weiting-w/js1-contract-and-watch`,
@@ -549,3 +549,61 @@ and the heading coverage.
 
 **Not changed by A4:** every word list, every base weight, every cap, the gates
 and the threshold.
+
+### A5 — 2026-11-23. `infrastructure` reinstated. **S-v4 → S-v5.**
+
+A4 said this would be the next thing, and it is the shortest amendment here
+because A4 already did the work.
+
+**What A2 did and why it was the wrong shape.** A2 cut `infrastructure` from S1
+because it fired on 206 of 295 postings and **177 of 177** at `ashby:ramp`,
+every one of them from the company's own blurb. That measurement was right and
+the diagnosis was wrong: the problem was never the word, it was that the scorer
+could not tell a sentence about the company from a sentence about the job. A2
+removed a word to stop a sentence counting. **A4 made the sentence stop
+counting.**
+
+**The measurement**, run with the word reinstated and before any code changed
+(`reports/a5-predicted-effect.txt`):
+
+| | |
+|---|---|
+| `infrastructure` fires, across the 24 scored | **21 times** |
+| of those, in a `company` section, earning **0** | **20** |
+| in a section that is about the job | **1** |
+| shortlisted at T = 6 | **4 → 4, unchanged** |
+| postings whose score moves | **1 of 24** |
+
+The single posting that moves is `Full Stack Engineer - Music`, 6 → 8, on:
+
+> The work runs from video pipelines and serving **infrastructure** through
+> mobile and web clients
+
+which is a true statement about that job, in that posting's own description of
+the work. That is exactly the match A2 had to throw away to stop the twenty it
+could not distinguish from it.
+
+**Reinstated.** The cost of keeping the cut is one real signal lost in every
+posting that genuinely talks about infrastructure; the cost of reinstating it
+was, under S-v3, twenty false ones. A4 moved that second number to zero, and
+the measurement above is the evidence rather than the argument.
+
+**What this says about the other two A2 cuts**, since the same question
+applies:
+
+- **`go`** stays cut. Its 46 wrong matches were in duties and requirements
+  sections — "You'll **go** deep on the product" is in a *What You'll Do* list.
+  A4 does not touch them, and the word is still wrong five times in six.
+- **`0-2 years` / `1-2 years`** stay cut. The one match was in a requirements
+  section, where A4 gives it full weight. It would still be +4 for a new
+  graduate on a posting demanding sales experience.
+
+So of the three false friends A2 found, **exactly one was a section problem**,
+and the other two were genuinely bad words. Knowing which is which took the
+structural fix; before A4 all three looked the same.
+
+**A version bump: S-v4 → S-v5**, because a verdict moves (6 → 8), even though
+no bucket does. `tests/test_amendment_a5.py` pins the 20/1 split.
+
+**Not changed by A5:** every other word, every weight, every cap, the section
+table, the gates and the threshold.
