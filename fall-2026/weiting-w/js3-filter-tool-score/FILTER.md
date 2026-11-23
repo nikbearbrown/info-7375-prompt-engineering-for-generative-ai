@@ -3,8 +3,8 @@
 **Written before any JS3 code existed, and committed alone so the ordering is
 checkable in git.** Frozen 2026-11-23.
 
-**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v2 (frozen as
-S-v1; §7 A2). Evidence rules E-v1.**
+**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v3 (frozen as
+S-v1; §7 A2, A3). Evidence rules E-v1a (§7 A3).**
 
 This is layer 3 of my own job-search agent. Layers 1 and 2
 (`fall-2026/weiting-w/js1-contract-and-watch`,
@@ -383,3 +383,75 @@ above.
 
 **Not changed by A2:** every other word, every weight, every cap, and the
 threshold. One change per amendment.
+
+### A3 — 2026-11-23. The experience wall was a list of strings. **S-v2 → S-v3, E-v1 → E-v1a.**
+
+**How it was found.** Reading the full text of the **top-scoring shortlist
+entry** — `Machine Learning Engineer` (ashby:ramp), score 8 — while preparing
+the prompt in `tools/explain_shortlist.py`. Its requirements say:
+
+> - A **minimum of 5 years** of industry experience as a Machine Learning
+>   Engineer, Applied Scientist or Data Scientist
+
+S6 did not fire. The number one entry on my shortlist is a five-year role.
+
+**The defect.** S6 was written as literal strings — `5+ years`, `6+ years`,
+`7+ years`, `8+ years`, `10+ years` — so it misses two whole classes of
+posting:
+
+- **other numbers in the same shape**: `3+ years` and `4+ years` are not in the
+  list at all, and `9+` is not either;
+- **other ways to say it**: "minimum of 5 years", "at least 5 years",
+  "5 years of industry experience".
+
+A requirement is a *number with a threshold*, and I encoded it as a *spelling*.
+
+**The same hole is in E-v1.** `evidence._YEARS` recognises `N+ years`,
+`at least N years` and `N-M years`, but not "minimum of N years" or
+"N years of experience", which is why the new-graduate claim on that posting
+came back `insufficient` instead of `contradicted` — the rule looked for a
+number and the posting had one, written in a form the regex did not read.
+
+**The change, and why it is one change.** Recognise an experience requirement
+as *a number ≥ 3 followed by "years"* in any of the four forms above, and apply
+that same recognition in the two places that read years: S6 and
+`evidence._YEARS`. Two files, one rule — splitting it would leave the scorer
+and the evidence rules disagreeing about what the same sentence says, which is
+worse than either being wrong alone.
+
+Threshold 3 rather than 5: three years is already outside what a new graduate
+has, and it is the smallest number any posting in this corpus states.
+
+**Predicted effect, computed before the code changed**, saved in
+`reports/a3-predicted-effect.txt`:
+
+| | before A3 | after A3 |
+|---|---|---|
+| shortlisted at T=6 | 7 | **6** |
+| score range | [−2, 8] | [−6, 6] |
+| postings whose score moves | — | **6** |
+
+| was | becomes | posting | the span S6 could not read |
+|---|---|---|---|
+| 8 | **2** | Machine Learning Engineer | `minimum of 5 years` |
+| 4 | −2 | Software Engineer, Fraud & Identity | `3+ years` |
+| 4 | −2 | Software Engineer, Frontend | `Minimum of 5 years` |
+| 0 | −6 | Software Engineer, Growth Platform | `Minimum of 3 years` |
+| 0 | −6 | Software Engineer, Frontend, Growth | `5 years of experience` |
+| 0 | −6 | Software Engineer, Forward Deployed, Enterprise | `3+ years` |
+
+Two of those six were missed by the *numbers* gap (`3+ years`) rather than the
+*phrasing* gap, which I did not predict when I started writing this amendment
+and which is the part that makes the defect worse than it first looked.
+
+**What this costs the shortlist.** It loses its highest-scoring entry, and
+`reports/shortlist.md` §1's table is rewritten by it. A filter that drops its
+best-looking result after reading the requirements more carefully is working.
+
+**Version bumps: S-v2 → S-v3, E-v1 → E-v1a.** The evidence change is a letter
+bump because no *rule* in §2 changes — `contradicted` still means a span states
+something incompatible — only the set of spans the implementation can read.
+`tests/test_amendment_a3.py` pins the table.
+
+**Not changed by A3:** every other signal, the weights, the caps, the gates and
+the threshold.
