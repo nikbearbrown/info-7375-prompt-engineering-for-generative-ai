@@ -3,8 +3,8 @@
 **Written before any JS3 code existed, and committed alone so the ordering is
 checkable in git.** Frozen 2026-11-23.
 
-**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v3 (frozen as
-S-v1; §7 A2, A3). Evidence rules E-v1a (§7 A3).**
+**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v4 (frozen as
+S-v1; §7 A2, A3, A4). Evidence rules E-v1a (§7 A3).**
 
 This is layer 3 of my own job-search agent. Layers 1 and 2
 (`fall-2026/weiting-w/js1-contract-and-watch`,
@@ -470,3 +470,82 @@ found it anyway, which is the only reason I know about it.
 
 **Not changed by A3:** every other signal, the weights, the caps, the gates and
 the threshold.
+
+### A4 — 2026-11-23. A span is weighted by the section it sits in. **S-v3 → S-v4.**
+
+**What this fixes.** `reports/shortlist.md` §3 recorded, and did not fix, that
+two of the six shortlisted postings — `Software Engineer, iOS` and
+`Software Engineer, Android` — score **all six** of their points inside a
+`NICE TO HAVES` block:
+
+> NICE TO HAVES
+> - Experience with backend technologies (Python, Flask, SQL, OpenAPI).
+> - Experience with web apps (React, TypeScript).
+
+Their requirements ask for Swift, SwiftUI and a minimum of one year of mobile
+development. The filter matched their *optional* list and scored nothing from
+their *required* list, and a third of the shortlist was built that way.
+
+**Why this was rejected once and is now being done.** `reports/reject-audit.md`
+§8 rejected it as "a per-board heading parser, which is a subsystem, not an
+amendment". That judgement was made against a wrong estimate of the time left
+in the day and without measuring how regular the headings are. Measuring took
+ten minutes: **all 295 postings with text contain at least one recognised
+heading**, and the vocabulary is small — `WHAT YOU'LL DO` / `What You'll Do`,
+`WHAT YOU NEED` / `Who You Are`, `NICE TO HAVES` / `NICE-TO-HAVES`,
+`ABOUT RAMP`, `BENEFITS…`, `OTHER NOTICES`. It is a table, not a subsystem.
+
+**The change.** `jobfilter/sections.py` classifies every heading into one of
+four kinds, and a positive hit is weighted by where it sits:
+
+| section | weight | reasoning |
+|---|---|---|
+| `required` — "WHAT YOU NEED", "Who You Are", "Requirements" | **×1** | what the posting demands is what decides whether I can apply |
+| `duties` — "WHAT YOU'LL DO", "ABOUT THE ROLE" | **×1** | what the work is; as direct a statement about the job as the requirements |
+| `optional` — "NICE TO HAVES", "Preferred qualifications" | **×½**, toward zero | real evidence, and weaker: the posting says so itself |
+| `company` — "ABOUT RAMP", "BENEFITS…", "UNITED STATES", "OTHER NOTICES" | **×0** | not about this job. "Ramp is building the smart infrastructure for finance teams" appears in all 177 of its postings |
+| `unlabelled` — before any heading, or a heading not in the table | **×1** | an unknown section is not evidence of absence; weighting it down would punish a posting for its formatting |
+
+**Penalties are never scaled.** S6 and S7 count in full wherever they appear:
+a stated experience requirement is one whether or not the board filed it
+tidily, and a rule that could be evaded by moving a sentence is not a rule.
+
+**A bug caught by predicting before applying.** The first version of the
+heading table classified `ABOUT THE ROLE` as `company`. It is not — it is the
+section that says "In this role, you will build core machine learning
+models…". Running the prediction showed `company` holding 14 hits and +28
+points, which was implausible on its face, and the misclassification was the
+reason. Corrected before any code changed; `about the role` is `duties`. With
+it fixed, `company` holds **2 hits and +4 points**.
+
+**Predicted effect, computed before the code changed**
+(`reports/a4-predicted-effect.txt`):
+
+| | before A4 | after A4 |
+|---|---|---|
+| shortlisted at T = 6 | 6 | **4** |
+| score range | [−6, 6] | [−6, 6] |
+| postings whose score moves | — | **4 of 24** |
+| rising into the shortlist | — | **0** |
+
+| was | becomes | posting | why |
+|---|---|---|---|
+| 6 | **3** | Software Engineer, iOS | all six points were in NICE TO HAVES |
+| 6 | **3** | Software Engineer, Android | all six points were in NICE TO HAVES |
+
+Where the hits sit today, before reweighting: `required` 29 hits / −22,
+`duties` 23 / +46, `optional` 6 / +12, `company` 2 / +4, `unlabelled` 3 / +6.
+
+**What A4 does not do, deliberately.** A2 cut `infrastructure` because it fired
+on 177/177 Ramp postings from a company-blurb sentence. A4 gives the scorer the
+ability to ignore that sentence, so **the cut was treating a symptom** and
+reinstating the word is now defensible. It is **not** reinstated here: that is
+a different change, it needs its own prediction and its own measurement, and
+one change per amendment is the rule that has made every amendment in this
+document checkable. It is listed as the next thing to do.
+
+**A version bump: S-v3 → S-v4.** `tests/test_amendment_a4.py` pins the table
+and the heading coverage.
+
+**Not changed by A4:** every word list, every base weight, every cap, the gates
+and the threshold.
