@@ -12,5 +12,10 @@ Review with Claude found mismatches I fixed before committing: my first draft li
 
 ## Entry 4 — November 23, 2026: Live run 2 (day 2)
 Ran the loop live at 3:31 PM EST (out/runs/2026-11-23T153111/). Status incomplete, exit 1 (deliberate bad board). Compared with the Nov 19 state: Glean 129 postings, 3 new; Palantir 306, 3 new; OpenAI 855, 34 new. Agent runs now exist on two real days (Nov 19 and Nov 23). I was away Nov 20–22, so no runs those days; the deadline moved to Wednesday, Nov 25.
+
 ## Entry 5 — November 23, 2026: Filter tests written before implementation
 Wrote the asserts for 15 tests in tests/test_filter.py before agent/filter.py exists: one per wrong version in FILTER.md §5 (substring, title-only, raw counting, missing description, case), plus key rules (score math = 10, 8+ years rejected but 5+ not, Manager rejected, Senior flagged not rejected, plain "Remote" is CANNOT TELL, non-US rejected, <50 words is CANNOT TELL, "Spring" alone is not Spring Boot, HTML decoded before matching). First run: ModuleNotFoundError for agent.filter (expected).
+
+## Entry 6 — November 23, 2026: Claude Code built the filter
+Claude Code wrote agent/filter.py and agent/run_filter.py against FILTER.md v1.0. Verified myself: `python -m pytest -q` → 55 passed (40 earlier + 15 filter); `git diff tests/ FILTER.md CLAUDE.md` empty.
+First run on run 2 (1,290 postings): KEEP 31, REJECT 1,252, CANNOT TELL 7. Palantir had 0 KEEPs out of 306, which needs checking in the audit before I change anything.
