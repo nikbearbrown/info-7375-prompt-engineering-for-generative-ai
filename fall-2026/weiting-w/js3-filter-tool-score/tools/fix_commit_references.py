@@ -3,6 +3,12 @@
     python3 tools/fix_commit_references.py            # report only
     python3 tools/fix_commit_references.py --write    # rewrite
 
+**Where to run which mode.** `--refresh` goes in the repository the commits
+were *authored* in, where the stale hashes still resolve; `--write` goes in
+the repository they were *replayed into*, and uses the table `--refresh`
+captured. Running `--refresh` in the target repository used to wipe the table,
+which is how this paragraph came to be written.
+
 **Why this exists.** The JS3 commits were authored in one repository and
 replayed into the course repository with `git am`, which gives every commit a
 new hash because its parent differs. Hashes written into the documents while
@@ -100,6 +106,22 @@ def refresh(repo: Path) -> int:
                   "JS3 commit, something is wrong; if it is a JS2 one it "
                   "belongs in JS2_DEAD", file=sys.stderr)
 
+    # --refresh belongs in the repository the patches were AUTHORED in, where
+    # the stale hashes still resolve. Run in the repository they were replayed
+    # INTO, nothing resolves and the old behaviour was to write an empty table
+    # -- destroying the mapping that --write needs, with no way to rebuild it.
+    # That happened once, on the real submission, at 18:40 on the due date.
+    if not found and cited - JS2_DEAD:
+        print(
+            f"  refusing to write an empty table: none of the "
+            f"{len(cited - JS2_DEAD)} hashes the documents cite resolves here.\n"
+            "  --refresh belongs in the repository the commits were authored\n"
+            "  in. In the repository they were replayed into, run --write,\n"
+            "  which uses the table that is already committed.",
+            file=sys.stderr,
+        )
+        return 1
+
     me = Path(__file__)
     src = me.read_text(encoding="utf-8")
     start = src.index("KNOWN: dict[str, str] = {")
@@ -117,7 +139,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--refresh", action="store_true",
-                    help="rebuild KNOWN from the hashes the documents cite")
+                    help="rebuild KNOWN from the hashes the documents cite. "
+                         "Run this in the repository the commits were AUTHORED "
+                         "in, never in the one they were replayed into")
     ap.add_argument("--repo", default=None, help="defaults to the enclosing repo")
     args = ap.parse_args(argv)
 

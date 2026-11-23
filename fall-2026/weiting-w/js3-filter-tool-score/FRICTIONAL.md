@@ -313,6 +313,38 @@ What survives: the labels can still see the three changes that make things
 *worse* (undoing A4, W3, dropping Lever's `lists`), and those are in
 `reports/what-moves-the-score.md` §4b.
 
+## 8c. A tool I wrote to prevent a mistake made a different one, on the real submission
+
+**2026-11-23, 18:35, during the push.**
+
+`tools/fix_commit_references.py` exists because the JS3 commits are authored
+in one repository and replayed into the course repository, so every hash the
+documents cite goes stale. It has two modes: `--refresh` captures the
+stale-hash → subject mapping, `--write` substitutes the fresh hashes.
+
+**`--refresh` only works in the repository the commits were authored in.** In
+the repository they were replayed into, none of the old hashes resolves — and
+the old code responded by writing an **empty** table, destroying the mapping
+`--write` needs, with nothing left to rebuild it from.
+
+I handed Weiting a command sequence that ran `--refresh` first, in the wrong
+repository. It wiped the table and `--write` then reported "0 commits
+matched". The committed copy was intact, so the fix was
+`git checkout -- tools/fix_commit_references.py` and `--write` alone.
+
+Two things were wrong and only one of them was the instructions. A tool whose
+destructive mode silently produces an empty result when run in the wrong
+place is a tool that will do it again. `--refresh` now refuses to write an
+empty table, says which repository each mode belongs in, and exits non-zero;
+the guard is verified in a scratch repository built without the original
+objects, because my first attempt to test it passed for the wrong reason —
+a `git clone` keeps the original commits reachable, so the stale hashes still
+resolved there.
+
+The irony is the entry: the script exists so that this submission would not
+repeat JS2's defect of citing commits a reader cannot resolve, and the script
+is what came closest to causing it.
+
 ## 9. What is still unresolved
 
 | | where |
