@@ -1,0 +1,33 @@
+Real transcript of a session with the JS3 tool server.
+
+Captured by tools/drive_toolserver.py on 2026-11-23 by running
+`python3 -m toolserver` as a subprocess and speaking JSON-RPC 2.0 to
+its stdin. Every line below went over the pipe exactly as it appears:
+`-->` is client to server, `<--` is server to client. Nothing retyped,
+nothing reformatted.
+
+exit code: 0
+stderr: (empty)
+
+========================================================================
+
+--> {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "js3-transcript-driver", "version": "1.0.0"}}}
+<-- {"jsonrpc": "2.0", "id": 1, "result": {"protocolVersion": "2024-11-05", "capabilities": {"tools": {"listChanged": false}}, "serverInfo": {"name": "js3-score-posting", "version": "1.0.0"}}}
+--> {"jsonrpc": "2.0", "method": "notifications/initialized"}
+    (notification: no reply expected)
+--> {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}
+<-- {"jsonrpc": "2.0", "id": 2, "result": {"tools": [{"name": "score_posting", "description": "Score the text of a job posting against the filter in FILTER.md (F-v2 / S-v2) for a fictional new-graduate software engineering persona. Returns the total, the per-signal breakdown, and for every point awarded the word that matched and the sentence it appeared in. Pure arithmetic over a published word list: it reads no file, makes no network request, and calls no model. Text with no scoreable content returns 0; empty text is an error, not a 0, because 'nothing to read' and 'read it and found nothing' are different answers.", "inputSchema": {"type": "object", "properties": {"text": {"type": "string", "description": "The posting's plain-text body. Not a path, not a URL -- this server fetches nothing."}}, "required": ["text"], "additionalProperties": false}}]}}
+--> {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"text": "About the role\nYou will build and operate backend services and the public API that our customers integrate with. Our stack is Python and TypeScript, backed by Postgres.\n- Design and ship microservices\n- Work on distributed systems problems with the platform team\nRequirements\n- 5+ years of experience building production software\n"}}}
+<-- {"jsonrpc": "2.0", "id": 3, "result": {"isError": false, "content": [{"type": "text", "text": "{\"scorer_version\": \"S-v2\", \"total\": 4, \"threshold\": 6, \"shortlisted\": false, \"per_signal\": {\"S1_core\": 6, \"S2_language\": 4, \"S6_experience_wall\": -6}, \"evidence\": [{\"signal\": \"S1_core\", \"word\": \"api\", \"points\": 2, \"sentence\": \"You will build and operate backend services and the public API that our customers integrate with.\"}, {\"signal\": \"S1_core\", \"word\": \"backend\", \"points\": 2, \"sentence\": \"You will build and operate backend services and the public API that our customers integrate with.\"}, {\"signal\": \"S1_core\", \"word\": \"distributed systems\", \"points\": 2, \"sentence\": \"- Work on distributed systems problems with the platform team\"}, {\"signal\": \"S2_language\", \"word\": \"python\", \"points\": 2, \"sentence\": \"Our stack is Python and TypeScript, backed by Postgres.\"}, {\"signal\": \"S2_language\", \"word\": \"typescript\", \"points\": 2, \"sentence\": \"Our stack is Python and TypeScript, backed by Postgres.\"}, {\"signal\": \"S6_experience_wall\", \"word\": \"5+ years\", \"points\": -6, \"sentence\": \"- 5+ years of experience building production software\"}]}"}]}}
+--> {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"text": "We are looking for a friendly person."}}}
+<-- {"jsonrpc": "2.0", "id": 4, "result": {"isError": false, "content": [{"type": "text", "text": "{\"scorer_version\": \"S-v2\", \"total\": 0, \"threshold\": 6, \"shortlisted\": false, \"per_signal\": {}, \"evidence\": []}"}]}}
+--> {"jsonrpc": "2.0", "id": 5, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"text": ""}}}
+<-- {"jsonrpc": "2.0", "id": 5, "result": {"isError": true, "content": [{"type": "text", "text": "`text` is empty. An empty body is not a score of 0: see FILTER.md section 3 and wrong version W1."}]}}
+--> {"jsonrpc": "2.0", "id": 6, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"text": "hello", "path": "../../etc/passwd"}}}
+<-- {"jsonrpc": "2.0", "id": 6, "result": {"isError": true, "content": [{"type": "text", "text": "unexpected argument(s): ['path']"}]}}
+--> {"jsonrpc": "2.0", "id": 7, "method": "tools/call", "params": {"name": "read_file", "arguments": {"path": "/etc/passwd"}}}
+<-- {"jsonrpc": "2.0", "id": 7, "error": {"code": -32602, "message": "no such tool: 'read_file'"}}
+--> {"jsonrpc": "2.0", "id": 8, "method": "resources/list"}
+<-- {"jsonrpc": "2.0", "id": 8, "error": {"code": -32601, "message": "method not found: 'resources/list'"}}
+--> {"jsonrpc": "2.0", "id": 9, "method": "tools/call", "params": {"name": "score_posting", "arguments": {}}}
+<-- {"jsonrpc": "2.0", "id": 9, "result": {"isError": true, "content": [{"type": "text", "text": "`text` is required and must be a string"}]}}
