@@ -6,7 +6,7 @@
 - **Target role:** Data Engineer / BI Engineer
 - **Structure:** Executive summary → Introduction (prior work) → Methods → Evaluation
 - **Runtime:** 3:57 (237.2 s) — `seeded-faults-project.mp4`, 3840×2160, Brutalist show-tell, free local pipeline
-- **Status:** the project is not built. The fault catalogue and pass/fail thresholds are locked in commit `e5aac1c` (2026-11-22), before any test was written.
+- **Status:** the project is not built. The fault catalogue and pass/fail thresholds are locked in commit `e5aac1c` (2026-11-22), before any test was written (on this branch `08b1b7c`; see `COMMIT_MAP.md`).
 
 ## Appendix: detail behind each part of the film
 The film keeps detail out of the executive summary. The full detail is here:
@@ -34,6 +34,7 @@ The film keeps detail out of the executive summary. The full detail is here:
 | `CLAUDE-LOG.md` | What Claude did, as facts |
 | `FRICTIONAL.md` | My dated work log |
 | `gate-reports/` | Brutalist quality-gate reports |
+| `COMMIT_MAP.md` | Local commit hashes cited in the film and docs (e.g. `e5aac1c`) → their hashes on this branch |
 | `film-source/` | `scenes.py`, `make_sheet.py`, `write_beat_sheet.py` and the toolkit paperwork |
 
 ## How to rebuild the film
