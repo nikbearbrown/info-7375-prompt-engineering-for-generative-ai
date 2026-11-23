@@ -1,34 +1,39 @@
-# FACTCHECK — agent-proving-ground-progress
+# FACTCHECK — agent-proving-ground-progress (v2)
 
-Status: checked by Claude Code on 2026-11-23 against captures taken the same day (read-only) from `~/Documents/agent-proving-ground` at HEAD `f40f3a1`; author review pending (Tushar).
+Status: checked by Claude Code on 2026-11-23 against captures taken the same day (read-only) from `~/Documents/agent-proving-ground` at HEAD `f40f3a1`, and against the October PROJECT-BRIEF.md. Author review pending (Tushar).
 
-Tense: past tense only for what ran through M5 (B06–B12); B13's next steps use "will"/"I'll". Every number in the narration is checked in NUMBER-CHECK.md (18 rows, all match).
+Narration: v2 BEAT-PLAN.md (Tushar, Nov 23, 2026), word for word. Tense: past or present perfect for what ran through M5; "will"/"I'll" for what's left (B12). Every number in the narration is checked in NUMBER-CHECK.md (26 rows, all match).
 
 ## Claims
 
 | # | Beat | Claim (as spoken / shown) | Verdict | Source / derivation | Fix |
 |---|---|---|---|---|---|
-| C1 | B04 | "E2B provides sandboxes for running AI-generated code." | CORRECTED | October PROJECT-BRIEF.md §2, word for word | Beat plan said "E2B and Runtime give agents sandboxes"; Runtime is not in the brief (Tushar chose "brief only", 2026-11-23) |
-| C2 | B04 | "Langfuse records LLM traces and scores." | CORRECTED | October PROJECT-BRIEF.md §2, word for word | Beat plan said "Langfuse and Raindrop trace and evaluate model calls"; Raindrop is not in the brief |
-| C3 | B04 | oh-my-pi | CORRECTED | not in the October brief; October SOURCES.md calls it "an open-source coding agent", not a harness | sentence removed (Tushar's choice) |
-| C4 | B04 | A Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, only for Drupal sites | EXEMPT | Tushar's own line (new in this film); source https://www.drupal.org/project/ai_proving_ground, listed in SOURCES.md. Not fetched in this build (no network beyond pip) | author to confirm wording against the page |
-| C5 | B06 | built in Go | PASS | APG go.mod (`go 1.27.3`) | — |
-| C6 | B06 | agent is Claude Haiku; three tools: read a file, write a file, run a command | PASS | traces: `model claude-haiku-5-5`; internal/loop/loop.go defines read_file, write_file, run_command | — |
-| C7 | B06 | Kubernetes pod with no network | PASS | evidence/B9.txt: TestKindEgressBlocked, tcp and DNS blocked with the policy on | — |
-| C8 | B06 | hidden check the agent never sees, after every change | PASS | tasks/README.md: check.sh "the hidden check"; repo/ is the only part the agent sees; trace-schema check_runs (mid-run check on a /workspace change) | — |
-| C9 | B06 | real run on task one passed in three steps | PASS | evidence/B6.txt: PLAN.md:120 `001  PASS  steps=3`; trace 20261112T053055Z-92239eb0 has 3 steps | — |
-| C10 | B07 | a denied call never runs; it's recorded | PASS | evidence/B7.txt: run 20261118T034327Z-b54f5cd6 step 4 DENIED (rule: path), "/workspace changed: no" | — |
-| C11 | B07 | approval bound to the exact bytes; void if the diff changes | PASS | evidence/B7.txt: gate diff_sha256 = recheck_sha256; trace-schema.md:193 "or the approval is void"; trace-schema.md:47 human-answered by Tushar | — |
-| C12 | B08 | 16 tasks, 11 normal, 5 failure; split frozen before tuning | PASS | evidence/B8.txt; NUMBER-CHECK N4–N7 | — |
-| C13 | B09 | no network, not root, capped CPU, memory, processes, disk; every limit held | PASS | evidence/B9.txt: all isolation tests PASS (2026-11-17T23:44Z) | — |
-| C14 | B09 | spend-limited API key; Claude Code wrote the code while Tushar reviewed every change | PASS | APG docs/01-brief.md:27; APG SOURCES.md:38 "with Tushar reviewing each diff before commit" | — |
-| C15 | B10 | two system prompts: the original and a longer one Tushar wrote; predictions committed before held-out runs | PASS | evidence/B10.txt: A 623 bytes, B 2,695 bytes (D30: Tushar's text); 6d7bafe Nov 17 22:40 ET, first held-out eval Nov 17 22:41 ET | — |
-| C16 | B11 | 70 held-out runs; 20/20 and 15/15 for both; about 41% more cost | PASS | evidence/B11.txt; NUMBER-CHECK N8–N11 (cost ratio 1.409, estimated from list prices) | — |
-| C17 | B12 | all 40 passing fixes read; no test edits; 7 of 10 on one task missed documented behaviour; executed check ['X', 'x'] | PASS | evidence/B12.txt; NUMBER-CHECK N12–N14 | — |
-| C18 | B13 | next: controlled failure, stranger run, submit Dec 18; code public at github.com/tushar-patel28/agent-proving-ground | PASS | evidence/B13.txt: docs/01-brief.md:40–41, PLAN.md:6, git remote. Public visibility not re-checked online in this build | — |
+| C1 | B01 | final project for INFO 7375 | PASS | the course; October PROJECT-BRIEF.md header | — |
+| C2 | B02 | an agent can fix the bug, edit the test so it passes, or give up, and its message can look the same | EXEMPT | general framing, drawn as a constructed illustration; task 012-wrong-test exists because a test edit is the tempting wrong fix (evidence/B8.txt:36) | — |
+| C3 | B03 | a command-line tool with its code in a public GitHub repo | PASS | `apg` CLI (`go run ./cmd/apg`); evidence/B13.txt `git remote` → github.com/tushar-patel28/agent-proving-ground. Public visibility not re-checked online in this build | — |
+| C4 | B03 | runs an agent in a locked sandbox, records every step, decides pass/fail by its own tests | PASS | evidence/B6.txt (trace steps, `check_passed`); evidence/B9.txt (isolation) | — |
+| C5 | B04 | first minute: one command, one result line, open the trace | PASS | October PROJECT-BRIEF.md:14 ("first sixty seconds", "run one command"); evidence/B6.txt (one result line). Shown as a mock-up labelled "constructed" | — |
+| C6 | B05 | "E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores." | PASS | October PROJECT-BRIEF.md §2, word for word | — |
+| C7 | B05 | a sandbox doesn't tell you whether the work is right; a trace doesn't stop an agent doing what it shouldn't | EXEMPT | Tushar's own characterisation of the gap; not checked against either product's current documentation (no network in this build) | — |
+| C8 | B06 | one loop on a laptop: sandbox, trace, independent check, human approval | PASS | evidence/B7.txt (gate), B9.txt (sandbox), B6.txt (trace, check) | — |
+| C9 | B06 | Go and Kubernetes were both new to Tushar | PASS | October PROJECT-BRIEF.md:38 "Skills that are new to me: Go, Kubernetes, …" | — |
+| C10 | B07 | Kubernetes pod, no network, not root | PASS | evidence/B9.txt lines 105–106 (blocked), 12 (`uid=1000(apg)`), 16 (`setuid(0) errno 1`) | — |
+| C11 | B07 | Claude Haiku with three tools | PASS | evidence/B6.txt `model claude-haiku-5-5`; internal/loop/loop.go | — |
+| C12 | B07 | every tool call passes a permission policy written in code first | PASS | evidence/B7.txt step 4 `DENIED (rule: path)`, `/workspace changed: no` | — |
+| C13 | B07 | hidden check after every change; pass/fail only from that check | PASS | tasks/README.md (check.sh "the hidden check"); trace `exit_reason check_passed` (evidence/B6.txt) | — |
+| C14 | B07 | approval bound to the exact bytes seen | PASS | evidence/B7.txt gate `diff_sha256` = `recheck_sha256`; trace-schema.md:193 "or the approval is void" | — |
+| C15 | B08 | 16 tasks, 11 ordinary bugs, 5 where the right answer is no; split frozen before tuning | PASS | evidence/B8.txt; NUMBER-CHECK N7–N11 | — |
+| C16 | B08 | Docker and kind, a spend-limited key; Claude Code writes the code while Tushar reviews every change | PASS | evidence/B9.txt (docs/01-brief.md:27); APG SOURCES.md:38 | — |
+| C17 | B09 | built and tested through M5; run 001 PASS in 3 steps; a denied call recorded, never ran; every limit held | PASS | evidence/B13.txt, B6.txt, B7.txt, B9.txt; NUMBER-CHECK N12–N15 | — |
+| C18 | B10 | judged on three things; "I wrote my predictions down before the held-out runs" | CORRECTED | evidence/B10.txt: predictions committed (6d7bafe, Nov 17 22:40 ET) before the first held-out run (22:41 ET) | was "I write my predictions down before every run", broader than the captures; changed by Tushar, 2026-11-23 |
+| C19 | B11 | 70 held-out runs; 20/20 and 15/15 for both; all 40 fixes read; 7 of 10 on one task missed documented behaviour | PASS | evidence/B11.txt, B12.txt; NUMBER-CHECK N18–N22. No costs shown | — |
+| C20 | B12 | three things left: controlled failure (caught, recovered), stranger run, harden the check so it confirms every test actually ran; on screen "All by Dec 18" | PASS | evidence/B13.txt: docs/01-brief.md:40–41, PLAN.md:6 (Dec 18); evidence/B12-v2.txt: docs/03-action-surface-map.md:108–113 and docs/07-evidence.md:519 (Honest limits, point 4) name `os._exit(0)` as a cheat the check can't catch, so exit code 0 doesn't prove every test ran | item 3 was "the full write-up and submission, by December eighteenth" (changed by Tushar, 2026-11-23); "clean machine": confirmed: Final Project assignment, 'The stranger run' section, checked by Tushar on Nov 23, 2026 |
+| C21 | B13 | code under test can fool a check; answered by diff review and documented gaps | PASS | evidence/B12.txt (review of all 40 diffs; FAILURES.md F2, a pass that missed the spec); B8.txt:36 (012 tempts a test edit) | — |
+| C22 | B13 | won't be a hosted service or a model benchmark | PASS | evidence/B13.txt → APG docs/01-brief.md:47 "Not a model benchmark."; October PROJECT-BRIEF.md §5 "not … a hosted or multi-user service" | — |
+| C23 | B13 | code at github.com/tushar-patel28/agent-proving-ground | PASS | evidence/B13.txt `git remote get-url origin` | — |
 
 ## Honesty rules this film follows
 
-- CONSTRUCTED beats (B01–B05, B13) show "Constructed" in the top rail for the whole beat.
-- REAL beats (B06–B12) show text copied from evidence/<beat>.txt in terminal-style frames whose title bars give the source path and the source's own date; the rail shows "Real output". Lines too long are cut with "…"; nothing is reworded. Annotations added for the viewer (for example "(result line recorded in PLAN.md)", "(computed: b / a = 1.409)") are in grey.
-- No Claude responses, no product logos, no people, no channel styling.
+- CONSTRUCTED beats (all except B09 and B11) show "Constructed" in the top rail for the whole beat. B04's terminal is a mock-up and its title bar says so.
+- REAL beats (B09, B11) show text copied from evidence/<beat>.txt in terminal-style frames whose title bars give the source path and the source's own date; the rail shows "Real output". Lines too long are cut with "…"; nothing is reworded. Grey annotations such as "(result line recorded in PLAN.md)" are added for the viewer.
+- No costs on screen. No Claude responses, no product logos, no people, no channel styling.

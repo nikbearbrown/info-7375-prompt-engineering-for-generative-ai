@@ -1,6 +1,6 @@
 # TYPECHECK.md — GATE T
 
-Reel: `agent-proving-ground-progress`  |  Checked: 2026-11-23T12:58  |  Overall: PASS  |  Beats checked: 13  |  FAILs: 0
+Reel: `agent-proving-ground-progress`  |  Checked: 2026-11-23T16:52  |  Overall: PASS  |  Beats checked: 13  |  FAILs: 0
 
 Spec: `skills/make/kerning/reference/type-spec.md` §8.  Floor: 1.9% frame-height.  Contrast: 4.5:1 WCAG.  Kern threshold: 3.5× expected advance.  Wordy budget: 2 elements.
 
@@ -11,14 +11,14 @@ Spec: `skills/make/kerning/reference/type-spec.md` §8.  Floor: 1.9% frame-heigh
 | B03 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
 | B04 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
 | B05 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B06 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B07 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
+| B06 | ? | light | min-size §8.1: min text-run height 43px >= floor 41px | PASS | — |
+| B07 | ? | light | min-size §8.1: min text-run height 44px >= floor 41px | PASS | — |
 | B08 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B09 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B10 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
+| B09 | ? | light | min-size §8.1: min text-run height 46px >= floor 41px | PASS | — |
+| B10 | ? | light | min-size §8.1: min text-run height 49px >= floor 41px | PASS | — |
 | B11 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B12 | ? | light | min-size §8.1: min text-run height 106px >= floor 41px | PASS | — |
-| B13 | ? | light | min-size §8.1: min text-run height 47px >= floor 41px | PASS | — |
+| B12 | ? | light | min-size §8.1: min text-run height 44px >= floor 41px | PASS | — |
+| B13 | ? | light | min-size §8.1: min text-run height 42px >= floor 41px | PASS | — |
 
 ---
 
