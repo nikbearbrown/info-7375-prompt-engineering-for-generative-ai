@@ -1,0 +1,929 @@
+{
+  "metadata": {
+    "slug": "varnika-final-project-film",
+    "title": "A Job-Search Agent You Can Check",
+    "topic": "INFO 7375 · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "varnika-m",
+    "channel_title": "Varnika M",
+    "author": "Varnika M",
+    "course": "INFO 7375",
+    "persona": "Varnika M (first person)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "voice_reason": "Varnika chose the animated film with a computer voice on 2026-11-23, the same Kokoro am_onyx voice as her Week 01 and October films. Stock voice only: no instructor name, greeting or outro.",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Plain",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "The hesitant writer, terms card and Your Turn composer carry the instructor's narrator and channel identity, which a student film may not show. B01 is the hook. BOUT is drawn in Manim with the film title and Varnika's name.",
+    "structure": "Professor Bear's four parts, in order: 1 executive summary (B01–B04, no 'how'), 2 what others have done (B05–B07), 3 methods (B08–B12), 4 evaluation (B13–B17).",
+    "constructed_rule": "Drawings of anything not built yet carry a 'planned' label. Real numbers carry a source tag naming the run they come from.",
+    "claude_output_rule": "No Claude reply is shown in this film.",
+    "audience": "Professor Bear and the INFO 7375 graders; a hiring manager reviewing Varnika's GitHub",
+    "source_doc": "../../js1-contract-and-watch/, ../../js2-loop-tools-diff/, FACTCHECK.md",
+    "tags": [
+      "job-search agent",
+      "agentic loop",
+      "permission policy",
+      "human approval",
+      "Claude",
+      "Python"
+    ],
+    "build": {
+      "at": "2026-11-23T18:09:34",
+      "cut": "master",
+      "filled": 18,
+      "of": 18,
+      "slates": [],
+      "skin_warnings": [
+        "B01: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BOUT: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "1 · What and why",
+      "question": "What is it",
+      "narration_text": "I'm Varnika. I'm searching for a job myself, and reading hundreds of job postings by hand takes hours. So my final project is an agent that does the reading. It watches job boards, picks out the few postings that fit one person, and shows why each one made the list.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 15.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A tall stack of posting cards pours into a funnel; three cards come out, each with a 'why' tag.",
+        "motion_claim": "A tall stack of posting cards pours into a funnel; three cards come out, each with a 'why' tag.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A tall stack of posting cards pours into a funnel; three cards come out, each with a 'why' tag."
+          }
+        ],
+        "manim": {
+          "class": "B01_Funnel"
+        },
+        "labels": [
+          "job boards",
+          "shortlist",
+          "why"
+        ],
+        "constructed": "drawing; the shortlist with reasons is planned"
+      },
+      "actual_duration_s": 15.211,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 15.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "1 · What and why",
+      "question": "Why it matters: most postings don't fit",
+      "narration_text": "Most postings don't fit. On October thirty-first, my written rules checked all six hundred and seventy-five postings on Anthropic's job board against a made-up candidate. Only one matched.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 8.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A grid of 675 small dots fills in; one dot turns terracotta and is circled.",
+        "motion_claim": "A grid of 675 small dots fills in; one dot turns terracotta and is circled.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A grid of 675 small dots fills in; one dot turns terracotta and is circled."
+          }
+        ],
+        "manim": {
+          "class": "B02_OneOf675"
+        },
+        "labels": [
+          "675 postings",
+          "1 match"
+        ],
+        "constructed": false,
+        "source_tag": "JS1 · Anthropic board · live run 2026-10-31",
+        "evidence": "../../js1-contract-and-watch/README.md (run table; 1 match of 675)"
+      },
+      "actual_duration_s": 12.456,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 12.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      },
+      "tail_silence_s": 1.0
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "1 · What and why",
+      "question": "A person decides",
+      "narration_text": "And it never acts on its own. It won't apply for jobs or send anything. It will hand a person the shortlist, and only that person can say yes, no, or not yet.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 10.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The shortlist card slides to a simple person figure; three buttons appear: yes, no, not yet.",
+        "motion_claim": "The shortlist card slides to a simple person figure; three buttons appear: yes, no, not yet.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "The shortlist card slides to a simple person figure; three buttons appear: yes, no, not yet."
+          }
+        ],
+        "manim": {
+          "class": "B03_PersonDecides"
+        },
+        "labels": [
+          "yes",
+          "no",
+          "not yet"
+        ],
+        "constructed": "drawing; the approval step is planned (JS5)"
+      },
+      "actual_duration_s": 9.451,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 9.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "1 · What and why",
+      "question": "Why anyone should care",
+      "narration_text": "That matters because a tool that picks jobs for you should show its reasons, so you can check it, instead of just trusting it.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 7.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A magnifying glass moves over a 'why' tag on a posting card; a check lands.",
+        "motion_claim": "A magnifying glass moves over a 'why' tag on a posting card; a check lands.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A magnifying glass moves over a 'why' tag on a posting card; a check lands."
+          }
+        ],
+        "manim": {
+          "class": "B04_Reasons"
+        },
+        "labels": [
+          "check it",
+          "not trust it"
+        ],
+        "constructed": true
+      },
+      "actual_duration_s": 6.891,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 6.916666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "2 · What others have done",
+      "question": "Job alerts",
+      "narration_text": "What have other people done? The simplest tools are job alerts. LinkedIn and Indeed save your search, and send you new postings daily or weekly. But their help pages don't explain why a job matched.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 10.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A saved-search card sends envelopes to an inbox; a '?' hangs over the last envelope.",
+        "motion_claim": "A saved-search card sends envelopes to an inbox; a '?' hangs over the last envelope.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A saved-search card sends envelopes to an inbox; a '?' hangs over the last envelope."
+          }
+        ],
+        "manim": {
+          "class": "B05_Alerts"
+        },
+        "labels": [
+          "saved search",
+          "daily or weekly",
+          "why?"
+        ],
+        "constructed": "drawing of real features",
+        "source_tag": "LinkedIn and Indeed help pages · checked 2026-11-23",
+        "evidence": "evidence/others-2026-11-23/li_alerts.html; indeed.html"
+      },
+      "actual_duration_s": 10.987,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 11.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "2 · What others have done",
+      "question": "AI matching and auto-apply",
+      "narration_text": "Newer tools go further. LinkedIn's Skills Match compares your profile with the job description. Jobright says its agent matches roles and applies for you. LazyApply says its agent handles the entire application. Simplify's Autopilot submits with no review step, though its Copilot mode leaves the final click to you.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 14.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A match dial on a posting card; then a stamp marks a pile of cards 'applied'; one card keeps a 'you click submit' tag.",
+        "motion_claim": "A match dial on a posting card; then a stamp marks a pile of cards 'applied'; one card keeps a 'you click submit' tag.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A match dial on a posting card; then a stamp marks a pile of cards 'applied'; one card keeps a 'you click submit' tag."
+          }
+        ],
+        "manim": {
+          "class": "B06_AutoApply"
+        },
+        "labels": [
+          "Skills Match",
+          "Jobright",
+          "LazyApply",
+          "Simplify"
+        ],
+        "constructed": "drawing of claims on the companies' own pages",
+        "source_tag": "company pages · checked 2026-11-23",
+        "evidence": "evidence/others-2026-11-23/li_skills.html; jr_agent.html; lazy.html; simp_auto.html; simp_copilot.html"
+      },
+      "actual_duration_s": 18.176,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 18.208333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "2 · What others have done",
+      "question": "Why mine still matters",
+      "narration_text": "So finding jobs is automated, and so is applying. None of these pages mentions rules you can recheck, a separate program that checks each run, or a person approving the shortlist. That's what mine adds.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 10.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three tags line up next to a shortlist: 'rules you can recheck', 'run checker', 'person approves'.",
+        "motion_claim": "Three tags line up next to a shortlist: 'rules you can recheck', 'run checker', 'person approves'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three tags line up next to a shortlist: 'rules you can recheck', 'run checker', 'person approves'."
+          }
+        ],
+        "manim": {
+          "class": "B07_Different"
+        },
+        "labels": [
+          "rules you can recheck",
+          "run checker",
+          "person approves"
+        ],
+        "constructed": true
+      },
+      "actual_duration_s": 11.669,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 11.708333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "3 · How I'll build it",
+      "question": "Where the data comes from",
+      "narration_text": "Here's how I'm building it. The data comes from public job board feeds that need no login: Anthropic on Greenhouse, Palantir on Lever, and Linear on Ashby. The candidate is made up, Aarav Patel, so no real person's data is used.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 12.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three kraft boxes (Greenhouse, Lever, Ashby) feed a pipe; a profile card marked 'fictional' sits beside it.",
+        "motion_claim": "Three kraft boxes (Greenhouse, Lever, Ashby) feed a pipe; a profile card marked 'fictional' sits beside it.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three kraft boxes (Greenhouse, Lever, Ashby) feed a pipe; a profile card marked 'fictional' sits beside it."
+          }
+        ],
+        "manim": {
+          "class": "B08_Data"
+        },
+        "labels": [
+          "Greenhouse",
+          "Lever",
+          "Ashby",
+          "fictional"
+        ],
+        "constructed": false,
+        "evidence": "../../js2-loop-tools-diff/config/boards.json; ../../js2-loop-tools-diff/persona/"
+      },
+      "actual_duration_s": 13.589,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 13.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "3 · How I'll build it",
+      "question": "Built so far: JS1",
+      "narration_text": "Two parts already work. In my first assignment, the agent watched one board, reported only new postings, and judged each one with five written rules: title, seniority, location, experience, and skills.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 9.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Five small rule cards fall into a row under one board box; a 'new' tag lights on one posting.",
+        "motion_claim": "Five small rule cards fall into a row under one board box; a 'new' tag lights on one posting.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Five small rule cards fall into a row under one board box; a 'new' tag lights on one posting."
+          }
+        ],
+        "manim": {
+          "class": "B09_FiveRules"
+        },
+        "labels": [
+          "title",
+          "seniority",
+          "location",
+          "experience",
+          "skills"
+        ],
+        "constructed": false,
+        "source_tag": "JS1 · 73 tests",
+        "evidence": "../../js1-contract-and-watch/CONTRACT.md (Rules 1–5)"
+      },
+      "actual_duration_s": 11.605,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 11.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "3 · How I'll build it",
+      "question": "Built so far: JS2",
+      "narration_text": "In the second, it became a loop over four boards on three systems, with a budget, and a permission policy in code that blocks any site not on its list. One run read one thousand and fourteen postings. It has a hundred and twenty-two tests, and a separate checker caught a real bug in one of my own runs.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 17.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A loop arrow circles four board boxes (one marked 'fails on purpose'); a lock blocks an off-list site; a counter reads 1,014; a checker stamps 'caught'.",
+        "motion_claim": "A loop arrow circles four board boxes (one marked 'fails on purpose'); a lock blocks an off-list site; a counter reads 1,014; a checker stamps 'caught'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A loop arrow circles four board boxes (one marked 'fails on purpose'); a lock blocks an off-list site; a counter reads 1,014; a checker stamps 'caught'."
+          }
+        ],
+        "manim": {
+          "class": "B10_Loop"
+        },
+        "labels": [
+          "loop",
+          "policy",
+          "1,014",
+          "122 tests"
+        ],
+        "constructed": false,
+        "source_tag": "JS2 · live run 2026-11-10 · 677 + 304 + 33 postings",
+        "evidence": "../../js2-loop-tools-diff/README.md (live runs table; REVIEW-FINDINGS row 7b)"
+      },
+      "actual_duration_s": 16.107,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 16.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "3 · How I'll build it",
+      "question": "Next steps",
+      "narration_text": "Next, step by step. First, a filter I can read, with an audit of what it throws away, and the agent offered to Claude as a tool. Then a written plan before every run, a check on every claim, and memory across days. Last, the approval step, tied to the exact shortlist the person saw.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 16.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three steps rise left to right, labelled as each is named; an outline person stands on the last.",
+        "motion_claim": "Three steps rise left to right, labelled as each is named; an outline person stands on the last.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three steps rise left to right, labelled as each is named; an outline person stands on the last."
+          }
+        ],
+        "manim": {
+          "class": "B11_Steps"
+        },
+        "labels": [
+          "filter · tool",
+          "plan · checks · memory",
+          "approval"
+        ],
+        "constructed": "planned (JS3, JS4, JS5)"
+      },
+      "actual_duration_s": 15.189,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 15.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "3 · How I'll build it",
+      "question": "Do I have what I need",
+      "narration_text": "Do I have what I need? Yes. Python, with nothing to install. Claude Code, through my university. Free public job boards, and my laptop. No paid API credits are needed.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 9.1,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four items land on a shelf with a check each: Python, Claude Code, public boards, laptop; a '$0 API credits' slip.",
+        "motion_claim": "Four items land on a shelf with a check each: Python, Claude Code, public boards, laptop; a '$0 API credits' slip.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Four items land on a shelf with a check each: Python, Claude Code, public boards, laptop; a '$0 API credits' slip."
+          }
+        ],
+        "manim": {
+          "class": "B12_Have"
+        },
+        "labels": [
+          "Python",
+          "Claude Code",
+          "public boards",
+          "laptop"
+        ],
+        "constructed": false
+      },
+      "actual_duration_s": 10.347,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 10.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "4 · How I'll know it worked",
+      "question": "Check 1: rejected postings",
+      "narration_text": "How will I know it worked? Four checks. One: I'll pull thirty postings the filter rejected, at random, and check each one by hand. If more than one of them fits the candidate, the filter failed.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 10.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A grid of thirty rejected cards; a magnifier steps across them; the pass line reads 'at most 1 of 30'.",
+        "motion_claim": "A grid of thirty rejected cards; a magnifier steps across them; the pass line reads 'at most 1 of 30'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A grid of thirty rejected cards; a magnifier steps across them; the pass line reads 'at most 1 of 30'."
+          }
+        ],
+        "manim": {
+          "class": "B13_Rejects"
+        },
+        "labels": [
+          "30 rejected",
+          "at most 1 of 30"
+        ],
+        "constructed": "planned check"
+      },
+      "actual_duration_s": 10.603,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 10.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "4 · How I'll know it worked",
+      "question": "Check 2: must-skip list",
+      "narration_text": "Two: a test list of postings it must skip, like a closed posting, the wrong location, or one that only matches keywords. If even one gets through, that's a fail. And a healthy run should skip at least half of what it sees.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 13.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three trap cards (closed, wrong location, keywords only) drop into a skip bin; a meter shows 'skip at least 50%'.",
+        "motion_claim": "Three trap cards (closed, wrong location, keywords only) drop into a skip bin; a meter shows 'skip at least 50%'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three trap cards (closed, wrong location, keywords only) drop into a skip bin; a meter shows 'skip at least 50%'."
+          }
+        ],
+        "manim": {
+          "class": "B14_MustSkip"
+        },
+        "labels": [
+          "closed",
+          "wrong location",
+          "keywords only",
+          "0 let through",
+          "skip ≥ 50%"
+        ],
+        "constructed": "planned check"
+      },
+      "actual_duration_s": 12.096,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 12.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "4 · How I'll know it worked",
+      "question": "Check 3: break it on purpose",
+      "narration_text": "Three: I'll break it on purpose, and the separate checker has to catch every planted failure. In my second assignment, it already caught one.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 7.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A wrench cracks a run card; the checker stamps 'NOT SUPPORTED' on it.",
+        "motion_claim": "A wrench cracks a run card; the checker stamps 'NOT SUPPORTED' on it.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A wrench cracks a run card; the checker stamps 'NOT SUPPORTED' on it."
+          }
+        ],
+        "manim": {
+          "class": "B15_Planted"
+        },
+        "labels": [
+          "planted failure",
+          "NOT SUPPORTED"
+        ],
+        "constructed": "drawing; the JS2 catch is real (seeded demonstration)",
+        "source_tag": "JS2 · finished-wrong demonstration (seeded)",
+        "evidence": "../../js2-loop-tools-diff/FINISHED-WRONG.md"
+      },
+      "actual_duration_s": 7.829,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 7.833333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "4 · How I'll know it worked",
+      "question": "Check 4: approval",
+      "narration_text": "Four: if the shortlist changes after a person approves it, the old yes must stop counting.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 4.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "An approved shortlist with a fingerprint tag; one line changes; the 'approved' stamp turns grey: 'no longer counts'.",
+        "motion_claim": "An approved shortlist with a fingerprint tag; one line changes; the 'approved' stamp turns grey: 'no longer counts'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "An approved shortlist with a fingerprint tag; one line changes; the 'approved' stamp turns grey: 'no longer counts'."
+          }
+        ],
+        "manim": {
+          "class": "B16_Fingerprint"
+        },
+        "labels": [
+          "approved",
+          "changed",
+          "no longer counts"
+        ],
+        "constructed": "planned check (JS5)"
+      },
+      "actual_duration_s": 5.611,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 5.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "4 · How I'll know it worked",
+      "question": "Worked or not",
+      "narration_text": "If all four checks pass, it worked. If even one check fails, it didn't, and my final report will say which one.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 6.7,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four check boxes tick one by one, then the word 'worked'; one box flips to an X and the word becomes 'didn't'.",
+        "motion_claim": "Four check boxes tick one by one, then the word 'worked'; one box flips to an X and the word becomes 'didn't'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Four check boxes tick one by one, then the word 'worked'; one box flips to an X and the word becomes 'didn't'."
+          }
+        ],
+        "manim": {
+          "class": "B17_Verdict"
+        },
+        "labels": [
+          "worked",
+          "didn't"
+        ],
+        "constructed": true
+      },
+      "actual_duration_s": 6.912,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 6.916666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "part": "",
+      "question": "Outro",
+      "narration_text": "A Job-Search Agent You Can Check. Varnika M.",
+      "narration_status": "DRAFT (Claude Code) · awaiting Varnika's review",
+      "estimated_duration_s": 2.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn object or scene on a cream stage, minimal labels, the voice carries the explanation; only underfill and clustered are waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title and name on the cream stage, beside a small shortlist card with a check.",
+        "motion_claim": "Title and name on the cream stage, beside a small shortlist card with a check.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Title and name on the cream stage, beside a small shortlist card with a check."
+          }
+        ],
+        "manim": {
+          "class": "BOUT_Title"
+        },
+        "labels": [
+          "A Job-Search Agent You Can Check",
+          "Varnika M"
+        ],
+        "constructed": false,
+        "remotion": {
+          "props": {
+            "title": "A Job-Search Agent You Can Check",
+            "handle": "Varnika M",
+            "subline": ""
+          }
+        },
+        "outro_note": "Drawn in Manim (BOUT_Title), not the ClaudeTitleOutro component, which hard-codes the instructor's handle. These props record exactly the title and name the scene shows."
+      },
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 4.584,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 4.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BOUT.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:09:34"
+      }
+    }
+  ]
+}
