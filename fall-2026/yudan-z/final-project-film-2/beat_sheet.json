@@ -1,0 +1,848 @@
+{
+  "metadata": {
+    "slug": "job-search-agent-film",
+    "title": "A Job Agent I Can Check",
+    "topic": "FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "yudanzhou",
+    "channel_title": "@yudanzhou",
+    "persona": "Yudan Zhou",
+    "voice": "af_heart",
+    "voice_kokoro": "af_heart",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "bdefs",
+      "bhtf",
+      "bvdt",
+      "cold-open"
+    ],
+    "bookend_exempt_reason": "Course project film narrated by the student as herself: no composer cold open, no definitions card, no verdict card and no Your Turn prompt; the assignment's four parts take their place. The outro uses StudentTitleOutro, a local copy of ClaudeTitleOutro that renders the student's own handle, because the stock component hardcodes the instructor's handle.",
+    "source_doc": "SOURCES.md",
+    "tags": [
+      "Final Project",
+      "Job-Search Agent",
+      "Evaluation",
+      "Data Analyst",
+      "Checkability"
+    ],
+    "build": {
+      "at": "2026-11-23T15:24:04",
+      "cut": "master",
+      "filled": 15,
+      "of": 15,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BOUT: palette=claude but the outro is 'StudentTitleOutro' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "bookend",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Yudan Zhou, an Information Systems master's student. This is the film for my final project. The voice you hear is a synthetic voice reading my own script.",
+      "estimated_duration_s": 11.0,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "lead_silence_s": 0.8,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell bookend: one typed line and its correction, nothing else on screen."
+      },
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "The question types itself and one phrase is corrected"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Which jobs\nshould I apply to?",
+            "triggerWords": "should I apply to?",
+            "replacementWords": "fit me, and why?",
+            "fontSize": 78,
+            "charMs": 22,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "job-search-agent-film",
+            "banner": ""
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-11-23T20:11:02.018612+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 10.03,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 10.041666666666666,
+      "build": {
+        "status": "VIDEO",
+        "src": "media\\BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part one, the summary. I am building a job-search agent. Every day it reads public job boards, finds the postings that are new, and tells me which ones fit me. And for every answer, it shows the exact rule that produced it.",
+      "estimated_duration_s": 15,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three job-board boxes feed new posting cards onto a sheet; each card gets a verdict tag with its rule",
+        "motion_claim": "New cards slide from the boards to the sheet and a rule label appears beside one verdict",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three job boards appear"
+          },
+          {
+            "at": 0.4,
+            "event": "New posting cards move to the sheet"
+          },
+          {
+            "at": 0.8,
+            "event": "A rule label appears beside a verdict"
+          }
+        ],
+        "labels": [
+          "job boards",
+          "new postings",
+          "fits?",
+          "rule R3"
+        ],
+        "manim": {
+          "class": "B01_Agent"
+        }
+      },
+      "actual_duration_s": 13.5,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 13.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why care? A job search means hundreds of postings a day. A tool that says apply, without showing why, cannot be checked. And a tool that silently misses a board looks exactly like a quiet day. Mine is built so that both mistakes are visible.",
+      "estimated_duration_s": 16,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A tall stack of postings; an unexplained apply stamp; two empty trays that look the same, one hiding a missed board",
+        "motion_claim": "The two empty trays sit side by side; a dashed outline reveals the missed board behind one",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A tall stack of postings"
+          },
+          {
+            "at": 0.35,
+            "event": "An apply stamp with a question mark"
+          },
+          {
+            "at": 0.6,
+            "event": "Two identical empty trays"
+          },
+          {
+            "at": 0.85,
+            "event": "One tray is revealed as a missed board"
+          }
+        ],
+        "labels": [
+          "apply ?",
+          "quiet day",
+          "missed board"
+        ],
+        "manim": {
+          "class": "B02_Silent"
+        }
+      },
+      "actual_duration_s": 14.74,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 14.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part two, what others have done. LinkedIn job alerts send new postings that match a saved search, daily or weekly, by email or in the app. They match the words you typed. They do not explain a fit against your résumé.",
+      "estimated_duration_s": 15,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A saved-search pill sends posting cards to an inbox on a daily rhythm; a resume page stands apart, unconnected",
+        "motion_claim": "Cards drop into the inbox; the link to the resume page stays dashed",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A saved search pill"
+          },
+          {
+            "at": 0.4,
+            "event": "Cards drop into an inbox"
+          },
+          {
+            "at": 0.8,
+            "event": "The resume page stays unconnected"
+          }
+        ],
+        "labels": [
+          "saved search",
+          "daily · weekly",
+          "résumé"
+        ],
+        "manim": {
+          "class": "B03_Alerts"
+        }
+      },
+      "actual_duration_s": 13.06,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 13.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Jobright compares your résumé with a job and reports skills, seniority and keyword gaps. How it weighs them is not published, and its own page calls the score a decision aid, not a guarantee.",
+      "estimated_duration_s": 13,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A resume page and a job card feed a scale with three weights whose sizes are hidden",
+        "motion_claim": "Three weights land on the scale, each marked with a question mark",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Resume and job card"
+          },
+          {
+            "at": 0.5,
+            "event": "Three weights: skills, seniority, keywords"
+          },
+          {
+            "at": 0.85,
+            "event": "The weights show question marks"
+          }
+        ],
+        "labels": [
+          "skills",
+          "seniority",
+          "keywords",
+          "decision aid"
+        ],
+        "manim": {
+          "class": "B04_Score"
+        }
+      },
+      "actual_duration_s": 11.63,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 11.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Visa filing databases show a company's past filings, not what is open today. My sponsorship check reads the posting itself, and the verdict names the phrase it found. So the gap I care about is checkability: a verdict I can recompute by hand, and a failure that is never reported as zero.",
+      "estimated_duration_s": 19,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A ledger of past years beside today's posting; a highlighter marks one phrase in the posting; a hand-checkable verdict",
+        "motion_claim": "The highlighter sweeps one line of the posting and a check mark appears",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "A ledger of past filings"
+          },
+          {
+            "at": 0.35,
+            "event": "Today's posting with one line highlighted"
+          },
+          {
+            "at": 0.75,
+            "event": "A check mark: recomputed by hand"
+          }
+        ],
+        "labels": [
+          "past filings",
+          "today's posting",
+          "recompute by hand"
+        ],
+        "manim": {
+          "class": "B05_Gap"
+        }
+      },
+      "actual_duration_s": 17.88,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 17.916666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part three, the methods. The data comes from three public applicant tracking systems: Greenhouse, Ashby and Lever. No login, no scraping. My runs used Pinterest, Databricks, Ramp and Palantir. The résumé on screen is a fictional persona. My real one stays on my laptop.",
+      "estimated_duration_s": 18,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three server stacks labelled by system; four company tags; a fictional persona page in front",
+        "motion_claim": "Company tags attach to their systems; the persona page slides forward",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Three systems"
+          },
+          {
+            "at": 0.5,
+            "event": "Four company tags attach"
+          },
+          {
+            "at": 0.8,
+            "event": "Fictional persona page in front"
+          }
+        ],
+        "labels": [
+          "Greenhouse",
+          "Ashby",
+          "Lever",
+          "fictional persona"
+        ],
+        "manim": {
+          "class": "B06_Sources"
+        }
+      },
+      "actual_duration_s": 17.45,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 17.458333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Step one: I wrote a contract before any code, with nine checks, such as the title, whether the job is in a country I can work in, and whether the posting requires citizenship or rules out sponsorship. Every answer is labelled: record, from my rule, or model judgment, from Claude. Step two: a bounded loop with written budgets, six boards, twelve requests, two minutes, and a permission policy in code. It reads only public pages, writes only into its own folder, and never applies, emails or logs in.",
+      "estimated_duration_s": 32,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A contract page with nine lines; two labels record and model judgment; a loop with three budget counters; a fence around the agent's folder",
+        "motion_claim": "The nine lines are written, the two labels pin on, the loop turns and its counters fill",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Contract page with nine checks"
+          },
+          {
+            "at": 0.35,
+            "event": "Two labels: record and model judgment"
+          },
+          {
+            "at": 0.6,
+            "event": "A loop with budget counters"
+          },
+          {
+            "at": 0.85,
+            "event": "A fence: never apply, email or log in"
+          }
+        ],
+        "labels": [
+          "9 checks",
+          "record",
+          "model judgment",
+          "6 boards",
+          "12 requests",
+          "2 min",
+          "never applies"
+        ],
+        "manim": {
+          "class": "B07_Contract"
+        }
+      },
+      "actual_duration_s": 26.77,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 26.791666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Next, the agent grows in layers, one assignment at a time: a filter and a score by November twenty-fifth, a plan, evidence and memory by December first, and a supervised run by December thirteenth. My final project, due December twentieth, is this agent with all of those layers, tested on postings I label by hand. What I need, I have: Python's standard library, free public APIs, a laptop, and a Claude account.",
+      "estimated_duration_s": 27,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A timeline with four dated layers stacking up into one box; a small row of what I already have",
+        "motion_claim": "Layers stack onto the agent box at each date",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Timeline appears"
+          },
+          {
+            "at": 0.25,
+            "event": "Filter and score, Nov 25"
+          },
+          {
+            "at": 0.45,
+            "event": "Plan, evidence, memory, Dec 1"
+          },
+          {
+            "at": 0.6,
+            "event": "Supervised run, Dec 13"
+          },
+          {
+            "at": 0.75,
+            "event": "Final project, Dec 20"
+          }
+        ],
+        "labels": [
+          "Nov 25",
+          "Dec 1",
+          "Dec 13",
+          "Dec 20"
+        ],
+        "manim": {
+          "class": "B08_Plan"
+        }
+      },
+      "actual_duration_s": 24.3,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 24.333333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part four, the evaluation. How will I know it works? First, tests written before the code: eighty-seven pass. Second, real runs. I added a board that does not exist. It returned not found, and the run ended incomplete, not zero new jobs.",
+      "estimated_duration_s": 16,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A test sheet fills with checks to 87; a board box answers 404; the run label reads incomplete while a crossed-out zero new sits beside it",
+        "motion_claim": "Checks fill the sheet; the 404 board turns the run label to incomplete",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Test sheet with checks"
+          },
+          {
+            "at": 0.5,
+            "event": "A board answers 404"
+          },
+          {
+            "at": 0.8,
+            "event": "Run label: incomplete, not 0 new"
+          }
+        ],
+        "labels": [
+          "87 pass",
+          "404",
+          "incomplete",
+          "0 new"
+        ],
+        "manim": {
+          "class": "B09_Tests"
+        }
+      },
+      "actual_duration_s": 15.47,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 15.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Third, an independent check. When I pointed Ramp at the wrong system, the agent said finished, and found one job. The check looked across all three systems, found one hundred seventy-six on Ashby, and flagged it. Finished does not mean right.",
+      "estimated_duration_s": 16,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three bars for Ramp on three systems: Greenhouse 1, Ashby 176, Lever 404; a flag on the Greenhouse bar",
+        "motion_claim": "The Ashby bar grows tall beside the one-job bar and a flag drops on the agent's answer",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Agent's answer: finished, 1"
+          },
+          {
+            "at": 0.5,
+            "event": "Bars for three systems"
+          },
+          {
+            "at": 0.85,
+            "event": "Flag on the wrong answer"
+          }
+        ],
+        "labels": [
+          "finished",
+          "Greenhouse 1",
+          "Ashby 176",
+          "flagged"
+        ],
+        "manim": {
+          "class": "B10_Cross"
+        }
+      },
+      "actual_duration_s": 14.29,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 14.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Running my rule on more than fifteen hundred real postings also exposed a bug: three hundred sixty-four US jobs were rejected because the state was spelled in full. I predicted the right answers first, then reviewed the fix. All three hundred sixty-four were fixed, and none broke.",
+      "estimated_duration_s": 17,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A long bar of 1,561 postings with a 364 segment marked wrong; the segment turns right after the reviewed fix",
+        "motion_claim": "The 364 segment flips from a cross to a check; a zero broken counter stays at zero",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "1,561 postings"
+          },
+          {
+            "at": 0.35,
+            "event": "364 rejected: state in full"
+          },
+          {
+            "at": 0.7,
+            "event": "Predictions, then the fix"
+          },
+          {
+            "at": 0.85,
+            "event": "364 fixed, 0 broken"
+          }
+        ],
+        "labels": [
+          "1,561 postings",
+          "California",
+          "364 fixed",
+          "0 broken"
+        ],
+        "manim": {
+          "class": "B11_Fix"
+        }
+      },
+      "actual_duration_s": 16.94,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 16.958333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "So, it worked if every failure is reported, no posting I labelled relevant is missed, and it beats a lazy rule. It did not work if a failure ever shows up as zero, or if a relevant job goes missing. And it did not work if a lazy rule would have done just as well: marking everything relevant, or marking nothing.",
+      "estimated_duration_s": 20,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns, worked and did not work; two lazy rules drawn as blank stamps",
+        "motion_claim": "Three checks fill the worked column; three crosses the other; two lazy stamps fade in last",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Worked column"
+          },
+          {
+            "at": 0.45,
+            "event": "Did not work column"
+          },
+          {
+            "at": 0.8,
+            "event": "Two lazy rules: all relevant, none relevant"
+          }
+        ],
+        "labels": [
+          "worked",
+          "did not work",
+          "all relevant",
+          "none relevant"
+        ],
+        "manim": {
+          "class": "B12_Criteria"
+        }
+      },
+      "actual_duration_s": 18.71,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 18.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "On the second real day, it found thirty-four new postings. None fit my persona, so the part that reports a good match has only run in tests. That is what I will check next.",
+      "estimated_duration_s": 12,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Show-tell: a few drawn objects on cream, labels beside them; one idea per frame. Only underfill and clustering waived."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Thirty-four cards drop into a not-relevant tray; the relevant tray stays empty with a tests-only label",
+        "motion_claim": "Cards drop into one tray while the other stays empty",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "34 new postings"
+          },
+          {
+            "at": 0.5,
+            "event": "All into not relevant"
+          },
+          {
+            "at": 0.8,
+            "event": "Relevant tray: tests only"
+          }
+        ],
+        "labels": [
+          "34 new",
+          "not relevant",
+          "relevant",
+          "tests only"
+        ],
+        "manim": {
+          "class": "B13_Day2"
+        }
+      },
+      "actual_duration_s": 10.52,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 10.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:24:04"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "bookend",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Thanks for watching. I'm Yudan Zhou.",
+      "estimated_duration_s": 3.0,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "tail_silence_s": 1.0,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Own end card: title and the student's name only."
+      },
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Title and handle appear and settle"
+          }
+        ],
+        "remotion": {
+          "pattern": "StudentTitleOutro",
+          "props": {
+            "title": "A Job Agent I Can Check",
+            "slug": "job-search-agent-film",
+            "handle": "@yudanzhou",
+            "subline": ""
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-23T20:11:34.965989+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 3.069,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 3.0833333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media\\BOUT.mp4",
+        "filled_by": "remotion:StudentTitleOutro",
+        "at": "2026-11-23T15:24:04"
+      }
+    }
+  ]
+}
