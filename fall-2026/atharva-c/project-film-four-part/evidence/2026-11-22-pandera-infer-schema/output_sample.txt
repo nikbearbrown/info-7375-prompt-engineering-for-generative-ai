@@ -1,0 +1,25 @@
+pandera 0.36.0 pandas 3.1.1
+VendorID int64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(2.0)>']
+tpep_pickup_datetime string[pyarrow] nullable= False []
+tpep_dropoff_datetime string[pyarrow] nullable= False []
+passenger_count float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(0.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(6.0)>']
+trip_distance float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(0.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(25.1)>']
+RatecodeID float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(99.0)>']
+store_and_fwd_flag string[pyarrow] nullable= False []
+PULocationID int64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(4.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(265.0)>']
+DOLocationID int64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(265.0)>']
+payment_type int64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(4.0)>']
+fare_amount float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-70.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(180.0)>']
+extra float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(10.25)>']
+mta_tax float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-0.5)>', '<Check less_than_or_equal_to: less_than_or_equal_to(0.5)>']
+tip_amount float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(0.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(80.0)>']
+tolls_amount float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(0.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(19.75)>']
+improvement_surcharge float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-1.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(1.0)>']
+total_amount float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-74.0)>', '<Check less_than_or_equal_to: less_than_or_equal_to(217.2)>']
+congestion_surcharge float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-2.5)>', '<Check less_than_or_equal_to: less_than_or_equal_to(2.5)>']
+Airport_fee float64 nullable= False ['<Check greater_than_or_equal_to: greater_than_or_equal_to(-1.75)>', '<Check less_than_or_equal_to: less_than_or_equal_to(1.75)>']
+clean : PASS
+faulted : FAIL
+column           check       
+passenger_count  not_nullable    50
+dtype: int64

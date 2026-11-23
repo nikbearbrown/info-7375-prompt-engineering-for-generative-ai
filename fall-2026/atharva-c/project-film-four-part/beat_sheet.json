@@ -1,0 +1,194 @@
+{
+ "metadata": {
+  "title": "Seeded Faults — Project Film",
+  "slug": "seeded-faults-project",
+  "author": "Atharva C",
+  "drafted": "2026-11-22",
+  "engine": "kokoro",
+  "voice_kokoro": "am_michael",
+  "aspect": "16:9",
+  "clock": "narration",
+  "structure": "Executive summary, Introduction (prior work), Methods, Evaluation",
+  "purpose": "INFO 7375 project film. The project is not built; the fault catalogue is locked (commit e5aac1c).",
+  "format_note": "show-tell: one drawn picture per beat, minimal on-screen text, narration carries the idea. Constructed pictures are labelled on screen."
+ },
+ "beats": [
+  {
+   "beat_id": "E1",
+   "act": "executive summary",
+   "narration_text": "Hi, I'm Atharva. My final project is Seeded Faults: a tool that checks whether the data-quality tests on a table would actually catch bad data, or just pass.",
+   "estimated_duration_s": 11.7,
+   "new_visual_element": "A table with a row of checkmarks; one turns into a question mark",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   }
+  },
+  {
+   "beat_id": "E2",
+   "act": "executive summary",
+   "narration_text": "That matters because a test that has never failed hasn't proven anything. And now that AI can write tests in seconds, it's easy to ship tests that look complete and that nobody has checked.",
+   "estimated_duration_s": 14.2,
+   "new_visual_element": "An all-passed badge with a crack running through it",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   }
+  },
+  {
+   "beat_id": "E3",
+   "act": "executive summary",
+   "narration_text": "Seeded Faults will score a test suite: from a fixed list of problems, what it caught and what it missed. It'll be a public repository anyone can rerun with one command. It isn't built yet. This film is the plan.",
+   "estimated_duration_s": 16.7,
+   "new_visual_element": "Scoreboard with fault rows and caught / missed columns, rows empty",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "on_screen_label": "CONSTRUCTED — planned, no results"
+  },
+  {
+   "beat_id": "I1",
+   "act": "introduction",
+   "narration_text": "First, what already exists. In October I tried Great Expectations and dbt. I planted fifty missing values in real New York taxi data, and a hand-written check caught all fifty. But neither tool told me what my checks would miss.",
+   "estimated_duration_s": 16.7,
+   "new_visual_element": "Two tool boxes, Great Expectations and dbt, each with a hand-written checklist; 50 / 50 beneath",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "evidence: ../final-project-film/evidence/2026-10-09-first-planted-fault/ (GX unexpected_count=50; dbt FAIL 50)"
+  },
+  {
+   "beat_id": "I2",
+   "act": "introduction",
+   "narration_text": "Some tools draft the checks for you: Amazon's Deequ, older versions of Great Expectations, and pandera. Pandera's schema inference, run on my data, caught the same fifty. But on five fresh, clean samples from the same month, it flagged thirteen to twenty-five rows every time. I haven't checked yet whether those rows are really bad.",
+   "estimated_duration_s": 22.9,
+   "new_visual_element": "Three boxes that draft checks: Deequ, older Great Expectations, pandera; pandera opens to real holdout output",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "evidence: evidence/2026-11-22-pandera-infer-schema/output_holdout.txt (14, 17, 16, 13, 25 rows flagged)"
+  },
+  {
+   "beat_id": "I3",
+   "act": "introduction",
+   "narration_text": "Planting bugs on purpose is an old idea: mutation testing goes back to 1978. And a 2025 IBM Research paper already has AI write data checks, then measures how many injected errors those checks catch. So my part is narrower: the dbt tests data teams actually ship, faults specific to one real table, and false alarms counted alongside catches. That matters because those tests guard real pipelines, and a score tells you which to trust.",
+   "estimated_duration_s": 31.2,
+   "new_visual_element": "Code file with bug marks, a data table with the same marks, my narrower part, and why it matters",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "DeMillo, Lipton, Sayward 1978; arXiv 2509.10572"
+  },
+  {
+   "beat_id": "M1",
+   "act": "methods",
+   "narration_text": "Here's the plan. The data is public: New York's yellow taxi trips for January 2024. Everything runs locally on my laptop, with DuckDB and dbt.",
+   "estimated_duration_s": 10.4,
+   "new_visual_element": "Taxi trips table labelled public, Jan 2024, beside a laptop",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   }
+  },
+  {
+   "beat_id": "M2A",
+   "act": "methods",
+   "narration_text": "Step one was deciding what clean means. When I profiled the month, about three million trips, some of my faults were already there: over one percent of fares are negative, and two percent of trips have zero distance. So I filtered those out first, leaving about two point seven million clean rows.",
+   "estimated_duration_s": 21.7,
+   "new_visual_element": "A bar of 2.96 M trips with slivers for negative fares and zero distance, filtered to 2.7 M clean",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "evidence: evidence/2026-11-22-data-profile/output.txt; evidence/2026-11-22-baseline-check/output.txt"
+  },
+  {
+   "beat_id": "M2B",
+   "act": "methods",
+   "narration_text": "Step two: lock the faults. I wrote eighteen fault types, with my pass-fail line, and committed them on November twenty-second, before any test was written, so anyone can check the list came first.",
+   "estimated_duration_s": 13.8,
+   "new_visual_element": "The fault catalogue page with its commit hash and date, and a padlock",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "git commit e5aac1c, 2026-11-22"
+  },
+  {
+   "beat_id": "M3",
+   "act": "methods",
+   "narration_text": "Next, I'll build a script that plants each fault, fifty rows at a time, into its own copy of a ten-thousand-row holdout. I'll write my own dbt tests first. Then Claude Code writes its tests from a separate sample, so it never sees the holdout. Then every suite runs against every copy, and gets scored.",
+   "estimated_duration_s": 22.9,
+   "new_visual_element": "Eighteen copies of a holdout table; three test suites aimed at them",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "on_screen_label": "CONSTRUCTED — planned"
+  },
+  {
+   "beat_id": "M4",
+   "act": "methods",
+   "narration_text": "The data's free, the tools are free, and Claude Code runs on my Claude Pro plan with Opus 5.5, capped at three prompts so I can't keep tuning it. No other accounts or paid compute are needed.",
+   "estimated_duration_s": 15.4,
+   "new_visual_element": "Checklist: public data, DuckDB and dbt free, Claude Pro with Opus 5.5, max 3 prompts, no other accounts or paid compute",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "FAULT-CATALOGUE.md section 3"
+  },
+  {
+   "beat_id": "V1",
+   "act": "evaluation",
+   "narration_text": "How will I know it worked? First, I'll check the tool itself: every faulted copy must have exactly fifty bad rows, and a test written for each fault must catch it. Then two numbers. Catch rate: how many of the eighteen faults a suite flags. And false alarms: how many of its tests fail on clean data.",
+   "estimated_duration_s": 23.8,
+   "new_visual_element": "First a check on the tool itself, then a balance: faults caught against false alarms",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   }
+  },
+  {
+   "beat_id": "V2",
+   "act": "evaluation",
+   "narration_text": "I set the line before building. Claude's tests pass if they catch at least fifteen of the eighteen, at least as many as mine, and no more than five percent of them fail on clean data. If they fall short, that isn't the project failing. That's the finding.",
+   "estimated_duration_s": 20.0,
+   "new_visual_element": "Three pass conditions under a line marked set before building",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   },
+   "evidence": "FAULT-CATALOGUE.md section 3 (commit e5aac1c)"
+  },
+  {
+   "beat_id": "V3",
+   "act": "close",
+   "narration_text": "So that's Seeded Faults: tests for your data, tested. Next up: the fault-injection script.",
+   "estimated_duration_s": 5.8,
+   "new_visual_element": "The cracked badge beside the empty scoreboard; next: fault-injection script",
+   "shot": {
+    "type": "GRAPHIC",
+    "source": "own",
+    "motion": "drawon"
+   }
+  }
+ ]
+}
