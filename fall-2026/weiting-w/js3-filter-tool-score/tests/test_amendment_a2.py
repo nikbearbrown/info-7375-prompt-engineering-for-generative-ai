@@ -12,25 +12,27 @@ import pytest
 from jobfilter import pipeline, score as scorer
 
 
-def test_a2_was_superseded_by_a3():
-    """A2 bumped the scorer to S-v2; A3 then bumped it again.
+def test_what_remains_of_a2_after_a3_a4_and_a5():
+    """A2's own prediction (shortlist 14 -> 7, range [-2, 8]) held when it was
+    made and is recorded in reports/a2-predicted-effect.txt. Three amendments
+    have moved those counts since, so they are not asserted here, and the
+    current versions live in tests/test_versions.py.
 
-    A2's own prediction (shortlist 14 -> 7, range [-2, 8]) held when it was
-    made and is recorded in reports/a2-predicted-effect.txt. A3 changed those
-    numbers, so asserting them here would be asserting a count that two
-    amendments ago was right. What A2 established and A3 did not touch -- the
-    three false friends are gone, and S5 cannot fire -- is still tested below.
+    One of A2's three cuts was undone: A5 reinstated `infrastructure` once A4
+    could tell a company blurb from a job description. What survives of A2 is
+    the two cuts that were genuinely bad words, and the finding that S5 cannot
+    fire at all -- both tested below.
     """
-    assert scorer.SCORER_VERSION == "S-v3"
+    assert "infrastructure" in scorer.SIGNALS["S1_core"][0], "reinstated by A5"
 
 
 @pytest.mark.parametrize("word,signal", [
-    ("infrastructure", "S1_core"),
     ("go", "S2_language"),
     ("0-2 years", "S5_newgrad"),
     ("1-2 years", "S5_newgrad"),
 ])
-def test_the_three_false_friends_are_gone(word, signal):
+def test_the_two_cuts_that_were_genuinely_bad_words_stay_cut(word, signal):
+    """`infrastructure` is not here: A5 put it back. See test_amendment_a5."""
     assert word not in scorer.SIGNALS[signal][0]
 
 

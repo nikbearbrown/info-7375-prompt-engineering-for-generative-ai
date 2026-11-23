@@ -9,17 +9,18 @@ def shortlisted(decisions):
     return [d for d in decisions if d.bucket == pipeline.SHORTLISTED]
 
 
-def test_the_shortlist_is_six_entries(decisions):
-    """Seven under S-v2; A3 read the requirements more carefully. See §6."""
-    assert len(shortlisted(decisions)) == 6
+def test_the_shortlist_is_four_entries(decisions):
+    """7 under S-v2, 6 after A3 read the requirements, 4 after A4 stopped
+    counting points from a NICE TO HAVES block. See reports/shortlist.md §6."""
+    assert len(shortlisted(decisions)) == 4
 
 
-def test_the_claim_totals_are_18_supported_0_contradicted_6_insufficient(decisions):
+def test_the_claim_totals_are_14_supported_0_contradicted_4_insufficient(decisions):
     agg = {"supported": 0, "contradicted": 0, "insufficient": 0}
     for d in shortlisted(decisions):
         for k, v in evidence.summarise(evidence.claims_for(d)).items():
             agg[k] += v
-    assert agg == {"supported": 18, "contradicted": 0, "insufficient": 6}
+    assert agg == {"supported": 14, "contradicted": 0, "insufficient": 4}
 
 
 def test_every_insufficient_is_the_same_unanswerable_claim(decisions):
@@ -64,11 +65,21 @@ def test_relevance_is_not_entailment_the_inference_accounting_case(decisions):
 
 
 def test_the_plus_two_and_the_minus_six_come_from_one_sentence(decisions):
-    """shortlist.md §2: a word match carries no sign."""
+    """shortlist.md §2: a word match carries no sign.
+
+    The +2 for Python and the -6 experience wall come from the same sentence,
+    "5+ years of software engineering experience ... with strong proficiency
+    in Python". Both sit in a `required` section, so A4 left them alone; the
+    posting's total moved from -2 to -4 only because its third hit, `backend`,
+    sits in the company blurb and now scores 0. The claim this test makes --
+    one sentence, a plus and a minus -- is unchanged by every amendment so
+    far, which is why it is asserted on the sentences and not on the total.
+    """
     d = _find(decisions, "Backend, Growth")
     sents = {h.word: h.sentence for h in d.score.hits}
-    assert sents["python"] == sents["5+ years"]
-    assert d.score.total == -2
+    wall = next(h for h in d.score.hits if h.signal == "S6_experience_wall")
+    assert sents["python"] == wall.sentence
+    assert d.score.total < 0
 
 
 def test_four_scored_postings_say_senior_in_the_body_not_the_title(decisions, postings):

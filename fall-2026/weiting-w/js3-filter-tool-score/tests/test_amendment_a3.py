@@ -7,17 +7,9 @@ import pytest
 from jobfilter import evidence, pipeline, score as scorer
 
 
-def test_versions_bumped():
-    assert scorer.SCORER_VERSION == "S-v3"
-    assert evidence.EVIDENCE_VERSION == "E-v1a"
-
-
-def test_the_predicted_table(decisions):
-    s = pipeline.summary(decisions)
-    assert s["counts"]["shortlisted"] == 6
-    assert s["counts"]["below_threshold"] == 18
-    assert s["score_range"] == [-6, 6]
-    assert s["scored"] == 24
+def test_what_a3_established_and_later_amendments_did_not_touch(decisions):
+    """Current versions live in tests/test_versions.py."""
+    assert pipeline.summary(decisions)["scored"] == 24
 
 
 @pytest.mark.parametrize("span,years", [

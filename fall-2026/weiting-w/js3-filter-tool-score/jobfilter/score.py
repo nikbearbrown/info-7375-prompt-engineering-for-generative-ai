@@ -19,18 +19,23 @@ caller must route it to `cannot_score`. Scoring it zero is wrong version W1.
 from __future__ import annotations
 
 import re
+
+from . import sections
 from dataclasses import dataclass, field
 
-SCORER_VERSION = "S-v3"
+SCORER_VERSION = "S-v5"
 
 #: name -> (words, points each, cap). Straight from the FILTER.md §1 table.
 SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
-    # `infrastructure` cut by A2: 206/295 postings, 177/177 on ashby:ramp,
-    # from the company boilerplate "Ramp is building the smart infrastructure
-    # for finance teams". A word in every posting distinguishes none of them.
+    # `infrastructure` was cut by A2 and reinstated by A5. A2's measurement
+    # was right -- 177/177 of one board -- and its diagnosis was wrong: the
+    # problem was the scorer being unable to tell a sentence about the company
+    # from a sentence about the job. A4 fixed that, and with sections in place
+    # the word fires 21 times across the scored postings, 20 of them in a
+    # `company` section earning 0.
     "S1_core": (
         ("api", "backend", "distributed systems", "database", "microservice",
-         "microservices"),
+         "microservices", "infrastructure"),
         2, 6,
     ),
     # `go` cut by A2: 55 matches, at most 9 the language, 46 the English verb
@@ -101,6 +106,17 @@ EXPERIENCE_WALL = re.compile(
 )
 EXPERIENCE_WALL_POINTS = -6
 
+#: A4. A positive hit is worth less where the posting itself says it matters
+#: less, and nothing where the text is not about the job. Penalties are never
+#: scaled: a rule that can be evaded by moving a sentence is not a rule.
+SECTION_WEIGHT = {
+    sections.REQUIRED: 1.0,
+    sections.DUTIES: 1.0,
+    sections.OPTIONAL: 0.5,
+    sections.COMPANY: 0.0,
+    sections.UNLABELLED: 1.0,
+}
+
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?\n])\s+")
 
 
@@ -140,12 +156,18 @@ class Hit:
     start: int
     end: int
     sentence: str
+    section: str = sections.UNLABELLED
+    raw_points: int | None = None     # before the A4 section weight
 
     def as_dict(self) -> dict:
-        return {
+        out = {
             "signal": self.signal, "word": self.word, "points": self.points,
             "span": [self.start, self.end], "sentence": self.sentence,
+            "section": self.section,
         }
+        if self.raw_points is not None and self.raw_points != self.points:
+            out["points_before_section_weight"] = self.raw_points
+        return out
 
 
 @dataclass
@@ -204,8 +226,11 @@ def score(body: str | None) -> Score | None:
     hits: list[Hit] = []
     per_signal: dict[str, int] = {}
 
+    heading_spans = sections.heading_spans(body)
+
     wall = _experience_wall(body)
     if wall is not None:
+        wall.section = sections.kind_at(body, wall.start, heading_spans)
         hits.append(wall)
         per_signal["S6_experience_wall"] = EXPERIENCE_WALL_POINTS
         total += EXPERIENCE_WALL_POINTS
@@ -227,12 +252,17 @@ def score(body: str | None) -> Score | None:
                 if remaining >= 0:
                     break
                 awarded = max(points, remaining)
-            earned += awarded
+            section = sections.kind_at(body, match.start(), heading_spans)
+            weighted = (
+                int(awarded * SECTION_WEIGHT[section]) if awarded > 0 else awarded
+            )
+            earned += weighted
             hits.append(
                 Hit(
-                    signal=name, word=word, points=awarded,
+                    signal=name, word=word, points=weighted,
                     start=match.start(), end=match.end(),
                     sentence=_sentence_around(body, match.start(), match.end()),
+                    section=section, raw_points=awarded,
                 )
             )
         if earned:

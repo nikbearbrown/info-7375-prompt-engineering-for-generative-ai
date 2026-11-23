@@ -8,20 +8,20 @@ Generated from `../js2-loop-tools-diff/evidence/raw/` (JS2's live capture of
 `python3 tools/make_shortlist.py`. The machine-readable version with every span
 is `reports/shortlist.json`.
 
-**F-v2 / S-v3 / E-v1a, threshold 6.** (This section was first written under
-S-v2 and rewritten after amendment A3; the before-and-after is in §6.)
+**F-v2 / S-v5 / E-v1a, threshold 6.** (First written under S-v2 and rewritten
+twice since, after A3 and after A4/A5; every version of the table is in §6.)
 
 | | |
 |---|---|
 | postings in the corpus | 452 |
 | reached the scorer | 24 |
-| shortlisted | **6** |
-| claims made about them | 24 |
-| supported | **18** |
+| shortlisted | **4** |
+| claims made about them | 18 |
+| supported | **14** |
 | contradicted | **0** on the shortlist; **10 of 24** across everything scored |
-| insufficient | **6** |
+| insufficient | **4** |
 
-Every one of the 6 `insufficient` labels is the same claim, on all 6 entries:
+Every one of the 4 `insufficient` labels is the same claim, on all 4 entries:
 **"this posting is open to someone with no professional experience."** The
 shortlist cannot answer, for a single one of its entries, the question that
 decides whether I can apply. That is the honest state of the evidence and §4
@@ -33,36 +33,39 @@ is about why.
 
 Scores are S-v2 after A2. Each entry lists the claims and the span behind each.
 
-| # | score | board | title | supported | insufficient |
-|---|---|---|---|---|---|
-| 1 | 6 | ashby:ramp | Software Engineer, Android | 3 | 1 |
-| 2 | 6 | ashby:ramp | Software Engineer, iOS | 3 | 1 |
-| 3 | 6 | ashby:ramp | Software Engineer, Backend, Credit | 3 | 1 |
-| 4 | 6 | lever:spotify | Backend Engineer - Data Platform | 3 | 1 |
-| 5 | 6 | lever:spotify | Full Stack Engineer - Music | 3 | 1 |
-| 6 | 6 | lever:spotify | Machine Learning Engineer - Subscriptions | 3 | 1 |
+| # | score | board | title | supported | insufficient | every point from |
+|---|---|---|---|---|---|---|
+| 1 | 8 | lever:spotify | Full Stack Engineer - Music | 4 | 1 | duties, unlabelled |
+| 2 | 6 | ashby:ramp | Software Engineer, Backend, Credit | 3 | 1 | duties, required |
+| 3 | 6 | lever:spotify | Backend Engineer - Data Platform | 3 | 1 | required, unlabelled |
+| 4 | 6 | lever:spotify | Machine Learning Engineer - Subscriptions | 3 | 1 | required, unlabelled |
 
-### Entry 1 — Software Engineer, Android (ashby:ramp), score 6
+The last column is new in A4 and is the point of it: **no entry on this list
+scores a single point from a company blurb or a "nice to have" block any
+more.**
 
-| claim | label | span |
-|---|---|---|
-| the posting mentions backend | supported | «- Experience with backend technologies (Python, Flask, SQL, OpenAPI)» |
-| the posting mentions python | supported | «- Experience with backend technologies (Python, Flask, SQL, OpenAPI)» |
-| the posting mentions typescript | supported | «- Experience with web apps (React, TypeScript)» |
+### Entry 1 — Full Stack Engineer - Music (lever:spotify), score 8
+
+| claim | label | span | section |
+|---|---|---|---|
+| the posting mentions backend | supported | «Design, build and maintain scalable backend services (Java)» | duties |
+| the posting mentions java | supported | «Design, build and maintain scalable backend services (Java)» | duties |
+| the posting mentions typescript | supported | «Develop and enhance our user-facing layer and frontend SDKs (React/Typescript)» | duties |
+| the posting mentions infrastructure | supported | «The work runs from video pipelines and serving infrastructure through mobile and web clients» | unlabelled |
 | open to someone with no professional experience | **insufficient** | the body states no experience requirement and does not say it is open to new graduates |
 
-Note what the three `supported` labels say and do not say. They say the posting
+Note what the four `supported` labels say and do not say. They say the posting
 *mentions* these things. Not one of them says this is a job I can get, and
 E-v1a has no rule that would get there from these spans.
 
-The other five entries have the same shape: three `MENTIONS` claims supported
+The other three entries have the same shape: three `MENTIONS` claims supported
 by a quoted sentence, and the new-graduate claim `insufficient`.
 `reports/shortlist.json` carries all of them with full spans.
 
-**This table used to have a seventh entry above this one**, `Machine Learning
-Engineer` at score 8, and reading its full text is what produced amendment A3
-— it asks for "a minimum of 5 years of industry experience" in a phrasing S6
-could not read. §6 is the before-and-after.
+**Two entries that used to be on this list are the reason A4 exists**:
+`Software Engineer, iOS` and `Software Engineer, Android` each scored 6, and
+every one of those points was inside a `NICE TO HAVES` block while their
+requirements asked for Swift and a year of mobile development. §3 and §6.
 
 ---
 
@@ -211,14 +214,15 @@ README.md's sign-off as a thing this agent does not do.
 This section was first written under S-v2, and then rewritten. The change was
 not cosmetic, so the before is kept rather than overwritten silently.
 
-| | under S-v2 | under S-v3 (A3) |
-|---|---|---|
-| shortlisted | 7 | **6** |
-| top entry | Machine Learning Engineer, score **8** | Software Engineer, Android, score 6 |
-| claims | 29 | 24 |
-| supported | 22 | 18 |
-| insufficient | 7 | 6 |
-| `contradicted` across all 24 scored postings | not computed | **10** |
+| | S-v2 | S-v3 (A3) | S-v5 (A4, A5) |
+|---|---|---|---|
+| shortlisted | 7 | 6 | **4** |
+| top entry | ML Engineer, **8** | SWE Android, 6 | Full Stack Engineer - Music, **8** |
+| claims | 29 | 24 | 18 |
+| supported | 22 | 18 | 14 |
+| insufficient | 7 | 6 | 4 |
+| `contradicted` across all 24 scored | not computed | 10 | 10 |
+| entries scoring only from `optional` or `company` | 2 | 2 | **0** |
 
 A3 came out of writing §2 of this very file: rendering the explanation prompt
 for the top entry meant printing its whole body, and its requirements say
@@ -230,3 +234,13 @@ The honest summary is that **the shortlist got shorter by reading more
 carefully**, and the thing that made me read more carefully was being forced to
 paste a full posting into a prompt. Writing the Chapter 8 deliverable is what
 found the Chapter 7 defect.
+
+**A4 and A5 did the other half.** A3 made the filter read requirements
+properly; A4 made it read *where a sentence sits*, which removed the two
+entries whose every point came from a NICE TO HAVES block. A5 then put back a
+word A2 had cut as a false friend, because with sections in place 20 of its 21
+firings score nothing and the 21st is a true sentence about a real job.
+
+The shortlist has gone 7 → 6 → 4 across three amendments, and not one of those
+steps was a tuning decision: each came from reading something the filter had
+been scoring without looking at.

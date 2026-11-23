@@ -33,17 +33,21 @@ FOLDER = "fall-2026/weiting-w/js3-filter-tool-score"
 #: stale hash -> a distinctive fragment of that commit's subject line
 KNOWN = {
     "ee698f2": "freeze FILTER.md before any filter code",
-    "ed9d7d1": "F-v1 implemented exactly as frozen",
-    "12ad9e8": "amendment A1 to FILTER.md",
-    "2e47c65": "amendment A2 -- three false friends",
-    "b9ff488": "apply A1 and A2 to the code",
-    "5335b7b": "the tool server, written from scratch",
-    "adff571": "the source-grounded shortlist",
-    "79b4573": "amendment A3 -- the experience wall",
-    "5eb1bc0": "apply A3, and fix the bug",
-    "e86eaa6": "what moves the score",
-    "8b7a5bc": "SOURCES.md, FRICTIONAL.md, and the audit analyser",
-    "1e49fb4": "README with the toolchain",
+    "ed9d7d1": "F-v1 implemented exactly as frozen, and the me",
+    "12ad9e8": "amendment A1 to FILTER.md -- F3 inverts to a d",
+    "2e47c65": "amendment A2 -- three false friends cut from t",
+    "b9ff488": "apply A1 and A2 to the code, with both predict",
+    "5335b7b": "the tool server, written from scratch, and two",
+    "adff571": "the source-grounded shortlist -- 7 entries, 29",
+    "79b4573": "amendment A3 -- the experience wall was a list",
+    "5eb1bc0": "apply A3, and fix the bug A3's own consistency",
+    "e86eaa6": "what moves the score -- four objects changed o",
+    "8b7a5bc": "SOURCES.md, FRICTIONAL.md, and the audit analy",
+    "1e49fb4": "README with the toolchain, the commands, the s",
+    "82ed301": "a script to stop this submission repeating JS2",
+    "0a25bd2": "the reject audit, everything in it that does n",
+    "bef72d8": "amendment A4 -- weight a span by the section i",
+    "c48c2cd": "amendment A5 -- reinstate `infrastructure` (S-",
 }
 
 DOCS = ("README.md", "FRICTIONAL.md", "SOURCES.md", "FILTER.md")

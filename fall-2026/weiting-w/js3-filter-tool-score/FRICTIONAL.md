@@ -86,7 +86,16 @@ would not have done if FILTER.md §6 had not committed me to it.
 - **`1-2 years`**, half of the new-graduate bonus, matched exactly one posting:
   "1-2 years of quota-carrying SaaS **sales** experience".
 
-All three cut (A2). The cost of the second is stated rather than hidden:
+All three cut (A2) — **and one of the three later put back**. A4 taught the
+scorer which section a span sits in, and the sentence `infrastructure` fires
+on is a company blurb, so with A4 in place the word earns 0 on 20 of its 21
+firings and +2 on a real sentence about a real job. A5 reinstated it. A2's
+measurement was right and its diagnosis was wrong: **it removed a word to stop
+a sentence counting, and A4 made the sentence stop counting.** The other two
+did not survive the same question — their wrong matches are in duties and
+requirements sections, where A4 gives them full weight.
+
+The cost of the second cut is stated rather than hidden:
 **`golang` appears nowhere in the corpus**, so the Go language is now
 undetectable, and I took that over a signal wrong five times in six.
 
@@ -136,9 +145,9 @@ first. **Neither posting was among the 24 scored, so no published number
 moved.** The test is the only reason I know about it, which is an argument for
 writing the consistency test rather than trusting that one rule stays one rule.
 
-## 4. Two of the six shortlisted postings score entirely on "nice to have"
+## 4. Two of the six shortlisted postings scored entirely on "nice to have" — fixed, after I rejected the fix
 
-**2026-11-23, still unfixed.**
+**2026-11-23. Recorded as unfixed, then fixed the same day.**
 
 `Software Engineer, iOS` and `Software Engineer, Android` (ashby:ramp) each
 score 6, and **all six of each one's points come from the NICE TO HAVES
@@ -152,12 +161,31 @@ Their actual requirements are Swift and SwiftUI, a minimum of one year of
 mobile development, and a shipped app. The filter matched these postings'
 *optional* list and scored nothing from their *required* list.
 
-**Not fixed.** The repair is to weight spans by the section they sit in, which
-means parsing each board's heading conventions — "WHAT YOU NEED", "NICE TO
-HAVES", "Requirements", Lever's `lists[].text` — and that is a new subsystem,
-not an amendment. It is the first thing I would build next. For now it is in
-README.md's sign-off as a thing this filter does not do, and
-`reports/shortlist.md` names the two postings.
+**I rejected the fix, in writing**, in `reports/reject-audit.md` §8: weighting
+spans by section "means parsing each board's heading conventions … and that is
+a new subsystem, not an amendment."
+
+**Then I measured, and the reason was wrong.** All 295 postings with text
+contain at least one recognised heading, and the vocabulary is about thirty
+strings — `WHAT YOU'LL DO`, `What You'll Do`, `WHAT YOU NEED`, `Who You Are`,
+`NICE TO HAVES`, `ABOUT RAMP`, `OTHER NOTICES`. It is a table, not a
+subsystem. Ten minutes of measuring against an estimate I had made without
+any.
+
+A4 weights a positive hit by where it sits: required ×1, duties ×1, optional
+×½, company ×0, unknown ×1. Penalties are never scaled, because a rule that
+can be evaded by moving a sentence is not a rule. Both postings dropped, 6 →
+3, and the shortlist went 6 → 4.
+
+**Both halves stay in the record.** A rejection written down with its
+reasoning is a decision that can be revisited; a rejection that was never
+written down is just a thing that did not happen. The thing that made the
+reversal cheap was having written the bad reason where I could read it.
+
+**What is still not read**: the heading table is thirty strings taken off this
+corpus. A board writing "Must haves" falls into `unlabelled` and is scored at
+full weight — the safe direction, and still not reading. That is now the
+sign-off item in place of this one.
 
 ## 5. One year versus three, where the code and the reading disagree
 
@@ -224,6 +252,13 @@ failure and the one I kept.
   **signal words in S4**. A substring check mistaking a word list for a
   dependency — the false friend problem turning up inside the test suite that
   exists to catch false friends. Fixed to check imports.
+- **I found `api` does not match "APIs" by writing a broken test fixture.**
+  A test of mine said "We build APIs in Python" and expected 4 points; it
+  scored 2. Whole-word matching makes the plural a different word. Across the
+  corpus `api` matches 29 postings and misses **42** that write only "APIs",
+  10 of them among the 24 that get scored. Not fixed — a word-list change
+  needs its own amendment and its own prediction — but the test now asserts
+  the gap at 42 so it cannot be forgotten.
 - **A GitHub fetch I assumed would work, didn't.** The plan for the second
   tool-server evaluation was to read the official servers repository through
   `gh`; this session has no access to it. npm did work, and running the server
@@ -235,12 +270,16 @@ failure and the one I kept.
 
 | | where |
 |---|---|
-| Section headings are not read, so "nice to have" scores like "required" | §4 |
+| The heading table is ~30 strings read off this corpus; another board's wording lands in `unlabelled` | §4 |
+| `api` does not match "APIs" — 42 postings missed, 10 of them among the 24 scored | §8 |
 | `MIN_WALL_YEARS = 3` disagrees with an ordinary reading of "Minimum 1 year" | §5 |
 | E-v1a cannot read "Senior" as a contradiction, and the obvious fix is wrong | §7 |
 | 157 postings (35%) have no text at all, so nothing here speaks to them | FILTER.md §3 |
-| The Go language is undetectable | §2 |
+| The Go language is undetectable, and A4 does not rescue it | §2 |
 | A1's denylist is fitted to this corpus, not derived | §1 |
+
+**Resolved since the first draft of this file:** section weighting (§4, by A4)
+and the `infrastructure` cut (§2, reversed by A5).
 
 ## 10. Traceability
 
@@ -261,6 +300,12 @@ transcript stays on my machine per the assignment's privacy rule.
 | A3 written up, document first | `79b4573` |
 | A3 applied, and the range bug its own test found | `5eb1bc0` |
 | what moves the score, four objects one at a time | `e86eaa6` |
+| SOURCES, FRICTIONAL, and the audit analyser written before the labels | `8b7a5bc` |
+| README, sign-off, driver's seat | `1e49fb4` |
+| a script so this submission does not repeat JS2's §0 defect | `82ed301` |
+| the reject audit, everything not needing the labels | `0a25bd2` |
+| A4 written up, document and heading table first | `bef72d8` |
+| A5 written up, document first | `c48c2cd` |
 
 Each amendment is **document before code**, in two commits, so the order is
 checkable: `git log --oneline -- fall-2026/weiting-w/js3-filter-tool-score`.

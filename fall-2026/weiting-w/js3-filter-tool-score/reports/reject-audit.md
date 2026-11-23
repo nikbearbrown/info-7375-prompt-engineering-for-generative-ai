@@ -2,19 +2,19 @@
 
 Chapter 7. What the filter threw away, judged by hand, blind.
 
-**F-v2 / S-v3 / E-v1a, threshold 6**, over the 452 postings JS2 captured on
+**F-v2 / S-v5 / E-v1a, threshold 6**, over the 452 postings JS2 captured on
 2026-11-11T00:18Z.
 
 ```
-shortlisted         6
-below_threshold    18
+shortlisted         4
+below_threshold    20
 gated             417
 cannot_score       11     (no body on that board; not a zero, not a rejection)
 --------------------
 total             452
 ```
 
-"Rejected" here means **`gated` or `below_threshold`** — 435 postings.
+"Rejected" here means **`gated` or `below_threshold`** — 437 postings.
 `cannot_score` is not a rejection and is audited separately in §6.
 
 ---
@@ -131,9 +131,27 @@ This is the most instructive of the three, because it is not a word with two
 meanings. It is a word used correctly, in a sentence that is simply not about
 the job. **A span can be real, quotable, and still evidence about nothing.**
 
-`reports/what-moves-the-score.md` §2 measures what putting it back does: the
-shortlist goes from 6 to 11. A constant added to most of the corpus is a
-threshold change wearing a word list's clothes.
+`reports/what-moves-the-score.md` §2 measured what putting it back did under
+S-v3: the shortlist went from 6 to 11. A constant added to most of the corpus
+is a threshold change wearing a word list's clothes.
+
+**And then the cut was undone.** Amendment A4 taught the scorer which section
+a span sits in, and the sentence this word fires on is a company blurb. With
+that in place the word fires 21 times across the 24 scored postings, **20 of
+them earning 0**, and the 21st is
+
+> The work runs from video pipelines and serving **infrastructure** through
+> mobile and web clients
+
+— a true statement about a real job, in that posting's own description of the
+work. A5 reinstated the word on that measurement.
+
+So this entry is a false friend that **stopped being one** when the filter
+learned to read structure. The cut was the right response to the measurement
+and the wrong response to the problem: A2 removed a word to stop a sentence
+counting, and A4 made the sentence stop counting. The other two below did not
+survive the same question — their wrong matches are in duties and requirements
+sections, where A4 gives them full weight.
 
 ### `go` — 55 matches, at most 9 of them the language
 
@@ -184,9 +202,20 @@ test fails.
 | **A2** | `0-2 years`, `1-2 years` in S5 | 1 match, a sales job | **cut** |
 | **A3** | S6 as a list of literal strings | missed "a minimum of 5 years" on the **top-scoring shortlist entry**, and missed `3+ years` entirely | **rewritten** as a number ≥ 3 in four forms |
 | **A3** | `evidence._YEARS` | same two phrasings missing, so a five-year posting came back `insufficient` instead of `contradicted` | **rewritten** to match S6 exactly |
-| — | weight a span by the section it sits in | 2 of the 6 shortlisted score **all** their points from a NICE TO HAVES block | **rejected for now**: it needs a heading parser per board, which is a subsystem, not an amendment |
+| **A4** | spans were scored the same wherever they sat | 2 of the 6 shortlisted scored **all** their points from a NICE TO HAVES block; across the 24 scored, `company` sections held 14 hits | **accepted** after the rejection below was re-examined: required/duties ×1, optional ×½, company ×0, unknown ×1, penalties never scaled |
+| **A5** | `infrastructure`, cut by A2 | with A4 in place it fires 21 times and earns 0 on 20 of them | **reinstated** |
+| — | ~~weight a span by the section it sits in~~ | — | **rejected, then reversed.** The rejection said it needed a per-board heading parser and was "a subsystem, not an amendment". I had not measured. All 295 postings with text carry a recognised heading and the vocabulary is about thirty strings. The reason was wrong, so the rejection went, and both halves stay in this table |
 | — | `MIN_WALL_YEARS` from 3 to 1 | P-v3 read "Minimum 1 year" as disqualifying; `evidence.py` abstains | **rejected**: a fourth amendment on the last evening, and the audit should decide it |
 | — | "body says senior → contradicted" | would mislabel "Partner closely with **senior** and staff ML engineers" | **rejected**: the difference is grammatical and E-v1a has no grammar |
 
-Three rules changed, three rejected. The three rejections are in README.md's
-sign-off as things this filter does not do.
+Five rules changed and two rejected, with one rejection reversed after it was
+measured rather than estimated. The two that stand — `MIN_WALL_YEARS` 3 → 1,
+and "body says senior → contradicted" — are in README.md's sign-off as things
+this filter does not do.
+
+The reversal is the entry I would point at. I rejected section weighting on a
+guess about how much work it was, wrote the rejection down with its reasoning,
+and the written reasoning is what made it cheap to check later and obvious
+that it was wrong. A rejection recorded with a reason is a decision that can
+be revisited; a rejection that never got written down is just a thing that
+did not happen.

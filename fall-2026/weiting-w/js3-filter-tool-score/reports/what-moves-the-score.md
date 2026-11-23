@@ -5,12 +5,12 @@ when I change one object at a time.
 
 Raw measurements: `reports/one-change-measurements.txt`, produced by the script
 block recorded in this repository's history. Baseline throughout is
-**F-v2 / S-v3 / E-v1a, T = 6**, over the 452 postings JS2 captured on
+**F-v2 / S-v5 / E-v1a, T = 6**, over the 452 postings JS2 captured on
 2026-11-11T00:18Z.
 
 ```
-BASELINE   shortlisted 6   below_threshold 18   gated 417   cannot_score 11
-           score range [-6, 6]
+BASELINE   shortlisted 4   below_threshold 20   gated 417   cannot_score 11
+           score range [-6, 8]
 ```
 
 ---
@@ -26,15 +26,16 @@ happened to each since.
 | `title_block`, `target_title_phrases`, `locations_ok` | **inherited** — JS1's persona, unchanged since 2026-10-21 | no |
 | gate order F1→F4 | **inherited** — JS1 CONTRACT.md, R-v3 | no |
 | `target_job_families` | **inherited** | **replaced** by A1 — it was Greenhouse's vocabulary, so it was testing which applicant-tracking system a company bought |
-| S1–S7 word lists | **hand-set**, from my own coursework | **cut** by A2 (three false friends) and **rewritten** by A3 (S6 from strings to a number) |
-| S1–S7 weights and caps | **hand-set**, reasoning in FILTER.md §1 | no |
+| S1–S7 word lists | **hand-set**, from my own coursework | **cut** by A2 (three false friends), **rewritten** by A3 (S6 from strings to a number), and one cut **undone** by A5 |
+| S1–S7 weights and caps | **hand-set**, reasoning in FILTER.md §1 | base weights no; **A4 added a section multiplier** on top of them |
+| section weights (A4) | **hand-set**: 1, 1, ½, 0, 1 | no |
 | `MIN_WALL_YEARS = 3` | **hand-set** by A3 | no |
 | threshold **T = 6** | **hand-set** | §4 below |
 | the explanation prompt | **hand-written**, and not part of the filter or the score | §3 below |
 
-**Nothing here was fitted before §4.** Three of the eight rows changed, and all
-three changed because a measurement contradicted them, each one recorded as a
-dated amendment with its prediction written before the code moved.
+**Nothing here was fitted before §4.** Four of the nine rows changed, every one
+of them because a measurement contradicted it, each recorded as a dated
+amendment whose prediction was written before the code moved.
 
 ---
 
@@ -42,20 +43,32 @@ dated amendment with its prediction written before the code moved.
 
 ### Change 1 — the filter file: put `infrastructure` back into S1
 
-| | shortlisted | below | cannot_score | range |
-|---|---|---|---|---|
-| baseline | **6** | 18 | 11 | [−6, 6] |
-| with `infrastructure` | **11** | 13 | 11 | [−4, 8] |
+Measured **twice**, before and after A4, and the pair is the most useful thing
+in this report.
 
-**One word nearly doubles the shortlist.** A2 cut it because it fires on 206 of
-295 postings and on 177 of 177 at `ashby:ramp`, every one of them from the
-sentence "Ramp is building the smart infrastructure for finance teams". Putting
-it back adds +2 to every Ramp posting at once, which is a constant, and a
-constant added to every score is a threshold change wearing a word list's
-clothes.
+| | shortlisted | below | range |
+|---|---|---|---|
+| under S-v3, baseline | 6 | 18 | [−6, 6] |
+| under S-v3, with `infrastructure` | **11** | 13 | [−4, 8] |
+| under S-v5, baseline | 4 | 20 | [−6, 8] |
+| under S-v5, with `infrastructure` | **4** | 20 | [−6, 8] |
 
-That is the single most useful thing this section measures: **a signal that
-fires on most of the corpus does not rank the corpus, it shifts it.**
+**The same one-word change nearly doubled the shortlist before A4 and does
+nothing after it.** A2 cut the word because it fires on 206 of 295 postings and
+177 of 177 at `ashby:ramp`, always from "Ramp is building the smart
+infrastructure for finance teams". Under S-v3 putting it back added +2 to every
+Ramp posting at once — a constant, and a constant added to every score is a
+threshold change wearing a word list's clothes. Under S-v5 that sentence is in
+a `company` section and scores 0.
+
+Two things follow, and the second is the one I did not expect:
+
+- **A signal that fires on most of the corpus does not rank the corpus, it
+  shifts it.**
+- **Whether a word is a good signal is not a property of the word.** It
+  depended entirely on another object — the section weights — that did not
+  exist when A2 measured it. A5 reinstated the word on the second row of this
+  table.
 
 ### Change 2 — a setting: score the whole JSON record instead of the body
 
@@ -92,7 +105,23 @@ No word list changed, no weight changed, no threshold changed. A field
 selection moved the output as much as A2 and A3 did, and unlike them it would
 never have appeared in an amendment, because it does not look like a rule.
 
-### Change 4 — the tool list
+### Change 4 — the section weights: treat `optional` as full weight
+
+| | shortlisted | below | range |
+|---|---|---|---|
+| baseline (optional ×½) | **4** | 20 | [−6, 8] |
+| optional ×1 | **6** | 18 | [−6, 8] |
+
+This is the object A4 added, changed on its own. The two postings that come
+back are `Software Engineer, iOS` and `Software Engineer, Android`, whose
+every point is in a NICE TO HAVES block while their requirements ask for Swift
+and a year of mobile development.
+
+Half the difference between a four-entry shortlist and a six-entry one is a
+single multiplier on a single section kind, and the two entries it decides are
+exactly the two I would not have applied to.
+
+### Change 5 — the tool list
 
 Adding a second tool to `toolserver/server.py` changes **nothing** about the
 filter's output, and saying so is the point: the tool list is not an input to

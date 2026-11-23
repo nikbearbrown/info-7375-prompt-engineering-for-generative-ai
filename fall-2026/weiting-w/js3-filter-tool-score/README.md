@@ -58,11 +58,11 @@ python3 -m jobfilter summary    # counts only
 ```
 
 ```
-filter=F-v2  scorer=S-v3  threshold=6
+filter=F-v2  scorer=S-v5  threshold=6
 corpus: 452 postings, 295 with a body, 157 without
 
-  shortlisted         6
-  below_threshold    18
+  shortlisted         4
+  below_threshold    20
   gated             417
   cannot_score       11   (no body on that board; not a zero, not a rejection)
   ----------------------------------
@@ -111,7 +111,7 @@ number any caller can set is not a declared number.
 | `toolserver/` | the MCP server, 241 lines, standard library |
 | `tools/` | the audit form, the audit analyser, the shortlist, the prompt renderer, both transcript drivers |
 | `reports/reject-audit.md` | 30+ rejects judged by hand, blind, plus the near-threshold and kept samples |
-| `reports/shortlist.md` | 6 entries, 24 claims, each labelled against a span |
+| `reports/shortlist.md` | 4 entries, 18 claims, each labelled against a span |
 | `reports/tool-evaluation.md` | both servers, same three questions, two trust decisions |
 | `reports/what-moves-the-score.md` | one object at a time, measured |
 | `evidence/transcripts/` | both real sessions, both directions |
@@ -127,11 +127,20 @@ predicted before it was applied.
 |---|---|---|
 | **A1** | F3 required Greenhouse's vocabulary, so the same job passed or failed depending on which applicant-tracking system the company bought. F-v1 as frozen put **0** postings in front of the scorer. | 0 → 14 |
 | **A2** | Three false friends. `infrastructure` fired on **177/177** postings of one board, all from "Ramp is building the smart infrastructure for finance teams". | 14 → 7 |
-| **A3** | The experience wall was a list of literal strings, so "a **minimum of 5 years**" and even `3+ years` slipped through. | 7 → **6** |
+| **A3** | The experience wall was a list of literal strings, so "a **minimum of 5 years**" and even `3+ years` slipped through. | 7 → 6 |
+| **A4** | Spans were scored the same wherever they sat, so two entries scored **all** their points inside a `NICE TO HAVES` block. | 6 → **4** |
+| **A5** | A2's `infrastructure` cut was treating a symptom: with sections in place the word earns 0 on 20 of its 21 firings. | 4 → 4 |
 
 A3 deleted the highest-scoring entry on the list. It was found while building
 the Chapter 8 tool server: rendering a prompt prints the whole posting, and
 that was the first time its requirements section was in front of me.
+
+A4 was **rejected once and then reversed**. `reports/reject-audit.md` §8 ruled
+it "a subsystem, not an amendment"; measuring took ten minutes and found that
+all 295 postings with text carry a recognised heading. The rejection and the
+reversal are both in the record, because a rejection written down with its
+reasoning is a decision that can be revisited and a rejection that was never
+written down is just a thing that did not happen.
 
 ---
 
@@ -184,12 +193,14 @@ that was the first time its requirements section was in front of me.
 
 **Not checked** — and these are real:
 
-1. **Section headings are not read, so "nice to have" scores like "required".**
-   Two of the six shortlisted postings — `Software Engineer, iOS` and
-   `Software Engineer, Android` — score **all six** of their points from a
-   NICE TO HAVES block, while their actual requirements are Swift, SwiftUI and
-   a minimum of one year of mobile development. A third of the shortlist is
-   matched on the optional list.
+1. **The heading table is about thirty strings I read off this corpus.**
+   A4 fixed the defect that two of six shortlisted postings scored every point
+   inside a `NICE TO HAVES` block — but it fixed it with a lookup table built
+   from the headings these four boards happen to use. A fifth board writing
+   "Must haves" or "Your background" lands in `unlabelled` and is scored at
+   full weight, which is the safe direction and is still not reading.
+   `test_every_posting_with_text_has_a_recognised_heading` passes on this
+   corpus and says nothing about any other.
 2. **157 postings (35% of the corpus) have no text at all.** Greenhouse sends
    no description on the endpoint JS2 called. They are in `cannot_score`,
    counted separately, and nothing in any report here speaks to them.
@@ -206,11 +217,18 @@ that was the first time its requirements section was in front of me.
    admits. It is not derived from principle, and an over-generous entry shows
    up only as a false positive in the kept sample.
 6. **The Go language is undetectable.** A2 cut `go`, `golang` appears nowhere
-   in the corpus, and nothing replaced it.
-7. **`tests/test_inherited_is_unchanged.py` skips when the JS2 folder is
+   in the corpus, and nothing replaced it. A5 asked whether A4 rescued it the
+   way it rescued `infrastructure`; it does not, because `go`'s wrong matches
+   sit in duties and requirements sections.
+7. **`api` does not match "APIs".** Whole-word matching means the plural is a
+   different word: `api` matches 29 postings and misses **42** that write only
+   "APIs", 10 of them among the 24 that get scored. Found by getting a test
+   fixture wrong, recorded in `tests/test_amendment_a4.py`, and not fixed —
+   it is a word-list change and would need its own amendment.
+8. **`tests/test_inherited_is_unchanged.py` skips when the JS2 folder is
    absent.** A clone of this folder alone cannot check that the copies are
    faithful, which is the one case where they could drift unnoticed.
-8. **The second tool server was evaluated with nine requests and a read of the
+9. **The second tool server was evaluated with nine requests and a read of the
    import graph.** No hardlink test, no TOCTOU race, no NUL-byte path, and the
    `streamable-http` transport was never exercised.
 
@@ -233,9 +251,8 @@ that was the first time its requirements section was in front of me.
   call. The one fitted number is the threshold, fitted by trying each integer
   and counting agreements. A behaviour that persists is a file that persists.
 - **It is not a system anyone should job-hunt with.** It reads 65% of what it
-  collects, scores two of its six recommendations on their optional
-  qualifications, and cannot tell you whether any of them will take a new
-  graduate.
+  collects, offers four postings out of 452, and cannot tell you, for any one
+  of the four, whether it will take a new graduate.
 
 **Signed:** Weiting Wang — 2026-11-23
 
