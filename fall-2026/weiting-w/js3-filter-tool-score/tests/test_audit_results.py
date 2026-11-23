@@ -114,3 +114,42 @@ def _body_for(identity: str) -> str:
     from jobfilter import corpus as corpus_mod
 
     return next(p for p in corpus_mod.load() if p.identity == identity).body
+
+
+# --- the held-out measurement, and the number it has to be read against -----
+
+@pytest.fixture(scope="module")
+def heldout(tmp_path_factory):
+    subprocess.run(
+        [sys.executable, "tools/measure_one_change.py"],
+        cwd=ROOT, check=True, capture_output=True,
+    )
+    return (ROOT / "reports" / "one-change-heldout.txt").read_text(encoding="utf-8")
+
+
+def test_rejecting_everything_scores_20_of_21_on_the_held_out_half(heldout):
+    """The number every other number in that table has to be read against.
+
+    93% of the decided labels are `no`, so a filter that rejects without
+    reading scores 20/21. The whole filter scores 21/21. If this test ever
+    starts failing because the trivial row got quietly dropped from the
+    report, that is the failure it exists to catch.
+    """
+    assert "trivial: reject everything" in heldout
+    line = next(l for l in heldout.splitlines() if "reject everything" in l)
+    assert line.split()[-1] == "20/21"
+
+
+def test_the_filter_beats_it_by_one_posting(heldout):
+    line = next(l for l in heldout.splitlines() if l.startswith("baseline"))
+    assert line.split()[-1] == "21/21"
+
+
+def test_undoing_a4_costs_two_held_out_postings(heldout):
+    """A4 is the one change the labels can actually see."""
+    line = next(l for l in heldout.splitlines() if "optional x1" in l)
+    assert line.split()[-1] == "19/21"
+
+
+def test_only_one_held_out_posting_is_a_yes(heldout):
+    assert "1 are `yes` and 20 are `no`" in heldout

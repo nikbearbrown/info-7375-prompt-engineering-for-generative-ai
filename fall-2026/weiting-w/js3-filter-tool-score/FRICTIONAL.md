@@ -279,6 +279,40 @@ failure and the one I kept.
   obstacle improved the deliverable. Recorded because it was luck, not
   judgement.
 
+## 8b. The measurement I added last was the one that undercut the rest
+
+**2026-11-23, after the labels came back**, checking the submission against
+the assignment rather than against my own plan.
+
+The requirement is to change one object at a time and **measure on labels you
+held out**. I had measured each change's effect on the *bucket counts*, which
+is a description of the filter and not a measurement of whether a change is
+an improvement. So I wrote `tools/measure_one_change.py` to score each change
+against the held-out half of the labels.
+
+The baseline came out **21 of 21**. That looked like a good result for about
+a minute, until I added the row that had to be there: **a filter that rejects
+every posting without reading it scores 20 of 21.** On the training half mine
+is worse than that — 18/21 against 19/21.
+
+Three of 42 decided labels are `yes`. One of them is in the held-out half.
+
+So the measurement I added to satisfy a requirement is the one that says the
+rest of the measurements cannot distinguish this filter from pessimism. I
+would rather have found this in week one than at 18:10 on the due date, and
+the only reason I found it at all is that adding a trivial-baseline row is
+cheap and I have been asking all day what each number has to be read against.
+
+**Not fixed, and not fixable here.** More postings sampled the same way give
+the same 93% "no". It would need labels stratified on my own verdict — which
+cannot be done before labelling — or a corpus with more postings this persona
+would want, and A2 already established that none of these four boards
+publishes one that says so in words.
+
+What survives: the labels can still see the three changes that make things
+*worse* (undoing A4, W3, dropping Lever's `lists`), and those are in
+`reports/what-moves-the-score.md` §4b.
+
 ## 9. What is still unresolved
 
 | | where |
@@ -290,6 +324,7 @@ failure and the one I kept.
 | 157 postings (35%) have no text at all, so nothing here speaks to them | FILTER.md §3 |
 | The Go language is undetectable, and A4 does not rescue it | §2 |
 | A1's denylist is fitted to this corpus, not derived | §1 |
+| The labels cannot distinguish the filter from "reject everything" | §8b |
 
 **Resolved since the first draft of this file:** section weighting (§4, by A4)
 and the `infrastructure` cut (§2, reversed by A5).

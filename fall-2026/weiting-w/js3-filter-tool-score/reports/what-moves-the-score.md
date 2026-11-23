@@ -214,6 +214,67 @@ against *j* of *m* for T = 6", never "the refit improved accuracy by *x*%".
 
 ---
 
+## 4b. Measured against the held-out labels — and against a filter that knows nothing
+
+§2 and §3 report what each change does to the **bucket counts**. That is a
+description of the filter, not evidence that a change is an improvement. The
+assignment asks for the changes to be measured on labels held out, so they
+were: `reports/one-change-heldout.txt`, same split and seed as the threshold
+refit, agreement = the filter's keep/drop matching my blind `yes`/`no`.
+
+| change | train | **held out** |
+|---|---|---|
+| **baseline** F-v2 / S-v5 / T=6 | 18/21 | **21/21** |
+| *trivial: reject everything* | *19/21* | ***20/21*** |
+| *trivial: keep everything* | *2/21* | *1/21* |
+| filter file: drop `infrastructure` (undo A5) | 18/21 | 21/21 |
+| section weights: `optional` ×1 (undo A4) | 18/21 | **19/21** |
+| setting: score the whole JSON record (W3) | 18/21 | 19/21 |
+| setting: drop Lever's `lists` | 18/21 | 20/21 |
+| threshold T=4 | 18/21 | 20/21 |
+| threshold T=5 / T=7 / T=8 | 18–19/21 | 21/21 |
+
+### The two rows that matter are the italic ones
+
+**A filter that rejects every posting without reading it scores 20 of 21 on
+the held-out half.** Mine scores 21. The entire apparatus in this
+repository — four gates, seven signals, five amendments, a section
+classifier — beats "reject everything" by **one posting**.
+
+On the **training** half it does not beat it at all: 18/21 against 19/21.
+
+The reason is in the labels. Of 42 postings I decided, **3 are `yes`**; the
+held-out half contains **1**. A corpus where 93% of the answers are "no"
+rewards a filter that says no, and a measurement against it cannot tell a
+filter that understands the postings from one that is simply pessimistic.
+
+**So this table cannot validate the filter, and I am not going to present it
+as though it can.** What it can do is three narrower things:
+
+- **Rule out the changes that are worse.** Undoing A4 costs two held-out
+  postings; scoring the whole record (W3) costs two; dropping Lever's `lists`
+  costs one. Those are real, in the right direction, and consistent with what
+  §2 predicted from the bucket counts alone.
+- **Confirm that A5 is inert**, which is what A5 itself claimed: dropping
+  `infrastructure` again changes nothing on either half.
+- **Confirm the threshold is not the lever.** T = 5, 6, 7 and 8 are
+  indistinguishable on the held-out half, which is the same answer §4's refit
+  gave by a different route.
+
+### What would have made this measurable
+
+More `yes` labels. Not more postings — more postings drawn the same way give
+the same 93% "no". The sample would have to be **stratified on my verdict**,
+which cannot be done before labelling, or drawn from a corpus with more
+postings I would actually want, which means boards that publish new-graduate
+roles. `FILTER.md` §7 A2 established that **none of these four boards says in
+words that a posting is open to new graduates**, so that corpus is not this
+one.
+
+That is the honest shape of the problem: the filter was built against a corpus
+with almost nothing in it for the persona it filters for, and no amount of
+labelling my way out of that changes it.
+
 ## 5. What persistence is not proof of
 
 If I edit `prompts/explain-P-v2.txt`, or cut a word from `jobfilter/score.py`,

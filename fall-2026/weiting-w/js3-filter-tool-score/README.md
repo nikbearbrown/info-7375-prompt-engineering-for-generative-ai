@@ -172,7 +172,11 @@ written down is just a thing that did not happen.
    schema.* `tests/test_toolserver.py`.
 9. *The shortlist's claim totals and both worked cases.*
    `tests/test_shortlist_claims.py`.
-10. *The audit's numbers are recomputable from the labels in the repository.*
+10. *Three of the one-object changes are worse on held-out labels.* Undoing
+    A4 costs two of 21, wrong version W3 costs two, dropping Lever's `lists`
+    costs one — the only things these labels are numerous enough to see, and
+    they point the way §2 predicted from the bucket counts.
+11. *The audit's numbers are recomputable from the labels in the repository.*
     `tests/test_audit_results.py` re-runs `tools/analyse_audit.py` over
     `audit/labels-weiting.json` and pins all of them, including the one I
     like least — see "Not claiming".
@@ -244,6 +248,15 @@ written down is just a thing that did not happen.
 
 **Not claiming** — what this agent does not show:
 
+- **It is not measurably better than rejecting everything.** Against my 48
+  blind labels, split with a recorded seed, the filter agrees with the
+  held-out half **21 of 21 times — and a filter that rejects every posting
+  without reading it agrees 20 of 21.** On the training half mine is *worse*:
+  18/21 against 19/21. Of 42 postings I decided, 3 are `yes`. A corpus where
+  93% of the answers are "no" rewards a filter that says no, and these labels
+  cannot tell one that understands postings from one that is simply
+  pessimistic. `reports/what-moves-the-score.md` §4b, pinned in
+  `tests/test_audit_results.py`.
 - **It does not show that these are good jobs.** 22 claims are supported by
   quoted spans; every one of them is a statement about the posting's *text*.
   Not one says the job is a fit, and E-v1a has no rule that would get there.
