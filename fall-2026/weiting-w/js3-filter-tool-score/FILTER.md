@@ -3,8 +3,8 @@
 **Written before any JS3 code existed, and committed alone so the ordering is
 checkable in git.** Frozen 2026-11-23.
 
-**Filter version F-v2 (frozen as F-v1; see §7 A1). Scorer version S-v1.
-Evidence rules E-v1.**
+**Filter version F-v2 (frozen as F-v1; §7 A1). Scorer version S-v2 (frozen as
+S-v1; §7 A2). Evidence rules E-v1.**
 
 This is layer 3 of my own job-search agent. Layers 1 and 2
 (`fall-2026/weiting-w/js1-contract-and-watch`,
@@ -311,3 +311,75 @@ the 24.
 
 **Not changed by A1:** F1, F2 and F4 stand as inherited. One change per
 amendment.
+
+### A2 — 2026-11-23. Three false friends cut from S-v1. **S-v1 → S-v2.**
+
+Found by running every signal word against the 295 postings that carry a body
+and reading the sentence each one matched, which is the measurement FILTER.md
+§6 committed to. All three counts and quotations below are from that run.
+
+**1. `infrastructure` (S1, +2) — cut.** It matched **206 of 295** postings, and
+**177 of 177** on `ashby:ramp`. Every Ramp posting opens with the same
+sentence:
+
+> ABOUT RAMP — Ramp is building the smart **infrastructure** for finance teams…
+
+so the word is in the company's boilerplate, not in the job. Ramp's Sales,
+Legal and Payroll postings all scored +2 on a sentence about the company. A
+signal present in 100% of a board's postings distinguishes none of them.
+
+**2. `go` (S2, +2) — cut.** It matched 55 postings. Reading the sentences, at
+most **9** plausibly name the Go language (always inside a list such as
+"Python, Go, Java, or similar"); the other **46** are the English verb or a
+compound: "You'll **go** deep on the product" on a Product Marketing posting,
+"the **go**-to technical resource", "**go**-to-market motions". That is an 84%
+false-positive rate, and no amount of whole-word matching fixes it, because
+`go` *is* a whole word in English. **`golang` does not appear anywhere in the
+corpus**, so there is no narrower replacement to swap in: the cost of this cut
+is that the Go language becomes undetectable, and I am taking that cost rather
+than keeping a signal that is wrong five times out of six.
+
+**3. `0-2 years` and `1-2 years` (S5, +4) — cut.** Together they matched exactly
+**one** posting, and it is a sales job:
+
+> - **1-2 years** of quota-carrying SaaS **sales** experience in an SMB,
+>   transactional, or high-velocity closing role.
+
+A year range states how much experience is wanted, not that a posting is open
+to new graduates, and here the +4 "you are the intended audience" bonus landed
+on a job requiring sales experience I do not have.
+
+**The consequence of cut 3, which is the part worth saying out loud.** With the
+year ranges gone, S5's remaining phrases are `new grad`, `new graduate`,
+`entry level`, `entry-level`, `early career`, `university graduate` — and
+**not one of them occurs in any of the 295 postings**. So S5 can no longer fire
+at all on this corpus. The signal FILTER.md §1 called "the single strongest
+signal that I am inside the posting's intended audience" is dead here, and the
+honest reading is not that the signal is broken: **none of these four boards
+published a posting that says in words that it is open to new graduates.**
+That is a fact about the boards, and it is the kind of thing a filter is
+supposed to surface rather than paper over.
+
+**Predicted effect, computed before the code changed** and saved verbatim in
+`reports/a2-predicted-effect.txt`:
+
+| | before A2 | after A2 |
+|---|---|---|
+| postings scored | 24 | 24 |
+| shortlisted at T=6 | **14** | **7** |
+| score range | [2, 10] | [−2, 8] |
+| per-posting change | — | −2 on 17, −4 on 3, unchanged on 4 |
+
+Halving the shortlist is not a sign the cuts were wrong. It is what removing a
++2 that 70% of the corpus received looks like: the old scores were inflated by
+a constant, and a threshold set against inflated scores is the wrong threshold.
+**T is the one number §5 permits to move**, and
+`reports/what-moves-the-score.md` refits it on a labelled training split and
+measures on a held-out split rather than my choosing a number that restores the
+count I liked.
+
+**A version bump: S-v1 → S-v2.** `tests/test_amendment_a2.py` pins the table
+above.
+
+**Not changed by A2:** every other word, every weight, every cap, and the
+threshold. One change per amendment.
