@@ -30,24 +30,28 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FOLDER = "fall-2026/weiting-w/js3-filter-tool-score"
 
-#: stale hash -> a distinctive fragment of that commit's subject line
-KNOWN = {
-    "ee698f2": "freeze FILTER.md before any filter code",
-    "ed9d7d1": "F-v1 implemented exactly as frozen, and the me",
-    "12ad9e8": "amendment A1 to FILTER.md -- F3 inverts to a d",
-    "2e47c65": "amendment A2 -- three false friends cut from t",
-    "b9ff488": "apply A1 and A2 to the code, with both predict",
-    "5335b7b": "the tool server, written from scratch, and two",
-    "adff571": "the source-grounded shortlist -- 7 entries, 29",
-    "79b4573": "amendment A3 -- the experience wall was a list",
-    "5eb1bc0": "apply A3, and fix the bug A3's own consistency",
-    "e86eaa6": "what moves the score -- four objects changed o",
-    "8b7a5bc": "SOURCES.md, FRICTIONAL.md, and the audit analy",
-    "1e49fb4": "README with the toolchain, the commands, the s",
-    "82ed301": "a script to stop this submission repeating JS2",
+#: stale hash -> a distinctive fragment of that commit's subject line.
+#: Maintained by `--refresh`, which scans the documents for short hashes and
+#: resolves each one in the repository it is run from. Keeping it by hand was
+#: a second place to get a commit reference wrong, which is the exact class of
+#: mistake this script exists to prevent.
+KNOWN: dict[str, str] = {
     "0a25bd2": "the reject audit, everything in it that does n",
+    "12ad9e8": "amendment A1 to FILTER.md -- F3 inverts to a d",
+    "1e49fb4": "README with the toolchain, the commands, the s",
+    "2e47c65": "amendment A2 -- three false friends cut from t",
+    "5335b7b": "the tool server, written from scratch, and two",
+    "5eb1bc0": "apply A3, and fix the bug A3's own consistency",
+    "79b4573": "amendment A3 -- the experience wall was a list",
+    "82ed301": "a script to stop this submission repeating JS2",
+    "8b7a5bc": "SOURCES.md, FRICTIONAL.md, and the audit analy",
+    "adff571": "the source-grounded shortlist -- 7 entries, 29",
+    "b9ff488": "apply A1 and A2 to the code, with both predict",
     "bef72d8": "amendment A4 -- weight a span by the section i",
     "c48c2cd": "amendment A5 -- reinstate `infrastructure` (S-",
+    "e86eaa6": "what moves the score -- four objects changed o",
+    "ed9d7d1": "F-v1 implemented exactly as frozen, and the me",
+    "ee698f2": "freeze FILTER.md before any filter code",
 }
 
 DOCS = ("README.md", "FRICTIONAL.md", "SOURCES.md", "FILTER.md")
@@ -66,9 +70,54 @@ def log_subjects(repo: Path) -> list[tuple[str, str]]:
     return rows
 
 
+HASH = re.compile(r"(?<![0-9a-zA-Z])([0-9a-f]{7})(?![0-9a-zA-Z])")
+
+#: Hashes FRICTIONAL.md §0 cites **because they do not exist**. They are JS2's
+#: commits, which never reached GitHub, and quoting them is the point of that
+#: section. The refresh must not report them as a problem and must never try
+#: to substitute anything for them.
+JS2_DEAD = {
+    "ce94b1f", "3a0896f", "7bf3d11", "250dff8", "12390f4", "d6013a8",
+}
+
+
+def refresh(repo: Path) -> int:
+    """Rebuild KNOWN from every short hash the documents actually cite."""
+    cited: set[str] = set()
+    for name in DOCS:
+        path = ROOT / name
+        if path.exists():
+            cited |= set(HASH.findall(path.read_text(encoding="utf-8")))
+
+    found: dict[str, str] = {}
+    for h in sorted(cited - JS2_DEAD):
+        r = subprocess.run(["git", "log", "-1", "--format=%s", h],
+                           cwd=repo, capture_output=True, text=True)
+        if r.returncode == 0 and r.stdout.strip():
+            found[h] = r.stdout.strip().replace("JS3: ", "")[:46]
+        else:
+            print(f"  {h} does not resolve in this repository -- if this is a "
+                  "JS3 commit, something is wrong; if it is a JS2 one it "
+                  "belongs in JS2_DEAD", file=sys.stderr)
+
+    me = Path(__file__)
+    src = me.read_text(encoding="utf-8")
+    start = src.index("KNOWN: dict[str, str] = {")
+    end = src.index("}\n", start) + 1
+    block = ("KNOWN: dict[str, str] = {\n"
+             + "".join(f'    "{h}": "{s}",\n' for h, s in found.items())
+             + "}")
+    me.write_text(src[:start] + block + src[end:], encoding="utf-8")
+    print(f"refreshed KNOWN: {len(found)} live hashes cited by the documents, "
+          f"{len(cited & JS2_DEAD)} deliberately-dead JS2 hashes left alone")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--refresh", action="store_true",
+                    help="rebuild KNOWN from the hashes the documents cite")
     ap.add_argument("--repo", default=None, help="defaults to the enclosing repo")
     args = ap.parse_args(argv)
 
@@ -78,6 +127,9 @@ def main(argv=None) -> int:
     if not (repo / ".git").exists():
         print("no git repository found above this folder", file=sys.stderr)
         return 2
+
+    if args.refresh:
+        return refresh(repo)
 
     subjects = log_subjects(repo)
     mapping, unmatched = {}, []
