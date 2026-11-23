@@ -8,3 +8,6 @@ Code for the redo (the instructor's feedback plus Riya's requests: show the prob
 examples, better animation, plain language, where it will be used, a proper conclusion,
 female voice, name and title on the first screen, captions) are recorded in the submission's
 BUILD-PROMPT.md.
+
+
+v4 (2026-11-22/23): same, no generation prompts. The instructions to Claude Code for the four-part re-cut (the final brief plus Riya's answers and review notes) are in the submission's BUILD-PROMPT.md, Stage 7.
