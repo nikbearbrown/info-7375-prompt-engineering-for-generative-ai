@@ -1,0 +1,57 @@
+$ python3 -m js3.experiment measure dev
+# 2026-11-22T00:55:14Z
+DEV (53 postings), 1.1.0-candidate
+  rule 4 ALONE (ignoring rules 1-2): fires on 34 of 53 (64.2%) - descriptive, not a precision claim
+  precision on relevant  v1.0.0: 1/12 = 0.083   v1.1.0-candidate: 1/2 = 0.500
+  filter-relevant postings (v1.0.0) and what rule 4 does:
+    C01    hand=not relevant  v1.1.0=relevant  Senior Backend Engineer, AI Engineering: Chat    -
+    C02    hand=not relevant  v1.1.0=rejected  Staff Backend Engineer, Architecture Engineering seniority word 'Staff' in title
+    C03    hand=relevant      v1.1.0=relevant  Backend Engineer (Python),AI Engineering: Agent  -
+    C05    hand=not relevant  v1.1.0=rejected  Director, Analytics Engineering                  explicit experience minimum '12+ years' (>= 3 years); seniority word 'Director' in title; people-management phrase 'managing managers'
+    C07    hand=not relevant  v1.1.0=rejected  Technical Solutions Engineer                     explicit experience minimum 'At least 4 years' (>= 3 years)
+    C09    hand=not relevant  v1.1.0=rejected  Technical Solutions Engineer                     explicit experience minimum 'At least 4 years' (>= 3 years)
+    C10    hand=not relevant  v1.1.0=rejected  Engineering Manager, AI Conversation Platform    explicit experience minimum 'at least 4 years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing ML teams'
+    C13    hand=not relevant  v1.1.0=rejected  AI Engineer                                      explicit experience minimum '4+ years' (>= 3 years)
+    C16    hand=not relevant  v1.1.0=rejected  Integration Engineer, Professional Services      explicit experience minimum '6+ years' (>= 3 years)
+    C18    hand=not relevant  v1.1.0=rejected  Offensive Security Engineer                      explicit experience minimum '5+ years' (>= 3 years)
+    C19    hand=not relevant  v1.1.0=rejected  Data Scientist, FX Quantitative Research         explicit experience minimum '8+ years' (>= 3 years)
+    C20    hand=not relevant  v1.1.0=rejected  Data Scientist, FX Quantitative Research         explicit experience minimum '4-8 years' (>= 3 years)
+  hand-relevant postings, rule 4 alone:
+    B021   v1.0.0=rejected  rule4 fires=False  reasons=-  flags: none
+    C03    v1.0.0=relevant  rule4 fires=False  reasons=-  flags: none
+  rule 4 alone fired on (all rows):
+    A01       hand=not relevant  Account Executive, Startups (Grower)                    explicit experience minimum '8+ years' (>= 3 years)
+    A04       hand=not relevant  Manager, Solution Architecture Platforms                explicit experience minimum '3+ years' (>= 3 years); seniority word 'Manager' in title
+    A05       hand=not relevant  Solutions Architect (Korea Market)                      explicit experience minimum '7+ years' (>= 3 years)
+    A08       hand=not relevant  Senior Ecosystem Operations Manager                     seniority word 'Manager' in title
+    A09/B034  hand=not relevant  Staff Site Reliability Engineer - Monitoring and Anomal seniority word 'Staff' in title
+    A12       hand=not relevant  Account Executive, Hunter (Central Eastern Europe)      explicit experience minimum '7+ years' (>= 3 years)
+    A18       hand=not relevant  Engineering Manager, Revenue Foundations                explicit experience minimum '5+ years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing and growing teams'
+    A20       hand=not relevant  Partner Development Manager, Link - Payments Partnershi explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title
+    A21       hand=not relevant  Enterprise Sales Manager- FSI & Insurance               explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing high-performing teams'
+    A30       hand=not relevant  Senior Website Manager, about.gitlab.com                seniority word 'Manager' in title
+    B001      hand=not relevant  Solutions Architect, Metronome (AI Native)              explicit experience minimum '3+ years' (>= 3 years)
+    B003      hand=not relevant  Solutions Architect, Enterprise (French Speaking)       explicit experience minimum '10+ years' (>= 3 years)
+    B006      hand=not relevant  Startup Partnerships - Y Combinator                     explicit experience minimum '5+ years' (>= 3 years)
+    B007      hand=not relevant  Manager, Corporate Security - Platform Security         seniority word 'Manager' in title
+    B013      hand=not relevant  Machine Learning Engineer, Transaction Risk             explicit experience minimum '5+ years' (>= 3 years)
+    B014      hand=not relevant  Engineering Manager, Security                           explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'manage a fast growing team'
+    B018      hand=not relevant  FX Trading & Risk Management                            explicit experience minimum '5+ years' (>= 3 years)
+    B019      hand=not relevant  Staff Security Engineer, Abuse Control                  explicit experience minimum '10+ years' (>= 3 years); seniority word 'Staff' in title
+    B024      hand=not relevant  Senior Manager, Data Science                            explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title
+    B026      hand=not relevant  Director, Data Science                                  explicit experience minimum '12+ years' (>= 3 years); seniority word 'Director' in title; people-management phrase 'managing managers'
+    B030      hand=not relevant  Integration Engineer                                    explicit experience minimum '6+ years' (>= 3 years)
+    B031      hand=not relevant  Accounts Receivable Analyst                             explicit experience minimum '8+ years' (>= 3 years)
+    B036      hand=not relevant  Senior Treasury Specialist, Bridge Capital & Liquidity  explicit experience minimum '7-10 years' (>= 3 years)
+    B038      hand=not relevant  Fraud Strategist                                        explicit experience minimum '4 - 8 years' (>= 3 years)
+    C02       hand=not relevant  Staff Backend Engineer, Architecture Engineering: Nonli seniority word 'Staff' in title
+    C05       hand=not relevant  Director, Analytics Engineering                         explicit experience minimum '12+ years' (>= 3 years); seniority word 'Director' in title; people-management phrase 'managing managers'
+    C07       hand=not relevant  Technical Solutions Engineer                            explicit experience minimum 'At least 4 years' (>= 3 years)
+    C09       hand=not relevant  Technical Solutions Engineer                            explicit experience minimum 'At least 4 years' (>= 3 years)
+    C10       hand=not relevant  Engineering Manager, AI Conversation Platform           explicit experience minimum 'at least 4 years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing ML teams'
+    C13       hand=not relevant  AI Engineer                                             explicit experience minimum '4+ years' (>= 3 years)
+    C16       hand=not relevant  Integration Engineer, Professional Services             explicit experience minimum '6+ years' (>= 3 years)
+    C18       hand=not relevant  Offensive Security Engineer                             explicit experience minimum '5+ years' (>= 3 years)
+    C19       hand=not relevant  Data Scientist, FX Quantitative Research                explicit experience minimum '8+ years' (>= 3 years)
+    C20       hand=not relevant  Data Scientist, FX Quantitative Research                explicit experience minimum '4-8 years' (>= 3 years)
+# exit 0

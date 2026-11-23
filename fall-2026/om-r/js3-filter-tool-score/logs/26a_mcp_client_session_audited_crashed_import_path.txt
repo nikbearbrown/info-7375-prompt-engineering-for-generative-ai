@@ -1,0 +1,24 @@
+# python3 tools/mcp_client.py --audit   (ANTHROPIC_API_KEY not set in this shell)
+Mon Nov 23 00:03:25 UTC 2026
+>>> {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "js3-test-client", "version": "0.1.0"}}}
+<<< 
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tools/mcp_client.py", line 101, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tools/mcp_client.py", line 59, in main
+    init = send(r("initialize", {"protocolVersion": "2025-06-18", "capabilities": {},
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tools/mcp_client.py", line 53, in send
+    return json.loads(line)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+exit 1

@@ -1,0 +1,59 @@
+$ python3 -m js3.run_filter logs/run_20261121T132140Z.json
+# 2026-11-21T13:22:21Z
+JS3 filter v1.0.0 over logs/run_20261121T132140Z.json (JS2 run 2026-11-21T13:21:40+00:00, exit finished)
+  total 1332   relevant 20   rejected 1312   insufficient_data 0
+  board      collected  relevant  rejected   insuff.
+  gitlab           246         6       240         0
+  stripe           778        14       764         0
+  palantir         308         0       308         0
+  reject reasons: rule 1: 1013, rule 1 + rule 2: 297, rule 2: 2
+  palantir sensitivity (measurement only): 26 bucket(s) would change if Lever `lists`/`additionalPlain` were counted as content
+    - 636fc05c-d348-4a06-be51-597cb9e07488: Forward Deployed AI Engineer  (rejected -> relevant)
+    - ff1029bd-bb6d-4d78-a03e-5f9744d0b798: Forward Deployed AI Engineer  (rejected -> relevant)
+    - 72e51928-07f0-4be0-aae5-0ae6956a4846: Forward Deployed Infrastructure Engineer - UK Government  (rejected -> relevant)
+    - 0fccbe95-2520-4df3-8600-7897656c06a2: Forward Deployed Infrastructure Engineer - US Government  (rejected -> relevant)
+    - 74748e0e-a0bc-4c53-a636-ef14e36d9b5e: Forward Deployed Infrastructure Engineer - US Government  (rejected -> relevant)
+    - b57f08e9-546c-4b9b-8d21-db0ebbc11363: Forward Deployed Infrastructure Engineer - US Government  (rejected -> relevant)
+    - cadc0eb2-2703-43e4-8e4f-41edf5b071c6: Forward Deployed Infrastructure Engineer, New Grad - UK Government  (rejected -> relevant)
+    - 33243fb5-6907-40c7-930c-968b25d825d0: Forward Deployed Infrastructure Engineer, New Grad - US Government  (rejected -> relevant)
+    - 5a28f3a5-8655-47f2-ab19-a79b8a319da8: Forward Deployed Infrastructure Engineer, New Grad - US Government  (rejected -> relevant)
+    - 701a9307-0619-45d3-b077-cabe9897cd12: Forward Deployed Infrastructure Engineer, New Grad - US Government  (rejected -> relevant)
+    - 91117724-9389-48dc-912f-98e48d4d45d8: Forward Deployed Infrastructure Engineer, New Grad - US Government  (rejected -> relevant)
+    - 5168e8fd-fec1-4fea-b7a1-81bdaea65850: Forward Deployed Software Engineer  (rejected -> relevant)
+    - 2ad0ab10-34c3-410d-883b-8052864a95cd: Forward Deployed Software Engineer, Internship - Commercial  (rejected -> relevant)
+    - 4d29249a-d7e8-4c39-880d-3b35d7b2f6f6: Forward Deployed Software Engineer, Internship - Commercial  (rejected -> relevant)
+    - d5486403-c050-4920-b2e0-91b69b61ebb2: Forward Deployed Software Engineer, Internship - Commercial  (rejected -> relevant)
+    - 26e23f5d-083b-45aa-b223-1a6e43d960bf: Forward Deployed Software Engineer, Internship - UK Government  (rejected -> relevant)
+    - 2aa14e4f-d406-486e-9aa8-6ff3358d70a0: Forward Deployed Software Engineer, New Grad - Commercial  (rejected -> relevant)
+    - 2e6b0ac8-83e9-4be5-a3aa-cf319f751728: Forward Deployed Software Engineer, New Grad - Commercial  (rejected -> relevant)
+    - 341d5cae-a473-4813-9a6c-0f67fcc1b253: Forward Deployed Software Engineer, New Grad - Commercial  (rejected -> relevant)
+    - e500bcf3-19d8-4d3c-b340-4d76e4a55b40: Forward Deployed Software Engineer, New Grad - Commercial  (rejected -> relevant)
+    - b4aa51a2-bc43-4d67-bf55-12db7feefb3a: Forward Deployed Software Engineer, New Grad - UK Government  (rejected -> relevant)
+    - 88f8f593-af1f-4d27-9042-454c24a64d3f: Senior Software Engineer - Autonomous Systems  (rejected -> relevant)
+    - bba1ecbc-e56d-48b0-b33a-aefcbffbd655: Senior Software Engineer - Autonomous Systems  (rejected -> relevant)
+    - d40d5d19-8f9e-4e6b-b4d3-b7457c90adec: Senior Software Engineer - Autonomous Systems  (rejected -> relevant)
+    - d7030550-f80f-422c-965f-3120db433dea: Senior Software Engineer - Autonomous Systems  (rejected -> relevant)
+    - 67110929-adea-41c3-851a-8882e222d9e4: Software Engineer - Edge AI Systems  (rejected -> relevant)
+  relevant (20):
+    - [gitlab] 8704363002: Backend Engineer (Python),AI Engineering: Agent Foundations  (Python, LLM, LangChain)
+    - [gitlab] 8883003002: Director, Analytics Engineering   (Python, LLM)
+    - [gitlab] 8621733002: Senior Backend Engineer, AI Engineering: Chat     (Python, LangChain)
+    - [gitlab] 8738179002: Senior Software Engineer, Security Factory: Code Security  (Python, LLM)
+    - [gitlab] 8646544002: Staff Backend Engineer, Architecture Engineering: Nonlinear Productivity  (Python, LLM)
+    - [gitlab] 8891698002: Threat Research Engineer, Security Factory: Threat Research  (Python, LangChain)
+    - [stripe] 8103750: Accounting AI Solutions Lead  (Python, LLM)
+    - [stripe] 8144196: AI Engineer  (Python, LLM)
+    - [stripe] 8346831: Data Scientist, FX Quantitative Research  (Python, LLM)
+    - [stripe] 8346778: Data Scientist, FX Quantitative Research  (Python, LLM)
+    - [stripe] 7943804: Engineering Manager, AI Conversation Platform  (RAG, LLM)
+    - [stripe] 8203973: Integration Engineer, Professional Services  (Python, LLM)
+    - [stripe] 8203975: Integration Engineer, Professional Services  (Python, LLM)
+    - [stripe] 8224915: Machine Learning Engineer, Growth Platform  (Python, LLM, PyTorch)
+    - [stripe] 8022713: ML Engineer Manager, AI Conversation Platform  (RAG, LLM)
+    - [stripe] 8233889: Offensive Security Engineer  (Python, LLM)
+    - [stripe] 8175656: Software Engineer, Security Business Enablement  (RAG, LLM)
+    - [stripe] 7919030: Technical Solutions Engineer  (Python, LLM)
+    - [stripe] 7377101: Technical Solutions Engineer  (Python, LLM)
+    - [stripe] 7917880: Technical Solutions Engineer  (Python, LLM)
+  filter run log: logs/filter_run_20261121T132140Z.json
+# exit 0

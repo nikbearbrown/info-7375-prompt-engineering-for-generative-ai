@@ -1,0 +1,117 @@
+filter 1.1.0-candidate over run 20261121T132140Z: 5 relevant of 1332
+gitlab 8704363002 - Backend Engineer (Python),AI Engineering: Agent Foundations
+  JUDGMENT (Claude claude-opus-5-5, shortlist-v1): relevant
+  !! CONTRADICTION (FILTER.md abstention rule): 1 claim(s) conflict with the posting's own text. This verdict is shown only together with them:
+     - claim: The role is Intermediate level, which is a stretch for resume.years_of_experience of 1.
+       cites [supported]: "As an Intermediate Backend Engineer (Python) in GitLab's Agent Foundations stage, you'll go beyond using AI tools."
+       but the posting says (content): 'Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement.'
+  Claims:
+   [supported] The core of the role is Python backend work with LangGraph, which matches Python and LangGraph in resume.key_skills.
+       quote: 'Most of your work will be backend engineering in Python, using libraries such as LangGraph to build secure, reliable and scalable features in our AI Gateway.'  (content)
+   [supported] Building agentic flows with LangChain and LangGraph matches LangChain and LangGraph in resume.key_skills.
+       quote: 'Build and improve agentic flows and their reusable parts with LangChain and LangGraph, including the Flow Registry.'  (content)
+   [supported] The required LLM application framework experience matches LLM and LangGraph in resume.key_skills, and the role aligns with resume.target_roles (AI Engineer, LLM Platform Engineer).
+       quote: 'Experience with LLM application frameworks such as LangGraph, or designing and shipping AI-powered backend features or harnesses.'  (content)
+   [supported] The role is fully remote, which fits resume.location_preference.open_to_remote, though location eligibility restrictions may apply.
+       quote: 'All of our roles are remote, however some roles may carry specific location-based eligibility requirements.'  (content)
+   [contradicted] The role is Intermediate level, which is a stretch for resume.years_of_experience of 1.
+       quote: "As an Intermediate Backend Engineer (Python) in GitLab's Agent Foundations stage, you'll go beyond using AI tools."  (content)
+   [supported] The posting expects production Python backend experience including APIs and async processing, which resume.key_skills does not explicitly show beyond Python and SQL.
+       quote: 'Experience building and maintaining production Python backend applications, including APIs, asynchronous or background processing, and data models.'  (content)
+   [insufficient] The posting does not mention visa sponsorship, so it is uncertain whether it meets resume.visa_sponsorship_needed.
+       quote: None
+
+gitlab 8621733002 - Senior Backend Engineer, AI Engineering: Chat
+  JUDGMENT (Claude claude-opus-5-5, shortlist-v1): not relevant
+  !! CONTRADICTION (FILTER.md abstention rule): 2 claim(s) conflict with the posting's own text. This verdict is shown only together with them:
+     - claim: The posting requires significant production Python backend experience, which exceeds what 1 year in resume.years_of_experience typically provides.
+       cites [supported]: 'Significant experience building and maintaining production Python backends, including APIs, data models, and asynchronous or long-running workloads.'
+       but the posting says (content): 'Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement.'
+     - claim: The role is remote, which fits resume.location_preference.open_to_remote.
+       cites [supported]: 'Remote-Global'
+       but the posting says (content): 'All of our roles are remote, however some roles may carry specific location-based eligibility requirements.'
+  Claims:
+   [supported] The role is explicitly senior-level, while resume.years_of_experience is only 1, a significant seniority mismatch.
+       quote: 'Senior Backend Engineer, AI Engineering: Chat'  (title)
+   [contradicted] The posting requires significant production Python backend experience, which exceeds what 1 year in resume.years_of_experience typically provides.
+       quote: 'Significant experience building and maintaining production Python backends, including APIs, data models, and asynchronous or long-running workloads.'  (content)
+   [supported] The posting expects experience solving high-scope technical problems and advocating across the team, which is a senior expectation beyond 1 year of experience in resume.years_of_experience.
+       quote: 'Experience solving technical problems of high scope and complexity and advocating for quality, security, and performance improvements across your team.'  (content)
+   [supported] The LangGraph/LangChain agent framework experience called for matches resume.key_skills.
+       quote: 'Hands-on experience with agent frameworks such as LangGraph or LangChain is a strong plus.'  (content)
+   [supported] The LLM integration and agentic features align with resume.key_skills (LLM) and resume.target_roles (AI Engineer, LLM Platform Engineer).
+       quote: 'Practical experience designing and shipping AI-powered, agentic backend features, including large language model integration, tool or function calling, and multi-agent orchestration.'  (content)
+   [supported] The SQL requirement matches the SQL listed in resume.key_skills.
+       quote: 'Strong Structured Query Language (SQL) skills and familiarity with relational databases such as PostgreSQL, including efficient queries and data modeling.'  (content)
+   [contradicted] The role is remote, which fits resume.location_preference.open_to_remote.
+       quote: 'Remote-Global'  (content)
+   [insufficient] The posting does not mention visa sponsorship, leaving resume.visa_sponsorship_needed unaddressed.
+       quote: None
+
+gitlab 8738179002 - Senior Software Engineer, Security Factory: Code Security
+  JUDGMENT (Claude claude-opus-5-5, shortlist-v1): not relevant
+  !! CONTRADICTION (FILTER.md abstention rule): 1 claim(s) conflict with the posting's own text. This verdict is shown only together with them:
+     - claim: The role is a senior-level position, which does not fit resume.years_of_experience of 1 year.
+       cites [supported]: 'Senior Software Engineer, Security Factory: Code Security'
+       but the posting says (content): 'Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement.'
+  Claims:
+   [contradicted] The role is a senior-level position, which does not fit resume.years_of_experience of 1 year.
+       quote: 'Senior Software Engineer, Security Factory: Code Security'  (title)
+   [supported] The posting requires substantial production experience in Go and/or Rust. resume.key_skills lists neither language and centers on Python.
+       quote: 'Substantial professional experience writing and testing production code in a systems language, particularly Go and/or Rust, with depth in at least one.'  (content)
+   [supported] The posting requires demonstrated application security experience. resume.key_skills contains no security, vulnerability research, or CWE/OWASP skills.
+       quote: 'Demonstrated application security experience, such as vulnerability research, secure code review, or writing detection rules, and fluency with vulnerability classes (OWASP Top 10, CWE) and the software supply chain'  (content)
+   [supported] Experience building LLM tooling and evaluations partially matches the LLM, LangChain and LangGraph entries in resume.key_skills.
+       quote: "Experience building your own LLM tooling, such as a harness, an agent pipeline, or evaluations, with the judgment to know when output is trustworthy and when it isn't"  (content)
+   [supported] Python is used for some analyzers, which overlaps with Python in resume.key_skills, though it is secondary to Go/Rust.
+       quote: 'We use both, plus Ruby on the remediation side and Python for some analyzers, and value willingness to work across them.'  (content)
+   [supported] The role is remote, which suits resume.location_preference.open_to_remote.
+       quote: 'Remote-Global'  (content)
+   [insufficient] The posting does not mention visa sponsorship, so it is unclear whether resume.visa_sponsorship_needed can be accommodated.
+       quote: None
+   [supported] The title is a backend security engineering role rather than one of the resume.target_roles (AI Engineer, ML Engineer, LLM Platform Engineer), although it does include AI-driven analyzer work.
+       quote: "As a Senior Backend Engineer on GitLab's Security Factory: Code Security team, you help developers find and fix security issues."  (content)
+
+gitlab 8891698002 - Threat Research Engineer, Security Factory: Threat Research
+  JUDGMENT (Claude claude-opus-5-5, shortlist-v1): not relevant
+  !! CONTRADICTION (FILTER.md abstention rule): 1 claim(s) conflict with the posting's own text. This verdict is shown only together with them:
+     - claim: The role is remote, which suits resume.location_preference.open_to_remote.
+       cites [supported]: 'All of our roles are remote, however some roles may carry specific location-based eligibility requirements.'
+       but the posting says (content): 'The base salary range for this role’s listed level is currently for residents of the EU, applicable in the specified country or countries only.'
+  Claims:
+   [supported] The role is a security threat research position, not one of the AI/ML/LLM Platform Engineer roles in resume.target_roles.
+       quote: 'Threat Research Engineer, Security Factory: Threat Research'  (title)
+   [supported] A core requirement is hands-on security experience, which resume.key_skills does not show (no security, malware analysis, or penetration testing skills).
+       quote: 'Hands-on security experience in research, malware analysis, penetration testing, or security tooling'  (content)
+   [supported] The AI requirement matches resume.key_skills, which list LLM, LangChain, and LangGraph.
+       quote: 'Demonstrated experience using AI in real work, such as building with large language model APIs or agent frameworks like LangChain, LangGraph, or agent SDKs.'  (content)
+   [supported] The programming requirement is satisfied by Python in resume.key_skills.
+       quote: 'Strong programming skills in Go or Python'  (content)
+   [contradicted] The role is remote, which suits resume.location_preference.open_to_remote.
+       quote: 'All of our roles are remote, however some roles may carry specific location-based eligibility requirements.'  (content)
+   [supported] The listed compensation targets EU/Poland residents, a poor match for a Boston-based candidate (resume.location_preference.current_location) who needs visa sponsorship (resume.visa_sponsorship_needed); the posting does not mention sponsorship.
+       quote: 'Poland base salary range: 272,000 - 408,000 PLN'  (content)
+   [supported] The posting welcomes varied experience levels, which partially offsets resume.years_of_experience of 1. However, it still requires security background and production cloud deployment experience.
+       quote: 'Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement.'  (content)
+
+stripe 8175656 - Software Engineer, Security Business Enablement
+  JUDGMENT (Claude claude-opus-5-5, shortlist-v1): relevant
+  Claims:
+   [supported] The core work is building a production RAG/LLM platform. This directly matches the RAG, LLM, LangChain and vector databases skills in resume.key_skills and the AI Engineer / LLM Platform Engineer resume.target_roles.
+       quote: 'Comfort working with retrieval-augmented architectures, content pipelines, and AI/LLM integrations, or demonstrated ability to learn quickly in these areas'  (content)
+   [supported] The preferred qualifications explicitly name RAG systems, which aligns with RAG in resume.key_skills.
+       quote: 'Experience building AI-driven products or workflows, particularly retrieval-augmented generation (RAG) systems or knowledge management platforms'  (content)
+   [supported] The posting asks for evaluation and measurement of retrieval quality, which fits the MLflow and SQL experience in resume.key_skills.
+       quote: 'Experience building evaluation frameworks for AI systems, such as measuring retrieval quality, answer accuracy, or coverage gaps'  (content)
+   [supported] The posting accepts any programming language, so Python from resume.key_skills is sufficient.
+       quote: 'Strong coding skills in any programming language'  (content)
+   [supported] The minimum of 2+ years exceeds resume.years_of_experience of 1. This is a real gap that makes the role a stretch.
+       quote: '2+ years of software engineering experience building production systems'  (content)
+   [supported] The title is a general Software Engineer role in a security team rather than an explicitly AI/ML titled role, so it only partially matches resume.target_roles.
+       quote: 'Software Engineer, Security Business Enablement'  (title)
+   [supported] Preferred cloud security and compliance experience is not reflected in resume.key_skills, but these are bonus qualifications.
+       quote: 'Previous experience with security software engineering, compliance tooling, or GRC platforms'  (content)
+   [insufficient] The posting does not state a location, remote policy or visa sponsorship. Fit with resume.location_preference (Boston, open to remote) and resume.visa_sponsorship_needed is therefore unverified.
+       quote: None
+
+wrote logs/shortlist/shortlist_20261122T234058Z.json

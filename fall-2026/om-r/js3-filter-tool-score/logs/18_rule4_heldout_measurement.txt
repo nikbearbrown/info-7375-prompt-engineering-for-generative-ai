@@ -1,0 +1,42 @@
+$ JS3_FINAL_HELDOUT=1 python3 -m js3.experiment measure heldout   # THE single held-out read, rule locked at 8650e84
+# 2026-11-22T01:51:05Z
+HELDOUT (35 postings), 1.1.0-candidate
+  rule 4 ALONE (ignoring rules 1-2): fires on 21 of 35 (60.0%) - descriptive, not a precision claim
+  rule 4 ALONE, full-text diagnostic (Palantir + lists): fires on 22 of 35 (62.9%)
+  rule 4 fires on a HAND-RELEVANT posting (false-negative risk): as-specified none; full-text none
+  precision on relevant  v1.0.0: 0/8 = 0.000   v1.1.0-candidate: 0/3 = 0.000
+  filter-relevant postings (v1.0.0) and what rule 4 does:
+    C04    hand=not relevant  v1.1.0=relevant  Senior Software Engineer, Security Factory: Code -
+    C06    hand=not relevant  v1.1.0=relevant  Threat Research Engineer, Security Factory: Thre -
+    C08    hand=not relevant  v1.1.0=rejected  Technical Solutions Engineer                     explicit experience minimum 'At least 4 years' (>= 3 years)
+    C11    hand=not relevant  v1.1.0=rejected  ML Engineer Manager, AI Conversation Platform    explicit experience minimum 'at least 4 years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing ML teams'
+    C12    hand=not relevant  v1.1.0=rejected  Accounting AI Solutions Lead                     explicit experience minimum '10+ years' (>= 3 years)
+    C14    hand=not relevant  v1.1.0=relevant  Software Engineer, Security Business Enablement  -
+    C15    hand=not relevant  v1.1.0=rejected  Integration Engineer, Professional Services      explicit experience minimum '6+ years' (>= 3 years)
+    C17    hand=not relevant  v1.1.0=rejected  Machine Learning Engineer, Growth Platform       explicit experience minimum '3+ years' (>= 3 years)
+  hand-relevant postings, rule 4 alone:
+    B032   v1.0.0=rejected  AS-SPECIFIED rule4 fires=False  reasons=-  flags: none   [VACUOUS: requirement text out of view]
+                            FULL-TEXT    rule4 fires=False  reasons=-  flags: graduation: 'Graduating in 2028.'; clearance: 'Security clearance or the ability to obtain a clearance.'
+  rule 4 alone fired on (all rows):
+    A03       hand=not relevant  Backend/API Engineer, Money as a Service (Product)      explicit experience minimum '12+ years' (>= 3 years)
+    A13       hand=not relevant  Marketing Operations Associate (Automation)             explicit experience minimum '3+ years' (>= 3 years)
+    A16       hand=not relevant  Account Executive Enterprise (Korean-speaking, Singapor explicit experience minimum '7+ years' (>= 3 years)
+    A19       hand=not relevant  Staff Software Engineer, Risk Data Engineering          explicit experience minimum '10+ years' (>= 3 years); seniority word 'Staff' in title
+    A24       hand=not relevant  Fraud Operations Manager                                explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title
+    A26       hand=not relevant  Strategy & Operations Business Partner, Customer Succes explicit experience minimum '7+ years' (>= 3 years)
+    A27       hand=not relevant  Senior Compensation Manager                             seniority word 'Manager' in title
+    A28       hand=not relevant  Staff Product Designer, Risk                            explicit experience minimum '12+ years' (>= 3 years); seniority word 'Staff' in title
+    B002      hand=not relevant  Solutions Architect, Metronome (AI Native)              explicit experience minimum '10+ years' (>= 3 years)
+    B005      hand=not relevant  F&S COE Manager                                         explicit experience minimum '8+ years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing a team'
+    B008      hand=not relevant  Security Engineer                                       explicit experience minimum '3+ years' (>= 3 years)
+    B009      hand=not relevant  Data Scientist, Enterprise Analytics                    explicit experience minimum '3-5 years' (>= 3 years)
+    B020      hand=not relevant  Forward Deployed Security Engineer                      explicit experience minimum '10+ years' (>= 3 years)
+    B023      hand=not relevant  Partner Solutions Engineer, Ecosystem                   explicit experience minimum '6+ years' (>= 3 years)
+    B025      hand=not relevant  Full-Stack Software Engineer, Communication Tools       explicit experience minimum '6+ years' (>= 3 years)
+    B037      hand=not relevant  Data Science Manager, Risk                              explicit experience minimum '10+ years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'Manage a team'
+    C08       hand=not relevant  Technical Solutions Engineer                            explicit experience minimum 'At least 4 years' (>= 3 years)
+    C11       hand=not relevant  ML Engineer Manager, AI Conversation Platform           explicit experience minimum 'at least 4 years' (>= 3 years); seniority word 'Manager' in title; people-management phrase 'managing ML teams'
+    C12       hand=not relevant  Accounting AI Solutions Lead                            explicit experience minimum '10+ years' (>= 3 years)
+    C15       hand=not relevant  Integration Engineer, Professional Services             explicit experience minimum '6+ years' (>= 3 years)
+    C17       hand=not relevant  Machine Learning Engineer, Growth Platform              explicit experience minimum '3+ years' (>= 3 years)
+# exit 0
