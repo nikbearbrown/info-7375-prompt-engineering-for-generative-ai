@@ -1,0 +1,40 @@
+# Whisper check (faster-whisper small.en, local, offline), 2026-11-23: transcript of each beat's mp3 vs narration_text
+
+B01 NARRATION: I'm Tushar Patel, a software engineering student at Northeastern. This is my final project, Agent Proving Ground.
+B01 HEARD:     I'm Tushar Patel, a software engineering student at Northeastern. This is my final project, Agent Proving Ground.
+
+B02 NARRATION: When an AI coding agent says "done," that isn't the same as the job being done. The agent might have fixed the bug, or quietly changed the test, or just stopped.
+B02 HEARD:     When an AI coding agent says done, that isn't the same as the job being done. The agent might have fixed the bug or quietly changed the test or just stopped.
+
+B03 NARRATION: Agent Proving Ground runs a coding agent on small tasks inside a locked sandbox. It records every step the agent takes, and it decides pass or fail with its own tests, never with the agent's word. Anyone who relies on a coding agent needs exactly this: a cheap, local way to see what the agent did, and whether it really worked.
+B03 HEARD:     Agent Proving Ground runs a coding agent on small tasks inside a locked sandbox. It records every step the agent takes and it decides pass or fail with its own tests, never with the agent's word. Anyone who relies on a coding agent needs exactly this, a cheap local way to see what the agent did and whether it really worked.
+
+B04 NARRATION: Pieces of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. And a Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, but only for Drupal sites.
+B04 HEARD:     Pieces of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. And a Drupal project AI-proving ground grades what an agent actually saved instead of what it reports, but only for Drupal sites.
+
+B05 NARRATION: What I wanted was all of it in one small loop I can run on a laptop: sandbox, trace, an independent check, and a human who approves before anything leaves, with every failure written down.
+B05 HEARD:     What I wanted was all of it in one small loop I can run on a laptop, sandbox, trace, an independent check, and a human who approves before anything leaves, with every failure written down.
+
+B06 NARRATION: I built it in Go. The agent is Claude Haiku, with three tools: read a file, write a file, run a command. It works inside a Kubernetes pod with no network. After every change, the harness runs a hidden check the agent never sees. Here's a real run on task one: it passed in three steps, and every step is in the trace.
+B06 HEARD:     I built it in Go. The agent is Claude Haiku with three tools. Read a file, write a file, run a command. It works inside a Kubernetes pod with no network. After every change, the harness runs a hidden check the agent never sees. Here's a real run on task 1. It passed in three steps and every step is in the trace.
+
+B07 NARRATION: Every tool call goes through a policy written in code. A denied call never runs; it's just recorded. And before any change leaves the sandbox, I see the diff and approve it myself. My approval is bound to the exact bytes I saw, so if the diff changes, my approval is void.
+B07 HEARD:     Every tool call goes through a policy written in code. A denied call never runs, it's just recorded. And before any change leaves the sandbox, I see the diff and approve it myself. My approval is bound to the exact bytes I saw, so if the diff changes, my approval is void.
+
+B08 NARRATION: The data is sixteen small Python tasks I made for this project. Eleven are normal bugs. Five are built to make the system say no: a wrong test, a task that needs the network, a budget too small. I split them into development and held-out sets, and froze that split before tuning anything.
+B08 HEARD:     The data is 16 small Python tasks I made for this project. 11 are normal bugs. Five are built to make the system say no, a wrong test, a task that needs the network, a budget too small. I split them into development and held out sets and froze that split before tuning anything.
+
+B09 NARRATION: I tried to break the sandbox from inside a real pod: no network, not root, capped CPU, memory, processes and disk. Every limit held. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which wrote the code while I reviewed every change.
+B09 HEARD:     I tried to break the sandbox from inside a real pod. No network, not root, capped CPU, memory, processes, and disk. Every limit held. It runs on my laptop with Docker and Kind, a spend-limited API key, and Claude code, which wrote the code while I reviewed every change.
+
+B10 NARRATION: Pass or fail comes only from the hidden check. I compared two system prompts: the original, and a longer one I wrote. Before running either on the held-out tasks, I wrote down and committed my predictions.
+B10 HEARD:     Pass or fail comes only from the hidden check. I compared two system prompts, the original and a longer one I wrote. Before running either on the held out tasks, I wrote down and committed my predictions.
+
+B11 NARRATION: Seventy held-out runs. Both prompts passed all twenty normal runs, and both said no on all fifteen failure runs. That's a ceiling: pass rate can't tell them apart. My longer prompt cost about forty-one percent more and did no better.
+B11 HEARD:     70 held out runs. Both prompts passed all 20 normal runs and both said no on all 15 failure runs. That's a ceiling pass rate can't tell them apart. My longer prompt cost about 41% more and did no better.
+
+B12 NARRATION: Then I read all forty passing fixes myself. No cheating, no test edits. But on one task, seven of ten fixes missed behavior the documentation asks for and the tests don't check. So a pass means the frozen checks passed, not that the spec was met.
+B12 HEARD:     Then I read all 40 passing fixes myself. No cheating, no test edits. But on one task, 7 of 10 fixes missed behavior the documentation asks for and the tests don't check. So a pass means the frozen checks passed, not that the spec was met.
+
+B13 NARRATION: Next, I'll trigger a failure on purpose, an agent editing its own test, and show the check catching it. Then a stranger will run the project from the README alone. If it ever passes something it shouldn't, or a sandbox limit breaks, it didn't work. The code is public at github.com/tushar-patel28/agent-proving-ground.
+B13 HEARD:     Next I'll trigger a failure on purpose, an agent editing its own test and show the check catching it. Then a stranger will run the project from the readme alone. If it ever passes something it shouldn't or a sandbox limit breaks, it didn't work. The code is public at github.com slash Tushar Patel 28 slash Agent Proving Ground.

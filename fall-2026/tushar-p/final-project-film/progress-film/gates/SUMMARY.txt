@@ -1,0 +1,19 @@
+Step 1 (setup, before the build):
+BLOCKED 00 ./setup readiness: every core feature ready except 'Remotion beats + bookends' (npm install not run: network was allowed for pip only; this film uses no Remotion)
+PASS 00 ./art smoke (SMOKE PASS)
+PASS -- whisper pronunciation check, 13 beats (whisper_check.txt)
+
+Final master (run_gates.sh, 2026-11-23):
+PASS 01 schema (0 error(s))
+PASS 02 build_safety (rc=0)
+PASS 03 paperwork / factcheck (rc=0)
+PASS 04 beat_lint (rc=0)
+PASS 05 gate_shape (rc=0)
+PASS 06 Gate A static pre-flight, 13 scenes (worst rc=0)
+PASS 07 Gate W contrast/margins/overlap, 13 scenes (worst rc=0)
+PASS 08 Gate B strict layout audit, 13 scenes (worst rc=0; strict fails on warnings too)
+PASS 09 Gate V on the final master (frames=26 BLOCKER=0 MAJOR=0)
+PASS 10 Gate T (run by ./art final before the master; TYPECHECK.md)
+PASS 11 render integrity (9 checks OK)
+PASS 12 toolkit unit tests (Ran 290 tests in 53.710s)
+PASS 13 smoke test (SMOKE PASS)

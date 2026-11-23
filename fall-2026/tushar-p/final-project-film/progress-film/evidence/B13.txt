@@ -1,0 +1,29 @@
+# B13: milestones M0-M5 and the target submit date (PLAN.md)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n -E '^\| M[0-5] \||Target submit' PLAN.md | cut -c1-160
+# ----------------------------------------------------------------------------
+6:- **Due:** Sun Dec 20, 11:59 pm ET. **Target submit:** Fri Dec 18.
+417:| D5 | Oct 23 | Target submit Fri Dec 18 | Decided |
+457:| M0 | Nov 3 | Toolchain works, public repo exists, premortem committed; synced to the course folder | course repo commit 73af1fc (from agent-proving-ground
+458:| M1 | Nov 12 | First slice works end to end on kind (T1.1–T1.4: `apg run 001` PASS with claude-haiku-5-5, evidence/traces/20261112T053055Z-92239eb0.json); 
+459:| M2 | Nov 13 | Loop, tools, policy, state, stop, and gate all exist with tests (T2.1–T2.5: tasks 001–005 PASS with claude-haiku-5-5, traces validate agains
+460:| M3 | Nov 13 | Suite frozen, eval command works (T3.1–T3.4: 16 tasks, dev/held-out split frozen at 26b5305; `apg eval --set dev` 7/7 expected-PASS passed a
+461:| M4 | Nov 17 | Isolation tests pass, results saved (T4.1: every pod limit held from inside a real kind pod, with the pids limit D28 and the disk caps D29; 
+462:| M5 | Nov 18 | Comparison results saved, limits written (T5.2: docs/07 "Honest limits (T5.2)" and Tushar's review of the 40 held-out PASS diffs; T5.3: `apg
+# exit code: 0
+
+# B13: the repo's remote
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: git remote get-url origin
+# ----------------------------------------------------------------------------
+https://github.com/tushar-patel28/agent-proving-ground.git
+# exit code: 0
+
+# B13: what comes next (docs/01-brief.md)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n -i -E 'controlled failure|stranger' docs/01-brief.md
+# ----------------------------------------------------------------------------
+40:- One controlled failure from `docs/06-premortem.md` will be triggered on purpose, caught by an independent check, and recovered.
+41:- A stranger will run `./demo.sh` from the README alone.
+# exit code: 0
+

@@ -93,3 +93,4 @@ Every gate in the toolkit was run against this reel and its final master, in ord
 ## GitHub
 
 Posted at `fall-2026/tushar-p/final-project-film/` in https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai.
+**Progress film (through M5, Nov 23, 2026):** [`progress-film/`](progress-film/README.md). It is a separate film; this pitch stays as graded.

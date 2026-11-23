@@ -1,0 +1,31 @@
+# B6: the 'apg run 001' result line, as recorded in PLAN.md T1.4 (apg run is not re-run: read-only)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n 'printed `001  PASS  steps=3' PLAN.md
+# ----------------------------------------------------------------------------
+120:**T1.4 Minimal agent loop (1b)** ✅ Done Nov 12: `apg run 001` with `claude-haiku-5-5` printed `001  PASS  steps=3  reason=check_passed`; the agent read the repo and fixed `//` → `/` via `run_command`, then the hidden check passed (4 passed); 3,925 input / 437 output tokens, est. $0.000611 (evidence/traces/20261112T053055Z-92239eb0.json)
+# exit code: 0
+
+# B6: apg show of the run 001 trace (schema v0, so apg show prints only its header)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: go run ./cmd/apg show evidence/traces/20261112T053055Z-92239eb0.json
+# ----------------------------------------------------------------------------
+this trace is schema v0: it predates schema v1 (T2.5, docs/trace-schema.md);
+  only its header is shown
+
+run      20261112T053055Z-92239eb0
+task     001-fix-function
+model    claude-haiku-5-5
+verdict  PASS  exit reason check_passed
+started  2026-11-12T05:30:55Z
+# exit code: 0
+
+# B6: the trace's own step list (3 steps), read from the JSON because apg show prints only v0 headers
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: python3 -c "import json;d=json.load(open('evidence/traces/20261112T053055Z-92239eb0.json'));print('steps', len(d['steps']), 'verdict', d['verdict'], 'exit_reason', d['exit_reason']);[print(s['n'], s.get('tool','(no tool: end_turn)'), s['stop_reason']) for s in d['steps']]"
+# ----------------------------------------------------------------------------
+steps 3 verdict PASS exit_reason check_passed
+1 run_command tool_use
+2 run_command tool_use
+3 (no tool: end_turn) end_turn
+# exit code: 0
+
