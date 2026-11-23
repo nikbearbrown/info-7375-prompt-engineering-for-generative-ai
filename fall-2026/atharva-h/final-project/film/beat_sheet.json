@@ -1,0 +1,649 @@
+{
+  "metadata": {
+    "title": "SponsorSQL: Plain-English Questions, Answers You Can Check",
+    "slug": "atharva-sponsorsql-final",
+    "topic": "FINAL PROJECT · DEMO",
+    "register": "Plain",
+    "audience": "INFO 7375 reviewers and Data Analyst hiring managers",
+    "brand": "claude",
+    "engine": "kokoro",
+    "voice_kokoro": "am_onyx",
+    "persona": "Atharva (first person; script written with Claude and reviewed by the author; synthetic Kokoro voice, disclosed in B12)",
+    "palette": "claude",
+    "style_preset": "claude",
+    "ground": "#FAF9F5",
+    "note": "INFO 7375 Final Project demo, four parts in order: executive summary (B00-B01), introduction (B02), methods (B03-B07), evaluation (B08-B11), outro (B12). Every number on screen comes from saved output of the real system in fall-2026/atharva-h/final-project (evidence/ and evals/results/), re-typeset for legibility and labelled as such. The SQL proposals were real Claude replies from separate Claude Code subagents on 2026-11-21, replayed by the agent; no live CLI call is shown or claimed. No Claude chat response is shown. The human gate prompt is shown as the interactive prompt text; no owner decision is claimed.",
+    "source_project": "fall-2026/atharva-h/final-project (branch atharva-h/final-project, commit c314f474)",
+    "tags": [
+      "INFO 7375",
+      "final project",
+      "agent",
+      "text-to-SQL",
+      "evaluation",
+      "H-1B",
+      "LCA disclosure data"
+    ],
+    "build": {
+      "at": "2026-11-23T01:12:36",
+      "cut": "master",
+      "filled": 13,
+      "of": 13,
+      "slates": [],
+      "skin_warnings": [
+        "B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B12: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "1 EXECUTIVE SUMMARY",
+      "estimated_duration_s": 20,
+      "narration_text": "Hi, I'm Atharva. This is my final project, Sponsor S Q L. International students like me want to know which employers file H one B paperwork for jobs like ours. H one B is the main U.S. work visa for skilled jobs. That information is public, but it sits in one giant government spreadsheet that most students can't search.",
+      "new_visual_element": "A student's question next to a giant spreadsheet",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Part tag '1 · Executive summary'. Left: a big spreadsheet grid labelled 'DOL disclosure file · 437,496 filings'. Right: a question card. Caption defines H-1B.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'H-1B: the main U.S. work visa for skilled jobs'"
+          },
+          {
+            "at": "International students",
+            "event": "question card: 'Which employers file H-1Bs for Data Analysts?'"
+          },
+          {
+            "at": "public",
+            "event": "spreadsheet grid builds, label '437,496 filings'"
+          },
+          {
+            "at": "can't search",
+            "event": "terracotta '?' between card and grid"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B00_Intro"
+      },
+      "actual_duration_s": 18.41,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 18.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "1 EXECUTIVE SUMMARY",
+      "estimated_duration_s": 14,
+      "lead_silence_s": 0.8,
+      "narration_text": "So Sponsor S Q L does one simple thing. You ask in plain English. It gives you the number, the S Q L query behind it, and the rows it counted, so you can check the answer, instead of just trusting it.",
+      "new_visual_element": "Hesitant writer: 'answers you can trust' corrected to 'answers you can check'",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer typing scene."
+      },
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "lane": "bookend",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "writer types 'SponsorSQL: plain-English questions, answers you can trust'"
+          },
+          {
+            "at": 0.5,
+            "event": "'trust' is deleted and retyped as 'check'"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "SponsorSQL:\nplain-English questions,\nanswers you can trust",
+            "triggerWords": "trust",
+            "replacementWords": "check",
+            "fontSize": 134,
+            "seed": "atharva-sponsorsql-final",
+            "mistakeRate": 0,
+            "hesitateBetween": 5,
+            "banner": "THE WHOLE IDEA"
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": "2026-11-23T05:59:34.673992+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 11.31,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 11.333333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/B01.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "2 INTRODUCTION",
+      "estimated_duration_s": 22,
+      "narration_text": "What already exists? Sites like My Visa Jobs and an H one B salary explorer let you search filings by employer and job title. A chatbot can write the query: when I asked Chat G P T about data analyst cases in Boston, it said forty, but nothing checked it. Sponsor S Q L adds two things: you see the query and the rows, and I publish how often it's wrong.",
+      "new_visual_element": "Three existing tools, then what SponsorSQL adds",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Part tag '2 · Introduction'. Three cards (MyVisaJobs, H-1B salary explorer, ChatGPT test) and a SponsorSQL card with two added features.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; MyVisaJobs and salary-explorer cards"
+          },
+          {
+            "at": "chatbot",
+            "event": "ChatGPT card: 'wrote a query · said 40 · nothing checked it'"
+          },
+          {
+            "at": "adds two things",
+            "event": "SponsorSQL card: 'query + matching rows shown', 'error rate published', terracotta check"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B02_Existing"
+      },
+      "actual_duration_s": 20.25,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 20.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "3 METHODS",
+      "estimated_duration_s": 21,
+      "narration_text": "Now, how it works. The data is the Labor Department's latest file of Labor Condition Applications, the form an employer files before hiring someone on an H one B. The loader checks the file's fingerprint, drops five hundred ninety-five thousand blank rows, and keeps four hundred thirty-seven thousand real filings, with eighteen public columns. Contact names and emails are never loaded.",
+      "new_visual_element": "From the 252 MB workbook to a small database",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Part tag '3 · Methods'. Workbook page, checksum chip, row funnel (1,032,735 to 437,496), column funnel (98 to 18), crossed-out contact columns. Caption defines LCA.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; workbook page 'FY2026 Q3 · 252 MB'; LCA caption"
+          },
+          {
+            "at": "fingerprint",
+            "event": "checksum chip 'SHA-256 f8ca8448… matches'"
+          },
+          {
+            "at": "blank rows",
+            "event": "row funnel 1,032,735 → 437,496"
+          },
+          {
+            "at": "eighteen",
+            "event": "column funnel 98 → 18"
+          },
+          {
+            "at": "Contact names",
+            "event": "'contact names, emails' crossed out"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B03_Data"
+      },
+      "actual_duration_s": 20.76,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 20.791666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "3 METHODS",
+      "estimated_duration_s": 19,
+      "narration_text": "It's an agent, so it runs a loop. Observe the question. Decide whether to refuse it, then ask Claude for a query. Act: run it. Record every step. And stop: on a person's decision, a refusal, or a spent budget of two tries and ten seconds per query. Never just because the model says it's done.",
+      "new_visual_element": "The agent loop with its budget",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Five boxes in a ring (observe, decide, act, record, stop) lit in narration order; budget chips; caption defines agent.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'Agent: software that repeats look, decide, act, record, stop'"
+          },
+          {
+            "at": "Observe",
+            "event": "observe box"
+          },
+          {
+            "at": "Decide",
+            "event": "decide box"
+          },
+          {
+            "at": "Act",
+            "event": "act box"
+          },
+          {
+            "at": "Record",
+            "event": "record box"
+          },
+          {
+            "at": "And stop",
+            "event": "stop box; budget chips '2 tries', '10 s per query'"
+          },
+          {
+            "at": "Never",
+            "event": "chip 'not when the model says it's done'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B04_Loop"
+      },
+      "actual_duration_s": 16.19,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 16.208333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "3 METHODS",
+      "estimated_duration_s": 17,
+      "narration_text": "The tool is a database query, guarded by a permission policy written in code. The database opens read-only, and a SQLite rule allows reading one table, nothing else. In this real output, a delete and a hidden second statement are refused, and the table still has every row.",
+      "new_visual_element": "Permission policy, then real output of refused queries",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Left: read-only database with a rule chip. Right: dark terminal panel with real failure-case output lines (F1-F3) and rows before/after. Label 'real output, 2026-11-21, re-typeset'.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'SQL query: instructions that pick and count rows'"
+          },
+          {
+            "at": "read-only",
+            "event": "database box 'read-only' and chip 'rule: only table lca'"
+          },
+          {
+            "at": "real output",
+            "event": "terminal lines F1, F2, F3 type in"
+          },
+          {
+            "at": "every row",
+            "event": "line 'rows before 437,496 · after 437,496'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B05_Policy",
+        "production_viz": {
+          "source": "evidence/rescore-after-review.log and evals/results/failures-after-review.json"
+        }
+      },
+      "actual_duration_s": 16.04,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 16.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "3 METHODS",
+      "estimated_duration_s": 20,
+      "narration_text": "Here's a real run. The question: how many certified H one B data analyst cases are in Boston? The answer, forty, the S Q L, and the forty matching rows. Then the human gate: a person approves, refuses, or defers, and that decision is tied to a fingerprint of this exact screen.",
+      "new_visual_element": "Real run output and the human gate",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Dark terminal panel with lines from the 2026-11-23 run (question, SQL, answer 40, three matching rows, view SHA-256). Below, the gate prompt with approve / refuse / defer. Caption defines the human gate.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; label 'real output, 2026-11-23 run · recorded Claude reply · re-typeset'"
+          },
+          {
+            "at": "The question",
+            "event": "question line"
+          },
+          {
+            "at": "The answer",
+            "event": "answer 40 and SQL line"
+          },
+          {
+            "at": "matching rows",
+            "event": "three matching rows, '40 matching rows'"
+          },
+          {
+            "at": "human gate",
+            "event": "gate prompt with approve / refuse / defer"
+          },
+          {
+            "at": "fingerprint",
+            "event": "view SHA-256 line highlighted"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B06_RealRun",
+        "production_viz": {
+          "source": "evidence/gate-view-D2-2026-11-23.txt"
+        }
+      },
+      "actual_duration_s": 16.04,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 16.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "3 METHODS",
+      "estimated_duration_s": 15,
+      "narration_text": "What it needs: Python's standard library, SQLite, and my Claude Code account. No packages installed, no paid credits. The Claude command line wasn't logged in, so the queries tested here came from separate Claude sessions, saved word for word and replayed.",
+      "new_visual_element": "Resources",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Three resource chips and a note box about recorded replies. Caption defines Claude Code.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'Claude Code: Anthropic's AI coding assistant'"
+          },
+          {
+            "at": "Python",
+            "event": "chips: Python standard library + SQLite; Claude Code account; no paid credits"
+          },
+          {
+            "at": "wasn't logged in",
+            "event": "note: 'CLI: Not logged in → replies from separate Claude sessions, saved and replayed'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B07_Resources"
+      },
+      "actual_duration_s": 14.63,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 14.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "4 EVALUATION",
+      "estimated_duration_s": 17,
+      "narration_text": "How do I know it works? Before any test, two question sets were frozen: ten for development and five held out, with answer keys counted by separate code that never sees the model's query. The bar: eight out of ten, four out of five, and no unsafe query.",
+      "new_visual_element": "Frozen question sets, answer keys and the pass bar",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Part tag '4 · Evaluation'. Two locked boxes (10 development, 5 held-out) each with an answer key; three bar chips. Caption defines answer key.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'Answer key: the right answers, counted separately'"
+          },
+          {
+            "at": "frozen",
+            "event": "two locked boxes"
+          },
+          {
+            "at": "answer keys",
+            "event": "key cards under each box"
+          },
+          {
+            "at": "The bar",
+            "event": "chips '≥ 8/10', '≥ 4/5', '0 unsafe queries'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B08_EvalSetup"
+      },
+      "actual_duration_s": 13.89,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 13.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "4 EVALUATION",
+      "estimated_duration_s": 18,
+      "narration_text": "First try: four out of ten. It matched job titles too loosely, so Metadata Analyst counted as a data analyst. A title-matching rule fixed that: nine out of ten. The one miss came from invisible tab characters in four job titles. Then the held-out set, scored once: five out of five.",
+      "new_visual_element": "Results: 4/10, 9/10, 5/5",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Three bars grow on the spoken numbers with short notes under each. Caption defines held-out.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; caption 'Held-out: questions kept aside and scored only once'"
+          },
+          {
+            "at": "four out of ten",
+            "event": "bar 4/10 with note 'loose title match'"
+          },
+          {
+            "at": "nine out of ten",
+            "event": "bar 9/10 with note 'miss: tab characters in 4 titles'"
+          },
+          {
+            "at": "five out of five",
+            "event": "bar 5/5, terracotta check"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B09_Results",
+        "production_viz": {
+          "source": "evals/results/*-rescored-after-review.json"
+        }
+      },
+      "actual_duration_s": 16.11,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 16.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "4 EVALUATION",
+      "estimated_duration_s": 15,
+      "narration_text": "I also tried to break it on purpose. Ten deliberate failures, unsafe queries, a runaway query, questions about contact details or visa chances, and a stale approval, were all stopped as predicted. The original title bug, triggered on purpose, was caught by the answer key.",
+      "new_visual_element": "Ten deliberate failure cases and the controlled failure",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "A 2x5 grid of tiles (F1-F10) each getting a check, then a wide tile for the controlled failure. Label: scripted test inputs, not model output.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; label 'scripted test inputs, not model output'"
+          },
+          {
+            "at": "Ten deliberate",
+            "event": "tiles F1-F10 appear and get checks"
+          },
+          {
+            "at": "title bug",
+            "event": "wide tile 'title bug triggered on purpose → caught by the answer key'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B10_BreakIt",
+        "production_viz": {
+          "source": "evals/results/failures-after-review.json"
+        }
+      },
+      "actual_duration_s": 15.57,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 15.583333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "4 EVALUATION",
+      "estimated_duration_s": 22,
+      "narration_text": "An independent reviewer found eighteen problems, and the ones code could fix were fixed. Three limits remain. The final rules were scored before I reviewed them. The answer keys share their rules with the system. And the replies were replayed, not live. So the honest claim is narrow: one public file, answers you can check. Ship, narrow, or defer is my sign-off, still open.",
+      "new_visual_element": "Remaining limits and the narrow claim",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Header 'Independent review: 18 findings'. Three limit rows with warning marks. Bottom: the narrow claim and 'decision: open'.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part tag; header"
+          },
+          {
+            "at": "The final rules",
+            "event": "limit 1"
+          },
+          {
+            "at": "The answer keys",
+            "event": "limit 2"
+          },
+          {
+            "at": "replayed",
+            "event": "limit 3"
+          },
+          {
+            "at": "narrow",
+            "event": "claim card 'one public file · answers you can check'"
+          },
+          {
+            "at": "sign-off",
+            "event": "chip 'decision: my sign-off, still open'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B11_Limits"
+      },
+      "actual_duration_s": 19.03,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 19.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "OUTRO",
+      "estimated_duration_s": 9,
+      "narration_text": "Sponsor S Q L: plain-English questions, answers you can check. Written with Claude, reviewed by Atharva Hambir, and narrated by a synthetic voice.",
+      "new_visual_element": "Title restate",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "lane": "manim",
+        "visual_intent": "Title with terracotta period, subtitle, one credit line.",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title 'SponsorSQL.'"
+          },
+          {
+            "at": "plain-English",
+            "event": "subtitle"
+          },
+          {
+            "at": "Written",
+            "event": "credit 'Atharva Hambir · INFO 7375 · Final project'"
+          }
+        ]
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B12_Outro"
+      },
+      "actual_duration_s": 8.94,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 8.958333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T01:12:36"
+      }
+    }
+  ]
+}

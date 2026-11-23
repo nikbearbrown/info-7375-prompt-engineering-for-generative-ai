@@ -1,0 +1,76 @@
+[run] skip B00_Intro — B00 already filled
+[run] skip B02_Existing — B02 already filled
+[run] skip B03_Data — B03 already filled
+[run] skip B04_Loop — B04 already filled
+[run] skip B05_Policy — B05 already filled
+[run] skip B06_RealRun — B06 already filled
+[run] skip B07_Resources — B07 already filled
+[run] skip B08_EvalSetup — B08 already filled
+[run] skip B10_BreakIt — B10 already filled
+[run] skip B11_Limits — B11 already filled
+[run] skip B12_Outro — B12 already filled
+[run] GATE L — beat-mix lint
+[beat-lint] clean — beat mix OK (beat_sheet.json)
+[run] GATE SHAPE — finance chart-shape enforcement
+[gate-shape] skip — not a finance reel (beat_sheet.json)
+[run] GATE A — static pre-flight
+
+[static-check] 1 scene(s): 1 clean · 0 warn · 0 error
+[run] GATE W — WCAG contrast + margins + text-overlap (independent second check)
+[gateW] B09_Results clean
+[run] rendering B09_Results
+Manim Community v0.18.1
+
+[11/23/26 01:10:28] INFO     Animation 0 : Using cached     cairo_renderer.py:88
+                             data (hash :                                       
+                             1552269881_1541692330_22313245                     
+                             7)                                                 
+
+                    INFO     Animation 1 : Using cached     cairo_renderer.py:88
+                             data (hash :                                       
+                             2724347209_521193044_278173753                     
+                             5)                                                 
+
+                    INFO     Animation 2 : Using cached     cairo_renderer.py:88
+                             data (hash :                                       
+                             2724347209_2616245825_28852978                     
+                             06)                                                
+                    INFO     Animation 3 : Using cached     cairo_renderer.py:88
+                             data (hash :                                       
+                             2724347209_1174385150_12243351                     
+                             37)                                                
+
+[11/23/26 01:10:29] INFO     Animation 4 : Using cached     cairo_renderer.py:88
+                             data (hash :                                       
+                             2724347209_2387647621_15555533                     
+                             59)                                                
+
+                             ts/2724347209_4067583021_1                         
+                             619515252.mp4'                                     
+                             ts/2724347209_3166181163_3                         
+                             556858692.mp4'                                     
+                    INFO     Combining to Movie file.   scene_file_writer.py:617
+                    INFO                                scene_file_writer.py:737
+                             File ready at                                      
+                             _Results.mp4'                                      
+                    INFO     Rendered B09_Results                   scene.py:247
+                             Played 7 animations                                
+You are using manim version v0.18.1, but version v0.22.1 is available.
+You should consider upgrading via pip install -U manim
+
+
+  if float(mob.get_stroke_opacity()) <= 0.02:
+
+
+[audit] scenes: 10 snapshots → CLEAN
+[remotion] B01: filled already (skip)
+[remotion] done — run `bash scripts/run.sh <REEL>` to compile the cut
+[art] compiled B09  MANIM    16.1s  ← B09.mp4
+[art] motion histogram: graphic:12  remotion:1
+[art] WARNING: 'graphic' carries 12/13 beats (92%) — over the ~40% pantry cap; convert the excess to another language (MOTION.md)
+[art] SKIN LINT: B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk
+[art] SKIN LINT: B12: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro
+[art] build stamp → beat_sheet.json (13/13 filled)
+[art] slots: 13/13 filled — B00:MANIM B01:VIDEO B02:MANIM B03:MANIM B04:MANIM B05:MANIM B06:MANIM B07:MANIM B08:MANIM B09:MANIM B10:MANIM B11:MANIM B12:MANIM
+[run] GATE V — frame-level visual QC on the compiled reel
+[run] REVIEW built; no final exported. Use ./art final <reel> for a verified master.

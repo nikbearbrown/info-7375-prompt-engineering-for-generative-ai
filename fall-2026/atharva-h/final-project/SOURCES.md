@@ -8,6 +8,7 @@
 | Python 3 standard library | `sqlite3`, `zipfile`, `xml.etree`, `json`, `hashlib`, `unittest`, … | PSF License | Everything. No third-party packages. |
 | SQLite | Bundled with Python (3.53.4) | Public domain | Database, authorizer, progress-handler budget |
 | Claude (Claude Code, `claude-opus-5-5`) | The owner's Claude Code access | Anthropic terms | Wrote the code and documents with the owner (below). Separate subagents wrote the SQL proposals that were evaluated. |
+| Brutalist toolkit (local checkout `ba2d0e0`), Manim Community 0.18.1, Remotion, Kokoro TTS (`am_onyx`, Apache-2.0 weights) | Used only to make the demo film | As listed in the toolkit; free local pipeline | `film/` (script, scenes, gate reports). No paid generation. |
 | ChatGPT (GPT-6, high mode) | The owner's own test on 2026-10-24 | OpenAI terms | One saved comparison test (`evals/chatgpt-test-2026-10-24.md`). Not part of the system. |
 | MyVisaJobs employer search (https://www.myvisajobs.com/employers/search.aspx), H-1B / LCA Salary Explorer (https://h1bhq.com/search, https://h1bhq.com/about) | Reviewed online in an earlier Claude session on 2026-11-21; not re-checked in this session | Their sites' terms | Named as existing alternatives only. No scraping, no data used. |
 

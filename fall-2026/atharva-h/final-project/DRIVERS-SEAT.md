@@ -16,4 +16,4 @@ What Claude did, what the owner did, and why that part stays the owner's. Dated 
 | Human gate decisions | None. Claude never approves at the gate. | **Not yet done:** an interactive approve, refuse or defer on the real data | Approval has to come from a person who saw the view |
 | Stranger run | Ran a clean-checkout test from the committed files only (`STRANGER-RUN.md`, part B) | **Not yet done:** a person who didn't build it runs it (part A) | — |
 | Sign-off, ship decision, Frictional log | Nothing written in the owner's voice | **Not yet done:** `SIGNOFF.md`, the decision in `transfer-reflection.md`, `FRICTIONAL.md` | The course grades these as the owner's own account |
-| Film | Not started | — | Narration has to be the owner's |
+| Film (2026-11-23) | Wrote the four-part script, built the scenes from saved real output, rendered with the local Brutalist toolkit, ran the gates and fixed what the frames showed | **To do:** watch it, check that the narration says what he means, upload it and add the link | The film is presented in the owner's first person, so its claims have to be ones he stands behind |
