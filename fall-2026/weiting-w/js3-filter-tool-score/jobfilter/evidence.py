@@ -33,15 +33,23 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-EVIDENCE_VERSION = "E-v1"
+EVIDENCE_VERSION = "E-v1a"
 
 SUPPORTED = "supported"
 CONTRADICTED = "contradicted"
 INSUFFICIENT = "insufficient"
 
-#: "5+ years", "at least 7 years", "7-10 years"
+#: A3: the same four forms the scorer reads, so that S6 and the evidence rules
+#: cannot disagree about what one sentence says. Previously this missed
+#: "minimum of N years" and "N years of experience", which is why the
+#: new-graduate claim on a posting demanding five years came back
+#: `insufficient` instead of `contradicted`.
 _YEARS = re.compile(
-    r"(?:(\d+)\s*\+\s*years)|(?:at least\s+(\d+)\s+years)|(?:(\d+)\s*-\s*\d+\s*years)",
+    r"(?:(\d+)\s*\+\s*years)"
+    r"|(?:minimum of\s+(\d+)\s+years)"
+    r"|(?:at least\s+(\d+)\s+years)"
+    r"|(?:(\d+)\s*-\s*\d+\s*years)"
+    r"|(?:(\d+)\s+years of (?:industry |professional |relevant )?experience)",
     re.IGNORECASE,
 )
 

@@ -8,19 +8,20 @@ Generated from `../js2-loop-tools-diff/evidence/raw/` (JS2's live capture of
 `python3 tools/make_shortlist.py`. The machine-readable version with every span
 is `reports/shortlist.json`.
 
-**F-v2 / S-v2 / E-v1, threshold 6.**
+**F-v2 / S-v3 / E-v1a, threshold 6.** (This section was first written under
+S-v2 and rewritten after amendment A3; the before-and-after is in §6.)
 
 | | |
 |---|---|
 | postings in the corpus | 452 |
 | reached the scorer | 24 |
-| shortlisted | **7** |
-| claims made about them | 29 |
-| supported | **22** |
-| contradicted | **0** |
-| insufficient | **7** |
+| shortlisted | **6** |
+| claims made about them | 24 |
+| supported | **18** |
+| contradicted | **0** on the shortlist; **10 of 24** across everything scored |
+| insufficient | **6** |
 
-Every one of the 7 `insufficient` labels is the same claim, on all 7 entries:
+Every one of the 6 `insufficient` labels is the same claim, on all 6 entries:
 **"this posting is open to someone with no professional experience."** The
 shortlist cannot answer, for a single one of its entries, the question that
 decides whether I can apply. That is the honest state of the evidence and §4
@@ -34,31 +35,34 @@ Scores are S-v2 after A2. Each entry lists the claims and the span behind each.
 
 | # | score | board | title | supported | insufficient |
 |---|---|---|---|---|---|
-| 1 | 8 | ashby:ramp | Machine Learning Engineer | 4 | 1 |
-| 2 | 6 | ashby:ramp | Software Engineer, Android | 3 | 1 |
-| 3 | 6 | ashby:ramp | Software Engineer, iOS | 3 | 1 |
-| 4 | 6 | ashby:ramp | Software Engineer, Backend, Credit | 3 | 1 |
-| 5 | 6 | lever:spotify | Backend Engineer - Data Platform | 3 | 1 |
-| 6 | 6 | lever:spotify | Full Stack Engineer - Music | 3 | 1 |
-| 7 | 6 | lever:spotify | Machine Learning Engineer - Subscriptions | 3 | 1 |
+| 1 | 6 | ashby:ramp | Software Engineer, Android | 3 | 1 |
+| 2 | 6 | ashby:ramp | Software Engineer, iOS | 3 | 1 |
+| 3 | 6 | ashby:ramp | Software Engineer, Backend, Credit | 3 | 1 |
+| 4 | 6 | lever:spotify | Backend Engineer - Data Platform | 3 | 1 |
+| 5 | 6 | lever:spotify | Full Stack Engineer - Music | 3 | 1 |
+| 6 | 6 | lever:spotify | Machine Learning Engineer - Subscriptions | 3 | 1 |
 
-### Entry 1 — Machine Learning Engineer (ashby:ramp), score 8
+### Entry 1 — Software Engineer, Android (ashby:ramp), score 6
 
 | claim | label | span |
 |---|---|---|
-| the posting mentions backend | supported | «…across ML techniques and backend engineering» |
-| the posting mentions python | supported | «- Strong python experience (numpy, pandas, sklearn, pytorch etc.» |
-| the posting mentions machine learning | supported | «We're seeking someone to lead the future of fraud machine learning at Ramp.» |
-| the posting mentions pytorch | supported | «- Strong python experience (numpy, pandas, sklearn, pytorch etc.» |
+| the posting mentions backend | supported | «- Experience with backend technologies (Python, Flask, SQL, OpenAPI)» |
+| the posting mentions python | supported | «- Experience with backend technologies (Python, Flask, SQL, OpenAPI)» |
+| the posting mentions typescript | supported | «- Experience with web apps (React, TypeScript)» |
 | open to someone with no professional experience | **insufficient** | the body states no experience requirement and does not say it is open to new graduates |
 
-Note what the four `supported` labels say and do not say. They say the posting
+Note what the three `supported` labels say and do not say. They say the posting
 *mentions* these things. Not one of them says this is a job I can get, and
-E-v1 has no rule that would get there from these spans.
+E-v1a has no rule that would get there from these spans.
 
-The remaining six entries have the same shape: two or three `MENTIONS` claims
-supported by a quoted sentence, and the new-graduate claim `insufficient`.
+The other five entries have the same shape: three `MENTIONS` claims supported
+by a quoted sentence, and the new-graduate claim `insufficient`.
 `reports/shortlist.json` carries all of them with full spans.
+
+**This table used to have a seventh entry above this one**, `Machine Learning
+Engineer` at score 8, and reading its full text is what produced amendment A3
+— it asks for "a minimum of 5 years of industry experience" in a phrasing S6
+could not read. §6 is the before-and-after.
 
 ---
 
@@ -186,10 +190,12 @@ README.md's sign-off as a thing this agent does not do.
 - **Seven entries is not a validated shortlist.** No claim here is that these
   are good jobs, or the best seven. The claim is that 22 statements about their
   text are supported by quoted spans and 7 are not answerable from the text.
-- **`contradicted` has never fired on this corpus.** Zero of 29. That is partly
-  a real fact (these 7 postings state no experience wall — the ones that did
-  scored −6 and fell off the list) and partly §4's limit. A label that never
-  fires is not evidence that nothing contradicts anything.
+- **`contradicted` fires nowhere on the shortlist** — zero of 24 claims — but
+  it does fire, on **10 of the 24 scored postings**, all of them below the
+  threshold. That is the right shape: a posting that states an experience wall
+  gets −6 and falls off the list, so the shortlist is the place where
+  `contradicted` should be rare. Before A3 the count across everything scored
+  was lower, because the rule could not read half the phrasings.
 - **The claims are about the text, not the job.** Every `supported` label means
   "a quoted span says this". None means "this is true of the job", and E2 is
   the rule that keeps those apart.
@@ -197,3 +203,30 @@ README.md's sign-off as a thing this agent does not do.
   description, so no claim about them can be supported or contradicted by text
   that does not exist. They are in `cannot_score`, counted separately, and they
   are 35% of the corpus.
+
+---
+
+## 6. What amendment A3 did to this section
+
+This section was first written under S-v2, and then rewritten. The change was
+not cosmetic, so the before is kept rather than overwritten silently.
+
+| | under S-v2 | under S-v3 (A3) |
+|---|---|---|
+| shortlisted | 7 | **6** |
+| top entry | Machine Learning Engineer, score **8** | Software Engineer, Android, score 6 |
+| claims | 29 | 24 |
+| supported | 22 | 18 |
+| insufficient | 7 | 6 |
+| `contradicted` across all 24 scored postings | not computed | **10** |
+
+A3 came out of writing §2 of this very file: rendering the explanation prompt
+for the top entry meant printing its whole body, and its requirements say
+**"A minimum of 5 years of industry experience"**. S6 was a list of literal
+strings and could not read that, nor `3+ years`, which was never in the list
+either. The number one entry on my shortlist was a five-year role.
+
+The honest summary is that **the shortlist got shorter by reading more
+carefully**, and the thing that made me read more carefully was being forced to
+paste a full posting into a prompt. Writing the Chapter 8 deliverable is what
+found the Chapter 7 defect.

@@ -12,8 +12,16 @@ import pytest
 from jobfilter import pipeline, score as scorer
 
 
-def test_the_scorer_is_s_v2():
-    assert scorer.SCORER_VERSION == "S-v2"
+def test_a2_was_superseded_by_a3():
+    """A2 bumped the scorer to S-v2; A3 then bumped it again.
+
+    A2's own prediction (shortlist 14 -> 7, range [-2, 8]) held when it was
+    made and is recorded in reports/a2-predicted-effect.txt. A3 changed those
+    numbers, so asserting them here would be asserting a count that two
+    amendments ago was right. What A2 established and A3 did not touch -- the
+    three false friends are gone, and S5 cannot fire -- is still tested below.
+    """
+    assert scorer.SCORER_VERSION == "S-v3"
 
 
 @pytest.mark.parametrize("word,signal", [
@@ -26,12 +34,10 @@ def test_the_three_false_friends_are_gone(word, signal):
     assert word not in scorer.SIGNALS[signal][0]
 
 
-def test_the_predicted_counts_are_what_happened(decisions):
+def test_the_part_of_a2_that_a3_did_not_touch(decisions):
+    """A2 moved nothing in or out of the scorer's reach; only scores moved."""
     s = pipeline.summary(decisions)
     assert s["scored"] == 24
-    assert s["counts"]["shortlisted"] == 7
-    assert s["counts"]["below_threshold"] == 17
-    assert s["score_range"] == [-2, 8]
 
 
 def test_s5_cannot_fire_on_this_corpus(postings):

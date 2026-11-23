@@ -453,5 +453,20 @@ bump because no *rule* in §2 changes — `contradicted` still means a span stat
 something incompatible — only the set of spans the implementation can read.
 `tests/test_amendment_a3.py` pins the table.
 
+**A bug A3 introduced and A3's own test caught.** Applying one rule in two
+places means the two can drift, so `tests/test_amendment_a3.py` asserts that
+for every body in the corpus the scorer and `evidence._min_years` agree. They
+did not, on two postings:
+
+> - **2-5 years** of experience building customer-facing products at a software
+>   company with a high engineering bar
+
+The scorer's generic `(\d+) years of experience` alternative grabbed the **5**
+and reported a five-year wall; the evidence rules read the range and returned
+**2**. The evidence rules were right — "2-5 years" states a minimum of two —
+so the scorer's pattern now tries the range alternative **first**. Neither
+posting was among the 24 scored, so no count in this document moved; the test
+found it anyway, which is the only reason I know about it.
+
 **Not changed by A3:** every other signal, the weights, the caps, the gates and
 the threshold.

@@ -9,16 +9,17 @@ def shortlisted(decisions):
     return [d for d in decisions if d.bucket == pipeline.SHORTLISTED]
 
 
-def test_the_shortlist_is_seven_entries(decisions):
-    assert len(shortlisted(decisions)) == 7
+def test_the_shortlist_is_six_entries(decisions):
+    """Seven under S-v2; A3 read the requirements more carefully. See §6."""
+    assert len(shortlisted(decisions)) == 6
 
 
-def test_the_claim_totals_are_22_supported_0_contradicted_7_insufficient(decisions):
+def test_the_claim_totals_are_18_supported_0_contradicted_6_insufficient(decisions):
     agg = {"supported": 0, "contradicted": 0, "insufficient": 0}
     for d in shortlisted(decisions):
         for k, v in evidence.summarise(evidence.claims_for(d)).items():
             agg[k] += v
-    assert agg == {"supported": 22, "contradicted": 0, "insufficient": 7}
+    assert agg == {"supported": 18, "contradicted": 0, "insufficient": 6}
 
 
 def test_every_insufficient_is_the_same_unanswerable_claim(decisions):

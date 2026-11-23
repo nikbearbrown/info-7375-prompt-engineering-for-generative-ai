@@ -21,7 +21,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-SCORER_VERSION = "S-v2"
+SCORER_VERSION = "S-v3"
 
 #: name -> (words, points each, cap). Straight from the FILTER.md §1 table.
 SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
@@ -63,9 +63,13 @@ SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
          "university graduate"),
         4, 4,
     ),
+    # A3: S6 was a list of literal strings and missed both other phrasings
+    # ("minimum of 5 years") and other numbers in the same shape (3+, 4+, 9+
+    # were never listed). An experience requirement is a NUMBER with a
+    # threshold; `EXPERIENCE_WALL` below reads it as one. The entries here are
+    # the non-numeric walls only.
     "S6_experience_wall": (
-        ("5+ years", "6+ years", "7+ years", "8+ years", "10+ years",
-         "phd required", "ph.d. required"),
+        ("phd required", "ph.d. required"),
         -6, -6,
     ),
     "S7_clearance_wall": (
@@ -76,6 +80,26 @@ SIGNALS: dict[str, tuple[tuple[str, ...], int, int]] = {
 
 #: FILTER.md §1. Hand-set before measuring; the only number allowed to move.
 THRESHOLD = 6
+
+#: A3. The four ways this corpus writes an experience requirement. Read as a
+#: number so that 3+, 4+ and 9+ are covered without being enumerated.
+MIN_WALL_YEARS = 3
+#: The range alternative comes FIRST on purpose. "2-5 years of experience"
+#: states a minimum of two, and a generic `(\d+) years of experience` would
+#: otherwise grab the 5 and report a five-year wall. Found by
+#: test_the_scorer_and_the_evidence_rules_agree_about_every_body, which exists
+#: because A3 applied one rule in two places and they could drift.
+EXPERIENCE_WALL = re.compile(
+    r"(?<!\w)(?:"
+    r"(\d+)\s*-\s*\d+\s*years"
+    r"|(\d+)\s*\+\s*years"
+    r"|minimum of\s+(\d+)\s+years"
+    r"|at least\s+(\d+)\s+years"
+    r"|(\d+)\s+years of (?:industry |professional |relevant )?experience"
+    r")",
+    re.IGNORECASE,
+)
+EXPERIENCE_WALL_POINTS = -6
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?\n])\s+")
 
@@ -145,6 +169,29 @@ class Score:
         }
 
 
+def _experience_wall(body: str) -> Hit | None:
+    """The highest stated requirement of >= MIN_WALL_YEARS, in any of A3's forms.
+
+    Fires at most once, like every other signal, and records the span so the
+    penalty can be read back to the sentence that caused it.
+    """
+    best = None
+    for m in EXPERIENCE_WALL.finditer(body):
+        years = next((int(g) for g in m.groups() if g), None)
+        if years is None or years < MIN_WALL_YEARS:
+            continue
+        if best is None or years > best[0]:
+            best = (years, m)
+    if best is None:
+        return None
+    years, m = best
+    return Hit(
+        signal="S6_experience_wall", word=m.group(0), points=EXPERIENCE_WALL_POINTS,
+        start=m.start(), end=m.end(),
+        sentence=_sentence_around(body, m.start(), m.end()),
+    )
+
+
 def score(body: str | None) -> Score | None:
     """Score one body, or `None` when there is no body to score.
 
@@ -156,6 +203,12 @@ def score(body: str | None) -> Score | None:
     total = 0
     hits: list[Hit] = []
     per_signal: dict[str, int] = {}
+
+    wall = _experience_wall(body)
+    if wall is not None:
+        hits.append(wall)
+        per_signal["S6_experience_wall"] = EXPERIENCE_WALL_POINTS
+        total += EXPERIENCE_WALL_POINTS
 
     for name, (_, points, cap) in SIGNALS.items():
         earned = 0
