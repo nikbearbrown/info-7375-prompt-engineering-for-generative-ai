@@ -19,9 +19,9 @@ fall-2026/prasad-s/.
 - B5, career-ops lets the person press Submit, and checked 740 listings
   for its maker: 68 applications, 12 interviews, one offer: the
   career-ops README, github.com/career-ops-hq/career-ops.
-- B6, AP2 says the asking screen must be plain code, not AI: AP2
-  specification v0.2, ap2-protocol.org. The Trusted Surface must be
-  non-agentic.
+- B6, one standard there, AP2 (named on screen), says the asking screen
+  must be plain code, not AI: AP2 specification v0.2, ap2-protocol.org.
+  The Trusted Surface must be non-agentic.
 - B6, others built the payment check well: the AsAsked README
   (github.com/ginjikurata/asasked) and the Mandate Shield README
   (github.com/LSUDOKO/Mandate-Shield). Mandate Shield reports 15 of 15
