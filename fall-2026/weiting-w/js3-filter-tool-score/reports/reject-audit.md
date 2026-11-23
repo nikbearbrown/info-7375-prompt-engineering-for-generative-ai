@@ -35,6 +35,14 @@ total             452
 description — judged on title, location and department, which is everything
 the filter had too.
 
+**The sample was drawn under S-v2 and two amendments have moved the buckets
+since**, so before any of it was labelled, `tests/test_audit_sample.py`
+checked that it still covers what §6 promised: all 4 postings currently
+shortlisted are in it, all 10 currently within ±2 of the threshold are in it,
+and 30 gated postings are in it. A sample that silently stopped matching its
+own strata would have spent the labelling on the wrong postings, and that is
+only worth discovering **before** somebody sits down with the form.
+
 ## 2. Blind, by construction
 
 The form showed **no score, no bucket, no gate**, and shuffled the order with
