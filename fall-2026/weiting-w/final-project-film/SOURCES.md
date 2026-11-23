@@ -1,21 +1,30 @@
 # SOURCES — the-names-nothing-checks
 
-Weiting Wang · INFO 7375, Fall 2026 · compiled 2026-10-13
+Weiting Wang · INFO 7375, Fall 2026 · compiled 2026-10-13, extended 2026-11-22 for the
+four-act cut (the new act 2 is a short review of what already exists, so it needed sources).
 
 ## What I used — references checked for the film's claims
 
 | Source | What it supports | Read |
 |---|---|---|
 | Unity manual, *Access material properties in a script* (Unity 6000.0) — https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/materials/accessing-via-script.md | That material properties live on the shader asset and are reached from C# by string name, and that setting a property not on the current shader "will have no effect". This is the basis of beats B01 and B02. | 2026-10-13 |
-| Unity Discussions, *Parameter 'Jump' does not exist* — https://discussions.unity.com/t/parameter-jump-does-not-exist-251532/251532 | That Unity does print `Parameter 'Jump' does not exist UnityEngine.Animator:SetBool (string,bool)` at runtime for a wrong animator parameter. This is why beat B02B exists and why the silent-failure claim was narrowed to shader properties. | 2026-10-13 |
+| Unity Discussions, *Parameter 'Jump' does not exist* — https://discussions.unity.com/t/parameter-jump-does-not-exist-251532/251532 | That Unity does print `Parameter 'Jump' does not exist UnityEngine.Animator:SetBool (string,bool)` at runtime for a wrong animator parameter. This is why beat B03 exists and why the silent-failure claim was narrowed to shader properties. | 2026-10-13 |
+| Unity Input System 1.8 manual, *Input Action Assets* — https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/ActionAssets.html | The section "Type-safe C# API Generation": ticking **Generate C# Class** produces a wrapper that lets you "refer to your actions in a type-safe manner from code" and "avoid looking up your actions by string". Beat B06 — Unity solved this for one of the four name kinds. | 2026-11-22 |
+| JetBrains Rider help, *String based graphics property lookup is inefficient* (`Unity.PreferAddressByIdToGraphicsParams`) — read at https://www.jetbrains.com.cn/en-us/help/rider/Unity.PreferAddressByIdToGraphicsParams.html (the JetBrains help mirror that answered; the same page is served from jetbrains.com/help/rider/) | That the inspection flags name-based Get/Set calls on Animator, Material and Shader and offers to cache the ID "to reduce the overhead of calculating the ID on each method call" — a performance fix, not an existence check. Beat B07. | 2026-11-22 |
+| JetBrains resharper-unity wiki, *Avoid using string based names for setting and getting properties on Animators, Shaders and Materials* — https://github.com/JetBrains/resharper-unity/wiki/Avoid-using-string-based-names-for-setting-and-getting-properties-on-Animators,-Shaders-and-Materials | The same inspection described by its authors, including the quick fix that introduces a cached static read-only ID field. Beat B07. | 2026-11-22 |
+| Microsoft.Unity.Analyzers rules index — https://github.com/microsoft/Microsoft.Unity.Analyzers/blob/main/doc/index.md | That UNT0041 ("Use Animator.StringToHash for repeated Animator method calls") and UNT0046 ("Cache Shader.PropertyToID calls") are both categorised Performance, and that none of the 46 analyzers checks whether such a name exists. Beat B07. | 2026-11-22 |
+| Unity Project Auditor 1.1 — manual https://docs.unity3d.com/Packages/com.unity.project-auditor@1.1/manual/project-auditor-introduction.html and API https://docs.unity3d.com/Packages/com.unity.project-auditor@1.1/api/Unity.ProjectAuditor.Editor.IssueCategory.html | That Project Auditor is built into Unity 6.4 and later, and that its `IssueCategory` enum — "Identifiers for all the categories of issues reported by Project Auditor" — lists 25 categories, none of which compares a code string with a name defined in an asset. Beat B08. | 2026-11-22 |
+| Unity Scripting API, *Material.HasProperty* — https://docs.unity3d.com/2020.2/Documentation/ScriptReference/Material.HasProperty.html | `public bool HasProperty(string name)` — "Checks if material's shader has a property of a given name." The check exists; you call it yourself, per material. Beat B10. | 2026-11-22 |
+| Unity Discussions, *Checking if Animator parameter exists should be easier / more efficient* — https://discussions.unity.com/t/checking-if-animator-parameter-exists-should-be-easier-more-efficient/771574 | That the animator-side answer today is a hand-written helper looping over `Animator.parameters`. Beat B10. | 2026-11-22 |
 
 ## What I made
 
-- `PROJECT-BRIEF.md` — the seven answers, in my own words.
+- `PROJECT-BRIEF.md` — the one-page brief, in my own words, and `APPENDIX.md`, the detail
+  behind the methods and evaluation acts.
 - `make_sheet.py` — the beat-sheet generator, written against the toolkit's
   `skills/make/show-tell/reference/example-make_sheet.py`.
 - `beat_sheet.json` — generated by that script; the narration in it is mine.
-- `scenes.py` — fourteen hand-written Manim scenes, on top of the toolkit's pasted `iso_kit.py`.
+- `scenes.py` — twenty hand-written Manim scenes, on top of the toolkit's pasted `iso_kit.py`.
 - `SHOTLIST.md`, `FACTCHECK.md`, `PROMPTS.md`, `FRICTIONAL.md`, this file.
 - The film itself, rendered locally.
 
@@ -50,16 +59,20 @@ No stock imagery, no purchased assets, no generated imagery, no third-party audi
 Claude (Opus 5, in Cowork) worked with me on this film as a writing and coding assistant. It
 drafted `PROJECT-BRIEF.md` from answers I gave it, drafted the narration, wrote `make_sheet.py`
 and `scenes.py` against the toolkit's `SKILL.md`, ran the toolkit's gates and the layout audit,
-looked at the rendered frames, and drafted these documents. It generated no image, video or
-audio asset.
+looked at the rendered frames, and drafted these documents. For the November rebuild it also did
+the search behind act 2 and read the documentation pages listed above; the quotes in the
+narration come from those pages and are repeated in `FACTCHECK.md` so they can be checked. It
+generated no image, video or audio asset.
 
 I corrected it where it was wrong, and one of those corrections is a substantive part of the
-film. Its first draft of beat B02 asserted that Unity's console says nothing when an animator
-parameter name is wrong. Checking that against Unity's own documentation showed the claim was
-false; the beat was rewritten around the shader property, which the documentation does support,
-and beat B02B was added so the film says out loud which case Unity warns about and which it does
-not. A second claim — that Unity is also silent about a wrong tag or object name — was cut
-rather than hedged, because I had not checked it. Both are logged in `FACTCHECK.md`.
+film. Its first draft of the silent-failure beat asserted that Unity's console says nothing when
+an animator parameter name is wrong. Checking that against Unity's own documentation showed the
+claim was false; the beat was rewritten around the shader property, which the documentation does
+support, and a beat was added so the film says out loud which case Unity warns about and which it
+does not. A second claim — that Unity is also silent about a wrong tag or object name — was cut
+rather than hedged, because I had not checked it. A third, drafted for the November cut, said
+"what nobody does"; that is a negative claim about every tool in the world, so it became "what I
+could not find". All three are logged in `FACTCHECK.md`.
 
 ## Not in this film or this repository
 

@@ -6,6 +6,17 @@ reference/example-make_sheet.py. Every body beat is ONE drawn isometric Manim
 illustration on the Claude cream stage, with at most a few words of label; the
 narration carries the explanation.
 
+STRUCTURE (rewritten 2026-11-22). The assignment now fixes the order of the film:
+
+  1. EXECUTIVE SUMMARY — what I am building and why anybody would care. No "how".
+  2. INTRODUCTION      — what already exists, who has tried this, what they got.
+  3. METHODS           — the plan, the data, the steps, and what it needs to run.
+  4. EVALUATION        — how I will know whether it worked.
+
+The four act names are spoken and are also printed as the on-screen label of each
+act's first beat (B00, B06, B11, B16), so the structure is visible without audio.
+Detail that does not fit the film lives in PROJECT-BRIEF.md, which is the appendix.
+
 FOUR DELIBERATE DEVIATIONS from show-tell doctrine, all forced by the course
 assignment ("Narrate as yourself. Do not use the instructor's name, persona, or
 credit line."). Each one is logged in FRICTIONAL.md:
@@ -24,9 +35,10 @@ credit line."). Each one is logged in FRICTIONAL.md:
      her voice if one is made; then the disclosure comes out and nothing else changes.
 
 HONESTY (assignment rule): nothing in this film exists yet except the Unity game
-referenced in B04 and B08. Every drawing of the proposed tool carries a
-"proposed" label on screen; the one beat describing past experience carries
-"spring 2026". Past tense is used ONLY in B04 and B08.
+referenced in B09 and B16. Every drawing of the proposed tool carries a "proposed"
+label on screen; the beat describing past experience carries "spring 2026". Past
+tense is used only there. Every claim about another tool in act 2 is quoted from
+that tool's own documentation and is listed in FACTCHECK.md with its source.
 """
 import json
 from pathlib import Path
@@ -38,8 +50,8 @@ AUTHOR = "Weiting Wang"
 HANDLE = "@WeitingWang0704"
 
 
-def beat(bid, narration, cls, image, show):
-    return {"beat_id": bid, "act": "show-tell", "lane": "manim", "proof_gate": "SHOW",
+def beat(bid, act, narration, cls, image, show):
+    return {"beat_id": bid, "act": act, "lane": "manim", "proof_gate": "SHOW",
             "narration_text": narration,
             "estimated_duration_s": round(len(narration.split()) / 2.5, 1),
             "voice": "af_bella", "engine": "kokoro",
@@ -63,19 +75,24 @@ def remotion(bid, act, narration, pattern, props, show, gate="SHOW", **extra):
 # right half = asset blocks), the string thread between them, two gates, the
 # effect lamp, and the checklist slip.
 
+EXEC, INTRO, METHOD, EVAL = "executive summary", "introduction", "methods", "evaluation"
+
 B = [
- beat("B00",
-      "This is a Unity project. One side holds the C sharp scripts. The other "
-      "holds the assets, and the assets hold the project's real names.",
+ # ══════════════════════ 1. EXECUTIVE SUMMARY — what, and why care ═══════════
+ beat("B00", EXEC,
+      "I am building a checker for Unity projects. Start with the project itself. "
+      "One side holds the C sharp scripts. The other holds the assets, and the assets "
+      "hold the project's real names.",
       "B00_Project",
       "An open isometric crate divided in two: pale pages stack on the left, dark asset "
-      "blocks rise on the right. Labels beside each half: 'scripts' and 'assets'.",
-      [{"at": 0.15, "event": "crate lands with floor shadow"},
+      "blocks rise on the right. Labels: the act title 'executive summary' top left, "
+      "'scripts' and 'assets' beside each half.",
+      [{"at": 0.15, "event": "crate lands with floor shadow, act title"},
        {"at": 0.45, "event": "pages stack on the left, label"},
        {"at": 0.75, "event": "asset blocks rise on the right, label"}]),
 
- beat("B01",
-      "Code can only reach those names as text. A string. Material dot set float, "
+ beat("B01", EXEC,
+      "The code can only reach those names as text. A string. Material dot set float, "
       "open quote, glow active, close quote. That quoted word is the whole link.",
       "B01_StringReach",
       "A single ink thread draws from a page on the left across to one asset block on the "
@@ -84,7 +101,7 @@ B = [
        {"at": 0.55, "event": "thread draws across, lands before the midpoint"},
        {"at": 0.85, "event": "terracotta end dot, label"}]),
 
- beat("B02",
+ beat("B02", EXEC,
       "Get that word wrong and nothing stops you. The compiler lets it through. "
       "The console stays quiet. The game runs. The glow simply never happens.",
       "B02_SilentPass",
@@ -94,10 +111,10 @@ B = [
        {"at": 0.5, "event": "crate rides through, fully opaque, lands before the midpoint"},
        {"at": 0.85, "event": "lamp stays dark; a small ring grows and fades"}]),
 
- beat("B02B",
-      "Not everything is silent. Unity does warn you about a wrong animator parameter, once that "
-      "line runs. It says nothing at all about a wrong shader property.",
-      "B02B_WhatWarns",
+ beat("B03", EXEC,
+      "Not everything is silent. Unity does warn about a wrong animator parameter, once "
+      "that line runs. About a wrong shader property it says nothing at all.",
+      "B03_WhatWarns",
       "Two terracotta runners approach the gates. The upper one is stopped by a bar that drops "
       "across it; the lower one passes straight through both and reaches the dark lamp. "
       "Labels beside: 'warns', 'silent'.",
@@ -105,106 +122,175 @@ B = [
        {"at": 0.45, "event": "bar drops on the upper runner, lands before the midpoint"},
        {"at": 0.8, "event": "the lower runner reaches the lamp; labels"}]),
 
- beat("B03",
-      "An assistant that only reads your C sharp files cannot know the name inside the shader "
-      "graph. So the name in its answer is a guess, and no gate here catches a guess.",
-      "B03_HalfRead",
+ beat("B04", EXEC,
+      "And this is getting more common. An assistant that reads only your C sharp files "
+      "cannot know the name inside the shader graph, so the name it writes is a guess.",
+      "B04_HalfRead",
       "A scan line sweeps only the left half of the crate and stops at the divider; the "
-      "right half sits behind a pale ghost panel. One ink label: 'guess'.",
-      [{"at": 0.2, "event": "ghost panel covers the right half"},
+      "right half sits behind a dim scrim. One ink label: 'guess'.",
+      [{"at": 0.2, "event": "scrim covers the right half"},
        {"at": 0.45, "event": "scan line sweeps the left half only, finishes before the midpoint"},
        {"at": 0.8, "event": "'guess' label lands beside the thread"}]),
 
- beat("B04",
-      "Last spring I tried a tool that puts a model inside the Unity editor. I asked it "
-      "to lay out a scene. It put things in the wrong places.",
-      "B04_WritesIn",
-      "A mechanical arm swings over the crate and drops three blocks at visibly wrong angles. "
-      "Labels beside: 'writes', and a small corner stamp 'spring 2026'.",
-      [{"at": 0.2, "event": "arm swings in, fully opaque"},
+ beat("B05", EXEC,
+      "So here is what I am building. One command, run before the game: every name your "
+      "code asks for that your project does not have, in one list. That is the whole product.",
+      "B05_OneList",
+      "The crate on the left, and beside it a paper slip whose rows fill with ink ticks and "
+      "two ink crosses — the report. Labels: 'one list', 'proposed'.",
+      [{"at": 0.2, "event": "slip draws in beside the crate, labels"},
+       {"at": 0.5, "event": "tick rows and two crosses land, before the midpoint"},
+       {"at": 0.85, "event": "a bracket counts the two crosses"}]),
+
+ # ══════════════════════ 2. INTRODUCTION — what already exists ═══════════════
+ beat("B06", INTRO,
+      "What exists already. Unity has solved this once: its Input System can generate a "
+      "C sharp class from your input actions, so those names become code instead of strings. "
+      "One name kind out of four.",
+      "B06_TypeSafe",
+      "Four dark name blocks in a row. The leftmost sits ON a white page — the generated class — "
+      "while the other three sit apart on the crate side. Labels: the act title 'introduction' "
+      "top left, 'input actions' under the fused one, 'the other three' under the rest.",
+      [{"at": 0.15, "event": "act title and the four blocks land"},
+       {"at": 0.5, "event": "the left block settles onto the page, before the midpoint"},
+       {"at": 0.85, "event": "a terracotta dot marks the solved one"}]),
+
+ beat("B07", INTRO,
+      "For the other three, the analyzers look at this exact line. Rider calls the string "
+      "lookup inefficient. Microsoft's Unity rules say cache the ID. Both ask whether the "
+      "string is fast, not whether it is right.",
+      "B07_FastNotRight",
+      "Two threads leave the same page: the upper one ends at a small kraft tag — the cached ID — "
+      "the lower one ends in empty space with a terracotta dot. Labels: 'faster', 'still unchecked'.",
+      [{"at": 0.2, "event": "upper thread draws to the tag, label"},
+       {"at": 0.5, "event": "lower thread ends in empty space, label, before the midpoint"},
+       {"at": 0.85, "event": "a dim ring grows where the lower thread ends"}]),
+
+ beat("B08", INTRO,
+      "Unity's own Project Auditor, built in since six point four, reports twenty five "
+      "categories of issue. Not one of them compares a name in the code with a name in the assets.",
+      "B08_Auditor",
+      "A five by five grid of dim squares with clear gaps — the twenty five categories — and one "
+      "square in it left as an empty outline. Labels: 'twenty five', 'not this one'.",
+      [{"at": 0.2, "event": "grid fills in, label"},
+       {"at": 0.55, "event": "one square stays an outline, label lands, before the midpoint"},
+       {"at": 0.85, "event": "a ring grows around the empty square"}]),
+
+ beat("B09", INTRO,
+      "I tried the other direction too: an AI tool writing straight into the editor. I asked "
+      "it to lay out a scene. It put things in the wrong places. Not a warning. Work to undo.",
+      "B09_WritesIn",
+      "A mechanical arm reaches down over the crate and drops blocks at visibly wrong angles. "
+      "Labels beside: 'writes', and a corner stamp 'spring 2026'.",
+      [{"at": 0.2, "event": "arm reaches down, fully opaque"},
        {"at": 0.5, "event": "blocks drop crooked, settle before the midpoint"},
-       {"at": 0.85, "event": "labels land"}]),
+       {"at": 0.85, "event": "a third crooked block lands"}]),
 
- beat("B04B",
-      "What I got back was not a warning. It was a broken scene to undo. After that I "
-      "built my scenes by hand.",
-      "B04B_ByHand",
-      "The arm fades to ghost grey; the three crooked blocks lift and a row of correctly "
-      "seated blocks draws in beneath them. Label beside: 'by hand'.",
-      [{"at": 0.15, "event": "arm fades to ghost"},
-       {"at": 0.45, "event": "straight block row draws in, complete before the midpoint"},
-       {"at": 0.8, "event": "crooked blocks fade; label lands"}]),
+ beat("B10", INTRO,
+      "So the pieces exist. The check itself is an API call you make yourself, one object at a "
+      "time. What I could not find is anything that reads a whole project and lists every name "
+      "that does not resolve.",
+      "B10_Gap",
+      "The whole crate, both halves, under one wide ghost-outlined sweep band that nothing fills. "
+      "Labels: 'whole project', 'proposed'.",
+      [{"at": 0.2, "event": "crate and the outlined band draw, labels"},
+       {"at": 0.5, "event": "band completes across both halves, before the midpoint"},
+       {"at": 0.85, "event": "a terracotta dot lands at the far edge of the band"}]),
 
- beat("B05",
-      "What I will build does the opposite. It reads the assets and writes down every "
-      "name that really exists.",
-      "B05_Checklist",
+ # ══════════════════════ 3. METHODS — how, data, steps, resources ════════════
+ beat("B11", METHOD,
+      "So, how. Step one: read the assets that define names. Shader graphs, animator "
+      "controllers, the tag manager, the input actions file. Write down every name that "
+      "really exists.",
+      "B11_Index",
       "A paper slip draws itself beside the asset half and fills with ink tick rows, one per "
-      "asset block. Labels beside: 'checklist', 'proposed'.",
-      [{"at": 0.2, "event": "slip draws in beside the asset half"},
+      "asset block. Labels: the act title 'methods' top left, 'index', 'proposed'.",
+      [{"at": 0.15, "event": "act title, slip draws in beside the asset half"},
        {"at": 0.5, "event": "tick rows fill, complete before the midpoint"},
-       {"at": 0.8, "event": "'proposed' stamp lands"}]),
+       {"at": 0.85, "event": "'proposed' stamp lands"}]),
 
- beat("B05B",
-      "Then it checks each string in the code against that list, and marks what it cannot "
-      "find. It never writes to your project.",
-      "B05B_ReadOnly",
+ beat("B12", METHOD,
+      "Step two: find every quoted name in the C sharp and compare it against that list. "
+      "Step three: print what is missing, with the file and the line. It never writes to "
+      "your project.",
+      "B12_Compare",
       "The thread from B01 re-routes from the page into the slip; one row turns to an ink cross. "
       "A large ink-outlined padlock draws over the crate. Labels beside: 'marked', 'read only'.",
       [{"at": 0.2, "event": "thread re-routes into the slip"},
        {"at": 0.45, "event": "one row turns to a cross, before the midpoint"},
        {"at": 0.8, "event": "padlock draws over the crate; labels land"}]),
 
- beat("B06",
-      "The first piece I will make run is the shader property path. A test project with "
-      "three wrong names planted in it. It has run when the report names those three, "
-      "and nothing else.",
-      "B06_Fixture",
-      "A small crate beside the slip; three rows on the slip turn to ink crosses while the "
-      "rest stay ticks. Labels: 'test project', 'proposed'.",
-      [{"at": 0.2, "event": "small crate lands with shadow"},
-       {"at": 0.5, "event": "three crosses land, before the midpoint"},
-       {"at": 0.85, "event": "labels"}]),
+ beat("B13", METHOD,
+      "Version one reads only strings written out in full. A name assembled at runtime is "
+      "marked cannot determine, and counted. I would rather be quiet than wrong.",
+      "B13_Scope",
+      "A page with two rows: the upper one a solid bar with a tick beside it, the lower one three "
+      "short bars with gaps and a hollow ring beside it. Labels: 'written out', 'cannot tell'.",
+      [{"at": 0.2, "event": "page and both rows draw, labels"},
+       {"at": 0.5, "event": "the tick lands on the upper row, before the midpoint"},
+       {"at": 0.85, "event": "a hollow ring lands beside the lower row"}]),
 
- beat("B07",
-      "What could sink it is false alarms. A string is not always written out in full. "
-      "Flag good code, and nobody runs the tool twice.",
-      "B07_FalseAlarm",
+ beat("B14", METHOD,
+      "What this needs: Python, the project's own files, and my laptop. No API key. No token "
+      "credits. No cloud compute. No account. The data is the project you point it at.",
+      "B14_Needs",
+      "Two trays. The left one is solid and holds a page, an asset block and the glow from my own "
+      "game. The right one is an empty outline holding nothing. Labels: 'have', 'not needed'.",
+      [{"at": 0.15, "event": "the full tray and the outlined tray land, labels"},
+       {"at": 0.5, "event": "the objects settle into the left tray, before the midpoint"},
+       {"at": 0.85, "event": "the glow ring draws on the left tray's block"}]),
+
+ beat("B15", METHOD,
+      "I build it one name kind at a time. Shader properties first, because that is the silent "
+      "one. Then animator parameters, tags, and input actions.",
+      "B15_Order",
+      "Four blocks on a rail: the first solid and dark, the other three ghost outlines. Labels: "
+      "'first', 'then three'.",
+      [{"at": 0.2, "event": "rail and the first solid block land, labels"},
+       {"at": 0.55, "event": "three ghost outlines draw along the rail, before the midpoint"},
+       {"at": 0.85, "event": "a terracotta dot lands above the first block"}]),
+
+ # ══════════════════════ 4. EVALUATION — how I will know ═════════════════════
+ beat("B16", EVAL,
+      "How will I know it worked. A test project with three wrong names planted in it, and my "
+      "own Unity game, the one I shipped last spring, as the second case.",
+      "B16_Fixture",
+      "A small crate beside the slip; three rows on the slip turn to ink crosses while the rest "
+      "stay ticks, and a bracket counts the three. Labels: the act title 'evaluation' top left, "
+      "'test project', 'proposed'.",
+      [{"at": 0.2, "event": "act title, small crate lands with shadow"},
+       {"at": 0.5, "event": "three crosses land, before the midpoint"},
+       {"at": 0.85, "event": "bracket and the count land"}]),
+
+ beat("B17", EVAL,
+      "The number that decides it is false alarms. A string is not always written out in full. "
+      "Flag good code once, and nobody runs the tool twice.",
+      "B17_FalseAlarm",
       "A grey bar stack grows on a plinth beside a correct tick row that flips to a cross; "
       "gaps between every segment. Labels beside: 'false alarms', 'proposed'.",
       [{"at": 0.2, "event": "plinth and axis draw"},
        {"at": 0.45, "event": "bar stack grows, settles before the midpoint"},
        {"at": 0.8, "event": "a good row flips to a cross; labels land"}]),
 
- beat("B07B",
-      "So version one reads only strings written out in full. Everything else is marked "
-      "cannot determine. And I publish both numbers, not just the flattering one.",
-      "B07B_TwoNumbers",
+ beat("B18", EVAL,
+      "I report three numbers: how many planted names it caught, how many good lines it wrongly "
+      "flagged, and how many it could not determine. All three, not just the flattering one.",
+      "B18_TwoNumbers",
       "A second and third grey bar stack grow beside the first, with gaps: 'caught' and "
       "'cannot tell'. One terracotta dot tops the middle stack. Label beside: 'proposed'.",
       [{"at": 0.2, "event": "second stack grows"},
        {"at": 0.45, "event": "third stack grows, settles before the midpoint"},
        {"at": 0.8, "event": "terracotta dot lands on the middle stack; labels"}]),
 
- beat("B08",
-      "Why me. The Unity half I can already do. I shipped a Unity dungeon game last spring, "
-      "and its glowing sword runs on exactly this kind of string.",
-      "B08_HaveTray",
-      "A shallow tray lands and fills with solid ink objects: a page, an asset block, a small "
-      "sword with one terracotta spark on its top face. Label beside: 'have'.",
-      [{"at": 0.15, "event": "tray lands with floor shadow"},
-       {"at": 0.45, "event": "objects land in the tray, before the midpoint"},
-       {"at": 0.8, "event": "terracotta spark on the sword; label lands"}]),
-
- beat("B08B",
-      "Building an evaluation set and reporting real numbers, I have never done. That is why "
-      "I picked this project.",
-      "B08B_NewTray",
-      "A second tray draws in beside the first and stays an outline; a ghost-grey slip and a "
-      "ghost-grey bar stack draw inside it as outlines only. Label beside: 'new'.",
-      [{"at": 0.15, "event": "second tray outline draws"},
-       {"at": 0.45, "event": "ghost slip and bar outlines draw, complete before the midpoint"},
-       {"at": 0.8, "event": "label lands"}]),
+ beat("B19", EVAL,
+      "It has worked when it names all three planted names and raises nothing on the untouched "
+      "code. One false alarm and version one has failed. That is the line.",
+      "B19_PassMark",
+      "Two columns on one plinth: the left one grown to a drawn ink rule above it, the right one "
+      "flat at zero with a terracotta dot on the baseline. Labels: 'all three', 'none'.",
+      [{"at": 0.2, "event": "plinth, axis and the pass rule draw, labels"},
+       {"at": 0.5, "event": "the left column grows to the rule, before the midpoint"},
+       {"at": 0.85, "event": "a terracotta dot lands at zero on the right"}]),
 ]
 
 # ------------------------------------------------------------------- bookends
@@ -212,17 +298,17 @@ B = [
 OPEN = [
  remotion("BIDEA", "the question",
     f"Hi. These are {AUTHOR}'s words, read by a synthetic voice. I build games in Unity. "
-    "When I asked an AI for gameplay code, I used to check whether it compiled. That turned "
-    "out to be the wrong question.",
+    "The checks I found ask whether a line of code is fast. The one I am building asks "
+    "whether the name in it exists.",
     "BrutalistHesitantWriter",
-    {"text": "Can an AI write Unity code\nthat compiles",
-     "triggerWords": "that compiles", "replacementWords": "that actually runs",
+    {"text": "The checks I found ask whether this code\nis fast",
+     "triggerWords": "is fast", "replacementWords": "is right",
      "fontSize": 70, "charMs": 22, "hesitateBetween": 6, "hesitateWithin": 1,
      "mistakeRate": 2, "jitter": 20, "seed": SLUG, "banner": ""},
-    [{"at": 0.0, "event": "types 'Can an AI write Unity code'"},
-     {"at": 0.65, "event": "backspaces 'that compiles' -> 'that actually runs' on the spoken correction"}],
+    [{"at": 0.0, "event": "types 'The checks I found ask whether this code is fast'"},
+     {"at": 0.65, "event": "backspaces 'is fast' -> 'is right' on the spoken correction"}],
     lead_silence_s=0.8,
-    motion_claim="The writer types the naive compile question and corrects it to the real one: whether it runs.",
+    motion_claim="The writer types what today's checks ask and corrects it to what this project asks.",
     qc={"sparse_by_design": True, "sparse_reason": "Hesitant-writer bookend: the correction is the motion."}),
 
  remotion("BDEFS", "terms",
@@ -290,6 +376,8 @@ sheet = {"metadata": {
     "clock": "narration", "palette": "claude", "register": "plain",
     "fps": 24, "aspect_ratio": "16:9", "width": 3840, "height": 2160,
     "caption_policy": "none", "greeting_language": "English (Hi)",
+    "structure": ["executive summary (B00-B05)", "introduction (B06-B10)",
+                  "methods (B11-B15)", "evaluation (B16-B19)"],
     "bookend_exempt": ["cold-open", "bvdt"],
     "bookend_exempt_reason": (
         "show-tell style: opens on the hesitant writer plus the terms card, no verdict card; "
@@ -300,14 +388,17 @@ sheet = {"metadata": {
     "audience": "Unity gameplay programmers who write code with an AI assistant, and reviewers "
                 "looking at tools and AI-engineering work",
     "honesty_note": (
-        "Nothing in this film exists yet except the Unity game referenced in B04 and B08. "
+        "Nothing in this film exists yet except the Unity game referenced in B09 and B16. "
         "Every drawing of the proposed tool is labelled 'proposed' on screen. Past tense appears "
-        "only in B04 and B08, both of which describe work actually done in spring 2026. "
+        "only in B09 and B16, both of which describe work actually done in spring 2026. "
+        "Act 2 describes other people's tools; every claim there is quoted from that tool's own "
+        "documentation and listed in FACTCHECK.md with the page it came from. "
         "CORRECTED 2026-10-13: an earlier cut claimed the console says nothing about a wrong "
         "animator parameter. Unity does warn about that one. The claim now names the shader "
-        "property, which Unity's own documentation says has no effect and no message, and B02B "
+        "property, which Unity's own documentation says has no effect and no message, and B03 "
         "states the difference out loud. See FACTCHECK.md rows 3 and 4."),
-    "source_doc": "PROJECT-BRIEF.md (this repository); brutalist.art skills/make/show-tell/SKILL.md",
+    "source_doc": "PROJECT-BRIEF.md (this repository, the film's appendix); "
+                  "brutalist.art skills/make/show-tell/SKILL.md",
     "playlist": "INFO 7375 Fall 2026", "chapter_number": 0,
     "tags": ["Unity", "C#", "verification", "source grounding", "evaluation",
              "prompt contracts", "INFO 7375"]},
