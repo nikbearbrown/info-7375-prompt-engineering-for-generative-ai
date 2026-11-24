@@ -1,0 +1,228 @@
+{
+ "split": "heldout",
+ "n_labeled": 20,
+ "filters": {
+  "v1": {
+   "n": 20,
+   "agree": 13,
+   "agree_rate": 0.65,
+   "wilson95": [
+    0.433,
+    0.819
+   ],
+   "show_predicted": 6,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 12,
+    "show->not": 5,
+    "show->show": 1,
+    "cannot_tell->not": 2
+   }
+  },
+  "c1-years-gate": {
+   "n": 20,
+   "agree": 19,
+   "agree_rate": 0.95,
+   "wilson95": [
+    0.764,
+    0.991
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 18,
+    "show->show": 1,
+    "cannot_tell->not": 1
+   }
+  },
+  "c2-years-pattern": {
+   "n": 20,
+   "agree": 13,
+   "agree_rate": 0.65,
+   "wilson95": [
+    0.433,
+    0.819
+   ],
+   "show_predicted": 6,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 12,
+    "show->not": 5,
+    "show->show": 1,
+    "cannot_tell->not": 2
+   }
+  },
+  "c3-us-cities": {
+   "n": 20,
+   "agree": 14,
+   "agree_rate": 0.7,
+   "wilson95": [
+    0.481,
+    0.855
+   ],
+   "show_predicted": 6,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 13,
+    "show->not": 5,
+    "show->show": 1,
+    "cannot_tell->not": 1
+   }
+  },
+  "c4-cut-agents": {
+   "n": 20,
+   "agree": 13,
+   "agree_rate": 0.65,
+   "wilson95": [
+    0.433,
+    0.819
+   ],
+   "show_predicted": 6,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 12,
+    "show->not": 5,
+    "show->show": 1,
+    "cannot_tell->not": 2
+   }
+  },
+  "v1.1": {
+   "n": 20,
+   "agree": 20,
+   "agree_rate": 1.0,
+   "wilson95": [
+    0.839,
+    1.0
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 19,
+    "show->show": 1
+   }
+  }
+ },
+ "claude": {
+  "B1-baseline": {
+   "n": 20,
+   "agree": 20,
+   "agree_rate": 1.0,
+   "wilson95": [
+    0.839,
+    1.0
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 19,
+    "show->show": 1
+   }
+  },
+  "B2-baseline-rerun": {
+   "n": 20,
+   "agree": 20,
+   "agree_rate": 1.0,
+   "wilson95": [
+    0.839,
+    1.0
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 19,
+    "show->show": 1
+   }
+  },
+  "E2-prompt-v2": {
+   "n": 20,
+   "agree": 16,
+   "agree_rate": 0.8,
+   "wilson95": [
+    0.584,
+    0.919
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "cannot_tell->not": 4,
+    "show->show": 1
+   }
+  },
+  "E3-context-title-location": {
+   "n": 20,
+   "agree": 13,
+   "agree_rate": 0.65,
+   "wilson95": [
+    0.433,
+    0.819
+   ],
+   "show_predicted": 5,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 12,
+    "cannot_tell->not": 3,
+    "show->not": 4,
+    "show->show": 1
+   }
+  },
+  "E4-tool-list-score-posting": {
+   "n": 20,
+   "agree": 20,
+   "agree_rate": 1.0,
+   "wilson95": [
+    0.839,
+    1.0
+   ],
+   "show_predicted": 1,
+   "show_hand": 1,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 19,
+    "show->show": 1
+   }
+  },
+  "E5-setting-model-haiku": {
+   "n": 20,
+   "agree": 19,
+   "agree_rate": 0.95,
+   "wilson95": [
+    0.764,
+    0.991
+   ],
+   "show_predicted": 0,
+   "show_hand": 1,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 19,
+    "cannot_tell->show": 1
+   }
+  }
+ },
+ "always_not": {
+  "n": 20,
+  "agree": 19,
+  "agree_rate": 0.95,
+  "wilson95": [
+   0.764,
+   0.991
+  ],
+  "show_predicted": 0,
+  "show_hand": 1,
+  "show_both": 0,
+  "confusion (pred,hand)": {
+   "not->not": 19,
+   "not->show": 1
+  }
+ }
+}

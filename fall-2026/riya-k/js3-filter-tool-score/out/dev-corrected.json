@@ -1,0 +1,157 @@
+{
+ "split": "audit",
+ "n_labeled": 58,
+ "filters": {
+  "v1": {
+   "n": 58,
+   "agree": 41,
+   "agree_rate": 0.707,
+   "wilson95": [
+    0.58,
+    0.808
+   ],
+   "show_predicted": 10,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 9,
+    "show->not": 8,
+    "not->not": 38,
+    "cannot_tell->cannot_tell": 1,
+    "show->show": 2
+   }
+  },
+  "c1-years-gate": {
+   "n": 58,
+   "agree": 47,
+   "agree_rate": 0.81,
+   "wilson95": [
+    0.691,
+    0.891
+   ],
+   "show_predicted": 5,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 8,
+    "not->not": 44,
+    "show->not": 3,
+    "cannot_tell->cannot_tell": 1,
+    "show->show": 2
+   }
+  },
+  "c2-years-pattern": {
+   "n": 58,
+   "agree": 41,
+   "agree_rate": 0.707,
+   "wilson95": [
+    0.58,
+    0.808
+   ],
+   "show_predicted": 10,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 9,
+    "show->not": 8,
+    "not->not": 38,
+    "cannot_tell->cannot_tell": 1,
+    "show->show": 2
+   }
+  },
+  "c3-us-cities": {
+   "n": 58,
+   "agree": 45,
+   "agree_rate": 0.776,
+   "wilson95": [
+    0.653,
+    0.864
+   ],
+   "show_predicted": 10,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 4,
+    "show->not": 8,
+    "not->not": 43,
+    "not->cannot_tell": 1,
+    "show->show": 2
+   }
+  },
+  "c4-cut-agents": {
+   "n": 58,
+   "agree": 43,
+   "agree_rate": 0.741,
+   "wilson95": [
+    0.616,
+    0.837
+   ],
+   "show_predicted": 10,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 7,
+    "show->not": 8,
+    "not->not": 40,
+    "cannot_tell->cannot_tell": 1,
+    "show->show": 2
+   }
+  },
+  "v1.1": {
+   "n": 58,
+   "agree": 52,
+   "agree_rate": 0.897,
+   "wilson95": [
+    0.792,
+    0.952
+   ],
+   "show_predicted": 5,
+   "show_hand": 2,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 2,
+    "not->not": 50,
+    "show->not": 3,
+    "not->cannot_tell": 1,
+    "show->show": 2
+   }
+  }
+ },
+ "claude": {
+  "D-B1-baseline-dev": {
+   "n": 58,
+   "agree": 56,
+   "agree_rate": 0.966,
+   "wilson95": [
+    0.883,
+    0.99
+   ],
+   "show_predicted": 1,
+   "show_hand": 2,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 55,
+    "not->cannot_tell": 1,
+    "not->show": 1,
+    "show->show": 1
+   }
+  }
+ },
+ "always_not": {
+  "n": 58,
+  "agree": 55,
+  "agree_rate": 0.948,
+  "wilson95": [
+   0.859,
+   0.982
+  ],
+  "show_predicted": 0,
+  "show_hand": 2,
+  "show_both": 0,
+  "confusion (pred,hand)": {
+   "not->not": 55,
+   "not->cannot_tell": 1,
+   "not->show": 2
+  }
+ }
+}

@@ -1,0 +1,254 @@
+{
+ "split": "heldout",
+ "n_labeled": 20,
+ "filters": {
+  "v1": {
+   "n": 20,
+   "agree": 10,
+   "agree_rate": 0.5,
+   "wilson95": [
+    0.299,
+    0.701
+   ],
+   "show_predicted": 6,
+   "show_hand": 3,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 9,
+    "show->not": 5,
+    "not->cannot_tell": 1,
+    "show->show": 1,
+    "not->show": 2,
+    "cannot_tell->not": 2
+   }
+  },
+  "c1-years-gate": {
+   "n": 20,
+   "agree": 14,
+   "agree_rate": 0.7,
+   "wilson95": [
+    0.481,
+    0.855
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 14,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "show->not": 1,
+    "cannot_tell->not": 1
+   }
+  },
+  "c2-years-pattern": {
+   "n": 20,
+   "agree": 10,
+   "agree_rate": 0.5,
+   "wilson95": [
+    0.299,
+    0.701
+   ],
+   "show_predicted": 6,
+   "show_hand": 3,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 9,
+    "show->not": 5,
+    "not->cannot_tell": 1,
+    "show->show": 1,
+    "not->show": 2,
+    "cannot_tell->not": 2
+   }
+  },
+  "c3-us-cities": {
+   "n": 20,
+   "agree": 11,
+   "agree_rate": 0.55,
+   "wilson95": [
+    0.342,
+    0.742
+   ],
+   "show_predicted": 6,
+   "show_hand": 3,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 10,
+    "show->not": 5,
+    "not->cannot_tell": 1,
+    "show->show": 1,
+    "not->show": 2,
+    "cannot_tell->not": 1
+   }
+  },
+  "c4-cut-agents": {
+   "n": 20,
+   "agree": 10,
+   "agree_rate": 0.5,
+   "wilson95": [
+    0.299,
+    0.701
+   ],
+   "show_predicted": 6,
+   "show_hand": 3,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 9,
+    "show->not": 5,
+    "not->cannot_tell": 1,
+    "show->show": 1,
+    "not->show": 2,
+    "cannot_tell->not": 2
+   }
+  },
+  "v1.1": {
+   "n": 20,
+   "agree": 15,
+   "agree_rate": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "show->not": 1
+   }
+  }
+ },
+ "claude": {
+  "B1-baseline": {
+   "n": 20,
+   "agree": 15,
+   "agree_rate": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "show->not": 1
+   }
+  },
+  "B2-baseline-rerun": {
+   "n": 20,
+   "agree": 15,
+   "agree_rate": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "show->not": 1
+   }
+  },
+  "E2-prompt-v2": {
+   "n": 20,
+   "agree": 14,
+   "agree_rate": 0.7,
+   "wilson95": [
+    0.481,
+    0.855
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 13,
+    "cannot_tell->cannot_tell": 1,
+    "not->show": 2,
+    "cannot_tell->not": 2,
+    "show->not": 1,
+    "cannot_tell->show": 1
+   }
+  },
+  "E3-context-title-location": {
+   "n": 20,
+   "agree": 10,
+   "agree_rate": 0.5,
+   "wilson95": [
+    0.299,
+    0.701
+   ],
+   "show_predicted": 5,
+   "show_hand": 3,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 9,
+    "cannot_tell->not": 3,
+    "not->cannot_tell": 1,
+    "show->show": 1,
+    "show->not": 4,
+    "not->show": 2
+   }
+  },
+  "E4-tool-list-score-posting": {
+   "n": 20,
+   "agree": 15,
+   "agree_rate": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ],
+   "show_predicted": 1,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "show->not": 1
+   }
+  },
+  "E5-setting-model-haiku": {
+   "n": 20,
+   "agree": 15,
+   "agree_rate": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ],
+   "show_predicted": 0,
+   "show_hand": 3,
+   "show_both": 0,
+   "confusion (pred,hand)": {
+    "not->not": 15,
+    "not->cannot_tell": 1,
+    "not->show": 3,
+    "cannot_tell->not": 1
+   }
+  }
+ },
+ "always_not": {
+  "n": 20,
+  "agree": 16,
+  "agree_rate": 0.8,
+  "wilson95": [
+   0.584,
+   0.919
+  ],
+  "show_predicted": 0,
+  "show_hand": 3,
+  "show_both": 0,
+  "confusion (pred,hand)": {
+   "not->not": 16,
+   "not->cannot_tell": 1,
+   "not->show": 3
+  }
+ }
+}

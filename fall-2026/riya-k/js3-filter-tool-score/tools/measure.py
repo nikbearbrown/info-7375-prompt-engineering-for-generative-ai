@@ -107,6 +107,8 @@ def heldout(filters, runs, split):
     labels = load_labels()
     items = [i for i in sample() if i["split"] == split]
     res = {"split": split, "n_labeled": sum(i["item"] in labels for i in items), "filters": {}, "claude": {}}
+    # Trivial baseline: say "not" to everything. Any scorer must beat this to mean anything (most labels are "not").
+    res["always_not"] = score({i["item"]: "not" for i in items}, labels, items)
     for v in filters:
         res["filters"][v] = score(filter_preds(v), labels, items)
     for r in runs:
