@@ -45,3 +45,7 @@ Results on my 48 audited postings: v1.0 37/48 agree; C1 (years cutoff 5) 40/48, 
 Caution: C1 was suggested by these same 48 postings, so 40/48 is a development result, not proof. Held-out labels are needed. A31 and A16 remain false KEEPs under C1.
 Correction to Entry 8: my verdicts are 14 relevant / 34 not relevant, not 15/33. The count in Entry 8 was wrong (drafted with Claude); the CSV itself is unchanged.
 Accepted Claude Code's choices, including a separate read check for audit/ rather than adding audit/ to policy.READ_DIRS.
+
+## Entry 13 — November 23, 2026: Held-out labels, judged blind
+Drew a held-out sample (seed 7376): 20 random postings with a target engineering title, excluding the 48 audited postings, plus the 12 postings that C3 adds as KEEP, shuffled together. Judged all 32 myself, blind, using audit/AUDIT_RULE.md, before opening the key: 7 relevant, 25 not relevant.
+Honest notes: (1) I judged 9 internships not relevant for Alex's level, but neither my AUDIT_RULE nor FILTER.md v1.0 mentions internships; (2) as in the audit, I also judged several 4+/5+ year roles not relevant, which is stricter than my written 8+ rule.
