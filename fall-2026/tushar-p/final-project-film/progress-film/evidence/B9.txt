@@ -1,0 +1,42 @@
+# B9: key lines of evidence/isolation/20261117-isolation-d29.txt
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n -E '^# (Date|Commit|Command)|uid=|setuid\(0\)|cpu.max|cpus_used|memory.max|OOMKilled|forked|fork error|sandbox \(policy on\)|No space left|ephemeral-storage limit|Evicted|^--- PASS|^PASS|^ok' evidence/isolation/20261117-isolation-d29.txt
+# ----------------------------------------------------------------------------
+2:# Date: 2026-11-17T23:44:08Z
+3:# Commit: 9eed69c094cdc2f068a8c42d380f41cfcee99654  uncommitted changes before this file was written: 0
+7:# Command: go test -v -count=1 -run 'TestIsolation|TestKindEgressBlocked|TestKindConfigPidsLimit|TestManifestStorage' ./internal/sandbox/
+12:    isolation_test.go:87:   uid=1000(apg) gid=1000(apg) groups=1000(apg)
+13:    isolation_test.go:100: PID 1's ids and setuid(0): exit=0
+16:    isolation_test.go:100:   setuid(0) errno 1
+71:    isolation_test.go:229:   cpu.max 50000 100000
+74:    isolation_test.go:229:   cpus_used 0.506
+76:--- PASS: TestIsolation (14.74s)
+85:    isolation_test.go:267:   memory.max 268435456
+88:    isolation_test.go:308: pod status (phase, terminated reason): "Running OOMKilled" exit=0
+89:--- PASS: TestIsolationMemory (7.03s)
+93:    isolation_test.go:372:   forked 252
+94:    isolation_test.go:372:   fork error EAGAIN
+98:--- PASS: TestIsolationPids (6.32s)
+100:--- PASS: TestKindConfigPidsLimit (0.00s)
+105:    kind_test.go:292: sandbox (policy on) tcp 1.1.1.1:443: blocked, exit=1 TimeoutError: timed out
+106:    kind_test.go:292: sandbox (policy on) dns example.com: blocked, exit=124 
+107:--- PASS: TestKindEgressBlocked (25.79s)
+109:--- PASS: TestManifestStorage (0.00s)
+116:    storage_test.go:130:   error No space left on device
+120:    storage_test.go:130:   error No space left on device
+124:--- PASS: TestIsolationScratchFull (6.01s)
+126:    storage_test.go:159: pod ephemeral-storage limit: 64Mi
+129:    storage_test.go:184: pod status after 14s: Failed|Evicted|Pod ephemeral local storage usage exceeds the total limit of containers 64Mi. 
+130:--- PASS: TestIsolationDiskEviction (17.89s)
+131:PASS
+132:ok  	github.com/tushar-patel28/agent-proving-ground/internal/sandbox	78.008s
+# exit code: 0
+
+# B9: Docker, kind, a spend-limited key (docs/01-brief.md)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n -i 'spend limit' docs/01-brief.md
+# ----------------------------------------------------------------------------
+27:- **Cost:** API calls will be billed to Tushar's Console workspace `apg-harness`, which has a spend limit.
+56:- Running it without the Console spend limit, or with the API key placed anywhere but the environment.
+# exit code: 0
+

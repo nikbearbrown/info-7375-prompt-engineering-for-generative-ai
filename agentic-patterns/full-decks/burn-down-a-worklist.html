@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Burn down a worklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Burn down a worklist">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Burn down a worklist">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Loop</p>
+      <h1 class="t-opening rise g2">Burn down a worklist</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Scan, fix the top item, run the same scan again.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one loop pattern: burn down a worklist. It shows the shape of the loop, the sixteen published loops that follow it, the way it fails, and how to decide whether it fits.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Burn down a worklist, the second loop pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">A worklist loop is only as honest as its scan. The list can get shorter without the work getting done.</h2>
+      <div class="speaker-notes" hidden>
+        <p>A loop is a prompt plus a real check plus a stop rule. In this pattern the check is a scan, run again after every fix, and the stop rule reads the scan's list.</p>
+        <p>Say this plainly: the grouping of the 85 published loops into ten patterns is a judgment from reading the catalog. None of these loops has been tested on real runs for this deck, and the catalog itself reports no run results.</p>
+      </div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Scan, rank, fix one, run the same scan again</p>
+      <div class="speaker-notes" hidden><p>One slide: the problem this loop is for, then the cycle with its check and its stop rule.</p></div>
+    </section>
+
+    <!-- 5 CYCLE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The cycle">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">The check is the same scan, run again</h2>
+      <div class="diagram build" data-build="cycle" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 2. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the problem. A pile of small problems of a known type, such as stale docs, unused code or vulnerable dependencies, that no one will fix by hand.</p>
+        <p><strong>Step 1:</strong> scan. The scan lists every finding.</p>
+        <p><strong>Step 2:</strong> rank the findings by impact.</p>
+        <p><strong>Step 3:</strong> fix the top item, and only that one.</p>
+        <p><strong>Step 4:</strong> rerun the same scan. This is the check. The loop repeats while the scan still finds something.</p>
+        <p><strong>Step 5:</strong> the stop rule: the list is empty, or nothing improves. A loop is a prompt plus a real check plus a stop rule.</p>
+      </div>
+    </section>
+
+    <!-- 6 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The loops">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">The loops</h2>
+      <p class="sub-section rise g3">Sixteen loops, four kinds of pile</p>
+      <div class="speaker-notes" hidden><p>Sixteen of the 85 published loops sit under this pattern. First the whole list by group, then one loop walked through.</p></div>
+    </section>
+
+    <!-- 7 CHILDREN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Sixteen loops">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The children</p>
+      <h2 class="t-chart">Sixteen loops share this shape</h2>
+      <div class="diagram build" data-build="children" style="flex-basis:570px"></div>
+      <p class="source">Source: the loop tree, pattern 2. Loop numbers and names are the Forward Future Loop Library's; the four groups are the loop tree's.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> code health, nine loops. Docs, tests, logs, copied values, dead code, error messages, React findings and stale branches.</p>
+        <p><strong>Step 2:</strong> security and dependencies, two loops.</p>
+        <p><strong>Step 3:</strong> user-facing quality, four loops.</p>
+        <p><strong>Step 4:</strong> data, one loop.</p>
+        <p><strong>Step 5:</strong> nine, two, four and one make sixteen. They differ in the subject and in the scan. The shape is the same.</p>
+      </div>
+    </section>
+
+    <!-- 8 WALK 056 -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Loop 056">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">One loop, walked through</p>
+      <h2 class="t-chart">Loop 056 fixes what can be reached first, one fix at a time</h2>
+      <div class="diagram build" data-build="walk" style="flex-basis:610px"></div>
+      <p class="source">Source: the loop tree, pattern 2, loop 056. The six findings are illustrative: 2 of 6 reachable, chosen by a fixed seed.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> a scanner report in report order. The loop's description and its reason for existing are on the right: scanner reports are noisy, so fix what is actually exploitable first.</p>
+        <p><strong>Step 1:</strong> rank. The loop ranks by reachability and exposure. This picture shows reachability only: the two reachable findings move to the top.</p>
+        <p><strong>Step 2:</strong> one bounded fix to the top item, then verify the whole project and run the scan again.</p>
+        <p><strong>Step 3:</strong> pros and cons. These are a reading of the catalog entry, not the catalog's own words. The con matters for the next part: no silencing findings.</p>
+      </div>
+    </section>
+
+    <!-- 9 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">The list gets shorter and the work is not done</p>
+      <div class="speaker-notes" hidden><p>The loop needs a scan you trust. It fails when the agent wins by suppressing findings, narrowing the scan or deleting things it should not.</p></div>
+    </section>
+
+    <!-- 10 BURNDOWN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two burndowns">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Two runs, one scan report</p>
+      <h2 class="t-chart">Both lists got shorter. Only one run did the work.</h2>
+      <div class="diagram build" data-build="burndown" style="flex-basis:612px"></div>
+      <p class="source">Source: the loop tree, pattern 2. Inputs: 24 findings, 8 passes. Honest run: one fix per pass. Narrowed run: 3 fixes, 8 findings dropped from the scan, 9 suppressed, 4 files deleted. Counts computed in code; positions seeded.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two runs start from the same scan: 24 findings each.</p>
+        <p><strong>Step 1:</strong> the honest run fixes the top item on each of 8 passes. The scan reports 16.</p>
+        <p><strong>Step 2:</strong> the narrowed run reaches zero in the same 8 passes. The list is empty, so the stop rule fires. On the report alone this run looks better.</p>
+        <p><strong>Step 3:</strong> rerun the original scan on both. The honest run still has 16, the number it reported. The narrowed run fixed 3. Eight findings were dropped from the scan, 9 were suppressed and 4 went when their files were deleted. Seventeen are still there. This is an illustration with stated inputs, not a measured run.</p>
+      </div>
+    </section>
+
+    <!-- 11 MOVES -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three ways to cheat the list">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Fails when</p>
+      <h2 class="t-chart">Three ways to empty the list without doing the work</h2>
+      <div class="diagram build" data-build="moves" style="flex-basis:600px"></div>
+      <p class="source">Source: the loop tree, pattern 2, with its notes on loops 005, 012, 014, 056, 065 and 067. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> suppress findings. The notes on loops 065 and 056 both forbid it.</p>
+        <p><strong>Step 2:</strong> narrow the scan. Loop 067 allows no excluded files and no relaxed severity.</p>
+        <p><strong>Step 3:</strong> delete what it should not. Loops 012 and 014 are destructive, and both say not to delete uncertain work or records.</p>
+        <p><strong>Step 4:</strong> the loop needs a scan you trust. Loop 005 is the plain case: coverage shows what ran, not whether the assertions are any good. The one-line descriptions under each heading are this deck's wording.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part four</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Start from the problem you have</p>
+      <div class="speaker-notes" hidden><p>The loop tree's advice: pick the pattern from the problem, then the child closest to your subject.</p></div>
+    </section>
+
+    <!-- 13 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Choosing">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Pick the pattern from the problem, then the closest loop</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, patterns 1 and 2, and "How to use the tree".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Step 1:</strong> what problem do you have? A pile of small problems of a known type points here. A number you want to move points to the first loop pattern.</p>
+        <p><strong>Step 2:</strong> which child loop fits your subject? If none fits, write your own: keep the pattern's shape and supply your own check. A new loop is worth keeping only if it adds a check or a subject the pattern does not already cover.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. The loop tree groups loops by what the check is. Here the check is a scan. In the first pattern the check is a measurement.</p>
+      </div>
+    </section>
+
+    <!-- 14 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you start a worklist loop</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: the loop tree, pattern 2. Loops from the Forward Future Loop Library.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> what the loop needs: the right kind of problem, a scan you trust, the same scan after every fix, and a stop rule.</p>
+        <p><strong>Steps 5 to 7:</strong> the three ways the loop tree says it fails. If the agent can do any of these, the falling count tells you nothing.</p>
+      </div>
+    </section>
+
+    <!-- 15 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">A shorter list proves something only if the scan did not change. Run the same scan again.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: results from real runs. This deck is a reading of a catalog, not a test. Next in the set: Change with proof, the loop pattern for one change that must be correct.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Burn down a worklist";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- cycle: scan, rank, fix the top item, rerun the same scan, stop ---------- */
+  function renderCycle(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The worklist loop: scan, rank, fix the top item, rerun the same scan",
+      "The problem: a pile of small problems of a known type that no one will fix by hand, such as stale docs, unused code or vulnerable dependencies. Four boxes in a row: scan, list every finding; rank, by impact; fix, the top item only; rerun the scan, the same scan unchanged, marked as the check. An arrow returns from the rerun to rank: repeat while the scan still finds something. The stop rule: the list is empty, or nothing improves. A loop is a prompt plus a real check plus a stop rule.");
+    label(svg, 0, 26, "THE PROBLEM", { size: 24 });
+    txt(svg, 0, 66, "A pile of small problems of a known type that no one will fix by hand.", { size: 28, weight: 700 });
+    txt(svg, 0, 104, "stale docs · unused code · vulnerable dependencies", { size: 24, fill: MUTED });
+    var N = [
+      { t: "SCAN", d: "list every finding" },
+      { t: "RANK", d: "by impact" },
+      { t: "FIX", d: "the top item only" },
+      { t: "RERUN THE SCAN", d: "the same scan, unchanged" }
+    ];
+    var w = 300, h = 104, y = 176, pitch = 366;
+    N.forEach(function (n, i) {
+      var on = k >= i + 1, x = i * pitch, g = svg.append("g"), isCheck = i === 3;
+      box(g, x, y, w, h, { fill: on ? (isCheck ? TINT : "#FFFFFF") : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? (isCheck ? 3.5 : 2.5) : 1.5 });
+      txt(g, x + w / 2, y + h / 2 + 10, n.t, { size: isCheck ? 26 : 30, weight: 900, anchor: "middle", ls: isCheck ? 1 : 2, fill: on ? INK : BASE });
+      if (on) {
+        var d = txt(g, x + w / 2, y + h + 38, n.d, { size: 24, anchor: "middle", fill: BODY });
+        if (A(anim, k, i + 1)) { fadeIn(g, 0, 350); fadeIn(d, 250, 350); }
+      }
+      if (i > 0 && on) {
+        var ag = svg.append("g");
+        arrow(ag, x - pitch + w + 8, y + h / 2, x - 8, y + h / 2, INK, 3);
+        if (A(anim, k, i + 1)) fadeIn(ag, 0, 300);
+      }
+    });
+    if (k >= 4) {
+      var g4 = svg.append("g"), cx4 = 3 * pitch + w / 2, cx2 = pitch + w / 2;
+      var tag = txt(g4, cx4, y - 16, "THE CHECK", { size: 24, weight: 900, ls: 1.5, anchor: "middle" });
+      var p = g4.append("path").attr("d", "M" + (cx4 - 90) + ",340 L" + (cx4 - 90) + ",396 L" + cx2 + ",396 L" + cx2 + ",356")
+        .attr("fill", "none").attr("stroke", INK).attr("stroke-width", 3.5);
+      var ah = arrowHead(g4, cx2, 342, "up", INK);
+      var rl = txt(g4, (cx2 + cx4 - 90) / 2, 382, "repeat while the scan still finds something", { size: 24, weight: 700, anchor: "middle" });
+      if (A(anim, k, 4)) { fadeIn(tag, 300, 300); drawIn(p, 400, 800); fadeIn(ah, 1150, 200); fadeIn(rl, 1200, 400); }
+    }
+    if (k >= 5) {
+      var g5 = svg.append("g"), sx = 3 * pitch + w / 2 + 80;
+      arrow(g5, sx, 340, sx, 428, INK, 3.5);
+      box(g5, 1000, 434, 398, 132, { fill: INK });
+      txt(g5, 1024, 474, "THE STOP RULE", { size: 24, weight: 900, ls: 1.5, fill: "#FFFFFF" });
+      txt(g5, 1024, 512, "the list is empty,", { size: 26, fill: "#FFFFFF" });
+      txt(g5, 1024, 546, "or nothing improves", { size: 26, fill: "#FFFFFF" });
+      txt(g5, 0, 496, "A loop is a prompt plus a real check plus a stop rule.", { size: 28, weight: 700 });
+      txt(g5, 0, 540, "Here the check is the scan itself, run again after every fix.", { size: 26, fill: BODY });
+      if (A(anim, k, 5)) fadeIn(g5, 0, 500);
+    }
+  }
+
+  /* ---------- children: the sixteen loops under this pattern, by the loop tree's groups ---------- */
+  var GROUPS = [
+    { name: "CODE HEALTH", x: 0, y: 30, loops: [
+      ["001", "The docs sweep"], ["005", "The 100% test coverage loop"], ["007", "The logging coverage loop"],
+      ["033", "The propagation compliance loop"], ["041", "The housekeeper loop"], ["053", "The error-message rewrite loop"],
+      ["065", "The React Doctor repair loop"], ["067", "The React Doctor 100/100 loop"], ["012", "The repository cleanup loop"]] },
+    { name: "SECURITY AND DEPENDENCIES", x: 720, y: 30, loops: [
+      ["056", "The dependency-CVE burndown loop"], ["064", "The dependency triage loop"]] },
+    { name: "USER-FACING QUALITY", x: 720, y: 188, loops: [
+      ["040", "The accessibility repair loop"], ["077", "The micro-interaction latency loop"],
+      ["031", "The recent-feedback sweep"], ["006", "The SEO/GEO visibility loop"]] },
+    { name: "DATA", x: 720, y: 426, loops: [["014", "The production data cleanup loop"]] }
+  ];
+  function renderChildren(el, k, anim) {
+    var counts = GROUPS.map(function (g) { return g.loops.length; }), total = d3.sum(counts);
+    var svg = svgFor(el, W, 570, "The sixteen loops under Burn down a worklist, in four groups",
+      "Code health, 9 loops: 001 The docs sweep, 005 The 100% test coverage loop, 007 The logging coverage loop, 033 The propagation compliance loop, 041 The housekeeper loop, 053 The error-message rewrite loop, 065 The React Doctor repair loop, 067 The React Doctor 100/100 loop, 012 The repository cleanup loop. Security and dependencies, 2 loops: 056 The dependency-CVE burndown loop, 064 The dependency triage loop. User-facing quality, 4 loops: 040 The accessibility repair loop, 077 The micro-interaction latency loop, 031 The recent-feedback sweep, 006 The SEO/GEO visibility loop. Data, 1 loop: 014 The production data cleanup loop. 9 plus 2 plus 4 plus 1 is 16.");
+    GROUPS.forEach(function (gr, i) {
+      if (k < i + 1) return;
+      var g = svg.append("g");
+      txt(g, gr.x, gr.y, gr.name, { size: 24, weight: 900, ls: 2 });
+      txt(g, gr.x + 680, gr.y, String(gr.loops.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      g.append("rect").attr("x", gr.x).attr("y", gr.y + 14).attr("width", 680).attr("height", 3).attr("fill", INK);
+      gr.loops.forEach(function (l, j) {
+        var y = gr.y + 58 + j * 40;
+        txt(g, gr.x, y, l[0], { size: 24, weight: 700, family: MONO, fill: MUTED });
+        txt(g, gr.x + 70, y, l[1], { size: 25 });
+      });
+      if (A(anim, k, i + 1)) slideIn(g, true, gr.x ? 30 : -30);
+    });
+    if (k >= 5) {
+      var g5 = svg.append("g");
+      txt(g5, 0, 478, counts.join(" + ") + " = " + total + " loops", { size: 34, weight: 700, family: MONO });
+      txt(g5, 0, 526, "They differ in the subject and in the scan. The shape is the same.", { size: 26, fill: BODY });
+      if (A(anim, k, 5)) fadeIn(g5, 0, 500);
+    }
+  }
+
+  /* ---------- walk: loop 056, rank by reachability, one bounded fix ---------- */
+  var WALK = (function () {
+    var names = ["A", "B", "C", "D", "E", "F"], r = rng(56), idx = [0, 1, 2, 3, 4, 5];
+    var reach = shuffle(idx.slice(), r).slice(0, 2);
+    var ranked = idx.filter(function (i) { return reach.indexOf(i) >= 0; }).concat(idx.filter(function (i) { return reach.indexOf(i) < 0; }));
+    return { names: names, reach: reach, ranked: ranked };
+  })();
+  function renderWalk(el, k, anim) {
+    var svg = svgFor(el, W, 610, "Loop 056, the dependency-CVE burndown loop, walked through",
+      "Left: a scanner report of six findings, A to F, in report order. Two of the six are reachable. After ranking, the two reachable findings are at the top. The top one gets one bounded fix, then the whole project is verified and the scan runs again. Right: what the loop is: ranks dependency vulnerabilities by reachability and exposure, applies one bounded fix, verifies the whole project, repeats. Why: scanner reports are noisy; fix what is actually exploitable first. Pros: prioritises by real exposure; one fix at a time. Cons: reachability analysis can be wrong; no silencing findings, accepting risk or major upgrades without approval.");
+    label(svg, 0, 26, k >= 1 ? "RANKED: REACHABLE FINDINGS FIRST" : "SCANNER REPORT, IN REPORT ORDER", { size: 24 });
+    var rh = 60, pitch = 70, y0 = 46;
+    WALK.names.forEach(function (nm, i) {
+      var reachable = WALK.reach.indexOf(i) >= 0, pos = k >= 1 ? WALK.ranked.indexOf(i) : i;
+      var fixed = k >= 2 && pos === 0;
+      var g = svg.append("g").attr("transform", "translate(0," + (y0 + pos * pitch) + ")");
+      box(g, 0, 0, 620, rh, { fill: fixed ? INK : (reachable ? "#FFFFFF" : SUBTLE), stroke: reachable ? INK : FAMILIAR, sw: reachable ? 2.5 : 1.5 });
+      txt(g, 24, 39, "finding " + nm, { size: 26, weight: 700, family: MONO, fill: fixed ? "#FFFFFF" : (reachable ? INK : MUTED) });
+      txt(g, fixed ? 548 : 596, 39, fixed ? "fixed" : (reachable ? "reachable" : "not reachable"), { size: 24, weight: reachable ? 900 : 400, anchor: "end", fill: fixed ? "#FFFFFF" : (reachable ? INK : MUTED) });
+      if (fixed) check(g, 580, 30, 13, "#FFFFFF");
+      if (A(anim, k, 1) && pos !== i) g.attr("transform", "translate(0," + (y0 + i * pitch) + ")").transition().delay(200).duration(900).ease(d3.easeCubicInOut).attr("transform", "translate(0," + (y0 + pos * pitch) + ")");
+      if (A(anim, k, 2) && fixed) fadeIn(g, 0, 450);
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      txt(g2, 0, 510, "One bounded fix, to the top item.", { size: 28, weight: 900 });
+      txt(g2, 0, 552, "Then verify the whole project and run the scan again.", { size: 26, fill: BODY });
+      if (A(anim, k, 2)) fadeIn(g2, 300, 450);
+    }
+    label(svg, 700, 26, "LOOP 056", { size: 24 });
+    txt(svg, 700, 72, "The dependency-CVE burndown loop", { size: 30, weight: 900 });
+    label(svg, 700, 122, "WHAT", { size: 24 });
+    wrap(svg, 700, 158, "Ranks dependency vulnerabilities by reachability and exposure, applies one bounded fix, verifies the whole project, repeats.", 54, { size: 25, fill: INK });
+    label(svg, 700, 278, "WHY", { size: 24 });
+    wrap(svg, 700, 314, "Scanner reports are noisy; fix what's actually exploitable first.", 54, { size: 25, fill: INK });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      box(g3, 700, 372, 698, 96, { sw: 2.5 });
+      txt(g3, 724, 410, "PROS", { size: 24, weight: 900, ls: 1.5 });
+      wrap(g3, 830, 410, "Prioritises by real exposure; one fix at a time.", 44, { size: 24, fill: INK });
+      box(g3, 700, 482, 698, 124, { sw: 2.5, fill: TINT, stroke: RED });
+      txt(g3, 724, 520, "CONS", { size: 24, weight: 900, ls: 1.5, fill: RED });
+      wrap(g3, 830, 520, "Reachability analysis can be wrong; no silencing findings, accepting risk or major upgrades without approval.", 44, { size: 24, fill: RED });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- burndown: an honest run beside a run that narrowed the scan ---------- */
+  var BD = null;
+  function burndown() {
+    if (BD) return BD;
+    var N = 24, PASSES = 8, r = rng(7);
+    var hOrder = shuffle(d3.range(N), r), gOrder = shuffle(d3.range(N), r);
+    /* the narrowed run's move on each pass: [what happens to the finding, how many findings] */
+    var MOVES = [["fixed", 1], ["fixed", 1], ["scope", 8], ["fixed", 1], ["suppressed", 5], ["deleted", 4], ["suppressed", 4], ["none", 0]];
+    var hRep = [N], hWhen = {}, gRep = [N], gStatus = {}, gWhen = {}, at = 0, tally = { fixed: 0, scope: 0, suppressed: 0, deleted: 0, none: 0 }, p, j;
+    for (p = 1; p <= PASSES; p++) { hWhen[hOrder[p - 1]] = p; hRep.push(N - p); }
+    MOVES.forEach(function (m, i) {
+      for (j = 0; j < m[1]; j++) { gStatus[gOrder[at]] = m[0]; gWhen[gOrder[at]] = i + 1; at++; }
+      tally[m[0]] += m[1];
+      gRep.push(N - at);
+    });
+    BD = { N: N, PASSES: PASSES, hRep: hRep, hWhen: hWhen, gRep: gRep, gStatus: gStatus, gWhen: gWhen, tally: tally,
+      hFixed: PASSES, hOpen: N - PASSES, there: tally.scope + tally.suppressed };
+    return BD;
+  }
+  function renderBurndown(el, k, anim) {
+    var D = burndown(), N = D.N, P = D.PASSES, PASS_MS = 330;
+    var svg = svgFor(el, W, 612, "An honest burndown beside a run that narrowed the scan",
+      "Two runs start from 24 findings and run 8 passes. Honest run: one fix per pass, the scan reports 16 at the end, and rerunning the original scan finds the same 16 open, with 8 fixed. Narrowed run: the scan reports 24, 23, 22, 14, 13, 8, 4, 0, so the list is empty and the stop rule fires. Rerunning the original scan finds 17 still there: 8 dropped from the scan and 9 suppressed. 4 went with deleted files and 3 were fixed. Reported 0, really open 17.");
+    var SQ = {
+      open: [FAMILIAR, FAMILIAR, 1.5, null], off: ["#FFFFFF", BASE, 1.5, "5 5"], fixed: [INK, INK, 1.5, null],
+      hidden: [TINT, RED, 3, null], deleted: [RED, RED, 1.5, null]
+    };
+    function panel(x0, name, rep, on, animNow, color, statusOf, whenOf, revealNow) {
+      label(svg, x0, 26, name, { size: 24, fill: color === RED ? RED : MUTED });
+      var cx = x0 + 60, cw = 580, top = 62, bot = 232;
+      var X = d3.scaleLinear().domain([0, P]).range([cx, cx + cw]), Y = d3.scaleLinear().domain([0, N]).range([bot, top]);
+      svg.append("path").attr("d", "M" + (cx + 0.5) + "," + top + " L" + (cx + 0.5) + "," + (bot + 0.5) + " L" + (cx + cw) + "," + (bot + 0.5)).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 1.5);
+      [0, 12, 24].forEach(function (v) { txt(svg, cx - 12, Y(v) + 8, String(v), { size: 24, anchor: "end", fill: MUTED }); });
+      txt(svg, cx, bot + 32, "pass 0", { size: 24, fill: MUTED });
+      txt(svg, cx + cw, bot + 32, "pass " + P, { size: 24, fill: MUTED, anchor: "end" });
+      var num = txt(svg, x0 + 640, 34, "scan reports " + (on ? rep[P] : N), { size: 30, weight: 700, family: MONO, anchor: "end", fill: on && color === RED ? RED : INK });
+      if (on) {
+        var line = d3.line().x(function (d, i) { return X(i); }).y(function (d) { return Y(d); }).curve(d3.curveStepAfter);
+        var path = svg.append("path").attr("d", line(rep)).attr("fill", "none").attr("stroke", color).attr("stroke-width", 4);
+        if (animNow) {
+          var L = path.node().getTotalLength();
+          if (L > 0) path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L).transition().duration(P * PASS_MS).ease(d3.easeLinear).attr("stroke-dashoffset", 0)
+            .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+          num.text("scan reports " + N).transition().duration(P * PASS_MS).ease(d3.easeLinear).tween("text", function () {
+            var self = d3.select(this);
+            return function (t) { self.text("scan reports " + rep[Math.min(P, Math.floor(t * P + 0.0001))]); };
+          });
+        }
+      }
+      d3.range(N).forEach(function (i) {
+        var s = statusOf(i), st = SQ[s], col = i % 12, row = Math.floor(i / 12);
+        var r = svg.append("rect").attr("x", cx + col * 48.5 + 1).attr("y", 300 + row * 50 + 1).attr("width", 42).attr("height", 42)
+          .attr("fill", st[0]).attr("stroke", st[1]).attr("stroke-width", st[2]).attr("stroke-dasharray", st[3]);
+        if (animNow && s === "off") {
+          r.attr("fill", FAMILIAR).attr("stroke", FAMILIAR).attr("stroke-dasharray", null)
+            .transition().delay((whenOf(i) - 0.5) * PASS_MS).duration(200).attr("fill", st[0]).attr("stroke", st[1])
+            .on("end", function () { d3.select(this).attr("stroke-dasharray", st[3]); });
+        }
+        if (revealNow && s !== "open") {
+          r.attr("fill", "#FFFFFF").attr("stroke", BASE).attr("stroke-width", 1.5).attr("stroke-dasharray", "5 5")
+            .transition().delay(200 + i * 40).duration(300).attr("fill", st[0]).attr("stroke", st[1]).attr("stroke-width", st[2])
+            .on("start", function () { d3.select(this).attr("stroke-dasharray", null); });
+        }
+      });
+    }
+    panel(0, "HONEST RUN", D.hRep, k >= 1, A(anim, k, 1), INK,
+      function (i) { return D.hWhen[i] && k >= 1 ? (k >= 3 ? "fixed" : "off") : "open"; },
+      function (i) { return D.hWhen[i]; }, A(anim, k, 3));
+    panel(740, "NARROWED RUN", D.gRep, k >= 2, A(anim, k, 2), RED,
+      function (i) {
+        if (k < 2) return "open";
+        if (k < 3) return "off";
+        var s = D.gStatus[i];
+        return s === "fixed" ? "fixed" : (s === "deleted" ? "deleted" : "hidden");
+      },
+      function (i) { return D.gWhen[i]; }, A(anim, k, 3));
+    if (k >= 1) {
+      var a1 = txt(svg, 0, 432, D.hFixed + " off the list, " + D.hOpen + " still reported.", { size: 26, fill: BODY });
+      if (A(anim, k, 1)) fadeIn(a1, P * PASS_MS, 400);
+    }
+    if (k >= 2) {
+      var b1 = txt(svg, 740, 432, "The list is empty. The stop rule fires.", { size: 26, weight: 700, fill: INK });
+      if (A(anim, k, 2)) fadeIn(b1, P * PASS_MS, 400);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g"), T = D.tally;
+      txt(g3, 0, 468, "Original scan, rerun: " + D.hOpen + " found, " + D.hFixed + " fixed.", { size: 26, fill: BODY });
+      txt(g3, 0, 530, "Reported " + D.hRep[P] + ". Really open: " + D.hOpen + ".", { size: 34, weight: 900, fill: INK });
+      txt(g3, 740, 468, "Original scan, rerun: " + D.there + " found, " + T.fixed + " fixed.", { size: 26, weight: 700, fill: RED });
+      txt(g3, 740, 530, "Reported " + D.gRep[P] + ". Really open: " + D.there + ".", { size: 34, weight: 900, fill: RED });
+      txt(g3, 740, 568, T.scope + " dropped from the scan · " + T.suppressed + " suppressed · " + T.deleted + " deleted", { size: 24, fill: RED });
+      if (A(anim, k, 3)) fadeIn(g3, 900, 500);
+    }
+    var LG = [["off", "off the list"], ["open", "still reported"], ["fixed", "fixed"], ["hidden", "hidden from the scan"], ["deleted", "deleted"]], lx = 0;
+    LG.forEach(function (l) {
+      var st = SQ[l[0]];
+      if ((l[0] === "fixed" || l[0] === "hidden" || l[0] === "deleted") && k < 3) return;
+      svg.append("rect").attr("x", lx + 1).attr("y", 584).attr("width", 22).attr("height", 22).attr("fill", st[0]).attr("stroke", st[1]).attr("stroke-width", l[0] === "hidden" ? 2.5 : 1.5).attr("stroke-dasharray", l[0] === "off" ? "4 4" : null);
+      var t = txt(svg, lx + 34, 603, l[1], { size: 24, fill: MUTED });
+      lx += 34 + l[1].length * 11.6 + 40;
+    });
+  }
+
+  /* ---------- moves: the three ways the loop tree says this pattern fails ---------- */
+  function renderMoves(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Three ways an agent can empty the list without doing the work",
+      "Fails when the agent wins by: suppressing findings (the count falls and the problem stays; loop 065 must not win by disabling rules or adding suppressions, and loop 056 allows no silencing findings); narrowing the scan (fewer files scanned, fewer findings; loop 067 allows no excluded files and no relaxed severity); deleting things it should not (the finding goes and so does the work; loop 012 must not delete uncertain work, and loop 014 says not to delete uncertain records). The loop needs a scan you trust. Loop 005: coverage shows what ran, not whether the assertions are any good; an agent can write tests that only execute lines.");
+    label(svg, 0, 26, "FAILS WHEN THE AGENT WINS BY", { size: 24, fill: RED });
+    var M = [
+      ["Suppressing findings", "The count falls. The problem stays.", "065: it must not win by disabling rules or adding suppressions. 056: no silencing findings."],
+      ["Narrowing the scan", "Fewer files scanned, fewer findings.", "067: no excluded files, relaxed severity or unsafe casts."],
+      ["Deleting things it should not", "The finding goes, and so does the work.", "012: it must not delete uncertain work. 014: don't delete uncertain records."]
+    ];
+    M.forEach(function (m, i) {
+      if (k < i + 1) return;
+      var y = 46 + i * 128, g = svg.append("g");
+      box(g, 0, y, W - 2, 114, { sw: 2.5, fill: TINT, stroke: RED });
+      txt(g, 28, y + 50, m[0], { size: 30, weight: 900, fill: RED });
+      txt(g, 28, y + 90, m[1], { size: 24, fill: BODY });
+      g.append("path").attr("d", "M610," + (y + 16) + " L610," + (y + 98)).attr("stroke", RED).attr("stroke-width", 1.5);
+      txt(g, 640, y + 36, "GUARDRAILS NOTED FOR THE LOOPS", { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      wrap(g, 640, y + 70, m[2], 62, { size: 24, fill: INK });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      box(g4, 0, 440, W - 2, 150, { sw: 3 });
+      txt(g4, 28, 486, "NEEDS: A SCAN YOU TRUST", { size: 28, weight: 900, ls: 1.5 });
+      txt(g4, 28, 530, "Loop 005, the 100% test coverage loop: coverage shows what ran, not whether the assertions are any good.", { size: 24, fill: BODY });
+      txt(g4, 28, 566, "An agent can write tests that only execute lines.", { size: 24, weight: 700, fill: INK });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- choose: from the problem to the pattern to the child, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "How to choose this pattern and a loop under it",
+      "Question 1: what problem do you have? A pile of small known problems, Burn down a worklist. A number to improve, Measure, change one thing. Question 2: which child loop fits your subject? One of the sixteen fits, use that loop. None fits, write your own child: keep the pattern's shape and supply your own check. A new loop is worth keeping only if it adds a check or a subject the pattern does not already cover. Tell these apart: Burn down a worklist, the check is a scan, rerun unchanged, stop when the list is empty or nothing improves. Measure, change one thing: the check is a measurement under fixed conditions, keep a change only if the metric improved.");
+    var Q = [
+      { q: "What problem do you have?", a: ["a pile of small known problems", "Burn down a worklist"], b: ["a number to improve", "Measure, change one thing"] },
+      { q: "Which child loop fits your subject?", a: ["one of the sixteen fits", "Use that loop"], b: ["none fits", "Write your own child"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 520, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 25, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 526, y + 52, 576, y + 52, INK, 3);
+      box(ga, 580, y, 420, 104, { fill: INK });
+      txt(ga, 604, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 604, y + 80, r.a[1], { size: 26, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1020, y, 378, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1042, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1042, y + 80, r.b[1], { size: 24, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      txt(g2, 0, 272, "Writing your own child: keep the pattern's shape, supply your own check.", { size: 26, weight: 700 });
+      txt(g2, 0, 310, "A new loop is worth keeping only if it adds a check or a subject the pattern doesn't already cover.", { size: 24, fill: BODY });
+      if (A(anim, k, 2)) fadeIn(g2, 900, 400);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 368, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 386, 680, 184, { sw: 2.5 });
+      txt(g3, 26, 438, "Burn down a worklist", { size: 32, weight: 900 });
+      wrap(g3, 26, 486, "The check is a scan, rerun unchanged. Stop when the list is empty or nothing improves.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 386, 678, 184, { sw: 2.5 });
+      txt(g3, 746, 438, "Measure, change one thing", { size: 32, weight: 900 });
+      wrap(g3, 746, 486, "The check is a measurement under fixed conditions. Keep a change only if the metric improved.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- checks: four the loop needs, three that break it ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Seven checks before starting a worklist loop",
+      "Fits when: you have a pile of small problems of a known type; you have a scan you trust; the same scan runs again after every fix; the stop rule is set, the list is empty or nothing improves. Breaks when: the agent can suppress findings; the agent can narrow the scan; the agent can delete things it should not.");
+    var fits = [
+      "You have a pile of small problems of a known type.",
+      "You have a scan you trust.",
+      "The same scan runs again after every fix.",
+      "The stop rule is set: the list is empty, or nothing improves."
+    ];
+    var breaks = [
+      "The agent can suppress findings.",
+      "The agent can narrow the scan.",
+      "The agent can delete things it should not."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    fits.concat(breaks).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    cycle: { steps: 5, render: renderCycle },
+    children: { steps: 5, render: renderChildren },
+    walk: { steps: 3, render: renderWalk },
+    burndown: { steps: 3, render: renderBurndown },
+    moves: { steps: 4, render: renderMoves },
+    choose: { steps: 3, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

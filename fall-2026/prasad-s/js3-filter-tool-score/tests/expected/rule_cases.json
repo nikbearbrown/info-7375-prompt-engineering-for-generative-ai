@@ -1,0 +1,158 @@
+{
+  "note": "Constructed test postings, not real Stripe postings. Persona: CONTRACT.md section 1 final persona (locations: New York, NYC, Remote). Cases, inputs and expected values written by hand by Prasad on 2026-10-26, before any code. On 2026-10-26 Claude (Claude.ai) pointed out that R05, R07, R12 and R13 had been worked out against the old persona locations; Prasad checked each correction by hand against section 4 and accepted it, and Claude typed this corrected file.",
+  "cases": [
+    {
+      "id": "R01",
+      "title": "Product Manager, Payments",
+      "location": "New York",
+      "content": "We use Python and SQL every day.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "title contains Product Manager; location contains New York; content has Python and SQL (2 skills)"
+    },
+    {
+      "id": "R02",
+      "title": "Senior Product Manager",
+      "location": "Remote - United States",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "Senior title passes C1: 'Senior Product Manager' contains 'Product Manager' and the rule has no seniority filter."
+    },
+    {
+      "id": "R03",
+      "title": "APM",
+      "location": "Remote - United States",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": false,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "not_relevant",
+      "why": "'APM' is not in target_titles and contains no listed title, so C1 fails even though it names the same role."
+    },
+    {
+      "id": "R04",
+      "title": "Product Manager",
+      "location": "New-York",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": true,
+      "expect_C2": false,
+      "expect_C3": true,
+      "expect_verdict": "not_relevant",
+      "why": "'New-York' (with a hyphen) contains none of 'New York', 'NYC' or 'Remote', so C2 fails. Pinned false negative."
+    },
+    {
+      "id": "R05",
+      "title": "Product Manager",
+      "location": "US - Remote",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "'US - Remote' contains 'Remote' (case-insensitive substring), so C2 passes; C1 and C3 also pass."
+    },
+    {
+      "id": "R06",
+      "title": "Product Manager",
+      "location": "London",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": true,
+      "expect_C2": false,
+      "expect_C3": true,
+      "expect_verdict": "not_relevant",
+      "why": "'London' contains none of 'New York', 'NYC' or 'Remote', so C2 fails."
+    },
+    {
+      "id": "R07",
+      "title": "Product Analyst",
+      "location": "Boston, MA",
+      "content": "Day to day you will use Python to analyse funnel data and share findings.",
+      "expect_C1": true,
+      "expect_C2": false,
+      "expect_C3": false,
+      "expect_verdict": "not_relevant",
+      "why": "'Boston, MA' contains none of Alex's locations, so C2 fails; only one distinct skill (Python) is present, so C3 fails too."
+    },
+    {
+      "id": "R08",
+      "title": "Product Manager",
+      "location": "Remote - United States",
+      "content": "Our services are written in Python and store data in NoSQL databases.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "C3 passes on the pinned false positive: 'SQL' substring-matches inside 'NoSQL', and Python makes two distinct skills."
+    },
+    {
+      "id": "R09",
+      "title": "Product Manager",
+      "location": "New York, NY",
+      "content": "You will own the roadmap and use Python for analysis.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": false,
+      "expect_verdict": "not_relevant",
+      "why": "'roadmap' does not contain the skill 'roadmapping', so Python is the only skill found and C3 fails."
+    },
+    {
+      "id": "R10",
+      "title": "Product Manager, Billing",
+      "location": "Remote - United States",
+      "content": "&lt;p&gt;Python&lt;/p&gt;&lt;p&gt;SQL&lt;/p&gt;",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "After unescape-then-strip-tags, Python and SQL both survive as text, so C3 passes."
+    },
+    {
+      "id": "R11",
+      "title": "Product Manager",
+      "location": "Remote - United States",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": false,
+      "expect_verdict": "not_relevant",
+      "why": "There is no content field, and missing data is not guessed, so C3 is false."
+    },
+    {
+      "id": "R12",
+      "title": "Product Manager",
+      "location": "Boston, MA",
+      "content": "Python, Python, Python.",
+      "expect_C1": true,
+      "expect_C2": false,
+      "expect_C3": false,
+      "expect_verdict": "not_relevant",
+      "why": "'Boston, MA' contains none of Alex's locations, so C2 fails; the same skill three times counts once, so C3 fails too."
+    },
+    {
+      "id": "R13",
+      "title": "Product Manager",
+      "location": "SF, SEA, NYC",
+      "content": "You will query data in Python and SQL every week.",
+      "expect_C1": true,
+      "expect_C2": true,
+      "expect_C3": true,
+      "expect_verdict": "relevant",
+      "why": "'SF, SEA, NYC' contains 'NYC', so C2 passes; the commas do not matter to a substring match."
+    },
+    {
+      "id": "R14",
+      "title": "Software Engineer",
+      "location": "Chicago, IL",
+      "content": "Build Java services and run Kubernetes clusters.",
+      "expect_C1": false,
+      "expect_C2": false,
+      "expect_C3": false,
+      "expect_verdict": "not_relevant",
+      "why": "Title, location, and skills all miss, so C1, C2, and C3 all fail."
+    }
+  ]
+}

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Controlled experiment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Controlled experiment">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Controlled experiment">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Loop</p>
+      <h1 class="t-opening rise g2">Controlled experiment</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Fixed rules, recorded moves, a result anyone can replay.</p>
+      <div class="speaker-notes" hidden><p>This deck covers the tenth loop pattern, the controlled experiment. It shows the shape of the pattern, the one loop in the library that fits it, what makes it an experiment, and when to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Controlled experiment, the tenth and last loop pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">This loop does not improve a product. It runs agents under fixed rules to learn how they behave.</h2>
+      <div class="speaker-notes" hidden>
+        <p>The other loop patterns are about getting work done or checked. The loop tree calls this one the odd one out, because its goal is to learn something about agents.</p>
+        <p>Say this plainly: the grouping of the 85 loops into ten patterns is a judgment made from reading the catalog. None of it has been tested on real agent runs. Treat this deck as a reading of the pattern, not a result.</p>
+      </div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Fixed rules, recorded moves, a reproducible result</p>
+      <div class="speaker-notes" hidden><p>One slide. The loop tree gives this pattern a problem and a three-part shape, and nothing else.</p></div>
+    </section>
+
+    <!-- 5 SHAPE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three parts">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">Fix the rules, record the moves, reproduce the result</h2>
+      <div class="diagram build" data-build="shape" style="flex-basis:610px"></div>
+      <p class="source">Source: the loop tree, pattern 10. The line under each part is this deck's plain-word gloss.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the problem. You want to learn something about agents, not improve a product.</p>
+        <p><strong>Step 1:</strong> fixed rules. The game and the scoring are the same in every run.</p>
+        <p><strong>Step 2:</strong> recorded moves. Every choice is written down.</p>
+        <p><strong>Step 3:</strong> a reproducible result. Someone else can take the record and get the same result.</p>
+        <p><strong>Step 4:</strong> of the ten loop patterns, the loop tree calls this one the odd one out, because the goal is to learn.</p>
+        <p><strong>Step 5:</strong> a loop is a prompt plus a real check plus a stop rule. For this pattern the loop tree gives only the problem and the shape. It does not name the check or the stop rule, and this deck does not invent them.</p>
+      </div>
+    </section>
+
+    <!-- 6 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The loop">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">The loop</h2>
+      <p class="sub-section rise g3">One loop in the library fits: 042, the Axelrod subagent arena loop</p>
+      <div class="speaker-notes" hidden><p>Every other pattern has several child loops. This one has a single child.</p></div>
+    </section>
+
+    <!-- 7 ARENA -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Loop 042">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Loop 042</p>
+      <h2 class="t-chart">Two agents choose, round after round, to cooperate or defect</h2>
+      <div class="diagram build" data-build="arena" style="flex-basis:600px"></div>
+      <p class="source">Source: loop 042, The Axelrod subagent arena loop, Forward Future Loop Library. The average is computed as 180 ÷ 18.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two reasoning agents.</p>
+        <p><strong>Step 1:</strong> each round, each agent chooses to cooperate or to defect, and then they play again. This is an iterated prisoner's dilemma.</p>
+        <p><strong>Step 2:</strong> the agents are compared against two fixed players: one that always cooperates and one that always defects.</p>
+        <p><strong>Step 3:</strong> the question the loop asks is whether agents learn retaliation, forgiveness and exploitation.</p>
+        <p><strong>Step 4:</strong> the entry gives the size of the record as 18 matches and 180 rounds, replayable from recorded moves. That is 10 rounds a match on average. The entry's pros and cons are a reading of the catalog, not the catalog's own words: it calls the loop a research demo, not a work-improving loop.</p>
+      </div>
+    </section>
+
+    <!-- 8 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="What makes it an experiment">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">What makes it an experiment</h2>
+      <p class="sub-section rise g3">Each part of the shape, shown on one small match</p>
+      <div class="speaker-notes" hidden><p>The other loop decks have a part on how the pattern fails. The loop tree lists no failure modes for this one, so this part shows the three parts of the shape at work. The match is a small simulation with scripted players. No model was run.</p></div>
+    </section>
+
+    <!-- 9 MATCH -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Fixed rules, recorded moves">
+      <div class="rule"></div>
+      <span class="evidence">Simulation</span>
+      <p class="eyebrow">Parts 1 and 2</p>
+      <h2 class="t-chart">Fixed rules, recorded moves: one match, round by round</h2>
+      <div class="diagram build" data-build="match" style="flex-basis:620px"></div>
+      <p class="source">Source: the loop tree, pattern 10. Scripted players and payoffs are this deck's illustration; scores are computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the fixed rules. On the left, the points per round. On the right, three scripted players: one always cooperates, one always defects, and Copycat cooperates first and then plays whatever the other player did last. These scripts stand in for the agents. No model was run, and the payoff numbers are an illustration, not the source's.</p>
+        <p><strong>Step 1:</strong> round 1. Copycat cooperates, Always defect defects. Copycat gets 0 and Always defect gets 5.</p>
+        <p><strong>Step 2:</strong> rounds 2 to 10. Copycat now copies the defection, so both defect and each gets 1 a round. The totals are 9 and 14. Every move is on the screen: that is the record.</p>
+        <p><strong>Step 3:</strong> the other two pairings under the same rules: 30 to 30, and 0 to 50.</p>
+      </div>
+    </section>
+
+    <!-- 10 REPLAY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Reproducible result">
+      <div class="rule"></div>
+      <span class="evidence">Simulation</span>
+      <p class="eyebrow">Part 3</p>
+      <h2 class="t-chart">Replay the record and the totals come out the same</h2>
+      <div class="diagram build" data-build="replay" style="flex-basis:610px"></div>
+      <p class="source">Source: the loop tree, pattern 10, and the entry for loop 042. Both scoring rules are this deck's illustration; totals are computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the record of the match from the last slide, as two rows of moves.</p>
+        <p><strong>Step 1:</strong> run 1, played by the scripts, totals 9 to 14.</p>
+        <p><strong>Step 2:</strong> two replays. Each one scores the stored record again, and each gives 9 to 14. Same rules, same recorded moves, same totals.</p>
+        <p><strong>Step 3:</strong> now keep the record and change only the scoring rule. The moves are the same and the totals become 18 to 22. The entry for loop 042 cautions that results depend on the scoring rule, which is why the rule has to be stated. The loop tree lists no failure modes for this pattern, so this deck does not add any.</p>
+      </div>
+    </section>
+
+    <!-- 11 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part four</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">When the question is about the agents themselves</p>
+      <div class="speaker-notes" hidden><p>The loop tree says to pick the pattern from the problem you have. This pattern's problem is learning about agents.</p></div>
+    </section>
+
+    <!-- 12 CHOOSE + CHECKS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="When to use it: checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision and the checklist</p>
+      <h2 class="t-chart">Use it to learn about agents, not to improve a product</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:610px"></div>
+      <p class="source">Source: the loop tree, patterns 1 and 10 and "How to use the tree". The caution is from the entry for loop 042.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 and 2:</strong> the pair to tell apart. Both hold conditions fixed. A controlled experiment is for learning something about agents. Measure, change one thing is for making a number go the right way on a product. The split between learning and improving a product is the loop tree's own.</p>
+        <p><strong>Steps 3 to 5:</strong> the three parts of the shape as checks: the goal, fixed rules, recorded moves.</p>
+        <p><strong>Step 6:</strong> a caution from the entry for loop 042: results depend on the scoring rule, so state it.</p>
+        <p><strong>Step 7:</strong> the pattern has one child loop. The loop tree's advice when no child fits is to write your own: keep the pattern's shape and supply your own check.</p>
+      </div>
+    </section>
+
+    <!-- 13 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">A controlled experiment teaches you about agents. Fix the rules, record the moves, and let anyone replay it.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this reading: running the loop on real agents. Nothing here has been tested. This is the last deck in the set: five reasoning patterns, five workflow patterns and ten loop patterns.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Controlled experiment";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shape: fixed rules, recorded moves, reproducible result ---------- */
+  function renderShape(el, k, anim) {
+    var svg = svgFor(el, W, 610, "The shape of a controlled experiment",
+      "The problem: you want to learn something about agents, not improve a product. Three parts in a row: fixed rules, recorded moves, reproducible result. Of ten loop patterns this is the tenth, and the loop tree calls it the odd one out. A loop is a prompt plus a real check plus a stop rule; for this pattern the loop tree gives only the problem and the shape.");
+    label(svg, 0, 26, "THE PROBLEM", { size: 24 });
+    txt(svg, 0, 68, "You want to learn something about agents, not improve a product.", { size: 30, weight: 700 });
+    var P = [
+      { t: "FIXED RULES", a: "the same game and scoring", b: "in every run" },
+      { t: "RECORDED MOVES", a: "every choice", b: "is written down" },
+      { t: "REPRODUCIBLE RESULT", a: "the record gives", b: "the same result again" }
+    ];
+    var bw = 420, bh = 180, by = 100;
+    P.forEach(function (p, i) {
+      var x = i * 490, on = k >= i + 1;
+      if (!on) {
+        var idle = svg.append("g");
+        box(idle, x, by, bw, bh, { fill: SUBTLE, stroke: FAMILIAR });
+        txt(idle, x + 26, by + 42, "PART " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: BASE });
+        txt(idle, x + 26, by + 90, p.t, { size: 28, weight: 900, ls: 1, fill: BASE });
+        return;
+      }
+      var g = svg.append("g");
+      box(g, x, by, bw, bh, { fill: i === 2 ? TINT : "#FFFFFF", stroke: INK, sw: 2.5 });
+      txt(g, x + 26, by + 42, "PART " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      txt(g, x + 26, by + 90, p.t, { size: 28, weight: 900, ls: 1 });
+      txt(g, x + 26, by + 130, p.a, { size: 25, fill: BODY });
+      txt(g, x + 26, by + 162, p.b, { size: 25, fill: BODY });
+      if (i > 0) arrow(g, x - 64, by + bh / 2, x - 6, by + bh / 2, INK, 3);
+      if (A(anim, k, i + 1)) fadeIn(g, 0, 450);
+    });
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      label(g4, 0, 326, "TEN LOOP PATTERNS", { size: 24 });
+      d3.range(10).forEach(function (i) {
+        var me = i === 9, x = i * 68;
+        g4.append("rect").attr("x", x + 0.5).attr("y", 344.5).attr("width", 58).attr("height", 58)
+          .attr("fill", me ? INK : SUBTLE).attr("stroke", me ? INK : FAMILIAR).attr("stroke-width", 1.5);
+        txt(g4, x + 29, 382, String(i + 1), { size: 24, weight: 700, family: MONO, anchor: "middle", fill: me ? "#FFFFFF" : BASE });
+      });
+      txt(g4, 720, 368, "The loop tree calls pattern 10 the odd one out.", { size: 26, weight: 700 });
+      txt(g4, 720, 404, "Its goal is to learn, not to improve a product.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+    if (k >= 5) {
+      var g5 = svg.append("g");
+      label(g5, 0, 470, "A LOOP IS", { size: 24 });
+      node(g5, 130, 516, 260, 56, "a prompt", { size: 24 });
+      txt(g5, 290, 525, "+", { size: 28, weight: 700, anchor: "middle" });
+      node(g5, 450, 516, 260, 56, "a real check", { size: 24 });
+      txt(g5, 610, 525, "+", { size: 28, weight: 700, anchor: "middle" });
+      node(g5, 770, 516, 260, 56, "a stop rule", { size: 24 });
+      txt(g5, 0, 590, "For this pattern the loop tree gives only the problem and the shape.", { size: 24, fill: BODY });
+      if (A(anim, k, 5)) fadeIn(g5, 0, 500);
+    }
+  }
+
+  /* ---------- arena: loop 042 as the catalog entry describes it ---------- */
+  function renderArena(el, k, anim) {
+    var MATCHES = 18, ROUNDS = 180, per = ROUNDS / MATCHES;
+    var svg = svgFor(el, W, 600, "Loop 042, the Axelrod subagent arena loop",
+      "Two reasoning agents, A and B. Each round each one chooses to cooperate or defect, and the game repeats: an iterated prisoner's dilemma. They are compared against two fixed players, always cooperate and always defect. The loop asks whether agents learn retaliation, forgiveness and exploitation. The record is 18 matches and 180 rounds, 10 rounds a match on average, replayable from recorded moves.");
+    function player(g, x, y, w, name, sub, grey) {
+      box(g, x, y, w, 120, { sw: 2.5, fill: grey ? SUBTLE : "#FFFFFF", stroke: grey ? BASE : INK });
+      txt(g, x + w / 2, y + 54, name, { size: grey ? 24 : 28, weight: 900, anchor: "middle", ls: 1 });
+      txt(g, x + w / 2, y + 92, sub, { size: 24, anchor: "middle", fill: BODY });
+    }
+    label(svg, 0, 26, "THE MATCH", { size: 24 });
+    player(svg, 0, 46, 280, "AGENT A", "a reasoning agent");
+    player(svg, 360, 46, 280, "AGENT B", "a reasoning agent");
+    if (k >= 1) {
+      var g1 = svg.append("g");
+      [0, 360].forEach(function (x) {
+        node(g1, x + 66, 211, 132, 50, "cooperate", { size: 24 });
+        node(g1, x + 214, 211, 132, 50, "defect", { size: 24 });
+      });
+      txt(g1, 0, 284, "Each round, each agent chooses one. Then they play again.", { size: 26 });
+      txt(g1, 0, 320, "an iterated prisoner's dilemma", { size: 24, fill: MUTED });
+      if (A(anim, k, 1)) fadeIn(g1, 0, 450);
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      label(g2, 720, 26, "COMPARED AGAINST", { size: 24 });
+      player(g2, 720, 46, 320, "ALWAYS COOPERATE", "a fixed player", true);
+      player(g2, 1080, 46, 320, "ALWAYS DEFECT", "a fixed player", true);
+      txt(g2, 720, 206, "Two fixed players, for comparison.", { size: 26 });
+      if (A(anim, k, 2)) slideIn(g2, true, 30);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 380, "WHAT IT ASKS", { size: 24 });
+      txt(g3, 0, 420, "Do agents learn retaliation, forgiveness and exploitation?", { size: 28, weight: 700 });
+      ["retaliation", "forgiveness", "exploitation"].forEach(function (w, i) {
+        node(g3, 135 + i * 290, 476, 270, 56, w, { size: 26, fill: TINT });
+      });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      label(g4, 940, 380, "THE RECORD", { size: 24 });
+      txt(g4, 940, 428, MATCHES + " matches", { size: 40, weight: 700, family: MONO });
+      txt(g4, 940, 484, fmt(ROUNDS) + " rounds", { size: 40, weight: 700, family: MONO });
+      txt(g4, 940, 524, fmt(ROUNDS) + " ÷ " + MATCHES + " = " + per + " a match, on average", { size: 24, fill: BODY });
+      txt(g4, 0, 572, "Replayable from recorded moves. The entry calls it a research demo, not a work-improving loop.", { size: 26 });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- the simulation: scripted players, stated payoffs, scores computed round by round ----------
+     These scripts stand in for the agents. No model is run. The payoff numbers are this deck's
+     illustration and do not come from the source. */
+  var RULE1 = { name: "Rule 1", CC: 3, DD: 1, T: 5, S: 0 };
+  var RULE2 = { name: "Rule 2", CC: 3, DD: 2, T: 4, S: 0 };
+  var SCRIPTS = {
+    coop: { name: "Always cooperate", rule: "C every round", move: function () { return "C"; } },
+    defect: { name: "Always defect", rule: "D every round", move: function () { return "D"; } },
+    copy: { name: "Copycat", rule: "C first, then the other's last move", move: function (i, other) { return i === 0 ? "C" : other[i - 1]; } }
+  };
+  var N_ROUNDS = 10;
+  function playMatch(a, b, n) {
+    var ma = [], mb = [];
+    for (var i = 0; i < n; i++) { var x = a.move(i, mb), y = b.move(i, ma); ma.push(x); mb.push(y); }
+    return { a: ma, b: mb };
+  }
+  function roundPoints(x, y, r) {
+    return x === "C" && y === "C" ? [r.CC, r.CC] : x === "D" && y === "D" ? [r.DD, r.DD] : x === "D" ? [r.T, r.S] : [r.S, r.T];
+  }
+  function scoreRecord(rec, r) {
+    var out = { a: 0, b: 0, pa: [], pb: [] };
+    rec.a.forEach(function (x, i) { var p = roundPoints(x, rec.b[i], r); out.pa.push(p[0]); out.pb.push(p[1]); out.a += p[0]; out.b += p[1]; });
+    return out;
+  }
+  function ruleText(r) { return "both cooperate " + r.CC + ", both defect " + r.DD + ", one defects " + r.T + " and " + r.S; }
+  var REC = playMatch(SCRIPTS.copy, SCRIPTS.defect, N_ROUNDS);   /* the recorded moves, used on both simulation slides */
+
+  /* ---------- match: fixed rules, then one match round by round ---------- */
+  function renderMatch(el, k, anim) {
+    var sc = scoreRecord(REC, RULE1), shown = [0, 1, N_ROUNDS, N_ROUNDS][k], prevShown = [0, 0, 1, N_ROUNDS][k];
+    var svg = svgFor(el, W, 620, "One match between two scripted players, scored round by round",
+      "Points per round: both cooperate 3 each, both defect 1 each, one defects 5 to the defector and 0 to the other. Scripted players: always cooperate, always defect, and Copycat, which cooperates first and then plays the other player's last move. Copycat against Always defect over 10 rounds: Copycat plays C then D nine times and scores 9; Always defect plays D ten times and scores 14. Other pairings: Copycat 30 and Always cooperate 30; Always cooperate 0 and Always defect 50. Scripted players stand in for the agents; no model was run.");
+    label(svg, 0, 26, "FIXED RULES: POINTS PER ROUND", { size: 24 });
+    [["both cooperate", RULE1.CC + " each"], ["both defect", RULE1.DD + " each"],
+      ["one defects", RULE1.T + " to the defector, " + RULE1.S + " to the other"]].forEach(function (r, i) {
+      txt(svg, 0, 64 + i * 36, r[0], { size: 25, fill: BODY });
+      txt(svg, 240, 64 + i * 36, r[1], { size: 25, weight: 700 });
+    });
+    label(svg, 740, 26, "FIXED RULES: SCRIPTED PLAYERS", { size: 24 });
+    [SCRIPTS.coop, SCRIPTS.defect, SCRIPTS.copy].forEach(function (p, i) {
+      txt(svg, 740, 64 + i * 36, p.name, { size: 25, weight: 700 });
+      txt(svg, 980, 64 + i * 36, p.rule, { size: 24, fill: BODY });
+    });
+    label(svg, 0, 214, "RECORDED MOVES: COPYCAT AGAINST ALWAYS DEFECT", { size: 24 });
+    txt(svg, W, 214, "C = cooperate, D = defect", { size: 24, fill: MUTED, anchor: "end" });
+    var x0 = 250, cw = 84, pitch = 92;
+    txt(svg, 0, 250, "round", { size: 24, fill: MUTED });
+    txt(svg, 1200, 250, "total", { size: 24, fill: MUTED });
+    txt(svg, 0, 298, SCRIPTS.copy.name, { size: 26, weight: 700 });
+    txt(svg, 0, 398, SCRIPTS.defect.name, { size: 26, weight: 700 });
+    function cell(g, i, y, mv, pts) {
+      var x = x0 + i * pitch, d = mv === "D";
+      g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", cw).attr("height", 54)
+        .attr("fill", d ? INK : "#FFFFFF").attr("stroke", INK).attr("stroke-width", 2);
+      txt(g, x + cw / 2, y + 38, mv, { size: 28, weight: 700, family: MONO, anchor: "middle", fill: d ? "#FFFFFF" : INK });
+      txt(g, x + cw / 2, y + 82, "+" + pts, { size: 24, family: MONO, anchor: "middle", fill: MUTED });
+    }
+    d3.range(N_ROUNDS).forEach(function (i) {
+      txt(svg, x0 + i * pitch + cw / 2, 250, String(i + 1), { size: 24, fill: MUTED, anchor: "middle" });
+      if (i >= shown) {
+        [262, 362].forEach(function (y) {
+          svg.append("rect").attr("x", x0 + i * pitch + 0.5).attr("y", y + 0.5).attr("width", cw).attr("height", 54)
+            .attr("fill", "#FFFFFF").attr("stroke", FAMILIAR).attr("stroke-width", 1.5).attr("stroke-dasharray", "6 6");
+        });
+        return;
+      }
+      var g = svg.append("g");
+      cell(g, i, 262, REC.a[i], sc.pa[i]);
+      cell(g, i, 362, REC.b[i], sc.pb[i]);
+      if (anim && i >= prevShown && k <= 2) g.attr("opacity", 0).transition().delay((i - prevShown) * 220).duration(260).attr("opacity", 1);
+    });
+    function sumTo(a, n) { return d3.sum(a.slice(0, n)); }
+    var ta = txt(svg, 1200, 302, String(sumTo(sc.pa, shown)), { size: 40, weight: 700, family: MONO });
+    var tb = txt(svg, 1200, 402, String(sumTo(sc.pb, shown)), { size: 40, weight: 700, family: MONO });
+    if (anim && (k === 1 || k === 2)) {
+      [[ta, sc.pa], [tb, sc.pb]].forEach(function (p) {
+        var from = sumTo(p[1], prevShown), to = sumTo(p[1], shown);
+        p[0].text(String(from)).transition().duration(Math.max(300, (shown - prevShown) * 220)).ease(d3.easeLinear).tween("text", function () {
+          var it = d3.interpolateRound(from, to), self = d3.select(this);
+          return function (t) { self.text(String(it(t))); };
+        });
+      });
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 492, "ALL THREE PAIRINGS, " + N_ROUNDS + " ROUNDS EACH", { size: 24 });
+      [[SCRIPTS.copy, SCRIPTS.defect], [SCRIPTS.copy, SCRIPTS.coop], [SCRIPTS.coop, SCRIPTS.defect]].forEach(function (pr, i) {
+        var s = scoreRecord(playMatch(pr[0], pr[1], N_ROUNDS), RULE1), x = i * 480;
+        txt(g3, x, 528, pr[0].name + " : " + pr[1].name, { size: 25, fill: BODY });
+        txt(g3, x, 566, s.a + " : " + s.b, { size: 30, weight: 700, family: MONO });
+      });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    txt(svg, 0, 606, "Scripted players stand in for the agents. No model was run. Payoffs are illustrative, not from the source.", { size: 24, fill: MUTED });
+  }
+
+  /* ---------- replay: the same record gives the same totals; a second rule changes them ---------- */
+  function renderReplay(el, k, anim) {
+    var first = scoreRecord(playMatch(SCRIPTS.copy, SCRIPTS.defect, N_ROUNDS), RULE1);
+    var svg = svgFor(el, W, 610, "Replaying the recorded moves gives the same totals",
+      "The record: Copycat plays C then D nine times; Always defect plays D ten times. Run 1 totals 9 to 14. Replay 1 and replay 2, scored again from the record, also total 9 to 14. Under a second scoring rule, both cooperate 3, both defect 2, one defects 4 and 0, the same record totals 18 to 22. The loop tree lists no failure modes for this pattern.");
+    label(svg, 0, 26, "THE RECORD: COPYCAT AGAINST ALWAYS DEFECT", { size: 24 });
+    txt(svg, 0, 66, SCRIPTS.copy.name, { size: 25, weight: 700 });
+    txt(svg, 240, 66, REC.a.join("  "), { size: 26, family: MONO });
+    txt(svg, 0, 104, SCRIPTS.defect.name, { size: 25, weight: 700 });
+    txt(svg, 240, 104, REC.b.join("  "), { size: 26, family: MONO });
+    var same = true;
+    [["RUN 1", "played by the scripts", first], ["REPLAY 1", "scored again from the record", scoreRecord(REC, RULE1)],
+      ["REPLAY 2", "scored again from the record", scoreRecord(REC, RULE1)]].forEach(function (c, i) {
+      var x = i * 480, y = 140, on = k >= (i === 0 ? 1 : 2), g = svg.append("g");
+      if (c[2].a !== first.a || c[2].b !== first.b) same = false;
+      box(g, x, y, 440, 150, on ? { sw: 2.5 } : { stroke: FAMILIAR, dash: "6 6" });
+      txt(g, x + 26, y + 40, c[0], { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      if (!on) return;
+      txt(g, x + 26, y + 98, c[2].a + " : " + c[2].b, { size: 40, weight: 700, family: MONO });
+      txt(g, x + 26, y + 132, c[1], { size: 24, fill: BODY });
+      if (i > 0 && c[2].a === first.a && c[2].b === first.b) check(g, x + 384, y + 84, 16, INK);
+      if (A(anim, k, i === 0 ? 1 : 2)) fadeIn(g, i === 0 ? 0 : (i - 1) * 400, 450);
+    });
+    if (k >= 2) {
+      var t2 = txt(svg, 0, 336, same ? "Same rules, same recorded moves, same totals." : "The totals differ.", { size: 28, weight: 700, fill: same ? INK : RED });
+      if (A(anim, k, 2)) fadeIn(t2, 900, 400);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g"), s2 = scoreRecord(REC, RULE2);
+      label(g3, 0, 396, "SAME RECORD, A SECOND SCORING RULE", { size: 24 });
+      [[RULE1, first, INK], [RULE2, s2, RED]].forEach(function (r, i) {
+        var y = 436 + i * 40;
+        txt(g3, 0, y, r[0].name, { size: 25, weight: 700 });
+        txt(g3, 120, y, ruleText(r[0]), { size: 24, fill: BODY });
+        txt(g3, 1000, y, r[1].a + " : " + r[1].b, { size: 30, weight: 700, family: MONO, fill: r[2] });
+      });
+      txt(g3, 0, 524, "The moves did not change. The totals did.", { size: 28, weight: 700 });
+      txt(g3, 0, 560, "The entry for loop 042 cautions that results depend on the scoring rule.", { size: 24, fill: BODY });
+      txt(g3, 0, 596, "The loop tree lists no failure modes for this pattern.", { size: 24, fill: MUTED });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- choose: the look-alike pair, then five checks ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 610, "When to run a controlled experiment",
+      "Tell these apart. Controlled experiment: you want to learn something about agents; fixed rules, recorded moves, a reproducible result. Measure, change one thing: you want a number to go the right way; baseline, one change, re-measure, keep it only if better. Five checks: the goal is to learn about agents, not to improve a product; the rules are fixed before the first run; every move is recorded so the result can be replayed; the scoring rule is stated because the result depends on it; if loop 042 does not fit your question, write your own, keep the shape and supply your own check.");
+    label(svg, 0, 26, "TELL THESE APART", { size: 24 });
+    var PAIR = [
+      { n: "Controlled experiment", a: "You want to learn something about agents.", b: "Fixed rules, recorded moves, a reproducible result." },
+      { n: "Measure, change one thing", a: "You want a number to go the right way.", b: "Baseline, one change, re-measure, keep it only if better." }
+    ];
+    PAIR.forEach(function (p, i) {
+      if (k < i + 1) return;
+      var x = i * 720, g = svg.append("g");
+      box(g, x, 46, 680, 170, i === 0 ? { fill: INK } : { sw: 2.5 });
+      txt(g, x + 26, 98, p.n, { size: 32, weight: 900, fill: i === 0 ? "#FFFFFF" : INK });
+      txt(g, x + 26, 144, p.a, { size: 25, fill: i === 0 ? "#FFFFFF" : BODY });
+      txt(g, x + 26, 180, p.b, { size: 25, fill: i === 0 ? "#FFFFFF" : BODY });
+      if (A(anim, k, i + 1)) slideIn(g, true, i === 0 ? -30 : 30);
+    });
+    if (k >= 2) {
+      var t = txt(svg, 0, 252, "Both hold conditions fixed. One is for learning, the other for improving a product.", { size: 24, fill: BODY });
+      if (A(anim, k, 2)) fadeIn(t, 400, 400);
+    }
+    var CHECKS = [
+      ["The goal is to learn about agents, not to improve a product.", false],
+      ["The rules are fixed before the first run.", false],
+      ["Every move is recorded, so the result can be replayed.", false],
+      ["The scoring rule is stated, because the result depends on it.", true],
+      ["If loop 042 does not fit your question, write your own: keep the shape, supply your own check.", false]
+    ];
+    if (k >= 3) label(svg, 0, 300, "BEFORE YOU RUN ONE", { size: 24 });
+    CHECKS.forEach(function (c, i) {
+      if (k < i + 3) return;
+      var y = 316 + i * 58, g = svg.append("g");
+      box(g, 0, y, W - 1, 50, { sw: 2, fill: c[1] ? TINT : "#FFFFFF" });
+      check(g, 34, y + 26, 13, INK);
+      txt(g, 70, y + 34, c[0], { size: 26, weight: 700 });
+      if (c[1]) txt(g, W - 24, y + 34, "CAUTION", { size: 24, weight: 900, ls: 1.5, fill: RED, anchor: "end" });
+      if (A(anim, k, i + 3)) slideIn(g, true, -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    shape: { steps: 5, render: renderShape },
+    arena: { steps: 4, render: renderArena },
+    match: { steps: 3, render: renderMatch },
+    replay: { steps: 3, render: renderReplay },
+    choose: { steps: 7, render: renderChoose }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

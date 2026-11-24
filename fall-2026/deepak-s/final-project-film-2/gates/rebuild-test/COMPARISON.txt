@@ -1,0 +1,4 @@
+rebuilt master sha256 e9bce20b7210f53780bbbcd5b71b758bbaf95ca0c847089ba0f6d51ad5768847, 235.250 s
+submitted master sha256 06c7aaf3cd116fa3846c787180d7ac550fbc5b8e4dfa509ac84752f9e2031392, 235.208 s
+differences: B20 speech 13.85 -> 13.89 s (clip 13.875 -> 13.917 s, one frame), B24 audio bytes differ (speech 1.22 -> 1.19 s, padded to the same 2.60 s); all other mp3 and Manim clips byte-identical
+cause: the fresh venv installed onnxruntime 1.32.0 and numpy 2.5.5; the build venv has onnxruntime 1.31.0 and numpy 2.5.4 (kokoro-onnx 0.6.1 and espeakng-loader 0.2.4 in both)

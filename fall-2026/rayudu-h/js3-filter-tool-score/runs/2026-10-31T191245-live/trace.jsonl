@@ -1,0 +1,17 @@
+{"t": "2026-10-31T19:12:45-04:00", "event": "run-start", "boards": ["greenhouse:anthropic", "ashby:notion", "ashby:perplexity", "ashby:notion-does-not-exist-js2", "ashby:openai"], "budgets": {"max_boards": 6, "max_requests": 10, "max_seconds": 120, "request_timeout": 30, "max_claude": 25, "retry_delay": 2.0}}
+{"t": "2026-10-31T19:12:45-04:00", "event": "request", "board": "greenhouse:anthropic", "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:12:46-04:00", "event": "response", "board": "greenhouse:anthropic", "bytes": 9855349, "sha256": "2cc748f7fe5d4945a56c75670919d2b6e96da970371e1ae172a1b4bae3799e1b"}
+{"t": "2026-10-31T19:12:46-04:00", "event": "board-ok", "board": "greenhouse:anthropic", "postings": 675, "baseline": true, "new": 0}
+{"t": "2026-10-31T19:12:46-04:00", "event": "request", "board": "ashby:notion", "url": "https://api.ashbyhq.com/posting-api/job-board/notion", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:12:47-04:00", "event": "response", "board": "ashby:notion", "bytes": 2709185, "sha256": "f18954ebfee06295a6f97f9d1e39e4aaa4d736947f533e781fa7aaea306cc9f1"}
+{"t": "2026-10-31T19:12:47-04:00", "event": "board-ok", "board": "ashby:notion", "postings": 148, "baseline": true, "new": 0}
+{"t": "2026-10-31T19:12:47-04:00", "event": "request", "board": "ashby:perplexity", "url": "https://api.ashbyhq.com/posting-api/job-board/perplexity", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:12:47-04:00", "event": "response", "board": "ashby:perplexity", "bytes": 1200281, "sha256": "e8e04b29c763d1390e94dc7523d4da10413120d4c63d80e126f18b8e756f2359"}
+{"t": "2026-10-31T19:12:47-04:00", "event": "board-ok", "board": "ashby:perplexity", "postings": 138, "baseline": true, "new": 0}
+{"t": "2026-10-31T19:12:47-04:00", "event": "request", "board": "ashby:notion-does-not-exist-js2", "url": "https://api.ashbyhq.com/posting-api/job-board/notion-does-not-exist-js2", "attempt": 1, "timeout": 30}
+{"t": "2026-10-31T19:12:47-04:00", "event": "board-failed", "board": "ashby:notion-does-not-exist-js2", "reason": "HTTP 404 (permanent; not retried)", "attempt": 1}
+{"t": "2026-10-31T19:12:47-04:00", "event": "request", "board": "ashby:openai", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "attempt": 1, "timeout": 0.001}
+{"t": "2026-10-31T19:12:47-04:00", "event": "retry", "board": "ashby:openai", "reason": "timeout: timed out", "after_seconds": 2.0}
+{"t": "2026-10-31T19:12:49-04:00", "event": "request", "board": "ashby:openai", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "attempt": 2, "timeout": 0.001}
+{"t": "2026-10-31T19:12:49-04:00", "event": "board-failed", "board": "ashby:openai", "reason": "timeout: timed out (transient; retried once)", "attempt": 2}
+{"t": "2026-10-31T19:12:49-04:00", "event": "exit", "status": "incomplete", "requests_sent": 6, "seconds": 4.53}

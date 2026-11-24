@@ -1,0 +1,143 @@
+{
+  "status": "incomplete",
+  "exit_code": 1,
+  "reason": "1 board(s) did not succeed: greenhouse:pavan-js2-no-such-board",
+  "requests_used": 4,
+  "elapsed_seconds": 2.095,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 10,
+    "max_seconds": 60,
+    "request_timeout": 10,
+    "retry_wait": 2
+  },
+  "boards_attempted": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai",
+    "greenhouse:pavan-js2-no-such-board"
+  ],
+  "boards_succeeded": [
+    "greenhouse:gleanwork",
+    "lever:palantir",
+    "ashby:openai"
+  ],
+  "boards_failed": [
+    "greenhouse:pavan-js2-no-such-board"
+  ],
+  "boards_repeat_blocked": [],
+  "boards_not_attempted": [],
+  "new_counts": {
+    "greenhouse:gleanwork": 3,
+    "lever:palantir": 3,
+    "ashby:openai": 34
+  },
+  "failures": {
+    "greenhouse:pavan-js2-no-such-board": {
+      "reason": "bad_board",
+      "detail": "HTTP 404"
+    }
+  },
+  "duplicate_entries": [],
+  "replayed": [],
+  "run_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js3-filter-tool-score/out/runs/2026-11-23T153111",
+  "trace": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js3-filter-tool-score/out/runs/2026-11-23T153111/trace.jsonl",
+  "raw_dir": "/Users/jayantmajji/Desktop/Prompt/info-7375-prompt-engineering-for-generative-ai/fall-2026/pavan-m/js3-filter-tool-score/out/runs/2026-11-23T153111/raw",
+  "boards": {
+    "greenhouse:gleanwork": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 129,
+      "new": [
+        "greenhouse:gleanwork:4755669005",
+        "greenhouse:gleanwork:4508312005",
+        "greenhouse:gleanwork:4757440005"
+      ],
+      "baseline": false,
+      "usable_ids": 129,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/greenhouse_gleanwork.json"
+    },
+    "lever:palantir": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 306,
+      "new": [
+        "lever:palantir:53fb4c05-f949-4146-a046-5c063c36a628",
+        "lever:palantir:26c63e91-64bb-4a9d-8b24-f51754bffb83",
+        "lever:palantir:7600fb76-e25e-418c-bf83-d2b1444f2dc6"
+      ],
+      "baseline": false,
+      "usable_ids": 306,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/lever_palantir.json"
+    },
+    "ashby:openai": {
+      "status": "ok",
+      "reason": "compared",
+      "postings": 855,
+      "new": [
+        "ashby:openai:f6cada21-0f54-4d8a-884e-e3c64edd4789",
+        "ashby:openai:b40efa93-da3c-4593-bc98-03d203cd0488",
+        "ashby:openai:019170f9-ae56-49fc-8450-f505d39180bb",
+        "ashby:openai:ce15d226-65db-43f1-98ec-078e96a3a281",
+        "ashby:openai:13ade8a3-701f-4449-85f7-62319ce0f3ec",
+        "ashby:openai:d1906ab2-b829-4a13-b1f2-f4af97d699fa",
+        "ashby:openai:bc85c1a9-0f75-4c3a-807b-6d2bb26c8445",
+        "ashby:openai:ecfe655c-1369-4bcd-aae0-4a3b75fdf61b",
+        "ashby:openai:740b5d1b-f63d-49bb-962d-8e2778e925ef",
+        "ashby:openai:6785d983-8831-46d0-9c81-443f83664948",
+        "ashby:openai:894ba35c-c6b6-4cf0-9451-f996aa695e49",
+        "ashby:openai:5ebe5049-19e5-469e-a7bd-d8e34524220c",
+        "ashby:openai:fab4e858-fe9b-4f84-bf33-e41f1455bdb9",
+        "ashby:openai:e74851c0-6832-4c3f-8623-c67022336dbb",
+        "ashby:openai:26aa2f13-c8b1-4abd-a94c-7be0c453d824",
+        "ashby:openai:0ec48064-8816-4df1-af2e-30fdc01ca4af",
+        "ashby:openai:38b069ad-857c-485e-b201-3bd7c0b91da4",
+        "ashby:openai:0503a31f-5550-44e8-bec3-99b493532000",
+        "ashby:openai:ecb9e67e-8842-472b-a928-0291304ea7e5",
+        "ashby:openai:972ad402-3747-41d3-8407-51ac6178aa9c",
+        "ashby:openai:43d75302-2eef-46b6-b991-611e705f9fb1",
+        "ashby:openai:1566f1cb-dd46-4753-a8e3-7890c55882a3",
+        "ashby:openai:8afcc20f-c4ca-4c9e-959c-2447b1c5c8da",
+        "ashby:openai:5a693757-8c54-43a2-abd7-44ab598d4c6e",
+        "ashby:openai:970e547c-5eda-4ab3-8a4d-c080a18eb4ac",
+        "ashby:openai:f26bd8f0-5440-46bd-b6c0-8b7465f8e6dc",
+        "ashby:openai:1dcee8e6-4543-4d01-bc0e-a230bd54b263",
+        "ashby:openai:62032f94-87e8-45b8-968c-db9b8893e907",
+        "ashby:openai:77a73c98-cdc9-4cc2-9cf8-ec49ef952856",
+        "ashby:openai:83b21911-d467-44ab-af3b-c0b898488ab4",
+        "ashby:openai:811d3085-41fb-4e6d-8003-617fbde96818",
+        "ashby:openai:f68233de-f299-4732-ae4e-cee354159d4a",
+        "ashby:openai:70cfa7de-bf97-41e3-9784-8e123439a1d8",
+        "ashby:openai:ebe31cd6-0b6a-4214-b3c1-7dd7074753d6"
+      ],
+      "baseline": false,
+      "usable_ids": 855,
+      "unusable_ids": 0,
+      "unusable_examples": [],
+      "state_written": true,
+      "source": "live",
+      "http_status": 200,
+      "raw_file": "raw/ashby_openai.json"
+    },
+    "greenhouse:pavan-js2-no-such-board": {
+      "status": "failed",
+      "reason": "bad_board",
+      "postings": null,
+      "new": null,
+      "detail": "HTTP 404",
+      "source": "live",
+      "http_status": 404,
+      "raw_file": "raw/greenhouse_pavan-js2-no-such-board.json"
+    }
+  }
+}

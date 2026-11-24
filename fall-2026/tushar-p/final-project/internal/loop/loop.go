@@ -70,12 +70,14 @@ const NotCompleteNote = "The task is not complete yet."
 const taskMessage = "Task: %s\n\nYou have at most %d turns."
 
 // PromptVersion returns the SHA-256 (hex) of everything fixed that the
-// harness sends the model: the system prompt, the task-message template,
-// the not-complete note, and every tool definition (name, description,
-// input schema), sorted by name. Traces and the eval log record it, so a
-// result can always be tied to the exact prompt it was produced with. It
-// does not cover the goal (per task, in contract.json) or the tool results.
-func PromptVersion() string {
+// harness sends the model: the given system prompt (a prompt contract's,
+// package contracts), the task-message template, the not-complete note,
+// and every tool definition (name, description, input schema), sorted by
+// name. Traces and the eval log record it, so a result can always be tied
+// to the exact prompt it was produced with. It does not cover the goal
+// (per task, in contract.json) or the tool results. Contract A gives
+// 77d9d716f423..., the version of every run before T5.1.
+func PromptVersion(system string) string {
 	names := make([]string, 0, len(toolDefs))
 	for name := range toolDefs {
 		names = append(names, name)
@@ -85,7 +87,7 @@ func PromptVersion() string {
 	for _, name := range names {
 		tools = append(tools, toolDefs[name])
 	}
-	return promptVersion(systemPrompt, taskMessage, NotCompleteNote, tools)
+	return promptVersion(system, taskMessage, NotCompleteNote, tools)
 }
 
 // promptVersion hashes the given parts as one JSON object.
@@ -139,6 +141,7 @@ func NewAnthropicClient() Client {
 // Config is what the loop needs from the task contract.
 type Config struct {
 	Model     string
+	System    string // the system prompt: the prompt contract's text (package contracts); required
 	Goal      string
 	Tools     []string      // allowed_tools from contract.json
 	Limits    budget.Limits // the run's budget; Limits.Timeout is applied by the caller's ctx
@@ -154,8 +157,6 @@ type Result struct {
 	Stop             string           // one of the Stop* constants
 	Exit             trace.ExitReason // when Stop is StopLimit, which limit; when StopCheckPass, check_passed; "" otherwise
 }
-
-const systemPrompt = `You are a coding agent. You work inside an isolated Linux container with no network access. The task's repository is at /workspace, which is also the working directory. You can act only through the tools you are given, and file paths must be inside /workspace. Every tool call is checked by a permission policy before it runs; a denied call is not run, and its result says why. Your work is checked independently: after any step that changes /workspace, and when you finish. If a check fails, you are only told that the task is not complete yet. When the task is complete, reply with a short summary and do not call a tool.`
 
 // Run runs the loop. rec is called for every sandbox command a tool runs,
 // so the trace holds every host command. On error, Result still holds the
@@ -177,6 +178,9 @@ func Run(ctx context.Context, client Client, sb sandbox.Sandbox, cfg Config, rec
 	tools, err := buildTools(cfg.Tools)
 	if err != nil {
 		return res, err
+	}
+	if cfg.System == "" {
+		return res, errors.New("no system prompt (Config.System)")
 	}
 	lim := cfg.Limits
 	if lim.MaxSteps <= 0 || lim.MaxTotalTokens <= 0 || lim.MaxCostUSD <= 0 || lim.MaxPolicyViolations <= 0 || cfg.MaxTokens <= 0 {
@@ -229,7 +233,7 @@ func Run(ctx context.Context, client Client, sb sandbox.Sandbox, cfg Config, rec
 		params := anthropic.MessageNewParams{
 			Model:     cfg.Model, // anthropic.Model is a string type, so a plain string works
 			MaxTokens: cfg.MaxTokens,
-			System:    []anthropic.TextBlockParam{{Text: systemPrompt}},
+			System:    []anthropic.TextBlockParam{{Text: cfg.System}},
 			Messages:  messages,
 			Tools:     tools,
 			// At most one tool call per reply, so one step = one model turn

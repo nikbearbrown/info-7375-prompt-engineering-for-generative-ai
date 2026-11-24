@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Parallelization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Parallelization">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Parallelization">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Workflow</p>
+      <h1 class="t-opening rise g2">Parallelization</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Run the calls at once. Combine the outputs in code.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one workflow pattern: parallelization. It shows the shape and its two variations, what the pattern costs, and the questions that decide whether to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Parallelization, the third workflow pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">Parallelization runs several model calls at once and combines their outputs in code. It shortens the wait. It does not reduce the number of calls.</h2>
+      <div class="speaker-notes" hidden><p>The first sentence is the article's definition. The second is the trade this deck works through: the calls overlap in time, but each one is still made and still paid for.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Fan out, then gather. Two variations: sectioning and voting</p>
+      <div class="speaker-notes" hidden><p>Three slides: the basic shape, the two variations the article names, and the cookbook notebook's worked example.</p></div>
+    </section>
+
+    <!-- 5 FAN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Fan out, then gather">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">Several calls run at once, and code combines the results</h2>
+      <div class="diagram build" data-build="fan" style="flex-basis:600px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Parallelization" and "What are agents?".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> one input, three model calls and a combine step, all waiting.</p>
+        <p><strong>Step 1:</strong> the input goes to all three calls and they start at the same moment. No call waits for another.</p>
+        <p><strong>Step 2:</strong> each call returns its own output.</p>
+        <p><strong>Step 3:</strong> the outputs are combined programmatically. In the basic shape the combining is done by code, not by another model.</p>
+        <p><strong>Step 4:</strong> the path is written in code before any input arrives. The article calls that a workflow. In an agent, the model itself decides its process and tool use.</p>
+      </div>
+    </section>
+
+    <!-- 6 VARIANTS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Sectioning and voting">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Two variations</p>
+      <h2 class="t-chart">Sectioning splits the task. Voting repeats it.</h2>
+      <div class="diagram build" data-build="variants" style="flex-basis:610px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Parallelization". Examples paraphrased from the article.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the two names.</p>
+        <p><strong>Step 1:</strong> sectioning breaks one task into independent subtasks. Each call does a different piece, and code joins the pieces.</p>
+        <p><strong>Step 2:</strong> voting runs the same task several times to get diverse outputs, and code counts them.</p>
+        <p><strong>Step 3:</strong> the article's examples. Sectioning: one call answers the user while a second screens the request, and automated evaluations where each call grades one aspect. Voting: several prompts reviewing the same code for vulnerabilities, and several prompts judging whether content is inappropriate.</p>
+      </div>
+    </section>
+
+    <!-- 7 STAKEHOLDERS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The notebook's example">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">A worked example</p>
+      <h2 class="t-chart">One prompt, four stakeholder groups, three workers</h2>
+      <div class="diagram build" data-build="stake" style="flex-basis:610px"></div>
+      <p class="source">Source: Anthropic cookbook, basic_workflows.ipynb, the parallel function and example 2.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the notebook's parallel function takes one prompt and a list of inputs. The example has four stakeholder groups.</p>
+        <p><strong>Step 1:</strong> the same prompt is applied to every input. The four subtasks are independent.</p>
+        <p><strong>Step 2:</strong> the function's default is three workers. Three calls start together and the fourth input waits.</p>
+        <p><strong>Step 3:</strong> when a worker is free, the fourth call runs.</p>
+        <p><strong>Step 4:</strong> the function returns a list of four results in the order of the inputs. The notebook prints each one. No model call combines them. The notebook says its code is a sample to show the idea, not production code.</p>
+      </div>
+    </section>
+
+    <!-- 8 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="What it costs">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">What it costs</h2>
+      <p class="sub-section rise g3">The wait gets shorter. Every call is still made</p>
+      <div class="speaker-notes" hidden><p>The article's Parallelization section names no failure mode, so this part is about cost. Its general advice is that agentic systems trade latency and cost for task performance, and that the trade has to be weighed.</p></div>
+    </section>
+
+    <!-- 9 COST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Wait against calls">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Wait against calls</p>
+      <h2 class="t-chart">Four calls at once: one call's wait, four calls' bill</h2>
+      <div class="diagram build" data-build="cost" style="flex-basis:610px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "When (and when not) to use agents". The 6 s per call is illustrative; totals are computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> four calls. The 6 seconds per call is an illustrative input, stated on the slide.</p>
+        <p><strong>Step 1:</strong> one at a time, the wait is 4 times 6, which is 24 seconds.</p>
+        <p><strong>Step 2:</strong> with three workers, the notebook's default, three calls run together and the fourth follows: 12 seconds.</p>
+        <p><strong>Step 3:</strong> with four workers every call runs at once: 6 seconds, the time of one call.</p>
+        <p><strong>Step 4:</strong> the number of calls is four in every row. Running calls together changes the wait and leaves the count alone.</p>
+      </div>
+    </section>
+
+    <!-- 10 VOTES -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Voting and thresholds">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Voting</p>
+      <h2 class="t-chart">With voting, the threshold decides, and every vote is a call</h2>
+      <div class="diagram build" data-build="votes" style="flex-basis:600px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Parallelization". The five votes are illustrative; each decision is computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> one question asked five times. This follows the article's content-review example.</p>
+        <p><strong>Step 1:</strong> five calls return at once. In this illustration three say flag and two say pass.</p>
+        <p><strong>Step 2:</strong> three thresholds applied to the same five votes. At least one flag: flagged. At least three: flagged. All five: passed.</p>
+        <p><strong>Step 3:</strong> the article's point is that different vote thresholds balance false positives against false negatives. The price is plain: five votes are five calls for one decision.</p>
+      </div>
+    </section>
+
+    <!-- 11 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Independent pieces, or a decision worth several opinions</p>
+      <div class="speaker-notes" hidden><p>Three questions, the pair to tell apart, and a checklist.</p></div>
+    </section>
+
+    <!-- 12 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three questions">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Three questions decide whether to run calls in parallel</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Parallelization", "Workflow: Prompt chaining" and "Workflow: Orchestrator-workers".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three questions.</p>
+        <p><strong>Step 1:</strong> do the pieces need each other's output? If not, they can be sectioned. If each step works on the previous step's output, that is prompt chaining.</p>
+        <p><strong>Step 2:</strong> would several attempts or viewpoints raise confidence? If yes, voting. If not, the article notes that for many applications one well-tuned call is enough.</p>
+        <p><strong>Step 3:</strong> are the subtasks known in advance? If yes, parallelization. If they depend on the input, orchestrator-workers.</p>
+        <p><strong>Step 4:</strong> the pair to tell apart. The article says the two are structurally similar. The difference is who chooses the subtasks: code, ahead of time, or a central model, from each input.</p>
+      </div>
+    </section>
+
+    <!-- 13 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you run calls in parallel</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Parallelization", "Workflow: Orchestrator-workers" and "When (and when not) to use agents".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> the conditions under which the article says the pattern helps.</p>
+        <p><strong>Steps 5 to 7:</strong> reasons to look elsewhere. These come from the article's general advice and its contrast with orchestrator-workers. The article lists no failure modes for this pattern, so none are claimed here.</p>
+      </div>
+    </section>
+
+    <!-- 14 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">Parallelization shortens the wait, not the bill. Use it for independent pieces, or when a second opinion is worth a second call.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: if the subtasks can't be listed before the input arrives, the fixed fan-out no longer fits. Next in the set: Orchestrator-workers, where a central model decides the subtasks at run time.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Parallelization";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- fan: one input, several calls at once, code combines ---------- */
+  function renderFan(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The shape of parallelization: fan out, then gather",
+      "One input goes to three model calls that start at the same moment. Each call returns its own output. The outputs are combined in code, not by a model. The path is fixed in code before any input arrives, which makes it a workflow. In an agent, the model itself decides its process and its tool use.");
+    var CY = [95, 275, 455], on = k >= 1, done = k >= 2, comb = k >= 3;
+    var gi = svg.append("g");
+    box(gi, 0, 220, 230, 110, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+    txt(gi, 115, 270, "INPUT", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: on ? INK : BASE });
+    txt(gi, 115, 306, "one task", { size: 24, anchor: "middle", fill: on ? BODY : BASE });
+    if (on) {
+      var lb = label(svg, 430, 26, "ALL THREE START AT THE SAME MOMENT", { size: 24 });
+      if (A(anim, k, 1)) fadeIn(lb, 300, 400);
+    }
+    CY.forEach(function (cy, i) {
+      var g = svg.append("g");
+      box(g, 430, cy - 55, 380, 110, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 620, cy - 6, "LLM CALL " + (i + 1), { size: 28, weight: 900, anchor: "middle", ls: 2, fill: on ? INK : BASE });
+      if (on) {
+        var a1 = svg.append("g"); arrow(a1, 236, 275, 422, cy, INK, 2.5);
+        g.append("rect").attr("x", 450).attr("y", cy + 20).attr("width", 340).attr("height", 14).attr("fill", GRID);
+        var pb = g.append("rect").attr("x", 450).attr("y", cy + 20).attr("width", done ? 340 : 170).attr("height", 14).attr("fill", INK);
+        if (A(anim, k, 1)) { fadeIn(a1, 0, 300); pb.attr("width", 0).transition().delay(300).duration(900).ease(d3.easeLinear).attr("width", 170); }
+        if (A(anim, k, 2)) pb.attr("width", 170).transition().duration(700).ease(d3.easeLinear).attr("width", 340);
+      }
+      if (done) {
+        var a2 = svg.append("g"); arrow(a2, 816, cy, 992, 275, INK, 2.5);
+        check(a2, 774, cy - 18, 11, INK);
+        if (A(anim, k, 2)) fadeIn(a2, 700, 350);
+      }
+    });
+    var gc = svg.append("g");
+    box(gc, 1000, 220, 399, 110, { fill: comb ? TINT : SUBTLE, stroke: comb ? INK : FAMILIAR, sw: comb ? 2.5 : 1.5 });
+    txt(gc, 1199, 270, "COMBINE", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: comb ? INK : BASE });
+    if (comb) {
+      txt(gc, 1199, 306, "in code, not by a model", { size: 24, anchor: "middle", fill: BODY });
+      if (A(anim, k, 3)) fadeIn(gc, 0, 450);
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 552, "The path is fixed in code before any input arrives. That makes it a workflow.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 590, "In an agent, the model itself decides its process and its tool use.", { size: 24, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- variants: sectioning against voting ---------- */
+  var VARIANTS = [
+    { name: "SECTIONING", sub: "One task, split into different pieces",
+      kids: [["piece A", "one subtask"], ["piece B", "another subtask"], ["piece C", "a third subtask"]], end: "code joins the pieces",
+      ex: ["One call answers the user while a second screens the request.", "Automated evaluation: each call grades one aspect."] },
+    { name: "VOTING", sub: "The same task, run several times",
+      kids: [["same task", "attempt 1"], ["same task", "attempt 2"], ["same task", "attempt 3"]], end: "code counts the votes",
+      ex: ["Several prompts review the same code for vulnerabilities.", "Several prompts judge whether content is inappropriate."] }
+  ];
+  function renderVariants(el, k, anim) {
+    var svg = svgFor(el, W, 610, "The two variations of parallelization: sectioning and voting",
+      "Sectioning: one task is split into different pieces, A, B and C; each call does one piece and code joins the pieces. The article's examples: one call answers the user while a second screens the request; automated evaluation where each call grades one aspect. Voting: the same task is run several times, attempts 1, 2 and 3, and code counts the votes. The article's examples: several prompts review the same code for vulnerabilities; several prompts judge whether content is inappropriate.");
+    VARIANTS.forEach(function (v, i) {
+      var x0 = i * 720, on = k >= i + 1;
+      label(svg, x0, 26, v.name, { size: 24, fill: on ? INK : BASE });
+      txt(svg, x0, 62, v.sub, { size: 26, fill: on ? BODY : BASE });
+      if (!on) return;
+      var g = svg.append("g");
+      box(g, x0, 84, 679, 60, { sw: 2.5 });
+      txt(g, x0 + 340, 124, "TASK", { size: 26, weight: 900, anchor: "middle", ls: 2 });
+      if (A(anim, k, i + 1)) fadeIn(g, 0, 350);
+      v.kids.forEach(function (kd, j) {
+        var kx = x0 + j * 235, gk = svg.append("g");
+        arrow(gk, kx + 105, 150, kx + 105, 184, INK, 2.5);
+        box(gk, kx, 190, 209, 92, { sw: 2.5, fill: i === 1 ? SUBTLE : "#FFFFFF" });
+        txt(gk, kx + 105, 228, kd[0], { size: 26, weight: 700, anchor: "middle" });
+        txt(gk, kx + 105, 264, kd[1], { size: 24, anchor: "middle", fill: BODY });
+        arrow(gk, kx + 105, 288, kx + 105, 322, INK, 2.5);
+        if (A(anim, k, i + 1)) fadeIn(gk, 350, 400);
+      });
+      var ge = svg.append("g");
+      box(ge, x0, 328, 679, 60, { sw: 2.5, fill: TINT });
+      txt(ge, x0 + 340, 367, v.end, { size: 26, weight: 700, anchor: "middle" });
+      if (A(anim, k, i + 1)) fadeIn(ge, 800, 400);
+      if (k >= 3) {
+        var gx = svg.append("g");
+        label(gx, x0, 436, "THE ARTICLE'S EXAMPLES", { size: 24 });
+        v.ex.forEach(function (e, n) {
+          var y = 476 + n * 72;
+          gx.append("rect").attr("x", x0).attr("y", y - 16).attr("width", 14).attr("height", 14).attr("fill", INK);
+          wrap(gx, x0 + 30, y, e, 50, { size: 24, fill: BODY });
+        });
+        if (A(anim, k, 3)) fadeIn(gx, i * 300, 450);
+      }
+    });
+  }
+
+  /* ---------- stake: the notebook's example, one prompt over four inputs with three workers ---------- */
+  var GROUPS = ["Customers", "Employees", "Investors", "Suppliers"], N_WORKERS = 3;
+  var STAKE_PROMPT = "Analyze how market changes will impact this stakeholder group.";
+  function renderStake(el, k, anim) {
+    var svg = svgFor(el, W, 610, "The notebook's parallel example: one prompt, four stakeholder groups, three workers",
+      "One prompt, analyze how market changes will impact this stakeholder group, is applied to four inputs: customers, employees, investors and suppliers. With three workers, three calls start together and the fourth input waits for a free worker, then runs. The function returns four results as a list in the order of the inputs. No model call combines them; the notebook prints each one.");
+    box(svg, 0, 6, W - 1, 64, { sw: 2.5 });
+    txt(svg, 22, 47, "ONE PROMPT", { size: 24, weight: 900, ls: 1.5 });
+    txt(svg, 216, 47, STAKE_PROMPT, { size: 24, family: MONO });
+    label(svg, 0, 114, "FOUR INPUTS", { size: 24 });
+    if (k >= 2) label(svg, 340, 114, "THREE WORKERS (n_workers = " + N_WORKERS + ")", { size: 24 });
+    if (k >= 4) label(svg, 980, 114, "RESULTS, IN INPUT ORDER", { size: 24 });
+    GROUPS.forEach(function (name, i) {
+      var y = 130 + i * 84, wave = Math.floor(i / N_WORKERS), g = svg.append("g");
+      box(g, 0, y, 300, 70, { sw: 2.5 });
+      txt(g, 24, y + 45, name, { size: 26, weight: 700 });
+      if (k < 1) return;
+      var lane = svg.append("g");
+      lane.append("rect").attr("x", 340).attr("y", y).attr("width", 600).attr("height", 70).attr("fill", SUBTLE);
+      if (k === 1) { txt(lane, 360, y + 44, "same prompt + this input", { size: 24, fill: MUTED }); if (A(anim, k, 1)) fadeIn(lane, i * 120, 350); }
+      if (k < 2) return;
+      var b;
+      if (wave === 0) {
+        b = lane.append("rect").attr("x", 340).attr("y", y + 8).attr("width", 290).attr("height", 54).attr("fill", INK);
+        var t0 = txt(lane, 360, y + 44, k >= 3 ? "done" : "call running", { size: 24, weight: 700, fill: "#FFFFFF" });
+        if (A(anim, k, 2)) { b.attr("width", 0).transition().duration(800).ease(d3.easeLinear).attr("width", 290); fadeIn(t0, 500, 300); }
+      } else {
+        var wb = lane.append("g");
+        box(wb, 340, y + 8, 290, 54, { stroke: BASE, dash: "6 6", fill: "#FFFFFF" });
+        txt(wb, 360, y + 44, k >= 3 ? "waited" : "waits for a worker", { size: 24, fill: MUTED });
+        if (A(anim, k, 2)) fadeIn(wb, 0, 400);
+        if (k >= 3) {
+          b = lane.append("rect").attr("x", 650).attr("y", y + 8).attr("width", 290).attr("height", 54).attr("fill", INK);
+          var t1 = txt(lane, 670, y + 44, k >= 4 ? "done" : "call running", { size: 24, weight: 700, fill: "#FFFFFF" });
+          if (A(anim, k, 3)) { b.attr("width", 0).transition().duration(800).ease(d3.easeLinear).attr("width", 290); fadeIn(t1, 500, 300); }
+        }
+      }
+      if (k >= 4) {
+        var r = svg.append("g");
+        arrow(r, 946, y + 35, 974, y + 35, INK, 2.5);
+        box(r, 980, y, 419, 70, { sw: 2.5 });
+        txt(r, 1004, y + 45, "result " + (i + 1) + ": " + name.toLowerCase(), { size: 26 });
+        if (A(anim, k, 4)) fadeIn(r, i * 150, 350);
+      }
+    });
+    if (k >= 2) {
+      var c0 = txt(svg, 0, 498, "Three workers: three calls start together. The fourth input waits for a free worker.", { size: 26, fill: BODY });
+      if (A(anim, k, 2)) fadeIn(c0, 600, 400);
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 546, "The function returns four results as a list, in the order of the inputs.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 590, "No model call combines them. The notebook prints each one.", { size: 24, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 600, 400); fadeIn(c2, 900, 400); }
+    }
+  }
+
+  /* ---------- cost: the wait shrinks with workers, the number of calls does not ---------- */
+  var N_CALLS = 4, T_CALL = 6;   /* T_CALL is an illustrative input, stated on the slide */
+  var ARRANGE = [
+    { name: "One at a time", sub: "in sequence", w: 1 },
+    { name: "Three workers", sub: "the notebook's default", w: N_WORKERS },
+    { name: "Four workers", sub: "all four at once", w: N_CALLS }
+  ];
+  function waitFor(w) { return Math.ceil(N_CALLS / w) * T_CALL; }
+  function renderCost(el, k, anim) {
+    var svg = svgFor(el, W, 610, "Wait and number of calls for four calls under three arrangements",
+      "Inputs: 4 calls of 6 seconds each, illustrative. One at a time: 24 seconds, 4 calls. Three workers: 12 seconds, 4 calls. Four workers: 6 seconds, 4 calls. The same four calls are made in every row; running them together changes the wait, not the count.");
+    var seq = N_CALLS * T_CALL, x0 = 300, X = d3.scaleLinear().domain([0, seq]).range([0, 720]);
+    txt(svg, 0, 28, "Inputs: " + N_CALLS + " calls, " + T_CALL + " s each (illustrative). A call starts when a worker is free.", { size: 24, fill: BODY });
+    label(svg, 1056, 68, "WAIT", { size: 24 });
+    if (k >= 4) label(svg, 1250, 68, "CALLS", { size: 24, fill: RED });
+    d3.range(0, seq + 1, T_CALL).forEach(function (t) {
+      svg.append("path").attr("d", "M" + (x0 + X(t) + 0.5) + ",80 L" + (x0 + X(t) + 0.5) + ",462").attr("stroke", GRID).attr("stroke-width", 1.5);
+      txt(svg, x0 + X(t), 492, t === 0 ? "0" : t + " s", { size: 24, anchor: "middle", fill: MUTED });
+    });
+    ARRANGE.forEach(function (a, i) {
+      var yr = 86 + i * 130, on = k >= i + 1, wait = waitFor(a.w);
+      txt(svg, 0, yr + 40, a.name, { size: 28, weight: 900, fill: on ? INK : BASE });
+      txt(svg, 0, yr + 74, a.sub, { size: 24, fill: on ? MUTED : BASE });
+      d3.range(N_CALLS).forEach(function (j) {
+        var ly = yr + j * 26;
+        svg.append("rect").attr("x", x0).attr("y", ly).attr("width", 720).attr("height", 20).attr("fill", SUBTLE);
+        if (!on) return;
+        var start = Math.floor(j / a.w) * T_CALL;
+        var r = svg.append("rect").attr("x", x0 + X(start) + 1).attr("y", ly).attr("width", X(T_CALL) - 2).attr("height", 20).attr("fill", INK);
+        if (A(anim, k, i + 1)) r.attr("width", 0).transition().delay(start / T_CALL * 450).duration(450).ease(d3.easeLinear).attr("width", X(T_CALL) - 2);
+      });
+      if (on) {
+        var tw = txt(svg, 1056, yr + 62, wait + " s", { size: 40, weight: 700, family: MONO });
+        if (A(anim, k, i + 1)) tw.text("0 s").transition().duration(wait / T_CALL * 450).ease(d3.easeLinear).tween("text", function () {
+          var it = d3.interpolateRound(0, wait), self = d3.select(this); return function (t) { self.text(it(t) + " s"); };
+        });
+      }
+      if (k >= 4) {
+        var tc = txt(svg, 1250, yr + 62, N_CALLS + " calls", { size: 32, weight: 700, family: MONO, fill: RED });
+        if (A(anim, k, 4)) fadeIn(tc, i * 250, 350);
+      }
+    });
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      txt(g4, 0, 544, "Same four calls in every row. Running them together changes the wait, not the count.", { size: 28, weight: 700, fill: INK });
+      ARRANGE.forEach(function (a, i) {
+        txt(g4, i * 470, 590, "ceil(" + N_CALLS + " / " + a.w + ") × " + T_CALL + " s = " + waitFor(a.w) + " s", { size: 24, family: MONO, fill: BODY });
+      });
+      if (A(anim, k, 4)) fadeIn(g4, 700, 500);
+    }
+  }
+
+  /* ---------- votes: five votes, three thresholds ---------- */
+  var VOTES = [true, false, true, true, false];   /* illustrative: true = this call says "flag" */
+  var THRESHOLDS = [1, 3, 5];
+  function renderVotes(el, k, anim) {
+    var n = VOTES.length, flags = VOTES.filter(Boolean).length;
+    var svg = svgFor(el, W, 600, "Five votes on one question, judged at three thresholds",
+      "One question, is this content inappropriate, is asked five times. Illustrative votes: flag, pass, flag, flag, pass, so 3 of 5 calls say flag. Flag if at least 1 of 5 say flag: flagged. At least 3 of 5: flagged. At least 5 of 5: passed. The same five votes give different decisions at different thresholds. Five votes are five calls for one decision.");
+    label(svg, 0, 26, "ONE QUESTION, ASKED " + ["", "ONCE", "TWICE", "THREE TIMES", "FOUR TIMES", "FIVE TIMES"][n] + ": IS THIS CONTENT INAPPROPRIATE?", { size: 24 });
+    VOTES.forEach(function (v, i) {
+      var x = i * 287, on = k >= 1, g = svg.append("g");
+      box(g, x, 46, 250, 104, { fill: !on ? SUBTLE : (v ? TINT : "#FFFFFF"), stroke: !on ? FAMILIAR : (v ? RED : INK), sw: on ? 2.5 : 1.5 });
+      txt(g, x + 125, on ? 86 : 108, "call " + (i + 1), { size: 26, weight: 700, anchor: "middle", fill: !on ? BASE : (v ? RED : INK) });
+      if (on) txt(g, x + 125, 126, v ? "flag" : "pass", { size: 28, weight: 900, anchor: "middle", fill: v ? RED : INK });
+      if (A(anim, k, 1)) fadeIn(g, 0, 450);
+    });
+    if (k >= 1) {
+      var tc = txt(svg, 0, 198, flags + " of " + n + " calls say flag.", { size: 28, weight: 700 });
+      if (A(anim, k, 1)) fadeIn(tc, 450, 350);
+    }
+    if (k >= 2) {
+      THRESHOLDS.forEach(function (t, r) {
+        var y = 232 + r * 74, hit = flags >= t, g = svg.append("g");
+        txt(g, 0, y + 39, "Flag if at least " + t + " of " + n + " say flag", { size: 27 });
+        txt(g, 560, y + 39, flags + " ≥ " + t + " is " + hit, { size: 26, family: MONO, fill: BODY });
+        box(g, 900, y, 300, 58, { fill: hit ? RED : "#FFFFFF", stroke: hit ? RED : INK, sw: 2.5 });
+        txt(g, 1050, y + 39, hit ? "FLAGGED" : "PASSED", { size: 26, weight: 900, anchor: "middle", ls: 2, fill: hit ? "#FFFFFF" : INK });
+        if (A(anim, k, 2)) fadeIn(g, r * 450, 400);
+      });
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 0, 496, "Same five votes. The threshold alone changes the decision.", { size: 28, weight: 700, fill: INK });
+      txt(g3, 0, 540, "A low threshold flags more and a high one flags less: false positives against false negatives.", { size: 25, fill: BODY });
+      txt(g3, 0, 584, "Five votes are five calls for one decision.", { size: 26, weight: 900, fill: RED });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- choose: three questions, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Three questions that decide whether to run calls in parallel",
+      "Question 1: do the pieces need each other's output? No, sectioning. Yes, prompt chaining. Question 2: would several attempts raise confidence? Yes, voting. No, one call may be enough. Question 3: are the subtasks known in advance? Yes, fixed in code, parallelization. No, they depend on the input, orchestrator-workers. Tell these apart: in parallelization the subtasks are fixed in advance, in code; in orchestrator-workers a central model decides the subtasks from each input.");
+    var Q = [
+      { q: "Do the pieces need each other's output?", a: ["no", "Sectioning"], b: ["yes", "Prompt chaining"] },
+      { q: "Would several attempts raise confidence?", a: ["yes", "Voting"], b: ["no", "One call may be enough"] },
+      { q: "Are the subtasks known in advance?", a: ["yes, fixed in code", "Parallelization"], b: ["no, they depend on the input", "Orchestrator-workers"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 560, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 27, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 566, y + 52, 616, y + 52, INK, 3);
+      box(ga, 620, y, 390, 104, { fill: INK });
+      txt(ga, 644, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 644, y + 80, r.a[1], { size: 27, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1030, y, 368, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1052, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1052, y + 80, r.b[1], { size: 25, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 4) {
+      var g3 = svg.append("g");
+      label(g3, 0, 380, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 398, 680, 170, { sw: 2.5 });
+      txt(g3, 26, 450, "Parallelization", { size: 32, weight: 900 });
+      wrap(g3, 26, 498, "The subtasks are fixed in advance, in code.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 398, 678, 170, { sw: 2.5 });
+      txt(g3, 746, 450, "Orchestrator-workers", { size: 32, weight: 900 });
+      wrap(g3, 746, 498, "A central model decides the subtasks from each input, at run time.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- checks: four that fit, three reasons to look elsewhere ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Seven checks before running calls in parallel",
+      "Fits when: the pieces can run in parallel and speed matters; several viewpoints or attempts would raise confidence; the task has many considerations and each can get its own call; the subtasks are known before the input arrives. Look elsewhere when: one well-built call already does the job; the subtasks depend on the input and can't be listed ahead; the extra calls cost more than the gain is worth.");
+    var fits = [
+      "The pieces can run in parallel, and speed matters.",
+      "Several viewpoints or attempts would raise confidence.",
+      "The task has many considerations. Each can get its own call.",
+      "The subtasks are known before the input arrives."
+    ];
+    var other = [
+      "One well-built call already does the job.",
+      "The subtasks depend on the input and can't be listed ahead.",
+      "The extra calls cost more than the gain is worth."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "LOOK ELSEWHERE WHEN", { size: 24, fill: MUTED });
+    fits.concat(other).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var no = i >= fits.length, j = no ? i - fits.length : i, x = no ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, no ? 678 : 680, 116, { sw: 2.5, fill: no ? SUBTLE : "#FFFFFF", stroke: no ? BASE : INK });
+      if (no) cross(g, x + 52, y + 58, 14, MUTED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: no ? BODY : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, no ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    fan: { steps: 4, render: renderFan },
+    variants: { steps: 3, render: renderVariants },
+    stake: { steps: 4, render: renderStake },
+    cost: { steps: 4, render: renderCost },
+    votes: { steps: 3, render: renderVotes },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Plan-and-Execute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+
+/* case setup slide: a beat that tells the viewer what a named case is before its numbers */
+.case-setup .bullets{margin-top:64px; gap:44px; max-width:1560px}
+.case-setup .bullets li{font-size:38px; line-height:1.4}
+.case-setup .bullets li::before{margin-top:calc((38px * 1.4 - 14px) / 2)}
+.case-setup .source{margin-top:56px}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Plan-and-Execute">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Plan-and-Execute">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Reasoning</p>
+      <h1 class="t-opening rise g2">Plan-and-Execute</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Write the whole plan first. Then run it.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one pattern: Plan-and-Execute. It shows the shape of the pattern, the way it fails, and the questions that decide whether to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Plan-and-Execute, the second reasoning pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">Plan-and-Execute commits to every step before any tool has run. That makes the plan easy to audit, and it makes failures silent.</h2>
+      <div class="speaker-notes" hidden><p>Both halves come from the same commitment. Because the plan exists before execution, someone can read it, and independent steps can run in parallel. Because the plan was written before any tool answered, it has no way to react when a tool returns something unexpected.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Plan every step, then run the steps in order</p>
+      <div class="speaker-notes" hidden><p>Two slides: the two phases, and what committing to a plan buys you.</p></div>
+    </section>
+
+    <!-- 5 PHASES -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two phases">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">The plan is finished before the first tool is called</h2>
+      <div class="diagram build" data-build="phases" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "Plan-and-Execute Deep Dive", Structure.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two phases, kept apart on purpose.</p>
+        <p><strong>Step 1:</strong> planning. The model sees the full task. No tool has run.</p>
+        <p><strong>Step 2:</strong> it writes a structured plan: ordered steps, each with a name for its output. The letters here are placeholders for those output names.</p>
+        <p><strong>Step 3:</strong> execution. The executor follows the plan in order and substitutes each earlier output into the step that needs it.</p>
+        <p><strong>Step 4:</strong> the executor does not re-evaluate whether a step is still correct, given what the earlier steps returned. Hold on to that sentence. Part two is built on it.</p>
+      </div>
+    </section>
+
+    <!-- 6 AUDIT -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The audit point">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">What committing buys</p>
+      <h2 class="t-chart">The plan can be read before anything runs</h2>
+      <div class="diagram build" data-build="audit" style="flex-basis:570px"></div>
+      <p class="source">Source: Chapter 3, "Plan-and-Execute Deep Dive", Logic and Implementation.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the plan exists and nothing has run yet. That gap is the useful part.</p>
+        <p><strong>Step 1:</strong> the chapter calls this the natural place for a Human Decision Node. A domain expert reads the plan before execution.</p>
+        <p><strong>Steps 2 to 4:</strong> the three things the chapter says to verify before proceeding: the order by business rules, which steps lean on unreliable tools, and whether the risky steps need a re-planning trigger.</p>
+        <p><strong>Step 5:</strong> the second gain. Steps that do not depend on each other's data can run in parallel.</p>
+      </div>
+    </section>
+
+    <!-- 7 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">Stale-plan execution: a step fails and the plan carries on</p>
+      <div class="speaker-notes" hidden><p>The failure is the mirror image of the benefit. The pattern gains auditability and parallelism by committing before any tool is called. That commitment is what makes it fail silently.</p></div>
+    </section>
+
+    <!-- 8 HAPPY PATH -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The Happy Path Assumption">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The Happy Path Assumption</p>
+      <h2 class="t-chart">The plan is written before any tool has answered</h2>
+      <div class="diagram build" data-build="happy" style="flex-basis:590px"></div>
+      <p class="source">Source: Chapter 3, "The Happy Path Assumption".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> a four-step plan.</p>
+        <p><strong>Step 1:</strong> when the planner wrote it, no tool had been called. It reasoned from what tool calls typically return, so every step assumes a normal result.</p>
+        <p><strong>Step 2:</strong> for the first two steps the assumption holds.</p>
+        <p><strong>Step 3:</strong> step 3 returns something outside what the planner expected: an error, an empty response or an unexpected schema.</p>
+        <p><strong>Step 4:</strong> the executor has no mechanism to account for it. It stores the unexpected value and moves on to the next step, which was designed assuming the one before it succeeded.</p>
+      </div>
+    </section>
+
+    <!-- 9 STALE PLAN -->
+    <section class="slide s-text case-setup" aria-roledescription="slide" data-title="The case">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The case: a warranty claim</p>
+      <h2 class="t-chart">A customer files a warranty claim, and the agent plans all eight steps before it starts</h2>
+      <ul class="bullets">
+        <li><span><strong>The task.</strong> Handle one warranty claim from start to finish. The steps include looking up the order, checking the warranty, checking stock for a replacement and checking for fraud.</span></li>
+        <li><span><strong>The end.</strong> An email to the customer and a note in the customer-records system.</span></li>
+        <li><span><strong>The test.</strong> The book's companion notebook makes step 3, the stock check, fail on purpose, to see what the rest of the plan does.</span></li>
+      </ul>
+      <p class="source">Source: Chapter 3, "The Failure Cases", failure case 2. Paraphrased.</p>
+      <div class="speaker-notes" hidden>
+        <p>Before the failure, the task. A customer asks for a warranty replacement. A Plan-and-Execute agent writes its whole plan, eight steps, before any tool answers. One of those steps, step 3, checks whether a replacement is in stock. The book's notebook makes that stock check fail on purpose. The next slide shows what the executor does with the failure.</p>
+      </div>
+    </section>
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Stale-plan execution">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The warranty claim: step 3 fails</p>
+      <h2 class="t-chart">Step 3 failed. Steps 4 to 8 ran anyway.</h2>
+      <div class="diagram build" data-build="stale" style="flex-basis:570px"></div>
+      <p class="source">Source: Chapter 3, "The Failure Cases", failure case 2, and "Plan-and-Execute Deep Dive", Implementation. Step count computed as 8 − 3.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the chapter's 8-step warranty claim task, planned in full.</p>
+        <p><strong>Step 1:</strong> steps 1 and 2 run as planned.</p>
+        <p><strong>Step 2:</strong> at step 3 the inventory check fails. The executor puts the error value into step 3's output and continues. The code comment says it plainly: error or not, the result goes into context.</p>
+        <p><strong>Step 3:</strong> steps 4 to 8 run on that value. That is five of the eight steps.</p>
+        <p><strong>Step 4:</strong> the final output is a resolution email and a CRM log entry. It is structurally complete and factually wrong. In the chapter's words, no exception was thrown. This is the companion notebook's failure case as the chapter describes it. I did not run the notebook.</p>
+      </div>
+    </section>
+
+    <!-- 10 ODDS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The odds of a failed step">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">How often</p>
+      <h2 class="t-chart">Eight steps at 5% each: about one run in three hits a failure</h2>
+      <div class="diagram build" data-build="odds" style="flex-basis:610px"></div>
+      <p class="source">Source: Chapter 3, "The Decision Framework", question 3. Computed as 1 − (1 − p)ⁿ.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> suppose each tool call fails 5 percent of the time.</p>
+        <p><strong>Step 1:</strong> the chance that at least one call fails grows with every step: 5 percent for one step, 33.7 percent for eight. The formula treats the calls as independent.</p>
+        <p><strong>Step 2:</strong> one minus 0.95 to the eighth power is 0.337. The chapter rounds this to 34 percent. Without a re-planning trigger, each of those runs ends as a silent wrong output.</p>
+        <p><strong>Step 3:</strong> at 1 or 2 percent per call the picture changes: 7.7 and 14.9 percent. The 5 percent threshold is a conservative heuristic. Use the failure rates you observe in your own tools.</p>
+      </div>
+    </section>
+
+    <!-- 11 POSITION -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Where the failure lands">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Where the failure lands</p>
+      <h2 class="t-chart">The earlier the failure, the more of the plan it corrupts</h2>
+      <div class="diagram build" data-build="position" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "Chapter Exercise", exercise 2. Counts computed as 8 − the failing step.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same 8-step plan, twice.</p>
+        <p><strong>Step 1:</strong> the failure at step 3, the inventory check. Five later steps run on corrupted input.</p>
+        <p><strong>Step 2:</strong> move the failure to step 6, the fraud check. Two later steps run on corrupted input.</p>
+        <p><strong>Step 3:</strong> the chapter states this as a predicted relationship for the reader to test in the notebook, not as a measured result. The counts here assume every later step runs, which is what the plain executor does.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Long, fixed tasks with reliable tools, or a trigger for when a tool fails</p>
+      <div class="speaker-notes" hidden><p>The defense, the decision questions and a checklist.</p></div>
+    </section>
+
+    <!-- 13 REPLAN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The re-planning trigger">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The defense</p>
+      <h2 class="t-chart">A re-planning trigger stops the run at the failed step</h2>
+      <div class="diagram build" data-build="replan" style="flex-basis:570px"></div>
+      <p class="source">Source: Chapter 3, "Chapter Exercise", exercise 3, and "The Decision Framework", question 3.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same failure at step 3. This time the later steps have not run.</p>
+        <p><strong>Step 1:</strong> when a step returns an error, the executor calls the planner again.</p>
+        <p><strong>Step 2:</strong> it passes two things: the remaining steps and the current context.</p>
+        <p><strong>Step 3:</strong> the planner writes a new plan for the remaining steps.</p>
+        <p><strong>Step 4:</strong> the chapter sets this as an exercise and leaves two questions open. It does not claim the re-planner always finds a valid recovery path. Its decision framework says only that, when any tool fails more than 5 percent of the time, Plan-and-Execute without a re-planning trigger is unsafe.</p>
+      </div>
+    </section>
+
+    <!-- 14 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three questions">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Three questions decide whether Plan-and-Execute fits</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Decision Framework", questions 1 to 3, and "The Five Patterns: A Structural Taxonomy".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three questions, asked in order.</p>
+        <p><strong>Step 1:</strong> how many tool calls? More than five, and a pattern that plans first is the safer choice.</p>
+        <p><strong>Step 2:</strong> must the next step use what the last step actually returned? If the steps are fixed by the task, Plan-and-Execute is safe. If not, you need ReAct.</p>
+        <p><strong>Step 3:</strong> how often do the tools fail? If any tool fails more than 5 percent of the time, the pattern needs a re-planning trigger.</p>
+        <p><strong>Step 4:</strong> the pair to tell apart. Both plan first. Plan-and-Execute runs the steps in order and lets a step use an earlier output. ReWOO plans every tool call up front and runs the calls in parallel or in one batch.</p>
+      </div>
+    </section>
+
+    <!-- 15 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Seven checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Seven checks before you choose Plan-and-Execute</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "Plan-and-Execute Deep Dive", Outcome.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> the conditions under which the chapter says Plan-and-Execute is correct.</p>
+        <p><strong>Steps 5 to 7:</strong> the conditions under which it breaks. If any of these describes your task, add a re-planning trigger or look at ReAct.</p>
+      </div>
+    </section>
+
+    <!-- 16 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">Plan-and-Execute buys an auditable plan by committing early. Decide what happens when a tool fails before you run it.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: tools that almost never fail, or a re-planning trigger on the risky steps. Next in the set: ReWOO, which also plans first, and then runs every tool call at once.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Plan-and-Execute";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shared: one numbered plan step ---------- */
+  var STEP_STYLE = {
+    idle: [SUBTLE, FAMILIAR, BASE, 1.5], ok: ["#FFFFFF", INK, INK, 2.5], fail: [RED, RED, "#FFFFFF", 2.5],
+    bad: [TINT, RED, RED, 2.5], fresh: ["#FFFFFF", INK, INK, 2.5], skip: ["#FFFFFF", FAMILIAR, BASE, 1.5]
+  };
+  function stepBox(svg, x, y, w, h, n, state, sub) {
+    var st = STEP_STYLE[state], g = svg.append("g");
+    box(g, x, y, w, h, { fill: st[0], stroke: st[1], sw: st[3], dash: state === "skip" ? "6 6" : null });
+    txt(g, x + w / 2, y + (sub ? h / 2 - 4 : h / 2 + 9), "step " + n, { size: 26, weight: 700, anchor: "middle", fill: st[2] });
+    if (sub) txt(g, x + w / 2, y + h / 2 + 30, sub, { size: 24, anchor: "middle", fill: st[2] });
+    return g;
+  }
+  var TASK_STEPS = 8;   /* the chapter's 8-step warranty claim task */
+
+  /* ---------- phases: plan everything, then execute in order ---------- */
+  function renderPhases(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The two phases of Plan-and-Execute",
+      "Phase 1, planning: the model sees the full task and a planner writes a plan before any tool runs. The plan has four ordered steps; each saves its result under a name and later steps use earlier results. Phase 2, execution: an executor runs the steps in order and substitutes each earlier output into the step that needs it. The executor does not re-check whether a step is still right given what came back.");
+    label(svg, 0, 26, "PHASE 1 · PLANNING", { size: 24 });
+    label(svg, 470, 26, "THE PLAN", { size: 24 });
+    label(svg, 980, 26, "PHASE 2 · EXECUTION", { size: 24 });
+    var on1 = k >= 1, gA = svg.append("g");
+    box(gA, 0, 46, 380, 110, { fill: on1 ? "#FFFFFF" : SUBTLE, stroke: on1 ? INK : FAMILIAR, sw: on1 ? 2.5 : 1.5 });
+    txt(gA, 190, 96, "TASK", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: on1 ? INK : BASE });
+    box(gA, 0, 210, 380, 110, { fill: on1 ? "#FFFFFF" : SUBTLE, stroke: on1 ? INK : FAMILIAR, sw: on1 ? 2.5 : 1.5 });
+    txt(gA, 190, 260, "PLANNER", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: on1 ? INK : BASE });
+    arrow(gA, 190, 162, 190, 204, on1 ? INK : FAMILIAR, 3);
+    if (on1) {
+      txt(gA, 190, 134, "the model sees the full task", { size: 24, anchor: "middle", fill: BODY });
+      txt(gA, 190, 298, "no tool has run yet", { size: 24, anchor: "middle", fill: BODY });
+      if (A(anim, k, 1)) fadeIn(gA, 0, 400);
+    }
+    var PLAN = ["saves its result as A", "uses A, saves B", "uses B, saves C", "uses C, saves D"];
+    if (k >= 2) {
+      var ar = svg.append("g"); arrow(ar, 386, 235, 462, 235, INK, 3);
+      if (A(anim, k, 2)) fadeIn(ar, 0, 300);
+      PLAN.forEach(function (s, i) {
+        var y = 46 + i * 98, g = svg.append("g");
+        box(g, 470, y, 430, 84, { sw: 2.5 });
+        txt(g, 492, y + 36, "step " + (i + 1), { size: 26, weight: 700 });
+        txt(g, 492, y + 68, s, { size: 24, fill: BODY });
+        if (A(anim, k, 2)) fadeIn(g, 200 + i * 200, 350);
+        if (k >= 3) { var c = svg.append("g"); check(c, 860, y + 44, 14, INK); if (A(anim, k, 3)) fadeIn(c, 500 + i * 450, 300); }
+      });
+    }
+    if (k >= 3) {
+      var gC = svg.append("g");
+      arrow(gC, 906, 101, 972, 101, INK, 3);
+      box(gC, 980, 46, 419, 110, { sw: 2.5 });
+      txt(gC, 1190, 96, "EXECUTOR", { size: 30, weight: 900, anchor: "middle", ls: 2 });
+      txt(gC, 1190, 134, "runs the steps in order", { size: 24, anchor: "middle", fill: BODY });
+      wrap(gC, 980, 204, "Each earlier output is substituted into the step that needs it.", 32, { size: 26, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(gC, 0, 400);
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 500, "The executor does not re-check whether a step is still right, given what came back.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 548, "Nothing runs until the whole plan exists.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- audit: the human decision node between plan and execution ---------- */
+  function renderAudit(el, k, anim) {
+    var svg = svgFor(el, W, 570, "A human decision node between the plan and its execution",
+      "A plan box, then a human decision node where a domain expert reads the plan, then execution. Before proceeding, verify three things: the order by business rules and not only data dependencies; which steps use tools that fail more than 5 percent of the time; whether the high-risk steps need a re-planning trigger. Second gain: steps with no data dependency can run in parallel.");
+    box(svg, 0, 20, 320, 130, { sw: 2.5 });
+    txt(svg, 160, 78, "PLAN", { size: 32, weight: 900, anchor: "middle", ls: 2 });
+    txt(svg, 160, 118, "every step, written out", { size: 24, anchor: "middle", fill: BODY });
+    box(svg, 1079, 20, 320, 130, { sw: 2.5 });
+    txt(svg, 1239, 78, "EXECUTE", { size: 32, weight: 900, anchor: "middle", ls: 2 });
+    txt(svg, 1239, 118, "tools start to run", { size: 24, anchor: "middle", fill: BODY });
+    if (k < 1) {
+      arrow(svg, 328, 85, 1071, 85, INK, 3);
+      txt(svg, 700, 66, "nothing has run yet", { size: 24, anchor: "middle", fill: MUTED });
+    } else {
+      var g = svg.append("g");
+      arrow(g, 328, 85, 432, 85, INK, 3); arrow(g, 968, 85, 1071, 85, INK, 3);
+      box(g, 440, 20, 520, 130, { fill: TINT, stroke: INK, sw: 3 });
+      personIcon(g, 500, 96, 1.2, INK);
+      txt(g, 556, 76, "HUMAN DECISION NODE", { size: 27, weight: 900, ls: 1 });
+      txt(g, 556, 116, "a domain expert reads the plan", { size: 24, fill: BODY });
+      if (A(anim, k, 1)) fadeIn(g, 0, 450);
+    }
+    var CHECKS = [
+      "Is the order right by business rules, not only by data dependencies?",
+      "Which steps use tools that fail more than 5% of the time?",
+      "Do the high-risk steps need a re-planning trigger?"
+    ];
+    if (k >= 2) label(svg, 0, 200, "BEFORE PROCEEDING, VERIFY", { size: 24 });
+    CHECKS.forEach(function (s, i) {
+      if (k < i + 2) return;
+      var y = 218 + i * 88, g2 = svg.append("g");
+      box(g2, 0, y, W - 1, 74, { sw: 2 });
+      txt(g2, 30, y + 48, String(i + 1), { size: 30, weight: 900, family: MONO });
+      txt(g2, 84, y + 47, s, { size: 27 });
+      if (A(anim, k, i + 2)) slideIn(g2, true, -30);
+    });
+    if (k >= 5) {
+      var c = txt(svg, 0, 530, "Second gain: steps with no data dependency can run in parallel.", { size: 28, weight: 700, fill: INK });
+      if (A(anim, k, 5)) fadeIn(c, 0, 400);
+    }
+  }
+
+  /* ---------- happy: what the planner assumed against what the tools returned ---------- */
+  function renderHappy(el, k, anim) {
+    var svg = svgFor(el, W, 590, "What the planner assumed against what the tools returned",
+      "A four-step plan. The planner assumed a normal result from every step. Steps 1 and 2 return a normal result. Step 3 returns an error, an empty response or an unexpected schema. Step 4 runs anyway on step 3's value. The executor stores the unexpected value and moves on.");
+    if (k >= 1) label(svg, 230, 26, "WHAT THE PLANNER ASSUMED", { size: 24 });
+    if (k >= 2) label(svg, 790, 26, "WHAT THE TOOL RETURNED", { size: 24 });
+    d3.range(4).forEach(function (i) {
+      var y = 46 + i * 100, g = svg.append("g");
+      box(g, 0, y, 200, 84, { sw: 2.5 });
+      txt(g, 100, y + 51, "step " + (i + 1), { size: 26, weight: 700, anchor: "middle" });
+      if (k >= 1) {
+        var a = svg.append("g");
+        box(a, 230, y, 500, 84, { stroke: BASE, dash: "6 6" });
+        txt(a, 256, y + 51, "a normal result", { size: 26, fill: MUTED });
+        if (A(anim, k, 1)) fadeIn(a, i * 180, 350);
+      }
+      var r;
+      if (i < 2 && k >= 2) {
+        r = svg.append("g");
+        box(r, 790, y, 608, 84, { sw: 2.5 });
+        txt(r, 816, y + 51, "a normal result", { size: 26 });
+        check(r, 1352, y + 44, 14, INK);
+        if (A(anim, k, 2)) fadeIn(r, i * 300, 350);
+      }
+      if (i === 2 && k >= 3) {
+        r = svg.append("g");
+        box(r, 790, y, 608, 84, { sw: 2.5, fill: TINT, stroke: RED });
+        txt(r, 816, y + 36, "an error, an empty response", { size: 25, weight: 700, fill: RED });
+        txt(r, 816, y + 68, "or an unexpected schema", { size: 25, weight: 700, fill: RED });
+        cross(r, 1352, y + 42, 13, RED);
+        if (A(anim, k, 3)) fadeIn(r, 0, 400);
+      }
+      if (i === 3 && k >= 4) {
+        r = svg.append("g");
+        box(r, 790, y, 608, 84, { sw: 2.5, fill: TINT, stroke: RED });
+        txt(r, 816, y + 51, "runs anyway, on step 3's value", { size: 26, weight: 700, fill: RED });
+        if (A(anim, k, 4)) fadeIn(r, 0, 400);
+      }
+    });
+    if (k >= 1) {
+      var c0 = txt(svg, 0, 484, "The planner has called no tools. It reasons from what tool calls typically return.", { size: 26, fill: BODY });
+      if (A(anim, k, 1)) fadeIn(c0, 700, 400);
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 532, "The executor stores the unexpected value and moves on.", { size: 28, weight: 900, fill: RED });
+      var c2 = txt(svg, 0, 574, "The next step was designed assuming the one before it succeeded.", { size: 24, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 400, 400); fadeIn(c2, 700, 400); }
+    }
+  }
+
+  /* ---------- stale: the 8-step task with a failure at step 3 ---------- */
+  function renderStale(el, k, anim) {
+    var FAIL = 3, down = TASK_STEPS - FAIL;
+    var svg = svgFor(el, W, 570, "An 8-step plan that fails at step 3 and keeps running",
+      "Eight steps in a row. Steps 1 and 2 run as planned. At step 3 the inventory check fails and an error value is stored as its output. Steps 4 to 8, five of the eight steps, run on the corrupted value. The final output, a resolution email and a CRM log entry, is structurally complete and factually wrong, and the run reported no failure.");
+    label(svg, 0, 26, "THE 8-STEP PLAN, EXECUTED IN ORDER", { size: 24 });
+    var bw = 160, gap = 17;
+    d3.range(1, TASK_STEPS + 1).forEach(function (n) {
+      var state = "idle", sub = "";
+      if (n < FAIL && k >= 1) { state = "ok"; sub = "ok"; }
+      if (n === FAIL && k >= 2) { state = "fail"; sub = "error"; }
+      if (n > FAIL && k >= 3) { state = "bad"; sub = "corrupted"; }
+      var g = stepBox(svg, (n - 1) * (bw + gap), 46, bw, 110, n, state, sub);
+      if (A(anim, k, 1) && n < FAIL) fadeIn(g, (n - 1) * 350, 350);
+      if (A(anim, k, 2) && n === FAIL) fadeIn(g, 0, 400);
+      if (A(anim, k, 3) && n > FAIL) g.attr("opacity", 0.15).transition().delay((n - FAIL - 1) * 300).duration(350).attr("opacity", 1);
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      txt(g2, 0, 210, "Step " + FAIL + ": check_inventory fails.", { size: 28, weight: 900, fill: RED });
+      txt(g2, 0, 262, "context[step.output_key] = result", { size: 26, family: MONO, fill: INK });
+      txt(g2, 0, 302, "# Error or not, the result goes into context and execution continues.", { size: 24, family: MONO, fill: MUTED });
+      if (A(anim, k, 2)) fadeIn(g2, 300, 450);
+    }
+    if (k >= 3) {
+      var t3 = txt(svg, W, 210, down + " of " + TASK_STEPS + " steps run on the corrupted value.", { size: 28, weight: 900, fill: RED, anchor: "end" });
+      if (A(anim, k, 3)) fadeIn(t3, down * 300, 400);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      box(g4, 0, 350, W - 2, 170, { fill: TINT, stroke: RED, sw: 3 });
+      txt(g4, 28, 394, "FINAL OUTPUT", { size: 24, weight: 900, ls: 1.5, fill: RED });
+      txt(g4, 28, 446, "A resolution email and a CRM log entry.", { size: 32, weight: 700, fill: INK });
+      txt(g4, 28, 494, "Structurally complete. Factually wrong. The run reported no failure.", { size: 28, weight: 900, fill: RED });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- odds: chance that at least one tool call fails ---------- */
+  function pFail(p, n) { return 1 - Math.pow(1 - p, n); }
+  function pc(v) { return (v * 100).toFixed(1) + "%"; }
+  function renderOdds(el, k, anim) {
+    var P = 0.05, N = TASK_STEPS, top = pFail(P, N);
+    var svg = svgFor(el, W, 610, "Chance that at least one tool call fails, by number of steps",
+      "Bars for plans of 1 to 8 steps at a 5 percent failure rate per call: 5.0, 9.8, 14.3, 18.5, 22.6, 26.5, 30.2 and 33.7 percent. One minus 0.95 to the eighth power is 33.7 percent, about one run in three. For eight steps, 1 percent per call gives 7.7 percent and 2 percent per call gives 14.9 percent.");
+    label(svg, 0, 26, "CHANCE THAT AT LEAST ONE TOOL CALL FAILS, AT 5% PER CALL", { size: 24 });
+    var base = 400, Y = d3.scaleLinear().domain([0, 0.4]).range([0, 300]);
+    svg.append("path").attr("d", "M0," + (base + 0.5) + " L800," + (base + 0.5)).attr("stroke", INK).attr("stroke-width", 1.5);
+    d3.range(1, N + 1).forEach(function (n) {
+      var x = (n - 1) * 100 + 10, v = pFail(P, n), h = Y(v), hot = n === N && k >= 2;
+      txt(svg, x + 35, base + 34, String(n), { size: 24, anchor: "middle", fill: MUTED });
+      if (k < 1) return;
+      var r = svg.append("rect").attr("x", x).attr("y", base - h).attr("width", 70).attr("height", h).attr("fill", hot ? RED : INK);
+      var t = txt(svg, x + 35, base - h - 12, pc(v), { size: 24, weight: 700, family: MONO, anchor: "middle", fill: hot ? RED : INK });
+      if (A(anim, k, 1)) {
+        r.attr("y", base).attr("height", 0).transition().delay((n - 1) * 220).duration(450).ease(d3.easeCubicOut).attr("y", base - h).attr("height", h);
+        fadeIn(t, (n - 1) * 220 + 350, 250);
+      }
+    });
+    txt(svg, 0, base + 68, "steps in the plan", { size: 24, fill: MUTED });
+    if (k >= 2) {
+      var g = svg.append("g");
+      txt(g, 880, 110, "1 − " + (1 - P).toFixed(2) + "⁸ =", { size: 40, family: MONO });
+      var big = txt(g, 880, 216, pc(top), { size: 96, weight: 700, family: MONO, fill: RED });
+      txt(g, 880, 274, "about one run in three", { size: 30, weight: 900 });
+      txt(g, 880, 314, "has at least one failed tool call.", { size: 24, fill: BODY });
+      wrap(g, 880, 366, "Without a re-planning trigger, each of those ends as a silent wrong output.", 40, { size: 24, weight: 700, fill: RED });
+      if (A(anim, k, 2)) {
+        fadeIn(g, 0, 400);
+        big.text(pc(0)).transition().delay(200).duration(1200).tween("text", function () {
+          var it = d3.interpolateNumber(0, top), self = d3.select(this); return function (t) { self.text(pc(it(t))); };
+        });
+      }
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 516, "EIGHT STEPS AT THREE FAILURE RATES PER CALL", { size: 24 });
+      [0.01, 0.02, 0.05].forEach(function (p, i) {
+        var x = i * 470;
+        txt(g3, x, 560, (p * 100).toFixed(0) + "% per call", { size: 26, fill: BODY });
+        txt(g3, x + 190, 560, pc(pFail(p, N)), { size: 30, weight: 700, family: MONO, fill: p === P ? RED : INK });
+      });
+      txt(g3, 0, 600, "The 5% threshold is the chapter's conservative heuristic, not a derived constant.", { size: 24, fill: MUTED });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- position: failure at step 3 against failure at step 6 ---------- */
+  function renderPosition(el, k, anim) {
+    var CASES = [{ f: 3, name: "THE INVENTORY CHECK" }, { f: 6, name: "THE FRAUD CHECK" }];
+    var svg = svgFor(el, W, 580, "Failure at step 3 against failure at step 6 in an 8-step plan",
+      "Two rows of eight steps. With the failure at step 3, the inventory check, 5 later steps run on corrupted input. With the failure at step 6, the fraud check, 2 later steps run on corrupted input. Steps on corrupted input equal 8 minus the failing step.");
+    var bw = 120, gap = 14;
+    CASES.forEach(function (c, r) {
+      var y = 46 + r * 190, on = k >= r + 1, down = TASK_STEPS - c.f;
+      label(svg, 0, y - 20, "FAILURE AT STEP " + c.f + ", " + c.name, { size: 24, fill: on ? MUTED : BASE });
+      d3.range(1, TASK_STEPS + 1).forEach(function (n) {
+        var state = !on ? "idle" : (n < c.f ? "ok" : (n === c.f ? "fail" : "bad"));
+        var g = stepBox(svg, (n - 1) * (bw + gap), y, bw, 100, n, state, "");
+        if (A(anim, k, r + 1)) g.attr("opacity", 0.15).transition().delay((n - 1) * 160).duration(300).attr("opacity", 1);
+      });
+      if (on) {
+        var g2 = svg.append("g");
+        var num = txt(g2, 1104, y + 78, String(down), { size: 80, weight: 700, family: MONO, fill: RED });
+        txt(g2, 1176, y + 44, down === 1 ? "step runs on" : "steps run on", { size: 26, fill: RED });
+        txt(g2, 1176, y + 80, "corrupted input", { size: 26, fill: RED });
+        if (A(anim, k, r + 1)) {
+          fadeIn(g2, c.f * 160, 300);
+          num.text("0").transition().delay(c.f * 160).duration(down * 160).ease(d3.easeLinear).tween("text", function () {
+            var it = d3.interpolateRound(0, down), self = d3.select(this); return function (t) { self.text(it(t)); };
+          });
+        }
+      }
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 0, 428, "Steps on corrupted input = " + TASK_STEPS + " − the failing step: " +
+        CASES.map(function (c) { return TASK_STEPS + " − " + c.f + " = " + (TASK_STEPS - c.f); }).join(" and "), { size: 26, family: MONO, fill: INK });
+      txt(g3, 0, 478, "The chapter's prediction: earlier failures corrupt more downstream steps.", { size: 28, weight: 900, fill: INK });
+      wrap(g3, 0, 522, "Its advice: place the steps that most need to be reliable early, before resources are allocated or anything is sent out.", 100, { size: 24, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- replan: on error, call the planner again ---------- */
+  function renderReplan(el, k, anim) {
+    var FAIL = 3, bw = 160, gap = 17, y = 270, cx = (FAIL - 1) * (bw + gap) + bw / 2;
+    var svg = svgFor(el, W, 570, "A re-planning trigger on a failed step",
+      "Eight steps. Steps 1 and 2 are done, step 3 returned an error, steps 4 to 8 have not run. The error triggers a call back to the planner, which receives the remaining steps, 4 to 8, and the current context, the results of steps 1 and 2. The planner writes a new plan for the remaining steps. The chapter leaves two questions as an exercise: does the re-planner produce a valid recovery path, and what does it need that the first planner did not have.");
+    label(svg, 0, 26, "ON ERROR, RE-PLAN", { size: 24 });
+    d3.range(1, TASK_STEPS + 1).forEach(function (n) {
+      var state = n < FAIL ? "ok" : (n === FAIL ? "fail" : (k >= 3 ? "fresh" : "skip"));
+      var sub = n < FAIL ? "ok" : (n === FAIL ? "error" : (k >= 3 ? "re-planned" : "not run"));
+      var g = stepBox(svg, (n - 1) * (bw + gap), y, bw, 110, n, state, sub);
+      if (A(anim, k, 3) && n > FAIL) fadeIn(g, 300 + (n - FAIL - 1) * 200, 350);
+    });
+    if (k >= 1) {
+      var g1 = svg.append("g");
+      box(g1, cx - 180, 46, 360, 110, { sw: 2.5 });
+      txt(g1, cx, 96, "PLANNER", { size: 30, weight: 900, anchor: "middle", ls: 2 });
+      txt(g1, cx, 134, "called again", { size: 24, anchor: "middle", fill: BODY });
+      arrow(g1, cx, y - 6, cx, 164, RED, 4);
+      txt(g1, cx + 24, 226, "error returned: stop and re-plan", { size: 24, weight: 700, fill: RED });
+      if (A(anim, k, 1)) fadeIn(g1, 0, 450);
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      label(g2, 700, 26, "PASSED TO THE PLANNER", { size: 24 });
+      box(g2, 700, 46, 698, 50, { fill: SUBTLE });
+      txt(g2, 720, 80, "the remaining steps, " + (FAIL + 1) + " to " + TASK_STEPS, { size: 25 });
+      box(g2, 700, 106, 698, 50, { fill: SUBTLE });
+      txt(g2, 720, 140, "the current context: results of steps 1 to " + (FAIL - 1), { size: 25 });
+      arrow(g2, 694, 71, cx + 188, 88, INK, 2.5);
+      arrow(g2, 694, 131, cx + 188, 114, INK, 2.5);
+      if (A(anim, k, 2)) fadeIn(g2, 0, 450);
+    }
+    if (k >= 3) {
+      var t3 = label(svg, W, y - 18, "NEW PLAN FOR THE REMAINING STEPS", { size: 24, anchor: "end", fill: INK });
+      if (A(anim, k, 3)) fadeIn(t3, 0, 400);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      txt(g4, 0, 440, "The chapter leaves two questions as an exercise:", { size: 26, fill: BODY });
+      txt(g4, 0, 488, "Does the re-planner produce a valid recovery path?", { size: 28, weight: 900, fill: INK });
+      txt(g4, 0, 534, "What does it need that the first planner did not have?", { size: 28, weight: 900, fill: INK });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- choose: three questions, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Three questions that decide whether Plan-and-Execute fits",
+      "Question 1: how many tool calls does the task need? More than five, Plan-and-Execute or ReWOO. Five or fewer, ReAct is viable. Question 2: must step N plus 1 use what step N returned? No, the steps are fixed, Plan-and-Execute. Yes, ReAct. Question 3: how often do the tools fail? Rarely, Plan-and-Execute. Any tool above 5 percent, it needs a re-planning trigger. Tell these apart: Plan-and-Execute runs the steps in order and a step can use an earlier step's output; ReWOO plans every tool call up front, then runs the calls in parallel or in one batch.");
+    var Q = [
+      { q: "How many tool calls does the task need?", a: ["more than 5", "Plan-and-Execute or ReWOO"], b: ["5 or fewer", "ReAct is viable"] },
+      { q: "Must step N+1 use what step N returned?", a: ["no, the steps are fixed", "Plan-and-Execute"], b: ["yes", "ReAct"] },
+      { q: "How often do the tools fail?", a: ["rarely", "Plan-and-Execute"], b: ["any tool above 5%", "Needs a re-planning trigger"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 560, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 27, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 566, y + 52, 616, y + 52, INK, 3);
+      box(ga, 620, y, 390, 104, { fill: INK });
+      txt(ga, 644, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 644, y + 80, r.a[1], { size: 25, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1030, y, 368, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1052, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1052, y + 80, r.b[1], { size: 24, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 4) {
+      var g3 = svg.append("g");
+      label(g3, 0, 380, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 398, 680, 170, { sw: 2.5 });
+      txt(g3, 26, 450, "Plan-and-Execute", { size: 32, weight: 900 });
+      wrap(g3, 26, 498, "Runs the steps in order. A step can use an earlier step's output.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 398, 678, 170, { sw: 2.5 });
+      txt(g3, 746, 450, "ReWOO", { size: 32, weight: 900 });
+      wrap(g3, 746, 498, "Plans every tool call up front, then runs the calls in parallel or in one batch.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- checks: four that fit, three that break ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Seven checks before choosing Plan-and-Execute",
+      "Fits when: the task runs past five steps; steps can run in parallel; the plan can be audited before it runs; tool success rates are high. Breaks when: tools have meaningful failure rates; later steps depend on actual, not predicted, earlier outputs; the environment changes between planning and execution.");
+    var fits = [
+      "The task runs past five steps.",
+      "Steps can run in parallel.",
+      "The plan can be audited before it runs.",
+      "Tool success rates are high."
+    ];
+    var breaks = [
+      "Tools have meaningful failure rates.",
+      "Later steps depend on actual, not predicted, earlier outputs.",
+      "The environment changes between planning and execution."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    fits.concat(breaks).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    phases: { steps: 4, render: renderPhases },
+    audit: { steps: 5, render: renderAudit },
+    happy: { steps: 4, render: renderHappy },
+    stale: { steps: 4, render: renderStale },
+    odds: { steps: 3, render: renderOdds },
+    position: { steps: 3, render: renderPosition },
+    replan: { steps: 4, render: renderReplan },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 7, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

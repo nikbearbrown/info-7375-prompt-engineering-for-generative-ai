@@ -1,0 +1,25 @@
+diff --git a/runtime/remotion/src/Root.tsx b/runtime/remotion/src/Root.tsx
+index 9bf3f1e..affdda4 100644
+--- a/runtime/remotion/src/Root.tsx
++++ b/runtime/remotion/src/Root.tsx
+@@ -66,6 +66,7 @@ import {MusiniqueOutroCard, musiniqueOutroCardSchema, musiniqueOutroCardDefaultP
+ import {ClaudeVerdictArtifact, claudeVerdictArtifactSchema} from './scenes/ClaudeVerdictArtifact';
+ import {ClaudeVerdictArtifact916, claudeVerdictArtifact916Schema} from './scenes/ClaudeVerdictArtifact916';
+ import {ClaudeTitleOutro, claudeTitleOutroSchema} from './scenes/ClaudeTitleOutro';
++import {StudentTitleOutro, studentTitleOutroSchema} from './scenes/StudentTitleOutro';
+ // claude-liam — adaptive-therapy-revolution
+ import {ClaudeCodeBeat, claudeCodeBeatSchema} from './scenes/ClaudeCodeBeat';
+ import {ClaudeWindow, claudeWindowSchema} from './scenes/ClaudeWindow';
+@@ -1699,6 +1700,12 @@ export const RemotionRoot: React.FC = () => {
+         calculateMetadata={({props}) => ({durationInFrames: Math.ceil(((props as any).durationSeconds ?? 6) * 30)})}
+         schema={claudeTitleOutroSchema}
+         defaultProps={claudeTitleOutroSchema.parse({})} />
++      {/* local: yudanzhou INFO 7375 pitch film — own outro, no instructor handle */}
++      <Composition id="StudentTitleOutro" component={StudentTitleOutro}
++        durationInFrames={180} fps={30} width={1920} height={1080}
++        calculateMetadata={({props}) => ({durationInFrames: Math.ceil(((props as any).durationSeconds ?? 6) * 30)})}
++        schema={studentTitleOutroSchema}
++        defaultProps={studentTitleOutroSchema.parse({})} />
+       {/* claude-liam — adaptive-therapy-revolution */}
+       <Composition id="ClaudeCodeBeat" component={ClaudeCodeBeat}
+         durationInFrames={300} fps={30} width={1920} height={1080}

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Routing - Examples</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"><style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+
+/* Native, editable companion content. Original deck dimensions and viewer. */
+.example-cover .t-opening{font-size:88px;line-height:1.06;max-width:1570px}
+.example-cover .sub-opening{font-size:44px;max-width:1460px;color:#fff}
+.example-cover .cover-description{font-size:29px;line-height:1.4;color:#C4C4C4;max-width:1380px;margin-top:28px}
+.example-content{padding-top:80px;padding-bottom:100px}
+.example-content .eyebrow{margin-bottom:25px}
+.example-content .t-text{font-size:62px;line-height:1.1;max-width:1620px;margin-bottom:44px}
+.example-content .para{font-size:32px;max-width:1600px;margin-bottom:35px}
+.example-content .bullets{max-width:1600px;gap:32px}
+.example-content .bullets li{font-size:34px;line-height:1.4;grid-template-columns:14px 1fr}
+.example-content .bullets strong{display:block;margin-bottom:5px}
+.example-content .bullets li::before{margin-top:16px}
+.example-footer{position:absolute;left:120px;right:120px;bottom:38px;display:flex;align-items:center;justify-content:space-between;font-size:21px;line-height:1.2;color:#545454}
+.example-footer .slide-number{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.s-dark .example-footer,.s-red .example-footer{color:#C4C4C4}
+.example-table{border-collapse:collapse;width:100%;max-width:1680px;table-layout:fixed;font-size:29px;line-height:1.34}
+.example-table th{text-align:left;font-size:24px;font-weight:900;letter-spacing:.035em;color:#545454;border-bottom:4px solid #C8102E;padding:0 25px 18px 0;vertical-align:bottom}
+.example-table td{border-bottom:2px solid #E3E3E3;padding:24px 25px 24px 0;vertical-align:top;overflow-wrap:anywhere}
+.example-table td:first-child{font-weight:700;color:#C8102E}
+.example-table tr:last-child td{border-bottom:0}
+.example-table.cols-4 th:first-child{width:17%}
+.example-table.cols-3 th:first-child{width:20%}
+.example-table.cols-2 th:first-child{width:27%}
+.example-table th:last-child,.example-table td:last-child{padding-right:0}
+.example-table + .para{font-size:26px;margin-top:24px}
+.recipe-block{font-family:var(--font);font-size:31px;line-height:1.48;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;max-width:1580px;color:#2D2926;border-left:8px solid #C8102E;padding:0 0 0 35px}
+.example-closing .t-closing{font-size:72px;max-width:1570px;margin-bottom:40px}
+.example-closing .para{color:#E3E3E3;font-size:32px}
+.example-closing .bullets li{color:#C4C4C4;font-size:31px}
+.example-closing .bullets strong{color:white}
+.example-closing .bullets{gap:25px}
+#notes a{color:inherit;text-decoration:underline}
+@media print{.example-footer{bottom:38px}.recipe-block{break-inside:avoid}}
+</style></head><body><main id="stage" aria-roledescription="slide deck" aria-label="Routing - Examples"><div id="deck">
+<section class="slide s-dark s-opening example-cover" aria-roledescription="slide" data-title="Answer a duplicate-charge question">
+<div class="rule r10"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h1 class="t-opening">Routing<br>Examples</h1><div class="bar-120"></div>
+<p class="sub-opening">Route a duplicate-charge question to a billing-only draft path</p>
+<p class="cover-description">A classifier selects one predefined support path; billing uses ledger evidence without issuing a refund.</p>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">1 / 10</span></footer>
+<div class="speaker-notes" hidden><p>All customer details, ledger entries, policies, classifications and outputs are fictional teaching fixtures, not executed. Companion to Routing. The predefined billing, technical, account and product paths follow the source; the bounded review fallback is an added safeguard.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Pin the ticket and billing evidence">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Pin the ticket and billing evidence</h2>
+<table class="example-table cols-2"><thead><tr><th scope="col">Fixture</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td>Ticket T-104</td><td>Two $24 entries for order O-104 yesterday. Was I charged twice?</td></tr>
+<tr><td>Transaction C-71</td><td>O-104 · $24 · settled</td></tr>
+<tr><td>Transaction A-72</td><td>O-104 · $24 · pending authorization · 1 business day</td></tr>
+<tr><td>Policy BILL-3</td><td>Pending authorizations may remain up to 3 business days; escalate if still pending.</td></tr>
+</tbody></table>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">2 / 10</span></footer>
+<div class="speaker-notes" hidden><p>The pinned ledger-v1 and BILL-3-v1 are invented, not statements about any real payment network. Two entries do not establish two settled charges. The ticket contains no request to refund or alter the order.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Grant a narrow support capability">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Grant a narrow support capability</h2>
+<ul class="bullets">
+<li><span><strong>Goal</strong>Draft a reply distinguishing settled payment from pending authorization.</span></li>
+<li><span><strong>Router</strong>May select billing, technical, account, product or REVIEW. No account tools.</span></li>
+<li><span><strong>Billing</strong>Read only this order and BILL-3; draft privately. No send or refund tools.</span></li>
+<li><span><strong>Budget</strong>Two model calls, two data reads, zero retries, 45 seconds.</span></li>
+</ul>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">3 / 10</span></footer>
+<div class="speaker-notes" hidden><p>The model calls are classification and the selected specialist response. Tool allowlists differ by route. The billing label grants only the narrowly scoped read-and-draft path, not refund authority. A person retains consequential actions and outbound communication.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Choose one path, not four answers">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Choose one path, not four answers</h2>
+<table class="example-table cols-3"><thead><tr><th scope="col">Route</th><th scope="col">Handles</th><th scope="col">Activated here?</th></tr></thead><tbody>
+<tr><td>billing</td><td>Charges, invoices and authorizations</td><td>Yes</td></tr>
+<tr><td>technical</td><td>Errors and troubleshooting</td><td>No</td></tr>
+<tr><td>account</td><td>Access and account recovery</td><td>No</td></tr>
+<tr><td>product</td><td>Feature use and capabilities</td><td>No</td></tr>
+</tbody></table>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">4 / 10</span></footer>
+<div class="speaker-notes" hidden><p>Routes and handlers exist before the input. The classifier chooses a label; it does not invent a workflow. REVIEW is an exit for insufficient or mixed information. Unchosen handlers receive neither the ticket nor tool access.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Record the routing decision">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Record the routing decision</h2>
+<table class="example-table cols-3"><thead><tr><th scope="col">Step</th><th scope="col">Illustrative record</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><td>Classify</td><td>billing; quote: Two $24 entries</td><td>A model judgment</td></tr>
+<tr><td>Validate</td><td>billing is an allowed route</td><td>Structure only</td></tr>
+<tr><td>Scope check</td><td>Question concerns charges</td><td>Source-aware review</td></tr>
+<tr><td>Dispatch</td><td>billing_handler(T-104, O-104)</td><td>Only billing tools enabled</td></tr>
+</tbody></table>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">5 / 10</span></footer>
+<div class="speaker-notes" hidden><p>A valid enum does not establish accurate classification. The evidence phrase is a concise decision record, not a chain-of-thought transcript or invented confidence score. Here a source-aware reviewer checks the label before dispatch. A production router needs a representative labeled evaluation set and fallback policy; no measured accuracy is claimed.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Let billing evidence shape the draft">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Let billing evidence shape the draft</h2>
+<table class="example-table cols-3"><thead><tr><th scope="col">Tool or call</th><th scope="col">Expected response</th><th scope="col">Consequence</th></tr></thead><tbody>
+<tr><td>read_order(O-104)</td><td>1 settled + 1 pending; $24 each</td><td>Not two settled payments</td></tr>
+<tr><td>read_policy(BILL-3)</td><td>Pending up to 3 business days</td><td>Use only this policy</td></tr>
+<tr><td>billing_draft</td><td>One settled charge; one pending authorization</td><td>No invented refund</td></tr>
+<tr><td>Draft gate</td><td>Amounts, statuses and policy match</td><td>Ready for human review</td></tr>
+</tbody></table>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">6 / 10</span></footer>
+<div class="speaker-notes" hidden><p>Illustrative private draft: The ledger shows one settled $24 charge and one pending $24 authorization for order O-104. Our policy says pending authorizations may remain for up to three business days. If it is still pending after that, contact billing. This is not a sent message or a guarantee about bank timing.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Test the label and answer separately">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Test the label and answer separately</h2>
+<table class="example-table cols-3"><thead><tr><th scope="col">Fault</th><th scope="col">What catches it</th><th scope="col">Required result</th></tr></thead><tbody>
+<tr><td>route=payments</td><td>Enum validation</td><td>BLOCKED: unknown route</td></tr>
+<tr><td>route=technical</td><td>Source-aware route check</td><td>REVIEW: category mismatch</td></tr>
+<tr><td>Two charges settled</td><td>Ledger comparison</td><td>BLOCKED: status mismatch</td></tr>
+<tr><td>Refund promised</td><td>Action and claim check</td><td>BLOCKED: unauthorized promise</td></tr>
+</tbody></table>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">7 / 10</span></footer>
+<div class="speaker-notes" hidden><p>These known-bad variants have not been executed. The source deck shows that a valid but wrong route can otherwise proceed silently. Enum validation catches a nonexistent label, not a wrong existing label. Classifier quality and answer fidelity are distinct problems.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Use distinct success and failure exits">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Use distinct success and failure exits</h2>
+<ul class="bullets">
+<li><span><strong>Success</strong>Return the billing draft, route and ledger/policy references.</span></li>
+<li><span><strong>Unclear request</strong>Return REVIEW before specialist action.</span></li>
+<li><span><strong>Missing evidence</strong>Return INCOMPLETE. An unavailable ledger is not evidence of no charge.</span></li>
+<li><span><strong>Out-of-scope action</strong>Stop for a human; no refunds, promises or customer sends.</span></li>
+</ul>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">8 / 10</span></footer>
+<div class="speaker-notes" hidden><p>Timeout and source-version mismatch also return INCOMPLETE. There are no automatic retries to obtain a preferred label. The manual category check is a fixture safeguard, not a universal requirement of routing. Source data cannot expand tools or permissions.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-text example-content" aria-roledescription="slide" data-title="Use a bounded routing recipe">
+<div class="rule"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-text">Use a bounded routing recipe</h2>
+<pre class="recipe-block">Classify T-104 as billing, technical, account or product; return REVIEW for mixed or unsupported requests. Quote the supporting ticket phrase.
+Validate label and fit before dispatch. Invoke only the selected handler.
+For billing, read only O-104 and BILL-3. Draft from the actual amounts and transaction statuses. Do not promise refunds or send anything.
+Stop on missing evidence, invalid labels or scope conflicts.
+Limit to 2 model calls, 2 reads, 0 retries and 45 seconds.
+Return route, private draft, source references and unverified points, or REVIEW/BLOCKED/INCOMPLETE.</pre>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">9 / 10</span></footer>
+<div class="speaker-notes" hidden><p>The fixed dispatcher, not the prompt alone, restricts tools. The fit check requires a designated reviewer or a validated classifier policy. An unresolved mixed case exits rather than silently taking a convenient branch.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+<section class="slide s-dark s-closing example-closing" aria-roledescription="slide" data-title="Specialization depends on classification">
+<div class="rule r10"></div>
+<p class="eyebrow">Illustrative teaching fixture · Not executed</p>
+<h2 class="t-closing">Specialization depends on classification</h2>
+<ul class="bullets">
+<li><span><strong>Fixture result</strong>Billing draft distinguishes one settled payment from one pending authorization.</span></li>
+<li><span><strong>Why routing</strong>A label selects one of four prewritten paths; the others do not run.</span></li>
+<li><span><strong>Remaining risk</strong>A valid label can still be wrong.</span></li>
+<li><span><strong>Not demonstrated</strong>Customer delivery, refunds or improved routing accuracy.</span></li>
+</ul>
+<footer class="example-footer"><span>Illustrative teaching fixture. No agent workflow was run.</span><span class="slide-number">10 / 10</span></footer>
+<div class="speaker-notes" hidden><p>Source connection: Structure defines one specialized path; Why accuracy matters identifies silent wrong-label risk; The decision requires distinct categories and accurate classification. Read-only scope and review exits are applications of best practices, not safeguards claimed for the source cookbook.</p><p><strong>Evidence status:</strong> This is an illustrative teaching fixture. Its inputs, trace, and outputs are constructed examples, not results from an executed agent run.</p><p><strong>Pattern source:</strong> <a href="../full-decks/routing.html">Routing</a>. routing.html: Structure; A worked example; Why accuracy matters; The decision; best-practices.md: #3 Write a testable handoff condition for every step; #4 Decide the split: what the agent does, what a human keeps; #7 Fix the stops, exits and budget before the run; best-practices.md: #13 Treat what the agent reads as data, not instructions; #14 The maker is not the checker; #30 Label and trace every value and every run</p><p><strong>Further reading:</strong> the <a href="../CRITICAL-PATTERNS.md">one-page critical patterns list</a> and the <a href="https://signals.forwardfuture.com/loop-library/">Loop Library</a>.</p></div>
+</section>
+</div>
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  var BUILDS = {};
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script></body></html>

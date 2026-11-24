@@ -1,0 +1,17 @@
+{"t": 0.0, "event": "run_start", "budgets": {"max_boards": 4, "max_requests": 10, "max_seconds": 60, "request_timeout": 10, "retry_wait": 2}, "boards": 4}
+{"t": 0.002, "event": "request", "board": "greenhouse:gleanwork", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/gleanwork/jobs?content=true", "attempt": 1}
+{"t": 0.253, "event": "response", "board": "greenhouse:gleanwork", "attempt": 1, "status": 200, "bytes": 2410673, "redirects": 0, "final_url": "https://boards-api.greenhouse.io/v1/boards/gleanwork/jobs?content=true", "raw_file": "raw/greenhouse_gleanwork.json"}
+{"t": 0.268, "event": "state_write", "board": "greenhouse:gleanwork", "seen_ids": 139, "baseline": false}
+{"t": 0.268, "event": "board_result", "board": "greenhouse:gleanwork", "status": "ok", "reason": "compared", "postings": 128, "new": 14}
+{"t": 0.268, "event": "request", "board": "lever:palantir", "method": "GET", "url": "https://api.lever.co/v0/postings/palantir?mode=json", "attempt": 1}
+{"t": 2.738, "event": "response", "board": "lever:palantir", "attempt": 1, "status": 200, "bytes": 5954399, "redirects": 0, "final_url": "https://api.lever.co/v0/postings/palantir?mode=json", "raw_file": "raw/lever_palantir.json"}
+{"t": 2.766, "event": "state_write", "board": "lever:palantir", "seen_ids": 315, "baseline": false}
+{"t": 2.767, "event": "board_result", "board": "lever:palantir", "status": "ok", "reason": "compared", "postings": 307, "new": 11}
+{"t": 2.767, "event": "request", "board": "ashby:openai", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/openai", "attempt": 1}
+{"t": 3.185, "event": "response", "board": "ashby:openai", "attempt": 1, "status": 200, "bytes": 14252031, "redirects": 0, "final_url": "https://api.ashbyhq.com/posting-api/job-board/openai", "raw_file": "raw/ashby_openai.json"}
+{"t": 3.232, "event": "state_write", "board": "ashby:openai", "seen_ids": 942, "baseline": false}
+{"t": 3.232, "event": "board_result", "board": "ashby:openai", "status": "ok", "reason": "compared", "postings": 849, "new": 109}
+{"t": 3.234, "event": "request", "board": "greenhouse:pavan-js2-no-such-board", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/pavan-js2-no-such-board/jobs?content=true", "attempt": 1}
+{"t": 3.283, "event": "response", "board": "greenhouse:pavan-js2-no-such-board", "attempt": 1, "status": 404, "bytes": 38, "redirects": 0, "final_url": "https://boards-api.greenhouse.io/v1/boards/pavan-js2-no-such-board/jobs?content=true", "raw_file": "raw/greenhouse_pavan-js2-no-such-board.json"}
+{"t": 3.283, "event": "board_result", "board": "greenhouse:pavan-js2-no-such-board", "status": "failed", "reason": "bad_board", "postings": null, "new": null}
+{"t": 3.283, "event": "run_end", "status": "incomplete", "exit_code": 1, "reason": "1 board(s) did not succeed: greenhouse:pavan-js2-no-such-board", "requests_used": 4}

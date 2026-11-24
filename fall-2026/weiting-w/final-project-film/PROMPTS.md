@@ -29,11 +29,16 @@ is addressed to the audience and is not used to produce any part of this film:
 Recorded here rather than hidden, and repeated in `SOURCES.md`. Claude was used as a writing
 and coding assistant: drafting the seven answers in `PROJECT-BRIEF.md` from the author's own
 material, drafting narration, writing `make_sheet.py` and `scenes.py` against the toolkit's
-`SKILL.md`, running the toolkit's gates, and reading back the rendered frames. It was not used
-to generate any image, video or audio asset.
+`SKILL.md`, running the toolkit's gates, and reading back the rendered frames. For the
+2026-11-22 four-act rebuild it also ran the search behind act 2 and read the documentation
+pages it quotes; those pages, and the sentences taken from them, are listed in `SOURCES.md` and
+`FACTCHECK.md` so the quotes can be checked against the originals. It was not used to generate
+any image, video or audio asset.
 
-The author reviewed and corrected the output. One correction is on the record in
-`FACTCHECK.md` row 3: an earlier draft of the narration claimed Unity's console says nothing
+The author reviewed and corrected the output. Two corrections are on the record in
+`FACTCHECK.md`. Row 3: an earlier draft of the narration claimed Unity's console says nothing
 about a wrong animator parameter. It does say something. The claim was checked against Unity's
-documentation, found wrong, rewritten to the shader property, and a new beat (`B02B`) was added
-so the film states the limit out loud.
+documentation, found wrong, rewritten to the shader property, and a beat (`B03`) was added so
+the film states the limit out loud. Row 18: a draft of the act-2 closing line said "what nobody
+does", which asserts a negative about every tool that exists. It was changed to "what I could
+not find", which is what was actually established.

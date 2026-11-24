@@ -1,0 +1,74 @@
+faster-whisper small.en transcript per beat (machine transcript; not a human listen)
+
+BIDEA  (7.19 s)
+  script: Hi, I'm Aditya Raj. This is DayThread, my final project. You're hearing a synthesized voice reading my script.
+  heard:  Hi, I'm Aditya Raj. This is Daythread, my final project. You're hearing a synthesized voice reading my script.
+
+B01  (14.49 s)
+  script: DayThread will be a check-in assistant for home care. It will remember what a client says from one day to the next. When something concerning comes up, like a fall mentioned in passing, it will show the client's exact words to a care coordinator, who decides what happens next.
+  heard:  Day thread will be a check -in assistant for home care. It will remember what a client says from one day to the next. When something concerning comes up, like a fall mentioned in passing, it will show the client's exact words to a care coordinator who decides what happens next.
+
+B02  (12.25 s)
+  script: Why it matters: a coordinator shouldn't have to reread every conversation, and a summary alone can't be trusted. In my October test, Claude's summaries all kept the fall, but nine of ten changed what the client meant.
+  heard:  Why it matters, a coordinator shouldn't have to reread every conversation, and a summary alone can't be trusted. In my October test, Claude's summaries all kept the fall, but 9 of 10 changed what the client meant.
+
+B03  (5.48 s)
+  script: That small test is the only part that has run. Everything else in this film is a plan.
+  heard:  That small test is the only part that has run. Everything else in this film is a plan.
+
+B04  (15.64 s)
+  script: Others have built parts of this. Lifeline sells automatic fall detection, and says it doesn't detect every fall. DailyCall makes daily AI phone calls with summaries for families, and says it can't guarantee every safety concern is detected or interpreted correctly.
+  heard:  Others have built parts of this. Lifeline sells automatic fall detection and says it doesn't detect every fall. Daily Call makes daily AI phone calls with summaries for families and says it can't guarantee every safety concern is detected or interpreted correctly.
+
+B05  (11.63 s)
+  script: I'm not claiming they lack anything. DayThread's focus is narrower: every concern linked to the client's own words, a separate check of the raw transcript, and a person who decides before anything leaves the system.
+  heard:  I'm not claiming they lack anything. Day thread's focus is narrower, every concern linked to the client's own words, a separate check of the raw transcript, and a person who decides before anything leaves the system.
+
+B06  (12.14 s)
+  script: Here's how I'll build it. First, a delegation contract: each step must hand the next one something it can check, and if the check fails, the work stops. I'll write the contract and its tests before Claude writes any code.
+  heard:  Here's how I'll build it. First, a delegation contract. Each step must hand the next one something it can check, and if the check fails, the work stops. I'll write the contract in its tests before Claude writes any code.
+
+B07  (11.37 s)
+  script: The raw transcript will be saved and can't be edited. Every claim in memory must quote it word for word. And an approval only counts if the evidence and the action haven't changed since the coordinator saw them.
+  heard:  The raw transcript will be saved and can't be edited. Every claim in memory must quote it word for word, and an approval only counts if the evidence and the action haven't changed since the coordinator saw them.
+
+B08  (9.02 s)
+  script: Each check-in will run as a loop with a turn budget. It stops when the conversation ends or the budget runs out, never just because the model says it's done.
+  heard:  Each check -in will run as a loop with a turn budget. It stops when the conversation ends or the budget runs out, never just because the model says it's done.
+
+B09  (13.63 s)
+  script: The separate check will be a small open model, DistilRoBERTa, downloaded from Hugging Face and fine-tuned by me to flag concerning sentences. It reads the raw transcript, never the summary, so it fails differently from the thing it checks.
+  heard:  The separate check will be a small open model, Distill roberta, downloaded from hugging face and fine -tuned by me to flag concerning sentences. It reads the raw transcript, never the summary, so it fails differently from the thing it checks.
+
+B10  (12.86 s)
+  script: All data will be synthetic, with fictional clients. Claude will write the training sentences under labelling rules I set, and I'll spot-check them. I'll write the held-out test sentences myself, before any training, and lock them away.
+  heard:  All data will be synthetic with fictional clients. Claude will write the training sentences under labeling rules I set and I'll spot check them. I'll write the held out test sentences myself before any training and lock them away.
+
+B11  (12.05 s)
+  script: Do I have what I need? Claude Code through my existing account, so no API credits. The base model is a free download, so no new account. Training will run on my laptop, in Python, with PyTorch and S-Q-Lite.
+  heard:  Do I have what I need clawed code through my existing account so no API credits. The base model is a free download so no new account. Training will run on my laptop in Python with PyTorch and SQLite.
+
+B12  (10.35 s)
+  script: The order: the contract and tests, then the test set, then training data, then the checker, then the loop, memory and review page. Last, one run on the held-out set, before December twentieth.
+  heard:  The order, the contract and tests, then the test set, then training data, then the checker, then the loop, memory, and review page. Last, one run on the held out set before December 20th.
+
+B13  (12.52 s)
+  script: To evaluate the checker, I'll compare it with a simple keyword list and with the model before training, on the held-out set. I'll write the pass mark down before I look. If it doesn't beat the keyword list, that's the result I'll report.
+  heard:  To evaluate the checker, I'll compare it with a simple keyword list and with the model before training on the held -out set. I'll write the pass mark down before I look. If it doesn't beat the keyword list, that's the result I'll report.
+
+B14  (8.19 s)
+  script: At least five failure cases will be included on purpose: took a spill, my legs gave out, I didn't fall, my neighbour fell, and I fell asleep.
+  heard:  At least five failure cases will be included on purpose. Took a spill, my legs gave out, I didn't fall, my neighbor fell, and I fell asleep.
+
+B15  (10.75 s)
+  script: Then one controlled failure. My test never dropped the fall on its own, so I'll force a summary that drops it. It passes only if the separate check catches it and a coordinator reviews it.
+  heard:  Then one controlled failure. My test never dropped the fall on its own, so I'll force a summary that drops it. It passes only if the separate check catches it and a coordinator reviews it.
+
+B16  (9.45 s)
+  script: What this can't show: whether it works with real clients, or whether it catches a changed meaning. That's why the coordinator will see the original words next to every claim.
+  heard:  What this can't show, whether it works with real clients or whether it catches a changed meaning, that's why the coordinator will see the original words next to every claim.
+
+BOUT  (3.79 s)
+  script: This was DayThread, by Aditya Raj.
+  heard:  This was Day Thread by addediraj.
+

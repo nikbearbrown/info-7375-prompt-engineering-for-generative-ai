@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Evaluator-optimizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Evaluator-optimizer">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Evaluator-optimizer">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Workflow</p>
+      <h1 class="t-opening rise g2">Evaluator-optimizer</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">One call writes. A second call judges. Repeat.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one pattern: the evaluator-optimizer workflow. It shows the shape of the loop, one real run of it, what each round costs, and the signs that say it will pay off.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Evaluator-optimizer, the last workflow pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">One call writes and a second call judges, in a loop. It pays off when the criteria are clear and feedback makes the result better.</h2>
+      <div class="speaker-notes" hidden><p>The first sentence is the shape. The second is the condition. Both come from Anthropic's article and its cookbook notebook: the workflow fits when there are clear evaluation criteria and when iterative refinement adds measurable value.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">A generator, an evaluator, and feedback between them</p>
+      <div class="speaker-notes" hidden><p>Four slides: the loop, what travels back to the generator, one saved run from the notebook, and what the feedback changed in that run.</p></div>
+    </section>
+
+    <!-- 5 LOOP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The loop">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">A second call judges the first call's work</h2>
+      <div class="diagram build" data-build="loop" style="flex-basis:600px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Evaluator-optimizer". Statuses from the cookbook notebook evaluator_optimizer.ipynb.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> four places, all empty.</p>
+        <p><strong>Step 1:</strong> the task goes to the generator. One model call writes a response.</p>
+        <p><strong>Step 2:</strong> a second call, the evaluator, judges that response and writes feedback. In the notebook the evaluator has its own prompt and its own list of criteria.</p>
+        <p><strong>Step 3:</strong> if the verdict is not PASS, the feedback goes back to the generator, and the generator tries again.</p>
+        <p><strong>Step 4:</strong> when the evaluator returns PASS, the loop ends and the result is returned. The article compares this to the drafting and revising a human writer does to produce a polished document.</p>
+      </div>
+    </section>
+
+    <!-- 6 CONTEXT -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="What goes back">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">What goes back</p>
+      <h2 class="t-chart">Each retry is sent every earlier attempt and the latest feedback</h2>
+      <div class="diagram build" data-build="context" style="flex-basis:560px"></div>
+      <p class="source">Source: Anthropic cookbook notebook evaluator_optimizer.ipynb, the loop(), generate() and evaluate() functions.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three generation calls, not yet filled in. This slide reads the notebook's code and draws what each call receives.</p>
+        <p><strong>Step 1:</strong> the first call is sent the generator prompt and the task.</p>
+        <p><strong>Step 2:</strong> the second call is sent the prompt, the first attempt, the evaluator's feedback on it, and the task.</p>
+        <p><strong>Step 3:</strong> the third call is sent both earlier attempts and the feedback on the second one. The feedback on the first attempt is not sent again.</p>
+        <p><strong>Step 4:</strong> so the generator's input grows by one attempt per round. The evaluator's does not: it is sent the task and the current attempt only.</p>
+      </div>
+    </section>
+
+    <!-- 7 RUN -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="One saved run">
+      <div class="rule"></div>
+      <span class="evidence">Observed output</span>
+      <p class="eyebrow">One saved run</p>
+      <h2 class="t-chart">The evaluator called the first draft correct, and still sent it back</h2>
+      <div class="diagram build" data-build="run" style="flex-basis:600px"></div>
+      <p class="source">Source: Anthropic cookbook notebook evaluator_optimizer.ipynb, saved output of the iterative coding loop. Counts computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the notebook's example. The task is a stack with push, pop and getMin, all in constant time. The evaluator is told to check three things.</p>
+        <p><strong>Step 1:</strong> the first draft keeps a second list for the running minimum. On an empty stack, pop returns silently and getMin returns None.</p>
+        <p><strong>Step 2:</strong> the evaluator answers NEEDS_IMPROVEMENT. It says the core algorithm is correct and constant time, then lists four areas to improve, eight points in all.</p>
+        <p><strong>Step 3:</strong> the second draft raises an error on an empty stack, adds docstrings and type hints, and rejects a non-integer.</p>
+        <p><strong>Step 4:</strong> the saved output ends there. The code would evaluate the second draft next, but that evaluation is not in the notebook, so this run does not show a PASS. This is the notebook's saved output. I did not run the notebook.</p>
+      </div>
+    </section>
+
+    <!-- 8 FEEDBACK -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="What the feedback changed">
+      <div class="rule"></div>
+      <span class="evidence">Observed output</span>
+      <p class="eyebrow">What the feedback changed</p>
+      <h2 class="t-chart">The second draft answers each area of the feedback</h2>
+      <div class="diagram build" data-build="feedback" style="flex-basis:600px"></div>
+      <p class="source">Source: evaluator_optimizer.ipynb, saved output. Feedback is paraphrased. Matching it to the second draft is this deck's reading of that output.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the evaluator's four areas, with the number of points under each.</p>
+        <p><strong>Step 1:</strong> error handling. The second draft raises IndexError from pop and getMin on an empty stack.</p>
+        <p><strong>Step 2:</strong> type hints. The two lists are now typed. The evaluator also asked for a return type hint on pop, which the first draft already had.</p>
+        <p><strong>Step 3:</strong> documentation. The class and every method have docstrings, and push describes its argument.</p>
+        <p><strong>Step 4:</strong> edge cases. push now raises TypeError when it is given something that is not an integer.</p>
+        <p><strong>Step 5:</strong> the limit of this evidence. Every area shows a matching change, but no second evaluation is saved. One thing a second evaluator might raise: the new docstring for pop says it removes and returns the top element, while the function returns nothing. That observation is mine, from reading the saved code.</p>
+      </div>
+    </section>
+
+    <!-- 9 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="What it costs">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">What it costs</h2>
+      <p class="sub-section rise g3">Every round is two more model calls</p>
+      <div class="speaker-notes" hidden><p>The sources do not list failure modes for this workflow. They do state the cost of systems like it, and the notebook's code shows when the loop stops. This part stays with those two things.</p></div>
+    </section>
+
+    <!-- 10 COST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Calls per round">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">Calls per round</p>
+      <h2 class="t-chart">Each round of feedback adds two model calls</h2>
+      <div class="diagram build" data-build="cost" style="flex-basis:590px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "When (and when not) to use agents". Loop from evaluator_optimizer.ipynb. Calls computed as 2 × rounds.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> four possible runs, by the evaluation on which the response passes.</p>
+        <p><strong>Step 1:</strong> a pass on the first evaluation takes two calls: one generation, one evaluation. Each extra round adds two more. Four rounds is eight calls.</p>
+        <p><strong>Step 2:</strong> the article states the trade in general terms: these systems give up latency and cost to get better task performance, and you should decide whether that trade makes sense.</p>
+        <p><strong>Step 3:</strong> the notebook's loop is written as a loop with no round limit. It returns only when the evaluator says PASS, and its evaluator is told to pass only when every criterion is met and it has nothing more to suggest. The notebook is a minimal example. The number of rounds in a real run is not something these sources measure.</p>
+      </div>
+    </section>
+
+    <!-- 11 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Clear criteria, and feedback that makes the result better</p>
+      <div class="speaker-notes" hidden><p>The article gives two signs of a good fit and two examples. Then the pair to tell apart, and a checklist.</p></div>
+    </section>
+
+    <!-- 12 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two signs of fit">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Two signs say the loop will pay off</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:590px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Evaluator-optimizer". Reflection as described in this set's Reflection deck.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two signs, both from the article.</p>
+        <p><strong>Step 1:</strong> the first sign: responses get demonstrably better when a person states their feedback.</p>
+        <p><strong>Step 2:</strong> the second sign: the model can give that kind of feedback itself.</p>
+        <p><strong>Step 3:</strong> the article's two examples. Literary translation, where a first draft can miss nuances that an evaluator can point out. Complex search, where the evaluator decides whether more searching is needed.</p>
+        <p><strong>Step 4:</strong> the pair to tell apart. Here a separate call does the evaluating, with its own prompt and criteria. In Reflection, as the earlier deck in this set describes it, the model grades its own output against a rubric. The article does not make this comparison. It is this set's.</p>
+      </div>
+    </section>
+
+    <!-- 13 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Six checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Six checks before you add an evaluator loop</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Evaluator-optimizer" and "When (and when not) to use agents".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 4:</strong> the conditions the article and the notebook give for a good fit: clear criteria, measurable value from refinement, and the two signs.</p>
+        <p><strong>Steps 5 and 6:</strong> the article's general advice. Find the simplest solution that works, and add a loop like this only when the gain is worth the extra latency and cost. For many applications one well-tuned call is enough.</p>
+      </div>
+    </section>
+
+    <!-- 14 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">A second call can make the first one better. Use it when the criteria are clear and the extra calls are worth it.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: criteria nobody can state, or output that feedback does not improve. Then the loop only adds calls. This is the last workflow pattern. The loop family comes next, starting with "Measure, change one thing".</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Evaluator-optimizer";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- loop: one call writes, a second call judges, feedback goes back ---------- */
+  function renderLoop(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The evaluator-optimizer loop",
+      "Four boxes in a row: task, generator, evaluator, result. One model call, the generator, writes a response. A second call, the evaluator, judges it. If the verdict is not PASS, the feedback goes back to the generator together with every earlier attempt. The loop repeats until the evaluator returns PASS, and then the result is returned. In the notebook the evaluator answers PASS, NEEDS_IMPROVEMENT or FAIL.");
+    var y = 70, h = 130, cy = y + h / 2;
+    var N = [
+      { x: 0, w: 240, t: "TASK", d: "", on: k >= 1, step: 1 },
+      { x: 320, w: 360, t: "GENERATOR", d: "one call writes a response", on: k >= 1, step: 1 },
+      { x: 760, w: 360, t: "EVALUATOR", d: "a second call judges it", on: k >= 2, step: 2 },
+      { x: 1200, w: 199, t: "RESULT", d: "", on: k >= 4, step: 4 }
+    ];
+    N.forEach(function (n, i) {
+      var g = svg.append("g");
+      box(g, n.x, y, n.w, h, { fill: n.on ? (i === 2 ? TINT : "#FFFFFF") : SUBTLE, stroke: n.on ? INK : FAMILIAR, sw: n.on ? 2.5 : 1.5 });
+      txt(g, n.x + n.w / 2, cy + 11, n.t, { size: 30, weight: 900, anchor: "middle", ls: 2, fill: n.on ? INK : BASE });
+      if (n.on && n.d) txt(g, n.x + n.w / 2, y + h + 44, n.d, { size: 26, anchor: "middle", fill: BODY });
+      if (i > 0) arrow(g, N[i - 1].x + N[i - 1].w + 8, cy, n.x - 8, cy, n.on ? INK : FAMILIAR, 3);
+      if (A(anim, k, n.step)) fadeIn(g, i === 1 ? 250 : 0, 400);
+    });
+    if (k >= 4) {
+      var gp = svg.append("g");
+      txt(gp, 1160, cy - 18, "PASS", { size: 24, weight: 900, anchor: "middle" });
+      if (A(anim, k, 4)) fadeIn(gp, 200, 300);
+    }
+    if (k >= 3) {
+      var top = y + h + 66, g3 = svg.append("g");
+      var p = g3.append("path").attr("d", "M940," + top + " L940,350 L500,350 L500," + (top + 14))
+        .attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      var ah = arrowHead(g3, 500, top, "up", RED);
+      var t1 = txt(g3, 720, 404, "Not PASS: the feedback goes back to the generator.", { size: 28, weight: 700, fill: RED, anchor: "middle" });
+      var t2 = txt(g3, 720, 448, "Every earlier attempt goes back with it.", { size: 26, fill: BODY, anchor: "middle" });
+      if (A(anim, k, 3)) { drawIn(p, 0, 900); fadeIn(ah, 850, 200); fadeIn(t1, 900, 400); fadeIn(t2, 1200, 400); }
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 524, "The loop repeats until the evaluator returns PASS.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 570, "In the notebook the evaluator answers PASS, NEEDS_IMPROVEMENT or FAIL.", { size: 24, fill: MUTED });
+      if (A(anim, k, 4)) { fadeIn(c1, 400, 400); fadeIn(c2, 700, 400); }
+    }
+  }
+
+  /* ---------- context: what the generator is sent on each call ---------- */
+  function renderContext(el, k, anim) {
+    var svg = svgFor(el, W, 560, "What the generator is sent on each call",
+      "Three rows. Generation 1 is sent the prompt and the task. Generation 2 is sent the prompt, attempt 1, feedback 1 and the task. Generation 3 is sent the prompt, attempts 1 and 2, feedback 2 and the task. Each retry carries every earlier attempt and only the latest feedback. The evaluator is sent the task and the current attempt, not the earlier ones.");
+    label(svg, 0, 26, "WHAT THE GENERATOR IS SENT ON EACH CALL", { size: 24 });
+    var KIND = {
+      prompt: { w: 170, fill: "#FFFFFF", stroke: INK, color: INK },
+      attempt: { w: 200, fill: FAMILIAR, stroke: BASE, color: INK },
+      feedback: { w: 220, fill: TINT, stroke: RED, color: RED },
+      task: { w: 130, fill: "#FFFFFF", stroke: INK, color: INK }
+    };
+    d3.range(1, 4).forEach(function (n) {
+      var y = 50 + (n - 1) * 124, on = k >= n, g = svg.append("g");
+      txt(g, 0, y + 54, "GENERATION " + n, { size: 24, weight: 900, ls: 1.5, fill: on ? INK : BASE });
+      if (!on) { box(g, 230, y, 1168, 88, { fill: SUBTLE, stroke: FAMILIAR, dash: "6 6" }); return; }
+      var parts = [["prompt", "prompt"]];
+      d3.range(1, n).forEach(function (a) { parts.push(["attempt", "attempt " + a]); });
+      if (n > 1) parts.push(["feedback", "feedback " + (n - 1)]);
+      parts.push(["task", "task"]);
+      var x = 230;
+      parts.forEach(function (p, j) {
+        var kd = KIND[p[0]], b = g.append("g");
+        box(b, x, y, kd.w, 88, { fill: kd.fill, stroke: kd.stroke, sw: 2.5 });
+        txt(b, x + kd.w / 2, y + 54, p[1], { size: 26, weight: 700, anchor: "middle", fill: kd.color });
+        if (A(anim, k, n)) fadeIn(b, j * 220, 350);
+        x += kd.w + 12;
+      });
+    });
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 452, "Each retry carries every earlier attempt. Only the latest feedback goes with them.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 500, "The evaluator is sent the task and the current attempt, not the earlier ones.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- the notebook's saved run: feedback from the one saved evaluation (paraphrased) ---------- */
+  var FEEDBACK = [
+    { area: "Error handling", ask: "pop() and getMin() should raise on an empty stack", got: "Both raise IndexError on an empty stack.",
+      points: ["pop() should raise when the stack is empty", "getMin() should raise when the stack is empty", "match standard stack behaviour"] },
+    { area: "Type hints", ask: "hints for the stack and minStack variables", got: "Both are typed as List[int].",
+      points: ["return type hint for pop()", "type hints for stack and minStack"] },
+    { area: "Documentation", ask: "docstrings and parameter descriptions", got: "Class and method docstrings. push() documents x.",
+      points: ["docstrings for the class and methods", "parameter descriptions"] },
+    { area: "Edge cases", ask: "invalid input types for push()", got: "push() raises TypeError for a non-integer.",
+      points: ["handling of invalid input types for push()"] }
+  ];
+  var FB_POINTS = FEEDBACK.reduce(function (s, f) { return s + f.points.length; }, 0);
+
+  function runCard(svg, i, head, lines, o) {
+    o = o || {};
+    var x = i * 357, y = 160, g = svg.append("g");
+    box(g, x, y, 327, 320, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.dash ? 1.5 : 2.5, dash: o.dash });
+    txt(g, x + 20, y + 42, head, { size: 24, weight: 900, ls: 1.5, fill: o.color || INK });
+    var ly = y + 92;
+    lines.forEach(function (s) {
+      var str = typeof s === "string" ? s : s[0], op = typeof s === "string" ? { size: 24, fill: o.color || BODY } : s[1];
+      ly = wrap(g, x + 20, ly, str, 23, op) + 46;
+    });
+    if (i > 0) arrow(g, x - 27, y + 160, x - 3, y + 160, o.dash ? BASE : INK, 3);
+    return g;
+  }
+  function renderRun(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The notebook's saved run of the coding loop",
+      "Task: implement a stack with push, pop and getMin, all in constant time. The evaluator checks code correctness, time complexity, and style and best practices. Generation 1: two lists, stack and minStack; pop on an empty stack returns silently; getMin on an empty stack returns None. Evaluation 1: NEEDS_IMPROVEMENT; the core algorithm is correct and constant time; 4 areas and 8 points to improve. Generation 2: raises IndexError on an empty stack; docstrings and type hints added; push rejects a non-integer. Evaluation 2 is not in the saved output.");
+    label(svg, 0, 24, "TASK", { size: 24 });
+    txt(svg, 0, 60, "Implement a Stack with push(x), pop() and getMin(). All operations should be O(1).", { size: 25 });
+    label(svg, 0, 104, "THE EVALUATOR CHECKS", { size: 24 });
+    txt(svg, 0, 138, "code correctness  ·  time complexity  ·  style and best practices", { size: 25 });
+    var g;
+    if (k >= 1) {
+      g = runCard(svg, 0, "GENERATION 1", ["Two lists: stack and minStack.", "pop() on an empty stack returns silently.", "getMin() on an empty stack returns None."]);
+      if (A(anim, k, 1)) fadeIn(g, 0, 450);
+    }
+    if (k >= 2) {
+      g = runCard(svg, 1, "EVALUATION 1", [
+        ["NEEDS_IMPROVEMENT", { size: 24, weight: 700, family: MONO, fill: RED }],
+        "Core algorithm is correct and O(1).",
+        [FEEDBACK.length + " areas, " + FB_POINTS + " points to improve.", { size: 24, weight: 700, fill: RED }]
+      ], { fill: TINT, stroke: RED });
+      if (A(anim, k, 2)) fadeIn(g, 0, 450);
+    }
+    if (k >= 3) {
+      g = runCard(svg, 2, "GENERATION 2", ["Raises IndexError on an empty stack.", "Docstrings and type hints added.", "push() rejects a non-integer."]);
+      if (A(anim, k, 3)) fadeIn(g, 0, 450);
+    }
+    if (k >= 4) {
+      g = runCard(svg, 3, "EVALUATION 2", ["Not in the saved output."], { dash: "6 6", stroke: BASE, color: MUTED });
+      var c1 = txt(svg, 0, 530, "The saved output stops after the second draft.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 574, "The loop's next step is a second evaluation. The run does not show whether the draft passed.", { size: 24, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(g, 0, 450); fadeIn(c1, 400, 400); fadeIn(c2, 700, 400); }
+    }
+  }
+
+  /* ---------- feedback: each area of feedback against the second draft ---------- */
+  function renderFeedback(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Each area of the evaluator's feedback against the second draft",
+      "Four rows. Error handling, 3 points: pop and getMin should raise on an empty stack; in the second draft both raise IndexError. Type hints, 2 points: hints for the stack and minStack variables; both are typed as List of int. Documentation, 2 points: docstrings and parameter descriptions; the class and methods have docstrings and push documents its argument. Edge cases, 1 point: invalid input types for push; push raises TypeError for a non-integer. 4 areas and 8 points in all. No second evaluation is saved, so nothing here shows the draft passed.");
+    label(svg, 0, 26, "THE EVALUATOR ASKED FOR", { size: 24 });
+    label(svg, 760, 26, "THE SECOND DRAFT", { size: 24 });
+    FEEDBACK.forEach(function (f, i) {
+      var y = 46 + i * 112, on = k >= i + 1, g = svg.append("g"), n = f.points.length;
+      box(g, 0, y, 680, 98, { fill: on ? TINT : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 40, f.area, { size: 27, weight: 900, fill: on ? INK : BASE });
+      txt(g, 656, y + 40, n + (n === 1 ? " point" : " points"), { size: 24, family: MONO, anchor: "end", fill: on ? MUTED : BASE });
+      if (!on) return;
+      txt(g, 24, y + 78, f.ask, { size: 24, fill: BODY });
+      var r = svg.append("g");
+      arrow(r, 688, y + 49, 752, y + 49, INK, 3);
+      box(r, 760, y, 638, 98, { sw: 2.5 });
+      check(r, 802, y + 51, 14, INK);
+      wrap(r, 846, y + (f.got.length > 42 ? 42 : 58), f.got, 42, { size: 25, fill: INK });
+      if (A(anim, k, i + 1)) { fadeIn(g, 0, 350); fadeIn(r, 300, 400); }
+    });
+    if (k >= 5) {
+      var c1 = txt(svg, 0, 528, "No second evaluation is saved, so nothing here shows the draft passed.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 574, FEEDBACK.length + " areas, " + FB_POINTS + " points of feedback. The evaluator also said the core algorithm was correct and O(1).", { size: 24, fill: BODY });
+      if (A(anim, k, 5)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- cost: two model calls per round ---------- */
+  function callsFor(rounds) { return 2 * rounds; }   /* one generation call and one evaluation call per round */
+  function renderCost(el, k, anim) {
+    var ROUNDS = [1, 2, 3, 4], U = 104, x0 = 380, maxCalls = callsFor(ROUNDS[ROUNDS.length - 1]);
+    var svg = svgFor(el, W, 590, "Model calls until the evaluator returns PASS",
+      "Four rows. A pass on evaluation 1 takes 2 calls, one generation and one evaluation. A pass on evaluation 2 takes 4 calls, on evaluation 3 takes 6, on evaluation 4 takes 8. Calls equal 2 times rounds. The article says these systems trade latency and cost for better task performance. The notebook's loop has no round limit and stops only when the evaluator returns PASS.");
+    label(svg, 0, 26, "MODEL CALLS UNTIL THE EVALUATOR RETURNS PASS", { size: 24 });
+    ROUNDS.forEach(function (n, i) {
+      var y = 48 + i * 78, c = callsFor(n);
+      txt(svg, 0, y + 40, "PASS on evaluation " + n, { size: 26, fill: k >= 1 ? INK : BASE });
+      svg.append("rect").attr("x", x0).attr("y", y).attr("width", maxCalls * U).attr("height", 60).attr("fill", SUBTLE);
+      if (k < 1) return;
+      d3.range(c).forEach(function (j) {
+        var gen = j % 2 === 0, g = svg.append("g");
+        g.append("rect").attr("x", x0 + j * U + 2).attr("y", y).attr("width", U - 4).attr("height", 60).attr("fill", gen ? INK : FAMILIAR);
+        txt(g, x0 + j * U + U / 2, y + 39, gen ? "gen" : "eval", { size: 24, weight: 700, family: MONO, anchor: "middle", fill: gen ? "#FFFFFF" : INK });
+        if (A(anim, k, 1)) fadeIn(g, i * 500 + j * 120, 250);
+      });
+      var t = txt(svg, x0 + maxCalls * U + 18, y + 41, c + " calls", { size: 28, weight: 700, family: MONO });
+      if (A(anim, k, 1)) fadeIn(t, i * 500 + c * 120, 300);
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      txt(g2, 0, 400, "calls = 2 × rounds: " + ROUNDS.map(callsFor).join(", "), { size: 26, family: MONO, fill: INK });
+      txt(g2, 0, 446, "The article's general point: these systems trade latency and cost for better task performance.", { size: 26, fill: BODY });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 500);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 0, 510, "The notebook's loop has no round limit. It stops only when the evaluator returns PASS.", { size: 28, weight: 900, fill: RED });
+      txt(g3, 0, 556, "Its evaluator is told to pass only when every criterion is met and it has no further suggestions.", { size: 24, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- choose: the two signs of fit, the article's examples, the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 590, "Two signs that the evaluator-optimizer loop fits",
+      "Sign 1: do responses get better when a person states feedback? Yes, a sign of good fit. No, not a good fit. Sign 2: can the model give that kind of feedback itself? Yes, a sign of good fit. No, not a good fit. The article's examples: literary translation, and complex search that needs several rounds of searching and analysis. Tell these apart: in evaluator-optimizer a separate call, with its own prompt and criteria, evaluates the response; in Reflection the model evaluates its own output against a rubric, then revises. The contrast is this deck set's, not the article's.");
+    var Q = [
+      { q: "Do responses get better when a person states feedback?", a: ["yes", "A sign of good fit"], b: ["no", "Not a good fit"] },
+      { q: "Can the model give that kind of feedback itself?", a: ["yes", "A sign of good fit"], b: ["no", "Not a good fit"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 740, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "SIGN " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 25, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 746, y + 52, 796, y + 52, INK, 3);
+      box(ga, 800, y, 300, 104, { fill: INK });
+      txt(ga, 822, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 822, y + 80, r.a[1], { size: 25, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1120, y, 278, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1142, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1142, y + 80, r.b[1], { size: 24, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 276, "THE ARTICLE'S EXAMPLES", { size: 24 });
+      txt(g3, 0, 316, "Literary translation. Complex search that needs several rounds of searching and analysis.", { size: 26, fill: INK });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 450);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      label(g4, 0, 372, "TELL THESE APART", { size: 24 });
+      box(g4, 0, 390, 680, 150, { sw: 2.5 });
+      txt(g4, 26, 438, "Evaluator-optimizer", { size: 30, weight: 900 });
+      wrap(g4, 26, 480, "A separate call, with its own prompt and criteria, evaluates the response.", 50, { size: 25, fill: BODY });
+      box(g4, 720, 390, 678, 150, { sw: 2.5 });
+      txt(g4, 746, 438, "Reflection", { size: 30, weight: 900 });
+      wrap(g4, 746, 480, "The model evaluates its own output against a rubric, then revises.", 50, { size: 25, fill: BODY });
+      txt(g4, 0, 576, "The contrast is this deck set's, not the article's.", { size: 24, fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- checks: four that fit, two reasons to think again ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Six checks before adding an evaluator loop",
+      "Fits when: the evaluation criteria are clear; iterative refinement adds measurable value; responses improve when feedback is stated; the model can give that feedback itself. Think again when: a single well-tuned model call is enough; the gain is not worth the extra latency and cost.");
+    var fits = [
+      "The evaluation criteria are clear.",
+      "Iterative refinement adds measurable value.",
+      "Responses improve when feedback is stated.",
+      "The model can give that feedback itself."
+    ];
+    var again = [
+      "A single well-tuned model call is enough.",
+      "The gain is not worth the extra latency and cost."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "THINK AGAIN WHEN", { size: 24, fill: RED });
+    fits.concat(again).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 132, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 116, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 58, 14, RED); else check(g, x + 52, y + 60, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 50 : 68), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    loop: { steps: 4, render: renderLoop },
+    context: { steps: 4, render: renderContext },
+    run: { steps: 4, render: renderRun },
+    feedback: { steps: 5, render: renderFeedback },
+    cost: { steps: 3, render: renderCost },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 6, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

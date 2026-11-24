@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: ReAct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+
+/* case setup slide: a beat that tells the viewer what a named case is before its numbers */
+.case-setup .bullets{margin-top:64px; gap:44px; max-width:1560px}
+.case-setup .bullets li{font-size:38px; line-height:1.4}
+.case-setup .bullets li::before{margin-top:calc((38px * 1.4 - 14px) / 2)}
+.case-setup .source{margin-top:56px}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: ReAct">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="ReAct">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Reasoning</p>
+      <h1 class="t-opening rise g2">ReAct</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Reason, act, observe, repeat.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one pattern: ReAct, short for reasoning and acting. It shows the shape of the pattern, the way it fails, and the questions that decide whether to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is ReAct, the first reasoning pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">ReAct can change course after every tool call. It pays for that with context.</h2>
+      <div class="speaker-notes" hidden><p>Both halves come from the same mechanism. Every observation stays in the context so the next thought can use it. That is what makes the pattern adaptive, and it is also what fills the window.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Thought, action, observation, in one growing context</p>
+      <div class="speaker-notes" hidden><p>Three slides: the cycle, a real trace of two cycles, and why the observation matters.</p></div>
+    </section>
+
+    <!-- 5 LOOP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="One cycle">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">One cycle adds a thought, an action and an observation</h2>
+      <div class="diagram build" data-build="loop" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy". Pattern proposed by Yao et al., 2022.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three empty places. A reasoning pattern is a rule for which operations run in what order.</p>
+        <p><strong>Step 1:</strong> the thought is reasoning in plain language.</p>
+        <p><strong>Step 2:</strong> the action is a structured tool call.</p>
+        <p><strong>Step 3:</strong> the observation is the value the tool really returned.</p>
+        <p><strong>Step 4:</strong> the cycle repeats. The next thought is written after the model reads the observation, so each step is conditioned on the last real result.</p>
+      </div>
+    </section>
+
+    <!-- 6 TRACE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="A trace">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">A trace</p>
+      <h2 class="t-chart">The second thought depends on the first observation</h2>
+      <div class="diagram build" data-build="trace" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "ReAct Deep Dive", Structure.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the task arrives and the model writes its first thought.</p>
+        <p><strong>Step 1:</strong> it calls a tool and reads the result. That is one full cycle.</p>
+        <p><strong>Step 2:</strong> the second thought uses the warranty length from the first observation. The model could not have written it before the tool returned.</p>
+        <p><strong>Step 3:</strong> the second cycle completes. Note that all six lines are still in the context.</p>
+      </div>
+    </section>
+
+    <!-- 7 GROUNDING -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Why the observation helps">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Why it helps</p>
+      <h2 class="t-chart">An observation stops a wrong guess from compounding</h2>
+      <div class="diagram build" data-build="ground" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "ReAct Deep Dive", Logic.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> a chain of thoughts with no tool calls.</p>
+        <p><strong>Step 1:</strong> one wrong guess early, and every later thought builds on it.</p>
+        <p><strong>Step 2:</strong> the same wrong guess inside a ReAct run.</p>
+        <p><strong>Step 3:</strong> the observation puts a real value into the context before the next thought. The chapter's wording: the model is shown what the system said, so it cannot fabricate it. This is the chapter's argument, drawn as a picture. It is not a measurement.</p>
+      </div>
+    </section>
+
+    <!-- 8 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">Context saturation: the window fills and early evidence fades</p>
+      <div class="speaker-notes" hidden><p>The failure comes from the same property that made the pattern useful. Nothing is summarized or removed, so the context only grows.</p></div>
+    </section>
+
+    <!-- 9 FILL -->
+    <section class="slide s-text case-setup" aria-roledescription="slide" data-title="The case">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The case: a billing-support agent</p>
+      <h2 class="t-chart">A customer asks a phone company's chatbot why her bill went up $34</h2>
+      <ul class="bullets">
+        <li><span><strong>The agent.</strong> A support chatbot built on ReAct. The book calls it Helios.</span></li>
+        <li><span><strong>Its record.</strong> In its pilot it answered 91% of billing questions on the first contact.</span></li>
+        <li><span><strong>Its tools.</strong> Look up the account, the bill and the device payment plan. Every answer goes into its context.</span></li>
+        <li><span><strong>Its window.</strong> 8,192 tokens, shared by every tool result, every thought and the reply.</span></li>
+      </ul>
+      <p class="source">Source: Chapter 3, "The Scenario". Paraphrased.</p>
+      <div class="speaker-notes" hidden>
+        <p>Before the numbers, the story. A customer opens a support chat with her phone company: her bill went up by $34 this month, and she was told last month that the problem was fixed. The company's support agent is a ReAct system that did well in its pilot. It answers by calling lookup tools one at a time, and every result stays in its context window, which holds 8,192 tokens. The next slide follows that window as the tool results arrive.</p>
+      </div>
+    </section>
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The window fills">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The billing agent, call by call</p>
+      <h2 class="t-chart">Three tool calls used 7,700 of 8,192 tokens</h2>
+      <div class="diagram build" data-build="fill" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "The Scenario". Token counts are the chapter's; totals are added in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty 8,192-token window. Helios is a support agent built on ReAct. A customer asks why her bill rose by $34.</p>
+        <p><strong>Step 1:</strong> the account summary returns 1,800 tokens.</p>
+        <p><strong>Step 2:</strong> the billing detail returns 2,200 more. The total is 4,000.</p>
+        <p><strong>Step 3:</strong> two reasoning steps add 600 tokens of scratchpad. The total is 4,600.</p>
+        <p><strong>Step 4:</strong> the device payment schedule returns 3,100. The total is 7,700, which leaves 492 tokens for the rest of the reasoning and the reply.</p>
+      </div>
+    </section>
+
+    <!-- 10 DILUTE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Dilution, not deletion">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The mechanism</p>
+      <h2 class="t-chart">Nothing is deleted. Each early token gets a smaller share.</h2>
+      <div class="diagram build" data-build="dilute" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Mechanism Behind Context Saturation". Share computed as 1 / n.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> attention weights are normalized, so they add up to 1.0 across every token in the context.</p>
+        <p><strong>Step 1:</strong> with 50 tokens, an equal share is 1 in 50, which is 2 percent.</p>
+        <p><strong>Step 2:</strong> grow the context to 7,700 tokens. The same token's equal share is 1 in 7,700, about 0.013 percent. The red mark is still there, but it is too thin to see.</p>
+        <p><strong>Step 3:</strong> equal shares are a simplification, because real attention is not uniform. The direction is the point. The early observation is still present. It carries less weight when the reply is written.</p>
+      </div>
+    </section>
+
+    <!-- 11 HALF RIGHT -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Fluent and half right">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The failure signature</p>
+      <h2 class="t-chart">The reply was fluent and half right</h2>
+      <div class="diagram build" data-build="half" style="flex-basis:590px"></div>
+      <p class="source">Source: Chapter 3, "The Scenario". The reply text is a paraphrase.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the bill rose by $34.</p>
+        <p><strong>Step 1:</strong> there were two causes of $17 each: an expired promotional discount, and a device plan that moved to an unsubsidized tier.</p>
+        <p><strong>Step 2:</strong> the reply explains the discount and issues a credit.</p>
+        <p><strong>Step 3:</strong> it never mentions the device plan. No error was raised. The postmortem found accurate tool outputs, valid reasoning steps and no hallucination. A check on fluency or customer sentiment would not catch this. The customer came back three times.</p>
+      </div>
+    </section>
+
+    <!-- 12 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Count the steps, and ask whether the plan must change mid-task</p>
+      <div class="speaker-notes" hidden><p>The decision questions come straight from the failure modes. Name the failure you are accepting before you build.</p></div>
+    </section>
+
+    <!-- 13 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two questions">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Two questions decide whether ReAct fits</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Decision Framework", questions 1 and 2.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two questions, asked in order.</p>
+        <p><strong>Step 1:</strong> how many tool calls? Five or fewer, ReAct is viable. More than five, saturation becomes a design risk. The threshold is the chapter's rule of thumb for an 8K window, not a constant.</p>
+        <p><strong>Step 2:</strong> must the next step use what the last step actually returned? If yes, you need ReAct. If the steps are fixed by the task, Plan-and-Execute is safe.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. ReAct chooses each step after reading the last observation. Plan-and-Execute commits to every step before any tool has run.</p>
+      </div>
+    </section>
+
+    <!-- 14 LATENCY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The cost of waiting">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The cost of waiting</p>
+      <h2 class="t-chart">Five independent calls: ReAct waits for each one</h2>
+      <div class="diagram build" data-build="latency" style="flex-basis:520px"></div>
+      <p class="source">Source: Chapter 3, "ReWOO". Both totals are computed in code from 5 calls at 300 ms.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> five tool calls at 300 milliseconds each.</p>
+        <p><strong>Step 1:</strong> ReAct runs them one at a time, because each thought waits for the previous observation. Five times 300 is 1,500 milliseconds.</p>
+        <p><strong>Step 2:</strong> ReWOO plans all five first and runs them together. The total is the slowest call, 300 milliseconds.</p>
+        <p><strong>Step 3:</strong> the gain holds only when no call needs another call's output. When calls depend on each other, the waiting is the price of adapting.</p>
+      </div>
+    </section>
+
+    <!-- 15 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Six checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Six checks before you choose ReAct</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:520px"></div>
+      <p class="source">Source: Chapter 3, "ReAct Deep Dive", Outcome.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 3:</strong> the conditions under which the chapter says ReAct is correct.</p>
+        <p><strong>Steps 4 to 6:</strong> the conditions under which it breaks. If any of these describes your task, look at Plan-and-Execute or ReWOO, or keep the evidence outside the context.</p>
+      </div>
+    </section>
+
+    <!-- 16 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">ReAct buys adaptation with context. Count the steps before you choose it.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: a much larger window, or a design that summarizes old observations, moves the threshold. It does not remove the mechanism. Next in the set: Plan-and-Execute, which commits to the plan first and fails in the opposite way.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "ReAct";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- loop: thought, action, observation, repeat ---------- */
+  function renderLoop(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The ReAct cycle",
+      "Three boxes in a row: thought, action, observation. An arrow returns from observation to thought. The next thought is written after reading the observation.");
+    var N = [
+      { x: 230, t: "THOUGHT", d: "reasoning in plain language" },
+      { x: 700, t: "ACTION", d: "a structured tool call" },
+      { x: 1170, t: "OBSERVATION", d: "what the tool really returned" }
+    ];
+    var y = 150, w = 380, h = 160;
+    N.forEach(function (n, i) {
+      var on = k >= i + 1, g = svg.append("g");
+      box(g, n.x - w / 2, y - h / 2, w, h, { fill: on ? (i === 2 ? TINT : "#FFFFFF") : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, n.x, y + 12, n.t, { size: 34, weight: 900, anchor: "middle", ls: 2, fill: on ? INK : BASE });
+      if (on) {
+        var d = txt(g, n.x, y + h / 2 + 50, n.d, { size: 28, anchor: "middle", fill: BODY });
+        if (A(anim, k, i + 1)) { fadeIn(g, 0, 350); fadeIn(d, 250, 350); }
+      }
+      if (i > 0 && on) {
+        var ag = svg.append("g");
+        arrow(ag, N[i - 1].x + w / 2 + 10, y, n.x - w / 2 - 10, y, INK, 3);
+        if (A(anim, k, i + 1)) fadeIn(ag, 0, 300);
+      }
+    });
+    if (k >= 4) {
+      var top = y + h / 2 + 82, g2 = svg.append("g");
+      var p = g2.append("path").attr("d", "M1170," + top + " L1170,420 L230,420 L230," + (top + 14))
+        .attr("fill", "none").attr("stroke", RED).attr("stroke-width", 4);
+      var ah = arrowHead(g2, 230, top, "up", RED);
+      var t1 = txt(g2, 700, 492, "Repeat. The next thought is written after the model reads the observation.", { size: 30, weight: 700, fill: RED, anchor: "middle" });
+      var t2 = txt(g2, 700, 544, "All three items stay in the context. Nothing is summarized or removed.", { size: 28, fill: BODY, anchor: "middle" });
+      if (A(anim, k, 4)) { drawIn(p, 0, 900); fadeIn(ah, 850, 200); fadeIn(t1, 900, 400); fadeIn(t2, 1200, 400); }
+    }
+  }
+
+  /* ---------- trace: the chapter's warranty example ---------- */
+  var TRACE = [
+    ["THOUGHT", "The user wants warranty status for order #4821. I need to look up the order."],
+    ["ACTION", 'lookup_order(order_id="4821")'],
+    ["OBSERVATION", '{"order_id": "4821", "product": "WH-2200", "warranty_months": 12, ...}'],
+    ["THOUGHT", "Order is 14 months old, warranty expired. Need to check extended warranty."],
+    ["ACTION", 'check_extended_warranty(order_id="4821")'],
+    ["OBSERVATION", '{"extended": true, "expiry": "2026-01-15"}']
+  ];
+  function renderTrace(el, k, anim) {
+    var svg = svgFor(el, W, 580, "A ReAct trace of two cycles",
+      "Six lines. Thought: look up order 4821. Action: lookup_order. Observation: warranty_months 12. Thought: order is 14 months old, warranty expired, check extended warranty. Action: check_extended_warranty. Observation: extended true. The second thought uses the first observation.");
+    var shown = [1, 3, 4, 6][k], rh = 80, y0 = 8, firstNew = k === 0 ? 0 : [1, 3, 4, 6][k - 1], texts = [];
+    TRACE.forEach(function (r, i) {
+      if (i >= shown) return;
+      var y = y0 + i * rh, g = svg.append("g"), obs = r[0] === "OBSERVATION", th = r[0] === "THOUGHT";
+      g.append("rect").attr("x", 0).attr("y", y).attr("width", W).attr("height", rh - 8).attr("fill", obs ? TINT : (th ? "#FFFFFF" : SUBTLE)).attr("stroke", GRID);
+      txt(g, 18, y + 46, r[0], { size: 24, weight: 900, ls: 1.5, fill: obs ? RED : INK });
+      texts[i] = txt(g, 250, y + 46, r[1], th ? { size: 28, fill: INK } : { size: 26, family: MONO, fill: INK });
+      if (anim && i >= firstNew) { g.attr("opacity", 0).transition().delay((i - firstNew) * 350).duration(400).attr("opacity", 1); }
+    });
+    /* measured position of a run of characters; falls back to an estimate when the slide is not laid out */
+    function span(t, start, len, fx, fw) {
+      try { var n = t.node(), x = n.getStartPositionOfChar(start).x, w = n.getSubStringLength(start, len); if (w > 0) return [x, w]; } catch (e) { /* not rendered */ }
+      return [fx, fw];
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g"), ya = y0 + 2 * rh + (rh - 8), yb = y0 + 3 * rh;
+      var i1 = TRACE[2][1].indexOf('"warranty_months"'), s1 = span(texts[2], i1, 21, 921, 328);
+      var s2 = span(texts[3], 0, TRACE[3][1].indexOf(".") + 1, 250, 560);
+      var m1 = s1[0] + s1[1] / 2, m2 = s2[0] + s2[1] / 2;
+      var ring = g2.append("rect").attr("x", s1[0] - 8).attr("y", y0 + 2 * rh + 14).attr("width", s1[1] + 16).attr("height", 46).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3);
+      var ring2 = g2.append("rect").attr("x", s2[0] - 8).attr("y", y0 + 3 * rh + 14).attr("width", s2[1] + 16).attr("height", 46).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3);
+      var link = g2.append("path").attr("d", "M" + m1 + "," + (ya - 12) + " L" + m1 + "," + (ya + 4) + " L" + m2 + "," + (ya + 4) + " L" + m2 + "," + (yb + 14)).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3);
+      var cap = txt(g2, 0, y0 + 6 * rh + 50, "Thought 2 uses the 12 months from observation 1. It could not be written before the tool returned.", { size: 28, weight: 700, fill: RED });
+      if (A(anim, k, 2)) { fadeIn(ring, 500, 300); drawIn(link, 800, 400); fadeIn(ring2, 1200, 300); fadeIn(cap, 1400, 400); }
+    }
+  }
+
+  /* ---------- ground: an observation interrupts a compounding error ---------- */
+  function renderGround(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Reasoning only compared with reason, act, observe",
+      "Top row, reasoning only: thought 1 on track, thought 2 a wrong guess, thoughts 3 and 4 build on it, the answer is wrong. Bottom row, reason act observe: thought 1 on track, thought 2 a wrong guess, then an observation supplies the real value, and thoughts 3 and 4 are corrected.");
+    var bw = 250, bh = 124, gap = 30;
+    function cell(g, i, y, a, b, state) {
+      var x = i * (bw + gap);
+      var st = { idle: [SUBTLE, FAMILIAR, BASE], ok: ["#FFFFFF", INK, INK], bad: [TINT, RED, RED], obs: [INK, INK, "#FFFFFF"], empty: ["#FFFFFF", FAMILIAR, BASE] }[state];
+      box(g, x, y, bw, bh, { fill: st[0], stroke: st[1], sw: state === "idle" || state === "empty" ? 1.5 : 2.5, dash: state === "empty" ? "6 6" : null });
+      txt(g, x + bw / 2, y + 52, a, { size: 28, weight: 700, anchor: "middle", fill: st[2] });
+      if (b) txt(g, x + bw / 2, y + 92, b, { size: 26, anchor: "middle", fill: st[2] });
+      if (i > 0) arrow(g, x - gap + 3, y + bh / 2, x - 3, y + bh / 2, state === "bad" ? RED : (state === "idle" || state === "empty" ? FAMILIAR : INK), 2.5);
+    }
+    label(svg, 0, 26, "REASONING ONLY", { size: 24 });
+    var rowA = k >= 1
+      ? [["thought 1", "on track", "ok"], ["thought 2", "wrong guess", "bad"], ["thought 3", "builds on it", "bad"], ["thought 4", "builds on it", "bad"], ["answer", "wrong", "bad"]]
+      : [["thought 1", "", "idle"], ["thought 2", "", "idle"], ["thought 3", "", "idle"], ["thought 4", "", "idle"], ["answer", "", "idle"]];
+    rowA.forEach(function (c, i) {
+      var g = svg.append("g"); cell(g, i, 46, c[0], c[1], c[2]);
+      if (A(anim, k, 1)) g.attr("opacity", 0.15).transition().delay(i * 320).duration(350).attr("opacity", 1);
+    });
+    if (k >= 2) {
+      label(svg, 0, 276, "REASON, ACT, OBSERVE", { size: 24 });
+      var rowB = k >= 3
+        ? [["thought 1", "on track", "ok"], ["thought 2", "wrong guess", "bad"], ["OBSERVATION", "the real value", "obs"], ["thought 3", "corrected", "ok"], ["thought 4", "on track", "ok"]]
+        : [["thought 1", "on track", "ok"], ["thought 2", "wrong guess", "bad"], ["", "", "empty"], ["", "", "empty"], ["", "", "empty"]];
+      rowB.forEach(function (c, i) {
+        var g = svg.append("g"); cell(g, i, 296, c[0], c[1], c[2]);
+        if (A(anim, k, 2)) fadeIn(g, i * 150, 350);
+        if (A(anim, k, 3) && i >= 2) fadeIn(g, (i - 2) * 400, 400);
+      });
+    }
+    if (k >= 3) {
+      var cap = txt(svg, 0, 496, "The model is shown what the tool returned. It can't invent that value.", { size: 30, weight: 700, fill: INK });
+      var cap2 = txt(svg, 0, 546, "A real result enters the context before the next thought is written.", { size: 26, fill: BODY });
+      if (A(anim, k, 3)) { fadeIn(cap, 1200, 400); fadeIn(cap2, 1450, 400); }
+    }
+  }
+
+  /* ---------- fill: the Helios context window ---------- */
+  var CTX = [
+    { n: "get_account_summary", t: 1800, kind: "tool" },
+    { n: "get_billing_detail", t: 2200, kind: "tool" },
+    { n: "scratchpad, two reasoning steps", t: 600, kind: "think" },
+    { n: "get_device_payment_schedule", t: 3100, kind: "tool" }
+  ];
+  var CTX_MAX = 8192;
+  function renderFill(el, k, anim) {
+    var used = d3.sum(CTX.slice(0, k), function (c) { return c.t; });
+    var prev = d3.sum(CTX.slice(0, Math.max(0, k - 1)), function (c) { return c.t; });
+    var svg = svgFor(el, W, 600, "The context window filling to 7,700 of 8,192 tokens",
+      "A bar for an 8,192-token context. get_account_summary adds 1,800. get_billing_detail adds 2,200, total 4,000. The scratchpad adds 600, total 4,600. get_device_payment_schedule adds 3,100, total 7,700. 492 tokens are left.");
+    var X = d3.scaleLinear().domain([0, CTX_MAX]).range([0, W]);
+    var num = txt(svg, 0, 56, fmt(used) + " of " + fmt(CTX_MAX) + " tokens used", { size: 46, weight: 700, family: MONO });
+    if (anim && k >= 1) num.transition().duration(800).tween("text", function () {
+      var it = d3.interpolateRound(prev, used), self = d3.select(this);
+      return function (t) { self.text(fmt(it(t)) + " of " + fmt(CTX_MAX) + " tokens used"); };
+    });
+    svg.append("rect").attr("x", 0.5).attr("y", 90.5).attr("width", W - 1).attr("height", 114).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    txt(svg, 0, 240, "0", { size: 24, fill: MUTED });
+    txt(svg, W, 240, fmt(CTX_MAX), { size: 24, fill: MUTED, anchor: "end" });
+    var tot = 0;
+    CTX.forEach(function (c, i) {
+      var x0 = X(tot), w = X(c.t); tot += c.t;
+      if (k < i + 1) return;
+      var fill = c.kind === "think" ? INK : (i === 3 ? BASE : FAMILIAR);
+      var g = svg.append("g");
+      var r = g.append("rect").attr("x", x0 + 1).attr("y", 92).attr("width", w - 2).attr("height", 111).attr("fill", fill);
+      var tl = txt(g, x0 + w / 2, 158, fmt(c.t), { size: 28, weight: 700, family: MONO, anchor: "middle", fill: c.kind === "think" ? "#FFFFFF" : INK });
+      var row = svg.append("g"), ry = 320 + i * 62;
+      row.append("rect").attr("x", 0).attr("y", ry - 24).attr("width", 28).attr("height", 28).attr("fill", fill);
+      txt(row, 48, ry, c.n, { size: 26, family: c.kind === "tool" ? MONO : SANS });
+      txt(row, 760, ry, "+" + fmt(c.t), { size: 26, weight: 700, family: MONO, anchor: "end" });
+      txt(row, 800, ry, "total " + fmt(tot), { size: 26, family: MONO, fill: MUTED });
+      if (A(anim, k, i + 1)) {
+        r.attr("width", 0).transition().duration(800).ease(d3.easeCubicOut).attr("width", w - 2);
+        fadeIn(tl, 600, 300); fadeIn(row, 300, 400);
+      }
+    });
+    if (k >= 4) {
+      var left = CTX_MAX - used, g2 = svg.append("g");
+      g2.append("rect").attr("x", X(used) + 2).attr("y", 92).attr("width", X(left) - 4).attr("height", 111).attr("fill", TINT).attr("stroke", RED).attr("stroke-width", 3);
+      txt(g2, W, 320, fmt(left) + " tokens left", { size: 34, weight: 900, fill: RED, anchor: "end" });
+      txt(g2, W, 366, "for the rest of the reasoning", { size: 26, fill: RED, anchor: "end" });
+      txt(g2, W, 404, "and the reply", { size: 26, fill: RED, anchor: "end" });
+      if (A(anim, k, 4)) fadeIn(g2, 900, 500);
+    }
+  }
+
+  /* ---------- dilute: equal share of attention = 1 / n ---------- */
+  function renderDilute(el, k, anim) {
+    var svg = svgFor(el, W, 580, "One token's equal share of attention shrinking as the context grows",
+      "A bar stands for total attention, 1.0. With 50 tokens in context one token's equal share is 2.00 percent. With 4,600 tokens it is 0.022 percent. With 7,700 tokens it is 0.013 percent. Equal shares are a simplification; real attention is not uniform.");
+    var BW = 1400, N0 = 50, N1 = 7700;
+    function pct(n) { var p = 100 / n; return (p >= 0.1 ? p.toFixed(2) : p.toFixed(3)) + "%"; }
+    label(svg, 0, 26, "TOTAL ATTENTION = 1.0, SHARED BY EVERY TOKEN IN THE CONTEXT", { size: 24 });
+    svg.append("rect").attr("x", 0.5).attr("y", 46.5).attr("width", BW - 1).attr("height", 74).attr("fill", SUBTLE).attr("stroke", INK).attr("stroke-width", 1.5);
+    if (k < 1) return;
+    var n = k >= 2 ? N1 : N0;
+    var sl = svg.append("rect").attr("x", 0).attr("y", 46).attr("width", BW / n).attr("height", 75).attr("fill", RED);
+    var cap = txt(svg, 0, 156, "one early token's equal share", { size: 24, weight: 700, fill: RED });
+    label(svg, 0, 226, "TOKENS IN CONTEXT", { size: 24 });
+    label(svg, 560, 226, "EQUAL SHARE PER TOKEN (1 / n)", { size: 24 });
+    var tn = txt(svg, 0, 306, fmt(n), { size: 76, weight: 700, family: MONO });
+    var tp = txt(svg, 560, 306, pct(n), { size: 76, weight: 700, family: MONO, fill: RED });
+    if (A(anim, k, 1)) { sl.attr("width", 0).transition().duration(600).attr("width", BW / N0); fadeIn(cap, 400, 300); fadeIn(tn, 200, 400); fadeIn(tp, 500, 400); }
+    if (A(anim, k, 2)) {
+      sl.attr("width", BW / N0).transition().duration(2600).ease(d3.easeCubicInOut).attrTween("width", function () {
+        return function (t) { return BW / (N0 * Math.pow(N1 / N0, t)); };
+      });
+      tn.text(fmt(N0)).transition().duration(2600).ease(d3.easeCubicInOut).tween("text", function () {
+        var self = d3.select(this);
+        return function (t) { self.text(fmt(Math.round(N0 * Math.pow(N1 / N0, t)))); };
+      });
+      tp.text(pct(N0)).transition().duration(2600).ease(d3.easeCubicInOut).tween("text", function () {
+        var self = d3.select(this);
+        return function (t) { self.text(pct(Math.round(N0 * Math.pow(N1 / N0, t)))); };
+      });
+    }
+    if (k >= 2) {
+      var rows = [[50, "a short prompt"], [4600, "Helios after two tool calls"], [7700, "Helios after three tool calls"]];
+      var g = svg.append("g");
+      rows.forEach(function (r, i) {
+        var y = 384 + i * 42;
+        txt(g, 0, y, fmt(r[0]) + " tokens", { size: 26, family: MONO });
+        txt(g, 300, y, pct(r[0]), { size: 26, weight: 700, family: MONO, fill: RED });
+        txt(g, 560, y, r[1], { size: 26, fill: BODY });
+      });
+      if (A(anim, k, 2)) fadeIn(g, 2600, 500);
+    }
+    if (k >= 3) {
+      var c1 = txt(svg, 0, 524, "Equal shares are a simplification. Real attention is not uniform.", { size: 26, fill: BODY });
+      var c2 = txt(svg, 0, 566, "The early observation is still in the context. It is diluted, not deleted.", { size: 28, weight: 700, fill: INK });
+      if (A(anim, k, 3)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- half: two causes, one answered ---------- */
+  function renderHalf(el, k, anim) {
+    var svg = svgFor(el, W, 590, "Two causes of a $34 increase and a reply that covers one",
+      "The $34 increase had two causes of $17 each: an expired promotional discount and a device plan that moved to an unsubsidized tier. The reply explains the discount and issues a credit. It never mentions the device plan.");
+    label(svg, 0, 26, "THE $34 INCREASE", { size: 24 });
+    if (k < 1) {
+      box(svg, 0, 46, 600, 370, { sw: 2.5 });
+      txt(svg, 30, 150, "$34", { size: 76, weight: 700, family: MONO });
+      txt(svg, 30, 204, "more than last month", { size: 28, fill: BODY });
+      txt(svg, 30, 246, "cause not yet known", { size: 26, fill: MUTED });
+      return;
+    }
+    var causes = [["$17", "expired promotional discount"], ["$17", "device plan moved to an unsubsidized tier"]];
+    causes.forEach(function (c, i) {
+      var y = 46 + i * 195, g = svg.append("g"), missed = i === 1 && k >= 3;
+      box(g, 0, y, 600, 175, { sw: 2.5, fill: missed ? TINT : "#FFFFFF", stroke: missed ? RED : INK });
+      txt(g, 30, y + 82, c[0], { size: 60, weight: 700, family: MONO, fill: missed ? RED : INK });
+      txt(g, 30, y + 136, c[1], { size: 27, fill: missed ? RED : BODY });
+      if (A(anim, k, 1)) fadeIn(g, i * 350, 450);
+      if (i === 0 && k >= 2) {
+        var a = svg.append("g"); arrow(a, 612, y + 88, 768, y + 88, INK, 3); check(a, 552, y + 48, 16, INK);
+        if (A(anim, k, 2)) fadeIn(a, 300, 400);
+      }
+      if (missed) {
+        var m = svg.append("g"); cross(m, 552, y + 46, 14, RED);
+        txt(m, 780, y + 98, "never mentioned", { size: 32, weight: 900, fill: RED });
+        if (A(anim, k, 3)) fadeIn(m, 0, 400);
+      }
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      label(g2, 780, 26, "THE AGENT'S REPLY", { size: 24 });
+      box(g2, 780, 46, 620, 175, { sw: 2.5, fill: SUBTLE });
+      wrap(g2, 806, 100, "Your promotional discount expired, which raised your bill by $17. I have applied a courtesy credit.", 46, { size: 26, fill: INK });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 450);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 780, 382, "Fluent. Apologetic. Confidently incomplete.", { size: 27, fill: BODY });
+      txt(g3, 0, 492, "Tool outputs accurate. Reasoning steps valid. No hallucination. No error raised.", { size: 28, fill: INK });
+      txt(g3, 0, 544, "Three sessions, three half-answers.", { size: 28, weight: 900, fill: RED });
+      if (A(anim, k, 3)) fadeIn(g3, 400, 500);
+    }
+  }
+
+  /* ---------- choose: two questions, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Two questions that decide whether ReAct fits",
+      "Question 1: how many tool calls does the task need? Five or fewer, ReAct is viable. More than five, Plan-and-Execute or ReWOO. Question 2: must step N plus 1 use what step N returned? Yes, ReAct. No, the steps are fixed, Plan-and-Execute. Tell these apart: ReAct chooses each step after reading the last observation; Plan-and-Execute commits to every step before any tool has run.");
+    var Q = [
+      { q: "How many tool calls does the task need?", a: ["5 or fewer", "ReAct is viable"], b: ["more than 5", "Plan-and-Execute or ReWOO"] },
+      { q: "Must step N+1 use what step N returned?", a: ["yes", "ReAct"], b: ["no, the steps are fixed", "Plan-and-Execute"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 10 + i * 148, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 560, 122, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 44, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 92, r.q, { size: 27, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 566, y + 61, 616, y + 61, INK, 3);
+      box(ga, 620, y, 370, 122, { fill: INK });
+      txt(ga, 644, y + 44, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 644, y + 92, r.a[1], { size: 27, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1010, y, 390, 122, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1034, y + 44, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1034, y + 92, r.b[1], { size: 26, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 352, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 372, 680, 170, { sw: 2.5 });
+      txt(g3, 26, 428, "ReAct", { size: 32, weight: 900 });
+      wrap(g3, 26, 480, "Chooses each step after reading the last observation.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 372, 680, 170, { sw: 2.5 });
+      txt(g3, 746, 428, "Plan-and-Execute", { size: 32, weight: 900 });
+      wrap(g3, 746, 480, "Commits to every step before any tool has run.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- latency: five calls in sequence against five in parallel ---------- */
+  function renderLatency(el, k, anim) {
+    var CALLS = 5, MS = 300, seq = CALLS * MS, par = MS;
+    var svg = svgFor(el, W, 520, "Latency of five tool calls in sequence and in parallel",
+      "ReAct runs five 300 millisecond calls one at a time: 1,500 milliseconds. ReWOO runs the five calls at once: 300 milliseconds. The fivefold gain holds only if no call needs another call's output.");
+    var x0 = 300, X = d3.scaleLinear().domain([0, seq]).range([0, 900]);
+    txt(svg, 0, 92, "ReAct", { size: 32, weight: 900 });
+    txt(svg, 0, 128, "one call at a time", { size: 24, fill: MUTED });
+    svg.append("rect").attr("x", x0).attr("y", 50).attr("width", X(seq)).attr("height", 84).attr("fill", SUBTLE);
+    if (k >= 1) {
+      d3.range(CALLS).forEach(function (i) {
+        var g = svg.append("g"), w = X(MS) - 4;
+        var r = g.append("rect").attr("x", x0 + X(i * MS) + 2).attr("y", 50).attr("width", w).attr("height", 84).attr("fill", INK);
+        var t = txt(g, x0 + X(i * MS) + X(MS) / 2, 102, MS + " ms", { size: 24, weight: 700, family: MONO, anchor: "middle", fill: "#FFFFFF" });
+        if (A(anim, k, 1)) { r.attr("width", 0).transition().delay(i * 420).duration(420).ease(d3.easeLinear).attr("width", w); fadeIn(t, i * 420 + 300, 200); }
+      });
+      var tot = txt(svg, x0 + X(seq) + 18, 104, fmt(seq) + " ms", { size: 32, weight: 700, family: MONO });
+      if (A(anim, k, 1)) tot.text("0 ms").transition().duration(CALLS * 420).ease(d3.easeLinear).tween("text", function () {
+        var it = d3.interpolateRound(0, seq), self = d3.select(this); return function (t) { self.text(fmt(it(t)) + " ms"); };
+      });
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      txt(g2, 0, 262, "ReWOO", { size: 32, weight: 900 });
+      txt(g2, 0, 298, "all calls at once", { size: 24, fill: MUTED });
+      d3.range(CALLS).forEach(function (i) {
+        var r = g2.append("rect").attr("x", x0 + 2).attr("y", 214 + i * 22).attr("width", X(par) - 4).attr("height", 17).attr("fill", BASE);
+        if (A(anim, k, 2)) r.attr("width", 0).transition().delay(200).duration(420).ease(d3.easeLinear).attr("width", X(par) - 4);
+      });
+      var t2 = txt(g2, x0 + X(par) + 18, 274, fmt(par) + " ms", { size: 32, weight: 700, family: MONO });
+      if (A(anim, k, 2)) fadeIn(t2, 620, 300);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 0, 400, CALLS + " × " + MS + " ms = " + fmt(seq) + " ms in sequence.   max(" + MS + " ms) = " + fmt(par) + " ms in parallel.   " + (seq / par) + "× faster.", { size: 26, family: MONO, fill: INK });
+      txt(g3, 0, 452, "The gain holds only if no call needs another call's output.", { size: 28, weight: 900, fill: RED });
+      txt(g3, 0, 496, "When calls depend on each other, the waiting is the price of adapting.", { size: 26, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- checks: three that fit, three that break ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 520, "Six checks before choosing ReAct",
+      "Fits when: the task needs five tool calls or fewer; the next step depends on what the last tool returned; latency is not the binding constraint. Breaks when: the task runs past five to seven steps in a standard context window; early observations must be recalled accurately late in the task; tool responses are large.");
+    var rows = [
+      "The task needs five tool calls or fewer.",
+      "The next step depends on what the last tool returned.",
+      "Latency is not the binding constraint.",
+      "The task runs past five to seven steps in a standard context window.",
+      "Early observations must be recalled accurately late in the task.",
+      "Tool responses are large."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    rows.forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= 3, x = bad ? 720 : 0, y = 46 + (i % 3) * 156, g = svg.append("g");
+      box(g, x, y, 680, 136, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 68, 14, RED); else check(g, x + 52, y + 70, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 58 : 78), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    loop: { steps: 4, render: renderLoop },
+    trace: { steps: 3, render: renderTrace },
+    ground: { steps: 3, render: renderGround },
+    fill: { steps: 4, render: renderFill },
+    dilute: { steps: 3, render: renderDilute },
+    half: { steps: 3, render: renderHalf },
+    choose: { steps: 3, render: renderChoose },
+    latency: { steps: 3, render: renderLatency },
+    checks: { steps: 6, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

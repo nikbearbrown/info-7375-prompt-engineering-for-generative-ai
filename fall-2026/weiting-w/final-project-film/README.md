@@ -2,10 +2,22 @@
 
 **Weiting Wang** · INFO 7375, Prompt Engineering for Generative AI · Fall 2026
 
-A 3½-minute pitch film for my final project, **Stringwatch**: a read-only command-line tool
+A pitch film for my final project, **Stringwatch**: a read-only command-line tool
 that indexes the names a Unity project keeps outside its code — shader properties, animator
 parameters, tags, layers, Input Actions — checks every string reference in the C# against that
 index, and reports the ones it cannot find.
+
+**Built in four parts, in the order the assignment fixes:**
+
+| Act | Beats | What it answers |
+|---|---|---|
+| 1 · executive summary | B00–B05 | what I am building, and why anybody would care — no "how" |
+| 2 · introduction | B06–B10 | what already exists: Unity's Input System codegen, Rider's and Microsoft's analyzers, Project Auditor, the runtime APIs, editor AI tools — and the gap between them |
+| 3 · methods | B11–B15 | the plan: where the data comes from, the steps, the scope of version one, what it needs to run, and the build order |
+| 4 · evaluation | B16–B19 | the fixture, the four numbers, and the line version one has to clear |
+
+Each act's first beat prints the act name on screen, so the structure is readable with the
+sound off. The detail that does not belong on screen is in `APPENDIX.md`.
 
 **Target role:** Unity tools / gameplay engineer, or AI-assisted developer tooling.
 
@@ -28,9 +40,10 @@ of me. It is disclosed in the opening beat, spoken again on the end card, and re
 |---|---|
 | `Wang_Weiting_INFO7375_FinalProjectFilm.mp4` | the rendered film |
 | `PROJECT-BRIEF.md` | the seven answers in one page, ending with "exists today" and "will exist" |
-| `beat_sheet.json` | the 18 beats: narration, timing, and one visual slot each |
+| `APPENDIX.md` | the detail behind acts 2, 3 and 4: sources, file formats, steps, measurement protocol |
+| `beat_sheet.json` | the 24 beats: narration, timing, act, and one visual slot each |
 | `make_sheet.py` | generates `beat_sheet.json` — the source of truth for the narration |
-| `scenes_body.py` | the 14 Manim scenes I wrote |
+| `scenes_body.py` | the 20 Manim scenes I wrote |
 | `scenes.py` | the toolkit's drawing kit pasted on top of `scenes_body.py`, which is what renders |
 | `BUILD-PROMPT.md` | every command needed to rebuild the film from an empty folder |
 | `SOURCES.md` | what I used, what I made, what Claude contributed, third-party licences |
@@ -71,11 +84,18 @@ carries "proposed" on screen. Past tense appears in exactly two beats, both desc
 really did in spring 2026 on *Escape from the Depths* (CSYE 7270). No invented users, employers,
 metrics, testimonials or results appear anywhere, and the two bar charts carry no numbers.
 
-One claim in an earlier cut was wrong and is logged as such: I had written that Unity's console
+Act 2 describes other people's tools. Every claim in it is quoted from that tool's own
+documentation, and `FACTCHECK.md` rows 14 to 18 give the sentence, the page and the date. The
+film says what each tool does and does not do; it does not say any of them is bad at its own
+job, and it does not claim no checker like mine exists anywhere — only that I looked and did
+not find one.
+
+Two claims in earlier cuts were wrong and are logged as such. I had written that Unity's console
 says nothing when an animator parameter name is wrong. It does — `Parameter 'X' does not exist`.
 The claim was rewritten around the shader property, which Unity's own manual says has no effect
-and reports nothing, and a new beat was added so the film states the difference out loud. See
-`FACTCHECK.md` rows 3 to 5.
+and reports nothing, and a beat was added so the film states the difference out loud. And a
+draft of act 2 ended on "what nobody does", a negative about every tool in existence; it is now
+"what I could not find". See `FACTCHECK.md` rows 3 to 5 and row 18.
 
 No résumé, contacts, application tracker, private data or private conversation transcript is in
 this folder or in the film.

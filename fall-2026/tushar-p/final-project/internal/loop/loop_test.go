@@ -12,6 +12,7 @@ import (
 
 	"github.com/anthropics/anthropic-sdk-go/v2"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/budget"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 )
@@ -113,9 +114,10 @@ func (f *fakeSandbox) CopyIn(_ context.Context, host, dst string) (sandbox.Resul
 
 func cfg() Config {
 	return Config{
-		Model: "claude-haiku-5-5",
-		Goal:  "Fix the bug.",
-		Tools: []string{"read_file", "write_file", "run_command"},
+		Model:  "claude-haiku-5-5",
+		System: contracts.MustGet(contracts.Default).System,
+		Goal:   "Fix the bug.",
+		Tools:  []string{"read_file", "write_file", "run_command"},
 		Limits: budget.Limits{MaxSteps: 10, MaxTotalTokens: 1_000_000, MaxCostUSD: 1,
 			Timeout: time.Minute, MaxPolicyViolations: 10},
 		MaxTokens: 1000,

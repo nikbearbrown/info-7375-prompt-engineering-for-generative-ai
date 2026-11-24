@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Tree-of-Thoughts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Tree-of-Thoughts">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Tree-of-Thoughts">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Reasoning</p>
+      <h1 class="t-opening rise g2">Tree-of-Thoughts</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Branch, score, prune, extend.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one pattern: Tree-of-Thoughts. It shows the shape of the pattern, what it costs, and the question that decides whether to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Tree-of-Thoughts, the fifth and last reasoning pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">Tree-of-Thoughts scores several paths before it commits. Every branch it looks at is a model call.</h2>
+      <div class="speaker-notes" hidden><p>Both halves come from the same mechanism. The pattern keeps more than one candidate alive, which is how it avoids a dead end. Each candidate it keeps alive has to be written and scored, which is what it costs.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">A branching tree of reasoning paths, scored and pruned</p>
+      <div class="speaker-notes" hidden><p>Three slides: one round of the pattern, why keeping more than one candidate matters, and the value function that does the scoring.</p></div>
+    </section>
+
+    <!-- 5 TREE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="One round">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">One round keeps the best few candidates, not just one</h2>
+      <div class="diagram build" data-build="tree" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy", Tree-of-Thoughts. Pattern proposed by Yao et al., 2023. Scores are illustrative.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> one task and the four moves of a round. The example uses 3 candidates per step and keeps the top 2.</p>
+        <p><strong>Step 1:</strong> branch. The model writes three candidate next thoughts instead of one.</p>
+        <p><strong>Step 2:</strong> score. A value function rates each candidate. The numbers here are made up for the example.</p>
+        <p><strong>Step 3:</strong> prune. The top two are kept. The third is dropped and never expanded.</p>
+        <p><strong>Step 4:</strong> extend. Each kept candidate branches again, the six new candidates are scored, and again only the top two survive. The chapter compares this to beam search in machine translation.</p>
+      </div>
+    </section>
+
+    <!-- 6 GREEDY -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Greedy and the dead end">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">Why it helps</p>
+      <h2 class="t-chart">The best path started from the second-best first step</h2>
+      <div class="diagram build" data-build="greedy" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy", Tree-of-Thoughts. Same example tree, scores are illustrative.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same tree with every score showing, so both strategies can be compared.</p>
+        <p><strong>Step 1:</strong> greedy reasoning commits to the single most probable next step. Here that is A.</p>
+        <p><strong>Step 2:</strong> nothing under A scores well. This is the dead end the chapter describes: the first plausible direction has to be backed out of.</p>
+        <p><strong>Step 3:</strong> keeping the top two first steps kept B alive, and B leads to the highest score on the tree. The example is constructed to show the case the chapter names, where the best path is not obvious from the first step.</p>
+      </div>
+    </section>
+
+    <!-- 7 VALUE FUNCTION -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The value function">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">The scorer</p>
+      <h2 class="t-chart">A value function scores each candidate before anything is pruned</h2>
+      <div class="diagram build" data-build="value" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy", Tree-of-Thoughts. Scores are illustrative.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three candidate thoughts wait to be scored.</p>
+        <p><strong>Step 1:</strong> the chapter lists three things the value function can be: another model call, a heuristic, or an external verifier.</p>
+        <p><strong>Step 2:</strong> it returns a score for each candidate.</p>
+        <p><strong>Step 3:</strong> only then does the pattern decide which branches to prune and which to extend. If the value function is itself a model call, it adds to the number of calls counted on the next slides.</p>
+      </div>
+    </section>
+
+    <!-- 8 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="How it fails">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">How it fails</h2>
+      <p class="sub-section rise g3">Token budget exhaustion: every branch expansion is a model call</p>
+      <div class="speaker-notes" hidden><p>The failure comes from the same property that made the pattern useful. Looking at more paths means paying for more paths.</p></div>
+    </section>
+
+    <!-- 9 COST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The full tree">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The worst case</p>
+      <h2 class="t-chart">Every level multiplies the number of candidates by B</h2>
+      <div class="diagram build" data-build="cost" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy", Tree-of-Thoughts. Counts computed in code as B to the power D, with B = 3.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> one task, and nothing pruned. Every candidate will branch into three.</p>
+        <p><strong>Step 1:</strong> depth 1 has 3 candidates.</p>
+        <p><strong>Step 2:</strong> depth 2 has 9. The running total is 12.</p>
+        <p><strong>Step 3:</strong> depth 3 has 27. The running total is 39.</p>
+        <p><strong>Step 4:</strong> depth 4 has 81, which is 3 to the power 4. Counting every level, 120 candidates have been written and scored. The chapter states the worst case as order B to the power D evaluations for depth D and branching factor B.</p>
+      </div>
+    </section>
+
+    <!-- 10 PRUNE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Pruned and unpruned">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">With pruning</p>
+      <h2 class="t-chart">Pruning makes the growth linear. It is still not cheap.</h2>
+      <div class="diagram build" data-build="prune" style="flex-basis:600px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy", Tree-of-Thoughts. All counts computed in code from B = 3 and k = 2.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three ways to reach the same depth. One path writes one thought per step. The pruned tree keeps the top 2 at each level and expands only those. The full tree expands everything.</p>
+        <p><strong>Step 1:</strong> at depth 4 the counts are 4, 21 and 120.</p>
+        <p><strong>Step 2:</strong> go to depth 6. One path rises to 6. The pruned tree rises to 33, because each level adds 2 times 3. The full tree rises to 1,092, because each level multiplies by 3.</p>
+        <p><strong>Step 3:</strong> pruning is what keeps the pattern usable, as the chapter says. It does not make it cheap. The pruned tree still scores 33 candidates where a single path writes 6 thoughts.</p>
+      </div>
+    </section>
+
+    <!-- 11 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Only when the best path can't be picked in advance</p>
+      <div class="speaker-notes" hidden><p>The decision question comes straight from the cost. If the path is known, the branching buys nothing.</p></div>
+    </section>
+
+    <!-- 12 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The decision">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">One question decides whether the branching is worth paying for</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:580px"></div>
+      <p class="source">Source: Chapter 3, "The Decision Framework", question 5 and the pattern table.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the fifth and last question of the chapter's decision framework.</p>
+        <p><strong>Step 1:</strong> is the best solution path non-obvious? If several valid paths exist and the best can't be identified upfront, the branching search justifies its token cost. If the path is known, the cost is wasted and any sequential pattern will do.</p>
+        <p><strong>Step 2:</strong> the chapter's table row for this pattern: best for a non-obvious optimal path, breaks on token budget exhaustion.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. Greedy chain of thought commits to the single most probable next step. Tree-of-Thoughts keeps the top-k candidates and scores each one before choosing.</p>
+      </div>
+    </section>
+
+    <!-- 13 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Six checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Six checks before you choose Tree-of-Thoughts</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:560px"></div>
+      <p class="source">Source: Chapter 3, "The Five Patterns: A Structural Taxonomy" and "The Decision Framework", question 5.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 3:</strong> the conditions under which the chapter says the pattern earns its cost.</p>
+        <p><strong>Steps 4 to 6:</strong> the conditions under which it wastes or exhausts the budget. If any of these describes your task, use a sequential pattern.</p>
+      </div>
+    </section>
+
+    <!-- 14 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">Tree-of-Thoughts buys a better path with more model calls. Use it when the path is not obvious.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: a cheaper value function or tighter pruning lowers the count. It does not change the shape of the cost. This is the last of the five reasoning patterns. The workflow family comes next, starting with prompt chaining.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Tree-of-Thoughts";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shared example tree: B = 3 candidates per step, keep the top k = 2. Scores are illustrative. ---------- */
+  var TOT = {
+    root: { x: 700, y: 44 },
+    l1: [{ id: "A", x: 260, s: 0.7 }, { id: "B", x: 700, s: 0.6 }, { id: "C", x: 1140, s: 0.2 }],
+    l2: [{ id: "A1", p: 0, x: 110, s: 0.3 }, { id: "A2", p: 0, x: 260, s: 0.2 }, { id: "A3", p: 0, x: 410, s: 0.1 },
+      { id: "B1", p: 1, x: 550, s: 0.9 }, { id: "B2", p: 1, x: 700, s: 0.5 }, { id: "B3", p: 1, x: 850, s: 0.4 }],
+    y1: 190, y2: 345, B: 3, K: 2
+  };
+  function byScore(a, b) { return b.s - a.s; }
+  function topK(list, k) { return list.slice().sort(byScore).slice(0, k).map(function (n) { return n.id; }); }
+  function tnode(g, x, y, id, score, state, w) {
+    w = w || 134;
+    var st = { plain: ["#FFFFFF", INK, INK, 1.5, null], keep: ["#FFFFFF", INK, INK, 3.5, null], prune: ["#FFFFFF", FAMILIAR, BASE, 1.5, "6 6"],
+      bad: [TINT, RED, RED, 3.5, null], win: [INK, INK, "#FFFFFF", 3.5, null] }[state || "plain"];
+    var n = g.append("g");
+    box(n, x - w / 2, y - 33, w, 66, { fill: st[0], stroke: st[1], sw: st[3], dash: st[4] });
+    if (score == null) txt(n, x, y + 10, id, { size: 28, weight: 900, anchor: "middle", fill: st[2] });
+    else {
+      txt(n, x - 30, y + 10, id, { size: 28, weight: 900, anchor: "middle", fill: st[2] });
+      txt(n, x + 28, y + 9, score.toFixed(1), { size: 26, weight: 700, family: MONO, anchor: "middle", fill: st[2] });
+    }
+    return n;
+  }
+  function tedge(g, x1, y1, x2, y2, state) {
+    var st = { plain: [INK, 2, null], keep: [INK, 3.5, null], prune: [FAMILIAR, 2, "6 6"], bad: [RED, 4.5, null], win: [INK, 5.5, null] }[state || "plain"];
+    return g.append("path").attr("d", "M" + x1 + "," + (y1 + 33) + " L" + x2 + "," + (y2 - 33)).attr("fill", "none")
+      .attr("stroke", st[0]).attr("stroke-width", st[1]).attr("stroke-dasharray", st[2]);
+  }
+
+  /* ---------- tree: one round of branch, score, prune, extend ---------- */
+  function renderTree(el, k, anim) {
+    var T = TOT, keep1 = topK(T.l1, T.K), keep2 = topK(T.l2, T.K);
+    var svg = svgFor(el, W, 580, "One round of Tree-of-Thoughts: branch, score, prune, extend",
+      "A task branches into three candidate thoughts, A, B and C. A value function scores them 0.7, 0.6 and 0.2. The top two, A and B, are kept and C is pruned. A and B each branch into three more candidates. Of those six, the top two, B1 at 0.9 and B2 at 0.5, are kept. Scores are illustrative.");
+    txt(svg, W, 322, "B = " + T.B + " candidates per step", { size: 26, fill: MUTED, anchor: "end" });
+    txt(svg, W, 360, "keep the top k = " + T.K, { size: 26, fill: MUTED, anchor: "end" });
+    var eg = svg.append("g"), ng = svg.append("g");
+    tnode(ng, T.root.x, T.root.y, "task", null, "plain", 170);
+    if (k >= 1) T.l1.forEach(function (n, i) {
+      var pruned = k >= 3 && keep1.indexOf(n.id) < 0, state = k >= 3 ? (pruned ? "prune" : "keep") : "plain";
+      var e = tedge(eg, T.root.x, T.root.y, n.x, T.y1, state);
+      var nd = tnode(ng, n.x, T.y1, n.id, k >= 2 ? n.s : null, state);
+      if (A(anim, k, 1)) { drawIn(e, i * 180, 400); fadeIn(nd, 300 + i * 180, 350); }
+      if (A(anim, k, 2)) fadeIn(nd, i * 250, 400);
+      if (A(anim, k, 3)) { nd.attr("opacity", 0.15).transition().delay(pruned ? 500 : 0).duration(450).attr("opacity", 1); if (pruned) fadeIn(e, 500, 450); }
+    });
+    if (k >= 4) T.l2.forEach(function (n, i) {
+      var kept = keep2.indexOf(n.id) >= 0, state = kept ? "keep" : "prune";
+      var e = tedge(eg, T.l1[n.p].x, T.y1, n.x, T.y2, state);
+      var nd = tnode(ng, n.x, T.y2, n.id, n.s, state);
+      if (A(anim, k, 4)) { fadeIn(e, i * 120, 350); fadeIn(nd, (kept ? 900 : 150) + i * 120, 400); }
+    });
+    var CAP = [["BRANCH", "write " + T.B + " candidate thoughts"], ["SCORE", "a value function rates each"],
+      ["PRUNE", "keep the top " + T.K + " of " + T.B], ["EXTEND", "repeat from the ones kept"]];
+    svg.append("rect").attr("x", 0).attr("y", 436).attr("width", W).attr("height", 2).attr("fill", GRID);
+    CAP.forEach(function (c, i) {
+      var on = k >= i + 1, g = svg.append("g"), x = i * 350;
+      txt(g, x, 492, (i + 1) + "  " + c[0], { size: 28, weight: 900, ls: 2, fill: on ? INK : BASE });
+      txt(g, x, 534, c[1], { size: 24, fill: on ? BODY : BASE });
+      if (A(anim, k, i + 1)) fadeIn(g, 200, 400);
+    });
+  }
+
+  /* ---------- greedy: the highest first score leads to a dead end ---------- */
+  function renderGreedy(el, k, anim) {
+    var T = TOT, keep1 = topK(T.l1, T.K);
+    var g1 = T.l1.slice().sort(byScore)[0], gi = T.l1.indexOf(g1);
+    var gKid = T.l2.filter(function (n) { return n.p === gi; }).sort(byScore)[0];
+    var win = T.l2.filter(function (n) { return keep1.indexOf(T.l1[n.p].id) >= 0; }).sort(byScore)[0], wp = T.l1[win.p];
+    var svg = svgFor(el, W, 580, "Greedy commitment compared with keeping the top two candidates",
+      "The same tree with all scores shown. Greedy takes A, the highest first score at 0.7. A's best child scores 0.3, a dead end that needs backtracking. Keeping the top two first steps keeps B, at 0.6, and B's child B1 scores 0.9, the best path. Scores are illustrative.");
+    txt(svg, W, 322, "illustrative scores", { size: 26, fill: MUTED, anchor: "end" });
+    txt(svg, W, 360, "higher is better", { size: 26, fill: MUTED, anchor: "end" });
+    var eg = svg.append("g"), hg = svg.append("g"), ng = svg.append("g");
+    tnode(ng, T.root.x, T.root.y, "task", null, "plain", 170);
+    T.l1.forEach(function (n) {
+      var state = k >= 3 && n === wp ? "win" : (k >= 1 && n === g1 ? "bad" : "plain");
+      var e = tedge(state === "plain" ? eg : hg, T.root.x, T.root.y, n.x, T.y1, state);
+      var nd = tnode(ng, n.x, T.y1, n.id, n.s, state);
+      if (A(anim, k, 1) && n === g1) { drawIn(e, 0, 500); fadeIn(nd, 350, 400); }
+      if (A(anim, k, 3) && n === wp) { drawIn(e, 0, 500); fadeIn(nd, 350, 400); }
+    });
+    T.l2.forEach(function (n) {
+      var state = k >= 3 && n === win ? "win" : (k >= 2 && n === gKid ? "bad" : "plain");
+      var e = tedge(state === "plain" ? eg : hg, T.l1[n.p].x, T.y1, n.x, T.y2, state);
+      var nd = tnode(ng, n.x, T.y2, n.id, n.s, state);
+      if (A(anim, k, 2) && n === gKid) { drawIn(e, 0, 500); fadeIn(nd, 350, 400); }
+      if (A(anim, k, 3) && n === win) { drawIn(e, 700, 500); fadeIn(nd, 1050, 400); }
+    });
+    if (k >= 1) {
+      var c1 = txt(svg, 0, 486, "Greedy commits to the highest first score: " + g1.id + " at " + g1.s.toFixed(1) + ".", { size: 28, weight: 700, fill: RED });
+      if (A(anim, k, 1)) fadeIn(c1, 500, 400);
+    }
+    if (k >= 2) {
+      var dg = svg.append("g");
+      cross(dg, gKid.x - 52, T.y2 + 64, 11, RED);
+      txt(dg, gKid.x - 28, T.y2 + 73, "dead end, must backtrack", { size: 24, weight: 700, fill: RED });
+      if (A(anim, k, 2)) fadeIn(dg, 700, 400);
+    }
+    if (k >= 3) {
+      var wg = svg.append("g");
+      check(wg, win.x - 52, T.y2 + 64, 12, INK);
+      txt(wg, win.x - 28, T.y2 + 73, "best path found", { size: 24, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 534, "Keeping the top " + T.K + " kept " + wp.id + " alive. Its child " + win.id + " scores " + win.s.toFixed(1) + ".", { size: 28, weight: 700, fill: INK });
+      if (A(anim, k, 3)) { fadeIn(wg, 1300, 400); fadeIn(c2, 1500, 400); }
+    }
+  }
+
+  /* ---------- value: score first, then prune ---------- */
+  function renderValue(el, k, anim) {
+    var T = TOT, keep1 = topK(T.l1, T.K);
+    var svg = svgFor(el, W, 580, "A value function scores each candidate before anything is pruned",
+      "Three candidate thoughts, A, B and C, go into a value function. The value function can be another model call, a heuristic, or an external verifier. It returns scores of 0.7, 0.6 and 0.2. The top two are kept and C is pruned. Scores are illustrative.");
+    label(svg, 0, 26, "CANDIDATE THOUGHTS", { size: 24 });
+    label(svg, 950, 26, "SCORE", { size: 24 });
+    box(svg, 420, 50, 440, 352, { sw: 2.5, fill: k >= 1 ? "#FFFFFF" : SUBTLE, stroke: k >= 1 ? INK : FAMILIAR });
+    txt(svg, 444, 100, "VALUE FUNCTION", { size: 28, weight: 900, ls: 2, fill: k >= 1 ? INK : BASE });
+    if (k >= 1) {
+      var mid = svg.append("g");
+      txt(mid, 444, 146, "can be", { size: 24, fill: MUTED });
+      ["another model call", "a heuristic", "an external verifier"].forEach(function (s, i) {
+        var r = mid.append("g"), y = 214 + i * 66;
+        r.append("rect").attr("x", 444).attr("y", y - 19).attr("width", 16).attr("height", 16).attr("fill", INK);
+        txt(r, 478, y, s, { size: 30, fill: INK });
+        if (A(anim, k, 1)) fadeIn(r, 300 + i * 350, 400);
+      });
+    }
+    T.l1.forEach(function (n, i) {
+      var yc = 96 + i * 130, pruned = k >= 3 && keep1.indexOf(n.id) < 0, g = svg.append("g");
+      box(g, 0, yc - 46, 300, 92, { sw: pruned ? 1.5 : 2.5, stroke: pruned ? FAMILIAR : INK, dash: pruned ? "6 6" : null });
+      txt(g, 150, yc + 10, "thought " + n.id, { size: 30, weight: 700, anchor: "middle", fill: pruned ? BASE : INK });
+      arrow(g, 308, yc, 412, yc, k >= 1 ? INK : FAMILIAR, 3);
+      if (k < 2) return;
+      var sg = svg.append("g");
+      arrow(sg, 868, yc, 934, yc, INK, 3);
+      sg.append("rect").attr("x", 950).attr("y", yc - 17).attr("width", 250).attr("height", 34).attr("fill", SUBTLE);
+      var bar = sg.append("rect").attr("x", 950).attr("y", yc - 17).attr("width", 250 * n.s).attr("height", 34).attr("fill", pruned ? FAMILIAR : INK);
+      var st = txt(sg, 1218, yc + 10, n.s.toFixed(1), { size: 30, weight: 700, family: MONO, fill: pruned ? BASE : INK });
+      if (A(anim, k, 2)) { fadeIn(sg, i * 250, 300); bar.attr("width", 0).transition().delay(200 + i * 250).duration(600).ease(d3.easeCubicOut).attr("width", 250 * n.s); }
+      if (k >= 3) {
+        var v = txt(svg, W, yc + 10, pruned ? "prune" : "keep", { size: 30, weight: 900, anchor: "end", fill: pruned ? BASE : INK });
+        if (A(anim, k, 3)) { fadeIn(v, i * 250, 400); if (pruned) g.attr("opacity", 0.2).transition().delay(500).duration(400).attr("opacity", 1); }
+      }
+    });
+    if (k >= 3) {
+      var c1 = txt(svg, 0, 478, "Scoring comes first. What is pruned and what is extended is decided from the scores.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 526, "Keep the top k = " + T.K + " of " + T.B + " candidates. The scores are illustrative.", { size: 26, fill: BODY });
+      if (A(anim, k, 3)) { fadeIn(c1, 900, 400); fadeIn(c2, 1150, 400); }
+    }
+  }
+
+  /* ---------- cost: a full tree, B = 3, one depth per click ---------- */
+  function renderCost(el, k, anim) {
+    var Bf = 3, Dm = 4;
+    var svg = svgFor(el, W, 600, "A full tree with branching factor 3 grown to depth 4",
+      "A tree where every candidate branches into 3. Depth 1 has 3 candidates, depth 2 has 9, depth 3 has 27 and depth 4 has 81. Counting every level, that is 3 plus 9 plus 27 plus 81, 120 model calls, one per candidate.");
+    var ys = [30, 112, 196, 280, 364], rs = [14, 11, 8, 5.5, 4], xs = [];
+    xs[Dm] = d3.range(Math.pow(Bf, Dm)).map(function (i) { return 20 + i * 17; });
+    for (var d = Dm - 1; d >= 0; d--) xs[d] = d3.range(Math.pow(Bf, d)).map(function (j) { return xs[d + 1][Bf * j + 1]; });
+    var eg = svg.append("g"), ng = svg.append("g");
+    ng.append("circle").attr("cx", xs[0][0]).attr("cy", ys[0]).attr("r", rs[0]).attr("fill", INK);
+    label(svg, 0, 440, "CANDIDATES AT EACH DEPTH, B = " + Bf, { size: 24 });
+    var parts = [], total = 0, shown = Math.min(k, Dm);
+    d3.range(1, shown + 1).forEach(function (dd) {
+      var n = xs[dd].length, last = dd === Dm, lg = eg.append("g"), dg = ng.append("g");
+      xs[dd].forEach(function (x, i) {
+        var px = xs[dd - 1][Math.floor(i / Bf)];
+        lg.append("path").attr("d", "M" + px + "," + ys[dd - 1] + " L" + x + "," + ys[dd]).attr("fill", "none")
+          .attr("stroke", dd <= 2 ? BASE : FAMILIAR).attr("stroke-width", dd <= 2 ? 1.8 : 1.1);
+        var c = dg.append("circle").attr("cx", x).attr("cy", ys[dd]).attr("r", rs[dd]).attr("fill", last ? RED : INK);
+        if (A(anim, k, dd)) c.attr("r", 0).transition().delay(250 + i * (700 / n)).duration(300).attr("r", rs[dd]);
+      });
+      if (A(anim, k, dd)) fadeIn(lg, 0, 400);
+      var cnt = Math.pow(Bf, dd), g = svg.append("g");
+      parts.push(fmt(cnt)); total += cnt;
+      txt(g, (dd - 1) * 190, 512, fmt(cnt), { size: 56, weight: 700, family: MONO, fill: last ? RED : INK });
+      txt(g, (dd - 1) * 190, 556, "depth " + dd, { size: 24, fill: MUTED });
+      if (A(anim, k, dd)) fadeIn(g, 700, 400);
+    });
+    if (shown >= 1) {
+      var tg = svg.append("g");
+      txt(tg, W, 508, parts.join(" + ") + (shown > 1 ? " = " + fmt(total) : ""), { size: 36, weight: 700, family: MONO, fill: RED, anchor: "end" });
+      txt(tg, W, 556, "model calls so far, one per candidate", { size: 24, fill: RED, anchor: "end" });
+      if (anim) fadeIn(tg, 900, 400);
+    }
+  }
+
+  /* ---------- prune: full tree, top k and one path, depth 4 to 6 ---------- */
+  function renderPrune(el, k, anim) {
+    var Bf = TOT.B, K = TOT.K, D0 = 4, D1 = 6;
+    function one(D) { return D; }
+    function beam(D) { return Bf + (D - 1) * K * Bf; }
+    function full(D) { return d3.sum(d3.range(1, D + 1), function (d) { return Math.pow(Bf, d); }); }
+    var ROWS = [
+      { n: "One path", s: "one thought per step: D", f: one, fill: BASE },
+      { n: "Keep the top " + K, s: "B + (D − 1) × k × B", f: beam, fill: INK },
+      { n: "Full tree", s: "every branch expanded", f: full, fill: RED }
+    ];
+    var svg = svgFor(el, W, 600, "Candidates scored by a single path, a pruned tree and a full tree",
+      "With 3 candidates per step and the top 2 kept. At depth 4: one path 4, top 2 kept 21, full tree 120. At depth 5: 5, 27 and 363. At depth 6: 6, 33 and 1,092. The full tree multiplies by 3 each level. The pruned tree adds 6 each level.");
+    var x0 = 380, X = d3.scaleLinear().domain([0, full(D1)]).range([0, 860]);
+    txt(svg, 0, 44, "B = " + Bf + " candidates per step, top k = " + K + " kept. Count = candidates scored.", { size: 26, fill: BODY });
+    var D = k >= 2 ? D1 : D0;
+    var dT = txt(svg, W, 48, "depth D = " + D, { size: 44, weight: 700, family: MONO, anchor: "end" });
+    if (A(anim, k, 2)) {
+      var dt = dT.text("depth D = " + D0);
+      d3.range(D0 + 1, D1 + 1).forEach(function (dv) {
+        dt = dt.transition().duration(1000).tween("text", function () {
+          var self = d3.select(this);
+          return function (t) { if (t > 0.5) self.text("depth D = " + dv); };
+        });
+      });
+    }
+    ROWS.forEach(function (r, i) {
+      var y = 160 + i * 120, g = svg.append("g"), v = r.f(D);
+      txt(g, 0, y, r.n, { size: 30, weight: 900, fill: i === 2 ? RED : INK });
+      txt(g, 0, y + 38, r.s, { size: 24, fill: MUTED });
+      g.append("rect").attr("x", x0).attr("y", y - 32).attr("width", 860).attr("height", 70).attr("fill", SUBTLE);
+      if (k < 1) return;
+      var bar = g.append("rect").attr("x", x0).attr("y", y - 32).attr("width", Math.max(2, X(v))).attr("height", 70).attr("fill", r.fill);
+      var num = txt(g, x0 + X(v) + 16, y + 16, fmt(v), { size: 36, weight: 700, family: MONO, fill: i === 2 ? RED : INK });
+      if (A(anim, k, 1)) {
+        bar.attr("width", 0).transition().delay(i * 300).duration(700).ease(d3.easeCubicOut).attr("width", Math.max(2, X(v)));
+        fadeIn(num, 500 + i * 300, 300);
+      }
+      if (A(anim, k, 2)) {
+        var bt = bar.attr("width", Math.max(2, X(r.f(D0)))), nt = num.attr("x", x0 + X(r.f(D0)) + 16).text(fmt(r.f(D0)));
+        d3.range(D0 + 1, D1 + 1).forEach(function (dv) {
+          var a = r.f(dv - 1), b = r.f(dv);
+          bt = bt.transition().duration(1000).ease(d3.easeCubicInOut).attr("width", Math.max(2, X(b)));
+          nt = nt.transition().duration(1000).ease(d3.easeCubicInOut).attr("x", x0 + X(b) + 16).tween("text", function () {
+            var it = d3.interpolateRound(a, b), self = d3.select(this);
+            return function (t) { self.text(fmt(it(t))); };
+          });
+        });
+      }
+    });
+    if (k >= 3) {
+      var c1 = txt(svg, 0, 518, "Full tree: every level multiplies by B = " + Bf + ". Top k: every level adds k × B = " + (K * Bf) + ".", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 566, "Even pruned, " + fmt(beam(D1)) + " candidates are scored where a single path writes " + fmt(one(D1)) + " thoughts.", { size: 28, weight: 700, fill: RED });
+      if (A(anim, k, 3)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- choose: question 5, the framework row, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 580, "When Tree-of-Thoughts fits",
+      "Question 5: is the best solution path non-obvious? Yes, several valid paths: Tree-of-Thoughts. No, the path is known: any sequential pattern. Best for a non-obvious optimal path. Breaks on token budget exhaustion. Tell these apart: greedy chain of thought commits to the single most probable next reasoning step; Tree-of-Thoughts keeps the top-k candidate thoughts and scores each before choosing.");
+    var on1 = k >= 1, y = 10, g = svg.append("g");
+    box(g, 0, y, 560, 122, { fill: on1 ? "#FFFFFF" : SUBTLE, stroke: on1 ? INK : FAMILIAR, sw: on1 ? 2.5 : 1.5 });
+    txt(g, 24, y + 44, "QUESTION 5", { size: 24, weight: 900, ls: 1.5, fill: on1 ? MUTED : BASE });
+    txt(g, 24, y + 92, "Is the best solution path non-obvious?", { size: 27, weight: 700, fill: on1 ? INK : BASE });
+    if (on1) {
+      var ga = svg.append("g");
+      arrow(ga, 566, y + 61, 616, y + 61, INK, 3);
+      box(ga, 620, y, 370, 122, { fill: INK });
+      txt(ga, 644, y + 44, "yes, several valid paths", { size: 24, fill: "#FFFFFF" });
+      txt(ga, 644, y + 92, "Tree-of-Thoughts", { size: 27, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1010, y, 390, 122, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1034, y + 44, "no, the path is known", { size: 24, fill: MUTED });
+      txt(gb, 1034, y + 92, "Any sequential pattern", { size: 26, weight: 700, fill: BODY });
+      if (A(anim, k, 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    }
+    if (k >= 2) {
+      var g2 = svg.append("g"), y2 = 158;
+      box(g2, 0, y2, 680, 122, { sw: 2.5 });
+      txt(g2, 24, y2 + 44, "BEST FOR", { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      txt(g2, 24, y2 + 92, "A non-obvious optimal path", { size: 30, weight: 700 });
+      box(g2, 720, y2, 680, 122, { sw: 2.5, fill: TINT, stroke: RED });
+      txt(g2, 744, y2 + 44, "BREAKS ON", { size: 24, weight: 900, ls: 1.5, fill: RED });
+      txt(g2, 744, y2 + 92, "Token budget exhaustion", { size: 30, weight: 700, fill: RED });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 500);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 336, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 356, 680, 190, { sw: 2.5 });
+      txt(g3, 26, 412, "Greedy chain of thought", { size: 32, weight: 900 });
+      wrap(g3, 26, 462, "Commits to the single most probable next reasoning step.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 356, 680, 190, { sw: 2.5 });
+      txt(g3, 746, 412, "Tree-of-Thoughts", { size: 32, weight: 900 });
+      wrap(g3, 746, 462, "Keeps the top-k candidate thoughts and scores each one before choosing.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+  }
+
+  /* ---------- checks: three that fit, three that break ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 560, "Six checks before choosing Tree-of-Thoughts",
+      "Fits when: the best path is not obvious and several paths are valid; the first plausible step can lead to a dead end; something can score a candidate, a model, a heuristic or a verifier. Breaks when: the path is known, so the cost of branching is wasted; the token budget can't pay for a model call per branch; depth and branching are large and little is pruned.");
+    var rows = [
+      "The best path is not obvious, and several paths are valid.",
+      "The first plausible step can lead to a dead end.",
+      "Something can score a candidate: a model, a heuristic or a verifier.",
+      "The path is known, so the cost of branching is wasted.",
+      "The token budget can't pay for a model call per branch.",
+      "Depth and branching are large and little is pruned."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "BREAKS WHEN", { size: 24, fill: RED });
+    rows.forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= 3, x = bad ? 720 : 0, y = 46 + (i % 3) * 168, g = svg.append("g");
+      box(g, x, y, 680, 148, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 74, 14, RED); else check(g, x + 52, y + 76, 16, INK);
+      wrap(g, x + 104, y + 64, s, 38, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    tree: { steps: 4, render: renderTree },
+    greedy: { steps: 3, render: renderGreedy },
+    value: { steps: 3, render: renderValue },
+    cost: { steps: 4, render: renderCost },
+    prune: { steps: 3, render: renderPrune },
+    choose: { steps: 3, render: renderChoose },
+    checks: { steps: 6, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

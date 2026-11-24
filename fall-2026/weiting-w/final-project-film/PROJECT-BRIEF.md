@@ -1,8 +1,15 @@
 # PROJECT-BRIEF.md
 
-**Weiting Wang** · INFO 7375, Fall 2026 · 2026-10-13
+**Weiting Wang** · INFO 7375, Fall 2026 · 2026-10-13, header updated 2026-11-22
 **Working title:** Stringwatch · **Target role:** Unity tools / gameplay engineer, or
 AI-assisted developer tooling · **Runtime:** Python with Claude, a command-line tool
+
+*The film is now built in four parts — executive summary, introduction, methods, evaluation.
+This one-page brief maps onto them: §1 and §2 are the executive summary, the comparison in §2
+and the prior work in `APPENDIX.md` §2 are the introduction, §5 and §6 are the methods, and §6
+with `APPENDIX.md` §4 is the evaluation. `APPENDIX.md` holds the detail that does not belong on
+screen: the sources behind the introduction, the file formats and steps behind the methods, and
+the measurement protocol behind the evaluation.*
 
 **1. What is it?** A read-only command-line tool that indexes the names a Unity project keeps
 outside its code — shader properties first, then animator parameters, then tags, layers and

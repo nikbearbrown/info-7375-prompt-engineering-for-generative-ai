@@ -15,6 +15,7 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 )
 
@@ -86,10 +87,15 @@ type Trace struct {
 	Error         string     `json:"error,omitempty"` // harness error; omitempty drops it when ""
 
 	// Agent fields. omitempty leaves them out of --no-agent traces.
-	Model         string  `json:"model,omitempty"`
-	PromptVersion string  `json:"prompt_version,omitempty"` // SHA-256 of everything fixed the harness sends the model (loop.PromptVersion); since T3.3
-	LoopStop      string  `json:"loop_stop,omitempty"`      // why the agent loop ended: end_turn | max_tokens | refusal | limit | check_passed
-	Budget        *Budget `json:"budget,omitempty"`         // limits and totals used; pointer: nil (omitted) without an agent
+	Model         string `json:"model,omitempty"`
+	PromptVersion string `json:"prompt_version,omitempty"` // SHA-256 of everything fixed the harness sends the model (loop.PromptVersion); since T3.3
+	// PromptContract names the system prompt the agent got (package
+	// contracts: "A" or "B"); since T5.1. Agent traces before T5.1 have
+	// no such field: they all used the text now in contracts/A-system.txt,
+	// which their prompt_version shows.
+	PromptContract string  `json:"prompt_contract,omitempty"`
+	LoopStop       string  `json:"loop_stop,omitempty"` // why the agent loop ended: end_turn | max_tokens | refusal | limit | check_passed
+	Budget         *Budget `json:"budget,omitempty"`    // limits and totals used; pointer: nil (omitted) without an agent
 
 	// How long tool output was cut (D26). Absent in traces before D26,
 	// whose output was cut head-only at 8,192 bytes.
@@ -329,6 +335,14 @@ func (t *Trace) Validate() error {
 	}
 	if (t.Model != "") != (t.Budget != nil) {
 		errs = append(errs, errors.New("model and budget must be set together (an agent run) or not at all"))
+	}
+	if t.PromptContract != "" {
+		if t.Model == "" {
+			errs = append(errs, errors.New("prompt_contract set without an agent (model)"))
+		}
+		if _, err := contracts.Get(t.PromptContract); err != nil {
+			errs = append(errs, err)
+		}
 	}
 	if c := t.Truncation; c != nil && (c.HeadBytes <= 0 || c.TailBytes <= 0 || c.HeadBytes+c.TailBytes != c.LimitBytes) {
 		errs = append(errs, fmt.Errorf("truncation %+v: head and tail must be positive and add up to the limit", *c))

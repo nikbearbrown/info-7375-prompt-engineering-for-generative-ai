@@ -28,14 +28,16 @@ import (
 	"text/tabwriter"
 	"time"
 
+	"github.com/tushar-patel28/agent-proving-ground/contracts"
 	"github.com/tushar-patel28/agent-proving-ground/internal/gate"
 	"github.com/tushar-patel28/agent-proving-ground/internal/loop"
 	"github.com/tushar-patel28/agent-proving-ground/internal/sandbox"
 	"github.com/tushar-patel28/agent-proving-ground/internal/trace"
 )
 
-const evalUsage = `usage: apg eval --set dev|held-out [--runs N] [--held-out-ok] [--tasks dir] [--traces dir] [--out dir] [--results dir]
+const evalUsage = `usage: apg eval --set dev|held-out [--contract A|B] [--runs N] [--held-out-ok] [--tasks dir] [--traces dir] [--out dir] [--results dir]
   runs every task of the set (in tasks/split.json order), N times each
+  --contract picks the prompt contract, i.e. the system prompt (default A; contracts/)
   --held-out-ok is required for --set held-out, which is reserved for T5.1`
 
 // Outcomes of one eval row: how the verdict compares with the expected one.
@@ -92,18 +94,22 @@ type evalSummary struct {
 
 // evalEntry is one line of results/eval-log.jsonl.
 type evalEntry struct {
-	EvalID        string      `json:"eval_id"`
-	Timestamp     time.Time   `json:"timestamp"`
-	GitCommit     string      `json:"git_commit"`
-	GitDirty      bool        `json:"git_dirty"` // uncommitted changes outside results/ when the eval started
-	Model         string      `json:"model"`
-	PromptVersion string      `json:"prompt_version"`
-	SplitSHA256   string      `json:"split_sha256"`
-	Set           string      `json:"set"`
-	Runs          int         `json:"runs"`
-	Complete      bool        `json:"complete"` // false if the eval was interrupted
-	Rows          []evalRow   `json:"rows"`
-	Summary       evalSummary `json:"summary"`
+	EvalID        string    `json:"eval_id"`
+	Timestamp     time.Time `json:"timestamp"`
+	GitCommit     string    `json:"git_commit"`
+	GitDirty      bool      `json:"git_dirty"` // uncommitted changes outside results/ when the eval started
+	Model         string    `json:"model"`
+	PromptVersion string    `json:"prompt_version"`
+	// PromptContract is the prompt contract every run of this eval used
+	// ("A" or "B"); since T5.1. Lines before T5.1 have no such key: they
+	// all used the text now in contracts/A-system.txt.
+	PromptContract string      `json:"prompt_contract,omitempty"`
+	SplitSHA256    string      `json:"split_sha256"`
+	Set            string      `json:"set"`
+	Runs           int         `json:"runs"`
+	Complete       bool        `json:"complete"` // false if the eval was interrupted
+	Rows           []evalRow   `json:"rows"`
+	Summary        evalSummary `json:"summary"`
 }
 
 // summarize adds up the rows. Harness errors count in the totals of their
@@ -142,6 +148,7 @@ func summarize(rows []evalRow, wall time.Duration) evalSummary {
 
 type evalOpts struct {
 	set        string // "dev" or "held-out"
+	contract   string // prompt contract name, "A" or "B" (--contract)
 	runs       int
 	heldOutOK  bool
 	tasksDir   string
@@ -155,6 +162,7 @@ func parseEvalArgs(args []string) (evalOpts, error) {
 	fs := flag.NewFlagSet("eval", flag.ContinueOnError)
 	fs.SetOutput(io.Discard)
 	fs.StringVar(&o.set, "set", "", "dev or held-out")
+	fs.StringVar(&o.contract, "contract", contracts.Default, "prompt contract: A or B")
 	fs.IntVar(&o.runs, "runs", 1, "runs per task")
 	fs.BoolVar(&o.heldOutOK, "held-out-ok", false, "allow --set held-out")
 	fs.StringVar(&o.tasksDir, "tasks", "tasks", "tasks directory")
@@ -171,6 +179,9 @@ func parseEvalArgs(args []string) (evalOpts, error) {
 		return o, fmt.Errorf("--set must be dev or held-out, got %q", o.set)
 	case o.runs < 1:
 		return o, fmt.Errorf("--runs must be at least 1, got %d", o.runs)
+	}
+	if _, err := contracts.Get(o.contract); err != nil {
+		return o, err
 	}
 	return o, nil
 }
@@ -236,6 +247,10 @@ func runEval(ctx context.Context, env evalEnv, o evalOpts) int {
 	if err := checkHeldOut(o); err != nil {
 		return fail("%v", err)
 	}
+	contract, err := contracts.Get(o.contract)
+	if err != nil {
+		return fail("%v", err)
+	}
 
 	// The set, in split.json order, and the file's hash for the log.
 	splitBytes, err := os.ReadFile(filepath.Join(o.tasksDir, "split.json"))
@@ -286,17 +301,18 @@ func runEval(ctx context.Context, env evalEnv, o evalOpts) int {
 		return fail("%v", err)
 	}
 	entry := evalEntry{
-		EvalID:        trace.NewRunID(start, hex.EncodeToString(suffix)),
-		Timestamp:     start,
-		GitCommit:     commit,
-		GitDirty:      dirty,
-		Model:         model,
-		PromptVersion: loop.PromptVersion(),
-		SplitSHA256:   sha256Hex(splitBytes),
-		Set:           o.set,
-		Runs:          o.runs,
-		Complete:      true,
-		Rows:          []evalRow{},
+		EvalID:         trace.NewRunID(start, hex.EncodeToString(suffix)),
+		Timestamp:      start,
+		GitCommit:      commit,
+		GitDirty:       dirty,
+		Model:          model,
+		PromptVersion:  loop.PromptVersion(contract.System),
+		PromptContract: contract.Name,
+		SplitSHA256:    sha256Hex(splitBytes),
+		Set:            o.set,
+		Runs:           o.runs,
+		Complete:       true,
+		Rows:           []evalRow{},
 	}
 	// Eval mode: the gate always defers. It never reads stdin.
 	gateCfg := &gate.Config{In: strings.NewReader(""), Out: io.Discard, Interactive: false, Batch: true, OutDir: o.outDir}
@@ -315,7 +331,7 @@ run:
 			if err != nil {
 				return fail("sandbox: %v", err)
 			}
-			tr := runTask(ctx, sb, pod, p.tk, env.client, gateCfg)
+			tr := runTaskWith(ctx, sb, pod, p.tk, contract, env.client, gateCfg)
 			path, err := trace.Write(o.tracesDir, tr)
 			if err != nil {
 				fmt.Fprintf(env.stderr, "apg eval: write trace: %v\n", err)
@@ -369,7 +385,7 @@ func rowName(r evalRow, runs int) string {
 // printEval prints the results table, a loud block for every UNEXPECTED
 // PASS, and the summary.
 func printEval(w io.Writer, e evalEntry) {
-	fmt.Fprintf(w, "\napg eval %s: set %s, %d run(s) per task, model %s, prompt %s\n\n", e.EvalID, e.Set, e.Runs, e.Model, e.PromptVersion[:12])
+	fmt.Fprintf(w, "\napg eval %s: set %s, %d run(s) per task, model %s, contract %s, prompt %s\n\n", e.EvalID, e.Set, e.Runs, e.Model, e.PromptContract, e.PromptVersion[:12])
 	// tabwriter lines up the columns: cells are separated by tabs, and
 	// Flush pads them.
 	tw := tabwriter.NewWriter(w, 0, 0, 2, ' ', 0)
@@ -474,8 +490,8 @@ func writeMarkdown(path string, entries []evalEntry) error {
 		if e.GitDirty {
 			dirty = " (uncommitted changes outside results/)"
 		}
-		fmt.Fprintf(&b, "- Started: %s\n- Commit: `%s`%s\n- Model: `%s`\n- Prompt version: `%s`\n- split.json SHA-256: `%s`\n\n",
-			e.Timestamp.Format(time.RFC3339), e.GitCommit, dirty, e.Model, e.PromptVersion, e.SplitSHA256)
+		fmt.Fprintf(&b, "- Started: %s\n- Commit: `%s`%s\n- Model: `%s`\n- Prompt contract: %s\n- Prompt version: `%s`\n- split.json SHA-256: `%s`\n\n",
+			e.Timestamp.Format(time.RFC3339), e.GitCommit, dirty, e.Model, contractCell(e), e.PromptVersion, e.SplitSHA256)
 		b.WriteString("| task | expected | verdict | outcome | steps | denied | exit reason | cost | trace |\n|---|---|---|---|---|---|---|---|---|\n")
 		for _, r := range e.Rows {
 			out := r.Outcome
@@ -492,6 +508,20 @@ func writeMarkdown(path string, entries []evalEntry) error {
 		return err
 	}
 	return os.Rename(tmp, path) // replaces path in one step
+}
+
+// contractCell is the prompt contract line of EVAL-LOG.md. Lines before
+// T5.1 did not record one; for them it says whether the prompt version is
+// contract A's (it is, for every eval before T5.1).
+func contractCell(e evalEntry) string {
+	switch {
+	case e.PromptContract != "":
+		return "`" + e.PromptContract + "`"
+	case e.PromptVersion == loop.PromptVersion(contracts.MustGet("A").System):
+		return "not recorded (before T5.1); the prompt version is contract A's"
+	default:
+		return "not recorded (before T5.1)"
+	}
 }
 
 // hostGit returns the current commit and whether there are uncommitted

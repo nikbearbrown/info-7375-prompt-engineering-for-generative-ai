@@ -1,0 +1,14 @@
+JS3 filter v1 run (FILTER.md v1; SEAL.md v1.5). Counts only: no ids, no titles.
+corpus: 20 files, 1298 postings (one copy per board key and id)
+sealed postings withheld, not judged and not written: 50
+judged: 1248
+verdicts:
+  ashby:notion: relevant 0, not_relevant 162, cannot_tell 0; total 162
+  greenhouse:duolingo: relevant 0, not_relevant 60, cannot_tell 0; total 60
+  greenhouse:robinhood: relevant 0, not_relevant 170, cannot_tell 0; total 170
+  greenhouse:stripe: relevant 0, not_relevant 856, cannot_tell 0; total 856
+  all boards: relevant 0, not_relevant 1248, cannot_tell 0; total 1248
+closest calls: 42 (ashby:notion 3, greenhouse:duolingo 5, greenhouse:robinhood 6, greenhouse:stripe 28)
+rule.py cross-check: 1248 postings with no missing field; disagreements: 0
+postings with a missing field: 0 (judged under F7; not compared with rule.py)
+written to: output/filter_v1_2026-11-17T210612Z/

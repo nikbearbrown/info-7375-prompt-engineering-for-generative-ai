@@ -1,0 +1,198 @@
+Label: fixture output. apg compare read the committed eval log
+(results/eval-log.jsonl) and the committed trace copies (evidence/traces/);
+it made no model calls and needed no API key.
+Ran: Nov 18, 2026, with ./bin/apg built from the working tree committed in
+"T5.3: apg compare" (the same commit as this file). The evals compared ran
+at 6d7bafe (T5.1).
+Command:
+  ./bin/apg compare contract=A,commit=6d7bafe,set=held-out \
+                    contract=B,commit=6d7bafe,set=held-out \
+                    --traces evidence/traces
+Exit code: 0
+--------------------------------------------------------------------------------
+apg compare: side a vs side b
+read-only, from results/eval-log.jsonl and the traces it cites; no model calls
+
+side a: contract=A,commit=6d7bafe,set=held-out
+  evals (5)   20261118T034100Z-57e06904, 20261118T034444Z-1e914299,
+              20261118T034829Z-fcfc6664, 20261118T035209Z-a003bbfa,
+              20261118T035549Z-12652dd1
+  set         held-out
+  model       claude-haiku-5-5
+  contract    A
+  prompt      77d9d716f4239fa8b9be66353e4aa88b4c880a2833dd8d9f215c60b449021be7
+  commit      6d7bafe132844b2649be527f36427452667dd9a8 (clean)
+  split       19d409d55ba217f34a9d9c57bd835201bba82a1e57f749cff6d04a893ca6320f
+  truncation  limit 8192, head 4096, tail 4096
+  runs        35 (7 tasks, 5 per task)
+
+side b: contract=B,commit=6d7bafe,set=held-out
+  evals (5)   20261118T034247Z-6430ecef, 20261118T034640Z-b34c2e10,
+              20261118T035021Z-e9ca0cd2, 20261118T035359Z-f4a31fdf,
+              20261118T035741Z-b3379786
+  set         held-out
+  model       claude-haiku-5-5
+  contract    B
+  prompt      3de39bebb4df2df5dc08888860563ab53dbb6511287fa102b6aa2a7f5728e775
+  commit      6d7bafe132844b2649be527f36427452667dd9a8 (clean)
+  split       19d409d55ba217f34a9d9c57bd835201bba82a1e57f749cff6d04a893ca6320f
+  truncation  limit 8192, head 4096, tail 4096
+  runs        35 (7 tasks, 5 per task)
+
+warnings: none
+
+per task
+
+006-ledger-cents (expected PASS)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      5/5            5/5             +0
+  returned FAIL                               0/5            0/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  5.8            5.6           -0.2
+  mean tokens (input + output)             10,591         13,772         +3,181
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00687       $0.00853      +$0.00166
+
+007-booking-slots (expected PASS)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      5/5            5/5             +0
+  returned FAIL                               0/5            0/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  4.0            6.0           +2.0
+  mean tokens (input + output)              7,782         19,733        +11,952
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00597       $0.01277      +$0.00680
+
+008-config-parser (expected PASS)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      5/5            5/5             +0
+  returned FAIL                               0/5            0/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  4.6            6.4           +1.8
+  mean tokens (input + output)             17,777         31,869        +14,092
+  denied calls                                  0              4             +4
+  total cost (estimated)                 $0.01527       $0.02146      +$0.00620
+
+011-shared-default (expected PASS)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      5/5            5/5             +0
+  returned FAIL                               0/5            0/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  5.0            4.4           -0.6
+  mean tokens (input + output)              7,846          9,522         +1,676
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00523       $0.00613      +$0.00090
+
+012-wrong-test (expected FAIL)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      0/5            0/5             +0
+  returned FAIL                               5/5            5/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  6.2            6.2           +0.0
+  mean tokens (input + output)             10,381         14,647         +4,266
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00747       $0.01004      +$0.00257
+
+015-tiny-budget (expected FAIL)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      0/5            0/5             +0
+  returned FAIL                               5/5            5/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  1.0            1.0           +0.0
+  mean tokens (input + output)              1,242          1,904           +662
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00101       $0.00141      +$0.00040
+
+016-contradictory-spec (expected FAIL)
+                                                a              b  delta (b - a)
+  runs                                          5              5             +0
+  passed                                      0/5            0/5             +0
+  returned FAIL                               5/5            5/5             +0
+  outcome OK                                    5              5             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                  4.2            4.0           -0.2
+  mean tokens (input + output)              6,697          8,658         +1,962
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.00529       $0.00602      +$0.00073
+
+totals
+
+normal tasks (expected PASS): 4 tasks (006, 007, 008, 011)
+                                                a              b  delta (b - a)
+  runs                                         20             20             +0
+  passed                                    20/20          20/20             +0
+  returned FAIL                              0/20           0/20             +0
+  pass rate                                100.0%         100.0%        +0.0 pp
+  outcome OK                                   20             20             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                 4.85           5.60          +0.75
+  mean tokens (input + output)             10,999         18,724         +7,725
+  denied calls                                  0              4             +4
+  total cost (estimated)                 $0.03334       $0.04890      +$0.01556
+  total tokens                            219,974        374,478       +154,504
+
+failure tasks (expected FAIL): 3 tasks (012, 015, 016)
+                                                a              b  delta (b - a)
+  runs                                         15             15             +0
+  passed                                     0/15           0/15             +0
+  returned FAIL                             15/15          15/15             +0
+  returned FAIL rate                       100.0%         100.0%        +0.0 pp
+  outcome OK                                   15             15             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                 3.80           3.73          -0.07
+  mean tokens (input + output)              6,106          8,403         +2,297
+  denied calls                                  0              0             +0
+  total cost (estimated)                 $0.01377       $0.01748      +$0.00370
+  total tokens                             91,596        126,044        +34,448
+
+all tasks: 7 tasks (006, 007, 008, 011, 012, 015, 016)
+                                                a              b  delta (b - a)
+  runs                                         35             35             +0
+  passed                                    20/35          20/35             +0
+  returned FAIL                             15/35          15/35             +0
+  outcome OK rate                          100.0%         100.0%        +0.0 pp
+  outcome OK                                   35             35             +0
+  outcome UNEXPECTED PASS                       0              0             +0
+  outcome UNEXPECTED FAIL                       0              0             +0
+  harness errors                                0              0             +0
+  mean steps                                 4.40           4.80          +0.40
+  mean tokens (input + output)              8,902         14,301         +5,399
+  denied calls                                  0              4             +4
+  total cost (estimated)                 $0.04711       $0.06637      +$0.01926
+  total tokens                            311,570        500,522       +188,952
+
+notes
+  delta is b minus a, computed before rounding; pp: percentage points.
+  Costs are estimates from list prices (internal/budget), not billed amounts.
+  Tokens are input + output per run, from each trace's budget.used.
+  No significance test is computed.

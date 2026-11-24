@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic Patterns: Routing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  --nu-red:#C8102E; --nu-black:#000000; --nu-white:#FFFFFF; --nu-gold:#A4804A;
+  --nu-red-hover:#A50C25; --nu-red-press:#870A1F; --nu-red-tint:#FBE7EA;
+  --nu-neutral-1:#E3E3E3; --nu-neutral-2:#C4C4C4; --nu-neutral-3:#909090; --nu-neutral-4:#787878;
+  --nu-neutral-5:#545454; --nu-neutral-6:#404040; --nu-neutral-7:#2D2926; --nu-neutral-8:#1A1A1A;
+  --diagram-ink:#2A1A0E; --panel-subtle:#F6F6F6;
+  --font:"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(0.4, 0, 0.2, 1);
+  /* viewer chrome (theme-aware; slides themselves keep fixed brand colors) */
+  --stage-bg:#E9E9E9; --chrome-bg:rgba(255,255,255,0.94); --chrome-fg:#1A1A1A;
+  --chrome-line:#C4C4C4; --chrome-muted:#545454; --chrome-hover:rgba(0,0,0,0.07);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+    --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+  }
+}
+:root[data-theme="dark"]{
+  --stage-bg:#141414; --chrome-bg:rgba(26,26,26,0.94); --chrome-fg:#F2F2F2;
+  --chrome-line:#404040; --chrome-muted:#909090; --chrome-hover:rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top, 0px)}
+body{
+  height:100%; margin:0; overflow:hidden; display:flex; flex-direction:column;
+  background:var(--stage-bg); color:var(--chrome-fg); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+:fullscreen body, body:fullscreen{background:#000}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ---------- stage & scaling ---------- */
+#stage{position:relative; flex:1 1 auto; min-height:0; overflow:hidden; touch-action:pan-y}
+#deck{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0}
+
+/* ---------- slide base ---------- */
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden;
+  background:var(--nu-white); color:var(--nu-black); font-family:var(--font);
+  padding-left:120px; padding-right:120px;
+}
+.slide.is-active{display:flex}
+:where(.slide) :where(h1,h2,p,ul){margin:0}
+.s-dark{background:var(--nu-black); color:var(--nu-white)}
+.s-red{background:var(--nu-red); color:var(--nu-white)}
+.rule{position:absolute; top:0; left:0; right:0; height:8px; background:var(--nu-red)}
+.rule.r10{height:10px}
+
+.s-opening,.s-closing{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-intro{padding-top:120px; padding-bottom:120px; justify-content:center}
+.s-section{padding-top:110px; padding-bottom:110px; justify-content:center}
+.s-text{padding-top:96px; padding-bottom:96px}
+.s-diagram{padding-top:72px; padding-bottom:56px}
+.s-chart{padding-top:64px; padding-bottom:56px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-size:22px; font-weight:700; line-height:1.2; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--nu-red); margin-bottom:28px;
+}
+.s-intro .eyebrow{font-size:24px; letter-spacing:0.18em; margin-bottom:40px}
+.s-section .eyebrow{font-size:26px; letter-spacing:0.20em; color:rgba(255,255,255,0.78); margin-bottom:36px}
+.s-chart .eyebrow,.s-diagram .eyebrow{margin-bottom:18px}
+
+.t-opening{font-size:104px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-section{font-size:108px; font-weight:400; line-height:1.0; letter-spacing:-0.02em; max-width:1560px}
+.t-closing{font-size:84px; font-weight:400; line-height:1.04; letter-spacing:-0.02em; max-width:1560px}
+.t-intro{font-size:72px; font-weight:400; line-height:1.1; letter-spacing:-0.01em; max-width:1500px}
+.t-text{font-size:66px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1500px}
+.t-chart{font-size:50px; font-weight:400; line-height:1.04; letter-spacing:-0.01em; max-width:1560px}
+.s-chart .t-chart{margin-bottom:30px}
+.s-diagram .t-chart{margin-bottom:40px}
+
+.sub-opening{font-size:38px; font-weight:400; line-height:1.3; color:var(--nu-neutral-2); max-width:1300px}
+.sub-section{font-size:34px; font-weight:400; line-height:1.3; color:rgba(255,255,255,0.92); margin-top:40px; max-width:1300px}
+.para{font-size:30px; line-height:1.4; color:var(--nu-neutral-7); max-width:1300px}
+.caption{font-size:24px; line-height:1.36; color:var(--nu-neutral-5); max-width:1400px; margin-top:22px}
+.t-opening,.t-section,.t-closing,.t-intro,.t-text,.t-chart,.sub-opening,.sub-section,.caption{text-wrap:pretty}
+.source{font-size:19px; line-height:1.4; color:var(--nu-neutral-5); margin-top:12px}
+
+.bar-120{width:120px; height:8px; background:var(--nu-red); margin:52px 0 44px}
+.bar-88{width:88px; height:6px; background:var(--nu-red); margin:40px 0 60px}
+
+.bullets{list-style:none; padding:0; max-width:1480px; display:flex; flex-direction:column; gap:26px}
+.bullets li{
+  display:grid; grid-template-columns:14px 1fr; column-gap:22px;
+  font-size:31px; line-height:1.42; color:var(--nu-neutral-7);
+}
+.bullets li::before{
+  content:""; width:14px; height:14px; background:var(--nu-red);
+  margin-top:calc((31px * 1.42 - 14px) / 2);
+}
+.bullets strong{font-weight:700; color:var(--nu-black)}
+
+/* ---------- charts ---------- */
+.chart{width:1480px; height:600px; flex:none}
+.chart svg{display:block; width:1480px; height:600px; overflow:visible}
+.chart-fallback{
+  width:100%; height:100%; display:grid; place-items:center; border:1px solid var(--nu-neutral-1);
+  font-size:24px; color:var(--nu-neutral-5); background:var(--panel-subtle)
+}
+
+/* ---------- diagram ---------- */
+.diagram{flex:0 1 auto; min-height:0; width:100%; max-width:1400px; max-height:720px}
+.diagram svg{display:block}
+
+/* ---------- evidence status: conceptual vs. illustrative vs. observed ---------- */
+.evidence{
+  position:absolute; right:120px; font-size:18px; font-weight:700; line-height:1;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nu-neutral-5);
+  border:1px solid var(--nu-neutral-2); padding:9px 12px 8px;
+}
+.s-chart .evidence{top:58px}
+.s-diagram .evidence{top:66px}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:translateY(0)}}
+.slide.is-active .rise{animation:rise 550ms var(--ease) both}
+.slide.is-active .g2{animation-delay:120ms}
+.slide.is-active .g3{animation-delay:240ms}
+@media (prefers-reduced-motion: reduce){
+  .slide.is-active .rise{animation:none}
+}
+
+/* ---------- viewer chrome ---------- */
+#controls{
+  position:absolute; right:14px; bottom:14px; z-index:10;
+  display:flex; align-items:center; gap:2px; padding:4px;
+  background:var(--chrome-bg); border:1px solid var(--chrome-line); color:var(--chrome-fg);
+  opacity:0.38; transition:opacity 200ms var(--ease);
+}
+#controls:hover,#controls:focus-within,body.show-controls #controls{opacity:1}
+#controls button,#thumbs .close{
+  appearance:none; border:0; background:transparent; color:inherit; cursor:pointer;
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+}
+#controls button:hover,#thumbs .close:hover{background:var(--chrome-hover)}
+#controls button[disabled]{opacity:0.35; cursor:default}
+#controls button[aria-pressed="true"]{background:var(--chrome-hover)}
+#controls svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:square}
+#counter{
+  min-width:66px; text-align:center; font-family:var(--mono); font-size:13px;
+  font-variant-numeric:tabular-nums; color:var(--chrome-fg)
+}
+#pips{display:flex; gap:4px; padding:0 6px 0 2px}
+#pips:empty{display:none}
+.pip{width:6px; height:6px; background:var(--chrome-line)}
+.pip.on{background:var(--nu-red)}
+.sep{width:1px; height:20px; background:var(--chrome-line); margin:0 4px}
+button:focus-visible,.thumb:focus-visible{outline:3px solid var(--nu-red); outline-offset:2px}
+
+#notes{
+  display:none; flex:none; height:min(30vh, 260px); overflow:auto;
+  padding:18px 28px 20px; background:var(--chrome-bg); border-top:1px solid var(--chrome-line);
+  color:var(--chrome-fg); font-size:17px; line-height:1.55;
+}
+body.notes-open #notes{display:block}
+#notes h2{margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--chrome-muted)}
+#notes p{margin:0 0 10px; max-width:78ch}
+
+#thumbs{position:absolute; inset:0; z-index:20; display:none; overflow:auto; background:var(--stage-bg); padding:24px}
+#thumbs.open{display:block}
+#thumbs .bar{display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:0 auto 18px}
+#thumbs .bar h2{margin:0; font-size:15px; font-weight:700; color:var(--chrome-fg)}
+#thumbs .close svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.75}
+#thumbs .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; max-width:1400px; margin:0 auto}
+.thumb{
+  appearance:none; padding:0; margin:0; border:1px solid var(--chrome-line); background:#fff;
+  cursor:pointer; position:relative; overflow:hidden; aspect-ratio:16 / 9; width:100%; display:block
+}
+.thumb.current{outline:3px solid var(--nu-red); outline-offset:2px}
+.thumb-inner{position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; pointer-events:none; text-align:left; font:400 16px/1.2 var(--font); white-space:normal}
+.thumb-inner .slide{display:flex}
+.thumb-num{
+  position:absolute; left:0; bottom:0; padding:3px 7px; background:rgba(0,0,0,0.72); color:#fff;
+  font-family:var(--mono); font-size:12px; line-height:1.2
+}
+
+/* ---------- print: every slide, final state ---------- */
+@media print{
+  @page{size:1920px 1080px; margin:0}
+  :root{padding:0}
+  html,body{height:auto; overflow:visible; display:block; background:#fff}
+  #stage{overflow:visible; height:auto}
+  #deck{position:static; transform:none !important; width:1920px; height:auto}
+  .slide{position:relative; display:flex !important; width:1920px; height:1080px; break-after:page; page-break-after:always}
+  .slide .rise{animation:none !important; opacity:1 !important; transform:none !important}
+  #controls,#notes,#thumbs{display:none !important}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* ---------- review-deck additions (small; typography classes above are untouched) ---------- */
+.slide .source{font-size:24px; margin-top:10px}
+.evidence{font-size:24px; letter-spacing:0.1em}
+.diagram svg text{font-kerning:normal}
+.diagram{cursor:pointer}
+</style>
+</head>
+<body>
+
+<main id="stage" aria-roledescription="slide deck" aria-label="Agentic Patterns: Routing">
+  <div id="deck">
+
+    <!-- 1 OPENING -->
+    <section class="slide s-dark s-opening" aria-roledescription="slide" data-title="Routing">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Agentic patterns · Workflow</p>
+      <h1 class="t-opening rise g2">Routing</h1>
+      <div class="bar-120 rise g2"></div>
+      <p class="sub-opening rise g3">Classify the input. Send it to the path built for it.</p>
+      <div class="speaker-notes" hidden><p>This deck covers one workflow pattern: routing. It shows the shape of the pattern, what it costs, and the questions that decide whether to use it.</p></div>
+    </section>
+
+    <!-- 2 MAP -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Twenty patterns in three families">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Where this pattern sits</p>
+      <h2 class="t-chart">Twenty patterns in three families</h2>
+      <div class="diagram build" data-build="map" style="flex-basis:600px"></div>
+      <p class="source">Sources: Design of Agentic Systems with Case Studies, Chapter 3. Anthropic, "Building Effective Agents". The Forward Future Loop Library (85 loops).</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> an empty map. The set of decks covers twenty patterns, grouped by the question each family answers.</p>
+        <p><strong>Step 1:</strong> reasoning patterns. These describe how one agent orders its own thinking and tool calls.</p>
+        <p><strong>Step 2:</strong> workflow patterns. These describe how several model calls are wired together.</p>
+        <p><strong>Step 3:</strong> loop patterns. These are grouped by the check that keeps a long run honest.</p>
+        <p><strong>Step 4:</strong> this deck is Routing, the second workflow pattern.</p>
+      </div>
+    </section>
+
+    <!-- 3 CLAIM -->
+    <section class="slide s-dark s-intro" aria-roledescription="slide" data-title="The claim">
+      <div class="rule"></div>
+      <p class="eyebrow rise">The claim</p>
+      <h2 class="t-intro rise g2">Routing sends each kind of input to a prompt built for it. Everything then rests on the classification.</h2>
+      <div class="speaker-notes" hidden><p>Both halves come from one step. A classifier in front decides which path an input takes. That lets each path specialise. It also means the paths can only be as good as the label they are handed.</p></div>
+    </section>
+
+    <!-- 4 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="The shape">
+      <p class="eyebrow rise">Part one</p>
+      <h2 class="t-section rise g2">The shape</h2>
+      <p class="sub-section rise g3">Classify first, then hand off to a specialised path</p>
+      <div class="speaker-notes" hidden><p>Three slides: the structure, a worked example with three support tickets, and why separate paths help.</p></div>
+    </section>
+
+    <!-- 5 SHAPE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Classify, then hand off">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="t-chart">A router classifies the input and one path handles it</h2>
+      <div class="diagram build" data-build="shape" style="flex-basis:600px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Routing".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the parts, not yet active.</p>
+        <p><strong>Step 1:</strong> one input arrives. The router's only job is to classify it.</p>
+        <p><strong>Step 2:</strong> behind the router sit several paths. Each can have its own prompt, its own tools, even its own model.</p>
+        <p><strong>Step 3:</strong> the router picks one path and that path handles the input. The other paths are not used.</p>
+        <p><strong>Step 4:</strong> the router does not have to be a model call. The article says the classification can be done by a model or by a traditional classification model or algorithm.</p>
+      </div>
+    </section>
+
+    <!-- 6 TICKETS -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Three tickets, routed">
+      <div class="rule"></div>
+      <span class="evidence">Illustrative data</span>
+      <p class="eyebrow">A worked example</p>
+      <h2 class="t-chart">Three support tickets, each sent to a different team's prompt</h2>
+      <div class="diagram build" data-build="tickets" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic cookbook notebook basic_workflows.ipynb, example 3. Routes are the notebook's recorded output; counts are tallied in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> three support tickets and four available routes: billing, technical, account and product. The article's first example of routing is the same idea: customer service queries of different types go to different processes, prompts and tools.</p>
+        <p><strong>Step 1:</strong> ticket 1 is a login problem. The router selects account.</p>
+        <p><strong>Step 2:</strong> ticket 2 is an unexpected charge. The router selects billing.</p>
+        <p><strong>Step 3:</strong> ticket 3 asks how to export data. The router selects technical.</p>
+        <p><strong>Step 4:</strong> three tickets, three different routes. The product route was not selected. Ticket 3 is a how-to question, and the router chose technical over product. That choice is the router's judgment. Hold on to it for part two.</p>
+      </div>
+    </section>
+
+    <!-- 7 SPECIALISE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Why separate paths help">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Why it helps</p>
+      <h2 class="t-chart">One prompt for every input has to pull in several directions</h2>
+      <div class="diagram build" data-build="specialise" style="flex-basis:560px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Routing". Prompt guidelines condensed from the cookbook notebook basic_workflows.ipynb.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> suppose one prompt has to handle every ticket.</p>
+        <p><strong>Step 1:</strong> it needs everything the four teams need: explain charges in a friendly tone, give exact technical steps, put account security first in a serious tone, teach product features in an encouraging tone.</p>
+        <p><strong>Step 2:</strong> some of those pull against each other. The article's point: without routing, optimizing for one kind of input can hurt performance on the others.</p>
+        <p><strong>Step 3:</strong> with routing, each route has its own prompt.</p>
+        <p><strong>Step 4:</strong> the article calls this separation of concerns. In the notebook's code only the selected prompt is sent with the ticket, so the other prompts are never read for that input.</p>
+      </div>
+    </section>
+
+    <!-- 8 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="What it costs">
+      <p class="eyebrow rise">Part two</p>
+      <h2 class="t-section rise g2">What it costs</h2>
+      <p class="sub-section rise g3">One more step in front of every input, and nothing behind it to catch a wrong label</p>
+      <div class="speaker-notes" hidden><p>The article does not describe a failure mode for routing. It states a condition: the classification has to be accurate. These two slides show the cost of the extra step and why that condition matters.</p></div>
+    </section>
+
+    <!-- 9 COST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="The extra call">
+      <div class="rule"></div>
+      <span class="evidence">Computed</span>
+      <p class="eyebrow">The extra step</p>
+      <h2 class="t-chart">Routing puts one more call in front of every answer</h2>
+      <div class="diagram build" data-build="cost" style="flex-basis:590px"></div>
+      <p class="source">Source: Anthropic cookbook notebook basic_workflows.ipynb, the route function. "Building Effective Agents", "Workflow: Routing". Counts computed in code.</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> the same three tickets.</p>
+        <p><strong>Step 1:</strong> with one prompt and no router, each ticket is one model call. Three calls.</p>
+        <p><strong>Step 2:</strong> the notebook's route function makes two calls per ticket: one to select the route, one to answer with the selected prompt. Six calls.</p>
+        <p><strong>Step 3:</strong> the notebook says these workflows trade cost or latency for potentially better task performance. The router here is a model call that explains its reasoning and then names a route. The article allows a traditional classifier in its place.</p>
+        <p><strong>Step 4:</strong> routing can also save money. The article's second example routes by difficulty: easy or common questions go to a smaller, cost-efficient model, and hard or unusual ones go to a more capable model.</p>
+      </div>
+    </section>
+
+    <!-- 10 MISROUTE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Nothing checks the label">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Why accuracy matters</p>
+      <h2 class="t-chart">Nothing after the router checks its choice</h2>
+      <div class="diagram build" data-build="misroute" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic cookbook notebook basic_workflows.ipynb, the route function. Anthropic, "Building Effective Agents", "Workflow: Routing".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> ticket 2, the unexpected charge, and three things the router could say about it.</p>
+        <p><strong>Step 1:</strong> the router says billing. The code looks up the billing prompt and the billing reply comes back. This is what the notebook recorded.</p>
+        <p><strong>Step 2:</strong> suppose the router says technical. The code looks up the technical prompt in exactly the same way. A technical reply comes back, and no error is raised.</p>
+        <p><strong>Step 3:</strong> suppose the router names a team that is not in the list. The lookup fails with a KeyError and the run stops.</p>
+        <p><strong>Step 4:</strong> the selected prompt answers whatever it is given. That is why the article's condition for routing is that classification can be handled accurately. Rows 2 and 3 come from reading the notebook's code. I did not run them, and the article does not describe them.</p>
+      </div>
+    </section>
+
+    <!-- 11 SECTION -->
+    <section class="slide s-red s-section" aria-roledescription="slide" data-title="When to use it">
+      <p class="eyebrow rise">Part three</p>
+      <h2 class="t-section rise g2">When to use it</h2>
+      <p class="sub-section rise g3">Distinct kinds of input, and a classifier you can trust</p>
+      <div class="speaker-notes" hidden><p>Two questions, the pair to tell apart, and a checklist.</p></div>
+    </section>
+
+    <!-- 12 CHOOSE -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Two questions">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">The decision</p>
+      <h2 class="t-chart">Two questions decide whether routing fits</h2>
+      <div class="diagram build" data-build="choose" style="flex-basis:570px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Routing", "What are agents?" and "When (and when not) to use agents".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>On entering:</strong> two questions, asked in order.</p>
+        <p><strong>Step 1:</strong> are there distinct kinds of input that are better handled separately? If not, the article's general advice applies: a single call with retrieval and good examples is usually enough.</p>
+        <p><strong>Step 2:</strong> can the classification be done accurately, by a model or by a traditional classifier? The article gives this as a condition for routing to work well.</p>
+        <p><strong>Step 3:</strong> the pair to tell apart. Routing is a workflow: in the article's words, the model and tools follow "predefined code paths", and the model only picks which one runs. In an agent the model directs its own process and its own tool use.</p>
+        <p><strong>Step 4:</strong> the article's standing advice: find the simplest solution and add complexity only when it is needed.</p>
+      </div>
+    </section>
+
+    <!-- 13 CHECKLIST -->
+    <section class="slide s-diagram" aria-roledescription="slide" data-title="Six checks">
+      <div class="rule"></div>
+      <span class="evidence">Conceptual illustration</span>
+      <p class="eyebrow">Checklist</p>
+      <h2 class="t-chart">Six checks before you add a router</h2>
+      <div class="diagram build" data-build="checks" style="flex-basis:580px"></div>
+      <p class="source">Source: Anthropic, "Building Effective Agents", "Workflow: Routing" and "When (and when not) to use agents".</p>
+      <div class="speaker-notes" hidden>
+        <p><strong>Steps 1 to 3:</strong> the conditions under which the article says routing works well, plus its second use, routing by difficulty.</p>
+        <p><strong>Steps 4 to 6:</strong> reasons to think again. The article does not call these failures. They follow from its condition on accuracy and from its advice to keep things simple and to weigh cost and latency against the gain.</p>
+      </div>
+    </section>
+
+    <!-- 14 CLOSING -->
+    <section class="slide s-dark s-closing" aria-roledescription="slide" data-title="Takeaway">
+      <div class="rule r10"></div>
+      <p class="eyebrow rise">Takeaway</p>
+      <h2 class="t-closing rise g2">Routing gives each kind of input its own prompt. It is only as good as the label in front.</h2>
+      <div class="bar-120 rise g2"></div>
+      <div class="speaker-notes" hidden><p>What would change this advice: inputs that do not fall into clear kinds, or a classifier you cannot trust. Next in the set: Parallelization, which runs several calls at once and combines their outputs.</p></div>
+    </section>
+
+  </div>
+
+  <nav id="controls" aria-label="Slide controls">
+    <button type="button" id="btn-prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span id="counter" aria-hidden="true">1 / 1</span>
+    <span id="pips" aria-hidden="true"></span>
+    <button type="button" id="btn-next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="btn-thumbs" aria-label="Show all slides (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="5"/><rect x="13" y="5" width="7" height="5"/><rect x="4" y="14" width="7" height="5"/><rect x="13" y="14" width="7" height="5"/></svg></button>
+    <button type="button" id="btn-notes" aria-label="Speaker notes (N)" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 11h14M5 16h9"/></svg></button>
+    <button type="button" id="btn-fs" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+  </nav>
+
+  <div id="thumbs" role="dialog" aria-modal="true" aria-label="All slides">
+    <div class="bar">
+      <h2>All slides</h2>
+      <button type="button" class="close" aria-label="Close slide overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="grid"></div>
+  </div>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+</main>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h2 id="notes-head">Speaker notes</h2>
+  <div id="notes-body"></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var total = slides.length;
+  var counter = document.getElementById("counter");
+  var pips = document.getElementById("pips");
+  var live = document.getElementById("live");
+  var notesHead = document.getElementById("notes-head");
+  var notesBody = document.getElementById("notes-body");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnNotes = document.getElementById("btn-notes");
+  var btnThumbs = document.getElementById("btn-thumbs");
+  var btnFs = document.getElementById("btn-fs");
+  var thumbs = document.getElementById("thumbs");
+  var thumbGrid = thumbs.querySelector(".grid");
+  var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var hasD3 = typeof window.d3 !== "undefined";
+  var current = -1, step = 0, lastFocus = null;
+
+  /* Recurring visual vocabulary
+     ink   = confidence / belief        red  = failure, consequence, causal break
+     gray  = familiar data, same source tint = what an inspection or failure exposes */
+  var INK = "#2A1A0E", RED = "#C8102E", TINT = "#FBE7EA", GRID = "#E3E3E3", MUTED = "#545454",
+      BASE = "#909090", FAMILIAR = "#C4C4C4", SUBTLE = "#F6F6F6", BODY = "#2D2926";
+  var MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+  var SANS = '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+
+  /* ---------------- scaling ---------------- */
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    var s = Math.min(w / 1920, h / 1080);
+    deck.style.transform = "translate(" + (w - 1920 * s) / 2 + "px," + (h - 1080 * s) / 2 + "px) scale(" + s + ")";
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(stage);
+  window.addEventListener("resize", fit);
+
+  /* ---------------- drawing helpers ---------------- */
+  function svgFor(el, w, h, label, desc, fixed) {
+    el.innerHTML = "";
+    var svg = d3.select(el).append("svg").attr("viewBox", "0 0 " + w + " " + h)
+      .attr("role", "img").attr("aria-label", label);
+    if (fixed) svg.attr("width", w).attr("height", h).style("overflow", "visible");
+    else svg.attr("width", "100%").attr("height", "100%").attr("preserveAspectRatio", "xMinYMin meet");
+    svg.append("title").text(label);
+    svg.append("desc").text(desc);
+    return svg;
+  }
+  function txt(g, x, y, s, o) {
+    o = o || {};
+    var t = g.append("text").attr("x", x).attr("y", y)
+      .attr("font-family", o.family || SANS).attr("font-size", o.size || 22)
+      .attr("font-weight", o.weight || 400).attr("fill", o.fill || INK);
+    if (o.anchor) t.attr("text-anchor", o.anchor);
+    if (o.ls) t.attr("letter-spacing", o.ls);
+    if (o.dy) t.attr("dy", o.dy);
+    return t.text(s);
+  }
+  function fadeIn(sel, delay, dur) {
+    sel.attr("opacity", 0).transition().delay(delay || 0).duration(dur || 400).ease(d3.easeCubicOut).attr("opacity", 1);
+    return sel;
+  }
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+
+  /* ================= shared pieces ================= */
+  var W = 1400;
+  function A(anim, k, n) { return anim && k === n; }
+  function shuffle(a, r) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function drawIn(path, delay, dur) {
+    var L = path.node().getTotalLength();
+    if (!(L > 0)) return path;
+    path.attr("stroke-dasharray", L + " " + L).attr("stroke-dashoffset", L)
+      .transition().delay(delay || 0).duration(dur || 500).ease(d3.easeCubicOut).attr("stroke-dashoffset", 0)
+      .on("end", function () { d3.select(this).attr("stroke-dasharray", null).attr("stroke-dashoffset", null); });
+    return path;
+  }
+  function label(g, x, y, s, o) { o = o || {}; return txt(g, x, y, s, { size: o.size || 18, weight: 700, fill: o.fill || MUTED, ls: 1.5, anchor: o.anchor }); }
+  function scoreCard(g, x, y, w, h, big) {
+    var c = g.append("g");
+    c.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "#FFFFFF").attr("stroke", INK).attr("stroke-width", 1.5);
+    label(c, x + 24, y + 40, "TRIAGE SCORE");
+    txt(c, x + 24, y + 40 + (big ? 66 : 46), "Low acuity", { size: big ? 44 : 30 });
+    return c;
+  }
+  function herRing(g, x, y, r) { return g.append("circle").attr("cx", x).attr("cy", y).attr("r", r || 12).attr("fill", "#FFFFFF").attr("stroke", RED).attr("stroke-width", 4); }
+  function check(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + y + " L" + (x - s / 3) + "," + (y + s * 0.7) + " L" + (x + s) + "," + (y - s * 0.8)).attr("fill", "none").attr("stroke", color || INK).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function cross(g, x, y, s, color) { return g.append("path").attr("d", "M" + (x - s) + "," + (y - s) + " L" + (x + s) + "," + (y + s) + " M" + (x + s) + "," + (y - s) + " L" + (x - s) + "," + (y + s)).attr("stroke", color || RED).attr("stroke-width", 4).attr("stroke-linecap", "square"); }
+  function arrowHead(g, x, y, dir, color) {
+    var d = dir === "left" ? "M" + (x + 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x + 16) + "," + (y + 9) + " Z"
+      : dir === "up" ? "M" + (x - 9) + "," + (y + 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y + 16) + " Z"
+      : dir === "down" ? "M" + (x - 9) + "," + (y - 16) + " L" + x + "," + y + " L" + (x + 9) + "," + (y - 16) + " Z"
+      : "M" + (x - 16) + "," + (y - 9) + " L" + x + "," + y + " L" + (x - 16) + "," + (y + 9) + " Z";
+    return g.append("path").attr("d", d).attr("fill", color || RED);
+  }
+  function gateStrip(svg, active) {
+    var names = ["PLAUSIBILITY", "FORMULATION", "ORCHESTRATION", "INTERPRETATION", "INTEGRATION"];
+    var g = svg.append("g");
+    names.forEach(function (n, i) {
+      var x = i * 282, on = i === active;
+      g.append("rect").attr("x", x + 1).attr("y", 1).attr("width", 270).attr("height", 46)
+        .attr("fill", on ? RED : "#FFFFFF").attr("stroke", on ? RED : FAMILIAR);
+      txt(g, x + 136, 31, n, { size: 16, weight: 700, fill: on ? "#FFFFFF" : MUTED, anchor: "middle", ls: 1.5 });
+    });
+    return g;
+  }
+  function legendRow(g, x, y, kind, name, value, color) {
+    var r = g.append("g");
+    if (kind === "dot") r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 10).attr("fill", RED);
+    if (kind === "ring") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", FAMILIAR); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 15).attr("fill", "none").attr("stroke", INK).attr("stroke-width", 2.5); }
+    if (kind === "halo") { r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 9).attr("fill", RED); r.append("circle").attr("cx", x + 12).attr("cy", y - 9).attr("r", 16).attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3); }
+    if (kind === "square") r.append("rect").attr("x", x).attr("y", y - 22).attr("width", 24).attr("height", 24).attr("fill", color);
+    txt(r, x + 44, y, name, { size: 27 });
+    txt(r, x + 44, y + 42, value, { size: 30, weight: 700, family: MONO, fill: color || INK });
+    return r;
+  }
+
+  var SEP = (function () {
+    var r = rng(11), idx = shuffle(d3.range(400), r);
+    var septic = idx.slice(0, 28), caught = septic.slice(0, 9), falseA = idx.slice(28, 91);
+    return { septic: new Set(septic), alerts: caught.concat(falseA), missed: septic.slice(9) };
+  })();
+  /* ===================== CHAPTER-SPECIFIC CODE STARTS HERE =====================
+     Everything above this line (scaling, svgFor, txt, label, fadeIn, drawIn, rng,
+     check, cross, arrowHead, the color constants) and everything below the BUILDS
+     map (the controller) is shared engine: reuse it verbatim.
+     A renderer draws the COMPLETE state k from scratch. k = 0 is the base state;
+     k = steps is the final state (thumbnails and print show the final state).
+     Use A(anim, k, n) to animate only the elements being revealed at step n. */
+
+  function box(g, x, y, w, h, o) { o = o || {}; return g.append("rect").attr("x", x + 0.5).attr("y", y + 0.5).attr("width", w).attr("height", h).attr("fill", o.fill || "#FFFFFF").attr("stroke", o.stroke || INK).attr("stroke-width", o.sw || 1.5).attr("stroke-dasharray", o.dash || null); }
+  function node(g, x, y, w, h, t, o) { o = o || {}; box(g, x - w / 2, y - h / 2, w, h, { fill: o.fill || "#FFFFFF", stroke: o.stroke || INK, sw: o.sw || 1.5, dash: o.dash }); txt(g, x, y + 8, t, { size: o.size || 22, weight: o.weight || 400, anchor: "middle", fill: o.color || INK }); }
+  function personIcon(g, x, y, s, color) { s = s || 1; color = color || INK; g.append("circle").attr("cx", x).attr("cy", y - 22 * s).attr("r", 12 * s).attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); g.append("path").attr("d", "M" + (x - 20 * s) + "," + (y + 14 * s) + " C" + (x - 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y - 8 * s) + " " + (x + 20 * s) + "," + (y + 14 * s) + " Z").attr("fill", "#FFFFFF").attr("stroke", color).attr("stroke-width", 2.5); }
+  function arrow(g, x1, y1, x2, y2, color, w) { g.append("path").attr("d", "M" + x1 + "," + y1 + " L" + x2 + "," + y2).attr("stroke", color || INK).attr("stroke-width", w || 2.5); var a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; g.append("path").attr("d", "M" + (x2 - 14) + "," + (y2 - 8) + " L" + x2 + "," + y2 + " L" + (x2 - 14) + "," + (y2 + 8) + " Z").attr("fill", color || INK).attr("transform", "rotate(" + a + " " + x2 + " " + y2 + ")"); }
+  function wrap(g, x, y, s, n, o) { var words = s.split(" "), line = "", ly = y; words.forEach(function (w) { if ((line + w).length > n) { txt(g, x, ly, line.trim(), o); ly += (o.size || 22) * 1.35; line = ""; } line += w + " "; }); txt(g, x, ly, line.trim(), o); return ly; }
+
+  var fmt = hasD3 ? d3.format(",") : String;
+  function slideIn(g, anim, dx) {
+    if (anim) g.attr("opacity", 0).attr("transform", "translate(" + (dx || -30) + ",0)")
+      .transition().duration(450).ease(d3.easeCubicOut).attr("opacity", 1).attr("transform", "translate(0,0)");
+    return g;
+  }
+
+  /* ---------- map: twenty patterns in three families (shared by every deck in the set) ---------- */
+  var THIS_PATTERN = "Routing";
+  var FAMILIES = [
+    { name: "REASONING", q: "How one agent orders its steps", src: "Design of Agentic Systems, ch. 3",
+      items: ["ReAct", "Plan-and-Execute", "ReWOO", "Reflection", "Tree-of-Thoughts"] },
+    { name: "WORKFLOW", q: "How model calls are wired", src: "Building Effective Agents",
+      items: ["Prompt chaining", "Routing", "Parallelization", "Orchestrator-workers", "Evaluator-optimizer"] },
+    { name: "LOOP", q: "What check keeps a run honest", src: "The loop tree, 85 loops",
+      items: ["Measure, change one thing", "Burn down a worklist", "Change with proof", "Maker is not the checker",
+        "Evidence ledger", "Replay until clean", "Plan before building", "Standing watch",
+        "Audit, gate and handoff", "Controlled experiment"] }
+  ];
+  function renderMap(el, k, anim) {
+    var svg = svgFor(el, W, 600, "Twenty agentic patterns in three families",
+      "Three columns. Reasoning, 5 patterns: ReAct, Plan-and-Execute, ReWOO, Reflection, Tree-of-Thoughts. Workflow, 5 patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. Loop, 10 patterns, from measure and change one thing to controlled experiment. " + THIS_PATTERN + " is marked as this deck.");
+    FAMILIES.forEach(function (f, i) {
+      if (k < i + 1) return;
+      var x = i * 480, g = svg.append("g");
+      txt(g, x, 30, f.name, { size: 26, weight: 900, ls: 3 });
+      txt(g, x + 440, 30, String(f.items.length), { size: 26, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      txt(g, x, 72, f.q, { size: 26, fill: BODY });
+      g.append("rect").attr("x", x).attr("y", 90).attr("width", 440).attr("height", 3).attr("fill", INK);
+      f.items.forEach(function (it, j) {
+        var me = it === THIS_PATTERN && k >= 4, y = 138 + j * 41;
+        if (me) {
+          var hl = g.append("rect").attr("x", x - 14).attr("y", y - 31).attr("width", 454).attr("height", 44).attr("fill", INK);
+          if (A(anim, k, 4)) fadeIn(hl, 0, 400);
+        }
+        txt(g, x, y, it, { size: 26, weight: me ? 900 : 400, fill: me ? "#FFFFFF" : INK });
+      });
+      txt(g, x, 580, f.src, { size: 24, fill: MUTED });
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var lg = svg.append("g");
+      lg.append("rect").attr("x", 1266).attr("y", 560).attr("width", 24).attr("height", 24).attr("fill", INK);
+      txt(lg, 1400, 580, "this deck", { size: 24, weight: 700, anchor: "end", fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(lg, 250, 400);
+    }
+    if (k === 0) txt(svg, 0, 72, "Three questions, three families.", { size: 30, fill: MUTED });
+  }
+
+  /* ---------- shared: the cookbook's support-ticket example (basic_workflows.ipynb, example 3) ---------- */
+  var ROUTES = ["billing", "technical", "account", "product"];
+  var TICKETS = [
+    { subject: "Can't access my account", detail: "invalid password error, report due today", route: "account" },
+    { subject: "Unexpected charge on my card", detail: "charged $49.99, expected the $29.99 plan", route: "billing" },
+    { subject: "How to export data?", detail: "wants a bulk export of project data to Excel", route: "technical" }
+  ];
+  var CALLS_PER_INPUT = 2;   /* the route function: one call to select the route, one to answer */
+
+  /* ---------- shape: input, router, one of several paths ---------- */
+  function renderShape(el, k, anim) {
+    var svg = svgFor(el, W, 600, "The shape of routing",
+      "An input goes to a router that classifies it. Behind the router are four paths, each with its own prompt and tools. The router picks one path, and that path handles the input. The other three paths are not used. The router can be a model call or a traditional classification model or algorithm.");
+    var on = k >= 1, PICK = 1, cy = 247;
+    var gi = svg.append("g");
+    box(gi, 0, cy - 60, 250, 120, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+    txt(gi, 125, cy - 2, "INPUT", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: on ? INK : BASE });
+    box(gi, 330, cy - 60, 320, 120, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+    txt(gi, 490, cy - 2, "ROUTER", { size: 30, weight: 900, anchor: "middle", ls: 2, fill: on ? INK : BASE });
+    arrow(gi, 256, cy, 324, cy, on ? INK : FAMILIAR, 3);
+    if (on) {
+      txt(gi, 125, cy + 36, "one request", { size: 24, anchor: "middle", fill: BODY });
+      txt(gi, 490, cy + 36, "classifies the input", { size: 24, anchor: "middle", fill: BODY });
+      if (A(anim, k, 1)) fadeIn(gi, 0, 400);
+    }
+    d3.range(4).forEach(function (i) {
+      var y = 20 + i * 118, shown = k >= 2, picked = k >= 3 && i === PICK, dropped = k >= 3 && i !== PICK, g = svg.append("g");
+      if (shown) {
+        var ln = g.append("path").attr("d", "M656," + cy + " L792," + (y + 50)).attr("fill", "none")
+          .attr("stroke", picked ? INK : (dropped ? FAMILIAR : INK)).attr("stroke-width", picked ? 5 : 2)
+          .attr("stroke-dasharray", dropped ? "6 6" : null);
+        if (A(anim, k, 2)) drawIn(ln, i * 150, 400);
+      }
+      box(g, 800, y, 598, 100, {
+        fill: picked ? INK : (shown ? "#FFFFFF" : SUBTLE), stroke: picked ? INK : (shown && !dropped ? INK : FAMILIAR),
+        sw: shown && !dropped ? 2.5 : 1.5, dash: dropped ? "6 6" : null
+      });
+      if (shown) {
+        txt(g, 826, y + 44, "PATH " + (i + 1), { size: 28, weight: 900, ls: 2, fill: picked ? "#FFFFFF" : (dropped ? BASE : INK) });
+        txt(g, 826, y + 80, picked ? "handles this input" : (dropped ? "not used for this input" : "its own prompt and tools"),
+          { size: 24, fill: picked ? "#FFFFFF" : (dropped ? BASE : BODY) });
+      }
+      if (A(anim, k, 2)) fadeIn(g, i * 150, 350);
+    });
+    if (A(anim, k, 3)) {
+      var dot = svg.append("circle").attr("cx", 125).attr("cy", cy - 84).attr("r", 13).attr("fill", INK);
+      dot.transition().duration(600).attr("cx", 490)
+        .transition().duration(700).attr("cx", 790).attr("cy", 20 + PICK * 118 - 14)
+        .transition().duration(300).attr("opacity", 0).remove();
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 532, "One input takes one path. The other paths are not used for it.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 578, "The router can be a model call or a traditional classification model or algorithm.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- tickets: the notebook's three tickets, routed one at a time ---------- */
+  function renderTickets(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Three support tickets routed to three of four teams",
+      "Four available routes: billing, technical, account, product. Ticket 1, can't access my account, is routed to account. Ticket 2, unexpected charge on my card, is routed to billing. Ticket 3, how to export data, is routed to technical. Three tickets, three different routes. The product route was not selected.");
+    label(svg, 0, 26, "SUPPORT TICKETS", { size: 24 });
+    label(svg, 1000, 26, "AVAILABLE ROUTES", { size: 24 });
+    var n = Math.min(k, TICKETS.length), tally = {};
+    ROUTES.forEach(function (r) { tally[r] = 0; });
+    TICKETS.slice(0, n).forEach(function (t) { tally[t.route] += 1; });
+    function ry(r) { return 46 + ROUTES.indexOf(r) * 105; }
+    ROUTES.forEach(function (r) {
+      var y = ry(r), c = tally[r], unused = k >= 4 && c === 0, g = svg.append("g");
+      box(g, 1000, y, 398, 92, { sw: unused ? 1.5 : 2.5, stroke: unused ? BASE : INK, dash: unused ? "6 6" : null });
+      txt(g, 1024, y + 56, r, { size: 28, weight: 700, family: MONO, fill: unused ? MUTED : INK });
+      txt(g, 1374, y + 56, String(0), { size: 30, weight: 700, family: MONO, anchor: "end", fill: MUTED });
+      if (c > 0) {
+        var h = svg.append("g");
+        box(h, 1000, y, 398, 92, { sw: 2.5, fill: INK });
+        txt(h, 1024, y + 56, r, { size: 28, weight: 700, family: MONO, fill: "#FFFFFF" });
+        txt(h, 1374, y + 56, String(c), { size: 30, weight: 700, family: MONO, anchor: "end", fill: "#FFFFFF" });
+        if (anim && k >= 1 && k <= TICKETS.length && TICKETS[k - 1].route === r) fadeIn(h, 800, 350);
+      }
+    });
+    TICKETS.forEach(function (t, i) {
+      var y = 46 + i * 140, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 560, 122, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 36, "TICKET " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 74, t.subject, { size: 28, weight: 700, fill: on ? INK : BASE });
+      txt(g, 24, y + 106, t.detail, { size: 24, fill: on ? BODY : BASE });
+      if (!on) return;
+      var a = svg.append("g");
+      arrow(a, 568, y + 61, 992, ry(t.route) + 46, INK, 3);
+      if (A(anim, k, i + 1)) { fadeIn(g, 0, 300); fadeIn(a, 350, 450); }
+    });
+    if (k >= 4) {
+      var used = ROUTES.filter(function (r) { return tally[r] > 0; }), idle = ROUTES.filter(function (r) { return tally[r] === 0; });
+      var g4 = svg.append("g");
+      txt(g4, 0, 506, TICKETS.length + " tickets, " + used.length + " different routes. The " + idle.join(" and ") + " route was not selected.", { size: 28, weight: 700, fill: INK });
+      txt(g4, 0, 552, "Each reply opens with its own team's heading, as that route's prompt requires.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- specialise: one prompt for everything against one prompt per route ---------- */
+  var GUIDE = [
+    ["billing", "explain the charge, friendly tone"],
+    ["technical", "exact numbered steps, technical detail"],
+    ["account", "verify identity first, serious tone"],
+    ["product", "teach the feature, encouraging tone"]
+  ];
+  function renderSpecialise(el, k, anim) {
+    var svg = svgFor(el, W, 560, "One prompt for every ticket against one prompt per route",
+      "Left: a single prompt has to explain charges in a friendly tone, give exact numbered technical steps, verify identity first in a serious tone, and teach the feature in an encouraging tone. Tuning it for one kind of input can hurt the others. Right: four prompts, one per route: billing, technical, account, product. Separation of concerns: each prompt is written for one kind of input.");
+    label(svg, 0, 26, "ONE PROMPT FOR EVERY TICKET", { size: 24 });
+    label(svg, 640, 26, "ONE PROMPT PER ROUTE", { size: 24, fill: k >= 3 ? MUTED : BASE });
+    box(svg, 0, 46, 560, 290, { sw: 2.5 });
+    if (k < 1) txt(svg, 24, 100, "one set of instructions", { size: 26, fill: MUTED });
+    GUIDE.forEach(function (gd, i) {
+      if (k >= 1) {
+        var clash = k >= 2 && (i === 0 || i === 2);
+        var t = txt(svg, 24, 100 + i * 62, gd[1], { size: 26, weight: clash ? 700 : 400, fill: clash ? RED : INK });
+        if (A(anim, k, 1)) fadeIn(t, i * 250, 350);
+      }
+      var y = 46 + i * 74, on = k >= 3, g = svg.append("g");
+      box(g, 640, y, 758, 62, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5, dash: on ? null : "6 6" });
+      if (on) {
+        txt(g, 662, y + 41, gd[0], { size: 26, weight: 700, family: MONO });
+        txt(g, 850, y + 41, gd[1], { size: 25, fill: BODY });
+        if (A(anim, k, 3)) fadeIn(g, i * 220, 350);
+      }
+    });
+    if (k >= 2) {
+      var g2 = svg.append("g");
+      g2.append("path").attr("d", "M512,92 L534,92 L534,216 L512,216").attr("fill", "none").attr("stroke", RED).attr("stroke-width", 3);
+      wrap(g2, 0, 384, "Tuning it for one kind of input can hurt the others.", 32, { size: 27, weight: 900, fill: RED });
+      if (A(anim, k, 2)) fadeIn(g2, 0, 450);
+    }
+    if (k >= 4) {
+      var c1 = txt(svg, 0, 490, "Separation of concerns: each prompt is written for one kind of input.", { size: 28, weight: 700, fill: INK });
+      var c2 = txt(svg, 0, 536, "The model answering a billing ticket is never sent the account prompt.", { size: 26, fill: BODY });
+      if (A(anim, k, 4)) { fadeIn(c1, 0, 400); fadeIn(c2, 350, 400); }
+    }
+  }
+
+  /* ---------- cost: one call per ticket against two ---------- */
+  function renderCost(el, k, anim) {
+    var n = TICKETS.length, plain = n * 1, routed = n * CALLS_PER_INPUT;
+    var svg = svgFor(el, W, 590, "Model calls with one prompt against model calls with routing",
+      "Three tickets. With one prompt and no router, each ticket is one model call: 3 calls. With routing, each ticket is two calls, one to classify and one to answer: 6 calls. The article's second use routes by difficulty: easy or common questions go to a smaller, cost-efficient model, and hard or unusual questions go to a more capable model.");
+    var x0 = 300, gw = 310, bw = 146;
+    d3.range(n).forEach(function (i) { txt(svg, x0 + i * gw + bw, 30, "ticket " + (i + 1), { size: 24, anchor: "middle", fill: MUTED }); });
+    txt(svg, 0, 92, "One prompt", { size: 30, weight: 900 });
+    txt(svg, 0, 128, "no router", { size: 24, fill: MUTED });
+    txt(svg, 0, 222, "Routing", { size: 30, weight: 900, fill: k >= 2 ? INK : BASE });
+    txt(svg, 0, 258, "classify, then answer", { size: 24, fill: k >= 2 ? MUTED : BASE });
+    svg.append("rect").attr("x", x0).attr("y", 50).attr("width", n * gw - 14).attr("height", 84).attr("fill", SUBTLE);
+    svg.append("rect").attr("x", x0).attr("y", 180).attr("width", n * gw - 14).attr("height", 84).attr("fill", SUBTLE);
+    function block(x, y, name, kind, delay, animate) {
+      var g = svg.append("g");
+      g.append("rect").attr("x", x).attr("y", y).attr("width", bw).attr("height", 84).attr("fill", kind === "classify" ? FAMILIAR : INK);
+      txt(g, x + bw / 2, y + 51, name, { size: 24, weight: 700, anchor: "middle", fill: kind === "classify" ? INK : "#FFFFFF" });
+      if (animate) fadeIn(g, delay, 300);
+    }
+    function total(y, to, from, animate, dur) {
+      var t = txt(svg, x0 + n * gw + 6, y, to + " calls", { size: 32, weight: 700, family: MONO });
+      if (animate) t.text(from + " calls").transition().duration(dur).ease(d3.easeLinear).tween("text", function () {
+        var it = d3.interpolateRound(from, to), self = d3.select(this); return function (u) { self.text(it(u) + " calls"); };
+      });
+    }
+    if (k >= 1) {
+      d3.range(n).forEach(function (i) { block(x0 + i * gw, 50, "answer", "answer", i * 350, A(anim, k, 1)); });
+      total(104, plain, 0, A(anim, k, 1), n * 350);
+    }
+    if (k >= 2) {
+      d3.range(n).forEach(function (i) {
+        block(x0 + i * gw, 180, "classify", "classify", i * 700, A(anim, k, 2));
+        block(x0 + i * gw + bw + 4, 180, "answer", "answer", i * 700 + 350, A(anim, k, 2));
+      });
+      total(234, routed, 0, A(anim, k, 2), n * 700);
+    }
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      txt(g3, 0, 322, n + " tickets × " + CALLS_PER_INPUT + " calls = " + routed + " model calls, against " + n + " × 1 = " + plain + ".", { size: 26, family: MONO, fill: INK });
+      txt(g3, 0, 368, "The notebook's router is itself a model call: it explains its reasoning, then names a route.", { size: 26, fill: BODY });
+      txt(g3, 0, 408, "A traditional classifier can take the router's place.", { size: 26, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      label(g4, 0, 462, "THE ARTICLE'S SECOND USE: ROUTE BY DIFFICULTY", { size: 24 });
+      box(g4, 0, 480, 680, 98, { sw: 2.5 });
+      txt(g4, 24, 520, "easy or common questions", { size: 27, weight: 700 });
+      txt(g4, 24, 558, "go to a smaller, cost-efficient model", { size: 24, fill: BODY });
+      box(g4, 720, 480, 678, 98, { sw: 2.5 });
+      txt(g4, 744, 520, "hard or unusual questions", { size: 27, weight: 700 });
+      txt(g4, 744, 558, "go to a more capable model", { size: 24, fill: BODY });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- misroute: what the code does with each label the router could return ---------- */
+  function renderMisroute(el, k, anim) {
+    var svg = svgFor(el, W, 580, "What the route function does with three possible labels",
+      "Ticket 2 is an unexpected charge. If the router says billing, the code looks up the billing prompt and a billing reply comes back. If the router says technical, the code looks up the technical prompt and a technical reply comes back with no error. If the router says refunds, which is not a route, the lookup raises a KeyError and the run stops. Nothing downstream checks the label.");
+    label(svg, 0, 26, "TICKET 2, AN UNEXPECTED CHARGE. THREE THINGS THE ROUTER COULD SAY:", { size: 24 });
+    var ROWS = [
+      { say: "billing", tag: "WHAT COMES BACK", back: "Billing Support Response: ...", bad: false, mono: false },
+      { say: "technical", tag: "COMES BACK, NO ERROR", back: "Technical Support Response: ...", bad: true, mono: false },
+      { say: "refunds", tag: "THE RUN STOPS", back: "KeyError: 'refunds'", bad: true, mono: true }
+    ];
+    ROWS.forEach(function (r, i) {
+      if (k < i + 1) return;
+      var y = 46 + i * 128, col = r.bad ? RED : INK, g = svg.append("g");
+      box(g, 0, y, 300, 110, { sw: 2.5, fill: r.bad ? TINT : "#FFFFFF", stroke: col });
+      txt(g, 22, y + 38, "ROUTER SAYS", { size: 24, weight: 900, ls: 1.5, fill: r.bad ? RED : MUTED });
+      txt(g, 22, y + 84, r.say, { size: 28, weight: 700, family: MONO, fill: col });
+      arrow(g, 306, y + 55, 354, y + 55, col, 3);
+      box(g, 360, y, 480, 110, { sw: 2.5 });
+      txt(g, 382, y + 38, "THE CODE LOOKS UP", { size: 24, weight: 900, ls: 1.5, fill: MUTED });
+      txt(g, 382, y + 84, 'routes["' + r.say + '"]', { size: 28, family: MONO });
+      arrow(g, 846, y + 55, 894, y + 55, col, 3);
+      box(g, 900, y, 498, 110, { sw: 2.5, fill: r.bad ? TINT : "#FFFFFF", stroke: col });
+      txt(g, 922, y + 38, r.tag, { size: 24, weight: 900, ls: 1.5, fill: r.bad ? RED : MUTED });
+      txt(g, 922, y + 84, r.back, { size: 26, weight: 700, family: r.mono ? MONO : SANS, fill: col });
+      if (r.bad) cross(g, 1364, y + 30, 11, RED); else check(g, 1364, y + 32, 12, INK);
+      if (A(anim, k, i + 1)) slideIn(g, true, -30);
+    });
+    if (k >= 4) {
+      var g4 = svg.append("g");
+      txt(g4, 0, 472, "The selected prompt answers whatever it is given. Nothing downstream checks the label.", { size: 28, weight: 700, fill: INK });
+      txt(g4, 0, 518, "This is why the article's condition for routing is accurate classification.", { size: 26, fill: BODY });
+      txt(g4, 0, 560, "Row 1 is the notebook's recorded output. Rows 2 and 3 are read from its code and were not run.", { size: 24, fill: MUTED });
+      if (A(anim, k, 4)) fadeIn(g4, 0, 500);
+    }
+  }
+
+  /* ---------- choose: two questions, then the look-alike pair ---------- */
+  function renderChoose(el, k, anim) {
+    var svg = svgFor(el, W, 570, "Two questions that decide whether routing fits",
+      "Question 1: are there distinct kinds of input? Yes, better handled separately: routing can fit. No: a single call may do. Question 2: can the router classify accurately? Yes, by a model or classifier: routing fits. No: routing does not fit. Tell these apart: routing is a workflow, the paths are written in advance and the model only picks which one runs; in an agent the model directs its own process and its own tool use. Start with the simplest thing that works and add a router only when it is needed.");
+    var Q = [
+      { q: "Are there distinct kinds of input?", a: ["yes, better handled separately", "Routing can fit"], b: ["no", "A single call may do"] },
+      { q: "Can the router classify accurately?", a: ["yes, by a model or classifier", "Routing fits"], b: ["no", "Routing does not fit"] }
+    ];
+    Q.forEach(function (r, i) {
+      var y = 6 + i * 116, on = k >= i + 1, g = svg.append("g");
+      box(g, 0, y, 560, 104, { fill: on ? "#FFFFFF" : SUBTLE, stroke: on ? INK : FAMILIAR, sw: on ? 2.5 : 1.5 });
+      txt(g, 24, y + 38, "QUESTION " + (i + 1), { size: 24, weight: 900, ls: 1.5, fill: on ? MUTED : BASE });
+      txt(g, 24, y + 80, r.q, { size: 27, weight: 700, fill: on ? INK : BASE });
+      if (!on) return;
+      var ga = svg.append("g");
+      arrow(ga, 566, y + 52, 616, y + 52, INK, 3);
+      box(ga, 620, y, 390, 104, { fill: INK });
+      txt(ga, 644, y + 38, r.a[0], { size: 24, fill: "#FFFFFF" });
+      txt(ga, 644, y + 80, r.a[1], { size: 27, weight: 900, fill: "#FFFFFF" });
+      var gb = svg.append("g");
+      box(gb, 1030, y, 368, 104, { stroke: BASE, dash: "6 6" });
+      txt(gb, 1052, y + 38, r.b[0], { size: 24, fill: MUTED });
+      txt(gb, 1052, y + 80, r.b[1], { size: 26, weight: 700, fill: BODY });
+      if (A(anim, k, i + 1)) { fadeIn(ga, 150, 400); fadeIn(gb, 550, 400); }
+    });
+    if (k >= 3) {
+      var g3 = svg.append("g");
+      label(g3, 0, 276, "TELL THESE APART", { size: 24 });
+      box(g3, 0, 294, 680, 180, { sw: 2.5 });
+      txt(g3, 26, 346, "Routing, a workflow", { size: 32, weight: 900 });
+      wrap(g3, 26, 394, "The paths are written in advance. The model only picks which one runs.", 50, { size: 25, fill: BODY });
+      box(g3, 720, 294, 678, 180, { sw: 2.5 });
+      txt(g3, 746, 346, "An agent", { size: 32, weight: 900 });
+      wrap(g3, 746, 394, "The model directs its own process and tool use.", 50, { size: 25, fill: BODY });
+      if (A(anim, k, 3)) fadeIn(g3, 0, 500);
+    }
+    if (k >= 4) {
+      var c = txt(svg, 0, 536, "Start with the simplest thing that works. Add a router only when it is needed.", { size: 28, weight: 700, fill: INK });
+      if (A(anim, k, 4)) fadeIn(c, 0, 400);
+    }
+  }
+
+  /* ---------- checks: three that fit, three reasons to think again ---------- */
+  function renderChecks(el, k, anim) {
+    var svg = svgFor(el, W, 580, "Six checks before adding a router",
+      "Fits when: the inputs fall into distinct categories that are better handled separately; a prompt tuned for one kind of input hurts the others; easy and hard inputs can go to cheaper and stronger models. Think again when: the classification can't be done accurately; a single well-tuned call already does the job; the extra step's cost or latency isn't worth the gain.");
+    var fits = [
+      "The inputs fall into distinct categories that are better handled separately.",
+      "A prompt tuned for one kind of input hurts the others.",
+      "Easy and hard inputs can go to cheaper and stronger models."
+    ];
+    var again = [
+      "The classification can't be done accurately.",
+      "A single well-tuned call already does the job.",
+      "The extra step's cost or latency isn't worth the gain."
+    ];
+    label(svg, 0, 26, "FITS WHEN", { size: 24, fill: INK });
+    label(svg, 720, 26, "THINK AGAIN WHEN", { size: 24, fill: RED });
+    fits.concat(again).forEach(function (s, i) {
+      if (k < i + 1) return;
+      var bad = i >= fits.length, j = bad ? i - fits.length : i, x = bad ? 720 : 0, y = 46 + j * 172, g = svg.append("g");
+      box(g, x, y, bad ? 678 : 680, 152, { sw: 2.5, fill: bad ? TINT : "#FFFFFF", stroke: bad ? RED : INK });
+      if (bad) cross(g, x + 52, y + 76, 14, RED); else check(g, x + 52, y + 78, 16, INK);
+      wrap(g, x + 104, y + (s.length > 40 ? 68 : 86), s, 40, { size: 27, fill: bad ? RED : INK, weight: 700 });
+      if (A(anim, k, i + 1)) slideIn(g, true, bad ? 30 : -30);
+    });
+  }
+
+  /* Register every build: data-build name -> { steps, render }. steps = number of Next presses. */
+  var BUILDS = {
+    map: { steps: 4, render: renderMap },
+    shape: { steps: 4, render: renderShape },
+    tickets: { steps: 4, render: renderTickets },
+    specialise: { steps: 4, render: renderSpecialise },
+    cost: { steps: 4, render: renderCost },
+    misroute: { steps: 4, render: renderMisroute },
+    choose: { steps: 4, render: renderChoose },
+    checks: { steps: 6, render: renderChecks }
+  };
+  /* ===================== CHAPTER-SPECIFIC CODE ENDS HERE ===================== */
+
+  /* click on the stage advances one step (same as the review decks) */
+  stage.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#controls, #thumbs")) return;
+    nextSlide();
+  });
+
+  function buildEl(slide) { return slide ? slide.querySelector("[data-build]") : null; }
+  function buildOf(slide) { var el = buildEl(slide); return el ? BUILDS[el.getAttribute("data-build")] : null; }
+  function stopBuild(el) { if (hasD3 && el) d3.select(el).selectAll("*").interrupt(); }
+  function renderBuild(el, k, animate) {
+    var b = BUILDS[el.getAttribute("data-build")];
+    if (!b) return;
+    if (!hasD3) {
+      el.innerHTML = '<div class="chart-fallback">This graphic needs D3, which did not load. Check the network connection and reload.</div>';
+      return;
+    }
+    stopBuild(el);
+    b.render(el, Math.max(0, Math.min(b.steps, k)), animate && !reduceMQ.matches);
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(i, atEnd, animate) {
+    i = Math.max(0, Math.min(total - 1, i));
+    var prev = slides[current];
+    if (prev && i !== current) { stopBuild(buildEl(prev)); prev.classList.remove("is-active"); }
+    current = i;
+    var s = slides[i], b = buildOf(s);
+    step = b && atEnd ? b.steps : 0;
+    s.classList.add("is-active");
+    var el = buildEl(s);
+    if (el) renderBuild(el, step, animate);
+    updateUI(true);
+  }
+  function setStep(k, animate) {
+    step = k;
+    renderBuild(buildEl(slides[current]), step, animate);
+    updateUI(false);
+  }
+  function nextSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step < b.steps) setStep(step + 1, true);
+    else if (current < total - 1) go(current + 1, false, true);
+  }
+  function prevSlide() {
+    var b = buildOf(slides[current]);
+    if (b && step > 0) setStep(step - 1, false);
+    else if (current > 0) go(current - 1, true, false);
+  }
+  function updateUI(newSlide) {
+    var s = slides[current], b = buildOf(s);
+    var title = s.getAttribute("data-title") || "";
+    counter.textContent = (current + 1) + " / " + total;
+    pips.innerHTML = "";
+    if (b) {
+      for (var j = 1; j <= b.steps; j++) {
+        var p = document.createElement("span");
+        p.className = "pip" + (j <= step ? " on" : "");
+        pips.appendChild(p);
+      }
+    }
+    btnPrev.disabled = current === 0 && step === 0;
+    btnNext.disabled = current === total - 1 && (!b || step === b.steps);
+    var stepTxt = b ? ", step " + step + " of " + b.steps : "";
+    live.textContent = newSlide ? "Slide " + (current + 1) + " of " + total + ": " + title + stepTxt : "Step " + step + " of " + (b ? b.steps : 0);
+    if (newSlide) {
+      var n = s.querySelector(".speaker-notes");
+      notesHead.textContent = "Speaker notes, slide " + (current + 1);
+      notesBody.innerHTML = n ? n.innerHTML : "<p>No notes for this slide.</p>";
+      try { history.replaceState(null, "", "#" + (current + 1)); } catch (e) { /* ignore */ }
+    }
+  }
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  /* ---------------- notes ---------------- */
+  function toggleNotes() {
+    var on = !document.body.classList.contains("notes-open");
+    document.body.classList.toggle("notes-open", on);
+    btnNotes.setAttribute("aria-pressed", on ? "true" : "false");
+    fit();
+  }
+  btnNotes.addEventListener("click", toggleNotes);
+
+  /* ---------------- fullscreen ---------------- */
+  var root = document.documentElement;
+  var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  if (!fsEnabled) btnFs.hidden = true;
+  function toggleFullscreen() {
+    if (!fsEnabled) return;
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (fsEl) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        var pr = (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+    } catch (e) { /* refused */ }
+  }
+  btnFs.addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", fit);
+  document.addEventListener("webkitfullscreenchange", fit);
+
+  /* ---------------- thumbnails (always final state) ---------------- */
+  function buildThumbs() {
+    thumbGrid.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb" + (i === current ? " current" : "");
+      btn.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("data-title") || ""));
+      if (i === current) btn.setAttribute("aria-current", "true");
+      var inner = document.createElement("div");
+      inner.className = "thumb-inner";
+      inner.setAttribute("aria-hidden", "true");
+      var clone = s.cloneNode(true);
+      clone.classList.remove("is-active");
+      Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+      var sn = clone.querySelector(".speaker-notes");
+      if (sn) sn.remove();
+      inner.appendChild(clone);
+      var num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1);
+      btn.appendChild(inner);
+      btn.appendChild(num);
+      btn.addEventListener("click", function () { closeThumbs(true); go(i, false, true); });
+      thumbGrid.appendChild(btn);
+      var cb = clone.querySelector("[data-build]");
+      if (cb) renderBuild(cb, 99, false);
+    });
+    scaleThumbs();
+  }
+  function scaleThumbs() {
+    Array.prototype.forEach.call(thumbGrid.querySelectorAll(".thumb"), function (b) {
+      b.querySelector(".thumb-inner").style.transform = "scale(" + (b.clientWidth / 1920) + ")";
+    });
+  }
+  function openThumbs() {
+    lastFocus = document.activeElement;
+    thumbs.classList.add("open");
+    buildThumbs();
+    var cur = thumbGrid.querySelector(".thumb.current");
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: "nearest" }); }
+  }
+  function closeThumbs(navigating) {
+    thumbs.classList.remove("open");
+    thumbGrid.innerHTML = "";
+    if (!navigating && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  btnThumbs.addEventListener("click", openThumbs);
+  thumbs.querySelector(".close").addEventListener("click", function () { closeThumbs(false); });
+  window.addEventListener("resize", function () { if (thumbs.classList.contains("open")) scaleThumbs(); });
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (thumbs.classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "g" || e.key === "G") { e.preventDefault(); closeThumbs(false); }
+      return;
+    }
+    var onButton = e.target && e.target.closest && e.target.closest("button");
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": e.preventDefault(); nextSlide(); break;
+      case " ": if (onButton) return; e.preventDefault(); nextSlide(); break;
+      case "ArrowLeft": case "PageUp": e.preventDefault(); prevSlide(); break;
+      case "Home": e.preventDefault(); go(0, false, true); break;
+      case "End": e.preventDefault(); go(total - 1, true, false); break;
+      case "f": case "F": e.preventDefault(); toggleFullscreen(); break;
+      case "n": case "N": e.preventDefault(); toggleNotes(); break;
+      case "g": case "G": e.preventDefault(); openThumbs(); break;
+    }
+  });
+
+  /* ---------------- touch swipe ---------------- */
+  var tx = null, ty = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || thumbs.classList.contains("open")) { tx = null; return; }
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) nextSlide(); else prevSlide(); }
+    tx = null;
+  }, { passive: true });
+
+  /* ---------------- quiet controls ---------------- */
+  var idle = null;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.add("show-controls");
+    clearTimeout(idle);
+    idle = setTimeout(function () { document.body.classList.remove("show-controls"); }, 2200);
+  });
+
+  /* ---------------- print: every slide in its final state ---------------- */
+  window.addEventListener("beforeprint", function () {
+    slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  });
+  window.addEventListener("afterprint", function () {
+    slides.forEach(function (s, i) { var el = buildEl(s); if (el && i !== current) renderBuild(el, 99, false); });
+    var el = buildEl(slides[current]);
+    if (el) renderBuild(el, step, false);
+  });
+
+  /* ---------------- start ---------------- */
+  slides.forEach(function (s) { var el = buildEl(s); if (el) renderBuild(el, 99, false); });
+  fit();
+  var hm = /^#(\d+)$/.exec(location.hash);
+  go(hm ? parseInt(hm[1], 10) - 1 : 0, false, true);
+  window.addEventListener("hashchange", function () {
+    var m = /^#(\d+)$/.exec(location.hash);
+    if (m && parseInt(m[1], 10) - 1 !== current) go(parseInt(m[1], 10) - 1, false, true);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

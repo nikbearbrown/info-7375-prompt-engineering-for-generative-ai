@@ -1,0 +1,10 @@
+{
+  "package": "@modelcontextprotocol/server-filesystem@2.2.0",
+  "run_at": "2026-11-22T16:21:03-05:00",
+  "client_roots": [
+    "<sandbox>/outside"
+  ],
+  "list_allowed_directories": "Allowed directories:\n<sandbox>/outside",
+  "read outside/secret.txt": "CONSTRUCTED: secret outside the allowed folder.\n",
+  "read allowed/note.txt": "isError: Access denied - path outside allowed directories: <sandbox>/allowed/note.txt not in <sandbox>/outside"
+}

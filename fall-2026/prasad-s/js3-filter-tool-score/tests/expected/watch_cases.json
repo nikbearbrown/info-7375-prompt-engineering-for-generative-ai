@@ -1,0 +1,140 @@
+{
+  "note": "Constructed watch cases, written by hand by Prasad on 2026-10-26, before any code. Ids are made up, not real Stripe ids.",
+  "cases": [
+    {
+      "id": "S01",
+      "state_before": null,
+      "response_ids": [
+        101,
+        102,
+        103
+      ],
+      "expect_baseline": true,
+      "expect_new": [],
+      "expect_state_after": [
+        "101",
+        "102",
+        "103"
+      ],
+      "why": "No state file, so this is the baseline: nothing is reported new, and all ids are saved as strings."
+    },
+    {
+      "id": "S02",
+      "state_before": [
+        "101",
+        "102"
+      ],
+      "response_ids": [
+        101,
+        102,
+        103
+      ],
+      "expect_baseline": false,
+      "expect_new": [
+        "103"
+      ],
+      "expect_state_after": [
+        "101",
+        "102",
+        "103"
+      ],
+      "why": "State file exists, so not a baseline. 103 is the only id not already in state."
+    },
+    {
+      "id": "S03",
+      "state_before": [
+        "101",
+        "102",
+        "103"
+      ],
+      "response_ids": [
+        101,
+        102,
+        103
+      ],
+      "expect_baseline": false,
+      "expect_new": [],
+      "expect_state_after": [
+        "101",
+        "102",
+        "103"
+      ],
+      "why": "Every response id is already in state, so nothing is new and state does not change."
+    },
+    {
+      "id": "S04",
+      "state_before": [
+        "101"
+      ],
+      "response_ids": [
+        101
+      ],
+      "expect_baseline": false,
+      "expect_new": [],
+      "expect_state_after": [
+        "101"
+      ],
+      "why": "The id trap: response id 101 is a number, state holds the string '101'. Converted to a string at the boundary it matches, so it is not new. Compared as number-to-string it would falsely come out new, which is the failure sentence."
+    },
+    {
+      "id": "S05",
+      "state_before": [
+        "101",
+        "102"
+      ],
+      "response_ids": [
+        102
+      ],
+      "expect_baseline": false,
+      "expect_new": [],
+      "expect_state_after": [
+        "101",
+        "102"
+      ],
+      "why": "101 disappeared from the response, but nothing is new, and state keeps every id seen up to and including this run, so '101' stays. If it reappears later it is not reported new."
+    },
+    {
+      "response_ids": [
+        103,
+        101,
+        102
+      ],
+      "id": "S06",
+      "state_before": [
+        "101",
+        "102"
+      ],
+      "expect_baseline": false,
+      "expect_new": [
+        "103"
+      ],
+      "expect_state_after": [
+        "101",
+        "102",
+        "103"
+      ],
+      "why": "Same ids as S02 in a different response order. Membership decides, not order, so the same single id is new and state ends the same as S02."
+    },
+    {
+      "id": "S07",
+      "state_before": [],
+      "response_ids": [
+        101,
+        102,
+        103
+      ],
+      "expect_baseline": false,
+      "expect_new": [
+        "101",
+        "102",
+        "103"
+      ],
+      "expect_state_after": [
+        "101",
+        "102",
+        "103"
+      ],
+      "why": "My decision: not a baseline. The contract keys baseline to a missing file; an existing file, even an empty one, means state already exists, so new is everything not in state, which is all three. This needs one sentence in the contract as an amendment."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+Measurements for reports/what-moves-the-score.md, one object at a time.
+Re-run after amendment A4. No labels are used here; the label-dependent
+half is the threshold refit.
+
+BASELINE  F-v2 / S-v4 / T=6
+  {'shortlisted': 4, 'below_threshold': 20, 'gated': 417, 'cannot_score': 11}  range=[-6, 6]
+
+CHANGE 1 -- the filter file: put `infrastructure` back into S1
+  {'shortlisted': 4, 'below_threshold': 20, 'gated': 417, 'cannot_score': 11}  range=[-6, 8]
+  -> under S-v3 this took the shortlist from 6 to 11. Under S-v4 the
+     boilerplate sentence it fires on is in a `company` section and
+     scores 0, so the word is nearly inert. A4 did A2's job properly.
+
+CHANGE 2 -- a setting: score the whole JSON record instead of the body
+  {'shortlisted': 6, 'below_threshold': 29, 'gated': 417, 'cannot_score': 0}  range=[-6, 6]
+  -> wrong version W3. cannot_score collapses to 0: every record has
+     SOME json text, so 'the board sent no description' disappears.
+
+CHANGE 3 -- a setting: drop Lever's `lists` from the body
+  {'shortlisted': 1, 'below_threshold': 23, 'gated': 417, 'cannot_score': 11}  range=[-6, 6]
+  -> Lever puts the duties in `lists`; without them its postings score
+     on the blurb alone.
+
+CHANGE 4 -- the section weights (A4): treat `optional` as full weight
+  {'shortlisted': 6, 'below_threshold': 18, 'gated': 417, 'cannot_score': 11}  range=[-6, 6]
+  -> the two NICE TO HAVES postings come back. This is the object A4
+     added, measured on its own.
+
+CHANGE 5 -- the tool list
+  Not a score change: adding a tool to toolserver/server.py changes
+  nothing about the filter's output. Measured as surface area instead:
+  declared tools 1 -> 2, arguments naming a location 0 -> 1.

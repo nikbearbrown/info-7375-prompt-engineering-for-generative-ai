@@ -1,0 +1,81 @@
+faster-whisper small.en transcript of exports/daythread-final-project-film.mp4 (machine transcript, not a human listen)
+[  0.00-  1.60] Hi, I'm Aditya Raj.
+[  1.60-  3.96] This is Daythread, my final project.
+[  3.96-  7.20] You're hearing a synthesized voice reading my script.
+[  7.20-  9.80] Daythread will be a check-in assistant for home care.
+[  9.80- 12.94] It will remember what a client says from one day to the next.
+[ 12.94- 14.64] When something concerning comes up,
+[ 14.64- 16.40] like a fall mentioned in passing,
+[ 16.40- 18.26] it will show the client's exact words
+[ 18.26- 21.72] to a care coordinator who decides what happens next.
+[ 21.72- 24.20] Why it matters, a coordinator shouldn't have to reread
+[ 24.20- 27.92] every conversation and a summary alone can't be trusted.
+[ 27.92- 31.14] In my October test, Claude's summaries all kept the fall,
+[ 31.14- 33.96] but nine of 10 changed what the client meant.
+[ 33.96- 36.74] That small test is the only part that has run.
+[ 36.74- 39.48] Everything else in this film is a plan.
+[ 39.48- 41.24] Others have built parts of this.
+[ 41.24- 43.68] Lifeline sells automatic fall detection
+[ 43.68- 45.92] and says it doesn't detect every fall.
+[ 45.92- 48.16] Daily Call makes daily AI phone calls
+[ 48.16- 49.76] with summaries for families
+[ 49.76- 52.36] and says it can't guarantee every safety concern
+[ 52.36- 55.14] is detected or interpreted correctly.
+[ 55.14- 57.04] I'm not claiming they lack anything.
+[ 57.04- 58.96] Daythread's focus is narrower.
+[ 58.96- 61.32] Every concern linked to the client's own words,
+[ 61.32- 63.24] a separate check of the raw transcript
+[ 63.24- 66.80] and a person who decides before anything leaves the system.
+[ 66.80- 67.96] Here's how I'll build it.
+[ 67.96- 69.88] First, a delegation contract.
+[ 69.88- 72.60] Each step must hand the next one something it can check.
+[ 72.60- 75.16] And if the check fails, the work stops.
+[ 75.16- 76.84] I'll write the contract in its tests
+[ 76.84- 78.96] before Claude writes any code.
+[ 78.96- 81.90] The raw transcript will be saved and can't be edited.
+[ 81.90- 84.72] Every claim in memory must quote it word for word
+[ 84.72- 86.12] and an approval only counts
+[ 86.12- 88.28] if the evidence and the action haven't changed
+[ 88.28- 90.36] since the coordinator saw them.
+[ 90.36- 93.28] Each check-in will run as a loop with a turn budget.
+[ 93.28- 95.24] It stops when the conversation ends
+[ 95.24- 96.60] or the budget runs out,
+[ 96.60- 99.40] never just because the model says it's done.
+[ 99.40-101.64] The separate check will be a small open model,
+[101.64-104.36] distill roberta, downloaded from hugging face
+[104.36-107.78] and fine-tuned by me to flag concerning sentences.
+[107.78-110.32] It reads the raw transcript, never the summary,
+[110.32-113.04] so it fails differently from the thing it checks.
+[113.04-115.80] All data will be synthetic with fictional clients.
+[115.84-117.60] Claude will write the training sentences
+[117.60-121.04] under labeling rules I set and I'll spot check them.
+[121.04-123.50] I'll write the held out test sentences myself
+[123.50-125.96] before any training and lock them away.
+[125.96-126.88] Do I have what I need?
+[126.88-130.60] Claude code through my existing account so no API credits.
+[130.60-133.56] The base model is a free download so no new account.
+[133.56-135.76] Training will run on my laptop in Python
+[135.76-138.06] with PyTorch and SQLite.
+[138.06-139.68] The order, the contract and tests,
+[139.68-141.42] then the test set, then training data,
+[141.42-144.64] then the checker, then the loop, memory and review page.
+[144.64-148.40] Last, one run on the held out set before December 20th.
+[148.40-150.36] To evaluate the checker, I'll compare it
+[150.36-152.36] with a simple keyword list and with the model
+[152.36-155.04] before training on the held out set.
+[155.04-157.24] I'll write the pass mark down before I look.
+[157.24-158.84] If it doesn't beat the keyword list,
+[158.84-160.98] that's the result I'll report.
+[160.98-164.12] At least five failure cases will be included on purpose.
+[164.12-166.58] Took a spill, my legs gave out, I didn't fall,
+[166.58-169.16] my neighbor fell and I fell asleep.
+[169.16-170.94] Then one controlled failure.
+[170.94-173.12] My test never dropped the fall on its own
+[173.12-175.40] so I'll force a summary that drops it.
+[175.40-177.92] It passes only if the separate check catches it
+[177.92-179.92] and a coordinator reviews it.
+[179.92-182.78] What this can't show, whether it works with real clients
+[182.78-185.16] or whether it catches a changed meaning,
+[185.16-187.72] that's why the coordinator will see the original words
+[187.72-189.40] next to every claim.
+[189.40-191.84] This was Day Thread by Aditya Raj.

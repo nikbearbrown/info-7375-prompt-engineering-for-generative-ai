@@ -13,6 +13,10 @@
 #   the effect lamp    — the thing that was supposed to happen; stays grey
 #   the checklist slip — the proposed tool's output
 #
+# FOUR ACTS (2026-11-22 rebuild): executive summary B00-B05, introduction B06-B10,
+# methods B11-B15, evaluation B16-B19. The first beat of each act prints the act name as
+# its top-left label, so the structure is readable with the sound off.
+#
 # MIDPOINT DISCIPLINE. GATE T and Gate V both sample each clip at its MIDPOINT, so every
 # scene is built in three phases: (1) construct and land the labels well before the midpoint,
 # (2) hold_past_mid() through the sampled window with nothing in flight, (3) add one NEW
@@ -21,6 +25,7 @@
 DKRAFT = "#917A55"        # outline for SMALL objects only (GATE T reads it as text on large ones)
 CONNECT = "#9C8462"       # cables and leader lines, so they do not fuse with ink blocks
 MID_MARGIN = 0.22         # frame rounding beats a 0.06-0.08 s margin (SKILL.md)
+ACT_X, ACT_Y = -4.5, 3.0  # where each act's title label sits (inside Gate W's 3.4 safe area)
 
 
 def hold_past_mid(self, margin=MID_MARGIN):
@@ -41,6 +46,12 @@ def label(text, x, y, size=42):
     minimum on the author's week-01 film, and EB Garamond renders shorter than sans at the
     same nominal size. Every label here is serif."""
     return T(text, size=size, color=INK).move_to([x, y, 0])
+
+
+def act_title(text):
+    """The act name, top left of the act's first beat: executive summary, introduction,
+    methods, evaluation. The assignment fixes that order, so the film shows it."""
+    return T(text, size=42, color=INK).move_to([ACT_X, ACT_Y, 0]).align_to([ACT_X, 0, 0], LEFT)
 
 
 def floor_shadow(x, y, w=4.6, h=1.0):
@@ -74,11 +85,44 @@ def string_thread(iso, to_block=True):
     return Line(a, b, color=CONNECT, stroke_width=5), b
 
 
+def name_block(x, y, s=0.9, w=1.0, d=1.0, h=0.55):
+    """One asset name, drawn as a single dark block standing on its own at (x, y).
+    Used by the act-2 and act-3 beats that count name kinds rather than show the crate."""
+    return Iso(x, y, s).mcp(0, 0, 0, w=w, d=d, h=h)
+
+
+def ghost_block(x, y, s=0.9, w=1.0, d=1.0, h=0.55):
+    """The same block, not built yet: outline only, no fill — the film's 'proposed' shape."""
+    g = name_block(x, y, s, w, d, h)
+    for m in g.family_members_with_points():
+        m.set_fill(opacity=0)
+        m.set_stroke(color=DIM, width=4)
+    return g
+
+
+def flat_page(x, y, s=0.9, w=1.8, d=1.6):
+    """One C# page standing on its own at (x, y), away from the crate."""
+    return Iso(x, y, s).page(0, 0, 0, w=w, d=d)
+
+
 def slip(x, y, w=2.5, h=3.0, rows=5):
     """The checklist: a flat sheet whose rows are filled by check marks, not type."""
     sheet = paper(x, y, w=w, h=h)
     ys = [y + h / 2 - 0.5 - i * (h - 1.0) / max(1, rows - 1) for i in range(rows)]
     return sheet, ys
+
+
+def cross(x, y, s=0.18, w=7):
+    """The mark for a name the project does not have."""
+    return VGroup(Line([x - s, y + s, 0], [x + s, y - s, 0], color=INK, stroke_width=w),
+                  Line([x - s, y - s, 0], [x + s, y + s, 0], color=INK, stroke_width=w))
+
+
+def bracket(x, ytop, ybot, color=CONNECT, w=4):
+    """A counting bracket beside a run of rows."""
+    return VGroup(Line([x, ytop, 0], [x, ybot, 0], color=color, stroke_width=w),
+                  Line([x, ytop, 0], [x + 0.2, ytop, 0], color=color, stroke_width=w),
+                  Line([x, ybot, 0], [x + 0.2, ybot, 0], color=color, stroke_width=w))
 
 
 def glow(x, y, s=1.0):
@@ -124,15 +168,18 @@ def gate_arch(x, y, w=1.5, h=2.0):
 # fifteenth scene, and Gate A failed on a class that does not exist.
 
 
+# ───────────────────────── 1. EXECUTIVE SUMMARY ─────────────────────────
+
 class B00_Project(Scene):
     def construct(self):
         iso = project_iso()
         sh = floor_shadow(0.0, -1.55)
         slab, divider = project_slab(iso)
         pages, blocks = script_pages(iso), asset_blocks(iso)
+        act = act_title("executive summary")
         l_left, l_right = label("scripts", -3.6, -0.9), label("assets", 3.5, -0.3)
 
-        self.play(FadeIn(sh, shift=np.array([0, 0.2, 0])), run_time=0.4)
+        self.play(FadeIn(sh, shift=np.array([0, 0.2, 0])), FadeIn(act), run_time=0.5)
         self.play(Create(slab), run_time=0.9, rate_func=smooth)
         until(self, "One side holds")
         self.play(LaggedStart(*[FadeIn(p, shift=np.array([0, 0.35, 0])) for p in pages], lag_ratio=0.3),
@@ -203,7 +250,7 @@ class B02_SilentPass(Scene):
         finish(self)
 
 
-class B02B_WhatWarns(Scene):
+class B03_WhatWarns(Scene):
     def construct(self):
         # The honest qualifier beat. Unity DOES print "Parameter 'X' does not exist" for a bad
         # animator parameter once the line runs; the Unity manual says a shader property that is
@@ -236,7 +283,7 @@ class B02B_WhatWarns(Scene):
         finish(self)
 
 
-class B03_HalfRead(Scene):
+class B04_HalfRead(Scene):
     def construct(self):
         iso = project_iso()
         sh = floor_shadow(0.0, -1.55)
@@ -260,7 +307,7 @@ class B03_HalfRead(Scene):
 
         self.add(base)
         self.play(FadeIn(veil), run_time=0.6)
-        until(self, "cannot know the name")
+        until(self, "An assistant")
         self.play(scan.animate.shift(iso.v(2.2, 0, 0)), run_time=1.2, rate_func=linear)
         self.play(FadeOut(scan), FadeIn(lbl), run_time=0.4)
 
@@ -269,7 +316,116 @@ class B03_HalfRead(Scene):
         finish(self)
 
 
-class B04_WritesIn(Scene):
+class B05_OneList(Scene):
+    def construct(self):
+        # The product, stated once: the crate goes in, one list comes out. Ticks are names the
+        # project really has; the two crosses are the names the code asked for and it does not.
+        iso = Iso(-3.4, -1.3, 0.7)
+        sh = floor_shadow(-2.9, -1.5, w=3.6, h=0.9)
+        slab, divider = project_slab(iso)
+        pages, blocks = script_pages(iso), asset_blocks(iso)
+        sheet, rows = slip(3.4, 0.2, w=2.6, h=3.1, rows=5)
+        ticks = VGroup(*[check(2.6, rows[i], s=0.18) for i in (0, 1, 2)])
+        bad = VGroup(*[cross(2.6, rows[i]) for i in (3, 4)])
+        brk = bracket(1.95, rows[3] + 0.22, rows[4] - 0.22)
+        l1, l2 = label("one list", 3.4, 2.2, 42), label("proposed", 3.4, -1.9, 42)
+
+        self.add(sh, slab, divider, pages, blocks)
+        self.play(FadeIn(sheet, shift=np.array([0.3, 0.0, 0.0])), FadeIn(l1), FadeIn(l2), run_time=0.8)
+        until(self, "One command")
+        self.play(LaggedStart(*[Create(t) for t in ticks], lag_ratio=0.18), run_time=1.0)
+        self.play(LaggedStart(*[Create(c) for c in bad], lag_ratio=0.25), run_time=0.8)
+
+        hold_past_mid(self)
+        self.play(Create(brk), run_time=0.6)
+        finish(self)
+
+
+# ───────────────────────── 2. INTRODUCTION ─────────────────────────
+
+class B06_TypeSafe(Scene):
+    def construct(self):
+        # Unity solved exactly this problem once, for one of the four name kinds: the Input
+        # System generates a C# class, so those names live in the code instead of in a string.
+        act = act_title("introduction")
+        page = flat_page(-4.2, -0.9, s=0.95, w=2.0, d=1.8)
+        fused = name_block(-3.5, -0.1, s=0.9, w=0.9, d=0.9, h=0.5)
+        rest = VGroup(name_block(-0.4, -0.7), name_block(1.9, -0.7), name_block(4.2, -0.7))
+        spark = Dot([-3.25, 1.0, 0], radius=0.09, color=TERRA)
+        l1, l2 = label("input actions", -2.7, -2.5, 42), label("the rest", 2.6, -2.5, 42)
+
+        self.play(FadeIn(act), FadeIn(page, shift=np.array([0.0, 0.3, 0.0])), run_time=0.7)
+        until(self, "Input System")
+        self.play(FadeIn(fused, shift=np.array([0.0, 0.5, 0.0])), FadeIn(l1),
+                  run_time=0.9, rate_func=ease_in)
+        self.play(LaggedStart(*[GrowFromCenter(b) for b in rest], lag_ratio=0.25),
+                  FadeIn(l2), run_time=1.1)
+
+        hold_past_mid(self)
+        self.play(GrowFromCenter(spark), run_time=0.5)
+        finish(self)
+
+
+class B07_FastNotRight(Scene):
+    def construct(self):
+        # Rider: "String based graphics property lookup is inefficient." Microsoft's UNT0041 and
+        # UNT0046: cache the hash, cache the ID — both filed under Performance. The same line of
+        # code, a different question. The lower thread still ends nowhere.
+        page = flat_page(-4.5, -0.9, s=0.95, w=1.8, d=1.6)
+        tag = Rectangle(width=1.1, height=0.66, fill_color=BOX_TOP, fill_opacity=1,
+                        stroke_color=INK, stroke_width=4).move_to([1.6, 1.9, 0])
+        up = VMobject(stroke_color=CONNECT, stroke_width=6)
+        up.set_points_smoothly([[-2.9, 0.7, 0], [-1.0, 1.9, 0], [1.0, 1.9, 0]])
+        low = VMobject(stroke_color=CONNECT, stroke_width=6)
+        low.set_points_smoothly([[-2.9, 0.1, 0], [-1.0, -0.9, 0], [1.3, -1.2, 0]])
+        end = Dot([1.5, -1.25, 0], radius=0.1, color=TERRA)
+        ring = Circle(radius=0.62, stroke_color=DIM, stroke_width=4,
+                      fill_opacity=0).move_to([1.5, -1.25, 0])
+        l1, l2 = label("faster", 3.9, 1.9, 42), label("unchecked", 4.3, -1.25, 42)
+
+        self.add(page)
+        self.play(Create(up), Create(tag), FadeIn(l1), run_time=1.0)
+        until(self, "Rider calls")
+        self.play(Create(low), GrowFromCenter(end), FadeIn(l2), run_time=1.1)
+
+        hold_past_mid(self)
+        self.play(Create(ring), run_time=0.6)
+        finish(self)
+
+
+class B08_Auditor(Scene):
+    def construct(self):
+        # Project Auditor's IssueCategory enum lists twenty five categories. One square per
+        # category, and the one this film is about is not among them — it stays an outline.
+        pitch, side = 0.78, 0.5
+        x0, y0 = -3.6, -1.1
+        squares, hole = VGroup(), None
+        for r in range(5):
+            for c in range(5):
+                x, y = x0 + c * pitch, y0 + r * pitch
+                if (r, c) == (2, 2):
+                    hole = Rectangle(width=side, height=side, stroke_color=INK, stroke_width=4,
+                                     fill_opacity=0).move_to([x, y, 0])
+                    continue
+                squares.add(Rectangle(width=side, height=side, fill_color=BAR2, fill_opacity=1,
+                                      stroke_color=INK, stroke_width=2).move_to([x, y, 0]))
+        leader = Line([2.1, 0.46, 0], [-1.35, 0.46, 0], color=CONNECT, stroke_width=4)
+        ring = Circle(radius=0.52, stroke_color=INK, stroke_width=4,
+                      fill_opacity=0).move_to([-2.04, 0.46, 0])
+        l1 = label("twenty five", -2.4, -2.5, 42)
+        l2 = label("not this one", 3.9, 0.46, 42)
+
+        self.play(LaggedStart(*[FadeIn(s) for s in squares], lag_ratio=0.03),
+                  FadeIn(l1), run_time=1.4)
+        until(self, "reports twenty five")
+        self.play(Create(hole), FadeIn(l2), Create(leader), run_time=0.9)
+
+        hold_past_mid(self)
+        self.play(Create(ring), run_time=0.6)
+        finish(self)
+
+
+class B09_WritesIn(Scene):
     def construct(self):
         iso = project_iso()
         sh = floor_shadow(0.0, -1.55)
@@ -301,37 +457,33 @@ class B04_WritesIn(Scene):
         finish(self)
 
 
-class B04B_ByHand(Scene):
+class B10_Gap(Scene):
     def construct(self):
+        # The gap, drawn as the thing nobody does: one sweep across BOTH halves of the crate.
+        # It is an outline, because it does not exist yet — the same 'proposed' language the
+        # tool beats use.
         iso = project_iso()
         sh = floor_shadow(0.0, -1.55)
         slab, divider = project_slab(iso)
-        pages = script_pages(iso)
-        arm = VGroup(
-            Line([-0.6, 3.15, 0], [1.7, 2.6, 0], color=DIM, stroke_width=8),
-            Line([1.7, 2.6, 0], [2.3, 1.75, 0], color=DIM, stroke_width=8),
-            Rectangle(width=0.5, height=0.3, fill_color=GHOST, fill_opacity=1,
-                      stroke_color=DIM, stroke_width=3).move_to([2.3, 1.6, 0]))
-        def crook(y, ang):
-            b = iso.mcp(2.35, y, 0.45, w=1.15, d=0.8, h=0.55)
-            return b.rotate(ang, about_point=iso.p(2.92, y + 0.4, 0.72))
-        crooked = VGroup(crook(0.15, 0.2), crook(1.25, -0.24), crook(2.35, 0.32))
-        straight = asset_blocks(iso)
-        lbl = label("by hand", 4.2, 1.4)
+        pages, blocks = script_pages(iso), asset_blocks(iso)
+        band = Rectangle(width=8.6, height=2.9, stroke_color=DIM, stroke_width=5,
+                         fill_opacity=0).move_to([0.2, 0.75, 0])
+        edge = Dot([4.5, 0.75, 0], radius=0.11, color=TERRA)
+        l1, l2 = label("whole project", 0.2, 2.9, 42), label("proposed", 4.3, -2.5, 42)
 
-        self.add(sh, slab, divider, pages, arm, crooked)
-        self.play(arm.animate.set_opacity(0.25), run_time=0.5)
-        until(self, "After that")
-        self.play(FadeOut(crooked), run_time=0.5)
-        self.play(LaggedStart(*[Create(b) for b in straight], lag_ratio=0.3), FadeIn(lbl), run_time=1.1)
+        self.add(sh, slab, divider, pages, blocks)
+        self.play(FadeIn(l2), run_time=0.4)
+        until(self, "What I could not find")
+        self.play(Create(band), FadeIn(l1), run_time=1.3)
 
         hold_past_mid(self)
-        rail = Line(iso.p(2.2, 0.1, 0.45), iso.p(4.3, 0.1, 0.45), color=DKRAFT, stroke_width=4)
-        self.play(Create(rail), run_time=0.5)
+        self.play(GrowFromCenter(edge), run_time=0.5)
         finish(self)
 
 
-class B05_Checklist(Scene):
+# ───────────────────────── 3. METHODS ─────────────────────────
+
+class B11_Index(Scene):
     def construct(self):
         iso = Iso(-2.6, -1.3, 0.75)
         sh = floor_shadow(-2.1, -1.5, w=4.0)
@@ -339,11 +491,12 @@ class B05_Checklist(Scene):
         blocks = asset_blocks(iso)
         sheet, rows = slip(4.0, 0.2, w=2.6, h=3.1, rows=5)
         ticks = VGroup(*[check(3.2, yy, s=0.18) for yy in rows])
-        l1, l2 = label("checklist", 4.0, 2.2, 42), label("proposed", 4.0, -1.8, 42)
+        act = act_title("methods")
+        l1, l2 = label("index", 4.0, 2.2, 42), label("proposed", 4.0, -1.8, 42)
 
         self.add(sh, slab, divider, blocks)
-        self.play(FadeIn(sheet, shift=np.array([0.3, 0.0, 0.0])), FadeIn(l1), run_time=0.7)
-        until(self, "writes down")
+        self.play(FadeIn(act), FadeIn(sheet, shift=np.array([0.3, 0.0, 0.0])), FadeIn(l1), run_time=0.8)
+        until(self, "Shader graphs")
         self.play(LaggedStart(*[Create(t) for t in ticks], lag_ratio=0.18), run_time=1.3)
 
         hold_past_mid(self)
@@ -351,7 +504,7 @@ class B05_Checklist(Scene):
         finish(self)
 
 
-class B05B_ReadOnly(Scene):
+class B12_Compare(Scene):
     def construct(self):
         iso = Iso(-2.6, -1.3, 0.75)
         sh = floor_shadow(-2.1, -1.5, w=4.0)
@@ -360,8 +513,7 @@ class B05B_ReadOnly(Scene):
         sheet, rows = slip(4.0, 0.2, w=2.6, h=3.1, rows=5)
         ticks = VGroup(*[check(3.2, yy, s=0.18) for yy in rows[:4]])
         thread = Line(iso.p(1.0, 1.0, 0.5), [2.7, rows[4], 0], color=CONNECT, stroke_width=5)
-        cross = VGroup(Line([3.0, rows[4] + 0.17, 0], [3.36, rows[4] - 0.17, 0], color=INK, stroke_width=7),
-                       Line([3.0, rows[4] - 0.17, 0], [3.36, rows[4] + 0.17, 0], color=INK, stroke_width=7))
+        bad = cross(3.18, rows[4])
         # a large ink-outlined padlock: small objects in dark kraft read as sub-floor text (GATE T)
         lock_body = Rectangle(width=1.3, height=1.0, fill_color=BOX_TOP, fill_opacity=1,
                               stroke_color=INK, stroke_width=4).move_to([-1.1, 2.0, 0])
@@ -372,15 +524,96 @@ class B05B_ReadOnly(Scene):
 
         self.add(sh, slab, divider, blocks, sheet, ticks)
         self.play(Create(thread), run_time=0.8, rate_func=linear)
-        until(self, "marks what")
-        self.play(Create(cross), FadeIn(l1), run_time=0.7)
+        until(self, "compare it against")
+        self.play(Create(bad), FadeIn(l1), run_time=0.7)
 
         hold_past_mid(self)
         self.play(Create(lock_body), Create(shackle), GrowFromCenter(keyhole), FadeIn(l2), run_time=1.0)
         finish(self)
 
 
-class B06_Fixture(Scene):
+class B13_Scope(Scene):
+    def construct(self):
+        # What version one will and will not read. The upper row is one literal written out in
+        # full; the lower row is a name assembled from pieces, which gets counted, not guessed at.
+        sheet = paper(0.6, 0.3, w=5.2, h=3.2)
+        solid = Rectangle(width=2.6, height=0.34, fill_color=BAR1, fill_opacity=1,
+                          stroke_color=DKRAFT, stroke_width=2).move_to([0.1, 1.15, 0])
+        parts = VGroup(*[Rectangle(width=0.66, height=0.34, fill_color=BAR2, fill_opacity=1,
+                                   stroke_color=DKRAFT, stroke_width=2).move_to([-1.1 + 1.0 * i, -0.55, 0])
+                         for i in range(3)])
+        tick = check(2.2, 1.15, s=0.2)
+        ring = Circle(radius=0.26, stroke_color=INK, stroke_width=6,
+                      fill_opacity=0).move_to([2.2, -0.55, 0])
+        l1, l2 = label("written out", -4.3, 1.15, 42), label("cannot tell", -4.3, -0.55, 42)
+
+        self.add(sheet)
+        self.play(Create(solid), FadeIn(l1), run_time=0.8)
+        self.play(LaggedStart(*[Create(p) for p in parts], lag_ratio=0.2), FadeIn(l2), run_time=1.0)
+        until(self, "cannot determine")
+        self.play(Create(tick), run_time=0.6)
+
+        hold_past_mid(self)
+        self.play(Create(ring), run_time=0.6)
+        finish(self)
+
+
+class B14_Needs(Scene):
+    def construct(self):
+        # Everything this project needs is already on the left: a Unity project of my own, its
+        # files, and a laptop. The right tray — keys, credits, cloud compute — stays empty.
+        iso = Iso(-2.4, -1.6, 0.9)
+        iso2 = Iso(2.0, -1.6, 0.9)
+        sh = floor_shadow(-2.3, -1.9, w=4.2, h=0.9)
+        back, front = iso.open_box(0, 0, 0, 2.6, 2.4, 0.6)
+        pg = iso.page(0.3, 0.4, 0.05)
+        blk = iso.mcp(1.3, 1.3, 0.05, w=0.9, d=0.7, h=0.45)
+        sw = glow(-2.4, 0.2, s=1.0)
+        l_have = label("have", -2.3, -2.6)
+
+        # the empty tray is the same object with no fill, not a flat lozenge
+        gb, gf = iso2.open_box(0, 0, 0, 2.6, 2.4, 0.6)
+        empty = VGroup(*[m for m in list(gb) + list(gf)])
+        for m in empty:
+            m.set_fill(opacity=0)
+            m.set_stroke(color=DIM, width=4)
+        l_new = label("not needed", 3.0, -2.6)
+
+        self.add(sh, back, front)
+        self.play(Create(empty), FadeIn(l_new), run_time=0.9)
+        self.play(FadeIn(pg, shift=np.array([0.0, 0.5, 0.0])), run_time=0.5, rate_func=ease_in)
+        until(self, "No API key")
+        self.play(FadeIn(blk, shift=np.array([0.0, 0.5, 0.0])), FadeIn(l_have), run_time=0.6, rate_func=ease_in)
+
+        hold_past_mid(self)
+        self.play(Create(sw), run_time=0.9)
+        finish(self)
+
+
+class B15_Order(Scene):
+    def construct(self):
+        # The build order, one name kind at a time. The first block is solid because it is the
+        # one I will make run first; the other three are outlines until they are built.
+        rail = Line([-5.2, -1.0, 0], [5.2, -1.0, 0], color=DKRAFT, stroke_width=4)
+        first = name_block(-4.4, -0.9, s=0.95)
+        later = VGroup(ghost_block(-1.6, -0.9), ghost_block(0.8, -0.9), ghost_block(3.2, -0.9))
+        spark = Dot([-4.4, 1.1, 0], radius=0.09, color=TERRA)
+        l1, l2 = label("first", -4.4, -2.3, 42), label("then three", 1.6, -2.3, 42)
+
+        self.play(Create(rail), run_time=0.5)
+        self.play(FadeIn(first, shift=np.array([0.0, 0.4, 0.0])), FadeIn(l1),
+                  run_time=0.8, rate_func=ease_in)
+        until(self, "Shader properties first")
+        self.play(LaggedStart(*[Create(b) for b in later], lag_ratio=0.25), FadeIn(l2), run_time=1.2)
+
+        hold_past_mid(self)
+        self.play(GrowFromCenter(spark), run_time=0.5)
+        finish(self)
+
+
+# ───────────────────────── 4. EVALUATION ─────────────────────────
+
+class B16_Fixture(Scene):
     def construct(self):
         iso = Iso(-3.9, -1.2, 0.6)
         sh = floor_shadow(-3.3, -1.45, w=3.0, h=0.8)
@@ -388,29 +621,25 @@ class B06_Fixture(Scene):
         sheet, rows = slip(2.6, 0.2, w=2.6, h=3.1, rows=5)
         ticks = VGroup(*[check(1.8, rows[i], s=0.18) for i in (0, 4)])
         # the three planted errors are contiguous, so one bracket can count them
-        crosses = VGroup(*[VGroup(
-            Line([1.62, rows[i] + 0.17, 0], [1.98, rows[i] - 0.17, 0], color=INK, stroke_width=7),
-            Line([1.62, rows[i] - 0.17, 0], [1.98, rows[i] + 0.17, 0], color=INK, stroke_width=7))
-            for i in (1, 2, 3)])
+        crosses = VGroup(*[cross(1.8, rows[i]) for i in (1, 2, 3)])
         ytop, ybot = rows[1] + 0.22, rows[3] - 0.22
-        bracket = VGroup(Line([1.02, ytop, 0], [1.02, ybot, 0], color=CONNECT, stroke_width=4),
-                         Line([1.02, ytop, 0], [1.22, ytop, 0], color=CONNECT, stroke_width=4),
-                         Line([1.02, ybot, 0], [1.22, ybot, 0], color=CONNECT, stroke_width=4))
+        brk = bracket(1.02, ytop, ybot)
         n3 = label("3", 0.52, (ytop + ybot) / 2, 48)
+        act = act_title("evaluation")
         l1, l2 = label("test project", -3.3, -2.4, 42), label("proposed", 2.6, -1.9, 42)
 
         self.add(sh, slab, divider, sheet, ticks)
-        self.play(FadeIn(l1), run_time=0.4)
+        self.play(FadeIn(act), FadeIn(l1), run_time=0.5)
         until(self, "three wrong names")
         self.play(LaggedStart(*[Create(c) for c in crosses], lag_ratio=0.25), run_time=1.2)
         self.play(FadeIn(l2), run_time=0.4)
 
         hold_past_mid(self)
-        self.play(Create(bracket), FadeIn(n3), run_time=0.7)
+        self.play(Create(brk), FadeIn(n3), run_time=0.7)
         finish(self)
 
 
-class B07_FalseAlarm(Scene):
+class B17_FalseAlarm(Scene):
     def construct(self):
         plinth = Rectangle(width=8.0, height=0.26, fill_color=BOX_R, fill_opacity=1,
                            stroke_color=INK, stroke_width=4).move_to([0.3, -2.1, 0])
@@ -420,8 +649,7 @@ class B07_FalseAlarm(Scene):
         row = Rectangle(width=2.0, height=0.9, fill_color=PAGE_TOP, fill_opacity=1,
                         stroke_color=INK, stroke_width=4).move_to([2.4, 1.1, 0])
         good = check(2.4, 1.1, s=0.22)
-        cross = VGroup(Line([2.18, 1.32, 0], [2.62, 0.88, 0], color=INK, stroke_width=7),
-                       Line([2.18, 0.88, 0], [2.62, 1.32, 0], color=INK, stroke_width=7))
+        bad = cross(2.4, 1.1, s=0.22)
         l1, l2 = label("false alarms", -2.6, -2.75, 42), label("proposed", 2.4, -0.1, 42)
 
         self.add(plinth, axis, row, good)
@@ -430,11 +658,11 @@ class B07_FalseAlarm(Scene):
         self.play(LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars], lag_ratio=0.2), run_time=1.1)
 
         hold_past_mid(self)
-        self.play(FadeOut(good), Create(cross), FadeIn(l2), run_time=0.7)
+        self.play(FadeOut(good), Create(bad), FadeIn(l2), run_time=0.7)
         finish(self)
 
 
-class B07B_TwoNumbers(Scene):
+class B18_TwoNumbers(Scene):
     def construct(self):
         plinth = Rectangle(width=8.4, height=0.26, fill_color=BOX_R, fill_opacity=1,
                            stroke_color=INK, stroke_width=4).move_to([0.5, -2.1, 0])
@@ -451,7 +679,7 @@ class B07B_TwoNumbers(Scene):
         self.add(plinth, axis, bars1, l1)
         self.play(LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars2], lag_ratio=0.2),
                   FadeIn(l2), run_time=1.1)
-        until(self, "cannot determine")
+        until(self, "could not determine")
         self.play(LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars3], lag_ratio=0.2),
                   FadeIn(l3), run_time=0.9)
 
@@ -460,56 +688,23 @@ class B07B_TwoNumbers(Scene):
         finish(self)
 
 
-class B08_HaveTray(Scene):
+class B19_PassMark(Scene):
     def construct(self):
-        iso = Iso(-2.4, -1.6, 0.9)
-        sh = floor_shadow(-2.3, -1.9, w=4.2, h=0.9)
-        back, front = iso.open_box(0, 0, 0, 2.6, 2.4, 0.6)
-        pg = iso.page(0.3, 0.4, 0.05)
-        blk = iso.mcp(1.3, 1.3, 0.05, w=0.9, d=0.7, h=0.45)
-        sw = glow(-2.4, 0.2, s=1.0)
-        lbl = label("have", -2.3, -2.6)
+        # The line version one has to clear: every planted name caught, and nothing raised on the
+        # code that was left alone. The right column is empty on purpose — zero is the target.
+        plinth = Rectangle(width=8.0, height=0.26, fill_color=BOX_R, fill_opacity=1,
+                           stroke_color=INK, stroke_width=4).move_to([0.3, -2.1, 0])
+        axis = Line([-3.9, -1.97, 0], [-3.9, 1.9, 0], color=DIM, stroke_width=4)
+        bars = bar_stack(-2.2, -1.97, [0.9, 0.8, 0.7])
+        rule = Line([-3.5, 0.63, 0], [-0.9, 0.63, 0], color=INK, stroke_width=6)
+        zero = Dot([2.6, -1.9, 0], radius=0.11, color=TERRA)
+        l1, l2 = label("all three", -2.2, -2.75, 42), label("none", 2.6, -2.75, 42)
 
-        self.add(sh)
-        self.play(FadeIn(back), FadeIn(front), run_time=0.6)
-        until(self, "I shipped")
-        self.play(FadeIn(pg, shift=np.array([0.0, 0.5, 0.0])), run_time=0.5, rate_func=ease_in)
-        self.play(FadeIn(blk, shift=np.array([0.0, 0.5, 0.0])), FadeIn(lbl), run_time=0.6, rate_func=ease_in)
+        self.add(plinth, axis)
+        self.play(Create(rule), FadeIn(l1), FadeIn(l2), run_time=0.8)
+        until(self, "raises nothing")
+        self.play(LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars], lag_ratio=0.2), run_time=1.2)
 
         hold_past_mid(self)
-        self.play(Create(sw), run_time=0.9)
-        finish(self)
-
-
-class B08B_NewTray(Scene):
-    def construct(self):
-        iso = Iso(-2.4, -1.6, 0.9)
-        iso2 = Iso(2.0, -1.6, 0.9)
-        sh = floor_shadow(-2.3, -1.9, w=4.2, h=0.9)
-        back, front = iso.open_box(0, 0, 0, 2.6, 2.4, 0.6)
-        pg = iso.page(0.3, 0.4, 0.05)
-        blk = iso.mcp(1.3, 1.3, 0.05, w=0.9, d=0.7, h=0.45)
-        sw = glow(-2.4, 0.2, s=1.0)
-        l_have = label("have", -2.3, -2.6)
-
-        # the empty tray is the same object with no fill, not a flat lozenge
-        gb, gf = iso2.open_box(0, 0, 0, 2.6, 2.4, 0.6)
-        empty = VGroup(*[m for m in list(gb) + list(gf)])
-        for m in empty:
-            m.set_fill(opacity=0)
-            m.set_stroke(color=DIM, width=4)
-        ghost_slip = Rectangle(width=0.9, height=1.2, stroke_color=GHOST, stroke_width=4,
-                               fill_opacity=0).move_to([2.0, 0.1, 0])
-        ghost_bars = VGroup(*[Rectangle(width=0.28, height=h, stroke_color=GHOST, stroke_width=4,
-                                        fill_opacity=0).move_to([3.3 + 0.4 * i, -0.5 + h / 2, 0])
-                              for i, h in enumerate((0.6, 1.0, 0.45))])
-        l_new = label("new", 3.0, -2.6)
-
-        self.add(sh, back, front, pg, blk, sw, l_have)
-        self.play(Create(empty), FadeIn(l_new), run_time=0.9)
-        until(self, "never done")
-        self.play(Create(ghost_slip), run_time=0.6)
-
-        hold_past_mid(self)
-        self.play(LaggedStart(*[Create(b) for b in ghost_bars], lag_ratio=0.2), run_time=0.8)
+        self.play(GrowFromCenter(zero), run_time=0.5)
         finish(self)
