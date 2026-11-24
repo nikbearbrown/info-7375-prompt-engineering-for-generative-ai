@@ -189,6 +189,87 @@ def labels_sheet(run_dir, audit_path, out_dir):
     return members
 
 
+def draft_claims(run_dir, audit_path, top, out_dir, model):
+    import datetime
+    import hashlib
+
+    from jobwatch import claims
+
+    records = [json.loads(line) for line in open(audit_path, encoding="utf-8")]
+    shortlist = sorted((r for r in records if r.get("rank") and r["rank"] <= top), key=lambda r: r["rank"])
+    items, _ = corpus.load(run_dir)
+    by_key = {(i.board, i.key): i for i in items}
+    out = Path(out_dir)
+    (out / "claude").mkdir(parents=True, exist_ok=True)
+    (out / "shortlist.json").write_text(json.dumps(
+        [{"rank": r["rank"], "board": r["board"], "key": r["key"], "score": r["score"], "fate": r["fate"]}
+         for r in shortlist], indent=1) + "\n", encoding="utf-8")
+    system, _ = claims.prompt_parts()
+    send = claims.claude_code_send(model)
+    rows, failures = [], 0
+    for r in shortlist:
+        item = by_key[(r["board"], r["key"])]
+        system, user = claims.build_prompt(item)
+        started = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+        result = send(system, user)
+        ended = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+        saved = {"rank": r["rank"], "board": r["board"], "key": r["key"], "started": started, "ended": ended,
+                 "prompt_file": "prompts/claims-v1.md",
+                 "prompt_sha256": hashlib.sha256(claims.PROMPT_PATH.read_bytes()).hexdigest(),
+                 "user_message_sha256": hashlib.sha256(user.encode("utf-8")).hexdigest(),
+                 "command": [c if c != system else "<prompts/claims-v1.md, # System>" for c in result["command"]],
+                 "returncode": result["returncode"], "stdout": result["stdout"], "stderr": result["stderr"]}
+        (out / "claude" / f"rank-{r['rank']:02d}.json").write_text(json.dumps(saved, indent=1, ensure_ascii=False) + "\n",
+                                                                  encoding="utf-8")
+        try:
+            drafted = claims.parse_reply(result["stdout"])
+        except claims.ClaimsError as error:
+            failures += 1
+            print(f"rank {r['rank']}: no claims ({error})")
+            continue
+        for row in claims.checked(item, drafted):
+            row["rank"] = r["rank"]
+            rows.append(row)
+        print(f"rank {r['rank']}: {len(drafted)} claims")
+    with open(out / "claims.jsonl", "w", encoding="utf-8") as fh:
+        for row in rows:
+            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+    checks = collections.Counter(row["quote_check"] for row in rows)
+    print(f"{len(shortlist)} postings, {failures} failed replies, {len(rows)} claims; quote check: {dict(checks)}")
+
+
+def claims_sheet(run_dir, shortlist_dir):
+    import hashlib
+
+    from jobwatch import label_page
+
+    out = Path(shortlist_dir)
+    shortlist = json.loads((out / "shortlist.json").read_text(encoding="utf-8"))
+    rows = [json.loads(line) for line in open(out / "claims.jsonl", encoding="utf-8")]
+    items, boards = corpus.load(run_dir)
+    by_key = {(i.board, i.key): i for i in items}
+    urls = {}
+    for b in boards:
+        if b["count"] is None:
+            continue
+        for job in corpus.raw_jobs(run_dir, b["board"]):
+            key = str(job.get("id")) if b["board"].startswith("greenhouse/") else job.get("jobUrl")
+            urls[(b["board"], key)] = job.get("absolute_url") or job.get("jobUrl") or ""
+    postings = []
+    for s in shortlist:
+        item = by_key[(s["board"], s["key"])]
+        mine = [r for r in rows if r["rank"] == s["rank"]]
+        postings.append({"rank": s["rank"], "company": label_page.COMPANY.get(item.board, item.board),
+                         "title": item.title, "location": item.location,
+                         "text": label_page.plain_text(item.description), "url": urls.get((item.board, item.key), ""),
+                         "claims": [{"id": f"R{s['rank']}-C{r['n']}", "kind": r["kind"], "claim": r["claim"],
+                                     "quote": r["quote"], "source_field": r["source_field"],
+                                     "quote_check": r["quote_check"]} for r in mine]})
+    sha = hashlib.sha256((out / "claims.jsonl").read_bytes()).hexdigest()
+    (out / "LABEL-CLAIMS.html").write_text(label_page.build_claims(postings, sha), encoding="utf-8")
+    print(f"{sum(len(p['claims']) for p in postings)} claims on {len(postings)} postings; claims.jsonl sha256 {sha}")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="python3 -m jobwatch.js3")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -202,7 +283,22 @@ def main(argv=None):
     lab.add_argument("run_dir")
     lab.add_argument("--audit", required=True)
     lab.add_argument("--out", required=True)
+    dra = commands.add_parser("draft-claims", help="Claude drafts the shortlist's claims (live, Claude Code login)")
+    dra.add_argument("run_dir")
+    dra.add_argument("--audit", required=True)
+    dra.add_argument("--top", type=int, default=8)
+    dra.add_argument("--out", required=True)
+    dra.add_argument("--model", default="claude-opus-5-5")
+    cla = commands.add_parser("claims-sheet", help="write the offline page for labelling the shortlist's claims")
+    cla.add_argument("run_dir")
+    cla.add_argument("--shortlist", required=True)
     args = parser.parse_args(argv)
+    if args.command == "claims-sheet":
+        claims_sheet(args.run_dir, args.shortlist)
+        return 0
+    if args.command == "draft-claims":
+        draft_claims(args.run_dir, args.audit, args.top, args.out, args.model)
+        return 0
     if args.command == "labels-sheet":
         labels_sheet(args.run_dir, args.audit, args.out)
         return 0

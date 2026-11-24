@@ -109,6 +109,102 @@ render();
 """
 
 
+_CLAIMS_SCRIPT = """
+const STORE = "js3-claim-labels-" + CLAIMS_SHA.slice(0, 12);
+let labels = {};
+try { labels = JSON.parse(localStorage.getItem(STORE) || "{}"); } catch (e) { labels = {}; }
+const ALL = POSTINGS.flatMap(p => p.claims.map(c => c.id));
+function save() { try { localStorage.setItem(STORE, JSON.stringify(labels)); } catch (e) {} progress(); }
+function progress() {
+  const n = ALL.filter(id => labels[id] && labels[id].label).length;
+  document.getElementById("progress").textContent = n + " of " + ALL.length + " claims labelled";
+  for (const id of ALL) document.getElementById("row-" + id).classList.toggle("done", !!(labels[id] && labels[id].label));
+}
+function setLabel(id, field, value) { labels[id] = labels[id] || {}; labels[id][field] = value;
+  labels[id].changed_at = new Date().toISOString(); save(); }
+function payload() { return JSON.stringify({ page: "shortlist/v0.1/LABEL-CLAIMS.html", claims_sha256: CLAIMS_SHA,
+  downloaded_at: new Date().toISOString(), labels: labels }, null, 1); }
+function download() { const blob = new Blob([payload()], { type: "application/json" }); const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "js3-claim-labels.json"; document.body.appendChild(a); a.click(); a.remove(); }
+function showText() { const t = document.getElementById("as-text"); t.hidden = false; t.value = payload(); t.select(); }
+function render() {
+  const list = document.getElementById("list");
+  for (const p of POSTINGS) {
+    const card = document.createElement("section"); card.className = "card";
+    card.innerHTML = '<div class="id">Shortlist rank ' + p.rank + ' · ' + p.company + '</div><h2></h2><div class="meta"></div>' +
+      '<div class="text"></div><button type="button" class="more">Show the full text</button> ' +
+      '<a target="_blank" rel="noopener noreferrer">open the live posting</a><div class="claims"></div>';
+    card.querySelector("h2").textContent = p.title;
+    card.querySelector(".meta").textContent = "Location field: " + (p.location || "(blank)");
+    card.querySelector(".text").textContent = p.text;
+    card.querySelector("a").href = p.url;
+    card.querySelector(".more").onclick = (e) => { const t = card.querySelector(".text"); t.classList.toggle("open");
+      e.target.textContent = t.classList.contains("open") ? "Show less" : "Show the full text"; };
+    const box = card.querySelector(".claims");
+    for (const c of p.claims) {
+      const row = document.createElement("div"); row.className = "claim"; row.id = "row-" + c.id;
+      const current = labels[c.id] || {};
+      row.innerHTML = '<div class="id"></div><div class="claimtext"></div><div class="quote"></div>' +
+        '<div class="choices">' + ["supported", "contradicted", "insufficient"].map(v =>
+          '<label><input type="radio" name="c-' + c.id + '" value="' + v + '"> ' + v + '</label>').join("") + '</div>' +
+        '<input type="text" placeholder="For contradicted or insufficient: the sentence that decides it, or what is missing">';
+      row.querySelector(".id").textContent = c.id + " · " + c.kind;
+      row.querySelector(".claimtext").textContent = "Claim: " + c.claim;
+      row.querySelector(".quote").textContent = c.quote ? "Quote (" + c.source_field + ", " + c.quote_check + "): “" + c.quote + "”" : "No quote given.";
+      for (const r of row.querySelectorAll("input[type=radio]")) { if (current.label === r.value) r.checked = true;
+        r.onchange = () => setLabel(c.id, "label", r.value); }
+      const note = row.querySelector("input[type=text]"); note.value = current.note || "";
+      note.oninput = () => setLabel(c.id, "note", note.value);
+      box.appendChild(row);
+    }
+    list.appendChild(card);
+  }
+  progress();
+}
+render();
+"""
+
+_CLAIMS_STYLE = _STYLE + """
+.claim { border-top: 1px solid var(--line); padding: 10px 0; }
+.claim.done { background: var(--done); }
+.claimtext { font-weight: 600; }
+.quote { font-size: 0.92rem; color: var(--muted); }
+"""
+
+
+def build_claims(postings, claims_sha):
+    """postings: [{rank, company, title, location, text, url, claims: [{id, kind, claim, quote, source_field, quote_check}]}]"""
+    data = json.dumps(postings, ensure_ascii=False).replace("</", "<\\/")
+    total = sum(len(p["claims"]) for p in postings)
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JS3 claim labels</title><style>{_CLAIMS_STYLE}</style></head>
+<body>
+<header><div class="row"><strong id="progress"></strong>
+<button class="primary" onclick="download()">Download my claim labels</button>
+<button onclick="showText()">Show labels as text</button></div></header>
+<main>
+<h1>JS3 shortlist claims: {total} claims on {len(postings)} postings</h1>
+<p>These are the 8 postings your FILTER.md v0.1 ranks highest. Claude (claude-opus-5-5, through your Claude Code login,
+2026-11-24) wrote each claim and chose its quote. The code checked only that each quote appears word for word. Whether
+the quote <em>supports</em> the claim is your call. Read the passage in the full text, not only the quote.</p>
+<p>Your FILTER.md labels: <strong>supported</strong>: "The passage states the claim for this role and preserves any
+conditions, exceptions, or alternatives." <strong>contradicted</strong>: "The passage directly conflicts with the
+claim." <strong>insufficient</strong>: "The text leaves the claim unresolved. Record what is missing and say 'I cannot
+tell.'" For contradicted or insufficient, write the deciding sentence or what's missing in the box.</p>
+<p>Claude has not proposed any labels. After you label, Claude will be asked to find the sentence that would change each
+of your labels, and you decide whether it does. When you're done, click <strong>Download my claim labels</strong>
+(it saves <code>js3-claim-labels.json</code>) and tell Claude Code "claims done".</p>
+<textarea id="as-text" hidden></textarea>
+<div id="list"></div>
+</main>
+<script>const CLAIMS_SHA = {json.dumps(claims_sha)};
+const POSTINGS = {data};
+{_CLAIMS_SCRIPT}</script>
+</body></html>
+"""
+
+
 def build(members, items, urls, sample_sha):
     """members: the drawn sample (label ids); items: {(board, key): Item}; urls: {(board, key): link}."""
     postings = []
