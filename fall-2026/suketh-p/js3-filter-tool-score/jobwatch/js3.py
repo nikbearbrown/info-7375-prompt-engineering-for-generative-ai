@@ -157,6 +157,38 @@ def screen_run(run_dir, out_dir):
     return records
 
 
+def labels_sheet(run_dir, audit_path, out_dir):
+    import hashlib
+
+    from jobwatch import label_page, sample
+
+    records = [json.loads(line) for line in open(audit_path, encoding="utf-8")]
+    members = sample.draw(records)
+    items, boards = corpus.load(run_dir)
+    by_key = {(i.board, i.key): i for i in items}
+    urls = {}
+    for b in boards:
+        if b["count"] is None:
+            continue
+        for job in corpus.raw_jobs(run_dir, b["board"]):
+            key = str(job.get("id")) if b["board"].startswith("greenhouse/") else job.get("jobUrl")
+            urls[(b["board"], key)] = job.get("absolute_url") or job.get("jobUrl") or ""
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    sheet = {"filter_version": screen.FILTER_VERSION, "audit": str(audit_path), "run": Path(run_dir).name,
+             "seed": sample.SEED, "shuffle_seed": sample.SHUFFLE_SEED, "sizes": sample.SIZES,
+             "members": members}
+    text = json.dumps(sheet, indent=1, ensure_ascii=False) + "\n"
+    (out / "v0.1-sample.json").write_text(text, encoding="utf-8")
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    (out / "LABEL-POSTINGS.html").write_text(label_page.build(members, by_key, urls, sha), encoding="utf-8")
+    counts = collections.Counter(m["stratum"] for m in members)
+    print(f"{len(members)} postings drawn (seed {sample.SEED}); sample sha256 {sha}")
+    for stratum, size in sample.SIZES.items():
+        print(f"  {stratum:36} {counts[stratum]:3}  (pool {next(m['pool_size'] for m in members if m['stratum'] == stratum)})")
+    return members
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="python3 -m jobwatch.js3")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -166,7 +198,14 @@ def main(argv=None):
     scr = commands.add_parser("screen", help="run FILTER.md on every posting; write the audit view")
     scr.add_argument("run_dir")
     scr.add_argument("--out", required=True)
+    lab = commands.add_parser("labels-sheet", help="draw the hand-label sample; write the offline labelling page")
+    lab.add_argument("run_dir")
+    lab.add_argument("--audit", required=True)
+    lab.add_argument("--out", required=True)
     args = parser.parse_args(argv)
+    if args.command == "labels-sheet":
+        labels_sheet(args.run_dir, args.audit, args.out)
+        return 0
     if args.command == "inventory":
         text = inventory(args.run_dir)
         if args.out:
