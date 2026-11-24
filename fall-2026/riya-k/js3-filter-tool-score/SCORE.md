@@ -58,6 +58,9 @@ measurement (`tests/test_heldout.py`). The filter changes were chosen on the 58 
   includes v1.1 (15/20) and Claude (15/20). Three of my blind held-out labels were Show. v1.1 and Claude each showed
   one posting (#35), which wasn't one of those three. All three (#26, #48, #75) are ones I later corrected to Not, and I corrected #35 to Show. **With 20 labels and 3 positives, agreement can't show that any
   scorer finds good jobs.** It shows they reject bad ones.
+- **The blind Shows may be inflated too.** I admitted that a couple of times while labeling I thought about picking
+  Show so that "always not" wouldn't beat the filter (`AUDIT.md` §2). So neither column is clean. Blind has my
+  worry in it, and corrected has Claude's questions in it.
 - **The corrected column is contaminated.** 5 of the 20 held-out labels (#16, #26, #35, #48, #75) were corrected in
   chat after I had seen the filter's verdicts and Claude's questions. The 20/20 for v1.1 and Claude is partly the
   corrections agreeing with the scorers. I report it, but the blind column is the honest one.

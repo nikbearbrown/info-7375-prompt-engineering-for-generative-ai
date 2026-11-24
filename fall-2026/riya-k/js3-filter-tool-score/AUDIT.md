@@ -55,6 +55,12 @@ I wasn't a perfect judge, and the record shows it:
   posting, `greenhouse:databricks 8546367002` (not in my sample), says outright "It is not intended for internship, new
   graduate, or entry-level applicants". I keep my blind verdict for #37. (Claude first told me that sentence was in #37,
   then corrected itself after checking the text.)
+- **A bias I admit:** while labeling I worried that if I said Not to everything, "always not" would beat the filter
+  and the work would be "of no use". Asked afterwards whether that made me pick Show where my honest answer was Not, I
+  said: "yes a couple of times i did think about that". I can't say which cards. So some of my blind **Show**
+  labels may be inflated. 8 of my 10 blind Shows were changed later in chat (#26, #32, #45, #48, #58, #69, #75 to
+  Not; #17 to Can't tell); only #37 and #44 stayed Show. I can't tell how much of that was this worry and how much
+  was Claude's questions.
 
 The corrections were made after I had seen the filter's verdicts and Claude's questions, so they are **not blind**.
 Every result in this folder is reported both ways.
