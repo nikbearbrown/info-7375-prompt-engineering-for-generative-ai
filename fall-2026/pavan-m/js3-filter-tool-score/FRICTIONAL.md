@@ -38,3 +38,10 @@ False friend: "Python". In 6 audited postings, "Python" matched the Programming 
 
 ## Entry 11 — November 23, 2026: Choosing which rule changes to measure
 From the audit's three error patterns I listed four candidate changes: C1 years cutoff 8→5, C2 read Lever's lists field, C3 any US city +2, C4 threshold 8→7. I chose to test C1 and C3, one at a time, on my 48 audited postings. Wrote tests/test_filter_config.py first: defaults must stay v1.0, each change must work when switched on, and neither may overreach (C1 still ignores "preferred" years; C3 gives nothing to non-US locations).
+
+## Entry 12 — November 23, 2026: Measuring C1 and C3 on the audit sample
+Claude Code made the filter configurable (defaults = exact v1.0) and wrote agent/measure_filter.py. Verified myself: 61 tests pass; `git diff tests/ FILTER.md audit/` empty; re-scoring with v1.0 reproduces all 48 recorded decisions.
+Results on my 48 audited postings: v1.0 37/48 agree; C1 (years cutoff 5) 40/48, fixing A18, A43, A44 for the reason I wrote ("5+ years"); C3 (other US cities +2) 37/48, changing none of the 48 but adding 12 KEEPs elsewhere that I have not judged.
+Caution: C1 was suggested by these same 48 postings, so 40/48 is a development result, not proof. Held-out labels are needed. A31 and A16 remain false KEEPs under C1.
+Correction to Entry 8: my verdicts are 14 relevant / 34 not relevant, not 15/33. The count in Entry 8 was wrong (drafted with Claude); the CSV itself is unchanged.
+Accepted Claude Code's choices, including a separate read check for audit/ rather than adding audit/ to policy.READ_DIRS.
