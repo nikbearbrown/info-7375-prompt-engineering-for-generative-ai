@@ -1,6 +1,6 @@
 # SOURCES — Readback pitch film
 
-All entries are as of 2026-10-14.
+Pitch-film sections are as of 2026-10-14; the project-film section is as of 2026-11-23.
 
 ## Used
 
@@ -18,6 +18,7 @@ All entries are as of 2026-10-14.
 | faster-whisper | 1.2.1 | MIT (repository licence, checked 2026-10-14) | Forced alignment (`align.py`) and my pronunciation checks (`base.en`, `small.en`) |
 | FFmpeg | 9.0.2 | LGPL/GPL | Holds, frame extraction, encoding |
 | Claude Code (headless `claude -p`, my subscription) | 2.1.283, model `claude-opus-5-5` | Anthropic consumer terms | The recap feature run in `case-study/outputs/feature-run/` |
+| Claude Code | 2.1.323 | Anthropic consumer terms | Project film build (2026-11-23) |
 
 ### AMI Meeting Corpus — manual annotations (CC BY 4.0)
 
@@ -127,6 +128,8 @@ Claude Code (Opus 5.5) in this project's session, at my direction:
 
 The file is `film/project/aravind-r-readback-project-film.mp4`. The build and its records are in `film/project/`.
 
+Final file: film/project/aravind-r-readback-project-film.mp4, 3:56.8, SHA-256 535fe61b…, commit 8424a49
+
 - **Used:**
   - The same toolkit, components and licences as above: brutalist.art at `cd4bf20`, kokoro-onnx with the Kokoro-82M `am_onyx` voice, Manim Community 0.18.1, Remotion, faster-whisper and FFmpeg. No paid services.
   - My outro patch, extended twice:
@@ -139,16 +142,18 @@ The file is `film/project/aravind-r-readback-project-film.mp4`. The build and it
     - On screen: ES2007a's transcript line and recap output (B10), ES2007a's DECISIONS list (B11), and ES2010b's transcript lines [00:20:44]–[00:20:52], its recap's Decisions line and its DECISIONS summary (B14).
     - The three prior-work tools as checked on 2026-10-14 (above).
   - faster-whisper `small.en` for the speech-to-text checks (`film/project/stt_check.py`).
+  - Ollama 0.40.17 (Homebrew cask ollama-app), installed 2026-11-23; not yet used by any judge
   - No stock footage, images, music, sound effects, logos or generated imagery. The three B02 vignettes (a support-reply bot, a document summariser, a search answer) are constructed illustrations, not real products or outputs.
 - **Made by me (Aravind):**
-  - The four-part brief: my Claude Code prompt "Readback project film (four-part brief)" (2026-11-23), with its parts, hard rules and stop points.
+  - The four-part brief: requested and directed by me; the Claude Code prompt 'Readback project film (four-part brief)' was drafted in Claude chat from my request, and I sent it.
   - Approving the narration (Phase 1), the storyboard (Phase 2), Phase 3, the revised narration ("OK, go") and the final cut ("Approve cut").
   - My review requests before Phase 5 (B15's checklist, my human labels, prior work scoped to the tools I checked, B13, the Readback respelling) and the four checks after them.
   - The positioning feedback on the review cut: Readback for any AI feature's acceptance criteria with the AMI recap feature as the test bench, the P0/P1 list and the positioning-audit gate.
-  - Keeping the flagged lines as written.
+  - Kept the flagged lines in the drafts; softened both in the final fix pass.
   - The submission route: a new branch from `2cad8ba`, pushed to my fork, no PR yet.
-  - Judgment calls: TODO (Aravind).
+  - Judgment calls: see FRICTIONAL.md, 2026-11-23, 'my judgment calls'.
 - **Contributed by Claude (Claude Code, Opus 5.5), at my direction:**
+  - Claude Code 2.1.323 for the project film.
   - **Drafts:**
     - the narration in `film/project/make_sheet.py`, which I approved;
     - `film/project/CLAIMS.md`, `EVAL-PLAN.md`, `DESIGN.md`, `FACTCHECK.md`, `SHOTLIST.md` and `PROMPTS.md`;
@@ -164,4 +169,4 @@ The file is `film/project/aravind-r-readback-project-film.mp4`. The build and it
     - the environment checks behind B15;
     - the speech-to-text and pronunciation checks;
     - running every gate and diagnosing each failure.
-- **Claude (chat):** TODO (Aravind). Name anything drafted in Claude chat for this film, for example a prompt or the feedback, or delete this line.
+- Claude (chat), Claude.ai in my project, at my direction: the film-subject recommendation; the four-part Claude Code prompt; reviews of each Claude Code report, with the honesty flags; frame-by-frame reviews of both review cuts from contact sheets and ffmpeg freeze/silence detection; the P0/P1 revision prompts, the positioning-audit gate and the final fix-pass prompt; the paperwork gap list and this prompt. It made no changes to the repo. Details: FRICTIONAL.md, 2026-11-23.

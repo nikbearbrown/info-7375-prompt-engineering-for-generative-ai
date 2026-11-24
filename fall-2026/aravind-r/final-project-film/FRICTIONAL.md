@@ -1,6 +1,6 @@
-# FRICTIONAL — Final Project Pitch Film (Readback)
+# FRICTIONAL — Readback: pitch film and project film
 
-Machine: MacBook (Apple Silicon), macOS (Darwin 25.5.0). Claude Code 2.1.283.
+Machine: MacBook (Apple Silicon), macOS (Darwin 25.5.0). Claude Code 2.1.283. Project film (2026-11-23): Claude Code 2.1.323.
 Entries were drafted by Claude Code from the session as it happened; decisions marked (Aravind) are mine; I reviewed all entries.
 Toolkit: brutalist.art checkout at `/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/Assignments/A01/brutalist.art`, starting commit `cd4bf20904be4e7d63babd9622b17963c2361b27`. Final toolkit commit: `cd4bf20904be4e7d63babd9622b17963c2361b27` (not pulled; see the 2026-10-14 entry "decision: no pull").
 
@@ -360,9 +360,8 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
 - **Runtime cap (Aravind):** 4 minutes.
 - **Resources for Methods (Aravind):**
   - claude -p on my subscription;
-  - Anthropic API credits;
-  - second-provider access;
-  - local open-weight models (Ollama).
+  - Anthropic API credits and OpenAI API credits (accounts held, project keys not yet created);
+  - local open-weight models via Ollama (installed later on 2026-11-23, after Claude Code's checks; see my judgment-calls entry).
 - **What Claude Code verified on this machine:**
   - `claude` CLI 2.1.323 is installed (it produced the 10 recaps on 14 Oct).
   - No `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or `GEMINI_API_KEY` in this shell's environment.
@@ -533,10 +532,8 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
 
 ## 2026-11-23 — Project film, positioning revision (my review of the cut; Claude Code made the changes)
 
-- **My feedback on the review cut (Aravind):** Readback is application-agnostic. It is for any PM who writes acceptance criteria that an AI judge grades a feature against; the AMI meeting-recap feature is only the test bench, and no line or frame may imply otherwise.
-  - P0: chapter cards instead of the section bar; an application-agnostic executive summary with no meeting recap in it; the prior work kept as verified; Methods opening on the test bench; "acceptance criteria" first, then "rubric" defined once; C4 in plain English; corner tags instead of full-sentence captions on concept diagrams; a close after the scorecard.
-  - P1: tighter, varied gaps; larger Methods and Evaluation content; a hero-size transcript and recap beat; B15 in three columns; a poster frame 0; a real end card.
-  - A new gate, the positioning audit. Text before voicing, then stop with a review cut and a contact sheet. No commits until I approve.
+- My feedback on the review cut (Aravind): remove the four-part section bar; rubric isn't PM vocabulary, so define it or use a PM term; remove the "CONSTRUCTED illustration · no judge has run yet" clutter from the opening; lead with why Readback matters and its long-term impact (the real consequence of a wrong ship decision) rather than the mechanism; position Readback as application-agnostic, with the AMI meeting-recap feature as the test case only.
+- Claude (chat) turned that into the P0/P1 list, added the frame-by-frame production items and proposed the positioning-audit gate. Claude Code made the changes.
 - **Drafts approved as shown ("OK, go", Aravind).** That includes the lines flagged in the drafts:
   - "Every AI feature ships against acceptance criteria a PM wrote" (a generalisation);
   - "evals are becoming the launch gate" (a trend claim with no source in the repo);
@@ -580,11 +577,30 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
   - Rebuilt from this master: `film/project/storyboard.png`, `film/project/style-frames/` and the contact sheets `film/project/gates/contact-*.png`.
   - Nothing is committed. That waits for my approval of this cut.
 - **Cut approved ("Approve cut", Aravind).**
-- **Judgment calls (TODO, Aravind):** for me to write, in my own words:
-  - why Readback is positioned for any AI feature, with the AMI recap feature as the test bench;
-  - keeping "Every AI feature ships against acceptance criteria a PM wrote" and "evals are becoming the launch gate" as written;
-  - showing ES2010b as the real example;
-  - approving the cut without P1 item 9.
+
+## 2026-11-23 — Project film, my judgment calls (Aravind, my words)
+1. Film subject: Readback is the final project, so that's why the video was created for that.
+2. Application-agnostic positioning: I didn't want people to mistake that Readback is applicable just for a meeting note taker application. So to emphasize that, I positioned it for any AI feature's acceptance criteria and kept the AMI meeting-recap feature as the test bench only.
+3. PM vocabulary first: PM vocabulary would make the project easily relatable for PMs, who are the target audience for the project. I didn't want to make it sound too technical. I believe if you really understand something, or if you want people to understand your concepts, it's important to share it in a simpler language, which makes it relatable and understandable. I focussed on that aspect.
+4. Cutting the section bar and full-sentence labels: I made sure only relevant and necessary information was kept on every page.
+5. Consequences before mechanism: Before jumping into how it's built, it's very important to communicate the relevance, or the why, of the project. That's why I decided to focus on that first before getting into the solutioning and mechanism.
+6. ES2010b as the real example: Using a real example from the test data was the right approach, rather than a synthetic one.
+7. Softening the two flagged claims in the final pass: "Every AI feature" overgeneralised and the "launch gate" trend had no source in the repo. I didn't want unverifiable claims in the opening, which gets the most scrutiny, in a course that grades fact-checking.
+8. Skipping P1 item 9 and B15's tight spacing: The video was looking good without that, and I didn't want to spend time on unnecessary fluff.
+9. Listening checks: While listening to an earlier cut, I found the discrepancies and decided to fix them. The mispronunciations flagged on the first review cut (B13's "Claude"/"clause" line and "Readback") were reworded and re-voiced. The speech-to-text slips logged on the final cut were left as logged.
+
+Resources: I hold Anthropic and OpenAI API credits from other projects. I'll create project-specific keys at implementation time, which is why the film shows them as "account, not yet wired". OpenAI is the second provider. Ollama: Claude Code's checks at 05:19 and 15:50 EST found it not installed. I then installed Ollama 0.40.17 with Homebrew (brew install --cask ollama-app), and it's running. Outcome: Claude Code confirmed the install at 22:11 EST (`ollama --version` 0.40.17, `/Applications/Ollama.app`, Homebrew cask `ollama-app`, `ollama serve` running; `ollama list` empty). B15's planned line was updated to "local open-weight model · Ollama installed, judge not wired" and re-gated; new master SHA-256 535fe61b…, commit 8424a49.
+
+## 2026-11-23 — Project film: what Claude (chat) contributed (Aravind)
+I used Claude.ai chat in my "Prompt Engineering & Agentic AI" project alongside Claude Code. It:
+- recommended Readback as the film's subject over the job-search agent, mapped to the four-part brief;
+- drafted the Claude Code prompt "Readback project film (four-part brief)" from my request;
+- reviewed Claude Code's Phase 4 report and flagged honesty risks before Phase 5: B15 claiming resources not set up, human labels reading as AMI's, prior work not scoped to the tools I checked, the B13 "Claude"/"clause" adjacency, the Readback pronunciation, and the merged PR #18; it recommended the new branch from 2cad8ba;
+- reviewed the first review cut and the revised cut frame by frame, from timestamped contact sheets plus ffmpeg freeze and silence detection, and listed the production issues by timestamp: the empty poster frame, the 0:09 credit, uniform ~1.15 s gaps, small type and dead zones in Methods and Evaluation, near-empty boundary frames, the small evidence beats, the B15 checklist, the end card;
+- turned my feedback (removing the section bar, rubric vocabulary, cutting the clutter labels, consequences and long-term impact, application-agnostic positioning) into the P0/P1 revision prompts, and proposed the positioning-audit gate;
+- on the revised cut, caught the missing compute line and the two unsourced opening claims, and drafted the final fix-pass prompt;
+- listed what FRICTIONAL.md and SOURCES.md still needed, and drafted this prompt from my answers.
+The decisions are mine. Claude chat never touched the repo; everything it drafted reached Claude Code through me.
 
 ## 2026-11-23 — Project film, Phase 5: paperwork, commit and push (Claude Code; my route)
 
@@ -620,3 +636,22 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
   - Toolkit gates F, factcheck (81 rows), L, A, W, B (20 of 20), V (0/0 on the review cut and the clean master), T (21 of 21) and bookends all pass.
   - Overlap 0 in 20 of 20 scenes; positioning audit PASS (108 of 108); speech-to-text 728 of 728 words.
   - Tables: `film/project/gates/GATES.md`.
+  - Committed as d3b87e9 on project-film-aravind-r and pushed to my fork; master SHA-256 4d790803…
+
+## 2026-11-23 — Project film, B15 Ollama line and paperwork pass (my requests; Claude Code made the changes)
+
+- **Ollama check (22:11 EST):**
+  - `ollama --version` gives 0.40.17;
+  - `/Applications/Ollama.app` is present;
+  - Homebrew lists the cask `ollama-app`;
+  - `ollama serve` is running;
+  - `ollama list` shows no model, and there is no judge code in the repo.
+- **B15:**
+  - The planned line now reads "local open-weight model · Ollama installed, judge not wired". The narration is unchanged, so nothing was re-voiced.
+  - B15 and B16 were re-rendered, and every gate was re-run with the same values: 3:56.8, freeze 2.15 %, −16.1 LUFS, −1.2 dBTP, A/W/B and overlap 20 of 20, Gate V 0/0, positioning 108 of 108, speech-to-text 728 of 728.
+  - Master SHA-256 `535fe61b…`, committed as `8424a49`.
+  - `film/project/EVAL-PLAN.md`'s Ollama status was updated to match.
+- **Paperwork:**
+  - My judgment-calls entry and the Claude (chat) entry went in word for word.
+  - My feedback bullets, the Phase 0 resources, the header and the final-fix-pass commit line were corrected, and `SOURCES.md` was updated as I asked.
+  - This entry and those edits are in the commit after `8424a49`, pushed to my fork. No PR.
