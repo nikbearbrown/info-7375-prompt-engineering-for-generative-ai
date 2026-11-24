@@ -112,6 +112,24 @@ class McpServer(unittest.TestCase):
         r = self.call("search_postings", {"query": "x", "limit": 10_000})["result"]
         self.assertTrue(r["isError"])
 
+    def test_unknown_argument_is_refused(self):
+        # EVALUATIONS.md finding 1: the schema says additionalProperties: false.
+        r = self.call("get_posting", {"uid": "affirm:8032173003", "delete": True})["result"]
+        self.assertTrue(r["isError"])
+        self.assertIn("delete", r["content"][0]["text"])
+
+    def test_unknown_board_is_not_searched_not_no_matches(self):
+        # FILTER.md section 3: never answer "no matches on X" for a board that was not searched.
+        r = self.call("search_postings", {"query": "Engineer", "board": "lever"})["result"]
+        self.assertTrue(r["isError"])
+        self.assertIn("did not search", r["content"][0]["text"])
+        self.assertIn("robinhood", r["content"][0]["text"])
+
+    def test_wrong_types_are_refused(self):
+        self.assertTrue(self.call("get_posting", {"uid": 8032173003})["result"]["isError"])
+        self.assertTrue(self.call("search_postings", {"query": "x", "limit": "5"})["result"]["isError"])
+        self.assertTrue(self.call("search_postings", {"query": "x", "limit": True})["result"]["isError"])
+
     def test_unknown_tool_and_method(self):
         self.assertEqual(self.call("apply_to_job", {"uid": "affirm:8032173003"})["error"]["code"], -32602)
         self.assertEqual(self.s.request("resources/list")["error"]["code"], -32601)

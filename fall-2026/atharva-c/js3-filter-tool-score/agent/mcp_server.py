@@ -97,7 +97,7 @@ TOOLS = {
                        "Searches only robinhood, affirm and wealthfront as collected; no live requests.",
         "inputSchema": {"type": "object", "properties": {
             "query": {"type": "string", "description": "Phrase to find in the title."},
-            "board": {"type": "string", "enum": ["robinhood", "affirm", "wealthfront"]},
+            "board": {"type": "string", "enum": ["robinhood", "affirm", "wealthfront"]},  # = BOARDS
             "limit": {"type": "integer", "minimum": 1, "maximum": MAX_LIMIT, "default": 10}},
             "required": ["query"], "additionalProperties": False}}),
     "get_posting": (get_posting, {
@@ -115,6 +115,38 @@ TOOLS = {
         "inputSchema": {"type": "object", "properties": {"uid": UID}, "required": ["uid"],
                         "additionalProperties": False}}),
 }
+
+
+BOARDS = ["robinhood", "affirm", "wealthfront"]
+
+
+def validate(args, schema: dict) -> None:
+    """Check arguments against the tool's own inputSchema (the subset these tools use).
+
+    Without this the schema is only documentation (EVALUATIONS.md, finding 1)."""
+    if not isinstance(args, dict):
+        raise ToolError("'arguments' must be an object")
+    props = schema.get("properties", {})
+    extra = sorted(set(args) - set(props))
+    if extra and schema.get("additionalProperties") is False:
+        raise ToolError(f"unknown argument(s): {', '.join(extra)}; this tool takes: {', '.join(props)}")
+    for k in schema.get("required", []):
+        if k not in args:
+            raise ToolError(f"'{k}' is required")
+    for k, v in args.items():
+        spec = props[k]
+        if spec["type"] == "string" and not isinstance(v, str):
+            raise ToolError(f"'{k}' must be a string")
+        if spec["type"] == "integer":
+            if isinstance(v, bool) or not isinstance(v, int):
+                raise ToolError(f"'{k}' must be an integer")
+            if not spec.get("minimum", v) <= v <= spec.get("maximum", v):
+                raise ToolError(f"'{k}' must be from {spec['minimum']} to {spec['maximum']}")
+        if k == "board" and v not in BOARDS:
+            # FILTER.md section 3: a board not searched is never reported as "no matches".
+            raise ToolError(f"I did not search board {v!r}. This run searched only: {', '.join(BOARDS)}.")
+        if "enum" in spec and v not in spec["enum"]:
+            raise ToolError(f"'{k}' must be one of: {', '.join(spec['enum'])}")
 
 
 def tool_list() -> list[dict]:
@@ -157,6 +189,7 @@ def handle(msg: dict, log) -> dict | None:
             log({**entry, "error": "unknown tool"})
             raise RpcError(-32602, f"unknown tool: {name!r}")
         try:
+            validate(args, TOOLS[name][1]["inputSchema"])
             data = TOOLS[name][0](args)
             result = {"content": [{"type": "text", "text": json.dumps(data, ensure_ascii=False)}],
                       "structuredContent": data, "isError": False}
