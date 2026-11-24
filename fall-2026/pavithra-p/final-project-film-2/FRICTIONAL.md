@@ -2,7 +2,7 @@
 
 Pavithra Prasad · INFO 7375 · Final Project Film (four parts)
 
-Commits in the course repo (`fall-2026/pavithra-p/final-project-film-2/`): final commit: the hash in the Canvas submission. Built from my pitch film, `fall-2026/pavithra-p/final-project-film/` (`4f17ea0`, October 2026).
+Commits in the course repo (`fall-2026/pavithra-p/final-project-film-2/`): `989a306` the film folder (2026-11-23) · final commit: the hash given in the Canvas submission (it only adds this line). Built from my pitch film, `fall-2026/pavithra-p/final-project-film/` (`4f17ea0`, October 2026).
 
 My main prompts and inputs to Claude Code, 2026-11-23 (the rest is summarised):
 
