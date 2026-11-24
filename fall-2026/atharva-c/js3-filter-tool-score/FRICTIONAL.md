@@ -47,3 +47,10 @@
 - v1.2's 15 kept postings → 10 ranked, 1 "I cannot tell", 4 contradicted. Cases are in `shortlist/CASES.md`: relevance ≠ entailment (`robinhood:7263592`, "2+ years" vs "Strong track record…") and the abstention counterexample (`affirm:7749755003`, abstained only because its skills sit in a "is a plus" sentence; I judged it keep).
 - The `track record` / `proven ability` contradiction cue was chosen after I had judged those exact postings, and all 4 contradicted entries are held-out rows. The shortlist agreeing with me there is not a measurement.
 - My audit reasons for the three SWE I roles say "early career"; the postings never say that. The supporting span is "previous work or internship experience".
+
+## Nov 24, 2026 (night) — DRAFT (Claude, to rewrite): MCP server from scratch
+
+- Tests first (`8458710`, 12 tests, all failing), then `agent/mcp_server.py`: stdio, one JSON-RPC 2.0 message per line, `initialize` / `notifications/initialized` / `ping` / `tools/list` / `tools/call`, stdlib only, no MCP SDK.
+- Four read-only tools over the saved Nov 23 run: `search_postings`, `get_posting`, `judge_posting` (v1.2), `shortlist_entry`. No network, no subprocess; the only file it writes is its call log, and it refuses a log path outside `out/`.
+- `evidence/mcp/scripted-transcript.jsonl` is a **scripted** client (`tests/mcp_scripted_client.py`), not a model; it includes a bad uid (tool error, server stays up) and a call to a tool that does not exist (`apply_to_job` → JSON-RPC error -32602).
+- Not done yet: a transcript with a real client (Claude Code), and the two server evaluations (mine and one other named server).

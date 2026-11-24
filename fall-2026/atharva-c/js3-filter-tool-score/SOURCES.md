@@ -31,3 +31,4 @@ Python 3 standard library only, as in JS2.
 | Nov 24 | Wrote `agent/filter.py` to FILTER.md v1.1, `tests/wrong_versions.py` (patches in W1–W5, checks each makes a test fail), `agent/audit_sheet.py`; ran v1.0 rules on all 400 | TODO: hand-judge the audit sheets |
 | Nov 24 | Wrote my audit judgments into the CSVs; checked cited years against the text; computed Wilson intervals; proposed the N ≥ 3 change, wrote its tests and code, measured it on dev | Judged all 53 audit postings; approved running v1.2 on dev |
 | Nov 24 (`f89aef7`) | Wrote shortlist tests, then `agent/shortlist.py`; drafted `shortlist/CASES.md` | TODO: check the claim rules and rewrite CASES.md |
+| Nov 24 (`8458710`) | Wrote MCP server tests, then `agent/mcp_server.py` and `tests/mcp_scripted_client.py`; recorded the scripted transcript | TODO: review the tool list and the safety limits |
