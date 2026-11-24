@@ -1,6 +1,6 @@
 # Abstention example and counterexample (reviewed and accepted by Sreevarshan Sathiyamurthy, 2026-11-24)
 
-**Status:** Claude prepared this for Sreevarshan to review, using `output/shortlist_packet.json` and the JS2 raw postings. These are not verified judgments. Numbers in parentheses are row numbers in `output/shortlist_packet.md`.
+**Status:** Claude prepared this using `output/shortlist_packet.json` and the JS2 raw postings. I reviewed and accepted it on 2026-11-24. Numbers in parentheses are row numbers in `output/shortlist_packet.md`.
 
 ## The case: filter words match, but the key claim isn't established
 
