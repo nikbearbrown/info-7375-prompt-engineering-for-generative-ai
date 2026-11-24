@@ -41,8 +41,10 @@ def _need(obj, key, where):
 # ---------------- Greenhouse ----------------
 
 def greenhouse_url(board):
+    # JS3 (2026-11-24): ?content=true. Without it Greenhouse sends no job
+    # text, and the JS3 filter and evidence rules need the posting's text.
     return (f"https://boards-api.greenhouse.io/v1/boards/"
-            f"{_check_board(board)}/jobs")
+            f"{_check_board(board)}/jobs?content=true")
 
 
 def greenhouse_parse(raw):
