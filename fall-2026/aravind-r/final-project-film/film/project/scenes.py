@@ -917,33 +917,42 @@ def L14():
 HAVE = ((("have",), "tick", ((("AMI data · 10 meetings",), ("in my repository",)), (("10 real recaps",), ("in my repository",)),
                              (("Claude (claude -p)",), ("set up on this Mac", "CLI 2.1.323")), (("compute",), ("this Mac",)))),
         (("account,", "not yet wired"), "open", ((("API credits",), ()), (("a second provider",), ()))),
-        (("planned",), "open", ((("local open-weight", "model"), ("Ollama installed,", "judge not wired")), (("my human labels",), ("I mark the 86 decisions",)))))
-COL_X, SEP_X = [-6.05, -1.40, 2.10], [-1.52, 1.98]   # measured: widest lines 4.40 / 3.25 / 3.87 at 36 and 32
+        (("planned",), "open", ((("local open-weight model",), ("Ollama installed,", "judge not wired")), (("my human labels",), ("I mark the 86 decisions",)))))
+COL_X, SEP_X = [-6.05, -1.40, 2.10], [-1.52, 1.98]   # measured: widest lines 4.40 / 3.25 / 4.04 (planned column at 32)
+NAME_SIZE = [BODY, BODY, SMALL]      # the planned column's names one step down, to the film's floor, so each fits on one line
+# B15 is set on a baseline grid, so the gaps read evenly whatever the letters. Baseline pitches: name → detail, detail →
+# detail, and item → item; the heads sit higher to make room, so "this Mac" clears the footer by more than any item gap.
+HAVE_HY, HAVE_B0, P_ND, P_DD, P_ITEM = 2.72, 1.75, 0.49, 0.46, 0.60
+HAVE_OFF = {   # (string, size) → centre minus baseline, measured with Manim 0.18.1 (median bottom of non-descending letters)
+    ("AMI data · 10 meetings", BODY): 0.1097, ("10 real recaps", BODY): 0.1120, ("Claude (claude -p)", BODY): 0.1124,
+    ("compute", BODY): 0.0549, ("API credits", BODY): 0.1737, ("a second provider", BODY): 0.1117,
+    ("local open-weight model", SMALL): 0.0984, ("my human labels", SMALL): 0.0995,
+    ("in my repository", SMALL): 0.0775, ("set up on this Mac", SMALL): 0.0995, ("CLI 2.1.323", SMALL): 0.1411,
+    ("this Mac", SMALL): 0.1596, ("Ollama installed,", SMALL): 0.1302, ("judge not wired", SMALL): 0.0986,
+    ("I mark the 86 decisions", SMALL): 0.1587}
 
 
 def L15():
     """B15's last frame: what I have, in three columns (wording as verified on this Mac, 23 Nov 2026)."""
     heads, cols = VGroup(), VGroup()
-    for (hl, kind, items), x0 in zip(HAVE, COL_X):
-        icon = (tick(x0 + 0.17, 2.35, s=0.17) if kind == "tick" else
-                DashedVMobject(Circle(radius=0.17, stroke_color=WILL, stroke_width=6).move_to([x0 + 0.2, 2.35, 0]), num_dashes=8))
-        ht = VGroup(*[lx(T(t, BODY, bold=True).move_to([0, 2.35 + 0.21 * (len(hl) - 1) - 0.42 * k, 0]), x0 + 0.55) for k, t in enumerate(hl)])
+    for (hl, kind, items), x0, nz in zip(HAVE, COL_X, NAME_SIZE):
+        icon = (tick(x0 + 0.17, HAVE_HY, s=0.17) if kind == "tick" else
+                DashedVMobject(Circle(radius=0.17, stroke_color=WILL, stroke_width=6).move_to([x0 + 0.2, HAVE_HY, 0]), num_dashes=8))
+        ht = VGroup(*[lx(T(t, BODY, bold=True).move_to([0, HAVE_HY + 0.21 * (len(hl) - 1) - 0.42 * k, 0]), x0 + 0.55) for k, t in enumerate(hl)])
         heads.add(VGroup(icon, ht))
-        col, y = VGroup(), 1.55
+        col, y = VGroup(), HAVE_B0                       # y is the baseline of the current line
         for names, det in items:
+            lines = [(t, nz) for t in names] + [(t, SMALL) for t in det]
             item = VGroup()
-            for t in names:
-                item.add(lx(T(t, BODY).move_to([0, y, 0]), x0))
-                y -= 0.52
-            y += 0.05
-            for t in det:
-                item.add(lx(T(t, SMALL).move_to([0, y, 0]), x0))
-                y -= 0.42
+            for k, (t, z) in enumerate(lines):
+                if k:
+                    y -= P_ND if k == len(names) else P_DD
+                item.add(lx(T(t, z).move_to([0, y + HAVE_OFF[(t, z)], 0]), x0))
             col.add(item)
-            y -= 0.15
+            y -= P_ITEM
         cols.add(col)
     return {"ct": ctag("test case"), "tag": tag("a tick means set up on this Mac · status as of 23 Nov 2026"),
-            "heads": heads, "cols": cols, "seps": VGroup(*[Line([x, 2.75, 0], [x, -2.7, 0], color=GREY, stroke_width=3) for x in SEP_X])}
+            "heads": heads, "cols": cols, "seps": VGroup(*[Line([x, HAVE_HY + 0.38, 0], [x, -2.7, 0], color=GREY, stroke_width=3) for x in SEP_X])}
 
 
 REQ_X = [-4.15, 0.0, 4.15]
@@ -1128,7 +1137,7 @@ class B15_Have(Scene):
         P(self, *fade_all(a, keep=("ct",)), Transform(a["ct"], b["ct"]), rt=0.45)
         P(self, FadeIn(b["tag"]), Create(b["seps"]), rt=0.35)
         col1, col2, col3 = b["cols"]
-        cb = [band(-6.35, -1.52, -2.78, 2.88), band(-1.52, 1.98, -2.78, 2.88), band(1.98, 6.35, -2.78, 2.88)]
+        cb = [band(-6.35, -1.52, -2.78, 2.19), band(-1.52, 1.98, -2.78, 2.19), band(1.98, 6.35, -2.78, 2.19)]   # top between the heads and row 1
         self.add(*cb)
         steps = [("data", 0, col1[0:2]), ("Claude", None, col1[2:3]), ("credits", 1, col2[0:1]), ("provider", None, col2[1:2]),
                  ("local", 2, col3[0:1]), ("human", None, col3[1:2])]

@@ -4,7 +4,7 @@
 
 **Aravind Ravi** · INFO 7375 · Fall 2026
 **File:** `film/project/aravind-r-readback-project-film.mp4` · 3:56.8 · 1920×1080, 24 fps
-**SHA-256:** `535fe61b3ba67484f88d8beb9859b9d3de5c010748f4765a57457b420aba6752`
+**SHA-256:** `37cbfaa6b2949adb2835d1e86ff3b4bcc4b09c8a76fda57fc3d374cbb7c739a0`
 **PR:** https://github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai/pull/54
 
 The project film follows the course's four-part brief: an executive summary (what Readback is and why it matters), an introduction (what others have built, scoped to the tools I checked: Maxim AI, orq.ai and GitHub Spec Kit), methods (how it will be built, where the data comes from, and what I have to build it with) and evaluation (three checks, each with a pass and a fail condition). Readback is for any AI feature whose acceptance criteria an AI judge grades: when judges disagree, it will trace the disagreement to the criterion that caused it and ask the PM a clarifying question, never rewriting the criterion itself. The AMI meeting-recap feature is the test case only; it appears in Methods and Evaluation, under a "test case" tag. Everything Readback does is planned: no judge has run, no human labels exist and no agreement has been measured. The real material on screen is the AMI data and the ten recaps from 14 Oct 2026.

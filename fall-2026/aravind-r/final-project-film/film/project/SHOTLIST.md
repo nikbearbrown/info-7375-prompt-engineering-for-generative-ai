@@ -24,7 +24,7 @@ Typed work order. Everything comes from the free local pipeline: Kokoro narratio
 | B12 | manim | `B12_Labels` | Strip: Labels; the C4 chip is swapped for its compact form and parks; 86 empty label cells, row by row; the meeting IDs pulse on “covers”; my human labels, not marked yet; the commit order draws; corner tag “planned · test case” | `manim/B12.mp4` |
 | B13 | manim | `B13_Judges` | Strip: Judges; three planned judges; the C1–C5 header with the chip in the C4 slot; each judge named on its word, then the empty cells; on “measure” the names pulse and “agreement between judges —”; on “human” “judges vs my labels, decisions clause —”; on “decisions” the C1 column pulses | `manim/B13.mp4` |
 | B14 | manim | `B14_Trace` | Strip: Readback; the judges' rows pull apart and the C4 cells split ✓ ✗ ✓; the trace runs up to the chip, which lights; the PM. On “real” the grid clears and the real ES2010b cards land: the transcript (“Do we want this thing to be able to be found easily?” · “I think so.” · “Sure, yeah.”), then the recap's Decisions line and AMI's “will consider”; “Does a quick yes count as a decision?” with the C4 chip; “C4 · revised by the PM” | `manim/B14.mp4` |
-| B15 | manim | `B15_Have` | What I have, in three columns that fill on their words: have (ticks; compute, this Mac, lands on “here”), account, not yet wired, planned; pulses on “repository”, “subscription” and “wired”; the status tag | `manim/B15.mp4` |
+| B15 | manim | `B15_Have` | What I have, in three columns on one baseline grid (since 24 Nov 2026: “this Mac” clears the footer, “local open-weight model” on one line), filling on their words: have (ticks; compute, this Mac, lands on “here”), account, not yet wired, planned; pulses on “repository”, “subscription” and “wired”; the status tag | `manim/B15.mp4` |
 | B16 | manim | `B16_Planted` | Chapter card 4 replaces the old near-empty frame; the scorecard frame draws and its header pulses on “fail”; row 1; C1–C5 with C4 planted (the label pulses on “advance”); Readback's ring on C4 ✓, the pass condition and label pulse on “planted”; another clause ✗; noise ✗ | `manim/B16.mp4` |
 | B17 | manim | `B17_Kappa` | Row 2; my human labels (86 decisions, marked by me) and each judge, the two labels pulsing on “measured”; the Cohen's kappa scale; the 0.6 bar and pass zone; the lock, the 0.6 pulsing on “fix”; the fail zone; on “fails” it flashes inverted | `manim/B17.mp4` |
 | B18 | manim | `B18_BeforeAfter` | Row 3; C4 → “C4 · revised”; before “—” / after “—”; held-out meetings, locked; the up arrow; on “say” the result cell flashes inverted | `manim/B18.mp4` |
@@ -34,7 +34,7 @@ Typed work order. Everything comes from the free local pipeline: Kokoro narratio
 
 ## Holds over 2.5 s
 
-Measured on the delivered file with ffmpeg `freezedetect=n=0.003:d=2.5` (23 Nov 2026, after the final fix pass; re-measured on master `535fe61b` after the B15 Ollama line change, with identical results). There are 3, each on a line that is being spoken, and none reaches 3 s except the end card:
+Measured on the delivered file with ffmpeg `freezedetect=n=0.003:d=2.5` (23 Nov 2026, after the final fix pass; re-measured on master `535fe61b` after the B15 Ollama line change, and on master `37cbfaa6` after the B15 spacing re-layout of 24 Nov 2026, with identical results both times). There are 3, each on a line that is being spoken, and none reaches 3 s except the end card:
 
 | From – to (film time) | Beat | Length | What is said over it |
 |---|---|---|---|

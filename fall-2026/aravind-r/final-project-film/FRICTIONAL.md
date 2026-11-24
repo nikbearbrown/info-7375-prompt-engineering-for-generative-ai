@@ -675,3 +675,6 @@ The decisions are mine. Claude chat never touched the repo; everything it drafte
 
 ## 2026-11-23 — Project film, documentation fix pass and appendix
 Documentation fix pass and appendix (Aravind's requests; Claude Code made the changes; appendix reviewed by me).
+
+## 2026-11-24 — Project film, B15 spacing re-layout (my request; Claude Code made the change)
+B15 was re-laid out, with no wording change: a baseline grid; the heads 0.37 higher; "this Mac" 0.36 clear of the footer, against a largest row gap of 0.34; "local open-weight model" on one line, with the planned column's names at 32, the film's smallest size. B15 and B16 were re-rendered and every gate was re-run. Every value matches `535fe61b` except the SHA (now `37cbfaa6…`) and a positioning count corrected from 108 to 107, where the old table held a stale B11 row; the first `art final` of this pass wrote the master and it was then missing from `exports/landscape/` (cause not found), so `art final` was run again and gave the same SHA.

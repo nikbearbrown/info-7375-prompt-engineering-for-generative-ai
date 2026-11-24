@@ -1,7 +1,7 @@
-# GATES — Readback project film · after the final fix pass and the B15 Ollama line (measured 2026-11-23, 22:16–22:20 EST)
+# GATES — Readback project film · after the final fix pass, the B15 Ollama line and the B15 spacing re-layout (measured 2026-11-24, 00:03–00:07 EST)
 
 **The file:** `../aravind-r-readback-project-film.mp4`. It's byte-identical to the toolkit master `../exports/landscape/aravind-r-readback-project-film.mp4`.
-- **Verified record:** status `ready`, SHA-256 `535fe61b3ba67484f88d8beb9859b9d3de5c010748f4765a57457b420aba6752`, matching the file.
+- **Verified record:** status `ready`, SHA-256 `37cbfaa6b2949adb2835d1e86ff3b4bcc4b09c8a76fda57fc3d374cbb7c739a0`, matching the file.
 - **Format:** 1920×1080, 24 fps, H.264, AAC 48 kHz stereo, 236.79 s.
 - **Measurements:** `../qc_film.py`, whose raw output is `QC.json`.
 
@@ -19,6 +19,15 @@
 - **B15's Ollama line:** it now reads "local open-weight model · Ollama installed, judge not wired".
   - Checked 22:11 EST: `ollama --version` gives 0.40.17, `/Applications/Ollama.app` is present, the Homebrew cask is `ollama-app`, and `ollama serve` is running. `ollama list` shows no model, and the repo has no judge code.
   - The narration is unchanged, so nothing was re-voiced. Only B15 and B16 were re-rendered, and every gate was re-run. The audio, the runtime and every measurement match the previous master.
+- **B15 spacing re-layout (2026-11-24, my request):** layout only, no wording change. Master `535fe61b…` became `37cbfaa6…`.
+  - All three columns sit on a baseline grid: 0.49 from a name to its detail, 0.46 between detail lines, 0.60 between rows. The heads moved up 0.37.
+  - "this Mac" now clears the footer by 0.36. The largest gap between rows in the "have" column is 0.34.
+  - "local open-weight model" is on one line. The planned column's names went one step down, from 36 to 32, the film's smallest size.
+  - The flash bands now stop between the heads and row 1, so no band edge crosses text.
+  - Only B15 and B16 were re-rendered, and every gate was re-run. Against the previous master:
+    - `QC.json`, the speech-to-text report, Gate V's report and Gate T's results are identical.
+    - The runtime, the audio and every gate result match.
+    - The only other change is the positioning count, 108 → 107 (see that row below).
 
 ## Phase 4 gates (my brief)
 
@@ -36,7 +45,7 @@
 | Numbers | every on-screen number comes from a repo file, with its path cited | audit below (`../CLAIMS.md`, on-screen numbers O01–O18) | **PASS** |
 | First minute | the first 60 s says what Readback is and why it matters, for any AI feature | quoted below (positioning audit §4) | **PASS** |
 | Brands and persona | prior work as plain text only, no logos or marks, no instructor name, persona or credit, mascot hidden | audit below | **PASS** |
-| **Positioning (new)** | every mention of meetings, recaps, AMI (or an AMI meeting ID) or C4 sits in Methods or Evaluation, in a scene tagged "test case"; the executive summary has none | **108 of 108 mentions OK** (10 spoken, 98 on screen across 12 scenes, B09–B20); summary: **0**. `positioning-audit.md` quotes every one | **PASS** |
+| **Positioning (new)** | every mention of meetings, recaps, AMI (or an AMI meeting ID) or C4 sits in Methods or Evaluation, in a scene tagged "test case"; the executive summary has none | **107 of 107 mentions OK** (10 spoken, 97 on screen across 12 scenes, B09–B20); summary: **0**. The earlier table's 108 included one stale on-screen row: B11 at 0.0–0.7 s, “CONSTRUCTED · my recap prompt”, read from an old strings dump. B11's code never shows that string; dumping B11 again from the `535fe61b` code gives the same strings as now. `positioning-audit.md` quotes every one | **PASS** |
 
 ## Toolkit gates (brutalist.art @ `cd4bf20` with my outro patch)
 
@@ -44,7 +53,7 @@
 |---|---|---|
 | F — paperwork exists | PASS | `../FACTCHECK.md`, `../SHOTLIST.md`, `../PROMPTS.md` |
 | factcheck (content of F) | clean: 81 rows, 21 of 21 beats covered | `factcheck_check.txt` |
-| L — beat-mix lint | clean | `art-run-20.log` |
+| L — beat-mix lint | clean | `art-run-21.log` |
 | A — static pre-flight | clean, 0 warnings, all 20 scenes | `gates-AWB-final.txt` |
 | W — WCAG contrast, margins, text overlap | clean, all 20 scenes | `gates-AWB-final.txt` |
 | B — layout audit (`--curve-strict`) | CLEAN, all 20 scenes | `gates-AWB-final.txt` |

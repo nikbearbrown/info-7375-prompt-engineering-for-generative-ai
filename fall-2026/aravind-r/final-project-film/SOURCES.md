@@ -128,7 +128,7 @@ Claude Code (Opus 5.5) in this project's session, at my direction:
 
 The file is `film/project/aravind-r-readback-project-film.mp4`. The build and its records are in `film/project/`.
 
-Final file: film/project/aravind-r-readback-project-film.mp4, 3:56.8, SHA-256 535fe61b…, commit 8424a49
+Final file: film/project/aravind-r-readback-project-film.mp4, 3:56.8, SHA-256 37cbfaa6…, after the B15 spacing re-layout of 2026-11-24 (the commit after 3c3bf5c; 535fe61b… was built in 8424a49)
 
 - **Used:**
   - The same toolkit, components and licences as above: brutalist.art at `cd4bf20`, kokoro-onnx with the Kokoro-82M `am_onyx` voice, Manim Community 0.18.1, Remotion, faster-whisper and FFmpeg. No paid services.

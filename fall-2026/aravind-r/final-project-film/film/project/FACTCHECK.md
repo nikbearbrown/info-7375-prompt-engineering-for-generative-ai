@@ -1,6 +1,6 @@
 # FACTCHECK — Readback project film (four-part brief)
 
-Status: prepared 2026-11-23 by Claude Code (Opus 5.5) and checked against the files named in each row; revised the same day for Aravind's pre-Phase-5 review, and again that evening for the positioning revision (application-agnostic summary, the AMI test bench, the ES2010b example, the close). Aravind Ravi approved the narration (Phase 1), the storyboard (Phase 2), the revised narration (2026-11-23, "OK, go") and the final cut (2026-11-23, "Approve cut").
+Status: prepared 2026-11-23 by Claude Code (Opus 5.5) and checked against the files named in each row; revised the same day for Aravind's pre-Phase-5 review, and again that evening for the positioning revision (application-agnostic summary, the AMI test bench, the ES2010b example, the close). Aravind Ravi approved the narration (Phase 1), the storyboard (Phase 2), the revised narration (2026-11-23, "OK, go") and the final cut (2026-11-23, "Approve cut"). On 2026-11-24 B15 was re-laid out (spacing, line breaks and the planned column's type size only; no wording change); every row still holds on master `37cbfaa6…`.
 Rule: past tense only for what exists and can be shown; everything else is “will”. Plans, positions and vision are marked EXEMPT. Narration rows are the sentences in `CLAIMS.md` (questions omitted; in the Kokoro input Readback is spelled “Reed-back”); S rows are what's on screen.
 
 | # | Beat | Claim (as spoken / shown) | Verdict | Source / derivation | Fix |
