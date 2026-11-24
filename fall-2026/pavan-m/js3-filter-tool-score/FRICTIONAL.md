@@ -35,3 +35,6 @@ Honest note: my written AUDIT_RULE says 8+ years is the hard minimum, but I also
 ## Entry 10 — November 23, 2026: Fixed the comparison file; false friend found
 My first commit of audit/comparison_2026-11-23.txt contained only a placeholder line ("see FRICTIONAL Entry 9") because I ran a placeholder snippet from Claude's instructions instead of the comparison script. Re-ran the real comparison into that file.
 False friend: "Python". In 6 audited postings, "Python" matched the Programming category for the wrong reason: data analysis in a Marketing Science Lead role (A26, "SQL and Python or R"), task scripting in AI Support Engineer roles (A36, A40), ML classifiers in a Protection Scientist role (A41). The title rule rejected all of them anyway, so it did no harm here, but if the title rule were widened, this match would start admitting the wrong postings.
+
+## Entry 11 — November 23, 2026: Choosing which rule changes to measure
+From the audit's three error patterns I listed four candidate changes: C1 years cutoff 8→5, C2 read Lever's lists field, C3 any US city +2, C4 threshold 8→7. I chose to test C1 and C3, one at a time, on my 48 audited postings. Wrote tests/test_filter_config.py first: defaults must stay v1.0, each change must work when switched on, and neither may overreach (C1 still ignores "preferred" years; C3 gives nothing to non-US locations).
