@@ -1,0 +1,28 @@
+{
+  "_comment": "Machine copy of FILTER.md v1 (commit 27646b2). Every number here is hand-set by Riya on 2026-11-24; nothing is fitted. tests/test_filter.py checks this file against FILTER.md.",
+  "version": "v1",
+  "gates": {
+    "seniority_words": ["Senior", "Sr", "Staff", "Principal", "Director", "VP", "Vice President", "Head", "Manager"],
+    "intern_words": ["Intern", "Internship"],
+    "not_full_time_words": ["Co-op", "Coop", "Part-time", "Part Time", "Contract", "Contractor", "Temporary", "Fixed-Term", "Fixed Term"],
+    "require_role_word_in_title": true
+  },
+  "score": {
+    "role":     {"where": "title", "points": 4, "max_hits": 1,
+                 "words": ["AI", "Applied AI", "ML", "Machine Learning", "LLM", "GenAI", "Generative AI", "Data Scientist", "Data Science", "Data Engineer", "Data Platform", "Analytics"]},
+    "job_type": {"where": "title", "points": 1, "max_hits": 1,
+                 "words": ["Engineer", "Scientist", "Developer", "Analyst"]},
+    "skill":    {"where": "title+text", "points": 1, "max_hits": 4,
+                 "words": ["Python", "SQL", "Power BI", "LangGraph", "MLflow", "Mem0", "Delta Lake", "AWS"]},
+    "topic":    {"where": "title+text", "points": 1, "max_hits": 2,
+                 "words": ["RAG", "retrieval", "evaluation", "agents", "LLM", "fine-tuning", "MLOps", "embeddings"]}
+  },
+  "threshold": 6,
+  "abstain": {
+    "min_text_chars": 300,
+    "bare_remote_words": ["Remote", "Remote-Friendly"]
+  },
+  "evidence": {
+    "max_years_early_career": 3
+  }
+}
