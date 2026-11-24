@@ -77,11 +77,11 @@ def read_labels(path) -> dict:
 # The first view (excerpt above) never showed an experience requirement: in all 90 labeled postings
 # whose text states one, it came after the 400-character excerpt. The second view shows, for every
 # posting by the same rule: title, location, a 250-character role summary, and every sentence that
-# states a number of years (verbatim, at most 3, each cut at 220 characters).
+# states a number of years: each "N years" phrase with ~110 characters on each side, verbatim, at most 3.
 YEARS = re.compile(r"\b(\d{1,2})\s*\+?\s*(?:\+\s*)?(?:or more\s+)?years?\b", re.I)
 SUMMARY_CHARS = 250
 YEARS_SENTENCES = 3
-SENTENCE_CHARS = 220
+WINDOW = 110
 
 
 def states_years(text: str) -> bool:
@@ -89,12 +89,23 @@ def states_years(text: str) -> bool:
 
 
 def years_sentences(text: str) -> list:
-    parts = re.split(r"(?<=[.!?])\s+|\n+|\s+-\s+", text or "")
-    out = []
-    for p in parts:
-        p = re.sub(r"\s+", " ", p).strip(" -•")
-        if p and any(int(m.group(1)) < 30 for m in YEARS.finditer(p)) and p not in out:
-            out.append(p if len(p) <= SENTENCE_CHARS else p[:SENTENCE_CHARS] + "…")
+    """Every "N years" phrase with about WINDOW characters on each side, verbatim (at most 3).
+
+    Fixed before any second-pass label (Nov 23): the first version split on sentence ends, but
+    Greenhouse text runs its bullets together, so the cut at 220 characters often fell before the
+    years phrase. A window around each match always shows the phrase itself.
+    """
+    t = re.sub(r"\s+", " ", text or "").strip()
+    out, last_end = [], -1
+    for m in YEARS.finditer(t):
+        if int(m.group(1)) >= 30 or m.start() < last_end:
+            continue
+        a, b = max(0, m.start() - WINDOW), min(len(t), m.end() + WINDOW)
+        a = t.rfind(" ", 0, a) + 1 if a > 0 else 0
+        b2 = t.find(" ", b)
+        b = len(t) if b2 < 0 else b2
+        out.append(("…" if a > 0 else "") + t[a:b] + ("…" if b < len(t) else ""))
+        last_end = b
         if len(out) == YEARS_SENTENCES:
             break
     return out
@@ -113,8 +124,8 @@ def write_sheet_v2(items: list, path) -> None:
              "Question for each posting: **is this worth Priya's time to read in full?** Answer **y**, **n** or **?**. "
              "Priya: MS Dec 2025, one 8-month AI Engineer co-op.", "",
              f"Every item shows the title, the location, {SUMMARY_CHARS} characters of role summary (from \"About the "
-             f"role\", or the start of the text), and every sentence that states a number of years, verbatim (at most "
-             f"{YEARS_SENTENCES}, each cut at {SENTENCE_CHARS} characters). No score, filter decision or earlier "
+             f"role\", or the start of the text), and every \"N years\" phrase with about {WINDOW} characters on each side, "
+             f"verbatim (at most {YEARS_SENTENCES}). No score, filter decision or earlier "
              "verdict is shown.", ""]
     for it in items:
         lines += [f"## {it['item']}. {it['title']}", f"{it['company']} · {it['location']} · {it['url']}", "",
