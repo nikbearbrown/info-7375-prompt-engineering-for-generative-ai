@@ -655,3 +655,18 @@ The decisions are mine. Claude chat never touched the repo; everything it drafte
   - My judgment-calls entry and the Claude (chat) entry went in word for word.
   - My feedback bullets, the Phase 0 resources, the header and the final-fix-pass commit line were corrected, and `SOURCES.md` was updated as I asked.
   - This entry and those edits are in the commit after `8424a49`, pushed to my fork. No PR.
+
+## 2026-11-23 — Project film PR #54 opened (Aravind)
+- I opened PR #54 myself: aravindravi7:project-film-aravind-r into nikbearbrown:main.
+- Head at opening: 8fb0730. Final master SHA-256 535fe61b…, 3:56.8, built in commit 8424a49.
+- **PR at opening** (recorded by Claude Code from the public GitHub API; `gh` isn't logged in on this Mac):
+  - opened 2026-11-24 04:01:02 UTC (2026-11-23 23:01:02 EST);
+  - 4 commits and 100 changed files (+41,442 / −3);
+  - a local compare against `2cad8ba` gives the same 4 commits and 100 files, all under `fall-2026/aravind-r/final-project-film/`.
+- **CI as the PR showed it** (recorded by Claude Code):
+  - The "Python course" workflow runs `scripts/validate_course.py` on Python 3.11, 3.12 and 3.13. It started at 04:02:21 UTC and was still in progress at 23:03 EST, so it was not waiting for maintainer approval. GitHub listed the PR as "unstable" while the checks ran.
+  - The same workflow fails on `main` itself: its last three push runs (`d0ef02a`, `8d8e92f9`, `0801bc2c`) all concluded "failure".
+- **`scripts/validate_course.py` run locally on `8fb0730`** (Python 3.12.14, and again on 3.9.6): exit 1.
+  - All 13 week lessons and the 13 integration tests pass.
+  - The 17 findings are broken local links or non-Python files in other students' folders: deepak-s 11, suketh-p 2, and one each in nik-bear-brown, pavithra-p, sreevarshan-s and yudan-z. None is under `fall-2026/aravind-r/`.
+- This entry goes in its own commit; PR #54 picks it up automatically.
