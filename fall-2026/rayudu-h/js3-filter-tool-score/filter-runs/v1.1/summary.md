@@ -2,7 +2,7 @@
 
 - FILTER.md sha256: `db915c94f4cb23e02cf74384de015e3371214183d7b9f07c06fe51bf7603c826`
 - Corpus: 1176 unique postings from 3 live snapshots (2026-10-31T191245-live, 2026-11-07T184247-live, 2026-11-20T213031-live); latest version of each posting used
-- Run at: 2026-11-23T20:51:10-05:00
+- Run at: 2026-11-23T21:13:18-05:00
 
 | board | kept | rejected | cannot tell | total |
 |---|---:|---:|---:|---:|
