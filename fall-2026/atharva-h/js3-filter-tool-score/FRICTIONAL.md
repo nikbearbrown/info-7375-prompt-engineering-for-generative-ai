@@ -105,3 +105,13 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **Files:** `state/labels/labels.csv` (for me to fill in), `postings.md` (the full text to read), and `split.json`.
   - The sheet shows no filter verdict, and no filter code exists yet.
 - **Unresolved: the held-out set may have no "yes".** Judging only by title and location, every likely match for Riley (US, not senior) landed in tuning. The 7 role-phrase postings in held-out are all senior or outside the US. If my labels agree, the held-out set can show false keeps but never a missed match.
+
+## 2026-11-24 — Labels drafted by Claude, for my review
+- **What I decided:** the 92 tuning and held-out labels are drafted by Claude, and I review every one. The reject-audit verdicts stay mine, as the brief requires ("judge each yourself").
+- **Claude's draft** (`state/labels/labels_claude_draft.csv`, kept unchanged as a record). `labels.csv` is the copy I review. It has a `reviewed` column, so any label I change shows up against the draft.
+- **Claude drafted all 92 as "no".** Four are close calls, each ruled out by one specific line in the posting:
+  - **Veeva, Marketing Analytics Data Analyst (ADP program):** 0–2 years, NYC, SQL and Excel. But it says "Veeva does not provide sponsorship for employment visa status (e.g., H-1B, OPT, or TN status)".
+  - **Stripe, Data Analyst Intern:** requires graduating in December 2027 or later. Riley graduates in December 2026.
+  - **Stripe, Data Analyst, SF:** requires an MS plus 2 years of full-time experience, excluding internships.
+  - **Zoox, part-time student worker (data analyst):** a part-time contract, not an entry-level job.
+- **Unresolved:** if my review keeps every label "no", there are no positive labels. Recall can't be measured at all, and precision can only count false keeps. The filter's job on this corpus becomes rejecting everything correctly.
