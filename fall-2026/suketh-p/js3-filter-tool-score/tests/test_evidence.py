@@ -15,7 +15,8 @@ class QuoteCheckTest(unittest.TestCase):
     def test_a_quote_is_found_only_word_for_word_in_the_saved_text(self):
         text = evidence.plain(POSTING)
         self.assertTrue(evidence.quote_found(text, "Five years preferred."))
-        self.assertTrue(evidence.quote_found(text, "five  years\npreferred"))   # case and spacing only
+        self.assertTrue(evidence.quote_found(text, "Five  years\npreferred"))   # spacing only
+        self.assertFalse(evidence.quote_found(text, "five years preferred"))    # "exact quote": case is kept
         self.assertFalse(evidence.quote_found(text, "Five years required."))   # one word changed
         self.assertFalse(evidence.quote_found(text, ""))
 
