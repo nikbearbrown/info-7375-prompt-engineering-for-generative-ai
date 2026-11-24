@@ -20,11 +20,12 @@ is in `FRICTIONAL.md` (2026-11-23).
 
 ## The film
 
-- **File:** `job-search-agent.mp4` · **Length:** 5 min 23 s (322.96 s) · 1920×1080, H.264 + AAC
+- **File:** `yash-saraf-job-search-agent.mp4` · **Length:** 5 min 23 s (322.96 s) · 1920×1080, H.264 + AAC
 - **SHA-256:** `6a6fe350d099868fff7f8e6f9a2da43a753acc30cf99f2672588d14dac96820d`
 - **Gates:** F, L, A, W, B, V, GATE T and the bookend check all PASS (`gate-reports/README.md`)
 - The MP4 is not in Git (the course repository's `.gitignore` blocks video files). It is in the
-  Canvas zip; the SHA-256 shows the two copies match.
+  Canvas zip; the SHA-256 shows the two copies match. The toolkit wrote it as `job-search-agent.mp4`;
+  I renamed it to add my name (same file, same SHA-256), so the gate logs show the old name.
 - Format: a Brutalist show-tell film, built the same way as my October pitch. Every beat is a
   drawn, moving Manim picture. The voice is the local Kokoro `am_onyx` voice reading my script: a
   **synthetic voice, not mine**. The terminal beats typeset the real recorded output of my agent

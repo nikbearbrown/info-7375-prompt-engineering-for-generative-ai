@@ -1,8 +1,9 @@
 # Gate reports — job-search-agent (Final Project Film)
 
 Brutalist's own quality gates, run 2026-11-23 on the free local pipeline. The final master
-(`job-search-agent.mp4`, 322.96 s) was cut only after every gate passed. Paths in the logs are
-shortened to `<course>/`.
+(`job-search-agent.mp4`, 322.96 s) was cut only after every gate passed. I renamed it
+afterwards to `yash-saraf-job-search-agent.mp4`; the SHA-256 is unchanged, so the old name in the
+logs is the same file. Paths in the logs are shortened to `<course>/`.
 
 | Gate | What it checks | Result | Report |
 |---|---|---|---|
