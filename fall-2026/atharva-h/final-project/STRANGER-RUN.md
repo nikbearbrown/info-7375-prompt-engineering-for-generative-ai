@@ -4,8 +4,8 @@
 
 The brief asks for someone who didn't help build SponsorSQL (a classmate, a friend or a TA) to run it from [README.md](README.md) on a clean machine. To be filled in by the owner:
 
-- **Who:** ______ (name or role, and their relationship to the project)
-- **Machine and Python version:** ______
+- **Who:** Aditya (name or role, and their relationship to the project)
+- **Machine and Python version:** Mac, Python 3
 - **What they ran:** (commands, in order) ______
 - **Where they got stuck:** ______
 - **What I changed because of it:** (commit) ______

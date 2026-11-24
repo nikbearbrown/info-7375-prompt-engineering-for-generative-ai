@@ -2,7 +2,7 @@
 
 Packet document 10 of 10. Previous: [audit-note.md](audit-note.md) · Back to: [README.md](README.md)
 
-The sections marked **Owner** are the owner's to write; the course grades them as the owner's own account. Claude's section is labelled as Claude's and is only a recommendation from the evidence.
+The sections marked **Owner** are the owner's to decide and sign; the course grades them as the owner's own account. The wording below is an assisted draft for Atharva to inspect, change, or reject. It is not an owner attestation. Claude's section is labelled as Claude's and is only a recommendation from the evidence.
 
 ## Evidence summary (facts, for the decision)
 
@@ -30,14 +30,14 @@ The sections marked **Owner** are the owner's to write; the course grades them a
 - record one real gate decision
 - complete the stranger run
 
-## What I will hand to an agent more readily — Owner
+## What I will hand to an agent more readily — Owner 
 
-*To be written by the owner.*
+I would hand over bounded SQL drafting for a fixed, public schema, including a second query that lists the rows behind an answer. The 9/10 development result shows that an explicit contract helped on these ten questions, and the read-only executor and tests give the agent a narrow action surface. I would also hand over repetitive fixture runs and result formatting, as long as the tool keeps the SQL, source checksum, matching rows, and failures visible for review. This is a proposed transfer, not permission to let the model change the data or publish an answer on its own.
 
-## What I will keep practicing — Owner
+## What I will keep practicing — Owner 
 
-*To be written by the owner.*
+I will keep practicing how to define a question before seeing model SQL: whether annual wages include hourly conversions, whether “BI Analyst” includes the spelled-out phrase, and whether a worksite means the one recorded location or every location. I also need to recount at least one answer independently in Excel, check the model's query against its matching rows, and learn to challenge a warning when the tool itself is wrong—as H3's false `MISMATCH` shows. The approval gate should remain my decision after I see the exact answer and evidence, rather than an automatic step delegated to the agent.
 
-## Decision: ship, narrow, defer, or stop — Owner
+## Decision: Narrow — Owner 
 
-*To be written and signed by the owner, with reasons tied to the evidence above. Also record it in [SIGNOFF.md](SIGNOFF.md).*
+My proposed direction is **narrow**, with final sign-off **signed**. The evidence supports a supervised portfolio demonstration on this one FY2026 Q3 file: v2's saved replies scored 9/10 on development and 5/5 on the already-used held-out set, the tests passed, and the SQL policy stopped scripted unsafe cases. It does not support a general-purpose or live-ready release. D8 still fails, H3 can show a false warning, the held-out set was spent before owner review of v2, the live Claude CLI did not reach a gate, and no personal owner gate decision or stranger run is recorded. I revised v2, freeze a new held-out set, run the live path, and make a real gate decision before signing a narrowed release. Atharva's actual decision and signature belong in [SIGNOFF.md](SIGNOFF.md).

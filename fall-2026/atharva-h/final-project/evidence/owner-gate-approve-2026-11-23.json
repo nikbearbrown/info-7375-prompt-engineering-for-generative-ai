@@ -1,0 +1,84 @@
+{
+  "run_id": "20261124T031329Z-4d8997",
+  "question": "How many certified H-1B Data Analyst cases have a recorded worksite in Boston, MA?",
+  "qid": "D2",
+  "adapter": "recorded Claude reply, replayed: Claude Code subagent (a new general-purpose agent, separate from round 1; model inherited: claude-opus-5-5), 2026-11-21",
+  "contract": "PROMPT-CONTRACT-v2.md",
+  "started": "2026-11-24T03:13:29+00:00",
+  "finished": "2026-11-24T03:13:45+00:00",
+  "used": {
+    "proposals": 1,
+    "denials": 0,
+    "errors": 0
+  },
+  "stop_reason": "approved_and_exported",
+  "view_hash": "713713b8dbd417031d765c6560a04820f14b6b0b6c9532d30bca1459632c47e3",
+  "view_text": "# SponsorSQL answer for review\n\n**Question:** How many certified H-1B Data Analyst cases have a recorded worksite in Boston, MA?\n**Source checksum recorded in this database:** f8ca8448a528671f784d3692923775a13741c99caec2816b2fe30c8885bd28b3\n**Full answer SHA-256 (all rows):** 292177ccb01618f1b117a1316484a7f51560e3cafb80c433388ec31ed2b49b0a\n**Full evidence SHA-256 (rows kept):** dc44cda11cd74125ea2981487df05ab7052d1a2ce56a37656567613b24d8d678\n\nModel-written interpretation (not checked by SponsorSQL): Counts source rows with CASE_STATUS = 'Certified' exactly and VISA_CLASS = 'H-1B' exactly, whose JOB_TITLE contains the whole phrase 'data analyst' (title_has), and whose recorded worksite pair is Boston, MA (UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' and UPPER(TRIM(WORKSITE_STATE)) = 'MA'). Only the single worksite city/state pair on each row is checked.\nModel-written limits: The table holds one worksite city/state pair per case plus a total worksite count, not every additional worksite location, so a case whose Boston worksite is only an additional location is not counted. This is a count of cases whose recorded worksite is Boston, MA, not of every case with any Boston worksite. Other city spellings (neighborhoods, misspellings) are not merged. Counts LCA cases, not visa approvals or hires.\n\n## Answer\n1 row(s)\n\n| cases |\n|---|\n| 40 |\n\n## SQL that produced the answer\n```sql\nSELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1\n```\n\n## Matching rows (evidence)\n40 matching row(s), first 20 shown\n\n| sheet_row | CASE_NUMBER | CASE_STATUS | VISA_CLASS | EMPLOYER_NAME | JOB_TITLE | WORKSITE_CITY | WORKSITE_STATE |\n|---|---|---|---|---|---|---|---|\n| 8272 | I-200-25306-357292 | Certified | H-1B | Gupta Media Holdings LLC | Marketing Data Analyst II | Boston | MA |\n| 24187 | I-200-25307-360814 | Certified | H-1B | CarGurus, Inc. | Senior Product Data Analyst | Boston | MA |\n| 43289 | I-200-25322-419286 | Certified | H-1B | Brigham and Women's Hospital | Data Analyst I | Boston | MA |\n| 47607 | I-200-25324-425744 | Certified | H-1B | Tufts Medical Center, Inc. | Data Analyst III (Stroke Center Data Analyst) | Boston | MA |\n| 76062 | I-200-25350-486041 | Certified | H-1B | Apexsync Technologies LLC | Data Analyst | Boston | MA |\n| 82326 | I-200-25356-502465 | Certified | H-1B | Cisco Systems, Inc. | Data Analyst | Boston | MA |\n| 83166 | I-200-25360-510905 | Certified | H-1B | Cermax Corp. | Data Analyst | Boston | MA |\n| 88831 | I-200-25364-516437 | Certified | H-1B | Brigham and Women's Hospital | Data Analyst II | Boston | MA |\n| 110282 | I-200-26016-567907 | Certified | H-1B | Federal Express Corporation | Sr Data Analyst | Boston | MA |\n| 128453 | I-200-26028-597827 | Certified | H-1B | Federal Express Corporation | Sr Data Analyst | Boston | MA |\n| 144993 | I-200-26041-630477 | Certified | H-1B | Langan Engineering and Environmental Services, LLC | GIS/Environmental Data Analyst | Boston | MA |\n| 146472 | I-200-26042-633674 | Certified | H-1B | General Hospital Corporation | Senior Data Analyst | Boston | MA |\n| 149851 | I-200-26043-638165 | Certified | H-1B | Beth Israel Deaconess Medical Center,Inc. | Senior Data Analyst | Boston | MA |\n| 188214 | I-200-26071-699123 | Certified | H-1B | TRUSTEES OF BOSTON UNIVERSITY | Senior Data Analyst | Boston | MA |\n| 193259 | I-200-26076-710016 | Certified | H-1B | SCHNEIDER ELECTRIC USA, INC. | Senior Data Analyst | Boston | MA |\n| 196991 | I-200-26077-712461 | Certified | H-1B | General Hospital Corporation | Senior Data Analyst | Boston | MA |\n| 199932 | I-200-26079-718102 | Certified | H-1B | Boston Medical Center Corporation | Senior Quality Improvement Data Analyst | Boston | MA |\n| 201994 | I-200-26082-721531 | Certified | H-1B | Grantham, Mayo, Van Otterloo & Co. LLC | Research Data Analyst | Boston | MA |\n| 204978 | I-200-26083-727151 | Certified | H-1B | PUBLIC PARTNERSHIPS LLC | Sr. Data Analyst | Boston | MA |\n| 224163 | I-200-26092-752707 | Certified | H-1B | General Hospital Corporation | Data Analyst, Senior | Boston | MA |\n\n```sql\nSELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1 ORDER BY sheet_row ASC\n```\n\n**SponsorSQL count-versus-rows check:** answer 40 matches 40 matching rows\n\nAn LCA filing is not a job offer, a visa approval, or a promise of sponsorship.\n",
+  "decision": "approve",
+  "export_path": "outputs/answers/20261124T031329Z-4d8997.md",
+  "steps": [
+    {
+      "at": "2026-11-24T03:13:29+00:00",
+      "step": "observe",
+      "question": "How many certified H-1B Data Analyst cases have a recorded worksite in Boston, MA?",
+      "source_sha256": "f8ca8448a528671f784d3692923775a13741c99caec2816b2fe30c8885bd28b3"
+    },
+    {
+      "at": "2026-11-24T03:13:29+00:00",
+      "step": "decide",
+      "attempt": 0,
+      "adapter": "recorded Claude reply, replayed: Claude Code subagent (a new general-purpose agent, separate from round 1; model inherited: claude-opus-5-5), 2026-11-21",
+      "reply": "{\"interpretation\": \"Counts source rows with CASE_STATUS = 'Certified' exactly and VISA_CLASS = 'H-1B' exactly, whose JOB_TITLE contains the whole phrase 'data analyst' (title_has), and whose recorded worksite pair is Boston, MA (UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' and UPPER(TRIM(WORKSITE_STATE)) = 'MA'). Only the single worksite city/state pair on each row is checked.\", \"sql\": \"SELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1\", \"rows_sql\": \"SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1 ORDER BY sheet_row ASC\", \"answer_type\": \"count\", \"limits\": \"The table holds one worksite city/state pair per case plus a total worksite count, not every additional worksite location, so a case whose Boston worksite is only an additional location is not counted. This is a count of cases whose recorded worksite is Boston, MA, not of every case with any Boston worksite. Other city spellings (neighborhoods, misspellings) are not merged. Counts LCA cases, not visa approvals or hires.\", \"needs_clarification\": false}"
+    },
+    {
+      "at": "2026-11-24T03:13:29+00:00",
+      "step": "act",
+      "attempt": 0,
+      "sql": "SELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1",
+      "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1 ORDER BY sheet_row ASC",
+      "answer_columns": [
+        "cases"
+      ],
+      "answer_rows": 1,
+      "evidence_rows": 40,
+      "seconds": 0.146,
+      "check": "answer 40 matches 40 matching rows"
+    },
+    {
+      "at": "2026-11-24T03:13:45+00:00",
+      "step": "gate",
+      "mode": "interactive",
+      "decision": "approve",
+      "approver": "interactive terminal user",
+      "note": "",
+      "bound_hash": "713713b8dbd417031d765c6560a04820f14b6b0b6c9532d30bca1459632c47e3",
+      "reason": ""
+    },
+    {
+      "at": "2026-11-24T03:13:45+00:00",
+      "step": "stop",
+      "stop_reason": "approved_and_exported",
+      "path": "outputs/answers/20261124T031329Z-4d8997.md"
+    }
+  ],
+  "result": {
+    "interpretation": "Counts source rows with CASE_STATUS = 'Certified' exactly and VISA_CLASS = 'H-1B' exactly, whose JOB_TITLE contains the whole phrase 'data analyst' (title_has), and whose recorded worksite pair is Boston, MA (UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' and UPPER(TRIM(WORKSITE_STATE)) = 'MA'). Only the single worksite city/state pair on each row is checked.",
+    "sql": "SELECT COUNT(*) AS cases FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1",
+    "rows_sql": "SELECT sheet_row, CASE_NUMBER, CASE_STATUS, VISA_CLASS, EMPLOYER_NAME, JOB_TITLE, WORKSITE_CITY, WORKSITE_STATE FROM lca WHERE CASE_STATUS = 'Certified' AND VISA_CLASS = 'H-1B' AND UPPER(TRIM(WORKSITE_STATE)) = 'MA' AND UPPER(TRIM(WORKSITE_CITY)) = 'BOSTON' AND title_has(JOB_TITLE, 'data analyst') = 1 ORDER BY sheet_row ASC",
+    "answer_type": "count",
+    "limits": [
+      "The table holds one worksite city/state pair per case plus a total worksite count, not every additional worksite location, so a case whose Boston worksite is only an additional location is not counted. This is a count of cases whose recorded worksite is Boston, MA, not of every case with any Boston worksite. Other city spellings (neighborhoods, misspellings) are not merged. Counts LCA cases, not visa approvals or hires."
+    ],
+    "columns": [
+      "cases"
+    ],
+    "rows": [
+      [
+        40
+      ]
+    ],
+    "total_rows": 1,
+    "evidence_rows": 40,
+    "check": "answer 40 matches 40 matching rows"
+  }
+}

@@ -43,6 +43,12 @@ Claude (Claude Code, Opus 5.5) in sessions on 2026-11-21:
 
 **Rough estimate of code origin:** essentially all Python in this folder was written by Claude at the owner's direction; the owner's work is the direction, the decisions, and review (pending where noted). Claude responses shown as evidence are ones actually received on 2026-11-21, with dates in their provenance blocks.
 
+## 2026-11-23 assisted review
+
+A separate AI-assisted session read the contract and pre-mortem, ran the 43-test suite, attempted the live CLI path, exercised a recorded-reply interactive gate with a deferral, checked D2 and H1 against matching database rows, and obtained a Boston count of 40 through a temporary Excel formula. The workbook was closed without saving. The session drafted [SIGNOFF.md](SIGNOFF.md), the Owner sections of [transfer-reflection.md](transfer-reflection.md), and [evidence/assisted-checks-2026-11-23.md](evidence/assisted-checks-2026-11-23.md). Those drafts are not Atharva's personal test run, gate decision, Excel recount, contract acceptance, reflection, or signature. No new model reply was produced by the attempted live CLI call.
+
+The same evening, Atharva personally repeated the test run (43 passed), the D2 and H1 row checks and the Boston Excel count (40), and reviewed contract v2. These are ticked in [SIGNOFF.md](SIGNOFF.md).
+
 ## Style
 
 Python follows PEP 8 in spirit (4-space indents, snake_case, line lengths around 100). No formatter was run.
