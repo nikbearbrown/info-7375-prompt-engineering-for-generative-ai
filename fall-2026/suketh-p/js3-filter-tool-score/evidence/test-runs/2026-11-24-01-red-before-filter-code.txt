@@ -1,0 +1,49 @@
+$ python3 -m unittest tests.test_screen tests.test_evidence tests.test_js3_wrong_versions_caught
+# 2026-11-24T22:41:22Z, at HEAD ef0e7057, before jobwatch/screen.py, location.py and evidence.py exist
+EEE
+======================================================================
+ERROR: test_screen (unittest.loader._FailedTest.test_screen)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_screen
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_screen.py", line 9, in <module>
+    from jobwatch import screen
+ImportError: cannot import name 'screen' from 'jobwatch' (~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/jobwatch/__init__.py)
+
+
+======================================================================
+ERROR: test_evidence (unittest.loader._FailedTest.test_evidence)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_evidence
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_evidence.py", line 9, in <module>
+    from jobwatch import evidence
+ImportError: cannot import name 'evidence' from 'jobwatch' (~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/jobwatch/__init__.py)
+
+
+======================================================================
+ERROR: test_js3_wrong_versions_caught (unittest.loader._FailedTest.test_js3_wrong_versions_caught)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_js3_wrong_versions_caught
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_js3_wrong_versions_caught.py", line 9, in <module>
+    from tests import js3_wrong_versions as wrong
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/js3_wrong_versions.py", line 7, in <module>
+    from jobwatch import evidence, location, screen
+ImportError: cannot import name 'evidence' from 'jobwatch' (~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/jobwatch/__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+FAILED (errors=3)
+# exit code 1
