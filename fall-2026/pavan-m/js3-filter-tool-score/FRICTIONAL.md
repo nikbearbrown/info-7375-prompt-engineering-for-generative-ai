@@ -49,3 +49,7 @@ Accepted Claude Code's choices, including a separate read check for audit/ rathe
 ## Entry 13 — November 23, 2026: Held-out labels, judged blind
 Drew a held-out sample (seed 7376): 20 random postings with a target engineering title, excluding the 48 audited postings, plus the 12 postings that C3 adds as KEEP, shuffled together. Judged all 32 myself, blind, using audit/AUDIT_RULE.md, before opening the key: 7 relevant, 25 not relevant.
 Honest notes: (1) I judged 9 internships not relevant for Alex's level, but neither my AUDIT_RULE nor FILTER.md v1.0 mentions internships; (2) as in the audit, I also judged several 4+/5+ year roles not relevant, which is stricter than my written 8+ rule.
+
+## Entry 14 — November 23, 2026: Held-out results changed my conclusion
+On 20 held-out postings, v1.0, C1 and C3 all agree with me on 18/20 (95% interval 70–97%). C1's dev gain (37→40/48) did not show up on postings it wasn't chosen from, so I added it to v1.1 only with that caveat. C3 rejected: of its 12 added KEEPs, I judged 3 relevant (25%); 7 of the 9 bad ones were internships, which exposed that FILTER.md has no internship rule. Both held-out misses (H02, H27) are Palantir, consistent with the Lever retrieval gap. C2, C4 and an internship rule were considered but not tested (time).
+v1.1 = v1.0 + years cutoff 5, applied via config/filter_v1_1.json; code defaults unchanged, so no test was modified.
