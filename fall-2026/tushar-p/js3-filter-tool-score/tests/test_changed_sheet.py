@@ -112,6 +112,18 @@ def test_rebuild_refuses_to_overwrite_and_force_is_deterministic(built):
 
 
 def test_committed_sheet_matches_a_fresh_build(built):
+    """Every posting cell of the committed sheet equals a fresh seeded build. The label columns
+    (my_verdict, note, and the labeler's labeled_at) were filled by Tushar after the empty sheet
+    was committed in 685f22d, so they are the only cells not compared."""
     root, _ = built
-    assert (root / "labels" / "changed-sheet.csv").read_bytes() == \
-        (PROJECT_DIR / "labels" / "changed-sheet.csv").read_bytes()
+    label_cols = {"my_verdict", "note", "labeled_at"}
+
+    def posting_cells(path):
+        with open(path, newline="", encoding="utf-8") as fh:
+            return [{k: v for k, v in r.items() if k not in label_cols} for r in csv.DictReader(fh)]
+
+    fresh = posting_cells(root / "labels" / "changed-sheet.csv")
+    committed = posting_cells(PROJECT_DIR / "labels" / "changed-sheet.csv")
+    assert committed == fresh and len(fresh) == 16
+    for r in fresh:   # the text files the labeler showed are byte-identical to a fresh build
+        assert (PROJECT_DIR / "labels" / r["text_file"]).read_bytes() == (root / "labels" / r["text_file"]).read_bytes()

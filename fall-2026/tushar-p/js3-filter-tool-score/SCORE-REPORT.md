@@ -3,8 +3,8 @@
 Tushar Patel · INFO 7375 · Fall 2026 · 2026-11-23
 
 - **Rules frozen at commit `f3edf99`** ("js3: v0.2 erratum + C4 preferred-heading rule, frozen before held-out"). Neither FILTER.md nor `agent/` has changed since then.
-- **Section 2 is the first and only comparison** of the held-out labels with any filter result.
-- **Sources of the numbers.** Section 1 is written by hand and checked against the code constants by `tests/test_score_report.py`. Section 2 is the verbatim output of `python checks/score_report.py`, and the same test reruns the script and compares.
+- **Section 2 is the first and only comparison** of the held-out labels with any filter result. Section 2b measures a separate, later blind sheet of postings the changes actually move.
+- **Sources of the numbers.** Section 1 is written by hand and checked against the code constants by `tests/test_score_report.py`. Sections 2 and 2b are the verbatim output of `python checks/score_report.py --section 2` and `--section 2b`, and the same test reruns the script and compares.
 
 ## 1. Origin of every number and word list
 
@@ -179,6 +179,174 @@ No held-out row changes verdict versus v0.1.
   - Four of them are keep labels on titles outside the persona's target roles, the same pattern as audit row 19 before its post-unblinding correction.
   - These labels stay as they were labeled blind. Changing a held-out label now, after seeing the filter's verdicts, would make the held-out set no longer blind.
   - Agreeing with them would need a G1 change, and the rules are frozen.
+
+## 2b. Changed-postings set
+
+**Why this set exists.** The held-out draw contained no posting any change could move (section 2). So after the comparison, with rules still frozen at `f3edf99`, every posting outside the audit and held-out sheets whose verdict differs from v0.1 under some mode was put on a new blind sheet: N = 8 changed postings. To these were added 8 random postings from the same pool whose verdict is the same in every mode (seed 7375).
+
+- The sheet was built by `tools/changed_sheet.py` and committed empty in `685f22d`.
+- Tushar labeled it blind between 22:54:55 and 22:57:36 on 2026-11-23 (2 min 41 s).
+- The labels were committed in `8d8e92f` before the group key was read.
+
+<!-- BEGIN checks/score_report.py --section 2b output -->
+Changed-postings sheet (blind labels, commit 8d8e92f): 8 changed + 8 controls = 16 rows; labels 7 keep, 7 reject, 2 cannot_tell.
+
+### Agreement per mode
+
+| mode | changed rows (8) | controls (8) | all 16 |
+|---|---|---|---|
+| v0.1 | 1/8 | 5/8 | 6/16 |
+| v0.1+C1 | 6/8 | 5/8 | 11/16 |
+| v0.1+C2 | 1/8 | 5/8 | 6/16 |
+| v0.1+C3 | 1/8 | 5/8 | 6/16 |
+| v0.1+C4 | 0/8 | 5/8 | 5/16 |
+| v0.1+C5 | 1/8 | 5/8 | 6/16 |
+| v0.1+C6 | 2/8 | 5/8 | 7/16 |
+| v0.2 | 6/8 | 5/8 | 11/16 |
+
+### Per change: rows it moves versus v0.1
+
+Toward: the new verdict equals the label and the old one did not. Away: the old verdict equalled the label and the new one does not. Stayed wrong: neither equals the label.
+
+| change | rows moved | toward my label | away from my label | stayed wrong |
+|---|---|---|---|---|
+| C1 | 6 | 5 | 0 | 1 |
+| C2 | 0 | 0 | 0 | 0 |
+| C3 | 1 | 0 | 0 | 1 |
+| C4 | 1 | 0 | 1 | 0 |
+| C5 | 0 | 0 | 0 | 0 |
+| C6 | 1 | 1 | 0 | 0 |
+| v0.2 (combined) | 7 | 5 | 0 | 2 |
+
+#### C1 (G4: no stated experience passes)
+
+| row | title | v0.1 | new | my label | my note | direction | decided by (new) |
+|---|---|---|---|---|---|---|---|
+| 2 | Software Engineer, Collections Infra | cannot_tell | keep | keep |  | toward | score 4 (topic backend, distributed systems, infrastructure, platform; skills TypeScript) |
+| 3 | Software Engineer, High Availability and Disaster Recovery | cannot_tell | keep | reject |  | stayed wrong | score 4 (topic infrastructure, platform; skills Java, SQL) |
+| 6 | Software Engineer, Infrastructure Security | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills AWS) |
+| 9 | Software Engineer, Early Career — Immediate Start | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills Java) |
+| 13 | Software Engineer, Mobile Platform (iOS) | cannot_tell | keep | keep |  | toward | score 2 (topic infrastructure, platform; skills -) |
+| 14 | Software Engineer, New Grad | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills Java) |
+
+#### C2 (G4: stated maximum that 0 years satisfies)
+
+Moves no row on this sheet.
+
+#### C3 (G4: cutoff 3 → 2)
+
+| row | title | v0.1 | new | my label | my note | direction | decided by (new) |
+|---|---|---|---|---|---|---|---|
+| 8 | Full Stack Engineer, Web Presence and Platform | cannot_tell | reject | keep |  | stayed wrong | G4 fail (3+ years) |
+
+#### C4 (G4: every mandatory minimum; mixed → unknown; preferred ignored)
+
+| row | title | v0.1 | new | my label | my note | direction | decided by (new) |
+|---|---|---|---|---|---|---|---|
+| 4 | Software Engineer, Secrets Infrastructure | reject | cannot_tell | reject | Location not given also 5 years of minimum experience required | away | G3 unknown (na) |
+
+#### C5 (topic words without "platform")
+
+Moves no row on this sheet.
+
+#### C6 (G4: "two (2) years" forms)
+
+| row | title | v0.1 | new | my label | my note | direction | decided by (new) |
+|---|---|---|---|---|---|---|---|
+| 3 | Software Engineer, High Availability and Disaster Recovery | cannot_tell | reject | reject |  | toward | G4 fail (five (5) years of; three (3) years of; three (3) years of) |
+
+#### v0.2 (combined; reported separately)
+
+| row | title | v0.1 | new | my label | my note | direction | decided by (new) |
+|---|---|---|---|---|---|---|---|
+| 2 | Software Engineer, Collections Infra | cannot_tell | keep | keep |  | toward | score 4 (topic backend, distributed systems, infrastructure; skills TypeScript) |
+| 3 | Software Engineer, High Availability and Disaster Recovery | cannot_tell | reject | reject |  | toward | G4 fail (five (5) years of; three (3) years of; three (3) years of) |
+| 6 | Software Engineer, Infrastructure Security | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills AWS) |
+| 8 | Full Stack Engineer, Web Presence and Platform | cannot_tell | reject | keep |  | stayed wrong | G4 fail (3+ years) |
+| 9 | Software Engineer, Early Career — Immediate Start | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills Java) |
+| 13 | Software Engineer, Mobile Platform (iOS) | cannot_tell | reject | keep |  | stayed wrong | score 1 (topic infrastructure; skills -) |
+| 14 | Software Engineer, New Grad | cannot_tell | keep | keep |  | toward | score 3 (topic backend, infrastructure; skills Java) |
+
+### Confusion matrix, v0.1 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 1 | 6 | 2 |
+| **cannot_tell** | 6 | 1 | 0 |
+
+### Confusion matrix, v0.1+C1 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 5 | 1 | 0 |
+| **reject** | 1 | 6 | 2 |
+| **cannot_tell** | 1 | 0 | 0 |
+
+### Confusion matrix, v0.1+C2 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 1 | 6 | 2 |
+| **cannot_tell** | 6 | 1 | 0 |
+
+### Confusion matrix, v0.1+C3 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 2 | 6 | 2 |
+| **cannot_tell** | 5 | 1 | 0 |
+
+### Confusion matrix, v0.1+C4 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 1 | 5 | 2 |
+| **cannot_tell** | 6 | 2 | 0 |
+
+### Confusion matrix, v0.1+C5 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 1 | 6 | 2 |
+| **cannot_tell** | 6 | 1 | 0 |
+
+### Confusion matrix, v0.1+C6 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 0 | 0 | 0 |
+| **reject** | 1 | 7 | 2 |
+| **cannot_tell** | 6 | 0 | 0 |
+
+### Confusion matrix, v0.2 (all 16 rows)
+
+| filter ↓ / me → | keep | reject | cannot_tell |
+|---|---|---|---|
+| **keep** | 4 | 0 | 0 |
+| **reject** | 3 | 7 | 2 |
+| **cannot_tell** | 0 | 0 | 0 |
+<!-- END checks/score_report.py --section 2b output -->
+
+**What section 2b shows (direction only).**
+- **C1 moved 6 rows: 5 toward the label and 1 stayed wrong.** Each of the six went from cannot_tell to keep. The one that stayed wrong is row 3: it states "five (5) years", which v0.1 cannot read, and you labeled it reject.
+- **C6 moved that same row 3 toward the label** (cannot_tell → reject on "five (5) years of"). Combined in v0.2, C1 and C6 get row 3 right.
+- **C3 moved row 8 from cannot_tell to reject** on "3+ years"; your label is keep, so it stayed wrong. That fits C3 being a search-scope choice rather than something the labels support. On this row, at least, you would accept a 3-year minimum.
+- **C4 moved row 4 away from the label**, from reject to cannot_tell. The posting states mandatory minimums of 3+ and 5+ years, and C4 calls that mixed. Your note gives the reason you'd reject it: "Location not given also 5 years of minimum experience required". C4's mixed → unknown rule doesn't reject on the higher minimum.
+- **C2 and C5 alone move no row here.** In v0.2, C5 contributes to row 13 staying wrong. C1 lets the row reach the score, and without "platform" it scores 1 and is rejected; you labeled it keep. That only shows up in combination.
+- **v0.2 moved 7 rows: 5 toward, 0 away, 2 stayed wrong** (rows 8 and 13). Changed-row agreement goes from 1/8 to 6/8.
+- **The controls stay at 5/8 in every mode,** because no mode moves them by construction.
+
+**Limits of section 2b.**
+- **Selected, not random.** The 8 changed rows were chosen *because* a change moves them, so their agreement is not an estimate of how often the filter is right on postings in general. Only the 8 controls are a random draw, and they are an unchanged-by-construction group.
+- **n is tiny.** There are 8 changed rows, and each change moves at most 6 of them. One row more or less is the whole difference.
+- **This tests direction, not a rate.** It answers "when this change moves a posting, does it move it toward Tushar's blind judgment?" It does not give an error rate for any mode.
+- **Labeling pace.** The sheet was labeled faster than the audit sheet: the gaps between rows were 3–35 s, with a median of 7 s. None was the 1-second pattern of the discarded first audit pass, and the verdicts are mixed.
+- **Rules were not revised** after this measurement; they remain as frozen at `f3edf99`.
 
 ## 3. Honest limits
 

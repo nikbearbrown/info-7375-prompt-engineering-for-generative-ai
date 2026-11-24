@@ -20,20 +20,57 @@ SHEETS_LINES = (PROJECT_DIR / "agent" / "sheets.py").read_text(encoding="utf-8")
 CITED_AS = {57: "agent/filter.py:55–57", 259: "agent/filter.py:257–259"}
 
 
-@pytest.fixture(scope="module")
-def script_output():
+BEGIN_2B = "<!-- BEGIN checks/score_report.py --section 2b output -->\n"
+END_2B = "<!-- END checks/score_report.py --section 2b output -->"
+
+
+def _run(*argv):
     spec = importlib.util.spec_from_file_location("score_report", PROJECT_DIR / "checks" / "score_report.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        assert module.main() == 0
+        assert module.main(list(argv)) == 0
     return buf.getvalue()
+
+
+@pytest.fixture(scope="module")
+def script_output():
+    return _run("--section", "2")
+
+
+@pytest.fixture(scope="module")
+def section_2b_output():
+    return _run("--section", "2b")
 
 
 def test_section_2_is_the_script_output_verbatim(script_output):
     committed = REPORT[REPORT.index(BEGIN) + len(BEGIN):REPORT.index(END)]
     assert committed == script_output
+
+
+def test_default_section_is_2(script_output):
+    assert _run() == script_output
+
+
+def test_section_2b_is_the_script_output_verbatim(section_2b_output):
+    committed = REPORT[REPORT.index(BEGIN_2B) + len(BEGIN_2B):REPORT.index(END_2B)]
+    assert committed == section_2b_output
+
+
+def test_section_2b_headline_figures(section_2b_output):
+    assert "8 changed + 8 controls = 16 rows; labels 7 keep, 7 reject, 2 cannot_tell." in section_2b_output
+    assert "| v0.1 | 1/8 | 5/8 | 6/16 |" in section_2b_output
+    assert "| v0.2 | 6/8 | 5/8 | 11/16 |" in section_2b_output
+    for row in ("| C1 | 6 | 5 | 0 | 1 |", "| C2 | 0 | 0 | 0 | 0 |", "| C3 | 1 | 0 | 0 | 1 |",
+                "| C4 | 1 | 0 | 1 | 0 |", "| C5 | 0 | 0 | 0 | 0 |", "| C6 | 1 | 1 | 0 | 0 |",
+                "| v0.2 (combined) | 7 | 5 | 0 | 2 |"):
+        assert row in section_2b_output
+
+
+def test_section_2b_controls_never_move(section_2b_output):
+    lines = [ln for ln in section_2b_output.splitlines() if ln.startswith("| v0.")]
+    assert lines and all(ln.split(" | ")[2] == "5/8" for ln in lines[:8])
 
 
 def test_section_2_headline_figures(script_output):

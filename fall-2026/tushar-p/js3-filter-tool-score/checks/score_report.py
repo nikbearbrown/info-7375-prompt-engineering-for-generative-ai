@@ -1,6 +1,10 @@
 """Held-out measurement for SCORE-REPORT.md section 2 (rules frozen at commit f3edf99).
 
-CLI: python checks/score_report.py        (run from js3-filter-tool-score/)
+CLI: python checks/score_report.py [--section 2 | 2b]       (run from js3-filter-tool-score/)
+
+Section 2b (changed-postings set): Tushar's blind labels on labels/changed-sheet.csv (committed
+in 8d8e92f before the group key was read). The changed/control groups are redrawn in-process with
+tools/changed_sheet.choose (seed 7375) and, if out/changed-key.json exists, checked against it.
 
 Compares the blind hand labels in labels/heldout-sheet.csv (committed in f97f528a, before any
 filter result was opened) with every rule mode: v0.1, each v0.1+Cn alone, and v0.2 combined.
@@ -9,7 +13,9 @@ computed in-process from evidence/runs/live-text-1 with the current agent/filter
 markdown; SCORE-REPORT.md section 2 is this output verbatim (tests/test_score_report.py checks).
 """
 
+import argparse
 import csv
+import json
 import math
 import sys
 from collections import Counter
@@ -21,9 +27,12 @@ sys.path.insert(0, str(ROOT))
 from agent import filter as flt  # noqa: E402
 from agent import sheets  # noqa: E402
 from agent.postings import load_run  # noqa: E402
+from tools import changed_sheet  # noqa: E402
 
 RUN = ROOT / "evidence" / "runs" / "live-text-1"
 SHEET = ROOT / "labels" / "heldout-sheet.csv"
+CHANGED_SHEET = ROOT / "labels" / "changed-sheet.csv"
+CHANGED_KEY = ROOT / "out" / "changed-key.json"  # optional cross-check only
 VERDICTS = ("keep", "reject", "cannot_tell")
 SINGLE = tuple(f"v0.1+C{i}" for i in range(1, 7))
 WHAT = {"C1": "G4: no stated experience passes", "C2": "G4: stated maximum that 0 years satisfies",
@@ -148,8 +157,85 @@ def report(rows, results, everything, pool) -> str:
     return "\n".join(out) + "\n"
 
 
-def main() -> int:
-    print(report(*compute()), end="")
+def compute_changed(everything):
+    """Changed-sheet rows with their group and per-mode results."""
+    rows = list(csv.DictReader(CHANGED_SHEET.open(newline="", encoding="utf-8")))
+    assert len(rows) == 16 and all(r["my_verdict"] in VERDICTS for r in rows)
+    excluded = changed_sheet.sheet_keys(ROOT / "audit" / "audit-sheet.csv") | changed_sheet.sheet_keys(SHEET)
+    chosen = changed_sheet.choose(everything, excluded)
+    assert [(r["board"], r["id"]) for r in rows] == chosen["rows"], "sheet rows differ from the seeded draw"
+    if CHANGED_KEY.exists():
+        on_disk = [((r["board"], r["id"]), r["group"]) for r in json.loads(CHANGED_KEY.read_text())["rows"]]
+        assert on_disk == [(k, chosen["groups"][k]) for k in chosen["rows"]], "out/changed-key.json differs"
+    for r in rows:
+        r["group"] = chosen["groups"][(r["board"], r["id"])]
+    results = {m: [everything[m][(r["board"], r["id"])] for r in rows] for m in everything}
+    return rows, results
+
+
+def report_changed(rows, results) -> str:
+    out = []
+    labels = Counter(r["my_verdict"] for r in rows)
+    groups = Counter(r["group"] for r in rows)
+    out.append(f"Changed-postings sheet (blind labels, commit 8d8e92f): {groups['changed']} changed + "
+               f"{groups['control']} controls = {len(rows)} rows; labels {labels['keep']} keep, "
+               f"{labels['reject']} reject, {labels['cannot_tell']} cannot_tell.\n")
+    out.append("### Agreement per mode\n")
+    out.append("| mode | changed rows (8) | controls (8) | all 16 |")
+    out.append("|---|---|---|---|")
+    modes = ("v0.1", *SINGLE, "v0.2")
+    for m in modes:
+        cells = []
+        for group in ("changed", "control", None):
+            idx = [i for i, r in enumerate(rows) if group is None or r["group"] == group]
+            k = sum(results[m][i]["verdict"] == rows[i]["my_verdict"] for i in idx)
+            cells.append(f"{k}/{len(idx)}")
+        out.append(f"| {m} | " + " | ".join(cells) + " |")
+    out.append("\n### Per change: rows it moves versus v0.1\n")
+    out.append("Toward: the new verdict equals the label and the old one did not. Away: the old verdict equalled "
+               "the label and the new one does not. Stayed wrong: neither equals the label.\n")
+    out.append("| change | rows moved | toward my label | away from my label | stayed wrong |")
+    out.append("|---|---|---|---|---|")
+    moved = {}
+    for m in (*SINGLE, "v0.2"):
+        mv = [i for i in range(len(rows)) if results[m][i]["verdict"] != results["v0.1"][i]["verdict"]]
+        moved[m] = mv
+        toward = sum(results[m][i]["verdict"] == rows[i]["my_verdict"] for i in mv)
+        away = sum(results["v0.1"][i]["verdict"] == rows[i]["my_verdict"] for i in mv)
+        name = "v0.2 (combined)" if m == "v0.2" else m[5:]
+        out.append(f"| {name} | {len(mv)} | {toward} | {away} | {len(mv) - toward - away} |")
+    for m in (*SINGLE, "v0.2"):
+        name = "v0.2 (combined; reported separately)" if m == "v0.2" else f"{m[5:]} ({WHAT[m[5:]]})"
+        out.append(f"\n#### {name}\n")
+        if not moved[m]:
+            out.append("Moves no row on this sheet.")
+            continue
+        out.append("| row | title | v0.1 | new | my label | my note | direction | decided by (new) |")
+        out.append("|---|---|---|---|---|---|---|---|")
+        for i in moved[m]:
+            r, old, new = rows[i], results["v0.1"][i], results[m][i]
+            direction = ("toward" if new["verdict"] == r["my_verdict"] else
+                         "away" if old["verdict"] == r["my_verdict"] else "stayed wrong")
+            note = r["note"].replace("|", "/")
+            out.append(f"| {r['row']} | {r['title']} | {old['verdict']} | {new['verdict']} | {r['my_verdict']} | "
+                       f"{note} | {direction} | {why(new)} |")
+    for m in modes:
+        out.append(f"\n### Confusion matrix, {m} (all 16 rows)\n")
+        out.append(matrix([(res["verdict"], r["my_verdict"]) for res, r in zip(results[m], rows)]))
+    return "\n".join(out) + "\n"
+
+
+def compute_all():
+    rows, results, everything, pool = compute()
+    return (rows, results, everything, pool), compute_changed(everything)
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(prog="checks/score_report.py")
+    parser.add_argument("--section", choices=("2", "2b"), default="2")
+    args = parser.parse_args(argv)
+    held, changed = compute_all()
+    print(report(*held) if args.section == "2" else report_changed(*changed), end="")
     return 0
 
 
