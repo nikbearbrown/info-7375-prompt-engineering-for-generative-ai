@@ -73,3 +73,4 @@ Built in one Claude Code session on 2026-11-23, from my October pitch film. The 
 - Asked for a strict score of the script before rendering, then: "Apply fixes" (what the research got, a coding agent's permission prompt, dates for each step).
 - Brought a ChatGPT review of the draft (22.5/25) and had each point checked against the files before applying it: the evaluation metric, two narration lines (B05, B07) and one sentence in the Frictional log. A second ChatGPT check found two appendix sentences with the old wording; both were fixed.
 - Asked for a final grade as the strictest TA (23.5/25), then: "Yes, fix both" (ShellCheck and explainshell in the appendix's prior work, and fixed task counts in its evaluation).
+- Asked for my film to be compared with my classmates' submitted folders, then: "yes do it" (a ShellCheck baseline in the appendix; part 1 named "Executive summary").

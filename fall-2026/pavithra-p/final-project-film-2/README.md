@@ -16,10 +16,10 @@ The film follows the professor's four parts, in order. A kicker on every frame n
 
 | Part | Beats | Time | What it covers |
 |---|---|---|---|
-| 1 · What and why | B00–B05 | 0:00–0:54 | What DryRun is, with no "how"; the problem; the real Claude reply and my test of it; why it matters |
+| 1 · Executive summary: what and why | B00–B05 | 0:00–0:54 | What DryRun is, with no "how"; the problem; the real Claude reply and my test of it; why it matters |
 | 2 · What others have done | B06–B09 | 0:54–1:40 | Coding agents' permission prompt, `try`, InterCode and NL2SH, and what they got; why mine is still worth building |
 | 3 · Methods | B10–B19 | 1:40–3:35 | How it will work, the human approval, the trap folders, where the data comes from, the steps with dates, and the credits, accounts, access and compute I have |
-| 4 · Evaluation | B20–B25 | 3:35–4:23 | What I'll measure, the held-out set, at least five planted wrong commands, what result means it worked or didn't, and what it can't show |
+| 4 · Evaluation | B20–B25 | 3:35–4:23 | What I'll measure, the ShellCheck baseline, the held-out set, at least five planted wrong commands, what result means it worked or didn't, and what it can't show |
 
 The detail behind parts 2 to 4 is in [`APPENDIX.md`](APPENDIX.md), including two more existing tools (ShellCheck and explainshell) and the task counts for the evaluation (30 tasks, 10 held out).
 

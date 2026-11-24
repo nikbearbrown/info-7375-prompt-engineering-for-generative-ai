@@ -1,0 +1,71 @@
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/zz-sponsorscout-canary-0", "request_no": 1}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/zz-sponsorscout-canary-0", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/zz-sponsorscout-canary-0.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/zz-sponsorscout-canary-0?mode=json", "request_no": 2}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/zz-sponsorscout-canary-0?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/zz-sponsorscout-canary-0.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/zz-sponsorscout-canary-0", "request_no": 3}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/zz-sponsorscout-canary-0", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/ashby/zz-sponsorscout-canary-0.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "observe", "company": "HUMAN INC", "slugs_planned": ["human"]}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "HUMAN INC", "next": {"ats": "greenhouse", "slug": "human", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/human", "request_no": 4}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/human", "outcome": "name-partial", "sha256": "ea76c8cd6ca7f7d113cf571336f90fa1a86b826e83f76604bddbe0570c353059", "raw_path": "raw/greenhouse/human.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "HUMAN INC", "next": {"ats": "lever", "slug": "human", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/human?mode=json", "request_no": 5}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/human?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/human.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "HUMAN INC", "next": {"ats": "ashby", "slug": "human", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/human", "request_no": 6}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/human", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/ashby/human.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "HUMAN INC", "action": "stop-company", "reason": "plan-exhausted"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "observe", "company": "NUTANIX INC", "slugs_planned": ["nutanix"]}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "NUTANIX INC", "next": {"ats": "greenhouse", "slug": "nutanix", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/nutanix", "request_no": 7}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/nutanix", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/nutanix.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "NUTANIX INC", "next": {"ats": "lever", "slug": "nutanix", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/nutanix?mode=json", "request_no": 8}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/nutanix?mode=json", "outcome": "exists-no-name", "sha256": "e8fe644c168577ef28f3b4a8176c064776b4db11ad417c0d68d66a051c6cf879", "raw_path": "raw/lever/nutanix.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "NUTANIX INC", "action": "stop-company", "reason": "strong-hit"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "observe", "company": "SOFAR SOUNDS LTD", "slugs_planned": ["sofarsounds", "sofar-sounds", "sofar"]}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "greenhouse", "slug": "sofarsounds", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/sofarsounds", "request_no": 9}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/sofarsounds", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/sofarsounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "lever", "slug": "sofarsounds", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/sofarsounds?mode=json", "request_no": 10}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/sofarsounds?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/sofarsounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "ashby", "slug": "sofarsounds", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/sofarsounds", "request_no": 11}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/sofarsounds", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/ashby/sofarsounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "greenhouse", "slug": "sofar-sounds", "rule": "hyphenated"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/sofar-sounds", "request_no": 12}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/sofar-sounds", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/sofar-sounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "lever", "slug": "sofar-sounds", "rule": "hyphenated"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/sofar-sounds?mode=json", "request_no": 13}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/sofar-sounds?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/sofar-sounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "ashby", "slug": "sofar-sounds", "rule": "hyphenated"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/sofar-sounds", "request_no": 14}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/sofar-sounds", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/ashby/sofar-sounds.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "greenhouse", "slug": "sofar", "rule": "first-word"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/sofar", "request_no": 15}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/sofar", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/sofar.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "lever", "slug": "sofar", "rule": "first-word"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/sofar?mode=json", "request_no": 16}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/sofar?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/sofar.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "next": {"ats": "ashby", "slug": "sofar", "rule": "first-word"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/sofar", "request_no": 17}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/sofar", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/ashby/sofar.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "SOFAR SOUNDS LTD", "action": "stop-company", "reason": "plan-exhausted"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "observe", "company": "YEXT INC", "slugs_planned": ["yext"]}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "YEXT INC", "next": {"ats": "greenhouse", "slug": "yext", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/yext", "request_no": 18}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/yext", "outcome": "name-match", "sha256": "19447e27fbdfc944497b0fad5275f9987f5f11e7cf00fca5814ecc49a05759d1", "raw_path": "raw/greenhouse/yext.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "YEXT INC", "action": "stop-company", "reason": "strong-hit"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "observe", "company": "ZANBATO INC", "slugs_planned": ["zanbato"]}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "ZANBATO INC", "next": {"ats": "greenhouse", "slug": "zanbato", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://boards-api.greenhouse.io/v1/boards/zanbato", "request_no": 19}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://boards-api.greenhouse.io/v1/boards/zanbato", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/greenhouse/zanbato.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "ZANBATO INC", "next": {"ats": "lever", "slug": "zanbato", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.lever.co/v0/postings/zanbato?mode=json", "request_no": 20}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.lever.co/v0/postings/zanbato?mode=json", "outcome": "not-found", "sha256": "4e1bd367f530235b98b16b026b7a9f1b2c9ce91b6e4a4d49523b610e5f9ec0cf", "raw_path": "raw/lever/zanbato.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "ZANBATO INC", "next": {"ats": "ashby", "slug": "zanbato", "rule": "full"}}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "act", "method": "GET", "url": "https://api.ashbyhq.com/posting-api/job-board/zanbato", "request_no": 21}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "record", "url": "https://api.ashbyhq.com/posting-api/job-board/zanbato", "outcome": "error", "sha256": "74b72423a9c2bcbe062427545195849c7cf05e405595610e97e637822fc57506", "raw_path": "raw/ashby/zanbato.json"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "decide", "company": "ZANBATO INC", "action": "stop-company", "reason": "plan-exhausted"}
+{"t": "2026-11-23T22:21:50+00:00", "kind": "stop", "reason": "done", "requests_used": 21}

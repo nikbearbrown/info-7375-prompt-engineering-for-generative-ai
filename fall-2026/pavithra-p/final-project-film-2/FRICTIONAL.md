@@ -2,7 +2,7 @@
 
 Pavithra Prasad · INFO 7375 · Final Project Film (four parts)
 
-Commits in the course repo (`fall-2026/pavithra-p/final-project-film-2/`): `989a306` the film folder (2026-11-23) · final commit: the hash given in the Canvas submission (it only adds this line). Built from my pitch film, `fall-2026/pavithra-p/final-project-film/` (`4f17ea0`, October 2026).
+Commits in the course repo (`fall-2026/pavithra-p/final-project-film-2/`): `989a306` the film folder (2026-11-23) · `e47e4c9` adds that hash to this log · final commit: the hash given in the Canvas submission (the baseline below). Built from my pitch film, `fall-2026/pavithra-p/final-project-film/` (`4f17ea0`, October 2026).
 
 My main prompts and inputs to Claude Code, 2026-11-23 (the rest is summarised):
 
@@ -13,6 +13,7 @@ My main prompts and inputs to Claude Code, 2026-11-23 (the rest is summarised):
 - Brought a ChatGPT review of the draft and had each point checked against the files before applying it.
 - Asked for a final grade as the strictest TA, then: "Yes, fix both".
 - Asked for every Markdown file to be checked against my past TA feedback before pushing.
+- Asked for my film to be compared with my classmates' submitted folders, then: "yes do it".
 
 ## 2026-11-23: Which project
 
@@ -50,11 +51,16 @@ My main prompts and inputs to Claude Code, 2026-11-23 (the rest is summarised):
 - Both were fixed in `APPENDIX.md`, with no re-render: two prior-work rows (read on 2026-11-23, `evidence/prior-work-2026-11-23.md`), and fixed numbers: 30 tasks, 10 of them held out, six planted wrong commands, at most 90 Claude replies. The Claude vs local model comparison is now reported side by side, not used as a pass or fail test.
 - Then every Markdown file was checked against my past TA feedback: Week 1 (reflections in my own words), the pitch (shown, not asserted; Frictional traceability to commits and prompts) and JS1 (decide what is the truth before labelling). One gap was found: the appendix's November 30 step did not say that the planted changes and their expected diff are written before the runner, the next step my pitch feedback gave. It does now.
 
+## 2026-11-23: Compared with my classmates' films
+
+- After pushing, I asked for my folder to be compared with my classmates' submitted folders. The plan films that compare against a baseline were stronger on evaluation; mine had targets but no baseline.
+- Added to `APPENDIX.md` (no re-render): ShellCheck as the baseline, run on the same commands with its result written down first. DryRun didn't work if it catches no planted mistake that ShellCheck misses. Part 1 is also named "Executive summary" in the README and appendix, as in the brief.
+
 ## Human and AI contributions
 
 - I did: kept DryRun as the film's project, asked for the line-by-line check and the strict score, applied the fixes, checked the three prior-work pages myself, got the ChatGPT review and decided to apply it, asked for a strictest-TA grade before pushing, and gave the reflection lines below.
 - Claude Code: drafted the four-part script from my pitch, read the three sources, checked the resources on my Mac, wrote the new scenes and documents, and ran the toolkit and its gates.
-- Accepted: the four-part script, the three fixes, the dated steps, reusing the pitch beats word for word, all four points from the ChatGPT review, and the two appendix fixes from the strictest-TA check, with the task counts Claude Code suggested (30 tasks, 10 held out).
+- Accepted: the four-part script, the three fixes, the dated steps, reusing the pitch beats word for word, all four points from the ChatGPT review, the two appendix fixes from the strictest-TA check, the ShellCheck baseline, with the task counts Claude Code suggested (30 tasks, 10 held out).
 - Changed: the opening line, from how DryRun works to what it does and why.
 - Rejected: making the film about the job-search agent.
 

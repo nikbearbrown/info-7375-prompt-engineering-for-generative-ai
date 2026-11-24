@@ -4,7 +4,7 @@ Pavithra Prasad · INFO 7375 · Final Project Film · 2026-11-23
 
 The film keeps to the four parts. This appendix holds the detail for parts 2 to 4. Everything DryRun does is a plan ("will"). No DryRun code exists yet.
 
-## 1. What and why (part 1, in one paragraph)
+## 1. Executive summary: what and why (part 1, in one paragraph)
 
 DryRun will tell you what an AI's terminal command will really do to your files before you run it, and warn you when that is not what you asked for. It matters because AI assistants suggest shell commands and coding agents run them, a delete command has no built-in undo step, and reading a command is not the same as knowing what it will do. Real example: on 2026-10-11 Claude gave me `find logs -type f -name "*.log" -mtime +7 -delete` for "delete .log files older than 7 days", and my test of its preview missed a file 7.5 days old (`evidence/`).
 
@@ -51,7 +51,7 @@ How this meets the final project's "agentic" list: the loop (steps 2–7, with e
 | Nov 30 | Copy a folder into the locked container, run one command, list what changed, with a self-test | The planted changes and their expected diff are written first, before the runner (the next step from my pitch feedback). The self-test passes when the diff finds exactly those |
 | Dec 6 | The AI's fixed format and validator, the ALLOW / WARN / BLOCK decision, up to 3 retries | Tests with saved replies, including invalid ones |
 | Dec 13 | Trap folders, the task set with correct end states, the human approval with its fingerprint | Each trap folder has a task whose wrong command it catches |
-| Dec 20 | The evaluation (Claude vs a local model), the report, the final project packet and demo | The report and the held-out results are saved |
+| Dec 20 | The evaluation (Claude vs a local model, with ShellCheck as the baseline), the report, the final project packet and demo | The report and the held-out results are saved |
 
 ### 3.4 Do I have what I need
 
@@ -62,6 +62,7 @@ How this meets the final project's "agentic" list: the loop (steps 2–7, with e
 | Compute | My laptop: Apple M3, 8 GB of memory | `sysctl`, 2026-11-23 |
 | Container | Docker, free | `docker --version` 27.4.0 |
 | Local model | Ollama with `qwen2.5`, free | `ollama` 0.40.13, model downloaded |
+| Baseline tool | ShellCheck, free and open source | Not installed yet; one Homebrew install |
 
 Limits I plan around: 8 GB of memory means a small local model and one container at a time. My Claude Code usage has limits, so the task set stays small: 30 tasks, which is at most 90 Claude replies even with 3 retries each. Each run is saved so it never has to be repeated.
 
@@ -81,6 +82,7 @@ What I'll measure, for every task × trap folder × model (Claude and the local 
 - Wrongly warned: a correct command gets WARN. A person can still approve it, so it is counted and reported separately, not mixed into the blocked count.
 - Did too much / too little: files deleted or changed beyond the correct end state, or missed.
 - Prediction accuracy: how often the AI's own predicted changes match the real diff.
+- Baseline: ShellCheck, which reads only the command's text, is run on the same planted wrong commands and correct commands, and what it flags is counted the same way. Its result is written down before DryRun runs.
 
 Held-out set: before tuning anything, 10 of the 30 tasks are set aside and run once, at the end. The other 20 are for building and tuning.
 
@@ -97,8 +99,9 @@ Planted wrong commands (at least five; six are planned):
 
 It worked if: the self-test finds every planted change, every planted wrong command is flagged, and at most 1 in 10 correct commands is wrongly blocked (gets BLOCK) on the held-out tasks. Wrong warnings are reported next to it.
 
+It didn't work if: it misses a planted mistake, or blocks so many good commands that nobody would use it. It also didn't work if it catches no planted mistake that ShellCheck misses, because then the baseline already does the job.
+
 Claude vs the local model: reported side by side, not a pass or fail test. DryRun is the check, so it has to work on both models' commands. Which model writes better commands is a finding, not the measure of success.
-It didn't work if: it misses a planted mistake, or blocks so many good commands that nobody would use it.
 
 What it can't show: that commands are safe. The sample is small (30 tasks, 10 held out, 6 planted mistakes) and synthetic, and it covers only the kinds of mistakes I planted. It will show how often this check catches those.
 

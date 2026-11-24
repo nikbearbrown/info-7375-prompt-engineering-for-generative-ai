@@ -1,71 +1,109 @@
-# BUILD-PROMPT.md: how to rebuild the TraceCase pitch film
+# BUILD-PROMPT.md: how the TraceCase film was built
 
-## The prompts I gave Claude Code (2026-10-13)
+This replaces the October version of this file, which described the 3:53 pitch. The commands to rebuild
+are in `README.md` under **Rebuild**; this file is what I asked for and the rules I set.
+
+## The prompts I gave Claude Code
+
+**October (the pitch, 2026-10-13):**
 
 > I want you to understand my resumes, my skills and what are the roles I've been applying to lately using the
 > tool and whatever the current job market requires … and build something like that for my AI prompt engineering
 > course project … It should be an AI-based project and also include, I don't know if it is possible to include
 > Redis, caching and stuff like that. If it is not, it's fine, but not forcefully.
 
-Then, after choosing TraceCase:
-
 > Yes, please start building it and please add the fictional log … write the fictional log [like] me, don't write
 > it like Claude … build me the film properly and make the film look intuitive and make the voice very nice and
 > calming.
 
-The working rules Claude followed, in my words:
+**November (this film, 2026-11-21 to 2026-11-23):**
+
+> I mean the project doesnt say anything about building now we need to make a detailed film right and we need to
+> make this project really really good and production level and tell me if any suggestion are required and start
+> building i need to get he highest grade in the class and not lose out on anything
+
+> i dont know i have claude plan from northeastern enterprise what can i do in this situation and yes make it
+> 4:30 secinds
+
+> make the visuals better and more real and get back to me
+
+Then, with three screenshots attached:
+
+> Percentage adidnt show up up andnthe cirlcular arrow is wrong. Check the shaepe in the metjds as well
+
+That last one is the useful one. Both arrows in the film were drawn pointing the wrong way, and no gate caught
+it — a gate can check that a shape is on the canvas, legible and inside the margins, but not that it points the
+right way. `FRICTIONAL.md` has that story under "the thing no gate can check."
+
+I ran the finished cut past a second model (ChatGPT) three times and pasted every review back in. The first found
+that a chart's bars matched no agent's published numbers and that one beat contradicted its own narration; the
+second found that my own README claimed gate results I had never run; the third found that an executive-summary
+beat was explaining mechanism and that my corrected baseline lived only in the documents. All of those were true.
+`SOURCES.md` records what each model got right and wrong.
+
+Then, on 2026-11-23:
+
+> what is the recomodende runtime as per prog and how. uch ohter did and is my uncet her dam brackeryy?
+
+This is the question that mattered most, and I asked it eleven hours before the deadline. The answer was that the
+assignment caps the film at **240 seconds**, every one of my 22 classmates' films was inside it, and mine was
+**4:48** — forty-eight seconds over. Nothing in the toolkit or in either model's review had checked the film
+against the brief. `FRICTIONAL.md` has that entry.
+
+> yes please checj througly and make it as requuiest and dont so loing in that case keeping the quslitu intact
+
+So the film was recut to **3:51.6**, folding in every outstanding narration fix at the same time.
+
+## The working rules, in my words
 
 1. Use the Brutalist toolkit's `show-tell` skill: one drawn picture per beat, minimal text, the voice explains.
    Keep one cast across the film (service, logs, trace, magnifier for the agent, fix card, barrier gate).
-2. Answer the assignment's seven questions in order, one idea per beat, from `PROJECT-BRIEF.md`. Stay under four
-   minutes.
-3. Narrate as me, in first person. Don't use the instructor's name, the "Liam, in for Bear" persona, or the
-   instructor's credit line. The final cut uses the synthetic voice throughout, by my choice.
-4. Honesty rule: every product sentence in the future tense, every picture of the product tagged "constructed",
-   no invented numbers (B09 shows "? / 10"). Name alternatives only with facts checked against their own pages.
-5. Run the toolkit's gates and fix anything that fails. Never submit over a failed render check.
+2. Answer the assignment's seven questions in order, one idea per beat, from `PROJECT-BRIEF.md`. In November this
+   grew from the 18 beats of the pitch to 25, in four parts: executive summary, what already exists, methods, evaluation.
+   **Part 1 says what it is and why it matters, never how** — the mechanism belongs in part 3. I broke this rule in
+   the first cut and had to re-record B04 to put it back.
+3. **Runtime 2–4 minutes, hard ceiling 240 seconds.** This is the rule I missed until the last evening; see
+   `FRICTIONAL.md`. The delivered cut is 3:51.6. All 25 beats and all four parts survived the recut; the cost was
+   narration speed, 1.22 rather than the 0.95 the first cut used.
+4. Narrate as me, in first person. Don't use the instructor's name, the "Liam, in for Bear" persona, or the
+   instructor's credit line. The final cut uses the synthetic voice (Kokoro `am_michael`) throughout, by my choice.
+5. **Honesty rule.** No invented numbers. Every number on screen is either cited on the frame or marked unknown.
+   Sentences about the product are future tense, **except** design properties, which use the descriptive present
+   ("it's built so you can check it" = this is how it is designed, not this is running today). `FACTCHECK.md`
+   states that exception in the same words and marks each such row EXEMPT rather than PASS. Named alternatives are
+   described only from facts checked against their own pages. `FACTCHECK.md` carries one row per claim.
+6. **Draw objects, not labelled boxes.** A log is a stack of lines, a trace is a span bar, the agent is a
+   magnifier. If a thing has to be named in text to be understood, it is drawn wrong.
+7. **Cue on words, not on estimates.** Every drawing appears on the word that names it, using word-level
+   timestamps from `mp3/words.json`. 91 cues; all 91 resolve to a real timestamp, none falls back to the
+   toolkit's character-count estimate.
+8. Run the gates and fix anything that fails. Never export over a failed render check.
 
-## One-time setup (macOS, Apple silicon)
+## What the gates actually are
 
-```bash
-git clone https://github.com/nikbearbrown/brutalist.art brutalist-final   # used at b21f625
-brew install python@3.12 pango ffmpeg        # manim 0.18 needs Python < 3.13; manimpango needs pango
-cd brutalist-final
-/opt/homebrew/bin/python3.12 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-pip install "av<16"                          # av 19 breaks faster-whisper 1.2.1
-(cd runtime/remotion && npm install)
-# Kokoro model: ./setup --install downloads it, or copy runtime/models/kokoro/ from an existing checkout
-```
+The October version of this file said `./art run` runs gates L, A, W, B and V. **That was wrong**, and I only
+found out in November when I went to report the numbers. `art` runs the reel-level gates; the static per-scene
+gates are separate scripts that have to be invoked once per scene class:
 
-Apply my local changes to the toolkit (copies are in `build/` here):
+| Gate | What it checks | How it runs |
+|---|---|---|
+| L | beat-mix lint | `./art run` |
+| SHAPE | finance-reel shape rules | `./art run`, skipped here |
+| V | frame-level QC on the compiled reel | `./art run` |
+| T | type-lock: min text height, overlap, WCAG contrast | `./art final` |
+| A | static pre-flight on each scene | `runtime/qc/static_scene_check.py --class <Scene>` |
+| W | WCAG and margin check on each scene | `runtime/qc/wcag_margin_check.py --class <Scene>` |
+| B | layout audit on rendered snapshots | `runtime/qc/manim_layout_audit.py --class <Scene>` |
 
-```bash
-TK=/path/to/brutalist-final
-cp build/ashwin.json $TK/runtime/pronunciation/ashwin.json             # voice-only: "Redis" -> "Reddiss"
-git -C $TK apply "$PWD/build/patches/ClaudeTitleOutro-handle.patch"    # outro takes my name, not the instructor's handle
-```
+A, W and B were run across all 25 scenes on 2026-11-23. Results are in `gate-reports/LAYOUT-AUDIT.md`.
 
-`build/build_scenes.py` and `build/record_beat.sh` expect the toolkit at `~/Desktop/College/CSYE7375/brutalist-final/`;
-change the path at the top of each if yours is elsewhere.
+## Local changes to the toolkit
 
-## Rebuild
+Used at commit `b21f625`. Two changes, one of which still matters:
 
-Work on a copy outside the course repo, so audio and clips stay out of it:
-
-```bash
-cp -R build /tmp/tracecase-pitch
-cp gate-reports/{FACTCHECK,SHOTLIST,PROMPTS}.md /tmp/tracecase-pitch/      # Gate F needs them
-cd /tmp/tracecase-pitch && source $TK/.venv/bin/activate
-python make_sheet.py                                                     # writes beat_sheet.json
-python $TK/runtime/scripts/generate_audio_kokoro.py . --speed 0.95       # synthetic narration for every beat
-python finish_audio.py                                                   # pads BIDEA/BOUT, writes measured durations
-# ./record_beat.sh BIDEA                                                 # optional: replace a beat with your own voice (not used in the final cut)
-python $TK/runtime/scripts/align.py .                                    # word timestamps -> mp3/words.json (scenes cue on these)
-python whisper_check.py                                                  # transcript vs script, by beat
-python build_scenes.py                                                   # scenes.py = iso_kit.py + scene_body.py
-(cd $TK && ./art run /tmp/tracecase-pitch --height 2160)                 # renders; gates L, A, W, B, V
-(cd $TK && ./art final /tmp/tracecase-pitch --height 2160 --out /tmp/tracecase-pitch/final)   # Gate T + master
-python $TK/runtime/qc/factcheck_check.py /tmp/tracecase-pitch            # fact-check gate
-python $TK/runtime/scripts/bookend_check.py /tmp/tracecase-pitch         # bookend gate
-```
+- `build/ashwin.json` → `runtime/pronunciation/ashwin.json`. Voice only: "Redis" is spoken "Reddiss". **Needed**
+  to regenerate the narration.
+- A patch to `runtime/remotion/src/scenes/ClaudeTitleOutro.tsx` so the outro carries my name rather than the
+  instructor's handle. **No longer used:** all 25 beats of this film are Manim, so no Remotion scene is rendered.
+  The toolkit's skin lint still warns that B00 and B24 are un-annotated Manim rather than the Remotion cold-open
+  and outro. That is the intended design, not a failure.

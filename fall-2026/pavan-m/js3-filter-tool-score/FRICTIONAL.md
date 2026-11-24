@@ -19,3 +19,7 @@ Wrote the asserts for 15 tests in tests/test_filter.py before agent/filter.py ex
 ## Entry 6 — November 23, 2026: Claude Code built the filter
 Claude Code wrote agent/filter.py and agent/run_filter.py against FILTER.md v1.0. Verified myself: `python -m pytest -q` → 55 passed (40 earlier + 15 filter); `git diff tests/ FILTER.md CLAUDE.md` empty.
 First run on run 2 (1,290 postings): KEEP 31, REJECT 1,252, CANNOT TELL 7. Palantir had 0 KEEPs out of 306, which needs checking in the audit before I change anything.
+
+## Entry 7 — November 23, 2026: Reading Claude Code's choices; a retrieval gap
+Claude Code listed 19 choices FILTER.md didn't decide. Three change what FILTER.md literally says, so I recorded them in FILTER.md §9 instead of leaving them in the code: bare "San Francisco" gets +2 (23 of OpenAI's 25 KEEPs depend on it), "US - Remote" counts as US remote, and "REST API" singular matches.
+Investigated Palantir's 0 KEEPs: 139 postings are titled Software Engineer, but 67 had no technical category. Claude Code found the cause: the JS2 Lever adapter reads only descriptionPlain, and Lever keeps "What We Require" in a separate `lists` field. The filter never sees those requirements. This is a retrieval gap, not a filter rule. Not fixing it yet; the audit will measure it first.
