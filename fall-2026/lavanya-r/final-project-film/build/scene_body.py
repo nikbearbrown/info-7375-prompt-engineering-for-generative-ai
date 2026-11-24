@@ -1,9 +1,10 @@
 
 # ═════════════════════════════ README CHECKER — scenes (Lavanya R) ═════════════════════════════
-# Cut 2 (2026-10-13, after my review): every beat carries a question header (which of the seven
-# assignment questions it answers), readable README steps, my REAL terminal output for the two runs,
-# and one key sentence. Pacing: each beat builds before ~42% of its audio, holds still through the
-# clip midpoint (GATE T / Gate V sample there), then adds its payoff after ~58%.
+# Cut 4 (2026-11-23): every beat carries a part header for the professor's four parts
+# (1 · What and why, 2 · What exists, 3 · Methods, 4 · Evaluation), readable README steps, my REAL
+# terminal output for the two runs, and one key sentence. Pacing: each beat builds before ~42% of
+# its audio, holds still through the clip midpoint (GATE T / Gate V sample there), then adds its
+# payoff after ~58%. `until(self, phrase)` waits for the spoken phrase.
 KRAFT_EDGE = "#9C8462"
 MONO = "Menlo"
 
@@ -55,11 +56,6 @@ def floor_shadow(x, y, w=3.4):
     return Ellipse(width=w, height=0.42, fill_color=GHOST, fill_opacity=1, stroke_width=0).move_to([x, y, 0])
 
 
-def ghost_box(iso, x0, y0, z0, w, d, h, n=12):
-    faces = iso.box(x0, y0, z0, w, d, h, CARD, CARD, CARD, sw=3)
-    return VGroup(*[DashedVMobject(f.copy().set_fill(opacity=0).set_stroke(DIM, 3), num_dashes=n) for f in faces])
-
-
 def panel(x0, x1, y0, y1):
     """A light terminal / report window: card body, grey title band (never a dark band in an ink card)."""
     body = Rectangle(width=x1 - x0, height=y1 - y0, fill_color=CARD, fill_opacity=1, stroke_color=INK,
@@ -67,16 +63,6 @@ def panel(x0, x1, y0, y1):
     band = Rectangle(width=x1 - x0, height=0.38, fill_color=BAR1, fill_opacity=1, stroke_width=0
                      ).move_to([(x0 + x1) / 2, y1 - 0.19, 0])
     return VGroup(body, band)
-
-
-def steps(rows, x, y_top, gap=0.6, size=32):
-    """README rows as readable text, left-aligned at x. Returns (VGroup, ys)."""
-    g, ys = VGroup(), []
-    for i, r in enumerate(rows):
-        yy = y_top - i * gap
-        g.add(T(r, size=size).move_to([x, yy, 0], aligned_edge=LEFT))
-        ys.append(yy)
-    return g, ys
 
 
 def readme_page(x, y, w=2.4, h=3.0, rows=4):
@@ -95,7 +81,21 @@ def page_rows(x, y, w, h, rows):
     return [top - i * gap for i in range(rows)]
 
 
-# ─────────────────────────────── opening ───────────────────────────────
+def sample_boxes(x0=-5.4, y0=0.55, dx=1.45, dy=1.9, s=0.5):
+    """Ten small sample-project boxes in two rows. Returns (VGroup, top points)."""
+    boxes, tops = VGroup(), []
+    for r in range(2):
+        for c in range(5):
+            iso = Iso(x0 + c * dx, y0 - r * dy, s)
+            boxes.add(iso.box(0, 0, 0, 1.0, 1.0, 0.8))
+            tops.append(iso.p(0.5, 0.5, 0.8))
+    return boxes, tops
+
+
+PLANTED = (0, 3, 4, 6, 8)   # which of the ten samples get a planted problem (drawing only)
+
+
+# ═══════════════════════ PART 1 · EXECUTIVE SUMMARY: what and why (no "how") ═══════════════════════
 class BHELLO_Intro(Scene):
     def construct(self):
         sh = floor_shadow(-3.6, -1.85, w=3.0)
@@ -113,36 +113,9 @@ class BHELLO_Intro(Scene):
         finish(self)
 
 
-class BDEFS_Terms(Scene):
-    def construct(self):
-        title = T("Terms In This Film", size=44).move_to([-6.0, 2.85, 0], aligned_edge=LEFT)
-        rule = Line([-6.0, 2.3, 0], [6.0, 2.3, 0], color=GHOST, stroke_width=4)
-        self.play(Write(title), Create(rule), run_time=0.8)
-        rows = [("README", "the file that tells people how to set up the project", 1.45),
-                ("container", "a throwaway sandbox that keeps commands off my laptop", -0.15),
-                ("agent loop", "do the step, read its output, decide the next step", -1.75)]
-        made = []
-        for term, meaning, y in rows:
-            made.append((Dot([-5.8, y, 0], radius=0.09, color=TERRA),
-                         T(term, size=44, bold=True).move_to([-5.5, y, 0], aligned_edge=LEFT),
-                         T(meaning, size=36).move_to([-5.5, y - 0.65, 0], aligned_edge=LEFT)))
-        name = T("Lavanya", size=34).move_to([6.0, -3.05, 0], aligned_edge=RIGHT)
-        at(self, 0.04)
-        self.play(GrowFromCenter(made[0][0]), Write(made[0][1]), run_time=0.5)
-        self.play(FadeIn(made[0][2]), FadeIn(name), run_time=0.5)
-        at(self, 0.25)
-        self.play(GrowFromCenter(made[1][0]), Write(made[1][1]), run_time=0.5)
-        self.play(FadeIn(made[1][2]), run_time=0.5)
-        at(self, 0.6)
-        self.play(GrowFromCenter(made[2][0]), Write(made[2][1]), run_time=0.5)
-        self.play(FadeIn(made[2][2]), run_time=0.5)
-        finish(self)
-
-
-# ─────────────────────────────── Q2: the problem + my two real runs ───────────────────────────────
 class B00_Problem(Scene):
     def construct(self):
-        h = header("The problem")
+        h = header("1 · What and why: the problem")
         pg = readme_page(-2.0, 0.0, w=4.0, h=4.2, rows=5)
         ys = page_rows(-2.0, 0.0, 4.0, 4.2, 5)
         self.play(FadeIn(h), FadeIn(pg, shift=DOWN * 0.2), run_time=0.8)
@@ -159,18 +132,33 @@ class B00_Problem(Scene):
         finish(self)
 
 
-WEBAPP_STEPS = [("1   git clone <repository-url>", "warn", "placeholder, no real link"),
-                ("2   yarn install", "ok", "worked"),
-                ("3   yarn sequelize db:migrate", "x", "config.json missing"),
-                ("4   check the table in DBeaver", "skip", "skipped: needs a GUI app"),
-                ("5   docker start <container-name>", "warn", "placeholder"),
-                ("6   node app.js", "x", "database SSL error"),
-                ("7   GET /healthz in Postman", "x", "503")]
+class B00A_WhatItIs(Scene):
+    def construct(self):
+        h = header("1 · What and why: what I'm building")
+        pg = readme_page(-4.4, 0.15, w=2.8, h=3.4, rows=5)
+        lab = T("README", size=36).move_to([-4.4, 2.25, 0])
+        arr = Arrow([-2.75, 0.15, 0], [-1.05, 0.15, 0], color=INK, stroke_width=6, buff=0)
+        self.play(FadeIn(h), FadeIn(pg, shift=DOWN * 0.2), FadeIn(lab), run_time=0.8)
+        self.play(GrowArrow(arr), run_time=0.5)
+        win = panel(-0.6, 6.0, -1.55, 1.9)
+        title = T("report", size=34, bold=True).move_to([-0.2, 1.15, 0], aligned_edge=LEFT)
+        self.play(FadeIn(win), FadeIn(title), run_time=0.6)
+        rows = [("ok", "step 1  ·  pass"), ("warn", "step 2  ·  warning  ·  why"), ("x", "step 3  ·  fail  ·  why")]
+        made = [(mark(k, -0.05, 0.4 - i * 0.7), T(t, size=32).move_to([0.4, 0.4 - i * 0.7, 0], aligned_edge=LEFT))
+                for i, (k, t) in enumerate(rows)]
+        until(self, "and tell you")
+        for m, t in made:
+            self.play(Create(m), FadeIn(t), run_time=0.35)
+        at(self, 0.6)
+        tag = T("reports only  ·  won't fix anything", size=32).move_to([2.7, -2.1, 0])
+        k = keyline("Which step is broken, and why.", size=40)
+        self.play(FadeIn(tag), Write(k), run_time=0.7)
+        finish(self)
 
 
 class B01_MyRun(Scene):
     def construct(self):
-        h = header("2 · Why care?   Real run 1: my own README")
+        h = header("1 · Why care? My own README failed")
         pg = readme_page(-2.6, -0.1, w=4.2, h=4.8, rows=7)
         ys = page_rows(-2.6, -0.1, 4.2, 4.8, 7)
         self.play(FadeIn(h), FadeIn(pg, shift=DOWN * 0.2), run_time=0.8)
@@ -180,85 +168,179 @@ class B01_MyRun(Scene):
         marks = [mark(k, 0.0, ys[i]) for i, k in enumerate(kinds)]
         notes = {0: "placeholder", 2: "missing file", 6: "503"}
         nt = {i: T(n, size=34).move_to([0.5, ys[i], 0], aligned_edge=LEFT) for i, n in notes.items()}
-        for i in range(3):
+        until(self, "The clone link")
+        for i in range(2):
             self.play(Create(marks[i]), *([FadeIn(nt[i])] if i in nt else []), run_time=0.35)
         at(self, 0.58)
-        for i in range(3, 7):
+        for i in range(2, 4):
             self.play(Create(marks[i]), *([FadeIn(nt[i])] if i in nt else []), run_time=0.35)
-            self.wait(0.15)
+        until(self, "the health check")
+        for i in range(4, 7):
+            self.play(Create(marks[i]), *([FadeIn(nt[i])] if i in nt else []), run_time=0.35)
         finish(self)
 
 
 class B01T_Terminal(Scene):
     def construct(self):
-        h = header("2 · Real run 1: my actual terminal output")
-        win = panel(-6.0, 6.0, -1.7, 1.9)
-        lab = T("real output · Oct 13, 2026", size=32).move_to([0, -2.4, 0])
+        h = header("1 · Why care? My actual terminal output")
+        win = panel(-6.0, 6.0, -1.3, 1.9)
+        lab = T("real output · Oct 13, 2026", size=32).move_to([0, -1.95, 0])
         self.play(FadeIn(h), FadeIn(win), FadeIn(lab), run_time=0.8)
         L = [M('ERROR: Cannot find "…/config/config.json".'), M("HTTP/1.1 503 Service Unavailable")]
-        L[0].move_to([-5.6, 0.75, 0], aligned_edge=LEFT)
-        L[1].move_to([-5.6, -0.65, 0], aligned_edge=LEFT)
-        at(self, 0.25)
+        L[0].move_to([-5.6, 0.85, 0], aligned_edge=LEFT)
+        L[1].move_to([-5.6, -0.35, 0], aligned_edge=LEFT)
+        bars = [Line([-5.75, l.get_bottom()[1] - 0.12, 0], [l.get_right()[0], l.get_bottom()[1] - 0.12, 0],
+                     color=TERRA, stroke_width=5) for l in L]
+        at(self, 0.1)
         self.play(FadeIn(L[0]), run_time=0.3)
-        bar1 = Line([-5.75, L[0].get_bottom()[1] - 0.12, 0], [L[0].get_right()[0], L[0].get_bottom()[1] - 0.12, 0],
-                    color=TERRA, stroke_width=5)
-        self.play(Create(bar1), run_time=0.4)
-        at(self, 0.6)
+        self.play(Create(bars[0]), run_time=0.35)
         self.play(FadeIn(L[1]), run_time=0.3)
-        bar2 = Line([-5.75, L[1].get_bottom()[1] - 0.12, 0], [L[1].get_right()[0], L[1].get_bottom()[1] - 0.12, 0],
-                    color=TERRA, stroke_width=5)
-        self.play(Create(bar2), run_time=0.4)
+        self.play(Create(bars[1]), run_time=0.35)
+        until(self, "Every engineer")
+        k = keyline("The writer can't see it. The next engineer pays for it.")
+        self.play(Write(k), run_time=0.6)
         finish(self)
 
 
-HEROKU_STEPS = [("0   install Node.js and the Heroku CLI", "warn", "Heroku CLI not needed"),
-                ("1   git clone …/nodejs-getting-started.git", "ok", "worked (redirected)"),
-                ("2   npm install", "warn", "wants npm 12, I have 10"),
-                ("3   npm start", "ok", "Listening on 5006"),
-                ("4   open localhost:5006", "ok", "200 OK")]
-
-
-class B02_HerokuRun(Scene):
-    def construct(self):
-        h = header("2 · Why care?   Real run 2: an open-source README")
-        pg = readme_page(-2.6, 0.0, w=4.2, h=4.0, rows=5)
-        ys = page_rows(-2.6, 0.0, 4.2, 4.0, 5)
-        self.play(FadeIn(h), FadeIn(pg, shift=DOWN * 0.2), run_time=0.8)
-        src = T("Heroku's Node.js starter README · Oct 13, 2026", size=32).move_to([0, -3.05, 0])
-        self.play(FadeIn(src), run_time=0.5)
-        at(self, 0.58)
-        for i, k in enumerate(["warn", "ok", "warn", "ok", "ok"]):
-            self.play(Create(mark(k, 0.0, ys[i])), run_time=0.3)
-        s1 = T("it worked", size=40).move_to([3.6, 0.6, 0])
-        s2 = T("2 small warnings", size=34).move_to([3.6, -0.3, 0])
-        self.play(FadeIn(s1), FadeIn(s2), run_time=0.5)
-        finish(self)
-
-
+# ═══════════════════════ PART 2 · INTRODUCTION: what exists, then why mine ═══════════════════════
 class B02T_Terminal(Scene):
     def construct(self):
-        h = header("2 · Real run 2: my actual terminal output")
-        win = panel(-6.0, 6.0, -1.7, 1.9)
-        lab = T("real output · Oct 13, 2026", size=32).move_to([0, -2.4, 0])
+        h = header("2 · What exists: following a README by hand")
+        win = panel(-6.0, 6.0, -1.3, 1.9)
+        lab = T("Heroku's Node.js starter README · real output · Oct 13, 2026", size=32).move_to([0, -1.95, 0])
         self.play(FadeIn(h), FadeIn(win), FadeIn(lab), run_time=0.8)
         L = [M("npm warn EBADENGINE …  npm: '12.x' }"), M("HTTP/1.1 200 OK")]
-        L[0].move_to([-5.6, 0.75, 0], aligned_edge=LEFT)
-        L[1].move_to([-5.6, -0.65, 0], aligned_edge=LEFT)
-        at(self, 0.2)
+        L[0].move_to([-5.6, 0.85, 0], aligned_edge=LEFT)
+        L[1].move_to([-5.6, -0.35, 0], aligned_edge=LEFT)
+        until(self, "worked for me")
+        self.play(FadeIn(L[1]), run_time=0.3)
+        self.play(Create(check(L[1].get_right()[0] + 0.5, L[1].get_center()[1], s=0.17)), run_time=0.3)
+        at(self, 0.38)
         self.play(FadeIn(L[0]), run_time=0.3)
         bar = Line([-5.75, L[0].get_bottom()[1] - 0.1, 0], [L[0].get_right()[0], L[0].get_bottom()[1] - 0.1, 0],
                    color=TERRA, stroke_width=5)
         self.play(Create(bar), run_time=0.4)
-        at(self, 0.6)
-        self.play(FadeIn(L[1]), run_time=0.3)
-        self.play(Create(check(L[1].get_right()[0] + 0.5, L[1].get_center()[1], s=0.17)), run_time=0.3)
+        until(self, "By hand, you")
+        k = keyline("By hand, you only find what you happen to hit.")
+        self.play(Write(k), run_time=0.6)
         finish(self)
 
 
-# ─────────────────────────────── Q1: what it is, how it works, what it produces ───────────────────────────────
+class B06_NotCI(Scene):
+    def construct(self):
+        h = header("2 · What exists: CI pipelines")
+        left = panel(-6.0, -0.6, -2.0, 1.75)
+        lt = T("my CI pipeline", size=34).move_to([-3.3, 2.2, 0])
+        lines = VGroup(*[Line([-5.5, y, 0], [-2.2, y, 0], color=GHOST, stroke_width=7) for y in (0.75, 0.0, -0.75)])
+        self.play(FadeIn(h), FadeIn(left), FadeIn(lt), FadeIn(lines), run_time=0.9)
+        pg = readme_page(3.1, 0.15, w=4.4, h=3.2, rows=4)
+        rt = T("my README", size=34).move_to([3.1, 2.2, 0])
+        self.play(FadeIn(pg), FadeIn(rt), run_time=0.8)
+        at(self, 0.58)
+        cks = VGroup(*[check(-1.4, y, s=0.17) for y in (0.75, 0.0, -0.75)])
+        self.play(LaggedStart(*[Create(c) for c in cks], lag_ratio=0.3), run_time=0.8)
+        nt = T("never run by CI", size=34).move_to([3.1, -2.05, 0])
+        self.play(FadeIn(nt), run_time=0.4)
+        k = keyline("CI tests the code, not the instructions a person reads.")
+        self.play(Write(k), run_time=0.6)
+        finish(self)
+
+
+def tool_card(x0, x1, name, does, catch):
+    """A named prior-work card: name, what it does, and its catch (with a warning mark)."""
+    cx = (x0 + x1) / 2
+    win = panel(x0, x1, -1.6, 1.9)
+    nm = T(name, size=44, bold=True).move_to([cx, 0.95, 0])
+    d = T(does, size=32).move_to([cx, 0.05, 0])
+    c = T(catch, size=32).move_to([cx - 1.85, -0.8, 0], aligned_edge=LEFT)
+    w = warn(cx - 2.2, -0.8)
+    return win, nm, d, VGroup(w, c)
+
+
+class B06A_DocTools(Scene):
+    def construct(self):
+        h = header("2 · What exists: doc-testing tools")
+        a = tool_card(-6.0, -0.3, "Runme", "runs a README's code blocks", "you judge the output")
+        b = tool_card(0.3, 6.0, "Doc Detective", "checks docs against the product", "you write the tests first")
+        self.play(FadeIn(h), FadeIn(a[0]), Write(a[1]), run_time=0.8)
+        self.play(FadeIn(a[2]), run_time=0.4)
+        until(self, "but you judge")
+        self.play(FadeIn(a[3]), run_time=0.4)
+        at(self, 0.4)
+        self.play(FadeIn(b[0]), Write(b[1]), FadeIn(b[2]), run_time=0.7)
+        at(self, 0.62)
+        self.play(FadeIn(b[3]), run_time=0.4)
+        src = T("open-source projects on GitHub", size=32).move_to([0, -2.4, 0])
+        self.play(FadeIn(src), run_time=0.4)
+        finish(self)
+
+
+def result_card(x0, x1, name, num, what, cite):
+    cx = (x0 + x1) / 2
+    win = panel(x0, x1, -1.6, 1.9)
+    nm = T(name, size=40, bold=True).move_to([cx, 1.1, 0])
+    n = T(num, size=72, bold=True).move_to([cx, 0.15, 0])
+    w = T(what, size=32).move_to([cx, -0.65, 0])
+    c = T(cite, size=32, color=INK).move_to([cx, -2.1, 0])
+    return win, nm, n, w, c
+
+
+class B06B_Agents(Scene):
+    def construct(self):
+        h = header("2 · What exists: AI agents that set up projects (research)")
+        a = result_card(-6.0, -0.3, "ExecutionAgent", "33 / 50", "projects set up and tested",
+                        "Bouzenia & Pradel · ISSTA 2025")
+        b = result_card(0.3, 6.0, "Installamatic", "21 / 40", "Python projects installed",
+                        "Milliken, Kang & Yoo · SANER 2025")
+        self.play(FadeIn(h), FadeIn(a[0]), Write(a[1]), run_time=0.8)
+        until(self, "thirty three")
+        self.play(FadeIn(a[2], scale=1.1), FadeIn(a[3]), FadeIn(a[4]), run_time=0.6)
+        until(self, "Installamatic")
+        self.play(FadeIn(b[0]), Write(b[1]), FadeIn(b[2], scale=1.1), FadeIn(b[3]), FadeIn(b[4]), run_time=0.8)
+        until(self, "Both aim")
+        k = keyline("Built to get a project running, not to judge the README.")
+        self.play(Write(k), run_time=0.6)
+        finish(self)
+
+
+GAP_ROWS = [("by hand", "ok", "warn", "B06C"),
+            ("CI", "x", "x", "CI skips"),
+            ("doc tools (Runme, Doc Detective)", "ok", "warn", "doc tools"),
+            ("AI setup agents", "warn", "x", "AI agents"),
+            ("README Checker (planned)", "ok", "ok", None)]
+
+
+class B06C_Gap(Scene):
+    def construct(self):
+        h = header("2 · Why mine is still worth building")
+        XA, XB = 1.6, 4.6
+        ca = VGroup(T("runs the README", size=32), T("as written", size=32)).arrange(DOWN, buff=0.1).move_to([XA, 2.1, 0])
+        cb = VGroup(T("says which", size=32), T("line broke", size=32)).arrange(DOWN, buff=0.1).move_to([XB, 2.1, 0])
+        rule = Line([-6.0, 1.5, 0], [6.0, 1.5, 0], color=GHOST, stroke_width=4)
+        self.play(FadeIn(h), FadeIn(ca), FadeIn(cb), Create(rule), run_time=0.8)
+        made = []
+        for i, (name, a, b, _) in enumerate(GAP_ROWS):
+            y = 1.0 - i * 0.68
+            last = i == len(GAP_ROWS) - 1
+            t = T(name, size=34 if last else 32, bold=last).move_to([-5.7, y, 0], aligned_edge=LEFT)
+            made.append(VGroup(t, mark(a, XA, y), mark(b, XB, y)))
+        dot = Dot([-6.0, 1.0 - 4 * 0.68, 0], radius=0.09, color=TERRA)
+        self.play(FadeIn(made[0]), run_time=0.4)
+        for i in (1, 2, 3):
+            until(self, GAP_ROWS[i][3])
+            self.play(FadeIn(made[i]), run_time=0.4)
+        at(self, 0.58)
+        self.play(FadeIn(made[4]), GrowFromCenter(dot), run_time=0.5)
+        until(self, "That's why")
+        k = keyline("Run it as written. Say which line broke.")
+        self.play(Write(k), run_time=0.6)
+        finish(self)
+
+
+# ═══════════════════════ PART 3 · METHODS: plan, data, steps, resources ═══════════════════════
 class B03_WhatItIs(Scene):
     def construct(self):
-        h = header("1 · What is it?")
+        h = header("3 · Methods: what I'll build")
         sh = floor_shadow(-2.4, -2.05, w=3.2)
         iso, back, front = container(-2.4, -1.9)
         self.play(FadeIn(h), FadeIn(sh), FadeIn(back), FadeIn(front), run_time=0.8)
@@ -279,7 +361,7 @@ class B03_WhatItIs(Scene):
 
 class B04_Loop(Scene):
     def construct(self):
-        h = header("1 · How it will work: the agent loop")
+        h = header("3 · Methods: the agent loop")
         P = {"run": np.array([-1.6, 1.3, 0]), "read": np.array([1.8, -1.4, 0]), "decide": np.array([-4.2, -1.4, 0])}
         nodes = VGroup(*[Circle(radius=0.42, color=INK, stroke_width=5, fill_color=CARD, fill_opacity=1).move_to(p)
                          for p in P.values()])
@@ -312,7 +394,7 @@ REPORT_ROWS = [("warn", "step 1  ·  warning  ·  placeholder"),
 
 class B05_Report(Scene):
     def construct(self):
-        h = header("1 · What it will produce")
+        h = header("3 · Methods: what it will produce")
         win = panel(-6.0, 6.0, -2.15, 2.25)
         title = T("report.md", size=34, bold=True).move_to([-5.5, 1.45, 0], aligned_edge=LEFT)
         stamp = T("CONSTRUCTED MOCK-UP · not built yet", size=36, bold=True).move_to([0, -2.85, 0])
@@ -330,140 +412,73 @@ class B05_Report(Scene):
         finish(self)
 
 
-# ─────────────────────────────── Q2: the alternative I use already ───────────────────────────────
-class B06_NotCI(Scene):
+class B05A_Samples(Scene):
     def construct(self):
-        h = header("2 · Isn't that what CI does?")
-        left = panel(-6.0, -0.6, -2.0, 1.75)
-        lt = T("my CI pipeline", size=34).move_to([-3.3, 2.2, 0])
-        lines = VGroup(*[Line([-5.5, y, 0], [-2.2, y, 0], color=GHOST, stroke_width=7) for y in (0.75, 0.0, -0.75)])
-        self.play(FadeIn(h), FadeIn(left), FadeIn(lt), FadeIn(lines), run_time=0.9)
-        pg = readme_page(3.1, 0.15, w=4.4, h=3.2, rows=4)
-        rt = T("my README", size=34).move_to([3.1, 2.2, 0])
-        self.play(FadeIn(pg), FadeIn(rt), run_time=0.8)
-        at(self, 0.58)
-        cks = VGroup(*[check(-1.4, y, s=0.17) for y in (0.75, 0.0, -0.75)])
-        self.play(LaggedStart(*[Create(c) for c in cks], lag_ratio=0.3), run_time=0.8)
-        nt = T("never run by CI", size=34).move_to([3.1, -2.05, 0])
-        self.play(FadeIn(nt), run_time=0.4)
-        k = keyline("CI tests the code, not the instructions a person reads.")
-        self.play(Write(k), run_time=0.6)
-        finish(self)
-
-
-# ─────────────────────────────── Q3: who opens it ───────────────────────────────
-class B07_Reader(Scene):
-    def construct(self):
-        h = header("3 · Who opens it, and what do they do?")
-        win = panel(-6.0, 1.9, -1.8, 1.0)
-        cmd = M("$ readme-check ./sample-app", size=30).move_to([-5.6, 0.0, 0], aligned_edge=LEFT)
-        tag = T("planned command (constructed)", size=32).move_to([-2.05, -2.3, 0])
-        self.play(FadeIn(h), FadeIn(win), run_time=0.7)
-        self.play(AddTextLetterByLetter(cmd), run_time=1.0)
-        self.play(FadeIn(tag), run_time=0.4)
-        who = T("reader: hiring managers and engineers", size=32).move_to([-6.0, 2.25, 0], aligned_edge=LEFT)
-        role = T("target role: Software Engineer", size=32).move_to([-6.0, 1.65, 0], aligned_edge=LEFT)
-        self.play(FadeIn(who), FadeIn(role), run_time=0.5)
-        at(self, 0.58)
-        rp = readme_page(4.2, -0.3, w=2.2, h=2.4, rows=4)
-        rl = T("report.md", size=32).next_to(rp, DOWN, buff=0.2)
-        self.play(FadeIn(rp, shift=LEFT * 0.4), FadeIn(rl), run_time=0.6)
-        k = keyline("One command. A report they can check, in about a minute.")
-        self.play(Write(k), run_time=0.6)
-        finish(self)
-
-
-# ─────────────────────────────── Q4: how I'll prove it, what it proves ───────────────────────────────
-class B08_Eval(Scene):
-    def construct(self):
-        h = header("4 · How will I know it works?")
-        boxes, tops = VGroup(), []
-        for r in range(2):
-            for c in range(5):
-                iso = Iso(-5.4 + c * 1.45, 0.55 - r * 1.9, 0.5)
-                boxes.add(iso.box(0, 0, 0, 1.0, 1.0, 0.8))
-                tops.append(iso.p(0.5, 0.5, 0.8))
-        self.play(FadeIn(h), LaggedStart(*[FadeIn(b, shift=DOWN * 0.3) for b in boxes], lag_ratio=0.08), run_time=1.3)
-        l1 = T("~10 sample projects", size=32).move_to([-2.5, 2.25, 0])
-        self.play(FadeIn(l1), run_time=0.4)
-        sparks = VGroup(*[Dot(tops[i], radius=0.09, color=TERRA) for i in (0, 3, 4, 6, 8)])
-        l2 = T("dot = a problem I plant", size=32).move_to([-2.5, -2.3, 0])
+        h = header("3 · Methods: where the data comes from")
+        boxes, tops = sample_boxes()
+        l1 = T("~10 small sample projects I'll make", size=32).move_to([-2.5, 2.25, 0])
+        self.play(FadeIn(h), LaggedStart(*[FadeIn(b, shift=DOWN * 0.3) for b in boxes], lag_ratio=0.08),
+                  FadeIn(l1), run_time=1.3)
+        until(self, "Half get")
+        sparks = VGroup(*[Dot(tops[i], radius=0.09, color=TERRA) for i in PLANTED])
+        l2 = T("dot = one problem I plant", size=32).move_to([-2.5, -2.3, 0])
         self.play(LaggedStart(*[GrowFromCenter(s) for s in sparks], lag_ratio=0.2), FadeIn(l2), run_time=0.8)
         at(self, 0.58)
-        scan = Line([-5.9, -1.9, 0], [-5.9, 1.9, 0], color=TERRA, stroke_width=6)
-        self.play(FadeIn(scan), run_time=0.15)
-        self.play(scan.animate.shift(RIGHT * 7.3), run_time=1.2, rate_func=linear)
-        self.play(FadeOut(scan), run_time=0.15)
-        s1 = T("caught:  ? / planted", size=40).move_to([4.2, 0.7, 0])
-        s2 = T("false alarms:  ?", size=40).move_to([4.2, -0.4, 0])
-        self.play(FadeIn(s1), FadeIn(s2), run_time=0.5)
-        k = keyline("These numbers don't exist yet.")
-        self.play(Write(k), run_time=0.5)
-        finish(self)
-
-
-SKILLS = [("agent loop", 0.17), ("verification · real output", 0.33), ("evaluation · a score", 0.6),
-          ("source grounding · README lines", 0.72), ("prompt contract · checked by code", 0.85)]
-
-
-class B09_Skills(Scene):
-    def construct(self):
-        h = header("4 · What will it prove about me?")
-        sh = floor_shadow(-3.8, -2.05, w=3.0)
-        iso, back, front = container(-3.8, -1.9, s=0.75)
-        plinth = iso.box(-0.25, -0.25, -0.45, 2.5, 2.5, 0.45, DARK_TOP, DARK_L, DARK_R)
-        plinth.set_z_index(-1)
-        self.play(FadeIn(h), FadeIn(sh), FadeIn(plinth), FadeIn(back), FadeIn(front), run_time=0.8)
-        lab = T("five course skills", size=34, bold=True).move_to([-1.2, 2.2, 0], aligned_edge=LEFT)
-        self.play(FadeIn(lab), run_time=0.4)
-        items = []
-        for i, (s, _) in enumerate(SKILLS):
-            y = 1.3 - i * 0.78
-            items.append((Dot([-1.0, y, 0], radius=0.09, color=TERRA), T(s, size=34).move_to([-0.7, y, 0], aligned_edge=LEFT)))
-        for (d, t), (_, frac) in zip(items[:2], SKILLS[:2]):
-            at(self, frac)
-            self.play(GrowFromCenter(d), FadeIn(t), run_time=0.4)
-        at(self, 0.58)
-        for (d, t), (_, frac) in zip(items[2:], SKILLS[2:]):
-            at(self, frac)
-            self.play(GrowFromCenter(d), FadeIn(t), run_time=0.4)
-        finish(self)
-
-
-# ─────────────────────────────── Q5: in, out, first ───────────────────────────────
-class B10_First(Scene):
-    def construct(self):
-        h = header("5 · What's in, what's out, what comes first?")
-        o = T("OUT", size=36, bold=True).move_to([-4.3, 2.2, 0])
-        pen = Polygon([-5.0, -0.6, 0], [-4.7, -0.9, 0], [-3.0, 0.8, 0], [-3.3, 1.1, 0],
-                      fill_color=BOX_R, fill_opacity=1, stroke_color=INK, stroke_width=4)
-        tip = Polygon([-5.0, -0.6, 0], [-4.7, -0.9, 0], [-5.2, -1.1, 0], fill_color=INK, fill_opacity=1, stroke_width=0)
-        self.play(FadeIn(h), FadeIn(o), FadeIn(pen), FadeIn(tip), run_time=0.7)
-        self.play(Create(xmark(-4.1, 0.1, s=0.85, w=9)), run_time=0.4)
-        l1 = T("won't fix READMEs", size=32).move_to([-4.1, -1.75, 0])
-        self.play(FadeIn(l1), run_time=0.4)
-        f = T("FIRST", size=36, bold=True).move_to([2.4, 2.2, 0])
-        sh = floor_shadow(0.4, -1.95, w=2.6)
-        iso, back, front = container(0.4, -1.8, s=0.65)
-        self.play(FadeIn(f), FadeIn(sh), FadeIn(back), FadeIn(front), run_time=0.6)
-        pg = iso.page(0.45, 0.3, 2.8, w=1.1, d=1.4)
-        pg.set_z_index(1)
-        self.play(FadeIn(pg), run_time=0.3)
-        at(self, 0.58)
-        self.play(pg.animate.shift(DOWN * iso.s * 2.5), run_time=0.6, rate_func=ease_in)
-        win = panel(1.9, 6.1, -1.3, 1.3)
-        r1 = M("report.md", size=30).move_to([2.2, 0.4, 0], aligned_edge=LEFT)
-        r2 = T("exit code per step", size=32).move_to([2.2, -0.4, 0], aligned_edge=LEFT)
-        self.play(FadeIn(win), FadeIn(r1), FadeIn(r2), run_time=0.6)
-        k = keyline("First milestone: report.md with a real exit code for every step")
+        win = panel(1.4, 6.2, -1.5, 1.7)
+        kt = T("answer key", size=34, bold=True).move_to([1.75, 0.95, 0], aligned_edge=LEFT)
+        k1 = T("5 broken: which line", size=32).move_to([1.75, 0.15, 0], aligned_edge=LEFT)
+        k2 = T("5 working: no problem", size=32).move_to([1.75, -0.6, 0], aligned_edge=LEFT)
+        self.play(FadeIn(win), FadeIn(kt), FadeIn(k1), FadeIn(k2), run_time=0.6)
+        until(self, "So I know")
+        k = keyline("I know the right answer before the tool runs.")
         self.play(Write(k), run_time=0.6)
         finish(self)
 
 
-# ─────────────────────────────── Q6: what could sink it ───────────────────────────────
+PLAN = [("Runner: one sample README in a container", "report.md with a real exit code per step  ·  first milestone", "One:"),
+        ("Agent loop: continue, stop, or unclear", "with a prompt contract my code checks", "Two:"),
+        ("Samples: ~10 projects and an answer key", "5 with a planted problem, 5 that work", "Three:"),
+        ("Evaluation: score against the answer key", "the two numbers in part 4", "Four:")]
+
+
+class B05B_Plan(Scene):
+    def construct(self):
+        h = header("3 · Methods: step by step")
+        self.play(FadeIn(h), run_time=0.5)
+        for i, (main, sub, cue) in enumerate(PLAN):
+            y = 1.85 - i * 1.15
+            c = Circle(radius=0.34, color=INK, stroke_width=5, fill_color=CARD, fill_opacity=1).move_to([-5.55, y - 0.2, 0])
+            n = T(str(i + 1), size=36, bold=True).move_to(c.get_center())
+            a = T(main, size=36).move_to([-4.85, y, 0], aligned_edge=LEFT)
+            b = T(sub, size=32).move_to([-4.85, y - 0.5, 0], aligned_edge=LEFT)
+            until(self, cue)
+            self.play(GrowFromCenter(c), FadeIn(n), FadeIn(a), FadeIn(b), run_time=0.5)
+        finish(self)
+
+
+NEED = [("Docker", "installed on my laptop (version 29.1)", "Docker"),
+        ("GitHub", "the code goes in a public repo on my account", "the code goes"),
+        ("Claude", "Claude Code, university login · already used for a course agent", "the model calls"),
+        ("Compute", "my laptop · about one model call per README step", "It's about one")]
+
+
+class B05C_Resources(Scene):
+    def construct(self):
+        h = header("3 · Methods: do I have what I need?")
+        self.play(FadeIn(h), run_time=0.5)
+        for i, (name, detail, cue) in enumerate(NEED):
+            y = 1.85 - i * 1.15
+            a = T(name, size=38, bold=True).move_to([-5.0, y, 0], aligned_edge=LEFT)
+            b = T(detail, size=32).move_to([-5.0, y - 0.5, 0], aligned_edge=LEFT)
+            until(self, cue)
+            self.play(FadeIn(a), FadeIn(b), run_time=0.4)
+            self.play(Create(check(-5.6, y - 0.2, s=0.2)), run_time=0.3)
+        finish(self)
+
+
 class B11_Risk(Scene):
     def construct(self):
-        h = header("6 · What could sink it?")
+        h = header("3 · Methods: keeping it safe")
         sh = floor_shadow(-3.6, -1.95, w=3.0)
         iso = Iso(-3.6, -1.8, 0.75)
         bx = iso.box(0, 0, 0, 2.0, 2.0, 1.3)
@@ -489,49 +504,63 @@ class B11_Risk(Scene):
         finish(self)
 
 
-# ─────────────────────────────── Q7: why this project ───────────────────────────────
-class B12_Why(Scene):
+# ═══════════════════════ PART 4 · EVALUATION: what I'll measure, what counts ═══════════════════════
+class B08_Eval(Scene):
     def construct(self):
-        h = header("7 · Why this project? A mix")
-        hv = T("I already have", size=36, bold=True).move_to([-3.2, 2.2, 0])
-        have, hys = steps(["CI/CD · GitHub Actions", "Cloud · AWS + GCP images", "proof: github.com/LavanyaRajesh24/webapp",
-                           "Docker · used, no public proof yet"], -5.9, 1.35, gap=0.75, size=32)
-        self.play(FadeIn(h), FadeIn(hv), run_time=0.6)
-        for t in have[:3]:
-            self.play(FadeIn(t), run_time=0.35)
-        at(self, 0.4)
-        self.play(FadeIn(have[3]), run_time=0.35)
-        nw = T("new to me", size=36, bold=True).move_to([3.6, 2.2, 0])
-        self.play(FadeIn(nw), run_time=0.3)
+        h = header("4 · Evaluation: what I'll measure")
+        pa = readme_page(-5.0, 0.35, w=2.2, h=2.8, rows=4)
+        la = T("my answer key", size=32).move_to([-5.0, -1.45, 0])
+        vs = T("vs", size=40).move_to([-3.3, 0.35, 0])
+        pb = readme_page(-1.6, 0.35, w=2.2, h=2.8, rows=4)
+        lb = T("its report.md", size=32).move_to([-1.6, -1.45, 0])
+        self.play(FadeIn(h), FadeIn(pa, shift=DOWN * 0.2), FadeIn(la), run_time=0.8)
+        self.play(FadeIn(vs), FadeIn(pb, shift=DOWN * 0.2), FadeIn(lb), run_time=0.7)
+        lab = T("× 10 samples", size=32).move_to([-3.3, 2.2, 0])
+        self.play(FadeIn(lab), run_time=0.4)
         at(self, 0.58)
-        new, nys = steps(["agent loops", "evaluation", "source grounding", "prompt contracts"], 2.4, 1.35, gap=0.75, size=32)
-        for t in new:
-            self.play(FadeIn(t), run_time=0.4)
-            self.wait(0.3)
-        k = keyline("Showing what I know. Learning what I don't.")
+        s1 = T("caught:  ? / 5", size=40).move_to([0.5, 1.0, 0], aligned_edge=LEFT)
+        s1b = T("planted, at the right line", size=32).move_to([0.5, 0.4, 0], aligned_edge=LEFT)
+        s2 = T("false alarms:  ?", size=40).move_to([0.5, -0.5, 0], aligned_edge=LEFT)
+        s2b = T("on the 5 working samples", size=32).move_to([0.5, -1.1, 0], aligned_edge=LEFT)
+        self.play(FadeIn(s1), FadeIn(s1b), run_time=0.4)
+        until(self, "and false alarms")
+        self.play(FadeIn(s2), FadeIn(s2b), run_time=0.4)
+        k = keyline("These numbers don't exist yet.")
         self.play(Write(k), run_time=0.5)
         finish(self)
 
 
-# ─────────────────────────────── exists vs. will exist ───────────────────────────────
-class B13_Exists(Scene):
+class B08A_Threshold(Scene):
     def construct(self):
-        h = header("What exists today, and what will exist")
-        s1 = Line([-6.0, 0.5, 0], [6.0, 0.5, 0], color=KRAFT_EDGE, stroke_width=8)
-        e = T("exists today", size=34, bold=True).move_to([-5.9, 2.25, 0], aligned_edge=LEFT)
-        items = VGroup(T("this pitch film", size=32), T("my 2 README tests", size=32), T("my webapp repo", size=32))
-        for i, t in enumerate(items):
-            t.move_to([-5.9 + i * 4.1, 1.15, 0], aligned_edge=LEFT)
-        self.play(FadeIn(h), Create(s1), FadeIn(e), FadeIn(items), run_time=1.0)
-        at(self, 0.58)
-        s2 = Line([-6.0, -2.3, 0], [6.0, -2.3, 0], color=KRAFT_EDGE, stroke_width=8)
-        w = T("will exist", size=34, bold=True).move_to([-5.9, -0.55, 0], aligned_edge=LEFT)
-        iso = Iso(4.6, -2.3, 0.5)
-        g1 = ghost_box(iso, 0, 0, 0, 1.4, 1.4, 1.0)
-        fut = VGroup(T("the tool", size=32), T("~10 sample repos", size=32), T("the scores", size=32))
-        for i, t in enumerate(fut):
-            t.move_to([-5.9 + i * 3.4, -1.5, 0], aligned_edge=LEFT)
-        self.play(Create(s2), FadeIn(w), Create(g1), FadeIn(fut), run_time=0.9)
+        h = header("4 · Evaluation: what counts as working")
+        ta = T("It worked if", size=40, bold=True).move_to([-5.55, 2.1, 0], aligned_edge=LEFT)
+        ca = check(-5.95, 2.1, s=0.2)
+        A = ["at least 4 of 5 planted problems caught", "each at the right README line", "at most 1 false alarm",
+             "every verdict from a command that ran"]
+        ya = [1.3, 0.65, 0.0, -0.65]
+        ia = [T(s, size=32).move_to([-5.55, y, 0], aligned_edge=LEFT) for s, y in zip(A, ya)]
+        self.play(FadeIn(h), FadeIn(ta), Create(ca), run_time=0.6)
+        until(self, "at least four")
+        self.play(FadeIn(ia[0]), run_time=0.35)
+        until(self, "at the right line")
+        self.play(FadeIn(ia[1]), run_time=0.35)
+        until(self, "with at most")
+        self.play(FadeIn(ia[2]), run_time=0.35)
+        at(self, 0.4)
+        self.play(FadeIn(ia[3]), run_time=0.35)
+        div = Line([1.6, 2.3, 0], [1.6, -1.0, 0], color=GHOST, stroke_width=4)
+        tb = T("It didn't if", size=40, bold=True).move_to([2.35, 2.1, 0], aligned_edge=LEFT)
+        cb = xmark(2.0, 2.1, s=0.16)
+        ib = [T("3 or fewer caught,", size=32).move_to([2.35, 1.3, 0], aligned_edge=LEFT),
+              T("or 2+ false alarms", size=32).move_to([2.35, 0.65, 0], aligned_edge=LEFT)]
+        until(self, "Three or fewer")
+        self.play(Create(div), FadeIn(tb), Create(cb), FadeIn(ib[0]), run_time=0.5)
+        until(self, "or two false")
+        self.play(FadeIn(ib[1]), run_time=0.35)
+        tag = T("targets set now, before anything is built", size=32).move_to([0, -1.75, 0])
+        until(self, "Either way")
+        k = keyline("Either way: a write-up of where Claude was wrong.")
+        self.play(FadeIn(tag), Write(k), run_time=0.6)
         finish(self)
 
 

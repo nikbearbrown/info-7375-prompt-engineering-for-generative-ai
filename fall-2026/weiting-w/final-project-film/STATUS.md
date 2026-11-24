@@ -1,6 +1,6 @@
 # STATUS — final-project-film
 
-18/18 beats filled. Derived from beat_sheet.json — edit the sheet, not this file.
+24/24 beats filled. Derived from beat_sheet.json — edit the sheet, not this file.
 
 | beat | status | fill method | who | slot | suggested prompt / search |
 |---|---|---|---|---|---|
@@ -9,16 +9,22 @@
 | B00 | ✅ filled | manim | pipeline | `manim/B00.mp4` |  |
 | B01 | ✅ filled | manim | pipeline | `manim/B01.mp4` |  |
 | B02 | ✅ filled | manim | pipeline | `manim/B02.mp4` |  |
-| B02B | ✅ filled | manim | pipeline | `manim/B02B.mp4` |  |
 | B03 | ✅ filled | manim | pipeline | `manim/B03.mp4` |  |
 | B04 | ✅ filled | manim | pipeline | `manim/B04.mp4` |  |
-| B04B | ✅ filled | manim | pipeline | `manim/B04B.mp4` |  |
 | B05 | ✅ filled | manim | pipeline | `manim/B05.mp4` |  |
-| B05B | ✅ filled | manim | pipeline | `manim/B05B.mp4` |  |
 | B06 | ✅ filled | manim | pipeline | `manim/B06.mp4` |  |
 | B07 | ✅ filled | manim | pipeline | `manim/B07.mp4` |  |
-| B07B | ✅ filled | manim | pipeline | `manim/B07B.mp4` |  |
 | B08 | ✅ filled | manim | pipeline | `manim/B08.mp4` |  |
-| B08B | ✅ filled | manim | pipeline | `manim/B08B.mp4` |  |
+| B09 | ✅ filled | manim | pipeline | `manim/B09.mp4` |  |
+| B10 | ✅ filled | manim | pipeline | `manim/B10.mp4` |  |
+| B11 | ✅ filled | manim | pipeline | `manim/B11.mp4` |  |
+| B12 | ✅ filled | manim | pipeline | `manim/B12.mp4` |  |
+| B13 | ✅ filled | manim | pipeline | `manim/B13.mp4` |  |
+| B14 | ✅ filled | manim | pipeline | `manim/B14.mp4` |  |
+| B15 | ✅ filled | manim | pipeline | `manim/B15.mp4` |  |
+| B16 | ✅ filled | manim | pipeline | `manim/B16.mp4` |  |
+| B17 | ✅ filled | manim | pipeline | `manim/B17.mp4` |  |
+| B18 | ✅ filled | manim | pipeline | `manim/B18.mp4` |  |
+| B19 | ✅ filled | manim | pipeline | `manim/B19.mp4` |  |
 | BHTF | ✅ filled | remotion | pipeline | `media/BHTF.mp4` |  |
 | BOUT | ✅ filled | remotion | pipeline | `media/BOUT.mp4` |  |

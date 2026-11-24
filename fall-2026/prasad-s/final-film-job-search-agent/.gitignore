@@ -1,0 +1,23 @@
+# job-search-agent-film reel: ignore caches, intermediates, review cuts, frames and every MP4.
+# The master (exports/**/*.mp4) is ignored; README.md will record its filename, size and SHA-256.
+# exports/ is ignored in full (see below), so the .verified.json files in it are ignored too.
+*.mp4
+media/
+clips/
+mp3/
+manim/
+mp4/
+_qc/frames/
+_superseded/
+.audio.log
+__pycache__/
+
+# Local build ledgers (build-state.json holds absolute local paths).
+build-state.json
+todo.json
+ToDo.md
+STATUS.md
+
+# exports/ holds the master and its .verified.json, which records absolute local paths; both are ignored.
+exports/
+MASTERCHECK.md

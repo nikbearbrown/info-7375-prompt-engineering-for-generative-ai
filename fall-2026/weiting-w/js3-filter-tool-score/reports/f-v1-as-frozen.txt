@@ -1,0 +1,58 @@
+filter=F-v1  scorer=S-v1  threshold=6
+corpus: 452 postings, 295 with a body, 157 without
+
+  shortlisted         0
+  below_threshold     0
+  gated             443
+  cannot_score        9   (no body on that board; not a zero, not a rejection)
+  ----------------------------------
+  total             452
+
+  gates: G1_title_block=302, G2_discipline=113, G3_job_family=26, G4_location=2
+  scored: 0   range: None
+
+  NOTE: the scorer never ran. Every posting that carries a body was
+  stopped by a gate, so S-v1 decided nothing about this corpus.
+
+  decisions: /home/claude/work/fall-2026/weiting-w/js3-filter-tool-score/audit/decisions.json
+  summary:   /home/claude/work/fall-2026/weiting-w/js3-filter-tool-score/audit/summary.json
+
+
+Why the scorer never ran -- the 295 postings that DO carry a body:
+   G1_title_block         167
+   G2_discipline          104
+   G3_job_family          24
+
+The 24 stopped at F3, with the family value the board actually sent:
+   ashby:ramp       Software Engineer, Android                       family='Engineering'
+   ashby:ramp       Software Engineer, iOS                           family='Engineering'
+   ashby:ramp       Software Engineer, Security, Stablecoin          family='Engineering'
+   ashby:ramp       Software Engineer, Growth Platform               family='Engineering'
+   ashby:ramp       Software Engineer, Fraud & Identity              family='Engineering'
+   ashby:ramp       Software Engineer, Backend, Credit               family='Engineering'
+   ashby:ramp       Software Engineer, Backend, Developer API        family='Engineering'
+   ashby:ramp       Backend Engineer, Ops Engineering                family='Engineering'
+   ashby:ramp       Software Engineer, Engineering Platform          family='Engineering'
+   ashby:ramp       Software Engineer, Production Engineering        family='Engineering'
+   ashby:ramp       Machine Learning Engineer                        family='Data'
+   ashby:ramp       Software Engineer, Backend, Growth               family='Engineering'
+   ashby:ramp       Software Engineer, Forward Deployed, AI Soluti   family='Engineering'
+   ashby:ramp       Software Engineer, Frontend, Growth              family='Engineering'
+   ashby:ramp       Software Engineer, Frontend                      family='Engineering'
+   ashby:ramp       Software Engineer, Backend, AI Spend Managemen   family='Engineering'
+   ashby:ramp       Software Engineer, Backend, Accounts Receivabl   family='Engineering'
+   ashby:ramp       Software Engineer, Backend, Accounting           family='Engineering'
+   ashby:ramp       Software Engineer, Forward Deployed, Enterpris   family='Engineering'
+   ashby:ramp       Software Engineer, Backend, Comms Platform       family='Engineering'
+   lever:spotify    Backend Engineer - Data Platform                 family='Platform'
+   lever:spotify    Backend Engineer - Data Platform                 family='Platform'
+   lever:spotify    Full Stack Engineer - Music                      family='Music'
+   lever:spotify    Machine Learning Engineer - Subscriptions        family='Subscriptions R&D'
+
+Every distinct job_family value, per board:
+   greenhouse:reddit (32): Account Executive | Agency Development | Business Engineer | Business Systems | Client Account Manager | Client Partner | Creative Strategy | Data Informatics | Data Science | Finance | Information Systems | Integrated Marketing | Legal Administration | Legal Counsel | Machine Learning | Marketing | Non Technical Project Manager | None | Payroll | Product Adoption | Product Management | Sales Program Management | Software Engineering | Specialized Machine Learning | Specialized Software Engineering | Specialized UX Design | Strategy & Operations | Tax Accounting | Technical Project Manager | Technical Solutions | Threat Analyst | UX Design
+   ashby:ramp (15): Business Development | Compliance | Customer Experience | Data | Deal Desk | Design | Engineering | Finance | Legal | Marketing | People & Talent | Product | Risk | Sales | Security
+   ashby:linear (3): GTM | Operations | Product
+   lever:spotify (19): Accounting | Advertising Business Marketing | Advertising Sales - Emerging and Scaled Sales | Advertising Sales - Enterprise | Business Team | Experience | Government Affairs | Human Resources | IT and Network Engineering | Marketing | Music | Music Business | Music Marketing | Operations and Strategy | PR & Communications | Personalization | Platform | Subscriptions R&D | Trust & Safety
+
+persona.target_job_families = ['software engineering', 'machine learning', 'data science']

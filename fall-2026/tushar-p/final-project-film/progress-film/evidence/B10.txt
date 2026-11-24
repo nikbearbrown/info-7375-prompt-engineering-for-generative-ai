@@ -1,0 +1,42 @@
+# B10: header of docs/t5-predictions.md
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: sed -n '1p' docs/t5-predictions.md
+# ----------------------------------------------------------------------------
+# Pre-registered predictions for T5.1, written by Tushar on Nov 17, 2026, before any held-out run
+# exit code: 0
+
+# B10: the predictions commit
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: git log -1 6d7bafe
+# ----------------------------------------------------------------------------
+commit 6d7bafe132844b2649be527f36427452667dd9a8
+Author: Tushar-Patel28 <194819928+tushar-patel28@users.noreply.github.com>
+Date:   Tue Nov 17 22:40:39 2026 -0500
+
+    T5.1: pre-registered predictions
+    
+    Tushar's predictions for the T5.1 held-out runs, saved verbatim in
+    docs/t5-predictions.md and linked from docs/07-evidence.md. Committed and
+    pushed before any held-out run: no trace or eval-log line has a held-out
+    task.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+# exit code: 0
+
+# B10: first held-out eval timestamp (after the commit above: 2026-11-18T03:41Z = Nov 17 22:41 ET)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -m1 -o '"eval_id":"20261118T034100Z-57e06904","timestamp":"[^"]*"' results/eval-log.jsonl
+# ----------------------------------------------------------------------------
+"eval_id":"20261118T034100Z-57e06904","timestamp":"2026-11-18T03:41:00.234146Z"
+# exit code: 0
+
+# B10: the two system prompts (contract A: original; contract B: Tushar's, D30)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: wc -c contracts/A-system.txt contracts/B-system.txt; grep -n '^| D30' PLAN.md | cut -c1-200
+# ----------------------------------------------------------------------------
+     623 contracts/A-system.txt
+    2695 contracts/B-system.txt
+    3318 total
+442:| D30 | Nov 17 | Prompt contract B for T5.1 is Tushar's text in `contracts/B-system.txt`, byte for byte (curly quotes included, no trailing newline): 2,695 bytes, SHA-256 `5bd2572217f96e5b5c97a6ce
+# exit code: 0
+

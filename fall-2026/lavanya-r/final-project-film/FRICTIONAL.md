@@ -108,3 +108,27 @@ I watched the first master and found three problems:
 - I pulled the course repo first (fast-forward, classmates' folders only), then pushed my folder to `main` as commit `405d2eb`.
 - **The film was missing from that commit.** The repo's `.gitignore` ignores `*.mp4`, and `git add` skipped it silently. I caught it because only 16 files were staged instead of 17. Other final-project folders contain force-added films, so I did the same (`git add -f`) and pushed it as commit `66094dc`. I confirmed through the GitHub API that the 17.7 MB `readme-checker-film.mp4` is on the remote.
 - My first commit had only a title line, while several classmates' commits have a full description. I decided **not** to rewrite that commit: it was already on the shared `main`, and changing it would mean a force-push that could erase classmates' work. Instead, this commit carries the full description.
+
+## 2026-11-23: Cut 4, re-ordered into four parts
+- New guidance for the project film asks for four parts, in order: an executive summary (what and why, with no "how"), an introduction (what others have done), methods, and evaluation, with the detail kept in an appendix. I checked cut 3 against it:
+  - What I'm building first appeared at 1:16, not inside the first minute, and the terms card put "how" detail into the opening.
+  - "What exists" covered only my two runs by hand and CI. It named no existing tools or research.
+  - Methods didn't say where the data comes from, what order I'll build in, or whether I have the resources.
+  - Evaluation named the two metrics but not the result that would mean it worked or didn't.
+- **What I changed for cut 4** (21 beats, 3 min 51 s):
+  - **Part 1** now says what the tool will do at 0:22, and uses my own failed README as the reason it matters. It ends at 0:49. The terms card is gone.
+  - **Part 2** adds Runme and Doc Detective, plus two published AI agents that set up projects: ExecutionAgent (33 of 50 projects, ISSTA 2025) and Installamatic (21 of 40 Python projects, SANER 2025). It ends on a comparison table showing why mine is still worth building. I checked each number against the paper's own abstract (SOURCES.md).
+  - **Part 3** adds three beats: the data (about ten sample projects I'll make, five broken and five working, with an answer key), a four-step build order, and the resources I have. For resources I ran `docker --version` (29.1.2) and confirmed I already use Claude Code on my university login for my JS1 agent.
+  - **Part 4** adds the targets: it worked if it catches at least 4 of 5 planted problems at the right line, with at most 1 false alarm, and every verdict comes from a command that ran.
+  - Cut to fit under 4 minutes: the terms card, the Heroku README-marks beat, who opens it, course skills, why this project, and exists vs. will exist. That content is now in the new APPENDIX.md.
+- The first draft of the new script was 744 words, estimated at about 4 min 30 s, over the limit. I tightened it to 646 words. The measured audio is 3 min 51 s.
+- **Environment problems:**
+  - The first audio run stopped with "pip install kokoro-onnx", because the shell's default `python3` is the system Python.
+  - The first `art run` then failed with `manim: command not found` (exit 127). Manim 0.20.1, the version cut 3 used, is only in my Anaconda environment. I rendered with that environment first on `PATH`.
+- **Gates that stopped the run, and the fixes:**
+  - **Gate A:** in the build-order beat, a dot was placed past the right edge of the frame; I removed it. On the doc-tools card, a warning mark sat near the safe edge; I gave it a fixed position.
+  - **Gate W** skipped six of the new beats, because it only analyses classes named like `B07_Foo`, and I had named them `BWHAT`, `BGAP` and so on. I renamed all eight new beats to digit-style IDs (B00A, B06A–B06C, B05A–B05C, B08A) and re-voiced. The durations came out identical.
+  - **Gate B** (layout, strict) stopped twice. The answer-key text in B05A ran past its panel, so I widened the panel and shortened the lines. A subtitle in B08 crossed the safe area, so I shortened it and moved the score block left.
+- **Cut 4 gates:** Gate V clean (42 frames, 0 BLOCKER, 0 MAJOR), Gate T PASS, the strict layout audit CLEAN on all 20 Manim scenes, and `factcheck_check.py` clean (31 rows). `bookend_check.py` still reports the missing `ClaudeTitleOutro`, as intended.
+- I looked at the last frame of every new beat myself: no overflow, and every planned item is labelled ("(planned)", "CONSTRUCTED MOCK-UP", "targets set now, before anything is built", "These numbers don't exist yet").
+- I watched cut 4 and approved it, together with the new FACTCHECK rows 22–31: the evaluation targets, the sample-set plan and the Claude Code resource line. Cut 3 stays in this repo's history and in my local `_superseded/cut3-final/` archive.

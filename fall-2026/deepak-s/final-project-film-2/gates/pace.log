@@ -1,0 +1,35 @@
+[pacing] CueGate   durations: real (timings.json)
+beat   type          dur  status
+------------------------------------------------------------------------------
+B01    default     10.8s  ok
+B02    default      4.0s  ⚑ BELOW FLOOR by 1.0s → add a ~1.0s hold (don't shorten narration)
+B03    default     14.2s  ok
+B04    default     12.3s  ok
+B05    default      4.0s  ⚑ BELOW FLOOR by 1.0s → add a ~1.0s hold (don't shorten narration)
+B06    default      6.7s  ok
+B07    default      3.0s  ⚑ BELOW FLOOR by 2.0s → add a ~2.0s hold (don't shorten narration)
+B08    default     12.3s  ok
+B09    default     16.9s  ok
+B10    default      2.6s  ⚑ BELOW FLOOR by 2.4s → add a ~2.4s hold (don't shorten narration)
+B11    default     11.4s  ok
+B12    default      3.0s  ⚑ BELOW FLOOR by 2.0s → add a ~2.0s hold (don't shorten narration)
+B13    default     20.8s  ⚑ OVER CEILING (20.8>18s) → likely >1 idea; consider splitting
+B14    default     18.0s  ok
+B15    default      2.6s  ⚑ BELOW FLOOR by 2.4s → add a ~2.4s hold (don't shorten narration)
+B16    default      8.0s  ok
+B17    default      2.6s  ⚑ BELOW FLOOR by 2.4s → add a ~2.4s hold (don't shorten narration)
+B18    default     20.5s  ⚑ OVER CEILING (20.5>18s) → likely >1 idea; consider splitting
+B19    default      3.0s  ⚑ BELOW FLOOR by 2.0s → add a ~2.0s hold (don't shorten narration)
+B20    default     13.8s  ok
+B21    default     15.8s  ok
+B22    default      2.6s  ⚑ BELOW FLOOR by 2.4s → add a ~2.4s hold (don't shorten narration)
+B23    default      7.4s  ok
+B24    default      2.6s  ⚑ BELOW FLOOR by 2.4s → add a ~2.4s hold (don't shorten narration)
+B25    default      9.8s  ok
+BOUT   default      6.0s  ok
+------------------------------------------------------------------------------
+[pacing] narration total 234.7s + ~25s inter-beat holds = ~259.7s (4.3 min) — this is an OUTPUT, not a target.
+[pacing] 10 beat(s) below consolidation floor → add holds: B02(+1.0s), B05(+1.0s), B07(+2.0s), B10(+2.4s), B12(+2.0s), B15(+2.4s), B17(+2.4s), B19(+2.0s), B22(+2.4s), B24(+2.4s)
+[pacing] 2 dense beat(s) → consider splitting: B13(21s), B18(20s)
+[pacing] 26 content beat(s) have no content_type → floors used are generic defaults. Run media-router `recommend.py --tag` first for sharper floors.
+[pacing] reminder: never split a beat or speed the voice to hit a clock number. If a fixed target is forcing that, it's a production compromise with a learning cost.

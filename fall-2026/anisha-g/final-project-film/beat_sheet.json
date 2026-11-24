@@ -1,34 +1,26 @@
 {
   "metadata": {
-    "slug": "jobpost-contracts-pitch",
-    "title": "JobPost Contracts: a pitch",
-    "topic": "INFO7375 final project pitch",
-    "narrator": "Anisha Gaikar, in my own voice",
+    "slug": "job-search-agent-film",
+    "title": "A job-search agent that shows its reasons",
+    "narrator": "macOS Samantha voice reading my script (disclosed)",
+    "structure": "Professor Bear's four parts: executive summary, introduction, methods, evaluation",
     "clock": "narration",
-    "aspect_ratio": "16:9",
-    "format": "show-tell style (as in the Brutalist toolkit): typing intro, terms card, then one animated isometric drawing per beat with 1-3 word labels; narration carries the idea. Own palette (teal/coral).",
-    "honesty_note": "Nothing in this project has been built yet. Every drawing after the terms card is labelled 'CONSTRUCTED · not built yet' on screen. Everything not yet built is described with 'will'."
+    "aspect_ratio": "16:9"
   },
   "beats": [
     {
       "beat_id": "B00",
-      "act": "intro · the question",
-      "narration_text": "Hi, I'm Anisha Gaikar, and this is my final project pitch: JobPost Contracts, a Python tool that summarizes job postings and catches when the AI makes things up. Nothing is built yet; everything you'll see is a sketch of what I will build. My first question was: can AI summarize a job posting? The better question is: can it do that without inventing anything?",
-      "new_visual_element": "Title 'JobPost Contracts' + one-line description; then typing intro: 'Can AI summarize a job posting' with 'for me?' replaced by 'without inventing anything?'",
+      "act": "title",
+      "narration_text": "Hi, I'm Anisha Gaikar, and this is my final project: a job-search agent. The question I started with was: can AI find me jobs? The better question is: can it tell me which new postings are worth my time, and show me why?",
       "shot": {
         "type": "GRAPHIC",
         "source": "own"
-      },
-      "qc": {
-        "sparse_by_design": true,
-        "sparse_reason": "Title and typing intro: one centred question on a plain page by design (show-tell opening)."
       }
     },
     {
       "beat_id": "B01",
-      "act": "terms",
-      "narration_text": "Three terms first. A prompt contract is a set of rules the AI must follow, including what to say when something is missing. A synthetic posting is a fake job ad I write myself, so no real data is used. And a grounded field is an answer that comes with a quote from the posting.",
-      "new_visual_element": "'Terms In This Film' card: prompt contract, synthetic posting, grounded field",
+      "act": "1 · executive summary",
+      "narration_text": "My agent watches public job boards. Each day it shows me only the postings that are new, and says whether each one fits me, using the posting's own words as the reason. When the posting doesn't say, it answers 'I cannot tell'. It never applies, emails, messages anyone, or logs in.",
       "shot": {
         "type": "GRAPHIC",
         "source": "own"
@@ -36,90 +28,128 @@
     },
     {
       "beat_id": "B02",
-      "act": "1 · what is it",
-      "narration_text": "The project is JobPost Contracts: a small Python library of prompt contracts that turns a job posting into a structured summary, with a test set that catches Claude inventing details that are not in the posting. When it's done, it will be a GitHub repository with the contracts, twenty synthetic job postings, a test script, and an evaluation log.",
-      "new_visual_element": "Posting page drops in, contract block (dark), summary tray with five rows; then the four repo parts land: contracts, 20 postings, tests, eval log",
+      "act": "1 · executive summary",
+      "narration_text": "Why care? Most of a job board is not for you. On Klaviyo's board, only 6 of 156 postings even had an analyst title. And a summary that invents one detail is worse than no summary at all.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B03",
-      "act": "2 · why care",
-      "narration_text": "Who is it for? Anyone who reads lots of job postings and needs the key facts fast, like a job seeker comparing roles. I looked at two alternatives. Pasting a posting into ChatGPT: on October thirteenth I tried a real internship posting. It couldn't open the LinkedIn link, and with the text pasted, it gave a good summary, but it didn't show which line each fact came from, and under location it added a detail that wasn't in the posting at all. Copying fields into a spreadsheet by hand is accurate, but slow. In my tool, every field must come with a quote from the posting, or be marked 'not stated'.",
-      "new_visual_element": "Pile of postings; chatbot screen (no source shown, 'added a fact not in the posting', tried 2026-10-13) / spreadsheet with clock (slow) / my summary with leader lines to the posting",
+      "act": "1 · executive summary",
+      "narration_text": "So what you get is a short list: each new posting, a verdict, and the exact lines that support it, so you can check every reason in seconds.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B04",
-      "act": "3 · who opens it",
-      "narration_text": "The reader I'm aiming at is a hiring manager or engineer looking at a candidate for a junior AI engineering role. In the first sixty seconds, they will open the README, run one command, and see a pass and fail table, plus a log of the cases that failed.",
-      "new_visual_element": "Desk with laptop (hiring manager) -> README page -> terminal block -> pass/fail sheet; 'first 60 seconds'",
+      "act": "2 · introduction",
+      "narration_text": "What already exists? Job sites send alerts. LinkedIn, for example, lets you set job alerts. They tell you something new matched your keywords, but not whether it fits you, or why.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B05",
-      "act": "4 · what it proves",
-      "narration_text": "What would it prove about me? Four things from this course: writing prompt contracts, grounding every answer in the source, verifying that each quote really appears in the posting, and evaluating with a fixed test set. The evidence will be the test results and the evaluation log. It will not prove the tool works on real postings at scale, because I'm only testing synthetic data.",
-      "new_visual_element": "Four blocks stack into a tower: contracts, grounding, verify, evaluate; a ghost block 'real data at scale' is crossed out",
+      "act": "2 · introduction",
+      "narration_text": "I tested chatbots myself. On October 13th, ChatGPT gave a good summary, but no source for each fact, and it added a location detail that wasn't in the posting. On October 31st, Claude said 'mostly not relevant': hedged prose, nothing I could check automatically, and no memory of what I had already seen.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B06",
-      "act": "5 · in, out, first",
-      "narration_text": "In scope: five fields. Job title, seniority, required skills, location, and salary. Out of scope: no scraping real job sites, no real postings, and no job ranking or career advice. The first piece I'll make run is one contract on one synthetic posting. You'll know it ran when the output matches my hand-written expected answer and the test prints PASS.",
-      "new_visual_element": "IN tray fills with five field tiles; OUT items crossed out; FIRST: one page -> check 'PASS'",
+      "act": "2 · introduction",
+      "narration_text": "In this course, the instructor's tool Lectern already collects from 18 boards, and the Reallocation Engine has a role scorer. Collecting is solved. Deciding, with evidence, is not.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B07",
-      "act": "6 · risk",
-      "narration_text": "What could sink it? My synthetic postings might be too clean, so every test passes and proves nothing. To fight that, I will write at least five deliberately tricky postings: one with no salary, one where skills are implied but not listed, and one with conflicting seniority. A second limit: checking that a quote exists doesn't catch a quote put in the wrong field, so I'll hand-check those cases and log them.",
-      "new_visual_element": "Five clean pages all get checks ('too clean'); tricky pages slide in and two get crosses ('tricky cases')",
+      "act": "2 · introduction",
+      "narration_text": "That's the gap, and why mine is worth building: new postings only, a verdict you can check, an honest 'I cannot tell', and hard limits.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B08",
-      "act": "7 · why this project",
-      "narration_text": "I picked this project because it is small enough for one person to finish and it uses exactly what this course teaches. It's a mix of new learning and skills I already have. Prompt contracts, building a test set for AI output, and keeping an evaluation log are new skills. The skill I already have is Python, including tests and data-quality checks. My evidence is my MBTA transit reliability pipeline on my GitHub.",
-      "new_visual_element": "Handwritten reasons with checks; 'new to me' pile (contracts, test sets, eval logs); 'already have' block: Python, MBTA pipeline on GitHub",
+      "act": "3 · methods",
+      "narration_text": "How will I do it? The data comes from the public job-board APIs of Greenhouse and Lever. No account, no login, and the agent may call only those two hosts. It matches against a fictional persona, Nadia Okafor, so no real personal data is used.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
       }
     },
     {
       "beat_id": "B09",
-      "act": "close · exists vs will exist",
-      "narration_text": "To be clear about where things stand: today, what exists is this brief, this beat sheet, and this film. No code, contracts, test postings, or results exist yet. Everything else I've described is what will exist by the end of the course. Thanks for watching.",
-      "new_visual_element": "Left: solid stack 'exists today' (brief, beat sheet, film). Right: ghost outlines 'will exist' (contracts, postings, tests, eval log)",
+      "act": "3 · methods",
+      "narration_text": "My plan, step by step. Steps one and two already ran. Layer one: I committed a contract before any run, and judged each posting twice: by a written rule, and by Claude, with a validator that rejects any quote that isn't in the posting. Layer two: a bounded loop over three boards on two systems, with budgets and a permission policy enforced in code.",
       "shot": {
         "type": "GRAPHIC",
-        "source": "own",
-        "label_on_screen": "CONSTRUCTED · not built yet"
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "3 · methods",
+      "narration_text": "Step three, layer three, will add a readable filter, the 'I cannot tell' rule, the agent as a tool for Claude, and a score whose every number is explained. Step four, the final project, will turn it all into one daily shortlist. The details are in my appendix.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "3 · methods",
+      "narration_text": "Do I have what I need? Yes. Accounts: none are needed, because the job boards are public. Access: the agent may call only those two public APIs. Compute: my own laptop and Python. Token credits: the Claude steps use my own Claude account, run in small batches, keeping every reply.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "4 · evaluation",
+      "narration_text": "How will I know it worked? I compare it with my own hand labels, never with its own report. In layer one, Claude agreed with me on 10 of 10 development postings and 9 of 10 held back. But 19 of my 20 labels were 'not relevant', so that test was weak.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "4 · evaluation",
+      "narration_text": "Other checks don't trust the agent at all. All 18 of my boundary predictions matched. And two deliberately wrong versions ended 'finished', until an independent recount caught both.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "4 · evaluation",
+      "narration_text": "My pass mark: on at least 30 new postings I label and hold back, with at least 10 relevant, it must agree with me at least 80 percent of the time. It fails, however good that number looks, if one quote isn't in the posting, or a failed board shows as 'no new jobs'.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "4 · evaluation",
+      "narration_text": "Today, layers one and two exist and ran. The rest will exist by the end of the course. The voice is a computer reading my script. Thanks for watching.",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
       }
     }
   ]

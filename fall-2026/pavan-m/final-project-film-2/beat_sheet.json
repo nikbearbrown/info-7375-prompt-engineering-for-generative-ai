@@ -1,0 +1,1010 @@
+{
+  "metadata": {
+    "slug": "cite-the-line-project-film",
+    "title": "Cite-the-Line",
+    "topic": "INFO7375 · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "pavan-majji",
+    "channel_title": "Pavan Majji",
+    "persona": "Pavan Majji (first person; synthetic Kokoro am_onyx voice reading his script)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "greeting_language": "English (Hi)",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "show-tell opens on the hesitant writer + terms card, so no composer cold open; no verdict card; no Your Turn (a project film, not a tutorial). Outro kept, with the author's own handle (assignment: no instructor name, persona, or credit).",
+    "structure": [
+      "executive summary B00–B03",
+      "introduction B04–B06",
+      "methods B07–B13",
+      "evaluation B14–B17"
+    ],
+    "audience": "hiring managers and senior engineers for backend software engineering roles",
+    "source_doc": "PROJECT-BRIEF.md; APPENDIX.md; Chen et al., arXiv:2305.15778; Datadog Bits AI SRE documentation",
+    "playlist": "INFO7375 Final Project",
+    "chapter_number": 0,
+    "tags": [
+      "INFO7375",
+      "final project",
+      "log triage",
+      "root cause analysis",
+      "agentic AI",
+      "human gate",
+      "LLM evaluation",
+      "Claude Code",
+      "FastAPI",
+      "Postgres"
+    ],
+    "build": {
+      "at": "2026-11-23T12:09:37",
+      "cut": "master",
+      "filled": 21,
+      "of": 21,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Pavan Majji, a backend software engineer. This is my final project, Cite the Line. When something breaks, the better question isn't how to fix it, but which log lines prove the cause.",
+      "estimated_duration_s": 13.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types the fix-it question"
+          },
+          {
+            "at": 0.6,
+            "event": "corrects 'how do I fix it' → 'which log lines prove it'"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "What caused this error,\nand how do I fix it?",
+            "triggerWords": "how do I fix it",
+            "replacementWords": "which log lines prove it",
+            "fontSize": 70,
+            "charMs": 22,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "cite-the-line-project-film",
+            "banner": ""
+          },
+          "rendered": {
+            "out": "media/BIDEA.mp4",
+            "at": "2026-11-23T15:31:20.578214+00:00"
+          }
+        }
+      },
+      "lead_silence_s": 0.8,
+      "motion_claim": "The writer corrects the naive fix-it question into the real one.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "actual_duration_s": 11.22,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 11.25,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "BDEFS",
+      "act": "terms",
+      "lane": "bookend",
+      "proof_gate": "CARD",
+      "narration_text": "Three terms. Root cause: the failure that started the problem. Source grounding: every claim points to the exact text it came from. A human gate: a point where the system hands a decision to a person.",
+      "estimated_duration_s": 14.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.12,
+            "event": "'root cause'"
+          },
+          {
+            "at": 0.45,
+            "event": "'source grounding'"
+          },
+          {
+            "at": 0.75,
+            "event": "'human gate'"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeDefinitions",
+          "props": {
+            "title": "Terms In This Film",
+            "terms": [
+              {
+                "term": "root cause",
+                "meaning": "the failure that started the problem"
+              },
+              {
+                "term": "source grounding",
+                "meaning": "every claim points to the exact text it came from"
+              },
+              {
+                "term": "human gate",
+                "meaning": "where the system hands a decision to a person"
+              }
+            ],
+            "folderLabel": "Pavan Majji"
+          },
+          "rendered": {
+            "out": "media/BDEFS.mp4",
+            "at": "2026-11-23T15:32:32.342174+00:00"
+          }
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "TERMS card: three prerequisites, one line each."
+      },
+      "actual_duration_s": 11.33,
+      "audio_file": "mp3/beat-BDEFS.mp3",
+      "render_duration_s": 11.333333333333334,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BDEFS.mp4",
+        "filled_by": "remotion:ClaudeDefinitions",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "1-executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When a backend service fails, engineers often paste the error into a chatbot and act on the answer, without checking it against the logs.",
+      "estimated_duration_s": 9.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A log page, a chat bubble labelled 'chatbot', and a fix slip, joined left to right by kraft connectors; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "log page"
+          },
+          {
+            "at": 0.2,
+            "event": "chat bubble"
+          },
+          {
+            "at": 0.3,
+            "event": "fix slip"
+          }
+        ],
+        "manim": {
+          "class": "B00_PasteHabit"
+        },
+        "motion_claim": "A log page, a chat bubble labelled 'chatbot', and a fix slip, joined left to right by kraft connectors; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.87,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 7.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "1-executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Cite the Line will read the logs from a failing service, name the likely cause, and point to the exact lines that prove it.",
+      "estimated_duration_s": 9.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A lens slides over a log page; two lines get terracotta dots; a slip labelled 'cause' lands beside it; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "lens"
+          },
+          {
+            "at": 0.2,
+            "event": "two lines marked"
+          },
+          {
+            "at": 0.3,
+            "event": "cause slip"
+          }
+        ],
+        "manim": {
+          "class": "B01_LensCites"
+        },
+        "motion_claim": "A lens slides over a log page; two lines get terracotta dots; a slip labelled 'cause' lands beside it; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.04,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 7.041666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "1-executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When the logs don't show enough, it will say so and hand the decision to a person, instead of guessing.",
+      "estimated_duration_s": 8.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The lens finds nothing on a sparse page; an empty slip labelled 'not enough' is passed by a connector into a tray labelled 'engineer'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "lens sweeps"
+          },
+          {
+            "at": 0.25,
+            "event": "not-enough slip"
+          },
+          {
+            "at": 0.33,
+            "event": "tray"
+          }
+        ],
+        "manim": {
+          "class": "B02_HandOff"
+        },
+        "motion_claim": "The lens finds nothing on a sparse page; an empty slip labelled 'not enough' is passed by a connector into a tray labelled 'engineer'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.8,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 5.833333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "1-executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why it matters: a wrong root cause sends a team to fix the wrong thing. An answer you can check against the log is one you can trust, or reject.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Left: a lone slip with a cross, labelled 'unchecked'. Right: a slip linked by connectors to two marked log lines, with a check, labelled 'checked'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "unchecked slip, cross"
+          },
+          {
+            "at": 0.25,
+            "event": "checked slip linked to lines"
+          }
+        ],
+        "manim": {
+          "class": "B03_CheckedVsNot"
+        },
+        "motion_claim": "Left: a lone slip with a cross, labelled 'unchecked'. Right: a slip linked by connectors to two marked log lines, with a check, labelled 'checked'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.28,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 8.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "2-introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Others have tried this. Microsoft researchers built R C A Copilot, which predicts the root cause category of cloud incidents. On a year of Microsoft's own incidents, they report accuracy up to about seventy-seven percent.",
+      "estimated_duration_s": 14.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A kraft data box with a padlock on its face; beside it the hero figure 'up to 77%' with the caption 'per Microsoft Research'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "locked data box"
+          },
+          {
+            "at": 0.25,
+            "event": "hero figure + attribution"
+          }
+        ],
+        "manim": {
+          "class": "B04_Rcacopilot"
+        },
+        "motion_claim": "A kraft data box with a padlock on its face; beside it the hero figure 'up to 77%' with the caption 'per Microsoft Research'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 13.08,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 13.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "2-introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Datadog's Bits A I S R E investigates alerts inside Datadog's paid platform, and Datadog reports its own results.",
+      "estimated_duration_s": 7.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A closed box on a dark plinth labelled 'vendor platform'; a log page goes in, a score card comes out; the box never opens; a small 'constructed sketch' tag in the lower-right corner. No logos.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "closed box"
+          },
+          {
+            "at": 0.25,
+            "event": "page in, score card out"
+          }
+        ],
+        "manim": {
+          "class": "B05_Datadog"
+        },
+        "motion_claim": "A closed box on a dark plinth labelled 'vendor platform'; a log page goes in, a score card comes out; the box never opens; a small 'constructed sketch' tag in the lower-right corner. No logos."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.19,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 8.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "2-introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Both scores come from data an outsider can't see or re-run. Mine will publish the incidents, the known answers, and every mistake, so anyone can check the score themselves.",
+      "estimated_duration_s": 11.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Side by side: a score card wired to a locked box ('can't re-check'), and a score card wired to a row of open log pages ('anyone can re-check'); a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "left: card + locked box"
+          },
+          {
+            "at": 0.25,
+            "event": "right: card + open pages"
+          }
+        ],
+        "manim": {
+          "class": "B06_LockedVsOpen"
+        },
+        "motion_claim": "Side by side: a score card wired to a locked box ('can't re-check'), and a score card wired to a row of open log pages ('anyone can re-check'); a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.88,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 9.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Step one, the data. I'll build a small FastAPI service with a Postgres database, running in Docker.",
+      "estimated_duration_s": 6.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A server stack labelled 'FastAPI' joined by a connector to a database cylinder labelled 'Postgres'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "server"
+          },
+          {
+            "at": 0.25,
+            "event": "database + connector"
+          }
+        ],
+        "manim": {
+          "class": "B07_Service"
+        },
+        "motion_claim": "A server stack labelled 'FastAPI' joined by a connector to a database cylinder labelled 'Postgres'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 6.72,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 6.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then I'll break it on purpose: a slowed database, a bad config, a failing dependency. Each break produces real logs with a known cause, so no private data is needed.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The server's three lights turn terracotta one by one; under each a log page drops out with a known-cause dot; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "server"
+          },
+          {
+            "at": 0.2,
+            "event": "lights fail, pages drop"
+          }
+        ],
+        "manim": {
+          "class": "B08_BreakService"
+        },
+        "motion_claim": "The server's three lights turn terracotta one by one; under each a log page drops out with a known-cause dot; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 10.26,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 10.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Step two, the agent loop. For each incident, it reads the logs, asks Claude Code for a diagnosis in a fixed format, checks it, records it, and moves on.",
+      "estimated_duration_s": 11.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A kraft ring with four stations: log page, 'Claude Code' box, checker slip with a check, and a record stack; a terracotta dot travels the ring once; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "ring + stations"
+          },
+          {
+            "at": 0.25,
+            "event": "dot travels the loop"
+          }
+        ],
+        "manim": {
+          "class": "B09_Loop"
+        },
+        "motion_claim": "A kraft ring with four stations: log page, 'Claude Code' box, checker slip with a check, and a record stack; a terracotta dot travels the ring once; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.75,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 8.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Its tools are limited. It can read log files, and nothing else. It never restarts, rolls back, or changes anything.",
+      "estimated_duration_s": 8.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Left: a log page under a lens, labelled 'read'. Right: a restart button, labelled 'restart', which gets crossed out; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "read"
+          },
+          {
+            "at": 0.25,
+            "event": "restart button"
+          },
+          {
+            "at": 0.65,
+            "event": "crossed out"
+          }
+        ],
+        "manim": {
+          "class": "B10_ReadOnly"
+        },
+        "motion_claim": "Left: a log page under a lens, labelled 'read'. Right: a restart button, labelled 'restart', which gets crossed out; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.13,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 7.166666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It stops on rules, not on the model's say-so: three runs per incident, and at most one retry when an answer breaks the format.",
+      "estimated_duration_s": 9.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three slips in a row labelled '3 runs', then an octagonal stop sign labelled 'stop'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "three runs"
+          },
+          {
+            "at": 0.25,
+            "event": "stop sign"
+          }
+        ],
+        "manim": {
+          "class": "B11_StopRules"
+        },
+        "motion_claim": "Three slips in a row labelled '3 runs', then an octagonal stop sign labelled 'stop'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.42,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 7.458333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "And there's a human gate. Any diagnosis marked not enough evidence, or rejected by the checker, goes to an engineer, who makes the call.",
+      "estimated_duration_s": 9.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "An empty slip and a slip with a cross slide into a tray labelled 'engineer'; a small 'constructed sketch' tag in the lower-right corner. No person icon.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "two slips"
+          },
+          {
+            "at": 0.25,
+            "event": "into the engineer tray"
+          }
+        ],
+        "manim": {
+          "class": "B12_HumanGate"
+        },
+        "motion_claim": "An empty slip and a slip with a cross slide into a tray labelled 'engineer'; a small 'constructed sketch' tag in the lower-right corner. No person icon."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.74,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 7.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "3-methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Do I have what I need? Claude Code through my university seat, so no paid credits. My laptop for compute. Docker and Python, which I already use. No new accounts.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A laptop labelled 'laptop' and a seat card labelled 'Claude Code seat'; each gets a check; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "laptop"
+          },
+          {
+            "at": 0.2,
+            "event": "seat card"
+          },
+          {
+            "at": 0.65,
+            "event": "checks"
+          }
+        ],
+        "manim": {
+          "class": "B13_Resources"
+        },
+        "motion_claim": "A laptop labelled 'laptop' and a seat card labelled 'Claude Code seat'; each gets a check; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.32,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 9.333333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "4-evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "To test it, I'll create about ten incidents with known causes, including hard ones, where the loudest error isn't the real cause, and ones with no clear answer.",
+      "estimated_duration_s": 11.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Ten small log pages in two rows, each with a known-cause dot, labelled 'known causes'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "pages arrive"
+          },
+          {
+            "at": 0.3,
+            "event": "label"
+          }
+        ],
+        "manim": {
+          "class": "B14_TenIncidents"
+        },
+        "motion_claim": "Ten small log pages in two rows, each with a known-cause dot, labelled 'known causes'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.09,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 9.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "4-evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Three checks. Every cited line must exist in the log; one invented line counts as a failure. The cause must match the known answer. And on the no-answer cases, it must decline instead of guessing.",
+      "estimated_duration_s": 14.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three columns: a slip with line dots ('lines exist'), a slip with a cause pill ('cause matches'), and an empty slip; each gets a check; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "three slips"
+          },
+          {
+            "at": 0.25,
+            "event": "checks"
+          }
+        ],
+        "manim": {
+          "class": "B15_ThreeChecks"
+        },
+        "motion_claim": "Three columns: a slip with line dots ('lines exist'), a slip with a cause pill ('cause matches'), and an empty slip; each gets a check; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.41,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 11.416666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "4-evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The baseline: a simple keyword script, scored on the same incidents. If Claude can't beat it, the tool didn't work, or my test was too easy. Either way, I'll publish the result.",
+      "estimated_duration_s": 12.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two empty bar frames labelled 'keyword script' and 'Claude', with no values drawn: there are no results yet; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "two empty frames"
+          },
+          {
+            "at": 0.65,
+            "event": "base line"
+          }
+        ],
+        "manim": {
+          "class": "B16_Baseline"
+        },
+        "motion_claim": "Two empty bar frames labelled 'keyword script' and 'Claude', with no values drawn: there are no results yet; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 10.15,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 10.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "4-evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Today, what exists is this plan. Everything else in this film is what I will build. The details are in the appendix.",
+      "estimated_duration_s": 8.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A tiny solid dark box labelled 'exists' beside a large pile of ink-outlined boxes labelled 'will exist'; a small 'constructed sketch' tag in the lower-right corner.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "exists"
+          },
+          {
+            "at": 0.25,
+            "event": "will exist"
+          }
+        ],
+        "manim": {
+          "class": "B17_ExistsVsWill"
+        },
+        "motion_claim": "A tiny solid dark box labelled 'exists' beside a large pile of ink-outlined boxes labelled 'will exist'; a small 'constructed sketch' tag in the lower-right corner."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, with the voice carrying the explanation. The negative space is the style, so only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.1,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 7.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T12:09:37"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Cite the Line. I'm Pavan Majji.",
+      "estimated_duration_s": 4.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; handle"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Cite-the-Line",
+            "slug": "cite-the-line-project-film",
+            "handle": "Pavan Majji",
+            "subline": "",
+            "hideMascot": true
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-23T15:33:03.242730+00:00"
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 3.67,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 3.7083333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-23T12:09:37"
+      }
+    }
+  ]
+}

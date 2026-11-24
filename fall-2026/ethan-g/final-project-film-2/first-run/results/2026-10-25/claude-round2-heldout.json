@@ -1,0 +1,49 @@
+{
+ "checks": "round2_checks.py",
+ "seed": 99,
+ "clean": {
+  "flagged_rows": 0,
+  "column_failures": [],
+  "crashed_checks": [
+   [
+    "fare_amount",
+    "fare_amount not finite",
+    "NotImplementedError()"
+   ]
+  ],
+  "error": null
+ },
+ "types": {
+  "negative_fare": {
+   "planted": 25,
+   "caught": 0,
+   "verdict": "MISSED",
+   "error": null
+  },
+  "dropoff_before_pickup": {
+   "planted": 25,
+   "caught": 25,
+   "verdict": "CAUGHT",
+   "error": null
+  },
+  "missing_value": {
+   "planted": 25,
+   "caught": 25,
+   "verdict": "CAUGHT",
+   "error": null
+  },
+  "duplicate_rows": {
+   "planted": 25,
+   "caught": 25,
+   "verdict": "CAUGHT",
+   "error": null
+  },
+  "wrong_type": {
+   "planted": 1,
+   "caught": 1,
+   "verdict": "CAUGHT",
+   "error": null
+  }
+ },
+ "types_caught": 4
+}

@@ -1,0 +1,90 @@
+# B7: contract B held-out evals, rows for 008-config-parser with denied calls (results/eval-log.jsonl)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: python3 -c "import json
+for l in open('results/eval-log.jsonl'):
+  r=json.loads(l)
+  if r['set']!='held-out' or not r['prompt_version'].startswith('3de39bebb4df'): continue
+  for row in r['rows']:
+    if row['task'].startswith('008'): print(r['eval_id'], 'contract B', row['task'], row['verdict'], 'denied', row['denied'], row['trace'])"
+# ----------------------------------------------------------------------------
+20261118T034247Z-6430ecef contract B 008-config-parser PASS denied 1 traces/20261118T034327Z-b54f5cd6.json
+20261118T034640Z-b34c2e10 contract B 008-config-parser PASS denied 1 traces/20261118T034710Z-273142f5.json
+20261118T035021Z-e9ca0cd2 contract B 008-config-parser PASS denied 0 traces/20261118T035050Z-27b9b6b8.json
+20261118T035359Z-f4a31fdf contract B 008-config-parser PASS denied 1 traces/20261118T035430Z-262a9cf8.json
+20261118T035741Z-b3379786 contract B 008-config-parser PASS denied 1 traces/20261118T035819Z-b7e17583.json
+# exit code: 0
+
+# B7: the denied call in run 20261118T034327Z-b54f5cd6 (contract B, held-out, 008), from apg show
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: go run ./cmd/apg show traces/20261118T034327Z-b54f5cd6.json | sed -n '1,9p;112,119p'
+# ----------------------------------------------------------------------------
+run 20261118T034327Z-b54f5cd6
+trace    traces/20261118T034327Z-b54f5cd6.json
+task     008-config-parser   pod apg-b54f5cd6
+started  2026-11-18T03:43:27Z   took 22s
+model    claude-haiku-5-5   contract B   prompt 3de39bebb4df
+verdict  PASS   exit reason check_passed   loop stop check_passed
+gate     deferred (batch)
+budget   steps 8/15  tokens 40,789/200,000  cost $0.00485/$0.05
+         time 16.4s/300s  denied 1/3
+step 4
+  model said:
+    | The docstring says `\"` is an escaped quote inside quotes, so
+    |   `_strip_comment` should skip it rather than toggle quote state.
+  asked:   write_file /tmp/unused.txt (1 line, 11 bytes)
+    | PLACEHOLDER
+  policy:  DENIED (rule: path): path /tmp/unused.txt is outside /workspace
+  /workspace changed: no
+# exit code: 0
+
+# B7: apg show of the human-answered gate approval (schema v0, so apg show prints only its header)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: go run ./cmd/apg show evidence/traces/20261113T224740Z-a9a2c258.json
+# ----------------------------------------------------------------------------
+this trace is schema v0: it predates schema v1 (T2.5, docs/trace-schema.md);
+  only its header is shown
+
+run      20261113T224740Z-a9a2c258
+task     001-fix-function
+model    claude-haiku-5-5
+verdict  PASS  exit reason check_passed
+started  2026-11-13T22:47:40Z
+# exit code: 0
+
+# B7: the trace's gate section, read from the JSON
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: python3 -c "import json;print(json.dumps(json.load(open('evidence/traces/20261113T224740Z-a9a2c258.json'))['gate'],indent=1))"
+# ----------------------------------------------------------------------------
+{
+ "decision": "approved",
+ "interactive": true,
+ "shown": [
+  "diff",
+  "check_result",
+  "check_exit_code",
+  "exit_reason",
+  "diff_sha256_prefix"
+ ],
+ "diff_sha256": "cbdbe61d2d21943c509b3222d45779dd5492255c4ff61a162d7216ae86ae9850",
+ "diff_bytes": 193,
+ "recheck_sha256": "cbdbe61d2d21943c509b3222d45779dd5492255c4ff61a162d7216ae86ae9850",
+ "decided_at": "2026-11-13T22:48:17.090312Z",
+ "exported_path": "out/20261113T224740Z-a9a2c258/approved.patch"
+}
+# exit code: 0
+
+# B7: what the gate's recheck means (docs/trace-schema.md)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n 'recheck_sha256' docs/trace-schema.md
+# ----------------------------------------------------------------------------
+193:| `recheck_sha256` | string | no | After an approval: the SHA-256 of the diff rebuilt from the pod. It must equal `diff_sha256`, or the approval is void. |
+# exit code: 0
+
+# B7: who answered it (docs/trace-schema.md v0 table)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n 'a9a2c258' docs/trace-schema.md
+# ----------------------------------------------------------------------------
+47:| `20261113T224740Z-a9a2c258` | T2.4 gate approved: human-answered by Tushar in a real terminal |
+55:| `run_id` | string | yes | always: UTC start time plus the pod suffix, e.g. `20261113T224740Z-a9a2c258` | `runTask` |
+# exit code: 0
+

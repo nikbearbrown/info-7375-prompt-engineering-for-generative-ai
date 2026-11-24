@@ -1,0 +1,27 @@
+# Gate index: CueGate film 2
+
+Every gate the Brutalist toolkit (brutalist.art @ 519fcbb) provides for this film, the command that ran it, its result on the submitted master, and where its report is. All runs 2026-11-23. Paths in the Command column are relative to the working folder: `brutalist.art/` is the pinned toolkit checkout and `youtube/cuegate-film2/` is the reel. rebuild-film2.sh runs the same commands.
+
+**Render integrity.** The check that matches "render integrity" is `compile.py verify_output`, which `art final` runs on every master: decodable video and audio, a duration that matches the beat timeline, a full `ffmpeg -xerror` decode with no errors, and audible audio. When it passes, `art final` writes a `.verified.json` file beside the master. That file is **cuegate-film2.verified.json** (status ready; sha256 06c7aaf3cd116fa3846c787180d7ac550fbc5b8e4dfa509ac84752f9e2031392 = cuegate-film2.mp4; duration 235.208 s).
+
+| Gate | Command | Result | Report |
+| --- | --- | --- | --- |
+| Gate F (paperwork exists) | inside `art run` / `art final` (FACTCHECK.md, SHOTLIST.md, PROMPTS.md present) | PASS | pre-render/gate_F_paperwork.log; build-logs/art-run.log |
+| Gate F content (factcheck) | `python3 brutalist.art/runtime/qc/factcheck_check.py youtube/cuegate-film2` | PASS: 31 rows, 0 unresolved. Blocked once before STOP A on two red rows (E2b claim, E3 tense); both corrected by Deepak's decision. | factcheck.log; pre-render/factcheck.log |
+| Gate L (beat lint) | `python3 brutalist.art/runtime/qc/beat_lint.py youtube/cuegate-film2/beat_sheet.json` (also inside `art run`) | PASS: clean | beat_lint.log |
+| Gate SHAPE | inside `art run` (finance reels only) | not applicable: no finance beats | build-logs/art-run.log |
+| Gate A (static pre-flight) | inside `art run` (static_scene_check.py on each pending scene, isolated copy); also run before rendering | PASS: 24/24 scenes | build-logs/art-run.log; pre-render/gate_A_static.log |
+| Gate W (WCAG, margins, overlap) | inside `art run` (wcag_margin_check.py); also run before rendering | PASS: 24/24 scenes | build-logs/art-run.log; pre-render/gate_W_wcag.log |
+| Gate B (pixel layout audit, strict) | inside `art run` (manim_layout_audit.py --png --curve-strict per rendered scene) | PASS: 24/24 scenes CLEAN | build-logs/art-run.log; layout_audit.md (last scene audited) |
+| Gate V (frame-level visual QC) | inside `art run` and `art final` (final_frame_check.py) | PASS: 52 frames, 0 BLOCKER, 0 MAJOR | GATE-V-REPORT.md, GATE-V-contact_sheet.png |
+| GATE T (type-lock) | inside `art final` (type_check.py) | PASS: 26 beats, 0 FAILs | TYPECHECK.md; build-logs/art-final.log |
+| Render integrity (compile.py verify_output) | inside `./brutalist.art/art final youtube/cuegate-film2 --height 2160 --out youtube/cuegate-film2/exports/landscape` | PASS: verified master written | cuegate-film2.verified.json, build-state.json, build-logs/art-final.log |
+| GATE BOOKEND | `python3 brutalist.art/runtime/scripts/bookend_check.py youtube/cuegate-film2` | PASS: "four bookends correct" (cold open, verdict and Your Turn exempt with reasons; outro checked, handle "Deepak Kumaran T S") | bookend.log |
+| GATE MASTER | `python3 brutalist.art/runtime/scripts/master_check.py youtube/cuegate-film2 --mp4 youtube/cuegate-film2/exports/landscape/cuegate-film2.mp4` | PASS: 3840x2160, 24 fps, yuv420p, h264, 235.2 s | MASTERCHECK.md, master.log |
+| GATE LOUDNESS | `python3 brutalist.art/runtime/scripts/loudness_check.py youtube/cuegate-film2 --mp4 youtube/cuegate-film2/exports/landscape/cuegate-film2.mp4` | PASS: -24.14 LUFS, true peak -3.85 dBTP | LOUDNESS.md, loudness.log |
+| GATE SHARPNESS | `python3 brutalist.art/runtime/scripts/sharpness_check.py youtube/cuegate-film2` | PASS: 26 beats, median Laplacian variance 289.1 | SHARPNESS.md, sharpness.log |
+| GATE SRT (captions) | `python3 brutalist.art/runtime/scripts/srt_check.py youtube/cuegate-film2 --srt youtube/cuegate-film2/cuegate-film2.srt` | PASS: 76 cues, 0 errors; every cue starts with DEEPAK: or SKEPTIC: (make_captions.py refuses to write otherwise) | SRTCHECK.md, srt.log, make_captions.log |
+| Pacing (duration-planner, advisory) | `python3 brutalist.art/skills/make/duration-planner/scripts/pace_check.py youtube/cuegate-film2` | ADVISORY (exit 1): the SKEPTIC's short beats are below its 5 s default floor (they are held by pad_audio.py's fixed pauses instead, by Deepak's decision), and B13 (20.8 s) and B18 (20.5 s) are over its 18 s "consider splitting" ceiling. The skill calls this advisory; it is not a pass/fail gate. | pace.log |
+| Visual QC (manual, CLAUDE-CODE-VISUAL-QC-CHECK.md) | 78 frames from the master (15/50/85% of each beat), looked at | PASS: 0 BLOCKER, 0 MAJOR, 2 MINOR | visual-qc-REPORT.md, visual-qc/contact_sheet_master_0.png and _1.png, visual-qc/frames/ |
+| Review-cut contact sheet | written by `art run` | for reference | qc-sheet.png |
+| Rebuild test | `./rebuild-film2.sh` run from a fresh copy of the submission folder in a new temporary directory (Python 3.13.2) | PASS: exit 0; every gate exit the same as above; the rebuilt master passed verify_output. Not byte-identical: the fresh environment installed onnxruntime 1.32.0 and numpy 2.5.5 (the build used 1.31.0 and 2.5.4), which changed the Kokoro audio of B20 (0.04 s longer, so the film is one frame longer: 235.250 s) and B24 (same padded length). Every other audio file and every Manim clip is byte-identical. | rebuild-test/COMPARISON.txt, rebuild-test/rebuild.log, rebuild-test/gate-summary.txt |

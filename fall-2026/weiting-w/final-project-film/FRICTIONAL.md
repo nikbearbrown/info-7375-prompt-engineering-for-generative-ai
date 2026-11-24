@@ -322,9 +322,105 @@ the layout audit stay clean on `B04_WritesIn`, `B08_HaveTray` and `B08B_NewTray`
 separation metric on the two new frames is 0.425 and 0.327 against its 0.30 floor. `B08` changes
 too, because both beats share the `glow()` helper — the same object has to look the same in both.
 
+Re-rendered those three beats on the Mac at 2160p: GATE T PASS, 0 FAILs, Gate V still 0
+BLOCKER / 0 MAJOR, and `art final` wrote the master — 3840×2160, 24 fps, 181.5 s, 10.3 MB, with
+the one-second silent tail intact (last 1.2 s at −50 dB).
+
 What I take from it: this is the third time in this film that a gate has been *precise and
 wrong*. It is also the third time the fix was cheap once I stopped arguing with the label and
 measured what the gate measures.
+
+---
+
+### 2026-11-22 — the assignment changed shape, and the film had to be rebuilt around it
+
+The instructor fixed the order a project film has to follow: executive summary, then what other
+people have done, then methods, then evaluation. I held the October cut against it:
+
+| Part | What the October cut had |
+|---|---|
+| Executive summary | Not there. It opened on a hook — "I used to check whether it compiled" — and three definitions. A viewer who watched only the first minute got the problem, not the project. |
+| Introduction | **Nothing at all.** Eighteen beats and not one sentence about anything that already exists. |
+| Methods | Half. Two beats said what the tool does. Where the names are read from, the steps, and the resources it needs were nowhere. |
+| Evaluation | Most of it. The fixture, the false-alarm risk and the three numbers were there; the pass mark was not. |
+
+So the missing act was act 2, and it is the one act that makes claims about other people's
+work. I did not want to describe those tools from memory — I got a Unity fact wrong in October
+doing exactly that — so each one was read in its own documentation before it was written into
+the narration. `FACTCHECK.md` rows 14 to 18 carry the sentences and the pages.
+
+Two things in that reading changed the pitch itself:
+
+- **Unity has already solved this once**, for one of the four name kinds. The Input System can
+  generate a C# class from an `.inputactions` asset so that those names "become code"; the
+  manual's own section is called "Type-safe C# API Generation". That is a better argument than
+  the one I had. The claim is no longer "nobody thought of this"; it is "it exists for one kind
+  out of four, and the other three are still strings".
+- **Both big analyzers look at exactly the line my tool is about.** Rider's inspection is
+  titled "String based graphics property lookup is inefficient"; Microsoft's UNT0041 and
+  UNT0046 say cache the hash and cache the ID, both filed under Performance. The whole film now
+  turns on that: the same line of code, a different question — fast, or right.
+
+One sentence I had to take back before it was ever spoken. The draft ended act 2 on "what
+nobody does is take the whole project and list every name that does not resolve". That is a
+negative about every tool that exists and I cannot check it. It became "what I could not find
+is anything that reads a whole project…", which is what the search actually established.
+`FACTCHECK.md` row 18 says what the search was.
+
+What the rebuild cost: every beat's narration changed, so all of it is re-voiced; nine scenes
+are new; eleven are the October scenes renamed, because a beat's ID and its scene class have to
+match and the running order changed. Two beats were cut — "by hand" and "why me" — because the
+four parts leave no room for them, and B09 keeps the editor-AI story as an example of what
+exists rather than as a personal aside.
+
+What I did differently this time: everything that could be checked before the laptop was. The
+container got Manim installed, all twenty scenes were rendered at 3840x2160, and they were run
+through Gate A, Gate W, the layout audit, `type_check.py`'s own contrast and bbox-overlap
+checks and Gate V's separation metric. Twenty for twenty, worst separation 0.339 against a 0.30
+floor. In October I found out about GATE T from a failed `art final` on the Mac; this time the
+first full render should be the only one.
+
+**It was not.** The first full render of the new cut came back with four Gate V blockers and
+three GATE T failures, and both have the same root: I pre-checked the wrong frame.
+
+| Where | What the gate said | What it actually was |
+|---|---|---|
+| B06, B07 (Gate V, 4 blockers) | `edge-bleed` — content crosses the title-safe left edge | The standalone C# page I drew for those two beats hung 25 px and 143 px past the 5% box. My pre-flight had no title-safe check in it at all. |
+| B06 (GATE T §8.2) | 1 text run outside the title-safe box | The same page, this time caught as a "text run" because the dark block sitting on it fuses with its outline. |
+| B04 (GATE T §8.3) | terracotta accent 2.74:1 on cream | The terracotta scan line was still sweeping across the frame at the sampled midpoint. |
+| B08 (GATE T §8.3) | mean foreground 4.41:1, fg ≈ (124, 107, 77) | At the midpoint the only dark pixels on screen were the kraft outlines of twenty-five grey squares. The ink — the ring, the leader, the second label — had not landed yet. |
+
+The two contrast failures are the same mistake in different clothes: I checked **final** frames,
+and GATE T and Gate V sample the **midpoint**. Everything I verified was true of a frame the
+gates never look at.
+
+Underneath that is a timing problem I should have predicted. Every scene waits for a spoken
+phrase before it moves (`until(…)`), and `until` places the phrase by its character position in
+the narration. The new narration is longer and the key phrase in several beats sits late in the
+sentence, so the animation that follows it now runs across the midpoint instead of finishing
+before it. I wrote a small simulator — walk each scene's `self.play(... run_time=…)` calls,
+resolve each `until` against the measured audio, and print when the pre-midpoint work actually
+ends — and ran it over all twenty scenes against the real durations:
+
+```
+B04  dur= 9.62 mid= 4.81 last-pre-mid-play ends  6.22  <-- STRADDLES MIDPOINT
+B07  dur=13.61 mid= 6.80 last-pre-mid-play ends 12.87  <-- STRADDLES MIDPOINT
+B11  dur=12.20 mid= 6.10 last-pre-mid-play ends 10.36  <-- STRADDLES MIDPOINT
+…11 of 20 scenes
+```
+
+Eleven of twenty. Three of them failed a gate; the other eight were benign and would have kept
+being benign until one of them was not. B07 was the worst of it: the whole lower half of the
+picture — the thread that ends nowhere, the thing the beat is *about* — landed in the last
+second of a fourteen-second clip, because the phrase I had tied it to is the last clause of the
+narration.
+
+Fixed: B04, B08, B11, B12 and B15 now wait for an earlier phrase (and the earlier phrase is a
+better sync in every case — the scan sweeps as "an assistant" is said, the ticks fill as the
+file kinds are named); B06 and B07 moved right, clear of the title-safe edge; B08's grid now
+has ink outlines instead of kraft, so the frame has ink in it whatever the timing. The
+title-safe check and the timing simulator are both in the pre-flight now, and both are written
+down in `BUILD-PROMPT.md` so the next cut starts with them.
 
 ---
 
@@ -342,3 +438,11 @@ measured what the gate measures.
 - **The toolkit's step 7 says to send the master to the instructor and publish only on his
   word.** I am submitting to Canvas and GitHub instead, per the assignment, and publishing
   nowhere.
+- **Length.** The October assignment capped the film at four minutes. The four-part brief does
+  not state a length, and four parts told properly come out at roughly four and a half to five.
+  If the cap still applies, the structure is modular: act 2 and act 3 each lose a beat before
+  anything load-bearing goes.
+- **B09's pacing.** The crooked blocks land in the last second and a half of the beat, in sync
+  with the line that describes them, which leaves the middle of the clip static. Checked frame
+  by frame against the October clip — it is the same in both, and it is the price of keeping
+  picture and narration in step. Left as it is, deliberately.

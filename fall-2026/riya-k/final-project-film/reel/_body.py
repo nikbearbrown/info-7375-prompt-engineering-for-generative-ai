@@ -157,13 +157,374 @@ def slide_in(mob, d=1.2):
     return FadeIn(mob, shift=LEFT * d)
 
 
-# ═════════════════════════════ scenes ═════════════════════════════
+def part_card(self, n, name, sub):
+    """Opens the first beat of each of the four required parts: the part's name, alone, for ~1.6 s."""
+    k = L(f"Part {n} of 4", 44, DIM).move_to([0, 1.15, 0])
+    h = L(name, 84, bold=True).move_to([0, 0.15, 0])
+    s = L(sub, 44).move_to([0, -0.8, 0])
+    self.play(FadeIn(k, shift=UP * 0.2), FadeIn(h, shift=UP * 0.3), FadeIn(s, shift=UP * 0.2), run_time=0.5)
+    self.wait(1.1)
+    self.play(FadeOut(VGroup(k, h, s), shift=UP * 0.3), run_time=0.4)
+
+
+def mark_line(s_, ok, size=36):
+    m = tick(0, 0, 0.15) if ok else cross(0, 0, 0.15)
+    return VGroup(m, L(s_, size)).arrange(RIGHT, buff=0.28)
+
+
+class B04_WhatItIs(Scene):
+    def construct(self):
+        name = boxed(fit(L("Ground Truth SQL", 46, bold=True), 3.0), -1.0, 0.55, padx=0.4, pady=0.3, fill=CARD, sw=5)
+        what = fit(L("a test for AI data assistants", 36), 3.8).next_to(name, DOWN, buff=0.3)
+        db = make_original("server-tower", 1.7, x=-4.8, y=1.45)
+        db_l = L("your data", 34).move_to([-4.8, 0.25, 0])
+        qs = boxed(fit(L("your questions", 34), 2.2), -4.8, -1.3, padx=0.25, pady=0.18)
+        a1 = Arrow([-3.9, 1.1, 0], name.get_left() + UP * 0.2, color=INK, stroke_width=5, buff=0.1)
+        a2 = Arrow(qs.get_right(), name.get_left() + DOWN * 0.2, color=INK, stroke_width=5, buff=0.1)
+        card = panel(5.0, 4.4, 3.8, 0.35, fill="#FFFFFF")
+        rc_t = L("report card", 40, bold=True).move_to([3.8, 2.15, 0])
+        rows_spec = [("Revenue by country", False, "why: counted each order 4 times", 1.35),
+                     ("Customers per country", True, None, 0.25),
+                     ("Long songs", False, "why: read ms as seconds", -0.6)]
+        rows, whys = VGroup(), VGroup()
+        for q, ok, why, y in rows_spec:
+            t = fit(L(q, 34), 3.7).move_to([1.6, y, 0], aligned_edge=LEFT)
+            m = tick(5.95, y + 0.04, 0.15) if ok else cross(5.95, y, 0.15)
+            rows.add(VGroup(t, m))
+            if why:
+                whys.add(fit(L(why, 30, TERRA), 4.4).move_to([1.6, y - 0.5, 0], aligned_edge=LEFT))
+        a3 = Arrow(name.get_right(), card.get_left(), color=INK, stroke_width=5, buff=0.05)
+        at(self, "So I'm building", FadeIn(name, scale=0.9), rt=0.7)
+        at(self, "a test for AI", FadeIn(what, shift=UP * 0.2), rt=0.5)
+        at(self, "Give it your own data", rise(db), FadeIn(db_l), GrowArrow(a1), rt=0.7)
+        at(self, "and questions", FadeIn(qs), GrowArrow(a2), rt=0.6)
+        at(self, "it tells you", GrowArrow(a3), FadeIn(card), FadeIn(rc_t), rt=0.6)
+        self.play(LaggedStart(*[FadeIn(r, shift=LEFT * 0.3) for r in rows], lag_ratio=0.3), run_time=1.0)
+        at(self, "and why", LaggedStart(*[FadeIn(w, shift=UP * 0.15) for w in whys], lag_ratio=0.4), rt=0.8)
+        finish(self)
+
+
+class B06_Bird(Scene):
+    def construct(self):
+        part_card(self, 2, "Introduction", "what other people have done")
+        shelf = make_original("version-shelves", 2.6, x=-4.3, y=1.0)
+        bird = L("BIRD", 56, bold=True).move_to([-4.3, -0.75, 0])
+        bird_s = fit(L("a public benchmark", 34), 2.9).move_to([-4.3, -1.35, 0])
+        stats = VGroup(
+            VGroup(M("12,751", 52), L("questions", 38)).arrange(RIGHT, buff=0.35),
+            VGroup(M("95", 52), L("databases", 38)).arrange(RIGHT, buff=0.35),
+            mark_line("scored by checking results", True, 38),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).move_to([-1.2, 1.75, 0], aligned_edge=LEFT)
+        full = 4.0
+        def bar(lbl, y, frac, color, val):
+            l_ = L(lbl, 36).move_to([0.7, y, 0], aligned_edge=RIGHT)
+            b0 = Rectangle(width=0.01, height=0.45, fill_color=color, fill_opacity=1, stroke_width=0).move_to([1.0, y, 0], aligned_edge=LEFT)
+            b1 = Rectangle(width=full * frac, height=0.45, fill_color=color, fill_opacity=1, stroke_width=0).move_to([1.0, y, 0], aligned_edge=LEFT)
+            v = L(val, 36).next_to(b1, RIGHT, buff=0.25)
+            return l_, b0, b1, v
+        lp, bp, bp1, vp = bar("people", -0.5, 0.93, INK, "93%")
+        la, ba, ba1, va = bar("best AI", -1.2, 0.834, BAR1, "lower")
+        src = L("bird-bench.github.io · read 2026-11-22", 28, DIM).move_to([3.3, -1.95, 0])
+        yours = boxed(L("your data", 34), -4.3, -2.15, padx=0.3, pady=0.14)
+        yours[0].set_stroke(DIM, 3)
+        nob = cross(-3.0, -2.15, 0.18)
+        at(self, "BIRD is a public", rise(shelf), FadeIn(bird), FadeIn(bird_s), rt=0.8)
+        at(self, "twelve thousand", FadeIn(stats[0], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "ninety five databases", FadeIn(stats[1], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "scored by checking", FadeIn(stats[2], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "People score", FadeIn(lp), FadeIn(bp), rt=0.3)
+        self.play(Transform(bp, bp1), FadeIn(vp), FadeIn(src), run_time=0.7)
+        at(self, "the best", FadeIn(la), FadeIn(ba), rt=0.3)
+        self.play(Transform(ba, ba1), FadeIn(va), run_time=0.7)
+        at(self, "not yours", FadeIn(yours, shift=UP * 0.2), Create(nob), rt=0.6)
+        finish(self)
+
+
+class B07_Vanna(Scene):
+    def construct(self):
+        img = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "images", "vanna_run_crop.png")
+        if not _os.path.exists(img):   # the toolkit may render a copy of scenes.py from elsewhere
+            img = _os.path.expanduser("~/Documents/INFO7375/films/riya-k-ground-truth-sql-v4/images/vanna_run_crop.png")
+        shot = ImageMobject(img)
+        shot.scale_to_fit_width(6.6)
+        shot.move_to([-2.7, 1.0, 0])
+        shot_bg = panel(7.0, shot.height + 0.45, -2.7, 1.0, fill="#FFFFFF", sw=3)
+        shot_t = L("my run of Vanna 2.0.2 · 2026-10-21", 32, DIM).next_to(shot_bg, DOWN, buff=0.2)
+        ws = Group(shot_bg, shot, shot_t)
+        van = L("Vanna", 60, bold=True).move_to([4.0, 2.2, 0])
+        l1 = mark_line("works on your data", True, 36).move_to([4.0, 1.2, 0])
+        l2 = mark_line("checks words, not numbers", False, 36).move_to([4.0, 0.4, 0])
+        fit(l2, 4.4)
+        passed = boxed(VGroup(M("USA 4,667", 36, TERRA), tick(0, 0, 0.15), L("passed", 38),
+                              L("· 9× too high", 38)).arrange(RIGHT, buff=0.28), 0, -1.95, padx=0.4, pady=0.16)
+        at(self, "Tools like Vanna", FadeIn(ws, shift=UP * 0.4), FadeIn(van), rt=0.8)
+        at(self, "on your own data", FadeIn(l1, shift=LEFT * 0.3), rt=0.5)
+        at(self, "looks for", FadeIn(l2, shift=LEFT * 0.3), rt=0.5)
+        at(self, "it passed", FadeIn(passed, shift=UP * 0.3), rt=0.6)
+        finish(self)
+
+
+class B08_Gap(Scene):
+    def construct(self):
+        head = opener(self, "the gap")
+        cx = [0.7, 4.6]
+        h1 = L("checks the numbers", 36, bold=True).move_to([cx[0], 2.4, 0])
+        h2 = L("on your data", 36, bold=True).move_to([cx[1], 2.4, 0])
+        rule = Line([-6.2, 1.95, 0], [6.2, 1.95, 0], color=GHOST, stroke_width=4)
+        spec = [("benchmarks (BIRD)", True, False, 1.25), ("tools (Vanna)", False, True, 0.15),
+                ("Ground Truth SQL", True, True, -1.05)]
+        rows = []
+        for name, a, b, y in spec:
+            nm = L(name, 42, bold=(name == "Ground Truth SQL")).move_to([-6.0, y, 0], aligned_edge=LEFT)
+            m1 = tick(cx[0], y + 0.05, 0.2) if a else cross(cx[0], y, 0.2)
+            m2 = tick(cx[1], y + 0.05, 0.2) if b else cross(cx[1], y, 0.2)
+            rows.append(VGroup(nm, m1, m2))
+        hl = RoundedRectangle(width=12.4, height=0.95, corner_radius=0.15, stroke_color=TERRA, stroke_width=6).move_to([0, -1.05, 0])
+        note = L("find wrong answers before anyone trusts them", 38).move_to([0, -2.15, 0])
+        at(self, "Benchmarks", FadeOut(head), FadeIn(h1), FadeIn(h2), Create(rule), rt=0.6)
+        self.play(FadeIn(rows[0], shift=RIGHT * 0.3), run_time=0.6)
+        at(self, "Tools work", FadeIn(rows[1], shift=RIGHT * 0.3), rt=0.6)
+        at(self, "Ground Truth SQL does both", FadeIn(rows[2], shift=RIGHT * 0.3), rt=0.6)
+        self.play(Create(hl), run_time=0.6)
+        at(self, "so you find", FadeIn(note, shift=UP * 0.2), rt=0.6)
+        finish(self)
+
+
+class B09_Data(Scene):
+    def construct(self):
+        part_card(self, 3, "Methods", "how I'm going to build it")
+        db = make_original("server-tower", 2.8, x=-4.2, y=0.9)
+        nm = L("Chinook", 56, bold=True).move_to([-4.2, -1.0, 0])
+        sub = fit(L("free sample music store", 34), 3.3).move_to([-4.2, -1.6, 0])
+        stats = VGroup(*[VGroup(M(n, 60), L(t, 40)).arrange(RIGHT, buff=0.35)
+                         for n, t in [("11", "tables"), ("59", "customers"), ("412", "orders")]]
+                       ).arrange(DOWN, aligned_edge=LEFT, buff=0.35).move_to([-0.6, 1.4, 0], aligned_edge=LEFT)
+        axis = Line([-0.6, -1.0, 0], [5.8, -1.0, 0], color=INK, stroke_width=6)
+        ticks = VGroup()
+        for i, yv in enumerate(range(2009, 2014)):
+            x = -0.4 + i * 1.5
+            ticks.add(Line([x, -1.15, 0], [x, -0.85, 0], color=INK, stroke_width=5), L(str(yv), 34).move_to([x, -1.55, 0]))
+        lic = L("public, MIT license", 30, DIM).move_to([-4.2, -2.15, 0])
+        at(self, "The data: Chinook", rise(db), FadeIn(nm), rt=0.7)
+        at(self, "a free sample", FadeIn(sub), FadeIn(lic), rt=0.5)
+        at(self, "Eleven tables", FadeIn(stats[0], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "fifty nine", FadeIn(stats[1], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "four hundred", FadeIn(stats[2], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "from two thousand nine", Create(axis), LaggedStart(*[FadeIn(t) for t in ticks], lag_ratio=0.1), rt=1.0)
+        finish(self)
+
+
+class B10_AnswerKey(Scene):
+    def construct(self):
+        step = tag("step 1 · the answer key", y=3.0)
+        stack = VGroup(*[panel(2.6, 1.7, -4.8 + 0.14 * i, 0.9 - 0.14 * i, fill="#FFFFFF", sw=3).set_stroke(DIM, 3)
+                         for i in range(4)])
+        st_l = fit(L("about 50 questions", 36), 2.8).move_to([-4.5, -0.9, 0])
+        q = L("Revenue by country?", 38, bold=True)
+        sql = code(["SELECT BillingCountry, SUM(Total)", "FROM Invoice GROUP BY BillingCountry"], 26, maxw=5.6)
+        ans = M("USA 523.06", 38)
+        card1 = VGroup(q, sql, ans).arrange(DOWN, buff=0.22).move_to([0.2, 1.3, 0])
+        k1 = L("checked answer", 34, DIM).next_to(ans, RIGHT, buff=0.35)
+        py = boxed(VGroup(L("second check", 36, bold=True), L("plain Python, raw tables", 34)).arrange(DOWN, buff=0.1), -0.5, -1.25,
+                   fill=CARD, sw=4)
+        ans2 = M("USA 523.06", 38).next_to(py, RIGHT, buff=0.5)
+        eq = M("=", 64).move_to([5.0, 0.0, 0])
+        agree = VGroup(tick(0, 0, 0.16), L("today 8 of 8 agree", 36)).arrange(RIGHT, buff=0.25).move_to([3.6, -2.05, 0])
+        self.add(step)
+        at(self, "Step one", LaggedStart(*[FadeIn(p, shift=DOWN * 0.3) for p in stack], lag_ratio=0.2), rt=0.8)
+        at(self, "about fifty", FadeIn(st_l), rt=0.4)
+        at(self, "each with a checked", FadeIn(q), FadeIn(sql), rt=0.6)
+        self.play(FadeIn(ans), FadeIn(k1), run_time=0.5)
+        at(self, "a second way", FadeIn(py, shift=UP * 0.3), rt=0.6)
+        at(self, "straight from", FadeIn(ans2, shift=LEFT * 0.3), rt=0.5)
+        self.play(FadeIn(agree, shift=UP * 0.2), run_time=0.6)
+        finish(self)
+
+
+class B11_ClaudeAnswers(Scene):
+    def construct(self):
+        step = tag("step 2 · Claude answers", y=3.0)
+        i1 = boxed(L("table layout", 36), -4.8, 1.55)
+        i2 = boxed(L("the question", 36), -4.8, 0.25)
+        ws = make_original("agent-workstation", 2.2, x=-1.4, y=1.0)
+        cl = L("Claude", 44, bold=True).move_to([-1.4, -0.45, 0])
+        runs = VGroup(*[boxed(L(f"run {k}", 34), 1.75, 1.9 - 0.85 * (k - 1), padx=0.3, pady=0.12) for k in (1, 2, 3)])
+        for r in runs:
+            r[0].set_stroke(DIM, 3)
+        db = make_original("server-tower", 2.0, x=4.9, y=1.1)
+        ro = boxed(fit(L("read-only · 1 query", 34), 2.8), 4.4, -0.55, fill=CARD, padx=0.3, pady=0.14)
+        a1 = Arrow(i1.get_right(), [-2.6, 1.1, 0], color=INK, stroke_width=5, buff=0.08)
+        a2 = Arrow(i2.get_right(), [-2.6, 0.7, 0], color=INK, stroke_width=5, buff=0.08)
+        a3 = Arrow([2.75, 1.05, 0], [3.85, 1.05, 0], color=INK, stroke_width=5, buff=0.05)
+        never = VGroup(cross(0, 0, 0.16), L("can never change the data", 38)).arrange(RIGHT, buff=0.3).move_to([0, -1.85, 0])
+        self.add(step)
+        at(self, "Step two", rise(ws), FadeIn(cl), rt=0.7)
+        at(self, "three times", LaggedStart(*[FadeIn(r, shift=LEFT * 0.3) for r in runs], lag_ratio=0.35), rt=1.0)
+        at(self, "table layout", FadeIn(i1), GrowArrow(a1), rt=0.5)
+        at(self, "and the question", FadeIn(i2), GrowArrow(a2), rt=0.5)
+        at(self, "one read-only", rise(db), GrowArrow(a3), FadeIn(ro), rt=0.7)
+        at(self, "It can never", FadeIn(never, shift=UP * 0.2), rt=0.6)
+        finish(self)
+
+
+class B12_Judge(Scene):
+    def construct(self):
+        step = tag("step 3 · judge by results", y=3.0)
+        a = code(["SELECT BillingCountry,", "  SUM(Total)", "FROM Invoice", "GROUP BY BillingCountry"],
+                 28, x=-3.2, y=1.15, maxw=5.9, title="checked SQL")
+        b = code(["SELECT BillingCountry,", "  SUM(UnitPrice*Quantity)", "FROM Invoice", "JOIN InvoiceLine ...",
+                  "GROUP BY BillingCountry"], 28, x=3.2, y=1.05, maxw=5.9, title="different SQL")
+        ra = boxed(M("USA 523.06", 36), -3.2, -1.05)
+        rb = boxed(M("USA 523.06", 36), 3.2, -1.05)
+        aa = Arrow(a.get_bottom(), ra.get_top(), color=INK, stroke_width=5, buff=0.06)
+        ab = Arrow(b.get_bottom(), rb.get_top(), color=INK, stroke_width=5, buff=0.06)
+        eq = M("=", 72).move_to([0, -1.05, 0])
+        note = L("compare results, not wording", 40).move_to([0, -2.1, 0])
+        self.add(step)
+        at(self, "Step three", FadeIn(note, shift=UP * 0.2), rt=0.6)
+        at(self, "These two queries", FadeIn(a, shift=RIGHT * 0.4), FadeIn(b, shift=LEFT * 0.4), rt=0.9)
+        at(self, "both give", GrowArrow(aa), GrowArrow(ab), FadeIn(ra), FadeIn(rb), rt=0.7)
+        self.play(FadeIn(eq, scale=1.4), run_time=0.4)
+        finish(self)
+
+
+class B13_Causes(Scene):
+    def construct(self):
+        step = tag("step 4 · report card, sorted by cause", y=3.0)
+        specs = [("Revenue", "counted once|per song", "4,667", "523"),
+                 ("Long songs", "ms read|as seconds", "3,503", "1,069"),
+                 ("Rock buyers", "purchases,|not people", "835", "59"),
+                 ("Busiest rep", "wrong columns|linked", "(empty)", "Jane Peacock")]
+        cues = ["counting an order", "mixing up", "counting purchases", "linking the wrong"]
+        xs = [-4.6, -1.55, 1.55, 4.6]
+        self.add(step)
+        for (q, why, bad, good), x, cue in zip(specs, xs, cues):
+            card = panel(2.85, 4.6, x, 0.25, fill="#FFFFFF")
+            tq = fit(L(q, 40, bold=True), 2.45).move_to([x, 2.05, 0])
+            tw = fit(VGroup(*[L(w, 32) for w in why.split("|")]).arrange(DOWN, buff=0.06), 2.5).move_to([x, 1.35, 0])
+            wl = L("AI-style", 32, DIM).move_to([x, 0.6, 0])
+            wv = fit(M(bad, 50), 2.0).move_to([x - 0.25, 0.05, 0])
+            rl = L("right", 32, DIM).move_to([x, -0.6, 0])
+            rv = fit((M(good, 50) if len(good) < 8 else L(good, 38)), 2.45).move_to([x, -1.2, 0])
+            grp = VGroup(card, tq, tw, wl, wv, rl, rv)
+            at(self, cue, FadeIn(grp, shift=UP * 0.4), rt=0.6)
+            self.play(Create(strike(wv)), run_time=0.35)
+        finish(self)
+
+
+class B14_Needs(Scene):
+    def construct(self):
+        def col(head, items, x, ok):
+            h = L(head, 42, bold=True).move_to([x, 2.4, 0], aligned_edge=LEFT)
+            its = VGroup(*[mark_line(s_, ok, 38) for s_ in items]
+                         ).arrange(DOWN, aligned_edge=LEFT, buff=0.38).next_to(h, DOWN, buff=0.45, aligned_edge=LEFT)
+            return h, its
+        have_h, have = col("what I have", ["a laptop", "Python", "the free database", "Claude, via my Claude Code plan"], -6.2, True)
+        no_h, no = col("what I don't need", ["cloud servers", "extra token credits"], 1.8, False)
+        same = L("same setup as my first Claude runs (2026-10-21)", 34, DIM).move_to([0, -2.1, 0])
+        at(self, "What I need", FadeIn(have_h), rt=0.4)
+        at(self, "a laptop", FadeIn(have[0], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "Python", FadeIn(have[1], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "the free database", FadeIn(have[2], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "No cloud", FadeIn(no_h), FadeIn(no[0], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "no extra token", FadeIn(no[1], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "Claude answers", FadeIn(have[3], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "the same way", FadeIn(same, shift=UP * 0.2), rt=0.5)
+        finish(self)
+
+
+class B16_CheckerTest(Scene):
+    def construct(self):
+        part_card(self, 4, "Evaluation", "how I'll know it worked")
+        head = L("does the checker judge correctly?", 52, bold=True).move_to([0, 2.2, 0])
+        what = L("9 test queries, labeled by hand: 3 correct rewrites, 6 with a mistake", 36).move_to([0, 1.05, 0])
+        full = 5.2
+        def bar_row(lbl, y, n, color):
+            l_ = L(lbl, 40).move_to([-1.6, y, 0], aligned_edge=RIGHT)
+            b0 = Rectangle(width=0.01, height=0.55, fill_color=color, fill_opacity=1, stroke_width=0).move_to([-1.2, y, 0], aligned_edge=LEFT)
+            b1 = Rectangle(width=full * n / 9, height=0.55, fill_color=color, fill_opacity=1, stroke_width=0).move_to([-1.2, y, 0], aligned_edge=LEFT)
+            v = M(f"{n} / 9", 40).next_to(b1, RIGHT, buff=0.3)
+            return l_, b0, b1, v
+        lw, bw, bw1, nw = bar_row("compare wording", -0.2, 6, BAR1)
+        lr, br, br1, nr = bar_row("compare results", -1.3, 9, INK)
+        self.play(FadeIn(head, shift=UP * 0.2), run_time=0.5)
+        at(self, "On nine test queries", FadeIn(what), rt=0.5)
+        at(self, "comparing wording", FadeIn(lw), FadeIn(bw), rt=0.3)
+        self.play(Transform(bw, bw1), FadeIn(nw), run_time=0.7)
+        at(self, "Comparing results", FadeIn(lr), FadeIn(br), rt=0.3)
+        self.play(Transform(br, br1), FadeIn(nr), run_time=0.7)
+        finish(self)
+
+
+class B19_PassBar(Scene):
+    def construct(self):
+        h1 = L("it worked if", 44, bold=True).move_to([-6.2, 2.45, 0], aligned_edge=LEFT)
+        ok = VGroup(*[mark_line(s_, True, 36) for s_ in
+                      ["the checker agrees with my hand labels, every time",
+                       "every answer key passes the second check",
+                       "every miss on the report card has a named cause"]]
+                    ).arrange(DOWN, aligned_edge=LEFT, buff=0.22).next_to(h1, DOWN, buff=0.25, aligned_edge=LEFT)
+        h2 = L("it didn't work if", 44, bold=True).move_to([-6.2, -0.65, 0], aligned_edge=LEFT)
+        bad = mark_line("Claude gets everything right: the questions are too easy", False, 36
+                        ).next_to(h2, DOWN, buff=0.25, aligned_edge=LEFT)
+        today = VGroup(L("today: Claude 22 of 24", 36),
+                       Arrow(ORIGIN, RIGHT * 0.9, color=INK, stroke_width=5, buff=0),
+                       L("next 50 questions must be harder", 36, bold=True)).arrange(RIGHT, buff=0.3).move_to([0, -2.3, 0])
+        fit(today, 12.0)
+        at(self, "It worked if", FadeIn(h1), rt=0.4)
+        at(self, "the checker agrees", FadeIn(ok[0], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "every answer key", FadeIn(ok[1], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "every miss", FadeIn(ok[2], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "It didn't work", FadeIn(h2), FadeIn(bad, shift=RIGHT * 0.3), rt=0.6)
+        at(self, "Today it nearly", FadeIn(today, shift=UP * 0.2), rt=0.6)
+        finish(self)
+
+
+class B20_Conclusion(Scene):
+    def construct(self):
+        def head(s_, y):
+            return L(s_, 42, bold=True).move_to([-6.2, y, 0], aligned_edge=LEFT)
+        X0 = -3.4
+        h1, h2, h3, h4 = head("problem", 2.45), head("solution", 1.2), head("today", -0.05), head("next", -1.75)
+        p1 = VGroup(M("$4,667", 44), L("looks right", 38), M("$523", 44), L("is true", 38)).arrange(RIGHT, buff=0.4)
+        for k in (1, 2, 3):
+            p1[k].shift(RIGHT * 0.55)
+        p1.move_to([X0, 2.45, 0], aligned_edge=LEFT)
+        st = strike(p1[0])
+        p2 = VGroup(L("your data", 40), Arrow(ORIGIN, RIGHT * 0.9, color=INK, stroke_width=5, buff=0),
+                    L("test the AI", 40), Arrow(ORIGIN, RIGHT * 0.9, color=INK, stroke_width=5, buff=0),
+                    L("report card", 40)).arrange(RIGHT, buff=0.3)
+        fit(p2, 9.4).move_to([X0, 1.2, 0], aligned_edge=LEFT)
+        p3 = VGroup(L("the checker works: Claude tested on 8 questions, 3 times", 34),
+                    L("22 of 24 passed; both fails were my question's fault", 34)).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        fit(p3, 9.7).move_to([X0, -0.05, 0], aligned_edge=LEFT)
+        p3.shift(UP * (h3.get_center()[1] - p3[0].get_center()[1]))
+        p4 = fit(L("about 50 harder questions, each checked a second way", 34), 9.7).move_to([X0, -1.75, 0], aligned_edge=LEFT)
+        recap = VGroup(h1, h2, h3, h4, p1, st, p2, p3, p4)
+        c1 = L("Running SQL is easy.", 72).move_to([0, 0.9, 0])
+        c2 = L("Being right is the test.", 72).move_to([0, -0.45, 0])
+        u = Line(c2.get_corner(DL) + DOWN * 0.12, c2.get_corner(DR) + DOWN * 0.12, color=TERRA, stroke_width=8)
+        take = L("the takeaway", 44, DIM).move_to([0, 2.2, 0])
+        concl = opener(self, "in conclusion")
+        at(self, "AI can give", FadeOut(concl), FadeIn(h1), FadeIn(p1, shift=RIGHT * 0.3), rt=0.8)
+        self.play(Create(st), run_time=0.4)
+        at(self, "Ground Truth SQL tests", FadeIn(h2), LaggedStart(*[FadeIn(m, shift=RIGHT * 0.2) for m in p2], lag_ratio=0.3), rt=1.2)
+        at(self, "Today the checker", FadeIn(h3), FadeIn(p3, shift=RIGHT * 0.3), rt=0.6)
+        at(self, "Next:", FadeIn(h4), FadeIn(p4, shift=RIGHT * 0.3), rt=0.5)
+        at(self, "So the takeaway", FadeOut(recap, shift=UP * 0.4), FadeIn(take, shift=UP * 0.2), rt=0.8)
+        at(self, "running SQL", Write(c1), rt=1.0)
+        at(self, "Being right", Write(c2), rt=1.0)
+        self.play(Create(u), run_time=0.6)
+        finish(self)
+
+
+#B01
 class B01_Title(Scene):
     def construct(self):
         title = fit(L("Ground Truth SQL", 120), 12.0)
         title.move_to([0, 1.75, 0])
         name = L("Riya Kapadnis", 72).move_to([0, 0.45, 0])
-        course = L("INFO 7375  ·  Final Project Pitch", 44).move_to([0, -0.35, 0])
+        course = L("INFO 7375  ·  Final Project Film", 44).move_to([0, -0.35, 0])
         rule = Line([-4.2, -0.95, 0], [4.2, -0.95, 0], color=GHOST, stroke_width=4)
         prob1 = L("AI can write database code that runs with no errors", 44).move_to([0, -1.6, 0])
         prob2 = L("but gives the wrong answer.", 44).move_to([0, -2.25, 0])
@@ -178,6 +539,8 @@ class B01_Title(Scene):
         finish(self)
 
 
+
+#B02
 class B02_Problem(Scene):
     def construct(self):
         honest = tag("example SQL · drafted with Claude, checked by me")
@@ -195,6 +558,7 @@ class B02_Problem(Scene):
         usa_val = res.rows[1][1]
         real = boxed(VGroup(L("real answer", 40), M("523.06", 52)).arrange(RIGHT, buff=0.35), 3.7, -1.95, sw=4)
         arrow = Arrow(sql.get_right() + RIGHT * 0.1, res.get_left() + LEFT * 0.1, color=INK, stroke_width=6, buff=0.05)
+        part_card(self, 1, "Executive summary", "what I'm building, and why it matters")
         self.add(honest)
         self.play(FadeIn(chat[0]), FadeIn(you), run_time=0.6)
         at(self, "what is our revenue", AddTextLetterByLetter(q), rt=1.4)
@@ -207,79 +571,12 @@ class B02_Problem(Scene):
         self.play(FadeIn(real, shift=UP * 0.3), run_time=0.8)
         finish(self)
 
-class B03_Why(Scene):
-    def construct(self):
-        top = tag("Chinook · a free sample database of a music store")
-        order = panel(3.2, 2.9, -4.6, 0.8, fill="#FFFFFF")
-        o1 = VGroup(L("Order #16", 36), L("Reno, Nevada", 34)).arrange(DOWN, buff=0.12).move_to([-4.6, 1.6, 0])
-        o2 = M("$3.96", 64).move_to([-4.6, 0.6, 0])
-        o3 = L("4 songs", 36).move_to([-4.6, -0.2, 0])
-        songs = ["Longview", "Basket Case", "She", "Geek Stink Breath"]
-        rows = VGroup()
-        for i, s in enumerate(songs):
-            y = 2.05 - i * 0.82
-            r = panel(4.2, 0.76, -0.05, y, fill=CARD, sw=3).set_stroke(DIM, 3)   # grey edge: GATE T reads a dark edge as text
-            n = L(s, 36).move_to([-1.95, y + 0.03, 0], aligned_edge=LEFT)
-            rows.add(VGroup(r, n))
-        copies = VGroup(*[M("$3.96", 40).move_to([2.95, 2.05 - i * 0.82, 0]) for i in range(4)])
-        sums = ["3.96", "7.92", "11.88", "15.84"]
-        sum_lbl = L("counted", 38).move_to([5.0, 0.95, 0])
-        sum_val = M("$" + sums[0], 46).move_to([5.0, 0.3, 0])
-        times = L("4 times", 40).move_to([5.0, -0.35, 0])
-        join = VGroup(Arrow([-2.95, 0.9, 0], [-2.2, 0.9, 0], color=INK, stroke_width=5, buff=0),
-                      L("join", 36).move_to([-2.6, 0.3, 0]))
-        self.add(top)
-        at(self, "One order from Reno", FadeIn(order), FadeIn(o1), FadeIn(o2), FadeIn(o3), rt=0.8)
-        at(self, "for four songs", LaggedStart(*[slide_in(r, 1.6) for r in rows], lag_ratio=0.25), FadeIn(join), rt=1.4)
-        at(self, "was counted", LaggedStart(*[TransformFromCopy(o2, c) for c in copies], lag_ratio=0.3), rt=1.6)
-        self.play(FadeIn(sum_lbl), FadeIn(sum_val), run_time=0.4)
-        for i in range(1, 4):
-            new = M("$" + sums[i], 46).move_to(sum_val)
-            self.play(Indicate(copies[i], color=TERRA, scale_factor=1.12), Transform(sum_val, new), run_time=0.45)
-        self.play(FadeIn(times, shift=UP * 0.2), run_time=0.4)
-        # zoom out: the whole country
-        everything = VGroup(order, o1, o2, o3, rows, copies, sum_lbl, sum_val, times, join)
-        big1 = VGroup(M("91", 72), L("US orders", 40)).arrange(DOWN, buff=0.2).move_to([-4.2, 0.6, 0])
-        big2 = VGroup(M("494", 72), L("rows after the join", 40)).arrange(DOWN, buff=0.2).move_to([0.0, 0.6, 0])
-        a1 = Arrow([-3.0, 0.85, 0], [-1.45, 0.85, 0], color=INK, stroke_width=6)
-        res = VGroup(M("$523", 64), L("real", 36)).arrange(DOWN, buff=0.15).move_to([3.4, 1.0, 0])
-        res2 = VGroup(M("$4,667", 64), L("reported", 36)).arrange(DOWN, buff=0.15).move_to([3.4, -1.15, 0])
-        a2 = Arrow([3.4, 0.25, 0], [3.4, -0.45, 0], color=TERRA, stroke_width=7, buff=0.05)
-        nine = L("almost 9× too high", 44).move_to([0, -2.25, 0])
-        at(self, "Do that for every", FadeOut(everything, scale=0.6), rt=0.6)
-        self.play(FadeIn(big1), GrowArrow(a1), FadeIn(big2), run_time=0.9)
-        self.play(FadeIn(res), GrowArrow(a2), FadeIn(res2), run_time=0.9)
-        at(self, "almost nine times", FadeIn(nine, shift=UP * 0.2), rt=0.6)
-        finish(self)
 
 
-class B04_More(Scene):
+#B03
+class B03_Matters(Scene):
     def construct(self):
-        specs = [("Long songs", "ms read as seconds", "3,503", "1,069"),
-                 ("Rock buyers", "purchases, not people", "835", "59"),
-                 ("Busiest support rep", "wrong columns linked", "(empty)", "Jane Peacock, 21")]
-        cues = ["Mix up milliseconds", "Count purchases", "Link the wrong"]
-        xs = [-4.25, 0.0, 4.25]
-        oks = VGroup()
-        head = opener(self, "more real mistakes")
-        for (q, why, bad, good), x, cue in zip(specs, xs, cues):
-            card = panel(3.9, 4.7, x, 0.7, fill="#FFFFFF")
-            tq = fit(L(q, 42, bold=True), 3.5).move_to([x, 2.55, 0])
-            tw = fit(L(why, 36), 3.5).move_to([x, 1.95, 0])
-            wl = L("AI-style answer", 34).move_to([x, 1.2, 0])
-            wv = fit(M(bad, 56), 2.8).move_to([x - 0.25, 0.5, 0])
-            rl = L("right answer", 34).move_to([x, -0.3, 0])
-            rv = fit((M(good, 56) if len(good) < 8 else L(good, 40)), 3.5).move_to([x, -1.0, 0])
-            grp = VGroup(card, tq, tw, wl, wv, rl, rv)
-            at(self, cue, FadeIn(grp, shift=UP * 0.4), *([FadeOut(head)] if cue == cues[0] else []), rt=0.7)
-            self.play(Create(strike(wv)), run_time=0.4)
-            oks.add(ok_pill("0 errors", x, -2.2, 34))
-        at(self, "And no errors", LaggedStart(*[rise(o, 0.3) for o in oks], lag_ratio=0.3), rt=1.0)
-        finish(self)
-
-class B05_RealLife(Scene):
-    def construct(self):
-        head = opener(self, "why does this happen?")
+        head = opener(self, "why does this matter?")
         # 1 · the person sees only the answer
         p = person(-4.6, 0.4, 1.3)
         ans = panel(2.4, 1.0, -4.6, 2.15, fill="#FFFFFF", sw=3)
@@ -307,73 +604,9 @@ class B05_RealLife(Scene):
         finish(self)
 
 
-class B06_Others(Scene):
-    def construct(self):
-        head = opener(self, "other tools I checked")
-        shelf = make_original("version-shelves", 2.6, x=-4.4, y=0.75)
-        bird = L("BIRD", 52, bold=True).move_to([-4.4, -1.15, 0])
-        bird_s = L("its own databases", 36).move_to([-4.4, -1.85, 0])
-        yours = panel(2.0, 0.8, -1.5, 2.3, fill="#FFFFFF", sw=3)
-        yours_t = L("your data", 34).move_to(yours)
-        nob = cross(-1.5, 1.55, 0.22)
-        img = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "images", "vanna_run_crop.png")
-        if not _os.path.exists(img):   # the toolkit may render a copy of scenes.py from elsewhere
-            img = _os.path.expanduser("~/Documents/INFO7375/films/riya-k-ground-truth-sql-v2/images/vanna_run_crop.png")
-        shot = ImageMobject(img)
-        shot.scale_to_fit_width(5.5)
-        shot.move_to([3.2, 0.95, 0])
-        shot_bg = panel(5.9, shot.height + 0.45, 3.2, 0.95, fill="#FFFFFF", sw=3)
-        shot_t = L("my run · 2026-10-21", 34).move_to([3.3, 0.05, 0])
-        ws = Group(shot_bg, shot, shot_t)
-        van = L("Vanna", 52, bold=True).move_to([3.3, -1.15, 0])
-        van_s = L("checks words, not numbers", 36).move_to([3.3, -1.85, 0])
-        passed = boxed(VGroup(M("USA 4,667", 34, TERRA), tick(0, 0, 0.15), L("passed", 36)).arrange(RIGHT, buff=0.25),
-                       3.3, 2.5, padx=0.3, pady=0.14)
-        gap_l = DashedLine([0.0, 2.9, 0], [0.0, -1.85, 0], color=TERRA, stroke_width=6, dash_length=0.18)
-        gap_t = L("the gap", 40).move_to([0.0, -2.3, 0])
-        at(self, "BIRD tests", FadeOut(head), rise(shelf), FadeIn(bird), FadeIn(bird_s), rt=0.8)
-        self.play(FadeIn(yours), FadeIn(yours_t), Create(nob), run_time=0.7)
-        at(self, "Vanna's built-in", FadeIn(ws, shift=UP * 0.5), FadeIn(van), FadeIn(van_s), rt=0.8)
-        at(self, "it passed the answer", FadeIn(passed, shift=DOWN * 0.3), rt=0.6)
-        self.play(Create(gap_l), FadeIn(gap_t), run_time=0.8)
-        finish(self)
 
-
-class B07_WhatItIs(Scene):
-    def construct(self):
-        plan = tag("planned · the AI step is not built yet")
-        q = boxed(VGroup(L("Revenue", 34), L("by country?", 34)).arrange(DOWN, buff=0.08), -4.8, 0.65)
-        ai = boxed(L("AI's SQL", 38), -2.45, 1.65, fill=CARD, sw=4)
-        ck = boxed(L("checked SQL", 38), -2.45, -0.35, fill=CARD, sw=4)
-        db = make_original("server-tower", 2.0, x=0.45, y=0.75)
-        db_l = L("your database", 34).move_to([0.45, -0.75, 0])
-        r1 = boxed(M("4,667.06", 32), 3.35, 1.65)
-        r2 = boxed(M("523.06", 32), 3.35, -0.35)
-        def arr(a, b):
-            return Arrow(a, b, color=INK, stroke_width=5, buff=0.08, max_tip_length_to_length_ratio=0.3)
-        a1, a2 = arr(q.get_right(), ai.get_left()), arr(q.get_right(), ck.get_left())
-        a3, a4 = arr(ai.get_right(), db.get_left() + UP * 0.3), arr(ck.get_right(), db.get_left() + DOWN * 0.3)
-        a5, a6 = arr(db.get_right() + UP * 0.3, r1.get_left()), arr(db.get_right() + DOWN * 0.3, r2.get_left())
-        neq = M("≠", 80, TERRA).move_to([5.45, 0.65, 0])
-        cmp_l = L("compare", 34).move_to([5.45, -0.3, 0])
-        line = VGroup(L("Revenue by country", 36), VGroup(cross(0, 0, 0.16), L("WRONG", 36, bold=True)).arrange(RIGHT, buff=0.25),
-                      L("counted orders 4 times", 36)).arrange(RIGHT, buff=0.9)
-        fit(line, 10.6)
-        card = boxed(line, 0, -2.0, padx=0.45, pady=0.22)
-        rc_l = L("report card", 36, bold=True).next_to(card, UP, buff=0.12).align_to(card, LEFT)
-        self.add(plan)
-        at(self, "Ground Truth SQL fills", FadeIn(q), rt=0.6)
-        at(self, "Give it your database", GrowArrow(a1), GrowArrow(a2), FadeIn(ai), FadeIn(ck), rise(db), FadeIn(db_l), rt=1.0)
-        at(self, "It runs the AI's SQL", GrowArrow(a3), GrowArrow(a4), rt=0.6)
-        self.play(GrowArrow(a5), GrowArrow(a6), FadeIn(r1), FadeIn(r2), run_time=0.8)
-        at(self, "compares the results", FadeIn(neq, scale=1.5), FadeIn(cmp_l), rt=0.6)
-        at(self, "gives a report card", FadeIn(card[0]), FadeIn(rc_l), rt=0.5)
-        self.play(AddTextLetterByLetter(line[0]), run_time=0.6)
-        self.play(FadeIn(line[1]), run_time=0.4)
-        self.play(AddTextLetterByLetter(line[2]), run_time=0.8)
-        finish(self)
-
-class B08_WhereUsed(Scene):
+#B05
+class B05_WhereUsed(Scene):
     def construct(self):
         rc = panel(3.0, 2.2, 0, 0.85, fill="#FFFFFF")
         rc_t = L("report card", 38, bold=True).move_to([0, 1.55, 0])
@@ -390,7 +623,7 @@ class B08_WhereUsed(Scene):
             b = boxed(L(s_, 38), x, y, padx=0.35, pady=0.22)
             b[0].set_stroke(DIM, 3)          # grey edge: GATE T reads a dark edge as text
             if x == 0:
-                ln = VGroup()
+                ln = DashedLine(b.get_bottom(), [0, 1.95, 0], color=DIM, stroke_width=3)
             else:
                 ln = DashedLine(b.get_right() if x < 0 else b.get_left(), [np.sign(x) * 1.55, 1.0, 0], color=DIM, stroke_width=3)
             pills.append(VGroup(ln, b))
@@ -411,38 +644,31 @@ class B08_WhereUsed(Scene):
             at(self, c, rise(g, 0.3), rt=0.6)
         finish(self)
 
-class B09_HowJudges(Scene):
+
+
+#B15
+class B15_Scope(Scene):
     def construct(self):
-        a = code(["SELECT BillingCountry,", "  SUM(Total)", "FROM Invoice", "GROUP BY BillingCountry"],
-                 28, x=-3.2, y=1.45, maxw=5.9, title="checked SQL")
-        b = code(["SELECT BillingCountry,", "  SUM(UnitPrice*Quantity)", "FROM Invoice", "JOIN InvoiceLine ...",
-                  "GROUP BY BillingCountry"], 28, x=3.2, y=1.35, maxw=5.9, title="different SQL")
-        ra = boxed(M("USA 523.06", 36), -3.2, -0.75)
-        rb = boxed(M("USA 523.06", 36), 3.2, -0.75)
-        aa = Arrow(a.get_bottom(), ra.get_top(), color=INK, stroke_width=5, buff=0.06)
-        ab = Arrow(b.get_bottom(), rb.get_top(), color=INK, stroke_width=5, buff=0.06)
-        eq = M("=", 72).move_to([0, -0.75, 0])
-        full = 3.4
-        def bar_row(lbl, y, n, color):
-            l_ = L(lbl, 36).move_to([-1.3, y, 0], aligned_edge=RIGHT)
-            b0 = Rectangle(width=0.01, height=0.42, fill_color=color, fill_opacity=1, stroke_width=0).move_to([-1.0, y, 0], aligned_edge=LEFT)
-            b1 = Rectangle(width=full * n / 9, height=0.42, fill_color=color, fill_opacity=1, stroke_width=0).move_to([-1.0, y, 0], aligned_edge=LEFT)
-            v = M(f"{n} / 9 right", 36).next_to(b1, RIGHT, buff=0.3)
-            return l_, b0, b1, v
-        lw, bw, bw1, nw = bar_row("compare wording", -1.95, 6, BAR1)
-        lr, br, br1, nr = bar_row("compare results", -2.6, 9, INK)
-        what = L("out of 9 test queries: 3 correct rewrites, 6 with a mistake", 34).move_to([0, -1.42, 0])
-        self.play(FadeIn(a, shift=RIGHT * 0.4), FadeIn(b, shift=LEFT * 0.4), run_time=0.9)
-        at(self, "both give", GrowArrow(aa), GrowArrow(ab), FadeIn(ra), FadeIn(rb), rt=0.7)
-        self.play(FadeIn(eq, scale=1.4), run_time=0.4)
-        at(self, "On nine test queries", FadeIn(what), rt=0.5)
-        at(self, "comparing wording", FadeIn(lw), FadeIn(bw), rt=0.3)
-        self.play(Transform(bw, bw1), FadeIn(nw), run_time=0.7)
-        at(self, "Comparing results", FadeIn(lr), FadeIn(br), rt=0.3)
-        self.play(Transform(br, br1), FadeIn(nr), run_time=0.7)
+        def col(head, items, x, mark):
+            h = L(head, 40, bold=True).move_to([x, 2.4, 0], aligned_edge=LEFT)
+            its = VGroup(*[VGroup(mark(0, 0, 0.15), L(s_, 36)).arrange(RIGHT, buff=0.25) for s_ in items]
+                         ).arrange(DOWN, aligned_edge=LEFT, buff=0.36).next_to(h, DOWN, buff=0.45, aligned_edge=LEFT)
+            return h, its
+        inc_h, inc = col("the finished project will have", ["1 sample database (Chinook)", "~50 test questions",
+                                                            "Claude as the AI being tested"], -6.3, lambda x, y, s: tick(x, y, s))
+        out_h, out = col("it will not", ["be a chat app", "change any data"], 1.2, cross)
+        at(self, "The finished project", FadeIn(inc_h), rt=0.5)
+        at(self, "one sample database", FadeIn(inc[0], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "about fifty test", FadeIn(inc[1], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "and Claude as", FadeIn(inc[2], shift=RIGHT * 0.3), rt=0.4)
+        at(self, "It won't be", FadeIn(out_h), FadeIn(out[0], shift=RIGHT * 0.3), rt=0.5)
+        at(self, "it never changes", FadeIn(out[1], shift=RIGHT * 0.3), rt=0.4)
         finish(self)
 
-class B10_Runs(Scene):
+
+
+#B17
+class B17_Runs(Scene):
     def construct(self):
         real = tag("real run · Claude Opus 5.5 · 2026-10-21 · output shortened", y=3.05)
         frame = panel(12.6, 4.2, 0, 0.5, fill="#FFFFFF")
@@ -465,7 +691,7 @@ class B10_Runs(Scene):
         self.add(real)
         self.play(FadeIn(frame), FadeIn(bar), FadeIn(dots), run_time=0.35)
         self.play(AddTextLetterByLetter(cmd), run_time=0.6)
-        at(self, "Claude then answered", LaggedStart(*[FadeIn(l, shift=UP * 0.15) for l in out], lag_ratio=0.3), rt=1.2)
+        at(self, "Then I had Claude", LaggedStart(*[FadeIn(l, shift=UP * 0.15) for l in out], lag_ratio=0.3), rt=1.2)
         at(self, "The checker passed", FadeIn(last), rt=0.4)
         self.play(Create(ul), run_time=0.5)
         at(self, "The two fails", Indicate(fails, color=TERRA, scale_factor=1.04), rt=0.9)
@@ -473,7 +699,9 @@ class B10_Runs(Scene):
         finish(self)
 
 
-class B11_CaughtMe(Scene):
+
+#B18
+class B18_CaughtMe(Scene):
     def construct(self):
         head = opener(self, "a mistake in my answer key")
         axis = Line([-6.0, 1.9, 0], [1.2, 1.9, 0], color=INK, stroke_width=6)
@@ -501,129 +729,4 @@ class B11_CaughtMe(Scene):
         self.play(FadeIn(rule, shift=UP * 0.3), run_time=0.6)
         finish(self)
 
-class B12_WhoLooks(Scene):
-    def construct(self):
-        plan = tag("planned · shown as it will look")
-        desk = make_original("review-desk", 2.0, x=-4.6, y=0.3)
-        who = fit(L("hiring manager", 36), 3.0).move_to([-4.6, -1.2, 0])
-        page = panel(6.8, 4.0, 2.4, 0.45, fill="#FFFFFF")
-        head = L("report card", 40, bold=True).move_to([2.4, 2.05, 0])
-        rows = [("Q01 customers", True), ("Q02 top countries", False), ("Q03 revenue", False), ("Q06 long songs", False)]
-        rg = VGroup()
-        for i, (s_, ok) in enumerate(rows):
-            y = 1.35 - i * 0.55
-            rg.add(VGroup(M(s_, 32).move_to([-0.5, y, 0], aligned_edge=LEFT),
-                          tick(5.0, y + 0.05, 0.14) if ok else cross(5.0, y, 0.14)))
-        cmdp = boxed(M("one command, no API key", 30), 2.4, -1.05, fill=CARD)
-        hl = SurroundingRectangle(rg[2], color=TERRA, buff=0.1, stroke_width=5)
-        pop = VGroup(code(["AI: SUM(Total) after a JOIN"], 28, maxw=6.2), code(["checked: SUM(Total)"], 28, maxw=6.2)
-                     ).arrange(DOWN, buff=0.25).move_to([2.4, 0.75, 0])
-        motto = L("I test AI instead of trusting it", 42).move_to([0, -2.25, 0])
-        self.add(plan)
-        at(self, "Hiring managers", rise(desk), FadeIn(who), rt=0.6)
-        at(self, "read the report card", FadeIn(page), FadeIn(head), LaggedStart(*[FadeIn(r) for r in rg], lag_ratio=0.2), rt=0.9)
-        at(self, "rerun it", FadeIn(cmdp, shift=UP * 0.2), rt=0.5)
-        at(self, "open one mistake", Create(hl), rt=0.4)
-        self.play(FadeOut(rg), FadeOut(hl), FadeIn(pop, shift=UP * 0.3), run_time=0.7)
-        at(self, "It shows", FadeIn(motto, shift=UP * 0.2), rt=0.6)
-        finish(self)
 
-class B13_Scope(Scene):
-    def construct(self):
-        def col(head, items, x, mark):
-            h = L(head, 40, bold=True).move_to([x, 2.4, 0], aligned_edge=LEFT)
-            its = VGroup(*[VGroup(mark(0, 0, 0.15), L(s_, 36)).arrange(RIGHT, buff=0.25) for s_ in items]
-                         ).arrange(DOWN, aligned_edge=LEFT, buff=0.36).next_to(h, DOWN, buff=0.45, aligned_edge=LEFT)
-            return h, its
-        inc_h, inc = col("the finished project will have", ["1 sample database (Chinook)", "~50 test questions",
-                                                            "Claude as the AI being tested"], -6.3, lambda x, y, s: tick(x, y, s))
-        out_h, out = col("it will not", ["be a chat app", "change any data"], 1.2, cross)
-        at(self, "The finished project", FadeIn(inc_h), rt=0.5)
-        at(self, "one sample database", FadeIn(inc[0], shift=RIGHT * 0.3), rt=0.4)
-        at(self, "about fifty test", FadeIn(inc[1], shift=RIGHT * 0.3), rt=0.4)
-        at(self, "and Claude as", FadeIn(inc[2], shift=RIGHT * 0.3), rt=0.4)
-        at(self, "It won't be", FadeIn(out_h), FadeIn(out[0], shift=RIGHT * 0.3), rt=0.5)
-        at(self, "it never changes", FadeIn(out[1], shift=RIGHT * 0.3), rt=0.4)
-        finish(self)
-
-
-class B14_Risk(Scene):
-    def construct(self):
-        def card(mob, y, fill="#FFFFFF"):
-            b = boxed(mob, 0, y, padx=0.4, pady=0.24, fill=fill)
-            b[0].set_stroke(DIM, 3)          # grey edge: GATE T reads a dark edge as text
-            return b
-        risk = card(VGroup(L("the risk", 40, bold=True),
-                           L("I write the test questions, so the test could be too easy", 36)).arrange(DOWN, buff=0.18), 2.25)
-        warn = card(L("warning sign: Claude got all 8 right", 38), 0.45, fill=CARD)
-        a1 = Arrow(risk.get_bottom(), warn.get_top(), color=INK, stroke_width=5, buff=0.08)
-        do_h = L("what I'll do about it", 38, bold=True).move_to([0, -0.75, 0])
-        a2 = Arrow(warn.get_bottom(), do_h.get_top(), color=INK, stroke_width=5, buff=0.08)
-        fix1 = VGroup(tick(0, 0, 0.16), L("check every answer a second way (8 of 8 agree)", 36)).arrange(RIGHT, buff=0.25)
-        fix2 = VGroup(tick(0, 0, 0.16), L("write harder questions next", 36)).arrange(RIGHT, buff=0.25)
-        fixes = VGroup(fix1, fix2).arrange(DOWN, aligned_edge=LEFT, buff=0.3).move_to([0, -1.85, 0])
-        at(self, "The risk", FadeIn(risk, shift=DOWN * 0.3), rt=0.7)
-        at(self, "Claude getting every", GrowArrow(a1), FadeIn(warn, shift=DOWN * 0.2), rt=0.7)
-        at(self, "So I check", GrowArrow(a2), FadeIn(do_h), FadeIn(fix1, shift=UP * 0.2), rt=0.7)
-        at(self, "harder questions", FadeIn(fix2, shift=UP * 0.2), rt=0.5)
-        finish(self)
-
-
-class B15_WhyMe(Scene):
-    def construct(self):
-        head = L("why this project?", 56, bold=True).move_to([0, 2.4, 0])
-        self.play(FadeIn(head, shift=UP * 0.3), run_time=0.6)
-        def shelf(x, label):
-            board = Line([x - 2.7, -0.2, 0], [x + 2.7, -0.2, 0], color=INK, stroke_width=8)
-            return VGroup(board, L(label, 42, bold=True).move_to([x, -0.9, 0]))
-        def block(s, x, y=0.35):
-            t = L(s, 34)
-            b = Rectangle(width=max(1.5, t.width + 0.4), height=1.0, fill_color=BOX_TOP, fill_opacity=1,
-                          stroke_color=INK, stroke_width=4).move_to([x, y, 0])
-            t.move_to(b)
-            return VGroup(b, t)
-        s1, s2 = shelf(-3.6, "already use"), shelf(3.6, "want to learn")
-        have = [block("SQL", -5.3), block("Python", -3.6), block("AI", -1.9)]
-        slots = [DashedVMobject(Rectangle(width=2.4, height=1.0, stroke_color=DIM, stroke_width=4).move_to([x, 0.35, 0]), num_dashes=20)
-                 for x in (2.3, 4.9)]
-        learn = [block("testing AI", 2.3), block("why it fails", 4.9)]
-        at(self, "I already use", FadeIn(s1), LaggedStart(*[FadeIn(b, shift=DOWN * 0.6) for b in have], lag_ratio=0.3), rt=1.0)
-        self.play(FadeIn(s2), *[Create(s) for s in slots], run_time=0.5)
-        at(self, "Testing AI", FadeIn(learn[0], shift=DOWN * 0.8), rt=0.5)
-        at(self, "why it fails", FadeIn(learn[1], shift=DOWN * 0.8), rt=0.5)
-        finish(self)
-
-
-class B16_Conclusion(Scene):
-    def construct(self):
-        def head(s_, y):
-            return L(s_, 42, bold=True).move_to([-6.2, y, 0], aligned_edge=LEFT)
-        X0 = -3.4
-        h1, h2, h3, h4 = head("problem", 2.45), head("solution", 1.2), head("today", -0.05), head("next", -1.75)
-        p1 = VGroup(M("$4,667", 44), L("looks right", 38), M("$523", 44), L("is true", 38)).arrange(RIGHT, buff=0.4)
-        for k in (1, 2, 3):
-            p1[k].shift(RIGHT * 0.55)
-        p1.move_to([X0, 2.45, 0], aligned_edge=LEFT)
-        st = strike(p1[0])
-        p2 = VGroup(L("your data", 40), Arrow(ORIGIN, RIGHT * 0.9, color=INK, stroke_width=5, buff=0),
-                    L("test the AI", 40), Arrow(ORIGIN, RIGHT * 0.9, color=INK, stroke_width=5, buff=0),
-                    L("report card", 40)).arrange(RIGHT, buff=0.3)
-        fit(p2, 9.4).move_to([X0, 1.2, 0], aligned_edge=LEFT)
-        p3 = VGroup(L("the checker works: Claude tested on 8 questions, 3 times", 34),
-                    L("22 of 24 passed; both fails were my question's fault", 34)).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
-        fit(p3, 9.7).move_to([X0, -0.05, 0], aligned_edge=LEFT)
-        p3.shift(UP * (h3.get_center()[1] - p3[0].get_center()[1]))
-        p4 = fit(L("about 50 harder questions, each checked a second way", 34), 9.7).move_to([X0, -1.75, 0], aligned_edge=LEFT)
-        recap = VGroup(h1, h2, h3, h4, p1, st, p2, p3, p4)
-        c1 = L("Running SQL is easy.", 72).move_to([0, 0.9, 0])
-        c2 = L("Being right is the test.", 72).move_to([0, -0.45, 0])
-        u = Line(c2.get_corner(DL) + DOWN * 0.12, c2.get_corner(DR) + DOWN * 0.12, color=TERRA, stroke_width=8)
-        at(self, "The problem", FadeIn(h1), FadeIn(p1, shift=RIGHT * 0.3), rt=0.8)
-        self.play(Create(st), run_time=0.4)
-        at(self, "Ground Truth SQL tests", FadeIn(h2), LaggedStart(*[FadeIn(m, shift=RIGHT * 0.2) for m in p2], lag_ratio=0.3), rt=1.2)
-        at(self, "Today the checker", FadeIn(h3), FadeIn(p3[0], shift=RIGHT * 0.3), rt=0.6)
-        at(self, "Claude's only fails", FadeIn(p3[1], shift=RIGHT * 0.3), rt=0.5)
-        at(self, "Next:", FadeIn(h4), FadeIn(p4, shift=RIGHT * 0.3), rt=0.5)
-        at(self, "Running SQL", FadeOut(recap, shift=UP * 0.4), Write(c1), rt=1.0)
-        at(self, "Being right", Write(c2), rt=1.0)
-        self.play(Create(u), run_time=0.6)

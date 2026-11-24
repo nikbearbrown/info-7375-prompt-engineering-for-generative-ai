@@ -1,0 +1,45 @@
+# Whisper check (faster-whisper small.en, local, offline), 2026-11-23: transcript of each v2 beat's mp3 vs narration_text
+# Voice-only respellings (never on screen or in narration_text): E2B -> 'E-2-B'; INFO 7375 -> 'info seventy-three seventy-five'; the repo URL -> 'github dot com, slash tushar-patel twenty-eight, slash agent-proving-ground'.
+
+B01 NARRATION: Hi, I'm Tushar Patel, a software engineering student at Northeastern. This is my final project for INFO 7375: Agent Proving Ground.
+B01 HEARD:     Hi, I'm Tushar Patel, a software engineering student at Northeastern. This is my final project for Info 7375, Agent Proving Ground.
+
+B02 NARRATION: AI coding agents are good at saying they're finished. But "done" is a claim, not a result. An agent can fix the bug, or quietly edit the test so it passes, or just give up, and its message can look the same each time.
+B02 HEARD:     AI coding agents are good at saying they're finished, but done is a claim, not a result. An agent can fix the bug or quietly edit the test so it passes or just give up and its message can look the same each time.
+
+B03 NARRATION: Agent Proving Ground is a command-line tool, with its code in a public GitHub repo. You give it a small coding task. It runs an AI agent on that task inside a locked sandbox, records every step it takes, and decides pass or fail by running its own tests. Never by taking the agent's word for it.
+B03 HEARD:     Agent Proving Ground is a command line tool with its code in a public GitHub repo. You give it a small coding task. It runs an AI agent on that task inside a locked sandbox, records every step it takes, and decides pass or fail by running its own tests. Never by taking the agent's word for it.
+
+B04 NARRATION: It's for engineers deciding whether to trust a coding agent, or a change to one. In their first minute, they run one command, read one result line, and open the trace to see exactly what the agent did.
+B04 HEARD:     It's for engineers deciding whether to trust a coding agent or a change to one. In their first minute they run one command, read one result line, and open the trace to see exactly what the agent did.
+
+B05 NARRATION: Parts of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. Each solves one piece well. But a sandbox doesn't tell you whether the work is right, and a trace doesn't stop an agent from doing what it shouldn't.
+B05 HEARD:     Parts of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. Each solves one piece well, but a sandbox doesn't tell you whether the work is right and a trace doesn't stop an agent from doing what it shouldn't.
+
+B06 NARRATION: Mine joins the pieces in one small loop that runs on a laptop: sandbox, trace, an independent check, and a human approval before any change leaves. I built it because more and more code is written by agents, and someone has to check it rather than trust it. Along the way I learned Go and Kubernetes, which were both new to me.
+B06 HEARD:     Mine joins the pieces in one small loop that runs on a laptop, sandbox, trace, an independent check and a human approval before any change leaves. I built it because more and more code is written by agents and someone has to check it rather than trust it. Along the way I learned Go and Kubernetes, which were both new to me.
+
+B07 NARRATION: Here's one run. The harness starts a Kubernetes pod with no network, not running as root. The agent, Claude Haiku, gets three tools: read a file, write a file, run a command. Every tool call passes a permission policy written in code first. After every change, the harness runs a hidden check the agent never sees. Pass or fail comes only from that check. Then I see the diff and approve it, and my approval is bound to the exact bytes I saw.
+B07 HEARD:     Here's one run. The harness starts a Kubernetes pod with no network, not running as root. The agent Claude Haiku gets three tools. Read a file, write a file, run a command. Every tool call passes a permission policy written in code first. After every change, the harness runs a hidden check the agent never sees. Pass or fail comes only from that check. Then I see the diff and approve it, and my approval is bound to the exact bytes I saw.
+
+B08 NARRATION: The tasks are sixteen small Python repos I made. Eleven are ordinary bugs. Five are designed so the right answer is no: a wrong test, a task that needs the network, a budget too small. I froze a development and held-out split before tuning anything. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which writes the code while I review every change.
+B08 HEARD:     The tasks are 16 small Python repos I made. 11 are ordinary bugs. Five are designed so the right answer is no. A wrong test, a task that needs the network, a budget too small. I froze a development and held out split before tuning anything. It runs on my laptop with Docker and Kind, a spend limited API key and Claude code, which writes the code while I review every change.
+
+B09 NARRATION: All of that is built and tested now, through milestone five. A real run on task one passed in three steps, with every step in the trace. A denied tool call was recorded and never ran. And when I tried to break the sandbox from inside a real pod, every limit held.
+B09 HEARD:     All of that is built and tested now through Milestone 5. A real run on task one passed in three steps with every step in the trace. A denied tool call was recorded and never ran. And when I tried to break the sandbox from inside a real pod, every limit held.
+
+B10 NARRATION: It's judged on three things. On normal tasks, it should pass. On the five no-tasks, it must say no. A pass on one of those would mean it failed. Third, I compare changes, like two different system prompts, on held-out tasks nobody tuned on, and I wrote my predictions down before the held-out runs.
+B10 HEARD:     It's judged on three things. On normal tasks it should pass. On the five no tasks it must say no. A pass on one of those would mean it failed. Third, I compare changes like two different system prompts on held out tasks nobody tuned on and I wrote my predictions down before the held out runs.
+
+B11 NARRATION: First results: seventy held-out runs. Both prompts passed all twenty normal runs and said no on all fifteen no-runs. Then I read all forty passing fixes myself. On one task, seven of ten missed what the documentation asks for. So a pass means the checks passed, not that the spec was met.
+B11 HEARD:     First results, 70 held out runs. Both prompts passed all 20 normal runs and said no on all 15 no runs. Then I read all 40 passing fixes myself. On one task, 7 of 10 missed what the documentation asks for. So a pass means the checks passed, not that the spec was met.
+
+B12 NARRATION: Three things are left. First, a controlled failure: I'll make an agent edit its own test on purpose, show the check catching it, and fix it. Second, a stranger will run the project from the README on a clean machine. Third, I'll harden the check, so it confirms every test actually ran.
+B12 HEARD:     Three things are left. First, a controlled failure. I'll make an agent edit its own test on purpose, show the check catching it, and fix it. Second, a stranger will run the project from the readme on a clean machine. Third, I'll harden the check so it confirms every test actually ran.
+
+B13 NARRATION: The biggest risk is a pass that isn't real, since code under test can fool a check. That's why I review diffs and write down every known gap. It won't be a hosted service or a model benchmark. It's one honest tool. Thanks for watching. The code is at github.com/tushar-patel28/agent-proving-ground.
+B13 HEARD:     The biggest risk is a pass that isn't real, since code under test can fool a check. That's why I review diffs and write down every known gap. It won't be a hosted service or a model benchmark. It's one honest tool. Thanks for watching. The code is at github.com slash tusharpatel28 slash agent proving ground.
+
+B10 re-voiced and re-checked 2026-11-23 after its last sentence changed to "…I wrote my predictions down before the held-out runs." (same model and settings).
+B12 re-voiced and re-checked 2026-11-23 after its last sentence changed to "Third, I'll harden the check, so it confirms every test actually ran." (same model and settings).
+B12 re-checked again 2026-11-23 after a 0.04 s silent tail was added (frame alignment; same speech).

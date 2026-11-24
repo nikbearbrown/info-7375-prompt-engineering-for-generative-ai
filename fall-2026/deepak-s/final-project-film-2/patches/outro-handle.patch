@@ -1,0 +1,45 @@
+diff --git a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+index d32d5aa..280b634 100644
+--- a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
++++ b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+@@ -33,6 +33,9 @@ export const claudeTitleOutroSchema = z.object({
+   // mascotAnimation: explicit override for dev/preview; production uses slug seed.
+   mascotAnimation: z.string().optional(),
+   lectureLayout: z.boolean().optional(),
++  // Optional local override (CueGate pitch film): handle text and mascot toggle. Defaults unchanged.
++  handle: z.string().optional(),
++  showMascot: z.boolean().optional(),
+ });
+ export type ClaudeTitleOutroProps = z.infer<typeof claudeTitleOutroSchema>;
+ 
+@@ -40,7 +43,7 @@ const SERIF = CLAUDE_FONT.serif;
+ 
+ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+ 
+-export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation, lectureLayout }) => {
++export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation, lectureLayout, handle, showMascot }) => {
+   const frame = useCurrentFrame();
+   const { fps } = useVideoConfig();
+   const o = clamp(interpolate(frame, [0, 14], [0, 1]), 0, 1);
+@@ -102,18 +105,18 @@ export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug,
+         marginTop: 28,
+         opacity: 0.9,
+       }}>
+-        {HANDLE}
++        {handle ?? HANDLE}
+       </div>
+ 
+       {/* Mascot — slug-seeded, small, under the handle */}
+-      <div style={{
++      {showMascot !== false && <div style={{
+         width: mascotW,
+         height: mascotH,
+         marginTop: lectureLayout ? 110 : 28,
+         overflow: 'visible',
+       }}>
+         <MascotSVG s={mascotState} scale={1} />
+-      </div>
++      </div>}
+ 
+       {/* NO subline — locked per OUTRO-LOCK.md */}
+     </AbsoluteFill>
