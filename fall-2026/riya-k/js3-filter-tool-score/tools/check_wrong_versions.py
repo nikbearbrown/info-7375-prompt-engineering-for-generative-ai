@@ -24,7 +24,7 @@ MUTATIONS = {
     "W4a threshold changed without changing FILTER.md": (
         "filters/filter-v1.json", '"threshold": 6,', '"threshold": 5,'),
     "W4b a held-out label edited after the labels were frozen": (
-        "audit/hand-labels.json", '"verdict":"show"', '"verdict":"not"'),
+        "audit/hand-labels.json", '"verdict": "show"', '"verdict": "not"'),
 }
 
 
@@ -37,21 +37,23 @@ def run_tests(where):
 def main():
     ok = True
     with tempfile.TemporaryDirectory() as tmp:
+        # The corpus lives in the sibling JS2 folder; link it next to every copy so the copies can load it.
+        (Path(tmp) / "js2-loop-tools-diff").symlink_to(ROOT.parent / "js2-loop-tools-diff")
         clean = Path(tmp) / "clean"
         shutil.copytree(ROOT, clean, ignore=shutil.ignore_patterns("out", "__pycache__", "transcripts", "runs"))
         rc, last = run_tests(clean)
         print(f"clean copy: {'PASS' if rc == 0 else 'FAIL'} ({last})")
         ok &= rc == 0
         for name, (rel, old, new) in MUTATIONS.items():
-            d = Path(tmp) / name.split()[0]
+            d = Path(tmp) / ("m-" + name.split()[0])
             shutil.copytree(clean, d)
             f = d / rel
             src = f.read_text()
-            if src.count(old) != 1:
+            if src.count(old) < 1 or (src.count(old) > 1 and not rel.endswith('hand-labels.json')):
                 print(f"{name}: could not plant (pattern found {src.count(old)} times)")
                 ok = False
                 continue
-            f.write_text(src.replace(old, new))
+            f.write_text(src.replace(old, new, 1))
             rc, last = run_tests(d)
             caught = rc != 0
             print(f"{name}: {'CAUGHT' if caught else 'NOT CAUGHT'} ({last})")
