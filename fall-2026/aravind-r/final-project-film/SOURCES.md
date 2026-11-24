@@ -1,4 +1,4 @@
-# SOURCES — Readback pitch film
+# SOURCES — Readback pitch film and project film
 
 Pitch-film sections are as of 2026-10-14; the project-film section is as of 2026-11-23.
 

@@ -111,11 +111,11 @@ B15's checklist rows (resource | status):
 - ✓ Claude (`claude -p`) | set up on this Mac · CLI 2.1.323
 - ○ API credits | account, not yet wired
 - ○ a second provider | account, not yet wired
-- ○ local open-weight model | planned · Ollama not installed
+- ○ local open-weight model | planned · Ollama installed 2026-11-23 (0.40.17), no model pulled, judge not wired
 - ○ my human labels | planned · I mark the 86 decisions
-- ○ compute | this Mac · local judge planned
+- ✓ compute | this Mac
 
-A tick appears only for what was checked as set up on this Mac on 23 Nov 2026: the `claude` CLI 2.1.323 is installed, no API key is configured, and Ollama isn't installed.
+A tick appears only for what was checked as set up on this Mac on 23 Nov 2026: the `claude` CLI 2.1.323 is installed and no API key is configured. Ollama: installed 2026-11-23 (0.40.17), no model pulled, judge not wired. The 22:11 EST check found `ollama --version` 0.40.17, `/Applications/Ollama.app`, the Homebrew cask `ollama-app` and `ollama serve` running, with `ollama list` empty and no judge code in the repo, so the local model stays under planned.
 
 ## Every number on screen, and where it comes from
 

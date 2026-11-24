@@ -4,6 +4,8 @@
 
 **Paths** are relative to `fall-2026/aravind-r/final-project-film/`.
 
+**Appendix:** [`APPENDIX-METHODS-EVAL.md`](APPENDIX-METHODS-EVAL.md) has the method, cost and statistics detail behind the PLANNED claims; nothing in it has run.
+
 **Pronunciation:** in `beat_sheet.json` (the Kokoro input), Readback is spelled "Reed-back" so it is said "reed-back". The sentences below are the script as meant; on screen it is always "Readback".
 
 **Positioning (my note, 2026-11-23):** Readback is application-agnostic. It is for any PM who writes acceptance criteria that an AI judge will grade a feature against, and it checks whether the judges read each criterion the way the PM meant it. The meeting-recap feature on AMI is only the test bench used to prove that; it is not the product. In the film, meetings, recaps, AMI and C4 appear only in Methods and Evaluation, under a "test case" tag (gate: `gates/positioning-audit.md`).

@@ -2,6 +2,8 @@
 
 **Status: PLANNED. Nothing in this file has been run.** As of 2026-11-23 the repo holds no judge outputs, no human labels and no agreement results. Every number below is a plan setting, not a result.
 
+**Appendix:** [`APPENDIX-METHODS-EVAL.md`](APPENDIX-METHODS-EVAL.md) covers how a disagreement is traced to a criterion, token and dollar cost, statistical limits and the one-test-case gap (PLANNED).
+
 Items marked **(decided)** were proposed by Claude Code and approved by Aravind on 2026-11-23. This file is committed **before** any judge or labelling run, so the git history shows the plan came first.
 
 ## What gets judged
