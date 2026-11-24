@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | **File** | `atharva-sponsorsql-final.mp4` (not in GitHub; MP4s are kept out of the repository) |
-| **SHA-256** | `1112de3c041398fc540cc719420a37ea24813b400cb40b37faf25a40d87e143e` |
-| **Length** | 3 min 54 s (233.8 s), under the four-minute target and the brief's five-minute limit |
-| **Format** | 1920×1080, H.264 video, AAC audio, 10.9 MB |
+| **SHA-256** | `27bf66b897cd744465768958df403ad8584101c3319c7476563ff359510d626d` |
+| **Length** | 3 min 51 s (231.5 s), under the four-minute target and the brief's five-minute limit |
+| **Format** | 1920×1080, H.264 video, AAC audio, 10.8 MB |
 | **Link** | *To be added by the owner after uploading (for example, an unlisted video or a shared drive link). Posting publicly is the owner's decision.* |
 | **Built** | 2026-11-23 (second version, after the owner's script edits), with the local Brutalist toolkit (Manim, Remotion, Kokoro narration). No paid services. |
 
@@ -33,7 +33,7 @@
 - **The gate prompt** is shown as the text the interactive mode prints. No approval by the owner is shown or claimed.
 - **The narration** is a synthetic voice (Kokoro `am_onyx`) reading a first-person script. Claude drafted it; the owner reviewed it and directed the edits in the second version. The closing line credits "Written by Atharva Hambir with Claude" (the owner's wording). The synthetic voice is disclosed here, not in the narration, at the owner's choice.
 - **B11 says "I've reviewed it since"** about contract v2. That is the owner's own statement (2026-11-23), not yet recorded elsewhere in the project. Until the owner records the review, `gates.md` still says v2 was scored before owner review.
-- **The decision** (ship, narrow or defer) is stated as the owner's open sign-off. The film doesn't make it.
+- **The decision** (ship, narrow, defer or stop) isn't in the film. It belongs in `SIGNOFF.md` and `transfer-reflection.md`.
 
 ## Quality checks run
 
@@ -51,7 +51,7 @@
 - **Final full pass (same day):** every beat checked at four points in time. The film's sound was checked for gaps (none) and clipping (none). The time each cue phrase is spoken was measured by re-running the same local voice on the script, and every visual lands within about a second of its words. Two more fixes came out of this pass:
   - B05: the "SQL query" definition had been replaced after about two seconds. It now stays for the whole beat, and the permission-policy definition is a card in the middle of the screen until the real output appears.
   - B08: "counted the right answer straight from the file" overstated it; the key scripts count from the database the loader builds from the checked file. It now says "from the data".
-- **Owner's last edit:** the owner removed "never just because the model says it's done" from B04: the spoken sentence, the on-screen chip and the fact-check row. B04 was re-rendered and every gate re-run (clean), its cue timing re-measured, and the film re-exported.
+- **Owner's last edits:** the owner removed "never just because the model says it's done" from B04, and the ship / narrow / defer line from B11 (spoken and on screen). Both beats were re-rendered and every gate re-run (clean), cue timing re-measured, and the film re-exported.
 - The Brutalist toolkit's files were compared before and after each build: unchanged.
 
 ## Rebuild

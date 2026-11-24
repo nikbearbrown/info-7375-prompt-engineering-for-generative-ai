@@ -531,10 +531,6 @@ class B11_Limits(Scene):
         claim = card(["Honest claim: narrow · one public file · answers you can check"], 11.2, 0.85, 28).move_to([0, -1.55, 0])
         p.play(FadeIn(claim, shift=UP * 0.2), run_time=0.6)
 
-        p.until("sign-off", 0.9)
-        dec = tag("Ship, narrow or defer: my sign-off, still open", 24).move_to([0, -2.42, 0])
-        dot = Dot(radius=0.11, color=ACC).next_to(dec, LEFT, buff=0.25)
-        p.play(FadeIn(dec), FadeIn(dot, scale=0.4), run_time=0.5)
         p.finish()
 
 

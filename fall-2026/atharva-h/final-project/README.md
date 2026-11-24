@@ -96,8 +96,8 @@ Course devices: [CONTRACT.md](CONTRACT.md) (the gate: contract and tests before 
 
 ## The demo
 
-- **File:** `atharva-sponsorsql-final.mp4`, 3 min 54 s
-- **SHA-256:** `1112de3c041398fc540cc719420a37ea24813b400cb40b37faf25a40d87e143e`
+- **File:** `atharva-sponsorsql-final.mp4`, 3 min 51 s
+- **SHA-256:** `27bf66b897cd744465768958df403ad8584101c3319c7476563ff359510d626d`
 - **Link:** *to be added by the owner after uploading*
 
 The film follows the four parts in order (executive summary, introduction, methods, evaluation). It shows real output, including a real run and the human gate prompt. Its sources, per-claim fact check and quality-gate reports are in [film/](film/README.md). MP4s are kept out of GitHub.
