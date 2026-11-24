@@ -77,7 +77,7 @@
   - the tool-list change, which wasn't run;
   - X1 on held-out postings.
 
-## Nov 22, 6:00 PM – Nov 23: "Are you sure we are doing it right?"
+## Nov 22, evening – Nov 23: "Are you sure we are doing it right?"
 
 - **What happened:** before signing, Hemanth asked: "Are you sure we are doing it right?"
   - Claude checked every requirement and found nothing missing.
