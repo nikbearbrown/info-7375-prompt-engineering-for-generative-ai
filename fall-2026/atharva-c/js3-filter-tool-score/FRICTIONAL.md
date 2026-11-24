@@ -34,3 +34,9 @@
 - 7 of the 11 wrong keeps asked for exactly 3 years; 3 were Robinhood backend roles asking 2+ years but written as mid-level; 1 was a Wealthfront iOS role.
 - Changed one rule (FILTER.md v1.2): N ≥ 3 years scores −0.40. Tests for it were added and seen failing first. Dev: fp 6 → 0, tp still 6. On all 400, exactly the 7 three-year keeps flipped to reject.
 - Leakage: the kept audit sheet included held-out rows, so I saw some held-out postings' decisions before choosing the rule. Held-out is not fully untouched for v1.2; the README must say so.
+
+## Nov 24, 2026 (later still) — DRAFT (Claude, to rewrite): the one held-out run
+
+- Ran held-out once (`evidence/heldout/v1.0-vs-v1.2.txt`, via `agent/evaluate.py`, which only reads saved decisions): v1.0 fp 5 → v1.2 fp 4; tp 5 and fn 0 both times.
+- Dev had promised more: 6 false positives fixed on dev, 1 on held-out. Held-out's errors are mostly a different kind (2+ years written as mid-level; mobile stack) that the 3-year rule does not touch.
+- With 5 true keeps and a 1-posting difference, held-out cannot show that v1.2 is better in general, only that it did not hurt recall here.
