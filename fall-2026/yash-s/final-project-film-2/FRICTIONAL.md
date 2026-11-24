@@ -85,3 +85,41 @@ Claude provided clear explanations and avoided recommending jobs that it could n
 My initial predictions were partially correct. Existing tools provided better user interfaces and useful recommendations, but they also provided more explanations than I initially expected.
 
 My agent is not intended to replace these tools. Instead, I want to focus on reproducibility, written filtering rules, saved evidence, independent verification, and human approval.
+
+### Making the Film — November 23, 2026
+
+After completing my comparison of LinkedIn, Jobright, and Claude, I started working on the final project film.
+
+Initially, I considered using slides and a terminal demonstration. However, I decided to use the Brutalist toolkit because I had already used it for my previous films and was familiar with the process.
+
+I used Claude Code to help prepare the narration, animations, and scenes. I also used Kokoro for voice generation and Manim for animations.
+
+### Challenges I Faced
+
+- The initial audio generation failed because FFmpeg was not available in the shell's PATH. This was fixed by updating the PATH.
+- Several quality gates failed because of overlapping text, incorrect spacing, low contrast, and elements extending outside the safe area.
+- Some scenes had to be modified and rendered multiple times before they passed all the quality gates.
+- Even after all the gates passed, I noticed that the Approve and Refuse elements overlapped while watching the film. This was not detected by the automated checks. The scene was corrected, and the film was rendered again.
+- I also blurred my LinkedIn profile photo to avoid including unnecessary personal information in the submission.
+
+### Comparing My Predictions with the Results
+
+Initially, I expected that explaining the technical implementation in simple words would be the hardest part of making the film.
+
+Although simplifying the technical details was challenging, the repeated rendering, layout corrections, and quality checks also required a significant amount of effort.
+
+### What I Learned
+
+One important thing I learned is that passing automated quality checks does not necessarily mean that the final output is correct. I still needed to watch the film myself and check for problems that the automated gates did not detect.
+
+This also relates to my job-search agent. Even if an agent passes its automated tests, human review is still important before relying on its results.
+
+### Final Outcome
+
+The final film is 5 minutes and 23 seconds long and includes all four required sections: executive summary, introduction, methods, and evaluation.
+
+All the required quality gates passed after the corrections. The gate reports, build files, screenshots, narration script, and supporting documentation are included in my project folder.
+
+### What I Will Do Next
+
+I will continue building my job-search agent through JS4 and JS5, focusing on planning, verification, memory, and human approval. I will also evaluate the completed agent using relevant and irrelevant postings and deliberate failure cases.
