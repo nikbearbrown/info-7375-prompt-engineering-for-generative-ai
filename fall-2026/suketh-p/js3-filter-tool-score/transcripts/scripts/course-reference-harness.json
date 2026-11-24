@@ -1,0 +1,150 @@
+[
+ {
+  "note": "a line that is not JSON",
+  "raw": "{"
+ },
+ {
+  "note": "tools/list before initialize",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 1,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "the notification before initialize",
+  "message": {
+   "jsonrpc": "2.0",
+   "method": "notifications/initialized"
+  },
+  "expect_response": false
+ },
+ {
+  "note": "initialize with no params at all",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 2,
+   "method": "initialize"
+  }
+ },
+ {
+  "note": "initialize again, asking for a version the server does not support",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 3,
+   "method": "initialize",
+   "params": {
+    "protocolVersion": "unsupported-fixture",
+    "capabilities": {},
+    "clientInfo": {
+     "name": "jobwatch-harness",
+     "version": "0.1.0"
+    }
+   }
+  }
+ },
+ {
+  "note": "tools/list after initialize, before the notification",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 4,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "the notification",
+  "message": {
+   "jsonrpc": "2.0",
+   "method": "notifications/initialized"
+  },
+  "expect_response": false
+ },
+ {
+  "note": "tools/list when ready",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 5,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "the fixture key the source declares",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 6,
+   "method": "tools/call",
+   "params": {
+    "name": "lookup",
+    "arguments": {
+     "key": "office"
+    }
+   }
+  }
+ },
+ {
+  "note": "a key that is not in the fixture",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 7,
+   "method": "tools/call",
+   "params": {
+    "name": "lookup",
+    "arguments": {
+     "key": "missing"
+    }
+   }
+  }
+ },
+ {
+  "note": "arguments as a list",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 8,
+   "method": "tools/call",
+   "params": {
+    "name": "lookup",
+    "arguments": [
+     "office"
+    ]
+   }
+  }
+ },
+ {
+  "note": "a Boolean id, which JSON-RPC does not allow",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": true,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "a tools/call with no id (a notification)",
+  "message": {
+   "jsonrpc": "2.0",
+   "method": "tools/call",
+   "params": {
+    "name": "lookup",
+    "arguments": {
+     "key": "office"
+    }
+   }
+  },
+  "expect_response": false
+ },
+ {
+  "note": "ping",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 9,
+   "method": "ping"
+  }
+ },
+ {
+  "note": "a method the server does not have",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 10,
+   "method": "bad"
+  }
+ }
+]
