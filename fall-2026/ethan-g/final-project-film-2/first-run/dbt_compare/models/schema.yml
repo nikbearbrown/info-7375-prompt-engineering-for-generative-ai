@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: trips_clean
+    columns:
+      - name: fare_amount
+        data_tests: [not_negative]
+  - name: trips_broken
+    columns:
+      - name: fare_amount
+        data_tests: [not_negative]

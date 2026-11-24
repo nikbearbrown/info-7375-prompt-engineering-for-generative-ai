@@ -1,0 +1,26 @@
+10:16:50  Running with dbt=1.10.23
+10:16:50  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+10:16:51  Registered adapter: duckdb=1.10.1
+10:16:51  Found 2 models, 2 data tests, 487 macros
+10:16:51  
+10:16:51  Concurrency: 1 threads (target='local')
+10:16:51  
+10:16:51  1 of 4 START sql view model main.trips_broken .................................. [RUN]
+10:16:51  1 of 4 OK created sql view model main.trips_broken ............................. [OK in 0.03s]
+10:16:51  2 of 4 START sql view model main.trips_clean ................................... [RUN]
+10:16:51  2 of 4 OK created sql view model main.trips_clean .............................. [OK in 0.01s]
+10:16:51  3 of 4 START test not_negative_trips_broken_fare_amount ........................ [RUN]
+10:16:51  3 of 4 FAIL 25 not_negative_trips_broken_fare_amount ........................... [FAIL 25 in 0.02s]
+10:16:51  4 of 4 START test not_negative_trips_clean_fare_amount ......................... [RUN]
+10:16:51  4 of 4 PASS not_negative_trips_clean_fare_amount ............................... [PASS in 0.01s]
+10:16:51  
+10:16:51  Finished running 2 data tests, 2 view models in 0 hours 0 minutes and 0.15 seconds (0.15s).
+10:16:51  
+10:16:51  Completed with 1 error, 0 partial successes, and 0 warnings:
+10:16:51  
+10:16:51  Failure in test not_negative_trips_broken_fare_amount (models/schema.yml)
+10:16:51    Got 25 results, configured to fail if != 0
+10:16:51  
+10:16:51    compiled code at target/compiled/dbt_compare/models/schema.yml/not_negative_trips_broken_fare_amount.sql
+10:16:51  
+10:16:51  Done. PASS=3 WARN=0 ERROR=1 SKIP=0 NO-OP=0 TOTAL=4
