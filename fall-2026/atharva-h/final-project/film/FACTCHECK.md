@@ -17,7 +17,7 @@ Every number or factual claim on screen or in the narration, with its source in 
 | F11 | Gate prompt text "Approve, refuse, or defer this answer? [a/r/d]:" | B06 | `sponsorsql/gate.py` (`decide`, interactive mode). No owner decision is shown or claimed. |
 | F12 | Python standard library + SQLite, nothing installed; Claude Code account; no API key or paid credits; loads in about 70 s | B07 | `artifact.md`; `evidence/load.log` (1:10 total) |
 | F13 | The Claude CLI said "Not logged in"; the tested SQL came from separate Claude sessions, saved word for word, replayed | B07 | `artifact.md`; `evals/proposals/*-responses.json` provenance |
-| F14 | 10 development and 5 held-out questions frozen before any test; keys counted by separate code | B08 | `evals/FREEZE.md` (commit `dfbbb73` before `b65b725`); `evals/build_answer_key.py`, `evals/build_heldout_key.py` |
+| F14 | 10 development and 5 held-out questions locked before any test; keys counted by separate code from the data (the SQLite database the loader builds from the checksum-verified workbook) | B08 | `evals/FREEZE.md` (commit `dfbbb73` before `b65b725`); `evals/build_answer_key.py`, `evals/build_heldout_key.py` |
 | F15 | Bar: at least 8/10, at least 4/5, 0 unsafe queries | B08 | `CONTRACT.md` |
 | F16 | 4/10 (loose title match; "Metadata Analyst" counted), 9/10 (the miss: a few source titles end in tabs or non-breaking spaces; the key strips them and the query's `TRIM()` doesn't, so four counts are off by one or two), held-out 5/5 run once | B09 | `evals/FAILURE-LOG.md`; `evals/results/*-rescored-after-review.json` |
 | F17 | Ten deliberate failures stopped as predicted; the title bug triggered on purpose was caught by the key | B10 | `evals/results/failures-after-review.json` |

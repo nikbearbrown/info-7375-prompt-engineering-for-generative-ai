@@ -319,8 +319,9 @@ class B05_Policy(Scene):
         p.play(FadeIn(pt), FadeIn(cap), run_time=0.7)
 
         p.until("permission policy", 0.12)
-        cap2 = caption("Permission policy: a list, in code, of what the tool may do · everything else is blocked")
-        p.play(FadeOut(cap), FadeIn(cap2), run_time=0.6)
+        pol = card(["Permission policy", "a short list, written in code, of what the tool is allowed to do",
+                    "anything else is blocked before it runs"], 10.4, 1.9, 32, 26).move_to([0, -0.45, 0])
+        p.play(FadeIn(pol, shift=UP * 0.2), run_time=0.6)
 
         p.until("only reading", 0.3)
         rule = box(6.4, 0.95, "SQLite rule: read one table (lca), nothing else", 26).move_to([2.6, 1.85, 0])
@@ -344,7 +345,7 @@ class B05_Policy(Scene):
         note = T("real output, 2026-11-21 · re-typeset · F1 = DELETE, F2 = hidden 2nd statement, F3 = other table", 18, SOFT)
         fit(note, 11.4)
         note.next_to(term, DOWN, buff=0.12)
-        p.play(FadeIn(term[0]), FadeIn(note), run_time=0.4)
+        p.play(FadeOut(pol), FadeIn(term[0]), FadeIn(note), run_time=0.4)
         p.play(LaggedStart(*[FadeIn(t) for t in term[1][:-1]], lag_ratio=0.3), run_time=2.0)
 
         p.until("every row", 0.88)
