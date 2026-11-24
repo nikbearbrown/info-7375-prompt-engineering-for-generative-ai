@@ -1,8 +1,8 @@
-# GATES — Readback project film · positioning revision (measured 2026-11-23, 19:32–19:38 EST)
+# GATES — Readback project film · after the final fix pass (measured 2026-11-23, 20:54–20:57 EST)
 
 **The file:** `../aravind-r-readback-project-film.mp4`. It's byte-identical to the toolkit master `../exports/landscape/aravind-r-readback-project-film.mp4`.
-- **Verified record:** status `ready`, SHA-256 `8ed1366af25017b19515fa9dc7618c6238532026e3bdfe7e6d90673c7b808b2b`, matching the file.
-- **Format:** 1920×1080, 24 fps, H.264, AAC 48 kHz stereo, 238.46 s.
+- **Verified record:** status `ready`, SHA-256 `4d790803396c37d6db21b516567aa1267d72d89a1c0eca1d06e41b5df6a4520d`, matching the file.
+- **Format:** 1920×1080, 24 fps, H.264, AAC 48 kHz stereo, 236.79 s.
 - **Measurements:** `../qc_film.py`, whose raw output is `QC.json`.
 
 **What changed in this revision** (my feedback on the review cut, 2026-11-23):
@@ -11,16 +11,21 @@
 - No section bar. Chapter cards open each part, and card 1 is the poster frame. Corner tags replace the full-sentence captions on concept diagrams.
 - C4 is in plain English. The gaps between beats are 0.35–0.55 s. B10 has a hero-size transcript and recap beat. The end card is larger and adds the value line and the voice credit.
 - 13 beats were re-voiced (B01–B03, B08, B09, B11, B13, B14, B16, B17, B19, B20, BOUT). The other 8 keep their speech, with only the edge silence trimmed.
+- **Final fix pass (after my approval of that cut):**
+  - B01 now opens "AI features ship against acceptance criteria a PM wrote." B02 says "And where an eval is the launch gate, …" (a conditional, with no trend claim). Only these two beats were re-voiced, and "eval" needed no respelling.
+  - B07 now says "names the criterion behind a disagreement".
+  - B15 puts "compute · this Mac" under "have", and "my human labels · I mark the 86 decisions" stays under "planned" beside the local model.
+  - B01 gained two colour flashes, on "meant" and "and", because its new timing opened a 3 s static stretch.
 
 ## Phase 4 gates (my brief)
 
 | Gate | Pass condition | Measured | Result |
 |---|---|---|---|
-| Freeze | `freezedetect=n=0.003:d=3` total under 15 % of runtime, and every hold listed in `SHOTLIST.md` | **5.08 s = 2.1 %**: only the end card (233.38–238.46 s). At `d=2.5` there are five holds, all listed in `SHOTLIST.md` with the line spoken over each. The first measure of this revision was 47.62 s (20.0 %, a fail); flashes on large cards and soft bands, each on a spoken word, fixed it. | **PASS** |
+| Freeze | `freezedetect=n=0.003:d=3` total under 15 % of runtime, and every hold listed in `SHOTLIST.md` | **5.08 s = 2.1 %**: only the end card (231.71–236.79 s). At `d=2.5` there are three holds, all listed in `SHOTLIST.md` with the line spoken over each. The first measure of this revision was 47.62 s (20.0 %, a fail); flashes on large cards and soft bands, each on a spoken word, fixed it. | **PASS** |
 | Black | no unintended black frames (`blackdetect=d=0.1:pix_th=0.10`) | none | **PASS** |
 | Loudness | −16 LUFS ±1 integrated; true peak ≤ −1 dBTP | **−16.1 LUFS · −1.2 dBTP** (ebur128) | **PASS** |
 | Dead air | no silence over 1.2 s (`silencedetect=noise=-50dB:d=1.2`) | none; the gaps between beats are 0.35–0.55 s, and the chapter cards run over narration | **PASS** |
-| Runtime | within the 4:00 cap | **3:58.5** (238.46 s) | **PASS** |
+| Runtime | within the 4:00 cap | **3:56.8** (236.79 s) | **PASS** |
 | Contact sheet | `fps=1/4,tile=6x8` | `contact-01.png`, `contact-02.png` | done |
 | Section boundaries | a frame grab at every part boundary | `boundaries/`: each boundary ±0.05 s, 1.5 s into each part (the chapter cards), and the last frame | done |
 | Ground at every cut | the same colour on both sides of every cut | 20 cuts × 2 sides × 4 corner points = 160 samples, **all RGB (241, 240, 233)**, which is `#F2F0E9` after H.264 | **PASS** |
@@ -28,7 +33,7 @@
 | Numbers | every on-screen number comes from a repo file, with its path cited | audit below (`../CLAIMS.md`, on-screen numbers O01–O18) | **PASS** |
 | First minute | the first 60 s says what Readback is and why it matters, for any AI feature | quoted below (positioning audit §4) | **PASS** |
 | Brands and persona | prior work as plain text only, no logos or marks, no instructor name, persona or credit, mascot hidden | audit below | **PASS** |
-| **Positioning (new)** | every mention of meetings, recaps, AMI (or an AMI meeting ID) or C4 sits in Methods or Evaluation, in a scene tagged "test case"; the executive summary has none | **110 of 110 mentions OK** (10 spoken, 100 on screen across 12 scenes, B09–B20); summary: **0**. `positioning-audit.md` quotes every one | **PASS** |
+| **Positioning (new)** | every mention of meetings, recaps, AMI (or an AMI meeting ID) or C4 sits in Methods or Evaluation, in a scene tagged "test case"; the executive summary has none | **108 of 108 mentions OK** (10 spoken, 98 on screen across 12 scenes, B09–B20); summary: **0**. `positioning-audit.md` quotes every one | **PASS** |
 
 ## Toolkit gates (brutalist.art @ `cd4bf20` with my outro patch)
 
@@ -36,7 +41,7 @@
 |---|---|---|
 | F — paperwork exists | PASS | `../FACTCHECK.md`, `../SHOTLIST.md`, `../PROMPTS.md` |
 | factcheck (content of F) | clean: 81 rows, 21 of 21 beats covered | `factcheck_check.txt` |
-| L — beat-mix lint | clean | `art-run-18.log` |
+| L — beat-mix lint | clean | `art-run-19.log` |
 | A — static pre-flight | clean, 0 warnings, all 20 scenes | `gates-AWB-final.txt` |
 | W — WCAG contrast, margins, text overlap | clean, all 20 scenes | `gates-AWB-final.txt` |
 | B — layout audit (`--curve-strict`) | CLEAN, all 20 scenes | `gates-AWB-final.txt` |
@@ -50,18 +55,18 @@
 
 `../positioning_check.py` reads every narration sentence from `../beat_sheet.json` and every string visible on any frame of any scene (`../strings_dump.py`, 24 fps). It writes `positioning-audit.md`, which quotes each mention with its beat, part, time and verdict.
 - **Narration:** 10 sentences mention the test case; all are in Methods or Evaluation.
-- **On screen:** 100 strings mention it; all sit in B09–B20, and each of those scenes carries the "test case" tag.
+- **On screen:** 98 strings mention it; all sit in B09–B20, and each of those scenes carries the "test case" tag.
 - **Executive summary (B01–B03):** 0 references, spoken or on screen.
 - **First minute:** what Readback is for, heard by 0:40:
-  - 0:00 "Every AI feature ships against acceptance criteria a PM wrote."
+  - 0:00 "AI features ship against acceptance criteria a PM wrote."
   - 0:04 "Those criteria become a rubric: the checklist an AI judge grades the output against."
   - 0:09 "When a judge reads a criterion differently than the PM meant it, the eval passes, and the wrong behaviour ships."
-  - 0:18 "And because evals are becoming the launch gate for AI features, a misread criterion ships wrong behaviour at scale, with a passing score attached."
-  - 0:29 "Readback will find the criterion the judges read differently, and ask the PM what they meant, before anyone trusts the score."
-  - 0:35 "It's module one of a bigger vision: a copilot for what PMs write for AI."
-  - 0:39 "Readback is planned; nothing has run yet."
+  - 0:18 "And where an eval is the launch gate, a misread criterion ships wrong behaviour at scale, with a passing score attached."
+  - 0:27 "Readback will find the criterion the judges read differently, and ask the PM what they meant, before anyone trusts the score."
+  - 0:33 "It's module one of a bigger vision: a copilot for what PMs write for AI."
+  - 0:38 "Readback is planned; nothing has run yet."
 
-  The three vignettes (a support-reply bot, a document summariser, a search answer) are on screen from 0:15 to 0:28.
+  The three vignettes (a support-reply bot, a document summariser, a search answer) are on screen from 0:15 to 0:27.
 
 ## Label audit
 
@@ -83,7 +88,7 @@
 - B10: `AMI ES2007a transcript · CC BY 4.0`, `Claude · claude-opus-5-5`, then `real output · claude-opus-5-5 · 14 Oct 2026` and `10 real recaps · claude-opus-5-5 · 14 Oct 2026`.
 - B11: `AMI ES2007a · CC BY 4.0`. AMI's DECISIONS list is the reference answer, not labels.
 - B14: `ES2010b · AMI · CC BY 4.0`; `real recap · claude-opus-5-5 · 14 Oct 2026`; "AMI's DECISIONS list: “will consider including … a locator function”".
-- B15: `a tick means set up on this Mac · status as of 23 Nov 2026`. The three columns keep the verified wording.
+- B15: `a tick means set up on this Mac · status as of 23 Nov 2026`. The three columns keep the verified wording. Under "have": the AMI data, the 10 recaps, Claude (`claude -p`, CLI 2.1.323) and compute (this Mac). Under "planned": the local open-weight model (Ollama not installed) and my human labels (I mark the 86 decisions).
 
 **Planned material:**
 - Drawn dashed grey, with every value shown as "—". My human labels always read as mine and planned.
@@ -112,13 +117,17 @@ The vignettes carry no numbers.
 
 ## Speech-to-text on the full film
 
-`../stt_check.py` (faster-whisper small.en) transcribes the whole soundtrack and compares it with the script in one diff. It normalises formatting only: numbers, hyphens, punctuation, quote marks, spacing and spelling (Spec Kit / Speckit, re-measure / remeasure, co-pilot / copilot, behavior / behaviour), and the spoken spellings "Reed-back" and "Ork dot AI". It also transcribes every beat's own clip alone. Results (`stt-full-master.txt`, 732 script words, 732 heard):
+`../stt_check.py` (faster-whisper small.en) transcribes the whole soundtrack and compares it with the script in one diff. It normalises formatting only: numbers, hyphens, punctuation, quote marks, spacing and spelling (Spec Kit / Speckit, re-measure / remeasure, co-pilot / copilot, behavior / behaviour), and the spoken spellings "Reed-back" and "Ork dot AI". It also transcribes every beat's own clip alone. Results (`stt-full-master.txt`, 728 script words, 728 heard):
 
 | Beat | Film time | Script | Full film | Its own clip, alone |
 |---|---|---|---|---|
-| B06 | 1:04.6 | "**GitHub's** Spec Kit" | "**GitHub** spec kit" | matches |
-| B02 | 0:20.8 | "because **evals** are becoming the launch gate" | matches | "because **the valves** are becoming…" |
-| B13 | 2:23.0 | "every recap: **Claude**, a second provider's model" | matches | "every recap, **clawed**, …" |
+| B01 | 0:06.1 | "the checklist **an** AI judge" | "**in** AI judge" | "**in** AI judge" |
+| B02 | 0:20.3 | "where **an** eval is the launch gate" | matches | "where **in** eval" |
+| B03 | 0:36.1 | "for what **PMs write** for AI" | "**PM's right**" (a homophone) | matches |
+| B06 | 1:02.9 | "**GitHub's** Spec Kit" | "**GitHub** spec kit" | matches |
+| B13 | 2:21.3 | "every recap: **Claude**, a second provider's model" | matches | "**clawed**" |
+
+"eval" is heard as "eval" in the full film and on its own clip, so it needed no respelling. The article "an" before "AI" and "eval" comes back as "in".
 
 Every "Readback" is heard as "read back" or "readback", and "Aravind" (end card) is heard correctly.
 

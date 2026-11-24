@@ -38,12 +38,12 @@ PARTS = {"summary": "1 · Executive summary", "introduction": "2 · Introduction
 BEATS = [
     # ── 1 · Executive summary: application-agnostic, consequence first; no meeting recap anywhere ──────
     ("B01", "summary", "B01_Hook", [],
-     "Every AI feature ships against acceptance criteria a PM wrote. Those criteria become a rubric: the checklist "
+     "AI features ship against acceptance criteria a PM wrote. Those criteria become a rubric: the checklist "
      "an AI judge grades the output against. When a judge reads a criterion differently than the PM meant it, the "
      "eval passes, and the wrong behaviour ships."),
     ("B02", "summary", "B02_Stakes", [],
-     "Then teams act on wrong output, users lose trust, and the feature quietly dies. And because evals are becoming "
-     "the launch gate for AI features, a misread criterion ships wrong behaviour at scale, with a passing score attached."),
+     "Then teams act on wrong output, users lose trust, and the feature quietly dies. And where an eval is the launch "
+     "gate, a misread criterion ships wrong behaviour at scale, with a passing score attached."),
     ("B03", "summary", "B03_Readback", [],
      "Reed-back will find the criterion the judges read differently, and ask the PM what they meant, before anyone "
      "trusts the score. It's module one of a bigger vision: a copilot for what PMs write for AI. Reed-back is "

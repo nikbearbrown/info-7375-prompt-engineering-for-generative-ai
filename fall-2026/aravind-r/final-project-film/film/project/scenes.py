@@ -502,8 +502,12 @@ class B01_Hook(Scene):
         P(self, Create(d["c3"]), pulse(po["chip"], 1.1), rt=0.6)
         on(self, "differently")
         P(self, FadeIn(d["meant"], shift=RIGHT * 0.1), FadeIn(d["read"], shift=LEFT * 0.1), rt=0.5)
+        on(self, "meant")
+        P(self, *flash(d["page"][0]), rt=0.5)                     # the PM's page: what was meant
         on(self, "passes")
         P(self, FadeIn(d["pass"], scale=0.8), rt=0.4)
+        on(self, "and")
+        P(self, *flash(fb[0]), rt=0.4)                            # the feature passes and heads out
         on(self, "ships")
         P(self, FadeOut(fb, shift=RIGHT * 1.6), rt=0.35)
         P(self, FadeIn(d["ships"]), rt=0.3)
@@ -645,7 +649,7 @@ def L07():
             "xs": VGroup(*[cross(x, -0.2) for x in NODE_X]),
             "nf": VGroup(*[T("not found in docs", SMALL).move_to([x, -0.62, 0]) for x in NODE_X]),
             "chip": c, "slot": will_box(0, -1.45, 2.9, 1.0, fill=False),
-            "what": T("names the clause behind a disagreement", BODY).move_to([0, -2.4, 0])}
+            "what": T("names the criterion behind a disagreement", BODY).move_to([0, -2.4, 0])}
 
 
 def L08():
@@ -910,23 +914,22 @@ def L14():
             "ask": will_pill(-1.3, -2.45, "C4 · revised by the PM"), "_bub": bub}
 
 
-HAVE = ((("have",), "tick", ((("AMI data ·", "10 meetings"), ("in my repository",)), (("10 real recaps",), ("in my repository",)),
-                             (("Claude (claude -p)",), ("set up on this Mac", "CLI 2.1.323")))),
+HAVE = ((("have",), "tick", ((("AMI data · 10 meetings",), ("in my repository",)), (("10 real recaps",), ("in my repository",)),
+                             (("Claude (claude -p)",), ("set up on this Mac", "CLI 2.1.323")), (("compute",), ("this Mac",)))),
         (("account,", "not yet wired"), "open", ((("API credits",), ()), (("a second provider",), ()))),
-        (("planned",), "open", ((("local open-weight model",), ("Ollama not installed",)), (("my human labels",), ("I mark the 86 decisions",)),
-                                (("compute",), ("this Mac ·", "local judge planned")))))
-COL_X, SEP_X = [-6.05, -2.3, 1.3], [-2.47, 1.12]     # measured: widest lines 3.41 / 3.25 / 4.60 at 36
+        (("planned",), "open", ((("local open-weight", "model"), ("Ollama not installed",)), (("my human labels",), ("I mark the 86 decisions",)))))
+COL_X, SEP_X = [-6.05, -1.40, 2.10], [-1.52, 1.98]   # measured: widest lines 4.40 / 3.25 / 3.87 at 36 and 32
 
 
 def L15():
     """B15's last frame: what I have, in three columns (wording as verified on this Mac, 23 Nov 2026)."""
     heads, cols = VGroup(), VGroup()
     for (hl, kind, items), x0 in zip(HAVE, COL_X):
-        icon = (tick(x0 + 0.17, 2.2, s=0.17) if kind == "tick" else
-                DashedVMobject(Circle(radius=0.17, stroke_color=WILL, stroke_width=6).move_to([x0 + 0.2, 2.2, 0]), num_dashes=8))
-        ht = VGroup(*[lx(T(t, BODY, bold=True).move_to([0, 2.2 + 0.21 * (len(hl) - 1) - 0.42 * k, 0]), x0 + 0.55) for k, t in enumerate(hl)])
+        icon = (tick(x0 + 0.17, 2.35, s=0.17) if kind == "tick" else
+                DashedVMobject(Circle(radius=0.17, stroke_color=WILL, stroke_width=6).move_to([x0 + 0.2, 2.35, 0]), num_dashes=8))
+        ht = VGroup(*[lx(T(t, BODY, bold=True).move_to([0, 2.35 + 0.21 * (len(hl) - 1) - 0.42 * k, 0]), x0 + 0.55) for k, t in enumerate(hl)])
         heads.add(VGroup(icon, ht))
-        col, y = VGroup(), 1.4
+        col, y = VGroup(), 1.55
         for names, det in items:
             item = VGroup()
             for t in names:
@@ -937,10 +940,10 @@ def L15():
                 item.add(lx(T(t, SMALL).move_to([0, y, 0]), x0))
                 y -= 0.42
             col.add(item)
-            y -= 0.3
+            y -= 0.15
         cols.add(col)
     return {"ct": ctag("test case"), "tag": tag("a tick means set up on this Mac · status as of 23 Nov 2026"),
-            "heads": heads, "cols": cols, "seps": VGroup(*[Line([x, 2.6, 0], [x, -2.6, 0], color=GREY, stroke_width=3) for x in SEP_X])}
+            "heads": heads, "cols": cols, "seps": VGroup(*[Line([x, 2.75, 0], [x, -2.7, 0], color=GREY, stroke_width=3) for x in SEP_X])}
 
 
 REQ_X = [-4.15, 0.0, 4.15]
@@ -1125,10 +1128,10 @@ class B15_Have(Scene):
         P(self, *fade_all(a, keep=("ct",)), Transform(a["ct"], b["ct"]), rt=0.45)
         P(self, FadeIn(b["tag"]), Create(b["seps"]), rt=0.35)
         col1, col2, col3 = b["cols"]
-        cb = [band(-6.35, -2.47, -2.75, 2.75), band(-2.47, 1.12, -2.75, 2.75), band(1.12, 6.35, -2.75, 2.75)]
+        cb = [band(-6.35, -1.52, -2.78, 2.88), band(-1.52, 1.98, -2.78, 2.88), band(1.98, 6.35, -2.78, 2.88)]
         self.add(*cb)
         steps = [("data", 0, col1[0:2]), ("Claude", None, col1[2:3]), ("credits", 1, col2[0:1]), ("provider", None, col2[1:2]),
-                 ("local", 2, col3[0:1]), ("human", None, col3[1:2]), ("labels", None, col3[2:3])]
+                 ("local", 2, col3[0:1]), ("human", None, col3[1:2])]
         for word, h, items in steps:
             on(self, word)
             anims = [FadeIn(it, shift=RIGHT * 0.12) for it in items]
@@ -1141,6 +1144,8 @@ class B15_Have(Scene):
                 P(self, LaggedStart(*[Indicate(it[-1], color=INK, scale_factor=1.08) for it in col1[0:2]], lag_ratio=0.3),
                   *flash(cb[0], color=KRAFT_LT), rt=0.6)
             if word == "Claude":
+                on(self, "here")                                 # "Claude runs here": compute, this Mac
+                P(self, FadeIn(col1[3], shift=RIGHT * 0.12), rt=0.4)
                 on(self, "subscription")
                 P(self, *[Indicate(t, color=INK, scale_factor=1.08) for t in col1[2][1:]], *flash(cb[0], color=KRAFT_LT), rt=0.6)
                 on(self, "My")

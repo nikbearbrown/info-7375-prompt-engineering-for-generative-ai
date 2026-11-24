@@ -598,3 +598,25 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
   - Only the project-film work goes in: `film/project/` (sources and records, plus the film via `git add -f`), the two outro patches, `FRICTIONAL.md` and `SOURCES.md`. The build caches (mp3, manim, clips, media, exports, _qc, _superseded) stay ignored.
   - No attribution trailers, checked with `git log -1 --format=%B` after the commit.
 - **Push:** to my fork only (`fork`, aravindravi7/prompt-engineering-and-agentic-ai). No PR until I say so. This entry is part of that commit.
+
+## 2026-11-23 — Project film, final fix pass (my requests; Claude Code made the changes)
+
+- **My requests (Aravind):**
+  - B01 opens "AI features ship against acceptance criteria a PM wrote."
+  - B02 says "And where an eval is the launch gate, a misread criterion ships wrong behaviour at scale, with a passing score attached."
+  - CLAIMS N01 and N05 match; N05 is a conditional POSITION with no trend claim.
+  - B07's label reads "names the criterion behind a disagreement".
+  - B15 shows "compute: this Mac" under "have", and "my human labels" under "planned" beside the open-weight model.
+  - Re-voice B01 and B02 only. Commit and push by 22:45 ET, or keep `6aadb5a`.
+- **Voice:** B01 and B02 re-voiced, same voice and settings. "eval" is heard as "eval", so no respelling. The other clips are byte-identical.
+- **Scenes:**
+  - B07's label changed.
+  - B15's columns were re-measured: "AMI data · 10 meetings" fits on one line, the local model wraps to two, and compute lands on "here" ("Claude runs here").
+  - B01's new timing opened a 3.04 s static stretch, so it gained two colour flashes, on "meant" and "and".
+  - B01, B02, B07, B08, B15 and B16 were re-rendered; B08 and B16 open on B07's and B15's last frames.
+- **Result:**
+  - `film/project/aravind-r-readback-project-film.mp4`, 3:56.8 (236.79 s), SHA-256 `4d790803…`, verified `ready`.
+  - Freeze 2.15 % (the end card only); −16.1 LUFS, −1.2 dBTP; no black frames or dead air; one ground colour at all 20 cuts.
+  - Toolkit gates F, factcheck (81 rows), L, A, W, B (20 of 20), V (0/0 on the review cut and the clean master), T (21 of 21) and bookends all pass.
+  - Overlap 0 in 20 of 20 scenes; positioning audit PASS (108 of 108); speech-to-text 728 of 728 words.
+  - Tables: `film/project/gates/GATES.md`.
