@@ -26,4 +26,6 @@ Python 3 standard library only, as in JS2.
 | Date / commit | What Claude did | What I did |
 |---|---|---|
 | Nov 23 (planning) | Explained the assignment; proposed a 3-day plan for the Nov 25 deadline | Chose re-collection and the persona target |
-| Nov 23 | Ran the live collection; wrote `agent/postings.py` and `agent/label_sheet.py`; drafted FILTER.md v1.0 from a survey of the data | TODO: review and edit FILTER.md; hand-label all 90 postings |
+| Nov 23 | Ran the live collection; wrote `agent/postings.py` and `agent/label_sheet.py`; drafted FILTER.md v1.0 from a survey of the data | Reviewed FILTER.md and committed it as is (`0041401`); hand-labeled all 90 postings (`215f29a`) |
+| Nov 24 (`3beb6f0`) | Wrote `tests/test_filter.py` (26 tests) before any filter code | Approved tests-first; TODO: review the test cases |
+| Nov 24 | Wrote `agent/filter.py` to FILTER.md v1.1, `tests/wrong_versions.py` (patches in W1–W5, checks each makes a test fail), `agent/audit_sheet.py`; ran v1.0 rules on all 400 | TODO: hand-judge the audit sheets |

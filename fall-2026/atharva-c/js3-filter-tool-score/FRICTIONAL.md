@@ -20,3 +20,10 @@
 - **What I changed:** I added a `v1.1` correction note and changelog entry to `FILTER.md` while leaving the `v1.0` rules untouched so the pre-code baseline remains intact. Wrong version W2 now cites a verified `3+ years` posting (`Software Engineer II, Backend (Test Infra)`, labeled `reject`), and parsing decimal years (`1.5+` as `1.5`, not `5`) is set as the first test case for Day 2.
 - **What I learned:** A quick regex used during exploratory data profiling had the exact decimal-truncation bug we need to prevent in `agent/filter.py`. Spot-checking matched sentences against the full text during labeling caught the error before it got baked into the filter logic.
 - **Reference commits:** `215f29a` (90 hand-labeled rows in `labels/dev.csv` and `labels/heldout.csv`), `5b192f5` (`FILTER.md` v1.1 correction and the first version of this entry), `6cd481c` (commit hash filled in).
+
+## Nov 24, 2026 — DRAFT (Claude, to rewrite): tests, filter v1.0 run, dev comparison
+
+- Tests were committed alone (`3beb6f0`) and failed (no `agent/filter.py`). Then the filter was written to FILTER.md v1.1; all 26 tests passed. `tests/wrong_versions.py` patches each of W1–W5 into the filter: every one makes its test class fail.
+- The "`&amp;` left in URLs" bug planned for today does not exist: 0 of 400 URLs contain `&amp;`. Robinhood URLs contain a plain `&` (`?t=gh_src=&gh_jid=…`), which is correct. No test or fix was written for it.
+- Run on all 400 (`evidence/filter-v1.0/`): kept 22. On dev labels only: tp 6, fp 6, fn 0, tn 33. **All 6 false positives ask for exactly 3 years** (R2 gives 0 at N = 3, so R1 + R4 = 0.60 passes). Held-out has not been run.
+- `affirm:7727320003` (W2's real example, 3+ years) is one of them: the W2 test passes only because its fixture says 5+ years. The real filter still keeps the real example.
