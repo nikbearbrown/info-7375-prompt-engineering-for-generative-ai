@@ -298,15 +298,8 @@ class B04_Loop(Scene):
         dot = Dot(radius=0.11, color=ACC).next_to(boxes[4], UP, buff=0.12)
         p.play(GrowArrow(arrows[3]), FadeIn(boxes[4], scale=0.9), FadeIn(dot, scale=0.4), run_time=0.6)
         chips = VGroup(tag("2 tries per question", 24), tag("10 s per query", 24)).arrange(RIGHT, buff=0.4)
-        chips.move_to([-1.8, -2.25, 0])
+        chips.move_to([0, -2.25, 0])
         p.play(FadeIn(chips), run_time=0.5)
-
-        p.until("Never", 0.85)
-        never = tag("not when the model says it's done", 24).next_to(chips, RIGHT, buff=0.4)
-        row = VGroup(chips, never)
-        fit(row, 11.6)
-        row.move_to([0, -2.25, 0])
-        p.play(FadeIn(never), run_time=0.5)
         p.finish()
 
 

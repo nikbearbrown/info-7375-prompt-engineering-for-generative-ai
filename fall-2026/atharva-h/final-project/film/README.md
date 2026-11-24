@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | **File** | `atharva-sponsorsql-final.mp4` (not in GitHub; MP4s are kept out of the repository) |
-| **SHA-256** | `0ea27cd402a71eb9d2c39185383cdfccef8e3c4db42d70fc74f568841ab58619` |
-| **Length** | 3 min 56 s (235.9 s), under the four-minute target and the brief's five-minute limit |
-| **Format** | 1920×1080, H.264 video, AAC audio, 11.0 MB |
+| **SHA-256** | `1112de3c041398fc540cc719420a37ea24813b400cb40b37faf25a40d87e143e` |
+| **Length** | 3 min 54 s (233.8 s), under the four-minute target and the brief's five-minute limit |
+| **Format** | 1920×1080, H.264 video, AAC audio, 10.9 MB |
 | **Link** | *To be added by the owner after uploading (for example, an unlisted video or a shared drive link). Posting publicly is the owner's decision.* |
 | **Built** | 2026-11-23 (second version, after the owner's script edits), with the local Brutalist toolkit (Manim, Remotion, Kokoro narration). No paid services. |
 
@@ -51,6 +51,7 @@
 - **Final full pass (same day):** every beat checked at four points in time. The film's sound was checked for gaps (none) and clipping (none). The time each cue phrase is spoken was measured by re-running the same local voice on the script, and every visual lands within about a second of its words. Two more fixes came out of this pass:
   - B05: the "SQL query" definition had been replaced after about two seconds. It now stays for the whole beat, and the permission-policy definition is a card in the middle of the screen until the real output appears.
   - B08: "counted the right answer straight from the file" overstated it; the key scripts count from the database the loader builds from the checked file. It now says "from the data".
+- **Owner's last edit:** the owner removed "never just because the model says it's done" from B04: the spoken sentence, the on-screen chip and the fact-check row. B04 was re-rendered and every gate re-run (clean), its cue timing re-measured, and the film re-exported.
 - The Brutalist toolkit's files were compared before and after each build: unchanged.
 
 ## Rebuild

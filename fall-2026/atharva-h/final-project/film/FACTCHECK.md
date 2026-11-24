@@ -10,7 +10,7 @@ Every number or factual claim on screen or in the narration, with its source in 
 | F4 | An H-1B is a U.S. work visa for specialty (skilled) jobs; an LCA is the employer's filing with DOL before hiring on an H-1B; an LCA is not a visa approval | B00, B03 | DOL record layout; project brief (`brief.md`) |
 | F5 | MyVisaJobs search fields (company, title, city, state); H-1B salary explorer filters (employer, title, worksite, fiscal year, status) | B02 | Earlier session's review on 2026-11-21 (`final-project-film/APPENDIX.md`, section 2); not re-checked for the film |
 | F6 | ChatGPT wrote a query and, on follow-up, said 40; nothing checked it | B02 | `evals/chatgpt-test-2026-10-24.md` |
-| F7 | The loop: observe, decide, act, record, stop; budget 2 proposals, 10 s per statement; stops never come from the model | B04 | `sponsorsql/agent.py`, `sponsorsql/config.py`, `sponsorsql/state.py` |
+| F7 | The loop: observe, decide, act, record, stop; budget 2 proposals, 10 s per statement | B04 | `sponsorsql/agent.py`, `sponsorsql/config.py`, `sponsorsql/state.py` |
 | F8 | Read-only database; SQLite rule allows reading only table lca | B05 | `sponsorsql/policy.py` |
 | F9 | F1/F2/F3 output lines and rows before/after 437,496 | B05 | `evidence/rescore-after-review.log`; `evals/results/failures-after-review.json` |
 | F10 | Boston run: answer 40, SQL, three of the 40 matching rows, view SHA-256 713713b8…9632c47e3 | B06 | `evidence/gate-view-D2-2026-11-23.txt` (real run, 2026-11-23, recorded Claude reply) |
