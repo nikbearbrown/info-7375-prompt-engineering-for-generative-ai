@@ -1,0 +1,6 @@
+check: fare_amount >= 0   (pandera)
+clean copy  (10,000 rows): PASS
+broken copy (10,000 rows): flagged 25 rows
+  negative_fare          planted 25  caught 25   CAUGHT
+  dropoff_before_pickup  planted 25  caught  0   MISSED
+  false alarms on unbroken rows: 0

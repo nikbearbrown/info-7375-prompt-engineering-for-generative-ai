@@ -1,0 +1,22 @@
+# Recorded 2026-11-23 18:06 EST in fall-2026/yash-s/js2-loop-tools-diff, Python 3.9.6
+$ python3 -m unittest discover -s tests
+Ran 65 tests in 0.197s
+
+OK
+$ python3 wrong_versions.py
+  WV1 failed board reported as zero new: CAUGHT by 7 failing test(s)
+  WV2 string-prefix folder check: CAUGHT by 1 failing test(s)
+  WV3 retries not counted: CAUGHT by 2 failing test(s)
+RESULT: every wrong version was caught
+$ python3 independent_check.py runs/run-2026-11-10T025118Z
+Independent check of run-2026-11-10T025118Z: the agent reported 'incomplete' (live)
+board                status          now  before  earlier run                  result
+Databricks           ok              915       -  none                         consistent
+Anthropic            ok              675       -  none                         consistent
+OpenAI               ok              825       -  none                         consistent
+Deliberate failure   failed            -       -  -                            not checked here (the run did not report it as ok)
+Nothing flagged.
+$ python3 agent.py --reset-state greenhouse-anthropic --state-dir "$T/state"
+REFUSED: refusing to reset $T/state/greenhouse-anthropic.state.json: needs explicit approval (--approve-reset)
+$ python3 agent.py --reset-state greenhouse-anthropic --state-dir "$T/state" --approve-reset
+reset: $T/state/greenhouse-anthropic.state.json

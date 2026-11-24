@@ -76,3 +76,21 @@
   - whether context matters under an open prompt, which would mean changing two things at once;
   - the tool-list change, which wasn't run;
   - X1 on held-out postings.
+
+## Nov 22, evening – Nov 23: "Are you sure we are doing it right?"
+
+- **What happened:** before signing, Hemanth asked: "Are you sure we are doing it right?"
+  - Claude checked every requirement and found nothing missing.
+  - It named three places where the evidence was thin:
+    - X1 had never been tested on unseen labels;
+    - the context experiment ran under a prompt where context couldn't matter;
+    - prompt injection through the server had never been tried.
+  - It also caught a wording problem in its own sign-off draft: the W1–W6 tests "failed" before the code only because the code didn't exist yet.
+- **What Hemanth decided:** "1 and 2 plus 3".
+- **What came of it:**
+  - **X1, out of sample:** Hemanth labeled 20 more postings blind (96–115), with the seed committed first. On the 10 that X1 changes, v1.1 was right 7 and v1.0 3.
+  - **E5:** context under the open prompt changed no verdicts, but made Claude more confident.
+  - **The SEEDED injection:** not followed, and the caution came from the client, not my server.
+  - **A new tension:** the London and San Francisco postings of the same AI Inference Engineer role got different verdicts (n / y), although FILTER.md says location never decides. It's recorded in AUDIT.md section 6 and not acted on.
+- Hemanth re-asked for the test-1 items once ("Give me again test 1 questions and I will label again") before answering them.
+

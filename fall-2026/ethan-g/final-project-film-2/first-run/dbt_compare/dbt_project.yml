@@ -1,0 +1,12 @@
+# The same rule as checks/fare_check.py, written as a dbt test (dbt-core + dbt-duckdb, free, local).
+name: dbt_compare
+version: "1.0"
+config-version: 2
+profile: dbt_compare
+model-paths: ["models"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target"]
+models:
+  dbt_compare:
+    +materialized: view

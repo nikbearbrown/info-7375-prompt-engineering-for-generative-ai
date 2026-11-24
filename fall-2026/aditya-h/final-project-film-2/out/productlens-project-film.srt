@@ -1,0 +1,399 @@
+1
+00:00:00,000 --> 00:00:02,460
+Every successful product starts with an idea.
+
+2
+00:00:02,820 --> 00:00:05,690
+But having a good idea and knowing whether it's worth building
+
+3
+00:00:05,740 --> 00:00:07,400
+are two very different things.
+
+4
+00:00:07,940 --> 00:00:11,330
+Before committing resources, product teams need to understand
+
+5
+00:00:11,380 --> 00:00:15,870
+their customers, evaluate competitors, identify risks, and
+
+6
+00:00:15,920 --> 00:00:19,770
+challenge their assumptions. That can take days, and important
+
+7
+00:00:19,820 --> 00:00:21,950
+questions can still go unanswered.
+
+8
+00:00:22,000 --> 00:00:24,830
+What if this process could be more structured, and more
+
+9
+00:00:24,880 --> 00:00:25,680
+evidence-driven?
+
+10
+00:00:26,133 --> 00:00:30,083
+That's the problem I'm working on with ProductLens AI, a product
+
+11
+00:00:30,133 --> 00:00:33,763
+research and decision-support platform I'm building for product
+
+12
+00:00:33,813 --> 00:00:36,403
+managers, founders, and business analysts.
+
+13
+00:00:36,453 --> 00:00:40,963
+It will take a product idea or a proposed feature and turn it
+
+14
+00:00:41,013 --> 00:00:42,513
+into a structured assessment:
+
+15
+00:00:43,333 --> 00:00:47,123
+competitors, customer pain points, potential failure scenarios,
+
+16
+00:00:47,173 --> 00:00:51,143
+and ways to validate it. The goal isn't to replace product
+
+17
+00:00:51,193 --> 00:00:54,663
+managers. It's to help them make better-informed decisions
+
+18
+00:00:54,713 --> 00:00:57,173
+before investing time and money in building.
+
+19
+00:00:58,667 --> 00:01:00,987
+Several tools already help with parts of this.
+
+20
+00:01:01,907 --> 00:01:05,957
+General-purpose AI assistants like ChatGPT and Claude can help
+
+21
+00:01:06,007 --> 00:01:08,037
+brainstorm and analyze product ideas.
+
+22
+00:01:08,087 --> 00:01:11,987
+Perplexity answers questions with cited sources.
+
+23
+00:01:12,287 --> 00:01:15,737
+And Productboard helps teams centralize customer feedback and
+
+24
+00:01:15,787 --> 00:01:20,517
+align on priorities. Each one covers a valuable part of the
+
+25
+00:01:20,567 --> 00:01:21,887
+product management process.
+
+26
+00:01:22,867 --> 00:01:25,597
+But connecting these activities into one structured assessment
+
+27
+00:01:25,647 --> 00:01:27,547
+still takes a lot of manual work.
+
+28
+00:01:28,347 --> 00:01:31,697
+ProductLens AI explores whether research, competitive analysis,
+
+29
+00:01:31,747 --> 00:01:35,897
+failure analysis, and validation planning can be combined into
+
+30
+00:01:35,947 --> 00:01:40,537
+one coordinated workflow: one that questions assumptions, links
+
+31
+00:01:40,587 --> 00:01:44,327
+claims to evidence, and turns risks into measurable experiments.
+
+32
+00:01:44,947 --> 00:01:48,197
+Whether that actually produces better results is something I'll
+
+33
+00:01:48,247 --> 00:01:49,667
+test as part of the project.
+
+34
+00:01:51,100 --> 00:01:52,700
+Here's how it's designed to work.
+
+35
+00:01:53,280 --> 00:01:57,560
+A user enters a product idea, its audience, and some business
+
+36
+00:01:58,240 --> 00:02:01,710
+context. For example: an AI-powered personal finance app for
+
+37
+00:02:01,760 --> 00:02:03,960
+international students in the United States.
+
+38
+00:02:04,800 --> 00:02:08,650
+ProductLens AI will define the research scope and hand it to a
+
+39
+00:02:08,700 --> 00:02:13,210
+team of specialized AI agents, each responsible for one part of
+
+40
+00:02:13,260 --> 00:02:14,060
+the analysis.
+
+41
+00:02:14,900 --> 00:02:17,940
+It starts by collecting information from public sources:
+
+42
+00:02:18,640 --> 00:02:22,870
+official product websites, documentation, customer reviews, and
+
+43
+00:02:22,920 --> 00:02:26,990
+industry publications. An orchestrator then coordinates three
+
+44
+00:02:27,040 --> 00:02:31,410
+specialized agents. The Market and Competition Agent examines
+
+45
+00:02:31,460 --> 00:02:34,280
+existing solutions and room for differentiation.
+
+46
+00:02:34,860 --> 00:02:38,150
+The Customer and Adoption Agent looks at user needs, pain
+
+47
+00:02:38,200 --> 00:02:39,900
+points, and barriers to adoption.
+
+48
+00:02:40,500 --> 00:02:43,730
+The Failure and Risk Agent works out how the product could fail,
+
+49
+00:02:43,780 --> 00:02:47,460
+which assumptions are critical, and how to reduce those risks.
+
+50
+00:02:48,180 --> 00:02:52,050
+Each agent has its own system prompt, a defined role, and a
+
+51
+00:02:52,100 --> 00:02:56,010
+structured output format, so one large research problem becomes
+
+52
+00:02:56,060 --> 00:02:57,500
+several focused tasks.
+
+53
+00:02:58,467 --> 00:03:02,237
+A convincing AI answer isn't necessarily an accurate one.
+
+54
+00:03:02,287 --> 00:03:05,857
+So ProductLens AI adds a dedicated evaluation stage.
+
+55
+00:03:05,907 --> 00:03:10,477
+An Evaluator Agent reviews the findings for unsupported claims,
+
+56
+00:03:10,527 --> 00:03:15,517
+inconsistencies, missing evidence, and recommendations too vague
+
+57
+00:03:15,567 --> 00:03:20,197
+to act on. When it finds an issue, that finding is revised and
+
+58
+00:03:20,247 --> 00:03:23,917
+checked again. And every claim is labelled either supported by
+
+59
+00:03:23,967 --> 00:03:28,717
+evidence, or a hypothesis that still needs validation, so
+
+60
+00:03:28,767 --> 00:03:31,787
+uncertainty becomes an explicit part of the result.
+
+61
+00:03:32,767 --> 00:03:36,817
+The proposed application uses a modern web stack, large language
+
+62
+00:03:36,867 --> 00:03:40,437
+models, structured prompts, and an orchestration layer that
+
+63
+00:03:40,487 --> 00:03:45,697
+manages each stage. Building it needs model API access, token
+
+64
+00:03:45,747 --> 00:03:48,767
+credits, research access, and somewhere to run it.
+
+65
+00:03:49,167 --> 00:03:50,827
+Those are still being confirmed.
+
+66
+00:03:51,647 --> 00:03:54,627
+Token use, cost, and processing time will be tracked throughout.
+
+67
+00:03:55,267 --> 00:03:57,927
+The final deliverable is a Product Decision Brief:
+
+68
+00:03:58,967 --> 00:04:02,297
+competitive insights, customer pain points, ranked failure
+
+69
+00:04:02,347 --> 00:04:06,327
+risks, recommended experiments, and measurable success criteria,
+
+70
+00:04:06,727 --> 00:04:08,067
+each linked to its evidence.
+
+71
+00:04:09,633 --> 00:04:13,463
+To find out whether ProductLens AI actually adds value, I'll
+
+72
+00:04:13,513 --> 00:04:16,423
+test it on ten standardized product scenarios from different
+
+73
+00:04:16,473 --> 00:04:19,533
+industries, each run three ways.
+
+74
+00:04:19,773 --> 00:04:21,873
+A: a single-prompt baseline. B:
+
+75
+00:04:22,233 --> 00:04:24,793
+the multi-agent workflow without the evaluator.
+
+76
+00:04:25,193 --> 00:04:28,623
+And C: the complete ProductLens workflow, with evaluation and
+
+77
+00:04:28,673 --> 00:04:32,863
+revision. The model, the inputs, and the evidence stay the same,
+
+78
+00:04:32,913 --> 00:04:36,623
+so I can see whether specialization and self-evaluation make a
+
+79
+00:04:36,673 --> 00:04:37,513
+measurable difference.
+
+80
+00:04:38,500 --> 00:04:41,420
+I'll measure several things. Factual grounding:
+
+81
+00:04:42,020 --> 00:04:44,800
+are claims actually supported by their cited sources?
+
+82
+00:04:45,580 --> 00:04:49,030
+Relevance: are the risks and customer problems specific to this
+
+83
+00:04:49,080 --> 00:04:53,110
+product? Actionability: can the recommended experiments really
+
+84
+00:04:53,160 --> 00:04:57,230
+be run and measured? I'll also plant deliberate errors to see
+
+85
+00:04:57,280 --> 00:05:00,070
+whether the evaluator catches them, and check that the
+
+86
+00:05:00,120 --> 00:05:01,710
+structured outputs are valid.
+
+87
+00:05:01,760 --> 00:05:06,790
+Finally, I'll compare token use, response time, and cost per
+
+88
+00:05:06,840 --> 00:05:10,000
+report, to see what the extra complexity costs.
+
+89
+00:05:10,967 --> 00:05:13,837
+The project succeeds if the complete workflow consistently
+
+90
+00:05:13,887 --> 00:05:17,817
+produces more grounded, relevant, and actionable assessments
+
+91
+00:05:17,867 --> 00:05:20,507
+than the baseline, at an acceptable cost.
+
+92
+00:05:21,167 --> 00:05:24,597
+If the extra agents and evaluation don't make a meaningful
+
+93
+00:05:24,647 --> 00:05:29,137
+difference, or cost too much, that's an important finding too.
+
+94
+00:05:29,187 --> 00:05:32,087
+The goal isn't to prove that a multi-agent system works.
+
+95
+00:05:32,447 --> 00:05:34,487
+It's to find out whether it's worth using.
+
+96
+00:05:35,933 --> 00:05:39,943
+With ProductLens AI, I'm exploring how prompt engineering and
+
+97
+00:05:39,993 --> 00:05:44,243
+agentic AI can move beyond generating content to support real
+
+98
+00:05:44,293 --> 00:05:48,223
+product decisions. Because building the right product starts
+
+99
+00:05:48,273 --> 00:05:51,363
+with understanding the right problems, questioning our
+
+100
+00:05:51,413 --> 00:05:54,073
+assumptions, and validating before we build.

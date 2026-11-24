@@ -1,0 +1,30 @@
+diff --git a/runtime/remotion/package-lock.json b/runtime/remotion/package-lock.json
+index 6d99d443..a16a4f03 100644
+--- a/runtime/remotion/package-lock.json
++++ b/runtime/remotion/package-lock.json
+@@ -10,9 +10,11 @@
+       "dependencies": {
+         "@remotion/cli": "^4.0.0",
+         "@remotion/paths": "^4.0.490",
++        "@remotion/zod-types": "^4.0.0",
+         "react": "^18.3.1",
+         "react-dom": "^18.3.1",
+-        "remotion": "^4.0.0"
++        "remotion": "^4.0.0",
++        "zod": "^4.3.6"
+       },
+       "devDependencies": {
+         "@types/react": "^18.3.0",
+diff --git a/runtime/scripts/compile.py b/runtime/scripts/compile.py
+index 80ed0eb8..b788c483 100644
+--- a/runtime/scripts/compile.py
++++ b/runtime/scripts/compile.py
+@@ -788,7 +788,7 @@ def compile_reel(a):
+             prev = nxt
+         if title_png:
+             fc.append(f"[{prev}][{n_label_inputs}:v]"
+-                      f"overlay=(W-w)/2:H-h-40"
++                      f"overlay=(W-w)/2:H-h-{int(h * 0.07)}"   # inside title-safe (5% inset) + margin
+                       f":enable='between(t,0,{first_beat_dur:.3f})'[vtitle]")
+             prev = "vtitle"
+         if a.review and drawtext:

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds the pitch film: animated scenes (clips/B00.mp4 ... B09.mp4) + narration.
+# Builds the four-part project film: animated scenes (clips/B00.mp4 ... B15.mp4) + narration.
 #
 #   bash make_film.sh Gaikar            -> makes the AI voice with macOS `say` from RECORDING-SCRIPT.txt, then builds
 #   bash make_film.sh Gaikar myvoice    -> uses your own recordings in audio/B00.m4a ... B09.m4a instead
@@ -10,7 +10,7 @@ set -e
 NAME="${1:-LastName}"
 MODE="${2:-ai}"
 VOICE="${VOICE:-Samantha}"
-RATE="${RATE:-180}"
+RATE="${RATE:-200}"
 mkdir -p build audio
 : > build/list.txt
 for clip in clips/B*.mp4; do

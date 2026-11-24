@@ -77,6 +77,7 @@ claude -p "Which job postings are new since the Nov 7 snapshot (2026-11-07T18424
 | **The other server** (filesystem 2.2.0) | containment held for `..`, the prefix trick and symlinks; **a client's roots silently replaced the sandbox** |
 | **The held-out experiments** (200 calls) | noise floor 0 flips; **the prompt flipped 21 of 40**; the context and the model flipped 0; the fitted threshold = the inherited 3.0 |
 | **Persistence** | JS1's exact Oct 31 prompts (hashes verified) gave **20 of 20** identical verdicts on Nov 22, which is not evidence of memory or training |
+| **Follow-ups after "Are you sure we are doing it right?"** (Nov 22–23) | **X1 out of sample:** on 10 never-labeled postings X1 changes, v1.1 was right 7/10 and v1.0 3/10 (`audit/x1-results.md`). **E5**, context under prompt v3: 0 verdict flips, but confidence rose. **SEEDED injection** through my server: Claude didn't follow the planted instruction, and warned Priya not to email contact details (`EVAL-OWN-SERVER.md` section 6) |
 
 ## Sign-off: Job-Search Agent 3
 

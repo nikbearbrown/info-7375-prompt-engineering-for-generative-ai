@@ -1,0 +1,102 @@
+{
+ "duration_api_ms": 31214,
+ "stop_reason": "end_turn",
+ "session_id": "249fa2b8-6706-4f84-a1cd-1f50c5b1729a",
+ "total_cost_usd": 0.0870658,
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 2786,
+  "cache_read_input_tokens": 649,
+  "output_tokens": 3232,
+  "output_tokens_details": {
+   "thinking_tokens": 1711
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 2786,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 3232,
+    "cache_read_input_tokens": 649,
+    "cache_creation_input_tokens": 2786,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 2786
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null
+ },
+ "modelUsage": {
+  "claude-opus-5-5": {
+   "inputTokens": 2,
+   "outputTokens": 3232,
+   "cacheReadInputTokens": 649,
+   "cacheCreationInputTokens": 2786,
+   "webSearchRequests": 0,
+   "costUSD": 0.0870658,
+   "contextWindow": 1000000,
+   "maxOutputTokens": 128000,
+   "thinkingTokens": 1711,
+   "cacheCreationEphemeral5mInputTokens": 0,
+   "cacheCreationEphemeral1hInputTokens": 2786,
+   "canonicalModel": "claude-opus-5-5",
+   "provider": "firstParty",
+   "costBasis": "list"
+  }
+ },
+ "permission_denials": [],
+ "terminal_reason": "completed",
+ "fast_mode_state": "off",
+ "fast_mode_disabled_reason": "sdk_opt_in_required",
+ "subagent_stats": {
+  "spawned": 0,
+  "requested": {
+   "background": 0,
+   "foreground": 0,
+   "unset": 0
+  },
+  "started_in_background": 0,
+  "max_depth": 0,
+  "spawned_by_subagents": 0,
+  "completed": 0,
+  "failed": 0,
+  "killed": {
+   "parent": 0,
+   "user": 0,
+   "system": 0
+  },
+  "refused": {
+   "depth_limit": 0,
+   "concurrency_limit": 0,
+   "budget": 0
+  },
+  "by_type": {}
+ },
+ "safety_stops": 0,
+ "is_error": false,
+ "num_turns": 1,
+ "subtype": "success",
+ "api_error_status": null,
+ "result": "```python\nimport pandas as pd\nimport pandera.pandas as pa\n\n# Earliest date for which NYC TLC yellow taxi trip records exist (publicly documented start of the dataset)\nTLC_DATA_START = pd.Timestamp(\"2009-01-01\")\n\n# Generous physical/operational ceilings for a single yellow taxi trip\nMAX_PASSENGERS = 6\nMAX_TRIP_MILES = 200.0\nMAX_FARE_USD = 1000.0\nMAX_TRIP_HOURS = 24\nMAX_AVG_SPEED_MPH = 100.0\nMIN_FARE_PER_MILE = 0.5\n\n\ndef _duration_hours(df: pd.DataFrame) -> pd.Series:\n    return (df[\"tpep_dropoff_datetime\"] - df[\"tpep_pickup_datetime\"]).dt.total_seconds() / 3600.0\n\n\nschema = pa.DataFrameSchema(\n    columns={\n        \"tpep_pickup_datetime\": pa.Column(\n            \"datetime64[ns]\",\n            nullable=False,\n            checks=[\n                # Protects against corrupted or default timestamps (e.g. 1970/1900) predating TLC records\n                pa.Check.ge(TLC_DATA_START),\n                # Protects against pick-up times in the future caused by clock or parsing errors\n                pa.Check(lambda s: s <= pd.Timestamp.now(), error=\"pickup_not_in_future\"),\n            ],\n        ),\n        \"tpep_dropoff_datetime\": pa.Column(\n            \"datetime64[ns]\",\n            nullable=False,\n            checks=[\n                # Protects against corrupted or default timestamps (e.g. 1970/1900) predating TLC records\n                pa.Check.ge(TLC_DATA_START),\n                # Protects against drop-off times in the future caused by clock or parsing errors\n                pa.Check(lambda s: s <= pd.Timestamp.now(), error=\"dropoff_not_in_future\"),\n            ],\n        ),\n        \"passenger_count\": pa.Column(\n            \"int64\",\n            nullable=False,\n            checks=[\n                # Protects against empty/negative passenger counts and counts beyond a taxi's legal capacity\n                pa.Check.in_range(1, MAX_PASSENGERS),\n            ],\n        ),\n        \"trip_distance\": pa.Column(\n            \"float64\",\n            nullable=False,\n            checks=[\n                # Protects against negative odometer readings and absurd distances from meter/GPS faults\n                pa.Check.in_range(0.0, MAX_TRIP_MILES),\n            ],\n        ),\n        \"fare_amount\": pa.Column(\n            \"float64\",\n            nullable=False,\n            checks=[\n                # Protects against zero/negative fares (voids, refunds, sign errors) and absurd fare outliers\n                pa.Check(lambda s: (s > 0) & (s <= MAX_FARE_USD), error=\"fare_positive_and_bounded\"),\n            ],\n        ),\n    },\n    checks=[\n        # Protects against trips that end before (or at the same instant as) they start\n        pa.Check(\n            lambda df: df[\"tpep_dropoff_datetime\"] > df[\"tpep_pickup_datetime\"],\n            error=\"dropoff_after_pickup\",\n        ),\n        # Protects against implausibly long trips from meters left running or swapped timestamps\n        pa.Check(\n            lambda df: _duration_hours(df) <= MAX_TRIP_HOURS,\n            error=\"trip_duration_bounded\",\n        ),\n        # Protects against physically impossible average speeds from bad distance or time values\n        pa.Check(\n            lambda df: (_duration_hours(df) <= 0)\n            | ((df[\"trip_distance\"] / _duration_hours(df).where(_duration_hours(df) > 0)) <= MAX_AVG_SPEED_MPH),\n            error=\"average_speed_plausible\",\n        ),\n        # Protects against long trips with implausibly tiny fares (e.g. distance in wrong units or truncated fare)\n        pa.Check(\n            lambda df: df[\"fare_amount\"] >= MIN_FARE_PER_MILE * df[\"trip_distance\"],\n            error=\"fare_consistent_with_distance\",\n        ),\n        # Protects against duplicated trip records from repeated ingestion\n        pa.Check(\n            lambda df: ~df.duplicated(keep=False),\n            error=\"no_duplicate_trips\",\n        ),\n    ],\n    strict=False,\n)\n```",
+ "ttft_ms": 20539,
+ "type": "result",
+ "duration_ms": 31638,
+ "uuid": "6f933190-d13e-46d2-8b78-1599c259ce03",
+ "ttft_stream_ms": 2008,
+ "time_to_request_ms": 415,
+ "first_content_frame_ms": 2008,
+ "queued_turn_count": 0,
+ "result_index": 0,
+ "credential_expires_at": "2026-12-22T01:49:07.192Z"
+}

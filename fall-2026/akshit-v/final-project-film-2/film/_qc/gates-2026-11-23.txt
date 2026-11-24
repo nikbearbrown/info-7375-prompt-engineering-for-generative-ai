@@ -1,0 +1,23 @@
+# Gate log — SponsorScout Final Project Film (v2) — 2026-11-23
+# toolkit: brutalist.art 6a8380a (run.sh and type_check.py unchanged; pitch.tsx: optional byline prop)
+# film: sponsorscout-final-project-film.mp4  1920x1080 24fps H.264+AAC 244.5s  sha256 fd3ad7cf47bf45f1a067356f52b7e261c16a7d3d4a8c01cee882a88206c0020f
+# scenes rendered at 3840x2160 (toolkit default), compiled at 1080
+
+GATE L  beat_lint            clean
+GATE A  static_scene_check   15/15 clean
+GATE W  WCAG second check    ran inside run.sh, no stop
+GATE B  layout audit         15/15 CLEAN (P4B failed once at 1080p: label 0.05 past safe edge; fixed at source)
+GATE V  review cut           32 frames, BLOCKER 0, MAJOR 0
+GATE T  type_check           PASS, 16 beats (failed twice first: 5 beats at 1080p scene renders, see FRICTIONAL Entry 4;
+                             then P3C bbox-overlap at 4K, fixed at source: box outline removed)
+GATE V  captioned film       32 frames, BLOCKER 0, MAJOR 0
+bookend_check                PASS
+factcheck_check (Gate F)     no blockers; FC-4 advisory: its beat pattern B[0-9A-Z]+ can't see P-prefixed IDs.
+                             Checked separately: 30 rows, every beat except BOUT has >= 1 row.
+Listening check (whisper small, blind, _qc/whisper_check.json): spelling-only differences, plus near-misses:
+  P4D "verdicts" heard as "vertex" (x2); P2A "H one B Grader" heard as "H1B greater". Captions and on-screen text spell both correctly.
+Frame read (Claude, captioned film, every beat at 55% and 90%): one defect no gate caught —
+  P1A "go nowhere" touched the application pile. Akshit then found a second: P1B's arrow ran over "network".
+  Both fixed at the source (P1A layout moved; P1B arrow now starts at the label's real right edge),
+  both scenes re-rendered at 4K: Gate B CLEAN x2, Gate V 0/0 (cut and captioned film), Gate T PASS, bookend PASS.
+  Previous film kept in film/_superseded/P1A-P1B-v1/.

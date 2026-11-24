@@ -161,6 +161,17 @@ def cmd_x1test(a) -> int:
     return 0
 
 
+def cmd_relabel(a) -> int:
+    from . import relabel
+    if a.action == "draw":
+        print(json.dumps(relabel.draw()))
+    else:
+        text = relabel.report()
+        (ROOT / "audit" / "relabel-results.md").write_text(text)
+        print(text)
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m js3")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -181,6 +192,9 @@ def main(argv=None) -> int:
     xp = sub.add_parser("x1test", help="out-of-sample test of X1: draw | report")
     xp.add_argument("action", choices=["draw", "report"])
     xp.set_defaults(fn=cmd_x1test)
+    rp = sub.add_parser("relabel", help="second labeling pass with the experience sentences visible: draw | report")
+    rp.add_argument("action", choices=["draw", "report"])
+    rp.set_defaults(fn=cmd_relabel)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")
