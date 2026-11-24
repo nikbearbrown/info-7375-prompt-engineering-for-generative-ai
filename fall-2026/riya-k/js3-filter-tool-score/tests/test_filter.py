@@ -137,3 +137,33 @@ class FilterFileMatchesDocument(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class V11(unittest.TestCase):
+    """FILTER.md v1.1 rules (G6, years pattern, US cities, cut 'agents'); v1 behaviour must stay unchanged."""
+    F11 = F.load_filter(ROOT / "filters" / "filter-v1.1.json")
+
+    def test_g6_rejects_more_than_3_years(self):
+        p = post("Data Engineer", "Python and SQL. 5+ years of experience as a data engineer.")
+        self.assertEqual(decide(p)["decision"], "kept")            # v1 only labels C4 ...
+        r = decide(p, self.F11)
+        self.assertEqual(r["decision"], "rejected")                  # ... v1.1 rejects
+        self.assertTrue(any(g.startswith("G6") for g in r["gates_failed"]))
+
+    def test_g6_keeps_3_years(self):
+        self.assertEqual(decide(post("Data Engineer", "Python and SQL. 3+ years of experience."), self.F11)["decision"], "kept")
+
+    def test_years_pattern_or_more_and_words(self):
+        self.assertEqual(evidence.stated_years("8 or more years leading experience programs", "v1"), [])
+        self.assertEqual(evidence.stated_years("8 or more years of experience", "v1.1")[0][0], 8)
+        self.assertEqual(evidence.stated_years("less than two years of engineering experience", "v1.1")[0][0], 2)
+
+    def test_us_city_ends_bare_remote_abstention(self):
+        p = post("AI Engineer", "Python and SQL.", location="San Francisco; Remote")
+        self.assertTrue(decide(p)["abstain"].startswith("A2"))       # v1: city unknown -> cannot tell
+        self.assertEqual(decide(p, self.F11)["decision"], "kept")    # v1.1: San Francisco is US
+
+    def test_agents_cut(self):
+        p = post("Data Engineer", "build data and AI apps, analytics and agents. Python.")
+        self.assertIn("agents", F.score_parts(p, FLT)["topic"]["counted"])
+        self.assertNotIn("agents", F.score_parts(p, self.F11)["topic"]["counted"])
