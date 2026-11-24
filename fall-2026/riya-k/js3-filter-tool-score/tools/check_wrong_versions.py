@@ -21,8 +21,10 @@ MUTATIONS = {
         "js3/filter.py", '    rec["gates_failed"] = gate_failures(posting, flt)', '    rec["gates_failed"] = []'),
     "W3 title-blind scoring (gate G5 removed)": (
         "filters/filter-v1.json", '"require_role_word_in_title": true', '"require_role_word_in_title": false'),
-    "W4 threshold tuned after looking at held-out labels": (
+    "W4a threshold changed without changing FILTER.md": (
         "filters/filter-v1.json", '"threshold": 6,', '"threshold": 5,'),
+    "W4b a held-out label edited after the labels were frozen": (
+        "audit/hand-labels.json", '"verdict":"show"', '"verdict":"not"'),
 }
 
 
