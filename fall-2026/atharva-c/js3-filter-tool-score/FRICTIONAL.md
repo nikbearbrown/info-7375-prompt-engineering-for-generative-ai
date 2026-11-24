@@ -68,3 +68,9 @@
 - The probe found my schemas are not enforced: an extra `"delete": true` argument is silently accepted, and `board: "lever"` returns 0 results instead of an error, which is the "no matches on X" answer FILTER.md §3 forbids.
 - The real Claude Code answer said "23 Software Engineer II postings"; a script recount says 22. The transcript stays as it was; the error is noted in the evaluation.
 - Five fixes listed; with my go-ahead Claude made the first (schema checks, unknown board → "did not search") in `e273c8e`, tests first. Fixes 2–5 are not made.
+
+## Nov 24, 2026 (Day 3, started early) — DRAFT (Claude, to rewrite): origins, report, second survey error
+
+- Writing `score/origins.md` meant giving every number a command. Recounting with `score/recount.py` showed a second false survey fact: FILTER.md v1.0 says "91 of 400 postings share a board and title with another". **173** do (82 groups); 91 is the number of extra copies (400 − 309 distinct). Corrected as FILTER.md v1.3, a documentation correction with no rule changed and v1.0 left as written.
+- My Nov 23 entry above repeats "91 postings sharing a board and title". TODO (me): fix that wording when I rewrite.
+- Drafted `score/report.md`, `PERSISTENCE.md`, `SIGNOFF.md` (unsigned) and `README.md`.

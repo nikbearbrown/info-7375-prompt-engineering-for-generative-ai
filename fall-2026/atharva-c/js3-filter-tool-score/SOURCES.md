@@ -6,7 +6,7 @@
   - `agent/policy.py` (allow-list and write policy) and `agent/loop.py` (bounded collection loop), changed only in the User-Agent string and two comments naming the folder.
   - `agent/skills.py` (skill matcher with the JS2 React/Go fix, `80e4fa1`), unchanged.
   - `budget.json`, unchanged; `.gitignore`, unchanged.
-- **New in JS3:** `boards.json` (Greenhouse URLs add `?content=true`; the 404 board is dropped), `agent/postings.py`, `agent/label_sheet.py`, `FILTER.md`.
+- **New in JS3:** `boards.json` (Greenhouse URLs add `?content=true`; the 404 board is dropped), `agent/postings.py`, `agent/label_sheet.py`, `agent/filter.py`, `agent/audit_sheet.py`, `agent/evaluate.py`, `agent/shortlist.py`, `agent/mcp_server.py`, `score/recount.py`, all tests, `FILTER.md` and the other write-ups.
 - The Reallocation Engine and Lectern were **not** used.
 
 ## Other references
@@ -23,7 +23,7 @@
 
 ## Toolchain
 
-Python 3 standard library only, as in JS2.
+Python 3.12.7, standard library only, as in JS2. Claude Code 2.1.283 was the MCP client for the real transcript.
 
 ## What Claude Code (Opus 5.5) contributed
 
@@ -38,3 +38,4 @@ Python 3 standard library only, as in JS2.
 | Nov 24 (`8458710`) | Wrote MCP server tests, then `agent/mcp_server.py` and `tests/mcp_scripted_client.py`; recorded the scripted transcript | TODO: review the tool list and the safety limits |
 | Nov 24 | Registered the server in Claude Code (local scope) with my approval; ran one `claude -p` session against it and saved the trimmed transcript | Approved registering; TODO: read the transcript |
 | Nov 24 | Probed my server; had a web-fetch subagent read the Filesystem server's README and source (github.com/modelcontextprotocol/servers, src/filesystem, v2.4.0); drafted `mcp/EVALUATIONS.md` | TODO: check and rewrite the evaluations |
+| Nov 24 (Day 3) | Wrote `score/origins.md`, `score/report.md`, `score/recount.py`, `PERSISTENCE.md`, and drafts of `SIGNOFF.md` and `README.md`; found the second false survey fact (91 vs 173) and wrote FILTER.md v1.3 | TODO: rewrite the drafts, pick the false friend, sign |
