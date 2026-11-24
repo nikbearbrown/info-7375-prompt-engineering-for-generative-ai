@@ -9,6 +9,10 @@
 - **New in JS3:** `boards.json` (Greenhouse URLs add `?content=true`; the 404 board is dropped), `agent/postings.py`, `agent/label_sheet.py`, `FILTER.md`.
 - The Reallocation Engine and Lectern were **not** used.
 
+## Other references
+
+- Official MCP Filesystem server, `modelcontextprotocol/servers` `src/filesystem` (package 2.4.0), README and source read on Nov 24, 2026 for the second server evaluation. Not installed or run.
+
 ## Public endpoints used (read-only GET, no login)
 
 | Board | System | Endpoint |
@@ -33,3 +37,4 @@ Python 3 standard library only, as in JS2.
 | Nov 24 (`f89aef7`) | Wrote shortlist tests, then `agent/shortlist.py`; drafted `shortlist/CASES.md` | TODO: check the claim rules and rewrite CASES.md |
 | Nov 24 (`8458710`) | Wrote MCP server tests, then `agent/mcp_server.py` and `tests/mcp_scripted_client.py`; recorded the scripted transcript | TODO: review the tool list and the safety limits |
 | Nov 24 | Registered the server in Claude Code (local scope) with my approval; ran one `claude -p` session against it and saved the trimmed transcript | Approved registering; TODO: read the transcript |
+| Nov 24 | Probed my server; had a web-fetch subagent read the Filesystem server's README and source (github.com/modelcontextprotocol/servers, src/filesystem, v2.4.0); drafted `mcp/EVALUATIONS.md` | TODO: check and rewrite the evaluations |

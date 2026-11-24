@@ -61,3 +61,10 @@
 - Recorded one real `claude -p` session at 2026-11-24T06:03Z (`evidence/mcp/claude-code-transcript.md` / `.jsonl`, trimmed of local paths; server log alongside). 12 turns, 10 tool calls, reported cost $0.33.
 - What the client found about my server: `search_postings` is a substring search, so "Software Engineer I" also matched 23 SWE II postings and an intern posting (it filtered them out itself); `judge_posting` names a gate ("G3") without saying what it checks. Both go into my server evaluation.
 - The client also called out that the `entry` quote ("internship experience") fits entry level without stating it, which is the same weakness I noted in CASES.md.
+
+## Nov 24, 2026 (night, last) — DRAFT (Claude, to rewrite): two server evaluations
+
+- `mcp/EVALUATIONS.md`: my server (run: tests, two transcripts, a probe) and the official Filesystem server (read from GitHub source and README, version 2.4.0, **not run**: installing it means downloading and executing code I did not write).
+- The probe found my schemas are not enforced: an extra `"delete": true` argument is silently accepted, and `board: "lever"` returns 0 results instead of an error, which is the "no matches on X" answer FILTER.md §3 forbids.
+- The real Claude Code answer said "23 Software Engineer II postings"; a script recount says 22. The transcript stays as it was; the error is noted in the evaluation.
+- Five fixes are listed but not made.
