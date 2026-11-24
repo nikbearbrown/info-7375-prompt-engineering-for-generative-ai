@@ -40,3 +40,10 @@
 - Ran held-out once (`evidence/heldout/v1.0-vs-v1.2.txt`, via `agent/evaluate.py`, which only reads saved decisions): v1.0 fp 5 → v1.2 fp 4; tp 5 and fn 0 both times.
 - Dev had promised more: 6 false positives fixed on dev, 1 on held-out. Held-out's errors are mostly a different kind (2+ years written as mid-level; mobile stack) that the 3-year rule does not touch.
 - With 5 true keeps and a 1-posting difference, held-out cannot show that v1.2 is better in general, only that it did not hurt recall here.
+
+## Nov 24, 2026 (evening) — DRAFT (Claude, to rewrite): source-grounded shortlist
+
+- Tests committed alone first (`f89aef7`), then `agent/shortlist.py`; 13 shortlist tests pass, including one that checks every quote on the real shortlist is a substring of its posting.
+- v1.2's 15 kept postings → 10 ranked, 1 "I cannot tell", 4 contradicted. Cases are in `shortlist/CASES.md`: relevance ≠ entailment (`robinhood:7263592`, "2+ years" vs "Strong track record…") and the abstention counterexample (`affirm:7749755003`, abstained only because its skills sit in a "is a plus" sentence; I judged it keep).
+- The `track record` / `proven ability` contradiction cue was chosen after I had judged those exact postings, and all 4 contradicted entries are held-out rows. The shortlist agreeing with me there is not a measurement.
+- My audit reasons for the three SWE I roles say "early career"; the postings never say that. The supporting span is "previous work or internship experience".
