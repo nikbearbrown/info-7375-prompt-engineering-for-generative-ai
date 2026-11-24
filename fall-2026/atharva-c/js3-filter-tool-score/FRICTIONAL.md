@@ -67,4 +67,4 @@
 - `mcp/EVALUATIONS.md`: my server (run: tests, two transcripts, a probe) and the official Filesystem server (read from GitHub source and README, version 2.4.0, **not run**: installing it means downloading and executing code I did not write).
 - The probe found my schemas are not enforced: an extra `"delete": true` argument is silently accepted, and `board: "lever"` returns 0 results instead of an error, which is the "no matches on X" answer FILTER.md §3 forbids.
 - The real Claude Code answer said "23 Software Engineer II postings"; a script recount says 22. The transcript stays as it was; the error is noted in the evaluation.
-- Five fixes are listed but not made.
+- Five fixes listed; with my go-ahead Claude made the first (schema checks, unknown board → "did not search") in `e273c8e`, tests first. Fixes 2–5 are not made.

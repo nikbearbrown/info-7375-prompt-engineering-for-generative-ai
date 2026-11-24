@@ -30,7 +30,7 @@ The same questions are asked of both servers:
 
 **What is wrong with it** (found by running it, not by reading it):
 
-1. **The schema promises checks the server does not make.** Each tool says `additionalProperties: false`, and `board` is an enum, but the server checks neither.
+1. **The schema promised checks the server did not make** (fixed in `e273c8e`, see below). Each tool says `additionalProperties: false`, and `board` is an enum, but the server checks neither.
    - `get_posting` with an extra `"delete": true` succeeded without a word about the unknown argument.
    - `search_postings` with `board: "lever"` returned `total: 0` instead of an error. That is the "no matches on X" answer that FILTER.md §3 forbids: "lever" is not a board here, so the honest answer is "I did not search that".
 2. **Search is a substring match.**
@@ -68,9 +68,9 @@ The same questions are asked of both servers:
 - **Mine keeps a record and it does not.** Mine logs every call with its arguments. The Filesystem server's stderr messages cover setup but, in the code I read, not each call. For an agent that should never act without a trace, mine does better here.
 - **Its annotations do work and mine are only labels.** Its `readOnlyHint` drives `--read-only`. Mine sets the same hints on every tool, but nothing in my server reads them.
 
-## Changes this suggests for my server (not made yet)
+## Changes this suggests for my server
 
-1. Enforce the input schemas. Reject unknown arguments, and reject a board that is not one of the three, with an "I did not search that board" error.
+1. ~~Enforce the input schemas.~~ **Done in `e273c8e`** (Nov 24): arguments are checked against each tool's own `inputSchema`. An unknown argument, a wrong type (including `true` given as a `limit`) and an unknown board are now tool errors. For a board it says: "I did not search board 'lever'. This run searched only: robinhood, affirm, wealthfront." There are 3 new tests, and they failed before the fix.
 2. Add `match: "word"` to search (a whole-word or prefix match), or say in the description that the match is a substring.
 3. Add a one-line meaning for each gate and rule to `judge_posting` results, taken from FILTER.md.
 4. Put "saved run of Nov 23, 2026; not live" in every tool description.
