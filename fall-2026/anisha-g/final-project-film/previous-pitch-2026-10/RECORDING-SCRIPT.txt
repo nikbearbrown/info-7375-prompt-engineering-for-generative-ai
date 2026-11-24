@@ -1,0 +1,32 @@
+RECORDING SCRIPT - Anisha Gaikar
+One block per beat. make_film.sh turns these into voice clips automatically (macOS say).
+
+=== audio/B00  (intro · the question) ===
+Hi, I'm Anisha Gaikar, and this is my final project pitch: JobPost Contracts, a Python tool that summarizes job postings and catches when the AI makes things up. Nothing is built yet; everything you'll see is a sketch of what I will build. My first question was: can AI summarize a job posting? The better question is: can it do that without inventing anything?
+
+=== audio/B01  (terms) ===
+Three terms first. A prompt contract is a set of rules the AI must follow, including what to say when something is missing. A synthetic posting is a fake job ad I write myself, so no real data is used. And a grounded field is an answer that comes with a quote from the posting.
+
+=== audio/B02  (1 · what is it) ===
+The project is JobPost Contracts: a small Python library of prompt contracts that turns a job posting into a structured summary, with a test set that catches Claude inventing details that are not in the posting. When it's done, it will be a GitHub repository with the contracts, twenty synthetic job postings, a test script, and an evaluation log.
+
+=== audio/B03  (2 · why care) ===
+Who is it for? Anyone who reads lots of job postings and needs the key facts fast, like a job seeker comparing roles. I looked at two alternatives. Pasting a posting into ChatGPT: on October thirteenth I tried a real internship posting. It couldn't open the LinkedIn link, and with the text pasted, it gave a good summary, but it didn't show which line each fact came from, and under location it added a detail that wasn't in the posting at all. Copying fields into a spreadsheet by hand is accurate, but slow. In my tool, every field must come with a quote from the posting, or be marked 'not stated'.
+
+=== audio/B04  (3 · who opens it) ===
+The reader I'm aiming at is a hiring manager or engineer looking at a candidate for a junior AI engineering role. In the first sixty seconds, they will open the README, run one command, and see a pass and fail table, plus a log of the cases that failed.
+
+=== audio/B05  (4 · what it proves) ===
+What would it prove about me? Four things from this course: writing prompt contracts, grounding every answer in the source, verifying that each quote really appears in the posting, and evaluating with a fixed test set. The evidence will be the test results and the evaluation log. It will not prove the tool works on real postings at scale, because I'm only testing synthetic data.
+
+=== audio/B06  (5 · in, out, first) ===
+In scope: five fields. Job title, seniority, required skills, location, and salary. Out of scope: no scraping real job sites, no real postings, and no job ranking or career advice. The first piece I'll make run is one contract on one synthetic posting. You'll know it ran when the output matches my hand-written expected answer and the test prints PASS.
+
+=== audio/B07  (6 · risk) ===
+What could sink it? My synthetic postings might be too clean, so every test passes and proves nothing. To fight that, I will write at least five deliberately tricky postings: one with no salary, one where skills are implied but not listed, and one with conflicting seniority. A second limit: checking that a quote exists doesn't catch a quote put in the wrong field, so I'll hand-check those cases and log them.
+
+=== audio/B08  (7 · why this project) ===
+I picked this project because it is small enough for one person to finish and it uses exactly what this course teaches. It's a mix of new learning and skills I already have. Prompt contracts, building a test set for AI output, and keeping an evaluation log are new skills. The skill I already have is Python, including tests and data-quality checks. My evidence is my MBTA transit reliability pipeline on my GitHub.
+
+=== audio/B09  (close · exists vs will exist) ===
+To be clear about where things stand: today, what exists is this brief, this beat sheet, and this film. No code, contracts, test postings, or results exist yet. Everything else I've described is what will exist by the end of the course. Thanks for watching.
