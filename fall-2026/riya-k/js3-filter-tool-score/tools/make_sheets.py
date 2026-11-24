@@ -15,6 +15,7 @@ Strata (disjoint):
 
 import html
 import json
+import re
 import random
 import sys
 from pathlib import Path
@@ -27,6 +28,42 @@ HERE = Path(__file__).resolve().parent.parent
 SEED = 7375
 CUES = ["you might be a good fit", "minimum qualifications", "qualifications", "requirements", "what you'll bring",
         "what you bring", "you may be a good fit", "about you", "you have", "we're looking for", "you will"]
+
+
+REQ_CUES = ["you may be a good fit", "you might be a good fit", "minimum qualifications", "basic qualifications",
+            "required qualifications", "preferred qualifications", "qualifications", "requirements", "what you'll bring",
+            "what you bring", "what we're looking for", "what we look for", "who you are", "about you",
+            "you might thrive", "you'll thrive", "we'd love to hear from you if", "you have:"]
+REQ_END = ["benefits", "the annual compensation", "annual salary", "compensation", "pay range", "salary range",
+           "logistics", "about databricks", "about anthropic", "about us", "our commitment", "equal opportunity",
+           "we encourage you to apply", "pay transparency", "local pay range"]
+
+
+def lines(content):
+    """HTML -> list of visible lines, keeping list items and paragraphs apart (only for showing the labeler)."""
+    t = html.unescape(html.unescape(content or ""))
+    t = re.sub(r"(?i)<\s*(br|/li|/p|/h\d|/div|li)[^>]*>", "\n", t)
+    t = re.sub(r"<[^>]+>", " ", t)
+    return [re.sub(r"\s+", " ", x).strip() for x in t.split("\n") if re.sub(r"\s+", " ", x).strip()]
+
+
+def requirements(ls, max_lines=22):
+    """The qualifications part of the posting, verbatim: from the first qualification cue to the pay/benefits part."""
+    low = [x.lower() for x in ls]
+    start = next((i for i, x in enumerate(low) if any(c in x for c in REQ_CUES) and len(x) < 200), None)
+    if start is None:
+        return []
+    out = []
+    for i in range(start, len(ls)):
+        if i > start and any(low[i].startswith(e) or (e in low[i] and len(low[i]) < 80) for e in REQ_END):
+            break
+        out.append(ls[i])
+    return out[:max_lines] + (["… (more in full text)"] if len(out) > max_lines else [])
+
+
+def year_lines(ls):
+    """Every line that mentions a number of years, verbatim."""
+    return [x for x in ls if re.search(r"\d\s*\+?\s*(?:-|–|to)?\s*\d*\s*\+?\s*(years?|yrs)\b", x, re.I)]
 
 
 def snippet(text, n=900):
@@ -83,13 +120,20 @@ def main():
         p = posts[(it["board"], it["id"])]
         text = plain_text(p.get("content", ""))
         emp = p.get("employment")
+        ls = lines(p.get("content", ""))
+        yl, req = year_lines(ls), requirements(ls)
+        years_html = ("".join(f"<li>{html.escape(x)}</li>" for x in yl) if yl
+                      else "<li><i>No years mentioned anywhere in the posting.</i></li>")
+        req_html = ("".join(f"<li>{html.escape(x)}</li>" for x in req) if req
+                    else "<li><i>No qualifications section found; see full text.</i></li>")
         cards.append(f"""
 <section class="card" id="i{it['item']}" data-item="{it['item']}">
   <h2>#{it['item']} · {html.escape(it['title'])}</h2>
   <p class="meta"><b>{html.escape(it['board'].split(':')[1])}</b> · {html.escape(p['location']['name'] or '(no location)')}
      · employment field: {html.escape(emp) if emp else '(board does not say)'} · {len(text)} chars ·
      <a href="{html.escape(p.get('absolute_url', ''))}" target="_blank" rel="noopener">posting</a></p>
-  <p class="snip">{html.escape(snippet(text)) if text else '<i>(no description text)</i>'}</p>
+  <div class="box yrs"><b>Years of experience</b> (lines copied from the posting)<ul>{years_html}</ul></div>
+  <div class="box req"><b>Requirements</b> (copied from the posting)<ul>{req_html}</ul></div>
   <details><summary>full text</summary><p class="full">{html.escape(text)}</p></details>
   <div class="ans">
     <label><input type="radio" name="v{it['item']}" value="show"> Show to Arya</label>
@@ -110,7 +154,7 @@ header{position:sticky;top:0;background:#fafaf8;padding:8px 0;border-bottom:1px 
 .card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:12px 16px;margin:14px 0}
 .card.done{border-left:6px solid #3a7}
 h2{font-size:17px;margin:0 0 4px}.meta{color:#555;font-size:13px;margin:0 0 8px}
-.snip{white-space:pre-wrap;background:#f4f4f0;padding:8px;border-radius:6px;font-size:14px}
+.box{padding:8px 12px;border-radius:6px;margin:8px 0;font-size:14px}.box ul{margin:4px 0;padding-left:20px}.yrs{background:#fff6dc;border:1px solid #e8d38a}.req{background:#f2f5fa;border:1px solid #cdd8ea}
 .full{white-space:pre-wrap;font-size:13px;color:#333}
 .ans{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .note{flex:1;min-width:200px;padding:4px 6px}
