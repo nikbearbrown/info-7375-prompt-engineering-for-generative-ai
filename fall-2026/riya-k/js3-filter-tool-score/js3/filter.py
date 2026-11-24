@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 from .text import find_word, plain_text, names_us_place, names_non_us_place, is_us_location
+from .evidence import stated_years, us_city
 
 HERE = Path(__file__).resolve().parent.parent
 
@@ -32,9 +33,9 @@ def score_parts(posting, flt):
     return parts
 
 
-def location_state(location):
+def location_state(location, flt=None):
     """'us', 'non_us', or 'bare_remote' (Remote with no country: FILTER.md A2), or 'unknown'."""
-    if names_us_place(location):
+    if names_us_place(location) or (flt is not None and us_city(location, flt)):
         return "us"
     if names_non_us_place(location):
         return "non_us"
@@ -48,7 +49,7 @@ def gate_failures(posting, flt):
     title = posting.get("title", "")
     location = (posting.get("location") or {}).get("name", "")
     fails = []
-    if not is_us_location(location):
+    if not (is_us_location(location) or us_city(location, flt)):
         fails.append(f"G1 location '{location}' is not US/Remote-US")
     if _hits(g["seniority_words"], title):
         fails.append(f"G2 seniority word(s) {_hits(g['seniority_words'], title)}")
@@ -62,6 +63,11 @@ def gate_failures(posting, flt):
         fails.append(f"G4 employmentType '{emp}'")
     if g.get("require_role_word_in_title") and not _hits(flt["score"]["role"]["words"], title):
         fails.append("G5 no ROLE word in title")
+    max_years = g.get("max_min_years")  # v1.1 option G6; v1 has none
+    if max_years is not None:
+        yrs = stated_years(plain_text(posting.get("content", "")), flt["evidence"].get("years_pattern", "v1"))
+        if yrs and min(n for n, _ in yrs) > max_years:
+            fails.append(f"G6 smallest stated years {min(n for n, _ in yrs)} > {max_years}")
     return fails
 
 
@@ -79,7 +85,7 @@ def apply(posting, flt, claims_fn=None):
     if len(text) < flt["abstain"]["min_text_chars"]:
         rec.update(abstain=f"A1 text is {len(text)} chars (< {flt['abstain']['min_text_chars']})", decision="cannot_tell")
         return rec
-    if location_state(location) == "bare_remote":
+    if location_state(location, flt) == "bare_remote":
         rec.update(abstain=f"A2 location '{location}' is Remote with no country", decision="cannot_tell")
         return rec
 

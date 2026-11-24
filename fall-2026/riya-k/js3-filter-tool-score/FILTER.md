@@ -119,3 +119,19 @@ W3; gate G5 does. The W3 test therefore checks the gate, and planting W3 means d
 | Version | Date | Change | Added / cut / rejected | Measured on | Result |
 |---|---|---|---|---|---|
 | v1 | 2026-11-24 | this file (G5 added before any code, see §1a) | added G5 | reasoning only (worked example), not data | — |
+| c1–c4 | 2026-11-24 | four candidates, each ONE change from v1 (`filters/filter-c*.json`) | measured, see `SCORE.md` §2 | the 58 audit labels (dev) only | c1 +6, c2 ±0, c3 +4, c4 +2 agreements of 58 (with my corrections) |
+| **v1.1** | 2026-11-24 | `filters/filter-v1.1.json`, chosen by me on the dev results: | **added** G6 (c1); **changed** the years pattern (c2); **added** US city names to G1/A2/C3 (c3); **cut** TOPIC word `agents` (c4) | dev for the choice; held-out 20 measured once, **after** this row was committed | see `SCORE.md` §2 |
+
+**v1.1 rules in words:**
+- **G6 (added):** if the smallest years-of-experience number the posting states is more than 3, REJECT. Reason: on my
+  audit, 8 of 10 kept postings were ones I'd not show, almost all for years (4–10+), and the shortlist had C4
+  contradicted on 27 of 55 kept postings. My C4 rule already said this; v1 only labeled it and kept the posting anyway.
+- **Years pattern (changed):** also reads "N or more years", "N plus years", spelled-out numbers. Reason: I found
+  "8 or more years" missing on card #41 while labeling.
+- **US city names (added):** San Francisco, New York City, New York, Seattle, Mountain View, Palo Alto, Sunnyvale, San Jose,
+  Menlo Park, San Mateo, Bellevue, Boston, Austin, Chicago, Los Angeles, Denver, Atlanta, Miami count as US places.
+  Reason: v1 sent 301 OpenAI postings like "San Francisco; Remote" to "cannot tell" (A2), and rejected "San Francisco"-only ones.
+- **`agents` (cut from TOPIC):** a false friend. It is in the company boilerplate of all 914 Databricks postings ("build and
+  scale data and AI apps, analytics and agents") and 149 of 155 Notion postings, so it scored the company, not the job.
+- **Considered, not adopted:** cutting `evaluation` (also a false friend: "from discovery to initial evaluation through
+  deployment" in sales roles, "independent evaluation" in AI-policy roles). Not measured as its own change; left in v1.1.
