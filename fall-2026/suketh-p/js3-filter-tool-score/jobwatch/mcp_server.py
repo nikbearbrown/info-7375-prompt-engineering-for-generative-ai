@@ -23,7 +23,7 @@ from jobwatch import corpus, screen
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CORPUS_RUN = PROJECT_ROOT / "runs" / "2026-11-24-js3-corpus"
 SUPPORTED_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26")
-SERVER_INFO = {"name": "jobwatch-js3", "title": "jobwatch (JS3): score one saved posting", "version": "0.1.0"}
+SERVER_INFO = {"name": "jobwatch-js3", "title": "jobwatch (JS3): score one saved posting", "version": "0.1.1"}
 BOARDS = ("greenhouse/anthropic", "greenhouse/databricks", "ashby/linear")
 
 PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS, INTERNAL_ERROR = -32700, -32600, -32601, -32602, -32603
@@ -76,16 +76,22 @@ class Server:
         return None if item is None else screen.score(item)
 
     def _call(self, id_, params):
+        # MCP 2025-11-25, server/tools, "Error Handling": a request that fails the CallToolRequest
+        # shape, or names an unknown tool, is a protocol error; arguments that fail the tool's own
+        # input schema are a tool execution error (isError), so the model can correct and retry.
         if not isinstance(params, dict) or set(params) - {"name", "arguments", "_meta"}:
             return _error(id_, INVALID_PARAMS, "tools/call params must be an object with name and arguments")
         if params.get("name") != TOOL["name"]:
             return _error(id_, INVALID_PARAMS, f"Unknown tool: {params.get('name')!r}")
-        args = params.get("arguments")
-        if (not isinstance(args, dict) or set(args) != {"board", "posting_key"}
+        args = params.get("arguments", {})
+        if not isinstance(args, dict):
+            return _error(id_, INVALID_PARAMS, "tools/call arguments must be an object")
+        if (set(args) != {"board", "posting_key"}
                 or not isinstance(args["board"], str) or not isinstance(args["posting_key"], str)
                 or args["board"] not in BOARDS or not 1 <= len(args["posting_key"]) <= 300):
-            return _error(id_, INVALID_PARAMS,
-                          "Expected arguments {board: one of " + ", ".join(BOARDS) + ", posting_key: a string}")
+            text = ("Expected arguments {board: one of " + ", ".join(BOARDS) +
+                    ", posting_key: a string of 1 to 300 characters}, and nothing else.")
+            return _result(id_, {"content": [{"type": "text", "text": text}], "isError": True})
         record = self._lookup(args["board"], args["posting_key"])
         if record is None:
             text = (f"No posting with board {args['board']} and key {args['posting_key']!r} "
