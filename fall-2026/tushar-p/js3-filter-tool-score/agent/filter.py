@@ -1,7 +1,10 @@
-"""The JS3 filter: gates G1–G5, the score, and the verdict, as FILTER.md v0.1 states them.
+"""The JS3 filter: gates G1–G5, the score, and the verdict, as FILTER.md states them.
 
 CLI: python -m agent.filter --run evidence/runs/live-text-1 --out out/filter-v0.1
-     [--persona PATH]
+     [--persona PATH] [--rules v0.1 | v0.2 | v0.1+C1 … v0.1+C6]
+
+--rules picks the rule mode (FILTER.md v0.2 "Rule modes"). v0.1 is the default and runs the
+v0.1 code path unchanged. v0.2 is v0.1 with C1–C6; v0.1+Cn is v0.1 with that one change only.
 
 Writes results.jsonl (one result per posting) and summary.json. Persona fields are read
 from the JS1 persona file at runtime; a missing field stops the run with exit 2 and no output.
@@ -27,6 +30,13 @@ from .text import word_pattern
 
 FILTER_VERSION = "0.1"
 CONTRACT = "FILTER.md v0.1 (commit 821ddee)"
+CONTRACT_V02 = "FILTER.md v0.2 (frozen 2026-11-24)"
+
+# ---------- rule modes (FILTER.md v0.2) ----------
+CHANGES = ("C1", "C2", "C3", "C4", "C5", "C6")
+G4_CHANGES = frozenset({"C1", "C2", "C3", "C4", "C6"})
+V01 = frozenset()
+RULE_MODES = {"v0.1": V01, "v0.2": frozenset(CHANGES), **{f"v0.1+{c}": frozenset({c}) for c in CHANGES}}
 DEFAULT_PERSONA = PROJECT_DIR.parent / "js1-contract-and-watch" / "persona" / "cole-palmer.example.json"
 
 PASS, FAIL, UNKNOWN = "pass", "fail", "unknown"
@@ -44,6 +54,7 @@ G1_ROLES = ("Software Engineer", "Software Developer", "Backend Engineer", "Back
 G2_EXCLUDED = ("Senior", "Sr", "Staff", "Principal", "Lead", "Manager", "Director", "Head", "VP", "Intern")
 TOPIC_WORDS = ("backend", "API", "distributed systems", "infrastructure", "platform", "full-stack",
                "LLM", "machine learning")
+TOPIC_WORDS_V02 = tuple(w for w in TOPIC_WORDS if w != "platform")  # C5: "platform" is a false friend
 
 # Choice: FILTER.md gives "unable to sponsor", "will not sponsor", "without sponsorship" as
 # examples. The closed list is JS1's R5 list plus three plain synonyms. No posting in
@@ -230,6 +241,96 @@ def check_g4(text) -> dict:
     return _gate(PASS, spans, f"largest stated minimum is {largest} years (<= 3)")
 
 
+# ---------- G4 under FILTER.md v0.2 (C1–C4, C6). v0.1 mode never reaches this code. ----------
+
+# C6: a number may be written "word (N)", e.g. "two (2)"; the digit is the value.
+_N_C6 = r"(?:(?<![\d.,])(\d+)|(?<![A-Za-z0-9])(?:[A-Za-z]+\s*)?\(\s*(\d+)\s*\))"
+_M_C6 = r"(?:\d+|(?:[A-Za-z]+\s*)?\(\s*\d+\s*\))"
+_G4_PATTERN_C6 = re.compile(
+    r"at\s+least\s+" + _N_C6 + r"\s*\+?\s*years(?![A-Za-z0-9])"
+    r"|" + _N_C6 + r"\s*\+?\s*[-–—]\s*" + _M_C6 + r"\s*\+?\s*years(?![A-Za-z0-9])"
+    r"|" + _N_C6 + r"\s*\+\s*years(?![A-Za-z0-9])"
+    r"|" + _N_C6 + r"\s+years\s+of(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+# C2: maximums. In a maximum, N may also be a spelled number one–ten.
+SPELLED = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8,
+           "nine": 9, "ten": 10}
+_MAX_KIND = r"(?<![A-Za-z0-9])(less\s+than|up\s+to|no\s+more\s+than)\s+"
+_SPELLED = r"(" + "|".join(SPELLED) + r")(?![A-Za-z0-9])"
+
+
+def _max_pattern(c6: bool) -> re.Pattern:
+    digit = r"(?<![\d.,])(\d+)"
+    paren = r"(?:[A-Za-z]+\s*)?\(\s*(\d+)\s*\)" if c6 else r"(?!)(\d)"  # (?!) never matches
+    return re.compile(_MAX_KIND + r"(?:" + paren + r"|" + digit + r"|" + _SPELLED + r")"
+                      r"\s*\+?\s*years?(?![A-Za-z0-9])", re.IGNORECASE)
+
+
+_MAX_PATTERNS = {False: _max_pattern(False), True: _max_pattern(True)}
+PREFERRED_WORDS = ("preferred", "nice to have", "bonus", "a plus")
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
+
+
+def sentences(blocks) -> list[str]:
+    """FILTER.md v0.2 "Sentence": each block split after ".", "!" or "?" followed by a space."""
+    return [s for b in blocks for s in _SENTENCE_END.split(b) if s]
+
+
+def g4_maximums(text: str, rules) -> list[tuple[str, int, str, tuple[int, int]]]:
+    """(span, N, kind, (start, end)) for each stated maximum (C2)."""
+    out = []
+    for m in _MAX_PATTERNS["C6" in rules].finditer(text):
+        kind = re.sub(r"\s+", " ", m.group(1).lower())
+        paren, digit, word = m.group(2), m.group(3), m.group(4)
+        n = int(paren) if paren else int(digit) if digit else SPELLED[word.lower()]
+        out.append((m.group(0), n, kind, m.span()))
+    return out
+
+
+def _zero_satisfies(kind: str, n: int) -> bool:
+    return n >= 1 if kind == "less than" else True
+
+
+def check_g4_rules(text: str, rules, blocks=None) -> dict:
+    """G4 with any of C1–C4, C6 on top of v0.1 (FILTER.md v0.2 "G4 in v0.2")."""
+    cutoff = 2 if "C3" in rules else 3
+    pattern = _G4_PATTERN_C6 if "C6" in rules else _G4_PATTERN
+    units = sentences(blocks or [text]) if "C4" in rules else [text]
+    mandatory, ignored, maximums = [], [], []
+    for unit in units:
+        unit_max = g4_maximums(unit, rules) if "C2" in rules else []
+        maximums += unit_max
+        preferred = "C4" in rules and bool(_found(unit, PREFERRED_WORDS))
+        for m in pattern.finditer(unit):
+            if any(m.start() < end and start < m.end() for *_, (start, end) in unit_max):
+                continue  # C2: a number inside a maximum phrase is not also a minimum
+            n = int(next(g for g in m.groups() if g is not None))
+            (ignored if preferred else mandatory).append((m.group(0), n))
+    matched = [span for span, _ in mandatory]
+    matched += [f"max: {span}" for span, *_ in maximums]
+    matched += [f"ignored (preferred): {span}" for span, _ in ignored]
+    if mandatory:
+        values = [n for _, n in mandatory]
+        if "C4" in rules:
+            if all(n <= cutoff for n in values):
+                return _gate(PASS, matched, f"every mandatory minimum is <= {cutoff} years")
+            if all(n > cutoff for n in values):
+                return _gate(FAIL, matched, f"every mandatory minimum is > {cutoff} years")
+            return _gate(UNKNOWN, matched, f"mandatory minimums on both sides of {cutoff} years")
+        largest = max(values)
+        if largest > cutoff:
+            return _gate(FAIL, matched, f"largest stated minimum is {largest} years (> {cutoff})")
+        return _gate(PASS, matched, f"largest stated minimum is {largest} years (<= {cutoff})")
+    if maximums:
+        if all(_zero_satisfies(kind, n) for _, n, kind, _ in maximums):
+            return _gate(PASS, matched, "no mandatory minimum; 0 years satisfies every stated maximum")
+        return _gate(FAIL, matched, "no mandatory minimum; 0 years does not satisfy a stated maximum")
+    if "C1" in rules:
+        return _gate(PASS, matched, "no stated experience requirement (C1: passes G4 only)")
+    return _gate(UNKNOWN, matched, "no stated minimum years" if not ignored else "only preferred minimums stated")
+
+
 def check_g5(text, needs_sponsorship: bool) -> dict:
     if not needs_sponsorship:
         return _gate(PASS, [], "not applicable: needs_sponsorship is false")
@@ -241,8 +342,8 @@ def check_g5(text, needs_sponsorship: bool) -> dict:
 
 # ---------- score and verdict ----------
 
-def score(text: str, skills) -> dict:
-    topic = _found(text, TOPIC_WORDS)
+def score(text: str, skills, rules=V01) -> dict:
+    topic = _found(text, TOPIC_WORDS_V02 if "C5" in rules else TOPIC_WORDS)
     skill_hits = _found(text, skills)
     t_points, s_points = min(len(topic), TERM_CAP), min(len(skill_hits), TERM_CAP)
     return {"topic": {"matched": topic, "points": t_points},
@@ -256,14 +357,15 @@ def text_status(text) -> str:
     return "short" if len(text) < MIN_TEXT_CHARS else "ok"
 
 
-def evaluate(posting: dict, persona: dict) -> dict:
+def evaluate(posting: dict, persona: dict, rules=V01) -> dict:
     text = posting.get("text")
     status = text_status(text)
     gates = {"G1": check_g1(posting.get("title")),
              "G2": check_g2(posting.get("title")),
              "G3": check_g3(posting.get("locations"))}
     if status == "ok":
-        gates["G4"] = check_g4(text)
+        gates["G4"] = (check_g4_rules(text, rules, posting.get("blocks")) if rules & G4_CHANGES
+                       else check_g4(text))
         gates["G5"] = check_g5(text, persona["needs_sponsorship"])
     else:
         reason = "no posting text" if status == "missing" else f"text is {len(text)} chars (< {MIN_TEXT_CHARS})"
@@ -278,7 +380,7 @@ def evaluate(posting: dict, persona: dict) -> dict:
     elif first_unknown:
         verdict = CANNOT_TELL
     else:
-        result_score = score(text, persona["skills"])
+        result_score = score(text, persona["skills"], rules)
         verdict = KEEP if result_score["total"] >= KEEP_THRESHOLD else REJECT
     near = result_score is not None and NEAR_THRESHOLD[0] <= result_score["total"] <= NEAR_THRESHOLD[1]
     return {"board": posting["board"], "id": posting["id"], "title": posting.get("title"),
@@ -288,7 +390,7 @@ def evaluate(posting: dict, persona: dict) -> dict:
             "score": result_score, "near_threshold": near}
 
 
-def summarize(results: list[dict], failures: list[dict], run_dir, persona_path) -> dict:
+def summarize(results: list[dict], failures: list[dict], run_dir, persona_path, mode: str = "v0.1") -> dict:
     by_board = {}
     for r in results:
         counts = by_board.setdefault(r["board"], {KEEP: 0, REJECT: 0, CANNOT_TELL: 0, "total": 0})
@@ -297,8 +399,11 @@ def summarize(results: list[dict], failures: list[dict], run_dir, persona_path) 
     rejects = [r for r in results if r["verdict"] == REJECT]
     first_failing = Counter(r["first_failing_gate"] or "score below 2" for r in rejects)
     first_unknown = Counter(r["first_unknown_gate"] for r in results if r["verdict"] == CANNOT_TELL)
+    header = ({"filter_version": FILTER_VERSION, "contract": CONTRACT} if mode == "v0.1" else
+              {"filter_version": mode, "contract": CONTRACT_V02,
+               "rules": {"mode": mode, "changes": sorted(RULE_MODES[mode])}})
     return {
-        "filter_version": FILTER_VERSION, "contract": CONTRACT,
+        **header,
         "run": str(run_dir), "persona": str(persona_path),
         "postings": len(results),
         "by_verdict": {v: sum(r["verdict"] == v for r in results) for v in (KEEP, REJECT, CANNOT_TELL)},
@@ -311,11 +416,14 @@ def summarize(results: list[dict], failures: list[dict], run_dir, persona_path) 
     }
 
 
-def run_filter(run_dir, out_dir, persona_path=DEFAULT_PERSONA) -> dict:
+def run_filter(run_dir, out_dir, persona_path=DEFAULT_PERSONA, mode: str = "v0.1") -> dict:
+    if mode not in RULE_MODES:
+        raise ValueError(f"unknown rule mode {mode!r}; choose from {sorted(RULE_MODES)}")
+    rules = RULE_MODES[mode]
     persona = load_persona(persona_path)  # before reading the run or writing anything
-    postings, failures = load_run(run_dir)
-    results = [evaluate(p, persona) for p in postings]
-    summary = summarize(results, failures, run_dir, persona_path)
+    postings, failures = load_run(run_dir, with_blocks=True)
+    results = [evaluate(p, persona, rules) for p in postings]
+    summary = summarize(results, failures, run_dir, persona_path, mode)
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     with open(out_dir / "results.jsonl", "w", encoding="utf-8") as fh:
@@ -326,18 +434,20 @@ def run_filter(run_dir, out_dir, persona_path=DEFAULT_PERSONA) -> dict:
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="python -m agent.filter", description=f"JS3 filter ({CONTRACT}).")
+    parser = argparse.ArgumentParser(prog="python -m agent.filter", description="JS3 filter (FILTER.md v0.1 / v0.2).")
     parser.add_argument("--run", type=Path, required=True, help="agent run folder (summary.json + raw/)")
     parser.add_argument("--out", type=Path, required=True, help="output folder for results.jsonl and summary.json")
     parser.add_argument("--persona", type=Path, default=DEFAULT_PERSONA, help="persona JSON (default: JS1's Cole Palmer)")
+    parser.add_argument("--rules", choices=list(RULE_MODES), default="v0.1",
+                        help="rule mode: v0.1 (default), v0.2, or v0.1+Cn for one change alone")
     args = parser.parse_args(argv)
     try:
-        summary = run_filter(args.run, args.out, args.persona)
+        summary = run_filter(args.run, args.out, args.persona, args.rules)
     except (PersonaError, RunError) as err:
         print(f"error: {err}; nothing was written", file=sys.stderr)
         return 2
-    print(f"{summary['postings']} postings: {summary['by_verdict']}; near-threshold {summary['near_threshold']}; "
-          f"written to {args.out}")
+    print(f"[{args.rules}] {summary['postings']} postings: {summary['by_verdict']}; "
+          f"near-threshold {summary['near_threshold']}; written to {args.out}")
     return 0
 
 

@@ -46,6 +46,47 @@ def strip_html(content: str | None) -> str:
     return normalize(" ".join(collector.parts))
 
 
+# HTML elements that end one block of text and start the next (FILTER.md v0.2 "Sentence").
+_BLOCK_TAGS = frozenset({"p", "li", "ul", "ol", "h1", "h2", "h3", "h4", "h5", "h6", "div", "br", "tr",
+                         "td", "th", "table", "section", "blockquote", "pre", "dl", "dt", "dd", "hr"})
+_BREAK = "\x00"
+
+
+class _BlockCollector(_TextCollector):
+    """Like _TextCollector, but marks block boundaries so the text can be split into blocks."""
+
+    def handle_starttag(self, tag, attrs):
+        super().handle_starttag(tag, attrs)
+        if tag in _BLOCK_TAGS:
+            self.parts.append(_BREAK)
+
+    def handle_endtag(self, tag):
+        super().handle_endtag(tag)
+        if tag in _BLOCK_TAGS:
+            self.parts.append(_BREAK)
+
+    def handle_startendtag(self, tag, attrs):
+        if tag in _BLOCK_TAGS:
+            self.parts.append(_BREAK)
+
+
+def html_blocks(content: str | None) -> list[str]:
+    """The visible text of a Greenhouse posting, one string per HTML block, empty blocks dropped.
+
+    Joining the blocks with spaces gives exactly strip_html(content).
+    """
+    collector = _BlockCollector()
+    collector.feed(html.unescape(content or ""))
+    collector.close()
+    joined = " ".join(collector.parts)
+    return [b for b in (normalize(chunk) for chunk in joined.split(_BREAK)) if b]
+
+
+def plain_blocks(text: str | None) -> list[str]:
+    """One string per non-blank line of a plain-text posting (Ashby descriptionPlain)."""
+    return [b for b in (normalize(line) for line in (text or "").splitlines()) if b]
+
+
 def word_pattern(phrase: str, ignore_case: bool = True) -> re.Pattern:
     body = r"\s+".join(re.escape(word) for word in phrase.split())
     flags = re.IGNORECASE if ignore_case else 0
