@@ -1,0 +1,1860 @@
+{
+  "metadata": {
+    "slug": "agentic-retrieval-lab-final",
+    "title": "Agentic Retrieval Lab",
+    "topic": "INFO 7375 · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "rithika-sr",
+    "channel_title": "Rithika Sankar Rajeswari · github.com/rithika-sr",
+    "persona": "Rithika Sankar Rajeswari (first person)",
+    "author": "Rithika Sankar Rajeswari",
+    "course": "INFO 7375",
+    "voice": "af_bella",
+    "voice_kokoro": "af_bella",
+    "engine": "kokoro",
+    "kokoro_speed": 1.0,
+    "voice_reason": "Same as the October reel: Kokoro af_bella, first person, as Rithika. The skill's LIAM BY DEFAULT law belongs to the instructor's channel; this student film carries no instructor identity.",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Plain",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "runtime_cap_s": 240,
+    "runtime_target_s": 225,
+    "narration_source": "../FILM-BRIEF.md, word for word (checked by this script)",
+    "parts": [
+      {
+        "part": 1,
+        "title_card": "1 · Executive summary"
+      },
+      {
+        "part": 2,
+        "title_card": "2 · What others have done"
+      },
+      {
+        "part": 3,
+        "title_card": "3 · Methods"
+      },
+      {
+        "part": 4,
+        "title_card": "4 · Evaluation"
+      }
+    ],
+    "caption_policy": "none",
+    "caption_reason": "As in October: no captions; the compiler has no burn-in step.",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Rithika's brief fixes the film as four parts of her own narration under a 4:00 cap, opened by her own part title cards. The hesitant writer, key terms card and Your Turn composer would add narration that is not in the brief and carry the instructor's identity. The outro is never exempt: BOUT is drawn in Manim with her own title and handle, as in October.",
+    "people_rule": "Cartoon people authorised by Rithika (2026-10-11) and reused with her permission (2026-11-23): me (Rithika), keyword librarian = BM25, meaning librarian = embedding models, copied verbatim from the October reel into cast_october.py. The robot stays the AI agent. No instructor portrait, likeness or name; the toolkit's portrait house rule does not apply to this student film.",
+    "visual_rules": [
+      "real readable text only, no placeholder squiggles (the kit's scribble() helpers are not used)",
+      "every key term labelled on screen when it is spoken (cues keyed to the phrase)",
+      "characters exit when their line ends (exit cues)",
+      "visuals enter and leave in sync with the narration (cue times from phrase position; refined from word_times.json after audio)",
+      "numbers on screen match the brief exactly (checked by this script)"
+    ],
+    "pronunciation": [
+      {
+        "pattern": "\\bBM25\\+bge\\b",
+        "spoken": "B M twenty-five plus B G E"
+      },
+      {
+        "pattern": "\\bBM25",
+        "spoken": "B M twenty-five"
+      },
+      {
+        "pattern": "\\bMS MARCO\\b",
+        "spoken": "em-ess Marco"
+      },
+      {
+        "pattern": "\\bQ2D-Web\\b",
+        "spoken": "Q two D Web"
+      },
+      {
+        "pattern": "\\bbge-small\\b",
+        "spoken": "B G E small"
+      },
+      {
+        "pattern": "\\bbge\\b",
+        "spoken": "B G E"
+      },
+      {
+        "pattern": "\\be5-small\\b",
+        "spoken": "E five small"
+      },
+      {
+        "pattern": "\\be5\\b",
+        "spoken": "E five"
+      },
+      {
+        "pattern": "\\bClaude Haiku 4\\.5\\b",
+        "spoken": "Claude Haiku four point five"
+      },
+      {
+        "pattern": "\\bM5\\b",
+        "spoken": "M five"
+      },
+      {
+        "pattern": "\\b16 GB\\b",
+        "spoken": "sixteen gigabytes"
+      },
+      {
+        "pattern": "\\$0\\.63\\b",
+        "spoken": "sixty-three cents"
+      },
+      {
+        "pattern": "\\+0\\.32\\b",
+        "spoken": "plus zero point three two"
+      },
+      {
+        "pattern": "\\b95%",
+        "spoken": "ninety-five percent"
+      },
+      {
+        "pattern": "\\bLLM\\b",
+        "spoken": "L L M"
+      },
+      {
+        "pattern": "\\bRAG\\b",
+        "spoken": "rag"
+      },
+      {
+        "pattern": "\\bagent-written\\b",
+        "spoken": "agent written"
+      },
+      {
+        "pattern": "\\bpass/fail\\b",
+        "spoken": "pass-fail"
+      },
+      {
+        "pattern": "\\bvs\\b",
+        "spoken": "versus"
+      }
+    ],
+    "audience": "the INFO 7375 grader; hiring managers later",
+    "source_doc": "../FILM-BRIEF.md; ~/agentic-retrieval-lab results/foundation/ and results/m2/ (read-only); Schall et al. 2026 arXiv:2609.08887v2",
+    "playlist": "INFO 7375 final projects",
+    "tags": [
+      "retrieval",
+      "RAG",
+      "BM25",
+      "embeddings",
+      "MS MARCO",
+      "agentic search"
+    ],
+    "audio_review": {
+      "status": "approved",
+      "reviewed_by": "Rithika Sankar Rajeswari",
+      "reviewer_type": "human",
+      "reviewed_at": "2026-11-23",
+      "note": "Listened to B03 ('Agentic Retrieval Lab') and B10 ('300 em-ess Marco questions'): both sound fine. Whisper mis-transcriptions there are transcript artefacts."
+    },
+    "build": {
+      "at": "2026-11-23T20:45:43",
+      "cut": "master",
+      "filled": 23,
+      "of": 23,
+      "slates": [],
+      "skin_warnings": [
+        "B01: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BOUT: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "part": 1,
+      "act": "executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "In RAG systems, AI agents now write the search queries, not people.",
+      "narration_text": "In rag systems, AI agents now write the search queries, not people.",
+      "estimated_duration_s": 6.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title card. A person's hand-typed question card slides aside; the robot (the AI agent) rolls in and types a query card of its own into a search box.",
+        "on_screen": [
+          "1 · Executive summary",
+          "RAG: search, then answer",
+          "AI agent",
+          "writes the search query"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title card '1 · Executive summary' held over the 1.2 s lead silence, then shrinks to the top-left header"
+          },
+          {
+            "at": 0.04,
+            "on": "RAG systems",
+            "event": "label 'RAG: search, then answer' pops beside the search box"
+          },
+          {
+            "at": 0.24,
+            "on": "AI agents",
+            "event": "robot rolls in; label 'AI agent'"
+          },
+          {
+            "at": 0.45,
+            "on": "write the search queries",
+            "event": "robot types its own query card; label 'writes the search query'"
+          },
+          {
+            "at": 0.84,
+            "on": "not people",
+            "event": "the person's question card slides out"
+          },
+          {
+            "at": 1.0,
+            "after": "not people.",
+            "event": "robot stays (same cast next beat); labels dim"
+          }
+        ],
+        "manim": {
+          "class": "B01_AgentsWrite"
+        },
+        "motion_claim": "Title card. A person's hand-typed question card slides aside; the robot (the AI agent) rolls in and types a query card of its own into a search box."
+      },
+      "title_card": {
+        "text": "1 · Executive summary",
+        "hold_s": 1.2
+      },
+      "lead_silence_s": 1.2,
+      "lead_silence_note": "1.2 s of silence padded onto the head (raw voice in mp3/_raw/), 2026-11-23",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.85,
+      "audio_file": "mp3/beat-B01.mp3",
+      "raw_voice_s": 4.65,
+      "render_duration_s": 5.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "part": 1,
+      "act": "executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "If an agent's query finds the wrong passage, the answer built on it is wrong, and nobody sees why.",
+      "narration_text": "If an agent's query finds the wrong passage, the answer built on it is wrong, and nobody sees why.",
+      "estimated_duration_s": 7.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The robot's query card pulls one page off a shelf — the wrong one; an answer card builds on top of it and gets an ✗; a grey curtain slides over the chain.",
+        "on_screen": [
+          "wrong passage",
+          "answer: wrong",
+          "why? hidden"
+        ],
+        "show": [
+          {
+            "at": 0.2,
+            "on": "finds the wrong passage",
+            "event": "page lifts off the shelf; label 'wrong passage'"
+          },
+          {
+            "at": 0.46,
+            "on": "the answer built on it is wrong",
+            "event": "answer card stacks on the page; ✗; label 'answer: wrong'"
+          },
+          {
+            "at": 0.84,
+            "on": "nobody sees why",
+            "event": "curtain slides over the chain; label 'why? hidden'"
+          },
+          {
+            "at": 1.0,
+            "after": "nobody sees why.",
+            "event": "robot rolls out"
+          }
+        ],
+        "manim": {
+          "class": "B02_WrongPassage"
+        },
+        "motion_claim": "The robot's query card pulls one page off a shelf — the wrong one; an answer card builds on top of it and gets an ✗; a grey curtain slides over the chain."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 6.4,
+      "audio_file": "mp3/beat-B02.mp3",
+      "raw_voice_s": 6.4,
+      "render_duration_s": 6.416666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "part": 1,
+      "act": "executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "I built Agentic Retrieval Lab to measure, on public data, whether agent-written queries find the right passage as well as the original human question, and which search method handles them best.",
+      "narration_text": "I built Agentic Retrieval Lab to measure, on public data, whether agent written queries find the right passage as well as the original human question, and which search method handles them best.",
+      "estimated_duration_s": 12.4,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Rithika (October character) walks in beside a lab bench titled Agentic Retrieval Lab; a balance scale: human question card on one pan, agent query card on the other; two search-method carts wait behind (unlabelled tools, no method names in part 1).",
+        "on_screen": [
+          "Agentic Retrieval Lab",
+          "public data",
+          "human question",
+          "agent-written query",
+          "right passage?",
+          "which search method?"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "I built",
+            "event": "Rithika walks in, waves"
+          },
+          {
+            "at": 0.04,
+            "on": "Agentic Retrieval Lab",
+            "event": "lab bench + title"
+          },
+          {
+            "at": 0.22,
+            "on": "on public data",
+            "event": "open-box stamp 'public data'"
+          },
+          {
+            "at": 0.34,
+            "on": "agent-written queries",
+            "event": "agent query card lands on the right pan; label 'agent-written query'"
+          },
+          {
+            "at": 0.48,
+            "on": "the right passage",
+            "event": "label 'right passage?'"
+          },
+          {
+            "at": 0.65,
+            "on": "original human question",
+            "event": "human question card lands on the left pan; label 'human question'"
+          },
+          {
+            "at": 0.8,
+            "on": "which search method",
+            "event": "two carts roll in behind; label 'which search method?'"
+          },
+          {
+            "at": 1.0,
+            "after": "handles them best.",
+            "event": "Rithika exits left"
+          }
+        ],
+        "manim": {
+          "class": "B03_TheLab"
+        },
+        "motion_claim": "Rithika (October character) walks in beside a lab bench titled Agentic Retrieval Lab; a balance scale: human question card on one pan, agent query card on the other; two search-method carts wait behind (unlabelled tools, no method names in part 1)."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.95,
+      "audio_file": "mp3/beat-B03.mp3",
+      "raw_voice_s": 11.95,
+      "render_duration_s": 11.958333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "part": 1,
+      "act": "executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "So far, the agent's rewrites didn't beat the original human question with any search method.",
+      "narration_text": "So far, the agent's rewrites didn't beat the original human question with any search method.",
+      "estimated_duration_s": 6.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The balance scale tips toward the human card on each of four small scales in a row (one per search method, unnamed); a check lands beside 'human question ahead'.",
+        "on_screen": [
+          "so far",
+          "human question ahead",
+          "every search method"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "So far",
+            "event": "four small scales slide in"
+          },
+          {
+            "at": 0.32,
+            "on": "didn't beat",
+            "event": "each scale tips to the human side, one after another"
+          },
+          {
+            "at": 0.75,
+            "on": "with any search method",
+            "event": "label 'every search method' + check by 'human question ahead'"
+          }
+        ],
+        "manim": {
+          "class": "B04_SoFar"
+        },
+        "motion_claim": "The balance scale tips toward the human card on each of four small scales in a row (one per search method, unnamed); a check lands beside 'human question ahead'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.48,
+      "audio_file": "mp3/beat-B04.mp3",
+      "raw_voice_s": 5.48,
+      "render_duration_s": 5.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "part": 1,
+      "act": "executive-summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "This matters to anyone choosing a search method for an AI agent: it's a cheap, repeatable check, and every number in it traces back to a file.",
+      "narration_text": "This matters to anyone choosing a search method for an AI agent: it's a cheap, repeatable check, and every number in it traces back to a file.",
+      "estimated_duration_s": 10.8,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The robot at a fork of two carts; a stamp 'cheap', a loop arrow 'repeatable'; then a laptop shows +0.32 and an ink arrow draws from it to a results file icon.",
+        "on_screen": [
+          "choosing a search method",
+          "cheap",
+          "repeatable",
+          "+0.32",
+          "results file",
+          "traces back to a file"
+        ],
+        "show": [
+          {
+            "at": 0.16,
+            "on": "choosing a search method",
+            "event": "robot pauses between two carts; label"
+          },
+          {
+            "at": 0.44,
+            "after": "for an AI agent",
+            "event": "robot exits right"
+          },
+          {
+            "at": 0.51,
+            "on": "cheap",
+            "event": "stamp 'cheap'"
+          },
+          {
+            "at": 0.56,
+            "on": "repeatable",
+            "event": "loop arrow 'repeatable'"
+          },
+          {
+            "at": 0.71,
+            "on": "every number",
+            "event": "laptop: '+0.32'"
+          },
+          {
+            "at": 0.85,
+            "on": "traces back to a file",
+            "event": "arrow draws from the number to a 'results file' icon"
+          }
+        ],
+        "manim": {
+          "class": "B05_WhyItMatters"
+        },
+        "motion_claim": "The robot at a fork of two carts; a stamp 'cheap', a loop arrow 'repeatable'; then a laptop shows +0.32 and an ink arrow draws from it to a results file icon."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.17,
+      "audio_file": "mp3/beat-B05.mp3",
+      "raw_voice_s": 9.17,
+      "render_duration_s": 9.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "part": 2,
+      "act": "introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Q2D-Web, from Perplexity, studies search with agent-written queries over about 190 million web documents, but it keeps its corpus, queries and judgments private: the public gets a leaderboard, not the data.",
+      "narration_text": "Q two D Web, from Perplexity, studies search with agent written queries over about 190 million web documents, but it keeps its corpus, queries and judgments private: the public gets a leaderboard, not the data.",
+      "estimated_duration_s": 13.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title card. A big vault labelled Q2D-Web · Perplexity; robot query cards fly into it; a '190 million web documents' plate; the locking bar slides shut over three drawers (corpus, queries, judgments); a small public leaderboard board stands outside.",
+        "on_screen": [
+          "2 · What others have done",
+          "Q2D-Web",
+          "Perplexity",
+          "agent-written queries",
+          "190 million web documents",
+          "private: corpus · queries · judgments",
+          "public leaderboard",
+          "not the data"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title card '2 · What others have done' held over the 1.2 s lead silence, then shrinks to the top-left header"
+          },
+          {
+            "at": 0.0,
+            "on": "Q2D-Web",
+            "event": "vault + 'Q2D-Web'"
+          },
+          {
+            "at": 0.04,
+            "on": "from Perplexity",
+            "event": "'Perplexity' plate"
+          },
+          {
+            "at": 0.22,
+            "on": "agent-written queries",
+            "event": "robot cards fly into the vault; label"
+          },
+          {
+            "at": 0.38,
+            "on": "190 million web documents",
+            "event": "'190 million web documents' plate"
+          },
+          {
+            "at": 0.55,
+            "on": "keeps its corpus, queries and judgments private",
+            "event": "three drawers labelled, bar slides shut; 'private'"
+          },
+          {
+            "at": 0.79,
+            "on": "the public gets a leaderboard",
+            "event": "leaderboard board stands up outside; label 'public leaderboard'"
+          },
+          {
+            "at": 0.94,
+            "on": "not the data",
+            "event": "label 'not the data' under the locked bar"
+          }
+        ],
+        "manim": {
+          "class": "B06_Q2DWeb"
+        },
+        "motion_claim": "Title card. A big vault labelled Q2D-Web · Perplexity; robot query cards fly into it; a '190 million web documents' plate; the locking bar slides shut over three drawers (corpus, queries, judgments); a small public leaderboard board stands outside."
+      },
+      "title_card": {
+        "text": "2 · What others have done",
+        "hold_s": 1.2
+      },
+      "lead_silence_s": 1.2,
+      "lead_silence_note": "1.2 s of silence padded onto the head (raw voice in mp3/_raw/), 2026-11-23",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.83,
+      "audio_file": "mp3/beat-B06.mp3",
+      "raw_voice_s": 14.63,
+      "render_duration_s": 15.833333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "part": 2,
+      "act": "introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "MS MARCO, from Microsoft, is the standard public set of real search questions with a marked correct passage, but its queries are human only.",
+      "narration_text": "em-ess Marco, from Microsoft, is the standard public set of real search questions with a marked correct passage, but its queries are human only.",
+      "estimated_duration_s": 9.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "An open box labelled MS MARCO · Microsoft; real question cards rise from it (real MS MARCO dev queries); one passage page gets a check ('marked correct passage'); a hand-written tag 'human only'.",
+        "on_screen": [
+          "MS MARCO",
+          "Microsoft",
+          "public",
+          "when is ski season over",
+          "what is the shingles jab?",
+          "marked correct passage",
+          "human only"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "MS MARCO",
+            "event": "open box + 'MS MARCO'"
+          },
+          {
+            "at": 0.07,
+            "on": "from Microsoft",
+            "event": "'Microsoft' plate"
+          },
+          {
+            "at": 0.24,
+            "on": "standard public set",
+            "event": "'public' chip"
+          },
+          {
+            "at": 0.4,
+            "on": "real search questions",
+            "event": "two real question cards rise"
+          },
+          {
+            "at": 0.59,
+            "on": "a marked correct passage",
+            "event": "passage page + check; label"
+          },
+          {
+            "at": 0.92,
+            "on": "human only",
+            "event": "tag 'human only'"
+          }
+        ],
+        "manim": {
+          "class": "B07_MSMARCO"
+        },
+        "motion_claim": "An open box labelled MS MARCO · Microsoft; real question cards rise from it (real MS MARCO dev queries); one passage page gets a check ('marked correct passage'); a hand-written tag 'human only'."
+      },
+      "real_example": {
+        "queries": [
+          "when is ski season over (951820, queries_human.jsonl line 108)",
+          "what is the shingles jab? (846513, queries_human.jsonl line 93)"
+        ]
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.39,
+      "audio_file": "mp3/beat-B07.mp3",
+      "raw_voice_s": 9.39,
+      "render_duration_s": 9.416666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "part": 2,
+      "act": "introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "BM25 is the classic keyword search. bge and e5 are widely used small embedding models that search by meaning.",
+      "narration_text": "B M twenty-five is the classic keyword search. B G E and E five are widely used small embedding models that search by meaning.",
+      "estimated_duration_s": 7.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "October cast: the keyword librarian (magnifier) slides in from the left over a book with the same words; the meaning librarian (lightbulb) slides in from the right; the bulb lights a book with different words, same meaning.",
+        "on_screen": [
+          "BM25: keyword search",
+          "same words",
+          "bge · e5: embedding models",
+          "search by meaning",
+          "same meaning"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "BM25",
+            "event": "keyword librarian slides in LEFT; label 'BM25: keyword search'"
+          },
+          {
+            "at": 0.18,
+            "on": "keyword search",
+            "event": "magnifier sweeps a same-words book; label 'same words'"
+          },
+          {
+            "at": 0.32,
+            "after": "classic keyword search.",
+            "event": "keyword librarian dims (stays: next line compares them)"
+          },
+          {
+            "at": 0.33,
+            "on": "bge and e5",
+            "event": "meaning librarian slides in RIGHT; label 'bge · e5: embedding models'"
+          },
+          {
+            "at": 0.83,
+            "on": "search by meaning",
+            "event": "bulb lights a same-meaning book; labels"
+          },
+          {
+            "at": 1.0,
+            "after": "search by meaning.",
+            "event": "both librarians slide out (left / right)"
+          }
+        ],
+        "manim": {
+          "class": "B08_Librarians"
+        },
+        "motion_claim": "October cast: the keyword librarian (magnifier) slides in from the left over a book with the same words; the meaning librarian (lightbulb) slides in from the right; the bulb lights a book with different words, same meaning."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.05,
+      "audio_file": "mp3/beat-B08.mp3",
+      "raw_voice_s": 9.05,
+      "render_duration_s": 9.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "part": 2,
+      "act": "introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "The gap: there's no small, open experiment that compares human and agent queries across these search methods, that anyone can rerun on a laptop. That's what this project is.",
+      "narration_text": "The gap: there's no small, open experiment that compares human and agent queries across these search methods, that anyone can rerun on a laptop. That's what this project is.",
+      "estimated_duration_s": 11.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three tiles in a row from the previous beats (locked vault, human-only box, the two librarians' tools) and an empty dotted fourth tile; Rithika's laptop slides into the empty tile and it turns solid: 'this project'.",
+        "on_screen": [
+          "the gap",
+          "small · open",
+          "human vs agent",
+          "across search methods",
+          "rerun on a laptop",
+          "this project"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "The gap",
+            "event": "three tiles + empty dotted tile; label 'the gap'"
+          },
+          {
+            "at": 0.12,
+            "on": "small, open experiment",
+            "event": "'small · open'"
+          },
+          {
+            "at": 0.28,
+            "on": "compares human and agent queries",
+            "event": "'human vs agent'"
+          },
+          {
+            "at": 0.47,
+            "on": "across these search methods",
+            "event": "'across search methods'"
+          },
+          {
+            "at": 0.73,
+            "on": "rerun on a laptop",
+            "event": "laptop slides into the tile"
+          },
+          {
+            "at": 0.84,
+            "on": "That's what this project is",
+            "event": "tile turns solid; 'this project'; Rithika pops up beside it"
+          },
+          {
+            "at": 1.0,
+            "after": "what this project is.",
+            "event": "Rithika exits"
+          }
+        ],
+        "manim": {
+          "class": "B09_TheGap"
+        },
+        "motion_claim": "Three tiles in a row from the previous beats (locked vault, human-only box, the two librarians' tools) and an empty dotted fourth tile; Rithika's laptop slides into the empty tile and it turns solid: 'this project'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.2,
+      "audio_file": "mp3/beat-B09.mp3",
+      "raw_voice_s": 11.2,
+      "render_duration_s": 11.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Data: 300 MS MARCO questions (fixed seed 42). Claude Haiku 4.5 rewrote each one into 1 main and 3 supporting agent queries, 1,200 in total.",
+      "narration_text": "Data: 300 em-ess Marco questions (fixed seed 42). Claude Haiku four point five rewrote each one into 1 main and 3 supporting agent queries, 1,200 in total.",
+      "estimated_duration_s": 11.2,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title card. A stack of question cards drops from the MS MARCO box ('300 questions', 'seed 42'); the robot ('Claude Haiku 4.5') takes one card and fans it into 1 main + 3 supporting cards; a counter climbs to 1,200.",
+        "on_screen": [
+          "3 · Methods",
+          "300 questions",
+          "MS MARCO",
+          "seed 42",
+          "Claude Haiku 4.5",
+          "1 main",
+          "3 supporting",
+          "1,200 agent queries"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title card '3 · Methods' held over the 1.2 s lead silence, then shrinks to the top-left header"
+          },
+          {
+            "at": 0.04,
+            "on": "300 MS MARCO questions",
+            "event": "card stack drops; '300 questions'"
+          },
+          {
+            "at": 0.22,
+            "on": "fixed seed 42",
+            "event": "'seed 42' tag"
+          },
+          {
+            "at": 0.33,
+            "on": "Claude Haiku 4.5",
+            "event": "robot rolls in; 'Claude Haiku 4.5'"
+          },
+          {
+            "at": 0.61,
+            "on": "1 main and 3 supporting",
+            "event": "one card fans into 1 main + 3 supporting"
+          },
+          {
+            "at": 0.89,
+            "on": "1,200 in total",
+            "event": "counter lands on '1,200 agent queries'"
+          },
+          {
+            "at": 1.0,
+            "after": "1,200 in total.",
+            "event": "robot stays (next beat checks its rewrites)"
+          }
+        ],
+        "manim": {
+          "class": "B10_Data"
+        },
+        "motion_claim": "Title card. A stack of question cards drops from the MS MARCO box ('300 questions', 'seed 42'); the robot ('Claude Haiku 4.5') takes one card and fans it into 1 main + 3 supporting cards; a counter climbs to 1,200."
+      },
+      "title_card": {
+        "text": "3 · Methods",
+        "hold_s": 1.2
+      },
+      "lead_silence_s": 1.2,
+      "lead_silence_note": "1.2 s of silence padded onto the head (raw voice in mp3/_raw/), 2026-11-23",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 14.45,
+      "audio_file": "mp3/beat-B10.mp3",
+      "raw_voice_s": 13.25,
+      "render_duration_s": 14.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "A leak check flagged rewrites that gave away the answer.",
+      "narration_text": "A leak check flagged rewrites that gave away the answer.",
+      "estimated_duration_s": 4.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A scan line sweeps the rewrite cards; one real flagged support query lifts out with the answer word it gave away.",
+        "on_screen": [
+          "leak check",
+          "lincoln kentucky hodgenville childhood",
+          "answer: Hodgenville, Kentucky",
+          "gave away the answer"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "A leak check",
+            "event": "scan line sweeps; label 'leak check'"
+          },
+          {
+            "at": 0.23,
+            "on": "flagged rewrites",
+            "event": "real card 'lincoln kentucky hodgenville childhood' lifts out"
+          },
+          {
+            "at": 0.62,
+            "on": "gave away the answer",
+            "event": "'answer: Hodgenville, Kentucky' tag + 'gave away the answer'"
+          },
+          {
+            "at": 1.0,
+            "after": "gave away the answer.",
+            "event": "robot exits"
+          }
+        ],
+        "manim": {
+          "class": "B11_LeakCheck"
+        },
+        "motion_claim": "A scan line sweeps the rewrite cards; one real flagged support query lifts out with the answer word it gave away."
+      },
+      "real_example": {
+        "query": "1003210_s2 'lincoln kentucky hodgenville childhood' (queries_agent.jsonl); caught by leak rule v3 (results/foundation/2026-10-08_leak_v3/leak_v3_sanity.json)"
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 3.03,
+      "audio_file": "mp3/beat-B11.mp3",
+      "raw_voice_s": 3.03,
+      "render_duration_s": 3.0416666666666665,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Test corpus: 200,000 passages, made of every correct passage, BM25's top-100 near-misses, and random fill.",
+      "narration_text": "Test corpus: 200,000 passages, made of every correct passage, B M twenty-five's top-100 near-misses, and random fill.",
+      "estimated_duration_s": 6.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A crate fills in three layers as each is named: a thin layer of checked pages, a thick layer of grey near-miss pages poured by the keyword librarian's cart, a layer of plain random pages; plate '200,000 passages'.",
+        "on_screen": [
+          "test corpus",
+          "200,000 passages",
+          "every correct passage",
+          "BM25's top-100 near-misses",
+          "random fill"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "Test corpus",
+            "event": "empty crate; label 'test corpus'"
+          },
+          {
+            "at": 0.12,
+            "on": "200,000 passages",
+            "event": "plate '200,000 passages'"
+          },
+          {
+            "at": 0.37,
+            "on": "every correct passage",
+            "event": "checked pages layer"
+          },
+          {
+            "at": 0.58,
+            "on": "BM25's top-100 near-misses",
+            "event": "keyword cart pours the grey layer; label"
+          },
+          {
+            "at": 0.83,
+            "after": "top-100 near-misses",
+            "event": "keyword cart rolls out"
+          },
+          {
+            "at": 0.89,
+            "on": "random fill",
+            "event": "plain pages layer; label"
+          }
+        ],
+        "manim": {
+          "class": "B12_TestCorpus"
+        },
+        "motion_claim": "A crate fills in three layers as each is named: a thin layer of checked pages, a thick layer of grey near-miss pages poured by the keyword librarian's cart, a layer of plain random pages; plate '200,000 passages'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.51,
+      "audio_file": "mp3/beat-B12.mp3",
+      "raw_voice_s": 9.51,
+      "render_duration_s": 9.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Four retrievers: BM25, bge-small, e5-small, and a BM25+bge hybrid.",
+      "narration_text": "Four retrievers: B M twenty-five, B G E small, E five small, and a B M twenty-five plus B G E hybrid.",
+      "estimated_duration_s": 3.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four carts line up on a start line, each named as spoken: keyword librarian's cart, two meaning-librarian carts, and a joined cart carrying both the magnifier and the bulb.",
+        "on_screen": [
+          "four retrievers",
+          "BM25",
+          "bge-small",
+          "e5-small",
+          "BM25+bge hybrid"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "Four retrievers",
+            "event": "start line; label"
+          },
+          {
+            "at": 0.26,
+            "on": "BM25,",
+            "event": "cart 1 (magnifier)"
+          },
+          {
+            "at": 0.35,
+            "on": "bge-small",
+            "event": "cart 2 (bulb)"
+          },
+          {
+            "at": 0.52,
+            "on": "e5-small",
+            "event": "cart 3 (bulb)"
+          },
+          {
+            "at": 0.76,
+            "on": "BM25+bge hybrid",
+            "event": "cart 4 (magnifier + bulb)"
+          }
+        ],
+        "manim": {
+          "class": "B13_FourRetrievers"
+        },
+        "motion_claim": "Four carts line up on a start line, each named as spoken: keyword librarian's cart, two meaning-librarian carts, and a joined cart carrying both the magnifier and the bulb."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.55,
+      "audio_file": "mp3/beat-B13.mp3",
+      "raw_voice_s": 8.55,
+      "render_duration_s": 8.583333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Measures: whether the correct passage is in the top 100, and how high it ranks.",
+      "narration_text": "Measures: whether the correct passage is in the top 100, and how high it ranks.",
+      "estimated_duration_s": 6.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "THE REAL EXAMPLE. Two query cards from the data, word for word: human 'what is the shingles jab?' and agent 'what is the shingles vaccine'. BM25's top-100 pile: the correct page sits inside the pile for the human card (check), outside it for the agent card (✗). Then a rank ladder: the page climbs to show 'how high it ranks'.",
+        "on_screen": [
+          "top 100",
+          "human: what is the shingles jab?",
+          "agent: what is the shingles vaccine",
+          "BM25",
+          "in the top 100 ✓",
+          "not in the top 100 ✗",
+          "how high it ranks"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "Measures",
+            "event": "both real query cards slide in, tags 'human' / 'agent'"
+          },
+          {
+            "at": 0.52,
+            "on": "in the top 100",
+            "event": "BM25 pile: correct page inside for the human card ✓, outside for the agent card ✗"
+          },
+          {
+            "at": 0.77,
+            "on": "how high it ranks",
+            "event": "rank ladder; the page climbs; label 'how high it ranks'"
+          }
+        ],
+        "manim": {
+          "class": "B14_Measures"
+        },
+        "motion_claim": "THE REAL EXAMPLE. Two query cards from the data, word for word: human 'what is the shingles jab?' and agent 'what is the shingles vaccine'. BM25's top-100 pile: the correct page sits inside the pile for the human card (check), outside it for the agent card (✗). Then a rank ladder: the page climbs to show 'how high it ranks'."
+      },
+      "real_example": {
+        "query_id_human": "846513",
+        "query_id_agent": "846513_p",
+        "human_text": "what is the shingles jab?",
+        "agent_text": "what is the shingles vaccine",
+        "evidence": "evidence/example_846513.jsonl (verbatim lines: queries_human.jsonl 93, queries_agent.jsonl 369); evidence/example_846513_bm25_per_query.csv (per_query.csv lines 94 and 670: recall@100 1.0 vs 0.0)",
+        "note": "ranks (3 vs 258) are not shown on screen: those numbers are not in the brief"
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.08,
+      "audio_file": "mp3/beat-B14.mp3",
+      "raw_voice_s": 5.08,
+      "render_duration_s": 5.083333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Each comparison is query by query, with 95% bootstrap intervals.",
+      "narration_text": "Each comparison is query by query, with ninety-five percent bootstrap intervals.",
+      "estimated_duration_s": 4.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Pairs of human/agent cards line up question by question; a dot with a whisker interval draws on a zero line.",
+        "on_screen": [
+          "query by query",
+          "95% bootstrap interval",
+          "0"
+        ],
+        "show": [
+          {
+            "at": 0.3,
+            "on": "query by query",
+            "event": "card pairs line up one by one"
+          },
+          {
+            "at": 0.62,
+            "on": "95% bootstrap intervals",
+            "event": "dot + whisker on a zero line; label"
+          }
+        ],
+        "manim": {
+          "class": "B15_Bootstrap"
+        },
+        "motion_claim": "Pairs of human/agent cards line up question by question; a dot with a whisker interval draws on a zero line."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.06,
+      "audio_file": "mp3/beat-B15.mp3",
+      "raw_voice_s": 5.06,
+      "render_duration_s": 5.083333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Resources, all in hand: one M5 laptop with 16 GB (each embedding model ran in about 8 minutes), my own Anthropic API credits (the logged cost for all LLM calls was $0.63), and a free Hugging Face account. 135 automated tests.",
+      "narration_text": "Resources, all in hand: one M five laptop with sixteen gigabytes (each embedding model ran in about 8 minutes), my own Anthropic API credits (the logged cost for all L L M calls was sixty-three cents), and a free Hugging Face account. 135 automated tests.",
+      "estimated_duration_s": 16.4,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A desk fills item by item: laptop 'M5 · 16 GB' with a timer '≈ 8 minutes per embedding model'; a coin stack 'Anthropic API credits' with a receipt '$0.63, all LLM calls'; a 'free Hugging Face account' badge; finally a check stamps '135 automated tests'.",
+        "on_screen": [
+          "all in hand",
+          "M5 laptop · 16 GB",
+          "about 8 minutes per embedding model",
+          "Anthropic API credits",
+          "$0.63 · all LLM calls",
+          "free Hugging Face account",
+          "135 automated tests ✓"
+        ],
+        "show": [
+          {
+            "at": 0.11,
+            "on": "one M5 laptop with 16 GB",
+            "event": "laptop drops in; label"
+          },
+          {
+            "at": 0.35,
+            "on": "about 8 minutes",
+            "event": "timer sweeps; label"
+          },
+          {
+            "at": 0.46,
+            "on": "Anthropic API credits",
+            "event": "coin stack; label"
+          },
+          {
+            "at": 0.73,
+            "on": "$0.63",
+            "event": "receipt '$0.63 · all LLM calls'"
+          },
+          {
+            "at": 0.79,
+            "on": "free Hugging Face account",
+            "event": "badge"
+          },
+          {
+            "at": 0.91,
+            "on": "135 automated tests",
+            "event": "check stamp '135 automated tests ✓'"
+          }
+        ],
+        "manim": {
+          "class": "B16_Resources"
+        },
+        "motion_claim": "A desk fills item by item: laptop 'M5 · 16 GB' with a timer '≈ 8 minutes per embedding model'; a coin stack 'Anthropic API credits' with a receipt '$0.63, all LLM calls'; a 'free Hugging Face account' badge; finally a check stamps '135 automated tests'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 18.97,
+      "audio_file": "mp3/beat-B16.mp3",
+      "raw_voice_s": 18.97,
+      "render_duration_s": 19.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "part": 3,
+      "act": "methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Next: a length-matched control corpus, harder distractors chosen by dense models, two larger embedding models, and an LLM relevance judge.",
+      "narration_text": "Next: a length-matched control corpus, harder distractors chosen by dense models, two larger embedding models, and an L L M relevance judge.",
+      "estimated_duration_s": 8.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four dotted, not-yet-built crates in a row, each turning to a solid outline as it is named; the meaning librarian picks distractors for crate 2.",
+        "on_screen": [
+          "next",
+          "length-matched control corpus",
+          "harder distractors (dense-picked)",
+          "two larger embedding models",
+          "LLM relevance judge"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "Next",
+            "event": "label 'next'"
+          },
+          {
+            "at": 0.06,
+            "on": "length-matched control corpus",
+            "event": "crate 1"
+          },
+          {
+            "at": 0.28,
+            "on": "harder distractors chosen by dense models",
+            "event": "crate 2; meaning librarian drops pages in"
+          },
+          {
+            "at": 0.58,
+            "after": "chosen by dense models",
+            "event": "meaning librarian exits right"
+          },
+          {
+            "at": 0.59,
+            "on": "two larger embedding models",
+            "event": "crate 3"
+          },
+          {
+            "at": 0.86,
+            "on": "LLM relevance judge",
+            "event": "crate 4 (robot with gavel)"
+          }
+        ],
+        "manim": {
+          "class": "B17_Next"
+        },
+        "motion_claim": "Four dotted, not-yet-built crates in a row, each turning to a solid outline as it is named; the meaning librarian picks distractors for crate 2."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.79,
+      "audio_file": "mp3/beat-B17.mp3",
+      "raw_voice_s": 9.79,
+      "render_duration_s": 9.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "part": 4,
+      "act": "evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "I set these pass/fail rules before the Milestone 2 runs (drafted with Claude, adopted by me):",
+      "narration_text": "I set these pass-fail rules before the Milestone 2 runs (drafted with Claude, adopted by me):",
+      "estimated_duration_s": 7.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title card. A clipboard checklist slides in with four rule rows and empty verdict boxes; a small tag 'before Milestone 2 · drafted with Claude, adopted by me'.",
+        "on_screen": [
+          "4 · Evaluation",
+          "pass/fail rules",
+          "1 Trust",
+          "2 Length",
+          "3 Dense vs BM25",
+          "4 Human vs agent",
+          "before Milestone 2",
+          "drafted with Claude · adopted by me"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title card '4 · Evaluation' held over the 1.2 s lead silence, then shrinks to the top-left header"
+          },
+          {
+            "at": 0.13,
+            "on": "pass/fail rules",
+            "event": "clipboard + four empty rows"
+          },
+          {
+            "at": 0.3,
+            "on": "before the Milestone 2 runs",
+            "event": "tag 'before Milestone 2'"
+          },
+          {
+            "at": 0.61,
+            "on": "drafted with Claude, adopted by me",
+            "event": "tag 'drafted with Claude · adopted by me'"
+          }
+        ],
+        "manim": {
+          "class": "B18_Rules"
+        },
+        "motion_claim": "Title card. A clipboard checklist slides in with four rule rows and empty verdict boxes; a small tag 'before Milestone 2 · drafted with Claude, adopted by me'."
+      },
+      "title_card": {
+        "text": "4 · Evaluation",
+        "hold_s": 1.2
+      },
+      "lead_silence_s": 1.2,
+      "lead_silence_note": "1.2 s of silence padded onto the head (raw voice in mp3/_raw/), 2026-11-23",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.41,
+      "audio_file": "mp3/beat-B18.mp3",
+      "raw_voice_s": 6.21,
+      "render_duration_s": 7.416666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B18.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "part": 4,
+      "act": "evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Trust: every test passes and every number links to a dated results folder. Met.",
+      "narration_text": "Trust: every test passes and every number links to a dated results folder. Met.",
+      "estimated_duration_s": 5.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Checklist row 1 enlarges: '135 tests ✓', an arrow from a number to a 'dated results folder'; verdict box stamps MET; row shrinks back.",
+        "on_screen": [
+          "1 Trust",
+          "135 tests ✓",
+          "dated results folder",
+          "Met"
+        ],
+        "show": [
+          {
+            "at": 0.09,
+            "on": "every test passes",
+            "event": "'135 tests ✓'"
+          },
+          {
+            "at": 0.67,
+            "on": "dated results folder",
+            "event": "arrow to folder icon; label"
+          },
+          {
+            "at": 0.95,
+            "on": "Met.",
+            "event": "verdict stamp 'Met'"
+          }
+        ],
+        "manim": {
+          "class": "B19_Trust"
+        },
+        "motion_claim": "Checklist row 1 enlarges: '135 tests ✓', an arrow from a number to a 'dated results folder'; verdict box stamps MET; row shrinks back."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.31,
+      "audio_file": "mp3/beat-B19.mp3",
+      "raw_voice_s": 5.31,
+      "render_duration_s": 5.333333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B19.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "part": 4,
+      "act": "evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Length: if picking the shortest passages beats random, dense results are provisional. It did, by a small margin, so they're provisional.",
+      "narration_text": "Length: if picking the shortest passages beats random, dense results are provisional. It did, by a small margin, so they're provisional.",
+      "estimated_duration_s": 8.4,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Row 2: a ruler sorts pages short-first; two unnumbered bars, 'shortest first' slightly taller than 'random'; verdict stamps PROVISIONAL.",
+        "on_screen": [
+          "2 Length",
+          "shortest first",
+          "random",
+          "small margin",
+          "Provisional"
+        ],
+        "show": [
+          {
+            "at": 0.08,
+            "on": "picking the shortest passages",
+            "event": "ruler sorts pages; bar 'shortest first'"
+          },
+          {
+            "at": 0.3,
+            "on": "beats random",
+            "event": "bar 'random'"
+          },
+          {
+            "at": 0.69,
+            "on": "by a small margin",
+            "event": "the small gap highlights; label 'small margin'"
+          },
+          {
+            "at": 0.83,
+            "on": "so they're provisional",
+            "event": "verdict stamp 'Provisional'"
+          }
+        ],
+        "manim": {
+          "class": "B20_Length"
+        },
+        "motion_claim": "Row 2: a ruler sorts pages short-first; two unnumbered bars, 'shortest first' slightly taller than 'random'; verdict stamps PROVISIONAL."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.62,
+      "audio_file": "mp3/beat-B20.mp3",
+      "raw_voice_s": 8.62,
+      "render_duration_s": 8.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B20.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B21",
+      "part": 4,
+      "act": "evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Dense beats BM25 only if the 95% interval is above zero. It was, by +0.32 recall, but my corpus is made of BM25's near-misses, so it flatters dense models.",
+      "narration_text": "Dense beats B M twenty-five only if the ninety-five percent interval is above zero. It was, by plus zero point three two recall, but my corpus is made of B M twenty-five's near-misses, so it flatters dense models.",
+      "estimated_duration_s": 11.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Row 3: the interval whisker from B15 lands above the zero line at +0.32; the meaning librarian steps up; then the test-corpus crate from B12 reappears with its grey near-miss layer and a tilted spotlight on the meaning librarian ('flatters dense models'); verdict PROVISIONAL-FLATTERED.",
+        "on_screen": [
+          "3 Dense vs BM25",
+          "95% interval",
+          "0",
+          "+0.32 recall",
+          "BM25's near-misses",
+          "flatters dense models",
+          "Provisional-flattered"
+        ],
+        "show": [
+          {
+            "at": 0.16,
+            "on": "the 95% interval is above zero",
+            "event": "zero line + whisker; label"
+          },
+          {
+            "at": 0.44,
+            "on": "+0.32 recall",
+            "event": "whisker lands above zero; '+0.32 recall'; meaning librarian steps in"
+          },
+          {
+            "at": 0.69,
+            "on": "BM25's near-misses",
+            "event": "B12 crate returns, grey layer highlighted"
+          },
+          {
+            "at": 0.82,
+            "on": "so it flatters dense models",
+            "event": "spotlight on the meaning librarian; label; verdict 'Provisional-flattered'"
+          },
+          {
+            "at": 1.0,
+            "after": "flatters dense models.",
+            "event": "meaning librarian exits"
+          }
+        ],
+        "manim": {
+          "class": "B21_DenseVsBM25"
+        },
+        "motion_claim": "Row 3: the interval whisker from B15 lands above the zero line at +0.32; the meaning librarian steps up; then the test-corpus crate from B12 reappears with its grey near-miss layer and a tilted spotlight on the meaning librarian ('flatters dense models'); verdict PROVISIONAL-FLATTERED."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.51,
+      "audio_file": "mp3/beat-B21.mp3",
+      "raw_voice_s": 15.51,
+      "render_duration_s": 15.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B21.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "B22",
+      "part": 4,
+      "act": "evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "Human vs agent: the human question came out ahead with every search method; the gap shrank from 5 points with keyword search to about 1 point with the meaning-based models, too small to call for e5.",
+      "narration_text": "Human versus agent: the human question came out ahead with every search method; the gap shrank from 5 points with keyword search to about 1 point with the meaning-based models, too small to call for E five.",
+      "estimated_duration_s": 14.4,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Row 4: four small scales (from B04) now named BM25, bge-small, e5-small, hybrid, all tipped to 'human'; a gap bracket '5 points' beside the keyword librarian shrinks to 'about 1 point' beside the meaning librarian; the e5 scale gets a '?' 'too small to call'; verdict HUMAN AHEAD.",
+        "on_screen": [
+          "4 Human vs agent",
+          "human ahead",
+          "BM25",
+          "bge-small",
+          "e5-small",
+          "hybrid",
+          "5 points · keyword search",
+          "about 1 point · meaning-based",
+          "too small to call for e5",
+          "Human ahead"
+        ],
+        "show": [
+          {
+            "at": 0.18,
+            "on": "came out ahead with every search method",
+            "event": "four scales tip to 'human'"
+          },
+          {
+            "at": 0.48,
+            "on": "5 points with keyword search",
+            "event": "keyword librarian + bracket '5 points'"
+          },
+          {
+            "at": 0.63,
+            "after": "5 points with keyword search",
+            "event": "keyword librarian exits left"
+          },
+          {
+            "at": 0.65,
+            "on": "about 1 point with the meaning-based models",
+            "event": "bracket shrinks; meaning librarian; 'about 1 point'"
+          },
+          {
+            "at": 0.87,
+            "on": "too small to call for e5",
+            "event": "'?' on the e5 scale; label"
+          },
+          {
+            "at": 0.98,
+            "on": "e5.",
+            "event": "verdict stamp 'Human ahead'"
+          },
+          {
+            "at": 1.0,
+            "after": "too small to call for e5.",
+            "event": "meaning librarian exits right"
+          }
+        ],
+        "manim": {
+          "class": "B22_HumanVsAgent"
+        },
+        "motion_claim": "Row 4: four small scales (from B04) now named BM25, bge-small, e5-small, hybrid, all tipped to 'human'; a gap bracket '5 points' beside the keyword librarian shrinks to 'about 1 point' beside the meaning librarian; the e5 scale gets a '?' 'too small to call'; verdict HUMAN AHEAD."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 13.33,
+      "audio_file": "mp3/beat-B22.mp3",
+      "raw_voice_s": 13.33,
+      "render_duration_s": 13.333333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B22.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "part": 4,
+      "act": "outro",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "script_text": "It worked if: the numbers reproduce and the limits are stated. It failed if: a fixed corpus erases the dense advantage. Next, I'll build that fixed corpus.",
+      "narration_text": "It worked if: the numbers reproduce and the limits are stated. It failed if: a fixed corpus erases the dense advantage. Next, I'll build that fixed corpus.",
+      "estimated_duration_s": 11.8,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Completed checklist shrinks left; two columns 'worked if' / 'failed if' fill; a dotted 'fixed corpus' crate solidifies under 'next'; title Agentic Retrieval Lab + her handle; Rithika waves, then the frame holds.",
+        "on_screen": [
+          "worked if",
+          "numbers reproduce",
+          "limits stated",
+          "failed if",
+          "fixed corpus erases the dense advantage",
+          "next: fixed corpus",
+          "Agentic Retrieval Lab",
+          "Rithika Sankar Rajeswari · github.com/rithika-sr"
+        ],
+        "show": [
+          {
+            "at": 0.0,
+            "on": "It worked if",
+            "event": "column 'worked if'"
+          },
+          {
+            "at": 0.09,
+            "on": "the numbers reproduce",
+            "event": "'numbers reproduce' ✓"
+          },
+          {
+            "at": 0.26,
+            "on": "the limits are stated",
+            "event": "'limits stated' ✓"
+          },
+          {
+            "at": 0.41,
+            "on": "It failed if",
+            "event": "column 'failed if'"
+          },
+          {
+            "at": 0.5,
+            "on": "a fixed corpus erases the dense advantage",
+            "event": "label"
+          },
+          {
+            "at": 0.77,
+            "on": "Next, I'll build that fixed corpus",
+            "event": "dotted crate solidifies; title + handle; Rithika waves"
+          }
+        ],
+        "manim": {
+          "class": "BOUT_Close"
+        },
+        "motion_claim": "Completed checklist shrinks left; two columns 'worked if' / 'failed if' fill; a dotted 'fixed corpus' crate solidifies under 'next'; title Agentic Retrieval Lab + her handle; Rithika waves, then the frame holds.",
+        "remotion": {
+          "props": {
+            "title": "Agentic Retrieval Lab",
+            "handle": "Rithika Sankar Rajeswari · github.com/rithika-sr",
+            "subline": ""
+          }
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, labels only, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "tail_silence_s": 1.0,
+      "outro_note": "As in the October reel (Rithika, 2026-10-10): drawn in Manim with her own title and handle. The stock ClaudeTitleOutro hard-codes the instructor's handle and mascot. The 1.0 s silent tail is padded onto the mp3.",
+      "actual_duration_s": 11.43,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "raw_voice_s": 10.43,
+      "tail_silence_note": "1.0 s silent tail padded (raw voice in mp3/_raw/), 2026-11-23",
+      "render_duration_s": 11.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BOUT.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T20:45:43"
+      }
+    }
+  ]
+}
