@@ -6,7 +6,7 @@
 | **SHA-256** | `27bf66b897cd744465768958df403ad8584101c3319c7476563ff359510d626d` |
 | **Length** | 3 min 51 s (231.5 s), under the four-minute target and the brief's five-minute limit |
 | **Format** | 1920×1080, H.264 video, AAC audio, 10.8 MB |
-| **Link** | *To be added by the owner after uploading (for example, an unlisted video or a shared drive link). Posting publicly is the owner's decision.* |
+| **Where** | Included in the Canvas zip `Hambir_Atharva_INFO7375_FinalProject.zip`. Not uploaded online and not in GitHub. |
 | **Built** | 2026-11-23 (second version, after the owner's script edits), with the local Brutalist toolkit (Manim, Remotion, Kokoro narration). No paid services. |
 
 ## What it shows, in the order the course asks for
