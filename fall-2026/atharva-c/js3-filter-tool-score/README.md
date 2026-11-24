@@ -22,7 +22,10 @@ JS3 re-collected the three boards with `?content=true`, because JS2's Greenhouse
 
 - Python 3.12.7, **standard library only** (nothing to install)
 - Tests use `unittest`
-- Tested on macOS
+- Tested on macOS. On Nov 24, 2026, Claude cloned this branch fresh at `2f40542` into a scratch folder and re-ran every command above except the live `agent.loop` (it replayed the saved run instead) and `claude mcp add`.
+  - All 57 tests passed, and all five wrong versions were caught.
+  - The filter, evaluate, shortlist and recount commands printed the numbers in this README.
+  - Regenerating the shortlist left the committed files unchanged (`git status` was clean).
 
 ## Commands
 
