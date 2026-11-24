@@ -116,13 +116,23 @@ class ToolTest(unittest.TestCase):
         self.assertTrue(tools[0]["annotations"]["readOnlyHint"])
 
     def test_the_call_enforces_what_the_schema_declares(self):
+        # MCP 2025-11-25, server/tools, "Error Handling" (read 2026-11-24): unknown tools and requests
+        # that fail the CallToolRequest schema are protocol errors; "Input validation errors (e.g., date
+        # in wrong format, value out of range)" are tool execution errors, a result with isError true.
         server = ready_server()
         good = {"board": SAVED.board, "posting_key": SAVED.key}
-        bad_arguments = [[], {}, {"board": SAVED.board}, dict(good, extra=1), dict(good, board="greenhouse/stripe"),
-                         dict(good, posting_key=""), dict(good, posting_key=5), dict(good, posting_key="x" * 301)]
-        for arguments in bad_arguments:
+        schema_violations = [{}, {"board": SAVED.board}, dict(good, extra=1), dict(good, board="greenhouse/stripe"),
+                             dict(good, posting_key=""), dict(good, posting_key=5), dict(good, posting_key="x" * 301)]
+        for arguments in schema_violations:
             with self.subTest(arguments=arguments):
-                self.assertEqual(server.handle(call(arguments))["error"]["code"], -32602)
+                response = server.handle(call(arguments))
+                self.assertNotIn("error", response)
+                self.assertTrue(response["result"]["isError"])
+                self.assertIn("Expected arguments", response["result"]["content"][0]["text"])
+        for params in ({"name": "score_posting", "arguments": []}, {"name": "score_posting", "arguments": "x"}, [], None):
+            with self.subTest(params=params):
+                message = {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": params}
+                self.assertEqual(server.handle(message)["error"]["code"], -32602)
         self.assertEqual(server.handle(call(good, name="lookup"))["error"]["code"], -32602)
 
     def test_a_missing_posting_is_a_tool_error_not_a_protocol_error(self):

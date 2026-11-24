@@ -1,0 +1,64 @@
+$ python3 -m unittest tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares
+# 2026-11-24T23:06:13Z, test revised from the MCP 2025-11-25 tools page; mcp_server.py unchanged (0.1.0)
+FFFFFFF
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/anthropic'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/anthropic', 'posting_key': '5456619008', 'extra': 1})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/stripe', 'posting_key': '5456619008'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/anthropic', 'posting_key': ''})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/anthropic', 'posting_key': 5})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+======================================================================
+FAIL: test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) (arguments={'board': 'greenhouse/anthropic', 'posting_key': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_mcp_server.py", line 129, in test_the_call_enforces_what_the_schema_declares
+    self.assertNotIn("error", response)
+AssertionError: 'error' unexpectedly found in {'jsonrpc': '2.0', 'id': 3, 'error': {'code': -32602, 'message': 'Expected arguments {board: one of greenhouse/anthropic, greenhouse/databricks, ashby/linear, posting_key: a string}'}}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=7)
+# exit code 1
