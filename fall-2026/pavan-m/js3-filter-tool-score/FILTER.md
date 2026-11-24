@@ -513,3 +513,17 @@ Any changes after testing must be recorded in a new version with:
 - The impact on previously classified postings.
 
 **Important:** Version 1.0 is an initial hypothesis, not an optimized filter. Its effectiveness must be evaluated against manually reviewed postings before claiming that it reliably identifies relevant opportunities.
+
+## 9. Clarifications recorded after implementation (November 23, 2026)
+
+These were decided while implementing v1.0, after FILTER.md was committed and before the audit. They are recorded here rather than hidden in the code.
+
+| Rule | v1.0 text | As implemented | Reason | Impact on the Nov 23 run |
+|---|---|---|---|---|
+| Bare "San Francisco" | "San Francisco, CA" +2 | "San Francisco" with no state also +2 | OpenAI writes plain "San Francisco" | 23 of OpenAI's 25 KEEPs depend on it |
+| "US - Remote" | "Remote - US", "Remote (US)" | "US - Remote" also +2 | OpenAI's wording | not yet counted |
+| "REST API" | "REST APIs" | singular "REST API" also matches | same meaning | not yet counted |
+
+Known gaps, not changed: Palo Alto gets 0 (not listed); "Vancouver" and "North America" are UNKNOWN; years ranges ("8–10 years") and spelled-out numbers ("eight years") are not caught; "Back-end", "Postgres" and "GitHub" do not match "Backend", "PostgreSQL" and "Git".
+
+**Retrieval gap found:** the JS2 Lever adapter reads only `descriptionPlain`; Lever's "What We Require" section is in a separate `lists` field and is never seen by the filter. 67 of 139 Palantir "Software Engineer" postings were rejected for having no technical category. To be measured in the audit before any change.
