@@ -133,7 +133,7 @@ These are results on one run of 400 postings (Nov 23, 2026). The audit interval 
 
 ## False friend
 
-`Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`, Remote US) looks like a valid match under the scoring rules because the substring `"Software Engineer"` inside `"Software Engineering"` triggers R1 (`+0.50`) and a skill match adds R4 (`+0.10`), giving it a passing score of `0.60`. In reality, the posting is for a seasoned Engineering Manager leading a team rather than an individual-contributor role for a new grad with 0–2 years of experience. It is rejected only because the G1 seniority gate catches `"Manager"` in the title before scoring runs. Without G1—or if a similar leadership title omitted an explicit seniority keyword—the substring match in R1 would surface a management role as a high-scoring junior engineering fit.
+`Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`, Remote US) looks like a valid match under the scoring rules because R1's pattern has no word boundary at the end, so `"Software Engineer"` matches inside `"Software Engineering"` and triggers R1 (`+0.50`) and a skill match adds R4 (`+0.10`), giving it a passing score of `0.60`. In reality, the posting is for a seasoned Engineering Manager leading a team rather than an individual-contributor role for a new grad with 0–2 years of experience. It is rejected only because the G1 seniority gate catches `"Manager"` in the title; the 0.60 is still computed, but a gated posting is never kept. Without G1—or if a similar leadership title omitted an explicit seniority keyword—the open-ended R1 match would surface a management role as a high-scoring junior engineering fit.
 
 ## Honesty notes
 
