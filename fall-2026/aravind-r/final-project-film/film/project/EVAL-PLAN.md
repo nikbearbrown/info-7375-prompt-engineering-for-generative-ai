@@ -16,7 +16,7 @@ Items marked **(decided)** were proposed by Claude Code and approved by Aravind 
 |---|---|---|
 | Claude | `claude -p` on Aravind's subscription (or API credits) | CLI verified installed (2.1.323) |
 | A second provider's model | Aravind's second-provider access | confirmed by Aravind; not configured on this machine |
-| A local open-weight model | Ollama (free, local) | **not installed** |
+| A local open-weight model | Ollama (free, local) | **installed 2026-11-23 (0.40.17); no model pulled; not yet wired as a judge** |
 
 Each judge scores every recap on every clause, pass or fail. For C1 it also marks each of that meeting's AMI decisions as covered or missing.
 

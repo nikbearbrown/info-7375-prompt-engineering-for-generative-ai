@@ -1,6 +1,6 @@
 # TYPECHECK.md — GATE T
 
-Reel: `aravind-r-readback-project-film`  |  Checked: 2026-11-23T20:54  |  Overall: PASS  |  Beats checked: 21  |  FAILs: 0
+Reel: `aravind-r-readback-project-film`  |  Checked: 2026-11-23T22:16  |  Overall: PASS  |  Beats checked: 21  |  FAILs: 0
 
 Spec: `skills/make/kerning/reference/type-spec.md` §8.  Floor: 1.9% frame-height.  Contrast: 4.5:1 WCAG.  Kern threshold: 3.5× expected advance.  Wordy budget: 2 elements.
 

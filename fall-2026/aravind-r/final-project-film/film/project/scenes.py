@@ -917,7 +917,7 @@ def L14():
 HAVE = ((("have",), "tick", ((("AMI data · 10 meetings",), ("in my repository",)), (("10 real recaps",), ("in my repository",)),
                              (("Claude (claude -p)",), ("set up on this Mac", "CLI 2.1.323")), (("compute",), ("this Mac",)))),
         (("account,", "not yet wired"), "open", ((("API credits",), ()), (("a second provider",), ()))),
-        (("planned",), "open", ((("local open-weight", "model"), ("Ollama not installed",)), (("my human labels",), ("I mark the 86 decisions",)))))
+        (("planned",), "open", ((("local open-weight", "model"), ("Ollama installed,", "judge not wired")), (("my human labels",), ("I mark the 86 decisions",)))))
 COL_X, SEP_X = [-6.05, -1.40, 2.10], [-1.52, 1.98]   # measured: widest lines 4.40 / 3.25 / 3.87 at 36 and 32
 
 

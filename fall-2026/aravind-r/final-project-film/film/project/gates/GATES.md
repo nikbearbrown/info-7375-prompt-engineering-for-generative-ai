@@ -1,7 +1,7 @@
-# GATES — Readback project film · after the final fix pass (measured 2026-11-23, 20:54–20:57 EST)
+# GATES — Readback project film · after the final fix pass and the B15 Ollama line (measured 2026-11-23, 22:16–22:20 EST)
 
 **The file:** `../aravind-r-readback-project-film.mp4`. It's byte-identical to the toolkit master `../exports/landscape/aravind-r-readback-project-film.mp4`.
-- **Verified record:** status `ready`, SHA-256 `4d790803396c37d6db21b516567aa1267d72d89a1c0eca1d06e41b5df6a4520d`, matching the file.
+- **Verified record:** status `ready`, SHA-256 `535fe61b3ba67484f88d8beb9859b9d3de5c010748f4765a57457b420aba6752`, matching the file.
 - **Format:** 1920×1080, 24 fps, H.264, AAC 48 kHz stereo, 236.79 s.
 - **Measurements:** `../qc_film.py`, whose raw output is `QC.json`.
 
@@ -16,6 +16,9 @@
   - B07 now says "names the criterion behind a disagreement".
   - B15 puts "compute · this Mac" under "have", and "my human labels · I mark the 86 decisions" stays under "planned" beside the local model.
   - B01 gained two colour flashes, on "meant" and "and", because its new timing opened a 3 s static stretch.
+- **B15's Ollama line:** it now reads "local open-weight model · Ollama installed, judge not wired".
+  - Checked 22:11 EST: `ollama --version` gives 0.40.17, `/Applications/Ollama.app` is present, the Homebrew cask is `ollama-app`, and `ollama serve` is running. `ollama list` shows no model, and the repo has no judge code.
+  - The narration is unchanged, so nothing was re-voiced. Only B15 and B16 were re-rendered, and every gate was re-run. The audio, the runtime and every measurement match the previous master.
 
 ## Phase 4 gates (my brief)
 
@@ -41,7 +44,7 @@
 |---|---|---|
 | F — paperwork exists | PASS | `../FACTCHECK.md`, `../SHOTLIST.md`, `../PROMPTS.md` |
 | factcheck (content of F) | clean: 81 rows, 21 of 21 beats covered | `factcheck_check.txt` |
-| L — beat-mix lint | clean | `art-run-19.log` |
+| L — beat-mix lint | clean | `art-run-20.log` |
 | A — static pre-flight | clean, 0 warnings, all 20 scenes | `gates-AWB-final.txt` |
 | W — WCAG contrast, margins, text overlap | clean, all 20 scenes | `gates-AWB-final.txt` |
 | B — layout audit (`--curve-strict`) | CLEAN, all 20 scenes | `gates-AWB-final.txt` |
@@ -88,7 +91,7 @@
 - B10: `AMI ES2007a transcript · CC BY 4.0`, `Claude · claude-opus-5-5`, then `real output · claude-opus-5-5 · 14 Oct 2026` and `10 real recaps · claude-opus-5-5 · 14 Oct 2026`.
 - B11: `AMI ES2007a · CC BY 4.0`. AMI's DECISIONS list is the reference answer, not labels.
 - B14: `ES2010b · AMI · CC BY 4.0`; `real recap · claude-opus-5-5 · 14 Oct 2026`; "AMI's DECISIONS list: “will consider including … a locator function”".
-- B15: `a tick means set up on this Mac · status as of 23 Nov 2026`. The three columns keep the verified wording. Under "have": the AMI data, the 10 recaps, Claude (`claude -p`, CLI 2.1.323) and compute (this Mac). Under "planned": the local open-weight model (Ollama not installed) and my human labels (I mark the 86 decisions).
+- B15: `a tick means set up on this Mac · status as of 23 Nov 2026`. The three columns keep the verified wording. Under "have": the AMI data, the 10 recaps, Claude (`claude -p`, CLI 2.1.323) and compute (this Mac). Under "planned": the local open-weight model (Ollama installed, judge not wired; checked 22:11 EST) and my human labels (I mark the 86 decisions).
 
 **Planned material:**
 - Drawn dashed grey, with every value shown as "—". My human labels always read as mine and planned.

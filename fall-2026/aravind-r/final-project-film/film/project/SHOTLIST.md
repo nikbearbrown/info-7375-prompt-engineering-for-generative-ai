@@ -34,7 +34,7 @@ Typed work order. Everything comes from the free local pipeline: Kokoro narratio
 
 ## Holds over 2.5 s
 
-Measured on the delivered file with ffmpeg `freezedetect=n=0.003:d=2.5` (23 Nov 2026, after the final fix pass). There are 3, each on a line that is being spoken, and none reaches 3 s except the end card:
+Measured on the delivered file with ffmpeg `freezedetect=n=0.003:d=2.5` (23 Nov 2026, after the final fix pass; re-measured on master `535fe61b` after the B15 Ollama line change, with identical results). There are 3, each on a line that is being spoken, and none reaches 3 s except the end card:
 
 | From – to (film time) | Beat | Length | What is said over it |
 |---|---|---|---|

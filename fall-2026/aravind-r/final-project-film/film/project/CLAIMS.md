@@ -57,7 +57,7 @@
 | N36 | B15 | Do I have what I need? | NO CLAIM | question |
 | N37 | B15 | The data and the ten recaps are in my repository, and Claude runs here on my subscription. | EVIDENCE | `case-study/data/sample/` (10 meetings); `case-study/outputs/feature-run/` (10 recaps); `claude` CLI 2.1.323 installed on this Mac (checked 2026-11-23), the same CLI that produced the recaps on 2026-10-14 |
 | N38 | B15 | My API credits and a second provider account aren't wired in yet. | EVIDENCE | The accounts are mine (stated by me, `FRICTIONAL.md` 2026-11-23 Phase 0); not wired in: no API key in this shell's environment (checked 2026-11-23). On screen: "account, not yet wired" |
-| N39 | B15 | Still to come: the local model, and my human labels. | PLANNED | Ollama not installed (checked 2026-11-23); my human labels are planned (`EVAL-PLAN.md`, proposal A) and no labels file exists |
+| N39 | B15 | Still to come: the local model, and my human labels. | PLANNED | Ollama 0.40.17 installed later on 2026-11-23 (checked 22:11 EST: `ollama --version`, `/Applications/Ollama.app`, Homebrew cask `ollama-app`, `ollama serve` running; `ollama list` shows no model, and no judge code is in the repo), so the local model is not yet a judge; my human labels are planned (`EVAL-PLAN.md`, proposal A) and no labels file exists |
 | N40 | B16 | Three checks on the test case, each with a pass and a fail. | PLANNED | `EVAL-PLAN.md` checks 1–3. "How will I know it worked?" cut for time (2026-11-23) |
 | N41 | B16 | First, a planted ambiguity: I'll make one clause deliberately vague, so I know the right answer in advance. | PLANNED | `EVAL-PLAN.md` check 1 |
 | N42 | B16 | It passes if Readback blames the clause I planted. | PLANNED | `EVAL-PLAN.md` check 1 (pass) |
@@ -110,7 +110,7 @@
 
 - **"Nobody can tell which clause caused it"** (the prompt's wording) became "it's hard to tell". "Nobody" can't be evidenced; the checked tools not naming the clause can.
 - **"Nobody notices"** (B03) became "the wrong grading goes unnoticed" (2026-11-23), so no line makes a "nobody" claim.
-- **"The compute is my laptop"** was cut from the narration. Phase 0 verified that the *film* pipeline runs on this Mac; no local judge model has been tested on it. The checklist shows exactly that: "compute · this Mac" is under "have" (final fix pass, 2026-11-23), and the local judge stays under "planned" as "local open-weight model · Ollama not installed".
+- **"The compute is my laptop"** was cut from the narration. Phase 0 verified that the *film* pipeline runs on this Mac; no local judge model has been tested on it. The checklist shows exactly that: "compute · this Mac" is under "have" (final fix pass, 2026-11-23), and the local judge stays under "planned" as "local open-weight model · Ollama installed, judge not wired".
 - **Braintrust and Confident AI** stay out. They were never checked (`FRICTIONAL.md`, 2026-10-14).
 - **Present-tense descriptions of what Readback does** became "will". Readback doesn't exist yet.
 - **"I'm Aravind Ravi, and this film is read by a synthetic voice"** (old B02) moved to the end: the end card and its spoken line now say "A project film by Aravind Ravi, read by a synthetic voice" (2026-11-23 positioning revision).
@@ -120,3 +120,4 @@
 - **"did you mean this, or that?"** (B14) became the real ES2010b example and its question, "Does a quick yes count?".
 - **"Below that, the judges can't be trusted on this clause"** (B17) became "Below that, it fails."
 - **Final fix pass (2026-11-23, my requests):** B01's first line became "AI features ship against acceptance criteria a PM wrote." (was "Every AI feature ships…"); B02's became "And where an eval is the launch gate, a misread criterion ships wrong behaviour at scale, with a passing score attached." (was "And because evals are becoming the launch gate for AI features, …", a trend claim). On screen, B07's "names the clause behind a disagreement" became "names the criterion behind a disagreement", and B15's compute moved from "planned" ("this Mac · local judge planned") to "have" ("this Mac").
+- **B15's Ollama line (2026-11-23, 22:11 EST check):** "planned · Ollama not installed" (true at the 05:19 and 15:50 EST checks) became "Ollama installed, judge not wired" after I installed Ollama 0.40.17. The narration is unchanged: the local model is still to come as a judge.

@@ -6,7 +6,7 @@ Gate (my brief, 23 Nov 2026): every mention of meetings, recaps, AMI (or an AMI 
 
 | Beat | Part | Starts | Sentence | Terms | Verdict |
 |---|---|---|---|---|---|
-| B09 | methods | 1:32.0 | I chose a meeting-recap feature on the AMI Meeting Corpus, because AMI ships human-written decision lists. | AMI, meeting, Meeting, recap | OK |
+| B09 | methods | 1:32.0 | I chose a meeting-recap feature on the AMI Meeting Corpus, because AMI ships human-written decision lists. | AMI, Meeting, meeting, recap | OK |
 | B09 | methods | 1:32.0 | I use ten of its meetings, which hold eighty-six decisions. | meetings | OK |
 | B10 | methods | 1:48.4 | The feature under test is a meeting recap: my own prompt, running on Claude. | meeting, recap | OK |
 | B10 | methods | 1:48.4 | I ran it on every meeting on October fourteenth, so ten real recaps already exist. | meeting, recaps | OK |
@@ -98,12 +98,12 @@ Gate (my brief, 23 Nov 2026): every mention of meetings, recaps, AMI (or an AMI 
 | B14_Trace | methods | 6.3–10.8 | real recap · claude-opus-5-5 · 14 Oct 2026 | recap | yes | OK |
 | B14_Trace | methods | 10.3–10.8 | C4 · revised by the PM | C4 | yes | OK |
 | B15_Have | methods | 0.0–0.6 | Recaps | Recaps | yes | OK |
-| B15_Have | methods | 0.0–0.6 | C4 | C4 | yes | OK |
 | B15_Have | methods | 0.0–0.6 | ES2010b · AMI · CC BY 4.0 | AMI, ES2010b | yes | OK |
 | B15_Have | methods | 0.0–0.6 | AMI's DECISIONS list: “will consider including … a locator function” | AMI | yes | OK |
-| B15_Have | methods | 0.0–0.6 | real recap · claude-opus-5-5 · 14 Oct 2026 | recap | yes | OK |
 | B15_Have | methods | 0.0–0.6 | C4 · revised by the PM | C4 | yes | OK |
+| B15_Have | methods | 0.0–0.6 | C4 | C4 | yes | OK |
 | B15_Have | methods | 0.0–0.6 | AMI data | AMI | yes | OK |
+| B15_Have | methods | 0.0–0.6 | real recap · claude-opus-5-5 · 14 Oct 2026 | recap | yes | OK |
 | B15_Have | methods | 1.1–13.2 | 10 real recaps | recaps | yes | OK |
 | B15_Have | methods | 1.1–13.2 | AMI data · 10 meetings | AMI, meetings | yes | OK |
 | B16_Planted | evaluation | 0.0–0.5 | 10 real recaps | recaps | yes | OK |
