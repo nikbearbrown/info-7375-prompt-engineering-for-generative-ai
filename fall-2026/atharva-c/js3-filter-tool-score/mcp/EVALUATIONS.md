@@ -1,8 +1,6 @@
 # MCP server evaluations
 
-DRAFT (Claude, Nov 24, 2026), to be checked and rewritten by me.
-
-The same questions are asked of both servers:
+Both servers were evaluated against the same five questions:
 
 1. What can it read, and what can it change?
 2. How is access limited, and does it hold?
@@ -10,68 +8,70 @@ The same questions are asked of both servers:
 4. How are errors reported?
 5. Is there a record of what was called?
 
+---
+
 ## 1. My server: `js3-job-filter` (`agent/mcp_server.py`, commit `3ee665a`)
 
-**How I evaluated it:** I ran it, which was more than reading the code.
-
-- `tests/test_mcp_server.py` has 12 tests that pass. They run over stdio against the real server.
-- `evidence/mcp/scripted-transcript.jsonl` is a scripted raw-protocol session.
-- `evidence/mcp/claude-code-transcript.md` is one real Claude Code session, run Nov 24, 06:03 UTC.
-- A probe on Nov 24 sent extra arguments, an unknown board, and 50 repeated calls. Its call log is in `out/`, which is git-ignored.
+**How I evaluated it:** I tested the server by running it rather than relying on code inspection alone:
+- `tests/test_mcp_server.py` runs 12 passing tests against the live server over stdio.
+- `evidence/mcp/scripted-transcript.jsonl` captures a scripted raw-protocol session (`tests/mcp_scripted_client.py`).
+- `evidence/mcp/claude-code-transcript.md` records a live Claude Code session run on Nov 24 at `06:03 UTC`.
+- An adversarial probe on Nov 24 sent undeclared arguments, an unknown board name, and 50 repeated tool calls (its call log is saved in git-ignored `out/`).
 
 | Question | Finding | Evidence |
-|---|---|---|
-| Reads / changes | It has 4 tools, and all of them read the saved Nov 23 run. None changes anything: there is no network, no subprocess, and no write except its own call log. | Source; `test_tools_list_is_read_only` |
-| Access limits | The data is fixed at startup. The call log is the only file it writes, and the server refuses to start if the log path is outside `out/`. | `test_log_must_stay_in_folder` (`/etc/js3.log` is refused) |
-| Unknown action | `apply_to_job` gets JSON-RPC `-32602 unknown tool`. There is nothing to apply with. | Scripted transcript, id 7 |
-| Errors | A bad uid or a bad `limit` comes back as `isError: true` and the server keeps running. Malformed JSON gets `-32700`, and an unknown method gets `-32601`. | Tests; scripted transcript, id 6 |
-| Logging | Every call goes to JSONL with a timestamp, the tool, its arguments, an error flag and the time taken. A one-line summary goes to stderr. | `evidence/mcp/claude-code-server-log.jsonl` (13 rows for the real session) |
-| Speed | 50 `judge_posting` calls took 26 ms in total. | Probe |
+| :--- | :--- | :--- |
+| **Reads / changes** | Exposes 4 read-only tools over the saved Nov 23 collection. It makes no network calls, spawns no subprocesses, and writes nothing except its own call log. | Source; `test_tools_list_is_read_only` |
+| **Access limits** | The dataset is fixed at startup. The call log is the only file written, and the server refuses to start if the log path points outside `out/`. | `test_log_must_stay_in_folder` (`/etc/js3.log` refused) |
+| **Unknown action** | Calling an undeclared tool (`apply_to_job`) returns JSON-RPC `-32602` (unknown tool); there is no write or apply capability. | Scripted transcript, id `7` |
+| **Errors** | A bad `uid` or invalid `limit` returns `isError: true` while keeping the server alive. Malformed JSON returns `-32700`, and an unknown method returns `-32601`. | Tests; scripted transcript, id `6` |
+| **Logging** | Every call is appended to JSONL with timestamp, tool name, arguments, error flag, and elapsed time, plus a one-line summary on `stderr`. | `evidence/mcp/claude-code-server-log.jsonl` (13 rows for the live session) |
+| **Speed** | 50 sequential `judge_posting` calls completed in 26 ms total. | Nov 24 probe |
 
-**What is wrong with it** (found by running it, not by reading it):
+### What is wrong with it (found by running it, not by reading it)
 
-1. **The schema promised checks the server did not make** (fixed in `e273c8e`, see below). Each tool says `additionalProperties: false`, and `board` is an enum, but the server checks neither.
-   - `get_posting` with an extra `"delete": true` succeeded without a word about the unknown argument.
-   - `search_postings` with `board: "lever"` returned `total: 0` instead of an error. That is the "no matches on X" answer that FILTER.md §3 forbids: "lever" is not a board here, so the honest answer is "I did not search that".
-2. **Search is a substring match.**
-   - In the real session, "Software Engineer I" matched 31 titles: the 8 SWE I postings, 22 SWE II, and 1 intern posting.
-   - The client had to filter these itself ("I left those out").
-   - It also miscounted them: its answer says "23 Software Engineer II postings", but a recount of the same 31 titles by script on Nov 24 gives 22 SWE II, 8 SWE I and 1 intern. A client summarizing a long result list is its own source of error.
-   - With the default limit of 10, a client that trusts the first page could miss SWE I roles.
-3. **`judge_posting` returns rule codes without their meaning.**
-   - It returns `gates: ["G3"]` and `rules: {"R1": 0.5, …}`, but nothing says what G3 or R1 checks.
-   - The real client wrote: the tool "only gives the gate's name, not what it checks."
-4. **The data is a snapshot, and only one tool description says so.**
-   - `search_postings` says "saved Nov 23, 2026 run".
-   - `get_posting` and `judge_posting` don't, so a client could present a posting as currently open.
-5. **The full text is returned twice.** Each result carries the text once in `content` as a JSON string and once in `structuredContent`. That doubles the tokens a client reads: `get_posting` is about 5,100 characters of text, sent twice.
+1. **Declared schemas were not enforced at runtime (fixed in `e273c8e`):** Every tool declared `additionalProperties: false` and an enum for `board`, yet the server checked neither.
+   - `get_posting` accepted an extra `"delete": true` argument without complaint.
+   - `search_postings` with `board: "lever"` returned `total: 0` instead of an error, producing the exact `"no matches on X"` response forbidden by `FILTER.md` §3 (`lever` was never searched, so the honest answer is `"I did not search that"`).
+2. **Search uses plain substring matching:**
+   - In the live Claude Code session, querying `"Software Engineer I"` matched 31 titles: the 8 `Software Engineer I` postings, 22 `Software Engineer II` postings, and 1 intern posting.
+   - The client had to filter out the non-SWE-I roles itself (`"I left those out"`) and miscounted them in its final summary (`"23 Software Engineer II postings"` vs. 22 confirmed by a Nov 24 script recount), showing that a client summarizing a long result list becomes its own source of error.
+   - With the default page limit of 10, a client that trusts the first page alone can miss genuine `Software Engineer I` matches.
+3. **`judge_posting` returns rule codes without explanations:**
+   - The tool outputs `gates: ["G3"]` and `rules: {"R1": 0.5, …}` without stating what each code checks, prompting the live client to note that the tool `"only gives the gate's name, not what it checks."`
+4. **Only one tool description states that the dataset is a static snapshot:**
+   - `search_postings` mentions the `"saved Nov 23, 2026 run"`, whereas `get_posting` and `judge_posting` omit that caveat, risking a client presenting archived listings as live openings.
+5. **Full posting text is duplicated in every response:**
+   - Each tool result includes the full text once inside `content` as a JSON string and a second time inside `structuredContent`. For `get_posting`, that sends roughly 5,100 characters of posting body twice and doubles client token consumption.
+
+---
 
 ## 2. Another server: the official Filesystem server (`@modelcontextprotocol/server-filesystem`)
 
-**How I evaluated it:** by reading its README and source on GitHub (`modelcontextprotocol/servers`, `src/filesystem`, package version 2.4.0, read Nov 24, 2026). I did **not** install or run it, because that would mean downloading and executing code I did not write.
-- Two caveats on the reading. Several files were only partly read: the tails of `lib.ts` and `server.ts`, plus some helper modules that were not read at all. The README's install section was also only summarized.
-- Points that rest on those partial reads are marked *(partly read)*.
+**How I evaluated it:** By reading its README and TypeScript source on GitHub (`modelcontextprotocol/servers`, `src/filesystem`, package version `2.4.0`, reviewed Nov 24, 2026). I did not install or execute it locally, since doing so would require downloading and running third-party code I did not write.
+- **Reading caveats:** Several files were only partially inspected—specifically the tails of `lib.ts` and `server.ts`, plus several helper modules—and the README installation section was only summarized. Points relying on incomplete sections are marked `(partly read)`.
 
-| Question | Finding |
-|---|---|
-| Reads / changes | It has 16 tools. 10 read, and 6 change files: `write_file` (overwrites), `append_file`, `edit_file`, `create_directory`, `move_file` (removes the source), and `copy_file` (which refuses to overwrite). |
-| Access limits | Allowed directories come from command-line arguments. A client's MCP Roots replace them unless `--confine-roots` is set. Paths are resolved and normalized, then checked as a prefix on a separator boundary. Symlinks are resolved with `realpath`, and the target must also be inside. Null bytes are rejected, as are some Windows-only tricks (alternate data streams, device names). `--read-only` drops every tool whose `readOnlyHint` is not `true`. |
-| Tool annotations | Every tool has them. The read tools have `readOnlyHint: true`, and `write_file`, `edit_file` and `move_file` have `destructiveHint: true`. `openWorldHint` is false throughout *(partly read for two tools)*. |
-| Errors | The handlers throw errors with clear messages ("Access denied - path outside allowed directories"). I could not confirm from the reading whether the SDK turns these into `isError: true` results or protocol errors. `read_multiple_files` reports each failed file inline and carries on. |
-| Logging | It logs to stderr: startup, allowed directories, read-only notices and changes to Roots. I found **no per-call log** in the parts I read *(partly read)*. |
-| Build | TypeScript on Node ≥ 24, using the official SDK packages (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`) with `zod` schemas. Transport is stdio, or streamable HTTP when that option is passed. |
+| Question | Finding | Evidence |
+| :--- | :--- | :--- |
+| **Reads / changes** | Exposes 16 tools: 10 read-only tools and 6 file-mutating tools (`write_file` overwrites, `append_file`, `edit_file`, `create_directory`, `move_file` removes the source, and `copy_file` refuses to overwrite). | GitHub source (`src/filesystem`) |
+| **Access limits** | Allowed directories are passed via CLI flags, though a client's MCP Roots replace them unless `--confine-roots` is set. Paths are normalized and prefix-checked on separator boundaries; symlinks are resolved via `realpath` and re-checked; null bytes and Windows device/ADS paths are rejected; and `--read-only` drops any tool without `readOnlyHint: true`. | GitHub source (`lib.ts`, `server.ts`) |
+| **Tool annotations** | Every tool declares annotations: read tools set `readOnlyHint: true`, destructive mutators (`write_file`, `edit_file`, `move_file`) set `destructiveHint: true`, and `openWorldHint` is `false` across the server `(partly read for two tools)`. | GitHub source `(partly read)` |
+| **Errors** | Handlers throw descriptive error messages (such as `"Access denied - path outside allowed directories"`), though I did not verify from the source read whether the SDK wraps those exceptions into `isError: true` tool results or protocol-level errors. `read_multiple_files` reports per-file errors inline and continues. | GitHub source `(partly read)` |
+| **Logging** | Logs startup configuration, allowed directories, read-only notices, and Roots updates to `stderr`, with no per-call audit log visible in the files I inspected `(partly read)`. | GitHub source `(partly read)` |
+| **Build** | TypeScript on Node ≥ 24 built on `@modelcontextprotocol/server`, `@modelcontextprotocol/node`, and `zod` schemas, supporting stdio and streamable HTTP transports. | README & `package.json` |
 
-**Compared with mine:**
+### Comparison with my server
 
-- **It has to defend what mine avoids.** Its write tools are why it needs path checks, symlink checks and a read-only mode. Mine has no write tool, so the only path it has to guard is its log. "Cannot change anything" is easier to show than "can only change what it should".
-- **It validates input and mine does not.** Its tools declare `zod` schemas through the SDK, so I'd expect it to reject an unknown argument before the tool runs (inferred from the SDK, not tested). Mine writes the same kind of schema by hand and then ignores it. This is the cost of writing the protocol from scratch: the schema is only documentation unless I check it myself.
-- **Mine keeps a record and it does not.** Mine logs every call with its arguments. The Filesystem server's stderr messages cover setup but, in the code I read, not each call. For an agent that should never act without a trace, mine does better here.
-- **Its annotations do work and mine are only labels.** Its `readOnlyHint` drives `--read-only`. Mine sets the same hints on every tool, but nothing in my server reads them.
+- **Attack surface vs. read-only design:** Because the Filesystem server mutates files on disk, it requires path normalization, symlink traversal checks, Roots confinement, and a `--read-only` flag. Because `js3-job-filter` has zero write tools, the only filesystem path it needs to guard is its own log file—proving a server cannot modify anything is far simpler than proving it only modifies what it should.
+- **Schema enforcement:** The Filesystem server declares `zod` schemas through the official MCP SDK, which validates incoming arguments before handler execution (inferred from SDK usage, not executed). Writing JSON-RPC from scratch meant my JSON Schema definitions acted purely as documentation until I wrote explicit validation code.
+- **Audit trail:** My server records every tool call, its arguments, its error status, and its latency to a JSONL log. The Filesystem server logs lifecycle and directory changes to `stderr` but showed no per-call trace in the source I read, making `js3-job-filter` stronger on call traceability.
+- **Executable vs. passive annotations:** In the Filesystem server, `readOnlyHint` directly controls behavior via `--read-only`. In my server, tool annotations are static metadata that nothing on the server inspects.
 
-## Changes this suggests for my server
+---
 
-1. ~~Enforce the input schemas.~~ **Done in `e273c8e`** (Nov 24): arguments are checked against each tool's own `inputSchema`. An unknown argument, a wrong type (including `true` given as a `limit`) and an unknown board are now tool errors. For a board it says: "I did not search board 'lever'. This run searched only: robinhood, affirm, wealthfront." There are 3 new tests, and they failed before the fix.
-2. Add `match: "word"` to search (a whole-word or prefix match), or say in the description that the match is a substring.
-3. Add a one-line meaning for each gate and rule to `judge_posting` results, taken from FILTER.md.
-4. Put "saved run of Nov 23, 2026; not live" in every tool description.
-5. Return the text once: keep `structuredContent` and make `content` a short summary.
+## 3. Changes suggested for my server
+
+1. **Enforce input schemas at runtime (completed in `e273c8e`, Nov 24):** Incoming arguments are now validated against each tool's declared `inputSchema`. Undeclared keys, wrong types (including boolean `true` passed as an integer `limit`), and unknown board names return tool errors. Passing an unqueried board now returns: `"I did not search board 'lever'. This run searched only: robinhood, affirm, wealthfront."` Verified with 3 new tests that failed prior to the fix.
+2. **Add whole-word or prefix matching (`match: "word"`) to `search_postings`**, or state explicitly in its description that search performs substring matching.
+3. **Include a one-line explanation for each gate and scoring rule** in `judge_posting` output, pulled directly from `FILTER.md`.
+4. **State `"saved run of Nov 23, 2026; not live"` in every tool description**, not just `search_postings`.
+5. **Eliminate duplicate payload text** by keeping the full posting object in `structuredContent` and returning a concise summary string in `content`.
