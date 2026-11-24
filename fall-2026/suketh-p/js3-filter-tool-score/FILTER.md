@@ -36,9 +36,9 @@ Assignment 7 authorized these public employer postings through the configured re
 
 | Assignment 7 source | Owner | Nov 8 total | Nov 21 total | Expected JS3 total |
 | --- | --- | ---: | ---: | --- |
-| Greenhouse anthropic | Anthropic | 675 | 635 | ___ |
-| Greenhouse databricks | Databricks | 922 | 895 | ___ |
-| Ashby linear | Linear | 32 | 32 | ___ |
+| Greenhouse anthropic | Anthropic | 675 | 635 | 635 (added 2026-11-24, see below) |
+| Greenhouse databricks | Databricks | 922 | 895 | 895 (added 2026-11-24, see below) |
+| Ashby linear | Linear | 32 | 32 | 32 (added 2026-11-24, see below) |
 
 Read Greenhouse id, title, location.name, and content, and Ashby jobUrl, title, location, and descriptionHtml. Use jobUrl as an identifier. Keep the board name and capture time with each record.
 
@@ -52,3 +52,17 @@ If a board fails or returns an unusable payload, report its count as unknown and
 | Look for topics only in titles. | Software Engineer says “Build model serving systems.” Keep it with score 2. |
 | Count any mention of AI in the description. | Software Engineer, Internal Tools says “We use AI to schedule interviews.” Reject it with score 1. |
 | Treat an exact quote as sufficient evidence. | A posting says “Five years preferred.” The claim “Five years are required” must come back contradicted. |
+
+## Additions before the build (2026-11-24, before any code and before the JS3 collection)
+
+At about 17:30 EST, Claude Code asked four questions about gaps in v0.1. The answers are the student's.
+
+**Expected totals.** The student's words, as typed:
+
+> November 24, 2026 · Before collection
+>
+> I expect 635 Anthropic postings, 895 Databricks postings, and 32 Linear postings. The last run found 83 previously unseen Anthropic postings even as its board total fell by 40. With only two snapshots, I’m using the latest totals as my baseline and will record actual minus expected for each board I can verify.
+
+**Which words make a location U.S.** The student chose "Country or state", one of two options Claude Code wrote. The option, in Claude Code's words: "U.S. if it says United States, USA, US or U.S., or names a U.S. state, in full or as a 2-letter code ('San Francisco, CA'). Outside if it names only other countries. Remote, regions or a bare city go to review. Risk: CA can mean Canada, IN India." Both options said that a posting with any U.S. location counts as U.S. The other option was "Country words only".
+
+**Shortlist size.** The student chose 8 postings. The options were 5, 8 and 10.
