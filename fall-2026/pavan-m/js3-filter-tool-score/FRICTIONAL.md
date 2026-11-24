@@ -26,3 +26,8 @@ Investigated Palantir's 0 KEEPs: 139 postings are titled Software Engineer, but 
 
 ## Entry 8 — November 23, 2026: Hand verdicts for the audit, judged blind
 I judged all 48 audit postings myself from audit/postings_to_judge.md (full text, including Lever's "What We Require" lists), using only audit/AUDIT_RULE.md and without opening the answer key or seeing the filter's scores. No AI tool made these verdicts. 15 relevant, 33 not relevant, 0 cannot tell. A02 uses "platform" to mean an ad-sales platform, not software infrastructure (a candidate false friend, though "platform" is not a keyword the filter scores).
+
+## Entry 9 — November 23, 2026: Audit results
+Compared my 48 blind verdicts with the filter (audit/comparison_2026-11-23.txt). Random rejects: the filter disagreed with me on 3 of 30 (10%; 95% Wilson interval 3–26%, so somewhere around 40–330 of the 1,252 rejects could be postings I'd want). Close calls: 3 of 5 wrong just below the threshold and 3 of 5 just above. Kept sample: 2 of 8 not relevant to me.
+Patterns: (1) OpenAI postings describe the work, not tool names, so real backend roles score 6 with no skill category (A04, A07); (2) the Lever retrieval gap is confirmed in the sample (A30: Java, Python, Postgres, AWS are in Lever's lists field, which the filter never sees; also "Postgres" doesn't match "PostgreSQL"); (3) all 5 false KEEPs ask for 4+ or 5+ years, which the 8-year cutoff lets through.
+Honest note: my written AUDIT_RULE says 8+ years is the hard minimum, but I also judged several 4+/5+ roles not relevant under my "borderline → lean not relevant" rule. My judgment was stricter than my own written rule.
