@@ -58,7 +58,7 @@ Every number used in README.md, FILTER.md and the reports has a row here.
 | 95% interval 0% to 11.4%, about 0 to 43 of 378 rejects | **sample estimate** (Wilson score interval, z = 1.96) | computed from 0/30; for this run only, not for postings in general |
 | 11 of 22 kept should be kept (precision 50%) | hand-judged, **all** kept postings (not a sample) | `audit/filter-v1.0/kept.csv` (`cd6bfe8`) |
 | 7 of the 11 wrong keeps ask for exactly 3 years | measured | `years` column of `kept.csv` |
-| 1 of 9 close calls judged keep (`affirm:7815952003`) | hand-judged | `audit/filter-v1.0/close_calls.csv` |
+| 9 close calls: 8 kept, of which I judged 1 right and 7 wrong (all 7 ask for 3 years); 1 rejected (`affirm:7815952003`), which I also reject, so 0 missed keeps | hand-judged | `audit/filter-v1.0/close_calls.csv`. `affirm:7815952003` was first recorded as keep (`cd6bfe8`, a misclick) and corrected to reject on Nov 24 |
 | 20 cited "N+ yrs" in reject reasons, all found in the text | measured | check run on Nov 24 (not saved) |
 
 ## Shortlist

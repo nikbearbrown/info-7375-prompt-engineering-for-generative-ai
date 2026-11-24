@@ -133,11 +133,7 @@ These are results on one run of 400 postings (Nov 23, 2026). The audit interval 
 
 ## False friend
 
-TODO (me): pick one and write it up. Candidates seen in the real data:
-
-- **`Engineer` in non-engineering jobs.** `Offensive Security Engineer`, `Sales Engineer` and `Partner Engineer` all pass the seniority gate. W1 shows that a substring rule would give them role points.
-- **"Software Engineering" in a manager title.** `Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`) scores 0.60 because R1 matches "Software Engineer" inside "Software Engineering". Only G1 (`Manager`) rejects it.
-- **"1.5+ years" read as "5+".** A survey regex that read only whole numbers turned 1.5 into 5 (FILTER.md v1.1). The filter's decimal test catches it.
+`Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`, Remote US) looks like a valid match under the scoring rules because the substring `"Software Engineer"` inside `"Software Engineering"` triggers R1 (`+0.50`) and a skill match adds R4 (`+0.10`), giving it a passing score of `0.60`. In reality, the posting is for a seasoned Engineering Manager leading a team rather than an individual-contributor role for a new grad with 0–2 years of experience. It is rejected only because the G1 seniority gate catches `"Manager"` in the title before scoring runs. Without G1—or if a similar leadership title omitted an explicit seniority keyword—the substring match in R1 would surface a management role as a high-scoring junior engineering fit.
 
 ## Honesty notes
 
