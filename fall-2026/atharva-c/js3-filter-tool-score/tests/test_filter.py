@@ -116,6 +116,23 @@ class W2TitleLevel(unittest.TestCase):
         self.assertEqual(F.judge(posting("Software Engineer I, Fullstack (Search)"), SKILLS)["rules"]["R3"], 0.2)
 
 
+class ThreeYears(unittest.TestCase):
+    """FILTER.md v1.2: N = 3 years scores like N >= 4 (-0.40). Audit of v1.0: 7 of 11 wrong keeps asked for 3."""
+
+    def test_three_years_is_penalized(self):
+        d = F.judge(posting("Android Engineer, Social", text="3+ years of professional Android development experience"), SKILLS)
+        self.assertEqual(d["rules"]["R2"], -0.4)
+        self.assertFalse(d["keep"])
+
+    def test_two_years_unchanged(self):
+        self.assertEqual(F.judge(posting(text="2+ years of experience"), SKILLS)["rules"]["R2"], 0.3)
+
+    def test_w2_real_example_now_rejected(self):
+        # affirm:7727320003, Software Engineer II, Backend (Test Infra): "3+ years"; my label: reject.
+        p = next(p for p in load_run(RUN) if p["uid"] == "affirm:7727320003")
+        self.assertFalse(F.judge(p, SKILLS)["keep"])
+
+
 class W3RankByHits(unittest.TestCase):
     """W3: more keyword/skill hits does not mean a better fit."""
 

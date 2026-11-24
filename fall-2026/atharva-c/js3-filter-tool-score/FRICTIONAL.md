@@ -27,3 +27,10 @@
 - The "`&amp;` left in URLs" bug planned for today does not exist: 0 of 400 URLs contain `&amp;`. Robinhood URLs contain a plain `&` (`?t=gh_src=&gh_jid=…`), which is correct. No test or fix was written for it.
 - Run on all 400 (`evidence/filter-v1.0/`): kept 22. On dev labels only: tp 6, fp 6, fn 0, tn 33. **All 6 false positives ask for exactly 3 years** (R2 gives 0 at N = 3, so R1 + R4 = 0.60 passes). Held-out has not been run.
 - `affirm:7727320003` (W2's real example, 3+ years) is one of them: the W2 test passes only because its fixture says 5+ years. The real filter still keeps the real example.
+
+## Nov 24, 2026 (later) — DRAFT (Claude, to rewrite): audit of v1.0, rule change v1.2
+
+- I hand-judged the v1.0 audit (`c87c9b6`, `cd6bfe8`): 0 of 30 random rejects should have been kept (95% Wilson 0–11.4%, a sample estimate for this run's 378 rejects); 11 of the 22 kept postings should be kept (all kept, so measured for this run); 1 of 9 close calls (`affirm:7815952003`, Quantitative Analyst II, score 0.40) I judged keep. TODO: my reason for that one, and whether it means Sam's target is wider than SWE.
+- 7 of the 11 wrong keeps asked for exactly 3 years; 3 were Robinhood backend roles asking 2+ years but written as mid-level; 1 was a Wealthfront iOS role.
+- Changed one rule (FILTER.md v1.2): N ≥ 3 years scores −0.40. Tests for it were added and seen failing first. Dev: fp 6 → 0, tp still 6. On all 400, exactly the 7 three-year keeps flipped to reject.
+- Leakage: the kept audit sheet included held-out rows, so I saw some held-out postings' decisions before choosing the rule. Held-out is not fully untouched for v1.2; the README must say so.

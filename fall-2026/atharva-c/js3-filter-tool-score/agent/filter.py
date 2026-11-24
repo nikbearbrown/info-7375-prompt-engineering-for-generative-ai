@@ -1,4 +1,4 @@
-"""The relevance filter, implementing FILTER.md v1.1 (rules unchanged from v1.0).
+"""The relevance filter, implementing FILTER.md v1.2 (v1.2: N >= 3 years scores -0.40; v1.0 gave 0 at N = 3).
 
 Reads only title, location and text of each posting (never department).
 No duplicates are removed before filtering (FILTER.md section 1, W4).
@@ -21,7 +21,7 @@ from pathlib import Path
 from agent.postings import load_run
 from agent.skills import match_skills
 
-RULES_VERSION = "v1.0 (FILTER.md v1.1)"
+RULES_VERSION = "v1.2"
 RUN = "evidence/run-20261123-185425Z"
 PERSONA = "examples/persona.example.json"
 THRESHOLD = 0.50
@@ -112,7 +112,7 @@ def judge(p: dict, skills: list[str]) -> dict:
 
     r1 = 0.5 if R1.search(title) else 0
     n = d["years"]
-    r2 = 0 if n is None else 0.3 if n <= 2 else 0 if n < 4 else -0.4
+    r2 = 0 if n is None else 0.3 if n <= 2 else -0.4   # v1.2; v1.0: 0 if 2 < n < 4
     r3 = 0.2 if (R3_TEXT.search(title) or R3_TEXT.search(text) or R3_TITLE.search(title)) else 0
     r4 = 0.1 if d["skills"] else 0
     d["rules"] = {"R1": r1, "R2": r2, "R3": r3, "R4": r4}
