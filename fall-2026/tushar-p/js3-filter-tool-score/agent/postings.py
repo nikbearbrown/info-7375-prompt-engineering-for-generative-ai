@@ -13,9 +13,10 @@ FILTER.md also lists Ashby's `isRemote` and `workplaceType` as location fields. 
 copied here: under the G3 rule (a bare "Remote" is unknown, a region is unknown) they cannot
 change a G3 result on their own, so the normalized shape stays exactly the seven keys above.
 
-With `with_blocks=True` (used by the filter for FILTER.md v0.2's C4 "sentence"), an eighth key
-`blocks` is added: the same text split at source block boundaries (Greenhouse HTML blocks,
-Ashby lines), or None when there is no text. Joining the blocks with spaces gives `text`.
+With `with_blocks=True` (used by the filter for FILTER.md v0.2's C4 "sentence" and "heading"),
+two keys are added: `blocks`, the same text split at source block boundaries (Greenhouse HTML
+blocks, Ashby lines), and `block_kinds`, a parallel list of "heading" | "item" | "text". Both
+are None when there is no text. Joining the blocks with spaces gives `text`.
 
 A missing or empty field becomes None (JSON null), never "". A board that failed in the run
 contributes no postings; it is returned as a board failure, never as zero postings.
@@ -24,7 +25,7 @@ contributes no postings; it is returned as a board failure, never as zero postin
 import json
 from pathlib import Path
 
-from .text import html_blocks, normalize, plain_blocks, strip_html
+from .text import html_blocks_with_kinds, normalize, plain_blocks_with_kinds, strip_html
 
 FIELDS = ("board", "id", "title", "locations", "text", "date", "url")
 
@@ -46,6 +47,11 @@ def _locations(values) -> list[str] | None:
     return cleaned or None
 
 
+def _add_blocks(posting: dict, blocks: list[tuple[str, str]]) -> None:
+    posting["blocks"] = [text for text, _ in blocks] or None
+    posting["block_kinds"] = [kind for _, kind in blocks] or None
+
+
 def normalize_greenhouse(board: str, job: dict, with_blocks: bool = False) -> dict:
     location = job.get("location")
     content = job.get("content")
@@ -59,7 +65,7 @@ def normalize_greenhouse(board: str, job: dict, with_blocks: bool = False) -> di
         "url": _clean(job.get("absolute_url")),
     }
     if with_blocks:
-        posting["blocks"] = (html_blocks(content) or None) if posting["text"] is not None else None
+        _add_blocks(posting, html_blocks_with_kinds(content) if posting["text"] is not None else [])
     return posting
 
 
@@ -78,7 +84,7 @@ def normalize_ashby(board: str, job: dict, with_blocks: bool = False) -> dict:
         "url": _clean(job.get("jobUrl")),
     }
     if with_blocks:
-        posting["blocks"] = (plain_blocks(plain) or None) if posting["text"] is not None else None
+        _add_blocks(posting, plain_blocks_with_kinds(plain) if posting["text"] is not None else [])
     return posting
 
 

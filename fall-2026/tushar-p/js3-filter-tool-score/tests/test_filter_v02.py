@@ -26,11 +26,13 @@ RUN = PROJECT_DIR / "evidence" / "runs" / "live-text-1"
 V01_RESULTS_SHA256 = "8f18b3b4d0c36900093e6c665be4026df4f941ed8ef17b17b384caa4e8ea11ef"
 
 
-def posting(text, title="Software Engineer", locations=("San Francisco, CA",), blocks=None):
+def posting(text, title="Software Engineer", locations=("San Francisco, CA",), blocks=None, block_kinds=None):
     p = {"board": "greenhouse/stripe", "id": 1, "title": title, "locations": list(locations),
          "text": text, "date": "2026-11-20", "url": "https://example.com/job"}
     if blocks is not None:
         p["blocks"] = blocks
+    if block_kinds is not None:
+        p["block_kinds"] = block_kinds
     return p
 
 
@@ -139,19 +141,63 @@ def test_c4_minimum_in_a_preferred_sentence_is_ignored(word):
     assert g4("v0.1", text)["result"] == "fail"
 
 
-def test_c4_heading_block_does_not_make_the_next_item_preferred():
-    """FILTER.md v0.2 "Sentence": only words in the minimum's own sentence count."""
-    blocks = ["Minimum requirements", "1+ years of Python", "Preferred qualifications", "5+ years of Go",
+REQ_BLOCKS = ["Minimum requirements", "1+ years of Python", "Preferred qualifications", "5+ years of Go",
               SCORED + FILLER]
-    text = " ".join(blocks)
-    with_blocks = g4("v0.1+C4", text, blocks=blocks)
+REQ_KINDS = ["heading", "item", "heading", "item", "text"]
+
+
+def test_c4_minimum_under_a_preferred_heading_is_ignored():
+    """FILTER.md v0.2 C4 (amended 2026-11-23): a preferred heading marks its items as preferred."""
+    gate = g4("v0.1+C4", " ".join(REQ_BLOCKS), blocks=REQ_BLOCKS, block_kinds=REQ_KINDS)
+    assert gate["result"] == "pass"
+    assert gate["matched"] == ["1+ years", "ignored (preferred): 5+ years"]
+    assert g4("v0.1", " ".join(REQ_BLOCKS))["result"] == "fail"          # v0.1: the largest minimum, 5
+
+
+def test_c4_minimum_under_minimum_requirements_counts():
+    blocks = ["Minimum Requirements", "4+ years of experience as an engineer", SCORED + FILLER]
+    gate = g4("v0.1+C4", " ".join(blocks), blocks=blocks, block_kinds=["heading", "item", "text"])
+    assert gate["result"] == "fail" and gate["matched"] == ["4+ years"]
+
+
+def test_c4_heading_change_ends_the_preferred_scope():
+    blocks = ["Nice to have", "1+ years of Rust", "Who you are", "5+ years of Go", SCORED + FILLER]
+    kinds = ["text", "item", "text", "item", "text"]   # short, unpunctuated <p>/line headings
+    gate = g4("v0.1+C4", " ".join(blocks), blocks=blocks, block_kinds=kinds)
+    assert gate["result"] == "fail"
+    assert gate["matched"] == ["5+ years", "ignored (preferred): 1+ years"]
+
+
+def test_c4_heading_definition():
+    assert flt.is_heading("Preferred qualifications", "text")       # short <p> or Ashby line
+    assert flt.is_heading("NICE TO HAVE", "text")
+    assert flt.is_heading("A heading with many more than eight words in it here", "heading")  # <h1>–<h6>
+    assert not flt.is_heading("Preferred qualifications", "item")   # a list item is never a heading
+    assert not flt.is_heading("Payments experience is preferred.", "text")   # ends with "."
+    assert not flt.is_heading("one two three four five six seven eight nine", "text")  # 9 words
+
+
+def test_c4_no_block_structure_means_no_headings():
+    """Without block kinds there are no headings: only the minimum's own sentence counts."""
+    with_blocks = g4("v0.1+C4", " ".join(REQ_BLOCKS), blocks=REQ_BLOCKS)
     assert with_blocks["result"] == "unknown"                              # 1 and 5 are both mandatory
     assert with_blocks["detail"] == "mandatory minimums on both sides of 3 years"
-    # Without blocks the flat text is one sentence containing "Preferred", so both would be ignored.
-    assert g4("v0.1+C4", text)["detail"] == "only preferred minimums stated"
+    # Without blocks the flat text is one sentence containing "Preferred", so both are ignored.
+    assert g4("v0.1+C4", " ".join(REQ_BLOCKS))["detail"] == "only preferred minimums stated"
     only_preferred = ["Preferred qualifications: 5+ years of Go.", SCORED + FILLER]
     gate = g4("v0.1+C4", " ".join(only_preferred), blocks=only_preferred)
     assert gate["result"] == "unknown" and gate["detail"] == "only preferred minimums stated"
+
+
+def test_greenhouse_block_kinds_from_html():
+    content = ("&lt;h3&gt;Preferred qualifications&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;5+ years of Go&lt;/li&gt;&lt;/ul&gt;"
+               "&lt;p&gt;&lt;strong&gt;Nice to Have&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;We are a team.&lt;/p&gt;")
+    p = normalize_greenhouse("greenhouse/stripe", {"id": 1, "title": "SE", "content": content}, with_blocks=True)
+    assert p["blocks"] == ["Preferred qualifications", "5+ years of Go", "Nice to Have", "We are a team."]
+    assert p["block_kinds"] == ["heading", "item", "text", "text"]
+    a = normalize_ashby("ashby/notion", {"id": "a", "descriptionPlain": "NICE TO HAVE\n\n - 3+ years of Go"},
+                        with_blocks=True)
+    assert a["block_kinds"] == ["text", "item"] and flt.is_heading(a["blocks"][0], a["block_kinds"][0])
 
 
 # ---------- C5: "platform" removed from the topic words ----------
@@ -234,7 +280,8 @@ def corpus():
 def test_blocks_join_back_to_text_for_every_posting(corpus):
     postings, _ = corpus
     for p in postings:
-        assert (p["blocks"] is None) == (p["text"] is None)
+        assert (p["blocks"] is None) == (p["text"] is None) == (p["block_kinds"] is None)
+        assert p["blocks"] is None or len(p["blocks"]) == len(p["block_kinds"])
         if p["text"] is not None:
             assert normalize(" ".join(p["blocks"])) == p["text"]
 

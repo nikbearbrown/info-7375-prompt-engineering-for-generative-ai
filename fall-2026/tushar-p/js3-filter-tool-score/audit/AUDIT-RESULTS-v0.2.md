@@ -1,6 +1,6 @@
 # JS3 filter v0.2: development measurement on the audit sheet
 
-This compares filter v0.2 (FILTER.md v0.2, frozen 2026-11-24, C1–C6), each single change C1–C6 on top of v0.1, and v0.1 against the 48 hand labels on `audit/audit-sheet.csv`.
+This compares filter v0.2 (FILTER.md v0.2, frozen 2026-11-23, C1–C6, with C4's preferred-heading rule amended 2026-11-23 before any held-out comparison), each single change C1–C6 on top of v0.1, and v0.1 against the 48 hand labels on `audit/audit-sheet.csv`.
 
 **Development data, not a test.** The v0.2 rules were chosen after reading these same 48 rows, so better agreement here is expected. It is not evidence that v0.2 generalizes. That is what the sealed held-out sheet is for, and it has not been compared to any filter result.
 
@@ -101,9 +101,39 @@ Reading the table:
 
 "infrastructure" stays a topic word in v0.2. Under v0.2, no keep depends on a boilerplate-only "infrastructure" point. Under v0.1 one did: row 6, which C5 already rejects through "platform".
 
+## C4 preferred-heading amendment (2026-11-23)
+
+C4 as first frozen counted a minimum under a "Preferred qualifications" heading as mandatory unless its own sentence said "preferred", "nice to have", "bonus" or "a plus". Tushar amended C4 before any held-out comparison: a minimum under a preferred heading is now preferred, and ignored, until the next heading. FILTER.md v0.2 defines "heading": an `<h1>`–`<h6>`, or a short (8 words or fewer) non-list block that doesn't end in ".", "!" or "?".
+
+**Verdicts changed by the amendment: none, in every mode.** Every count and table above is the same as before the amendment.
+
+**Why none changed.** G4 changed in 41 postings, but all 41 are already decided by another gate:
+- 40 fail G1 on the title.
+- 1 is cannot_tell on G3: audit row 10, location "N/A". Its preferred "2+ years" is now ignored, and G4 stays pass on the mandatory "2-5+ years".
+
+In this run, no posting that passes G1, G2 and G3 has a minimum that only the heading rule marks as preferred.
+
+Output of `python audit/audit_v02.py`. "Pre-amendment" means the same code run with block kinds removed, which gives no headings:
+
+Pre-amendment C4 = the same code with block kinds removed (no headings; own sentence only).
+
+- v0.1+C4: G4 output changed in 41 postings, G4 result changed in 23, verdict changed in 0; the verdict of every G4-changed posting is decided by: {'G1': 40, 'G3': 1}
+  - audit row 10 'Full Stack Engineer, Revenue': G4 pass ['2-5+ years', '2+ years'] -> pass ['2-5+ years', 'ignored (preferred): 2+ years']; verdict cannot_tell (unchanged)
+- v0.2: G4 output changed in 41 postings, G4 result changed in 6, verdict changed in 0; the verdict of every G4-changed posting is decided by: {'G1': 40, 'G3': 1}
+  - audit row 10 'Full Stack Engineer, Revenue': G4 pass ['2-5+ years', '2+ years'] -> pass ['2-5+ years', 'ignored (preferred): 2+ years']; verdict cannot_tell (unchanged)
+  - greenhouse/stripe 8328323 'IT Support Engineer': G4 unknown -> pass ['At least 2 years', 'ignored (preferred): 3+ years']; verdict reject via G1
+  - greenhouse/stripe 8204227 'Product Manager - Developer Experience, Bridge': G4 fail -> pass ['ignored (preferred): 6–10+ years']; verdict reject via G1
+  - greenhouse/stripe 8223723 'Product Manager - Payments Experience, Bridge': G4 fail -> pass ['ignored (preferred): 6-10+ years']; verdict reject via G1
+  - greenhouse/stripe 7214197 'Program Manager, Risk Ops Enablement': G4 unknown -> fail ['6+ years', 'ignored (preferred): 2+ years']; verdict reject via G1
+  - greenhouse/stripe 8214620 'Strategy & Operations Business Partner, Solution Architecture': G4 unknown -> fail ['8+ years', '11+ years', 'ignored (preferred): 2+ years']; verdict reject via G1
+  - greenhouse/stripe 8159355 'University Recruiter': G4 fail -> pass ['ignored (preferred): 3-4 years']; verdict reject via G1
+
 ## Readings to check before the held-out comparison
 
-FILTER.md v0.2 states these readings, and the code follows them:
-1. **"Sentence" (C4)** is a piece of one source block (a Greenhouse HTML block or an Ashby line). A heading such as "Preferred qualifications" is its own block, so it does **not** make the list items under it preferred. Only the words in the minimum's own sentence count. A minimum listed under a "Preferred qualifications" heading therefore counts as mandatory unless its own sentence says "preferred", "nice to have", "bonus" or "a plus".
-2. **C2 maximums accept spelled numbers one–ten** ("less than two years"), which is how rows 20 and 39 are written. Minimums still need digits, or C6's "word (N)".
+1. **C4 "sentence" and "heading".** Settled by the 2026-11-23 amendment above.
+2. **C2 maximums accept spelled numbers one–ten** ("less than two years"), which is how rows 20 and 39 are written. Tushar accepted this; it is recorded in the FILTER.md changelog. Minimums still need digits, or C6's "word (N)".
 3. **G4 "1 year" (singular)** was not part of v0.2 and is unchanged.
+
+## Errata
+
+- The post-unblinding correction notes on rows 19, 29, 40, 45 say 2026-11-24 because of a typo in Tushar's instruction; the labeled_at stamps (2026-11-23) are correct.

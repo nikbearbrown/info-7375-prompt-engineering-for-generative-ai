@@ -1,7 +1,7 @@
 # FILTER.md — Job-Search Agent 3
 
 Tushar Patel · INFO 7375 · Fall 2026
-Version 0.2 · November 24, 2026 · decisions frozen before any v0.2 code and before any held-out comparison
+Version 0.2 · November 23, 2026 (erratum: first written as November 24) · decisions frozen before any v0.2 code and before any held-out comparison
 (v0.1 · November 21, 2026 · written before any JS3 code; its replaced text is kept in the changelog)
 
 ## Who the filter is for
@@ -44,10 +44,12 @@ Each change has an ID so it can be switched on alone on top of v0.1 and measured
 | C1 | No stated experience passes | If the text states no mandatory minimum and no maximum, G4 **passes** (v0.1: unknown). This is G4 only: it does not establish that the posting suits Cole overall. A posting with no usable text (missing, or under 200 characters) is still cannot_tell. |
 | C2 | Stated maximum | "less than N years", "up to N years", "no more than N years" (also "year") are maximums. With no mandatory minimum, G4 **passes** when 0 years satisfies every stated maximum ("less than N" needs N ≥ 1; "up to N" and "no more than N" always hold) and fails otherwise. A mandatory minimum, if present, still decides (a maximum never overrides a conflicting minimum). A number inside a maximum phrase is not also read as a minimum ("less than 2 years of" is a maximum of 2, not a minimum of 2). In a maximum, N may be digits or a spelled number one–ten ("less than two years"). |
 | C3 | Cutoff 3 → 2 | The cutoff in G4 is 2 years (v0.1: 3). This is a search-scope decision for Cole (0 years) that allows some stretch roles, not a conclusion proved by the audit. |
-| C4 | Ranges, levels, preferred | A range counts by its lower bound. Every mandatory minimum is evaluated: all ≤ cutoff → pass; all > cutoff → fail; some of each → **unknown** (cannot_tell) (v0.1: fail if the largest is over the cutoff). A minimum in a sentence containing "preferred", "nice to have", "bonus" or "a plus" is ignored. Never reject only because a range's upper end is high. |
+| C4 | Ranges, levels, preferred | A range counts by its lower bound. Every mandatory minimum is evaluated: all ≤ cutoff → pass; all > cutoff → fail; some of each → **unknown** (cannot_tell) (v0.1: fail if the largest is over the cutoff). A minimum is **preferred**, and ignored, if its own sentence contains "preferred", "nice to have", "bonus" or "a plus", **or** it sits under a heading containing any of those words (e.g. "Preferred qualifications", "Nice to have"), until the next heading. Every other minimum is mandatory. Never reject only because a range's upper end is high. |
 | C6 | Spelled number with digit | "two (2) years" and similar "word (N)" forms count as N, in every G4 form: mandatory or preferred, minimum or maximum ("at least two (2) years", "five (5) years of", "less than two (2) years"). A spelled number without a digit is still not a minimum. |
 
-**Sentence (used by C4).** A sentence is a piece of one source block that ends at ".", "!" or "?" followed by a space, or at the end of the block. A block is a Greenhouse HTML block (paragraph, list item, heading, div, table cell, or a line break) or one Ashby line. Consequence: a heading such as "Preferred qualifications" is its own block, so it does **not** make the list items under it preferred. Only the words in the minimum's own sentence count.
+**Sentence (used by C4).** A sentence is a piece of one source block that ends at ".", "!" or "?" followed by a space, or at the end of the block. A block is a Greenhouse HTML block (paragraph, list item, heading, div, table cell, or a line break) or one Ashby line.
+
+**Heading (used by C4).** A block is a heading if it is a Greenhouse `<h1>`–`<h6>`, or if it is not a list item (not a Greenhouse `<li>`, not an Ashby line starting with "-", "•", "*" or "–") and has at most 8 words and does not end with ".", "!" or "?". So "Preferred qualifications" as a `<p>` and Ashby's "NICE TO HAVE" line are headings. A preferred heading (one containing "preferred", "nice to have", "bonus" or "a plus") makes every block after it preferred until the next heading of any kind. A posting with no block structure has no headings.
 
 Cutoff, maximum and mandatory are G4 terms only; G1–G3, G5 and the evidence rules are unchanged.
 
@@ -120,16 +122,19 @@ It never fills these gaps with a guess, and never reports them as a reject.
 | Version | Date | Change | Reason | Measured by |
 |---|---|---|---|---|
 | 0.1 | 2026-11-21 | Initial filter, evidence rules, sources, and wrong versions | Written before the build | — |
-| 0.2 C1 | 2026-11-24 | G4: no stated experience passes | Audit: 7 of 10 cannot_tell rows were G4 unknown, and the hand label was keep for all 7 (rows 13, 14, 18, 20, 21, 34, 39) | v0.1 vs v0.1+C1 on the held-out set |
-| 0.2 C2 | 2026-11-24 | G4: a stated maximum that 0 years satisfies passes | Audit rows 20 and 39: "You have less than two years of engineering experience." was G4 unknown; hand label keep | v0.1 vs v0.1+C2 on the held-out set |
-| 0.2 C3 | 2026-11-24 | G4 cutoff 3 → 2 | Search-scope decision: persona `years_experience` is 0 while v0.1 allowed 3. Audit rows 3, 31, 33, 35 and 48 passed G4 at 2–3 years against hand labels of reject or cannot_tell. Not a conclusion proved by the audit | v0.1 vs v0.1+C3 on the held-out set |
-| 0.2 C4 | 2026-11-24 | G4: every mandatory minimum evaluated; mixed → unknown; preferred minimums ignored; range by lower bound | Ranges such as "2–12+ years" (audit rows 31, 33, 35) and level-spanning postings | v0.1 vs v0.1+C4 on the held-out set |
-| 0.2 C5 | 2026-11-24 | Topic words: remove "platform" | False friend (section above): Stripe boilerplate in 717 postings gave 2 topic points with no skill match | v0.1 vs v0.1+C5 on the held-out set |
-| 0.2 C6 | 2026-11-24 | G4: "two (2) years" forms count as the digit | Build-step-1 gap; 3 postings have the form, 1 verdict changes in the what-if (audit section f) | v0.1 vs v0.1+C6 on the held-out set |
-| 0.2 rejected | 2026-11-24 | G3: "N/A" location → reject. **Rejected** | Audit rows 10 and 42 were hand-labeled reject, but a placeholder doesn't say where the job is; it stays cannot_tell (row 36, also "N/A", was hand-labeled cannot_tell) | — |
-| 0.2 rejected | 2026-11-24 | G2 Intern/Internship, topic APIs, topic LLMs variants. **Rejected for v0.2** | Measured: no verdict changes in the audited sample (Internship 1 posting, APIs 156, LLMs 12; 0 verdict changes each). That does not prove they would never matter | — |
+| 0.2 C1 | 2026-11-23 | G4: no stated experience passes | Audit: 7 of 10 cannot_tell rows were G4 unknown, and the hand label was keep for all 7 (rows 13, 14, 18, 20, 21, 34, 39) | v0.1 vs v0.1+C1 on the held-out set |
+| 0.2 C2 | 2026-11-23 | G4: a stated maximum that 0 years satisfies passes | Audit rows 20 and 39: "You have less than two years of engineering experience." was G4 unknown; hand label keep | v0.1 vs v0.1+C2 on the held-out set |
+| 0.2 C3 | 2026-11-23 | G4 cutoff 3 → 2 | Search-scope decision: persona `years_experience` is 0 while v0.1 allowed 3. Audit rows 3, 31, 33, 35 and 48 passed G4 at 2–3 years against hand labels of reject or cannot_tell. Not a conclusion proved by the audit | v0.1 vs v0.1+C3 on the held-out set |
+| 0.2 C4 | 2026-11-23 | G4: every mandatory minimum evaluated; mixed → unknown; preferred minimums ignored; range by lower bound | Ranges such as "2–12+ years" (audit rows 31, 33, 35) and level-spanning postings | v0.1 vs v0.1+C4 on the held-out set |
+| 0.2 C5 | 2026-11-23 | Topic words: remove "platform" | False friend (section above): Stripe boilerplate in 717 postings gave 2 topic points with no skill match | v0.1 vs v0.1+C5 on the held-out set |
+| 0.2 C6 | 2026-11-23 | G4: "two (2) years" forms count as the digit | Build-step-1 gap; 3 postings have the form, 1 verdict changes in the what-if (audit section f) | v0.1 vs v0.1+C6 on the held-out set |
+| 0.2 C2 note | 2026-11-23 | C2 maximums accept spelled numbers one to ten ("less than two years"). **Accepted** by Tushar | Rows 20 and 39 write their maximum in words | with C2 |
+| 0.2 erratum | 2026-11-23 | 2026-11-23: erratum, v0.2 date corrected from 2026-11-24 (typo) | Tushar's instruction said 2026-11-24; the date was 2026-11-23 | — |
+| 0.2 C4 amended | 2026-11-23 | 2026-11-23: C4 amended before any held-out comparison: preferred headings now mark their items as preferred, matching the v0.2 intent | v0.2 as first frozen counted minimums under a "Preferred qualifications" heading as mandatory; no held-out comparison had been run | v0.1 vs v0.1+C4 on the held-out set |
+| 0.2 rejected | 2026-11-23 | G3: "N/A" location → reject. **Rejected** | Audit rows 10 and 42 were hand-labeled reject, but a placeholder doesn't say where the job is; it stays cannot_tell (row 36, also "N/A", was hand-labeled cannot_tell) | — |
+| 0.2 rejected | 2026-11-23 | G2 Intern/Internship, topic APIs, topic LLMs variants. **Rejected for v0.2** | Measured: no verdict changes in the audited sample (Internship 1 posting, APIs 156, LLMs 12; 0 verdict changes each). That does not prove they would never matter | — |
 
-**Decisions frozen 2026-11-24 before any held-out comparison. Each change C1–C6 will be measured separately against v0.1 on the held-out set, and the combined v0.2 separately. Rules will not be revised in response to held-out results.**
+**Decisions frozen 2026-11-23 before any held-out comparison. Each change C1–C6 will be measured separately against v0.1 on the held-out set, and the combined v0.2 separately. Rules will not be revised in response to held-out results.**
 
 Not decided in v0.2 (left as in v0.1): the G4 "1 year" singular form (8 postings; 7 of them say "At least 1 year of university education", which is education, not experience).
 

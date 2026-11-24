@@ -30,7 +30,7 @@ from .text import word_pattern
 
 FILTER_VERSION = "0.1"
 CONTRACT = "FILTER.md v0.1 (commit 821ddee)"
-CONTRACT_V02 = "FILTER.md v0.2 (frozen 2026-11-24)"
+CONTRACT_V02 = "FILTER.md v0.2 (frozen 2026-11-23; C4 heading rule amended 2026-11-23)"
 
 # ---------- rule modes (FILTER.md v0.2) ----------
 CHANGES = ("C1", "C2", "C3", "C4", "C5", "C6")
@@ -272,9 +272,41 @@ PREFERRED_WORDS = ("preferred", "nice to have", "bonus", "a plus")
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
 
 
+HEADING_MAX_WORDS = 8
+
+
 def sentences(blocks) -> list[str]:
     """FILTER.md v0.2 "Sentence": each block split after ".", "!" or "?" followed by a space."""
     return [s for b in blocks for s in _SENTENCE_END.split(b) if s]
+
+
+def is_heading(block: str, kind: str) -> bool:
+    """FILTER.md v0.2 "Heading": an <h1>–<h6>, or a short non-list block without end punctuation."""
+    if kind == "heading":
+        return True
+    return kind == "text" and len(block.split()) <= HEADING_MAX_WORDS and not block.rstrip().endswith((".", "!", "?"))
+
+
+def preferred_scope(blocks, kinds) -> list[bool]:
+    """For each block: is it under a preferred heading (until the next heading)? No kinds → no headings."""
+    if not kinds:
+        return [False] * len(blocks)
+    scope, under = [], False
+    for block, kind in zip(blocks, kinds):
+        if is_heading(block, kind):
+            under = bool(_found(block, PREFERRED_WORDS))
+            scope.append(False)  # a heading is judged by its own sentence, not by the scope it opens
+        else:
+            scope.append(under)
+    return scope
+
+
+def g4_units(text: str, blocks, kinds) -> list[tuple[str, bool]]:
+    """(sentence, under a preferred heading) for C4; blocks fall back to the whole text."""
+    if not blocks:
+        return [(s, False) for s in sentences([text])]
+    return [(s, under) for block, under in zip(blocks, preferred_scope(blocks, kinds))
+            for s in sentences([block])]
 
 
 def g4_maximums(text: str, rules) -> list[tuple[str, int, str, tuple[int, int]]]:
@@ -292,16 +324,16 @@ def _zero_satisfies(kind: str, n: int) -> bool:
     return n >= 1 if kind == "less than" else True
 
 
-def check_g4_rules(text: str, rules, blocks=None) -> dict:
+def check_g4_rules(text: str, rules, blocks=None, kinds=None) -> dict:
     """G4 with any of C1–C4, C6 on top of v0.1 (FILTER.md v0.2 "G4 in v0.2")."""
     cutoff = 2 if "C3" in rules else 3
     pattern = _G4_PATTERN_C6 if "C6" in rules else _G4_PATTERN
-    units = sentences(blocks or [text]) if "C4" in rules else [text]
+    units = g4_units(text, blocks, kinds) if "C4" in rules else [(text, False)]
     mandatory, ignored, maximums = [], [], []
-    for unit in units:
+    for unit, under_preferred_heading in units:
         unit_max = g4_maximums(unit, rules) if "C2" in rules else []
         maximums += unit_max
-        preferred = "C4" in rules and bool(_found(unit, PREFERRED_WORDS))
+        preferred = "C4" in rules and (under_preferred_heading or bool(_found(unit, PREFERRED_WORDS)))
         for m in pattern.finditer(unit):
             if any(m.start() < end and start < m.end() for *_, (start, end) in unit_max):
                 continue  # C2: a number inside a maximum phrase is not also a minimum
@@ -364,7 +396,8 @@ def evaluate(posting: dict, persona: dict, rules=V01) -> dict:
              "G2": check_g2(posting.get("title")),
              "G3": check_g3(posting.get("locations"))}
     if status == "ok":
-        gates["G4"] = (check_g4_rules(text, rules, posting.get("blocks")) if rules & G4_CHANGES
+        gates["G4"] = (check_g4_rules(text, rules, posting.get("blocks"), posting.get("block_kinds"))
+                       if rules & G4_CHANGES
                        else check_g4(text))
         gates["G5"] = check_g5(text, persona["needs_sponsorship"])
     else:

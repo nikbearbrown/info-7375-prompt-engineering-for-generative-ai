@@ -29,7 +29,7 @@ KEY = ROOT / "out" / "filter-v0.1" / "sheet-key.json"
 SHEET = ROOT / "audit" / "audit-sheet.csv"
 VERDICTS = ("keep", "reject", "cannot_tell")
 MODES = ("v0.1", "v0.1+C1", "v0.1+C2", "v0.1+C3", "v0.1+C4", "v0.1+C5", "v0.1+C6", "v0.2")
-_CORRECTED = re.compile(r"^\[corrected [^:]+: was (keep|reject|cannot_tell) ")
+_CORRECTED = re.compile(r"^\[corrected [^:]+: was (keep|reject|cannot_tell)[ \],]")
 
 # Company-description sentences ("About Stripe"), chosen by reading every sentence containing
 # "infrastructure" that repeats in 4+ postings. Sentences about the role are not boilerplate.
@@ -119,6 +119,32 @@ def main() -> int:
             print(f"| {r['row']} | {r['title']} | {a['verdict']} | {b['verdict']} | "
                   f"{b['gates']['G4']['result']}: {'; '.join(b['gates']['G4']['matched']) or '-'} | "
                   f"{r['my_verdict']} | {', '.join(movers) or 'only in combination'} |")
+
+    print("\n## C4 preferred-heading amendment (2026-11-23): what it changed\n")
+    print("Pre-amendment C4 = the same code with block kinds removed (no headings; own sentence only).\n")
+    audit_rows = {key(r["board"], r["id"]): r["row"] for r in rows}
+    for m in ("v0.1+C4", "v0.2"):
+        rules = flt.RULE_MODES[m]
+        before = {key(p["board"], p["id"]): flt.evaluate({k: v for k, v in p.items() if k != "block_kinds"},
+                                                         persona, rules) for p in postings}
+        after = results[m]
+        g4 = [k for k in after if before[k]["gates"]["G4"] != after[k]["gates"]["G4"]]
+        flips = [k for k in g4 if before[k]["gates"]["G4"]["result"] != after[k]["gates"]["G4"]["result"]]
+        verdicts = [k for k in after if before[k]["verdict"] != after[k]["verdict"]]
+        deciders = Counter(after[k]["first_failing_gate"] or after[k]["first_unknown_gate"] or "scored" for k in g4)
+        print(f"- {m}: G4 output changed in {len(g4)} postings, G4 result changed in {len(flips)}, "
+              f"verdict changed in {len(verdicts)}; the verdict of every G4-changed posting is decided by: "
+              f"{dict(deciders)}")
+        for k in g4:
+            if k in audit_rows:
+                print(f"  - audit row {audit_rows[k]} {after[k]['title']!r}: G4 {before[k]['gates']['G4']['result']} "
+                      f"{before[k]['gates']['G4']['matched']} -> {after[k]['gates']['G4']['result']} "
+                      f"{after[k]['gates']['G4']['matched']}; verdict {after[k]['verdict']} (unchanged)")
+        if m == "v0.2":
+            for k in flips:
+                print(f"  - {k[0]} {k[1]} {after[k]['title']!r}: G4 {before[k]['gates']['G4']['result']} -> "
+                      f"{after[k]['gates']['G4']['result']} {after[k]['gates']['G4']['matched']}; "
+                      f"verdict {after[k]['verdict']} via {after[k]['first_failing_gate']}")
 
     print("\n## Infrastructure check (no rule change)\n")
     pat = word_pattern("infrastructure")
