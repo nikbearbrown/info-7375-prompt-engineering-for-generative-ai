@@ -32,9 +32,18 @@ def wilson(k, n, z=1.96):
     return (max(0.0, c - h), min(1.0, c + h))
 
 
+CORRECTED = False  # set by --corrected: apply audit/hand-label-corrections.json (NOT blind: made after seeing results)
+
+
 def load_labels():
     d = json.loads((ROOT / "audit" / "hand-labels.json").read_text())
-    return {int(k): v for k, v in d["labels"].items() if v.get("verdict")}
+    labels = {int(k): dict(v) for k, v in d["labels"].items() if v.get("verdict")}
+    if CORRECTED:
+        for c in json.loads((ROOT / "audit" / "hand-label-corrections.json").read_text())["corrections"]:
+            if "withdrawn" not in c:
+                assert labels[c["item"]]["verdict"] == c["from"], c
+                labels[c["item"]]["verdict"] = c["to"]
+    return labels
 
 
 def sample():
@@ -110,7 +119,10 @@ def main():
     ap.add_argument("what", choices=["audit", "heldout", "dev"])
     ap.add_argument("--filters", nargs="*", default=None)
     ap.add_argument("--claude", nargs="*", default=None)
+    ap.add_argument("--corrected", action="store_true", help="apply the (non-blind) label corrections")
     a = ap.parse_args()
+    global CORRECTED
+    CORRECTED = a.corrected
     if a.what == "audit":
         res = audit()
     else:
