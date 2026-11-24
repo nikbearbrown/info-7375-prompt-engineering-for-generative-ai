@@ -30,6 +30,7 @@
 - Wrote `make_sheet.py`, the new scenes in `scenes_body.py`, `APPENDIX.md`, FACTCHECK, SHOTLIST, this file and the README, and ran the toolkit and every gate.
 - Checked each point of a ChatGPT review of the draft against the files, then changed two narration lines (B05, B07), the evaluation metric in `APPENDIX.md` and one sentence in `FRICTIONAL.md`, and re-ran every gate.
 - Graded the fixed draft as the strictest TA (23.5/25), read the ShellCheck and explainshell READMEs, and added them and fixed task counts to `APPENDIX.md`.
+- Compared my folder with my classmates' submitted folders and added the ShellCheck baseline to `APPENDIX.md`.
 - Organised `FRICTIONAL.md` from the session. The reflection lines in it are mine.
 
 ## Other AI
