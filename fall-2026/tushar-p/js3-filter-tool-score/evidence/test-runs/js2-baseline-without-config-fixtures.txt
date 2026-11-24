@@ -1,0 +1,395 @@
+.....................F.F................................................ [ 54%]
+..................................EEEE.EE...................             [100%]
+==================================== ERRORS ====================================
+________ ERROR at setup of test_a_fixture_run_finds_the_set_difference _________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_a_fixture_run_finds_the_s0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_a_fixture_run_finds_the_s0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+_______ ERROR at setup of test_b_seeded_wrong_run_finishes_with_zero_new _______
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_b_seeded_wrong_run_finish0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_b_seeded_wrong_run_finish0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+______ ERROR at setup of test_c_independent_count_passes_a_and_catches_b _______
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_c_independent_count_passe0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_c_independent_count_passe0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+__________ ERROR at setup of test_c_independent_count_writes_nothing ___________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_c_independent_count_write0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_c_independent_count_write0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+_________ ERROR at setup of test_fixture_mode_needs_exactly_one_board __________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_fixture_mode_needs_exactl0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_fixture_mode_needs_exactl0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+_________ ERROR at setup of test_seeded_run_leaves_seen_ids_unchanged __________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_seeded_run_leaves_seen_id0')
+
+    @pytest.fixture
+    def copies(tmp_path):
+        folder = tmp_path / "fixture-copies"
+        folder.mkdir()
+>       return shutil.copy(FIXTURE, folder), shutil.copy(SEED_STATE, folder)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_seed_demo.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json')
+dst = '/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_seeded_run_leaves_seen_id0/fixture-copies/greenhouse-stripe-2026-10-28-from-js1.json'
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/fixtures/greenhouse-stripe-2026-10-28-from-js1.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/shutil.py:260: FileNotFoundError
+=================================== FAILURES ===================================
+_______________ test_demo_config_lists_the_gate_boards_in_order ________________
+
+    def test_demo_config_lists_the_gate_boards_in_order():
+        """GATE "Scope and boards": the four boards, in config order."""
+>       cfg = parse_config(DEMO_CONFIG.read_bytes())
+                           ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_loop_exits.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/config/boards.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/tushar/Documents/Northeastern University/Prompt Engineering/info-7375-prompt-engineering-for-generative-ai/fall-2026/tushar-p/js3-filter-tool-score/config/boards.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______________ test_exit_incomplete_failed_board_has_null_counts _______________
+
+tmp_path = PosixPath('/private/var/folders/25/x__513r12ps12tzzrf0gy8km0000gn/T/pytest-of-tushar/pytest-80/test_exit_incomplete_failed_bo0')
+
+    def test_exit_incomplete_failed_board_has_null_counts(tmp_path):
+        """Wrong versions: "turns a failed fetch into an empty list and exits finished" -> the failed
+        board has no counts and the completed schedule exits incomplete (F15: JSON null)."""
+        result, _, out = run_agent(tmp_path, DEMO_BOARDS, demo_routes(), config_path=DEMO_CONFIG)
+>       assert result.exit == "incomplete" and result.code == 3
+E       AssertionError: assert ('error' == 'incomplete'
+E         
+E         - incomplete
+E         + error)
+
+tests/test_loop_exits.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_loop_exits.py::test_demo_config_lists_the_gate_boards_in_order
+FAILED tests/test_loop_exits.py::test_exit_incomplete_failed_board_has_null_counts
+ERROR tests/test_seed_demo.py::test_a_fixture_run_finds_the_set_difference - ...
+ERROR tests/test_seed_demo.py::test_b_seeded_wrong_run_finishes_with_zero_new
+ERROR tests/test_seed_demo.py::test_c_independent_count_passes_a_and_catches_b
+ERROR tests/test_seed_demo.py::test_c_independent_count_writes_nothing - File...
+ERROR tests/test_seed_demo.py::test_fixture_mode_needs_exactly_one_board - Fi...
+ERROR tests/test_seed_demo.py::test_seeded_run_leaves_seen_ids_unchanged - Fi...
+2 failed, 124 passed, 6 errors in 0.45s

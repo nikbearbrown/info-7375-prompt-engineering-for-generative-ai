@@ -254,3 +254,26 @@ questions, fix Q02 and Q04, and move to a messier database if Claude still rarel
 **Evidence and next step:** `evidence/vanna_check.py`, `evidence/claude_runs/2026-10-21/`,
 `evidence/cross_check_output_2026-10-21.txt`, `reel/FACTCHECK.md` (rows 11, 15, 17, 20, 21)
 
+
+---
+
+## Entry (written by me; evidence links added by Claude)
+
+**Date and what I was working on:** 2026-11-22 to 2026-11-23: turning my pitch film into the
+four-part final film (executive summary, introduction, methods, evaluation).
+
+**What was hard:** It was difficult to divide all of them in 4 parts and explain each one of
+them separately.
+
+**What I decided:** I decided that I should use Claude Code instead of an API key, made some
+graphic changes in the video and changed a few wordings in the videos which I thought would make
+it easier to understand for the viewer.
+
+**What I checked, and what Claude or another person contributed:** I watched the video myself
+and checked it thoroughly. Whatever I didn't like, for example the wording or the graphics, I
+asked Claude to change and it did that.
+
+**Evidence and next step:** my two review notes on the first v4 cut were B05 (no line from
+"AI data assistant" to the report card) and B20 (the jump from the recap to the closing line
+felt off; now "In conclusion" / "So the takeaway is this"). Claude Code choice: B14 and
+`APPENDIX.md` §3.3. Script as built: `reel/SCRIPT-v4-four-parts.md`; sign-off: `reel/FACTCHECK.md`.

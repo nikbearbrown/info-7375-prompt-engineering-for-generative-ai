@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""burn_captions.py — burn captions into the v2 master (and write an .srt beside it).
+"""burn_captions.py — burn captions into the v4 master (and write an .srt beside it).
 
 Caption TEXT is the script (beat_sheet.json narration), shown with numerals for readability
 (DISPLAY below). Caption TIMING comes from faster-whisper word timestamps of each beat's
@@ -28,28 +28,17 @@ MAXCH = 48
 
 # Script text with numerals, so a viewer reads "$4,667", not "four thousand six hundred ...".
 DISPLAY = {
-    "B01": "Ground Truth SQL. I'm Riya Kapadnis, and this is my final project pitch. "
-           "The problem: AI can write database code that runs with no errors, but gives the wrong answer.",
-    "B02": "Picture an analyst asking an AI: what is our revenue by country? The AI writes SQL, the language for "
-           "asking a database questions. It runs. No errors. It says the USA made $4,667. The real answer is $523.",
-    "B03": "Claude and I drafted that SQL to copy a common mistake, on a free sample music store database. One order "
-           "from Reno, Nevada cost $3.96, for four songs. The SQL joined the order to its songs, so the $3.96 was "
-           "counted four times. Do that for every US order, and the total is almost nine times too high.",
-    "B04": "It's not the only mistake. Mix up milliseconds and seconds: 3,500 long songs, not 1,069. Count purchases, "
-           "not people: 835 rock buyers, in a store with 59 customers. Link the wrong columns: no answer at all. "
-           "And no errors.",
-    "B09": "How does it judge? By results, not wording, since one answer can be written many ways. These two look "
-           "different, but both give 523. On 9 test queries, comparing wording judged 6 right. Comparing results: all 9.",
-    "B10": "Claude then answered my 8 questions about the music store, three times. The "
-           "checker passed 22 of 24. The two fails were a tie my question never settled. Claude wasn't wrong; my "
-           "question was.",
-    "B11": "It also caught a mistake in my answer key. One question asked about 2023, but the data ends in 2013. The "
-           "right answer was empty, so broken SQL returning nothing looked correct. Now the tool rejects empty answers.",
-    "B13": "The finished project will have one sample database, about 50 test questions, and Claude as the AI it "
-           "tests. It won't be a chat app, and it never changes the data.",
-    "B16": "The problem: AI can give wrong answers that look right. Ground Truth SQL tests the AI on your own data and "
-           "shows what's wrong, and why. Today the checker works; Claude's only fails were my question's "
-           "fault. Next: 50 harder questions. Running SQL is easy. Being right is the test.",
+    "B02": "Picture an analyst asking an AI: what is our revenue by country? The AI writes SQL, the language for asking a database questions. It runs. No errors. It says the USA made $4,667. The real answer is $523.",
+    "B06": "Others have tested AI on SQL. BIRD is a public benchmark: 12,751 questions over 95 databases, scored by checking results. People score about 93%, and the best AI still scores lower. But BIRD tests AI only on its own databases, not yours.",
+    "B09": "The data: Chinook, a free sample music store database. 11 tables, 59 customers, and 412 orders from 2009 to 2013.",
+    "B10": "Step one: write about 50 questions, each with a checked answer. I check every answer a second way, in plain Python, straight from the raw tables.",
+    "B12": "Step three: judge by results, not wording, since one answer can be written many ways. These two queries look different, but both give 523.",
+    "B15": "The finished project will have one sample database, about 50 test questions, and Claude as the AI it tests. It won't be a chat app, and it never changes the data.",
+    "B16": "First, does the checker judge correctly? On 9 test queries that I labeled by hand, comparing wording judged 6 right. Comparing results: all 9.",
+    "B17": "Then I had Claude answer my 8 questions, three times. The checker passed 22 of 24. The two fails were a tie my question never settled. Claude wasn't wrong; my question was.",
+    "B18": "It also caught a mistake in my answer key. One question asked about 2023, but the data ends in 2013. The right answer was empty, so broken SQL returning nothing looked correct. Now the tool rejects empty answers.",
+    "B19": "It worked if the checker agrees with my hand labels every time, every answer key passes the second check, and every miss on the report card has a named cause. It didn't work if Claude gets everything right, because that means my questions are too easy. Today it nearly does, so the next 50 questions must be harder.",
+    "B20": "In conclusion: AI can give wrong answers that look right. Ground Truth SQL tests the AI on your own data and shows what's wrong, and why. Today the checker works. Next: 50 harder questions. So the takeaway is this: running SQL is easy. Being right is the test.",
 }
 
 

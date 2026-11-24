@@ -58,4 +58,9 @@ cap B12.txt "B12: the review covered all 40 PASS diffs (docs/07-evidence.md)" "g
 cap B13.txt "B13: milestones M0-M5 and the target submit date (PLAN.md)" "grep -n -E '^\| M[0-5] \||Target submit' PLAN.md | cut -c1-160"
 cap B13.txt "B13: the repo's remote" "git remote get-url origin"
 cap B13.txt "B13: what comes next (docs/01-brief.md)" "grep -n -i -E 'controlled failure|stranger' docs/01-brief.md"
+cap B13.txt "B13: what it won't be (docs/01-brief.md; added for v2 B13)" "grep -n -i 'model benchmark' docs/01-brief.md"
+# v2 B12 (item 3, harden the check)
+cap B12-v2.txt "v2 B12 item 3: cheats in code that pass like a fix, incl. os._exit(0) (docs/03-action-surface-map.md:108-113)" "sed -n '108,113p' docs/03-action-surface-map.md"
+cap B12-v2.txt "v2 B12 item 3: the honest-limits section and its point 4 (docs/07-evidence.md)" "grep -n -E '^## Honest limits|^### 4\\.' docs/07-evidence.md"
+cap B12-v2.txt "v2 B12 item 3: honest limits point 4, the check cannot prove every test ran; names os._exit(0) (docs/07-evidence.md:519)" "sed -n '519p' docs/07-evidence.md"
 cd - >/dev/null

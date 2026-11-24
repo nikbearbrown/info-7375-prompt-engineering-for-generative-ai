@@ -1,0 +1,27 @@
+# v2 B12 item 3: cheats in code that pass like a fix, incl. os._exit(0) (docs/03-action-surface-map.md:108-113)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: sed -n '108,113p' docs/03-action-surface-map.md
+# ----------------------------------------------------------------------------
+
+The check cannot make PASS impossible. It runs the agent's code inside pytest, so a cheat in code passes like a fix:
+- special-casing an input
+- answering differently on each call
+- `os._exit(0)` on import
+- rewriting `sys.path` or `PATH` at import
+# exit code: 0
+
+# v2 B12 item 3: the honest-limits section and its point 4 (docs/07-evidence.md)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: grep -n -E '^## Honest limits|^### 4\.' docs/07-evidence.md
+# ----------------------------------------------------------------------------
+488:## Honest limits (T5.2)
+517:### 4. What the check can and cannot tell
+# exit code: 0
+
+# v2 B12 item 3: honest limits point 4, the check cannot prove every test ran; names os._exit(0) (docs/07-evidence.md:519)
+# Captured: 2026-11-23 by Claude Code, read-only, in ~/Documents/agent-proving-ground (HEAD f40f3a1, clean tree)
+# Command: sed -n '519p' docs/07-evidence.md
+# ----------------------------------------------------------------------------
+A PASS means the harness-run check returned exit code 0. The check verifies the pinned test-file hashes and invokes pytest, but code executed during testing can interfere with that process. Therefore, exit code 0 does not by itself prove that all intended tests completed successfully or that the fix was legitimate. docs/03 lists cheats in code that pass like a fix: special-casing an input, answering differently on each call, `os._exit(0)` on import, and rewriting `sys.path` or `PATH`. The check catches only one cheat itself, an edit to a pinned test file. The hash comparison detects changes to pinned test files that are present when the comparison runs. In `apg eval` the gate always defers, so no one approved a diff during these runs.
+# exit code: 0
+

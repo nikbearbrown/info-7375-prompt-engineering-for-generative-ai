@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""make_sheet.py — builds beat_sheet.json for agent-proving-ground-progress.
+"""make_sheet.py — builds beat_sheet.json for agent-proving-ground-progress (v2).
 
-Narration is BEAT-PLAN.md (approved by Tushar, Nov 23, 2026) word for word,
-except B04, which was changed to the October PROJECT-BRIEF.md wording (step 4
-[VERIFY]; Tushar chose "brief only" on Nov 23, 2026). Beat ids are the plan's
-B1..B13 written B01..B13 (the toolkit wants [A-Z][A-Z0-9_]*, and two digits
-keep them in order).
+Narration is Tushar's v2 beat plan (BEAT-PLAN.md, Nov 23, 2026) word for word.
+v2 replaced v1 the same day: v1 led with implementation and ended without
+explaining what's left. Beat ids are B01..B13 (the toolkit wants
+[A-Z][A-Z0-9_]*, and two digits keep them in order).
 
 Run once before audio. Re-running it wipes measured durations and sentence
 times, so re-run sentence_audio.py after it.
@@ -15,51 +14,51 @@ from pathlib import Path
 
 REEL = Path(__file__).resolve().parent
 
-B04_APPROVED = ("Pieces of this already exist. E2B and Runtime give agents sandboxes. Langfuse and "
-                "Raindrop trace and evaluate model calls. oh-my-pi is a harness for coding agents. "
-                "And a Drupal project, AI Proving Ground, grades what an agent actually saved instead "
-                "of what it reports, but only for Drupal sites.")
-
 BEATS = [
+    # PART 1 — EXECUTIVE SUMMARY
     ("B01", "B01_Hello", "CONSTRUCTED",
-     "I'm Tushar Patel, a software engineering student at Northeastern. This is my final project, Agent Proving Ground.",
-     "Title card: 'Tushar Patel', then the title 'Agent Proving Ground' and the subtitle 'progress film, through M5'."),
+     "Hi, I'm Tushar Patel, a software engineering student at Northeastern. This is my final project for INFO 7375: Agent Proving Ground.",
+     "Title card: 'Tushar Patel', 'software engineering student · Northeastern', then 'INFO 7375 · final project' and the title 'Agent Proving Ground'."),
     ("B02", "B02_Done", "CONSTRUCTED",
-     "When an AI coding agent says \"done,\" that isn't the same as the job being done. The agent might have fixed the bug, or quietly changed the test, or just stopped.",
-     "A speech bubble 'Done!' beside a red failing test; then three small outcomes: fixed the bug, changed the test, just stopped."),
-    ("B03", "B03_Loop", "CONSTRUCTED",
-     "Agent Proving Ground runs a coding agent on small tasks inside a locked sandbox. It records every step the agent takes, and it decides pass or fail with its own tests, never with the agent's word. Anyone who relies on a coding agent needs exactly this: a cheap, local way to see what the agent did, and whether it really worked.",
-     "sandbox -> trace -> check -> PASS/FAIL, drawn left to right as the narration names each part."),
-    ("B04", "B04_Others", "CONSTRUCTED",
-     "Pieces of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. And a Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, but only for Drupal sites.",
-     "One card per tool: E2B (sandboxes), Langfuse (traces and scores), AI Proving Ground for Drupal (grades what was saved; Drupal only)."),
-    ("B05", "B05_WhyMine", "CONSTRUCTED",
-     "What I wanted was all of it in one small loop I can run on a laptop: sandbox, trace, an independent check, and a human who approves before anything leaves, with every failure written down.",
-     "The four pieces (sandbox, trace, check, human approval) joined in a loop on a laptop outline; a failure log under it."),
-    ("B06", "B06_RealRun", "REAL",
-     "I built it in Go. The agent is Claude Haiku, with three tools: read a file, write a file, run a command. It works inside a Kubernetes pod with no network. After every change, the harness runs a hidden check the agent never sees. Here's a real run on task one: it passed in three steps, and every step is in the trace.",
-     "REAL. Terminal frame: the 'apg run 001' result line (PLAN.md:120, Nov 12) and apg show of 20261112T053055Z-92239eb0 with its 3 steps. Evidence: evidence/B6.txt."),
-    ("B07", "B07_PolicyGate", "REAL",
-     "Every tool call goes through a policy written in code. A denied call never runs; it's just recorded. And before any change leaves the sandbox, I see the diff and approve it myself. My approval is bound to the exact bytes I saw, so if the diff changes, my approval is void.",
-     "REAL. Terminal frame 1: apg show step 4 of 20261118T034327Z-b54f5cd6 (contract B, held-out, 008), DENIED (rule: path). Frame 2: gate section of 20261113T224740Z-a9a2c258, approved, diff_sha256 = recheck_sha256. Evidence: evidence/B7.txt."),
-    ("B08", "B08_Data", "REAL",
-     "The data is sixteen small Python tasks I made for this project. Eleven are normal bugs. Five are built to make the system say no: a wrong test, a task that needs the network, a budget too small. I split them into development and held-out sets, and froze that split before tuning anything.",
-     "REAL. Terminal frame: tasks/README.md task ids (11 normal, 5 failure), then git show --stat 26b5305. Evidence: evidence/B8.txt."),
-    ("B09", "B09_Isolation", "REAL",
-     "I tried to break the sandbox from inside a real pod: no network, not root, capped CPU, memory, processes and disk. Every limit held. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which wrote the code while I reviewed every change.",
-     "REAL. Terminal frame: highlighted lines of evidence/isolation/20261117-isolation-d29.txt (network, uid, CPU, memory, pids, disk; all PASS). Evidence: evidence/B9.txt."),
-    ("B10", "B10_Predictions", "REAL",
-     "Pass or fail comes only from the hidden check. I compared two system prompts: the original, and a longer one I wrote. Before running either on the held-out tasks, I wrote down and committed my predictions.",
-     "REAL. Terminal frame: docs/t5-predictions.md header and git log -1 6d7bafe; prompt sizes A 623 bytes, B 2,695 bytes. Evidence: evidence/B10.txt."),
+     "AI coding agents are good at saying they're finished. But \"done\" is a claim, not a result. An agent can fix the bug, or quietly edit the test so it passes, or just give up, and its message can look the same each time.",
+     "Three panels, each ending in the same bubble 'Done!': fixed bug (tick) / edited test (cross) / gave up (cross)."),
+    ("B03", "B03_WhatItIs", "CONSTRUCTED",
+     "Agent Proving Ground is a command-line tool, with its code in a public GitHub repo. You give it a small coding task. It runs an AI agent on that task inside a locked sandbox, records every step it takes, and decides pass or fail by running its own tests. Never by taking the agent's word for it.",
+     "One command -> sandbox -> trace -> check -> PASS/FAIL, drawn left to right as the narration names each part."),
+    ("B04", "B04_FirstMinute", "CONSTRUCTED",
+     "It's for engineers deciding whether to trust a coding agent, or a change to one. In their first minute, they run one command, read one result line, and open the trace to see exactly what the agent did.",
+     "A terminal mock-up: one command, one result line, then a trace opening. Labelled constructed (a mock-up, not captured output)."),
+    # PART 2 — INTRODUCTION
+    ("B05", "B05_Others", "CONSTRUCTED",
+     "Parts of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. Each solves one piece well. But a sandbox doesn't tell you whether the work is right, and a trace doesn't stop an agent from doing what it shouldn't.",
+     "Two cards (E2B, Langfuse), each with a 'solves' line and a 'doesn't' line."),
+    ("B06", "B06_WhyMine", "CONSTRUCTED",
+     "Mine joins the pieces in one small loop that runs on a laptop: sandbox, trace, an independent check, and a human approval before any change leaves. I built it because more and more code is written by agents, and someone has to check it rather than trust it. Along the way I learned Go and Kubernetes, which were both new to me.",
+     "The four pieces joined into a loop on a laptop outline; then 'check it, don't trust it'; then 'new to me: Go · Kubernetes'."),
+    # PART 3 — METHODS
+    ("B07", "B07_OneRun", "CONSTRUCTED",
+     "Here's one run. The harness starts a Kubernetes pod with no network, not running as root. The agent, Claude Haiku, gets three tools: read a file, write a file, run a command. Every tool call passes a permission policy written in code first. After every change, the harness runs a hidden check the agent never sees. Pass or fail comes only from that check. Then I see the diff and approve it, and my approval is bound to the exact bytes I saw.",
+     "One diagram built step by step with the narration: pod -> agent + 3 tools -> policy -> hidden check -> trace -> human gate."),
+    ("B08", "B08_Tasks", "CONSTRUCTED",
+     "The tasks are sixteen small Python repos I made. Eleven are ordinary bugs. Five are designed so the right answer is no: a wrong test, a task that needs the network, a budget too small. I froze a development and held-out split before tuning anything. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which writes the code while I review every change.",
+     "16 task tiles (11 green, 5 red) splitting into 'dev' and 'held-out' with a lock; then three chips: Docker + kind, spend-limited API key, Claude Code writes · I review."),
+    ("B09", "B09_BuiltSoFar", "REAL",
+     "All of that is built and tested now, through milestone five. A real run on task one passed in three steps, with every step in the trace. A denied tool call was recorded and never ran. And when I tried to break the sandbox from inside a real pod, every limit held.",
+     "REAL. Three quick dated terminal frames from the captures: the apg run 001 PASS line (Nov 12, evidence/B6.txt), the denied call in run 20261118T034327Z-b54f5cd6 (Nov 17 ET, evidence/B7.txt), the isolation results (Nov 17, evidence/B9.txt). A small 'M0-M5 done' strip (PLAN.md, evidence/B13.txt)."),
+    # PART 4 — EVALUATION
+    ("B10", "B10_Judged", "CONSTRUCTED",
+     "It's judged on three things. On normal tasks, it should pass. On the five no-tasks, it must say no. A pass on one of those would mean it failed. Third, I compare changes, like two different system prompts, on held-out tasks nobody tuned on, and I wrote my predictions down before the held-out runs.",
+     "Three checks: 'normal -> PASS', 'no-tasks -> must FAIL', 'compare on held-out, predictions first'."),
     ("B11", "B11_Results", "REAL",
-     "Seventy held-out runs. Both prompts passed all twenty normal runs, and both said no on all fifteen failure runs. That's a ceiling: pass rate can't tell them apart. My longer prompt cost about forty-one percent more and did no better.",
-     "REAL. Terminal frame: totals from evidence/compare/20261118-t51-a-vs-b.txt (runs 35/35, 20/20, 15/15, total cost). Costs labelled 'estimated from list prices'. Evidence: evidence/B11.txt."),
-    ("B12", "B12_PassMeans", "REAL",
-     "Then I read all forty passing fixes myself. No cheating, no test edits. But on one task, seven of ten fixes missed behavior the documentation asks for and the tests don't check. So a pass means the frozen checks passed, not that the spec was met.",
-     "REAL. Terminal frame: FAILURES.md F2 lines (7 of 10 on 011) and the executed check add_tag('x', ['X']) -> ['X', 'x']. Evidence: evidence/B12.txt."),
-    ("B13", "B13_Next", "CONSTRUCTED",
-     "Next, I'll trigger a failure on purpose, an agent editing its own test, and show the check catching it. Then a stranger will run the project from the README alone. If it ever passes something it shouldn't, or a sandbox limit breaks, it didn't work. The code is public at github.com/tushar-patel28/agent-proving-ground.",
-     "Checklist: M0-M5 ticked; 'controlled failure', 'stranger run', 'submit Dec 18' open. Repo URL on screen."),
+     "First results: seventy held-out runs. Both prompts passed all twenty normal runs and said no on all fifteen no-runs. Then I read all forty passing fixes myself. On one task, seven of ten missed what the documentation asks for. So a pass means the checks passed, not that the spec was met.",
+     "REAL. The apg compare totals (Nov 18, evidence/B11.txt), then FAILURES.md F2 with ['X', 'x'] (Nov 18, evidence/B12.txt). No costs."),
+    # CLOSE
+    ("B12", "B12_Left", "CONSTRUCTED",
+     "Three things are left. First, a controlled failure: I'll make an agent edit its own test on purpose, show the check catching it, and fix it. Second, a stranger will run the project from the README on a clean machine. Third, I'll harden the check, so it confirms every test actually ran.",
+     "Three numbered cards: '1 Controlled failure — edit the test -> check catches it -> recover', '2 Stranger run — README only, clean machine', '3 Harden the check — confirm every test actually ran: a forced exit can't fake a pass'; footer 'All by Dec 18'."),
+    ("B13", "B13_Close", "CONSTRUCTED",
+     "The biggest risk is a pass that isn't real, since code under test can fool a check. That's why I review diffs and write down every known gap. It won't be a hosted service or a model benchmark. It's one honest tool. Thanks for watching. The code is at github.com/tushar-patel28/agent-proving-ground.",
+     "'Risk: a pass that isn't real -> diff review + documented gaps', then the repo URL and 'Thanks for watching.'"),
 ]
 
 
@@ -73,7 +72,7 @@ def main():
             viz["note"] = "constructed diagram: must show 'Constructed' on screen for the whole beat"
         else:
             viz["label"] = "Real output"
-            viz["note"] = "real repo output: terminal frame shows the source path and its date"
+            viz["note"] = "real repo output: terminal frames show the source path and its date"
         beats.append({
             "beat_id": bid,
             "narration_text": text,
@@ -89,17 +88,16 @@ def main():
             "title": "Agent Proving Ground — progress film (through M5)",
             "slug": "agent-proving-ground-progress",
             "topic": "PROGRESS",
-            "purpose": "Final Project Film, progress version: what Agent Proving Ground is and what ran through milestone M5.",
+            "purpose": "Final Project Film, progress version: what Agent Proving Ground is, what is built through milestone M5, and what is left.",
             "engine": "kokoro",
             "voice_kokoro": "am_onyx",
             "aspect": "16:9",
             "clock": "narration",
             "narrator": "Tushar Patel (own narration, Kokoro am_onyx, as in the October pitch)",
-            "note": ("Narration copied verbatim from BEAT-PLAN.md (approved by Tushar, Nov 23, 2026), "
-                     "except B04: changed to the October PROJECT-BRIEF.md wording (step 4 [VERIFY], "
-                     "Tushar chose 'brief only', Nov 23, 2026). REAL beats show captured repo output "
-                     "(evidence/<beat>.txt) with source path and date; CONSTRUCTED beats show 'Constructed'."),
-            "b04_approved_text": B04_APPROVED,
+            "note": ("v2 narration, copied verbatim from BEAT-PLAN.md (Tushar, Nov 23, 2026). v1 (same day) "
+                     "was superseded because it led with implementation and ended without explaining "
+                     "what's left. REAL beats (B09, B11) show captured repo output (evidence/<beat>.txt) "
+                     "with source path and date; every other beat shows 'Constructed'."),
             "constructed": [b[0] for b in BEATS if b[2] == "CONSTRUCTED"],
             "real": [b[0] for b in BEATS if b[2] == "REAL"],
         },
@@ -111,4 +109,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

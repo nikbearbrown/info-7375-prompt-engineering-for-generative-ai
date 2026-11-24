@@ -1,0 +1,3235 @@
+{
+  "metadata": {
+    "slug": "daythread-final-project-film",
+    "title": "DayThread — Final Project Film",
+    "topic": "DAYTHREAD · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "aditya-raj-info7375",
+    "persona": "synthesized voice (Kokoro am_onyx) reading Aditya Raj's script",
+    "author": "Aditya Raj",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "burned-in disclosure + constructed-workflow captions (scene-drawn)",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Assignment identity over template defaults (Aditya, 2026-10-14; kept for the 2026-11-23 film): drawn Manim title instead of the hesitant writer; no key-terms card, no Your Turn, no verdict card; the outro is a drawn card (DayThread · Aditya Raj · github.com/aditya-raj-sde) instead of ClaudeTitleOutro, which hardcodes @NikBearBrown + mascot. bookend_check's outro rule fails by design and is recorded in gate-reports/.",
+    "audience": "INFO 7375 instructor/TAs and engineering hiring reviewers",
+    "source_doc": "../SCRIPT.md (v1, 2026-11-23); daythread/SOURCES.md (S1–S4 read by Aditya 2026-10-14); replay/RESULTS.md (2026-10-25)",
+    "playlist": "INFO 7375 final project film",
+    "chapter_number": 0,
+    "tags": [
+      "DayThread",
+      "agentic AI",
+      "human-in-the-loop",
+      "INFO 7375",
+      "final project film"
+    ],
+    "build": {
+      "at": "2026-11-23T16:31:37",
+      "cut": "master",
+      "filled": 18,
+      "of": 18,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BOUT: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "act": "opening",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Aditya Raj. This is DayThread, my final project. You're hearing a synthesized voice reading my script.",
+      "estimated_duration_s": 7.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": false,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "the title `DayThread`, \"final project · the plan\", \"Aditya Raj\"; a thread with three pages.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "the title `DayThread`, \"final project · the plan\", \"Aditya Raj\"; a thread with three pages."
+          }
+        ],
+        "manim": {
+          "class": "BIDEA_Title"
+        },
+        "motion_claim": "the title `DayThread`, \"final project · the plan\", \"Aditya Raj\"; a thread with three pages."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "actual_duration_s": 7.19,
+      "words": [
+        [
+          "Hi,",
+          0.0
+        ],
+        [
+          "I'm",
+          0.48
+        ],
+        [
+          "Aditya",
+          0.62
+        ],
+        [
+          "Raj.",
+          1.04
+        ],
+        [
+          "This",
+          1.62
+        ],
+        [
+          "is",
+          1.74
+        ],
+        [
+          "Daythread,",
+          1.92
+        ],
+        [
+          "my",
+          2.52
+        ],
+        [
+          "final",
+          2.68
+        ],
+        [
+          "project.",
+          3.02
+        ],
+        [
+          "You're",
+          4.02
+        ],
+        [
+          "hearing",
+          4.14
+        ],
+        [
+          "a",
+          4.34
+        ],
+        [
+          "synthesized",
+          4.5
+        ],
+        [
+          "voice",
+          5.16
+        ],
+        [
+          "reading",
+          5.44
+        ],
+        [
+          "my",
+          5.78
+        ],
+        [
+          "script.",
+          6.06
+        ]
+      ],
+      "speech_s": 7.189,
+      "render_duration_s": 7.208333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BIDEA.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "what it is",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "DayThread will be a check-in assistant for home care. It will remember what a client says from one day to the next. When something concerning comes up, like a fall mentioned in passing, it will show the client's exact words to a care coordinator, who decides what happens next.",
+      "estimated_duration_s": 19.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Day 1 and Day 2 pages on a thread; a terracotta dot on Day 2; an evidence slip travels to the coordinator's desk. Labels: `Day 1` · `Day 2` · `coordinator`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "Day 1 and Day 2 pages on a thread; a terracotta dot on Day 2; an evidence slip travels to the coordinator's desk. Labels: `Day 1` · `Day 2` · `coordinator`."
+          }
+        ],
+        "manim": {
+          "class": "B01_WhatItIs"
+        },
+        "motion_claim": "Day 1 and Day 2 pages on a thread; a terracotta dot on Day 2; an evidence slip travels to the coordinator's desk. Labels: `Day 1` · `Day 2` · `coordinator`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B01.mp3",
+      "actual_duration_s": 14.49,
+      "words": [
+        [
+          "Day",
+          0.0
+        ],
+        [
+          "thread",
+          0.16
+        ],
+        [
+          "will",
+          0.36
+        ],
+        [
+          "be",
+          0.54
+        ],
+        [
+          "a",
+          0.64
+        ],
+        [
+          "check",
+          0.76
+        ],
+        [
+          "-in",
+          0.9
+        ],
+        [
+          "assistant",
+          1.04
+        ],
+        [
+          "for",
+          1.38
+        ],
+        [
+          "home",
+          1.68
+        ],
+        [
+          "care.",
+          1.92
+        ],
+        [
+          "It",
+          2.66
+        ],
+        [
+          "will",
+          2.68
+        ],
+        [
+          "remember",
+          2.8
+        ],
+        [
+          "what",
+          3.08
+        ],
+        [
+          "a",
+          3.28
+        ],
+        [
+          "client",
+          3.42
+        ],
+        [
+          "says",
+          3.6
+        ],
+        [
+          "from",
+          3.92
+        ],
+        [
+          "one",
+          4.18
+        ],
+        [
+          "day",
+          4.42
+        ],
+        [
+          "to",
+          4.62
+        ],
+        [
+          "the",
+          4.76
+        ],
+        [
+          "next.",
+          4.88
+        ],
+        [
+          "When",
+          5.76
+        ],
+        [
+          "something",
+          5.86
+        ],
+        [
+          "concerning",
+          6.2
+        ],
+        [
+          "comes",
+          6.66
+        ],
+        [
+          "up,",
+          7.02
+        ],
+        [
+          "like",
+          7.4
+        ],
+        [
+          "a",
+          7.58
+        ],
+        [
+          "fall",
+          7.72
+        ],
+        [
+          "mentioned",
+          7.94
+        ],
+        [
+          "in",
+          8.22
+        ],
+        [
+          "passing,",
+          8.48
+        ],
+        [
+          "it",
+          9.16
+        ],
+        [
+          "will",
+          9.32
+        ],
+        [
+          "show",
+          9.44
+        ],
+        [
+          "the",
+          9.66
+        ],
+        [
+          "client's",
+          9.84
+        ],
+        [
+          "exact",
+          10.2
+        ],
+        [
+          "words",
+          10.54
+        ],
+        [
+          "to",
+          10.9
+        ],
+        [
+          "a",
+          11.16
+        ],
+        [
+          "care",
+          11.28
+        ],
+        [
+          "coordinator",
+          11.46
+        ],
+        [
+          "who",
+          11.96
+        ],
+        [
+          "decides",
+          12.48
+        ],
+        [
+          "what",
+          12.86
+        ],
+        [
+          "happens",
+          13.1
+        ],
+        [
+          "next.",
+          13.4
+        ]
+      ],
+      "speech_s": 14.485,
+      "render_duration_s": 14.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "why it matters",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Why it matters: a coordinator shouldn't have to reread every conversation, and a summary alone can't be trusted. In my October test, Claude's summaries all kept the fall, but nine of ten changed what the client meant.",
+      "estimated_duration_s": 14.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": false,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a check-in page, an arrow, a summary page; two tallies appear: `kept the fall: 10 of 10` and `meaning changed: 9 of 10`. Caption: replay run 2026-10-25, synthetic data, fictional client.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a check-in page, an arrow, a summary page; two tallies appear: `kept the fall: 10 of 10` and `meaning changed: 9 of 10`. Caption: replay run 2026-10-25, synthetic data, fictional client."
+          }
+        ],
+        "manim": {
+          "class": "B02_Why"
+        },
+        "motion_claim": "a check-in page, an arrow, a summary page; two tallies appear: `kept the fall: 10 of 10` and `meaning changed: 9 of 10`. Caption: replay run 2026-10-25, synthetic data, fictional client."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B02.mp3",
+      "actual_duration_s": 12.25,
+      "words": [
+        [
+          "Why",
+          0.0
+        ],
+        [
+          "it",
+          0.2
+        ],
+        [
+          "matters,",
+          0.34
+        ],
+        [
+          "a",
+          0.8
+        ],
+        [
+          "coordinator",
+          0.86
+        ],
+        [
+          "shouldn't",
+          1.22
+        ],
+        [
+          "have",
+          1.72
+        ],
+        [
+          "to",
+          1.88
+        ],
+        [
+          "reread",
+          2.06
+        ],
+        [
+          "every",
+          2.42
+        ],
+        [
+          "conversation,",
+          2.74
+        ],
+        [
+          "and",
+          3.7
+        ],
+        [
+          "a",
+          3.84
+        ],
+        [
+          "summary",
+          3.96
+        ],
+        [
+          "alone",
+          4.28
+        ],
+        [
+          "can't",
+          4.64
+        ],
+        [
+          "be",
+          4.98
+        ],
+        [
+          "trusted.",
+          5.06
+        ],
+        [
+          "In",
+          6.18
+        ],
+        [
+          "my",
+          6.34
+        ],
+        [
+          "October",
+          6.52
+        ],
+        [
+          "test,",
+          6.9
+        ],
+        [
+          "Claude's",
+          7.66
+        ],
+        [
+          "summaries",
+          7.9
+        ],
+        [
+          "all",
+          8.26
+        ],
+        [
+          "kept",
+          8.52
+        ],
+        [
+          "the",
+          8.72
+        ],
+        [
+          "fall,",
+          8.94
+        ],
+        [
+          "but",
+          9.44
+        ],
+        [
+          "9",
+          9.56
+        ],
+        [
+          "of",
+          9.82
+        ],
+        [
+          "10",
+          9.96
+        ],
+        [
+          "changed",
+          10.22
+        ],
+        [
+          "what",
+          10.62
+        ],
+        [
+          "the",
+          10.9
+        ],
+        [
+          "client",
+          11.04
+        ],
+        [
+          "meant.",
+          11.3
+        ]
+      ],
+      "speech_s": 12.245,
+      "render_duration_s": 12.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "what exists",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "That small test is the only part that has run. Everything else in this film is a plan.",
+      "estimated_duration_s": 7.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": false,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "two shelves. `ran` holds one page with the tumble dot; `planned` holds dashed outlines.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "two shelves. `ran` holds one page with the tumble dot; `planned` holds dashed outlines."
+          }
+        ],
+        "manim": {
+          "class": "B03_Exists"
+        },
+        "motion_claim": "two shelves. `ran` holds one page with the tumble dot; `planned` holds dashed outlines."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B03.mp3",
+      "actual_duration_s": 5.48,
+      "words": [
+        [
+          "That",
+          0.0
+        ],
+        [
+          "small",
+          0.18
+        ],
+        [
+          "test",
+          0.52
+        ],
+        [
+          "is",
+          0.86
+        ],
+        [
+          "the",
+          1.1
+        ],
+        [
+          "only",
+          1.22
+        ],
+        [
+          "part",
+          1.42
+        ],
+        [
+          "that",
+          1.8
+        ],
+        [
+          "has",
+          2.04
+        ],
+        [
+          "run.",
+          2.18
+        ],
+        [
+          "Everything",
+          2.84
+        ],
+        [
+          "else",
+          3.1
+        ],
+        [
+          "in",
+          3.42
+        ],
+        [
+          "this",
+          3.62
+        ],
+        [
+          "film",
+          3.74
+        ],
+        [
+          "is",
+          4.04
+        ],
+        [
+          "a",
+          4.26
+        ],
+        [
+          "plan.",
+          4.42
+        ]
+      ],
+      "speech_s": 5.483,
+      "render_duration_s": 5.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "what others have done",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Others have built parts of this. Lifeline sells automatic fall detection, and says it doesn't detect every fall. DailyCall makes daily AI phone calls with summaries for families, and says it can't guarantee every safety concern is detected or interpreted correctly.",
+      "estimated_duration_s": 16.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": false,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "two plinths: a pendant with a response tower (`Lifeline`), a phone with a summary page (`DailyCall`). No logos. Caption: from each company's own documentation, read 2026-10-14.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "two plinths: a pendant with a response tower (`Lifeline`), a phone with a summary page (`DailyCall`). No logos. Caption: from each company's own documentation, read 2026-10-14."
+          }
+        ],
+        "manim": {
+          "class": "B04_Others"
+        },
+        "motion_claim": "two plinths: a pendant with a response tower (`Lifeline`), a phone with a summary page (`DailyCall`). No logos. Caption: from each company's own documentation, read 2026-10-14."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B04.mp3",
+      "actual_duration_s": 15.64,
+      "words": [
+        [
+          "Others",
+          0.0
+        ],
+        [
+          "have",
+          0.24
+        ],
+        [
+          "built",
+          0.46
+        ],
+        [
+          "parts",
+          0.7
+        ],
+        [
+          "of",
+          1.0
+        ],
+        [
+          "this.",
+          1.2
+        ],
+        [
+          "Lifeline",
+          1.92
+        ],
+        [
+          "sells",
+          2.28
+        ],
+        [
+          "automatic",
+          2.6
+        ],
+        [
+          "fall",
+          3.12
+        ],
+        [
+          "detection",
+          3.46
+        ],
+        [
+          "and",
+          3.92
+        ],
+        [
+          "says",
+          4.36
+        ],
+        [
+          "it",
+          4.54
+        ],
+        [
+          "doesn't",
+          4.68
+        ],
+        [
+          "detect",
+          4.92
+        ],
+        [
+          "every",
+          5.24
+        ],
+        [
+          "fall.",
+          5.56
+        ],
+        [
+          "Daily",
+          6.56
+        ],
+        [
+          "Call",
+          6.68
+        ],
+        [
+          "makes",
+          6.96
+        ],
+        [
+          "daily",
+          7.3
+        ],
+        [
+          "AI",
+          7.6
+        ],
+        [
+          "phone",
+          7.9
+        ],
+        [
+          "calls",
+          8.2
+        ],
+        [
+          "with",
+          8.56
+        ],
+        [
+          "summaries",
+          8.82
+        ],
+        [
+          "for",
+          9.26
+        ],
+        [
+          "families",
+          9.5
+        ],
+        [
+          "and",
+          9.9
+        ],
+        [
+          "says",
+          10.46
+        ],
+        [
+          "it",
+          10.64
+        ],
+        [
+          "can't",
+          10.82
+        ],
+        [
+          "guarantee",
+          11.14
+        ],
+        [
+          "every",
+          11.58
+        ],
+        [
+          "safety",
+          11.9
+        ],
+        [
+          "concern",
+          12.3
+        ],
+        [
+          "is",
+          12.78
+        ],
+        [
+          "detected",
+          13.02
+        ],
+        [
+          "or",
+          13.46
+        ],
+        [
+          "interpreted",
+          13.84
+        ],
+        [
+          "correctly.",
+          14.36
+        ]
+      ],
+      "speech_s": 15.637,
+      "render_duration_s": 15.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "why DayThread",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I'm not claiming they lack anything. DayThread's focus is narrower: every concern linked to the client's own words, a separate check of the raw transcript, and a person who decides before anything leaves the system.",
+      "estimated_duration_s": 14.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "the two plinths shrink left; a third, `DayThread · planned`, slides in: three linked pages, a scan line, a small closed gate.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "the two plinths shrink left; a third, `DayThread · planned`, slides in: three linked pages, a scan line, a small closed gate."
+          }
+        ],
+        "manim": {
+          "class": "B05_Focus"
+        },
+        "motion_claim": "the two plinths shrink left; a third, `DayThread · planned`, slides in: three linked pages, a scan line, a small closed gate."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B05.mp3",
+      "actual_duration_s": 11.63,
+      "words": [
+        [
+          "I'm",
+          0.0
+        ],
+        [
+          "not",
+          0.18
+        ],
+        [
+          "claiming",
+          0.36
+        ],
+        [
+          "they",
+          0.62
+        ],
+        [
+          "lack",
+          0.84
+        ],
+        [
+          "anything.",
+          1.06
+        ],
+        [
+          "Day",
+          2.06
+        ],
+        [
+          "thread's",
+          2.08
+        ],
+        [
+          "focus",
+          2.46
+        ],
+        [
+          "is",
+          2.72
+        ],
+        [
+          "narrower,",
+          2.98
+        ],
+        [
+          "every",
+          3.86
+        ],
+        [
+          "concern",
+          4.08
+        ],
+        [
+          "linked",
+          4.5
+        ],
+        [
+          "to",
+          4.76
+        ],
+        [
+          "the",
+          4.98
+        ],
+        [
+          "client's",
+          5.1
+        ],
+        [
+          "own",
+          5.46
+        ],
+        [
+          "words,",
+          5.6
+        ],
+        [
+          "a",
+          6.24
+        ],
+        [
+          "separate",
+          6.3
+        ],
+        [
+          "check",
+          6.6
+        ],
+        [
+          "of",
+          6.84
+        ],
+        [
+          "the",
+          7.02
+        ],
+        [
+          "raw",
+          7.1
+        ],
+        [
+          "transcript,",
+          7.3
+        ],
+        [
+          "and",
+          8.16
+        ],
+        [
+          "a",
+          8.22
+        ],
+        [
+          "person",
+          8.34
+        ],
+        [
+          "who",
+          8.54
+        ],
+        [
+          "decides",
+          8.82
+        ],
+        [
+          "before",
+          9.2
+        ],
+        [
+          "anything",
+          9.6
+        ],
+        [
+          "leaves",
+          9.9
+        ],
+        [
+          "the",
+          10.26
+        ],
+        [
+          "system.",
+          10.5
+        ]
+      ],
+      "speech_s": 11.627,
+      "render_duration_s": 11.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "the delegation contract",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Here's how I'll build it. First, a delegation contract: each step must hand the next one something it can check, and if the check fails, the work stops. I'll write the contract and its tests before Claude writes any code.",
+      "estimated_duration_s": 16.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a contract page with a seal; three steps joined by arrows; a check mark lands on each handoff; the last handoff gets a stop bar. Labels: `contract` · `handoff` · `stop`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a contract page with a seal; three steps joined by arrows; a check mark lands on each handoff; the last handoff gets a stop bar. Labels: `contract` · `handoff` · `stop`."
+          }
+        ],
+        "manim": {
+          "class": "B06_Contract"
+        },
+        "motion_claim": "a contract page with a seal; three steps joined by arrows; a check mark lands on each handoff; the last handoff gets a stop bar. Labels: `contract` · `handoff` · `stop`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B06.mp3",
+      "actual_duration_s": 12.14,
+      "words": [
+        [
+          "Here's",
+          0.0
+        ],
+        [
+          "how",
+          0.28
+        ],
+        [
+          "I'll",
+          0.44
+        ],
+        [
+          "build",
+          0.66
+        ],
+        [
+          "it.",
+          0.86
+        ],
+        [
+          "First,",
+          1.32
+        ],
+        [
+          "a",
+          1.66
+        ],
+        [
+          "delegation",
+          1.68
+        ],
+        [
+          "contract.",
+          2.08
+        ],
+        [
+          "Each",
+          3.12
+        ],
+        [
+          "step",
+          3.26
+        ],
+        [
+          "must",
+          3.56
+        ],
+        [
+          "hand",
+          3.76
+        ],
+        [
+          "the",
+          4.02
+        ],
+        [
+          "next",
+          4.16
+        ],
+        [
+          "one",
+          4.34
+        ],
+        [
+          "something",
+          4.58
+        ],
+        [
+          "it",
+          4.88
+        ],
+        [
+          "can",
+          5.1
+        ],
+        [
+          "check,",
+          5.24
+        ],
+        [
+          "and",
+          5.76
+        ],
+        [
+          "if",
+          5.9
+        ],
+        [
+          "the",
+          6.02
+        ],
+        [
+          "check",
+          6.16
+        ],
+        [
+          "fails,",
+          6.34
+        ],
+        [
+          "the",
+          6.88
+        ],
+        [
+          "work",
+          6.96
+        ],
+        [
+          "stops.",
+          7.12
+        ],
+        [
+          "I'll",
+          8.34
+        ],
+        [
+          "write",
+          8.54
+        ],
+        [
+          "the",
+          8.68
+        ],
+        [
+          "contract",
+          8.86
+        ],
+        [
+          "in",
+          9.26
+        ],
+        [
+          "its",
+          9.48
+        ],
+        [
+          "tests",
+          9.62
+        ],
+        [
+          "before",
+          9.92
+        ],
+        [
+          "Claude",
+          10.3
+        ],
+        [
+          "writes",
+          10.58
+        ],
+        [
+          "any",
+          10.92
+        ],
+        [
+          "code.",
+          11.12
+        ]
+      ],
+      "speech_s": 12.139,
+      "render_duration_s": 12.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "three handoffs",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The raw transcript will be saved and can't be edited. Every claim in memory must quote it word for word. And an approval only counts if the evidence and the action haven't changed since the coordinator saw them.",
+      "estimated_duration_s": 15.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "an append-only binder; a page linked to the memory drawers by a quote line; a closed gate with a lock. Labels: `append only` · `quoted` · `bound to what was seen`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "an append-only binder; a page linked to the memory drawers by a quote line; a closed gate with a lock. Labels: `append only` · `quoted` · `bound to what was seen`."
+          }
+        ],
+        "manim": {
+          "class": "B07_Handoffs"
+        },
+        "motion_claim": "an append-only binder; a page linked to the memory drawers by a quote line; a closed gate with a lock. Labels: `append only` · `quoted` · `bound to what was seen`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B07.mp3",
+      "actual_duration_s": 11.37,
+      "words": [
+        [
+          "The",
+          0.0
+        ],
+        [
+          "raw",
+          0.14
+        ],
+        [
+          "transcript",
+          0.32
+        ],
+        [
+          "will",
+          0.8
+        ],
+        [
+          "be",
+          1.0
+        ],
+        [
+          "saved",
+          1.16
+        ],
+        [
+          "and",
+          1.52
+        ],
+        [
+          "can't",
+          1.76
+        ],
+        [
+          "be",
+          2.04
+        ],
+        [
+          "edited.",
+          2.14
+        ],
+        [
+          "Every",
+          2.98
+        ],
+        [
+          "claim",
+          3.18
+        ],
+        [
+          "in",
+          3.44
+        ],
+        [
+          "memory",
+          3.62
+        ],
+        [
+          "must",
+          3.94
+        ],
+        [
+          "quote",
+          4.2
+        ],
+        [
+          "it",
+          4.5
+        ],
+        [
+          "word",
+          4.66
+        ],
+        [
+          "for",
+          4.84
+        ],
+        [
+          "word,",
+          5.06
+        ],
+        [
+          "and",
+          5.54
+        ],
+        [
+          "an",
+          5.86
+        ],
+        [
+          "approval",
+          5.96
+        ],
+        [
+          "only",
+          6.24
+        ],
+        [
+          "counts",
+          6.6
+        ],
+        [
+          "if",
+          7.02
+        ],
+        [
+          "the",
+          7.26
+        ],
+        [
+          "evidence",
+          7.38
+        ],
+        [
+          "and",
+          7.72
+        ],
+        [
+          "the",
+          7.94
+        ],
+        [
+          "action",
+          8.02
+        ],
+        [
+          "haven't",
+          8.38
+        ],
+        [
+          "changed",
+          8.84
+        ],
+        [
+          "since",
+          9.14
+        ],
+        [
+          "the",
+          9.48
+        ],
+        [
+          "coordinator",
+          9.66
+        ],
+        [
+          "saw",
+          10.02
+        ],
+        [
+          "them.",
+          10.44
+        ]
+      ],
+      "speech_s": 11.371,
+      "render_duration_s": 11.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "the loop",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Each check-in will run as a loop with a turn budget. It stops when the conversation ends or the budget runs out, never just because the model says it's done.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a loop ring with a runner, budget slots draining, a stop bar. Labels: `loop` · `budget` · `stop`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a loop ring with a runner, budget slots draining, a stop bar. Labels: `loop` · `budget` · `stop`."
+          }
+        ],
+        "manim": {
+          "class": "B08_Loop"
+        },
+        "motion_claim": "a loop ring with a runner, budget slots draining, a stop bar. Labels: `loop` · `budget` · `stop`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B08.mp3",
+      "actual_duration_s": 9.02,
+      "words": [
+        [
+          "Each",
+          0.0
+        ],
+        [
+          "check",
+          0.24
+        ],
+        [
+          "-in",
+          0.5
+        ],
+        [
+          "will",
+          0.66
+        ],
+        [
+          "run",
+          0.84
+        ],
+        [
+          "as",
+          1.04
+        ],
+        [
+          "a",
+          1.22
+        ],
+        [
+          "loop",
+          1.36
+        ],
+        [
+          "with",
+          1.52
+        ],
+        [
+          "a",
+          1.78
+        ],
+        [
+          "turn",
+          1.96
+        ],
+        [
+          "budget.",
+          2.16
+        ],
+        [
+          "It",
+          2.98
+        ],
+        [
+          "stops",
+          3.08
+        ],
+        [
+          "when",
+          3.34
+        ],
+        [
+          "the",
+          3.6
+        ],
+        [
+          "conversation",
+          3.74
+        ],
+        [
+          "ends",
+          4.22
+        ],
+        [
+          "or",
+          4.72
+        ],
+        [
+          "the",
+          5.0
+        ],
+        [
+          "budget",
+          5.1
+        ],
+        [
+          "runs",
+          5.38
+        ],
+        [
+          "out,",
+          5.66
+        ],
+        [
+          "never",
+          6.34
+        ],
+        [
+          "just",
+          6.48
+        ],
+        [
+          "because",
+          6.74
+        ],
+        [
+          "the",
+          7.04
+        ],
+        [
+          "model",
+          7.24
+        ],
+        [
+          "says",
+          7.52
+        ],
+        [
+          "it's",
+          7.78
+        ],
+        [
+          "done.",
+          8.06
+        ]
+      ],
+      "speech_s": 9.024,
+      "render_duration_s": 9.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "the fine-tuned checker",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The separate check will be a small open model, DistilRoBERTa, downloaded from Hugging Face and fine-tuned by me to flag concerning sentences. It reads the raw transcript, never the summary, so it fails differently from the thing it checks.",
+      "estimated_duration_s": 15.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a pale box `base model` → arrow → a dark box `fine-tuned`; a terracotta scan line on the raw transcript; the summary page is crossed out. Labels: `Hugging Face` · `fine-tuned` · `raw transcript` · `not the summary`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a pale box `base model` → arrow → a dark box `fine-tuned`; a terracotta scan line on the raw transcript; the summary page is crossed out. Labels: `Hugging Face` · `fine-tuned` · `raw transcript` · `not the summary`."
+          }
+        ],
+        "manim": {
+          "class": "B09_Checker"
+        },
+        "motion_claim": "a pale box `base model` → arrow → a dark box `fine-tuned`; a terracotta scan line on the raw transcript; the summary page is crossed out. Labels: `Hugging Face` · `fine-tuned` · `raw transcript` · `not the summary`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B09.mp3",
+      "actual_duration_s": 13.63,
+      "words": [
+        [
+          "The",
+          0.0
+        ],
+        [
+          "separate",
+          0.16
+        ],
+        [
+          "check",
+          0.44
+        ],
+        [
+          "will",
+          0.66
+        ],
+        [
+          "be",
+          0.82
+        ],
+        [
+          "a",
+          0.94
+        ],
+        [
+          "small",
+          1.06
+        ],
+        [
+          "open",
+          1.3
+        ],
+        [
+          "model,",
+          1.68
+        ],
+        [
+          "Distill",
+          2.36
+        ],
+        [
+          "roberta,",
+          2.66
+        ],
+        [
+          "downloaded",
+          3.62
+        ],
+        [
+          "from",
+          3.9
+        ],
+        [
+          "hugging",
+          4.24
+        ],
+        [
+          "face",
+          4.48
+        ],
+        [
+          "and",
+          4.82
+        ],
+        [
+          "fine",
+          5.1
+        ],
+        [
+          "-tuned",
+          5.36
+        ],
+        [
+          "by",
+          5.74
+        ],
+        [
+          "me",
+          5.88
+        ],
+        [
+          "to",
+          6.08
+        ],
+        [
+          "flag",
+          6.26
+        ],
+        [
+          "concerning",
+          6.56
+        ],
+        [
+          "sentences.",
+          7.04
+        ],
+        [
+          "It",
+          8.42
+        ],
+        [
+          "reads",
+          8.52
+        ],
+        [
+          "the",
+          8.76
+        ],
+        [
+          "raw",
+          8.94
+        ],
+        [
+          "transcript,",
+          9.12
+        ],
+        [
+          "never",
+          10.0
+        ],
+        [
+          "the",
+          10.1
+        ],
+        [
+          "summary,",
+          10.3
+        ],
+        [
+          "so",
+          10.98
+        ],
+        [
+          "it",
+          11.1
+        ],
+        [
+          "fails",
+          11.2
+        ],
+        [
+          "differently",
+          11.46
+        ],
+        [
+          "from",
+          11.86
+        ],
+        [
+          "the",
+          12.12
+        ],
+        [
+          "thing",
+          12.28
+        ],
+        [
+          "it",
+          12.42
+        ],
+        [
+          "checks.",
+          12.58
+        ]
+      ],
+      "speech_s": 13.632,
+      "render_duration_s": 13.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "data",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "All data will be synthetic, with fictional clients. Claude will write the training sentences under labelling rules I set, and I'll spot-check them. I'll write the held-out test sentences myself, before any training, and lock them away.",
+      "estimated_duration_s": 14.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a stack of pages `training · by Claude` with a check on one; pages slide into a vault that locks: `held-out · by me`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a stack of pages `training · by Claude` with a check on one; pages slide into a vault that locks: `held-out · by me`."
+          }
+        ],
+        "manim": {
+          "class": "B10_Data"
+        },
+        "motion_claim": "a stack of pages `training · by Claude` with a check on one; pages slide into a vault that locks: `held-out · by me`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B10.mp3",
+      "actual_duration_s": 12.86,
+      "words": [
+        [
+          "All",
+          0.0
+        ],
+        [
+          "data",
+          0.18
+        ],
+        [
+          "will",
+          0.44
+        ],
+        [
+          "be",
+          0.66
+        ],
+        [
+          "synthetic",
+          0.8
+        ],
+        [
+          "with",
+          1.22
+        ],
+        [
+          "fictional",
+          1.54
+        ],
+        [
+          "clients.",
+          1.86
+        ],
+        [
+          "Claude",
+          2.98
+        ],
+        [
+          "will",
+          2.98
+        ],
+        [
+          "write",
+          3.18
+        ],
+        [
+          "the",
+          3.36
+        ],
+        [
+          "training",
+          3.52
+        ],
+        [
+          "sentences",
+          3.8
+        ],
+        [
+          "under",
+          4.36
+        ],
+        [
+          "labeling",
+          4.66
+        ],
+        [
+          "rules",
+          4.92
+        ],
+        [
+          "I",
+          5.36
+        ],
+        [
+          "set",
+          5.56
+        ],
+        [
+          "and",
+          5.86
+        ],
+        [
+          "I'll",
+          6.16
+        ],
+        [
+          "spot",
+          6.34
+        ],
+        [
+          "check",
+          6.64
+        ],
+        [
+          "them.",
+          6.9
+        ],
+        [
+          "I'll",
+          7.94
+        ],
+        [
+          "write",
+          8.16
+        ],
+        [
+          "the",
+          8.32
+        ],
+        [
+          "held",
+          8.52
+        ],
+        [
+          "out",
+          8.66
+        ],
+        [
+          "test",
+          8.88
+        ],
+        [
+          "sentences",
+          9.16
+        ],
+        [
+          "myself",
+          9.66
+        ],
+        [
+          "before",
+          10.18
+        ],
+        [
+          "any",
+          10.64
+        ],
+        [
+          "training",
+          10.84
+        ],
+        [
+          "and",
+          11.2
+        ],
+        [
+          "lock",
+          11.5
+        ],
+        [
+          "them",
+          11.7
+        ],
+        [
+          "away.",
+          11.88
+        ]
+      ],
+      "speech_s": 12.864,
+      "render_duration_s": 12.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "resources",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Do I have what I need? Claude Code through my existing account, so no API credits. The base model is a free download, so no new account. Training will run on my laptop, in Python, with PyTorch and S-Q-Lite.",
+      "estimated_duration_s": 15.6,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "three plinth items, each getting a check: a workstation (`existing account`), a box with a down arrow (`free download`), a laptop (`laptop`). Then `Python · PyTorch · SQLite`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "three plinth items, each getting a check: a workstation (`existing account`), a box with a down arrow (`free download`), a laptop (`laptop`). Then `Python · PyTorch · SQLite`."
+          }
+        ],
+        "manim": {
+          "class": "B11_Resources"
+        },
+        "motion_claim": "three plinth items, each getting a check: a workstation (`existing account`), a box with a down arrow (`free download`), a laptop (`laptop`). Then `Python · PyTorch · SQLite`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 12.05,
+      "audio_file": "mp3/beat-B11.mp3",
+      "speech_s": 12.053,
+      "words": [
+        [
+          "Do",
+          0.0
+        ],
+        [
+          "I",
+          0.12
+        ],
+        [
+          "have",
+          0.24
+        ],
+        [
+          "what",
+          0.34
+        ],
+        [
+          "I",
+          0.46
+        ],
+        [
+          "need",
+          0.58
+        ],
+        [
+          "clawed",
+          0.84
+        ],
+        [
+          "code",
+          1.24
+        ],
+        [
+          "through",
+          1.5
+        ],
+        [
+          "my",
+          1.74
+        ],
+        [
+          "existing",
+          1.92
+        ],
+        [
+          "account",
+          2.24
+        ],
+        [
+          "so",
+          2.68
+        ],
+        [
+          "no",
+          2.98
+        ],
+        [
+          "API",
+          3.2
+        ],
+        [
+          "credits.",
+          3.62
+        ],
+        [
+          "The",
+          4.68
+        ],
+        [
+          "base",
+          4.76
+        ],
+        [
+          "model",
+          4.94
+        ],
+        [
+          "is",
+          5.26
+        ],
+        [
+          "a",
+          5.5
+        ],
+        [
+          "free",
+          5.62
+        ],
+        [
+          "download",
+          5.8
+        ],
+        [
+          "so",
+          6.22
+        ],
+        [
+          "no",
+          6.58
+        ],
+        [
+          "new",
+          6.74
+        ],
+        [
+          "account.",
+          6.9
+        ],
+        [
+          "Training",
+          7.76
+        ],
+        [
+          "will",
+          7.84
+        ],
+        [
+          "run",
+          8.08
+        ],
+        [
+          "on",
+          8.24
+        ],
+        [
+          "my",
+          8.36
+        ],
+        [
+          "laptop",
+          8.52
+        ],
+        [
+          "in",
+          8.9
+        ],
+        [
+          "Python",
+          9.26
+        ],
+        [
+          "with",
+          9.62
+        ],
+        [
+          "PyTorch",
+          9.98
+        ],
+        [
+          "and",
+          10.7
+        ],
+        [
+          "SQLite.",
+          10.82
+        ]
+      ],
+      "render_duration_s": 12.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "the steps",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The order: the contract and tests, then the test set, then training data, then the checker, then the loop, memory and review page. Last, one run on the held-out set, before December twentieth.",
+      "estimated_duration_s": 13.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a thread with six numbered dots appearing on cue; the last one ends at a vault. Label: `by Dec 20`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a thread with six numbered dots appearing on cue; the last one ends at a vault. Label: `by Dec 20`."
+          }
+        ],
+        "manim": {
+          "class": "B12_Steps"
+        },
+        "motion_claim": "a thread with six numbered dots appearing on cue; the last one ends at a vault. Label: `by Dec 20`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B12.mp3",
+      "actual_duration_s": 10.35,
+      "words": [
+        [
+          "The",
+          0.0
+        ],
+        [
+          "order,",
+          0.14
+        ],
+        [
+          "the",
+          0.52
+        ],
+        [
+          "contract",
+          0.62
+        ],
+        [
+          "and",
+          0.96
+        ],
+        [
+          "tests,",
+          1.2
+        ],
+        [
+          "then",
+          1.72
+        ],
+        [
+          "the",
+          1.76
+        ],
+        [
+          "test",
+          1.9
+        ],
+        [
+          "set,",
+          2.08
+        ],
+        [
+          "then",
+          2.56
+        ],
+        [
+          "training",
+          2.62
+        ],
+        [
+          "data,",
+          2.88
+        ],
+        [
+          "then",
+          3.46
+        ],
+        [
+          "the",
+          3.52
+        ],
+        [
+          "checker,",
+          3.64
+        ],
+        [
+          "then",
+          4.22
+        ],
+        [
+          "the",
+          4.28
+        ],
+        [
+          "loop,",
+          4.4
+        ],
+        [
+          "memory,",
+          4.78
+        ],
+        [
+          "and",
+          5.3
+        ],
+        [
+          "review",
+          5.38
+        ],
+        [
+          "page.",
+          5.62
+        ],
+        [
+          "Last,",
+          6.8
+        ],
+        [
+          "one",
+          7.08
+        ],
+        [
+          "run",
+          7.26
+        ],
+        [
+          "on",
+          7.46
+        ],
+        [
+          "the",
+          7.62
+        ],
+        [
+          "held",
+          7.74
+        ],
+        [
+          "out",
+          7.92
+        ],
+        [
+          "set",
+          8.12
+        ],
+        [
+          "before",
+          8.44
+        ],
+        [
+          "December",
+          8.82
+        ],
+        [
+          "20th.",
+          9.1
+        ]
+      ],
+      "speech_s": 10.347,
+      "render_duration_s": 10.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "evaluating the checker",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "To evaluate the checker, I'll compare it with a simple keyword list and with the model before training, on the held-out set. I'll write the pass mark down before I look. If it doesn't beat the keyword list, that's the result I'll report.",
+      "estimated_duration_s": 17.2,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "three empty dashed bars labelled `keywords` · `untrained` · `fine-tuned`; a sealed envelope `pass mark`; a dashed threshold line.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "three empty dashed bars labelled `keywords` · `untrained` · `fine-tuned`; a sealed envelope `pass mark`; a dashed threshold line."
+          }
+        ],
+        "manim": {
+          "class": "B13_EvalChecker"
+        },
+        "motion_claim": "three empty dashed bars labelled `keywords` · `untrained` · `fine-tuned`; a sealed envelope `pass mark`; a dashed threshold line."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B13.mp3",
+      "actual_duration_s": 12.52,
+      "words": [
+        [
+          "To",
+          0.0
+        ],
+        [
+          "evaluate",
+          0.14
+        ],
+        [
+          "the",
+          0.5
+        ],
+        [
+          "checker,",
+          0.76
+        ],
+        [
+          "I'll",
+          1.28
+        ],
+        [
+          "compare",
+          1.4
+        ],
+        [
+          "it",
+          1.72
+        ],
+        [
+          "with",
+          1.9
+        ],
+        [
+          "a",
+          2.02
+        ],
+        [
+          "simple",
+          2.16
+        ],
+        [
+          "keyword",
+          2.44
+        ],
+        [
+          "list",
+          2.8
+        ],
+        [
+          "and",
+          3.12
+        ],
+        [
+          "with",
+          3.36
+        ],
+        [
+          "the",
+          3.48
+        ],
+        [
+          "model",
+          3.62
+        ],
+        [
+          "before",
+          3.84
+        ],
+        [
+          "training",
+          4.16
+        ],
+        [
+          "on",
+          4.54
+        ],
+        [
+          "the",
+          4.94
+        ],
+        [
+          "held",
+          5.04
+        ],
+        [
+          "-out",
+          5.22
+        ],
+        [
+          "set.",
+          5.42
+        ],
+        [
+          "I'll",
+          6.64
+        ],
+        [
+          "write",
+          6.76
+        ],
+        [
+          "the",
+          6.92
+        ],
+        [
+          "pass",
+          7.1
+        ],
+        [
+          "mark",
+          7.34
+        ],
+        [
+          "down",
+          7.58
+        ],
+        [
+          "before",
+          7.92
+        ],
+        [
+          "I",
+          8.26
+        ],
+        [
+          "look.",
+          8.42
+        ],
+        [
+          "If",
+          8.84
+        ],
+        [
+          "it",
+          8.96
+        ],
+        [
+          "doesn't",
+          9.06
+        ],
+        [
+          "beat",
+          9.34
+        ],
+        [
+          "the",
+          9.46
+        ],
+        [
+          "keyword",
+          9.62
+        ],
+        [
+          "list,",
+          9.92
+        ],
+        [
+          "that's",
+          10.44
+        ],
+        [
+          "the",
+          10.66
+        ],
+        [
+          "result",
+          10.8
+        ],
+        [
+          "I'll",
+          11.12
+        ],
+        [
+          "report.",
+          11.46
+        ]
+      ],
+      "speech_s": 12.523,
+      "render_duration_s": 12.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "deliberate failures",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "At least five failure cases will be included on purpose: took a spill, my legs gave out, I didn't fall, my neighbour fell, and I fell asleep.",
+      "estimated_duration_s": 10.8,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "five cards drop in on cue, each crossed. Label: `5 failure cases, on purpose`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "five cards drop in on cue, each crossed. Label: `5 failure cases, on purpose`."
+          }
+        ],
+        "manim": {
+          "class": "B14_Failures"
+        },
+        "motion_claim": "five cards drop in on cue, each crossed. Label: `5 failure cases, on purpose`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.19,
+      "audio_file": "mp3/beat-B14.mp3",
+      "speech_s": 8.192,
+      "words": [
+        [
+          "At",
+          0.0
+        ],
+        [
+          "least",
+          0.16
+        ],
+        [
+          "five",
+          0.28
+        ],
+        [
+          "failure",
+          0.6
+        ],
+        [
+          "cases",
+          0.96
+        ],
+        [
+          "will",
+          1.4
+        ],
+        [
+          "be",
+          1.62
+        ],
+        [
+          "included",
+          1.76
+        ],
+        [
+          "on",
+          2.06
+        ],
+        [
+          "purpose.",
+          2.3
+        ],
+        [
+          "Took",
+          3.22
+        ],
+        [
+          "a",
+          3.34
+        ],
+        [
+          "spill,",
+          3.44
+        ],
+        [
+          "my",
+          3.94
+        ],
+        [
+          "legs",
+          4.04
+        ],
+        [
+          "gave",
+          4.3
+        ],
+        [
+          "out,",
+          4.54
+        ],
+        [
+          "I",
+          4.98
+        ],
+        [
+          "didn't",
+          5.02
+        ],
+        [
+          "fall,",
+          5.28
+        ],
+        [
+          "my",
+          5.68
+        ],
+        [
+          "neighbor",
+          5.78
+        ],
+        [
+          "fell,",
+          6.04
+        ],
+        [
+          "and",
+          6.66
+        ],
+        [
+          "I",
+          6.74
+        ],
+        [
+          "fell",
+          6.94
+        ],
+        [
+          "asleep.",
+          7.1
+        ]
+      ],
+      "render_duration_s": 8.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "the controlled failure",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then one controlled failure. My test never dropped the fall on its own, so I'll force a summary that drops it. It passes only if the separate check catches it and a coordinator reviews it.",
+      "estimated_duration_s": 14.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "the check-in page and a summary with a dashed empty row (`forced`); the terracotta scan line finds the tumble line; a review item drops into the queue (`review`).",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "the check-in page and a summary with a dashed empty row (`forced`); the terracotta scan line finds the tumble line; a review item drops into the queue (`review`)."
+          }
+        ],
+        "manim": {
+          "class": "B15_Controlled"
+        },
+        "motion_claim": "the check-in page and a summary with a dashed empty row (`forced`); the terracotta scan line finds the tumble line; a review item drops into the queue (`review`)."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B15.mp3",
+      "actual_duration_s": 10.75,
+      "words": [
+        [
+          "Then",
+          0.0
+        ],
+        [
+          "one",
+          0.18
+        ],
+        [
+          "controlled",
+          0.4
+        ],
+        [
+          "failure.",
+          0.86
+        ],
+        [
+          "My",
+          1.84
+        ],
+        [
+          "test",
+          1.94
+        ],
+        [
+          "never",
+          2.2
+        ],
+        [
+          "dropped",
+          2.52
+        ],
+        [
+          "the",
+          2.84
+        ],
+        [
+          "fall",
+          3.02
+        ],
+        [
+          "on",
+          3.24
+        ],
+        [
+          "its",
+          3.42
+        ],
+        [
+          "own,",
+          3.56
+        ],
+        [
+          "so",
+          3.98
+        ],
+        [
+          "I'll",
+          4.12
+        ],
+        [
+          "force",
+          4.32
+        ],
+        [
+          "a",
+          4.48
+        ],
+        [
+          "summary",
+          4.66
+        ],
+        [
+          "that",
+          4.94
+        ],
+        [
+          "drops",
+          5.22
+        ],
+        [
+          "it.",
+          5.54
+        ],
+        [
+          "It",
+          6.24
+        ],
+        [
+          "passes",
+          6.36
+        ],
+        [
+          "only",
+          6.7
+        ],
+        [
+          "if",
+          7.06
+        ],
+        [
+          "the",
+          7.28
+        ],
+        [
+          "separate",
+          7.46
+        ],
+        [
+          "check",
+          7.74
+        ],
+        [
+          "catches",
+          8.02
+        ],
+        [
+          "it",
+          8.38
+        ],
+        [
+          "and",
+          8.64
+        ],
+        [
+          "a",
+          8.84
+        ],
+        [
+          "coordinator",
+          8.96
+        ],
+        [
+          "reviews",
+          9.36
+        ],
+        [
+          "it.",
+          9.86
+        ]
+      ],
+      "speech_s": 10.752,
+      "render_duration_s": 10.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "what it can't show",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What this can't show: whether it works with real clients, or whether it catches a changed meaning. That's why the coordinator will see the original words next to every claim.",
+      "estimated_duration_s": 12.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": true,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "a dashed fence `synthetic only`; a claim slip beside the original page, joined by a line. Label: `original words beside each claim`.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "a dashed fence `synthetic only`; a claim slip beside the original page, joined by a line. Label: `original words beside each claim`."
+          }
+        ],
+        "manim": {
+          "class": "B16_Limits"
+        },
+        "motion_claim": "a dashed fence `synthetic only`; a claim slip beside the original page, joined by a line. Label: `original words beside each claim`."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-B16.mp3",
+      "actual_duration_s": 9.45,
+      "words": [
+        [
+          "What",
+          0.0
+        ],
+        [
+          "this",
+          0.14
+        ],
+        [
+          "can't",
+          0.32
+        ],
+        [
+          "show,",
+          0.66
+        ],
+        [
+          "whether",
+          1.18
+        ],
+        [
+          "it",
+          1.32
+        ],
+        [
+          "works",
+          1.48
+        ],
+        [
+          "with",
+          1.66
+        ],
+        [
+          "real",
+          1.88
+        ],
+        [
+          "clients",
+          2.14
+        ],
+        [
+          "or",
+          2.56
+        ],
+        [
+          "whether",
+          2.98
+        ],
+        [
+          "it",
+          3.2
+        ],
+        [
+          "catches",
+          3.36
+        ],
+        [
+          "a",
+          3.66
+        ],
+        [
+          "changed",
+          3.86
+        ],
+        [
+          "meaning,",
+          4.2
+        ],
+        [
+          "that's",
+          5.16
+        ],
+        [
+          "why",
+          5.5
+        ],
+        [
+          "the",
+          5.68
+        ],
+        [
+          "coordinator",
+          5.84
+        ],
+        [
+          "will",
+          6.3
+        ],
+        [
+          "see",
+          6.6
+        ],
+        [
+          "the",
+          6.84
+        ],
+        [
+          "original",
+          6.96
+        ],
+        [
+          "words",
+          7.26
+        ],
+        [
+          "next",
+          7.7
+        ],
+        [
+          "to",
+          7.98
+        ],
+        [
+          "every",
+          8.2
+        ],
+        [
+          "claim.",
+          8.46
+        ]
+      ],
+      "speech_s": 9.451,
+      "render_duration_s": 9.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "This was DayThread, by Aditya Raj.",
+      "estimated_duration_s": 2.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "constructed_caption": false,
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "`DayThread`, `Aditya Raj`, `github.com/aditya-raj-sde`; a thread ending in a terracotta dot.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "`DayThread`, `Aditya Raj`, `github.com/aditya-raj-sde`; a thread ending in a terracotta dot."
+          }
+        ],
+        "manim": {
+          "class": "BOUT_Outro"
+        },
+        "motion_claim": "`DayThread`, `Aditya Raj`, `github.com/aditya-raj-sde`; a thread ending in a terracotta dot."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "actual_duration_s": 3.79,
+      "words": [
+        [
+          "This",
+          0.0
+        ],
+        [
+          "was",
+          0.18
+        ],
+        [
+          "Day",
+          0.34
+        ],
+        [
+          "Thread",
+          0.6
+        ],
+        [
+          "by",
+          0.92
+        ],
+        [
+          "addediraj.",
+          1.22
+        ]
+      ],
+      "speech_s": 2.795,
+      "render_duration_s": 3.7916666666666665,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BOUT.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:31:37"
+      }
+    }
+  ]
+}
