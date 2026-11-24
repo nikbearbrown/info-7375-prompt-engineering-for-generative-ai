@@ -63,7 +63,10 @@ def requirements(ls, max_lines=22):
 
 def year_lines(ls):
     """Every line that mentions a number of years, verbatim."""
-    return [x for x in ls if re.search(r"\d\s*\+?\s*(?:-|–|to)?\s*\d*\s*\+?\s*(years?|yrs)\b", x, re.I)]
+    # Fixed 2026-11-24 after Riya found "8 or more years" missing (card #41): also "N or more", "N plus", spelled-out numbers.
+    num = r"(?:\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|twelve|fifteen)"
+    pat = num + r"\s*(?:\+|plus)?\s*(?:(?:-|–|to)\s*" + num + r"\s*\+?\s*)?(?:or\s+more\s+|or\s+greater\s+)?(?:years?|yrs)\b"
+    return [x for x in ls if re.search(pat, x, re.I)]
 
 
 def snippet(text, n=900):
