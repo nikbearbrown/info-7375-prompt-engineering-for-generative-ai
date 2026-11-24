@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "js3-postings": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["-B", "mcp/tap.py", "--", "python3", "-B", "mcp/server.py"],
+      "env": {"JS3_TAP_LOG": "transcripts/02-claude-code-own-server.jsonl"}
+    }
+  }
+}
