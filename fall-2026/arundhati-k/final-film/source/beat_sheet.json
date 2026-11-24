@@ -1,0 +1,1183 @@
+{
+  "metadata": {
+    "slug": "coop-sponsor-check-final",
+    "title": "Co-op Sponsor Check",
+    "topic": "INFO 7375 · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "info7375-student",
+    "channel_title": "Arundhati Kandelkar",
+    "persona": "Arundhati Kandelkar",
+    "voice": "bf_emma",
+    "voice_kokoro": "bf_emma",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "No Your Turn: the assignment fixes four parts in order. Opens on the hesitant writer; spoken outro shows the student's name.",
+    "audience": "INFO 7375 instructor and TAs; later, hiring managers for software developer roles",
+    "source_doc": "fall-2026/arundhati-k/final-film (PREDICTIONS.md, MY-SEARCHES.md, evidence/eval-after-fix-2026-11-23.md); fork branch final/arundhatik26-and-fix",
+    "playlist": "INFO 7375 Final Project",
+    "chapter_number": 0,
+    "tags": [
+      "INFO 7375",
+      "final project",
+      "H-1B",
+      "co-op",
+      "evaluation"
+    ],
+    "build": {
+      "at": "2026-11-23T16:26:47",
+      "cut": "master",
+      "filled": 24,
+      "of": 24,
+      "slates": [],
+      "skin_warnings": [
+        "BNAME: palette=claude but the cold open is 'BrutalistHesitantWriter' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BNAME",
+      "act": "who",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Hello. I'm Arundhati Kandelkar, a master's student at Northeastern.",
+      "estimated_duration_s": 3.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "my name types"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Arundhati Kandelkar\nMSIS, Northeastern University",
+            "triggerWords": "",
+            "replacementWords": "",
+            "fontSize": 72,
+            "charMs": 22,
+            "hesitateBetween": 2,
+            "hesitateWithin": 0,
+            "mistakeRate": 0,
+            "jitter": 10,
+            "seed": "coop-sponsor-check-final-name",
+            "banner": "",
+            "durationSeconds": 3.84
+          }
+        }
+      },
+      "lead_silence_s": 0.5,
+      "motion_claim": "My name and programme type in while I say them.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Name card: the name is the whole picture."
+      },
+      "part": 1,
+      "actual_duration_s": 3.84,
+      "audio_file": "mp3/beat-BNAME.mp3",
+      "render_duration_s": 3.875,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BNAME.mp4",
+        "filled_by": "media",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BBUILD",
+      "act": "what",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "I'm building Co-op Sponsor Check: a tool that tells international students whether a company has ever sponsored someone for a software job.",
+      "estimated_duration_s": 8.8,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types 'I'm building Co-op Sponsor Check' as it is spoken"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "I'm building Co-op Sponsor Check",
+            "triggerWords": "",
+            "replacementWords": "",
+            "fontSize": 72,
+            "charMs": 18,
+            "hesitateBetween": 0,
+            "hesitateWithin": 0,
+            "mistakeRate": 0,
+            "jitter": 8,
+            "seed": "coop-sponsor-check-final-build",
+            "banner": "",
+            "durationSeconds": 7.55
+          }
+        }
+      },
+      "motion_claim": "The one-sentence summary types in as it is spoken.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "One-sentence summary card."
+      },
+      "part": 1,
+      "actual_duration_s": 7.552,
+      "audio_file": "mp3/beat-BBUILD.mp3",
+      "render_duration_s": 7.583333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BBUILD.mp4",
+        "filled_by": "media",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BIDEA",
+      "act": "the question",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "When international students like me pick an internship, we need to know one thing: has this company ever sponsored someone for a software job? Today we guess, and a missing record looks like a no. My tool says I don't know, instead of guessing no.",
+      "estimated_duration_s": 18.0,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "types the naive question"
+          },
+          {
+            "at": 0.5,
+            "event": "corrects 'sponsor visas' to the narrower question"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "Does this company sponsor visas",
+            "triggerWords": "sponsor visas",
+            "replacementWords": "have a record of sponsoring software jobs",
+            "fontSize": 64,
+            "charMs": 22,
+            "hesitateBetween": 6,
+            "hesitateWithin": 1,
+            "mistakeRate": 2,
+            "jitter": 20,
+            "seed": "coop-sponsor-check-final",
+            "banner": "",
+            "durationSeconds": 13.23
+          }
+        }
+      },
+      "motion_claim": "The naive question is corrected to the one a tool can answer.",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Hesitant-writer bookend: the correction is the motion."
+      },
+      "part": 1,
+      "actual_duration_s": 13.227,
+      "audio_file": "mp3/beat-BIDEA.mp3",
+      "render_duration_s": 13.25,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BIDEA.mp4",
+        "filled_by": "media",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BWHAT",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When it's done, it will be a public GitHub repository: the tool, a twenty-five company evaluation set, and a log of where it fails.",
+      "estimated_duration_s": 9.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A repository folder tray holding three things: the company box (the tool), a small grid (the evaluation set), a page (the failure log); tag 'PLANNED · finished form'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "repo tray"
+          },
+          {
+            "at": 0.3,
+            "event": "three parts drop in"
+          },
+          {
+            "at": 0.62,
+            "event": "folder tab"
+          }
+        ],
+        "manim": {
+          "class": "BWHAT_Repo"
+        },
+        "motion_claim": "A repository folder tray holding three things: the company box (the tool), a small grid (the evaluation set), a page (the failure log); tag 'PLANNED · finished form'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 1,
+      "actual_duration_s": 7.403,
+      "audio_file": "mp3/beat-BWHAT.mp3",
+      "render_duration_s": 7.416666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BWHAT.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "P2",
+      "act": "part 2",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Part two. What already exists?",
+      "estimated_duration_s": 2.0,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part title types"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "2 · What already exists",
+            "triggerWords": "",
+            "replacementWords": "",
+            "fontSize": 96,
+            "charMs": 6,
+            "hesitateBetween": 0,
+            "hesitateWithin": 0,
+            "mistakeRate": 0,
+            "jitter": 8,
+            "seed": "coop-sponsor-check-final-p2",
+            "banner": "",
+            "durationSeconds": 2.63
+          },
+          "rendered": {
+            "out": "media/P2.mp4",
+            "at": "2026-11-23T21:16:18.996088+00:00"
+          }
+        }
+      },
+      "motion_claim": "Part title types in as it is spoken.",
+      "lead_silence_s": 0.3,
+      "tail_silence_s": 0.8,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Part title card: the structure the assignment asks for."
+      },
+      "part": 2,
+      "actual_duration_s": 2.635,
+      "audio_file": "mp3/beat-P2.mp3",
+      "render_duration_s": 2.6666666666666665,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/P2.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The official source is the U S C I S, H-1B Employer Data Hub. When I searched it for Capital One, it listed two employers, Capital One National Association, and Capital One Services. My dataset has neither. But the hub is searched one employer at a time, and it has no job-title filter.",
+      "estimated_duration_s": 21.2,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A search window with the query 'Capital One' and the two employer names the hub listed; beside it a 'job title' filter pill gets crossed out; tag 'MY SEARCH · uscis.gov · 2026-10-25'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "search window + two rows"
+          },
+          {
+            "at": 0.62,
+            "event": "job-title pill crossed out"
+          }
+        ],
+        "manim": {
+          "class": "B05_Hub"
+        },
+        "motion_claim": "A search window with the query 'Capital One' and the two employer names the hub listed; beside it a 'job title' filter pill gets crossed out; tag 'MY SEARCH · uscis.gov · 2026-10-25'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 2,
+      "actual_duration_s": 17.899,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 17.916666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BOS",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I also searched Open Sanctions, a database for sanctions and risk screening, for Robinhood, Chime, and So Fi. Chime returned eleven results, mostly unrelated people, and Chime Financial was not among the ones I reviewed. It shows how a brand-name search returns related or irrelevant matches.",
+      "estimated_duration_s": 18.4,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A search window with the query 'Chime' and a column of eleven result rows, mostly greyed person rows; a crossed-out 'Chime Financial Inc' label beside it; tag 'MY SEARCH · opensanctions.org'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "query + eleven rows"
+          },
+          {
+            "at": 0.62,
+            "event": "'Chime Financial Inc' crossed: not in the results"
+          }
+        ],
+        "manim": {
+          "class": "BOS_OpenSanctions"
+        },
+        "motion_claim": "A search window with the query 'Chime' and a column of eleven result rows, mostly greyed person rows; a crossed-out 'Chime Financial Inc' label beside it; tag 'MY SEARCH · opensanctions.org'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 2,
+      "actual_duration_s": 18.112,
+      "audio_file": "mp3/beat-BOS.mp3",
+      "render_duration_s": 18.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BOS.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BGL",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then G L E I F, the global register of legal entity identifiers. It connected brand names to legal names: Robinhood to Robinhood Markets, and So Fi to Social Finance, L L C, which was once Social Finance, Inc.",
+      "estimated_duration_s": 15.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two brand tags on the left, arrows to the legal names GLEIF listed on the right: ROBINHOOD MARKETS, INC. and SOCIAL FINANCE, LLC with 'previously SOCIAL FINANCE, INC.'; tag 'MY SEARCH · gleif.org'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "Robinhood → ROBINHOOD MARKETS, INC."
+          },
+          {
+            "at": 0.3,
+            "event": "SoFi → SOCIAL FINANCE, LLC"
+          },
+          {
+            "at": 0.62,
+            "event": "previous legal name"
+          }
+        ],
+        "manim": {
+          "class": "BGL_Gleif"
+        },
+        "motion_claim": "Two brand tags on the left, arrows to the legal names GLEIF listed on the right: ROBINHOOD MARKETS, INC. and SOCIAL FINANCE, LLC with 'previously SOCIAL FINANCE, INC.'; tag 'MY SEARCH · gleif.org'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 2,
+      "actual_duration_s": 13.888,
+      "audio_file": "mp3/beat-BGL.mp3",
+      "render_duration_s": 13.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BGL.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BCARE",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "But neither tool is built to find employers that sponsor H-1B visas. Finding them takes time, especially when a company's brand name is different from its legal name in the data. My tool brings that information together, finds possible name variations, and lets you verify the result, instead of blindly trusting an automatic match.",
+      "estimated_duration_s": 21.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "One brand tag 'Chime' with lines to two legal-name tags; a 'you verify' check box lands between them.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "brand tag and two legal names"
+          },
+          {
+            "at": 0.62,
+            "event": "you-verify box and check"
+          }
+        ],
+        "manim": {
+          "class": "BCARE_Why"
+        },
+        "motion_claim": "One brand tag 'Chime' with lines to two legal-name tags; a 'you verify' check box lands between them."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 2,
+      "actual_duration_s": 19.84,
+      "audio_file": "mp3/beat-BCARE.mp3",
+      "render_duration_s": 19.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BCARE.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "P3",
+      "act": "part 3",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Part three. How I'm building it.",
+      "estimated_duration_s": 2.4,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part title types"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "3 · How I'm building it",
+            "triggerWords": "",
+            "replacementWords": "",
+            "fontSize": 96,
+            "charMs": 6,
+            "hesitateBetween": 0,
+            "hesitateWithin": 0,
+            "mistakeRate": 0,
+            "jitter": 8,
+            "seed": "coop-sponsor-check-final-p3",
+            "banner": "",
+            "durationSeconds": 2.57
+          },
+          "rendered": {
+            "out": "media/P3.mp4",
+            "at": "2026-11-23T21:16:25.948598+00:00"
+          }
+        }
+      },
+      "motion_claim": "Part title types in as it is spoken.",
+      "lead_silence_s": 0.3,
+      "tail_silence_s": 0.8,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Part title card: the structure the assignment asks for."
+      },
+      "part": 3,
+      "actual_duration_s": 2.571,
+      "audio_file": "mp3/beat-P3.mp3",
+      "render_duration_s": 2.5833333333333335,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/P3.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B00",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Here is what exists today. On October third I pushed a recipe to my fork of the Reallocation Engine. It takes a company and the job I want, software or full-stack development.",
+      "estimated_duration_s": 12.8,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A kraft company box drops onto the stage beside a flat data page; tag 'EXISTS · 03784b0'.",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "box drops in"
+          },
+          {
+            "at": 0.6,
+            "event": "tag"
+          }
+        ],
+        "manim": {
+          "class": "B00_Arrives"
+        },
+        "motion_claim": "A kraft company box drops onto the stage beside a flat data page; tag 'EXISTS · 03784b0'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 10.453,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 10.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "For each company it checks three things. Is there a record of sponsoring software titles? Does the co-op start before graduation? And is the job posting still live?",
+      "estimated_duration_s": 11.2,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The box opens; a record page, a calendar block and a check rise out of it, one per question.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "record page"
+          },
+          {
+            "at": 0.35,
+            "event": "calendar"
+          },
+          {
+            "at": 0.62,
+            "event": "live check"
+          }
+        ],
+        "manim": {
+          "class": "B01_Three"
+        },
+        "motion_claim": "The box opens; a record page, a calendar block and a check rise out of it, one per question."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 9.493,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 9.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When a company is missing from the data, it does not treat that as zero. It says unknown, and tells you to ask a person.",
+      "estimated_duration_s": 10.0,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A box rides up to a gate; the gate shows a question mark, never a zero.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "box rides to gate"
+          },
+          {
+            "at": 0.62,
+            "event": "question mark"
+          }
+        ],
+        "manim": {
+          "class": "B02_Unknown"
+        },
+        "motion_claim": "A box rides up to a gate; the gate shows a question mark, never a zero."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 6.443,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 6.458333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The data comes from a public dataset built from a list of funded startups taken from S E C filings. That is its biggest limit: the big banks are not in it at all.",
+      "estimated_duration_s": 13.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A data page with a gap; three bank boxes drop toward it and pass through the gap.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "page with gap"
+          },
+          {
+            "at": 0.35,
+            "event": "three boxes fall through"
+          }
+        ],
+        "manim": {
+          "class": "B03_Gap"
+        },
+        "motion_claim": "A data page with a gap; three bank boxes drop toward it and pass through the gap."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 9.664,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 9.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BFIX",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Today I fixed brand names. If what you type is the first word of a company's name, like Chime, the tool now lists Chime Financial and Chime Inc. If the legal name shares no word, like So Fi, a short alias list I wrote points to Social Finance. Either way a person picks. Twenty-six tests pass.",
+      "estimated_duration_s": 22.4,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Typed 'Chime' fans out to two rows; typed 'SoFi' goes through an alias arrow to 'SOCIAL FINANCE INC'; a 'human check' box lands; tag 'BUILT · 2026-11-23 · 26 tests'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "Chime → two rows"
+          },
+          {
+            "at": 0.35,
+            "event": "SoFi → alias → SOCIAL FINANCE INC"
+          },
+          {
+            "at": 0.62,
+            "event": "human check"
+          }
+        ],
+        "manim": {
+          "class": "BFIX_Brand"
+        },
+        "motion_claim": "Typed 'Chime' fans out to two rows; typed 'SoFi' goes through an alias arrow to 'SOCIAL FINANCE INC'; a 'human check' box lands; tag 'BUILT · 2026-11-23 · 26 tests'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 17.643,
+      "audio_file": "mp3/beat-BFIX.mp3",
+      "render_duration_s": 17.666666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BFIX.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Next, the official hub becomes a second data source, so a missing bank becomes a real answer or an honest unknown. Then a written failure analysis, and a README with a one-command demo.",
+      "estimated_duration_s": 13.2,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A second page slides under the gapped page and fills the hole; tag 'PLANNED'.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "second page slides in"
+          },
+          {
+            "at": 0.62,
+            "event": "gap filled"
+          }
+        ],
+        "manim": {
+          "class": "B06_Second"
+        },
+        "motion_claim": "A second page slides under the gapped page and fills the hole; tag 'PLANNED'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 10.859,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 10.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BRES",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What do I need? My laptop, Python, GitHub, and the public data, including the U S C I S employer data. I may use Claude Code to help me build it, but the lookup itself is plain Python, with no AI model at run time, so it stays predictable.",
+      "estimated_duration_s": 19.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four small objects in a row — laptop, Python page, GitHub folder tray, data page — and a 'no AI model at run time' pill; tag 'WHAT I NEED'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "four objects"
+          },
+          {
+            "at": 0.62,
+            "event": "no-model pill"
+          }
+        ],
+        "manim": {
+          "class": "BRES_Need"
+        },
+        "motion_claim": "Four small objects in a row — laptop, Python page, GitHub folder tray, data page — and a 'no AI model at run time' pill; tag 'WHAT I NEED'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 14.443,
+      "audio_file": "mp3/beat-BRES.mp3",
+      "render_duration_s": 14.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BRES.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "One thing it will deliberately not do: give immigration advice, or predict whether anyone gets a visa. It reports history.",
+      "estimated_duration_s": 8.0,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A stop sign beside the box; three small label tags clip onto the box.",
+        "show": [
+          {
+            "at": 0.2,
+            "event": "stop sign"
+          },
+          {
+            "at": 0.62,
+            "event": "three label tags"
+          }
+        ],
+        "manim": {
+          "class": "B09_Out"
+        },
+        "motion_claim": "A stop sign beside the box; three small label tags clip onto the box."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 3,
+      "actual_duration_s": 7.061,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 7.083333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "P4",
+      "act": "part 4",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Part four. How will I know it worked?",
+      "estimated_duration_s": 3.2,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "part title types"
+          }
+        ],
+        "remotion": {
+          "pattern": "BrutalistHesitantWriter",
+          "props": {
+            "text": "4 · How I'll know it worked",
+            "triggerWords": "",
+            "replacementWords": "",
+            "fontSize": 96,
+            "charMs": 6,
+            "hesitateBetween": 0,
+            "hesitateWithin": 0,
+            "mistakeRate": 0,
+            "jitter": 8,
+            "seed": "coop-sponsor-check-final-p4",
+            "banner": "",
+            "durationSeconds": 2.72
+          },
+          "rendered": {
+            "out": "media/P4.mp4",
+            "at": "2026-11-23T21:16:33.153236+00:00"
+          }
+        }
+      },
+      "motion_claim": "Part title types in as it is spoken.",
+      "lead_silence_s": 0.3,
+      "tail_silence_s": 0.8,
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Part title card: the structure the assignment asks for."
+      },
+      "part": 4,
+      "actual_duration_s": 2.72,
+      "audio_file": "mp3/beat-P4.mp3",
+      "render_duration_s": 2.75,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/P4.mp4",
+        "filled_by": "remotion:BrutalistHesitantWriter",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I test it on twenty-five companies. Every company I looked up in the official hub was there. In October my tool found a record for only two. It never guessed no. But that number told me something was wrong.",
+      "estimated_duration_s": 15.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A grid of twenty-five company squares; all fill grey and rows land in the results table; two get terracotta dots; tag '25 RAN · 2026-10-12 / 10-25'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "grid"
+          },
+          {
+            "at": 0.3,
+            "event": "rows land"
+          },
+          {
+            "at": 0.62,
+            "event": "two found"
+          }
+        ],
+        "manim": {
+          "class": "B07_Eval"
+        },
+        "motion_claim": "A grid of twenty-five company squares; all fill grey and rows land in the results table; two get terracotta dots; tag '25 RAN · 2026-10-12 / 10-25'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 4,
+      "actual_duration_s": 11.904,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 11.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "B07A",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Two real problems. First, my matcher turned Goldman Sachs and Co, L L C, into Goldman Sachs and. It is fixed now, with a test that failed before the fix and passes after.",
+      "estimated_duration_s": 13.2,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The hub's name 'GOLDMAN SACHS AND CO LLC', an arrow, and the matcher's output 'GOLDMAN SACHS' with a tick; tag 'FIXED · 2026-10-24'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "hub name"
+          },
+          {
+            "at": 0.3,
+            "event": "arrow and fixed output"
+          },
+          {
+            "at": 0.62,
+            "event": "tick"
+          }
+        ],
+        "manim": {
+          "class": "B07A_Bug"
+        },
+        "motion_claim": "The hub's name 'GOLDMAN SACHS AND CO LLC', an arrow, and the matcher's output 'GOLDMAN SACHS' with a tick; tag 'FIXED · 2026-10-24'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 4,
+      "actual_duration_s": 10.176,
+      "audio_file": "mp3/beat-B07A.mp3",
+      "render_duration_s": 10.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07A.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BAFTER",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Second, brand names: Robinhood, Chime and So Fi were missed. Before fixing it, I predicted the first-word rule would catch two, and So Fi would need the alias. That is what happened. Now none of the three is missed, six of the twenty-five go to a person, and there are no wrong automatic answers.",
+      "estimated_duration_s": 21.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A before/after table with three rows: missed strong sponsors 3 → 0, wrong automatic answers 1 → 0, sent to a person 0 → 6; tag 'MEASURED · 2026-11-23 · predictions first'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "table and before column"
+          },
+          {
+            "at": 0.62,
+            "event": "after column lands"
+          }
+        ],
+        "manim": {
+          "class": "BAFTER_Result"
+        },
+        "motion_claim": "A before/after table with three rows: missed strong sponsors 3 → 0, wrong automatic answers 1 → 0, sent to a person 0 → 6; tag 'MEASURED · 2026-11-23 · predictions first'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 4,
+      "actual_duration_s": 16.597,
+      "audio_file": "mp3/beat-BAFTER.mp3",
+      "render_duration_s": 16.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BAFTER.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BBAR",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "After I add the hub, it passes if it finds known sponsors from both sources, even when brand and legal names differ, shows which source supports each result, and leaves the choice to a person. It fails if it misses employers that are in the data, confirms a wrong company, picks one on its own, or if the second source does not improve coverage.",
+      "estimated_duration_s": 25.6,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns, PASS and FAIL, each with a short list; ticks land down PASS, crosses down FAIL; tag 'MY PASS / FAIL BAR · next test'.",
+        "show": [
+          {
+            "at": 0.15,
+            "event": "PASS column"
+          },
+          {
+            "at": 0.62,
+            "event": "FAIL column"
+          }
+        ],
+        "manim": {
+          "class": "BBAR_PassFail"
+        },
+        "motion_claim": "Two columns, PASS and FAIL, each with a short list; ticks land down PASS, crosses down FAIL; tag 'MY PASS / FAIL BAR · next test'."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carrying the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "part": 4,
+      "actual_duration_s": 18.667,
+      "audio_file": "mp3/beat-BBAR.mp3",
+      "render_duration_s": 18.708333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/BBAR.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:26:47"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Co-op Sponsor Check. Made by Arundhati Kandelkar.",
+      "estimated_duration_s": 4.0,
+      "voice": "bf_emma",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title; my name"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Co-op Sponsor Check",
+            "slug": "coop-sponsor-check-final",
+            "handle": "Arundhati Kandelkar",
+            "subline": "",
+            "durationSeconds": 4.18
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "actual_duration_s": 4.179,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "render_duration_s": 4.208333333333333,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "media",
+        "at": "2026-11-23T16:26:47"
+      }
+    }
+  ]
+}
