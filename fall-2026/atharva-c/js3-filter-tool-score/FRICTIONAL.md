@@ -54,3 +54,10 @@
 - Four read-only tools over the saved Nov 23 run: `search_postings`, `get_posting`, `judge_posting` (v1.2), `shortlist_entry`. No network, no subprocess; the only file it writes is its call log, and it refuses a log path outside `out/`.
 - `evidence/mcp/scripted-transcript.jsonl` is a **scripted** client (`tests/mcp_scripted_client.py`), not a model; it includes a bad uid (tool error, server stays up) and a call to a tool that does not exist (`apply_to_job` → JSON-RPC error -32602).
 - Not done yet: a transcript with a real client (Claude Code), and the two server evaluations (mine and one other named server).
+
+## Nov 24, 2026 (night, later) — DRAFT (Claude, to rewrite): real client transcript
+
+- With my yes, Claude registered the server in Claude Code at **local scope** (`claude mcp add --scope local js3-job-filter …`; remove with `claude mcp remove js3-job-filter -s local`). It first made the server find its own folder so it runs from any directory.
+- Recorded one real `claude -p` session at 2026-11-24T06:03Z (`evidence/mcp/claude-code-transcript.md` / `.jsonl`, trimmed of local paths; server log alongside). 12 turns, 10 tool calls, reported cost $0.33.
+- What the client found about my server: `search_postings` is a substring search, so "Software Engineer I" also matched 23 SWE II postings and an intern posting (it filtered them out itself); `judge_posting` names a gate ("G3") without saying what it checks. Both go into my server evaluation.
+- The client also called out that the `entry` quote ("internship experience") fits entry level without stating it, which is the same weakness I noted in CASES.md.

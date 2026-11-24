@@ -23,11 +23,16 @@ import time
 import traceback
 from pathlib import Path
 
-from agent import filter as F
-from agent import shortlist as SL
-from agent.postings import load_run
+# Work from this project folder whatever directory the client starts us in.
+ROOT = Path(__file__).resolve().parent.parent
+os.chdir(ROOT)
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-ROOT = Path.cwd().resolve()
+from agent import filter as F  # noqa: E402
+from agent import shortlist as SL  # noqa: E402
+from agent.postings import load_run  # noqa: E402
+
 NAME, VERSION = "js3-job-filter", "0.1.0"
 SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"]
 MAX_LIMIT = 50

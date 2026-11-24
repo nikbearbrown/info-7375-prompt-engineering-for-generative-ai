@@ -32,3 +32,4 @@ Python 3 standard library only, as in JS2.
 | Nov 24 | Wrote my audit judgments into the CSVs; checked cited years against the text; computed Wilson intervals; proposed the N ≥ 3 change, wrote its tests and code, measured it on dev | Judged all 53 audit postings; approved running v1.2 on dev |
 | Nov 24 (`f89aef7`) | Wrote shortlist tests, then `agent/shortlist.py`; drafted `shortlist/CASES.md` | TODO: check the claim rules and rewrite CASES.md |
 | Nov 24 (`8458710`) | Wrote MCP server tests, then `agent/mcp_server.py` and `tests/mcp_scripted_client.py`; recorded the scripted transcript | TODO: review the tool list and the safety limits |
+| Nov 24 | Registered the server in Claude Code (local scope) with my approval; ran one `claude -p` session against it and saved the trimmed transcript | Approved registering; TODO: read the transcript |
