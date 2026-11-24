@@ -1,0 +1,39 @@
+Speech-to-text on the full film (aravind-r-readback-project-film.mp4), faster-whisper small.en, compared with the script.
+One diff over the whole film (so a word that straddles a cut is not counted twice), each difference mapped to the
+beat its script words belong to. Formatting is normalised (numbers, hyphens, punctuation, quote marks, and the
+spoken spellings Reed-back and Ork dot AI); every remaining wording difference is listed.
+
+B01  matches the script
+B02  DIFFERS
+   script: I'm Aravind Ravi, and this film is read by a synthetic voice. My project is called Readback. It will find the clause behind a disagreement, and ask the PM a clarifying question about it, instead of rewriting the rubric for them.
+   heard:  I'm Eravind Ravi and this film is read by a synthetic voice. My project is called Read Back. It will find the clause behind a disagreement and ask the PM a clarifying question about it instead of rewriting the rubric for them. Why
+   - replace: script “aravind” → heard “eravind”
+B03  matches the script
+B04  matches the script
+B05  matches the script
+B06  DIFFERS
+   script: For specs rather than rubrics, GitHub's Spec Kit has an optional clarify step that resolves ambiguity before planning starts.
+   heard:  For specs rather than rubrics, GitHub spec kit has an optional clarify step that resolves ambiguity before planning starts.
+   - replace: script “github's” → heard “github”
+B07  matches the script
+B08  matches the script
+B09  matches the script
+B10  matches the script
+B11  matches the script
+B12  matches the script
+B13  matches the script
+B14  matches the script
+B15  matches the script
+B16  matches the script
+B17  matches the script
+B18  matches the script
+B19  DIFFERS
+   script: None of these checks has run yet, so every result on this scorecard is blank. They will be measured, and a failed check goes on the scorecard too.
+   heard:  None of these checks has run yet so every result on the scorecard is blank. They will be measured and a failed check goes on the scorecard too.
+   - replace: script “this” → heard “the”
+BOUT  DIFFERS
+   script: Readback. A project film by Aravind Ravi.
+   heard:  Read back a project film by Eravind Ravi.
+   - replace: script “aravind” → heard “eravind”
+
+4 of 20 beats differ from the script after normalisation; 697 script words, 697 heard words.

@@ -1,0 +1,842 @@
+{
+  "metadata": {
+    "slug": "aravind-r-readback-project-film",
+    "title": "Readback",
+    "topic": "PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "aravind-r",
+    "channel_title": "Aravind Ravi · INFO 7375",
+    "persona": "Aravind Ravi (synthetic voice)",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Four-part project film: it opens on the problem with no title card (brief), so no composer cold open, no verdict card, no Claude.ai composer Your Turn. The outro stays (never exempt).",
+    "pronunciation": "Readback is spelled Reed-back in narration_text (the Kokoro input) so it is said reed-back; on screen and in the paperwork it is Readback",
+    "structure": "four-part brief: executive summary, introduction, methods, evaluation (in that order), each opened by a chapter card",
+    "positioning": "Readback is application-agnostic: for any PM who writes acceptance criteria an AI judge grades a feature against. The AMI meeting-recap feature is only the test bench (Methods, Evaluation).",
+    "pacing_words_per_s": 3.278,
+    "runtime_cap_s": 240,
+    "claims_ledger": "CLAIMS.md",
+    "evaluation_plan": "EVAL-PLAN.md",
+    "tags": [
+      "Readback",
+      "LLM-as-a-judge",
+      "eval rubric",
+      "AI product management",
+      "INFO 7375"
+    ],
+    "build": {
+      "at": "2026-11-23T19:31:53",
+      "cut": "master",
+      "filled": 21,
+      "of": 21,
+      "slates": [],
+      "skin_warnings": [
+        "B01: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "act": "summary",
+      "part_label": "1 · Executive summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Every AI feature ships against acceptance criteria a PM wrote. Those criteria become a rubric: the checklist an AI judge grades the output against. When a judge reads a criterion differently than the PM meant it, the eval passes, and the wrong behaviour ships.",
+      "estimated_duration_s": 13.42,
+      "hold_after_s": 0.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B01.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B01_Hook"
+        },
+        "visual_intent": "see SHOTLIST.md (B01) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N01",
+        "N02",
+        "N03"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 15.39,
+      "render_duration_s": 15.416666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "summary",
+      "part_label": "1 · Executive summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then teams act on wrong output, users lose trust, and the feature quietly dies. And because evals are becoming the launch gate for AI features, a misread criterion ships wrong behaviour at scale, with a passing score attached.",
+      "estimated_duration_s": 11.59,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B02.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B02_Stakes"
+        },
+        "visual_intent": "see SHOTLIST.md (B02) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N04",
+        "N05"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 13.12,
+      "render_duration_s": 13.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "summary",
+      "part_label": "1 · Executive summary",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Reed-back will find the criterion the judges read differently, and ask the PM what they meant, before anyone trusts the score. It's module one of a bigger vision: a copilot for what PMs write for AI. Reed-back is planned; nothing has run yet.",
+      "estimated_duration_s": 13.12,
+      "hold_after_s": 0.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B03.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B03_Readback"
+        },
+        "visual_intent": "see SHOTLIST.md (B03) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N06",
+        "N07",
+        "N08"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 13.7,
+      "render_duration_s": 13.708333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "introduction",
+      "part_label": "2 · Introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "What have others done? Some tools already work on making AI judges more reliable. Maxim AI runs several models as judges, compares their verdicts, and measures how often they agree with human labels.",
+      "estimated_duration_s": 10.07,
+      "hold_after_s": 0.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B04.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B04_Maxim"
+        },
+        "visual_intent": "see SHOTLIST.md (B04) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N09",
+        "N10",
+        "N11"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.76,
+      "render_duration_s": 11.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "introduction",
+      "part_label": "2 · Introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Ork dot AI compares an evaluator with human labels, checks whether it answers the same way twice, and then proposes a rewritten evaluator prompt.",
+      "estimated_duration_s": 7.32,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B05.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B05_Orq"
+        },
+        "visual_intent": "see SHOTLIST.md (B05) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N12"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 8.77,
+      "render_duration_s": 8.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "introduction",
+      "part_label": "2 · Introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "For specs rather than rubrics, GitHub's Spec Kit has an optional clarify step that resolves ambiguity before planning starts.",
+      "estimated_duration_s": 5.8,
+      "hold_after_s": 0.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B06.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B06_SpecKit"
+        },
+        "visual_intent": "see SHOTLIST.md (B06) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N13"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 7.63,
+      "render_duration_s": 7.666666666666667,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "introduction",
+      "part_label": "2 · Introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "So the tools I checked give you an agreement score, a rewritten prompt, or a clearer spec. What I couldn't find in their documentation, read on October fourteenth, is any of them naming the rubric clause behind a judge disagreement.",
+      "estimated_duration_s": 12.2,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B07.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B07_Gap"
+        },
+        "visual_intent": "see SHOTLIST.md (B07) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N14",
+        "N15"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 12.04,
+      "render_duration_s": 12.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "introduction",
+      "part_label": "2 · Introduction",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "That gap is why Reed-back matters on any AI feature. A score tells you something is wrong. The criterion tells you what to fix. And a question, instead of a rewrite, keeps the fix a product decision.",
+      "estimated_duration_s": 11.29,
+      "hold_after_s": 0.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B08.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B08_WhyMine"
+        },
+        "visual_intent": "see SHOTLIST.md (B08) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N16",
+        "N17",
+        "N18",
+        "N19"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.16,
+      "render_duration_s": 11.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "To test Reed-back, I need one real AI feature with public data and human ground truth. I chose a meeting-recap feature on the AMI Meeting Corpus, because AMI ships human-written decision lists. It's my test case, not the product. I use ten of its meetings, which hold eighty-six decisions.",
+      "estimated_duration_s": 14.95,
+      "hold_after_s": 0.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B09.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B09_TestBench"
+        },
+        "visual_intent": "see SHOTLIST.md (B09) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N20",
+        "N21",
+        "N22",
+        "N23"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 16.33,
+      "render_duration_s": 16.333333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The feature under test is a meeting recap: my own prompt, running on Claude. I ran it on every meeting on October fourteenth, so ten real recaps already exist.",
+      "estimated_duration_s": 8.85,
+      "hold_after_s": 0.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B10.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B10_Feature"
+        },
+        "visual_intent": "see SHOTLIST.md (B10) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N24",
+        "N25"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 9.18,
+      "render_duration_s": 9.208333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Next, a constructed rubric with five clauses, like 'every decision appears' and 'don't report open questions as decisions'. The decisions clause is anchored to AMI's list, so there's a right answer to check against.",
+      "estimated_duration_s": 10.37,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B11.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B11_Rubric"
+        },
+        "visual_intent": "see SHOTLIST.md (B11) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N26",
+        "N27"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 12.03,
+      "render_duration_s": 12.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Before any judge runs, I'll mark which of AMI's decisions each recap covers. Those are the human labels, and I'll commit them first, so the history proves the order.",
+      "estimated_duration_s": 8.85,
+      "hold_after_s": 0.45,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B12.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B12_Labels"
+        },
+        "visual_intent": "see SHOTLIST.md (B12) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N28",
+        "N29"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 9.54,
+      "render_duration_s": 9.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then three judges score every recap: Claude, a second provider's model, and a local open-weight model. I'll measure how often they agree with each other, and with my human labels on the decisions clause.",
+      "estimated_duration_s": 10.37,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B13.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B13_Judges"
+        },
+        "visual_intent": "see SHOTLIST.md (B13) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N30",
+        "N31"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.62,
+      "render_duration_s": 11.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Where the judges split, Reed-back will trace the split to its clause and ask the PM. In one real recap, two quick yeses became a decision. Does a quick yes count? The PM answers, and revises the clause.",
+      "estimated_duration_s": 11.59,
+      "hold_after_s": 0.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B14.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B14_Trace"
+        },
+        "visual_intent": "see SHOTLIST.md (B14) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N32",
+        "N33",
+        "N34",
+        "N35"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.44,
+      "render_duration_s": 11.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "methods",
+      "part_label": "3 · Methods",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Do I have what I need? The data and the ten recaps are in my repository, and Claude runs here on my subscription. My API credits and a second provider account aren't wired in yet. Still to come: the local model, and my human labels.",
+      "estimated_duration_s": 13.73,
+      "hold_after_s": 0.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B15.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B15_Have"
+        },
+        "visual_intent": "see SHOTLIST.md (B15) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N36",
+        "N37",
+        "N38",
+        "N39"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 13.72,
+      "render_duration_s": 13.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "evaluation",
+      "part_label": "4 · Evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Three checks on the test case, each with a pass and a fail. First, a planted ambiguity: I'll make one clause deliberately vague, so I know the right answer in advance. It passes if Reed-back blames the clause I planted. It fails if it blames another clause, or noise.",
+      "estimated_duration_s": 14.95,
+      "hold_after_s": 0.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B16.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B16_Planted"
+        },
+        "visual_intent": "see SHOTLIST.md (B16) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N40",
+        "N41",
+        "N42",
+        "N43"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 14.14,
+      "render_duration_s": 14.166666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "evaluation",
+      "part_label": "4 · Evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Second, agreement on the decisions clause: each judge against my human labels on all eighty-six decisions, measured with Cohen's kappa. It passes at point six or higher, a bar I'll fix before any run. Below that, it fails.",
+      "estimated_duration_s": 11.59,
+      "hold_after_s": 0.3,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B17.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B17_Kappa"
+        },
+        "visual_intent": "see SHOTLIST.md (B17) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N44",
+        "N45",
+        "N46"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 12.76,
+      "render_duration_s": 12.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "evaluation",
+      "part_label": "4 · Evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Third, before and after. The PM revises the flagged clause, and I re-measure judge agreement on meetings held out from the revision. If agreement doesn't rise, Reed-back didn't help, and I'll say so.",
+      "estimated_duration_s": 10.07,
+      "hold_after_s": 0.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B18.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B18_BeforeAfter"
+        },
+        "visual_intent": "see SHOTLIST.md (B18) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N47",
+        "N48",
+        "N49"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.43,
+      "render_duration_s": 11.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B18.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "act": "evaluation",
+      "part_label": "4 · Evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "None of these checks has run yet, so every result is blank, and a failed check goes on the scorecard too.",
+      "estimated_duration_s": 6.41,
+      "hold_after_s": 0.4,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B19.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B19_Scorecard"
+        },
+        "visual_intent": "see SHOTLIST.md (B19) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N50"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 5.95,
+      "render_duration_s": 5.958333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B19.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "act": "evaluation",
+      "part_label": "4 · Evaluation",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "If these checks pass, a PM could trust a passing score to mean what they meant. That's the goal for any AI feature. And Reed-back is module one of a copilot for what PMs write for AI.",
+      "estimated_duration_s": 11.29,
+      "hold_after_s": 0.5,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-B20.mp3",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "manim": {
+          "class": "B20_Close"
+        },
+        "visual_intent": "see SHOTLIST.md (B20) and DESIGN.md"
+      },
+      "claim_ids": [
+        "N51",
+        "N52",
+        "N53"
+      ],
+      "qc": {
+        "sparse_by_design": false
+      },
+      "actual_duration_s": 11.01,
+      "render_duration_s": 11.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B20.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T19:31:53"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "part_label": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "narration_text": "Reed-back. A project film by Aravind Ravi, read by a synthetic voice.",
+      "estimated_duration_s": 5.0,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "hold_after_s": 1.0,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; my handle"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Readback",
+            "slug": "aravind-r-readback-project-film",
+            "handle": "Aravind Ravi · INFO 7375",
+            "subline": "",
+            "tagline": "Check that AI judges read your acceptance criteria\nthe way you meant them.",
+            "credit": "read by a synthetic voice",
+            "hideMascot": true,
+            "polarity": "light",
+            "background": "#F2F0E9"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-24T00:29:28.943046+00:00"
+          }
+        }
+      },
+      "claim_ids": [
+        "N54",
+        "N55"
+      ],
+      "actual_duration_s": 5.35,
+      "render_duration_s": 5.375,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-23T19:31:53"
+      }
+    }
+  ]
+}

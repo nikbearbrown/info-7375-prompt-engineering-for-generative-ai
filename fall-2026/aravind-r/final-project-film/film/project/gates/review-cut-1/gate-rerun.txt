@@ -1,0 +1,88 @@
+Full gate re-run on the delivered master — started 2026-11-23 16:14 EST
+master: 79aa3ec669cd4652f4e4c639a95956e30886c69ba24fbe88b5196af58914d8ca
+
+== F (paperwork exists)
+FACTCHECK.md present
+SHOTLIST.md present
+PROMPTS.md present
+== factcheck
+[factcheck] clean — every row resolved, every claim-bearing beat covered
+[factcheck] rows=72 beats_covered=20 claim_bearing_beats=1 uncovered=0
+== L (beat-mix lint)
+[beat-lint] clean — beat mix OK (beat_sheet.json)
+== bookends
+[bookend] PASS — four bookends correct for aravind-r-readback-project-film
+== V (frame-level visual QC on the clean master)
+[gate-v] frames=40 BLOCKER=0 MAJOR=0 → /Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/info-7375-final-project-film/fall-2026/aravind-r/final-project-film/film/project/_qc/REPORT.md
+== T (typography)
+[typecheck] GATE T: PASS
+== verified master
+status ready · sha256 matches delivered file: True
+== Phase 4 measurements (qc_film.py)
+
+ "duration_s": 235.375,
+ "freeze_total_s": 10.87,
+ "freeze_share": 0.0462,
+ "black": [],
+ "lufs_integrated": -16.1,
+ "true_peak_dbtp": -1.2,
+ "silence_1_2s": [],
+ "cut_colours": [
+  [
+   241,
+   240,
+   233
+  ]
+ ],
+ "sections": {
+  "summary": 0.0,
+  "introduction": 40.07,
+  "methods": 93.39,
+  "evaluation": 180.4,
+  "outro": 230.57
+ }
+}
+freeze ≥3 s: [{'start': 171.71, 'end': 174.83, 'dur': 3.12}, {'start': 200.08, 'end': 203.83, 'dur': 3.75}, {'start': 231.38, 'end': 235.38, 'dur': 4.0}]
+holds ≥2.5 s: [{'start': 139.04, 'end': 141.83, 'dur': 2.79}, {'start': 171.71, 'end': 174.83, 'dur': 3.12
+== A / W / B (all 19, final scenes.py)
+B01_Problem | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B01_Problem clean | B: [audit] scenes: 23 snapshots → CLEAN (exit 0)
+B02_Readback | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B02_Readback clean | B: [audit] scenes: 22 snapshots → CLEAN (exit 0)
+B03_WhyCare | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B03_WhyCare clean | B: [audit] scenes: 42 snapshots → CLEAN (exit 0)
+B04_Maxim | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B04_Maxim clean | B: [audit] scenes: 27 snapshots → CLEAN (exit 0)
+B05_Orq | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B05_Orq clean | B: [audit] scenes: 15 snapshots → CLEAN (exit 0)
+B06_SpecKit | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B06_SpecKit clean | B: [audit] scenes: 13 snapshots → CLEAN (exit 0)
+B07_Gap | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B07_Gap clean | B: [audit] scenes: 28 snapshots → CLEAN (exit 0)
+B08_WhyMine | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B08_WhyMine clean | B: [audit] scenes: 20 snapshots → CLEAN (exit 0)
+B09_Data | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B09_Data clean | B: [audit] scenes: 35 snapshots → CLEAN (exit 0)
+B10_Feature | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B10_Feature clean | B: [audit] scenes: 21 snapshots → CLEAN (exit 0)
+B11_Rubric | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B11_Rubric clean | B: [audit] scenes: 28 snapshots → CLEAN (exit 0)
+B12_Labels | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B12_Labels clean | B: [audit] scenes: 20 snapshots → CLEAN (exit 0)
+B13_Judges | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B13_Judges clean | B: [audit] scenes: 26 snapshots → CLEAN (exit 0)
+B14_Trace | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B14_Trace clean | B: [audit] scenes: 24 snapshots → CLEAN (exit 0)
+B15_Have | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B15_Have clean | B: [audit] scenes: 38 snapshots → CLEAN (exit 0)
+B16_Planted | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B16_Planted clean | B: [audit] scenes: 39 snapshots → CLEAN (exit 0)
+B17_Kappa | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B17_Kappa clean | B: [audit] scenes: 33 snapshots → CLEAN (exit 0)
+B18_BeforeAfter | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B18_BeforeAfter clean | B: [audit] scenes: 27 snapshots → CLEAN (exit 0)
+B19_Scorecard | A: [static-check] 1 scene(s): 1 clean · 0 warn · 0 error | W: [gateW] B19_Scorecard clean | B: [audit] scenes: 18 snapshots → CLEAN (exit 0)
+== overlap (all 19, every frame at 24 fps)
+[overlap] B01_Problem: 0 distinct overlap(s), 0 frame-hits
+[overlap] B02_Readback: 0 distinct overlap(s), 0 frame-hits
+[overlap] B03_WhyCare: 0 distinct overlap(s), 0 frame-hits
+[overlap] B04_Maxim: 0 distinct overlap(s), 0 frame-hits
+[overlap] B05_Orq: 0 distinct overlap(s), 0 frame-hits
+[overlap] B06_SpecKit: 0 distinct overlap(s), 0 frame-hits
+[overlap] B07_Gap: 0 distinct overlap(s), 0 frame-hits
+[overlap] B08_WhyMine: 0 distinct overlap(s), 0 frame-hits
+[overlap] B09_Data: 0 distinct overlap(s), 0 frame-hits
+[overlap] B10_Feature: 0 distinct overlap(s), 0 frame-hits
+[overlap] B11_Rubric: 0 distinct overlap(s), 0 frame-hits
+[overlap] B12_Labels: 0 distinct overlap(s), 0 frame-hits
+[overlap] B13_Judges: 0 distinct overlap(s), 0 frame-hits
+[overlap] B14_Trace: 0 distinct overlap(s), 0 frame-hits
+[overlap] B15_Have: 0 distinct overlap(s), 0 frame-hits
+[overlap] B16_Planted: 0 distinct overlap(s), 0 frame-hits
+[overlap] B17_Kappa: 0 distinct overlap(s), 0 frame-hits
+[overlap] B18_BeforeAfter: 0 distinct overlap(s), 0 frame-hits
+[overlap] B19_Scorecard: 0 distinct overlap(s), 0 frame-hits
+
+finished 16:19 EST

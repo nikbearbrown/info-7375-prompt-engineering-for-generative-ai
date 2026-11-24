@@ -1,0 +1,61 @@
+diff --git a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+index a2f2bfe..a8a6b15 100644
+--- a/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
++++ b/runtime/remotion/src/scenes/ClaudeTitleOutro.tsx
+@@ -32,6 +32,14 @@ export const claudeTitleOutroSchema = z.object({
+   slug: z.string().default(''),
+   // mascotAnimation: explicit override for dev/preview; production uses slug seed.
+   mascotAnimation: z.string().optional(),
++  // handle: optional override (student patch). Defaults to the locked @NikBearBrown handle.
++  handle: z.string().optional(),
++  // hideMascot: optional (student patch). Omits the Claude mascot when the film must carry no brand marks.
++  hideMascot: z.boolean().optional(),
++  // polarity / background: optional (student patch). Pin the card's polarity and ground colour so the
++  // outro cut matches the film's stage colour exactly; omitted = the slug-seeded default (unchanged).
++  polarity: z.enum(['light', 'dark']).optional(),
++  background: z.string().optional(),
+ });
+ export type ClaudeTitleOutroProps = z.infer<typeof claudeTitleOutroSchema>;
+ 
+@@ -39,7 +47,7 @@ const SERIF = CLAUDE_FONT.serif;
+ 
+ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+ 
+-export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation }) => {
++export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug, mascotAnimation, handle, hideMascot, polarity, background }) => {
+   const frame = useCurrentFrame();
+   const { fps } = useVideoConfig();
+   const o = clamp(interpolate(frame, [0, 14], [0, 1]), 0, 1);
+@@ -51,8 +59,8 @@ export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug,
+ 
+   // Slug seed — stable per reel, varied across reels (OUTRO-LOCK.md §Randomness)
+   const seed = seedHash(slug || title);
+-  const isDark = seed % 2 === 1;  // polarity: even=light, odd=dark
+-  const bg = isDark ? CLAUDE.INK : CLAUDE.PAGE;
++  const isDark = polarity ? polarity === 'dark' : seed % 2 === 1;  // polarity: even=light, odd=dark (unless pinned)
++  const bg = background || (isDark ? CLAUDE.INK : CLAUDE.PAGE);
+   const fg = isDark ? CLAUDE.PAGE : CLAUDE.INK;
+   const fgSend = isDark ? CLAUDE.PAGE : CLAUDE.SEND;
+ 
+@@ -101,18 +109,18 @@ export const ClaudeTitleOutro: React.FC<ClaudeTitleOutroProps> = ({ title, slug,
+         marginTop: 28,
+         opacity: 0.9,
+       }}>
+-        {HANDLE}
++        {handle || HANDLE}
+       </div>
+ 
+       {/* Mascot — slug-seeded, small, under the handle */}
+-      <div style={{
++      {!hideMascot && <div style={{
+         width: mascotW,
+         height: mascotH,
+         marginTop: 28,
+         overflow: 'visible',
+       }}>
+         <MascotSVG s={mascotState} scale={1} />
+-      </div>
++      </div>}
+ 
+       {/* NO subline — locked per OUTRO-LOCK.md */}
+     </AbsoluteFill>

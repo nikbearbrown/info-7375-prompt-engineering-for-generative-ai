@@ -1,0 +1,53 @@
+Speech-to-text (faster-whisper small.en) on every beat re-voiced in the 2026-11-23 evening revision, final audio
+
+B01 (15.39 s)
+  Kokoro input: Every AI feature ships against acceptance criteria a PM wrote. Those criteria become a rubric: the checklist an AI judge grades the output against. When a judge reads a criterion differently than the PM meant it, the eval passes, and the wrong behaviour ships.
+  heard:        Every AI feature ships against acceptance criteria a PM wrote, those criteria become a rubric. The checklist an AI judge grades the output against. When a judge reads a criterion differently than the PM meant it, the eval passes and the wrong behavior ships.
+
+B02 (13.12 s)
+  Kokoro input: Then teams act on wrong output, users lose trust, and the feature quietly dies. And because evals are becoming the launch gate for AI features, a misread criterion ships wrong behaviour at scale, with a passing score attached.
+  heard:        Then teams act on wrong output, users lose trust, and the feature quietly dies. And because the valves are becoming the launch gate for AI features, a misread criterion ships wrong behavior at scale, with a passing score attached.
+
+B03 (13.7 s)
+  Kokoro input: Reed-back will find the criterion the judges read differently, and ask the PM what they meant, before anyone trusts the score. It's module one of a bigger vision: a copilot for what PMs write for AI. Reed-back is planned; nothing has run yet.
+  heard:        Readback will find the criterion the judges read differently and ask the PM what they meant before anyone trusts the score. It's module one of a bigger vision, a co-pilot for what PMs write for AI. Readback is planned, nothing has run yet.
+
+B08 (11.16 s)
+  Kokoro input: That gap is why Reed-back matters on any AI feature. A score tells you something is wrong. The criterion tells you what to fix. And a question, instead of a rewrite, keeps the fix a product decision.
+  heard:        That gap is why readback matters on any AI feature. A score tells you something is wrong. The criterion tells you what to fix. And a question instead of a rewrite keeps the fix a product decision.
+
+B09 (16.33 s)
+  Kokoro input: To test Reed-back, I need one real AI feature with public data and human ground truth. I chose a meeting-recap feature on the AMI Meeting Corpus, because AMI ships human-written decision lists. It's my test case, not the product. I use ten of its meetings, which hold eighty-six decisions.
+  heard:        To test read back, I need one real AI feature with public data and human ground truth. I chose a meeting recap feature on the AMI meeting corpus because AMI ships human written decision lists. It's my test case, not the product. I use 10 of its meetings, which hold 86 decisions.
+
+B11 (12.03 s)
+  Kokoro input: Next, a constructed rubric with five clauses, like 'every decision appears' and 'don't report open questions as decisions'. The decisions clause is anchored to AMI's list, so there's a right answer to check against.
+  heard:        Next, a constructed rubric with five clauses, like every decision appears and don't report open questions as decisions. The decisions clause is anchored to AMI's list, so there's a right answer to check against.
+
+B13 (11.62 s)
+  Kokoro input: Then three judges score every recap: Claude, a second provider's model, and a local open-weight model. I'll measure how often they agree with each other, and with my human labels on the decisions clause.
+  heard:        Then three judges score every recap, clawed, a second provider's model, and a local open weight model. I'll measure how often they agree with each other and with my human labels on the decisions clause.
+
+B14 (11.44 s)
+  Kokoro input: Where the judges split, Reed-back will trace the split to its clause and ask the PM. In one real recap, two quick yeses became a decision. Does a quick yes count? The PM answers, and revises the clause.
+  heard:        Where the judges split, read back will trace the split to its clause and ask the PM. In one real recap, two quick yeses became a decision. Does a quick yes count? The PM answers and revises the clause.
+
+B16 (14.14 s)
+  Kokoro input: Three checks on the test case, each with a pass and a fail. First, a planted ambiguity: I'll make one clause deliberately vague, so I know the right answer in advance. It passes if Reed-back blames the clause I planted. It fails if it blames another clause, or noise.
+  heard:        Three checks on the test case each with a pass and a fail. First, a planted ambiguity. I'll make one clause deliberately vague so I know the right answer in advance. It passes if read back blames the clause I planted. It fails if it blames another clause or noise.
+
+B17 (12.76 s)
+  Kokoro input: Second, agreement on the decisions clause: each judge against my human labels on all eighty-six decisions, measured with Cohen's kappa. It passes at point six or higher, a bar I'll fix before any run. Below that, it fails.
+  heard:        Second agreement on the Decisions Clause, each judge against my human labels on all 86 decisions, measured with Cohen's Kappa. It passes at .6 or higher, a bar I'll fix before any run. Below that it fails.
+
+B19 (5.95 s)
+  Kokoro input: None of these checks has run yet, so every result is blank, and a failed check goes on the scorecard too.
+  heard:        None of these checks has run yet, so every result is blank, and a failed check goes on the scorecard too.
+
+B20 (11.01 s)
+  Kokoro input: If these checks pass, a PM could trust a passing score to mean what they meant. That's the goal for any AI feature. And Reed-back is module one of a copilot for what PMs write for AI.
+  heard:        If these checks pass, a PM could trust a passing score to mean what they meant. That's the goal for any AI feature, and read back is module one of a co-pilot for what PMs write for AI.
+
+BOUT (5.35 s)
+  Kokoro input: Reed-back. A project film by Aravind Ravi, read by a synthetic voice.
+  heard:        Read back a project film by Aravind Ravi, read by a synthetic voice.

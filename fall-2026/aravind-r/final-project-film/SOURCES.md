@@ -122,3 +122,46 @@ Claude Code (Opus 5.5) in this project's session, at my direction:
   - The freezedetect, contact-sheet and frame checks.
   - The top-level rebuild that proved the submitted file reproduces byte for byte.
   - Diagnosing each gate failure.
+
+## Project film (four-part brief; built 2026-11-23, approved by me)
+
+The file is `film/project/aravind-r-readback-project-film.mp4`. The build and its records are in `film/project/`.
+
+- **Used:**
+  - The same toolkit, components and licences as above: brutalist.art at `cd4bf20`, kokoro-onnx with the Kokoro-82M `am_onyx` voice, Manim Community 0.18.1, Remotion, faster-whisper and FFmpeg. No paid services.
+  - My outro patch, extended twice:
+    - `toolkit-patches/ClaudeTitleOutro-handle-hideMascot-polarity-bg.patch` adds a pinned light polarity and the stage-colour ground (Phase 3).
+    - `toolkit-patches/ClaudeTitleOutro-handle-hideMascot-polarity-bg-tagline.patch` also adds the `tagline` and `credit` lines on the end card (positioning revision). The second patch contains the first.
+  - Fonts: EB Garamond (OFL) for all text, and PT Mono (macOS system font, SIL OFL, rendered locally) for the meeting IDs.
+  - Real material already in this repo:
+    - The AMI sample.
+    - The ten feature-run recaps from 2026-10-14.
+    - On screen: ES2007a's transcript line and recap output (B10), ES2007a's DECISIONS list (B11), and ES2010b's transcript lines [00:20:44]–[00:20:52], its recap's Decisions line and its DECISIONS summary (B14).
+    - The three prior-work tools as checked on 2026-10-14 (above).
+  - faster-whisper `small.en` for the speech-to-text checks (`film/project/stt_check.py`).
+  - No stock footage, images, music, sound effects, logos or generated imagery. The three B02 vignettes (a support-reply bot, a document summariser, a search answer) are constructed illustrations, not real products or outputs.
+- **Made by me (Aravind):**
+  - The four-part brief: my Claude Code prompt "Readback project film (four-part brief)" (2026-11-23), with its parts, hard rules and stop points.
+  - Approving the narration (Phase 1), the storyboard (Phase 2), Phase 3, the revised narration ("OK, go") and the final cut ("Approve cut").
+  - My review requests before Phase 5 (B15's checklist, my human labels, prior work scoped to the tools I checked, B13, the Readback respelling) and the four checks after them.
+  - The positioning feedback on the review cut: Readback for any AI feature's acceptance criteria with the AMI recap feature as the test bench, the P0/P1 list and the positioning-audit gate.
+  - Keeping the flagged lines as written.
+  - The submission route: a new branch from `2cad8ba`, pushed to my fork, no PR yet.
+  - Judgment calls: TODO (Aravind).
+- **Contributed by Claude (Claude Code, Opus 5.5), at my direction:**
+  - **Drafts:**
+    - the narration in `film/project/make_sheet.py`, which I approved;
+    - `film/project/CLAIMS.md`, `EVAL-PLAN.md`, `DESIGN.md`, `FACTCHECK.md`, `SHOTLIST.md` and `PROMPTS.md`;
+    - `film/project/gates/GATES.md` and `positioning-audit.md`;
+    - this section, and the `FRICTIONAL.md` entries, which I reviewed, with decisions marked (Aravind).
+  - **Code:**
+    - `film/project/scenes.py` (the 20 Manim scenes);
+    - `add_holds.py`: edge trimming added to my Week 1 hold script;
+    - `normalize_audio.py`, `qc_film.py`, `overlap_check.py`, `strings_dump.py`, `positioning_check.py`, `stt_check.py` and `make_storyboard.py`;
+    - the `polarity`, `background`, `tagline` and `credit` extensions to my outro patch.
+  - **Checks:**
+    - the real-evidence search across the ten recaps (ES2010b used; IS1005c and IS1009d ruled out);
+    - the environment checks behind B15;
+    - the speech-to-text and pronunciation checks;
+    - running every gate and diagnosing each failure.
+- **Claude (chat):** TODO (Aravind). Name anything drafted in Claude chat for this film, for example a prompt or the feedback, or delete this line.
