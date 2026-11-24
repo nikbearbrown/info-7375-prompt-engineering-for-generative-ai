@@ -66,3 +66,7 @@ At about 17:30 EST, Claude Code asked four questions about gaps in v0.1. The ans
 **Which words make a location U.S.** The student chose "Country or state", one of two options Claude Code wrote. The option, in Claude Code's words: "U.S. if it says United States, USA, US or U.S., or names a U.S. state, in full or as a 2-letter code ('San Francisco, CA'). Outside if it names only other countries. Remote, regions or a bare city go to review. Risk: CA can mean Canada, IN India." Both options said that a posting with any U.S. location counts as U.S. The other option was "Country words only".
 
 **Shortlist size.** The student chose 8 postings. The options were 5, 8 and 10.
+
+## Addition before the reject audit and before any tuning (2026-11-24, about 17:50 EST)
+
+**The held-out set (Chapter 9).** The student chose "15 kept + 15 rejected", one of three options Claude Code wrote. The option, in Claude Code's words: "Random 15 from the 42 kept or review, and 15 from the 1,509 rejected. Tests both sides. The 50/50 mix isn't the corpus mix, so agreement isn't a rate for all postings." The other options were 30 at random from all 1,551 postings, and 30 at random from the 138 that pass the role and level rules. The 30 are drawn once, with a fixed seed, before any rule changes, and are never used to change a rule.
