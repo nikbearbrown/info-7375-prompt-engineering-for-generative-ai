@@ -24,7 +24,7 @@ KRAFT = ManimColor("#F3E9D8")
 
 # ── Pacing from the beat sheet ───────────────────────────────────────────────
 _SHEET = os.path.join(os.path.dirname(os.path.abspath(__file__)), "beat_sheet.json")
-_FALLBACK = {"B00": 18.41, "B02": 20.25, "B03": 20.76, "B04": 16.19, "B05": 16.04, "B06": 16.04, "B07": 14.63, "B08": 13.89, "B09": 16.11, "B10": 15.57, "B11": 19.03, "B12": 8.94}
+_FALLBACK = {"B00": 15.0, "B02": 20.25, "B03": 20.76, "B04": 16.19, "B05": 16.04, "B06": 16.04, "B07": 14.63, "B08": 13.89, "B09": 16.11, "B10": 15.57, "B11": 19.03, "B12": 8.94}
 
 
 def _beat(bid):
@@ -70,10 +70,11 @@ class Pacer:
 
 # ── Drawing helpers ──────────────────────────────────────────────────────────
 def T(text, size=32, color=None, weight=None):
-    kw = {"font_size": size, "color": color or INK}
+    # Render at 4x and scale down: Pango drops word spaces at small font sizes.
+    kw = {"font_size": size * 4, "color": color or INK}
     if weight:
         kw["weight"] = weight
-    return Text(text, **kw)
+    return Text(text, **kw).scale(0.25)
 
 
 def M(text, size=24, color=None):
@@ -317,11 +318,18 @@ class B05_Policy(Scene):
         cap = caption("SQL query: instructions that pick and count rows in a database")
         p.play(FadeIn(pt), FadeIn(cap), run_time=0.7)
 
-        p.until("read-only", 0.3)
-        db = box(3.6, 0.95, "database: read-only", 28).move_to([-3.4, 1.85, 0])
+        p.until("permission policy", 0.12)
+        cap2 = caption("Permission policy: a list, in code, of what the tool may do · everything else is blocked")
+        p.play(FadeOut(cap), FadeIn(cap2), run_time=0.6)
+
+        p.until("only reading", 0.3)
         rule = box(6.4, 0.95, "SQLite rule: read one table (lca), nothing else", 26).move_to([2.6, 1.85, 0])
         keep_in(rule)
-        p.play(FadeIn(db), FadeIn(rule), run_time=0.8)
+        p.play(FadeIn(rule), run_time=0.6)
+
+        p.until("read-only", 0.38)
+        db = box(3.6, 0.95, "database: read-only", 28).move_to([-3.4, 1.85, 0])
+        p.play(FadeIn(db), run_time=0.6)
 
         p.until("real output", 0.6)
         lines = ["$ python3 -m sponsorsql failures --db data/fy2026q3.sqlite",
@@ -420,18 +428,24 @@ class B08_EvalSetup(Scene):
         cap = caption("Answer key: the right answers, counted by code that never sees the model's query", 21)
         p.play(FadeIn(pt), FadeIn(cap), run_time=0.7)
 
-        p.until("frozen", 0.2)
-        frz = tag("frozen before any test", 24).move_to([0, 2.25, 0])
-        d = card(["10 development", "questions"], 4.6, 1.4, 30, 28).move_to([-3.0, 0.9, 0])
-        h = card(["5 held-out", "questions"], 4.6, 1.4, 30, 28).move_to([3.0, 0.9, 0])
-        p.play(FadeIn(frz), FadeIn(d, shift=DOWN * 0.2), FadeIn(h, shift=DOWN * 0.2), run_time=0.9)
+        p.until("development set", 0.1)
+        d = card(["10 development questions", "used while building,", "to find and fix mistakes"], 5.2, 1.75, 28, 22).move_to([-3.0, 0.9, 0])
+        p.play(FadeIn(d, shift=DOWN * 0.2), run_time=0.7)
 
-        p.until("answer keys", 0.45)
-        k1 = card(["answer key", "counted separately"], 4.6, 1.0, 26, 20).move_to([-3.0, -0.75, 0])
-        k2 = card(["answer key", "counted separately"], 4.6, 1.0, 26, 20).move_to([3.0, -0.75, 0])
+        p.until("held-out set", 0.25)
+        h = card(["5 held-out questions", "kept aside until the end,", "to test the fixes on new ones"], 5.2, 1.75, 28, 22).move_to([3.0, 0.9, 0])
+        p.play(FadeIn(h, shift=DOWN * 0.2), run_time=0.7)
+
+        p.until("answer key", 0.6)
+        k1 = card(["answer key", "counted by separate code"], 5.2, 1.0, 26, 20).move_to([-3.0, -0.75, 0])
+        k2 = card(["answer key", "counted by separate code"], 5.2, 1.0, 26, 20).move_to([3.0, -0.75, 0])
         p.play(FadeIn(k1), FadeIn(k2), run_time=0.7)
 
-        p.until("The bar", 0.72)
+        p.until("locked", 0.72)
+        frz = tag("locked before any test", 24).move_to([0, 2.3, 0])
+        p.play(FadeIn(frz), run_time=0.5)
+
+        p.until("To pass", 0.85)
         bar = VGroup(tag("at least 8/10", 28), tag("at least 4/5", 28), tag("0 unsafe queries", 28)).arrange(RIGHT, buff=0.5)
         bar.move_to([0, -2.2, 0])
         dot = Dot(radius=0.11, color=ACC).next_to(bar, LEFT, buff=0.25)
@@ -444,23 +458,23 @@ class B09_Results(Scene):
     def construct(self):
         p = Pacer(self, "B09")
         pt = part_tag(4, "Evaluation")
-        cap = caption("Held-out: questions kept aside and scored only once, at the end")
+        cap = caption("Development: 10 questions used while building · Held-out: 5 new questions, run once at the end")
         base_y = -1.45
         base = Line([-6.0, base_y, 0], [6.0, base_y, 0], color=INK, stroke_width=4)
         p.play(FadeIn(pt), FadeIn(cap), Create(base), run_time=0.8)
-        specs = [("four out of ten", 0.15, -4.0, 0.4, "4/10", "round 1 · rules v1", "loose title match"),
-                 ("nine out of ten", 0.55, 0.0, 0.9, "9/10", "round 2 · rules v2", "miss: tab characters"),
-                 ("five out of five", 0.88, 4.0, 1.0, "5/5", "held-out · scored once", "")]
+        specs = [("four out of ten", 0.12, -4.0, 0.4, "4/10", "development · 1st try", "'Metadata Analyst' counted"),
+                 ("nine out of ten", 0.55, 0.0, 0.9, "9/10", "development · title rule", "miss: invisible tabs"),
+                 ("the held-out set", 0.86, 4.0, 1.0, "5/5", "held-out · run once", "")]
         full = 3.0
         for phrase, fb, x, frac, score, name, note in specs:
             p.until(phrase, fb)
             bar = Rectangle(width=2.2, height=full * frac, stroke_width=0, fill_color=INK, fill_opacity=1)
             bar.move_to([x, base_y + full * frac / 2, 0])
             s = T(score, 40, weight="BOLD").next_to(bar, UP, buff=0.15)
-            n = T(name, 22).move_to([x, base_y - 0.35, 0])
+            n = fit(T(name, 22), 3.8).move_to([x, base_y - 0.35, 0])
             parts = [GrowFromEdge(bar, DOWN), FadeIn(s), FadeIn(n)]
             if note:
-                nt = T(note, 20, SOFT).move_to([x, base_y - 0.8, 0])
+                nt = fit(T(note, 20, SOFT), 3.8).move_to([x, base_y - 0.8, 0])
                 parts.append(FadeIn(nt))
             if score == "5/5":
                 cm = check_mark(s.get_right() + np.array([0.5, 0.05, 0]), 0.25)
@@ -504,10 +518,10 @@ class B11_Limits(Scene):
         head.move_to([0, 2.15, 0])
         cap = caption("Full review saved word for word in the project: evidence/independent-review-2026-11-21.md", 20)
         p.play(FadeIn(pt), FadeIn(head), FadeIn(cap), run_time=0.8)
-        rows = ["The final rules were scored before I reviewed them",
+        rows = ["Claude's final instructions were tested before I reviewed them (reviewed since)",
                 "The answer keys share their rules with the system",
                 "The model's replies were replayed, not live"]
-        cues = [("The final rules", 0.3), ("The answer keys", 0.42), ("replayed", 0.52)]
+        cues = [("The final version", 0.3), ("The answer keys", 0.42), ("replayed", 0.52)]
         objs = []
         for i, (text, (phrase, fb)) in enumerate(zip(rows, cues)):
             p.until(phrase, fb)
@@ -542,6 +556,6 @@ class B12_Outro(Scene):
         p.play(FadeIn(dot, scale=0.3), FadeIn(sub), run_time=0.5)
         rule = Line(LEFT * 5.6, RIGHT * 5.6, color=INK, stroke_width=3).next_to(sub, DOWN, buff=0.55)
         cred = fit(T("Atharva Hambir · INFO 7375 · Final project", 42), 11.5).next_to(rule, DOWN, buff=0.85)
-        p.until("Written", 0.4)
+        p.until("answers you can check", 0.25)
         p.play(Create(rule), FadeIn(cred), run_time=0.7)
         p.finish()

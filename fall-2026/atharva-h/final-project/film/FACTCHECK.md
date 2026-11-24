@@ -19,7 +19,11 @@ Every number or factual claim on screen or in the narration, with its source in 
 | F13 | The Claude CLI said "Not logged in"; the tested SQL came from separate Claude sessions, saved word for word, replayed | B07 | `artifact.md`; `evals/proposals/*-responses.json` provenance |
 | F14 | 10 development and 5 held-out questions frozen before any test; keys counted by separate code | B08 | `evals/FREEZE.md` (commit `dfbbb73` before `b65b725`); `evals/build_answer_key.py`, `evals/build_heldout_key.py` |
 | F15 | Bar: at least 8/10, at least 4/5, 0 unsafe queries | B08 | `CONTRACT.md` |
-| F16 | 4/10 (loose title match; "Metadata Analyst" counted), 9/10 (miss: tab characters in four titles), held-out 5/5 scored once | B09 | `evals/FAILURE-LOG.md`; `evals/results/*-rescored-after-review.json` |
+| F16 | 4/10 (loose title match; "Metadata Analyst" counted), 9/10 (the miss: a few source titles end in tabs or non-breaking spaces; the key strips them and the query's `TRIM()` doesn't, so four counts are off by one or two), held-out 5/5 run once | B09 | `evals/FAILURE-LOG.md`; `evals/results/*-rescored-after-review.json` |
 | F17 | Ten deliberate failures stopped as predicted; the title bug triggered on purpose was caught by the key | B10 | `evals/results/failures-after-review.json` |
 | F18 | An independent reviewer found 18 findings; code fixed where it could be; three limits remain | B11 | `audit-note.md`; `evidence/independent-review-2026-11-21.md` |
 | F19 | Ship / narrow / defer is the owner's sign-off, still open | B11 | `SIGNOFF.md` (not signed), `transfer-reflection.md` |
+| F20 | Permission policy: a list, in code, of what the tool may do (read one table); anything else is blocked before it runs | B05 | `sponsorsql/policy.py` (`authorizer`, `check_text`, `open_readonly`) |
+| F21 | "The final version of Claude's instructions was tested before I reviewed it" | B11 | `gates.md`; `evals/PROMPT-CONTRACT-v2.md` (scored before owner review) |
+| F22 | "I've reviewed it since" | B11 | **The owner's own statement, given in chat on 2026-11-23 when choosing this wording. Not yet recorded in the project's documents; the owner records it.** |
+| F23 | Credit: "Written by Atharva Hambir with Claude" (wording chosen by the owner, 2026-11-23). The synthetic voice is disclosed in the project's `film/README.md`, not in the narration | B12 | owner's instruction, 2026-11-23 |
