@@ -70,6 +70,52 @@ def test_relevance_rows_cited_in_prose_are_in_the_table(data):
     assert {48, 77, 3, 8, 13, 18, 23} <= found
 
 
+def test_featured_cases_match_the_data(data):
+    """Each fact the hand-written "Featured cases" section states, rechecked from the data."""
+    rows, postings = data
+    featured = SHORTLIST[SHORTLIST.index("## Featured cases, chosen by Tushar on 2026-11-24"):
+                         SHORTLIST.index("## a. Claims per shortlisted posting")]
+    by_row = {r["row"]: r for r in rows}
+    ab = {p["posting_id"][:8]: p for p in sr.abstention(rows, postings)}
+
+    # 1. row 48
+    r48 = by_row[48]
+    assert (r48["me"], r48["claude"]) == ("insufficient", "supported")
+    assert f"\"{r48['quote']}\"" in featured and f"\"{r48['claim']}\"" in featured
+    assert 48 in {r["row"] for r in sr.relevance_not_entailment(rows, sr._skills())}
+
+    # 2. all 17 abstain, none mentions sponsorship; ca74504a's labels, rows 61-64
+    assert len(ab) == 17 and all(p["verdict"] == "cannot_tell" for p in ab.values())
+    assert all(not p["sponsorship_words_in_text"] for p in ab.values())
+    ca = ab["ca74504a"]
+    assert {k: ca["critical"][k] for k in sr.CRITICAL} == {
+        "role": ["supported"], "location": ["supported"], "experience": ["insufficient"],
+        "sponsorship": ["insufficient"]}
+    assert [(by_row[n]["posting_id"][:8], by_row[n]["kind"]) for n in (61, 62, 63, 64)] == [
+        ("ca74504a", "role"), ("ca74504a", "location"), ("ca74504a", "experience"), ("ca74504a", "sponsorship")]
+    assert by_row[63]["quote"] == "" and by_row[64]["quote"] == ""  # silent, not a weak quote
+
+    # 3. no posting has every critical claim supported; 8c0bf773 rows 79-81
+    assert not any(all(set(p["critical"][k]) == {"supported"} for k in sr.CRITICAL) for p in ab.values())
+    dp = ab["8c0bf773"]
+    assert dp["critical"]["role"] == ["supported"] and dp["critical"]["location"] == ["supported"]
+    assert [by_row[n]["posting_id"][:8] for n in (79, 80, 81)] == ["8c0bf773"] * 3
+    assert by_row[81]["quote"].startswith("2+ years of experience shipping production software")
+
+    # 4. the five Stripe postings with a contradicted critical claim
+    contra = sorted(p["posting_id"] for p in ab.values() if p["contradicted"])
+    assert contra == sorted(["6042172", "7476555", "7292520", "8131144", "8243617"])
+    assert all(ab[pid[:8]]["board"] == "greenhouse/stripe" and ab[pid[:8]]["contradicted"] == ["experience"]
+               for pid in contra)
+    assert all(f"`{pid}`" in featured for pid in contra)
+
+    # 5. every Claude-supported disagreement is me-insufficient; Claude never under-credits
+    over = [r for r in rows if r["claude"] == "supported" and r["me"] != "supported"]
+    assert len(over) == 9 and {r["me"] for r in over} == {"insufficient"}
+    mine_supported = [r for r in rows if r["me"] == "supported"]
+    assert len(mine_supported) == 35 and all(r["claude"] == "supported" for r in mine_supported)
+
+
 SKILLS = ["Python", "PostgreSQL", "TypeScript"]
 
 

@@ -5,7 +5,47 @@ Tushar Patel · INFO 7375 · Fall 2026 · 2026-11-24
 - **Rules frozen at commit `f3edf99`.** FILTER.md and every rule are unchanged; this file only applies the evidence rules as written.
 - **The shortlist** is the 17 postings that filter v0.2 keeps on `evidence/runs/live-text-1`. For each one, Claude (`claude-sonnet-5-5`) proposed 3–6 claims with verbatim quotes in a live, billed API run (commit `65c97a2e`; prompt `prompts/claims-v1.txt`; 96 claims, 0 quote_not_found, 0 failed replies). The raw requests and responses are in `evidence/claims/raw/`.
 - **My labels are the reference.** I labeled all 96 claims blind, before reading Claude's proposed labels (commit `aaf850a0`). I typed them directly into `labels/claims-sheet.csv` as s/c/i, not through `tools/label_claims.py`, so the sheet has no per-row label times. **Claude's labels are model judgment**, not ground truth.
-- **Sources of the numbers.** Every block marked "checks/shortlist_report.py" is that script's verbatim output (`python checks/shortlist_report.py --section a|b|c|d|e`), and `tests/test_shortlist_report.py` reruns the script and compares. The prose between the blocks is mine. Candidates marked "you choose" are proposals, not decisions.
+- **Sources of the numbers.** Every block marked "checks/shortlist_report.py" is that script's verbatim output (`python checks/shortlist_report.py --section a|b|c|d|e`), and `tests/test_shortlist_report.py` reruns the script and compares. Claude drafted the prose between the blocks. Candidates marked "you choose" are Claude's proposals. The choices are Tushar's, recorded in "Featured cases" below.
+
+## Featured cases, chosen by Tushar on 2026-11-24
+
+FILTER.md and every rule are unchanged. These are the cases I chose to feature from the candidates in sections c and e. `tests/test_shortlist_report.py` checks each number below against `checks/shortlist_report.py`.
+
+### 1. Relevance is not entailment: row 48
+
+- **Claim:** "The role requires PostgreSQL experience."
+- **Quote:** "have some familiarity with relational databases like Postgres or MySQL"
+- **Labels:** I labeled it **insufficient**. Claude labeled it **supported**.
+- **Why:** the key word is present, but "familiarity" with "Postgres or MySQL" doesn't assert that the role requires PostgreSQL.
+
+### 2. The abstention rule and its counterexample: `ca74504a` Product Infrastructure
+
+**The rule abstained on all 17.** The rule says that if any verdict-critical claim (role, location, experience, sponsorship) is insufficient, the answer is "I cannot tell". It abstained on all 17 shortlisted postings, because none of them mentions sponsorship.
+
+**Featured counterexample: Software Engineer, Product Infrastructure (`ca74504a`).**
+- **Supported:** role (row 61) and location (row 62).
+- **Insufficient:** experience (row 63) and sponsorship (row 64), only because the posting is silent on both.
+- **The conflict:** FILTER.md's own gates treat both silences as passes. C1 says "Silence about experience is not a bar", and G5 says "Silence is not a no." So the evidence rule and the filter disagree about what silence means.
+
+### 3. "Every critical claim supported, but still wrong": none exists in this sample
+
+None exists, because a silent posting can never support a sponsorship claim.
+
+**Closest: Software Engineer, Developer Platform (`8c0bf773`).**
+- Role (row 79) and location (row 80) are supported.
+- The experience quote (row 81) is "2+ years of experience shipping production software, with a strong track record of owning features end-to-end".
+- It's probably not right for someone with 0 years of experience.
+
+### 4. Open limits: unresolved, not fixed
+
+- **Contradicted critical claims.** FILTER.md doesn't define what a contradicted critical claim does. Five Stripe postings have one: experience in `6042172`, `7476555`, `7292520`, `8131144` and `8243617`.
+- **Silence.** The evidence rule's treatment of silence conflicts with G5 and C1.
+
+Both are candidates for a future version. Each would be measured before any change.
+
+### 5. Which way Claude's errors run
+
+In all 9 disagreements where Claude said supported, I said insufficient. Claude never under-credited a claim: every claim I labeled supported (35 of them), Claude labeled supported too.
 
 ## a. Claims per shortlisted posting
 
