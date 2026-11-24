@@ -136,9 +136,9 @@ B = [
       "Then a written failure analysis, and a README with a one-command demo.",
       "B06_Second", "A second page slides under the gapped page and fills the hole; tag 'PLANNED'.",
       [{"at": 0.2, "event": "second page slides in"}, {"at": 0.62, "event": "gap filled"}]),
- beat("BRES", "What do I need? My laptop, Python, GitHub, and the public data, including the U S C I S employer data. "
-      "I may use Claude Code to help me build it, but the lookup itself is plain Python, with no AI model at run time, so it stays predictable.",
-      "BRES_Need", "Four small objects in a row — laptop, Python page, GitHub folder tray, data page — and a 'no AI model at run time' pill; tag 'WHAT I NEED'.",
+ beat("BRES", "What do I need? I have what I need to build and test this: my laptop, Python, GitHub, the public U S C I S data, and Claude Code access through Northeastern. "
+      "I don't need paid AI credits, because the tool doesn't use an AI model at run time.",
+      "BRES_Need", "Four small objects in a row — laptop, Python page, GitHub folder tray, data page — and a 'no AI model at run time · no paid credits' pill; tag 'I HAVE WHAT I NEED'.",
       [{"at": 0.15, "event": "four objects"}, {"at": 0.62, "event": "no-model pill"}]),
  beat("B09", "One thing it will deliberately not do: give immigration advice, or predict whether anyone gets a visa. It reports history.",
       "B09_Out", "A stop sign beside the box; three small label tags clip onto the box.",
@@ -157,9 +157,9 @@ B = [
       "Now none of the three is missed, six of the twenty-five go to a person, and there are no wrong automatic answers.",
       "BAFTER_Result", "A before/after table with three rows: missed strong sponsors 3 → 0, wrong automatic answers 1 → 0, sent to a person 0 → 6; tag 'MEASURED · 2026-11-23 · predictions first'.",
       [{"at": 0.15, "event": "table and before column"}, {"at": 0.62, "event": "after column lands"}]),
- beat("BBAR", "After I add the hub, it passes if it finds known sponsors from both sources, even when brand and legal names differ, shows which source supports each result, and leaves the choice to a person. "
-      "It fails if it misses employers that are in the data, confirms a wrong company, picks one on its own, or if the second source does not improve coverage.",
-      "BBAR_PassFail", "Two columns, PASS and FAIL, each with a short list; ticks land down PASS, crosses down FAIL; tag 'MY PASS / FAIL BAR · next test'.",
+ beat("BBAR", "After I add the hub, I'll consider it successful if at least twenty of the twenty-five companies get a verified match, with zero incorrect automatic sponsor answers. "
+      "Anything uncertain must stay unknown, or go to a person. It fails if it confirms a wrong company, or if the second source does not improve coverage.",
+      "BBAR_PassFail", "Two columns, PASS and FAIL: PASS = at least 20 of 25 verified, 0 wrong automatic answers, uncertain stays unknown or goes to a person; FAIL = a wrong company confirmed, no better coverage; tag 'MY TARGET · after the hub is added'.",
       [{"at": 0.15, "event": "PASS column"}, {"at": 0.62, "event": "FAIL column"}]),
 ]
 PARTS = {"BWHAT": 1, "P2": 2, "B05": 2, "BOS": 2, "BGL": 2, "BCARE": 2, "P3": 3, "B00": 3, "B01": 3, "B02": 3, "B03": 3,

@@ -69,3 +69,13 @@ Fail criteria:
 * It cannot show which source supports a result.
 * It automatically selects or confirms a company without human verification.
 * Adding the second source does not improve the coverage or usefulness of the results.
+
+---
+
+## Added 2026-11-23 19:23 EST — two sharper lines for the film (sent by me)
+
+**3b. Resources (BRES):** I have what I need to build and test this: my laptop, Python, GitHub, the public USCIS data, and Claude Code access through Northeastern. I don't need paid AI credits because the tool doesn't use an AI model at runtime.
+
+**4b. Pass/fail (BBAR):** I'll consider the hub join successful if at least 20 of the 25 companies get a verified match, with zero incorrect automatic sponsor answers. Anything uncertain must remain unknown or go to human review.
+
+(20 of 25 is a proposed target, not a result already achieved.)

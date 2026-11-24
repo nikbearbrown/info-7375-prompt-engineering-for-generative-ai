@@ -17,6 +17,7 @@ brand-name fix and its tests on my instruction, ran the evaluation script, and b
   open questions, not options. Claude had seen the dataset rows; I had not, and Claude did not tell me what it saw.
 - **My words** for why anyone should care, what I need, and my pass/fail bar (`MY-SEARCHES.md` answers 2–4). The
   narration condenses them; `../youtube/coop-sponsor-check-final/FACTCHECK.md` rows 13, 23 and 31 say exactly what was cut.
+- **Two revised lines** for the film (resources I have; a 20-of-25 target), sent 2026-11-23 ~19:00 — `MY-SEARCHES.md` 3b / 4b.
 - Chose to fix brand names before filming (fix A = first-word candidates, B = alias list, both proposed by Claude).
 - `FRICTIONAL.md` — my own dated entries.
 

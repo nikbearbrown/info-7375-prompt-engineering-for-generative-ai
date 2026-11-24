@@ -870,13 +870,13 @@ class BRES_Need(Scene):
         ds = VGroup(*[Line([4.3, 1.0 - 0.35 * k, 0], [5.5, 1.0 - 0.35 * k, 0], color=BAR1, stroke_width=6) for k in range(4)])
         labs = VGroup(label("laptop", -5.0, -1.3, 42), label("Python", -1.7, -1.3, 42),
                       label("GitHub", 1.4, -1.3, 42), label("public data", 4.9, -1.3, 42))
-        tg = tag("WHAT I NEED")
+        tg = tag("I HAVE WHAT I NEED")
         self.play(FadeIn(tg), FadeIn(lap), FadeIn(py), Create(pys), run_time=rt(self, 0.1))
         self.play(FadeIn(tray), FadeIn(data), Create(ds), FadeIn(labs), run_time=rt(self, 0.12))
         to(self, 0.62)
-        pl = pill(0.0, -2.6, 7.4, h=0.8, fill=CARD)
+        pl = pill(0.0, -2.6, 10.6, h=0.8, fill=CARD)
         pl.set_stroke(INK, 4)
-        pt = T("no AI model at run time", 40).move_to([0.0, -2.6, 0])
+        pt = T("no AI model at run time · no paid credits", 40).move_to([0.0, -2.6, 0])
         self.play(FadeIn(pl), FadeIn(pt), run_time=rt(self, 0.08))
         finish(self)
 
@@ -908,23 +908,29 @@ class BAFTER_Result(Scene):
 
 class BBAR_PassFail(Scene):
     def construct(self):
-        hp = T("PASS", 48, bold=True).move_to([-3.4, 1.9, 0])
-        hf = T("FAIL", 48, bold=True).move_to([3.0, 1.9, 0])
-        div = Line([0.0, 2.2, 0], [0.0, -2.9, 0], color=BAR2, stroke_width=4)
-        P = ["finds sponsors in both sources", "even when brand ≠ legal name", "shows the source", "a person makes the choice"]
-        F = ["misses one that is in the data", "confirms a wrong company", "picks one on its own", "no better coverage"]
-        pl, fl = VGroup(), VGroup()
-        for k, (pt, ft) in enumerate(zip(P, F)):
-            y = 1.0 - 0.95 * k
-            a = fit(T(pt, 34), 5.2)
-            a.move_to([-5.9 + 0.6 + a.width / 2, y, 0])
-            b = fit(T(ft, 34), 5.6)
-            b.move_to([0.5 + 0.6 + b.width / 2, y, 0])
-            pl.add(VGroup(a, check(-5.75, y, s=0.16)))
-            fl.add(VGroup(b, cross(0.75, y, s=0.17, w=6)))
-        tg = tag("MY PASS / FAIL BAR · after the hub is added")
-        self.play(FadeIn(tg), FadeIn(hp), FadeIn(hf), Create(div), run_time=rt(self, 0.08))
-        self.play(LaggedStart(*[FadeIn(x) for x in pl], lag_ratio=0.25), run_time=rt(self, 0.16))
+        hp = T("PASS", 48, bold=True)
+        hp.move_to([-5.9 + hp.width / 2, 2.05, 0])
+        P = ["at least 20 of 25 verified", "0 wrong automatic answers", "uncertain → unknown or a person"]
+        F = ["confirms a wrong company", "no better coverage"]
+        pl = VGroup()
+        for k, t in enumerate(P):
+            y = 1.35 - 0.68 * k
+            a = T(t, 44)
+            a.move_to([-5.0 + a.width / 2, y, 0])
+            pl.add(VGroup(a, check(-5.5, y, s=0.17)))
+        rule = Line([-5.9, -0.95, 0], [5.9, -0.95, 0], color=BAR2, stroke_width=4)
+        hf = T("FAIL", 48, bold=True)
+        hf.move_to([-5.9 + hf.width / 2, -1.55, 0])
+        fl = VGroup()
+        for k, t in enumerate(F):
+            y = -2.25 - 0.68 * k
+            b = T(t, 44)
+            b.move_to([-5.0 + b.width / 2, y, 0])
+            fl.add(VGroup(b, cross(-5.5, y, s=0.17, w=6)))
+        tg = tag("MY TARGET · after the hub is added")
+        self.play(FadeIn(tg), FadeIn(hp), run_time=rt(self, 0.06))
+        self.play(LaggedStart(*[FadeIn(x) for x in pl], lag_ratio=0.25), run_time=rt(self, 0.18))
         to(self, 0.62)
-        self.play(LaggedStart(*[FadeIn(x) for x in fl], lag_ratio=0.25), run_time=rt(self, 0.16))
+        self.play(Create(rule), FadeIn(hf), run_time=rt(self, 0.06))
+        self.play(LaggedStart(*[FadeIn(x) for x in fl], lag_ratio=0.25), run_time=rt(self, 0.12))
         finish(self)

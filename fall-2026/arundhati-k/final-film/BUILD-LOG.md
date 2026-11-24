@@ -30,3 +30,7 @@ fix. **Why read it:** to rebuild or audit the work. It is not my reflection — 
   moved to the reel's `_superseded/`).
 - Final master: GATE T PASS, Gate V 0/0, layout audit 0/0; 257.8 s, 3840×2160, 24 fps. Frames audited at 35 % and 92 %
   of every beat (bookends included) plus 85 % of BNAME, BFIX, BRES and the outro.
+- **19:00–19:35, revision after her brief check.** She sent two lines (MY-SEARCHES 3b, 4b): she *has* the resources, and a
+  numeric target (≥ 20 of 25 verified, 0 wrong automatic answers). BRES and BBAR narration rewritten from them; only those two
+  beats re-voiced (all other mp3s restored from backup so timing is unchanged). GATE T flagged BBAR list text at 36 px →
+  PASS/FAIL stacked vertically at 44 pt. New master 257.0 s, GATE T PASS, Gate V 0/0, sha `1fefeef648f8479ab297feee06861d346548216a9d834491dbdb019c7bbe8b4b`. Frames of both beats checked.

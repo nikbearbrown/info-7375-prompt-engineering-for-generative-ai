@@ -1,6 +1,6 @@
 # TYPECHECK.md — GATE T
 
-Reel: `coop-sponsor-check-final`  |  Checked: 2026-11-23T16:25  |  Overall: PASS  |  Beats checked: 24  |  FAILs: 0
+Reel: `coop-sponsor-check-final`  |  Checked: 2026-11-23T19:29  |  Overall: PASS  |  Beats checked: 24  |  FAILs: 0
 
 Spec: `skills/make/kerning/reference/type-spec.md` §8.  Floor: 1.9% frame-height.  Contrast: 4.5:1 WCAG.  Kern threshold: 3.5× expected advance.  Wordy budget: 2 elements.
 
@@ -28,7 +28,7 @@ Spec: `skills/make/kerning/reference/type-spec.md` §8.  Floor: 1.9% frame-heigh
 | B07 | manim | light | min-size §8.1: min text-run height 60px >= floor 41px | PASS | — |
 | B07A | manim | light | min-size §8.1: min text-run height 63px >= floor 41px | PASS | — |
 | BAFTER | manim | light | min-size §8.1: min text-run height 63px >= floor 41px | PASS | — |
-| BBAR | manim | light | min-size §8.1: min text-run height 50px >= floor 41px | PASS | — |
+| BBAR | manim | light | min-size §8.1: min text-run height 58px >= floor 41px | PASS | — |
 | BOUT | bookend | light | min-size §8.1: min text-run height 43px >= floor 41px (individual-char fallback at 2×) | PASS | — |
 
 ---

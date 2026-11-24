@@ -9,7 +9,7 @@ public record of sponsoring software jobs, says "unknown" instead of "no", and �
 names behind a brand (Robinhood, Chime, SoFi) for a person to choose, instead of missing them.
 
 - **Name:** Arundhati Kandelkar · **Target role:** software / full-stack developer
-- **Film:** `coop-sponsor-check-final.mp4` — 4:18 (257.8 s) · 3840×2160 · 24 fps · 24 beats · SHA-256 `9369f39d04521d39647027430559d2bc7786d002131ada5ac1e2e0e9773caf56`
+- **Film:** `coop-sponsor-check-final.mp4` — 4:17 (257.0 s) · 3840×2160 · 24 fps · 24 beats · SHA-256 `1fefeef648f8479ab297feee06861d346548216a9d834491dbdb019c7bbe8b4b`
 - **Narration:** synthetic voice (Kokoro `bf_emma`, local, free) reading my script — not my recorded voice.
 
 ## The four parts

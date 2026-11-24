@@ -15,10 +15,10 @@ Show-tell: one drawn Manim picture per body beat; part titles and bookends are R
 | 3 | B00–B03 | company box, three checks, gate with "?", gapped data page (reused) | EXISTS |
 | 3 | BFIX | Chime → two rows (first word); SoFi → alias → SOCIAL FINANCE INC; "a person picks" | BUILT · 2026-11-23 · 26 tests pass |
 | 3 | B06 | second page fills the gap (reused) | PLANNED |
-| 3 | BRES | laptop, Python page, GitHub tray, data page; "no AI model at run time" pill | WHAT I NEED |
+| 3 | BRES | laptop, Python page, GitHub tray, data page; "no AI model at run time · no paid credits" pill | I HAVE WHAT I NEED |
 | 3 | B09 | stop sign + label tags (reused) | — |
 | 4 | P4 | "4 · How I'll know it worked" | — |
 | 4 | B07 / B07A | 25-square grid; Goldman name fix (reused) | 25 RAN · FIXED |
 | 4 | BAFTER | October / now table: 3→0, 1→0, 0→6 | MEASURED · 2026-11-23 · same 25 companies |
-| 4 | BBAR | PASS / FAIL columns | MY PASS / FAIL BAR · after the hub is added |
+| 4 | BBAR | PASS list (≥ 20 of 25 verified, 0 wrong automatic answers, uncertain → unknown or a person) above FAIL list | MY TARGET · after the hub is added |
 | — | BOUT | title + her name | — |
