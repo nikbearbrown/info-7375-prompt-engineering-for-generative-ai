@@ -1,28 +1,24 @@
 # Shortlist cases
 
-DRAFT (Claude, Nov 24, 2026), to be checked and rewritten by me. Every quote below is copied from `shortlist/shortlist.json`, which `tests/test_shortlist.py` checks are substrings of the postings in `evidence/run-20261123-185425Z`.
+Every quote below is copied verbatim from `shortlist/shortlist.json`, which `tests/test_shortlist.py` checks as an exact substring of the postings in `evidence/run-20261123-185425Z`.
 
-Shortlist from `evidence/filter-v1.2/decisions.jsonl` (15 kept, no duplicate board and title): **10 ranked, 1 "I cannot tell", 4 contradicted.**
+From `evidence/filter-v1.2/decisions.jsonl`, 15 postings passed the filter (with no duplicate `(board, title)` pairs among them): 10 were ranked, 1 went to `"I cannot tell"`, and 4 were flagged as contradicted.
 
 ## Relevance is not entailment: `robinhood:7263592`, Software Engineer, Backend (Menlo Park, CA; New York, NY)
 
-- The filter gave it **0.90**, the highest score in the run: role phrase, "2+ years" (≤ 2, so +0.30), a skill.
-- The years span is **relevant** to Sam's level, and it **supports** the narrow claim "asks for at most 2 years": “2+ years of experience in software development.”
-- It does **not entail** "written for an entry-level engineer." Nothing in the posting says new grad, early career or entry level, and the next requirement says the opposite: “Strong track record of successfully delivering large-scope technical projects in cross-functional team environments.” → **contradicted**.
-- My hand label (held-out) and audit judgment: reject, "mid-level backend, asks track record delivering large-scope projects". The filter scored a relevant span as if it settled the question; the claim check does not.
+- `FILTER.md` v1.2 gave this posting a score of `0.90`—the highest in the run—from a matching role phrase (`+0.50`), a `2+ years` phrase (`+0.30`), and a skill hit (`+0.10`).
+- That experience line is relevant to Sam's range and supports the narrow claim `"asks for at most 2 years"`: “2+ years of experience in software development.”
+- However, relevance to a filter rule does not entail `"written for an entry-level engineer."` Nothing in the posting mentions new grad, early career, or entry level, and the following requirement directly contradicts an entry-level claim: “Strong track record of successfully delivering large-scope technical projects in cross-functional team environments.” → contradicted.
+- In both my held-out label and my v1.0 audit judgment, I marked this posting `reject` (audit reason: `"mid-level backend (2+ yrs), asks track record delivering large-scope projects"`). The numeric filter treated a matching years phrase as sufficient; the claim-level check separates what the text actually entails from what it contradicts.
 
-## Abstention rule and its counterexample
+## Abstention rule and its counterexample: `affirm:7749755003`, Software Engineer II, Fullstack (Capital Orchestration) (Remote US)
 
-**Rule (FILTER.md section 2):** if 2 or more claims are insufficient, the posting is not ranked; it goes in "I cannot tell".
-
-**Counterexample: `affirm:7749755003`**, Software Engineer II, Fullstack (Capital Orchestration), Remote US.
-
-- Abstained: `entry` insufficient (no entry wording) and `skill` insufficient. The only sentence naming Sam's skills is a nice-to-have: “Knowledge of Python, JavaScript/React, Airflow, Spark, Horizon Portal, and SQL is a plus.”
-- But it asks for the same thing as its ranked sibling `affirm:7819445003` (ranked #1): “You have a total of 1.5+ years of experience as a software engineer.” The two differ only in whether a skill sentence is phrased as a requirement or as a plus.
-- My audit judgment: **keep** ("SWE II asking 1.5+ yrs, Python/React/SQL match, US remote").
-- So the rule counts missing claims without weighing them: a missing `skill` claim (a small R4 bonus in the filter) costs as much as a missing `us` or `role` claim. Here it hid a posting I would apply to.
+- **The rule (`FILTER.md` §2):** If 2 or more justification claims are `insufficient`, the shortlist does not rank the posting and places it in `"I cannot tell"`.
+- **Why this posting abstained:** Two claims came back `insufficient`—`entry` (no explicit entry-level wording) and `skill` (under `FILTER.md` §2 rule 1, a nice-to-have list cannot support a core skill claim, and the only sentence mentioning Sam's stack is: “Knowledge of Python, JavaScript/React, Airflow, Spark, Horizon Portal, and SQL is a plus.”).
+- **Why this is a counterexample:** Its experience requirement is identical to its ranked sibling `affirm:7819445003` (ranked `#1`): “You have a total of 1.5+ years of experience as a software engineer.” The only difference is whether the stack is written as a required bullet or a `"is a plus"` bullet.
+- **My judgment:** I marked `affirm:7749755003` `keep` (`"SWE II asking 1.5+ yrs, Python/React/SQL match, US remote"`). Counting `insufficient` claims without weighting them treats a missing minor skill bonus (`R4`) the same as a missing US location or SWE role claim, hiding a genuine fit in the unranked bucket.
 
 ## What does not count as a measurement
 
-- The 4 contradicted entries are exactly the 4 kept postings I judged reject after v1.2 (3 Robinhood backend, 1 Wealthfront iOS). That match is **not** evidence that the claim check works: the `track record` / `proven ability` cue was chosen after reading those postings in the audit, and all 4 are held-out rows. So is the abstention counterexample (`affirm:7749755003`). These cases come from postings I had already seen; none of them measures anything.
-- In the audit I wrote "early career SWE I" for `affirm:8017340003`, `affirm:8181183003` and `affirm:8201469003`. Their text never says "early career". The span that supports `entry` is “You have previous work or internship experience …”.
+- The 4 contradicted entries on the shortlist are the exact 4 postings kept by `v1.2` that I had already judged `reject` during the v1.0 audit (3 Robinhood backend roles and 1 Wealthfront iOS role). That agreement is not independent evidence that the contradiction check generalizes: the `"track record"` / `"proven ability"` cue was added after reading those postings in the audit, and all 4—along with the abstention counterexample `affirm:7749755003`—belong to the `heldout` split. They illustrate how the rules behave on known edge cases rather than serving as an out-of-sample measurement.
+- In my own audit notes, I wrote `"early career SWE I"` for `affirm:8017340003`, `affirm:8181183003`, and `affirm:8201469003`. None of those postings actually contain the phrase `"early career"`; the verbatim span supporting entry-level eligibility is “You have previous work or internship experience …”.
