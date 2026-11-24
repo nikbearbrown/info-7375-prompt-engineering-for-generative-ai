@@ -83,13 +83,25 @@ All four changes were measured on the 55 audit labels and on the whole corpus, t
 | X3: drop the skill requirement | 40 | 266 | rejected: +1 correct for 72 more kept |
 | X4: "Data Center" is not the role word "Data" | 39 | 194 | rejected: no measured effect today |
 
-**These gains are in-sample.** The same 55 labels that showed the problem also measured the fix, so the 39 → 42 flatters X1. In the audit sample, X1 fixes #23, #41, #61 and #95, and adds one wrong keep: #51, a crawler SRE Hemanth didn't want. The held-out test of v1.1 is in `SCORE.md`.
+**These gains are in-sample.** The same 55 labels that showed the problem also measured the fix, so the 39 → 42 flatters X1. In the audit sample, X1 fixes #23, #41, #61 and #95, and adds one wrong keep: #51, a crawler SRE Hemanth didn't want. The first held-out set couldn't test v1.1, because none of its 40 postings is a "Technical Staff" title (`SCORE.md`, E1a).
+
+**So X1 got its own out-of-sample test** (`audit/x1-results.md`, labels Nov 22–23):
+- **The draw:** the seed was committed first. 10 were drawn at random from the 13 never-labeled postings X1 changes, and mixed blind with 10 unaffected controls.
+- **The result:** Hemanth wanted **7 of the 10** X1 postings. So v1.1 was right 7 times and v1.0 3 times (Wilson 95% for 7/10: 40%–89%).
+- **The controls:** both versions agree with Hemanth 9 of 10.
+- **What it shows:** the direction of the in-sample gain holds on postings that played no part in choosing X1. Ten postings can't say much more.
 
 ## 6. A tension the audit exposed
 
 At the gate, Hemanth chose to penalize seniority (Q3, the recommended default). In the blind labels, Hemanth marked **11 of the 14** senior-titled audit postings as worth reading. Examples: "Staff+ Software Engineer, Kubernetes Platform" and "Principal Engineer Capacity/Compute".
 
 Hemanth kept the rule (X2 rejected). The plan is to let the shortlist's level claim (C3) catch level problems with a quote, such as "8+ years". So the stated rule and the verdicts disagree, and that disagreement is recorded, not resolved.
+
+**A second tension appeared in the X1 test: location.**
+- FILTER.md says location never decides (Q4).
+- Hemanth marked the London posting of "Member of Technical Staff (AI Inference Engineer)" **not relevant** (item 107), but the San Francisco posting of the same title **relevant** (item 110). The two texts share 25 of their roughly 35 sentences.
+- The two Belgrade postings in that test (items 97 and 115) were also marked not relevant.
+- That doesn't prove location drove the verdicts; other differences exist. It's the clearest case where the written rule and the hand verdicts may part ways. It is recorded and not acted on.
 
 ## 7. What this audit does not show
 
