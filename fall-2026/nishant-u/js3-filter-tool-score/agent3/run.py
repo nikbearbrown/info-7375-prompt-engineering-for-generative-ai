@@ -87,6 +87,14 @@ def run(raw_root, out_dir, resume_path, version=1):
     (out_dir / "results.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     entries = sl.build_shortlist(postings, skills, version=version)
     (out_dir / "shortlist.md").write_text(render_shortlist(entries, counts, version), encoding="utf-8")
+    if version >= 2:
+        # Machine-readable twin of shortlist.md (read by mcp_server/); v1's output folder is left as run.
+        rows = [{"rank": n, "posting_id": e["posting_id"], "title": e["posting"]["title"],
+                 "location": e["posting"]["location"], "url": e["posting"]["url"], "claims": e["claims"]}
+                for n, e in enumerate(entries, 1)]
+        (out_dir / "shortlist.json").write_text(
+            json.dumps({"filter": f"FILTER.md v{version}", "shortlist": rows}, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8")
     return counts, entries
 
 
