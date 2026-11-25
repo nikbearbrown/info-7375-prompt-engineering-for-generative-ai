@@ -5,6 +5,10 @@ Pool (Ethan's choice, 2026-11-25): every posting in the 2026-11-25 snapshot whos
 labels are not chosen by the filter being measured. Order is shuffled with a fixed seed, and each posting is assigned to
 "tuning" or "heldout" before any label exists. The sheet shows no filter, score or Claude output.
 
+Ethan's second choice, 2026-11-25, before any label: drop postings located outside the US, but keep every remote posting
+(including "Remote - Canada" and "Remote - Mexico"). The non-US locations are listed by hand below, read from the 141 location
+strings; this does not use the filter's F3 code.
+
     python3 scripts/make_label_sheet.py
 """
 import csv
@@ -20,7 +24,18 @@ from jsagent import snapshot  # noqa: E402
 
 LABELS = ROOT / "labels" / "labels.csv"
 POOL = re.compile(r"\b(data|analytics?|analyst|BI|business intelligence|ETL|warehouse|pipeline)\b", re.I)
+NON_US = {
+    "Abu Dhabi, United Arab Emirates", "Amsterdam, Netherlands", "Amsterdam, The Netherlands; Dublin, Ireland", "Belgrade, Serbia",
+    "Bengaluru, India", "Berlin, Germany; Munich, Germany", "Dublin", "Dublin, Ireland", "London", "London, United Kingdom",
+    "Milan, Italy", "Paris, France", "Sao Paulo, Brazil", "Singapore, Singapore", "Stockholm", "Tokyo, Japan",
+    "Vancouver, Canada", "Warsaw, Poland",
+}  # bare "Dublin" is Toast's Ireland office; bare "London" and "Stockholm" are Spotify's European offices
 SEED = 7375
+
+
+def in_pool(p):
+    loc = p["location"]["name"]
+    return bool(POOL.search(p["title"])) and ("remote" in loc.lower() or loc not in NON_US)
 FIELDS = ["n", "split", "board", "posting_id", "title", "location", "url", "human_label", "label_note"]
 
 
@@ -28,7 +43,7 @@ def main():
     if LABELS.exists():
         sys.exit(f"refused: {LABELS.relative_to(ROOT)} already exists; hand labels are never overwritten")
     postings, _ = snapshot.load()
-    pool = sorted((p for p in postings if POOL.search(p["title"])), key=lambda p: (p["board"], p["id"]))
+    pool = sorted((p for p in postings if in_pool(p)), key=lambda p: (p["board"], p["id"]))
     rng = random.Random(SEED)
     rng.shuffle(pool)
     half = len(pool) // 2
