@@ -69,6 +69,4 @@ def test_h2_disjoint_from_sheet_blind_and_reproducible():
     with (ROOT / "review" / "LABEL_SHEET_H2.csv").open(encoding="utf-8-sig") as f:
         header = next(csv.reader(f))
     assert not {"score", "verdict", "group", "split"} & {h.lower() for h in header}
-    labels = (ROOT / "review" / "LABEL_SHEET_H2.csv").read_bytes()
-    assert json.dumps(draw_h2(), sort_keys=True) == json.dumps(h2, sort_keys=True)
-    (ROOT / "review" / "LABEL_SHEET_H2.csv").write_bytes(labels)  # draw_h2 rewrites the blank sheet; keep any labels
+    assert json.dumps(draw_h2(write=False), sort_keys=True) == json.dumps(h2, sort_keys=True)

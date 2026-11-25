@@ -192,7 +192,8 @@ SEED_H2, SEED_H2_SHEET = 7378, 7379
 H2_SIZES = {"H2-near-reject(3-5)": 10, "H2-role-phrase-reject(<=2)": 7, "H2-other-reject": 7}
 
 
-def draw_h2():
+def draw_h2(write=True):
+    """write=False recomputes the draw without touching any file (used by the tests while the sheet is being labeled)."""
     corpus = load_corpus()
     results, _ = score_all(load_filter("v1.0"), corpus)
     cl = json.loads((ROOT / "splits" / "clusters.json").read_text())
@@ -230,6 +231,8 @@ def draw_h2():
            "heldout2": {g: [{"key": k, "score": results[k]["score"], "verdict": results[k]["verdict"]} for k in ks]
                         for g, ks in h2.items()},
            "sheet_ids": sheet_ids}
+    if not write:
+        return out
     (ROOT / "splits" / "heldout2.json").write_text(json.dumps(out, indent=1) + "\n")
     pdir = ROOT / "review" / "postings_h2"
     pdir.mkdir(parents=True, exist_ok=True)
