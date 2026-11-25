@@ -15,8 +15,8 @@ export function titlePrefix(title, cutChars) {
 }
 
 // The exact line of the posting containing the match, cut to a window: an exact substring.
-function quoteAround(text, phrase, maxLen = 300) {
-  const i = text.toLowerCase().indexOf(phrase);
+function quoteAround(text, phrase, maxLen = 300, at = null) {
+  const i = at ?? text.toLowerCase().indexOf(phrase);
   if (i < 0) return null;
   let a = text.lastIndexOf('\n', i) + 1;
   let b = text.indexOf('\n', i + phrase.length); if (b < 0) b = text.length;
@@ -86,6 +86,11 @@ function findVeto(text, spec, prefs) {
   for (const [rule, phrases] of lists) {
     const phrase = phrases.find(p => lower.includes(p));
     if (phrase) return { rule, phrase, quote: quoteAround(text, phrase) };
+  }
+  // v1.1.0-c: bounded patterns (FILTER.md §6 vetoes.sponsorship_patterns), only if sponsorship is needed.
+  if (prefs.needs_sponsorship) for (const src of spec.vetoes.sponsorship_patterns ?? []) {
+    const m = lower.match(new RegExp(src));
+    if (m) return { rule: 'sponsorship', phrase: m[0], pattern: src, quote: quoteAround(text, m[0], 300, m.index) };
   }
   return null;
 }

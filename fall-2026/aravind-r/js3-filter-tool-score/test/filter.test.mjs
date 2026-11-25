@@ -206,3 +206,41 @@ test('v1.1.0-b: scored without corpus context, the result says shared lines were
   const s = clone(spec); s.topic.exclude_shared_lines_min_share = 0.2;
   assert.equal(scorePosting(mk({ text: 'payments.' }), { spec: s, prefs: PREFS }).components.topic.shared_lines_checked, false);
 });
+
+// ---------- v1.1.0-c: the two missed no-sponsorship phrasings (e0d80ff0), bounded ----------
+const VETO_C_PHRASE = 'no visa/relocation support';
+const VETO_C_PATTERN = 'unable to provide (?:[a-z]+ ){0,3}visa sponsorship';
+const specC = () => { const s = clone(spec); s.vetoes.sponsorship = [...s.vetoes.sponsorship.filter(p => p !== VETO_C_PHRASE), VETO_C_PHRASE]; s.vetoes.sponsorship_patterns = [VETO_C_PATTERN]; return s; };
+
+test('v1.1.0-c: both missed phrasings from e0d80ff0 now veto, quoting the posting verbatim', () => {
+  for (const line of [
+    'This position needs to be based in the Beijing, China office 5 days a week. No Visa/Relocation Support.',
+    "Please note that this role requires candidates to possess a valid right to work in Singapore. We are unable to provide work visa sponsorship for this position in accordance with Singapore's employment regulations.",
+  ]) {
+    const p = mk({ text: `3+ years of experience.\n${line}` });
+    const r = scorePosting(p, { spec: specC(), prefs: PREFS });
+    assert.equal(r.veto?.rule, 'sponsorship', line);
+    assert.equal(r.score, 0);
+    assert.ok(p.text.includes(r.veto.quote), 'quote is verbatim');
+  }
+});
+
+test('v1.1.0-c: the bounded pattern does NOT match the false friends in e0d80ff0', () => {
+  for (const line of [
+    'Serve as an executive sponsor for key customer relationships.',
+    'Represent Stripe in the financial sponsor ecosystem, including through relevant industry events.',
+    'Demonstrated experience delivering third-party sponsorships and company-hosted events.',
+    'Sell and manage event sponsorship, and build relationships with sponsors.',
+    'Card network protocols with Visa and Mastercard; BIN sponsorship models.',
+    'We are unable to provide relocation, but we offer visa sponsorship.',
+    'We are unable to provide a laptop stipend, relocation help or any form of visa sponsorship.',
+  ]) {
+    const r = scorePosting(mk({ text: `3+ years of experience.\n${line}` }), { spec: specC(), prefs: PREFS });
+    assert.equal(r.veto, null, line);
+  }
+});
+
+test('v1.1.0-c: patterns apply only when the persona needs sponsorship', () => {
+  const r = scorePosting(mk({ text: 'We are unable to provide work visa sponsorship.' }), { spec: specC(), prefs: { ...PREFS, needs_sponsorship: false } });
+  assert.equal(r.veto, null);
+});

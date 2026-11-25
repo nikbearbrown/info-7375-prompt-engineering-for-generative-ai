@@ -37,6 +37,10 @@ export function validateSpec(s) {
   num01(s?.location?.impute, 'location.impute');
   if (!s?.location?.aliases || typeof s.location.aliases !== 'object') e.push('location.aliases must be an object');
   for (const k of ['sponsorship', 'citizenship']) if (!Array.isArray(s?.vetoes?.[k])) e.push(`vetoes.${k} must be a list`);
+  if (s?.vetoes?.sponsorship_patterns != null) {
+    if (!Array.isArray(s.vetoes.sponsorship_patterns)) e.push('vetoes.sponsorship_patterns must be a list');
+    else for (const p of s.vetoes.sponsorship_patterns) { try { new RegExp(p); } catch { e.push(`vetoes.sponsorship_patterns: bad regex ${p}`); } }
+  }
   if (!Number.isInteger(s?.min_text_chars)) e.push('min_text_chars must be an integer');
   return e;
 }
