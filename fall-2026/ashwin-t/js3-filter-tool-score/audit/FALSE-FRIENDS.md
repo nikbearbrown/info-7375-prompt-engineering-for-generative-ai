@@ -33,12 +33,12 @@ itself make the decision right.
 posting. Nothing about the held-out posting's prediction or measurement has been looked at. Claude Code has seen its
 human label (see `drafting/EVALUATION-SETS.md`).
 
-## Proposed fix: not implemented
+## Fix: implemented in v1.1 (see `changes/v1.1-mission-manager.md`)
 
 The narrow option would be an exception so that the seniority term `manager` does not fire when it is part of the
 phrase "mission manager". It would change exactly those 3 titles: on the development set, rows 47 and 58 would go
-from REJECT to KEEP at score 7. Every other posting would get an identical decision by construction. As of
-2026-11-25, Ashwin has decided to leave it unimplemented.
+from REJECT to KEEP at score 7. Every other posting would get an identical decision by construction. Ashwin first left it unimplemented,
+then had it implemented as `filters/v1.1.json` later on 2026-11-25.
 
 ### Can an unused sample evaluate it?
 

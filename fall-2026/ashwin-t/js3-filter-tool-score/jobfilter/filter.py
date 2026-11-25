@@ -84,16 +84,30 @@ class Filter:
         for x in self.c["excluded_title_phrases"]:
             if self.find(x, t):
                 reasons.append(f'title contains excluded phrase "{x}"')
+        # v1.1: a seniority term inside a listed product name (e.g. "manager" in "Mission Manager") does not count,
+        # but only in a title that already has a role phrase, and only where that phrase is the term's sole occurrence.
+        exceptions, applied = self.c.get("seniority_exceptions", {}), []
         for s in self.c["seniority_terms"]:
-            if self.find(s, t):
+            t_s = t
+            if roles:
+                for phrase in exceptions.get(s, []):
+                    m = find_word(phrase, t_s)
+                    while m:
+                        t_s = t_s[:m.start()] + " | " + t_s[m.end():]
+                        applied.append(phrase)
+                        m = find_word(phrase, t_s)
+            if self.find(s, t_s):
                 reasons.append(f'title contains excluded seniority term "{s}"')
         for r in roles:
             for lvl in self.c["level_suffixes"]:
                 if self.find(f"{r} {lvl}", t):
                     reasons.append(f'title level "{lvl}" attached to "{r}"')
         signals = [s for s in self.c["entry_signals"] if self.find(s, t)]
-        return {"role_matched": roles[0] if roles else None, "passed": not reasons,
-                "reasons": reasons, "entry_signals": signals}
+        g = {"role_matched": roles[0] if roles else None, "passed": not reasons,
+             "reasons": reasons, "entry_signals": signals}
+        if applied:
+            g["seniority_exceptions_applied"] = applied
+        return g
 
     # -- topics -------------------------------------------------------------------
     def topics(self, p: dict) -> list:
