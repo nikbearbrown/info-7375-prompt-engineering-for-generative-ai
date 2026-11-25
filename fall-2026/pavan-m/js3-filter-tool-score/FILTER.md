@@ -513,3 +513,33 @@ Any changes after testing must be recorded in a new version with:
 - The impact on previously classified postings.
 
 **Important:** Version 1.0 is an initial hypothesis, not an optimized filter. Its effectiveness must be evaluated against manually reviewed postings before claiming that it reliably identifies relevant opportunities.
+
+## 9. Clarifications recorded after implementation (November 23, 2026)
+
+These were decided while implementing v1.0, after FILTER.md was committed and before the audit. They are recorded here rather than hidden in the code.
+
+| Rule | v1.0 text | As implemented | Reason | Impact on the Nov 23 run |
+|---|---|---|---|---|
+| Bare "San Francisco" | "San Francisco, CA" +2 | "San Francisco" with no state also +2 | OpenAI writes plain "San Francisco" | 23 of OpenAI's 25 KEEPs depend on it |
+| "US - Remote" | "Remote - US", "Remote (US)" | "US - Remote" also +2 | OpenAI's wording | not yet counted |
+| "REST API" | "REST APIs" | singular "REST API" also matches | same meaning | not yet counted |
+
+Known gaps, not changed: Palo Alto gets 0 (not listed); "Vancouver" and "North America" are UNKNOWN; years ranges ("8–10 years") and spelled-out numbers ("eight years") are not caught; "Back-end", "Postgres" and "GitHub" do not match "Backend", "PostgreSQL" and "Git".
+
+## 10. Rules added, cut, or rejected after measuring (November 23, 2026)
+
+Measured on two sets of my blind hand labels: the 48 audit postings (development) and a held-out set of 20 random target-title postings judged afterwards. Full numbers: out/measure/2026-11-23T153111/report.md and heldout/comparison_2026-11-23.txt.
+
+| Change | Decision | Development (48) | Held-out (20) | Reason |
+|---|---|---|---|---|
+| C1: years cutoff 8 → 5 | **Added in v1.1** (`config/filter_v1_1.json`) | 37 → 40 agree | 18 → 18 agree | Fixed 3 false KEEPs on dev for the stated reason (5+ years); no effect, good or bad, on held-out. The gain is a development result only. |
+| C3: other US cities +2 | **Rejected** | 37 → 37 | 18 → 18 | Of the 12 postings it adds, I judged only 3 relevant (25%; 95% interval 9–53%); 7 of the 9 bad ones are internships. |
+| C2: read Lever `lists` field | Considered, not tested | — | — | 1 audit miss and both held-out misses are Palantir; would change the context the filter sees. |
+| C4: threshold 8 → 7 | Considered, not tested | — | — | Close calls below 8 split 3 relevant / 2 not on dev. |
+| Internship title rule | Considered, not tested | — | — | Found through C3's additions; v1.0 has no internship rule. |
+
+**v1.1 = v1.0 + C1.** Code defaults remain v1.0; v1.1 is applied with `--filter-config config/filter_v1_1.json`.
+
+| v1.1 | Years cutoff lowered from 8 to 5 (C1), after measuring on development and held-out labels; see §10. |
+
+**Retrieval gap found:** the JS2 Lever adapter reads only `descriptionPlain`; Lever's "What We Require" section is in a separate `lists` field and is never seen by the filter. 67 of 139 Palantir "Software Engineer" postings were rejected for having no technical category. To be measured in the audit before any change.

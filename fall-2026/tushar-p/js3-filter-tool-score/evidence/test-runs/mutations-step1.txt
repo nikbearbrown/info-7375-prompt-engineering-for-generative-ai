@@ -1,0 +1,28 @@
+Mutation checks, JS3 build step 1, 2026-11-21. Each mutant ran in a scratch copy; the project code was not changed.
+M6 survives by design: the canonical-URL check still denies; M6b loosens both layers.
+
+M1 substring matching: FAILED tests/test_filter.py::test_result_records_every_gate_and_term - Assert...
+   failing: ['test_g1_fail', 'test_g2_pass_whole_word', 'test_result_records_every_gate_and_term - Assert...', 'test_wrong_version_1_substring_matching - Assert...']
+M2 exclusions lose to G1: FAILED tests/test_filter.py::test_unknown_gate_beats_score_and_fail_beats_unknown
+   failing: ['test_unknown_gate_beats_score_and_fail_beats_unknown', 'test_wrong_version_2_exclusions_win - AssertionE...', 'test_wrong_version_3_text_boundary_and_title_rejects']
+M3 missing text -> reject: FAILED tests/test_filter.py::test_wrong_version_3_missing_text_is_cannot_tell[199-chars]
+   failing: ['test_wrong_version_3_missing_text_is_cannot_tell']
+M4 bare Remote -> pass: FAILED tests/test_filter.py::test_unknown_gate_beats_score_and_fail_beats_unknown
+   failing: ['test_g3_unknown', 'test_unknown_gate_beats_score_and_fail_beats_unknown', 'test_wrong_version_4_bare_remote_is_cannot_tell']
+M5 no score cap: FAILED tests/test_filter.py::test_wrong_version_5_length_bias_capped - assert...
+   failing: ['test_wrong_version_5_length_bias_capped - assert...']
+M6 any Greenhouse query allowed: ...................................                                      [100%]
+   failing: []
+M7 sheets show verdict: FAILED tests/test_sheets.py::test_written_sheets_are_blind - assert not True
+   failing: ['test_written_sheets_are_blind - assert not True']
+M6b query check AND canonical-URL check both loosened (two-layer policy):
+FAILED tests/test_content_query.py::test_greenhouse_other_queries_denied[?content=false]
+FAILED tests/test_content_query.py::test_greenhouse_other_queries_denied[?foo=1]
+FAILED tests/test_content_query.py::test_greenhouse_other_queries_denied[?content=true&x=1]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?content=True]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?CONTENT=true]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?x=1&content=true]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?content=true?]
+FAILED tests/test_content_query.py::test_greenhouse_near_miss_queries_denied[?content=true&content=true]
+9 failed, 242 passed in 0.71s

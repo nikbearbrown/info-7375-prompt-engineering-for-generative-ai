@@ -1,0 +1,104 @@
+{
+ "about": "P1: no client roots. Traversal, symlink and direct reads outside the allowed folder.",
+ "steps": [
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+     "protocolVersion": "2025-11-25",
+     "capabilities": {},
+     "clientInfo": {
+      "name": "riya-js3-eval-client",
+      "version": "1"
+     }
+    }
+   },
+   "wait": 2
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "method": "notifications/initialized"
+   },
+   "wait": 2
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/list"
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "tools/call",
+    "params": {
+     "name": "list_allowed_directories",
+     "arguments": {}
+    }
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "tools/call",
+    "params": {
+     "name": "read_text_file",
+     "arguments": {
+      "path": "<SB>/allowed/a.txt"
+     }
+    }
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 5,
+    "method": "tools/call",
+    "params": {
+     "name": "read_text_file",
+     "arguments": {
+      "path": "<SB>/allowed/../outside/secret.txt"
+     }
+    }
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 6,
+    "method": "tools/call",
+    "params": {
+     "name": "read_text_file",
+     "arguments": {
+      "path": "<SB>/allowed/link-to-secret.txt"
+     }
+    }
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 7,
+    "method": "tools/call",
+    "params": {
+     "name": "read_text_file",
+     "arguments": {
+      "path": "<SB>/outside/secret.txt"
+     }
+    }
+   },
+   "wait": 1.5
+  }
+ ]
+}

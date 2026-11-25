@@ -1,0 +1,122 @@
+{
+ "item": 65,
+ "board": "ashby:openai",
+ "id": "a46ffc60-39c6-4b1e-bd0f-9c33a8b06703",
+ "title": "Controls Engineer, BMS & EPMS",
+ "utc": "2026-11-24T22:46:34Z",
+ "seconds": 5.5,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 2,
+  "reasons": [
+   "Role is industrial controls engineering, not AI/ML/data: \"program, configure, integrate, and commission the controls systems that support high-density AI data centers\"",
+   "Requires hands-on controls experience she lacks: \"Working knowledge of PLC programming and control logic\" and \"Experience in either BMS/mechanical controls or EPMS/electrical controls\"",
+   "Degree mismatch: \"Bachelor's degree in Mechanical Engineering, Electrical Engineering, Controls or Automation Engineering\"",
+   "Positives that don't offset the mismatch: \"early-career\", \"San Francisco\", FullTime; only tangential overlap via \"scripting, APIs, or automation tools\"",
+   "Heavy field work: \"Travel: 50%\" to \"construction sites, commissioning activities\""
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: ashby:openai\n- Title: Controls Engineer, BMS & EPMS\n- Location: San Francisco\n- Employment type field: FullTime\n- Text:\nAbout the Team OpenAI is building the infrastructure foundation for the next generation of AI. The Data Center Engineering team defines the strategy, reference architectures, technical requirements, and delivery standards for the large-scale data centers that support OpenAI research, products, and infrastructure partners. As a Controls Engineer for BMS & EPMS, you will program, configure, integrate, and commission the controls systems that support high-density AI data centers. You will work hands-on with mechanical or electrical controls, partnering with mechanical, electrical, IT/networking, security, commissioning, operations, and external delivery teams. About the Role We are seeking hands-on, early-career controls engineers with practical experience in building management systems (BMS) and mechanical controls, or electrical power monitoring systems (EPMS) and electrical controls. This role focuses on implementing and commissioning control systems, including PLCs, field devices, instrumentation, and sequences of operation, rather than owning OT/IT network or cybersecurity architecture. The ideal candidate has day-to-day experience programming and commissioning controls, ideally with a controls systems integrator. We welcome depth in either BMS/mechanical or EPMS/electrical controls; expertise in both is not required. You will work with experienced engineers and delivery partners to turn design requirements into reliable, tested systems. Key Responsibilities Program and configure PLCs and control systems for mechanical/BMS or electrical/EPMS applications in AI data center campuses. Implement and test sequences of operation, control logic, alarms, and interlocks against approved functional requirements. Review and maintain controls documentation, including control diagrams, I/O and point lists, instrumentation details, sequences of operation, and commissioning records. Integrate field devices, sensors, instrumentation, equipment controllers, and supervisory systems; validate point mapping, communications, and data quality. Maintain control programs, configuration backups, version history, change records, and rollback procedures to support safe commissioning and operations. Partner with mechanical, electrical, IT/networking, cybersecurity, and operations teams to resolve integration issues and implement approved OT connectivity and security requirements. Configure and troubleshoot relevant industrial communications, such as BACnet/IP, BACnet MS/TP, Modbus TCP/RTU, OPC UA, or IEC 61850, according to the system and controls discipline. Work directly with controls integrators, equipment vendors, contractors, and commissioning teams to resolve programming, installation, and functional performance issues. Execute and document factory and site acceptance testing, point-to-point checks, sequence verification, and integrated systems testing; troubleshoot control logic, instrumentation, alarms, and device communication failures. Qualifications Practical hands-on experience programming, configuring, integrating, or commissioning control systems in data centers, industrial automation, buildings, or other critical infrastructure environments. Working knowledge of PLC programming and control logic, with the ability to implement and troubleshoot sequences of operation. Experience in either BMS/mechanical controls or EPMS/electrical controls, with an understanding of the equipment and operating sequences in that discipline. Experience configuring field devices and instrumentation, validating I/O and point mapping, and diagnosing control system behavior. Working knowledge of relevant industrial communication protocols and basic OT networking needed to connect and troubleshoot control systems. Ability to read control diagrams, equipment documentation, I/O lists, and functional specifications, and keep implementation records accurate. Hands-on experience with functional testing, commissioning, and systematic troubleshooting using trends, alarms, logs, and field observations. Ability to work closely with integrators, vendors, construction teams, and operations, communicate issues clearly, and follow safe work and change-control practices. Bachelor’s degree in Mechanical Engineering, Electrical Engineering, Controls or Automation Engineering, or a related discipline, or equivalent practical experience. Preferred Skills Experience at a controls systems integrator, with regular responsibility for programming, configuration, field integration, and commissioning. Experience delivering BMS/mechanical or EPMS/electrical controls for data centers or other mission-critical facilities. Familiarity with supervisory controls, HMI/SCADA configuration, telemetry, and historian integrations. Familiarity with OT cybersecurity practices and working with networking or security specialists to implement approved access and connectivity requirements. Experience with scripting, APIs, or automation tools that improve controls testing, integration, documentation, or troubleshooting. Work Environment and Travel This role requires periodic travel to data center campuses, vendors, labs, construction sites, commissioning activities, and controls/network cutovers. The engineer should be comfortable working across office, lab, construction, and live data center environments, including PPE, lockout/tagout, cyber hygiene, and change-control requirements. Work may include time-sensitive support during commissioning, startup, vendor testing, cutovers, network changes, telemetry issues, automation failures, and operational events. Travel: 50% About OpenAI OpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we mu […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 3016,
+  "stop_reason": "end_turn",
+  "session_id": "b25173fd-d475-445a-bc87-2dde3ab97cd7",
+  "total_cost_usd": 0.0425938,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4562,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 298,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4562,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 298,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4562,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4562
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 298,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4562,
+    "webSearchRequests": 0,
+    "costUSD": 0.0425938,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4562,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 2, \"reasons\": [\"Role is industrial controls engineering, not AI/ML/data: \\\"program, configure, integrate, and commission the controls systems that support high-density AI data centers\\\"\", \"Requires hands-on controls experience she lacks: \\\"Working knowledge of PLC programming and control logic\\\" and \\\"Experience in either BMS/mechanical controls or EPMS/electrical controls\\\"\", \"Degree mismatch: \\\"Bachelor's degree in Mechanical Engineering, Electrical Engineering, Controls or Automation Engineering\\\"\", \"Positives that don't offset the mismatch: \\\"early-career\\\", \\\"San Francisco\\\", FullTime; only tangential overlap via \\\"scripting, APIs, or automation tools\\\"\", \"Heavy field work: \\\"Travel: 50%\\\" to \\\"construction sites, commissioning activities\\\"\"]}",
+  "ttft_ms": 3629,
+  "type": "result",
+  "duration_ms": 3692,
+  "uuid": "c17cbd64-d225-4ee7-b7af-091d6f2a6375",
+  "ttft_stream_ms": 1302,
+  "time_to_request_ms": 645,
+  "first_content_frame_ms": 1302,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

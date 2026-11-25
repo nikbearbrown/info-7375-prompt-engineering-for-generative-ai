@@ -1,0 +1,33 @@
+One object at a time, measured against the held-out hand labels.
+
+Split seed 20261123, the same one tools/analyse_audit.py uses.
+42 decided labels: 21 train, 21 held out.
+Agreement = the filter's keep/drop matching my yes/no on that posting.
+
+change                                         train    held out
+--------------------------------------------   -----    --------
+baseline  F-v2 / S-v5 / T=6                     18/21      21/21
+trivial: reject everything                      19/21      20/21
+trivial: keep everything                         2/21       1/21
+filter file: drop `infrastructure` (undo A5)    18/21      21/21
+section weights: optional x1 (undo A4)          18/21      19/21
+setting: score the whole JSON record (W3)       18/21      19/21
+setting: drop Lever's `lists` from the body     18/21      20/21
+threshold: T=4                                  18/21      20/21
+threshold: T=5                                  18/21      21/21
+threshold: T=7                                  19/21      21/21
+threshold: T=8                                  19/21      21/21
+
+Of the 21 held-out postings I labelled, 1 are `yes` and 20 are `no`.
+That is why the two trivial rows are in the table: on a corpus this
+lopsided, 'reject everything' is a strong-looking filter that knows
+nothing, and any score has to be read against it rather than against 0.
+
+Read the held-out column only. The training column is here so the gap
+between the two is visible, not because it means anything: every change
+below was chosen by me after looking at the corpus, so the training
+half is the half that cannot surprise me.
+
+A held-out half this size cannot separate changes that differ by one or
+two postings. Nothing here is a rate; each entry is a count out of the
+held-out half (FILTER.md §6).

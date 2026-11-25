@@ -1,0 +1,278 @@
+{
+  "video": "film",
+  "metadata": {
+    "slug": "datasentry-project-film",
+    "title": "DataSentry: Project Film",
+    "topic": "FINAL PROJECT \u00b7 PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "ethan-gomes",
+    "channel_title": "@EthanGomes14",
+    "persona": "Ethan Gomes (narrated in first person; synthetic Kokoro voice)",
+    "voice": "am_michael",
+    "voice_kokoro": "am_michael",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Plain",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Course assignment (INFO 7375 project film): narrate as yourself, no instructor name, persona, or credit line. No composer cold open, no verdict card, no Your Turn. The house outro card (ClaudeTitleOutro) hard-codes the instructor's handle, so the film closes on a drawn beat (BEND) instead; bookend_check.py is expected to report the missing ClaudeTitleOutro.",
+    "audience": "INFO 7375 instructor and TAs; a data engineering hiring manager",
+    "source_doc": "../APPENDIX.md and ../SOURCES.md (2026-11-23); recorded runs in ../first-run/results/2026-10-25/ and ../first-run/loop-runs/2026-11-23_182418/",
+    "playlist": "",
+    "chapter_number": 0,
+    "tags": [
+      "data engineering",
+      "data quality",
+      "pandera",
+      "Claude",
+      "evaluation",
+      "project film"
+    ],
+    "build": {
+      "at": "2026-11-23T20:23:40",
+      "cut": "review",
+      "filled": 20,
+      "of": 20,
+      "slates": [],
+      "skin_warnings": [
+        "BIDEA: palette=claude but the cold open is 'un-annotated' \u2014 COLD OPEN LAW wants ClaudeComposerAsk",
+        "BEND: palette=claude but the outro is 'un-annotated' \u2014 OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "source_of_truth": "beat_sheet.json \u2014 edit the sheet, not this file",
+  "beats_total": 20,
+  "beats_open": 0,
+  "beats": [
+    {
+      "beat_id": "BIDEA",
+      "status": "filled",
+      "on_disk": "manim/BIDEA.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/BIDEA.mp4",
+      "label": "This is a project film by Ethan Gomes, about Data Sentry, in four parts."
+    },
+    {
+      "beat_id": "BSIMPLE",
+      "status": "filled",
+      "on_disk": "manim/BSIMPLE.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/BSIMPLE.mp4",
+      "label": "Part one, the executive summary. Companies set rules to catch bad data, like a taxi fare below zero."
+    },
+    {
+      "beat_id": "B00",
+      "status": "filled",
+      "on_disk": "manim/B00.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B00.mp4",
+      "label": "Data Sentry is an AI agent that writes data checks for a table, tests them against bad rows I plante"
+    },
+    {
+      "beat_id": "B01",
+      "status": "filled",
+      "on_disk": "manim/B01.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B01.mp4",
+      "label": "Why it matters: when checks let bad rows through, wrong numbers reach dashboards and decisions. And "
+    },
+    {
+      "beat_id": "B03",
+      "status": "filled",
+      "on_disk": "manim/B03.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B03.mp4",
+      "label": "Part two, what others have done. Pandera, D B T and Great Expectations run rules on tables; Amazon's"
+    },
+    {
+      "beat_id": "B04",
+      "status": "filled",
+      "on_disk": "manim/B04.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B04.mp4",
+      "label": "AI already writes tests: Great Expectations' paid Expect A I suggests data checks, and at Meta, AI-w"
+    },
+    {
+      "beat_id": "B05",
+      "status": "filled",
+      "on_disk": "manim/B05.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B05.mp4",
+      "label": "Mutation testing has graded code tests with planted bugs since nineteen seventy-eight. But in what I"
+    },
+    {
+      "beat_id": "B06",
+      "status": "filled",
+      "on_disk": "manim/B06.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B06.mp4",
+      "label": "Part three, methods. The data is public: New York City yellow taxi trips from January twenty twenty-"
+    },
+    {
+      "beat_id": "B07",
+      "status": "filled",
+      "on_disk": "manim/B07.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B07.mp4",
+      "label": "Step one: a planter script breaks copies of the table five different ways, and locks the answer key "
+    },
+    {
+      "beat_id": "B08",
+      "status": "filled",
+      "on_disk": "manim/B08.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B08.mp4",
+      "label": "Step two: Claude sees only the column names and types, and writes pandera checks under a contract. A"
+    },
+    {
+      "beat_id": "B09",
+      "status": "filled",
+      "on_disk": "manim/B09.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B09.mp4",
+      "label": "Step three: the loop. Only the clean copy's results go back, and Claude revises, up to three rounds,"
+    },
+    {
+      "beat_id": "B09A",
+      "status": "filled",
+      "on_disk": "manim/B09A.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B09A.mp4",
+      "label": "Its tools are fenced: no built-in tools, an empty folder, no answer keys or held-out data, and every"
+    },
+    {
+      "beat_id": "B09B",
+      "status": "filled",
+      "on_disk": "manim/B09B.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B09B.mp4",
+      "label": "And a person stays in charge. Before any checks are kept, I'll see the scorecard, the code and its f"
+    },
+    {
+      "beat_id": "B10",
+      "status": "filled",
+      "on_disk": "manim/B10.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B10.mp4",
+      "label": "Do I have what I need? Yes: public data, my laptop, and my existing Claude subscription. No API key,"
+    },
+    {
+      "beat_id": "B11",
+      "status": "filled",
+      "on_disk": "manim/B11.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B11.mp4",
+      "label": "Part four, evaluation. I measure defect types caught, false alarms on good trips, and crashing check"
+    },
+    {
+      "beat_id": "B12",
+      "status": "filled",
+      "on_disk": "manim/B12.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B12.mp4",
+      "label": "It passes only with all five defect types caught, zero good trips flagged, and no crashing checks, o"
+    },
+    {
+      "beat_id": "B13",
+      "status": "filled",
+      "on_disk": "manim/B13.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B13.mp4",
+      "label": "By hand, nothing passed. In the loop, round one flagged ninety-four good trips, round two just one, "
+    },
+    {
+      "beat_id": "B13A",
+      "status": "filled",
+      "on_disk": "manim/B13A.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B13A.mp4",
+      "label": "I'll also break it on purpose, at least five ways, like a forbidden import or a try at the answer ke"
+    },
+    {
+      "beat_id": "B14",
+      "status": "filled",
+      "on_disk": "manim/B14.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/B14.mp4",
+      "label": "So far, it worked on this table and five defect types. Not shown yet: other tables, or real defects "
+    },
+    {
+      "beat_id": "BEND",
+      "status": "filled",
+      "on_disk": "manim/BEND.mp4",
+      "method": "manim",
+      "who": "pipeline",
+      "scene_hint": "animated_graphics",
+      "prompt": null,
+      "slot": "manim/BEND.mp4",
+      "label": "That's Data Sentry. I'm Ethan Gomes. Thanks for watching."
+    }
+  ]
+}

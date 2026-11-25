@@ -57,7 +57,7 @@ cp $R/_qc/REPORT.md $G/09_gate_V_REPORT.md; cp $R/_qc/contact_sheet.png $G/09_ga
 sum "$([ $rc -lt 2 ] && echo PASS || echo FAIL) 09 Gate V on the final master ($(grep -o 'frames=.*MAJOR=[0-9]*' $G/09_gate_V.txt | head -1))"
 
 cp $R/TYPECHECK.md $G/10_gate_T_TYPECHECK.md
-sum "$(grep -q 'GATE T: PASS' $R/_qc/art_final_1.log && echo PASS || echo FAIL) 10 Gate T (run by ./art final before the master; TYPECHECK.md)"
+sum "$(grep -q 'GATE T: PASS' "$(ls -t $R/_qc/art_final_*.log | head -1)" && echo PASS || echo FAIL) 10 Gate T (run by ./art final before the master; TYPECHECK.md)"
 
 # 11 render integrity (the toolkit has no gate by this name; same checks as the October pitch)
 {

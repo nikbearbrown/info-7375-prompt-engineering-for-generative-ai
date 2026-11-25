@@ -1,0 +1,366 @@
+1
+00:00:00,000 --> 00:00:03,765
+DEEPAK: On October fourteenth, I asked
+Claude to shorten one subtitle line,
+
+2
+00:00:03,805 --> 00:00:07,513
+DEEPAK: so a viewer could read it in time.
+It fit. It kept both negatives.
+
+3
+00:00:07,553 --> 00:00:10,750
+DEEPAK: And it still shifted the tone of
+what the character said.
+
+4
+00:00:10,792 --> 00:00:12,502
+SKEPTIC: It's one line. Who cares?
+
+5
+00:00:14,792 --> 00:00:16,299
+DEEPAK: Anyone who ships subtitles.
+
+6
+00:00:16,339 --> 00:00:20,138
+DEEPAK: Streaming platforms set hard
+limits on how fast a line can be read,
+
+7
+00:00:20,178 --> 00:00:23,576
+DEEPAK: and delivery guides say files that
+break them get sent back.
+
+8
+00:00:23,616 --> 00:00:27,873
+DEEPAK: In the tools I checked, shortening
+a line is still something a person does,
+
+9
+00:00:27,913 --> 00:00:28,962
+DEEPAK: one line at a time.
+
+10
+00:00:29,042 --> 00:00:31,410
+DEEPAK: So CueGate is the tool I'm going
+to build.
+
+11
+00:00:31,450 --> 00:00:33,762
+DEEPAK: You give it a subtitle file and
+the film.
+
+12
+00:00:33,802 --> 00:00:37,031
+DEEPAK: It will hand back a file where
+every line fits the rules,
+
+13
+00:00:37,071 --> 00:00:41,332
+DEEPAK: and anything it can't fix safely
+will go back to a person, with the reason.
+
+14
+00:00:41,375 --> 00:00:44,815
+SKEPTIC: And why would I trust it more
+than the AI button I already have?
+
+15
+00:00:45,375 --> 00:00:48,748
+DEEPAK: Because it won't just claim the
+line still means the same thing.
+
+16
+00:00:48,788 --> 00:00:52,055
+DEEPAK: It will measure how often it's
+wrong, and publish that number.
+
+17
+00:00:53,225 --> 00:00:55,085
+SKEPTIC: Hasn't someone already done this?
+
+18
+00:00:55,125 --> 00:00:55,508
+DEEPAK: Partly.
+
+19
+00:00:55,548 --> 00:00:59,799
+DEEPAK: Subtitle Edit and Editsub both
+have an AI action that shortens the line
+
+20
+00:00:59,839 --> 00:01:04,333
+DEEPAK: you're on. EZTitles runs automated
+checks that flag reading-speed problems.
+
+21
+00:01:04,373 --> 00:01:07,355
+DEEPAK: In all three, a person picks the
+line and decides.
+
+22
+00:01:07,416 --> 00:01:10,235
+DEEPAK: Researchers have worked on length
+too. In 2019,
+
+23
+00:01:10,275 --> 00:01:14,615
+DEEPAK: a team in Trento and at Amazon
+showed a translation model can be steered
+
+24
+00:01:14,655 --> 00:01:19,056
+DEEPAK: to write shorter output. In 2020,
+a Trento team found that for subtitles,
+
+25
+00:01:19,096 --> 00:01:21,611
+DEEPAK: hitting forty-two characters isn't
+enough.
+
+26
+00:01:21,651 --> 00:01:24,226
+DEEPAK: Timing and the rhythm of speech
+matter too.
+
+27
+00:01:24,291 --> 00:01:25,271
+SKEPTIC: So what's missing?
+
+28
+00:01:26,916 --> 00:01:28,572
+DEEPAK: What they got was shorter text.
+
+29
+00:01:28,612 --> 00:01:32,345
+DEEPAK: What none of the tools I checked
+publish is how often that shortening
+
+30
+00:01:32,385 --> 00:01:35,298
+DEEPAK: changes meaning. That's the gap
+CueGate will go after:
+
+31
+00:01:35,338 --> 00:01:38,306
+DEEPAK: a gate over the whole file, and a
+number you can check.
+
+32
+00:01:40,355 --> 00:01:41,335
+SKEPTIC: Okay. How?
+
+33
+00:01:41,375 --> 00:01:44,315
+DEEPAK: First, the data. The English
+subtitles of Tears of Steel,
+
+34
+00:01:44,355 --> 00:01:46,982
+DEEPAK: an open Blender film. The film is
+Creative Commons,
+
+35
+00:01:47,022 --> 00:01:49,545
+DEEPAK: but the subtitle file's own
+licence isn't stated,
+
+36
+00:01:49,585 --> 00:01:52,577
+DEEPAK: so I'll confirm it before it goes
+in the repo. If I can't,
+
+37
+00:01:52,617 --> 00:01:55,192
+DEEPAK: I'll write my own dialogue and
+label it synthetic.
+
+38
+00:01:55,232 --> 00:01:58,957
+DEEPAK: Clean files rarely break rules, so
+I'll squeeze their timing on purpose.
+
+39
+00:01:58,997 --> 00:02:02,095
+DEEPAK: That gives me failures where I
+still know the original line.
+
+40
+00:02:02,166 --> 00:02:06,007
+DEEPAK: Then the pipeline. Read the file
+and turn every time into exact frames.
+
+41
+00:02:06,047 --> 00:02:09,613
+DEEPAK: Check every rule. Fix timing
+first, because that changes no words.
+
+42
+00:02:09,653 --> 00:02:13,494
+DEEPAK: Only the lines timing can't save
+go to a small open model running on my
+
+43
+00:02:13,534 --> 00:02:17,428
+DEEPAK: laptop, with an exact character
+budget and a list of words it must keep.
+
+44
+00:02:17,468 --> 00:02:20,106
+DEEPAK: Every answer comes back through
+the same checker.
+
+45
+00:02:20,166 --> 00:02:21,746
+SKEPTIC: And when the model gets it wrong?
+
+46
+00:02:22,791 --> 00:02:26,611
+DEEPAK: It gets three tries, each with the
+reason it failed. After that,
+
+47
+00:02:26,651 --> 00:02:30,771
+DEEPAK: the line stays untouched and goes
+to a person. The gate fails closed.
+
+48
+00:02:30,833 --> 00:02:32,503
+SKEPTIC: Do you actually have what you
+need?
+
+49
+00:02:33,458 --> 00:02:35,527
+DEEPAK: No API key, and none needed to
+start:
+
+50
+00:02:35,567 --> 00:02:38,205
+DEEPAK: the rule checks and timing fixes
+need no model.
+
+51
+00:02:38,245 --> 00:02:40,884
+DEEPAK: Compute is my sixteen-inch MacBook
+Pro, M3 Pro,
+
+52
+00:02:40,924 --> 00:02:43,221
+DEEPAK: thirty-six gigabytes of memory, no
+cloud.
+
+53
+00:02:43,261 --> 00:02:45,329
+DEEPAK: The subtitle licence isn't
+confirmed;
+
+54
+00:02:45,369 --> 00:02:47,324
+DEEPAK: synthetic dialogue is the
+fallback.
+
+55
+00:02:47,364 --> 00:02:50,914
+DEEPAK: The models will be public models
+that download and run locally.
+
+56
+00:02:50,954 --> 00:02:53,878
+DEEPAK: I'll pick small ones here, after
+freeing disk space.
+
+57
+00:02:54,888 --> 00:02:56,918
+SKEPTIC: Last one. How will you know it
+worked?
+
+58
+00:02:56,958 --> 00:03:00,543
+DEEPAK: I'll run four versions on the same
+lines. A dumb cut at the budget.
+
+59
+00:03:00,583 --> 00:03:03,086
+DEEPAK: A single "shorten this" call to
+the same model.
+
+60
+00:03:03,126 --> 00:03:05,899
+DEEPAK: CueGate without its meaning check.
+And full CueGate.
+
+61
+00:03:05,939 --> 00:03:08,550
+DEEPAK: Then I'll label a hundred
+shortened lines myself,
+
+62
+00:03:08,590 --> 00:03:10,768
+DEEPAK: without knowing which version
+wrote them.
+
+63
+00:03:10,833 --> 00:03:13,537
+DEEPAK: It worked if full CueGate ships
+zero rule breaks,
+
+64
+00:03:13,577 --> 00:03:16,506
+DEEPAK: and changes meaning less often
+than that single call.
+
+65
+00:03:16,546 --> 00:03:19,082
+DEEPAK: It failed if it changes meaning
+just as often,
+
+66
+00:03:19,122 --> 00:03:20,818
+DEEPAK: however clean the timing looks.
+
+67
+00:03:20,858 --> 00:03:24,739
+DEEPAK: And if it sends most lines back to
+a person, it saved nobody any time.
+
+68
+00:03:24,779 --> 00:03:26,643
+DEEPAK: I'll report that as a failure too.
+
+69
+00:03:26,708 --> 00:03:27,838
+SKEPTIC: And who checks the checker?
+
+70
+00:03:29,333 --> 00:03:33,345
+DEEPAK: I'll count how often the meaning
+check waved through a line I marked as
+
+71
+00:03:33,385 --> 00:03:36,713
+DEEPAK: changed. That number goes in the
+report, even if it's ugly.
+
+72
+00:03:36,791 --> 00:03:37,971
+SKEPTIC: You say "will" a lot.
+
+73
+00:03:39,416 --> 00:03:43,764
+DEEPAK: Because most of it doesn't exist
+yet. Today there's the plan, the research,
+
+74
+00:03:43,804 --> 00:03:46,923
+DEEPAK: and that one dated Claude reply.
+No CueGate code runs.
+
+75
+00:03:46,963 --> 00:03:49,146
+DEEPAK: Everything else is "will", on
+purpose.
+
+76
+00:03:49,208 --> 00:03:54,158
+DEEPAK: CueGate. Subtitles that fit the
+frame, or don't ship. I'm Deepak Kumaran.

@@ -3,33 +3,32 @@
     "title": "Agent Proving Ground — progress film (through M5)",
     "slug": "agent-proving-ground-progress",
     "topic": "PROGRESS",
-    "purpose": "Final Project Film, progress version: what Agent Proving Ground is and what ran through milestone M5.",
+    "purpose": "Final Project Film, progress version: what Agent Proving Ground is, what is built through milestone M5, and what is left.",
     "engine": "kokoro",
     "voice_kokoro": "am_onyx",
     "aspect": "16:9",
     "clock": "narration",
     "narrator": "Tushar Patel (own narration, Kokoro am_onyx, as in the October pitch)",
-    "note": "Narration copied verbatim from BEAT-PLAN.md (approved by Tushar, Nov 23, 2026), except B04: changed to the October PROJECT-BRIEF.md wording (step 4 [VERIFY], Tushar chose 'brief only', Nov 23, 2026). REAL beats show captured repo output (evidence/<beat>.txt) with source path and date; CONSTRUCTED beats show 'Constructed'.",
-    "b04_approved_text": "Pieces of this already exist. E2B and Runtime give agents sandboxes. Langfuse and Raindrop trace and evaluate model calls. oh-my-pi is a harness for coding agents. And a Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, but only for Drupal sites.",
+    "note": "v2 narration, copied verbatim from BEAT-PLAN.md (Tushar, Nov 23, 2026). v1 (same day) was superseded because it led with implementation and ended without explaining what's left. REAL beats (B09, B11) show captured repo output (evidence/<beat>.txt) with source path and date; every other beat shows 'Constructed'.",
     "constructed": [
       "B01",
       "B02",
       "B03",
       "B04",
       "B05",
-      "B13"
-    ],
-    "real": [
       "B06",
       "B07",
       "B08",
-      "B09",
       "B10",
-      "B11",
-      "B12"
+      "B12",
+      "B13"
+    ],
+    "real": [
+      "B09",
+      "B11"
     ],
     "build": {
-      "at": "2026-11-23T12:58:49",
+      "at": "2026-11-23T16:52:45",
       "cut": "master",
       "filled": 13,
       "of": 13,
@@ -40,10 +39,10 @@
   "beats": [
     {
       "beat_id": "B01",
-      "narration_text": "I'm Tushar Patel, a software engineering student at Northeastern. This is my final project, Agent Proving Ground.",
+      "narration_text": "Hi, I'm Tushar Patel, a software engineering student at Northeastern. This is my final project for INFO 7375: Agent Proving Ground.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 7.0,
+      "estimated_duration_s": 8.7,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -53,40 +52,40 @@
         "engine": "manim",
         "manim": "B01_Hello",
         "production_viz": {
-          "mechanic": "Title card: 'Tushar Patel', then the title 'Agent Proving Ground' and the subtitle 'progress film, through M5'.",
+          "mechanic": "Title card: 'Tushar Patel', 'software engineering student · Northeastern', then 'INFO 7375 · final project' and the title 'Agent Proving Ground'.",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "I'm Tushar Patel, a software engineering student at Northeastern.",
-          "start_s": 0.041,
-          "end_s": 3.854
+          "text": "Hi, I'm Tushar Patel, a software engineering student at Northeastern.",
+          "start_s": 0.031,
+          "end_s": 4.18
         },
         {
-          "text": "This is my final project, Agent Proving Ground.",
-          "start_s": 4.284,
-          "end_s": 7.287
+          "text": "This is my final project for INFO 7375: Agent Proving Ground.",
+          "start_s": 4.51,
+          "end_s": 9.686
         }
       ],
       "audio_file": "mp3/beat-B01.mp3",
-      "actual_duration_s": 7.84,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 7.875,
+      "actual_duration_s": 10.27,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 10.291666666666666,
       "build": {
         "status": "MANIM",
         "src": "manim/B01.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B02",
-      "narration_text": "When an AI coding agent says \"done,\" that isn't the same as the job being done. The agent might have fixed the bug, or quietly changed the test, or just stopped.",
+      "narration_text": "AI coding agents are good at saying they're finished. But \"done\" is a claim, not a result. An agent can fix the bug, or quietly edit the test so it passes, or just give up, and its message can look the same each time.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 12.8,
+      "estimated_duration_s": 18.2,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -96,40 +95,45 @@
         "engine": "manim",
         "manim": "B02_Done",
         "production_viz": {
-          "mechanic": "A speech bubble 'Done!' beside a red failing test; then three small outcomes: fixed the bug, changed the test, just stopped.",
+          "mechanic": "Three panels, each ending in the same bubble 'Done!': fixed bug (tick) / edited test (cross) / gave up (cross).",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "When an AI coding agent says \"done,\" that isn't the same as the job being done.",
-          "start_s": 0.069,
-          "end_s": 4.551
+          "text": "AI coding agents are good at saying they're finished.",
+          "start_s": 0.051,
+          "end_s": 3.014
         },
         {
-          "text": "The agent might have fixed the bug, or quietly changed the test, or just stopped.",
-          "start_s": 4.981,
-          "end_s": 8.99
+          "text": "But \"done\" is a claim, not a result.",
+          "start_s": 3.344,
+          "end_s": 5.502
+        },
+        {
+          "text": "An agent can fix the bug, or quietly edit the test so it passes, or just give up, and its message can look the same each time.",
+          "start_s": 5.821,
+          "end_s": 12.725
         }
       ],
       "audio_file": "mp3/beat-B02.mp3",
-      "actual_duration_s": 9.58,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 9.583333333333334,
+      "actual_duration_s": 13.34,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 13.375,
       "build": {
         "status": "MANIM",
         "src": "manim/B02.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B03",
-      "narration_text": "Agent Proving Ground runs a coding agent on small tasks inside a locked sandbox. It records every step the agent takes, and it decides pass or fail with its own tests, never with the agent's word. Anyone who relies on a coding agent needs exactly this: a cheap, local way to see what the agent did, and whether it really worked.",
+      "narration_text": "Agent Proving Ground is a command-line tool, with its code in a public GitHub repo. You give it a small coding task. It runs an AI agent on that task inside a locked sandbox, records every step it takes, and decides pass or fail by running its own tests. Never by taking the agent's word for it.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 25.2,
+      "estimated_duration_s": 23.6,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -137,47 +141,52 @@
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B03_Loop",
+        "manim": "B03_WhatItIs",
         "production_viz": {
-          "mechanic": "sandbox -> trace -> check -> PASS/FAIL, drawn left to right as the narration names each part.",
+          "mechanic": "One command -> sandbox -> trace -> check -> PASS/FAIL, drawn left to right as the narration names each part.",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "Agent Proving Ground runs a coding agent on small tasks inside a locked sandbox.",
-          "start_s": 0.044,
-          "end_s": 4.989
+          "text": "Agent Proving Ground is a command-line tool, with its code in a public GitHub repo.",
+          "start_s": 0.033,
+          "end_s": 4.729
         },
         {
-          "text": "It records every step the agent takes, and it decides pass or fail with its own tests, never with the agent's word.",
-          "start_s": 5.407,
-          "end_s": 11.829
+          "text": "You give it a small coding task.",
+          "start_s": 5.059,
+          "end_s": 6.985
         },
         {
-          "text": "Anyone who relies on a coding agent needs exactly this: a cheap, local way to see what the agent did, and whether it really worked.",
-          "start_s": 12.259,
-          "end_s": 19.589
+          "text": "It runs an AI agent on that task inside a locked sandbox, records every step it takes, and decides pass or fail by running its own tests.",
+          "start_s": 7.315,
+          "end_s": 15.546
+        },
+        {
+          "text": "Never by taking the agent's word for it.",
+          "start_s": 15.876,
+          "end_s": 18.181
         }
       ],
       "audio_file": "mp3/beat-B03.mp3",
-      "actual_duration_s": 20.15,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 20.166666666666668,
+      "actual_duration_s": 18.77,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 18.791666666666668,
       "build": {
         "status": "MANIM",
         "src": "manim/B03.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B04",
-      "narration_text": "Pieces of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. And a Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, but only for Drupal sites.",
+      "narration_text": "It's for engineers deciding whether to trust a coding agent, or a change to one. In their first minute, they run one command, read one result line, and open the trace to see exactly what the agent did.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 17.0,
+      "estimated_duration_s": 15.7,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -185,52 +194,42 @@
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B04_Others",
+        "manim": "B04_FirstMinute",
         "production_viz": {
-          "mechanic": "One card per tool: E2B (sandboxes), Langfuse (traces and scores), AI Proving Ground for Drupal (grades what was saved; Drupal only).",
+          "mechanic": "A terminal mock-up: one command, one result line, then a trace opening. Labelled constructed (a mock-up, not captured output).",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "Pieces of this already exist.",
-          "start_s": 0.055,
-          "end_s": 1.916
+          "text": "It's for engineers deciding whether to trust a coding agent, or a change to one.",
+          "start_s": 0.044,
+          "end_s": 4.33
         },
         {
-          "text": "E2B provides sandboxes for running AI-generated code.",
-          "start_s": 2.346,
-          "end_s": 6.19
-        },
-        {
-          "text": "Langfuse records LLM traces and scores.",
-          "start_s": 6.618,
-          "end_s": 9.398
-        },
-        {
-          "text": "And a Drupal project, AI Proving Ground, grades what an agent actually saved instead of what it reports, but only for Drupal sites.",
-          "start_s": 9.817,
-          "end_s": 17.49
+          "text": "In their first minute, they run one command, read one result line, and open the trace to see exactly what the agent did.",
+          "start_s": 4.66,
+          "end_s": 11.062
         }
       ],
       "audio_file": "mp3/beat-B04.mp3",
-      "actual_duration_s": 18.07,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 18.083333333333332,
+      "actual_duration_s": 11.69,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 11.708333333333334,
       "build": {
         "status": "MANIM",
         "src": "manim/B04.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B05",
-      "narration_text": "What I wanted was all of it in one small loop I can run on a laptop: sandbox, trace, an independent check, and a human who approves before anything leaves, with every failure written down.",
+      "narration_text": "Parts of this already exist. E2B provides sandboxes for running AI-generated code. Langfuse records LLM traces and scores. Each solves one piece well. But a sandbox doesn't tell you whether the work is right, and a trace doesn't stop an agent from doing what it shouldn't.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 14.5,
+      "estimated_duration_s": 19.0,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -238,92 +237,228 @@
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B05_WhyMine",
+        "manim": "B05_Others",
         "production_viz": {
-          "mechanic": "The four pieces (sandbox, trace, check, human approval) joined in a loop on a laptop outline; a failure log under it.",
+          "mechanic": "Two cards (E2B, Langfuse), each with a 'solves' line and a 'doesn't' line.",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "What I wanted was all of it in one small loop I can run on a laptop: sandbox, trace, an independent check, and a human who approves before anything leaves, with every failure written down.",
-          "start_s": 0.048,
-          "end_s": 9.608
+          "text": "Parts of this already exist.",
+          "start_s": 0.071,
+          "end_s": 1.947
+        },
+        {
+          "text": "E2B provides sandboxes for running AI-generated code.",
+          "start_s": 2.277,
+          "end_s": 6.121
+        },
+        {
+          "text": "Langfuse records LLM traces and scores.",
+          "start_s": 6.45,
+          "end_s": 9.23
+        },
+        {
+          "text": "Each solves one piece well.",
+          "start_s": 9.56,
+          "end_s": 11.569
+        },
+        {
+          "text": "But a sandbox doesn't tell you whether the work is right, and a trace doesn't stop an agent from doing what it shouldn't.",
+          "start_s": 11.899,
+          "end_s": 17.556
         }
       ],
       "audio_file": "mp3/beat-B05.mp3",
-      "actual_duration_s": 10.24,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 10.25,
+      "actual_duration_s": 18.26,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 18.291666666666668,
       "build": {
         "status": "MANIM",
         "src": "manim/B05.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B06",
-      "narration_text": "I built it in Go. The agent is Claude Haiku, with three tools: read a file, write a file, run a command. It works inside a Kubernetes pod with no network. After every change, the harness runs a hidden check the agent never sees. Here's a real run on task one: it passed in three steps, and every step is in the trace.",
+      "narration_text": "Mine joins the pieces in one small loop that runs on a laptop: sandbox, trace, an independent check, and a human approval before any change leaves. I built it because more and more code is written by agents, and someone has to check it rather than trust it. Along the way I learned Go and Kubernetes, which were both new to me.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 26.1,
-      "new_visual_element": "Real",
+      "estimated_duration_s": 25.7,
+      "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
         "source": "own"
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B06_RealRun",
+        "manim": "B06_WhyMine",
         "production_viz": {
-          "mechanic": "REAL. Terminal frame: the 'apg run 001' result line (PLAN.md:120, Nov 12) and apg show of 20261112T053055Z-92239eb0 with its 3 steps. Evidence: evidence/B6.txt.",
-          "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
+          "mechanic": "The four pieces joined into a loop on a laptop outline; then 'check it, don't trust it'; then 'new to me: Go · Kubernetes'.",
+          "label": "Constructed",
+          "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "I built it in Go.",
-          "start_s": 0.071,
-          "end_s": 1.501
+          "text": "Mine joins the pieces in one small loop that runs on a laptop: sandbox, trace, an independent check, and a human approval before any change leaves.",
+          "start_s": 0.047,
+          "end_s": 8.15
         },
         {
-          "text": "The agent is Claude Haiku, with three tools: read a file, write a file, run a command.",
-          "start_s": 1.931,
-          "end_s": 6.595
+          "text": "I built it because more and more code is written by agents, and someone has to check it rather than trust it.",
+          "start_s": 8.48,
+          "end_s": 13.857
         },
         {
-          "text": "It works inside a Kubernetes pod with no network.",
-          "start_s": 7.025,
-          "end_s": 9.95
-        },
-        {
-          "text": "After every change, the harness runs a hidden check the agent never sees.",
-          "start_s": 10.363,
-          "end_s": 14.382
-        },
-        {
-          "text": "Here's a real run on task one: it passed in three steps, and every step is in the trace.",
-          "start_s": 14.812,
-          "end_s": 19.484
+          "text": "Along the way I learned Go and Kubernetes, which were both new to me.",
+          "start_s": 14.187,
+          "end_s": 17.64
         }
       ],
       "audio_file": "mp3/beat-B06.mp3",
-      "actual_duration_s": 20.09,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 20.125,
+      "actual_duration_s": 18.28,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 18.291666666666668,
       "build": {
         "status": "MANIM",
         "src": "manim/B06.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B07",
-      "narration_text": "Every tool call goes through a policy written in code. A denied call never runs; it's just recorded. And before any change leaves the sandbox, I see the diff and approve it myself. My approval is bound to the exact bytes I saw, so if the diff changes, my approval is void.",
+      "narration_text": "Here's one run. The harness starts a Kubernetes pod with no network, not running as root. The agent, Claude Haiku, gets three tools: read a file, write a file, run a command. Every tool call passes a permission policy written in code first. After every change, the harness runs a hidden check the agent never sees. Pass or fail comes only from that check. Then I see the diff and approve it, and my approval is bound to the exact bytes I saw.",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "estimated_duration_s": 34.3,
+      "new_visual_element": "Constructed",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B07_OneRun",
+        "production_viz": {
+          "mechanic": "One diagram built step by step with the narration: pod -> agent + 3 tools -> policy -> hidden check -> trace -> human gate.",
+          "label": "Constructed",
+          "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
+        }
+      },
+      "sentences": [
+        {
+          "text": "Here's one run.",
+          "start_s": 0.056,
+          "end_s": 1.247
+        },
+        {
+          "text": "The harness starts a Kubernetes pod with no network, not running as root.",
+          "start_s": 1.577,
+          "end_s": 5.584
+        },
+        {
+          "text": "The agent, Claude Haiku, gets three tools: read a file, write a file, run a command.",
+          "start_s": 5.914,
+          "end_s": 10.528
+        },
+        {
+          "text": "Every tool call passes a permission policy written in code first.",
+          "start_s": 10.858,
+          "end_s": 14.616
+        },
+        {
+          "text": "After every change, the harness runs a hidden check the agent never sees.",
+          "start_s": 14.93,
+          "end_s": 18.948
+        },
+        {
+          "text": "Pass or fail comes only from that check.",
+          "start_s": 19.278,
+          "end_s": 21.704
+        },
+        {
+          "text": "Then I see the diff and approve it, and my approval is bound to the exact bytes I saw.",
+          "start_s": 22.034,
+          "end_s": 26.67
+        }
+      ],
+      "audio_file": "mp3/beat-B07.mp3",
+      "actual_duration_s": 27.32,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 27.333333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:52:45"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "narration_text": "The tasks are sixteen small Python repos I made. Eleven are ordinary bugs. Five are designed so the right answer is no: a wrong test, a task that needs the network, a budget too small. I froze a development and held-out split before tuning anything. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which writes the code while I review every change.",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "estimated_duration_s": 29.0,
+      "new_visual_element": "Constructed",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B08_Tasks",
+        "production_viz": {
+          "mechanic": "16 task tiles (11 green, 5 red) splitting into 'dev' and 'held-out' with a lock; then three chips: Docker + kind, spend-limited API key, Claude Code writes · I review.",
+          "label": "Constructed",
+          "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
+        }
+      },
+      "sentences": [
+        {
+          "text": "The tasks are sixteen small Python repos I made.",
+          "start_s": 0.058,
+          "end_s": 3.176
+        },
+        {
+          "text": "Eleven are ordinary bugs.",
+          "start_s": 3.506,
+          "end_s": 5.285
+        },
+        {
+          "text": "Five are designed so the right answer is no: a wrong test, a task that needs the network, a budget too small.",
+          "start_s": 5.615,
+          "end_s": 11.646
+        },
+        {
+          "text": "I froze a development and held-out split before tuning anything.",
+          "start_s": 11.964,
+          "end_s": 15.441
+        },
+        {
+          "text": "It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which writes the code while I review every change.",
+          "start_s": 15.771,
+          "end_s": 23.519
+        }
+      ],
+      "audio_file": "mp3/beat-B08.mp3",
+      "actual_duration_s": 24.11,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 24.125,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:52:45"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "narration_text": "All of that is built and tested now, through milestone five. A real run on task one passed in three steps, with every step in the trace. A denied tool call was recorded and never ran. And when I tried to break the sandbox from inside a real pod, every limit held.",
       "engine": "kokoro",
       "voice": "am_onyx",
       "estimated_duration_s": 21.5,
@@ -334,201 +469,110 @@
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B07_PolicyGate",
+        "manim": "B09_BuiltSoFar",
         "production_viz": {
-          "mechanic": "REAL. Terminal frame 1: apg show step 4 of 20261118T034327Z-b54f5cd6 (contract B, held-out, 008), DENIED (rule: path). Frame 2: gate section of 20261113T224740Z-a9a2c258, approved, diff_sha256 = recheck_sha256. Evidence: evidence/B7.txt.",
+          "mechanic": "REAL. Three quick dated terminal frames from the captures: the apg run 001 PASS line (Nov 12, evidence/B6.txt), the denied call in run 20261118T034327Z-b54f5cd6 (Nov 17 ET, evidence/B7.txt), the isolation results (Nov 17, evidence/B9.txt). A small 'M0-M5 done' strip (PLAN.md, evidence/B13.txt).",
           "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
+          "note": "real repo output: terminal frames show the source path and its date"
         }
       },
       "sentences": [
         {
-          "text": "Every tool call goes through a policy written in code.",
-          "start_s": 0.05,
-          "end_s": 3.101
+          "text": "All of that is built and tested now, through milestone five.",
+          "start_s": 0.052,
+          "end_s": 3.336
         },
         {
-          "text": "A denied call never runs; it's just recorded.",
-          "start_s": 3.531,
-          "end_s": 6.227
+          "text": "A real run on task one passed in three steps, with every step in the trace.",
+          "start_s": 3.666,
+          "end_s": 7.776
         },
         {
-          "text": "And before any change leaves the sandbox, I see the diff and approve it myself.",
-          "start_s": 6.657,
-          "end_s": 11.043
+          "text": "A denied tool call was recorded and never ran.",
+          "start_s": 8.106,
+          "end_s": 11.016
         },
         {
-          "text": "My approval is bound to the exact bytes I saw, so if the diff changes, my approval is void.",
-          "start_s": 11.469,
-          "end_s": 16.723
-        }
-      ],
-      "audio_file": "mp3/beat-B07.mp3",
-      "actual_duration_s": 17.3,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 17.333333333333332,
-      "build": {
-        "status": "MANIM",
-        "src": "manim/B07.mp4",
-        "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
-      }
-    },
-    {
-      "beat_id": "B08",
-      "narration_text": "The data is sixteen small Python tasks I made for this project. Eleven are normal bugs. Five are built to make the system say no: a wrong test, a task that needs the network, a budget too small. I split them into development and held-out sets, and froze that split before tuning anything.",
-      "engine": "kokoro",
-      "voice": "am_onyx",
-      "estimated_duration_s": 21.9,
-      "new_visual_element": "Real",
-      "shot": {
-        "type": "GRAPHIC",
-        "source": "own"
-      },
-      "graphic": {
-        "engine": "manim",
-        "manim": "B08_Data",
-        "production_viz": {
-          "mechanic": "REAL. Terminal frame: tasks/README.md task ids (11 normal, 5 failure), then git show --stat 26b5305. Evidence: evidence/B8.txt.",
-          "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
-        }
-      },
-      "sentences": [
-        {
-          "text": "The data is sixteen small Python tasks I made for this project.",
-          "start_s": 0.055,
-          "end_s": 3.955
-        },
-        {
-          "text": "Eleven are normal bugs.",
-          "start_s": 4.385,
-          "end_s": 6.06
-        },
-        {
-          "text": "Five are built to make the system say no: a wrong test, a task that needs the network, a budget too small.",
-          "start_s": 6.49,
-          "end_s": 12.296
-        },
-        {
-          "text": "I split them into development and held-out sets, and froze that split before tuning anything.",
-          "start_s": 12.71,
-          "end_s": 17.425
-        }
-      ],
-      "audio_file": "mp3/beat-B08.mp3",
-      "actual_duration_s": 18.04,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 18.041666666666668,
-      "build": {
-        "status": "MANIM",
-        "src": "manim/B08.mp4",
-        "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
-      }
-    },
-    {
-      "beat_id": "B09",
-      "narration_text": "I tried to break the sandbox from inside a real pod: no network, not root, capped CPU, memory, processes and disk. Every limit held. It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which wrote the code while I reviewed every change.",
-      "engine": "kokoro",
-      "voice": "am_onyx",
-      "estimated_duration_s": 20.3,
-      "new_visual_element": "Real",
-      "shot": {
-        "type": "GRAPHIC",
-        "source": "own"
-      },
-      "graphic": {
-        "engine": "manim",
-        "manim": "B09_Isolation",
-        "production_viz": {
-          "mechanic": "REAL. Terminal frame: highlighted lines of evidence/isolation/20261117-isolation-d29.txt (network, uid, CPU, memory, pids, disk; all PASS). Evidence: evidence/B9.txt.",
-          "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
-        }
-      },
-      "sentences": [
-        {
-          "text": "I tried to break the sandbox from inside a real pod: no network, not root, capped CPU, memory, processes and disk.",
-          "start_s": 0.028,
-          "end_s": 6.667
-        },
-        {
-          "text": "Every limit held.",
-          "start_s": 7.097,
-          "end_s": 8.247
-        },
-        {
-          "text": "It runs on my laptop with Docker and kind, a spend-limited API key, and Claude Code, which wrote the code while I reviewed every change.",
-          "start_s": 8.677,
-          "end_s": 16.375
+          "text": "And when I tried to break the sandbox from inside a real pod, every limit held.",
+          "start_s": 11.346,
+          "end_s": 15.491
         }
       ],
       "audio_file": "mp3/beat-B09.mp3",
-      "actual_duration_s": 16.97,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 17.0,
+      "actual_duration_s": 16.09,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 16.125,
       "build": {
         "status": "MANIM",
         "src": "manim/B09.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B10",
-      "narration_text": "Pass or fail comes only from the hidden check. I compared two system prompts: the original, and a longer one I wrote. Before running either on the held-out tasks, I wrote down and committed my predictions.",
+      "narration_text": "It's judged on three things. On normal tasks, it should pass. On the five no-tasks, it must say no. A pass on one of those would mean it failed. Third, I compare changes, like two different system prompts, on held-out tasks nobody tuned on, and I wrote my predictions down before the held-out runs.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 14.9,
-      "new_visual_element": "Real",
+      "estimated_duration_s": 22.3,
+      "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
         "source": "own"
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B10_Predictions",
+        "manim": "B10_Judged",
         "production_viz": {
-          "mechanic": "REAL. Terminal frame: docs/t5-predictions.md header and git log -1 6d7bafe; prompt sizes A 623 bytes, B 2,695 bytes. Evidence: evidence/B10.txt.",
-          "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
+          "mechanic": "Three checks: 'normal -> PASS', 'no-tasks -> must FAIL', 'compare on held-out, predictions first'.",
+          "label": "Constructed",
+          "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
-      "sentences": [
-        {
-          "text": "Pass or fail comes only from the hidden check.",
-          "start_s": 0.053,
-          "end_s": 2.685
-        },
-        {
-          "text": "I compared two system prompts: the original, and a longer one I wrote.",
-          "start_s": 3.115,
-          "end_s": 6.808
-        },
-        {
-          "text": "Before running either on the held-out tasks, I wrote down and committed my predictions.",
-          "start_s": 7.238,
-          "end_s": 11.772
-        }
-      ],
       "audio_file": "mp3/beat-B10.mp3",
-      "actual_duration_s": 12.37,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 12.375,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 19.458333333333332,
       "build": {
         "status": "MANIM",
         "src": "manim/B10.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
-      }
+        "at": "2026-11-23T16:52:45"
+      },
+      "sentences": [
+        {
+          "text": "It's judged on three things.",
+          "start_s": 0.049,
+          "end_s": 2.125
+        },
+        {
+          "text": "On normal tasks, it should pass.",
+          "start_s": 2.455,
+          "end_s": 4.734
+        },
+        {
+          "text": "On the five no-tasks, it must say no.",
+          "start_s": 5.064,
+          "end_s": 7.368
+        },
+        {
+          "text": "A pass on one of those would mean it failed.",
+          "start_s": 7.698,
+          "end_s": 10.032
+        },
+        {
+          "text": "Third, I compare changes, like two different system prompts, on held-out tasks nobody tuned on, and I wrote my predictions down before the held-out runs.",
+          "start_s": 10.362,
+          "end_s": 18.832
+        }
+      ],
+      "actual_duration_s": 19.45
     },
     {
       "beat_id": "B11",
-      "narration_text": "Seventy held-out runs. Both prompts passed all twenty normal runs, and both said no on all fifteen failure runs. That's a ceiling: pass rate can't tell them apart. My longer prompt cost about forty-one percent more and did no better.",
+      "narration_text": "First results: seventy held-out runs. Both prompts passed all twenty normal runs and said no on all fifteen no-runs. Then I read all forty passing fixes myself. On one task, seven of ten missed what the documentation asks for. So a pass means the checks passed, not that the spec was met.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 16.6,
+      "estimated_duration_s": 21.5,
       "new_visual_element": "Real",
       "shot": {
         "type": "GRAPHIC",
@@ -538,103 +582,55 @@
         "engine": "manim",
         "manim": "B11_Results",
         "production_viz": {
-          "mechanic": "REAL. Terminal frame: totals from evidence/compare/20261118-t51-a-vs-b.txt (runs 35/35, 20/20, 15/15, total cost). Costs labelled 'estimated from list prices'. Evidence: evidence/B11.txt.",
+          "mechanic": "REAL. The apg compare totals (Nov 18, evidence/B11.txt), then FAILURES.md F2 with ['X', 'x'] (Nov 18, evidence/B12.txt). No costs.",
           "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
+          "note": "real repo output: terminal frames show the source path and its date"
         }
       },
       "sentences": [
         {
-          "text": "Seventy held-out runs.",
-          "start_s": 0.056,
-          "end_s": 1.76
+          "text": "First results: seventy held-out runs.",
+          "start_s": 0.085,
+          "end_s": 2.403
         },
         {
-          "text": "Both prompts passed all twenty normal runs, and both said no on all fifteen failure runs.",
-          "start_s": 2.19,
-          "end_s": 7.25
+          "text": "Both prompts passed all twenty normal runs and said no on all fifteen no-runs.",
+          "start_s": 2.733,
+          "end_s": 7.27
         },
         {
-          "text": "That's a ceiling: pass rate can't tell them apart.",
-          "start_s": 7.68,
-          "end_s": 10.166
+          "text": "Then I read all forty passing fixes myself.",
+          "start_s": 7.6,
+          "end_s": 10.272
         },
         {
-          "text": "My longer prompt cost about forty-one percent more and did no better.",
-          "start_s": 10.59,
-          "end_s": 14.461
+          "text": "On one task, seven of ten missed what the documentation asks for.",
+          "start_s": 10.602,
+          "end_s": 14.362
+        },
+        {
+          "text": "So a pass means the checks passed, not that the spec was met.",
+          "start_s": 14.692,
+          "end_s": 17.91
         }
       ],
       "audio_file": "mp3/beat-B11.mp3",
-      "actual_duration_s": 15.1,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 15.125,
+      "actual_duration_s": 18.47,
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 18.5,
       "build": {
         "status": "MANIM",
         "src": "manim/B11.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     },
     {
       "beat_id": "B12",
-      "narration_text": "Then I read all forty passing fixes myself. No cheating, no test edits. But on one task, seven of ten fixes missed behavior the documentation asks for and the tests don't check. So a pass means the frozen checks passed, not that the spec was met.",
+      "narration_text": "Three things are left. First, a controlled failure: I'll make an agent edit its own test on purpose, show the check catching it, and fix it. Second, a stranger will run the project from the README on a clean machine. Third, I'll harden the check, so it confirms every test actually ran.",
       "engine": "kokoro",
       "voice": "am_onyx",
-      "estimated_duration_s": 19.0,
-      "new_visual_element": "Real",
-      "shot": {
-        "type": "GRAPHIC",
-        "source": "own"
-      },
-      "graphic": {
-        "engine": "manim",
-        "manim": "B12_PassMeans",
-        "production_viz": {
-          "mechanic": "REAL. Terminal frame: FAILURES.md F2 lines (7 of 10 on 011) and the executed check add_tag('x', ['X']) -> ['X', 'x']. Evidence: evidence/B12.txt.",
-          "label": "Real output",
-          "note": "real repo output: terminal frame shows the source path and its date"
-        }
-      },
-      "sentences": [
-        {
-          "text": "Then I read all forty passing fixes myself.",
-          "start_s": 0.044,
-          "end_s": 2.716
-        },
-        {
-          "text": "No cheating, no test edits.",
-          "start_s": 3.146,
-          "end_s": 5.405
-        },
-        {
-          "text": "But on one task, seven of ten fixes missed behavior the documentation asks for and the tests don't check.",
-          "start_s": 5.831,
-          "end_s": 11.774
-        },
-        {
-          "text": "So a pass means the frozen checks passed, not that the spec was met.",
-          "start_s": 12.204,
-          "end_s": 15.971
-        }
-      ],
-      "audio_file": "mp3/beat-B12.mp3",
-      "actual_duration_s": 16.55,
-      "sentence_pause_s": 0.35,
-      "render_duration_s": 16.583333333333332,
-      "build": {
-        "status": "MANIM",
-        "src": "manim/B12.mp4",
-        "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
-      }
-    },
-    {
-      "beat_id": "B13",
-      "narration_text": "Next, I'll trigger a failure on purpose, an agent editing its own test, and show the check catching it. Then a stranger will run the project from the README alone. If it ever passes something it shouldn't, or a sandbox limit breaks, it didn't work. The code is public at github.com/tushar-patel28/agent-proving-ground.",
-      "engine": "kokoro",
-      "voice": "am_onyx",
-      "estimated_duration_s": 21.1,
+      "estimated_duration_s": 21.5,
       "new_visual_element": "Constructed",
       "shot": {
         "type": "GRAPHIC",
@@ -642,45 +638,109 @@
       },
       "graphic": {
         "engine": "manim",
-        "manim": "B13_Next",
+        "manim": "B12_Left",
         "production_viz": {
-          "mechanic": "Checklist: M0-M5 ticked; 'controlled failure', 'stranger run', 'submit Dec 18' open. Repo URL on screen.",
+          "mechanic": "Three numbered cards: '1 Controlled failure — edit the test -> check catches it -> recover', '2 Stranger run — README only, clean machine', '3 Harden the check — confirm every test actually ran: a forced exit can't fake a pass'; footer 'All by Dec 18'.",
+          "label": "Constructed",
+          "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
+        }
+      },
+      "audio_file": "mp3/beat-B12.mp3",
+      "sentence_pause_s": 0.25,
+      "render_duration_s": 16.958333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T16:52:45"
+      },
+      "sentences": [
+        {
+          "text": "Three things are left.",
+          "start_s": 0.102,
+          "end_s": 1.368
+        },
+        {
+          "text": "First, a controlled failure: I'll make an agent edit its own test on purpose, show the check catching it, and fix it.",
+          "start_s": 1.698,
+          "end_s": 7.76
+        },
+        {
+          "text": "Second, a stranger will run the project from the README on a clean machine.",
+          "start_s": 8.086,
+          "end_s": 12.351
+        },
+        {
+          "text": "Third, I'll harden the check, so it confirms every test actually ran.",
+          "start_s": 12.681,
+          "end_s": 16.34
+        }
+      ],
+      "actual_duration_s": 16.94,
+      "tail_silence_s": 0.04
+    },
+    {
+      "beat_id": "B13",
+      "narration_text": "The biggest risk is a pass that isn't real, since code under test can fool a check. That's why I review diffs and write down every known gap. It won't be a hosted service or a model benchmark. It's one honest tool. Thanks for watching. The code is at github.com/tushar-patel28/agent-proving-ground.",
+      "engine": "kokoro",
+      "voice": "am_onyx",
+      "estimated_duration_s": 20.7,
+      "new_visual_element": "Constructed",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own"
+      },
+      "graphic": {
+        "engine": "manim",
+        "manim": "B13_Close",
+        "production_viz": {
+          "mechanic": "'Risk: a pass that isn't real -> diff review + documented gaps', then the repo URL and 'Thanks for watching.'",
           "label": "Constructed",
           "note": "constructed diagram: must show 'Constructed' on screen for the whole beat"
         }
       },
       "sentences": [
         {
-          "text": "Next, I'll trigger a failure on purpose, an agent editing its own test, and show the check catching it.",
-          "start_s": 0.039,
-          "end_s": 5.261
+          "text": "The biggest risk is a pass that isn't real, since code under test can fool a check.",
+          "start_s": 0.026,
+          "end_s": 4.304
         },
         {
-          "text": "Then a stranger will run the project from the README alone.",
-          "start_s": 5.691,
-          "end_s": 8.794
+          "text": "That's why I review diffs and write down every known gap.",
+          "start_s": 4.634,
+          "end_s": 7.7
         },
         {
-          "text": "If it ever passes something it shouldn't, or a sandbox limit breaks, it didn't work.",
-          "start_s": 9.22,
-          "end_s": 13.403
+          "text": "It won't be a hosted service or a model benchmark.",
+          "start_s": 8.03,
+          "end_s": 10.852
         },
         {
-          "text": "The code is public at github.com/tushar-patel28/agent-proving-ground.",
-          "start_s": 13.833,
-          "end_s": 19.305
+          "text": "It's one honest tool.",
+          "start_s": 11.182,
+          "end_s": 12.913
+        },
+        {
+          "text": "Thanks for watching.",
+          "start_s": 13.243,
+          "end_s": 14.438
+        },
+        {
+          "text": "The code is at github.com/tushar-patel28/agent-proving-ground.",
+          "start_s": 14.762,
+          "end_s": 19.915
         }
       ],
       "audio_file": "mp3/beat-B13.mp3",
-      "actual_duration_s": 21.37,
-      "sentence_pause_s": 0.35,
+      "actual_duration_s": 21.99,
+      "sentence_pause_s": 0.25,
       "tail_silence_s": 1.5,
-      "render_duration_s": 21.375,
+      "render_duration_s": 22.0,
       "build": {
         "status": "MANIM",
         "src": "manim/B13.mp4",
         "filled_by": "manim",
-        "at": "2026-11-23T12:58:49"
+        "at": "2026-11-23T16:52:45"
       }
     }
   ]

@@ -1,32 +1,48 @@
-RECORDING SCRIPT - Anisha Gaikar
-One block per beat. make_film.sh turns these into voice clips automatically (macOS say).
+=== audio/B00 ===
+Hi, I'm Anisha Gaikar, and this is my final project: a job-search agent. The question I started with was: can AI find me jobs? The better question is: can it tell me which new postings are worth my time, and show me why?
 
-=== audio/B00  (intro · the question) ===
-Hi, I'm Anisha Gaikar, and this is my final project pitch: JobPost Contracts, a Python tool that summarizes job postings and catches when the AI makes things up. Nothing is built yet; everything you'll see is a sketch of what I will build. My first question was: can AI summarize a job posting? The better question is: can it do that without inventing anything?
+=== audio/B01 ===
+My agent watches public job boards. Each day it shows me only the postings that are new, and says whether each one fits me, using the posting's own words as the reason. When the posting doesn't say, it answers 'I cannot tell'. It never applies, emails, messages anyone, or logs in.
 
-=== audio/B01  (terms) ===
-Three terms first. A prompt contract is a set of rules the AI must follow, including what to say when something is missing. A synthetic posting is a fake job ad I write myself, so no real data is used. And a grounded field is an answer that comes with a quote from the posting.
+=== audio/B02 ===
+Why care? Most of a job board is not for you. On Klaviyo's board, only 6 of 156 postings even had an analyst title. And a summary that invents one detail is worse than no summary at all.
 
-=== audio/B02  (1 · what is it) ===
-The project is JobPost Contracts: a small Python library of prompt contracts that turns a job posting into a structured summary, with a test set that catches Claude inventing details that are not in the posting. When it's done, it will be a GitHub repository with the contracts, twenty synthetic job postings, a test script, and an evaluation log.
+=== audio/B03 ===
+So what you get is a short list: each new posting, a verdict, and the exact lines that support it, so you can check every reason in seconds.
 
-=== audio/B03  (2 · why care) ===
-Who is it for? Anyone who reads lots of job postings and needs the key facts fast, like a job seeker comparing roles. I looked at two alternatives. Pasting a posting into ChatGPT: on October thirteenth I tried a real internship posting. It couldn't open the LinkedIn link, and with the text pasted, it gave a good summary, but it didn't show which line each fact came from, and under location it added a detail that wasn't in the posting at all. Copying fields into a spreadsheet by hand is accurate, but slow. In my tool, every field must come with a quote from the posting, or be marked 'not stated'.
+=== audio/B04 ===
+What already exists? Job sites send alerts. LinkedIn, for example, lets you set job alerts. They tell you something new matched your keywords, but not whether it fits you, or why.
 
-=== audio/B04  (3 · who opens it) ===
-The reader I'm aiming at is a hiring manager or engineer looking at a candidate for a junior AI engineering role. In the first sixty seconds, they will open the README, run one command, and see a pass and fail table, plus a log of the cases that failed.
+=== audio/B05 ===
+I tested chatbots myself. On October 13th, ChatGPT gave a good summary, but no source for each fact, and it added a location detail that wasn't in the posting. On October 31st, Claude said 'mostly not relevant': hedged prose, nothing I could check automatically, and no memory of what I had already seen.
 
-=== audio/B05  (4 · what it proves) ===
-What would it prove about me? Four things from this course: writing prompt contracts, grounding every answer in the source, verifying that each quote really appears in the posting, and evaluating with a fixed test set. The evidence will be the test results and the evaluation log. It will not prove the tool works on real postings at scale, because I'm only testing synthetic data.
+=== audio/B06 ===
+In this course, the instructor's tool Lectern already collects from 18 boards, and the Reallocation Engine has a role scorer. Collecting is solved. Deciding, with evidence, is not.
 
-=== audio/B06  (5 · in, out, first) ===
-In scope: five fields. Job title, seniority, required skills, location, and salary. Out of scope: no scraping real job sites, no real postings, and no job ranking or career advice. The first piece I'll make run is one contract on one synthetic posting. You'll know it ran when the output matches my hand-written expected answer and the test prints PASS.
+=== audio/B07 ===
+That's the gap, and why mine is worth building: new postings only, a verdict you can check, an honest 'I cannot tell', and hard limits.
 
-=== audio/B07  (6 · risk) ===
-What could sink it? My synthetic postings might be too clean, so every test passes and proves nothing. To fight that, I will write at least five deliberately tricky postings: one with no salary, one where skills are implied but not listed, and one with conflicting seniority. A second limit: checking that a quote exists doesn't catch a quote put in the wrong field, so I'll hand-check those cases and log them.
+=== audio/B08 ===
+How will I do it? The data comes from the public job-board APIs of Greenhouse and Lever. No account, no login, and the agent may call only those two hosts. It matches against a fictional persona, Nadia Okafor, so no real personal data is used.
 
-=== audio/B08  (7 · why this project) ===
-I picked this project because it is small enough for one person to finish and it uses exactly what this course teaches. It's a mix of new learning and skills I already have. Prompt contracts, building a test set for AI output, and keeping an evaluation log are new skills. The skill I already have is Python, including tests and data-quality checks. My evidence is my MBTA transit reliability pipeline on my GitHub.
+=== audio/B09 ===
+My plan, step by step. Steps one and two already ran. Layer one: I committed a contract before any run, and judged each posting twice: by a written rule, and by Claude, with a validator that rejects any quote that isn't in the posting. Layer two: a bounded loop over three boards on two systems, with budgets and a permission policy enforced in code.
 
-=== audio/B09  (close · exists vs will exist) ===
-To be clear about where things stand: today, what exists is this brief, this beat sheet, and this film. No code, contracts, test postings, or results exist yet. Everything else I've described is what will exist by the end of the course. Thanks for watching.
+=== audio/B10 ===
+Step three, layer three, will add a readable filter, the 'I cannot tell' rule, the agent as a tool for Claude, and a score whose every number is explained. Step four, the final project, will turn it all into one daily shortlist. The details are in my appendix.
+
+=== audio/B11 ===
+Do I have what I need? Yes. Accounts: none are needed, because the job boards are public. Access: the agent may call only those two public APIs. Compute: my own laptop and Python. Token credits: the Claude steps use my own Claude account, run in small batches, keeping every reply.
+
+=== audio/B12 ===
+How will I know it worked? I compare it with my own hand labels, never with its own report. In layer one, Claude agreed with me on 10 of 10 development postings and 9 of 10 held back. But 19 of my 20 labels were 'not relevant', so that test was weak.
+
+=== audio/B13 ===
+Other checks don't trust the agent at all. All 18 of my boundary predictions matched. And two deliberately wrong versions ended 'finished', until an independent recount caught both.
+
+=== audio/B14 ===
+My pass mark: on at least 30 new postings I label and hold back, with at least 10 relevant, it must agree with me at least 80 percent of the time. It fails, however good that number looks, if one quote isn't in the posting, or a failed board shows as 'no new jobs'.
+
+=== audio/B15 ===
+Today, layers one and two exist and ran. The rest will exist by the end of the course. The voice is a computer reading my script. Thanks for watching.
+

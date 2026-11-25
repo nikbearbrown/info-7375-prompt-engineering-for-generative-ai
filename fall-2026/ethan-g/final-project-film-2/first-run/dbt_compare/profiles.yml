@@ -1,0 +1,8 @@
+# Local DuckDB file; no server, no account. Run dbt with --profiles-dir . from this folder.
+dbt_compare:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "../data/dbt_compare.duckdb"
+      threads: 1

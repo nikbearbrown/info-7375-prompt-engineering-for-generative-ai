@@ -41,14 +41,18 @@ sys.path.insert(0, str(ART_HOME / "runtime" / "scripts"))
 import generate_audio_kokoro as kok                                   # noqa: E402
 from build_safety import atomic_json, validate_project, writable_path  # noqa: E402
 
-PAUSE_S = 0.35
+PAUSE_S = 0.25
 MARGIN_S = 0.04
-TAIL_PAD_S = {"B13": 1.5}
+# B13: 1.5 s so the repo URL holds on screen. B12: 0.04 s so the timeline is 5,646 frames
+# (235.250 s). At 5,645 frames (235.2083 s) the toolkit's final cut, "-t" written to three
+# decimals (235.208), dropped the last video frame and render-integrity gate 11 failed.
+TAIL_PAD_S = {"B13": 1.5, "B12": 0.04}
 THRESH = 10 ** (-45 / 20)
 # Voice-only respellings: what Kokoro is given, never narration_text or the
 # screen. Each was whisper-checked (see _qc/gates/whisper_check.txt).
 SAY = {
     r"\bE2B\b": "E-2-B",
+    r"\bINFO 7375\b": "info seventy-three seventy-five",
     r"github\.com/tushar-patel28/agent-proving-ground":
         "github dot com, slash tushar-patel twenty-eight, slash agent-proving-ground",
 }

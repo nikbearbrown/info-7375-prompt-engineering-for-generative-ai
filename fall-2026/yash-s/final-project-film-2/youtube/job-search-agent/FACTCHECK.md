@@ -1,0 +1,29 @@
+# FACTCHECK — job-search-agent (Final Project Film)
+
+Every factual claim in the narration, checked against the source named, on 2026-11-23. Plans
+(JS4, JS5, the final evaluation) are spoken in the future tense and marked EXEMPT. Paths starting
+`yash-s/` are under `fall-2026/yash-s/` in the course repository.
+
+| # | Beat | Claim | Verdict | Source | Fix |
+|---|---|---|---|---|---|
+| 1 | B01–B03 | It watches boards, reports only new postings, gives a rule-based reason, stops for a person, never applies, emails or logs in | PASS | `yash-s/js1-contract-and-watch/README.md` ("never applies, emails, messages or logs in"); `yash-s/js2-loop-tools-diff/README.md`; `yash-s/js3-filter-tool-score/FILTER.md` v1.1 | JS3's reasons are in progress; said as "says why" for the whole agent |
+| 2 | B04 | Databricks had 80 new postings in about ten days | PASS | JS2 trace, run 2026-11-10T02:51Z: 915 postings, 80 new, seen ids 924 → 1,004; the 924 came from JS1's run of 2026-10-31T06:18Z (9.9 days earlier) | — |
+| 3 | B05, B08 | Priya Nair is fictional; my real résumé is never used | PASS | `yash-s/js2-loop-tools-diff/persona/priya-nair.resume.example.json` ("FICTIONAL EXAMPLE PERSONA", `@example.com`, 555 phone) | — |
+| 4 | B06 | LinkedIn showed 99+ results for ML engineer jobs at Databricks in the US; many staff-level | PASS | `yash-s/final-project-film-2/evidence/linkedin_search_23_Nov_2026-blurred.png` ("99+ results", "United States"; Staff Backline Engineer, Staff Machine Learning Engineer) | — |
+| 5 | B07 | The "medium" match was based on my own profile | PASS | same screenshot: "Your profile and resume match several of the required qualifications"; the search used my own LinkedIn account | — |
+| 6 | B07 | The first posting uses Python and MLflow, which Priya has, and is senior | PASS | `linkedin_requirements_23_Nov_2026.png.png` ("Serve as a senior escalation point… MLflow…", "Strong hands-on Python"); Priya's résumé lists Python and MLflow | — |
+| 7 | B08 | Jobright: 57% fair match, experience 30%, skill 40%, industry 41%; the calculation is not shown | PASS | `jobright-match-score-2026-11-23.png.png` | — |
+| 8 | B09 | Jobright marked PyTorch and Scikit-learn as Priya's skills; neither is in her résumé | PASS | `jobright-qualifications-2026-11-23.png.png` (thumbs-up on PyTorch, Scikit-learn; "Represents the skills you have"); the uploaded résumé (`priya-nair.resume.example.json`) contains neither word | — |
+| 9 | B09 | The posting says it is for experienced engineers; Priya has eight months of experience | PASS | Jobright qualifications ("This role is intended for experienced engineers…"); résumé: AI Engineer Co-op 2025-01 to 2025-08 | — |
+| 10 | B10 | Claude Sonnet 5.5 gave no unverified list, explained the misfits, rejected the AI Engineer FDE role | PASS | `claude-prompt-response-2026-11-23.png.png` ("I can't give you a verified list…"; "AI Engineer, Forward Deployed Engineering: … not intended for … entry-level"; footer "Sonnet 5.5") | — |
+| 11 | B11 | Claude could not confirm postings were open; pointed to the live Greenhouse board; read memory | PASS | `claude-detailed-response-2026-11-23.png.png` ("The reliable source is the live Databricks Greenhouse board"); "Searched the web, read memory, and 2 more tools, 1 failed" | — |
+| 12 | B12 | My agent reads the board directly, saves raw data, every keep/reject comes from a written rule | PASS | JS2 `policy.py` (HTTPS GET to two hosts), `runs/*/raw-*.json`; JS1 RECORD rule; JS3 `FILTER.md` + `results.json` | Other tools' cells shown as "not seen in my test", not as "no" |
+| 13 | B13 | October pitch was a GitHub Actions docs Q&A tool; final must be agentic | PASS | `yash-s/final-project-film/PROJECT-BRIEF.md`; `assignments/assignment-final-project.md` ("as long as it is agentic") | — |
+| 14 | B14 | JS1 one board, new only; JS2 one loop over four boards, budgets, permission policy, two hosts; JS3 in progress | PASS | JS1 README (Databricks only); JS2 README (Databricks, Anthropic, OpenAI, one misspelled board; "HTTPS GET to two exact hosts"; budgets 6 requests, 120 s); JS3 folder (63 tests pass, not yet submitted) | — |
+| 15 | B14 | Test counts 77, 65, 63 | PASS | `python3 -m unittest discover -s tests`, run 2026-11-23 in each folder | — |
+| 16 | B15 | First filter run: 2,418 postings; 2,355 rejected; 63 to review; each with a reason; most for experience above two years | PASS | `yash-s/js3-filter-tool-score/runs/filter-v1.1-2026-11-18T212545Z/summary.json` (rejected 2,355, review 63; "experience above the 2-year cutoff": 1,482 of 2,355); every result has a hard exclusion, a points breakdown below the threshold, or review reasons (checked 2026-11-23) | — |
+| 17 | B16–B18 | 65 tests pass; three planted bugs caught; recount 915 / 675 / 825, nothing flagged; reset refused without approval, allowed with it | PASS | `evidence/terminal-2026-11-23.txt` (recorded 2026-11-23 18:06 EST, Python 3.9.6) | Columns trimmed to fit the screen; temporary folder path shown as `$T` |
+| 18 | B19 | JS4, JS5 and final-project steps | EXEMPT | Plans, from `assignments/assignment-js4-*.md`, `assignment-js5-*.md`, `assignment-final-project.md` | Future tense |
+| 19 | B20 | Public job-board APIs, no paid API, no token credits, plain Python, Claude Code provided by my university | PASS | JS1/JS2 READMEs ("standard library only"); JS2 calls no model; course `prerequisites/README.md` (NEU Claude Code access); confirmed by Yash 2026-11-23 | — |
+| 20 | B21 | In JS1 all 25 of my labels were "not relevant"; my reviewer pointed it out | PASS | JS1 grading feedback (TA, 2026-11-09), recorded in my notes | — |
+| 21 | B21–B23 | Held-out set, measures, five deliberate failures, pass/fail conditions | EXEMPT | Plans; `assignment-final-project.md` (held-out set, at least five deliberate failure cases) | Future tense; no invented thresholds |

@@ -1,0 +1,121 @@
+{
+ "item": 48,
+ "board": "greenhouse:anthropic",
+ "id": "5451081008",
+ "title": "Policy Development, Technical AI Governance",
+ "utc": "2026-11-24T21:34:18Z",
+ "seconds": 6.3,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 3,
+  "reasons": [
+   "Title \"Policy Development, Technical AI Governance\" points to a policy role, not the AI engineering, ML or data work her background fits",
+   "Location \"San Francisco, CA | New York City, NY | Washington, DC\" is US-based, which fits",
+   "No posting text, so seniority and required policy experience can't be checked",
+   "Employment type: \"(board does not say)\", so full-time status is unconfirmed"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: greenhouse:anthropic\n- Title: Policy Development, Technical AI Governance\n- Location: San Francisco, CA | New York City, NY | Washington, DC\n- Employment type field: (board does not say)\n- Text:\n(not shown)\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 5382,
+  "stop_reason": "end_turn",
+  "session_id": "c6c6517c-e041-4cd8-8dea-d7db025c8dd7",
+  "total_cost_usd": 0.031229800000000002,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2769,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 447,
+   "output_tokens_details": {
+    "thinking_tokens": 287
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2769,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 447,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 2769,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2769
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 447,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 2769,
+    "webSearchRequests": 0,
+    "costUSD": 0.031229800000000002,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 287,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 2769,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 3, \"reasons\": [\"Title \\\"Policy Development, Technical AI Governance\\\" points to a policy role, not the AI engineering, ML or data work her background fits\", \"Location \\\"San Francisco, CA | New York City, NY | Washington, DC\\\" is US-based, which fits\", \"No posting text, so seniority and required policy experience can't be checked\", \"Employment type: \\\"(board does not say)\\\", so full-time status is unconfirmed\"]}",
+  "ttft_ms": 4054,
+  "type": "result",
+  "duration_ms": 5520,
+  "uuid": "0f7a1eaa-5534-4a4f-9e5b-5d4816c2a882",
+  "ttft_stream_ms": 1084,
+  "time_to_request_ms": 136,
+  "first_content_frame_ms": 1084,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

@@ -1,0 +1,38 @@
+── 1  data
+raw month: 3,475,226 rows | negative fares: 144,118 | drop-off before pick-up: 124 | rows with a missing value: 540,149
+clean sample: 10,000 rows (seed 7375) -> data/clean.parquet
+── 2  plant defects
+broken copy: 10,000 rows, 25 negative fares + 25 drop-offs before pick-up planted
+── 3  first piece (pandera)
+check: fare_amount >= 0   (pandera)
+clean copy  (10,000 rows): PASS
+broken copy (10,000 rows): flagged 25 rows
+  negative_fare          planted 25  caught 25   CAUGHT
+  dropoff_before_pickup  planted 25  caught  0   MISSED
+  false alarms on unbroken rows: 0
+── 4  dbt
+10:16:51  3 of 4 FAIL 25 not_negative_trips_broken_fare_amount ........................... [FAIL 25 in 0.02s]
+10:16:51  4 of 4 PASS not_negative_trips_clean_fare_amount ............................... [PASS in 0.01s]
+10:16:51  Completed with 1 error, 0 partial successes, and 0 warnings:
+10:16:51  Done. PASS=3 WARN=0 ERROR=1 SKIP=0 NO-OP=0 TOTAL=4
+── 5  Great Expectations (GX Core)
+Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 3914.42it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 3462.08it/s]Calculating Metrics:  30%|███       | 3/10 [00:00<00:00, 4878.99it/s]Calculating Metrics:  30%|███       | 3/10 [00:00<00:00, 4622.67it/s]Calculating Metrics:  50%|█████     | 5/10 [00:00<00:00, 4042.31it/s]Calculating Metrics:  50%|█████     | 5/10 [00:00<00:00, 3912.60it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 4812.74it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 4737.19it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 4684.28it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 4611.15it/s]
+Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 21076.90it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 15033.35it/s]Calculating Metrics:  30%|███       | 3/10 [00:00<00:00, 18864.94it/s]Calculating Metrics:  30%|███       | 3/10 [00:00<00:00, 15709.00it/s]Calculating Metrics:  50%|█████     | 5/10 [00:00<00:00, 11184.81it/s]Calculating Metrics:  50%|█████     | 5/10 [00:00<00:00, 10371.67it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 9433.88it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 9181.93it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 9018.07it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 8793.09it/s]
+expectation: ExpectColumnValuesToBeBetween(fare_amount, min_value=0)   (GX Core 1.24.1)
+clean copy   (10,000 rows): PASS
+broken copy  (10,000 rows): FAIL  25 unexpected values
+── 6  side by side
+Same rule (fare_amount >= 0) in three tools. Recorded 2026-10-25 06:16 (local).
+Data: NYC TLC yellow taxi, January 2025; clean sample 10,000 rows (seed 7375).
+Broken copy: 25 negative fares + 25 drop-offs before pick-up, planted.
+
+tool      clean copy    broken copy     
+pandera   PASS          FAIL 25 rows    
+dbt       PASS          FAIL 25 rows    
+GX Core   PASS          FAIL 25 rows    
+
+Against the answer key: negative fares 25/25 CAUGHT; drop-off before pick-up 0/25 MISSED.
+All three report rows that break the rule they were given. None of them can say what the rule missed;
+only the planted answer key shows the drop-offs before pick-up got through.
+
+In the real January 2025 file: 144,118 negative fares and 124 drop-offs before pick-up, out of 3,475,226 rows.

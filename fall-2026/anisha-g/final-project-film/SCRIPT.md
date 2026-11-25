@@ -1,0 +1,33 @@
+# Film script (final narration, as read in the film)
+
+**B00 · title:** Hi, I'm Anisha Gaikar, and this is my final project: a job-search agent. The question I started with was: can AI find me jobs? The better question is: can it tell me which new postings are worth my time, and show me why?
+
+**B01 · 1 · executive summary:** My agent watches public job boards. Each day it shows me only the postings that are new, and says whether each one fits me, using the posting's own words as the reason. When the posting doesn't say, it answers 'I cannot tell'. It never applies, emails, messages anyone, or logs in.
+
+**B02 · 1 · executive summary:** Why care? Most of a job board is not for you. On Klaviyo's board, only 6 of 156 postings even had an analyst title. And a summary that invents one detail is worse than no summary at all.
+
+**B03 · 1 · executive summary:** So what you get is a short list: each new posting, a verdict, and the exact lines that support it, so you can check every reason in seconds.
+
+**B04 · 2 · introduction:** What already exists? Job sites send alerts. LinkedIn, for example, lets you set job alerts. They tell you something new matched your keywords, but not whether it fits you, or why.
+
+**B05 · 2 · introduction:** I tested chatbots myself. On October 13th, ChatGPT gave a good summary, but no source for each fact, and it added a location detail that wasn't in the posting. On October 31st, Claude said 'mostly not relevant': hedged prose, nothing I could check automatically, and no memory of what I had already seen.
+
+**B06 · 2 · introduction:** In this course, the instructor's tool Lectern already collects from 18 boards, and the Reallocation Engine has a role scorer. Collecting is solved. Deciding, with evidence, is not.
+
+**B07 · 2 · introduction:** That's the gap, and why mine is worth building: new postings only, a verdict you can check, an honest 'I cannot tell', and hard limits.
+
+**B08 · 3 · methods:** How will I do it? The data comes from the public job-board APIs of Greenhouse and Lever. No account, no login, and the agent may call only those two hosts. It matches against a fictional persona, Nadia Okafor, so no real personal data is used.
+
+**B09 · 3 · methods:** My plan, step by step. Steps one and two already ran. Layer one: I committed a contract before any run, and judged each posting twice: by a written rule, and by Claude, with a validator that rejects any quote that isn't in the posting. Layer two: a bounded loop over three boards on two systems, with budgets and a permission policy enforced in code.
+
+**B10 · 3 · methods:** Step three, layer three, will add a readable filter, the 'I cannot tell' rule, the agent as a tool for Claude, and a score whose every number is explained. Step four, the final project, will turn it all into one daily shortlist. The details are in my appendix.
+
+**B11 · 3 · methods:** Do I have what I need? Yes. Accounts: none are needed, because the job boards are public. Access: the agent may call only those two public APIs. Compute: my own laptop and Python. Token credits: the Claude steps use my own Claude account, run in small batches, keeping every reply.
+
+**B12 · 4 · evaluation:** How will I know it worked? I compare it with my own hand labels, never with its own report. In layer one, Claude agreed with me on 10 of 10 development postings and 9 of 10 held back. But 19 of my 20 labels were 'not relevant', so that test was weak.
+
+**B13 · 4 · evaluation:** Other checks don't trust the agent at all. All 18 of my boundary predictions matched. And two deliberately wrong versions ended 'finished', until an independent recount caught both.
+
+**B14 · 4 · evaluation:** My pass mark: on at least 30 new postings I label and hold back, with at least 10 relevant, it must agree with me at least 80 percent of the time. It fails, however good that number looks, if one quote isn't in the posting, or a failed board shows as 'no new jobs'.
+
+**B15 · 4 · evaluation:** Today, layers one and two exist and ran. The rest will exist by the end of the course. The voice is a computer reading my script. Thanks for watching.

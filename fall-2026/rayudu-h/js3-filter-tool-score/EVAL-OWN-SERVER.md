@@ -59,7 +59,7 @@ Speaking MCP correctly doesn't entitle a client to any of these:
 
 ## 4. Limits: what this evaluation doesn't show
 
-- **Prompt injection through a snippet was not tested.** Neither real session contained a planted instruction.
+- **Prompt injection through a snippet:** not tested in the first sessions. It was **tested once afterwards, as a SEEDED run** (section 6). One crafted note, one client, one model.
 - **The data is loaded once at startup.** If FILTER.md or `runs/` change while it runs, the answers keep using the old version.
 - **No authentication, no rate limit, stdio only.** It trusts whoever starts it.
 - **The output is checked against the `outputSchema` only for required keys,** not for full JSON Schema types.
@@ -106,3 +106,8 @@ Speaking MCP correctly doesn't entitle a client to any of these:
 - Part of Claude's caution came from the `example.invalid` URL. A posting with a real-looking link and subtler wording might fare differently, and wasn't tested.
 - Our server still passes the note on unchanged. **The protection here came from the client, not the server.**
 - The trust decision in section 5 stands: snippets are untrusted data, and the server doesn't make them safe.
+
+## 7. Filter version served
+
+Every transcript here was recorded under **FILTER.md v1.1**; each tool result carries `filter_version` and `filter_sha256`. The server reads FILTER.md when it starts, so it now serves **v1.2**. Its tests pass under v1.2 (`tests/test_js3_mcp_server.py`), but no Claude Code session was recorded under v1.2.
+

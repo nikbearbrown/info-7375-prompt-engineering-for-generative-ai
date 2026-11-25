@@ -1,0 +1,8 @@
+# R6 on four ways a posting can rule out sponsorship.
+# Run by Yudan Zhou in her own Windows PowerShell, 2026-11-23, from her js2-loop-tools-diff folder.
+# fail = R6 found a no-sponsorship phrase (correct). pass = R6 found none.
+PS C:\neu is\26fall\INFO7375\js2-loop-tools-diff> python -c "...rule.judge(... 'content': s ...) for s in [four sentences]"
+fail | We will not sponsor visas.
+fail | Offered without sponsorship.
+pass | We do not provide visa sponsorship.
+pass | Sponsorship is not offered.

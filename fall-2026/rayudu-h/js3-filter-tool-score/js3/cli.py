@@ -142,9 +142,9 @@ def cmd_experiment(a) -> int:
             ok = sum(1 for r in recs if r["valid"])
             print(f"{exp}: {len(recs)} calls, {ok} valid, models {sorted({u for r in recs for u in r['models_used']})}")
     else:
-        text = experiment.report()
+        text = experiment.report(a.labels)
         (ROOT / "experiments").mkdir(exist_ok=True)
-        (ROOT / "experiments" / "report.md").write_text(text)
+        (ROOT / "experiments" / ("report-corrected.md" if a.labels == "corrected" else "report.md")).write_text(text)
         print(text)
     return 0
 
@@ -155,8 +155,19 @@ def cmd_x1test(a) -> int:
         out = x1test.draw()
         print(json.dumps(out["population"]))
     else:
-        text = x1test.report()
-        (ROOT / "audit" / "x1-results.md").write_text(text)
+        text = x1test.report(a.labels)
+        (ROOT / "audit" / ("x1-results-corrected.md" if a.labels == "corrected" else "x1-results.md")).write_text(text)
+        print(text)
+    return 0
+
+
+def cmd_relabel(a) -> int:
+    from . import relabel
+    if a.action == "draw":
+        print(json.dumps(relabel.draw()))
+    else:
+        text = relabel.report()
+        (ROOT / "audit" / "relabel-results.md").write_text(text)
         print(text)
     return 0
 
@@ -168,8 +179,9 @@ def main(argv=None) -> int:
     sp = sub.add_parser("sample", help="draw the held-out and audit samples; write the blind labeling sheet")
     sp.add_argument("--version", default="1.0")
     sp.set_defaults(fn=cmd_sample)
-    sub.add_parser("audit", help="recompute the reject audit from the committed files").set_defaults(
-        fn=lambda a: (print(__import__("js3.audit", fromlist=["run"]).run()), 0)[1])
+    ap_ = sub.add_parser("audit", help="recompute the reject audit from the committed files")
+    ap_.add_argument("--labels", choices=["first", "corrected"], default="first")
+    ap_.set_defaults(fn=lambda a: (print(__import__("js3.audit", fromlist=["run"]).run(label_set=a.labels)), 0)[1])
     sub.add_parser("shortlist", help="top-N kept postings, every claim labeled by Claude with a checked quote"
                    ).set_defaults(fn=cmd_shortlist)
     sub.add_parser("shortlist-final", help="apply the hand check and write the final shortlist"
@@ -177,10 +189,15 @@ def main(argv=None) -> int:
     ep = sub.add_parser("experiment", help="held-out experiments: run E0a|E0b|E2|E3|E4, or report")
     ep.add_argument("action", choices=["run", "report"])
     ep.add_argument("names", nargs="*")
+    ep.add_argument("--labels", choices=["first", "corrected"], default="first")
     ep.set_defaults(fn=cmd_experiment)
     xp = sub.add_parser("x1test", help="out-of-sample test of X1: draw | report")
     xp.add_argument("action", choices=["draw", "report"])
+    xp.add_argument("--labels", choices=["first", "corrected"], default="first")
     xp.set_defaults(fn=cmd_x1test)
+    rp = sub.add_parser("relabel", help="second labeling pass with the experience sentences visible: draw | report")
+    rp.add_argument("action", choices=["draw", "report"])
+    rp.set_defaults(fn=cmd_relabel)
     lp = sub.add_parser("label", help="record Hemanth's verdicts from chat, e.g. 1n 2y 3?")
     lp.add_argument("verdicts", nargs="+")
     lp.add_argument("--change", action="store_true", help="allow changing an earlier verdict")

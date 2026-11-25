@@ -1,0 +1,14 @@
+Same rule (fare_amount >= 0) in three tools. Recorded 2026-10-25 06:16 (local).
+Data: NYC TLC yellow taxi, January 2025; clean sample 10,000 rows (seed 7375).
+Broken copy: 25 negative fares + 25 drop-offs before pick-up, planted.
+
+tool      clean copy    broken copy     
+pandera   PASS          FAIL 25 rows    
+dbt       PASS          FAIL 25 rows    
+GX Core   PASS          FAIL 25 rows    
+
+Against the answer key: negative fares 25/25 CAUGHT; drop-off before pick-up 0/25 MISSED.
+All three report rows that break the rule they were given. None of them can say what the rule missed;
+only the planted answer key shows the drop-offs before pick-up got through.
+
+In the real January 2025 file: 144,118 negative fares and 124 drop-offs before pick-up, out of 3,475,226 rows.

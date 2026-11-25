@@ -7,7 +7,14 @@ words matched, what each contributed, which rule decided, and the filter version
 """
 from __future__ import annotations
 
+import re
+
 from jsagent.rule import find_words
+
+# "N years" / "N+ years" / "N or more years" (the same pattern as the second labeling view)
+YEARS = re.compile(r"\b(\d{1,2})\s*\+?\s*(?:\+\s*)?(?:or more\s+)?years?\b", re.I)
+# a range such as "2-6 years", "3 to 6 years", "6–10+ years": read by its lower bound
+RANGE = re.compile(r"\b(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})(\s*\+?\s*years?\b)", re.I)
 
 KEPT, REJECTED, CANNOT_TELL = "kept", "rejected", "cannot tell"
 
@@ -42,6 +49,14 @@ def score(posting: dict, flt: dict) -> dict:
     unshipped = find(flt["skills_unshipped"], both)
     degree = find(flt["degree_terms"], text)
     seniority = find(flt["seniority_title_words"], without(flt.get("seniority_ignore_phrases"), title))
+    # optional rules (absent from a filter block = off; v1.0 and v1.1 have none of them)
+    topics = find(flt.get("topic_words_text", []), text)[: flt.get("topic_max", 0)]
+    location = (posting.get("location") or "").strip()
+    non_us = bool(flt.get("us_location_words")) and bool(location) and not find(flt["us_location_words"], location)
+    years_text = RANGE.sub(r"\1\3", text) if flt.get("experience_range_low") else text   # "2-6 years" -> "2 years"
+    years_asked = max([int(m.group(1)) for m in YEARS.finditer(years_text) if int(m.group(1)) < 30], default=None)
+    too_experienced = flt.get("experience_years_min") is not None and years_asked is not None \
+        and years_asked >= flt["experience_years_min"]
 
     parts = []                                            # (rule, points, why)
     if role:
@@ -56,7 +71,15 @@ def score(posting: dict, flt: dict) -> dict:
         parts.append(("R7", w["degree"], f"degree term in text: {degree[0]}"))
     if seniority:
         parts.append(("R9", w["seniority"], f"seniority word in title: {', '.join(seniority)}"))
+    for t in topics:
+        parts.append(("R15", w.get("topic", 0), f"topic word in text: {t}"))
+    if non_us:
+        parts.append(("R16", w.get("non_us_location", 0), f"no US location: {location}"))
+    if too_experienced and not flt.get("experience_excludes"):
+        parts.append(("R17", w.get("experience", 0), f"text asks for {years_asked}+ years"))
     total = round(sum(p for _, p, _ in parts), 4)
+    skill_ok = bool(skills) or (flt.get("role_word_waives_skill") and bool(role)) \
+        or (flt.get("topic_waives_skill") and bool(topics))
     threshold = flt["threshold"]
 
     threshold_decided = False
@@ -66,7 +89,9 @@ def score(posting: dict, flt: dict) -> dict:
     elif excluded:
         decision, rule, reason = REJECTED, "R2" if find(flt["exclude_title_words"], title) else "R3", \
             f"excluded before scoring: {', '.join(excluded)}"
-    elif flt["require_skill"] and not skills:
+    elif too_experienced and flt.get("experience_excludes"):
+        decision, rule, reason = REJECTED, "R17", f"text asks for {years_asked} or more years (Priya: 8 months)"
+    elif flt["require_skill"] and not skill_ok:
         decision, rule, reason = REJECTED, "R8", "no skill of Priya's in the posting"
     elif total >= threshold:
         decision, rule, reason, threshold_decided = KEPT, "R10", f"score {total} >= threshold {threshold}", True
@@ -80,6 +105,7 @@ def score(posting: dict, flt: dict) -> dict:
         "score": total, "margin": round(total - threshold, 4), "threshold_decided": threshold_decided,
         "role_words": role, "skills": skills, "skills_over_cap": skills_all[flt["max_skill_hits"]:],
         "skills_unshipped": unshipped, "degree": degree, "seniority": seniority, "excluded_by": excluded,
+        "topics": topics, "non_us_location": non_us, "years_asked": years_asked,
         "contributions": [{"rule": r, "points": p, "why": why} for r, p, why in parts],
         "filter_version": flt["filter_version"], "filter_sha256": flt["filter_sha256"],
     }

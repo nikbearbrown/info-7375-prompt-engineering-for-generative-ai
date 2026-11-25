@@ -1,0 +1,121 @@
+{
+ "item": 17,
+ "board": "ashby:openai",
+ "id": "f3ddd41c-541f-485e-90d6-86c26e018e9f",
+ "title": "Software Engineer, GPT Infrastructure",
+ "utc": "2026-11-24T22:45:53Z",
+ "seconds": 5.9,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 3,
+  "reasons": [
+   "The title has no seniority marker, but the bar reads senior: \"Strong software engineering experience building distributed systems, infrastructure platforms, production services\" and \"Drive technical architecture and execution across ambiguous initiatives\"",
+   "The core work is low-level systems and hardware, far from her LLM-agent and analytics background: \"compilers, runtimes, kernels, or performance engineering using technologies such as CUDA, ROCm, Triton, LLVM, or MLIR\"",
+   "It expects \"Strong understanding of Linux, networking, storage, containers, distributed execution\" and the ability to \"diagnose problems across software and hardware boundaries\", which her one-year co-op doesn't show",
+   "Some overlap exists (Python, tracing via MLflow, LLM evaluation, and the preferred \"coding agents, or evaluator-driven systems\"), and location fits (\"Remote\", \"FullTime\"), but not enough to offset the experience gap"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: ashby:openai\n- Title: Software Engineer, GPT Infrastructure\n- Location: San Francisco; Seattle; Remote\n- Employment type field: FullTime\n- Text:\nAbout the Team The GPT Infrastructure team builds systems that turn advances in model inference and optimization into reliable production capabilities. We enable OpenAI workloads to be qualified and optimized across new accelerator platforms without requiring a one-off port and tuning effort for every hardware target. Our work spans distributed systems, model execution, compilers and runtimes, performance engineering, secure partner integrations, evaluation systems, and developer tooling. We build the infrastructure that makes optimization workflows automated, reproducible, and trustworthy. About the Role We are seeking a software engineer to help build the platform that qualifies and optimizes inference workloads across heterogeneous compute environments. You will develop both OpenAI-hosted services and secure partner-side software for running long-lived optimization workflows. These workflows generate candidate kernels, runtime configurations, and serving-stack changes; compile and execute them on target hardware; verify their correctness; measure their performance; and use the results to guide further optimization. You will work across model architecture, distributed execution, compilers, runtimes, networking, and accelerator systems. A central part of the role is turning research prototypes and one-off hardware bring-up efforts into reliable, reusable infrastructure with clear contracts, reproducible results, strong observability, and well-defined security boundaries. Key Responsibilities Design, build, and operate APIs and control-plane services for long-running workload qualification and optimization campaigns, including scheduling, retries, checkpointing, resource budgets, and observability. Build secure partner-side execution and evaluation software that can compile, run, verify, profile, and benchmark candidate artifacts on accelerator hardware. Integrate model workloads, hardware profiles, compiler toolchains, runtimes, serving engines, and distributed-execution backends into a repeatable platform. Develop correctness and performance evaluation systems spanning output fidelity, latency, throughput, memory footprint, accelerator utilization, communication efficiency, scaling behavior, and cost efficiency. Automate the generation, evaluation, and improvement of kernels, runtime configurations, parallelization strategies, and serving-stack changes. Diagnose performance and correctness issues across model code, kernels, compilers, runtimes, memory systems, networking, collective communication, and hardware. Build artifact-management, provenance, regression-testing, and qualification workflows for kernels, binaries, configurations, evaluation results, and deployment reports. Turn experimental research workflows into reliable product surfaces with clear interfaces, actionable failure modes, and strong developer ergonomics. Collaborate with Research, Inference Engineering, Runtime and Compiler teams, Infrastructure, Security, Product, and Strategic Partnerships to onboard and optimize new compute platforms. Drive technical architecture and execution across ambiguous initiatives spanning OpenAI systems and partner environments. Qualifications Strong software engineering experience building distributed systems, infrastructure platforms, production services, developer platforms, or orchestration systems. Proficiency in one or more systems-oriented languages such as Python, C++, Go, or Rust. Experience designing and operating APIs, job orchestration systems, durable workflows, or large-scale backend services. Strong understanding of Linux, networking, storage, containers, distributed execution, and modern infrastructure architectures. Ability to reason about model execution and diagnose problems across software and hardware boundaries. Experience using profiling, tracing, benchmarking, and measurement to guide engineering decisions. Strong ownership and the ability to work effectively across research, engineering, security, product, and external-partner teams. Preferred Skills Experience with AI infrastructure, model inference, distributed ML systems, or inference-serving platforms. Familiarity with GPU or accelerator architecture, memory hierarchies, interconnects, collective communication, and distributed model execution. Experience with compilers, runtimes, kernels, or performance engineering using technologies such as CUDA, ROCm, Triton, LLVM, or MLIR. Familiarity with inference engines or serving systems such as vLLM, SGLang, Triton Inference Server, or comparable internal systems. Experience with model partitioning, sharding, tensor or expert parallelism, and compute–communication tradeoffs. Experience building remote-execution systems, secure partner-facing infrastructure, evaluation harnesses, or artifact pipelines. Experience with automated optimization, search systems, coding agents, or evaluator-driven systems that iteratively improve kernels or runtime configurations. About OpenAI OpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity. We are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic. For additional information, please see OpenAI’s Affirmative Action and Equal Employment Opportunity Policy Statement . Background checks for applicants will be administered in accordance with applicable law, and qualified applicants with arrest or  […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 4593,
+  "stop_reason": "end_turn",
+  "session_id": "a1a27c4f-647f-4598-b75d-c3f0b4f5147d",
+  "total_cost_usd": 0.0465898,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4579,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 491,
+   "output_tokens_details": {
+    "thinking_tokens": 144
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4579,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 491,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4579,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4579
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 491,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4579,
+    "webSearchRequests": 0,
+    "costUSD": 0.0465898,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 144,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4579,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 3, \"reasons\": [\"The title has no seniority marker, but the bar reads senior: \\\"Strong software engineering experience building distributed systems, infrastructure platforms, production services\\\" and \\\"Drive technical architecture and execution across ambiguous initiatives\\\"\", \"The core work is low-level systems and hardware, far from her LLM-agent and analytics background: \\\"compilers, runtimes, kernels, or performance engineering using technologies such as CUDA, ROCm, Triton, LLVM, or MLIR\\\"\", \"It expects \\\"Strong understanding of Linux, networking, storage, containers, distributed execution\\\" and the ability to \\\"diagnose problems across software and hardware boundaries\\\", which her one-year co-op doesn't show\", \"Some overlap exists (Python, tracing via MLflow, LLM evaluation, and the preferred \\\"coding agents, or evaluator-driven systems\\\"), and location fits (\\\"Remote\\\", \\\"FullTime\\\"), but not enough to offset the experience gap\"]}",
+  "ttft_ms": 1931,
+  "type": "result",
+  "duration_ms": 4831,
+  "uuid": "d631395e-a690-4fda-8e98-3e5400ca7df5",
+  "ttft_stream_ms": 715,
+  "time_to_request_ms": 211,
+  "first_content_frame_ms": 715,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

@@ -1,8 +1,8 @@
 # Filter run: FILTER.md v1.1
 
-- FILTER.md sha256: `c2390f94c6f63f3d980fce76a9ddf779d522ae12503d38e94fe69f8f5c6b10b1`
+- FILTER.md sha256: `db915c94f4cb23e02cf74384de015e3371214183d7b9f07c06fe51bf7603c826`
 - Corpus: 1176 unique postings from 3 live snapshots (2026-10-31T191245-live, 2026-11-07T184247-live, 2026-11-20T213031-live); latest version of each posting used
-- Run at: 2026-11-22T15:35:07-05:00
+- Run at: 2026-11-24T22:49:24-05:00
 
 | board | kept | rejected | cannot tell | total |
 |---|---:|---:|---:|---:|

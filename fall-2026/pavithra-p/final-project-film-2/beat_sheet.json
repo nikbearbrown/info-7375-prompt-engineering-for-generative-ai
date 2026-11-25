@@ -1,0 +1,916 @@
+{
+  "metadata": {
+    "slug": "dryrun-project-film",
+    "title": "DryRun: Final Project Film",
+    "topic": "FINAL PROJECT FILM · DRYRUN",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "pavithra-prasad",
+    "channel_title": "Pavithra Prasad",
+    "persona": "Pavithra Prasad, first person (synthetic Kokoro voice af_heart reading my script)",
+    "voice": "af_heart",
+    "voice_kokoro": "af_heart",
+    "voice_speed": 0.95,
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "plain",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "none",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "INFO 7375 Final Project Film: I narrate as myself, so the house bookends are left out; the first beat is my own part title and the last my own close.",
+    "audience": "INFO 7375 reviewers; hiring managers and engineers for backend and platform roles",
+    "source_doc": "APPENDIX.md and PROJECT-BRIEF.md (this folder)",
+    "honesty": "A plan, not a build: no DryRun code exists yet. Real: the Claude screenshot (claude.ai, 2026-10-11), my own Terminal lines from the 13 Oct preview test, and the facts about try, InterCode and NL2SH (read 2026-11-23). Constructed and labelled on screen: the AI's prediction, the simulated deletion, the WARN decision, the change report and the person's choice. Planned and labelled: every target in part 4 (NOT MEASURED YET).",
+    "tags": [
+      "DryRun",
+      "AI safety",
+      "shell commands",
+      "sandbox",
+      "evaluation",
+      "INFO 7375"
+    ],
+    "build": {
+      "at": "2026-11-23T18:03:22",
+      "cut": "master",
+      "filled": 26,
+      "of": 26,
+      "slates": [],
+      "skin_warnings": [
+        "B00: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "B25: palette=claude but the outro is 'un-annotated' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B00",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part one: what I'm building, and why it matters.",
+      "estimated_duration_s": 3.5,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Part title; a four-part strip with part 1 filled.",
+        "manim": {
+          "class": "B00_Part1"
+        },
+        "motion_claim": "Part title; a four-part strip with part 1 filled."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B00.mp3",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B00.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B01",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Hi, I'm Pavithra Prasad. My project is Dry Run. It will tell you what an AI's terminal command will really do to your files, before you run it, and warn you when that isn't what you asked for.",
+      "estimated_duration_s": 14.6,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "My name; what DryRun is; a command passes a checkpoint before it reaches your files; a WARN chip.",
+        "manim": {
+          "class": "B01_Intro"
+        },
+        "motion_claim": "My name; what DryRun is; a command passes a checkpoint before it reaches your files; a WARN chip."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 12.5,
+      "audio_file": "mp3/beat-B01.mp3",
+      "render_duration_s": 12.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B01.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "AI assistants now suggest terminal commands, and coding agents run them. One wrong character can delete files, and reading a command is not the same as knowing what it will do.",
+      "estimated_duration_s": 11.9,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Four phrases build the problem; beside them the AI's workstation hands a command to your folder, and the files leave it.",
+        "manim": {
+          "class": "B02_Problem"
+        },
+        "motion_claim": "Four phrases build the problem; beside them the AI's workstation hands a command to your folder, and the files leave it."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.54,
+      "audio_file": "mp3/beat-B02.mp3",
+      "render_duration_s": 11.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "On October eleventh, I asked Claude for a command to delete log files older than seven days. It gave me this, and told me to preview it first.",
+      "estimated_duration_s": 10.8,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "REAL SCREENSHOT chip; the real screenshot, cropped: my request, then Claude's command outlined and its preview advice underlined as they are spoken.",
+        "manim": {
+          "class": "B03_RealReply"
+        },
+        "motion_claim": "REAL SCREENSHOT chip; the real screenshot, cropped: my request, then Claude's command outlined and its preview advice underlined as they are spoken."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply.",
+        "contrast_regions": [
+          {
+            "label": "kicker and REAL SCREENSHOT chip",
+            "box": [
+              0.05,
+              0.06,
+              0.85,
+              0.255
+            ]
+          },
+          {
+            "label": "the real claude.ai screenshot",
+            "box": [
+              0.095,
+              0.28,
+              0.905,
+              0.735
+            ]
+          },
+          {
+            "label": "source footer",
+            "box": [
+              0.17,
+              0.84,
+              0.95,
+              0.915
+            ]
+          }
+        ],
+        "contrast_reason": "Real dark-mode claude.ai screenshot (evidence/claude-reply-2026-10-11.png), shown unaltered. Its dark-grey bubble on a near-black page is interface, not text. Each region that holds text is checked on its own; every region must pass and all other checks still run."
+      },
+      "actual_duration_s": 9.24,
+      "audio_file": "mp3/beat-B03.mp3",
+      "render_duration_s": 9.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "I tested the preview on a test folder on my Mac. A file seven and a half days old wasn't matched, even though it's older than seven days.",
+      "estimated_duration_s": 10.8,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "MY TERMINAL chip; my own Terminal lines from 13 Oct, copied exactly; three file rows by age; the 7.5-day row is marked as missed.",
+        "manim": {
+          "class": "B04_Tested"
+        },
+        "motion_claim": "MY TERMINAL chip; my own Terminal lines from 13 Oct, copied exactly; three file rows by age; the 7.5-day row is marked as missed."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 8.36,
+      "audio_file": "mp3/beat-B04.mp3",
+      "render_duration_s": 8.375,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "part-1",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "That matters to anyone who lets an AI suggest or run commands. A delete command has no undo step, so the check has to come before the command runs.",
+      "estimated_duration_s": 11.2,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Who it matters to; a file leaves the folder and there is no undo step; the gate closes in front of the command.",
+        "manim": {
+          "class": "B05_WhyMatters"
+        },
+        "motion_claim": "Who it matters to; a file leaves the folder and there is no undo step; the gate closes in front of the command."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.66,
+      "audio_file": "mp3/beat-B05.mp3",
+      "render_duration_s": 9.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "part-2",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part two: what other people have done.",
+      "estimated_duration_s": 2.7,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Part title; the strip with part 2 filled.",
+        "manim": {
+          "class": "B06_Part2"
+        },
+        "motion_claim": "Part title; the strip with part 2 filled."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 2.07,
+      "audio_file": "mp3/beat-B06.mp3",
+      "render_duration_s": 2.0833333333333335,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "part-2",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Coding agents like Claude Code can ask you to approve a command before it runs, but they show you the command, not what it will change. A tool called try runs a command in a sandbox on Linux, then asks whether to keep its changes. You still judge them yourself.",
+      "estimated_duration_s": 17.7,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two existing approaches, one prop each: an approval stamp for the agent's 'allow this command?' question; a checkpoint scanner for try.",
+        "manim": {
+          "class": "B07_Prior"
+        },
+        "motion_claim": "Two existing approaches, one prop each: an approval stamp for the agent's 'allow this command?' question; a checkpoint scanner for try."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 16.47,
+      "audio_file": "mp3/beat-B07.mp3",
+      "render_duration_s": 16.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "part-2",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Researchers have scored AI-written Bash commands. InterCode found that letting the AI see the result of running its code helps it fix mistakes. NL2SH checked six hundred commands by hand, and its methods raised accuracy by up to thirty-two percent.",
+      "estimated_duration_s": 15.4,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two research papers and what they got: a test bench for InterCode's run-and-fix loop; an evidence binder for NL2SH's 600 hand-checked commands and +32%.",
+        "manim": {
+          "class": "B08_Research"
+        },
+        "motion_claim": "Two research papers and what they got: a test bench for InterCode's run-and-fix loop; an evidence binder for NL2SH's 600 hand-checked commands and +32%."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 17.26,
+      "audio_file": "mp3/beat-B08.mp3",
+      "render_duration_s": 17.291666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "part-2",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Dry Run will go one step further. It will compare the changes with your request and the AI's own prediction, and flag mismatches before you press Enter.",
+      "estimated_duration_s": 10.4,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The whole planned workflow in one picture: your folder, throwaway copy, compare, you decide.",
+        "manim": {
+          "class": "B09_Different"
+        },
+        "motion_claim": "The whole planned workflow in one picture: your folder, throwaway copy, compare, you decide."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.73,
+      "audio_file": "mp3/beat-B09.mp3",
+      "render_duration_s": 9.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part three: how I'm going to build it.",
+      "estimated_duration_s": 3.1,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Part title; the strip with part 3 filled.",
+        "manim": {
+          "class": "B10_Part3"
+        },
+        "motion_claim": "Part title; the strip with part 3 filled."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 2.01,
+      "audio_file": "mp3/beat-B10.mp3",
+      "render_duration_s": 2.0416666666666665,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Today, none of Dry Run exists yet. Everything in this film is what I will build, in four phases.",
+      "estimated_duration_s": 7.3,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "No DryRun code yet; a sealed parcel; the four phases.",
+        "manim": {
+          "class": "B11_Today"
+        },
+        "motion_claim": "No DryRun code yet; a sealed parcel; the four phases."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 6.31,
+      "audio_file": "mp3/beat-B11.mp3",
+      "render_duration_s": 6.333333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The AI will have to answer in a fixed format: the command, plus its own prediction of what that command will change.",
+      "estimated_duration_s": 8.5,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Example step 1: command card and predicted-changes card (constructed example).",
+        "manim": {
+          "class": "B12_Contract"
+        },
+        "motion_claim": "Example step 1: command card and predicted-changes card (constructed example)."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.08,
+      "audio_file": "mp3/beat-B12.mp3",
+      "render_duration_s": 7.083333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Dry Run will run the command on the copy, inside a locked container with no network. Then it will compare every file before and after: what was created, changed, or deleted.",
+      "estimated_duration_s": 11.9,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Example step 2 (constructed simulation): planned locked container; before/after file list; the 8.5-day file struck out.",
+        "manim": {
+          "class": "B13_Simulate"
+        },
+        "motion_claim": "Example step 2 (constructed simulation): planned locked container; before/after file list; the 8.5-day file struck out."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.65,
+      "audio_file": "mp3/beat-B13.mp3",
+      "render_duration_s": 11.666666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It will check the real changes against the AI's prediction and the task's rules. Then it will allow, warn, or block. When it can't tell, it will say so.",
+      "estimated_duration_s": 11.2,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Example step 3: predicted 2 vs simulated 1; the task rule; drawing: the gate with ALLOW / WARN / BLOCK, WARN chosen.",
+        "manim": {
+          "class": "B14_Gate"
+        },
+        "motion_claim": "Example step 3: predicted 2 vs simulated 1; the task rule; drawing: the gate with ALLOW / WARN / BLOCK, WARN chosen."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 9.6,
+      "audio_file": "mp3/beat-B14.mp3",
+      "render_duration_s": 9.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "When it warns, a person decides: they see the exact file changes, then approve or refuse.",
+      "estimated_duration_s": 6.2,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The change report is handed across a counter to a person; APPROVE and REFUSE.",
+        "manim": {
+          "class": "B15_Human"
+        },
+        "motion_claim": "The change report is handed across a counter to a person; APPROVE and REFUSE."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 5.97,
+      "audio_file": "mp3/beat-B15.mp3",
+      "render_duration_s": 6.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "To catch mistakes like that on purpose, I'll build trap folders: names with spaces, names that look like options, hidden files, files right at a time limit, and links that point outside.",
+      "estimated_duration_s": 12.3,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Trap-folder file chips appear as each is named.",
+        "manim": {
+          "class": "B16_Traps"
+        },
+        "motion_claim": "Trap-folder file chips appear as each is named."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.88,
+      "audio_file": "mp3/beat-B16.mp3",
+      "render_duration_s": 11.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "The data, I'll make myself: trap folders built by a script, and file tasks with known correct results. No personal files and no real users. The only outside data will be the AI's replies, saved with their dates.",
+      "estimated_duration_s": 14.6,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A conveyor makes trap folders; a task list with known answers; an inbox where each AI reply is filed with its date; no personal files, no real users.",
+        "manim": {
+          "class": "B17_Data"
+        },
+        "motion_claim": "A conveyor makes trap folders; a task list with known answers; an inbox where each AI reply is filed with its date; no personal files, no real users."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 14.91,
+      "audio_file": "mp3/beat-B17.mp3",
+      "render_duration_s": 14.916666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Step by step. By November thirtieth: the copy, the run, and the file differences, with a self-test. By December sixth: the AI's fixed format, the decision, and up to three retries. By December thirteenth: the trap folders, the tasks, and the human approval. By December twentieth: the evaluation and the report.",
+      "estimated_duration_s": 19.6,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A timeline with four dated steps; the parcel is packed at December 20.",
+        "manim": {
+          "class": "B18_Steps"
+        },
+        "motion_claim": "A timeline with four dated steps; the parcel is packed at December 20."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 20.46,
+      "audio_file": "mp3/beat-B18.mp3",
+      "render_duration_s": 20.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B18.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "act": "part-3",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Do I have what I need? Yes. Token credits: none to buy, because Claude comes through my Northeastern Claude Code account. Accounts and access: that account, and GitHub for the code. Compute: my own laptop, an M3 with eight gigabytes of memory, which already runs Docker and a small local model in Ollama, both free. I'll keep the task set small, to stay inside my usage limits. The full plan is in my appendix.",
+      "estimated_duration_s": 28.5,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A checklist with one prop per need: token slots, a plug in its socket, a small server; then the usage-limit note and APPENDIX.md.",
+        "manim": {
+          "class": "B19_Resources"
+        },
+        "motion_claim": "A checklist with one prop per need: token slots, a plug in its socket, a small server; then the usage-limit note and APPENDIX.md."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 25.6,
+      "audio_file": "mp3/beat-B19.mp3",
+      "render_duration_s": 25.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B19.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Part four: how I'll know it worked.",
+      "estimated_duration_s": 2.7,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Part title; the strip with part 4 filled.",
+        "manim": {
+          "class": "B20_Part4"
+        },
+        "motion_claim": "Part title; the strip with part 4 filled."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 1.86,
+      "audio_file": "mp3/beat-B20.mp3",
+      "render_duration_s": 1.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B20.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B21",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Then I'll measure it: tasks with known correct results, across every trap folder, comparing Claude with a free local model, and counting how often a command did too much or too little.",
+      "estimated_duration_s": 12.3,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Evaluation plan; a queue of tasks with known answers; empty counters marked NOT MEASURED YET.",
+        "manim": {
+          "class": "B21_Measure"
+        },
+        "motion_claim": "Evaluation plan; a queue of tasks with known answers; empty counters marked NOT MEASURED YET."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 11.52,
+      "audio_file": "mp3/beat-B21.mp3",
+      "render_duration_s": 11.541666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B21.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B22",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Before I tune anything, I'll set some tasks aside as a held-out set, and plant at least five commands I know are wrong.",
+      "estimated_duration_s": 8.8,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A vault locks the held-out tasks away; five planted wrong commands go onto the test bench.",
+        "manim": {
+          "class": "B22_Heldout"
+        },
+        "motion_claim": "A vault locks the held-out tasks away; five planted wrong commands go onto the test bench."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 7.17,
+      "audio_file": "mp3/beat-B22.mp3",
+      "render_duration_s": 7.208333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B22.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B23",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "It worked if the self-test finds every planted change, every planted wrong command is flagged, and at most one correct command in ten is wrongly blocked. It didn't work if it misses a planted mistake, or blocks so many good commands that nobody would use it.",
+      "estimated_duration_s": 17.7,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns: IT WORKED IF and IT DIDN'T WORK IF, each line as it is spoken; TARGETS, NOT MEASURED YET.",
+        "manim": {
+          "class": "B23_Worked"
+        },
+        "motion_claim": "Two columns: IT WORKED IF and IT DIDN'T WORK IF, each line as it is spoken; TARGETS, NOT MEASURED YET."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 15.87,
+      "audio_file": "mp3/beat-B23.mp3",
+      "render_duration_s": 15.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B23.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B24",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Even then, it won't prove commands are safe. It will only show how often this check catches the mistakes I tested.",
+      "estimated_duration_s": 8.1,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "An inspection lamp over the evidence: what is not claimed, and what the evaluation can show.",
+        "manim": {
+          "class": "B24_Limits"
+        },
+        "motion_claim": "An inspection lamp over the evidence: what is not claimed, and what the evaluation can show."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 6.93,
+      "audio_file": "mp3/beat-B24.mp3",
+      "render_duration_s": 6.958333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B24.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    },
+    {
+      "beat_id": "B25",
+      "act": "part-4",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "narration_text": "Dry Run. See what an AI's command will do, before it touches your files.",
+      "estimated_duration_s": 5.4,
+      "voice": "af_heart",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Title and name footer.",
+        "manim": {
+          "class": "B25_Close"
+        },
+        "motion_claim": "Title and name footer."
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Week 1-style phrase layout on a cream stage: short phrases timed to the narration, one drawing only where it explains the mechanism. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "actual_duration_s": 4.48,
+      "audio_file": "mp3/beat-B25.mp3",
+      "render_duration_s": 4.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B25.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T18:03:22"
+      }
+    }
+  ]
+}

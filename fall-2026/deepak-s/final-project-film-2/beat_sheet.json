@@ -1,0 +1,1365 @@
+{
+  "metadata": {
+    "slug": "cuegate-film2",
+    "title": "CueGate",
+    "topic": "CUEGATE · PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "channel": "cuegate-film2",
+    "channel_title": "Deepak Kumaran T S",
+    "persona": "Deepak Kumaran T S (narration written by Deepak, voiced by Kokoro am_onyx); SKEPTIC: a constructed voice Deepak wrote to ask the four questions, voiced by Kokoro af_bella",
+    "voice": "am_onyx",
+    "voice_kokoro": "am_onyx",
+    "engine": "kokoro",
+    "voices": {
+      "DEEPAK": "am_onyx",
+      "SKEPTIC": "af_bella"
+    },
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Plain",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 3840,
+    "height": 2160,
+    "caption_policy": "srt sidecar written by make_captions.py, every cue tagged with its speaker",
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "CueGate project film (Deepak, 2026-11-23): the film follows the professor's four-part structure (executive summary, introduction, methods, evaluation). It opens on Deepak's real claude.ai screenshot as a still, not the ClaudeComposerAsk mock; it has no verdict card and no Your Turn. The spoken outro stays.",
+    "audience": "INFO 7375 classmates and instructor; a subtitle QC lead",
+    "source_doc": "inputs-film2/FILM2-SCRIPT.md and inputs-film2/RESOURCES.md (Deepak, 2026-11-23); evidence/day-one/FINDINGS.md (2026-10-14)",
+    "audio_ready": true,
+    "playlist": "INFO 7375 final project film",
+    "chapter_number": 0,
+    "tags": [
+      "CueGate",
+      "subtitles",
+      "verification",
+      "evaluation",
+      "local models"
+    ],
+    "build": {
+      "at": "2026-11-23T15:22:52",
+      "cut": "master",
+      "filled": 26,
+      "of": 26,
+      "slates": [],
+      "skin_warnings": [
+        "B01: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "script_beat": "E1",
+      "act_number": 1,
+      "speaker": "DEEPAK",
+      "narration_text": "On October fourteenth, I asked Claude to shorten one subtitle line, so a viewer could read it in time. It fit. It kept both negatives. And it still shifted the tone of what the character said.",
+      "estimated_duration_s": 11.61,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "cold open",
+      "lane": "pantry",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "Real screenshot (evidence) on the cream stage with its date caption."
+      },
+      "shot": {
+        "type": "STILL",
+        "source": "own",
+        "motion": "hold",
+        "visual_intent": "Deepak's real dated claude.ai screenshot (the pitch film's B00 image), with the act chip and speaker tag",
+        "still": "media/B01.png, built by make_e1.py from the pitch film's media/B00.png (sha256 1030efd2...) plus the act chip '1 · WHAT AND WHY' and the speaker tag 'DEEPAK'",
+        "exchange_date": "2026-10-14",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "Deepak's real Claude exchange, dated 2026-10-14"
+          }
+        ]
+      },
+      "actual_duration_s": 10.79,
+      "audio_file": "mp3/beat-B01.mp3",
+      "speech_s": 10.79,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "d04d0bc543bcc78510dedf0e48fb5336634797eb3ecb1e841f9c9a34d1cb5165",
+      "render_duration_s": 10.791666666666666,
+      "build": {
+        "status": "STILL",
+        "src": "media/B01.png",
+        "filled_by": "still",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B02",
+      "script_beat": "E2a",
+      "act_number": 1,
+      "speaker": "SKEPTIC",
+      "narration_text": "It's one line. Who cares?",
+      "estimated_duration_s": 4.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The source line and the reply side by side; hedged opinion vs flat refusal",
+        "motion_claim": "The source line and the reply side by side; hedged opinion vs flat refusal",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "SKEPTIC label: a voice I wrote to ask the hard questions"
+          },
+          {
+            "at": 0.05,
+            "event": "asked / got back, side by side"
+          },
+          {
+            "at": 0.3,
+            "event": "highlights: hedged opinion, flat refusal"
+          }
+        ],
+        "manim": {
+          "class": "B02_Shift"
+        }
+      },
+      "actual_duration_s": 4.0,
+      "audio_file": "mp3/beat-B02.mp3",
+      "speech_s": 1.75,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 2.25,
+      "padded_sha256": "445a6e0932bde59d20edf4b48202a47e7e957bc7a91debefcc63234121841aea",
+      "render_duration_s": 4.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B02.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B03",
+      "script_beat": "E2b",
+      "act_number": 1,
+      "speaker": "DEEPAK",
+      "narration_text": "Anyone who ships subtitles. Streaming platforms set hard limits on how fast a line can be read, and delivery guides say files that break them get sent back. In the tools I checked, shortening a line is still something a person does, one line at a time.",
+      "estimated_duration_s": 15.16,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A stopwatch over a subtitle bar; a file bounces back off a QC wall",
+        "motion_claim": "A stopwatch over a subtitle bar; a file bounces back off a QC wall",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "film frame with subtitle bar; stopwatch"
+          },
+          {
+            "at": 0.4,
+            "event": "a subtitle file hits the QC wall and bounces back"
+          },
+          {
+            "at": 0.8,
+            "event": "a cursor on one line: by hand"
+          }
+        ],
+        "manim": {
+          "class": "B03_Clock"
+        }
+      },
+      "actual_duration_s": 14.21,
+      "audio_file": "mp3/beat-B03.mp3",
+      "speech_s": 14.21,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "e7ea3da5e41a139112df732f17a59b6687e1bb30a8cfd8f1be9468bcdd593f56",
+      "render_duration_s": 14.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B03.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B04",
+      "script_beat": "E3",
+      "act_number": 1,
+      "speaker": "DEEPAK",
+      "narration_text": "So CueGate is the tool I'm going to build. You give it a subtitle file and the film. It will hand back a file where every line fits the rules, and anything it can't fix safely will go back to a person, with the reason.",
+      "estimated_duration_s": 14.52,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Turnstile gate: subtitle file and film in, clean file out, side door back to a person",
+        "motion_claim": "Turnstile gate: subtitle file and film in, clean file out, side door back to a person",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "subtitle file and film frame arrive"
+          },
+          {
+            "at": 0.25,
+            "event": "gate draws"
+          },
+          {
+            "at": 0.55,
+            "event": "clean file out, check"
+          },
+          {
+            "at": 0.8,
+            "event": "one line peels off to the side door: back to a person"
+          }
+        ],
+        "manim": {
+          "class": "B04_Gate"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 12.33,
+      "audio_file": "mp3/beat-B04.mp3",
+      "speech_s": 12.33,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "8890058e27bd5470196b4ef625b7f7f5fcf42215a1fa7ac4e2067c685dc50a4d",
+      "render_duration_s": 12.333333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B04.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B05",
+      "script_beat": "E4a",
+      "act_number": 1,
+      "speaker": "SKEPTIC",
+      "narration_text": "And why would I trust it more than the AI button I already have?",
+      "estimated_duration_s": 5.02,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The gate, with a small AI button floating beside it",
+        "motion_claim": "The gate, with a small AI button floating beside it",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "gate on stage, AI button floats in"
+          }
+        ],
+        "manim": {
+          "class": "B05_Button"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 3.98,
+      "audio_file": "mp3/beat-B05.mp3",
+      "speech_s": 3.48,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.5,
+      "padded_sha256": "7f0a7ab6b04c95cf1a64cb31f89a479e069eed978365f046b521f2d4411c4b1b",
+      "render_duration_s": 4.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B05.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B06",
+      "script_beat": "E4b",
+      "act_number": 1,
+      "speaker": "DEEPAK",
+      "narration_text": "Because it won't just claim the line still means the same thing. It will measure how often it's wrong, and publish that number.",
+      "estimated_duration_s": 7.42,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A blank report card: meaning changed __ of 100",
+        "motion_claim": "A blank report card: meaning changed __ of 100",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "report card drops in"
+          },
+          {
+            "at": 0.45,
+            "event": "empty box: meaning changed, __ of 100"
+          },
+          {
+            "at": 0.8,
+            "event": "the card goes up on a board: published"
+          }
+        ],
+        "manim": {
+          "class": "B06_Card"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 6.72,
+      "audio_file": "mp3/beat-B06.mp3",
+      "speech_s": 6.72,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "fcfc232881e44991b82a1ebdc6ce9e7e16c9617dc742d8997b97b3fdd07c1df3",
+      "render_duration_s": 6.75,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B06.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B07",
+      "script_beat": "I1",
+      "act_number": 2,
+      "speaker": "SKEPTIC",
+      "narration_text": "Hasn't someone already done this?",
+      "estimated_duration_s": 3.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Act card 2: what already exists",
+        "motion_claim": "Act card 2: what already exists",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "act card 2 · WHAT ALREADY EXISTS"
+          }
+        ],
+        "manim": {
+          "class": "B07_Act2"
+        }
+      },
+      "actual_duration_s": 3.0,
+      "audio_file": "mp3/beat-B07.mp3",
+      "speech_s": 1.9,
+      "pad_lead_s": 1.1,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "f25a2219eed930aac7cc1a8bfbb37b4725e3e74edd213a6605737889872c3f27",
+      "render_duration_s": 3.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B07.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B08",
+      "script_beat": "I2",
+      "act_number": 2,
+      "speaker": "DEEPAK",
+      "narration_text": "Partly. Subtitle Edit and Editsub both have an AI action that shortens the line you're on. EZTitles runs automated checks that flag reading-speed problems. In all three, a person picks the line and decides.",
+      "estimated_duration_s": 10.97,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three plain cards, tool names in text, one cursor on one line each",
+        "motion_claim": "Three plain cards, tool names in text, one cursor on one line each",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "Subtitle Edit and Editsub cards"
+          },
+          {
+            "at": 0.45,
+            "event": "EZTitles card"
+          },
+          {
+            "at": 0.75,
+            "event": "a cursor on one line in each"
+          }
+        ],
+        "manim": {
+          "class": "B08_Tools"
+        }
+      },
+      "actual_duration_s": 12.27,
+      "audio_file": "mp3/beat-B08.mp3",
+      "speech_s": 12.27,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "4e0ac527ae509f04c276fd10f4de207abaaf175fe8f87e5cee6245bad5019109",
+      "render_duration_s": 12.291666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B08.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B09",
+      "script_beat": "I3",
+      "act_number": 2,
+      "speaker": "DEEPAK",
+      "narration_text": "Researchers have worked on length too. In 2019, a team in Trento and at Amazon showed a translation model can be steered to write shorter output. In 2020, a Trento team found that for subtitles, hitting forty-two characters isn't enough. Timing and the rhythm of speech matter too.",
+      "estimated_duration_s": 15.48,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two paper cards: IWSLT 2019 and IWSLT 2020",
+        "motion_claim": "Two paper cards: IWSLT 2019 and IWSLT 2020",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "2019 paper"
+          },
+          {
+            "at": 0.45,
+            "event": "2020 paper"
+          },
+          {
+            "at": 0.85,
+            "event": "a speech-rhythm strip beside it"
+          }
+        ],
+        "manim": {
+          "class": "B09_Papers"
+        }
+      },
+      "actual_duration_s": 16.85,
+      "audio_file": "mp3/beat-B09.mp3",
+      "speech_s": 16.85,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "80c89c740e7fa740686a6bcba85ec9d5dead2fc97d7ccb330ed553be30c22a3b",
+      "render_duration_s": 16.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B09.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B10",
+      "script_beat": "I4a",
+      "act_number": 2,
+      "speaker": "SKEPTIC",
+      "narration_text": "So what's missing?",
+      "estimated_duration_s": 2.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A 2x2 map, one line at a time to whole file, meaning assumed to measured; three tools on the left; my reading",
+        "motion_claim": "A 2x2 map, one line at a time to whole file, meaning assumed to measured; three tools on the left; my reading",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "axes, labels, three tool dots on the left"
+          }
+        ],
+        "manim": {
+          "class": "B10_Map"
+        }
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B10.mp3",
+      "speech_s": 1.02,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 1.58,
+      "padded_sha256": "f40301e5276d112d8db970ed0aef88348c8e12fc0bcdc8d82e274d89be865006",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B10.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B11",
+      "script_beat": "I4b",
+      "act_number": 2,
+      "speaker": "DEEPAK",
+      "narration_text": "What they got was shorter text. What none of the tools I checked publish is how often that shortening changes meaning. That's the gap CueGate will go after: a gate over the whole file, and a number you can check.",
+      "estimated_duration_s": 12.9,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The same map; a hollow dot top right: CueGate (will)",
+        "motion_claim": "The same map; a hollow dot top right: CueGate (will)",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "the map from B10"
+          },
+          {
+            "at": 0.6,
+            "event": "hollow dot top right, CueGate (will)"
+          }
+        ],
+        "manim": {
+          "class": "B11_Gap"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 11.43,
+      "audio_file": "mp3/beat-B11.mp3",
+      "speech_s": 11.43,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "e38473ae61aad45309e098b9ad77a8a4817eb4161fc99849f938c16ed0b67051",
+      "render_duration_s": 11.458333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B11.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B12",
+      "script_beat": "M1",
+      "act_number": 3,
+      "speaker": "SKEPTIC",
+      "narration_text": "Okay. How?",
+      "estimated_duration_s": 3.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Act card 3: how",
+        "motion_claim": "Act card 3: how",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "act card 3 · HOW"
+          }
+        ],
+        "manim": {
+          "class": "B12_Act3"
+        }
+      },
+      "actual_duration_s": 3.0,
+      "audio_file": "mp3/beat-B12.mp3",
+      "speech_s": 1.02,
+      "pad_lead_s": 1.98,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "05c1a863e8b282ee44ee6e2ecd17e51fb7b0f30bca967d2e2d256c7b025c0113",
+      "render_duration_s": 3.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B12.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B13",
+      "script_beat": "M2",
+      "act_number": 3,
+      "speaker": "DEEPAK",
+      "narration_text": "First, the data. The English subtitles of Tears of Steel, an open Blender film. The film is Creative Commons, but the subtitle file's own licence isn't stated, so I'll confirm it before it goes in the repo. If I can't, I'll write my own dialogue and label it synthetic. Clean files rarely break rules, so I'll squeeze their timing on purpose. That gives me failures where I still know the original line.",
+      "estimated_duration_s": 23.23,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A funnel: Tears of Steel subtitles (licence to confirm) and my own lines (synthetic) in; a vice squeezes a timeline; out: test set, originals known",
+        "motion_claim": "A funnel: Tears of Steel subtitles (licence to confirm) and my own lines (synthetic) in; a vice squeezes a timeline; out: test set, originals known",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "funnel"
+          },
+          {
+            "at": 0.15,
+            "event": "Tears of Steel subtitles (licence to confirm)"
+          },
+          {
+            "at": 0.45,
+            "event": "my own lines (synthetic)"
+          },
+          {
+            "at": 0.7,
+            "event": "a vice squeezes the timeline"
+          },
+          {
+            "at": 0.9,
+            "event": "test set, originals known"
+          }
+        ],
+        "manim": {
+          "class": "B13_Funnel"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 20.76,
+      "audio_file": "mp3/beat-B13.mp3",
+      "speech_s": 20.76,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "793c4a54604ff10546c7d8206489614f49364e42b77348127aa3500fe9ba499d",
+      "render_duration_s": 20.791666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B13.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B14",
+      "script_beat": "M3",
+      "act_number": 3,
+      "speaker": "DEEPAK",
+      "narration_text": "Then the pipeline. Read the file and turn every time into exact frames. Check every rule. Fix timing first, because that changes no words. Only the lines timing can't save go to a small open model running on my laptop, with an exact character budget and a list of words it must keep. Every answer comes back through the same checker.",
+      "estimated_duration_s": 19.68,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The hero pipeline: Read, Frames, Check rules, Fix timing, Break lines, Ask local model (budget, must-keep), Check again, Ship; each box lights as it is named",
+        "motion_claim": "The hero pipeline: Read, Frames, Check rules, Fix timing, Break lines, Ask local model (budget, must-keep), Check again, Ship; each box lights as it is named",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "eight boxes"
+          },
+          {
+            "at": 0.15,
+            "event": "each box lights up as it is named"
+          }
+        ],
+        "manim": {
+          "class": "B14_Pipeline"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 17.98,
+      "audio_file": "mp3/beat-B14.mp3",
+      "speech_s": 17.98,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "c9e0b7823c44a76ad0a1875b3395a90d9620639db50e92c2381e4d4badfc30f1",
+      "render_duration_s": 18.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B14.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B15",
+      "script_beat": "M4a",
+      "act_number": 3,
+      "speaker": "SKEPTIC",
+      "narration_text": "And when the model gets it wrong?",
+      "estimated_duration_s": 2.76,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Ask local model and Check again; Check again flashes",
+        "motion_claim": "Ask local model and Check again; Check again flashes",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "two boxes; the check fails"
+          }
+        ],
+        "manim": {
+          "class": "B15_Fail"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B15.mp3",
+      "speech_s": 1.62,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.98,
+      "padded_sha256": "4ed61ded13b77967f63ad9f559c4722cafa58f2d5760c08a60da99a4992fdf86",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B15.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B16",
+      "script_beat": "M4b",
+      "act_number": 3,
+      "speaker": "DEEPAK",
+      "narration_text": "It gets three tries, each with the reason it failed. After that, the line stays untouched and goes to a person. The gate fails closed.",
+      "estimated_duration_s": 8.06,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Loop arrow around Ask local model with three ticks, then a branch down to back to a person",
+        "motion_claim": "Loop arrow around Ask local model with three ticks, then a branch down to back to a person",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "loop arrow, three ticks"
+          },
+          {
+            "at": 0.6,
+            "event": "branch down to back to a person"
+          }
+        ],
+        "manim": {
+          "class": "B16_Loop"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 8.02,
+      "audio_file": "mp3/beat-B16.mp3",
+      "speech_s": 8.02,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "335cbacc2d6c8bd53bcff331a1199dd730c4b8d89996680e078acf94fc39ea69",
+      "render_duration_s": 8.041666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B16.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B17",
+      "script_beat": "M5a",
+      "act_number": 3,
+      "speaker": "SKEPTIC",
+      "narration_text": "Do you actually have what you need?",
+      "estimated_duration_s": 2.76,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A checklist with four rows: model access, compute, data, accounts",
+        "motion_claim": "A checklist with four rows: model access, compute, data, accounts",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "four empty rows"
+          }
+        ],
+        "manim": {
+          "class": "B17_List"
+        }
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B17.mp3",
+      "speech_s": 1.71,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.89,
+      "padded_sha256": "8d236592471751d72b1c4136b0b85e848c5374ab25350e774204ff6df1eaf59d",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B17.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B18",
+      "script_beat": "M5b",
+      "act_number": 3,
+      "speaker": "DEEPAK",
+      "narration_text": "No API key, and none needed to start: the rule checks and timing fixes need no model. Compute is my sixteen-inch MacBook Pro, M3 Pro, thirty-six gigabytes of memory, no cloud. The subtitle licence isn't confirmed; synthetic dialogue is the fallback. The models will be public models that download and run locally. I'll pick small ones here, after freeing disk space.",
+      "estimated_duration_s": 19.68,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "The same checklist, each row ticked or left open as RESOURCES.md says",
+        "motion_claim": "The same checklist, each row ticked or left open as RESOURCES.md says",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "model access: open (no API key needed; model not chosen)"
+          },
+          {
+            "at": 0.3,
+            "event": "compute: ticked"
+          },
+          {
+            "at": 0.5,
+            "event": "data: open (licence not confirmed)"
+          },
+          {
+            "at": 0.7,
+            "event": "accounts: ticked (GitHub; no other account needed)"
+          }
+        ],
+        "manim": {
+          "class": "B18_Have"
+        }
+      },
+      "actual_duration_s": 20.46,
+      "audio_file": "mp3/beat-B18.mp3",
+      "speech_s": 20.46,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "29362acd987b3f30aad1d0e7d48e69e7a76bb43e15a0d5373f348262de93275b",
+      "render_duration_s": 20.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B18.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B19",
+      "script_beat": "V1",
+      "act_number": 4,
+      "speaker": "SKEPTIC",
+      "narration_text": "Last one. How will you know it worked?",
+      "estimated_duration_s": 3.0,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Act card 4: did it work?",
+        "motion_claim": "Act card 4: did it work?",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "act card 4 · DID IT WORK?"
+          }
+        ],
+        "manim": {
+          "class": "B19_Act4"
+        }
+      },
+      "actual_duration_s": 3.0,
+      "audio_file": "mp3/beat-B19.mp3",
+      "speech_s": 2.07,
+      "pad_lead_s": 0.93,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "bfb4acca7c6e1c20e0bd839197b4605b45a1b01363b4241ee9c8703fa407a731",
+      "render_duration_s": 3.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B19.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B20",
+      "script_beat": "V2",
+      "act_number": 4,
+      "speaker": "DEEPAK",
+      "narration_text": "I'll run four versions on the same lines. A dumb cut at the budget. A single \"shorten this\" call to the same model. CueGate without its meaning check. And full CueGate. Then I'll label a hundred shortened lines myself, without knowing which version wrote them.",
+      "estimated_duration_s": 14.52,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A scoreboard, four rows by two columns, every cell empty",
+        "motion_claim": "A scoreboard, four rows by two columns, every cell empty",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "column heads"
+          },
+          {
+            "at": 0.2,
+            "event": "rows land as each version is named"
+          },
+          {
+            "at": 0.8,
+            "event": "meaning column cells draw"
+          }
+        ],
+        "manim": {
+          "class": "B20_Board"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 13.85,
+      "audio_file": "mp3/beat-B20.mp3",
+      "speech_s": 13.85,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "65e1e24c6ce01ccf263048b30c5f392783c58a4aba12b1eeafda6289d892b30c",
+      "render_duration_s": 13.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B20.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B21",
+      "script_beat": "V3",
+      "act_number": 4,
+      "speaker": "DEEPAK",
+      "narration_text": "It worked if full CueGate ships zero rule breaks, and changes meaning less often than that single call. It failed if it changes meaning just as often, however clean the timing looks. And if it sends most lines back to a person, it saved nobody any time. I'll report that as a failure too.",
+      "estimated_duration_s": 17.42,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns: WORKED IF and FAILED IF",
+        "motion_claim": "Two columns: WORKED IF and FAILED IF",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "WORKED IF: zero rule breaks, less meaning change than one model call"
+          },
+          {
+            "at": 0.45,
+            "event": "FAILED IF: same meaning change, most lines sent back"
+          }
+        ],
+        "manim": {
+          "class": "B21_Verdict"
+        }
+      },
+      "actual_duration_s": 15.85,
+      "audio_file": "mp3/beat-B21.mp3",
+      "speech_s": 15.85,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "4411caa8aa744824585df2e97e27c845880fca68f384a8c302dd11987c0d47a1",
+      "render_duration_s": 15.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B21.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B22",
+      "script_beat": "V4a",
+      "act_number": 4,
+      "speaker": "SKEPTIC",
+      "narration_text": "And who checks the checker?",
+      "estimated_duration_s": 2.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A magnifying glass over the meaning check box",
+        "motion_claim": "A magnifying glass over the meaning check box",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "meaning check box; lens slides over it"
+          }
+        ],
+        "manim": {
+          "class": "B22_Lens"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B22.mp3",
+      "speech_s": 1.17,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 1.43,
+      "padded_sha256": "13bc18507535c6cd091f65db098d08bd55c4f42b55ba2f24b3d6f970340f11ee",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B22.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B23",
+      "script_beat": "V4b",
+      "act_number": 4,
+      "speaker": "DEEPAK",
+      "narration_text": "I'll count how often the meaning check waved through a line I marked as changed. That number goes in the report, even if it's ugly.",
+      "estimated_duration_s": 8.06,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A tally sheet with one empty total",
+        "motion_claim": "A tally sheet with one empty total",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "tally sheet"
+          },
+          {
+            "at": 0.55,
+            "event": "empty total"
+          },
+          {
+            "at": 0.8,
+            "event": "it goes into the report"
+          }
+        ],
+        "manim": {
+          "class": "B23_Tally"
+        },
+        "constructed_label": "CONSTRUCTED"
+      },
+      "actual_duration_s": 7.42,
+      "audio_file": "mp3/beat-B23.mp3",
+      "speech_s": 7.42,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "d46ea58f340d14c5adb64949085946abff1488c28e192d6be7089524a757da2f",
+      "render_duration_s": 7.458333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B23.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B24",
+      "script_beat": "V5a",
+      "act_number": 4,
+      "speaker": "SKEPTIC",
+      "narration_text": "You say \"will\" a lot.",
+      "estimated_duration_s": 2.6,
+      "voice": "af_bella",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two columns: EXISTS and WILL",
+        "motion_claim": "Two columns: EXISTS and WILL",
+        "show": [
+          {
+            "at": 0.05,
+            "event": "EXISTS and WILL heads"
+          }
+        ],
+        "manim": {
+          "class": "B24_Columns"
+        }
+      },
+      "actual_duration_s": 2.6,
+      "audio_file": "mp3/beat-B24.mp3",
+      "speech_s": 1.22,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 1.38,
+      "padded_sha256": "389394f9b64cde83849f7c3ff2d75c83a6d30c525acc38624d35962cdf014c79",
+      "render_duration_s": 2.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B24.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "B25",
+      "script_beat": "V5b",
+      "act_number": 4,
+      "speaker": "DEEPAK",
+      "narration_text": "Because most of it doesn't exist yet. Today there's the plan, the research, and that one dated Claude reply. No CueGate code runs. Everything else is \"will\", on purpose.",
+      "estimated_duration_s": 9.35,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell: one drawn picture on a cream stage per beat, labels beside the objects, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "EXISTS lists the dated items; WILL lists the rest",
+        "motion_claim": "EXISTS lists the dated items; WILL lists the rest",
+        "show": [
+          {
+            "at": 0.1,
+            "event": "EXISTS: the plan, the research, the Claude reply, each dated 14 Oct 2026"
+          },
+          {
+            "at": 0.55,
+            "event": "no CueGate code runs"
+          },
+          {
+            "at": 0.7,
+            "event": "WILL: ghost outlines of the parts"
+          }
+        ],
+        "manim": {
+          "class": "B25_Lists"
+        }
+      },
+      "actual_duration_s": 9.77,
+      "audio_file": "mp3/beat-B25.mp3",
+      "speech_s": 9.77,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 0.0,
+      "padded_sha256": "fc707093f8432957e3660d2b22cdd2256fe8c9c48c36e853af6a87d09157de03",
+      "render_duration_s": 9.791666666666666,
+      "build": {
+        "status": "MANIM",
+        "src": "manim/B25.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T15:22:52"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "script_beat": "OUT",
+      "act_number": 4,
+      "speaker": "DEEPAK",
+      "narration_text": "CueGate. Subtitles that fit the frame, or don't ship. I'm Deepak Kumaran.",
+      "estimated_duration_s": 4.87,
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "visual_intent": "Title card",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title CueGate and the narrator's name"
+          }
+        ],
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "CueGate",
+            "slug": "cuegate-film2",
+            "handle": "Deepak Kumaran T S",
+            "showMascot": false,
+            "subline": ""
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-23T20:15:32.278459+00:00"
+          }
+        }
+      },
+      "actual_duration_s": 5.99,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "speech_s": 4.99,
+      "pad_lead_s": 0.0,
+      "pad_tail_s": 1.0,
+      "padded_sha256": "3c82dca5ee5cfb7ad4fd288cb7390c9bdd9e7f2e246def6498100a0f53872a3b",
+      "render_duration_s": 6.0,
+      "build": {
+        "status": "VIDEO",
+        "src": "media/BOUT.mp4",
+        "filled_by": "remotion:ClaudeTitleOutro",
+        "at": "2026-11-23T15:22:52"
+      }
+    }
+  ]
+}
