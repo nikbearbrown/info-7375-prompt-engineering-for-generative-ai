@@ -1,6 +1,6 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.0, 2026-11-17.** Written before the filter, scorer, or tool server is built.
+**Version 1.1, 2026-11-25** (v1.0 was 2026-11-17). Written before the filter, scorer, or tool server is built. v1.1 adds supplement boards only. The filter rules, score, and threshold are unchanged from v1.0.
 
 - **Where it came from:** an interview on 2026-11-17. Claude gave the questions as one list with options and a recommendation for each, and I chose. The wording is Claude's draft from my answers, and I reviewed it before it was committed.
 - **Changes:** a rule, weight, or threshold changes only by a new version in "Version history", with the date, what was added, cut, or rejected, and its measured effect. This changelog style is borrowed from the instructor's Lectern collector.
@@ -93,6 +93,20 @@ Each kept posting gets a justification made of claims, one for each property: ro
 
 Counts are from the 2026-11-18 probe, 4,123 postings in all. The collection run will count again.
 
+### v1.1 supplement boards (2026-11-25)
+- **Why:** I labeled all 92 v1.0 postings "no" on 2026-11-24. A search of the other 4,010 v1.0 postings found no US, non-senior data job Riley could apply to. The closest, Veeva's entry-level programs, each say "Veeva does not provide sponsorship". With no "yes" label, recall cannot be measured, so v1.1 looks for boards that hold one.
+- **The probe (`probe/probe_v1_1.py`):** one GET per candidate board, to the same three public APIs. Every candidate is new: none was among the 116 boards probed on 2026-11-18. The list is in the script, committed before it ran. Unlike the v1.0 probe, it reads **full posting text**. It saves counts and matched titles, not posting text.
+- **The rule, fixed before any result is seen.** A posting is a *candidate* when all of these hold:
+  - the title has a role phrase, or "analyst" together with a data word (data, analytics, insights, reporting, BI, metrics). A first draft took any "analyst" title. Run on the v1.0 corpus as a code check, it flagged 16 postings, all finance, tax, compliance, or trading analysts, so the data-word test was added before the probe ran.
+  - the title has no seniority word (the R1 list)
+  - at least one location is in the US: a country field of US/USA/United States, a US state name, a ", ST" state code after a comma, or a US-remote phrase. A bare two-letter code with no comma no longer counts, which fixes the v1.0 probe's Israel "IL" false match.
+  - the text has an early-career signal ("entry level", "new grad", "recent graduate", "early career", "university graduate", "0-2 years", "1-2 years", "up to 2 years"), or its lowest stated required years is 2 or less
+  - the text has no refusal to sponsor (the R4 phrases, plus "does not provide sponsorship", "not able to sponsor", "cannot sponsor", "unable to provide sponsorship")
+- **Boards picked:** every board with at least one candidate, ranked by candidate count, up to 15 (one run's budget).
+- **Corpus:** those boards are collected as a second run, frozen beside the v1.0 run. The v1.0 run is not touched, so the 92 v1.0 labels stay valid. `config/corpus.json` names both runs.
+- **This supplement is picked to contain matches, using tests that overlap R1, R3, and R4.** Recall on it is therefore optimistic. Every number is reported for the v1.0 corpus, the supplement, and both together, and it describes these boards, not the job market.
+- **If no board has a candidate:** nothing is collected, and the v1.0 result stands: no posting on these boards is one Riley would apply to.
+
 - **Fields read from each posting:** id, title, location, department, full description text, and URL.
   - Greenhouse: `jobs?content=true`
   - Ashby: the job-board API
@@ -134,6 +148,8 @@ Counts are from the 2026-11-18 probe, 4,123 postings in all. The collection run 
   - the context given to Claude (title only vs full description)
 
   The metric is precision and recall of "keep", with counts.
+- **v1.1 supplement labels:** on the supplement boards only, Claude draws a seeded sample (same seed): every probe-rule candidate, every role-phrase title, 10 random bare-"analyst" titles, and 10 random others. Each stratum is split 2:1 into tuning and held-out, so the held-out set gets candidates too. As with the v1.0 labels, Claude drafts each label against Riley's profile and I review every one. The reject-audit verdicts stay mine alone.
 
 ## Version history
 - **v1.0 (2026-11-17, revised 2026-11-18 before it was committed):** first version, from the interview. On 2026-11-18, the boards were re-chosen by a fixed rule over a 116-board probe, raw responses became compressed, and the labeling sample was capped. Nothing measured yet.
+- **v1.1 (2026-11-25):** added the supplement-board rule ("v1.1 supplement boards") and its label sample, because all 92 v1.0 labels were "no". No filter rule, weight, or threshold changed. Nothing measured yet.
