@@ -1,0 +1,69 @@
+{
+ "ran_at": "2026-11-25T00:43:26Z",
+ "command": "python3 -m jobwatch.js3 held-out runs/2026-11-24-js3-corpus --sample labels/v0.1-sample.json --labels labels/hand-labels.json --variant variants/v0.2-experience-minimum.json --out reports/held-out",
+ "sample_sha256": "85452edcee2255299bd5e1a143d7c2df6c0ca513bf768447bc351a56f3aea4a9",
+ "labels_sha256": "4c600386e560ef348180b30785b77bf41981bb69654172fd24dcca7daac6d160",
+ "variant": {
+  "name": "v0.2",
+  "object": "the experience-minimum rule (FILTER.md v0.2): off in v0.1, 3 years in v0.2; the version label moves with it",
+  "chosen_by": "the student, 2026-11-24, from four options Claude Code wrote after the 50 development labels (FILTER.md, \"After the reject audit\")",
+  "set": {
+   "jobwatch.screen.EXPERIENCE_MINIMUM_YEARS": 3,
+   "jobwatch.screen.FILTER_VERSION": "v0.2"
+  }
+ },
+ "versions": {
+  "v0.1": {
+   "labelled": 30,
+   "cannot_tell": 4,
+   "decided": 26,
+   "matches": 18,
+   "false_exclusions": [],
+   "false_inclusions": [
+    "P17",
+    "P18",
+    "P27",
+    "P34",
+    "P41",
+    "P53",
+    "P55",
+    "P69"
+   ],
+   "unmet_requirements_cleared": [
+    "P17",
+    "P18",
+    "P34",
+    "P41",
+    "P53",
+    "P55",
+    "P69"
+   ],
+   "checks": {
+    "at least 90% of the Yes and No rows match": false,
+    "no more than one Yes rejected": true,
+    "no unmet requirement cleared": false
+   },
+   "passed": false
+  },
+  "v0.2": {
+   "labelled": 30,
+   "cannot_tell": 4,
+   "decided": 26,
+   "matches": 24,
+   "false_exclusions": [],
+   "false_inclusions": [
+    "P27",
+    "P53"
+   ],
+   "unmet_requirements_cleared": [
+    "P53"
+   ],
+   "checks": {
+    "at least 90% of the Yes and No rows match": true,
+    "no more than one Yes rejected": true,
+    "no unmet requirement cleared": false
+   },
+   "passed": false
+  }
+ }
+}
