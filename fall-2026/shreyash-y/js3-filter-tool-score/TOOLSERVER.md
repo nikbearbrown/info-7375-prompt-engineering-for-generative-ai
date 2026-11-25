@@ -2,7 +2,11 @@
 
 *Drafted by Claude Code on 2026-11-25 from the saved transcripts and the code. Every Claude response
 quoted here is one the CLI actually returned, with its date. The two trust decisions at the end of
-sections 2 and 3 are Shreyash's.*
+sections 2 and 3 are Shreyash's, in his words.*
+
+*The server scores with filter v1, the version it was evaluated and transcribed with. The agent's
+filter is now v1.1 (FILTER.md); pointing the server at v1.1 is one line (`filter-v1.json` in
+`js3/mcp_server.py`) and was not done, so the transcripts still describe the server that ran.*
 
 The capability on offer is **`score_posting`** (FILTER.md answer 13). It scores one posting the agent
 already collected against FILTER.md v1, and returns the verdict, each rule's outcome with exact
@@ -105,7 +109,7 @@ Two things the protocol did that the server did not expect:
 - Two clients on one server. Stdio allows only one.
 - A corpus file someone edited by hand.
 
-> **Shreyash's trust decision on my own server:** *(to be written by Shreyash)*
+> **Shreyash's trust decision on my own server** (pasted 2026-11-25, about 18:07 EST): I would trust it to check the written rules and show evidence for each result. I would not fully trust its final decision without checking the rejected jobs and closest calls.
 
 ## 3. Another server, evaluated the same way: `chrome-devtools-mcp`
 
@@ -165,4 +169,4 @@ apply. If Shreyash ever uses it to look at a page by hand, it should run isolate
 telemetry, update checks and CrUX off, `--allowedUrlPattern` limited to the board hosts, and no input
 tools.
 
-> **Shreyash's trust decision on chrome-devtools-mcp:** *(to be written by Shreyash)*
+> **Shreyash's trust decision on chrome-devtools-mcp** (pasted 2026-11-25, about 18:07 EST): I would not use it as my main tool. One page load connected to 51 hosts and exposed the full application form, which is more access than my agent needs just to read a job posting.

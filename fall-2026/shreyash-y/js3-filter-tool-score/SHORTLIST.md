@@ -96,12 +96,14 @@ evidence rules, so it is Shreyash's call (section 4).
 
 ## 4. Shreyash's decisions
 
+*Shreyash's labels and words, pasted into the session on 2026-11-25 at about 18:07 EST; Claude Code changed formatting only.*
+
 | # | Posting, claim | Code | Claude, with its quote | Shreyash's label and why |
 |---|---|---|---|---|
-| 1 | Growth `7696724003`, "It is not a Director, Staff, Principal, Manager or Lead role." | supported: the title has none of the five words | **contradicted**: "You will serve as a technical leader and liaison". "The posting describes the role as a technical leadership position, so it is effectively a lead role." | *(Shreyash)* |
-| 2 | Flows `8199437003`, "It asks for at least 2 of Alex's skills." | insufficient: only in the intro and the "Technologies we use" list, not under a requirements heading | **supported**: "React, TypeScript, JavaScript Python, Django, Celery". The intro also says "from the React canvas down to the Python services and APIs underneath". | *(Shreyash)* |
-| 3 | Flows `8199437003`, the seniority claim | supported | **insufficient**: the posting asks the hire to act "as a technical leader" and "never explicitly says the role is not a lead role" | *(Shreyash)* |
-| 4 | The evidence rules: should "full-time not stated" be an exception like follow-up B? | — | — | *(Shreyash)* |
+| 1 | Growth `7696724003`, "It is not a Director, Staff, Principal, Manager or Lead role." | supported: the title has none of the five words | **contradicted**: "You will serve as a technical leader and liaison". "The posting describes the role as a technical leadership position, so it is effectively a lead role." | **Supported.** "I agree with the code. Being a technical leader does not mean the job title is Lead Engineer. Senior engineers can also guide other engineers." |
+| 2 | Flows `8199437003`, "It asks for at least 2 of Alex's skills." | insufficient: only in the intro and the "Technologies we use" list, not under a requirements heading | **supported**: "React, TypeScript, JavaScript Python, Django, Celery". The intro also says "from the React canvas down to the Python services and APIs underneath". | **Insufficient.** "The ad mentions React and Python, but it does not clearly say that both are required skills. Mentioning a technology and asking for experience in it are two different things." |
+| 3 | Flows `8199437003`, the seniority claim | supported | **insufficient**: the posting asks the hire to act "as a technical leader" and "never explicitly says the role is not a lead role" | **Supported.** "I agree with the code. Acting as a technical leader is a responsibility, not a Lead job title. My exclusion rule is based on the job title." |
+| 4 | The evidence rules: should "full-time not stated" be an exception like follow-up B? | — | — | **Yes, make it an exception.** "If full-time is not stated, I want the job to pass this rule but mark employment type as "not stated." If the ad clearly says part-time, temporary, internship, unpaid or contract-only, reject it." (FILTER.md v1.1, B4) |
 
 **Claude disagreed with itself.** On the Growth posting, Claude labeled a "Technologies we use (not
 exhaustive)" list *insufficient* for skills. On Flows, it labeled the same kind of list *supported*.
@@ -110,3 +112,35 @@ exhaustive)" list *insufficient* for skills. On Flows, it labeled the same kind 
 (`results/claims-claude-run1-no-profile/`) was given the posting and the claims but not Alex's profile.
 Claude then said a claim about "Alex's skills" could not be checked ("it does not say which skills Alex
 has"), which was right. The second run added Alex's public profile (no contact details).
+
+**What the three labels settle.**
+
+- Shreyash sided with the code on all three. That makes the final labels **45 of 45**: the code's
+  42 that Claude agreed with, plus these 3.
+- So Claude's independent labels disagreed with the final labels on **3 of 45 claims**. Two of the
+  three read a technical-leader *responsibility* as a Lead *role*, which Shreyash's title-based
+  exclusion rule does not ask.
+
+**One thing his labels show** (Claude Code's reading, not a decision):
+
+- On Flows, Shreyash's *hand verdict* is yes ("Boston, engineering, React and Python"). His *claim
+  label* for "asks for at least 2 of Alex's skills" is insufficient.
+- Those two answers are consistent. A job can be worth Alex's time even when the posting does not
+  entail one of the reasons the agent gives for it. That is relevance and entailment again, this time
+  inside one person's labels.
+
+## 5. The shortlist under filter v1.1
+
+`results/shortlist-v1.1.{json,md}`; FILTER.md v1.1 adds A1, A2, A4 and the B4 exception.
+
+- **7 postings kept**, 5 of them open: Growth, Android/Kotlin, Conversational Products, Flows, and
+  Linear's Product Engineer.
+  - Recommendations is kept too, but it is closed, as is Test Frameworks.
+- **All 7 now answer "reaches Alex".** B4 removed the only must-have gap they had. Every quote was
+  checked (0 not found), and the full-time claim stays labeled *insufficient*, marked "not stated".
+- **The Android/Kotlin job still reaches Alex,** and Shreyash's hand label says it should not.
+  - It stays because he rejected A3, the change that would have removed it along with two jobs he
+    wants.
+  - Its skills claim is still labeled insufficient, but skills is not a must-have, so the abstention
+    rule does not catch it: the "opposite limit" of section 3, now live.
+  - `tests/test_js3_filter_v11.py` records it as a known false positive.

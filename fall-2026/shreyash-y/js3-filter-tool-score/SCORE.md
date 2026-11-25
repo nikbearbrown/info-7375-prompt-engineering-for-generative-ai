@@ -1,8 +1,8 @@
 # What moves the score (Chapter 9)
 
-*Drafted by Claude Code on 2026-11-25. Sections 1 and 2 are from the code and from runs made before
-any hand label existed. The columns that compare with Shreyash's held-out labels are filled in from
-`python3 -m js3.score` (results/score-v1.json) once those labels exist.*
+*Drafted by Claude Code on 2026-11-25. Sections 1 to 3 are from the code and from runs made before any
+hand label existed. Section 4 and the held-out column in section 2 compare with Shreyash's held-out
+labels, from `python3 -m js3.score` (`results/score-v1.json`).*
 
 The "score" here has two parts:
 
@@ -38,8 +38,13 @@ The "score" here has two parts:
 | Loop budgets: 6 boards, 12 requests, 120 s | | budgets.json | **Hand-set by Shreyash** (GATE.md, JS2) |
 | Per-request timeout 20 s, one retry for a timeout or 5xx | | jsagent/loop.py | The retry is Shreyash's (GATE.md section 5); **20 s was hand-set by Claude Code** (JS2) |
 
-**Fitted on labels:** none of these was fitted. Section 2 fits one number, the minimum skills, on the
-audit labels and tests it on the held-out set. Whether to adopt the result is Shreyash's call.
+**Fitted on labels:** none of these was fitted. Section 4 fits one number, the minimum skills, on the
+audit labels and tests it on the held-out set. Shreyash did not adopt it (FILTER.md v1.1, A5).
+
+**Added in v1.1, all hand-set by Shreyash after measuring (FILTER.md):** the title phrase "Product
+Engineer"; MySQL, PostgreSQL and Postgres counted as SQL; a one-state residence line as a limit; and
+"full-time not stated" as an evidence-rule exception. The state-code list that makes "TX" mean Texas
+is **hand-set by Claude Code** (the 50 postal codes).
 
 ## 2. One change to one object at a time
 
@@ -101,12 +106,12 @@ audit labels and tests it on the held-out set. Whether to adopt the result is Sh
 
 | Change | Postings kept in the corpus | Closest calls | Held-out agreement with Shreyash |
 |---|---|---|---|
-| F0 filter v1 as written | 5 | 44 | *(after labels)* |
-| F1 min skills 2 → 1 | 6 (+ Klaviyo "Software Engineer II - Recommendations") | 52 | *(after labels)* |
-| F2 min skills 2 → 3 | 5 (no change: all 5 kept name 3 skills) | 25 | *(after labels)* |
-| F3 + title phrase "Product Engineer" | 6 (+ Linear "Product Engineer") | 43 | *(after labels)* |
-| F4 max years 3 → 5 | 6 (+ Klaviyo "Senior Software Engineer - Profiles, Lists and Segments") | 62 | *(after labels)* |
-| F5 no Palantir `Dev` alias (JS2's reading) | 5 | 9 | *(after labels)* |
+| F0 filter v1 as written | 5 | 44 | 24 / 24 (audit 43 / 46) |
+| F1 min skills 2 → 1 | 6 (+ Klaviyo "Software Engineer II - Recommendations") | 52 | 24 / 24 (audit 44 / 46) |
+| F2 min skills 2 → 3 | 5 (no change: all 5 kept name 3 skills) | 25 | 24 / 24 (audit 43 / 46) |
+| F3 + title phrase "Product Engineer" | 6 (+ Linear "Product Engineer") | 43 | 24 / 24 (audit 44 / 46) |
+| F4 max years 3 → 5 | 6 (+ Klaviyo "Senior Software Engineer - Profiles, Lists and Segments") | 62 | 24 / 24 (audit 42 / 46: +1 false positive) |
+| F5 no Palantir `Dev` alias (JS2's reading) | 5 | 9 | 24 / 24 (audit 43 / 46) |
 | (measured too) drop Rule 2, department | 5 | 84 | — |
 
 - Four of these changes move **no** verdict in 789 postings.
@@ -133,5 +138,37 @@ audit labels and tests it on the held-out set. Whether to adopt the result is Sh
 
 ## 4. Against Shreyash's held-out labels
 
-*(Filled in from `results/score-v1.json` once `labels/hand-verdicts.jsonl` holds the 24 held-out
-answers.)*
+The labels are Shreyash's 24 held-out verdicts, frozen before this comparison: commit `667a2932`,
+sha256 `c678ec0e…`. Source: `python3 -m js3.score`, which writes `results/score-v1.json`.
+
+| | B | B2 | B3 | P | C | S | T | filter v1 | filter v1.1 |
+|---|---|---|---|---|---|---|---|---|---|
+| Agree with Shreyash | 24 | 24 | 24 | 24 | 24 | 21 (+3 invalid) | 24 | 24 | 24 |
+| Misses / false positives | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+
+**What the held-out set can and cannot show:**
+
+- **No change separated itself on these 24.** Every Claude condition and every one-entry filter change
+  agrees with Shreyash on all 24. The exception is S, whose 3 invalid answers count as invalid, not
+  wrong.
+  - That does not show the changes are harmless. These 24 postings do not sit where the changes act.
+    The 3 kept ones are clear fits, and the 21 rejects fail on location or seniority, which no change
+    touches.
+  - With every condition at 24 of 24, a real difference of a few postings would not show up here.
+- **The one change the held-out set did catch is A3**, "count a skill only where the ad asks for it".
+  - It was designed from the audit's false positive, and on the audit it looks better: 44 of 46
+    instead of 43.
+  - On the held-out set it is **worse: 22 of 24**. It drops Growth and Flows, which Shreyash labeled
+    yes.
+  - Shreyash rejected it for exactly that reason (FILTER.md v1.1). This is what the held-out set is
+    for: a change fitted to one mistake broke two cases it was never shown.
+- **The one number fitted on labels:**
+  - Rule 4's minimum, fitted on the audit labels, picks **1**: 44 of 46 against 43 for the hand-set 2.
+    The difference is one posting, Recommendations.
+  - On the held-out set, 1, 2 and 3 tie at 24 of 24, and 4 drops to 21.
+  - Shreyash kept 2 (A5 rejected). The miss that 1 would fix is fixed by A2 instead, for the reason
+    Shreyash gave ("MySQL and PostgreSQL should count towards Alex's SQL skill"), not by letting any
+    single skill through.
+  - A fitted number is only as good as the labels it was fitted on, and here that is one posting.
+- **Filter v1.1** agrees with Shreyash on 45 of 46 audit postings (v1: 43) and on 24 of 24 held-out.
+  It changes exactly 2 verdicts in the corpus.
