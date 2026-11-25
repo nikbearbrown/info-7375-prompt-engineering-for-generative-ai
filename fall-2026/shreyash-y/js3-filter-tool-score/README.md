@@ -127,6 +127,7 @@ postings, shortened.
 | 17:57 | A bug found by Shreyash's note on posting 8 (curly apostrophe), fixed test-first | 0 filter results changed | `evidence/apostrophe-*` |
 | 18:07 | **Shreyash's v1.1 decisions** after measuring | adopt A1, A2, A4, B4; reject A3, A5 | FILTER.md "Version 1.1" |
 | 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46; held-out 24/24 | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
+| by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
 
 ## Folder map
 
@@ -174,7 +175,9 @@ postings, shortened.
 *Drafted by Claude Code from the files. Shreyash signed it in the session on 2026-11-25 at 18:21 EST,
 typing "sign shreyash yadav 26th november 2026", and corrected the date at 18:28 EST ("sorry its 25th
 november"). He did not change the text and did not add a sentence on what he checked himself, so the
-How line states only what the files show.*
+How line states only what the files show. After signing, at 18:30 EST, he ran the full test suite himself
+(218, OK) and the hand-verdict hash check (`evidence/commands-run-by-shreyash-2026-11-25.txt`); the signed
+text was not changed for that.*
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
