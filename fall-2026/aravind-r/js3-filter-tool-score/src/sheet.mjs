@@ -33,5 +33,12 @@ export class Sheet {
   col(name) { const i = this.header.indexOf(name); if (i < 0) throw new Error(`no column ${name}`); return i; }
   get(row, name) { return unquote(row.cells[this.col(name)] ?? '').trim(); }
   set(row, name, value) { const i = this.col(name); while (row.cells.length <= i) row.cells.push(''); row.cells[i] = quote(value); }
+  has(name) { return this.header.includes(name); }
+  // Adds an empty column at the end of every row (header gets the name). Existing cells are untouched.
+  addColumn(name) {
+    if (this.has(name)) return;
+    this.doc.lines[0].cells.push(quote(name)); this.header.push(name);
+    for (const r of this.rows) { while (r.cells.length < this.header.length - 1) r.cells.push(''); r.cells.push(''); }
+  }
   toString() { return serialize(this.doc); }
 }

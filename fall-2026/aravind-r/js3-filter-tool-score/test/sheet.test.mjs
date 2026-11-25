@@ -29,3 +29,15 @@ test('judge-audit.mjs stays blind: it never reads the key, results, candidates, 
   for (const s of ['key.json', 'results.jsonl', 'false-friend', 'sample.json', 'RESULTS', 'strata', 'score', 'decision', 'components']) assert.ok(!src.includes(s), `judge-audit.mjs mentions ${s}`);
   assert.ok(!readdirSync(join(ROOT, 'tools')).includes('judge-audit.test.mjs'));
 });
+
+test('addColumn appends an empty column and leaves every existing cell byte-identical', () => {
+  const text = 'id,title,my_verdict,my_note\n1,"a, b",relevant,"x ""y"""\n2,c,,\n';
+  const sh = new Sheet(text);
+  sh.addColumn('first_pass_verdict');
+  assert.equal(sh.toString(), 'id,title,my_verdict,my_note,first_pass_verdict\n1,"a, b",relevant,"x ""y""",\n2,c,,,\n');
+  sh.set(sh.rows[0], 'first_pass_verdict', 'relevant');
+  sh.set(sh.rows[0], 'my_verdict', 'not_relevant');
+  assert.deepEqual(parseCsv(sh.toString())[0], { id: '1', title: 'a, b', my_verdict: 'not_relevant', my_note: 'x "y"', first_pass_verdict: 'relevant' });
+  sh.addColumn('first_pass_verdict'); // idempotent
+  assert.equal(sh.header.filter(h => h === 'first_pass_verdict').length, 1);
+});
