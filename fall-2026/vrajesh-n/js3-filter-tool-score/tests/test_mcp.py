@@ -15,8 +15,8 @@ ROOT = Path(__file__).resolve().parent.parent
 class Server:
     """Starts the real server as a subprocess and talks to it over stdio."""
 
-    def __init__(self, log=None):
-        env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    def __init__(self, log=None, extra_env=None):
+        env = dict(os.environ, PYTHONIOENCODING="utf-8", **(extra_env or {}))
         if log:
             env["EARLYBIRD_MCP_LOG"] = str(log)
         self.p = subprocess.Popen([sys.executable, "-m", "earlybird.mcp_server"], cwd=ROOT, env=env,
@@ -232,6 +232,32 @@ class NetworkGuard(unittest.TestCase):
     def test_every_connect_path_is_refused(self):
         r = subprocess.run([sys.executable, "-c", self.CODE], cwd=ROOT, capture_output=True, text=True, timeout=30)
         self.assertEqual(r.stdout.strip(), "connect:refused connect_ex:refused create_connection:refused", r.stderr)
+
+
+class ResultVariant(unittest.TestCase):
+    """The one change measured in REPORT-one-change.md: put each claim's statement in the tool result.
+    Default (A) leaves it out, as the server did when Claude Code read it; EARLYBIRD_INCLUDE_STATEMENT=1 (B) adds it."""
+
+    def claims_for(self, extra_env):
+        board, pid = a_real_posting()
+        s = Server(extra_env=extra_env)
+        try:
+            s.handshake()
+            r = s.request("tools/call", {"name": "score_posting", "arguments": {"posting_id": pid, "board": board}})
+            return json.loads(r["result"]["content"][0]["text"])["claims"]
+        finally:
+            s.close()
+
+    def test_default_has_no_statement(self):
+        for c in self.claims_for(None):
+            self.assertNotIn("statement", c)
+
+    def test_variant_b_adds_the_statement_and_changes_nothing_else(self):
+        a, b = self.claims_for(None), self.claims_for({"EARLYBIRD_INCLUDE_STATEMENT": "1"})
+        self.assertEqual(len(a), len(b))
+        for ca, cb in zip(a, b):
+            self.assertTrue(cb["statement"])
+            self.assertEqual({k: v for k, v in cb.items() if k != "statement"}, ca)
 
 
 if __name__ == "__main__":

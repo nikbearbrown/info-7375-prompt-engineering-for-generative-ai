@@ -62,6 +62,8 @@ class Server:
     def __init__(self, log_path=None):
         self.log = open(log_path, "a", encoding="utf-8") if log_path else None
         self.index = None
+        # The one change measured in REPORT-one-change.md (variant B): include each claim's statement in the result.
+        self.include_statement = os.environ.get("EARLYBIRD_INCLUDE_STATEMENT") == "1"
         self.resume = load_resume(ROOT / "data/resume/rohan-desai.example.json")
 
     # --- message log (both directions) --------------------------------
@@ -100,7 +102,8 @@ class Server:
         v = rule.judge(p, self.resume)
         body = {"posting_id": p["id"], "board": b, "title": p["title"], "location": p["location"], "url": p["url"],
                 "verdict": v["verdict"], "failed_check": v["failed_check"], "justification": v["justification"],
-                "claims": [{k: c[k] for k in ("claim", "label", "quote", "why")} for c in claims.label_claims(p, self.resume)],
+                "claims": [{k: c[k] for k in (("claim", "statement") if self.include_statement else ("claim",))
+                            + ("label", "quote", "why")} for c in claims.label_claims(p, self.resume)],
                 "filter_version": "v2", "persona": "rohan-desai (fictional)", "source": "local snapshot 2026-11-01"}
         return json.dumps(body, ensure_ascii=False), False
 
