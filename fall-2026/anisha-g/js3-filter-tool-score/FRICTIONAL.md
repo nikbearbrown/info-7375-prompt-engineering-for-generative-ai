@@ -57,6 +57,8 @@ The shortlist went from 9 to 8. **Unresolved:** tool transcripts and the E4 runs
 
 Claude asked me how the verdicts were made. My answer: they're mine, and the mismatches are copy-paste slips. I re-judged those 5 in a separate file (`labels/hand_corrections.jsonl`); the originals stay frozen, and both are reported.
 
+**3:39–3:41 pm: The re-judge.** All 5 verdicts were the same as before (5 × n), with reasons now written for the right posting. No number changed.
+
 **~2:53 pm: What the audit showed.**
 - 0 of 30 random rejects wrong (Wilson 0–11.4%), but the random sample is mostly sales and engineering jobs.
 - **10 of the 11 keeps were "n" for me**, for reasons the filter can't see: location, internship graduation windows, FP&A finance roles, "exclusive of internships".

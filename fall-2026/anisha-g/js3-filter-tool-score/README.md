@@ -47,7 +47,8 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 | `d6a5279`, `df3d67f` | 14:55 | Server description fixed after my own evaluation; run 5 (3 sessions) |
 | `7c66429` → `7658ac6` | 14:58–14:59 | Filter v1.2 (R5 US-only, my decision): tests first (`logs/08`), then code (`logs/09`, 78/78) |
 | `b2e2721` | 15:02 | Independent check, 9/9 PASS (`logs/41`) |
-| *(final)* | | Write-ups; my 5 re-judged items; sign-off. The final hash is in Canvas |
+| *(re-judge)* | 15:39–15:41 | My 5 re-judged items: same verdicts, corrected reasons; no number changed |
+| *(final)* | | Sign-off. The final hash is in Canvas |
 
 ## Where each requirement is
 | Requirement | File |

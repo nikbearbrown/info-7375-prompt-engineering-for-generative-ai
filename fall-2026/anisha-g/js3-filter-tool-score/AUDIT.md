@@ -17,6 +17,7 @@
   - I judged all 76 myself, 14:27–14:51, against my rule in `audit/AUDIT_RULE.md`, written before judging: "is this posting worth Nadia's time?", answered y / n / ?.
   - Every answer has a reason. My verdicts were frozen by hash (`labels/hand_verdicts.sha256`, commit `474e2d5`) **before** I compared them with anything.
 - **Copy slips:** 5 reasons were copy-paste slips. Items 7, 8, 22 and 23 carry the reason of a neighbouring posting, and item 65 is a placeholder. I re-judged those 5 in a separate file (`labels/hand_corrections.jsonl`, `python3 -m js3.judge --redo 7,8,22,23,65`). Both versions are reported. The originals were never edited.
+- **Result of the re-judge (15:39–15:41):** all 5 verdicts came out the same as the originals (5 × n). Only the reasons changed, now written for the right posting. Every number in this folder is the same under the original and the corrected verdicts (`out/report_original.md` = `out/report_corrected.md` in every table).
 
 ## 3. Results: how many the filter got wrong
 "Wrong" means my verdict disagrees with the filter: a **reject I marked y**, or a **keep I marked n**. Intervals are **Wilson 95% on this sample**.
