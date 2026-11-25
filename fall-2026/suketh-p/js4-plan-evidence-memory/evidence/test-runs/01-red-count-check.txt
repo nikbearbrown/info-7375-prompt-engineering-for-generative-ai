@@ -1,0 +1,153 @@
+RED: the count-check tests and fixtures, before any change to checks/independent_check.py
+Run by Claude Code at 2026-11-25T16:45:55Z, Python 3.12.7, from the JS4 folder:
+  python3 -B -W error -m unittest tests.test_count_check -v
+
+test_99_in_the_summary_is_rejected (tests.test_count_check.CountFixtureTest.test_99_in_the_summary_is_rejected) ... FAIL
+test_every_fixture_file_is_labelled (tests.test_count_check.CountFixtureTest.test_every_fixture_file_is_labelled) ... ok
+test_the_fixture_body_holds_exactly_the_keys_1_to_42 (tests.test_count_check.CountFixtureTest.test_the_fixture_body_holds_exactly_the_keys_1_to_42) ... ok
+test_the_fixture_trace_records_the_body_hash_and_42 (tests.test_count_check.CountFixtureTest.test_the_fixture_trace_records_the_body_hash_and_42) ... ok
+test_the_generator_rebuilds_the_committed_fixtures (tests.test_count_check.CountFixtureTest.test_the_generator_rebuilds_the_committed_fixtures) ... ok
+test_the_planted_fixture_differs_from_the_clean_one_only_in_the_summary (tests.test_count_check.CountFixtureTest.test_the_planted_fixture_differs_from_the_clean_one_only_in_the_summary) ... ok
+test_the_recount_of_the_fixture_is_42_and_the_check_passes (tests.test_count_check.CountFixtureTest.test_the_recount_of_the_fixture_is_42_and_the_check_passes) ... FAIL
+test_a_consistent_run_passes_and_says_the_state_was_not_checked (tests.test_count_check.CountOnlyModeTest.test_a_consistent_run_passes_and_says_the_state_was_not_checked) ... FAIL
+test_a_count_shown_in_results_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_results_md_that_differs_is_flagged) ... FAIL
+test_a_count_shown_in_trace_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_trace_md_that_differs_is_flagged) ... FAIL
+test_a_repeated_key_is_counted_once (tests.test_count_check.CountOnlyModeTest.test_a_repeated_key_is_counted_once) ... FAIL
+test_a_trace_count_that_differs_from_the_raw_body_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_trace_count_that_differs_from_the_raw_body_is_flagged) ... FAIL
+test_an_ashby_board_is_counted_by_job_url (tests.test_count_check.CountOnlyModeTest.test_an_ashby_board_is_counted_by_job_url) ... FAIL
+test_giving_only_one_state_file_is_a_usage_error (tests.test_count_check.CountOnlyModeTest.test_giving_only_one_state_file_is_a_usage_error) ... ok
+test_the_checker_imports_only_the_standard_library (tests.test_count_check.IndependenceTest.test_the_checker_imports_only_the_standard_library) ... ok
+test_the_checker_never_imports_jobwatch_or_imports_dynamically (tests.test_count_check.IndependenceTest.test_the_checker_never_imports_jobwatch_or_imports_dynamically) ... ok
+test_the_nov_24_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_24_capture_passes_the_count_check) ... FAIL
+test_the_nov_8_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_8_capture_passes_the_count_check) ... FAIL
+
+======================================================================
+FAIL: test_99_in_the_summary_is_rejected (tests.test_count_check.CountFixtureTest.test_99_in_the_summary_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 101, in test_99_in_the_summary_is_rejected
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_the_recount_of_the_fixture_is_42_and_the_check_passes (tests.test_count_check.CountFixtureTest.test_the_recount_of_the_fixture_is_42_and_the_check_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 95, in test_the_recount_of_the_fixture_is_42_and_the_check_passes
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_a_consistent_run_passes_and_says_the_state_was_not_checked (tests.test_count_check.CountOnlyModeTest.test_a_consistent_run_passes_and_says_the_state_was_not_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 174, in test_a_consistent_run_passes_and_says_the_state_was_not_checked
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_a_count_shown_in_results_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_results_md_that_differs_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 188, in test_a_count_shown_in_results_md_that_differs_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_a_count_shown_in_trace_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_trace_md_that_differs_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 195, in test_a_count_shown_in_trace_md_that_differs_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_a_repeated_key_is_counted_once (tests.test_count_check.CountOnlyModeTest.test_a_repeated_key_is_counted_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 201, in test_a_repeated_key_is_counted_once
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_a_trace_count_that_differs_from_the_raw_body_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_trace_count_that_differs_from_the_raw_body_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 182, in test_a_trace_count_that_differs_from_the_raw_body_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_an_ashby_board_is_counted_by_job_url (tests.test_count_check.CountOnlyModeTest.test_an_ashby_board_is_counted_by_job_url)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 210, in test_an_ashby_board_is_counted_by_job_url
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_the_nov_24_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_24_capture_passes_the_count_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 234, in test_the_nov_24_capture_passes_the_count_check
+    self.check_capture("2026-11-24-js3-corpus",
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 224, in check_capture
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+======================================================================
+FAIL: test_the_nov_8_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_8_capture_passes_the_count_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 230, in test_the_nov_8_capture_passes_the_count_check
+    self.check_capture("2026-11-08-normal-1",
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_count_check.py", line 224, in check_capture
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] --state-before STATE_BEFORE --state-after
+                            STATE_AFTER
+                            run_dir
+independent_check.py: error: the following arguments are required: --state-before, --state-after
+
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.257s
+
+FAILED (failures=10)
+
+exit code: 1
