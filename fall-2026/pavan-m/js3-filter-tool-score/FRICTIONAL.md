@@ -82,3 +82,6 @@ Entries 8–15 are headed "November 23, 2026", but the commits for that work hap
 
 ## Entry 21 — November 25, 2026: README and SOURCES
 Signed the README sign-off; kept all eight "Not checked" items. Fixed a wrong reference Claude had drafted in the README's "What ran" table (pointed to a non-existent FILTER.md section; now audit/comparison_2026-11-23.txt). Wrote SOURCES.md, including the mistakes Claude made during JS3 that I caught.
+
+## Entry 22 — November 25, 2026: Fresh-clone test
+Cloned the class repo fresh into /tmp and followed my README: 69 tests pass; FILTER v1.1 on run 2 gives KEEP 22; my MCP client completes the handshake and score_posting call from the clone.
