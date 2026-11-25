@@ -33,6 +33,7 @@ import job_filter as J
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_RESULTS = HERE / "runs" / "filter-v1.1-2026-11-18T212545Z" / "results.json"
+SERVED_VERSION = "1.1"  # see served_rules()
 TRANSCRIPT_DIR = HERE / "mcp" / "transcripts"
 SERVER_INFO = {"name": "yash-js3-job-filter", "version": "1.0.0"}
 PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")  # newest first
@@ -175,6 +176,12 @@ def search_saved_postings(saved, args):
                       "decision": r["decision"], "score": r["score"],
                       "reasons": r["hard_exclusions"] or r["review_reasons"], "url": r["url"]} for r in rows[:limit]],
     }
+
+
+def served_rules():
+    """The server serves FILTER.md v1.1: the version it was evaluated and recorded with.
+    Serving v1.2 would be a change to the server, needing its own evaluation and transcripts."""
+    return J.load_rules(J.rules_dir_for(SERVED_VERSION))
 
 
 def load_saved(results_path):
@@ -322,7 +329,7 @@ def main(argv=None):
     ap.add_argument("--results", default=str(DEFAULT_RESULTS))
     ap.add_argument("--no-transcript", action="store_true")
     args = ap.parse_args(argv)
-    server = Server(J.load_rules(), load_saved(args.results))
+    server = Server(served_rules(), load_saved(args.results))
     transcript = None if args.no_transcript else Transcript()
     if transcript:
         print(f"transcript: {transcript.path.relative_to(HERE)}", file=sys.stderr)

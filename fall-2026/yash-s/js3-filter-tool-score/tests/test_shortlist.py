@@ -1,7 +1,7 @@
 """The claim checker (FILTER.md section 5) and the audit report helpers. CONSTRUCTED postings."""
 import unittest
 
-from helpers import J, posting, rules
+from helpers import J, posting, rules, rules_v11
 import audit_report as A
 import shortlist as S
 
@@ -81,12 +81,13 @@ class AuditReport(unittest.TestCase):
                          "in review, should have been rejected")
 
     def test_removing_a_false_friend_can_change_the_decision(self):
+        # The audit sample comes from the v1.1 run, so audit_report.py re-decides with the v1.1 rules.
         p = posting(title="Security Engineer, Agent Security", body="<p>Secure our agentic systems.</p><p>Python and AWS.</p>")
-        r = J.evaluate(p, rules())
+        r = J.evaluate(p, rules_v11())
         self.assertEqual((r["score"], r["decision"]), (65, "review"))
-        fx = A.false_friend_effect({"FALSE_FRIEND_WORD": "agentic systems"}, r, p, rules())
+        fx = A.false_friend_effect({"FALSE_FRIEND_WORD": "agentic systems"}, r, p, rules_v11())
         self.assertEqual((fx["score_after"], fx["decision_after"], fx["effect"]), (35, "rejected", "changes the decision"))
-        self.assertEqual(A.false_friend_effect({"FALSE_FRIEND_WORD": "AI"}, r, p, rules())["effect"], "nothing to remove")
+        self.assertEqual(A.false_friend_effect({"FALSE_FRIEND_WORD": "AI"}, r, p, rules_v11())["effect"], "nothing to remove")
 
 
 if __name__ == "__main__":

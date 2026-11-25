@@ -150,7 +150,7 @@ def main(argv=None):
     ff_rows = [r for r in rows if r["FALSE_FRIEND_WORD"].strip()]
     if ff_rows:
         persona, _ = P.load_persona(args.js2)
-        rules = J.load_rules(persona=persona)
+        rules = J.load_rules(J.rules_dir_for(meta["filter_version"]), persona=persona)  # the run's own version
         by_key = {(p["board"], p["id"]): p for p in P.load_saved_postings(args.js2)[0]}
         L += ["", "## False friends I named", "",
               "Each phrase is removed from the rules for that one posting and the posting is decided again, "

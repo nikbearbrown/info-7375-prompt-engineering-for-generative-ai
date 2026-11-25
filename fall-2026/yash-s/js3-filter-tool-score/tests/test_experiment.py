@@ -1,8 +1,9 @@
-"""One change to one object at a time, and how a flip is judged. CONSTRUCTED postings."""
+"""One change to one object at a time, and how a flip is judged. CONSTRUCTED postings.
+The changes are measured against the FILTER.md v1.1 baseline, so these tests use the archived v1.1 rules."""
 import json
 import unittest
 
-from helpers import ROOT, evaluate, rules
+from helpers import ROOT, evaluate, rules_v11 as rules
 import experiment as X
 
 ONE_TOPIC = "<p>You will build data pipelines.</p><p>Python.</p>"  # one topic, one skill, no year count
@@ -29,13 +30,13 @@ class OneChange(unittest.TestCase):
 
     def test_threshold_55_moves_a_55_point_posting_from_rejected_to_review(self):
         kw = dict(title="Software Engineer, Payments", body=ONE_TOPIC)
-        base = evaluate(**kw)
+        base = evaluate(rules=rules(), **kw)
         self.assertEqual((base["score"], base["decision"], base["decision_step"]), (55, "rejected", 2))
         self.assertEqual(evaluate(rules=X.apply_change(rules(), X1), **kw)["decision"], "review")
 
     def test_two_topic_rule_turns_a_one_topic_related_title_into_no_role(self):
         kw = dict(title="Software Engineer, Payments", body=ONE_TOPIC)
-        self.assertEqual(evaluate(**kw)["role"], "related")
+        self.assertEqual(evaluate(rules=rules(), **kw)["role"], "related")
         changed = evaluate(rules=X.apply_change(rules(), X2), **kw)
         self.assertEqual((changed["role"], changed["decision"]), ("none", "rejected"))
 

@@ -193,7 +193,8 @@ CSV_FIELDS = ["list", "rank", "board", "posting_id", "title", "score", "claim_id
 def build(run, js2):
     results = {(r["board"], str(r["id"])): r for r in json.loads((run / "results.json").read_text(encoding="utf-8"))}
     persona, _ = P.load_persona(js2)
-    rules = J.load_rules(persona=persona)
+    version = json.loads((run / "summary.json").read_text(encoding="utf-8"))["filter_version"]
+    rules = J.load_rules(J.rules_dir_for(version), persona=persona)  # the run's own FILTER.md version
     by_key = {(p["board"], p["id"]): p for p in P.load_saved_postings(js2)[0]}
     lists = [("confirmed", J.confirmed_shortlist(list(results.values()))),
              ("review-candidate", J.review_candidates(list(results.values()), rules)),

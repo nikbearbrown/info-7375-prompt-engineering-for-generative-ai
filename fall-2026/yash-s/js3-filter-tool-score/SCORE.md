@@ -4,7 +4,7 @@ JS3 Step 2.4. This file covers three things: where every number in the scorer ca
 
 ## 1. Where every number came from
 
-The scorer is FILTER.md v1.1 as code (`job_filter.py`), with its numbers in `rules/filter_rules.json`. **None of these numbers was fitted to labels.** Each one is hand-set, inherited, or taken from the fictional résumé. FILTER.md section 10 records the same origins. This table adds where each number lives and whether JS3 measured it.
+The scorer is FILTER.md as code (`job_filter.py`), with its numbers in `rules/filter_rules.json` (v1.2; v1.1 is kept in `rules/v1.1/`). **No number was fitted by an algorithm.** Each one is hand-set, inherited, or taken from the fictional résumé. One value was changed by my decision after measuring it on my labels (X2). FILTER.md section 10 records the same origins. This table adds where each number lives and whether JS3 measured it.
 
 | Number | Value | Where it lives | Origin | Measured in JS3? |
 |---|---|---|---|---|
@@ -13,8 +13,8 @@ The scorer is FILTER.md v1.1 as code (`job_filter.py`), with its numbers in `rul
 | Skill points (one / two or more skills) | 10 / 20 | `scoring.skill_points` | Hand-set | No |
 | US location points | 15 | `scoring.us_location_points` | Hand-set | No |
 | Experience points | 10 | `scoring.experience_compatible_points` | Hand-set | No |
-| Threshold | 65 | `scoring.threshold` | Hand-set, kept fixed before results (FILTER.md section 4) | **Yes**: change X1 tests 55 |
-| Topics a related title needs | 1 | code default for `titles.related_min_topics` | Hand-set (FILTER.md Rule 1, Step 4) | **Yes**: change X2 tests 2 |
+| Threshold | 65 | `scoring.threshold` | Hand-set, kept fixed before results (FILTER.md section 4) | **Yes**: X1 tested 55; rejected |
+| Topic categories a related title needs | **2** in v1.2 (1 in v1.1) | `titles.related_min_topics` | Hand-set in v1.1. Changed to 2 by my decision after measuring (X2): chosen from my tuning labels, checked on my held-out labels | **Yes**: X2, adopted |
 | Near-threshold band | 55–75 | `scoring.near_threshold_range` | Hand-set; only chooses audit postings | No |
 | Screening cutoff | 2 years | `experience.screening_cutoff_years` | Inherited from my JS1 relevance decisions | No |
 | Priya's experience | 8 months | `experience.priya_experience_months` | Fictional résumé | n/a |
@@ -49,7 +49,12 @@ The full method and results are in [`experiments/REPORT.md`](experiments/REPORT.
 | X2: a related title needs 2 topics, not 1 | the filter file (Rule 1) | 8, all review → rejected | 2 improved (rows 55, 60), 1 regressed (row 59) | all 5 remaining: **5 improved, 0 regressed**. Every one of the 8 flips is labeled, so overall it is **a count: 7 better, 1 worse**. The review queue would shrink from 63 to 55 |
 | X3: treat "may also have" headings as preferred | the filter file (Rule 8) | 0 | none | none: it changes no decision |
 
-My 20 held-out labels were committed (`810de710`) before the report was run. No change is adopted until I decide in [`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md). These results describe the saved postings only, not postings collected later.
+My 20 held-out labels were committed (`810de710`) before the report was run, and the report (`f88d1922`) before my decisions. My decisions ([`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md)) were:
+- **X1 rejected for now.** It is inconclusive, and it increases the review workload.
+- **X2 adopted, as FILTER.md v1.2.** The one regression is documented in FILTER.md Rule 1.
+- **X3 not adopted.** It changes no saved decision.
+
+The v1.2 run (`runs/filter-v1.2-2026-11-25T203343Z/`) changes exactly the 8 decisions X2 predicted, and no others. These results describe the saved postings only, not postings collected later.
 
 ## 3. What persistence is not proof of
 

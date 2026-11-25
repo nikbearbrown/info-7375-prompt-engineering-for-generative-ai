@@ -41,6 +41,13 @@ def rules(boilerplate=None):
     return r
 
 
+def rules_v11():
+    """The archived FILTER.md v1.1 rules (rules/v1.1/), for tests of the v1.1 run and its experiments."""
+    r = copy.copy(J.load_rules(J.rules_dir_for("1.1"), persona=persona()))
+    r["approved_boilerplate"] = {}
+    return r
+
+
 # A body that earns full topic and skill points and says no experience is required.
 GOOD_BODY = ("<p>You will build data pipelines and machine learning models.</p>"
              "<ul><li>Write Python and SQL on AWS.</li></ul>"

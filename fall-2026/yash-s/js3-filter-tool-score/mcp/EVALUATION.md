@@ -21,9 +21,11 @@ Every claim below points to a transcript, a test, or a line of source. All trans
 | `transcripts/server-session-*.jsonl` (the rest) | My server's own record of each scripted session above. |
 
 **Replay check:** `python3 mcp/replay.py <server-session file>` sends every recorded client line to the current server code and compares the replies.
-- Session 2, the scripted session and the after-fix probe all come back identical.
-- Session 1 differs only in the two descriptions corrected below.
-- The before-fix probe differs only on the deep-nesting line: no reply was recorded then, and the server now returns a parse error.
+- **Session 2** comes back identical, every reply.
+- **The four earlier sessions** (session 1, the scripted session and both robustness probes) were recorded before the two descriptions were corrected at 04:26 UTC. Only their `initialize` and `tools/list` replies differ, and those differences are exactly the corrected wording. Every tool result and every error reply is identical.
+- **The before-fix probe** also differs on the deep-nesting line: no reply was recorded then, and the server now returns a parse error.
+
+**Which filter the server serves:** FILTER.md **v1.1**, pinned in `mcp_server.py` (`served_rules`). That is the version it was evaluated and recorded with. When I adopted v1.2 on 2026-11-25, the server did not change, and the replays above confirm it: every tool result is still identical. Serving v1.2 would be a separate change to the server, and it would need its own evaluation and transcripts.
 
 ## 1. My server: `yash-js3-job-filter` 1.0.0
 

@@ -170,15 +170,25 @@ def score_flip(flip, truth):
 
 # ----------------------------------------------------------------- commands
 
+def baseline_rules(persona):
+    """The rules the baseline run was made with (FILTER.md v1.1), checked against the hashes
+    that run recorded. The current rules may be a later version."""
+    summary = json.loads((BASE_RUN / "summary.json").read_text(encoding="utf-8"))
+    folder = J.rules_dir_for(summary["filter_version"])
+    for name, want in summary["rules_files"].items():
+        if P.sha256(folder / name) != want:
+            raise SystemExit(f"{folder.name}/{name} is not the file the baseline run used; stop")
+    return J.load_rules(folder, persona=persona)
+
+
 def cmd_flips(args):
     all_postings, _ = P.load_saved_postings(args.js2)
     persona, _ = P.load_persona(args.js2)
-    rules = J.load_rules(persona=persona)
+    rules = baseline_rules(persona)
     base = evaluate_all(all_postings, rules)
     saved = {key(r): r for r in json.loads((BASE_RUN / "results.json").read_text(encoding="utf-8"))}
-    same = all(base[k]["decision"] == saved[k]["decision"] and base[k]["score"] == saved[k]["score"] for k in saved)
-    if not same or set(saved) != set(base):
-        print("The unchanged rules no longer reproduce the saved first run. Stop: compare before measuring.")
+    if set(saved) != set(base) or any(base[k] != saved[k] for k in saved):  # every field of every posting
+        print("The baseline rules no longer reproduce the saved first run. Stop: compare before measuring.")
         return 2
     cand = load_candidates()
     out = {"baseline_run": BASE_RUN.name, "baseline_reproduced_exactly": True,

@@ -38,6 +38,7 @@ Claude Code (Opus 5.5, in VS Code) worked with me from 2026-11-18 to 2026-11-25.
 - The drafts of `README.md`, `SCORE.md`, `mcp/EVALUATION.md`, `experiments/RULE-CHANGE-LOG.md` and `audit/HOW-TO-LABEL.md`.
 - The three candidate changes in `experiments/candidates.json`.
 - The final wording of FILTER.md v1.1, edited from decisions I approved (FILTER.md section 11 says so).
+- The FILTER.md v1.2 wording and the v1.2 rules file, edited on 2026-11-25 from my decisions in `experiments/RULE-CHANGE-LOG.md`. Claude also made the byte-for-byte v1.1 archive in `rules/v1.1/`.
 - The preliminary read-only analysis of 139 postings on 2026-11-18.
 
 **Mine:**
@@ -45,7 +46,8 @@ Claude Code (Opus 5.5, in VS Code) worked with me from 2026-11-18 to 2026-11-25.
 - My FRICTIONAL entries.
 - The 60 audit verdicts, reasons and false-friend words (`e926b963`).
 - The 20 blind held-out verdicts and reasons (`810de710`). Claude checked their facts against the posting texts and flagged one note (row 17). I made the fix.
-- **Still to do:** both trust decisions, every rule-change decision, the sign-off and the driver's seat.
+- The rule-change decisions on 2026-11-25: X1 rejected for now, X2 adopted, X3 kept as a possible parsing improvement but not adopted.
+- **Still to do:** both trust decisions, the sign-off, the driver's seat and my FRICTIONAL entry.
 
 **Claude's check of my labels:** after I pasted my audit labels, Claude compared every reason with the posting text and every false-friend word with what the filter matched. It found:
 - two reasons that called a preferred item "required" (rows 31 and 51);
@@ -71,6 +73,8 @@ I made the corrections myself before committing. Claude did not write or change 
 9. **2026-11-25:** the first scripted transcripts recorded my home folder path. They were deleted and re-recorded with relative paths, and the client now replaces the home path with `~` in recorded stderr. No transcript was edited by hand.
 10. **2026-11-25:** the first draft of `SCORE.md` gave the wrong origin for the 30-year limit. It was corrected before hand-over.
 11. **2026-11-25:** the first version of the experiment report scaled the held-out result to all of a change's flips. The right base is the flips outside the tuning labels. It also gave X2 a sampling interval, although every X2 flip is labeled, so its result is a count. Claude fixed the code after my held-out labels were committed (`810de710`), with two new tests. No label changed.
+12. **2026-11-25:** SCORE.md said the experiment's baseline "reproduced every field". Claude's one-off check on 2026-11-24 did compare every field, but `experiment.py` compared only each posting's decision and score. The code now compares every field.
+13. **2026-11-25:** EVALUATION.md said three earlier sessions replayed identically. That was true before the description fix at 04:26, but Claude did not re-replay them afterwards. Their `initialize` and `tools/list` replies differ, by exactly the corrected wording. The paragraph now says so.
 
 ## Tools
 

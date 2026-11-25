@@ -1,4 +1,4 @@
-"""The rules files match FILTER.md v1.1, the loader deduplicates correctly, and the
+"""The rules files match FILTER.md v1.2, the loader deduplicates correctly, and the
 saved JS2 input is complete. The loader test uses CONSTRUCTED run folders; the
 saved-data tests are skipped if the JS2 folder is not present."""
 import json
@@ -20,7 +20,7 @@ class RulesMatchFilterMd(unittest.TestCase):
         self.assertEqual((S["us_location_points"], S["experience_compatible_points"]), (15, 10))
         self.assertEqual((S["threshold"], S["near_threshold_range"]), (65, [55, 75]))
         self.assertEqual(rules()["filter"]["review_candidates"]["size"], 10)
-        self.assertIn("**Version:** 1.1", FILTER_MD)
+        self.assertIn("**Version:** 1.2", FILTER_MD)
         self.assertIn("My initial threshold remains **65 points**.", FILTER_MD)
 
     @unittest.skipUnless(PERSONA_PATH.exists(), "JS2 persona file not present")

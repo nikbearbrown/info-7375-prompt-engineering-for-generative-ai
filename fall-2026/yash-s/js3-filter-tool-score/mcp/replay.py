@@ -12,13 +12,12 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import job_filter as J  # noqa: E402
 import mcp_server as M  # noqa: E402
 
 
 def main(path):
     records = [json.loads(x) for x in Path(path).read_text(encoding="utf-8").splitlines() if x.strip()]
-    server = M.Server(J.load_rules(), M.load_saved(M.DEFAULT_RESULTS))
+    server = M.Server(M.served_rules(), M.load_saved(M.DEFAULT_RESULTS))
     recorded = iter(r["raw"] for r in records if r["dir"] == "server->client")
     same = differ = 0
     for r in records:

@@ -14,6 +14,19 @@ HERE = Path(__file__).resolve().parent
 RULES_DIR = HERE / "rules"
 
 ROLE_CATEGORIES = ("target", "related", "special_review", "excluded", "none")
+# Earlier FILTER.md versions, kept byte for byte, so a saved run can be reproduced with
+# the rules it was made with (tests/test_versions.py checks the hashes).
+ARCHIVED_RULES = {"1.1": RULES_DIR / "v1.1"}
+
+
+def rules_dir_for(version):
+    """The rules folder for a FILTER.md version: rules/ for the current one, rules/v<x>/ for an archived one."""
+    current = json.loads((RULES_DIR / "filter_rules.json").read_text(encoding="utf-8"))["version"]
+    if version == current:
+        return RULES_DIR
+    if version in ARCHIVED_RULES:
+        return ARCHIVED_RULES[version]
+    raise ValueError(f"no rules saved for FILTER.md version {version!r}")
 
 
 # --------------------------------------------------------------- loading rules

@@ -7,7 +7,7 @@ This layer decides which saved postings reach Priya and why. It has five parts:
 - a hand-labeled audit of what the filter rejected and kept;
 - a shortlist where every claim is checked against the posting's own text;
 - a from-scratch tool server that Claude used in two real sessions;
-- a one-change-at-a-time experiment on held-out labels.
+- a one-change-at-a-time experiment on held-out labels, which led to FILTER.md **v1.2**.
 
 It builds on my JS1 and JS2 work; see [`SOURCES.md`](SOURCES.md).
 
@@ -20,7 +20,12 @@ It builds on my JS1 and JS2 work; see [`SOURCES.md`](SOURCES.md).
 | My 60 audit labels | Done (`e926b963`) |
 | Audit results, shortlist, tool server and evaluations, experiment set-up, docs | Committed (`e3166fe0`) |
 | My 20 held-out labels, blind | Done (`810de710`), committed before the experiment report was run |
-| **Trust decisions, rule-change decisions, sign-off, driver's seat, FRICTIONAL** | **Not done.** These are mine to write ([`SIGNOFF.md`](SIGNOFF.md), [`mcp/EVALUATION.md`](mcp/EVALUATION.md), [`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md), [`FRICTIONAL.md`](FRICTIONAL.md)) |
+| Experiment report on held-out labels | Done (`f88d1922`), committed before my decisions |
+| My rule-change decisions: X1 rejected, X2 adopted, X3 not adopted | Done 2026-11-25 ([`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md)) |
+| FILTER.md v1.2 (X2), the v1.2 run, v1.1 rules archived in `rules/v1.1/` | Done 2026-11-25 |
+| **Trust decisions, sign-off, driver's seat, FRICTIONAL** | **Not done.** These are mine to write ([`mcp/EVALUATION.md`](mcp/EVALUATION.md), [`SIGNOFF.md`](SIGNOFF.md), [`FRICTIONAL.md`](FRICTIONAL.md)) |
+
+**Which version made what.** The audit, the shortlist, the experiment baseline and the tool server all use FILTER.md **v1.1**, the version they were labeled, measured or recorded with. Each loads the v1.1 rules from `rules/v1.1/` explicitly. `run_filter.py` uses the current rules, **v1.2**.
 
 ## Language and toolchain
 
@@ -36,10 +41,10 @@ Run every command from this folder, with `PYTHONDONTWRITEBYTECODE=1` set (it kee
 cd fall-2026/yash-s/js3-filter-tool-score
 export PYTHONDONTWRITEBYTECODE=1
 
-python3 -m unittest discover -s tests     # 103 tests
+python3 -m unittest discover -s tests     # 112 tests
 python3 wrong_versions.py                 # plants each FILTER.md section 9 wrong version; all must be caught
 
-python3 run_filter.py                     # a NEW run folder under runs/ (create-only); the first run is committed
+python3 run_filter.py                     # a NEW run folder under runs/ with the current rules (v1.2); create-only
 python3 audit_report.py                   # audit numbers from my labels -> audit/sample-…/audit-results.md
 python3 shortlist.py                      # labeled claims -> shortlist/ (the CSV is create-only)
 python3 experiment.py flips               # exact flips for each pre-registered change
@@ -81,6 +86,9 @@ All times are UTC.
 | 2026-11-25 | I labeled the 20 held-out postings, blind | Committed as `810de710` |
 | 2026-11-25 | `experiment.py report` | X1 (threshold 55): 9 of 15 held-out flips improved; 95% Wilson 36%–80%, **inconclusive**. X2 (two topics): 5 of 5 held-out flips improved; all 8 of its flips are labeled, so it is a count, 7 better and 1 worse ([REPORT](experiments/REPORT.md)) |
 | 2026-11-25 | Tests on Python 3.9.6 and 3.13.5; `wrong_versions.py` | 103 tests pass on both. Baseline passes, and 6 of 6 wrong versions are caught |
+| 2026-11-25 | I decided: X1 rejected, X2 adopted, X3 not adopted | [`RULE-CHANGE-LOG`](experiments/RULE-CHANGE-LOG.md) |
+| 2026-11-25 20:33 | `run_filter.py` with FILTER.md **v1.2** | 0 confirmed, 55 review, 2,363 rejected ([report](runs/filter-v1.2-2026-11-25T203343Z/report.md)). Exactly 8 decisions differ from v1.1, the same 8 that X2 predicted. 231 other postings changed role from related to none but were already rejected. The top 10 review candidates are identical in every field, so the shortlist's claims hold for v1.2 |
+| 2026-11-25 | Tests on Python 3.9.6 and 3.13.5; `wrong_versions.py`, after v1.2 | 112 tests pass on both. Baseline passes, and 6 of 6 wrong versions are caught. `experiment.py flips` reproduced every field of the v1.1 run from `rules/v1.1/` |
 
 ## Where each deliverable is
 
@@ -97,7 +105,7 @@ All times are UTC.
 
 ## Tests
 
-103 tests in 8 files. Every posting built inside a test is CONSTRUCTED, and labeled as such.
+112 tests in 9 files. Every posting built inside a test is CONSTRUCTED, and labeled as such.
 
 | File | Tests | What they protect |
 |---|---:|---|
@@ -108,6 +116,7 @@ All times are UTC.
 | `test_sampler.py` | 6 | Reproducible audit and held-out draws; tuning postings never drawn again |
 | `test_shortlist.py` | 9 | The claim checker's labels; the false-friend effect in the audit report |
 | `test_experiment.py` | 11 | Exactly one value changes; flip judging; count versus estimate; interval values |
+| `test_versions.py` | 9 | v1.2 differs from v1.1 in exactly the adopted value; v1.1 rules kept byte for byte; the related-role rule in both versions; X1 and X3 not applied |
 | `test_mcp_server.py` | 17 | Lifecycle, declared tools, argument checks, error codes, the deep-nesting regression, no outward imports, the only write being the transcript, a real subprocess session changing nothing else |
 
 ## Honesty labels
