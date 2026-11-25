@@ -50,4 +50,4 @@ Claude Code (Opus 5.5, `claude-opus-5-5`) in one Claude Code session in VS Code.
 | 62 hand labels | 53 mine and 9 confirmed suggestions, as above. The raw lines are in `audit/labels-raw.md`. |
 | v1.1 decisions A–F | add "D.C." and the graduation-date rule; record "Platform Engineer" as a false friend without a rule; reject M1, M2 and title grouping |
 | FRICTIONAL "What I learned" lines | Wrote all five, choosing from angles Claude Code listed per entry (no sentences given). Claude Code pasted them in unchanged. |
-| Sign-off | *(to sign or withhold)* |
+| Sign-off | Read Claude Code's draft and signed it unchanged: "Signed, Varnika M, 2026-11-25" |

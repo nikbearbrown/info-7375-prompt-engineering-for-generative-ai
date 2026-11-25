@@ -82,7 +82,7 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 
 ## Sign-off — Job-Search Agent 3
 
-*Claude Code's draft from the record, for me to check, change, and then sign or withhold.*
+*Drafted by Claude Code from the record. I read it and signed it as it stands.*
 
 **Checked**
 - **The filter's rules and wrong versions.** Tests:
@@ -113,7 +113,7 @@ Left out: caches, credentials (there are none), my real résumé, and the Claude
 - That anything was learned or trained: behavior changed only through files.
 - That this says anything about another candidate, board or day.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Signed, Varnika M, 2026-11-25
 
 ## Driver's seat
 
