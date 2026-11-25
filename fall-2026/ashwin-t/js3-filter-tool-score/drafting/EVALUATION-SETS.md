@@ -10,6 +10,7 @@ state exactly which labels touched which decision.
 | `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4) | Held-out measurement of one frozen change |
 | `labels/audit-sheet.csv` | Ashwin, blind (filling now) | Reject audit; the only verdicts `--report` reads |
 | `labels/audit-ai-draft.csv` | Codex, inferred from Ashwin's 30 held-out labels | Proposals only; never copied into `audit-sheet.csv`, never read by code |
+| `labels/audit-ai-assisted.csv` | Codex's suggestions for batch 1 (10 rows, same as the draft), adopted by Ashwin on 2026-11-25 **without reviewing the postings** | AI-assisted verdicts; not hand judgments, not in `audit-sheet.csv`, not counted toward the hand-judged audit |
 
 ## Minimum audit sample
 
