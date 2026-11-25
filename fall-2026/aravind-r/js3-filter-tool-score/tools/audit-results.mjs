@@ -1,10 +1,17 @@
-// Computes the reject audit from Aravind's filled-in audit/audit-sheet.csv and audit/key.json.
-// Every sample-based error figure is an ESTIMATE with an exact (Clopper-Pearson) 95% interval,
-// for this snapshot and this filter version only, never a rate for all postings.
-// Only the rows declared in audit/judging-plan.json (before any verdict) are counted; rows the
-// plan leaves unjudged may stay empty, and any verdict on them is reported but not counted.
-// Usage: node tools/audit-results.mjs [--sheet audit/audit-sheet.csv] [--out audit]
-import { readFileSync, writeFileSync } from 'node:fs';
+// Computes the reject audit from Aravind's hand verdicts (audit/audit-sheet.csv) and the filter's
+// decisions. Every sample-based error figure is an ESTIMATE with an exact (Clopper-Pearson) 95%
+// interval, for this snapshot only, never a rate for all postings.
+//
+// Views, reported side by side:
+//   A   v1.0.0 decisions (audit/key.json, the run the sample was drawn from) vs FIRST-pass verdicts
+//   B   a later run's decisions (--run, default runs/filter/v1.1.0-a) vs FINAL verdicts
+//   A'  v1.0.0 decisions vs FINAL verdicts (summary only: isolates the verdict change)
+// first pass = first_pass_verdict where the row was rechecked, else my_verdict (commit 1c9ce17b).
+// final      = my_verdict (after the recheck in audit/recheck-plan.json).
+// Only rows declared in audit/judging-plan.json are counted. Strata come from the v1.0.0 draw.
+//
+// Usage: node tools/audit-results.mjs [--sheet audit/audit-sheet.csv] [--run runs/filter/v1.1.0-a] [--out audit]
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -12,102 +19,119 @@ import { parseCsv } from '../src/csv.mjs';
 import { clopperPearson } from '../src/stats.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const { values } = parseArgs({ options: { sheet: { type: 'string', default: 'audit/audit-sheet.csv' }, out: { type: 'string', default: 'audit' } } });
+const { values } = parseArgs({ options: { sheet: { type: 'string', default: 'audit/audit-sheet.csv' }, run: { type: 'string', default: 'runs/filter/v1.1.0-a' }, out: { type: 'string', default: 'audit' } } });
 const VERDICTS = ['relevant', 'not_relevant', 'cannot_tell'];
+const STRATA = ['random_reject', 'closest_call', 'kept', 'cannot_tell'];
+const readJson = p => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
 const rows = parseCsv(readFileSync(resolve(ROOT, values.sheet), 'utf8'));
-const key = JSON.parse(readFileSync(join(ROOT, 'audit', 'key.json'), 'utf8'));
-const sample = JSON.parse(readFileSync(join(ROOT, 'audit', 'sample.json'), 'utf8'));
+const key = readJson('audit/key.json');
+const sample = readJson('audit/sample.json');
+const plan = readJson('audit/judging-plan.json');
+const recheckPlan = existsSync(join(ROOT, 'audit', 'recheck-plan.json')) ? readJson('audit/recheck-plan.json') : null;
+const named = existsSync(join(ROOT, 'audit', 'named-false-friends.json')) ? readJson('audit/named-false-friends.json') : [];
+const die = m => { console.error(m); process.exit(2); };
 
-const plan = JSON.parse(readFileSync(join(ROOT, 'audit', 'judging-plan.json'), 'utf8'));
+// ---------- validation ----------
 const toJudge = new Set(plan.to_judge), notJudged = new Set(plan.not_judged);
-if (rows.length !== Object.keys(key).length) { console.error(`sheet has ${rows.length} rows, key has ${Object.keys(key).length}`); process.exit(2); }
+if (rows.length !== Object.keys(key).length) die(`sheet has ${rows.length} rows, key has ${Object.keys(key).length}`);
 const stray = rows.filter(r => !toJudge.has(r.audit_id) && !notJudged.has(r.audit_id));
-if (stray.length) { console.error(`row(s) not in the judging plan: ${stray.map(r => r.audit_id).join(', ')}`); process.exit(2); }
-const bad = rows.filter(r => toJudge.has(r.audit_id) && !VERDICTS.includes(r.my_verdict));
-if (bad.length) { console.error(`${bad.length} planned row(s) without a valid my_verdict (${VERDICTS.join(' | ')}): ${bad.map(r => r.audit_id).join(', ')}`); process.exit(2); }
-const invalid = rows.filter(r => r.my_verdict && !VERDICTS.includes(r.my_verdict));
-if (invalid.length) { console.error(`invalid my_verdict on: ${invalid.map(r => `${r.audit_id}="${r.my_verdict}"`).join(', ')}`); process.exit(2); }
+if (stray.length) die(`row(s) not in the judging plan: ${stray.map(r => r.audit_id).join(', ')}`);
+const missing = rows.filter(r => toJudge.has(r.audit_id) && !VERDICTS.includes(r.my_verdict));
+if (missing.length) die(`${missing.length} planned row(s) without a valid my_verdict (${VERDICTS.join(' | ')}): ${missing.map(r => r.audit_id).join(', ')}`);
+const invalid = rows.filter(r => (r.my_verdict && !VERDICTS.includes(r.my_verdict)) || (r.first_pass_verdict && !VERDICTS.includes(r.first_pass_verdict)));
+if (invalid.length) die(`invalid verdict on: ${invalid.map(r => r.audit_id).join(', ')}`);
 const offPlan = rows.filter(r => notJudged.has(r.audit_id) && r.my_verdict);
 
-const joined = rows.filter(r => toJudge.has(r.audit_id)).map(r => ({ ...r, ...key[r.audit_id] }));
-const inStratumAll = st => Object.entries(key).filter(([, v]) => v.strata.includes(st)).map(([a]) => a);
-// Two passes. first = first_pass_verdict if the row was rechecked, else my_verdict (commit 1c9ce17b).
-// second = my_verdict after the recheck (audit/recheck-plan.json). Without a recheck there is one pass.
+// ---------- decisions ----------
+const runPath = join(ROOT, values.run, 'results.jsonl');
+const later = existsSync(runPath) ? new Map(readFileSync(runPath, 'utf8').trim().split('\n').map(JSON.parse).map(r => [`${r.board}:${r.id}`, r])) : null;
+const laterSummary = later ? readJson(join(values.run, 'summary.json')) : null;
+const joined = rows.filter(r => toJudge.has(r.audit_id)).map(r => {
+  const k = key[r.audit_id], l = later?.get(`${k.board}:${k.id}`);
+  return { ...r, ...k, d_a: k.decision, d_b: l?.decision ?? null, comp_b: l?.components ?? null };
+});
+const first = r => r.first_pass_verdict || r.my_verdict;
+const final = r => r.my_verdict;
 const rechecked = joined.filter(r => r.first_pass_verdict);
-const badFp = rechecked.filter(r => !VERDICTS.includes(r.first_pass_verdict));
-if (badFp.length) { console.error(`invalid first_pass_verdict on: ${badFp.map(r => r.audit_id).join(', ')}`); process.exit(2); }
-const PASSES = rechecked.length ? { first: r => r.first_pass_verdict || r.my_verdict, second: r => r.my_verdict } : { first: r => r.my_verdict };
-const reasonOf = r => (r.my_note.match(/recheck \d{4}-\d{2}-\d{2}: (.*)$/) ?? [])[1] ?? '';
-// An error is a decided posting whose decision disagrees with the hand verdict.
-const isErrorBy = v => r => (r.decision === 'reject' && v(r) === 'relevant') || (r.decision === 'keep' && v(r) === 'not_relevant');
+
+const VIEWS = [{ id: 'A', label: `v${sample.spec_version} decisions vs first-pass verdicts`, decision: r => r.d_a, verdict: first, comp: r => r.components }];
+if (later) VIEWS.push({ id: 'B', label: `v${laterSummary.spec_version} decisions vs final verdicts`, decision: r => r.d_b, verdict: final, comp: r => r.comp_b });
+if (later && rechecked.length) VIEWS.push({ id: "A'", label: `v${sample.spec_version} decisions vs final verdicts (summary only: isolates the verdict change from the rule change)`, decision: r => r.d_a, verdict: final, comp: r => r.components, summaryOnly: true });
+
+const isError = (v, r) => (v.decision(r) === 'reject' && v.verdict(r) === 'relevant') || (v.decision(r) === 'keep' && v.verdict(r) === 'not_relevant');
 const pct = x => `${(100 * x).toFixed(1)}%`;
-const out = { computed_at: new Date().toISOString(), spec_version: sample.spec_version, seed: sample.seed, passes: Object.keys(PASSES), strata: {} };
-let md = `# Reject audit — results (spec v${sample.spec_version})\n\nComputed ${out.computed_at} from \`${values.sheet}\` (hand verdicts by Aravind) and \`audit/key.json\`. Sample drawn with seed ${sample.seed} (\`audit/sample.json\`).\n\n`
+const ci = (x, n) => { const c = clopperPearson(x, n); return { x, n, estimate: c.estimate, lower: c.lower, upper: c.upper, text: `${x} of ${n} (estimate ${pct(c.estimate)}, exact 95% interval ${pct(c.lower)} to ${pct(c.upper)})` }; };
+const inStratum = s => joined.filter(r => r.strata.includes(s));
+const drawnIn = s => Object.values(key).filter(v => v.strata.includes(s)).length;
+const reasonOf = r => (r.my_note.match(/recheck \d{4}-\d{2}-\d{2}: (.*)$/) ?? [])[1] ?? '';
+const cell = s => String(s ?? '').replace(/\|/g, '/');
+
+// ---------- report ----------
+const out = { computed_at: new Date().toISOString(), sampled_from: `v${sample.spec_version}`, compared_run: later ? values.run : null, plan_sha256: plan.sha256_of_to_judge, views: {} };
+let md = `# Reject audit — results\n\nComputed ${out.computed_at} from \`${values.sheet}\` (hand verdicts by Aravind), \`audit/key.json\` (v${sample.spec_version} decisions)${later ? ` and \`${values.run}\` (v${laterSummary.spec_version} decisions)` : ''}. Sample drawn from the v${sample.spec_version} run with seed ${sample.seed} (\`audit/sample.json\`).\n\n`
   + `## Judging plan (declared ${plan.declared_at.slice(0, 10)}, before any verdict)\n\n- ${plan.rule}.\n- Judged (${plan.to_judge.length}): ${plan.to_judge.join(', ')}.\n- Not judged (${plan.not_judged.length}): ${plan.not_judged.join(', ')}.\n- ${plan.note}\n- SHA-256 of the judged list: ${plan.sha256_of_to_judge}.\n`
   + (offPlan.length ? `- **Off-plan verdicts reported, not counted:** ${offPlan.map(r => `${r.audit_id}=${r.my_verdict}`).join(', ')}.\n` : '') + '\n';
-out.plan_sha256 = plan.sha256_of_to_judge;
 
 if (rechecked.length) {
-  let rp = null; try { rp = JSON.parse(readFileSync(join(ROOT, 'audit', 'recheck-plan.json'), 'utf8')); } catch { /* reported below */ }
   const revised = rechecked.filter(r => r.first_pass_verdict !== r.my_verdict);
-  const declared = rp?.ids ?? [];
+  const declared = recheckPlan?.ids ?? [];
   const undeclared = rechecked.filter(r => !declared.includes(r.audit_id)).map(r => r.audit_id);
   const open = declared.filter(id => !rechecked.some(r => r.audit_id === id));
   md += `## Recheck (second pass)\n\n`
-    + `- Declared before the recheck in \`audit/recheck-plan.json\` (${rp?.declared_at ?? 'missing'}): ${declared.length} ids. Reason: ${rp?.reason ?? '(plan file missing)'}\n`
-    + `- First-pass verdicts: commit \`${rp?.first_pass_commit ?? '?'}\`, kept per row in \`first_pass_verdict\`.\n`
+    + `- Declared before the recheck in \`audit/recheck-plan.json\` (${recheckPlan?.declared_at ?? 'missing'}; ${recheckPlan?.amended ? `amended ${recheckPlan.amended}` : 'not amended'}): ${declared.length} ids.\n`
+    + `- Definition used: ${recheckPlan?.definition ?? '(not recorded)'}.\n`
+    + `- Reason: ${recheckPlan?.reason ?? '(plan file missing)'}\n`
     + `- **Rechecked ${rechecked.length}; revised ${revised.length}; unchanged ${rechecked.length - revised.length}.**${open.length ? ` Not yet rechecked: ${open.join(', ')}.` : ''}${undeclared.length ? ` **Rechecked but not declared:** ${undeclared.join(', ')}.` : ''}\n`
-    + `- **Selection caveat:** ${rp?.selection_caveat ?? 'recheck rows were chosen after seeing the results.'}\n\n`
-    + `| audit_id | title | first pass | second pass | reason |\n|---|---|---|---|---|\n`
-    + rechecked.map(r => `| ${r.audit_id} | ${r.title} | ${r.first_pass_verdict} | ${r.my_verdict}${r.first_pass_verdict === r.my_verdict ? ' (unchanged)' : ''} | ${reasonOf(r)} |`).join('\n') + '\n\n';
+    + `- **Selection caveat:** ${recheckPlan?.selection_caveat ?? 'recheck rows were chosen after seeing the results.'}\n`
+    + `- **Definition caveat:** the relevance definition changed between the passes (persona corrected after the first-pass results, \`f3cefa22\`).${later ? ` View B measures v${laterSummary.spec_version} on rows whose results motivated it (dev use), so it is not an independent test; the held-out labels are.` : ''}\n\n`
+    + `| audit_id | title | first pass | final | reason (Aravind's note) |\n|---|---|---|---|---|\n`
+    + rechecked.map(r => `| ${r.audit_id} | ${cell(r.title)} | ${r.first_pass_verdict} | ${r.my_verdict}${r.first_pass_verdict === r.my_verdict ? ' (unchanged)' : ''} | ${cell(reasonOf(r))} |`).join('\n') + '\n\n';
   out.recheck = { declared: declared.length, rechecked: rechecked.length, revised: revised.length, revised_ids: revised.map(r => r.audit_id), open, undeclared };
 }
 
-// Each stratum is reported on its own. Strata are never pooled into one error rate: they were
-// drawn from different populations (or selected, not drawn).
-md += `Each stratum is reported separately. They are never pooled into one error rate.${rechecked.length ? ' Where two passes exist, both are shown; the second pass is the headline.' : ''}\n\n`;
-const ciText = (x, n) => { const c = clopperPearson(x, n); return `${x} of ${n}: estimate ${pct(c.estimate)}, exact 95% interval ${pct(c.lower)} to ${pct(c.upper)}`; };
-for (const s of ['random_reject', 'closest_call', 'kept', 'cannot_tell']) {
-  const rs = joined.filter(r => r.strata.includes(s));
-  const drawn = inStratumAll(s).length;
-  const entry = { n: rs.length };
-  md += `## ${s} (judged ${rs.length} of ${drawn} on the sheet)\n\n`;
-  const per = {};
-  for (const [p, v] of Object.entries(PASSES)) {
-    const tally = Object.fromEntries(VERDICTS.map(x => [x, rs.filter(r => v(r) === x).length]));
-    const errors = rs.filter(isErrorBy(v));
-    per[p] = { tally, errors };
-    entry[p] = { my_verdicts: tally, errors: errors.length, error_ids: errors.map(r => r.audit_id) };
-    if (s === 'random_reject' && rs.length) { const c = clopperPearson(errors.length, rs.length); entry[p].interval_95 = [c.lower, c.upper]; }
-  }
-  const passNames = Object.keys(PASSES);
-  md += passNames.length > 1
-    ? `| pass | relevant | not_relevant | cannot_tell | ${s === 'kept' ? 'false keeps' : 'false rejects / disagreements'} |\n|---|---|---|---|---|\n` + passNames.map(p => `| ${p} | ${per[p].tally.relevant} | ${per[p].tally.not_relevant} | ${per[p].tally.cannot_tell} | ${per[p].errors.length} |`).join('\n') + '\n\n'
-    : `My verdicts: ${VERDICTS.map(x => `${x} ${per.first.tally[x]}`).join(', ')}.\n\n`;
-  const head = passNames.at(-1);
-  if (s === 'random_reject' && rs.length) {
-    const e = per[head].errors.length, ct = per[head].tally.cannot_tell, c = clopperPearson(e, rs.length);
-    md += `**False rejects (I judged relevant), ${head} pass: ${ciText(e, rs.length)}.**${passNames.length > 1 ? ` First pass: ${ciText(per.first.errors.length, rs.length)}.` : ''}\n\n`
-      + `What this can show: the sample is the first ${rs.length} of ${drawn} uniform draws (seeded order) from the ${sample.population.rejects} rejects in this snapshot, under spec v${sample.spec_version}. It estimates the false-reject share *within that population* only, not a rate for all postings, other boards, other dates, or other filter versions. ${e === 0 ? `Zero errors in ${rs.length} does not mean zero errors: the data are consistent with a false-reject share as high as ${pct(c.upper)}. ` : ''}`
-      + `${ct ? `${ct} row(s) I judged cannot_tell are counted as not-errors; counted as errors, the interval would be ${(() => { const c2 = clopperPearson(e + ct, rs.length); return `${pct(c2.lower)} to ${pct(c2.upper)}`; })()}. ` : ''}`
-      + `${passNames.length > 1 ? 'The second pass revised only rows chosen after seeing the filter results (see the selection caveat), so it is not a blind estimate; the first-pass figure is shown for that reason.' : ''}\n\n`;
-  } else if (s === 'closest_call') {
-    md += `**Disagreements (${head} pass): ${per[head].errors.length} of ${rs.length}**${passNames.length > 1 ? ` (first pass: ${per.first.errors.length})` : ''}. Decided rows only; cannot_tell rows are listed, not counted. These rows were *selected* by distance to the threshold, not sampled, so no population interval applies.\n\n`;
-  } else if (s === 'kept') {
-    md += rs.length ? `**False keeps (${head} pass): ${per[head].errors.length} of ${rs.length}.**\n\n` : `No postings were kept by spec v${sample.spec_version}, so there is nothing to sample. A false-keep rate cannot be estimated for this version.\n\n`;
-  } else {
-    md += `The filter abstained on these. My verdicts say what an answer would have been.\n\n`;
-  }
-  const show = rs.filter(r => passNames.some(p => isErrorBy(PASSES[p])(r)) || r.decision === 'cannot_tell');
-  if (show.length) md += `| audit_id | title | decision | score | T | L | E (phrase) | P (terms) | ${passNames.length > 1 ? 'first | second' : 'my verdict'} | my note |\n|---|---|---|---|---|---|---|---|---|${passNames.length > 1 ? '---|' : ''}---|\n`
-    + show.map(r => { const c = r.components ?? {}; return `| ${r.audit_id} | ${r.title} | ${r.decision} | ${r.score} | ${c.title?.value} | ${c.location?.value} | ${c.experience?.value} (${c.experience?.phrase ?? '—'}) | ${c.topic?.value} (${(c.topic?.terms ?? []).join(', ') || '—'}) | ${passNames.map(p => PASSES[p](r)).join(' | ')} | ${(r.my_note || '').replace(/\|/g, '/')} |`; }).join('\n') + '\n\n';
-  out.strata[s] = entry;
+md += `## Side by side\n\nEach stratum is reported separately; strata are never pooled into one error rate. An error is a reject judged relevant or a keep judged not_relevant. cannot_tell decisions and cannot_tell verdicts are not counted as errors (they are listed in the views below).\n\n`
+  + `| stratum | judged | ${VIEWS.map(v => `view ${v.id} errors`).join(' | ')} |\n|---|---|${VIEWS.map(() => '---|').join('')}\n`;
+for (const s of STRATA) {
+  const rs = inStratum(s);
+  md += `| ${s} | ${rs.length} of ${drawnIn(s)} | ${VIEWS.map(v => { const e = rs.filter(r => isError(v, r)).length; return s === 'random_reject' && rs.length ? ci(e, rs.length).text : String(e); }).join(' | ')} |\n`;
 }
-const pmDrawn = inStratumAll('pm_reject');
+md += `\n${VIEWS.map(v => `- **View ${v.id}:** ${v.label}.`).join('\n')}\n`
+  + `- The random_reject rows are a uniform sample of **v${sample.spec_version}'s** ${sample.population.rejects} rejects. Under a later version they measure how that version does on those same postings; they are not a sample of the later version's rejects.\n\n`;
+
+for (const v of VIEWS.filter(v => !v.summaryOnly)) {
+  md += `## View ${v.id}: ${v.label}\n\n`;
+  out.views[v.id] = { label: v.label, strata: {} };
+  for (const s of STRATA) {
+    const rs = inStratum(s);
+    const tally = Object.fromEntries(VERDICTS.map(x => [x, rs.filter(r => v.verdict(r) === x).length]));
+    const dec = Object.fromEntries(['keep', 'cannot_tell', 'reject'].map(x => [x, rs.filter(r => v.decision(r) === x).length]));
+    const errors = rs.filter(r => isError(v, r));
+    const entry = { n: rs.length, verdicts: tally, decisions: dec, errors: errors.length, error_ids: errors.map(r => r.audit_id) };
+    md += `### ${s} (judged ${rs.length} of ${drawnIn(s)})\n\nVerdicts: ${VERDICTS.map(x => `${x} ${tally[x]}`).join(', ')}. Decisions: ${Object.entries(dec).map(([k, n]) => `${k} ${n}`).join(', ')}.\n\n`;
+    if (s === 'random_reject' && rs.length) {
+      const c = ci(errors.length, rs.length); entry.interval_95 = [c.lower, c.upper];
+      md += `**Errors: ${c.text}.** What this can show: the first ${rs.length} of ${drawnIn(s)} uniform draws (seeded order) from the ${sample.population.rejects} v${sample.spec_version} rejects in this snapshot. It estimates the error share within that population only, not for all postings, boards, dates, or versions.${errors.length === 0 ? ` Zero errors does not mean zero: the data allow up to ${pct(c.upper)}.` : ''}${tally.cannot_tell ? ` ${tally.cannot_tell} cannot_tell verdict(s) are counted as not-errors; counted as errors: ${ci(errors.length + tally.cannot_tell, rs.length).text}.` : ''}\n\n`;
+    } else if (s === 'closest_call') md += `**Errors: ${errors.length} of ${rs.length}.** Selected by distance to the v${sample.spec_version} threshold, not sampled: no population interval applies.\n\n`;
+    else if (s === 'kept') md += rs.length ? `**Errors: ${errors.length} of ${rs.length}.**\n\n` : `v${sample.spec_version} kept nothing, so this stratum is empty.\n\n`;
+    const show = rs.filter(r => isError(v, r) || v.decision(r) !== 'reject' || v.verdict(r) === 'cannot_tell');
+    if (show.length) md += `| audit_id | title | decision | verdict | T | L | E (phrase) | P (terms) | note |\n|---|---|---|---|---|---|---|---|---|\n`
+      + show.map(r => { const c = v.comp(r) ?? {}; return `| ${r.audit_id} | ${cell(r.title)} | ${v.decision(r)} | ${v.verdict(r)}${isError(v, r) ? ' **(error)**' : ''} | ${c.title?.value} | ${c.location?.value} | ${c.experience?.value} (${c.experience?.phrase ?? '—'}) | ${c.topic?.value} (${(c.topic?.terms ?? []).join(', ') || '—'}) | ${cell(r.my_note)} |`; }).join('\n') + '\n\n';
+    out.views[v.id].strata[s] = entry;
+  }
+}
+
+if (named.length) {
+  md += `## Named false friends (Aravind's call, from postings judged by hand)\n\n`
+    + named.map(f => `- **"${f.term}"**, named by ${f.named_by} on ${f.date}. Rows: ${f.rows.join(', ')}. ${f.why}\n  - Line (verbatim, from both rows): "${f.line}"`).join('\n') + '\n\n';
+  out.named_false_friends = named;
+}
+
+const pm = Object.values(key).filter(v => v.strata.includes('pm_reject')).length;
 md += `## Not checked\n\n`
-  + `- **PM-titled rejects (pm_reject):** ${pmDrawn.length} drawn (seed ${sample.pm_reject_seed}) from a population of ${sample.population.pm_reject_pool} PM/product-titled rejects; **none judged**. No error estimate exists for PM-titled rejects, the group where a false reject would matter most.\n`
-  + `- **Random rejects, draws ${inStratumAll('random_reject').length - joined.filter(r => r.strata.includes('random_reject')).length > 0 ? `${joined.filter(r => r.strata.includes('random_reject')).length + 1}-${inStratumAll('random_reject').length}` : 'none'}:** on the sheet, not judged, not counted.\n`;
-out.not_checked = { pm_reject: { drawn: pmDrawn.length, population: sample.population.pm_reject_pool, judged: 0 }, random_reject_unjudged: inStratumAll('random_reject').filter(a => !toJudge.has(a)).length };
+  + `- **PM-titled rejects (pm_reject):** ${pm} drawn (seed ${sample.pm_reject_seed}) from ${sample.population.pm_reject_pool} PM/product-titled v${sample.spec_version} rejects; **none judged**. No error estimate exists for PM-titled rejects, where a false reject matters most.\n`
+  + `- **Random rejects, draws ${inStratum('random_reject').length + 1}-${drawnIn('random_reject')}:** on the sheet, not judged, not counted.\n`
+  + (rechecked.length ? `- **Recheck coverage:** the ${joined.length - rechecked.length} judged rows outside the recheck plan keep their first-pass verdict under the corrected definition.\n` : '');
+out.not_checked = { pm_reject: { drawn: pm, population: sample.population.pm_reject_pool, judged: 0 }, random_reject_unjudged: drawnIn('random_reject') - inStratum('random_reject').length };
 out.off_plan_verdicts = offPlan.map(r => r.audit_id);
 writeFileSync(join(resolve(ROOT, values.out), 'RESULTS.md'), md);
 writeFileSync(join(resolve(ROOT, values.out), 'results.json'), JSON.stringify(out, null, 2) + '\n');
