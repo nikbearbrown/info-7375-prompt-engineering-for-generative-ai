@@ -3,7 +3,8 @@
 ## 1. Where every number came from
 
 "Hand-set" = someone chose it; "fitted" = computed from my labels; "inherited" = carried over from earlier work or a
-default. **No number in this agent was fitted on labels.** One choice (adopting v1.1) was *selected* from candidates
+default. **No number the agent uses was fitted on labels.** The threshold was *checked* by a fit (§4), and the fitted
+value was not adopted. One choice (adopting v1.1) was *selected* from candidates
 by looking at dev labels; that is selection, not fitting, and it was done on dev only.
 
 | Number / object | Value | Origin | Who |
@@ -12,7 +13,7 @@ by looking at dev labels; that is selection, not fitting, and it was done on dev
 | JOB-TYPE weight | +1, once | hand-set | same |
 | SKILL weight, cap | +1 each, max 4 | hand-set | same |
 | TOPIC weight, cap | +1 each, max 2 | hand-set | same |
-| Threshold | 6 (of 11) | hand-set, reasoned as "= the JS2 bar: title word + 2 skills" | same |
+| Threshold | 6 (of 11) | hand-set, reasoned as "= the JS2 bar: title word + 2 skills"; **fit check (§4) gave 8, not adopted** | same |
 | ROLE word list | 12 words | **inherited** from my JS1 rule's title words, + "Applied AI" | JS1 me; Claude added "Applied AI" |
 | SKILL list | 8 skills | **inherited** from the persona's shipped skills, minus Databricks/Unity Catalog (JS1 amendment 1) | JS1 |
 | TOPIC list | 8 words (7 in v1.1) | hand-set | Claude drafted; I accepted; I cut `agents` in v1.1 |
@@ -87,3 +88,27 @@ The same goes for v1.1. Its better numbers will show up every time it runs, beca
 `filters/filter-v1.1.json` (see `git diff` against `filter-v1.json`), not in any model. Every behavior change in this
 folder can be traced to an edit in a file: the filter, the prompt, the context code, the tool config, a CLI flag.
 If a future session behaves differently, look for the file that changed before believing anything learned.
+
+## 4. A fitted check of the threshold (`tools/fit_threshold.py`, `out/fit-threshold.json`)
+
+I ran filter v1.1 with **only the threshold changed** (3 to 11) on the 58 dev labels and picked the one with the most
+agreement (ties go to 6, then to the lower value). The held-out 20 were scored afterwards and did not choose.
+
+| Threshold | Dev agree (blind) | Dev agree (corrected) | Kept on dev | My blind dev Shows it keeps (of 7) | Held-out agree (blind) |
+|---|---|---|---|---|---|
+| 3 | 49 | 48 | 11 | **5** | 15 |
+| 4 | 49 | 48 | 10 | 5 | 15 |
+| 5 | 48 | 49 | 7 | 3 | 14 |
+| **6 (mine)** | 48 | 52 | 5 | 2 | 15 |
+| 7 | 49 | 54 | 2 | 2 | 15 |
+| **8 (fitted)** | **50** | **55** | **0** | **0** | 15 |
+| 9–11 | 50 | 55 | 0 | 0 | 16 |
+
+**The fit picks 8, and 8 keeps nothing.** Agreement is highest when the filter rejects everything, because most of my
+labels are Not. Fitting on agreement just rediscovers "always say not". I keep the hand-set 6. The fit is evidence
+*against* trusting agreement as the thing to optimize, not evidence for 8.
+
+The other direction is the real trade-off. Threshold 3 keeps 11 dev postings and catches 5 of my 7 blind dev Shows;
+6 catches 2. If I cared more about not missing a good job than about reading fewer postings, I would lower the
+threshold, not raise it. That is my choice to make, and agreement can't make it for me. **Not decided:** I have not
+changed the threshold. A better target than agreement (for example, Shows caught per posting read) is not measured here.
