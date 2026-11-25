@@ -1,6 +1,6 @@
 # FILTER.md: Job-Search Agent 3 — The Filter, the Tool, and the Score
 
-Ethan Gomes · INFO 7375 · v1 · 2026-11-24 · written before any JS3 code
+Ethan Gomes · INFO 7375 · v1.1 · 2026-11-25 · written before any JS3 code
 
 ## Scope
 
@@ -23,7 +23,7 @@ A posting ends in exactly one of three buckets:
 
 | Rule | Reads | Passes when | Reasoning |
 |---|---|---|---|
-| **F1 Role** | title | The title contains one of the role phrases: "data engineer", "analytics engineer", "data platform", "data infrastructure", "data analyst" (case-insensitive, whole phrase) | Evan's target titles. Whole phrases, because the word "data" or "analyst" alone matches unrelated jobs |
+| **F1 Role** | title | The title contains one of the role phrases: "data engineer", "analytics engineer", "data platform", "data infrastructure", "data analyst", "business intelligence", "BI engineer" (case-insensitive, whole phrase) | Evan's target titles, plus the two BI phrases because Tableau and Power BI are among his shipped skills. Whole phrases, because the word "data" or "analyst" alone matches unrelated jobs |
 | **F2 Seniority** | title | The title contains none of these as whole words: Staff, Principal, Lead, Manager, Management, Director, Head, VP, Intern, Distinguished, Architect. "Senior" is allowed | These levels are above or below 4 years. Senior is judged by years (F4) instead, because many Senior data roles ask for 4–5 |
 | **F3 Location** | location | Boston, or a US marker (state, code, "United States", listed metro) as a whole word; remote counts if it names the US | Evan is in Boston, open to remote and to relocating within the US only |
 | **F4 Years** | description | The first "N years" phrase with "experience" within 60 characters has N ≤ 5 | Evan has about 4 years; 5 is a reasonable reach, more is not |
@@ -49,17 +49,27 @@ The topic words are Evan's shipped skills, grouped as in his persona:
 | **T2 Not counted** | — | Flink and Kubernetes never count | Evan has used them but never shipped them |
 | **T3 Threshold** | — | Kept only if at least **2** distinct topic words appear | Inherited from JS1 R4: one shared word is too weak a signal |
 
-The score ranks kept postings. Every number has a stated origin, and changes to them are measured one at a time on held-out labels
-(section 5).
+The score ranks kept postings on a scale of 0 to 100. Every number has a stated origin, and changes to them are measured one at a time
+on held-out labels (section 5).
 
 | Part of the score | Points | Origin |
 |---|---|---|
-| Each distinct topic word, capped at 8 | 10 each | hand-set, v1 |
-| Years N ≤ 4 (preferred) | +15 | hand-set, v1; the cut-off 4 is inherited from the persona |
-| Boston (preferred location) | +10 | hand-set, v1 |
-| Remote in the US | +5 | hand-set, v1 |
+| Each distinct topic word, capped at 8 | 8 each (max 64) | set by me, v1.1 |
+| Years N ≤ 4 (preferred) | +16 | set by me, v1.1; the cut-off 4 is inherited from the persona |
+| Location: Boston, or else remote in the US (one bonus only) | +10 Boston, +5 remote US | set by me, v1.1 |
+| Visa sponsorship offered (rule V1) | +10 | set by me, v1.1 |
+| **Maximum** | **100** | 64 + 16 + 10 + 10 |
 | Threshold: at least 2 distinct topic words | gate, not points | inherited from JS1 R4 |
 | Years limit 5 | gate, not points | inherited from the persona |
+
+A posting with no years phrase gets no years bonus. A posting that is both in Boston and remote gets the Boston bonus only.
+
+### Visa sponsorship (points only, never a reject)
+
+| Rule | Reads | What it does | Reasoning |
+|---|---|---|---|
+| **V1 Sponsorship offered** | description | +10 only when a sentence states that visa sponsorship is offered or available. A sentence that also negates it ("unable to sponsor", "does not sponsor", "no sponsorship", "without sponsorship") earns nothing | I want postings that clearly sponsor ranked higher, but I don't want to drop good jobs that are silent about it |
+| **V2 Silent or negative** | — | A posting that says nothing about sponsorship, or says it doesn't sponsor, is still kept if it passes F1–F4 and T3. It gets no visa points | The filter reads only the posting's own text. A company's general visa policy is not observed, so silence is "I cannot tell", not "no" |
 
 The closest calls are postings that pass F1–F4 with exactly 1 or 2 distinct topic words, or with a years phrase of exactly 5 or 6.
 These are the postings the reject audit samples near the threshold.
@@ -90,6 +100,7 @@ show at least one such posting.
 - the description is missing or empty: no claim about years or skills can be made
 - the location is missing or does not name a country (for example a bare "Remote"): no claim about US eligibility
 - no years phrase exists: no claim about seniority fit
+- the posting never mentions sponsorship: no claim about visa sponsorship either way
 - the claim needs a fact the posting never states
 - the raw response failed to load or failed its shape check (the JS2 error policy)
 
@@ -135,6 +146,8 @@ the rest of JS2's permission policy are unchanged.
 6. **A word counts as support.** "Python a plus" is labeled as supporting the claim "requires Python".
 7. **Abstention that never fires.** A bare "Remote" location is labeled as remote in the US.
 8. **Tuning on the held-out labels.** A score change is chosen using the labels set aside for measuring it.
+9. **The word "sponsor" counts as an offer.** "We are unable to sponsor visas" or "event sponsorship" earns the +10 visa points.
+10. **Two location bonuses.** A posting listed as "Boston or Remote (US)" gets +10 and +5, so the score can pass 100.
 
 ## 5. Labels and measurement
 
@@ -147,3 +160,4 @@ file's hash is recorded before tuning starts. Every change in section 1 is measu
 | Version | Date | Change | Reason |
 |---|---|---|---|
 | v1 | 2026-11-24 | First version, written before any JS3 code | Built from the JS1 contract R1–R5, the persona and the JS2 boards |
+| v1.1 | 2026-11-25 | Score out of 100 (8 per skill, capped at 8; +16 years; +10 Boston or +5 remote US; +10 visa); visa rules V1–V2; "business intelligence" and "BI engineer" added to F1; wrong versions 9–10. Kept: threshold 2, Senior allowed, years limit 5, no years phrase = kept, fresh snapshot | My decisions on the v1 placeholders, still before any JS3 code |
