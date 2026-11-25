@@ -171,7 +171,9 @@ postings, shortened.
 
 ## Sign-off — Job-Search Agent 3
 
-*Drafted by Claude Code from the files, for Shreyash to check, change, and sign or withhold.*
+*Drafted by Claude Code from the files. Shreyash signed it in the session on 2026-11-25 at 18:21 EST,
+typing "sign shreyash yadav 26th november 2026". He did not change the text and did not add a sentence
+on what he checked himself, so the How line states only what the files show.*
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
@@ -193,7 +195,7 @@ How:          The code and tests were written by Claude Code; the tests named ab
               before the code they test, except the server's. The hand verdicts, the v1.1 decisions,
               the claim labels in SHORTLIST.md section 4 and both trust decisions are mine, typed into
               the session. The rates and counts are recomputations by the scripts (js3 audit, js3.score,
-              js3.whatif). (Shreyash: say here which of these you checked yourself, and how.)
+              js3.whatif).
 Not checked:  - The miss rate among all 763 rejects: 0 of 30 random rejects bounds it only below 9.5%
                 (up to about 73 postings), and only for these six boards on these dates.
               - The 18 Palantir closest calls that were counted, not labeled.
@@ -208,7 +210,7 @@ Not claiming: That the agent finds good jobs; that the 5 open postings v1.1 keep
               time (by my own label the Android one is not); that Claude agreeing with the filter on
               24 of 24 held-out postings makes either of them right in general; or that anything was
               trained: behavior that changed across sessions changed because its context changed.
-Signed or withheld: ____________ (name, date)
+Signed: Shreyash Yadav, 26th November 2026
 ```
 
 ## Driver's seat
