@@ -62,7 +62,7 @@ PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name=
 :root{--bg:#fafaf7;--fg:#1d1d1b;--mut:#6b6b66;--line:#ddd;--yes:#1f7a4d;--no:#a33;--ct:#555}
 body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,sans-serif;margin:0 auto;max-width:900px;padding:16px}
 .card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;background:#fff}
-.card.done{opacity:.55}.t{font-weight:600;font-size:16px}.m{color:var(--mut);font-size:13px}
+.card.done{opacity:.55}.y{font-size:13px;margin-top:4px;background:#f3f1ea;border-radius:6px;padding:4px 8px}.t{font-weight:600;font-size:16px}.m{color:var(--mut);font-size:13px}
 details{margin:6px 0}summary{cursor:pointer;color:var(--mut)}.d{white-space:pre-wrap;font-size:13px;max-height:340px;overflow:auto;border-top:1px solid var(--line);padding-top:6px}
 .btns button{margin-right:6px;padding:6px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;font-size:14px}
 .btns button.on[data-v=yes]{background:var(--yes);color:#fff}.btns button.on[data-v=no]{background:var(--no);color:#fff}
@@ -87,10 +87,12 @@ function count(){const n=ROWS.filter(r=>L[r.key]&&L[r.key].label).length;documen
 const box=document.getElementById("rows");
 ROWS.forEach((r,i)=>{const c=document.createElement("div");c.className="card";
 c.innerHTML=`<div class="t">${i+1}. ${r.title}</div><div class="m">${r.board} · ${r.location} · <a href="${r.url}" target="_blank" rel="noopener">posting</a></div>
+<div class="y"></div>
 <details><summary>Description (${r.words} words)</summary><div class="d"></div></details>
 <div class="btns"><button data-v="yes">yes</button><button data-v="no">no</button><button data-v="cannot tell">cannot tell</button></div>
 <input class="note" placeholder="note (optional)">`;
-c.querySelector(".d").textContent=r.text;const note=c.querySelector(".note");
+c.querySelector(".d").textContent=r.text;
+const y=c.querySelector(".y");y.textContent=r.years.length?"Years in the posting: "+r.years.map(t=>"\u201c"+t+"\u201d").join("  "):"Years in the posting: none stated";const note=c.querySelector(".note");
 const cur=L[r.key]||{};note.value=cur.note||"";
 function paint(){c.querySelectorAll("button").forEach(b=>b.classList.toggle("on",(L[r.key]||{}).label===b.dataset.v));c.classList.toggle("done",!!(L[r.key]||{}).label)}
 c.querySelectorAll("button").forEach(b=>b.onclick=()=>{L[r.key]=Object.assign(L[r.key]||{}, {label:b.dataset.v,at:new Date().toISOString()});save();paint()});
@@ -103,6 +105,24 @@ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([lines.j
 """
 
 
+YEARS_ASKED = re.compile(r"\b\d+(?:\.\d+)?\s*(?:\+|-|–|—|to)?\s*(?:\d+\s*)?\+?\s*years?\b", re.IGNORECASE)
+
+
+def year_sentences(text, limit=3, before=110, after=70):
+    """The posting's own words around each "N years", word for word (a reading aid, not a verdict)."""
+    out = []
+    for m in YEARS_ASKED.finditer(text):
+        start, end = max(0, m.start() - before), min(len(text), m.end() + after)
+        start = text.rfind(" ", 0, start) + 1 if start else 0
+        end = text.find(" ", end) if text.find(" ", end) != -1 else len(text)
+        snippet = ("..." if start else "") + text[start:end].strip() + ("..." if end < len(text) else "")
+        if not any(m.group(0) in o and o[-40:] == snippet[-40:] for o in out):
+            out.append(snippet)
+        if len(out) == limit:
+            break
+    return out
+
+
 def label_page(sample, jobs_by_key, decisions_by_key):
     rows = []
     for k in sample["sheet_order"]:
@@ -110,7 +130,7 @@ def label_page(sample, jobs_by_key, decisions_by_key):
         text = plain(job)
         rows.append({"key": k, "title": html.escape(d["title"].strip()), "board": d["board"],
                      "location": html.escape(d["location"]), "url": html.escape(d["url"]), "text": text,
-                     "words": len(text.split())})
+                     "words": len(text.split()), "years": year_sentences(text)})
     return PAGE.replace("__ROWS__", json.dumps(rows, ensure_ascii=False).replace("</", "<\\/"))
 
 
@@ -134,3 +154,51 @@ def wilson(k, n, z=1.96):
     centre = (p + z * z / (2 * n)) / (1 + z * z / n)
     half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
     return (max(0.0, centre - half), min(1.0, centre + half))
+
+
+def is_error(verdict, label):
+    """A filter mistake by my hand label: a reject (or cannot tell) I said yes to, or a keep I said no to."""
+    return (label == "yes" and verdict != filt.KEEP) or (label == "no" and verdict == filt.KEEP)
+
+
+def pct(lo_hi):
+    return f"{lo_hi[0] * 100:.0f}% to {lo_hi[1] * 100:.0f}%"
+
+
+def audit_report(sample, by_key, labels):
+    """Tables for AUDIT.md from the tuning sets only. The held-out set is never read here."""
+    lines = []
+    for name in ("random_rejects", "close_calls", "kept", "gate_close_calls"):
+        keys = sample["sets"][name]
+        rows = [(k, by_key[k], labels.get(k)) for k in keys]
+        judged = [(k, d, lab) for k, d, lab in rows if lab and lab[0] != "cannot tell"]
+        errors = [(k, d, lab) for k, d, lab in judged if is_error(d["verdict"], lab[0])]
+        unlabelled = [k for k, _, lab in rows if not lab]
+        cannot = [k for k, _, lab in rows if lab and lab[0] == "cannot tell"]
+        lines += [f"## {name.replace('_', ' ')}", "",
+                  f"{len(keys)} postings · labelled {len(keys) - len(unlabelled)} · my 'cannot tell' {len(cannot)} · "
+                  f"filter wrong by my label: {len(errors)} of {len(judged)}"
+                  + (f" (95% Wilson interval {pct(wilson(len(errors), len(judged)))})" if judged else ""), "",
+                  "| # | Board | Title | Filter | Score | My label | Note | Filter's reason |", "|---|---|---|---|---|---|---|---|"]
+        for i, (k, d, lab) in enumerate(rows, 1):
+            mark = " (wrong)" if lab and is_error(d["verdict"], lab[0]) else ""
+            lines.append(f"| {i} | {d['board']} | {d['title'].strip()} | {d['verdict']}{mark} | {d['score']} | "
+                         f"{lab[0] if lab else '(none)'} | {(lab[1] if lab else '').replace('|', '/')} | "
+                         f"{d['reason'].replace('|', '/')} |")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def measure(specs, keys, jobs, persona, labels, decide=filt.decide):
+    """One row per filter file on the held-out keys: agreement with my labels, false keeps, false rejects."""
+    rows = []
+    judged = [k for k in keys if labels.get(k) and labels[k][0] != "cannot tell"]
+    for path, spec in specs:
+        verdicts = {k: decide(jobs[k][1], jobs[k][0], persona, spec).verdict for k in keys}
+        fk = [k for k in judged if labels[k][0] == "no" and verdicts[k] == filt.KEEP]
+        fr = [k for k in judged if labels[k][0] == "yes" and verdicts[k] != filt.KEEP]
+        agree = len(judged) - len(fk) - len(fr)
+        rows.append({"filter": path, "version": spec["version"], "judged": len(judged), "agree": agree,
+                     "false_keeps": fk, "false_rejects": fr, "kept": sum(v == filt.KEEP for v in verdicts.values()),
+                     "interval": wilson(agree, len(judged))})
+    return rows

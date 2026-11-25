@@ -1,6 +1,6 @@
 # FILTER.md: Job-Search Agent 3
 
-Pavithra Prasad · INFO 7375 · JS3 · version 1.0, 2026-11-25, written before the filter code
+Pavithra Prasad · INFO 7375 · JS3 · version 1.0 written 2026-11-25 before the filter code (`d9b1cf1`); version 1.1 the same day after the audit (section 7)
 
 The filter decides which collected postings reach the candidate, the fictional Rohan Mehta (`data/rohan-mehta.resume.json`): about two years as a software engineer plus a co-op, backend and platform skills, based in Boston. It starts from my JS1 relevance rule (four checks, all must pass), which the JS2 agent still uses. JS1's rule gives only a yes or no, so it has no close calls to audit. Version 1.0 keeps its checks but splits them into gates and a score with a threshold.
 
@@ -83,8 +83,28 @@ Written before the audit. The audit will say whether each one happened.
 * "Software" in a mobile title (iOS, Android), which matches the role words but is not backend work.
 * A résumé skill name used for something else, such as "Helm".
 
+What the audit found (`AUDIT.md`):
+
+* "Helm" happened. In Ramp's "Research Engineer, Benchmarks & Evaluation", "Helm" matched "HELM", an evaluation benchmark ("lm-evaluation-harness, HELM or similar"), not the Kubernetes tool on the résumé. It added one point to a close call.
+* "AI" and "Software" did not, by my labels. I said yes to the Support Engineer, iOS and Android postings, so they matched for a reason I accept.
+* One I did not predict: Lever's country tag. "Toronto; New York, NY (CA)" is tagged CA (Canada) after its first city, so G1 found no US word, although New York is one of its places.
+
+## 7. Version 1.1 (2026-11-25, after the reject audit)
+
+Every change below was chosen on the audit's tuning sets (48 postings: the random rejects, the close calls, the kept postings and the gate close calls), with my pass-2 hand labels. The 20 held-out postings were not used to choose. Each change is its own filter file in `filters/changes/`, so it can be measured alone (`SCORE-REPORT.md`). `filters/v1.1.json` is v1.0 plus A to E.
+
+| Change | Rule | Decision | Reason | Tuning sets (agrees with my label, of 48; v1.0 is 35) |
+|---|---|---|---|---|
+| A | Threshold 5 to 4: a full role title plus one résumé skill is enough | added | Ramp and Pinterest descriptions often name no language at all, so real backend roles scored 3 or 4 and were rejected | 38, with one new false keep (Machine Learning Engineer II, Responsible AI) |
+| B | G3 rejects only an ask of 5 or more years, not 3 | added | I said yes to postings asking 3 or 4 years; Rohan has about two and a half years plus a master's degree | 37, no new false keep |
+| C | G1 also accepts US cities written with their state ("New York, NY") | added | the Lever country tag and Figma's city-only locations hide US places | 35, no verdict changes in the tuning sets |
+| D | The skill "Helm" counts only as written, not "HELM" | added | the false friend above | 35, no verdict changes at threshold 5 |
+| E | G4: reject when the description asks for a senior engineer ("We're looking for a Senior Backend Engineer") | added | a Ramp backend title without "Senior" asks for one in its text; the title gate misses it | 35, no verdict changes in the tuning sets |
+| G | Drop Intern and Staff from G2 | rejected | my labels said yes to 4 Intern or Staff postings, but Rohan finished his degree in May 2026, so internships for students do not fit, and Staff titles ask for many more years than he has. I kept those labels as they are and did not change the filter to match them | 37 |
+
 ## Change log
 
 | Version | Date | What changed | Why |
 |---|---|---|---|
 | 1.0 | 2026-11-25 | First version: JS1's four checks split into three gates and a score with a threshold, plus "cannot tell" | JS1's yes or no rule has no close calls to audit |
+| 1.1 | 2026-11-25 | Changes A to E added, G rejected (section 7) | the reject audit: 13 of 48 tuning postings disagreed with my labels under v1.0 |
