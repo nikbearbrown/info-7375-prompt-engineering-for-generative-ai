@@ -70,11 +70,21 @@ def strip_html(content):
     return re.sub(r"\s+", " ", html.unescape(text)).strip()
 
 
+def term_pattern(term):
+    """Whole word, ignoring case; spaces in term match any run of whitespace."""
+    return re.compile(r"(?<!\w)" + r"\s+".join(re.escape(w) for w in term.split()) + r"(?!\w)", re.IGNORECASE)
+
+
 def find_term(text, term):
-    """The text matching term as a whole word, ignoring case, or None. Spaces in term match any space."""
-    pattern = r"\s+".join(re.escape(w) for w in term.split())
-    match = re.search(r"(?<!\w)" + pattern + r"(?!\w)", text or "", re.IGNORECASE)
+    """The text matching term as a whole word, ignoring case, or None."""
+    match = term_pattern(term).search(text or "")
     return match.group(0) if match else None
+
+
+def find_span(text, term):
+    """(start, end) of the first whole-word match of term, or None."""
+    match = term_pattern(term).search(text or "")
+    return match.span() if match else None
 
 
 def shipped_skills(resume):

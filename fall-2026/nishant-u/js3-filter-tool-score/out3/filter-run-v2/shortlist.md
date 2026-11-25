@@ -78,7 +78,7 @@ Supported claims: 5
 | --- | --- | --- | --- |
 | C1 US-based | supported | location.name | New York City, NY |
 | C2 Uses Python | supported | content | Solid Python plus at least one of Kotlin, Java, Scala, or Go. |
-| C2 Uses SQL | supported | content | Concretely, this means the path data takes out of our production databases (CockroachDB and MySQL) and into a place where analysts and data scientists can query it. |
+| C2 Uses SQL | supported | content | Strong SQL, and good instincts for how to model data so analysts and data scientists can actually use it. |
 | C2 Uses Databricks | supported | content | Today that involves Fivetran, Kafka, Spark, and Airflow landing data in Snowflake and Databricks. |
 | C2 Uses AWS | supported | content | Experience shipping infrastructure on AWS with Terraform. |
 | C3 Sponsors visas | insufficient | content | no text found |

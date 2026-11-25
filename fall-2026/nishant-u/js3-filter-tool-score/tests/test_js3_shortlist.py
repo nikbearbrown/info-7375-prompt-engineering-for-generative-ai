@@ -54,6 +54,13 @@ class C2UsesSkill(Quoting):
             with self.subTest(skill=skill):
                 self.assertLabel(p, claim(p, 2, skill), "insufficient")
 
+    def test_quote_rests_on_the_whole_word_match(self):
+        # Found in the real run (faire:8806617002): the quote showed the "MySQL" sentence.
+        p = gh(content=body("Data lands from MySQL and Postgres. You will write SQL daily."))
+        c = claim(p, 2, "SQL")
+        self.assertLabel(p, c, "supported", "write SQL daily")
+        self.assertNotIn("MySQL", c["quote"])
+
     def test_filter_defines_no_contradiction_for_c2(self):
         p = gh(content=body("We do not use Python here."))
         self.assertEqual(claim(p, 2, "Python")["label"], "supported")

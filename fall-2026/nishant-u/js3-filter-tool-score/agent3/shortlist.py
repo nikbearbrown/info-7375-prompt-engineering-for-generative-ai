@@ -74,8 +74,10 @@ def label_c2(posting, skill):
     hit = flt.find_term(text, skill)
     if not hit:
         return _label("C2", f"Uses {skill}", "insufficient", field, NO_TEXT)
-    i = text.find(hit)
-    return _label("C2", f"Uses {skill}", "supported", field, sentence_around(text, i, i + len(hit)))
+    # Quote the sentence around the whole-word match, not the first substring ("SQL" inside "MySQL").
+    span = flt.find_span(text, skill)
+    i, j = span if span else (text.find(hit), text.find(hit) + len(hit))
+    return _label("C2", f"Uses {skill}", "supported", field, sentence_around(text, i, j))
 
 
 def label_c3(posting):
