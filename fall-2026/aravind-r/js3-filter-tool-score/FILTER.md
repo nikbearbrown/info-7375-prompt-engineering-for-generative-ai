@@ -327,6 +327,16 @@ The committed implementation re-counts in Phase 2, and any difference is recorde
     years", "a few years") is treated as unknown or misread, and then confidently decided.
   - Also, the rule never abstains on a stated value that it extracted wrongly.
 
+### 5.2 Shortlist definition [DECIDED 2026-11-25, written before any audit verdict]
+
+- **shortlist = keep ∪ cannot_tell.**
+  - A `cannot_tell` posting reaches Aravind for a human decision. It is not dropped.
+- **Phase 3 runs on this set.** Under v1.0.0 it is the 3 `cannot_tell` postings (§5.1).
+  - If v1.1 changes the set, Phase 3 uses v1.1, and the Phase 3 document says which version
+    it used.
+- **No rule change may be made in order to grow the shortlist.**
+- **Every v1.1 change must cite the audit rows** (`audit_id`) that motivated it, in §9.
+
 ---
 
 ## 6. The filter spec (the code loads this block) [DECIDED 2026-11-25, hand-set v1]
