@@ -28,3 +28,4 @@ development evidence from that point on.
 ## Exposure log
 
 - 2026-10-29: the held-out titles and locations (not their posting text or my labels) were shared with Claude in claude.ai while I asked how the rule reads. No prompt was written or changed from that conversation. The seal applies to the claude -p judge, which had not seen any of these postings before the held-out evaluation.
+- 2026-11-25 (JS3): 4 of the 10 held-out postings were in the JS3 reject audit used to choose FILTER v2, so for v2 they count as development evidence (SCORE.md).
