@@ -16,7 +16,7 @@
 | Close-call band | score 4–6, or exactly one failed rule | **hand-set** (FILTER.md §1.4) | `js3/filter.py:is_close_call` |
 | `engineer` exclusion (R1b) | 1 word | **hand-set** after the audit (v1.1) | `filters/filter_v1.1.json` |
 | Education window | 40 characters after "N years" | **hand-set** by Claude, not tuned | `js3/filter.py:years_spans` |
-| US / non-US marker lists (R5) | 64 / 74 place names | **hand-set** by Claude from the 406 distinct location strings in the **whole** corpus (which includes H's locations: a possible leak, see §4) | `filters/filter_v1.2.json` |
+| US / non-US marker lists (R5) | 69 / 73 place names | **hand-set** by Claude from the 406 distinct location strings in the **whole** corpus (which includes H's locations: a possible leak, see §4) | `filters/filter_v1.2.json` |
 | Evidence cue words ("a plus", "preferred", "bonus", …) and heading words | | **hand-set** by Claude from FILTER.md §2's examples; the heading list was changed once, after a bug (SHORTLIST.md) | `js3/evidence.py` |
 | Claude prompt (B) | JS1 `revised.txt`, unchanged | **inherited** (JS1) | `prompts/js1_revised.txt` |
 | Claude prompt (E1) | JS1 `baseline.txt`, unchanged | **inherited** (JS1) | `prompts/js1_baseline.txt` |

@@ -18,6 +18,8 @@ def excerpt(text, n=1500):
 def main():
     global OUT
     order = json.loads(Path("audit/sheet_order.json").read_text())
+    if len(sys.argv) > 1 and sys.argv[1] == "--h2":         # second held-out sheet -> labels/hand_verdicts_h2.jsonl
+        order = json.loads(Path("audit/sheet_order_h2.json").read_text()); OUT = Path("labels/hand_verdicts_h2.jsonl")
     if len(sys.argv) > 2 and sys.argv[1] == "--redo":       # re-judge given sheet items; originals stay untouched
         items = [int(x) for x in sys.argv[2].split(",")]
         order = [order[i - 1] for i in items]; OUT = Path("labels/hand_corrections.jsonl")

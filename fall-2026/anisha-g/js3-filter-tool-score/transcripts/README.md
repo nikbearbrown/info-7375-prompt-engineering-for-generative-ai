@@ -8,7 +8,7 @@
 | `claude-run5{a,b,c}-injection-after-desc-fix-stream.jsonl` + `server-20261125T1455*` | run 3's prompt after the description fix (`d6a5279`) | same |
 | `client-own-20261125T141615.jsonl` + `server-20261125T141615-71935.jsonl` | my scripted client, 12 steps incl. errors | my client + my server |
 | `client-other-filesystem-2.2.0-*.jsonl` (3 files) | the other server, `@modelcontextprotocol/server-filesystem` 2.2.0 | my client |
-| `server-20261125T1418*`–`T1420*` (30 files) | the E4 experiment: one Claude Code session per held-out posting calling `score_posting` | my server |
+| `server-20261125T1420*` (30 files, each with a `tools/call`) | the E4 experiment: one Claude Code session per held-out posting calling `score_posting` | my server |
 
 Format of my server's files: one JSON object per line, `{"ts", "dir": "in"|"out", "msg"}` (or `"raw"` for unparseable input).
 Format of my client's files: `{"ts", "dir": "client->server"|"server->client", "msg", "note"}`.

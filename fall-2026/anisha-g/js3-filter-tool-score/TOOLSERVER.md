@@ -21,7 +21,7 @@
   - The server appends every message, in and out, to `transcripts/server-<time>-<pid>.jsonl` (`{"ts","dir":"in"|"out","msg"}`).
   - My scripted client (`toolserver/client.py`) records its own side to `transcripts/client-*.jsonl`.
   - Claude Code's side is saved with `--output-format stream-json` to `transcripts/claude-*-stream.jsonl`.
-- **Tests:** `tests/test_toolserver.py` (13 tests) was written **before** the server existed (commit `340c11f`, `logs/00`). The tests start it as a real subprocess and cover:
+- **Tests:** `tests/test_toolserver.py` (14 tests) was written **before** the server existed (commit `340c11f`, `logs/00`). The tests start it as a real subprocess and cover:
   - the handshake, the single declared tool, and scoring by id and by title + text;
   - unknown id, bad arguments, unknown tool, unknown method and malformed JSON;
   - transcript in both directions;
