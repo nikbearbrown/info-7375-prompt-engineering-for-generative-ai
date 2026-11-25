@@ -42,7 +42,7 @@ python -m agent.loop --config config/boards.json; echo "exit code: $?"
 | Nov 19 | Live run 1 | 1,284 postings, 134 new since Nov 10 | `out/runs/2026-11-19T190803/` |
 | Nov 23 | Live run 2 | 1,290 postings, 40 new | `out/runs/2026-11-23T153111/` |
 | Nov 23 | Filter v1.0 on run 2 | KEEP 31, REJECT 1,252, CANNOT TELL 7 | `out/filter/2026-11-23T153111/` |
-| Nov 23–24 | Reject audit, 48 postings judged blind | 3 of 30 random rejects wrong (95% interval 3–26%); false friend "Python" | `audit/`, `AUDIT` section of FILTER.md §10 |
+| Nov 23–24 | Reject audit, 48 postings judged blind | 3 of 30 random rejects wrong (95% interval 3–26%); false friend "Python" | `audit/comparison_2026-11-23.txt` |
 | Nov 24 | C1 and C3 measured; held-out set of 32 judged blind | C1 added (v1.1), C3 rejected | `out/measure/`, `heldout/`, FILTER.md §10 |
 | Nov 24 | Filter v1.1 on run 2 | KEEP 22 | `out/filter/2026-11-23T153111/filter_v1_1/` |
 | Nov 25 | Shortlist: 50 claims labeled | 17 supported, 7 contradicted, 26 insufficient | `SHORTLIST.md`, `shortlist/` |

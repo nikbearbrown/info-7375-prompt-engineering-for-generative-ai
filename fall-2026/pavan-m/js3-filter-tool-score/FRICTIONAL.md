@@ -79,3 +79,6 @@ Correction: WHAT_MOVES_THE_SCORE.md first said "3 of 4 Palantir misses"; there a
 
 ## Note on dates
 Entries 8–15 are headed "November 23, 2026", but the commits for that work happened on Nov 24 (12:35–13:44) and Nov 25 (00:40–04:13). The git log timestamps are the accurate record; the entry headings were drafted with Claude and not updated as the work continued past midnight.
+
+## Entry 21 — November 25, 2026: README and SOURCES
+Signed the README sign-off; kept all eight "Not checked" items. Fixed a wrong reference Claude had drafted in the README's "What ran" table (pointed to a non-existent FILTER.md section; now audit/comparison_2026-11-23.txt). Wrote SOURCES.md, including the mistakes Claude made during JS3 that I caught.
