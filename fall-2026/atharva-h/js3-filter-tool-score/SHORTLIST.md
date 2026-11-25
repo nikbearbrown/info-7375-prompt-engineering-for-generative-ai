@@ -82,4 +82,4 @@ Answers computed from **my** labels with `python3 claims.py confirmed`, saved in
 - The posting never says "entry level" or "junior", so the seniority claim is insufficient (my label agrees) and the agent answers **I cannot tell**.
 - Yet "Minimum of 1+ years of previous experience in a similar role" is clear enough for Riley, and I labeled the posting "yes".
 
-**What was measured:** dropping the seniority clause (A1 in `SCORE.md`) fixes counterexample 2, but answers 6 of 7 tuning postings, all wrong. Claude recommends keeping the rule and reporting coverage next to accuracy, so an abstention is never counted as a correct answer. The decision is mine.
+**What was measured:** dropping the seniority clause (A1 in `SCORE.md`) fixes counterexample 2, but answers 6 of 7 tuning postings, all wrong. I rejected A1 on 2026-11-25 (FILTER.md v1.2), so the rule stays as it is, and coverage is reported next to accuracy, so an abstention is never counted as a correct answer.
