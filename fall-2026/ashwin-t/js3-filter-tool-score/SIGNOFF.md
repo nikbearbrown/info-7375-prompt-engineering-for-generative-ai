@@ -34,9 +34,12 @@ Checked (with Claude's help):
               FILTER.md and filters/v1.0.json. It agrees on all 775 development postings. FILTER.md section 4
               also requires an eligible location: 4 postings reach 7 only with non-US locations and are
               correctly REJECT.
-Not checked:  - The 15-claim blind sample was prepared but not labeled.
+Checked by hand (added after the hand check, later that evening):
+              I labeled a blind sample of 15 claims (10 of 15 agree with Codex), and applied the written
+              rule to two postings: both decisions match the code; my scores (7 and 5) are one below the
+              code's (8 and 6), recorded as given (audit/BLIND-EXTRA.md).
+Not checked:  - The other 75 claims have only Codex labels.
               - My 20 blind verdicts came from a 4-option form; 6 were corrected after review.
-              - I did not compute the two hand scores in drafting/hand-score-check.md.
 ```
 
 ## Facts Ashwin can check, with the test or file for each

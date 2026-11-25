@@ -20,7 +20,11 @@ column separates two kinds:
   - 6 corrections of earlier excerpt-based labels: 2, 6, 7, 11, 12 and 17, each changed from I to S. Each corrected
     row keeps its earlier label in `note`.
 
-**No claim has a human label.** That is a stated limitation of this step.
+**Human check, added 2026-11-25 (evening).** Ashwin labeled a blind random sample of 15 of the 90 claims (seed
+20261128), with the Codex label hidden (`shortlist/claim-human-sheet.csv`, `audit/BLIND-EXTRA.md`). Ashwin agreed
+with Codex on 10 of 15. One disagreement shows a gap in the Codex labels: claim H12 (`palantir-71ed917e-c5`) says the
+posting "lists relocation assistance as a benefit", but the word "relocation" never appears in it. Codex labeled it
+S; Ashwin labeled it C. The other 75 claims have only the Codex label.
 
 ## What ran
 
@@ -106,7 +110,7 @@ US, so "I cannot tell" stays the right answer on remote eligibility for those po
 
 ## Still open
 
-- **All 90 labels are AI-assisted. No claim has a human label.** Ashwin may review any of them and override them in
+- **All 90 labels are AI-assisted; 15 also have a blind human label (10 of 15 agree).** Ashwin may review any of them and override them in
   `claim-sheet.csv`. A changed row should keep the earlier label in `note`.
 - The 2 v1.1-only KEEPs have no claims. That is by scope, because the shortlist is v1.0's, but it means the claim check says nothing about them.
 - One possible next change, to one object: add the structured fields to the context Claude is given. It is not

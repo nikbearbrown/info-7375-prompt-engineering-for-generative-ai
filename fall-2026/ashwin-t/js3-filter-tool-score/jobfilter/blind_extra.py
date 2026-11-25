@@ -206,13 +206,26 @@ def report() -> Path:
             L.append(f"| {r['n']} | `{r['claim_id']}` | {r['human_label']} | {c} | "
                      f"{'yes' if r['human_label'].strip().upper() == c else '**no**'} | {r['reason']} |")
         L.append("")
+    if hum:
+        diff = [r["n"] for r in hum if r["human_label"].strip().upper() != claims[r["claim_id"]]["label"]]
+        L += [f"Ashwin labeled each claim in chat from S/C/I, shown the claim, its quote and the posting facts, with "
+              f"the Codex label hidden. Disagreements: {', '.join(diff) or 'none'}. They are recorded as given; "
+              "neither label is treated as the truth. `claim-sheet.csv` still holds the Codex labels for all 90 claims.", ""]
     hand = [r for r in _rows(HAND_SHEET) if r["ashwin_score"].strip()]
     L += ["## 3. Two scores computed by hand (`drafting/hand-score-check.csv`)", ""]
     if hand:
+        L += ["Ashwin applied the written rule in chat to the facts shown for each posting (title, topic words "
+              "found, location), choosing among four scores; the computed score was hidden.", ""]
         L += ["| Posting | Ashwin's score | Code's score | Ashwin's decision | Code's decision |", "|---|---:|---:|---|---|"]
         for r in hand:
             d = dec[r["key"]]
             L.append(f"| {r['title']} | {r['ashwin_score']} | {d['score']} | {r['ashwin_decision']} | {d['decision']} |")
+        same = sum(1 for r in hand if r["ashwin_decision"].strip() == dec[r["key"]]["decision"])
+        exact = sum(1 for r in hand if r["ashwin_score"].strip() == str(dec[r["key"]]["score"]))
+        parts = "; ".join(f"{r['title']}: {dec[r['key']]['components']['title']} + {dec[r['key']]['components']['topics']} + "
+                          f"{dec[r['key']]['components']['location']} = {dec[r['key']]['score']}" for r in hand)
+        L += ["", f"Decisions agree on {same} of {len(hand)}; scores agree on {exact} of {len(hand)}. The rule's "
+              f"parts (title + topics + location) give: {parts}. Recorded as given, not corrected."]
     else:
         L.append("Not done.")
     REPORT.write_text("\n".join(x if x.startswith("|") else x for x in L) + "\n", encoding="utf-8")

@@ -46,8 +46,35 @@ Ashwin answered in chat through a fixed four-option form (Y new-grad backend fit
 
 ## 2. Fifteen claims labeled blind (`shortlist/claim-human-sheet.csv`)
 
-Answered: 0 of 15. Agreement with the Codex label: 0 of 0.
+Answered: 15 of 15. Agreement with the Codex label: 10 of 15.
+
+| n | Claim id | Ashwin | Codex | Same | Reason |
+|---|---|---|---|---|---|
+| H1 | `palantir-afea07a8-c4` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H2 | `palantir-15844944-c5` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H3 | `palantir-15844944-c3` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H4 | `klaviyo-80410540-c2` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H5 | `palantir-e47d4410-c2` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H6 | `palantir-ab7e3425-c1` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H7 | `palantir-a8174f9c-c5` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H8 | `palantir-a8174f9c-c2` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H9 | `palantir-d5d83a8f-c1` | S | I | **no** | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H10 | `palantir-fb2d3222-c5` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H11 | `palantir-1345438c-c3` | C | S | **no** | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H12 | `palantir-71ed917e-c5` | C | S | **no** | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H13 | `palantir-a8174f9c-c1` | C | S | **no** | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H14 | `palantir-e47d4410-c3` | S | S | yes | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+| H15 | `palantir-cd2423c6-c4` | I | S | **no** | Ashwin's choice in chat 2026-11-25 from S/C/I, shown the claim, quote and posting facts; Codex label hidden |
+
+Ashwin labeled each claim in chat from S/C/I, shown the claim, its quote and the posting facts, with the Codex label hidden. Disagreements: H9, H11, H12, H13, H15. They are recorded as given; neither label is treated as the truth. `claim-sheet.csv` still holds the Codex labels for all 90 claims.
 
 ## 3. Two scores computed by hand (`drafting/hand-score-check.csv`)
 
-Not done.
+Ashwin applied the written rule in chat to the facts shown for each posting (title, topic words found, location), choosing among four scores; the computed score was hidden.
+
+| Posting | Ashwin's score | Code's score | Ashwin's decision | Code's decision |
+|---|---:|---:|---|---|
+| Software Engineer, Conversational Products & Agent Workflows | 7 | 8 | KEEP | KEEP |
+| Software Engineer - Developer Productivity | 5 | 6 | REJECT | REJECT |
+
+Decisions agree on 2 of 2; scores agree on 0 of 2. The rule's parts (title + topics + location) give: Software Engineer, Conversational Products & Agent Workflows: 3 + 3 + 2 = 8; Software Engineer - Developer Productivity: 3 + 2 + 1 = 6. Recorded as given, not corrected.
