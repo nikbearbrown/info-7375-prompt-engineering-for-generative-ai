@@ -241,3 +241,10 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
     - Alone, this change adds one false keep (S23, Product Design New Grad). With the other two changes, it adds none on dev.
   - **Measured on dev** (53 decided labels): recall 9/9, precision 9/9, against 6/9 and 6/6 for v1.0. This is **fitted on the dev labels**: the changes were chosen to fix these misses, so dev numbers cannot validate them. Held-out set H2 does.
   - **Known effect of the +3:** a posting with no role phrase can now reach 0 + 4 + 3 = 7. So **"no keep without a role phrase" (§1 R) no longer holds in v1.1.** No such posting is kept on dev, and H2 will show whether this happens.
+- **Clarification C3: the DUTY reading rule** (2026-11-25, written while labeling the v1.1 shortlist, after the freeze; it does not change any score).
+  - **supported:** a span describing the role's own duties or requirements states the item.
+  - **insufficient:** the item appears only in company, mission or culture text; as one example in an "X, Y, or Z" option list; or as a description of the applicant's past exploration.
+- **Found after the v1.1 freeze, from reading the kept postings, not from labels. Not acted on**, because changing a frozen filter needs new evidence:
+  - **Negation false friend.** E matches "new graduate" inside "It is **not** intended for internship, new graduate, or entry-level applicants" (`8546367002`). In v1.1 this is worth +3, and it makes that posting the top score (11). A v1.2 candidate would ignore E phrases in a sentence containing a negation ("not", "no").
+  - **"junior" describing users**, not the role (`8091041002`), is also amplified to +3 in v1.1.
+  - **Graduation windows.** All seven Databricks and Notion New Grad keeps require graduation in fall 2026 to summer 2027 (or by December 2026). The persona graduated in December 2025. The filter has no eligibility rule, and the shortlist's LEVEL checks show the conflict.

@@ -6,7 +6,8 @@ supported / contradicted / insufficient against that posting's own text (FILTER.
 Who labels what:
 - ROLE, TOPIC: labeled by rule. Supported iff the phrase occurs, with the verbatim quote.
 - LEVEL, LOCATION: labeled by rule, using the FILTER.md §2 evidence rules as written.
-- DUTY: labeled by a reader, from shortlist/duty_labels.json. Each entry records who labeled it.
+- DUTY: labeled by a reader, from shortlist/reader_labels.json (js3/reader_labels.py). Each entry records who labeled it.
+- A reader check may override a rule-labeled LEVEL claim. Both labels are kept (rule_label, then label).
 Every quote is checked to occur verbatim in the named field. A claim whose quote fails the check is an error.
 Aditya's audit label, when the posting was on his sheet, is shown next to the verdict.
 """
@@ -75,9 +76,9 @@ def location_claim(p):
 def build(version):
     cfg = load_filter(version)
     corpus = load_corpus()
-    duty = json.loads((OUT / "duty_labels.json").read_text()) if (OUT / "duty_labels.json").exists() else {}
+    reader = json.loads((OUT / "reader_labels.json").read_text()) if (OUT / "reader_labels.json").exists() else {}
     aud = {}
-    for f in ("dev_labels.csv", "heldout_labels.csv"):
+    for f in ("dev_labels.csv", "heldout2_labels.csv"):
         path = ROOT / "labels" / f
         if path.exists():
             import csv
@@ -98,7 +99,7 @@ def build(version):
             gname = g["group"].split(" ", 1)[1]
             claims.append({"type": "TOPIC", "claim": f"The posting mentions {gname} ('{g['phrase']}').",
                            "label": "supported", "labeled_by": "rule", "evidence": [{"field": g["field"], "quote": g["quote"]}]})
-            d = duty.get(key, {}).get(g["group"])
+            d = reader.get(key, {}).get("DUTY", {}).get(g["group"])
             if d:
                 claims.append({"type": "DUTY", "claim": f"The role itself involves {gname} work.", "label": d["label"],
                                "labeled_by": d["labeled_by"], "evidence": d.get("evidence", []), "note": d.get("note", "")})
@@ -106,8 +107,13 @@ def build(version):
                 claims.append({"type": "DUTY", "claim": f"The role itself involves {gname} work.", "label": "unlabeled",
                                "labeled_by": None, "evidence": []})
         lab, ev = level_claim(p, r, cfg)
-        claims.append({"type": "LEVEL", "claim": "The role is open to someone with Priya's experience (under 1 year full-time).",
-                       "label": lab, "labeled_by": "rule (FILTER.md §2)", "evidence": ev})
+        level = {"type": "LEVEL", "claim": "The role is open to someone with Priya's experience (under 1 year full-time).",
+                 "label": lab, "labeled_by": "rule (FILTER.md §2 C1)", "evidence": ev}
+        rc = reader.get(key, {}).get("LEVEL")
+        if rc:
+            level.update({"rule_label": lab, "label": rc["label"], "labeled_by": f"rule said {lab} -> {rc['labeled_by']}",
+                          "evidence": ev + rc["evidence"], "note": rc["note"]})
+        claims.append(level)
         lab, ev = location_claim(p)
         claims.append({"type": "LOCATION", "claim": "The role is in Boston or remote within the US.",
                        "label": lab, "labeled_by": "rule (FILTER.md §2)", "evidence": ev})
