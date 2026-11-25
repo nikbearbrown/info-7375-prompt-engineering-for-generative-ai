@@ -1,6 +1,6 @@
 # MCP evaluation — two tool servers, four ledgers
 
-> **DRAFT for Nishant to edit.** Drafted by Claude Code on 2026-11-25 from the source code and the real transcripts listed below. Each server's **Trust decision** section is left empty for Nishant.
+Ledgers drafted by Claude Code on 2026-11-25 from the source code and the real transcripts listed below. The two **Trust decision** sections are Nishant's own words (2026-11-25).
 
 Chapter 8 keeps four ledgers for one connection decision and does not let one stand in for another:
 
@@ -86,7 +86,7 @@ Chapter 8 keeps four ledgers for one connection decision and does not let one st
 
 ### Trust decision
 
-<!-- TODO: Nishant. Your decision on Server A: trust for what, under which conditions, and what reopens it. -->
+Trust: yes, narrowly. I'll let Claude Code call it, but only through my own config with only score_posting allowed. Its tool changed nothing in any call (tested; transcripts), it refuses path-like IDs without reading anything, and it imports nothing that can use the network. But I don't trust its description as written: "Read-only" is only true apart from its own transcript log, and "score" is really a saved verdict from postings collected on 2026-11-10, not a fresh judgment of fit. I'll fix both descriptions before anyone else uses it. A compatible client is still not entitled to treat a verdict as advice to apply.
 
 ---
 
@@ -141,7 +141,7 @@ My first run attempt sent nothing: a path bug in my client pointed at a non-exis
 
 ### Trust decision
 
-<!-- TODO: Nishant. Your decision on Server B: trust for what, under which conditions, and what reopens it. -->
+Trust: only as a teaching fixture. Reading the source shows it returns fixed in-memory records, with no network and no writes, and it behaved as its code says. But it calls its data "public", which the code can't know; it always answers protocol version 2025-11-25 whatever the client asks for; and it keeps no log, so there's no evidence trail. I'd run it locally to learn the protocol, but I wouldn't connect it to a real assistant for any decision.
 
 ---
 
