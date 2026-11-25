@@ -88,6 +88,7 @@ python3 -m agent.loop
 | **Persistence vs. model training** | `PERSISTENCE.md` |
 | **Human sign-off and driver's-seat record** | `SIGNOFF.md` |
 | **Sources and friction log** | `SOURCES.md`, `FRICTIONAL.md` |
+| **Local commit hashes cited in the docs → commits on this branch** | `COMMIT_MAP.md` |
 
 ## Results
 
