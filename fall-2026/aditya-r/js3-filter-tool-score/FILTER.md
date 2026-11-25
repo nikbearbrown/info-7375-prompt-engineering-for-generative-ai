@@ -218,3 +218,15 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
     - **insufficient** if the field is missing, or is only "Remote", "United States", "US", "USA" or "North America";
     - **contradicted** otherwise.
     - A multi-city field without Boston is contradicted, because these fields list the hiring places.
+- **Plan amendment A3: a fresh held-out set** (2026-11-25). Decided by **Aditya**, written before the new draw.
+  - **Why:** Aditya's labels reached Claude as screenshots of all 63 rows, so Claude read the 23 held-out labels before any revision was frozen (`labels/TRANSCRIPTION.md`).
+  - **Reclassification:** the old held-out rows (H-keep 3, H-near-reject 10, H-other-reject 10) become **dev** evidence. They are reported under their original group names. They are not pooled into the uniform 30-reject estimate, because they were drawn per cluster within strata, not uniformly.
+  - **New held-out set H2**, seed `7378`, drawn only from near-duplicate clusters with **no posting on the 63-row sheet**. Each cluster takes the stratum of its highest member.
+    - **10** clusters with a v1.0 reject scoring 3–5;
+    - **7** clusters with a role phrase in the title (R > 0) but rejected with a score ≤ 2;
+    - **7** of the remaining reject clusters.
+    - One posting per cluster, shuffled with seed `7379`.
+  - **Shortfall, stated plainly:** all 7 v1.0 keep clusters are already on the sheet, so **H2 contains no v1.0 keep**. On H2:
+    - precision of the v1.0 keep set cannot be measured;
+    - only postings that a revision newly keeps can test precision.
+  - **Blindness:** Aditya edits `review/LABEL_SHEET_H2.csv` directly (no screenshots). Claude does not open it until `FREEZE.json` is committed. `js3.labels` hashes it without printing its contents.

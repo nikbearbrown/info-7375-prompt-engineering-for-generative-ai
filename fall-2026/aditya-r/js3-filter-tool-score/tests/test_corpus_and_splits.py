@@ -57,3 +57,18 @@ def test_draw_is_reproducible():
     before = json.dumps(GROUPS, sort_keys=True)
     after = json.dumps(draw(), sort_keys=True)
     assert before == after
+
+
+def test_h2_disjoint_from_sheet_blind_and_reproducible():
+    from js3.sample import draw_h2
+    h2 = json.loads((ROOT / "splits" / "heldout2.json").read_text())
+    sheet_clusters = {CLUSTERS[k] for k in GROUPS["sheet_ids"]}
+    h2_keys = list(h2["sheet_ids"])
+    assert len(h2_keys) == 24 and len({CLUSTERS[k] for k in h2_keys}) == 24
+    assert not {CLUSTERS[k] for k in h2_keys} & sheet_clusters
+    with (ROOT / "review" / "LABEL_SHEET_H2.csv").open(encoding="utf-8-sig") as f:
+        header = next(csv.reader(f))
+    assert not {"score", "verdict", "group", "split"} & {h.lower() for h in header}
+    labels = (ROOT / "review" / "LABEL_SHEET_H2.csv").read_bytes()
+    assert json.dumps(draw_h2(), sort_keys=True) == json.dumps(h2, sort_keys=True)
+    (ROOT / "review" / "LABEL_SHEET_H2.csv").write_bytes(labels)  # draw_h2 rewrites the blank sheet; keep any labels

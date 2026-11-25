@@ -26,3 +26,12 @@ Use **your own judgment**, not the FILTER.md rules. If location, level or anythi
 3. open **only** the dev rows for the audit.
 
 The held-out rows stay unread until the revisions are frozen.
+
+---
+
+# Second batch: fresh held-out set H2 (FILTER.md amendment A3)
+
+- **What to fill in:** `review/LABEL_SHEET_H2.csv`. It has 24 rows, H01–H24. The full text of each row is in `review/postings_h2/Hxx.md`. The question and the `label`/`reason` columns are the same as in the first batch.
+- **Edit the CSV file directly** and save it in place (CSV UTF-8). **Please don't send screenshots or paste the labels into the chat.** Claude must not see these labels until the filter revision is frozen.
+- **Stay blind:** the same rule applies as before. Don't open `runs/`, `splits/`, `corpus/`, `shortlist/` or `FILTER.md` while labeling.
+- **How to resume:** tell Claude *"H2 labels saved"*. Claude will run `js3.labels seal-h2`. That checks that every row has `yes`, `no` or `unsure`, and records the file's sha256. It prints only row problems: no labels and no counts.

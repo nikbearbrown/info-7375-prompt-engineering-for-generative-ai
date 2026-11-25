@@ -185,3 +185,65 @@ if __name__ == "__main__":
     g = draw()
     print(json.dumps({k: g[k] for k in ("seeds", "clusters_total", "pools", "shortfalls")}, indent=1))
     print({grp: len(v) for grp, v in {**g["heldout"], **g["dev"]}.items()}, "sheet rows:", len(g["sheet_ids"]))
+
+
+# ---- Plan amendment A3: fresh held-out set H2 (FILTER.md change log) -----------------------------------
+SEED_H2, SEED_H2_SHEET = 7378, 7379
+H2_SIZES = {"H2-near-reject(3-5)": 10, "H2-role-phrase-reject(<=2)": 7, "H2-other-reject": 7}
+
+
+def draw_h2():
+    corpus = load_corpus()
+    results, _ = score_all(load_filter("v1.0"), corpus)
+    cl = json.loads((ROOT / "splits" / "clusters.json").read_text())
+    groups = json.loads((ROOT / "splits" / "groups.json").read_text())
+    used = {cl[k] for k in groups["sheet_ids"]}
+
+    def stratum(r):
+        if r["verdict"] != "reject":
+            return r["verdict"]                          # keep / cannot_tell: not eligible for H2
+        if 3 <= r["score"] <= 5:
+            return "H2-near-reject(3-5)"
+        if r["parts"]["R"]["points"] > 0:
+            return "H2-role-phrase-reject(<=2)"
+        return "H2-other-reject"
+
+    rank = {"keep": 0, "cannot_tell": 1, "H2-near-reject(3-5)": 2, "H2-role-phrase-reject(<=2)": 3, "H2-other-reject": 4}
+    members = defaultdict(list)
+    for k in sorted(corpus):
+        if cl[k] not in used:
+            members[cl[k]].append(k)
+    cl_stratum = {c: min((stratum(results[k]) for k in ks), key=rank.get) for c, ks in members.items()}
+    rng = random.Random(SEED_H2)
+    h2 = {}
+    for name, n in H2_SIZES.items():
+        pool = sorted(c for c, s in cl_stratum.items() if s == name)
+        picked = rng.sample(pool, min(n, len(pool)))
+        h2[name] = [rng.choice([k for k in members[c] if stratum(results[k]) == name]) for c in picked]
+    keys = sorted(k for ks in h2.values() for k in ks)
+    assert not ({cl[k] for k in keys} & used) and len({cl[k] for k in keys}) == len(keys)
+    random.Random(SEED_H2_SHEET).shuffle(keys)
+    sheet_ids = {k: f"H{i + 1:02d}" for i, k in enumerate(keys)}
+    out = {"plan": "FILTER.md amendment A3", "seeds": {"heldout2": SEED_H2, "sheet_order": SEED_H2_SHEET},
+           "eligible_clusters": dict(sorted(((s, sum(v == s for v in cl_stratum.values())) for s in set(cl_stratum.values())))),
+           "shortfall": "no v1.0 keep cluster is outside the 63-row sheet, so H2 has no v1.0 keep",
+           "heldout2": {g: [{"key": k, "score": results[k]["score"], "verdict": results[k]["verdict"]} for k in ks]
+                        for g, ks in h2.items()},
+           "sheet_ids": sheet_ids}
+    (ROOT / "splits" / "heldout2.json").write_text(json.dumps(out, indent=1) + "\n")
+    pdir = ROOT / "review" / "postings_h2"
+    pdir.mkdir(parents=True, exist_ok=True)
+    for old in pdir.glob("H*.md"):
+        old.unlink()
+    with (ROOT / "review" / "LABEL_SHEET_H2.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["sheet_id", "key", "title", "board", "location", "departments", "full_text", "label", "reason"])
+        for k in keys:
+            p, sid = corpus[k], sheet_ids[k]
+            w.writerow([sid, k, p["title"], p["board"], p["location"] or "", "; ".join(p["departments"]),
+                        f"review/postings_h2/{sid}.md", "", ""])
+            (pdir / f"{sid}.md").write_text(
+                f"# {sid} — {p['title']}\n\n- key: `{k}`\n- board: {p['provider']}:{p['board']}\n"
+                f"- location: {p['location'] or '(missing)'}\n- departments: {', '.join(p['departments']) or '(missing)'}\n"
+                f"- url: {p['url']}\n- captured: {p['last_seen']}\n\n---\n\n{readable(p['text'])}\n", encoding="utf-8")
+    return out
