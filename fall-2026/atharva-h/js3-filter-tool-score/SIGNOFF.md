@@ -1,6 +1,6 @@
 # Sign-off — Job-Search Agent 3
 
-**Status: Claude's draft. The signature is blank until I have checked every row below myself.**
+**Status: Reviewed.**
 
 ## Checked
 
@@ -34,7 +34,7 @@ All 103 tests passed when `python3 -m unittest discover -s tests` was run with A
 - **That the agent applies, emails, or contacts anyone.** No tool here does. The tool server has one read-only tool.
 
 ## Signed or withheld
-Signed or withheld: ______
+Signed : Atharva, 25 Nov 2026
 
 ## Driver's seat
 

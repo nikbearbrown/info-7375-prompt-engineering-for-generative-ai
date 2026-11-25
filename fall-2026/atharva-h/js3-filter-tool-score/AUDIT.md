@@ -3,7 +3,7 @@
 **Who did what.** Every verdict and every reason in the audit sheet is mine.
 - **My verdicts:** I judged all 50 rows myself on 2026-11-25, in my own copy of the sheet. They were copied into `state/audit/audit_v1.0.csv` unchanged, and no other column moved.
 - **Claude's part:** Claude drew the sample, wrote the sheet, ran `audit.py report`, and drafted this write-up around my verdicts. Claude drafted no verdict.
-- **Status:** the write-up is waiting for my review.
+- **Status:** reviewed.
 
 ## The sample, stated honestly
 - **What was drawn:** with seed 20261125, from the **4,203 postings outside the held-out set** (`audit.py draw`; `state/audit/draw_v1.0.json`).

@@ -249,3 +249,13 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **`SOURCES.md`:** I changed the two "Pending" review entries to "Reviewed".
   - **The rest:** kept as written. `SHORTLIST.md` and `README.md` were unchanged.
 - **Claude's follow-ups:** it closed the bold on my `MCP_EVAL.md` status line, and set `SHORTLIST.md`'s status to reviewed, because I said to keep the file as it is after reviewing it.
+
+## 2026-11-25 — Signed, precheck, zip
+- **What I did:** reviewed `AUDIT.md` and `SIGNOFF.md`, marked both reviewed, and signed `SIGNOFF.md` ("Atharva, 25 Nov 2026").
+- **Precheck (run with AI help):**
+  - all 103 tests pass
+  - no `.DS_Store`, `__pycache__`, or `.pyc` files tracked
+  - no email address or local home path anywhere in the folder, including `runs/` and `state/`
+  - nothing outside `fall-2026/atharva-h/js3-filter-tool-score/` staged
+- **The zip:** built from the committed files only (`git archive`) as `Hambir_Atharva_INFO7375_JS3.zip`.
+- **Not pushed:** pushing waits for my separate "yes, push".
