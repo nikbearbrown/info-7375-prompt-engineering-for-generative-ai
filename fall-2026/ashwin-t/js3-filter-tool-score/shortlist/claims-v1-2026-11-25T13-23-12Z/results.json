@@ -1,0 +1,871 @@
+{
+ "prompt": "prompts/claims-v1.md",
+ "filter_version": "v1.0",
+ "run_started_utc": "2026-11-25T13-23-12Z",
+ "results": [
+  {
+   "key": "greenhouse/klaviyo/8041054003",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:12Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting asks for 3+ years of professional software engineering experience, which is above a typical new-grad level.\", \"quote\": \"3+ years of professional software engineering experience\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether remote work from the United States is allowed (it lists only Boston and never mentions remote work).\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The role is located in Boston, MA.\", \"quote\": \"Boston, MA; Boston\", \"field\": \"location\"}, {\"claim\": \"The role is primarily backend engineering.\", \"quote\": \"This is a backend-heavy role\", \"field\": \"content\"}, {\"claim\": \"The posting lists Kubernetes and containers among the cloud technologies it expects experience with.\", \"quote\": \"containers, Kubernetes, infrastructure automation\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting asks for 3+ years of professional software engineering experience, which is above a typical new-grad level.",
+     "quote": "3+ years of professional software engineering experience",
+     "field": "content",
+     "id": "klaviyo-80410540-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether remote work from the United States is allowed (it lists only Boston and never mentions remote work).",
+     "quote": "",
+     "field": "content",
+     "id": "klaviyo-80410540-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The role is located in Boston, MA.",
+     "quote": "Boston, MA; Boston",
+     "field": "location",
+     "id": "klaviyo-80410540-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role is primarily backend engineering.",
+     "quote": "This is a backend-heavy role",
+     "field": "content",
+     "id": "klaviyo-80410540-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists Kubernetes and containers among the cloud technologies it expects experience with.",
+     "quote": "containers, Kubernetes, infrastructure automation",
+     "field": "content",
+     "id": "klaviyo-80410540-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/1345438c-ebfc-4fa5-b545-30c1414f317c",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:12Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: the required years of experience or seniority level, since the title and requirements name no level or years\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting's only listed location is an office in Washington, D.C., and it states no remote option for this role\", \"quote\": \"Washington, D.C.\", \"field\": \"location\"}, {\"claim\": \"The posting's backend stack includes Java and Python\", \"quote\": \"Different backend languages, including Java, Rust, Python and Go\", \"field\": \"content\"}, {\"claim\": \"The posting uses Docker and Kubernetes for containerization and orchestration\", \"quote\": \"Docker and Kubernetes for containerization and orchestration\", \"field\": \"content\"}, {\"claim\": \"The posting requires eligibility and willingness to obtain a US security clearance\", \"quote\": \"Eligibility and willingness to obtain a US Security clearance\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: the required years of experience or seniority level, since the title and requirements name no level or years",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-1345438c-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting's only listed location is an office in Washington, D.C., and it states no remote option for this role",
+     "quote": "Washington, D.C.",
+     "field": "location",
+     "id": "palantir-1345438c-c2",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting's backend stack includes Java and Python",
+     "quote": "Different backend languages, including Java, Rust, Python and Go",
+     "field": "content",
+     "id": "palantir-1345438c-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting uses Docker and Kubernetes for containerization and orchestration",
+     "quote": "Docker and Kubernetes for containerization and orchestration",
+     "field": "content",
+     "id": "palantir-1345438c-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting requires eligibility and willingness to obtain a US security clearance",
+     "quote": "Eligibility and willingness to obtain a US Security clearance",
+     "field": "content",
+     "id": "palantir-1345438c-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/6fe5515f-f677-4d98-8ac2-1775a425f5e7",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:12Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: the required years of experience or seniority level (for example, new-grad versus senior)\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting does not say this role is remote. It says remote work is allowed only for a few roles, on an exceptional basis.\", \"quote\": \"there are a few roles that allow for “Remote” work on an exceptional basis\", \"field\": \"content\"}, {\"claim\": \"The posting says experience with highly-available distributed systems is not required.\", \"quote\": \"Experience developing and managing highly-available distributed systems is beneficial, but not required.\", \"field\": \"content\"}, {\"claim\": \"The posting names Java and Python among the programming languages it requires proficiency in.\", \"quote\": \"such as Java, C++, Python, Rust, or similar languages\", \"field\": \"content\"}, {\"claim\": \"The posting lists Kubernetes among the open-source technologies the team uses.\", \"quote\": \"Open-source technologies like Cassandra, ElasticSearch, Spark, Kafka, Kubernetes, Flink\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: the required years of experience or seniority level (for example, new-grad versus senior)",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-6fe5515f-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting does not say this role is remote. It says remote work is allowed only for a few roles, on an exceptional basis.",
+     "quote": "there are a few roles that allow for “Remote” work on an exceptional basis",
+     "field": "content",
+     "id": "palantir-6fe5515f-c2",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting says experience with highly-available distributed systems is not required.",
+     "quote": "Experience developing and managing highly-available distributed systems is beneficial, but not required.",
+     "field": "content",
+     "id": "palantir-6fe5515f-c3",
+     "mechanical": "quote-found-negation"
+    },
+    {
+     "claim": "The posting names Java and Python among the programming languages it requires proficiency in.",
+     "quote": "such as Java, C++, Python, Rust, or similar languages",
+     "field": "content",
+     "id": "palantir-6fe5515f-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists Kubernetes among the open-source technologies the team uses.",
+     "quote": "Open-source technologies like Cassandra, ElasticSearch, Spark, Kafka, Kubernetes, Flink",
+     "field": "content",
+     "id": "palantir-6fe5515f-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/832e4652-5088-4e5b-aeac-1e82ec3ebad4",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:12Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting asks for several years of professional experience, well beyond new-grad level.\", \"quote\": \"4+ years of professional software development experience on core infrastructure with emphasis on operational excellence\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. The location is New York, NY, and the posting says remote work is allowed only for a few roles on an exceptional basis, without saying whether this is one of them.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The role centers on building a large-scale distributed system for operating Kubernetes clusters.\", \"quote\": \"build and operate a large-scale distributed system to allow the remote operation and maintenance of Kubernetes clusters\", \"field\": \"content\"}, {\"claim\": \"The posting accepts Java as a primary systems programming language.\", \"quote\": \"Systems programming experience with strong proficiency in golang, Java or equivalent.\", \"field\": \"content\"}, {\"claim\": \"The posting values familiarity with Docker and Kubernetes.\", \"quote\": \"Some familiarity with containers (Docker) and orchestration (Kubernetes) at scale\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting asks for several years of professional experience, well beyond new-grad level.",
+     "quote": "4+ years of professional software development experience on core infrastructure with emphasis on operational excellence",
+     "field": "content",
+     "id": "palantir-832e4652-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. The location is New York, NY, and the posting says remote work is allowed only for a few roles on an exceptional basis, without saying whether this is one of them.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-832e4652-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The role centers on building a large-scale distributed system for operating Kubernetes clusters.",
+     "quote": "build and operate a large-scale distributed system to allow the remote operation and maintenance of Kubernetes clusters",
+     "field": "content",
+     "id": "palantir-832e4652-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting accepts Java as a primary systems programming language.",
+     "quote": "Systems programming experience with strong proficiency in golang, Java or equivalent.",
+     "field": "content",
+     "id": "palantir-832e4652-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting values familiarity with Docker and Kubernetes.",
+     "quote": "Some familiarity with containers (Docker) and orchestration (Kubernetes) at scale",
+     "field": "content",
+     "id": "palantir-832e4652-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/8f308f3e-43d2-49c9-accd-cc7af0f1565c",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:19Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting is open to candidates at any experience level, including new grads.\", \"quote\": \"Please note that this posting is open to all levels of experience.\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this role allows remote work from the United States. The listed location is New York, NY, and the posting says only a few roles allow remote work on an exceptional basis, without saying whether this is one of them.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting values familiarity with Docker and Kubernetes.\", \"quote\": \"Some familiarity with containers (Docker) and orchestration (Kubernetes)\", \"field\": \"content\"}, {\"claim\": \"The posting values experience with highly-available distributed systems.\", \"quote\": \"Experience developing and managing highly-available distributed systems\", \"field\": \"content\"}, {\"claim\": \"The posting names Java among the programming languages it requires proficiency in.\", \"quote\": \"programming languages, such as Java, Golang, C++, or equivalent\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting is open to candidates at any experience level, including new grads.",
+     "quote": "Please note that this posting is open to all levels of experience.",
+     "field": "content",
+     "id": "palantir-8f308f3e-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this role allows remote work from the United States. The listed location is New York, NY, and the posting says only a few roles allow remote work on an exceptional basis, without saying whether this is one of them.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-8f308f3e-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting values familiarity with Docker and Kubernetes.",
+     "quote": "Some familiarity with containers (Docker) and orchestration (Kubernetes)",
+     "field": "content",
+     "id": "palantir-8f308f3e-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting values experience with highly-available distributed systems.",
+     "quote": "Experience developing and managing highly-available distributed systems",
+     "field": "content",
+     "id": "palantir-8f308f3e-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting names Java among the programming languages it requires proficiency in.",
+     "quote": "programming languages, such as Java, Golang, C++, or equivalent",
+     "field": "content",
+     "id": "palantir-8f308f3e-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/a8174f9c-6f46-46b4-8e15-d1ff9e37c9eb",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:20Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: the required experience level, because it gives no years of experience and no seniority or new-grad label\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting does not offer remote work by default; it says remote work is allowed only for a few roles on an exceptional basis, and it lists a single office location\", \"quote\": \"Based on business need, there are a few roles that allow for “Remote” work on an exceptional basis.\", \"field\": \"content\"}, {\"claim\": \"The role's backend languages include Java and Python\", \"quote\": \"Different backend languages, including Java, Rust, Python and Go\", \"field\": \"content\"}, {\"claim\": \"The team uses Docker and Kubernetes\", \"quote\": \"Docker and Kubernetes for containerization and orchestration\", \"field\": \"content\"}, {\"claim\": \"The posting states a salary range\", \"quote\": \"The estimated salary range for this position is estimated to be $135,000 - $200,000/year.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: the required experience level, because it gives no years of experience and no seniority or new-grad label",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-a8174f9c-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting does not offer remote work by default; it says remote work is allowed only for a few roles on an exceptional basis, and it lists a single office location",
+     "quote": "Based on business need, there are a few roles that allow for “Remote” work on an exceptional basis.",
+     "field": "content",
+     "id": "palantir-a8174f9c-c2",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role's backend languages include Java and Python",
+     "quote": "Different backend languages, including Java, Rust, Python and Go",
+     "field": "content",
+     "id": "palantir-a8174f9c-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The team uses Docker and Kubernetes",
+     "quote": "Docker and Kubernetes for containerization and orchestration",
+     "field": "content",
+     "id": "palantir-a8174f9c-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states a salary range",
+     "quote": "The estimated salary range for this position is estimated to be $135,000 - $200,000/year.",
+     "field": "content",
+     "id": "palantir-a8174f9c-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/ab7e3425-81d5-4705-a7b5-cd60c8a45cdb",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:24Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: what experience level or years of experience the role requires, since it asks for experience with live backend systems but states no seniority level or number of years\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this role allows remote work from the United States, since it is listed in New York, NY and says only that a few unnamed roles allow remote work on an exceptional basis\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting lists Java and Python among the backend languages the team uses\", \"quote\": \"Different backend languages, including Java, Rust, Python and Go\", \"field\": \"content\"}, {\"claim\": \"The posting says the team uses Docker and Kubernetes for containerization and orchestration\", \"quote\": \"Docker and Kubernetes for containerization and orchestration\", \"field\": \"content\"}, {\"claim\": \"The posting lists understanding of distributed systems among the qualities it values\", \"quote\": \"A deep understanding of server-side logic, efficient data handling, and distributed systems\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: what experience level or years of experience the role requires, since it asks for experience with live backend systems but states no seniority level or number of years",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-ab7e3425-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this role allows remote work from the United States, since it is listed in New York, NY and says only that a few unnamed roles allow remote work on an exceptional basis",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-ab7e3425-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting lists Java and Python among the backend languages the team uses",
+     "quote": "Different backend languages, including Java, Rust, Python and Go",
+     "field": "content",
+     "id": "palantir-ab7e3425-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting says the team uses Docker and Kubernetes for containerization and orchestration",
+     "quote": "Docker and Kubernetes for containerization and orchestration",
+     "field": "content",
+     "id": "palantir-ab7e3425-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists understanding of distributed systems among the qualities it values",
+     "quote": "A deep understanding of server-side logic, efficient data handling, and distributed systems",
+     "field": "content",
+     "id": "palantir-ab7e3425-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/afea07a8-2721-45e6-a9ca-6580f3f9783c",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:27Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting is open to candidates at every experience level, including new grads.\", \"quote\": \"Please note that this posting is open to all levels of experience.\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this Seattle-based role allows remote work from the United States. The posting says only a few roles allow remote work on an exceptional basis, and it does not mark this role as one of them.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting values familiarity with Docker and Kubernetes.\", \"quote\": \"Some familiarity with containers (Docker) and orchestration (Kubernetes)\", \"field\": \"content\"}, {\"claim\": \"The posting values experience with highly available distributed systems.\", \"quote\": \"Experience developing and managing highly-available distributed systems\", \"field\": \"content\"}, {\"claim\": \"The posting lists Java as an example of a qualifying programming language.\", \"quote\": \"such as Java, Golang, C++, or equivalent\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting is open to candidates at every experience level, including new grads.",
+     "quote": "Please note that this posting is open to all levels of experience.",
+     "field": "content",
+     "id": "palantir-afea07a8-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this Seattle-based role allows remote work from the United States. The posting says only a few roles allow remote work on an exceptional basis, and it does not mark this role as one of them.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-afea07a8-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting values familiarity with Docker and Kubernetes.",
+     "quote": "Some familiarity with containers (Docker) and orchestration (Kubernetes)",
+     "field": "content",
+     "id": "palantir-afea07a8-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting values experience with highly available distributed systems.",
+     "quote": "Experience developing and managing highly-available distributed systems",
+     "field": "content",
+     "id": "palantir-afea07a8-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists Java as an example of a qualifying programming language.",
+     "quote": "such as Java, Golang, C++, or equivalent",
+     "field": "content",
+     "id": "palantir-afea07a8-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/d33e0c31-ac7e-4f57-ba74-36f2df6ae2f5",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:28Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: the required years of experience or seniority level (new grad vs. experienced)\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States; it lists a New York office and does not label itself Remote or Onsite\", \"quote\": \"\", \"field\": \"location\"}, {\"claim\": \"The posting lists Java and Python among the backend languages the team uses\", \"quote\": \"Different backend languages, including Java, Rust, Python and Go\", \"field\": \"content\"}, {\"claim\": \"The posting states the team uses Docker and Kubernetes\", \"quote\": \"Docker and Kubernetes for containerization and orchestration\", \"field\": \"content\"}, {\"claim\": \"The posting values distributed systems knowledge\", \"quote\": \"A deep understanding of server-side logic, efficient data handling, and distributed systems\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: the required years of experience or seniority level (new grad vs. experienced)",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-d33e0c31-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States; it lists a New York office and does not label itself Remote or Onsite",
+     "quote": "",
+     "field": "location",
+     "id": "palantir-d33e0c31-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting lists Java and Python among the backend languages the team uses",
+     "quote": "Different backend languages, including Java, Rust, Python and Go",
+     "field": "content",
+     "id": "palantir-d33e0c31-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states the team uses Docker and Kubernetes",
+     "quote": "Docker and Kubernetes for containerization and orchestration",
+     "field": "content",
+     "id": "palantir-d33e0c31-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting values distributed systems knowledge",
+     "quote": "A deep understanding of server-side logic, efficient data handling, and distributed systems",
+     "field": "content",
+     "id": "palantir-d33e0c31-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/e47d4410-2542-47d8-b558-b5295fc28821",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:33Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting requires at least four years of professional experience, well above new-grad level.\", \"quote\": \"4+ years of professional software development experience on core infrastructure with emphasis on operational excellence\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. The location lists only Seattle, WA, and the general policy text says only a few roles allow remote work on an exceptional basis, without saying whether this is one of them.\", \"quote\": \"\", \"field\": \"location\"}, {\"claim\": \"The role centers on building a large-scale distributed system for operating Kubernetes clusters.\", \"quote\": \"you’ll build and operate a large-scale distributed system to allow the remote operation and maintenance of Kubernetes clusters\", \"field\": \"content\"}, {\"claim\": \"The posting names Java as an accepted primary language and values Docker and Kubernetes familiarity.\", \"quote\": \"Systems programming experience with strong proficiency in golang, Java or equivalent.\", \"field\": \"content\"}, {\"claim\": \"The posting states a base salary range.\", \"quote\": \"The estimated salary range for this position is estimated to be $145,000 - $200,000/year.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting requires at least four years of professional experience, well above new-grad level.",
+     "quote": "4+ years of professional software development experience on core infrastructure with emphasis on operational excellence",
+     "field": "content",
+     "id": "palantir-e47d4410-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. The location lists only Seattle, WA, and the general policy text says only a few roles allow remote work on an exceptional basis, without saying whether this is one of them.",
+     "quote": "",
+     "field": "location",
+     "id": "palantir-e47d4410-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The role centers on building a large-scale distributed system for operating Kubernetes clusters.",
+     "quote": "you’ll build and operate a large-scale distributed system to allow the remote operation and maintenance of Kubernetes clusters",
+     "field": "content",
+     "id": "palantir-e47d4410-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting names Java as an accepted primary language and values Docker and Kubernetes familiarity.",
+     "quote": "Systems programming experience with strong proficiency in golang, Java or equivalent.",
+     "field": "content",
+     "id": "palantir-e47d4410-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states a base salary range.",
+     "quote": "The estimated salary range for this position is estimated to be $145,000 - $200,000/year.",
+     "field": "content",
+     "id": "palantir-e47d4410-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/fb2d3222-dbd8-4e03-8d39-47b820e9509c",
+   "rank_score": 8,
+   "called_at": "2026-11-25T13:23:34Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"I cannot tell from this posting: what experience level or years of experience the role asks for, since it names no seniority level or year requirement.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. The posting says remote is allowed only for a few roles on an exceptional basis and does not say whether this is one of them.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting lists a single US location, New York.\", \"quote\": \"New York, NY\", \"field\": \"location\"}, {\"claim\": \"The role is on infrastructure teams that work on database technologies and distributed systems.\", \"quote\": \"Our infrastructure teams are responsible for the lowest layers of our software stack, often focused on database technologies, distributed systems, large scale data systems, security, and application infrastructure.\", \"field\": \"content\"}, {\"claim\": \"The posting says the team uses Kubernetes among its open-source technologies.\", \"quote\": \"Open-source technologies like Cassandra, ElasticSearch, Spark, Kafka, Kubernetes, Flink\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "I cannot tell from this posting: what experience level or years of experience the role asks for, since it names no seniority level or year requirement.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-fb2d3222-c1",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. The posting says remote is allowed only for a few roles on an exceptional basis and does not say whether this is one of them.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-fb2d3222-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting lists a single US location, New York.",
+     "quote": "New York, NY",
+     "field": "location",
+     "id": "palantir-fb2d3222-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role is on infrastructure teams that work on database technologies and distributed systems.",
+     "quote": "Our infrastructure teams are responsible for the lowest layers of our software stack, often focused on database technologies, distributed systems, large scale data systems, security, and application infrastructure.",
+     "field": "content",
+     "id": "palantir-fb2d3222-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting says the team uses Kubernetes among its open-source technologies.",
+     "quote": "Open-source technologies like Cassandra, ElasticSearch, Spark, Kafka, Kubernetes, Flink",
+     "field": "content",
+     "id": "palantir-fb2d3222-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/15844944-fb69-4b57-9531-e988650b20c6",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:38Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting is aimed at new graduates.\", \"quote\": \"Software Engineer, New Grad - Production Infrastructure\", \"field\": \"title\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. It lists a Washington, D.C. location and says only a few roles allow remote work, on an exceptional basis.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The role's team works on a Kubernetes-based platform running many production clusters.\", \"quote\": \"a Kubernetes-based PaaS spanning hundreds of production clusters\", \"field\": \"content\"}, {\"claim\": \"The posting names Java as a backend language used by the team.\", \"quote\": \"Java and Go for backend\", \"field\": \"content\"}, {\"claim\": \"The posting states a salary range for the role.\", \"quote\": \"$145,000 - $155,000/year\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting is aimed at new graduates.",
+     "quote": "Software Engineer, New Grad - Production Infrastructure",
+     "field": "title",
+     "id": "palantir-15844944-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. It lists a Washington, D.C. location and says only a few roles allow remote work, on an exceptional basis.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-15844944-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The role's team works on a Kubernetes-based platform running many production clusters.",
+     "quote": "a Kubernetes-based PaaS spanning hundreds of production clusters",
+     "field": "content",
+     "id": "palantir-15844944-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting names Java as a backend language used by the team.",
+     "quote": "Java and Go for backend",
+     "field": "content",
+     "id": "palantir-15844944-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states a salary range for the role.",
+     "quote": "$145,000 - $155,000/year",
+     "field": "content",
+     "id": "palantir-15844944-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/4d5a144e-87ea-45e2-a68c-3fad590629af",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:39Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting is aimed at new graduates.\", \"quote\": \"Software Engineer, New Grad - Production Infrastructure\", \"field\": \"title\"}, {\"claim\": \"The posting does not mark this role as remote. Its office policy says remote work is allowed only for a few roles, on an exceptional basis.\", \"quote\": \"Based on business need, there are a few roles that allow for “Remote” work on an exceptional basis.\", \"field\": \"content\"}, {\"claim\": \"The role works on a Kubernetes-based platform that runs across hundreds of production clusters.\", \"quote\": \"Environment Platform: a Kubernetes-based PaaS spanning hundreds of production clusters\", \"field\": \"content\"}, {\"claim\": \"The team uses Java for backend development.\", \"quote\": \"A variety of languages, including Java and Go for backend and Typescript for frontend\", \"field\": \"content\"}, {\"claim\": \"The posting asks for an active US security clearance, or eligibility and willingness to obtain one.\", \"quote\": \"Active US Security clearance, or eligibility and willingness to obtain a US Security clearance.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting is aimed at new graduates.",
+     "quote": "Software Engineer, New Grad - Production Infrastructure",
+     "field": "title",
+     "id": "palantir-4d5a144e-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting does not mark this role as remote. Its office policy says remote work is allowed only for a few roles, on an exceptional basis.",
+     "quote": "Based on business need, there are a few roles that allow for “Remote” work on an exceptional basis.",
+     "field": "content",
+     "id": "palantir-4d5a144e-c2",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role works on a Kubernetes-based platform that runs across hundreds of production clusters.",
+     "quote": "Environment Platform: a Kubernetes-based PaaS spanning hundreds of production clusters",
+     "field": "content",
+     "id": "palantir-4d5a144e-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The team uses Java for backend development.",
+     "quote": "A variety of languages, including Java and Go for backend and Typescript for frontend",
+     "field": "content",
+     "id": "palantir-4d5a144e-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting asks for an active US security clearance, or eligibility and willingness to obtain one.",
+     "quote": "Active US Security clearance, or eligibility and willingness to obtain a US Security clearance.",
+     "field": "content",
+     "id": "palantir-4d5a144e-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/71ed917e-850a-484b-9454-fa66bdf24540",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:44Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting asks for at least two years of software engineering experience, which is above a typical new-grad level.\", \"quote\": \"2+ years of software engineering experience.\", \"field\": \"content\"}, {\"claim\": \"The posting lists only a New York, NY office location and does not mark the role as Remote. It says remote work is allowed only for a few roles, on an exceptional basis.\", \"quote\": \"Based on business need, there are a few roles that allow for\", \"field\": \"content\"}, {\"claim\": \"The posting accepts proficiency in Java or Python among its qualifying programming languages.\", \"quote\": \"demonstrated proficiency in JavaScript/TypeScript, Java, C++, Python, or another similar programming language\", \"field\": \"content\"}, {\"claim\": \"The posting lists familiarity with distributed systems as a requirement.\", \"quote\": \"Familiarity with data structures, distributed systems, and other technical tools.\", \"field\": \"content\"}, {\"claim\": \"The posting states a salary range of $135,000 to $200,000 per year and lists relocation assistance as a benefit.\", \"quote\": \"The estimated salary range for this position is estimated to be $135,000 - $200,000/year.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting asks for at least two years of software engineering experience, which is above a typical new-grad level.",
+     "quote": "2+ years of software engineering experience.",
+     "field": "content",
+     "id": "palantir-71ed917e-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists only a New York, NY office location and does not mark the role as Remote. It says remote work is allowed only for a few roles, on an exceptional basis.",
+     "quote": "Based on business need, there are a few roles that allow for",
+     "field": "content",
+     "id": "palantir-71ed917e-c2",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting accepts proficiency in Java or Python among its qualifying programming languages.",
+     "quote": "demonstrated proficiency in JavaScript/TypeScript, Java, C++, Python, or another similar programming language",
+     "field": "content",
+     "id": "palantir-71ed917e-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists familiarity with distributed systems as a requirement.",
+     "quote": "Familiarity with data structures, distributed systems, and other technical tools.",
+     "field": "content",
+     "id": "palantir-71ed917e-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states a salary range of $135,000 to $200,000 per year and lists relocation assistance as a benefit.",
+     "quote": "The estimated salary range for this position is estimated to be $135,000 - $200,000/year.",
+     "field": "content",
+     "id": "palantir-71ed917e-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/90329118-d9b7-4b96-acdf-13377e3196ac",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:46Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting targets new graduates, requiring only a current or recently completed degree (or equivalent practical experience) rather than years of industry experience.\", \"quote\": \"Currently pursuing or recently completed a Bachelor's, Master's, or PhD in Computer Science\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this role allows remote work from the United States. The only location listed is New York, NY, and the posting says remote work is allowed only for a few roles on an exceptional basis, without saying whether this is one of them.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting lists Java and Python among the languages the team uses.\", \"quote\": \"Java, Scala, Rust, and Python\", \"field\": \"content\"}, {\"claim\": \"The posting lists coursework or projects in distributed systems among its requirements.\", \"quote\": \"Coursework or projects in databases, compilers, operating systems, or distributed systems\", \"field\": \"content\"}, {\"claim\": \"The posting states an estimated base salary range for the role.\", \"quote\": \"$145,000 - $155,000/year\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting targets new graduates, requiring only a current or recently completed degree (or equivalent practical experience) rather than years of industry experience.",
+     "quote": "Currently pursuing or recently completed a Bachelor's, Master's, or PhD in Computer Science",
+     "field": "content",
+     "id": "palantir-90329118-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this role allows remote work from the United States. The only location listed is New York, NY, and the posting says remote work is allowed only for a few roles on an exceptional basis, without saying whether this is one of them.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-90329118-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting lists Java and Python among the languages the team uses.",
+     "quote": "Java, Scala, Rust, and Python",
+     "field": "content",
+     "id": "palantir-90329118-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting lists coursework or projects in distributed systems among its requirements.",
+     "quote": "Coursework or projects in databases, compilers, operating systems, or distributed systems",
+     "field": "content",
+     "id": "palantir-90329118-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states an estimated base salary range for the role.",
+     "quote": "$145,000 - $155,000/year",
+     "field": "content",
+     "id": "palantir-90329118-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/cd2423c6-da68-430c-8be5-0ae7eea36497",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:47Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting asks for at least three years of professional experience, which is above new-grad level.\", \"quote\": \"3+ years of professional software development experience.\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States (the posting says only a few roles allow remote work as an exception, and it does not label this role as Remote or Onsite).\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The role is based in a US location outside Boston.\", \"quote\": \"Seattle, WA\", \"field\": \"location\"}, {\"claim\": \"The role centers on Kubernetes and distributed systems.\", \"quote\": \"Experience developing and managing highly-available distributed systems.\", \"field\": \"content\"}, {\"claim\": \"Java is one of the accepted primary coding languages.\", \"quote\": \"Strong coding skills in Go, Java, or equivalent.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting asks for at least three years of professional experience, which is above new-grad level.",
+     "quote": "3+ years of professional software development experience.",
+     "field": "content",
+     "id": "palantir-cd2423c6-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States (the posting says only a few roles allow remote work as an exception, and it does not label this role as Remote or Onsite).",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-cd2423c6-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The role is based in a US location outside Boston.",
+     "quote": "Seattle, WA",
+     "field": "location",
+     "id": "palantir-cd2423c6-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role centers on Kubernetes and distributed systems.",
+     "quote": "Experience developing and managing highly-available distributed systems.",
+     "field": "content",
+     "id": "palantir-cd2423c6-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "Java is one of the accepted primary coding languages.",
+     "quote": "Strong coding skills in Go, Java, or equivalent.",
+     "field": "content",
+     "id": "palantir-cd2423c6-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/d5d83a8f-cb96-41cc-9612-c7224fbb2fbc",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:49Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting requires several years of professional experience plus leadership experience, so it is not an entry-level or new-grad role.\", \"quote\": \"3+ years of professional software development experience\", \"field\": \"content\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. It is not labeled Remote, and the general policy text only says a few roles allow remote work on an exceptional basis.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The posting lists a single office location in New York, NY.\", \"quote\": \"New York, NY\", \"field\": \"location\"}, {\"claim\": \"The role centers on Kubernetes and distributed systems.\", \"quote\": \"Deep familiarity with K8s, and the broader ecosystem of software around K8s\", \"field\": \"content\"}, {\"claim\": \"The posting accepts Java as a primary coding language.\", \"quote\": \"Strong coding skills in Go, Java, or equivalent\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting requires several years of professional experience plus leadership experience, so it is not an entry-level or new-grad role.",
+     "quote": "3+ years of professional software development experience",
+     "field": "content",
+     "id": "palantir-d5d83a8f-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. It is not labeled Remote, and the general policy text only says a few roles allow remote work on an exceptional basis.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-d5d83a8f-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The posting lists a single office location in New York, NY.",
+     "quote": "New York, NY",
+     "field": "location",
+     "id": "palantir-d5d83a8f-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The role centers on Kubernetes and distributed systems.",
+     "quote": "Deep familiarity with K8s, and the broader ecosystem of software around K8s",
+     "field": "content",
+     "id": "palantir-d5d83a8f-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting accepts Java as a primary coding language.",
+     "quote": "Strong coding skills in Go, Java, or equivalent",
+     "field": "content",
+     "id": "palantir-d5d83a8f-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  },
+  {
+   "key": "lever/palantir/e1a6c138-98bf-45e2-97f7-2c70371cc38a",
+   "rank_score": 7,
+   "called_at": "2026-11-25T13:23:53Z",
+   "model": "claude-opus-5-5",
+   "ok": true,
+   "error": null,
+   "reply_text": "{\"claims\": [{\"claim\": \"The posting is aimed at new graduates.\", \"quote\": \"Software Engineer, New Grad - Production Infrastructure\", \"field\": \"title\"}, {\"claim\": \"I cannot tell from this posting: whether this specific role allows remote work from the United States. It lists a New York, NY location and says only that a few roles allow remote work on an exceptional basis.\", \"quote\": \"\", \"field\": \"content\"}, {\"claim\": \"The team builds a Kubernetes-based platform-as-a-service that runs across many production clusters.\", \"quote\": \"Environment Platform: a Kubernetes-based PaaS spanning hundreds of production clusters\", \"field\": \"content\"}, {\"claim\": \"The backend is written in languages that include Java.\", \"quote\": \"A variety of languages, including Java and Go for backend and Typescript for frontend\", \"field\": \"content\"}, {\"claim\": \"The posting states a salary range for the role.\", \"quote\": \"The estimated salary range for this position is estimated to be $145,000 - $155,000/year.\", \"field\": \"content\"}]}",
+   "valid": true,
+   "invalid_reason": null,
+   "claims": [
+    {
+     "claim": "The posting is aimed at new graduates.",
+     "quote": "Software Engineer, New Grad - Production Infrastructure",
+     "field": "title",
+     "id": "palantir-e1a6c138-c1",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "I cannot tell from this posting: whether this specific role allows remote work from the United States. It lists a New York, NY location and says only that a few roles allow remote work on an exceptional basis.",
+     "quote": "",
+     "field": "content",
+     "id": "palantir-e1a6c138-c2",
+     "mechanical": "abstained"
+    },
+    {
+     "claim": "The team builds a Kubernetes-based platform-as-a-service that runs across many production clusters.",
+     "quote": "Environment Platform: a Kubernetes-based PaaS spanning hundreds of production clusters",
+     "field": "content",
+     "id": "palantir-e1a6c138-c3",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The backend is written in languages that include Java.",
+     "quote": "A variety of languages, including Java and Go for backend and Typescript for frontend",
+     "field": "content",
+     "id": "palantir-e1a6c138-c4",
+     "mechanical": "quote-found"
+    },
+    {
+     "claim": "The posting states a salary range for the role.",
+     "quote": "The estimated salary range for this position is estimated to be $145,000 - $155,000/year.",
+     "field": "content",
+     "id": "palantir-e1a6c138-c5",
+     "mechanical": "quote-found"
+    }
+   ]
+  }
+ ]
+}
