@@ -71,7 +71,7 @@ At about 17:30 EST, Claude Code asked four questions about gaps in v0.1. The ans
 
 **The held-out set (Chapter 9).** The student chose "15 kept + 15 rejected", one of three options Claude Code wrote. The option, in Claude Code's words: "Random 15 from the 42 kept or review, and 15 from the 1,509 rejected. Tests both sides. The 50/50 mix isn't the corpus mix, so agreement isn't a rate for all postings." The other options were 30 at random from all 1,551 postings, and 30 at random from the 138 that pass the role and level rules. The 30 are drawn once, with a fixed seed, before any rule changes, and are never used to change a rule.
 
-## After the reject audit, before any held-out label was scored (2026-11-24, about 19:35 EST)
+## After the reject audit, before any held-out label was scored (2026-11-24, about 19:30 EST)
 
 Claude Code compared v0.1 with the 50 development labels (`audit/v0.1/DEV-COMPARISON.md`; the two held-out groups are not in it) and asked four questions. The answers are the student's. Every option's wording is Claude Code's.
 
