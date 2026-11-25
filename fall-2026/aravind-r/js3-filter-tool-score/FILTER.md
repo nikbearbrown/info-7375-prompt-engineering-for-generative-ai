@@ -1,6 +1,6 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.1.0-d — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
+**Version 1.1.0-e — 2026-11-25. Final filter for this submission (git tag `js3-filter-final`); no rule changes after this.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
 
 This is the gate. The filter is this document: the machine-readable block in §6 is what the
 code loads (`src/spec.mjs`). No weight, word, or threshold lives anywhere else. To change the
@@ -58,8 +58,8 @@ Take the title up to the first `,`, ` - `, `(`, or `:`. Trim it and collapse whi
 
 | Tier | Value | Titles (exact match on the prefix, case-insensitive) | Reasoning |
 |---|---|---|---|
-| core | 1.0 | Product Manager, Senior Product Manager, Sr. Product Manager, AI Product Manager, Technical Product Manager, Web3 Product Manager, Technical Program Manager, Senior Technical Program Manager | The JS1 Gate 1 list: titles at Maya's level, already accepted. |
-| adjacent | 0.5 | Staff Product Manager, Senior Staff Product Manager, Principal Product Manager, Group Product Manager, Lead Product Manager, Product Lead, Program Manager, Product Owner, Product Operations Manager | PM-family roles that JS1 failed outright. They get partial credit so that a strong one can surface, and the audit can show whether that is wrong. |
+| core | 1.0 | Product Manager, Senior Product Manager, Sr. Product Manager, AI Product Manager, Technical Product Manager, Web3 Product Manager (v1.0.0 to v1.1.0-d also listed Technical Program Manager and Senior Technical Program Manager here; moved to adjacent in v1.1.0-e) | The JS1 Gate 1 list: titles at Maya's level, already accepted. |
+| adjacent | 0.5 | Technical Program Manager, Senior Technical Program Manager (from v1.1.0-e), Staff Product Manager, Senior Staff Product Manager, Principal Product Manager, Group Product Manager, Lead Product Manager, Product Lead, Program Manager, Product Owner, Product Operations Manager | PM-family roles that JS1 failed outright. They get partial credit so that a strong one can surface, and the audit can show whether that is wrong. |
 | none | 0.0 | everything else | Role words are what make a posting a PM job. Topic words alone must never be enough (W4). |
 
 - **Junior override.** T = 0 if the title contains `Associate`, `APM`, `Intern`, or
@@ -74,9 +74,9 @@ Take the title up to the first `,`, ` - `, `(`, or `:`. Trim it and collapse whi
     that describes only program delivery (coordinating schedules, dependencies, launches) does
     not count.
   - The same years, location, and sponsorship conditions then apply.
-  - This is a rule for **hand judgment** (audit and labels). The filter still gives TPM titles
-    the core tier, because it cannot read "owns product direction" from a title. Whether to
-    change that is a v1.1 question, and needs audit rows.
+  - This is a rule for **hand judgment** (audit and labels). The filter cannot read "owns product
+    direction" from a title. In v1.1.0-e it moved TPM titles to the adjacent tier (§9), citing
+    A027, A044 and A052.
 - **`:` is a cut character** so that "Product Manager: New Grad Accelerator" has the prefix
   "Product Manager". The junior override still sets T to 0.
 
@@ -410,12 +410,12 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 
 ```json filter-spec
 {
-  "version": "1.1.0-d",
+  "version": "1.1.0-e",
   "title": {
     "cut_chars": [",", " - ", "(", ":"],
     "tiers": {
-      "core": { "value": 1.0, "titles": ["Product Manager", "Senior Product Manager", "Sr. Product Manager", "AI Product Manager", "Technical Product Manager", "Web3 Product Manager", "Technical Program Manager", "Senior Technical Program Manager"] },
-      "adjacent": { "value": 0.5, "titles": ["Staff Product Manager", "Senior Staff Product Manager", "Principal Product Manager", "Group Product Manager", "Lead Product Manager", "Product Lead", "Program Manager", "Product Owner", "Product Operations Manager"] }
+      "core": { "value": 1.0, "titles": ["Product Manager", "Senior Product Manager", "Sr. Product Manager", "AI Product Manager", "Technical Product Manager", "Web3 Product Manager"] },
+      "adjacent": { "value": 0.5, "titles": ["Technical Program Manager", "Senior Technical Program Manager", "Staff Product Manager", "Senior Staff Product Manager", "Principal Product Manager", "Group Product Manager", "Lead Product Manager", "Product Lead", "Program Manager", "Product Owner", "Product Operations Manager"] }
     },
     "junior_terms": ["Associate", "APM", "Intern", "New Grad"]
   },
@@ -475,3 +475,4 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 | 1.1.0-b | 2026-11-25 | Topic words count only in the title, the department, and text lines **not** shared by ≥ 20% of the board's postings (`topic.exclude_shared_lines_min_share` 0.2; the same exact-line rule as the sheet excerpts, `src/boilerplate.mjs`). Shared lines found: Airbnb 16, Stripe 6, Spotify 3. | Boilerplate topic words carry no signal about the role (§1.2 note; corpus check `e0d80ff0` and `audit/false-friend-candidates.md`). This change can only lower P, so it can only remove postings (§5.2 amendment). Cited audit rows whose P fell because "payments" was only in a shared line: A001, A003, A006, A009, A016, A017, A027, A028, A032, A044, A059, A063, A065. | v1.1.0-a → v1.1.0-b: keep 7 → 6, cannot_tell 3 → 3, reject 1,054 → 1,055. P changed for 165 postings, and the only term lost was `payments` (190 postings). **1 decision changed: A065** (Product Manager, Sandboxes; unjudged PM-stratum row), keep → reject, score 0.825 → 0.775. Its only topic word was boilerplate "payments". **No judged audit row's keep/reject outcome depended on boilerplate "payments" or "data"**: A027 and A044 dropped from P = 1 to 0.5 but stayed keep (0.825). Residual: the rule matches only exact copies of a line, so 159 Stripe postings still count "payments" that appears only in a reworded company intro, and boilerplate "data" was not removed anywhere. |
 | 1.1.0-c | 2026-11-25 | Two veto phrasings added, exactly as planned in the §5.2 amendment: the phrase `no visa/relocation support`, and the bounded pattern `unable to provide (?:[a-z]+ ){0,3}visa sponsorship` (`vetoes.sponsorship_patterns`; applies only when `needs_sponsorship` is true). | The two real no-sponsorship statements the veto missed, from the committed measurement `e0d80ff0` (`audit/sponsor-visa-hits.md`): gh-airbnb:8299386 and lv-spotify:a3c9129a-2160-4f3b-a2b5-d07868074aa1. This change can only remove postings, so per the §5.2 amendment it may cite that artifact; neither posting is on the audit sheet. **Rejected alternative:** a bare `sponsor` / `visa` match. In `e0d80ff0`, 29 of the 31 distinct matching lines were false friends (executive or financial sponsor, event sponsorship, Visa the card network). Tests show the pattern does not match those, nor "unable to provide relocation, but we offer visa sponsorship". | v1.1.0-b to v1.1.0-c: keep 6 to 6, cannot_tell 3 to 3, reject 1,055 to 1,055; vetoes 0 to 2 (exactly the two postings). **0 decisions changed**, as expected: both were already rejected (scores 0.125 and 0). (This row was added in a follow-up commit: the commit that changed the spec, `537bebd0`, missed it because of a failed edit.) |
 | 1.1.0-d | 2026-11-25 | Range parse fix in `src/filter.mjs`: a range reads its **lower** bound with or without a trailing "+" ("6–10+ years" → 6, was 10), and "N to M years" is read as a range. A lone "N+ years" is unchanged (tests: "6-10 years" 6, "6–10+ years" 6, "5 to 7 years" 5, "10+ years" 10; the `todo` test is now a real test). | The §5.3 misread. Cited audit row: **A010** (gh-stripe 8204227, "6–10+ years of product management experience"), read as N = 10 in run `bdc146c8` (v1.1.0-a). This change can add postings, so it cites an audit row (§5.2). | **The 32 postings with an N–M+ range in their experience sentence:** N changed for all 32 and E changed for 25; decisions keep 0 → 1, reject 32 → 31. **Full snapshot, v1.1.0-c → v1.1.0-d:** keep 6 → 7, cannot_tell 3 → 3, reject 1,055 → 1,054. **1 decision changed: A010**, reject → keep (E 0 → 0.5). Aravind's final verdict on A010 is relevant. Also, N changed for 2 postings outside the 32, both newly read "N to M" ranges (gh-stripe:8202831 "5 to 7 years", gh-stripe:8232743 "5 to 10 years"; before, experience was unknown). Neither decision changed. Caveat: A010's years sit under "Preferred Qualifications" (§5.4), so its E is right for the number but still treats a preferred line as required. |
+| 1.1.0-e | 2026-11-25 | "Technical Program Manager" and "Senior Technical Program Manager" move from the core tier (1.0) to adjacent (0.5). **Final filter for this submission** (tag `js3-filter-final`). | Cited audit rows: **A027, A044, A052**. Aravind's final verdict on all three is not relevant (program delivery only; FILTER.md §1 TPM rule), but v1.1.0-a to v1.1.0-d kept them. This change can only remove postings (§5.2), so these rows justify it. **Rejected alternative:** reading the body for product ownership ("owns product direction"). That is a judgment, not a rule a keyword filter can apply reliably, and it couldn't be built and validated in time. | v1.1.0-d → v1.1.0-e: keep 7 → 4, cannot_tell 3 → 3, reject 1,054 → 1,057, vetoes 2. **3 decisions changed, exactly A027, A044, A052**, keep → reject (0.825 / 0.825 / 0.875 → 0.625 / 0.625 / 0.675). All 6 TPM-titled postings in the snapshot are now rejected, and no TPM posting stays kept. Kept: A005, A010, A020, A025. cannot_tell: A014, A022, A042. Side effect, expected: a TPM role that does own product direction now needs E = 1, L = 1 and P = 1 to reach 0.80 (0.2 + 0.25 + 0.25 + 0.1), so it can be wrongly rejected. |

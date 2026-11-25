@@ -248,3 +248,12 @@ test('v1.1.0-c: patterns apply only when the persona needs sponsorship', () => {
   const r = scorePosting(mk({ text: 'We are unable to provide work visa sponsorship.' }), { spec: specC(), prefs: { ...PREFS, needs_sponsorship: false } });
   assert.equal(r.veto, null);
 });
+
+// ---------- v1.1.0-e: TPM titles are adjacent, not core (cites A027, A044, A052) ----------
+test('v1.1.0-e: Technical Program Manager titles score the adjacent tier; a strong TPM posting is not kept', () => {
+  const r = score(mk({ title: 'Technical Program Manager, Payments', text: 'payments and mobile. 5+ years of experience.' }));
+  assert.equal(r.components.title.tier, 'adjacent');
+  assert.equal(r.components.title.value, spec.title.tiers.adjacent.value);
+  assert.equal(r.decision, 'reject');
+  assert.equal(score(mk({ title: 'Senior Technical Program Manager' })).components.title.tier, 'adjacent');
+});
