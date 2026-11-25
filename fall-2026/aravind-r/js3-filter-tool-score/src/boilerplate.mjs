@@ -1,6 +1,6 @@
 // Lines of posting text shared by many postings on the same board (company intros,
-// benefits, legal text). Used only for display (sheet excerpts) and for flagging
-// false-friend candidates. It is NOT part of the filter (FILTER.md §6 is).
+// benefits, legal text). Used for sheet excerpts, false-friend candidates, and, from
+// v1.1.0-b, by the filter's topic component (FILTER.md §6, topic.exclude_shared_lines_min_share).
 export function boilerplateLines(postings, minShare = 0.2) {
   const byBoard = new Map();
   for (const p of postings) {

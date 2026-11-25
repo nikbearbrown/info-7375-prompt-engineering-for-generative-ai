@@ -53,10 +53,19 @@ function experienceComponent(lower, spec, prefs) {
   return { value: null, case: 'not stated', phrase: null, lower_bound: null };
 }
 
-function topicComponent(posting, lower, spec) {
-  const hay = [posting.title ?? '', posting.department ?? '', lower].join('\n').toLowerCase();
+// v1.1.0-b: when the spec sets topic.exclude_shared_lines_min_share, text lines shared by that share
+// of the board's postings (company intros, pay and legal boilerplate) are not searched for topic
+// words. Title and department always are. `shared` (board -> Set of lines) comes from the corpus;
+// a posting scored alone has none, and the result says so (shared_lines_checked: false).
+function topicComponent(posting, text, spec, shared) {
+  const want = spec.topic.exclude_shared_lines_min_share != null;
+  const set = shared?.get(posting.board);
+  const kept = want && set ? text.split('\n').filter(l => !set.has(l.trim())) : text.split('\n');
+  const hay = [posting.title ?? '', posting.department ?? '', ...kept].join('\n').toLowerCase();
   const terms = spec.topic.terms.filter(t => wholeWord(t).test(hay));
-  return { value: Math.min(1, terms.length / spec.topic.saturate_at), terms };
+  const out = { value: Math.min(1, terms.length / spec.topic.saturate_at), terms };
+  if (want) out.shared_lines_checked = Boolean(set);
+  return out;
 }
 
 function locationComponent(location, spec, prefs) {
@@ -81,7 +90,7 @@ function findVeto(text, spec, prefs) {
   return null;
 }
 
-export function scorePosting(posting, { spec, prefs }) {
+export function scorePosting(posting, { spec, prefs, shared = null }) {
   if (!Number.isInteger(prefs?.preferred_max_years) || !Number.isInteger(prefs?.stretch_max_years) || prefs.stretch_max_years < prefs.preferred_max_years)
     throw new Error('prefs need integer preferred_max_years <= stretch_max_years (persona-prefs.json, corrected 2026-11-25)');
   const title = posting.title ?? '';
@@ -97,7 +106,7 @@ export function scorePosting(posting, { spec, prefs }) {
 
   const components = {
     title: titleComponent(title, spec),
-    topic: topicComponent(posting, lower, spec),
+    topic: topicComponent(posting, text, spec, shared),
     experience: experienceComponent(lower, spec, prefs),
     location: locationComponent(posting.location, spec, prefs),
   };

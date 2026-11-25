@@ -9,6 +9,7 @@ import { parseArgs } from 'node:util';
 import { parseFilterSpec } from '../src/spec.mjs';
 import { scorePosting, rankResults } from '../src/filter.mjs';
 import { loadCorpus } from '../src/corpus.mjs';
+import { boilerplateLines } from '../src/boilerplate.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const { values } = parseArgs({ options: { filter: { type: 'string', default: 'FILTER.md' }, out: { type: 'string', default: 'runs/filter' } } });
@@ -18,12 +19,15 @@ const spec = parseFilterSpec(md);
 const prefs = JSON.parse(readFileSync(join(ROOT, 'persona', 'persona-prefs.json'), 'utf8'));
 const { boards, postings } = loadCorpus(ROOT);
 
-const results = rankResults(postings.map(p => scorePosting(p, { spec, prefs })));
+const share = spec.topic.exclude_shared_lines_min_share;
+const shared = share != null ? boilerplateLines(postings, share) : null;
+const results = rankResults(postings.map(p => scorePosting(p, { spec, prefs, shared })));
 const count = (rs, k) => rs.filter(r => r.decision === k).length;
 const summary = {
   ran_at: new Date().toISOString(), node: process.version,
   filter_file: values.filter, filter_sha256: createHash('sha256').update(md).digest('hex'), spec_version: spec.version,
-  threshold: spec.threshold, network_requests: 0, data: 'data/MANIFEST.json (frozen 2026-11-10 snapshot)',
+  threshold: spec.threshold, network_requests: 0,
+  shared_lines: shared ? { min_share: share, per_board: Object.fromEntries([...shared].map(([b, set]) => [b, set.size])) } : null, data: 'data/MANIFEST.json (frozen 2026-11-10 snapshot)',
   boards: boards.map(b => {
     const rs = results.filter(r => r.board === b.board);
     return { board: b.board, status: b.status, reason: b.reason, raw_count: b.raw_count, skipped_null_id: b.skipped.null_id, warnings: b.warnings,

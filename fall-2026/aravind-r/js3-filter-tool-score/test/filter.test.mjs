@@ -187,3 +187,22 @@ test('W13: core + L1 + E0.5 + P0.5 (one term) -> keep', () => {
   assert.deepEqual([r.components.title.value, r.components.location.value, r.components.experience.value, r.components.topic.value], [1, 1, 0.5, 0.5]);
   assert.equal(r.decision, 'keep');
 });
+
+// ---------- v1.1.0-b: topic words outside lines shared by many postings on the board ----------
+test('v1.1.0-b: a topic word only in a shared (boilerplate) line does not count; title, department and own lines do', () => {
+  const intro = 'Stripe is a financial infrastructure platform used to accept payments and grow revenue.';
+  const shared = new Map([['syn', new Set([intro])]]);
+  const s = clone(spec); s.topic.exclude_shared_lines_min_share = 0.2;
+  const onlyIntro = mk({ department: 'Product', text: `${intro}\nYou will lead the roadmap.` });
+  assert.deepEqual(scorePosting(onlyIntro, { spec: s, prefs: PREFS, shared }).components.topic.terms, []);
+  assert.deepEqual(scorePosting(onlyIntro, { spec: s, prefs: PREFS, shared }).components.topic.shared_lines_checked, true);
+  const ownLine = mk({ department: 'Product', text: `${intro}\nYou will own mobile payments.` });
+  assert.deepEqual(scorePosting(ownLine, { spec: s, prefs: PREFS, shared }).components.topic.terms.sort(), ['mobile', 'payments']);
+  const inTitle = mk({ title: 'Product Manager, Payments', department: 'Data', text: intro });
+  assert.deepEqual(scorePosting(inTitle, { spec: s, prefs: PREFS, shared }).components.topic.terms.sort(), ['data', 'payments']);
+});
+
+test('v1.1.0-b: scored without corpus context, the result says shared lines were not checked', () => {
+  const s = clone(spec); s.topic.exclude_shared_lines_min_share = 0.2;
+  assert.equal(scorePosting(mk({ text: 'payments.' }), { spec: s, prefs: PREFS }).components.topic.shared_lines_checked, false);
+});

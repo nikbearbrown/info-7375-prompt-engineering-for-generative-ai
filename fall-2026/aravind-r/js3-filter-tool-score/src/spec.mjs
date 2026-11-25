@@ -30,6 +30,7 @@ export function validateSpec(s) {
   }
   for (const k of ['cut_chars', 'junior_terms']) if (!Array.isArray(s?.title?.[k])) e.push(`title.${k} must be a list`);
   if (!Array.isArray(s?.topic?.terms) || !(s.topic.saturate_at > 0)) e.push('topic.terms list and topic.saturate_at > 0 required');
+  if (s?.topic?.exclude_shared_lines_min_share != null) num01(s.topic.exclude_shared_lines_min_share, 'topic.exclude_shared_lines_min_share');
   if (!Number.isInteger(s?.experience?.junior_upper_max)) e.push('experience.junior_upper_max must be an integer');
   num01(s?.experience?.stretch_value, 'experience.stretch_value');
   num01(s?.experience?.impute, 'experience.impute');
