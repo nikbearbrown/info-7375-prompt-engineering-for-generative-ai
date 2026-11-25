@@ -10,7 +10,7 @@ tokenizer is inherited from JS1 (jobwatch/normalize.py)."""
 
 from dataclasses import dataclass
 
-from jobwatch import location
+from jobwatch import experience, location
 from jobwatch.normalize import contains_phrase, tokens
 
 FILTER_VERSION = "v0.1"
@@ -27,6 +27,11 @@ ROLE_POINTS = 1
 TITLE_TOPIC_POINTS = 2
 DESCRIPTION_TOPIC_POINTS = 1
 CUTOFF = 2
+
+# v0.2's one change (FILTER.md, "After the reject audit"): "Reject when the description sets a
+# minimum of 3+ years that is not marked preferred." None here is v0.1 (no experience rule);
+# variants/v0.2-experience-minimum.json sets 3. jobwatch/experience.py reads the description.
+EXPERIENCE_MINIMUM_YEARS = None
 
 
 @dataclass(frozen=True)
@@ -71,6 +76,11 @@ def _description_points(description_hits, title_topic_points):
     return DESCRIPTION_TOPIC_POINTS if description_hits and title_topic_points == 0 else 0
 
 
+def _experience_rejects(minimum_years):
+    return (EXPERIENCE_MINIMUM_YEARS is not None and minimum_years is not None
+            and minimum_years >= EXPERIENCE_MINIMUM_YEARS)
+
+
 def score(item):
     title_tokens = tokens(item.title)
     description_tokens = tokens(item.description)
@@ -87,6 +97,11 @@ def score(item):
         reasons.append("role")
     if level:
         reasons.append("level")
+    read = None
+    if EXPERIENCE_MINIMUM_YEARS is not None:
+        read = experience.read(item.description)
+        if _experience_rejects(read["minimum_years"]):
+            reasons.append("experience")
     description_blank = not description_tokens
     if total < CUTOFF:
         if description_blank and parts["title_topic"] == 0:
@@ -100,7 +115,7 @@ def score(item):
         review_reasons.append("location unresolved")
 
     fate = "rejected" if reasons else ("review" if review_reasons else "kept")
-    return {
+    record = {
         "board": item.board,
         "key": item.key,
         "title": item.title,
@@ -116,6 +131,9 @@ def score(item):
         "reasons": reasons,
         "review_reasons": review_reasons,
     }
+    if read is not None:
+        record["experience"] = {"threshold": EXPERIENCE_MINIMUM_YEARS, **read}
+    return record
 
 
 def rank(records):

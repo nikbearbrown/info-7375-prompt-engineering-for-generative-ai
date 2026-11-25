@@ -102,7 +102,14 @@ def inventory(run_dir):
     return text
 
 
-def screen_run(run_dir, out_dir):
+def screen_run(run_dir, out_dir, variant_path=None):
+    from jobwatch import variants
+
+    with variants.applied(variants.load(variant_path) if variant_path else None):
+        return _screen_run(run_dir, out_dir, f" --variant {variant_path}" if variant_path else "")
+
+
+def _screen_run(run_dir, out_dir, variant_flag):
     items, boards = corpus.load(run_dir)
     records = [screen.score(item) for item in items]
     ranked = screen.rank(records)
@@ -123,7 +130,7 @@ def screen_run(run_dir, out_dir):
     where = collections.Counter(r["location"]["outcome"] for r in records)
     summary = [f"# Audit view summary — FILTER.md {screen.FILTER_VERSION}", "",
                f"Run `{Path(run_dir).name}`, {len(records)} postings, screened by "
-               f"`python3 -m jobwatch.js3 screen {run_dir} --out {out_dir}`.", "",
+               f"`python3 -m jobwatch.js3 screen {run_dir}{variant_flag} --out {out_dir}`.", "",
                "| Fate | Postings |", "| --- | ---: |"]
     summary += [f"| {fate} | {fates.get(fate, 0)} |" for fate in ("kept", "review", "rejected")]
     summary += ["", "| Board | kept | review | rejected |", "| --- | ---: | ---: | ---: |"]
@@ -141,12 +148,16 @@ def screen_run(run_dir, out_dir):
 
     view = [f"# Audit view — every posting, FILTER.md {screen.FILTER_VERSION}", "",
             "Ranked postings first (kept and review, in rank order), then every rejected posting. "
-            "Score = role + title topic + description topic.", "",
+            "Score = role + title topic + description topic."
+            + (" Reasons include `experience` when the v0.2 rule found a stated minimum at or above "
+               f"{screen.EXPERIENCE_MINIMUM_YEARS} years." if screen.EXPERIENCE_MINIMUM_YEARS is not None else ""), "",
             "| Rank | Board | Key | Title | Location → outcome | Score | Matched | Fate | Reasons |",
             "| ---: | --- | --- | --- | --- | --- | --- | --- | --- |"]
     for record in sorted(records, key=lambda r: (r["rank"] is None, r["rank"] or 0, r["board"], r["key"])):
         p, m = record["parts"], record["matched"]
         matched = "; ".join(f"{k}: {', '.join(v)}" for k, v in m.items() if v)
+        if record.get("experience", {}).get("minimum_years") is not None:
+            matched += f"; experience minimum: {record['experience']['minimum_years']} years"
         why = ", ".join(record["reasons"] + record["review_reasons"])
         view.append(f"| {record['rank'] or ''} | {record['board']} | {_md_cell(record['key'])} | "
                     f"{_md_cell(record['title'])} | {_md_cell(record['location']['text'])} → "
@@ -299,7 +310,8 @@ def audit_dev(audit_path, sample_path, labels_path, out_dir):
     with open(out / "dev-comparison.jsonl", "w", encoding="utf-8") as fh:
         for row in rows:
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
-    lines = ["# The filter against the student's hand labels: development groups only", "",
+    versions = sorted({records[(row["board"], row["key"])]["filter_version"] for row in rows})
+    lines = [f"# FILTER.md {', '.join(versions)} against the student's hand labels: development groups only", "",
              f"Written by `python3 -m jobwatch.js3 audit-dev --audit {audit_path} --sample {sample_path} "
              f"--labels {labels_path} --out {out_dir}`. The two held-out groups are not in this file.", "",
              "Outcome: *agree*; *false exclusion* (labelled yes, the filter rejected it); *false inclusion* "
@@ -309,6 +321,8 @@ def audit_dev(audit_path, sample_path, labels_path, out_dir):
     for row in rows:
         r = records[(row["board"], row["key"])]
         matched = "; ".join(f"{k}: {', '.join(v)}" for k, v in r["matched"].items() if v)
+        if r.get("experience", {}).get("minimum_years") is not None:
+            matched += f"; experience minimum: {r['experience']['minimum_years']} years"
         why = ", ".join(r["reasons"] + [f"review: {x}" for x in r["review_reasons"]])
         lines.append("| " + " | ".join(_md_cell(c) for c in [
             row["label_id"], row["stratum"].replace("audit ", ""), row["board"], r["title"], r["location"]["text"],
@@ -323,6 +337,89 @@ def audit_dev(audit_path, sample_path, labels_path, out_dir):
     return rows
 
 
+def held_out_run(run_dir, sample_path, labels_path, variant_path, out_dir):
+    """The one held-out comparison (Chapter 9): v0.1 and the variant on the 30 held-out labels.
+    Refuses to run into a folder that already holds results."""
+    import datetime
+    import hashlib
+
+    from jobwatch import held_out, sample, variants
+
+    out = held_out.claim_the_single_run(out_dir)
+    items, _ = corpus.load(run_dir)
+    members = json.loads(Path(sample_path).read_text(encoding="utf-8"))["members"]
+    labels = json.loads(Path(labels_path).read_text(encoding="utf-8"))["labels"]
+    spec = variants.load(variant_path)
+    keys = {(m["board"], m["key"]) for m in sample.held_out(members)}
+    chosen = [i for i in items if (i.board, i.key) in keys]
+    command = (f"python3 -m jobwatch.js3 held-out {run_dir} --sample {sample_path} --labels {labels_path} "
+               f"--variant {variant_path} --out {out_dir}")
+    versions = {}
+    for name, version_spec in (("v0.1", None), (spec["name"], spec)):
+        records = variants.rescore(chosen, version_spec)
+        rows = held_out.rows(members, labels, records)
+        for row in rows:
+            r = records[(row["board"], row["key"])]
+            row.update(version=name, title=r["title"], reasons=r["reasons"],
+                       experience_minimum=(r.get("experience") or {}).get("minimum_years"))
+        versions[name] = (rows, held_out.score(rows))
+    names = list(versions)
+
+    def brief(rows):
+        return [r["label_id"] for r in rows]
+
+    summary = {"ran_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+               "command": command,
+               "sample_sha256": hashlib.sha256(Path(sample_path).read_bytes()).hexdigest(),
+               "labels_sha256": hashlib.sha256(Path(labels_path).read_bytes()).hexdigest(),
+               "variant": spec,
+               "versions": {n: {k: (brief(v) if isinstance(v, list) else v) for k, v in score.items()}
+                            for n, (_, score) in versions.items()}}
+    (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    lines = ["# The held-out comparison, run once", "",
+             f"Run at {summary['ran_at']} by `{command}`. Scored the way FILTER.md says (\"After the reject audit, "
+             "before any held-out label was scored\"): Can\u2019t tell rows left out; pass when at least 90% of the "
+             "Yes and No rows match, no more than one Yes is rejected, and no unmet requirement is cleared.", "",
+             "| Check | " + " | ".join(names) + " |", "| --- | " + " | ".join("---" for _ in names) + " |"]
+    first = versions[names[0]][1]
+    lines.append("| Rows labelled / Can\u2019t tell / scored | " + " | ".join(
+        f"{s['labelled']} / {s['cannot_tell']} / {s['decided']}" for _, s in versions.values()) + " |")
+    lines.append("| Matches among the scored rows | " + " | ".join(
+        f"{s['matches']} of {s['decided']}" for _, s in versions.values()) + " |")
+    lines.append("| Yes rejected (false exclusions) | " + " | ".join(
+        ", ".join(brief(s["false_exclusions"])) or "none" for _, s in versions.values()) + " |")
+    lines.append("| No kept or held for review (false inclusions) | " + " | ".join(
+        ", ".join(brief(s["false_inclusions"])) or "none" for _, s in versions.values()) + " |")
+    lines.append("| Of those, an unmet requirement cleared | " + " | ".join(
+        ", ".join(brief(s["unmet_requirements_cleared"])) or "none" for _, s in versions.values()) + " |")
+    for check in first["checks"]:
+        lines.append(f"| {check} | " + " | ".join("pass" if s["checks"][check] else "FAIL" for _, s in versions.values()) + " |")
+    lines.append("| **Bar met (these three checks)** | " + " | ".join(
+        "**yes**" if s["passed"] else "**no**" for _, s in versions.values()) + " |")
+    lines += ["", "## Every held-out row", "",
+              "| ID | Group | Title | Label | The student's reason | " + " | ".join(f"{n} fate (outcome)" for n in names) + " |",
+              "| --- | --- | --- | --- | --- | " + " | ".join("---" for _ in names) + " |"]
+    by_version = {n: {r["label_id"]: r for r in rows} for n, (rows, _) in versions.items()}
+    for row in versions[names[0]][0]:
+        cells = [row["label_id"], row["stratum"], row["title"], row["label"], row["reason"]]
+        for n in names:
+            r = by_version[n][row["label_id"]]
+            extra = f", {r['experience_minimum']}-year minimum" if r.get("experience_minimum") is not None else ""
+            cells.append(f"{r['fate']} ({r['outcome']}{extra})")
+        lines.append("| " + " | ".join(_md_cell(c) for c in cells) + " |")
+    (out / "HELD-OUT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    with open(out / held_out.RESULTS, "w", encoding="utf-8") as fh:
+        for n in names:
+            for row in versions[n][0]:
+                fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+    for n, (_, s) in versions.items():
+        print(f"{n}: {s['matches']} of {s['decided']} scored rows match ({s['cannot_tell']} Can't tell left out); "
+              f"Yes rejected {len(s['false_exclusions'])}; No reaching {len(s['false_inclusions'])}, of which "
+              f"unmet requirement cleared {len(s['unmet_requirements_cleared'])}; bar met: {s['passed']}")
+    return versions
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="python3 -m jobwatch.js3")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -332,6 +429,7 @@ def main(argv=None):
     scr = commands.add_parser("screen", help="run FILTER.md on every posting; write the audit view")
     scr.add_argument("run_dir")
     scr.add_argument("--out", required=True)
+    scr.add_argument("--variant", help="a variants/*.json file: screen with that one change in place")
     lab = commands.add_parser("labels-sheet", help="draw the hand-label sample; write the offline labelling page")
     lab.add_argument("run_dir")
     lab.add_argument("--audit", required=True)
@@ -355,7 +453,21 @@ def main(argv=None):
     dev.add_argument("--sample", required=True)
     dev.add_argument("--labels", required=True)
     dev.add_argument("--out", required=True)
+    hel = commands.add_parser("held-out", help="the one held-out comparison: v0.1 and a variant (refuses a second run)")
+    hel.add_argument("run_dir")
+    hel.add_argument("--sample", required=True)
+    hel.add_argument("--labels", required=True)
+    hel.add_argument("--variant", required=True)
+    hel.add_argument("--out", required=True)
     args = parser.parse_args(argv)
+    if args.command == "held-out":
+        from jobwatch import held_out
+        try:
+            held_out_run(args.run_dir, args.sample, args.labels, args.variant, args.out)
+        except held_out.AlreadyMeasured as exc:
+            print(f"refused: {exc}", file=sys.stderr)
+            return 1
+        return 0
     if args.command == "labels-import":
         labels_import(args.pasted, args.sample, args.out, args.note)
         return 0
@@ -378,7 +490,7 @@ def main(argv=None):
             Path(args.out).write_text(text, encoding="utf-8")
         return 0
     if args.command == "screen":
-        screen_run(args.run_dir, args.out)
+        screen_run(args.run_dir, args.out, args.variant)
         return 0
     return 2
 

@@ -11,7 +11,7 @@ rescore() rebuilds the filter's records with only that change in place; everythi
 corpus, the tokenizer, the other rules, the labels) is the same object as before."""
 
 import json
-from contextlib import ExitStack
+from contextlib import ExitStack, contextmanager
 from unittest import mock
 
 from jobwatch import screen
@@ -29,9 +29,16 @@ def _value(v):
     return tuple(v) if isinstance(v, list) else v
 
 
-def rescore(items, spec=None):
-    """{(board, key): record} for the given items, with the variant's change in place (or none)."""
+@contextmanager
+def applied(spec=None):
+    """The variant's change in place for the duration of the block, and undone afterwards."""
     with ExitStack() as stack:
         for target, value in ((spec or {}).get("set") or {}).items():
             stack.enter_context(mock.patch(target, _value(value)))
+        yield
+
+
+def rescore(items, spec=None):
+    """{(board, key): record} for the given items, with the variant's change in place (or none)."""
+    with applied(spec):
         return {(i.board, i.key): screen.score(i) for i in items}
