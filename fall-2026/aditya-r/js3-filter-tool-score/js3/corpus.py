@@ -36,7 +36,8 @@ def read_capture(cap):
     return body
 
 
-def build():
+def build(write=True):
+    """write=False builds in memory only (used by the read-only tool server)."""
     caps = sorted(load_captures(), key=lambda c: c["captured_utc"])
     records, per_capture, unavailable = {}, [], []
     cross_dups = 0
@@ -99,6 +100,8 @@ def build():
             records[k]["dup_group"] = h
             records[k]["dup_group_size"] = len(keys)
 
+    if not write:
+        return records, None
     BUILD.parent.mkdir(exist_ok=True)
     with BUILD.open("w", encoding="utf-8") as f:
         for key in sorted(records):
