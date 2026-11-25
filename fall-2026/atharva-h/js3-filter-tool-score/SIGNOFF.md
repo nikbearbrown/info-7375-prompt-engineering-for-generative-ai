@@ -10,7 +10,7 @@
 | Neither wrong version is the real filter | `test_wrong_1_substring_…` and `test_wrong_2_title_only_…` | With Claude's help. Each test shows the wrong version gives the wrong result and the real filter doesn't. |
 | The labels are mine | `state/labels/labels.csv` and `labels_v1_1.csv`, `reviewed` column | I reviewed all 114 of Claude's drafts against Riley's profile on 2026-11-24 and 11-25 and kept every one. Claude's drafts are kept unchanged beside them. |
 | Held-out labels were never used to choose | `split.json` and `split_v1_1.json` were drawn before any filter existed. The audit is drawn only from outside held-out (`audit.py`). The `SCORE.md` decisions cite held-out only. | With Claude's help; the commit order shows the labels before `filter.py` |
-| The reject-audit verdicts are mine | `state/audit/audit_v1.0.csv`, `your_call` column | **Pending:** I judge every row. Claude drafted none. |
+| The reject-audit verdicts are mine | `state/audit/audit_v1.0.csv`, `your_call` and `reason` columns | I judged all 50 rows myself on 2026-11-25, in my own copy of the sheet. They were copied in unchanged. Claude drafted none. |
 | The claim labels are mine | `state/claims/base_checked.csv`, `my_label` column | **Pending:** I confirm all 72 |
 | The tool server is read-only during a request | `test_a_request_never_writes_fetches_or_connects` | With Claude's help |
 | The tool server works with a real client | `state/mcp/transcript_2026-11-25T190356Z.jsonl` (Claude Code 2.1.331) | Run with AI help on 2026-11-25 |

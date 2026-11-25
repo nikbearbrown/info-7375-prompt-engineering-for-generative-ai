@@ -49,7 +49,7 @@ Public, with no login. Everything said about how they behave comes from response
 | Code | Wrote every Python file: `adapters.py`, `text.py`, `loop.py`, `corpus.py`, `labels.py`, `filter.py`, `measure.py`, `measure_changes.py`, `audit.py`, `claims.py`, `mcp_server.py`, `mcp_client.py`, `mcp_eval_fetch.py`, and the probes. Ran the collection and every script. | — |
 | Tests | Wrote all 98 tests, including the two wrong versions, run as checks the real filter must fail | — |
 | Labels | Drafted all 114 labels against Riley's profile | Reviewed every one, and kept every draft |
-| Reject audit | Drew the seeded sample and wrote the sheet, with no verdict drafted | **Pending:** judge all 50 rows |
+| Reject audit | Drew the seeded sample, wrote the sheet with no verdict drafted, copied my verdicts in unchanged, and ran the report | Judged all 50 rows, with a reason for each |
 | Claims | Wrote them (through `claude -p`), with the checker that labels them | **Pending:** confirm every claim label in the base sheet |
 | Measurements | Ran every change, caught its own checker bug and its own R2 misreading, ran the base prompt twice to measure noise, and recommended what to adopt | **Pending:** decide which changes to adopt |
 | MCP | Wrote the server, the client, and the Fetch evaluation script. Ran Claude Code as the client and installed and ran Fetch. Read Fetch's source and found its `npm install` behavior before running it. | Approved installing Fetch. **Pending:** review `MCP_EVAL.md` |

@@ -16,9 +16,9 @@ Each number below is produced by a script and saved in a file, or was set by han
 | Labels | 114 (92 v1.0 + 22 supplement); 112 "no", 2 "yes" | Claude drafted each; I reviewed every one (`reviewed` column, 2026-11-25). `state/labels/labels*.csv` |
 | Split | 77 tuning, 37 held-out | `labels.py`, seed 20261120, each stratum split 2:1 (`state/labels/split*.json`) |
 | Held-out precision and recall of v1.0 | 2/2 and 2/2 | `python3 measure.py` → `state/measure/v1.0_labels.txt` |
-| Every change's numbers below | as shown | `python3 measure_changes.py` → `state/measure/changes.txt` and `changes.json` |
+| Every change's numbers below | as shown | `python3 measure_changes.py` → `state/measure/changes.txt` and `changes.json`. The run before F5 was added is kept as `changes_before_F5.*`. |
 | Claim counts, quotes found, coverage | as shown | `python3 claims.py check VARIANT` → `state/claims/VARIANT_checked.csv` and `_answers.json`. The claims are written by `claude -p` (Claude Code 2.1.331; the recorded model is `claude-opus-5-5`). |
-| Audit error rates | **not yet** | `python3 audit.py report`, after I judge the 50 rows in `state/audit/audit_v1.0.csv` |
+| Audit error rates: kept 10/10 wrong, random rejects 0/30, near threshold 0/10 | as stated | My verdicts in `state/audit/audit_v1.0.csv` (judged by me, 2026-11-25); `python3 audit.py report` → `state/audit/report_v1.0.txt` |
 | Collection budget: 15 boards, 35 requests, 180 s; 5 MB write approval | as stated | FILTER.md v1.0; the 5 MB is JS2's GATE.md, carried over |
 
 ## How to read the measurements
@@ -37,10 +37,11 @@ Precision and recall of "keep", with the counts behind them.
 | F2 the threshold: 4 → 5 | 2/2 | 2/2 | 0/5 | 3 | FP&A Analyst R&D; both FanDuel Product Analysts, now rejected |
 | F3 a rule boundary: R2 rejects at 2+ years | 1/1 | **1/2** | 0/4 | 7 | Includes **FanDuel "Analyst", a held-out "yes"**, now rejected because its "2+ years ... preferred" counts |
 | F4 a rule reading: R2 reads the highest of the stated requirements | 2/2 | 2/2 | 0/7 | 1 | Zoox Financial Analyst ("6+ years ... 2+ years"), now rejected |
+| F5 a filter word: "reporting" doesn't count before "to" | 2/2 | 2/2 | 0/7 | 1 | Datadog FP&A Analyst R&D ("Reporting to the Senior Manager"), now rejected. This is the false friend from my audit (#27). |
 
 **What the held-out labels show:**
 - **F3 is the only change they can see, and it lowers recall.**
-- **F1, F2, and F4 make no held-out difference.**
+- **F1, F2, F4, and F5 make no held-out difference.**
 - **Tuning favours F2 and F3, which fix the most false keeps.** On held-out, F3 loses a real match. That is the over-fitting the held-out split exists to catch.
 
 ## Claude changes
@@ -78,6 +79,7 @@ The filter stays v1.0, so these act only on the 12 kept postings.
 Claude's recommendation, for me to accept or reject:
 - **F1, adopt.** Veeva's line is a stated refusal to sponsor, which is exactly what R4 exists for. Held-out can't see it, but the reason is the rule's own, not a score.
 - **F4, adopt.** It fixes a misreading of R2 in the v1.0 code, not a new rule. FILTER.md's reason talks about one range ("1-3 years" passes). It never meant that a second, lower requirement cancels a higher one.
+- **F5, adopt.** It is the false friend FILTER.md predicted and my audit found (#27). The fix is narrow: one word, before "to".
 - **F2 and F3, reject.** F3 is shown to lose a held-out match. F2 has only tuning evidence.
 - **A1, reject.** It trades abstentions for confident wrong answers on tuning.
 - **C1 and C2, reject.**

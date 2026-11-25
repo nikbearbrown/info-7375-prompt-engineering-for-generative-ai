@@ -8,6 +8,8 @@ Filter changes (deterministic; each one replaces one v1.0 setting, everything el
   F3 a rule boundary: R2 rejects when the lowest stated years is 2 or more (v1.0: 3 or more)
   F4 a rule reading: R2 takes the HIGHEST of the stated requirements' lower bounds (v1.0 code takes the lowest
      across all of them, so "6+ years ... 2+ years" counts as 2; every requirement must hold, so it is 6)
+  F5 a filter word: "reporting" does not count when followed by "to" ("Reporting to the Senior Manager"),
+     the false friend my reject audit found in a kept posting (#27)
 Claude changes (claims.py; the filter stays v1.0, so the kept set is the same 12 postings):
   C1 prompt wording: the "copy the quote exactly" sentence removed      (variant loose-quote)
   C2 context: title and locations only, no description                  (variant title-only)
@@ -41,6 +43,8 @@ FILTER_CHANGES = {
     "F4 R2 reads the highest requirement": {"lowest_years": lambda text: max(
         [(int(m.group(1)), m.group(0).strip()) for m in F.YEARS.finditer(text) if int(m.group(1)) <= F.YEARS_MAX],
         default=(None, None))},
+    "F5 'reporting to' is not the skill": {"SKILL_RE": dict(F.SKILL_RE, reporting=re.compile(
+        r"\breporting\b(?!\s+(?:directly\s+)?to\b)", re.I))},
 }
 
 

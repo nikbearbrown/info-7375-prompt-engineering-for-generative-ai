@@ -192,3 +192,20 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
 - **Drafts waiting for my review:** `SCORE.md` (the origin of every number, every change, persistence ≠ training) and `SHORTLIST.md` (the relevance-vs-entailment case: a Zoox "student" quote found but not proving "entry level"; and both abstention counterexamples).
 - **Tests: 98, all passing** (7 new, for the claim checker and abstention, with no model calls).
 - **Still mine to do:** confirm the 72 claim labels (`state/claims/base_checked.csv`), judge the 50 audit rows, and decide on the changes.
+
+## 2026-11-25 — My reject audit
+- **What I did:** judged all 50 rows of the audit sheet myself, each with a reason, in my own copy of the file. I gave it to Claude and told it to copy my verdicts into `state/audit/audit_v1.0.csv` without taking credit for them. Claude checked that the other eight columns matched the drawn sheet exactly, and copied my `your_call` and `reason` text in unchanged.
+- **My results** (`audit.py report`):
+  - **kept: 10/10 wrong.** Every posting v1.0 keeps outside held-out is one Riley wouldn't apply to.
+  - **random rejects: 0/30 wrong** (95% interval 0–11%).
+  - **near the threshold: 0/10 wrong.**
+- **What my reasons showed:**
+  - Five wrong keeps require 2+ years.
+  - One is Veeva's no-sponsorship line.
+  - One needs 6+ years, which the v1.0 R2 code misread.
+  - One needs Salesforce administration experience.
+  - One is a part-time student contract.
+  - One requires a graduation date Riley can't meet.
+- **The false friend:** in my row #27, Datadog FP&A Analyst R&D, "Reporting to the Senior Manager" earned the "reporting" skill point and lifted the score to exactly 4. FILTER.md v1.0 had predicted "reporting to" as a false friend. Claude measured a narrow fix on held-out as F5: no held-out change, 1 posting flips.
+- **`AUDIT.md`:** Claude drafted it around my verdicts. It holds the sample statement, the results, the false friends, and the changelog of every rule added, cut, or rejected. It's waiting for my review.
+- **Still mine to do:** the decisions on F1–F5, C1–C3, and A1, the claim labels, and the sign-off.
