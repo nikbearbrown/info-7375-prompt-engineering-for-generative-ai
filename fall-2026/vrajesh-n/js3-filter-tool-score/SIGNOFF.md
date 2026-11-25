@@ -15,12 +15,12 @@ Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 
 | The official fetch server's guards (private addresses, allowlist, robots.txt, redirects) work as declared; the prompt skips robots.txt | `evaluations/EVAL-fetch-server.md`, `evaluations/fetch-server/` |
 
 ## How
-- **By hand (Vrajesh's words):** "I also judged the postings and wrote all three label files: audit-labels.csv, claim-check-labels.csv, and onechange-labels.csv. The claim-check and one-change labels were saved before their keys were opened." The decisions on the role list, ML, abstention, `stack_fit`, option lists and variant B are also his.
-- **By recomputation:** the audit numbers, claim-label counts and filter counts are recomputed by scripts (`scripts/audit_summary.py`, `run_filter.py`, `make_shortlist.py`); Claude ran them.
-- **With Claude's help:** all code and tests, the blind sheets and keys, the numbers, both server evaluations, the experiment runs (40 Claude calls), and the drafts of every document. See SOURCES.md.
-- **By a test I wrote before reading Claude's code:** none, to Claude's knowledge: Claude wrote the tests, before the code each time (red outputs `review/1-` ... `19-`).
+"Claude wrote the implementation, tests and drafts and ran the commands; I reviewed the outputs, made the decisions, and wrote the labels."
 
-> [Claude's note, not Vrajesh's words: Vrajesh's message also said "I wrote the implementation and tests, ran the commands and test suites, inspected the results, and drafted the documentation." That sentence is **not placed here as written**, because in this Claude Code session Claude wrote the implementation, the tests and the document drafts and ran the commands and test suites (SOURCES.md; note in FRICTIONAL.md). Vrajesh must restate what he did himself, for example reviewing the outputs, before this sign-off is final.]
+- **By hand (my words):** "I also judged the postings and wrote all three label files: audit-labels.csv, claim-check-labels.csv, and onechange-labels.csv. The claim-check and one-change labels were saved before their keys were opened." The decisions on the role list, ML, abstention, `stack_fit`, option lists and variant B are also mine.
+- **By recomputation:** the audit numbers, claim-label counts and filter counts are recomputed by scripts (`scripts/audit_summary.py`, `run_filter.py`, `make_shortlist.py`); Claude ran them and I reviewed the outputs.
+- **With Claude's help:** all code and tests, the blind sheets and keys, the numbers, both server evaluations, the experiment runs (40 Claude calls), and the drafts of every document. See SOURCES.md.
+- **By a test I wrote before reading Claude's code:** none: Claude wrote the tests, before the code each time (red outputs `review/1-` ... `19-`).
 
 ## Not checked
 1. `cannot_tell` never fired on a real posting; it is tested on constructed postings only.
@@ -31,12 +31,17 @@ Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 
 6. The claim labeler still counts "At least 1 year of university education" as support for "fewer than 3 years of experience".
 7. "U.S. Person Required" (3 Palantir postings) is not handled by R4 or R5; "clearance is a plus" is still rejected.
 8. JS2's loop, policy and fetch code is in the folder but untested in JS3; no live board and no real resume were used.
+9. A valid but very large request to my MCP server, and many requests in a row: the server has no input-size limit or rate limit, and only a malformed 5 MB line was tried (`evaluations/EVAL-earlybird-score.md`, defect 3).
 
 ## Not claiming
 "This does not demonstrate reliable job eligibility, guaranteed sponsorship, accurate labels for every posting, secure handling of real resumes, or a general improvement from B. It also does not demonstrate model training or learning: the experiment changed the tool-result text."
 
 ## Why I sign
-"I read the blind sheets, judged and saved 24 claim labels and 40 sentence judgments, and verified both CSVs had complete rows and valid labels. I kept both keys unopened and checked the source posting for pair 11’s missing quotation."
+"I read the blind sheets, judged and saved 24 claim labels and 40 sentence judgments, and verified all three label files had complete rows and valid labels. I kept both keys unopened and checked the source posting for pair 11’s missing quotation."
+
+"I would not sign without reviewing the final diff, the 51-test run, and the documented limitations, with approval explicitly limited to the fictional persona and local snapshot.
+
+The “Not checked” item that worries me most is a valid, very large request. The server has no input-size limit, so a client could exhaust memory. Passing ordinary requests and malformed-input tests does not establish that it handles this case safely."
 
 ## Driver's seat (draft table, for Vrajesh to edit)
 | Claude should | I should | Why the judgment that a posting is worth my time stays mine |

@@ -32,6 +32,10 @@
 "7. What I checked myself: I made the recorded scope and default-behavior decisions and discussed the disagreements. The CSV judgments, The commands, implementation inspection, and test runs were performed by me."
 [Claude's note, not Vrajesh's words: within this Claude Code session, Claude wrote the code and ran the commands and test runs through its tools, and I did not write any of the label files (`audit-labels.csv`, `claim-check-labels.csv`, `onechange-labels.csv`); they were filled in between Claude's turns. SOURCES.md and the sign-off describe Claude's part, and the sign-off "How" line has to match what Vrajesh did himself.]
 
+**Correction to the item above, later on 2026-11-25.**
+"Yes what you said is corecg claude wrote the implementation" [correct, per his speech-to-text]. The sentence he approved for the sign-off: "Claude wrote the implementation, tests and drafts and ran the commands; I reviewed the outputs, made the decisions, and wrote the labels". On the sign-off wording "both CSVs": "i somejhow missed that verified 3 labels files" [he had verified all three label files].
+[Claude's note: the sign-off `SIGNOFF.md` now says this. The earlier answer above is kept as given, so the record shows the correction.]
+
 ## Traceability (compiled by Claude)
 
 | What | Where |
