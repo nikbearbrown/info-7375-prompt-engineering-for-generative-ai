@@ -12,7 +12,7 @@ from pathlib import Path
 
 from inherited.rules import contains_phrase, normalize
 
-from .text import quote_for, readable
+from .text import quote_for, readable, segments
 
 ROOT = Path(__file__).resolve().parent.parent
 FIELD = {"title": "posting.title", "description": "posting.description"}
@@ -77,11 +77,18 @@ def score_posting(posting, cfg):
     m = _first(level_fields(cfg), cfg["level"]["phrases"], texts, norm)
     s = {"points": cfg["level"]["points"] if m else 0, "match": m}
 
-    # T: distinct groups, capped
+    # T: distinct groups, capped. Optionally (v1.1 candidate C-a) on the description with board boilerplate removed.
+    t_texts, t_norm = texts, norm
+    if cfg["topic"].get("ignore_boilerplate_segments"):
+        from .boilerplate import load as load_boilerplate
+        boiler = load_boilerplate().get(posting.get("board") or "", set())
+        kept = "\n".join(sg for sg in segments(texts["description"]) if normalize(sg) not in boiler)
+        t_texts = {**texts, "description": kept}
+        t_norm = {**norm, "description": normalize(kept)}
     groups = []
     for name, phrases in cfg["topic"]["groups"].items():
         allowed = [p for p in phrases if topic_phrase_allowed(p, posting.get("board") or "", cfg)]
-        m = _first(cfg["topic"]["fields"], allowed, texts, norm)
+        m = _first(cfg["topic"]["fields"], allowed, t_texts, t_norm)
         if m:
             groups.append({"group": name, **m})
     t_points, t_uncapped = topic_points(groups, cfg)

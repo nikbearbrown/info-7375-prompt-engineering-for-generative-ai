@@ -1,0 +1,455 @@
+{
+ "labels": "labels/dev_labels.csv",
+ "n": 63,
+ "label_counts": {
+  "no": 44,
+  "unsure": 10,
+  "yes": 9
+ },
+ "groups": {
+  "D-close-above(score 6)": {
+   "n": 3,
+   "labels": {
+    "yes": 2,
+    "unsure": 1
+   },
+   "v1.0": {
+    "TP": 2,
+    "unsure_keep": 1
+   },
+   "errors": []
+  },
+  "D-close-below(score 5)": {
+   "n": 6,
+   "labels": {
+    "unsure": 2,
+    "yes": 2,
+    "no": 2
+   },
+   "v1.0": {
+    "unsure_reject": 2,
+    "FN": 2,
+    "TN": 2
+   },
+   "errors": [
+    {
+     "sheet_id": "S05",
+     "label": "yes",
+     "v1.0": "reject",
+     "score": 5,
+     "title": "Software Engineer - Machine Learning",
+     "reason": "ML software engineering warrants a read given her AI co-op."
+    },
+    {
+     "sheet_id": "S43",
+     "label": "yes",
+     "v1.0": "reject",
+     "score": 5,
+     "title": "AI Engineer, Internal Tools",
+     "reason": "Building internal AI tools aligns directly with her agent experience."
+    }
+   ]
+  },
+  "D-kept(all outside H)": {
+   "n": 4,
+   "labels": {
+    "yes": 3,
+    "unsure": 1
+   },
+   "v1.0": {
+    "TP": 3,
+    "unsure_keep": 1
+   },
+   "errors": []
+  },
+  "D-random-reject": {
+   "n": 30,
+   "labels": {
+    "no": 27,
+    "unsure": 3
+   },
+   "v1.0": {
+    "TN": 27,
+    "unsure_reject": 3
+   },
+   "errors": []
+  },
+  "H-keep": {
+   "n": 3,
+   "labels": {
+    "yes": 3
+   },
+   "v1.0": {
+    "TP": 3
+   },
+   "errors": []
+  },
+  "H-near-reject(3-5)": {
+   "n": 10,
+   "labels": {
+    "no": 5,
+    "unsure": 4,
+    "yes": 1
+   },
+   "v1.0": {
+    "TN": 5,
+    "unsure_reject": 4,
+    "FN": 1
+   },
+   "errors": [
+    {
+     "sheet_id": "S26",
+     "label": "yes",
+     "v1.0": "reject",
+     "score": 5,
+     "title": "Evergreen - AI Engineer, AI FDE",
+     "reason": "AI FDE matches her co-op closely enough to check level and location terms."
+    }
+   ]
+  },
+  "H-other-reject": {
+   "n": 10,
+   "labels": {
+    "no": 10
+   },
+   "v1.0": {
+    "TN": 10
+   },
+   "errors": []
+  }
+ },
+ "random_reject_estimate": {
+  "sample": 30,
+  "yes": 0,
+  "unsure": 3,
+  "no": 27,
+  "miss_rate_decided": "0/27",
+  "ci95_decided": [
+   0.0,
+   0.1277
+  ],
+  "worst_case_unsure_as_miss": "3/30",
+  "ci95_worst_case": [
+   0.0211,
+   0.2653
+  ],
+  "v1.0_rejects_in_corpus": 1282
+ },
+ "comparisons": [
+  {
+   "label": "v1.0 baseline",
+   "filter": "v1.0",
+   "threshold": 6,
+   "change": "-",
+   "confusion": {
+    "TN": 44,
+    "unsure_reject": 9,
+    "FN": 3,
+    "TP": 6,
+    "unsure_keep": 1
+   },
+   "corpus_keeps": 11,
+   "flips": []
+  },
+  {
+   "label": "C-a",
+   "filter": "cand-a_boilerplate",
+   "threshold": 6,
+   "change": "filter file: topic ignores board boilerplate segments",
+   "confusion": {
+    "TN": 44,
+    "unsure_reject": 10,
+    "FN": 6,
+    "TP": 3
+   },
+   "corpus_keeps": 4,
+   "flips": [
+    {
+     "sheet_id": "S11",
+     "label": "yes",
+     "from": "keep",
+     "to": "reject",
+     "title": "Software Engineer - New Grad, Distributed Data Systems (2027 Start)",
+     "v1.0": "R 2 + S 0 + T 3 + E 1 + Y 0 = 6",
+     "candidate": "R 2 + S 0 + T 1 + E 1 + Y 0 = 4"
+    },
+    {
+     "sheet_id": "S35",
+     "label": "yes",
+     "from": "keep",
+     "to": "reject",
+     "title": "Software Engineer - New Grad (2027 Start) - Aarhus",
+     "v1.0": "R 2 + S 0 + T 3 + E 1 + Y 0 = 6",
+     "candidate": "R 2 + S 0 + T 1 + E 1 + Y 0 = 4"
+    },
+    {
+     "sheet_id": "S39",
+     "label": "unsure",
+     "from": "keep",
+     "to": "reject",
+     "title": "Software Engineer - Backend",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6",
+     "candidate": "R 2 + S 0 + T 2 + E 0 + Y 0 = 4"
+    },
+    {
+     "sheet_id": "S48",
+     "label": "yes",
+     "from": "keep",
+     "to": "reject",
+     "title": "Software Engineer - New Grad (2027 Start)",
+     "v1.0": "R 2 + S 0 + T 3 + E 1 + Y 0 = 6",
+     "candidate": "R 2 + S 0 + T 1 + E 1 + Y 0 = 4"
+    }
+   ]
+  },
+  {
+   "label": "C-b",
+   "filter": "cand-b_years",
+   "threshold": 6,
+   "change": "filter file: years bands -> only N>=5 gives -1",
+   "confusion": {
+    "TN": 44,
+    "unsure_keep": 2,
+    "TP": 9,
+    "unsure_reject": 8
+   },
+   "corpus_keeps": 18,
+   "flips": [
+    {
+     "sheet_id": "S04",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Software Engineer, Infrastructure",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6"
+    },
+    {
+     "sheet_id": "S05",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Software Engineer - Machine Learning",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6"
+    },
+    {
+     "sheet_id": "S26",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Evergreen - AI Engineer, AI FDE",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -1 = 7"
+    },
+    {
+     "sheet_id": "S43",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "AI Engineer, Internal Tools",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -1 = 7"
+    }
+   ]
+  },
+  {
+   "label": "C-e",
+   "filter": "cand-e_earlycareer3",
+   "threshold": 6,
+   "change": "filter file: early-career +1 -> +3",
+   "confusion": {
+    "TN": 43,
+    "unsure_reject": 8,
+    "FN": 3,
+    "TP": 6,
+    "FP": 1,
+    "unsure_keep": 2
+   },
+   "corpus_keeps": 19,
+   "flips": [
+    {
+     "sheet_id": "S23",
+     "label": "no",
+     "from": "reject",
+     "to": "keep",
+     "title": "Product Design New Grad (2027 Start)",
+     "v1.0": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5",
+     "candidate": "R 0 + S 0 + T 4 + E 3 + Y 0 = 7"
+    },
+    {
+     "sheet_id": "S42",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Solutions Engineer",
+     "v1.0": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5",
+     "candidate": "R 0 + S 0 + T 4 + E 3 + Y 0 = 7"
+    }
+   ]
+  },
+  {
+   "label": "C-t",
+   "filter": "v1.0",
+   "threshold": 5,
+   "change": "setting: threshold 6 -> 5",
+   "confusion": {
+    "TN": 42,
+    "unsure_keep": 3,
+    "TP": 9,
+    "unsure_reject": 7,
+    "FP": 2
+   },
+   "corpus_keeps": 27,
+   "flips": [
+    {
+     "sheet_id": "S04",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Software Engineer, Infrastructure",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5"
+    },
+    {
+     "sheet_id": "S05",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Software Engineer - Machine Learning",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5"
+    },
+    {
+     "sheet_id": "S23",
+     "label": "no",
+     "from": "reject",
+     "to": "keep",
+     "title": "Product Design New Grad (2027 Start)",
+     "v1.0": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5",
+     "candidate": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5"
+    },
+    {
+     "sheet_id": "S26",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Evergreen - AI Engineer, AI FDE",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5"
+    },
+    {
+     "sheet_id": "S42",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Solutions Engineer",
+     "v1.0": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5",
+     "candidate": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5"
+    },
+    {
+     "sheet_id": "S43",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "AI Engineer, Internal Tools",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5"
+    },
+    {
+     "sheet_id": "S52",
+     "label": "no",
+     "from": "reject",
+     "to": "keep",
+     "title": "Systems PhD - Software Engineer ",
+     "v1.0": "R 2 + S 0 + T 3 + E 0 + Y 0 = 5",
+     "candidate": "R 2 + S 0 + T 3 + E 0 + Y 0 = 5"
+    }
+   ]
+  },
+  {
+   "label": "C-r",
+   "filter": "cand-r_roles",
+   "threshold": 6,
+   "change": "filter file: add 'forward deployed engineer', 'solutions engineer' to R-adjacent",
+   "confusion": {
+    "TN": 44,
+    "unsure_reject": 7,
+    "FN": 3,
+    "TP": 6,
+    "unsure_keep": 3
+   },
+   "corpus_keeps": 17,
+   "flips": [
+    {
+     "sheet_id": "S27",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Forward Deployed Engineer",
+     "v1.0": "R 0 + S 0 + T 4 + E 0 + Y 0 = 4",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6"
+    },
+    {
+     "sheet_id": "S42",
+     "label": "unsure",
+     "from": "reject",
+     "to": "keep",
+     "title": "Solutions Engineer",
+     "v1.0": "R 0 + S 0 + T 4 + E 1 + Y 0 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 1 + Y 0 = 7"
+    }
+   ]
+  },
+  {
+   "label": "C-a+C-b+C-e",
+   "filter": "cand-abe_combined",
+   "threshold": 6,
+   "change": "three filter-file changes together (not one-at-a-time)",
+   "confusion": {
+    "TN": 44,
+    "unsure_reject": 10,
+    "TP": 9
+   },
+   "corpus_keeps": 15,
+   "flips": [
+    {
+     "sheet_id": "S05",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Software Engineer - Machine Learning",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "candidate": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6"
+    },
+    {
+     "sheet_id": "S26",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "Evergreen - AI Engineer, AI FDE",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -1 = 7"
+    },
+    {
+     "sheet_id": "S39",
+     "label": "unsure",
+     "from": "keep",
+     "to": "reject",
+     "title": "Software Engineer - Backend",
+     "v1.0": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6",
+     "candidate": "R 2 + S 0 + T 2 + E 0 + Y 0 = 4"
+    },
+    {
+     "sheet_id": "S43",
+     "label": "yes",
+     "from": "reject",
+     "to": "keep",
+     "title": "AI Engineer, Internal Tools",
+     "v1.0": "R 4 + S 0 + T 4 + E 0 + Y -3 = 5",
+     "candidate": "R 4 + S 0 + T 4 + E 0 + Y -1 = 7"
+    }
+   ]
+  }
+ ]
+}
