@@ -41,13 +41,16 @@ WRONG_VERSIONS = [
 
 
 def copy_project(dest):
-    """Copy every project .py file, FILTER.md, rules/ and tests/ (not runs/ or audit/)."""
+    """Copy every project .py file, FILTER.md, rules/, tests/ and the registered experiment
+    candidates (not runs/, audit/, shortlist/ or mcp/)."""
     for f in sorted(HERE.glob("*.py")):
         if f.name != Path(__file__).name:
             shutil.copy2(f, dest / f.name)
     shutil.copy2(HERE / "FILTER.md", dest / "FILTER.md")
     shutil.copytree(HERE / "rules", dest / "rules")
     shutil.copytree(HERE / "tests", dest / "tests", ignore=shutil.ignore_patterns("__pycache__"))
+    (dest / "experiments").mkdir()
+    shutil.copy2(HERE / "experiments" / "candidates.json", dest / "experiments" / "candidates.json")
 
 
 def link_js2(tmp):

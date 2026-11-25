@@ -30,3 +30,18 @@ Only `random_reject` supports an estimate about all rejected postings. The other
 | `MY_NOTES` | Anything else |
 
 I do not change any other column. The filter's results stay as they were saved.
+
+## The held-out sample (for measuring one change at a time)
+
+[`heldout-filter-v1.1-2026-11-18T212545Z/`](heldout-filter-v1.1-2026-11-18T212545Z/) holds 20 postings I have not labeled before. They were drawn by `sample_audit.py --heldout` from the postings that the pre-registered changes in [`../experiments/candidates.json`](../experiments/candidates.json) would flip, leaving out my 60 tuning postings. See `sample.json` for the seed and populations.
+
+The sheet is **blind**: it shows no filter decision, score, or group. I judge each posting from `source-text.md` alone, then fill the same four columns:
+
+| Column | What to write |
+|---|---|
+| `MY_VERDICT` | What the decision should be for Priya: `reject`, `keep for review`, `confirm`, or `cannot tell` |
+| `MY_REASON` | One line: why, in my words |
+| `FALSE_FRIEND_WORD` | Optional, as before |
+| `MY_NOTES` | Optional |
+
+I should not open `sample.json` until I finish, because it records which version decided what. After labeling and committing the sheet, `python3 experiment.py report` measures each change on these labels.

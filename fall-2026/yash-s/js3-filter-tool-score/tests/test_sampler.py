@@ -30,5 +30,33 @@ class Sampler(unittest.TestCase):
         self.assertEqual(S.HAND_FIELDS, ["MY_VERDICT", "MY_REASON", "FALSE_FRIEND_WORD", "MY_NOTES"])
 
 
+class HeldOut(unittest.TestCase):
+    @staticmethod
+    def flips():
+        f = lambda i: {"board": "OpenAI", "id": str(i), "from": "rejected", "to": "review"}
+        return {"changes": {"A": {"flips": [f(i) for i in range(20)]},
+                            "B": {"flips": [f(i) for i in range(15, 25)]},
+                            "C": {"flips": []}}}
+
+    def test_tuning_postings_are_never_drawn_and_no_posting_is_drawn_twice(self):
+        exclude = {("OpenAI", str(i)) for i in range(5)}
+        groups, pops = S.draw_heldout(self.flips(), exclude, 1, 8)
+        keys = [S.key(r) for g in groups.values() for r in g]
+        self.assertFalse(set(keys) & exclude)
+        self.assertEqual(len(keys), len(set(keys)))
+        self.assertEqual(pops["flip_A"], 15)
+        self.assertNotIn("flip_C", groups)
+
+    def test_same_seed_same_held_out_sample(self):
+        a, _ = S.draw_heldout(self.flips(), set(), 3, 5)
+        b, _ = S.draw_heldout(self.flips(), set(), 3, 5)
+        self.assertEqual({g: [S.key(r) for r in rs] for g, rs in a.items()}, {g: [S.key(r) for r in rs] for g, rs in b.items()})
+
+    def test_every_held_out_verdict_word_is_understood_by_the_experiment(self):
+        import experiment as X
+        for v in S.HELDOUT_VERDICTS:
+            self.assertIsNotNone(X.judged({"MY_VERDICT": v, "board": "b", "posting_id": "1"}))
+
+
 if __name__ == "__main__":
     unittest.main()

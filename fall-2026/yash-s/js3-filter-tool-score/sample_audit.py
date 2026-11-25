@@ -16,6 +16,17 @@ seed always give the same sample. The output folder is created new; an existing 
 is never overwritten, so my hand labels cannot be replaced by a rerun.
 
 Every hand-judgment field is left blank. This script does not judge anything.
+
+Held-out mode, for measuring one change at a time (experiment.py):
+
+    python3 sample_audit.py --heldout experiments/flips-<run>.json \\
+        --exclude-sheet audit/sample-<run>/labeling-sheet.csv [--seed 20261124] [--flips-each 15]
+
+draws, for each pre-registered change, a random sample of the postings that change
+would flip, leaving out every posting in the excluded sheets (my tuning labels).
+The held-out sheet is blind: it shows no filter decision, score, or group, so I
+judge each posting before knowing what either version decided. The groups and
+both decisions are kept in sample.json, which I should not open until I finish.
 """
 import argparse
 import csv
@@ -41,15 +52,104 @@ def draw(rng, population, k, taken):
     return sorted(picked, key=key), len(pool)
 
 
+HELDOUT_VERDICTS = ["reject", "keep for review", "confirm", "cannot tell"]
+
+
+def sheet_keys(path):
+    with open(path, encoding="utf-8", newline="") as f:
+        return {(r["board"], r["posting_id"]) for r in csv.DictReader(f)}
+
+
+def draw_heldout(flips, exclude, seed, each):
+    """One group per change with flips: a random sample of its flipped postings that are
+    not in `exclude` and not already drawn for an earlier change. Changes are taken in
+    the order they were registered."""
+    rng, taken, groups, pops = random.Random(seed), set(exclude), {}, {}
+    for cid, info in flips["changes"].items():
+        if info["flips"]:
+            g = f"flip_{cid}"
+            groups[g], pops[g] = draw(rng, info["flips"], each, taken)
+    return groups, pops
+
+
+def heldout_main(args):
+    flips_path = Path(args.heldout).resolve()
+    flips = json.loads(flips_path.read_text(encoding="utf-8"))
+    run_name = flips["baseline_run"]
+    exclude, excluded_files = set(), []
+    for s in args.exclude_sheet:
+        exclude |= sheet_keys(s)
+        excluded_files.append({"file": str(Path(s).resolve().relative_to(HERE)), "sha256": P.sha256(s),
+                               "postings": len(sheet_keys(s))})
+    groups, pops = draw_heldout(flips, exclude, args.seed, args.flips_each)
+
+    out = HERE / "audit" / f"heldout-{run_name}"
+    out.mkdir()  # fails if it already exists: never overwrite hand labels
+
+    by_key = {(p["board"], p["id"]): p for p in P.load_saved_postings(args.js2)[0]}
+    drawn = sorted(((g, f) for g, fs in groups.items() for f in fs), key=lambda x: key(x[1]))
+    rows, md = [], [f"# Held-out postings to judge (from {run_name})", "",
+                    "Judge each posting on its own: what should the decision be for Priya? "
+                    "This file shows no filter decision, score or group on purpose.",
+                    f"Verdict words: {', '.join(HELDOUT_VERDICTS)}.",
+                    "Every posting below is real, from my saved JS2 responses. Nothing here is constructed.", ""]
+    for n, (g, f) in enumerate(drawn, 1):
+        p = by_key[key(f)]
+        rows.append({"row": n, "board": p["board"], "posting_id": p["id"], "title": p["title"],
+                     "location": p["location"], "url": p["url"], **{h: "" for h in HAND_FIELDS}})
+        md += [f"### Row {n}: {p['title']}", "",
+               f"- Board: {p['board']} · ID: `{p['id']}` · Location: {p['location'] or '(none)'}",
+               f"- URL: {p['url'] or '(none)'}",
+               f"- Source: JS2 `runs/{p['source_run']}/{p['source_file']}`", "",
+               "**Posting text (cleaned from the saved HTML):**", "", "```text",
+               P.plain_text(p["markup"]) or "(empty description)", "```", ""]
+    with open(out / "labeling-sheet.csv", "x", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["row", "board", "posting_id", "title", "location", "url"] + HAND_FIELDS)
+        w.writeheader()
+        w.writerows(rows)
+    with open(out / "source-text.md", "x", encoding="utf-8") as fh:
+        fh.write("\n".join(md) + "\n")
+    meta = {
+        "purpose": "held-out labels for experiment.py; drawn after the tuning labels and the candidate changes were fixed",
+        "flips_file": str(flips_path.relative_to(HERE)), "flips_sha256": P.sha256(flips_path),
+        "candidates_sha256": flips.get("candidates_sha256"), "baseline_run": run_name,
+        "excluded_sheets": excluded_files, "seed": args.seed, "flips_each": args.flips_each,
+        "generator": "random.Random(seed).sample per change, flip lists sorted by (board, posting ID)",
+        "population_sizes_at_draw_time": pops,
+        "verdict_words": HELDOUT_VERDICTS,
+        "groups": {g: [{"row": next(r["row"] for r in rows if (r["board"], r["posting_id"]) == key(f)),
+                        "board": f["board"], "id": f["id"], "v1.1": f["from"], "with_change": f["to"]} for f in fs]
+                   for g, fs in groups.items()},
+        "note": "Blind sheet: decisions are only here. No hand verdicts are filled in.",
+    }
+    with open(out / "sample.json", "x", encoding="utf-8") as fh:
+        fh.write(json.dumps(meta, indent=2) + "\n")
+    print(f"wrote {out.relative_to(HERE)}/  ({len(rows)} postings, blind)")
+    for g, fs in groups.items():
+        print(f"  {g:36} {len(fs):3} drawn from {pops[g]}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--run", required=True, help="a runs/filter-... folder written by run_filter.py")
+    ap.add_argument("--run", help="a runs/filter-... folder written by run_filter.py")
     ap.add_argument("--js2", default=str(P.DEFAULT_JS2))
-    ap.add_argument("--seed", type=int, default=20261118)
+    ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--rejects", type=int, default=30)
     ap.add_argument("--borderline-each", type=int, default=10)
     ap.add_argument("--kept", type=int, default=10)
+    ap.add_argument("--heldout", help="an experiments/flips-<run>.json file: draw the held-out sample instead")
+    ap.add_argument("--exclude-sheet", action="append", default=[], help="a labeling sheet whose postings are left out")
+    ap.add_argument("--flips-each", type=int, default=15)
     args = ap.parse_args(argv)
+    if args.heldout:
+        if args.seed is None:
+            args.seed = 20261124
+        return heldout_main(args)
+    if not args.run:
+        ap.error("--run is required unless --heldout is given")
+    if args.seed is None:
+        args.seed = 20261118
 
     run = Path(args.run).resolve()
     results = json.loads((run / "results.json").read_text(encoding="utf-8"))

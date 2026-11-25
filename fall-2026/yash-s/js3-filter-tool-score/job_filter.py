@@ -329,7 +329,10 @@ def evaluate(posting, rules):
     role, role_match = title_role(posting["title"], rules)
     found_topics = topics(job_text, rules)
     if role == "related_candidate":
-        role = "related" if found_topics else "none"
+        # Rule 1, Step 4: a related title needs a Rule 2 topic. Version 1.1 needs one;
+        # the setting exists only so experiment.py can test a stricter value in memory.
+        need = rules["filter"]["titles"].get("related_min_topics", 1)
+        role = "related" if len(found_topics) >= need else "none"
     role_points = S["role_points"].get(role, 0)
     topic_points = S["topic_points"]["two_or_more"] if len(found_topics) >= 2 else \
         S["topic_points"]["one"] if found_topics else 0
