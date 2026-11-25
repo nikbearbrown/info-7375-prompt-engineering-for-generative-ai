@@ -68,5 +68,6 @@ result. A behaviour that "persists" across sessions because the same text is sup
 a behaviour that does *not* persist is not evidence that nothing is stored anywhere: I did not inspect the model.
 
 ## 6. Decision on the change
-**To be written by Vrajesh.** Claude's suggestion, not the decision: make B the default, since it never hurt here and costs a few
-tokens, but keep the switch (`EARLYBIRD_INCLUDE_STATEMENT`) and report the evidence as weak.
+**Decision (Vrajesh, 2026-11-25): make variant B the default.** The server now includes each claim's statement unless
+`EARLYBIRD_INCLUDE_STATEMENT=0` (variant A). The evidence for B is weak (3 differences against 0, p = 0.25, section 3); the switch
+is kept so the measurement can be repeated. Vrajesh's own reasons: **to be added in his words.**

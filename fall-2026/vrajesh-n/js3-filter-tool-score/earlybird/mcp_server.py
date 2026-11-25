@@ -62,8 +62,9 @@ class Server:
     def __init__(self, log_path=None):
         self.log = open(log_path, "a", encoding="utf-8") if log_path else None
         self.index = None
-        # The one change measured in REPORT-one-change.md (variant B): include each claim's statement in the result.
-        self.include_statement = os.environ.get("EARLYBIRD_INCLUDE_STATEMENT") == "1"
+        # The one change measured in REPORT-one-change.md. Variant B (default, Vrajesh's decision 2026-11-25) includes each
+        # claim's statement in the result; EARLYBIRD_INCLUDE_STATEMENT=0 gives variant A, the result Claude Code first read.
+        self.include_statement = os.environ.get("EARLYBIRD_INCLUDE_STATEMENT") != "0"
         self.resume = load_resume(ROOT / "data/resume/rohan-desai.example.json")
 
     # --- message log (both directions) --------------------------------

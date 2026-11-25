@@ -236,7 +236,8 @@ class NetworkGuard(unittest.TestCase):
 
 class ResultVariant(unittest.TestCase):
     """The one change measured in REPORT-one-change.md: put each claim's statement in the tool result.
-    Default (A) leaves it out, as the server did when Claude Code read it; EARLYBIRD_INCLUDE_STATEMENT=1 (B) adds it."""
+    Vrajesh chose B as the default on 2026-11-25: the statement is included unless EARLYBIRD_INCLUDE_STATEMENT=0 (variant A,
+    the result as Claude Code first read it)."""
 
     def claims_for(self, extra_env):
         board, pid = a_real_posting()
@@ -248,15 +249,15 @@ class ResultVariant(unittest.TestCase):
         finally:
             s.close()
 
-    def test_default_has_no_statement(self):
+    def test_default_includes_the_statement(self):
         for c in self.claims_for(None):
-            self.assertNotIn("statement", c)
+            self.assertTrue(c["statement"])
 
-    def test_variant_b_adds_the_statement_and_changes_nothing_else(self):
-        a, b = self.claims_for(None), self.claims_for({"EARLYBIRD_INCLUDE_STATEMENT": "1"})
+    def test_variant_a_leaves_it_out_and_changes_nothing_else(self):
+        b, a = self.claims_for(None), self.claims_for({"EARLYBIRD_INCLUDE_STATEMENT": "0"})
         self.assertEqual(len(a), len(b))
         for ca, cb in zip(a, b):
-            self.assertTrue(cb["statement"])
+            self.assertNotIn("statement", ca)
             self.assertEqual({k: v for k, v in cb.items() if k != "statement"}, ca)
 
 
