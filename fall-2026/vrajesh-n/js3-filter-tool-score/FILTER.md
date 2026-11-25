@@ -67,13 +67,13 @@ only free-text location. When a field is missing the answer is cannot_tell (sect
 ## 5. Version log
 
 - v1 (2026-11-25): first JS3 version. R1 widened, R5 added, cannot_tell added, ML roles excluded.
-- v2 (2026-11-25, after the hand-judged reject audit, labels in review/audit-labels.csv):
+- v2 (2026-11-25, after the reject audit, labels in review/audit-labels.csv):
   - R4 widened: also "may not be able to employ ... sponsorship" and visa-word + "sponsorship at this time".
     Measured: v1 R4 matched 0 of 3068 postings (dead code); v2 moves 14 Roblox postings to R4 (items 6, 15 in the sample).
     False friend kept out: "executive sponsor", "gain sponsorship for deployments" (bare "sponsor" matched 77 sentences).
   - R5 widened: also "secret clearance" and "government clearance". Moves 1 posting (item 18). Bare "clearance" NOT added.
   - R1 widened: "Backend / API Engineer" (only "/ API"). Moves 4 postings, 2 relevant, 2 rejected by R3 (item 60).
   - Rejected after measuring: adding "Web Application Developer", "Security Engineer", "Solutions Engineer",
-    "Integration Reliability Engineer" to R1 (audit items 5, 29, 42, 47, 52 were hand-judged N).
+    "Integration Reliability Engineer" to R1 (audit items 5, 29, 42, 47, 52 were labelled N).
   - Rejected after measuring: a PhD/degree rule (one case, item 26, now labelled "?"; no evidence for a rule).
   - Known limit, not fixed: R5 still rejects "clearance is a plus" (audit item 55).

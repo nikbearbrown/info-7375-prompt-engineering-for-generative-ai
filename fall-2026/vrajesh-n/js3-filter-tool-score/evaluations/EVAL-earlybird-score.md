@@ -44,7 +44,7 @@ one tool, `score_posting`), tests written before the code. Evidence: `earlybird-
 - A valid but very large request (memory use), many requests in a row (no rate limit tested).
 - Behaviour with a client other than my scripted client and Claude Code 2.1.332.
 - Running it with a real resume (the whole project is built on the fictional persona).
-- That the labels in the results are right for every posting; only the 24 hand-checked items and the 62-item audit sample are.
+- That the labels in the results are right for every posting; only the 24 claim-check items and the 62-item audit sample were compared with Vrajesh's labels.
 
 ## Trust decision
 **To be written by Vrajesh in his own words.**

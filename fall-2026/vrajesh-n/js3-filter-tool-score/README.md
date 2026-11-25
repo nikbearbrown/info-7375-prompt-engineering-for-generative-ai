@@ -25,9 +25,9 @@ Claude Code calls the server through `transcripts/mcp-config.json` (`claude -p .
 
 ## What ran (all on 2026-11-25 unless noted)
 - **Filter v1 then v2** on the snapshot: v1 kept 99 of 3,068; v2 kept 86 (`results/filter-v1-summary.txt`, `filter-v2-summary.txt`).
-- **Reject audit**: 62 postings judged by hand (35 random rejects, 12 close calls, 15 kept): `review/AUDIT.md`.
+- **Reject audit**: 62 postings labelled by Vrajesh (35 random rejects, 12 close calls, 15 kept): `review/AUDIT.md`.
 - **Source-grounded shortlist**: 86 postings, every claim labelled supported, contradicted or insufficient with a quote:
-  `results/shortlist.md`. 24 (posting, claim) pairs hand-checked against the labeler: 21 of 24 agreed, 23 of 24 after one fix.
+  `results/shortlist.md`. 24 (posting, claim) pairs checked against Vrajesh's labels: 21 of 24 agreed, 23 of 24 after one fix.
 - **MCP server** written from scratch; a real Claude Code run (`transcripts/claude-code-session-2026-11-25.md`, sanitized) and a scripted
   client run (`transcripts/scripted-client-2026-11-25.jsonl`); both directions logged.
 - **Two evaluations**: the official fetch server (`evaluations/EVAL-fetch-server.md`) and my own (`evaluations/EVAL-earlybird-score.md`).
@@ -40,7 +40,7 @@ Claude Code calls the server through `transcripts/mcp-config.json` (`claude -p .
 | `FILTER.md` | the filter as a versioned document, written before the code (`63e249b`); version log for v2 |
 | `earlybird/rule.py`, `claims.py`, `mcp_server.py` | the filter, the claim labeler, the tool server |
 | `tests/` | `cases.py` (27 constructed cases), `wrong_filters.py` (W1-W3), `test_filter.py`, `test_claims.py`, `test_mcp.py` |
-| `review/` | blind sheets, my hand labels, keys, and every red/green test output (`1-...` to `19-...`) |
+| `review/` | blind sheets, my labels, keys, and every red/green test output (`1-...` to `19-...`) |
 | `review/AUDIT.md` | the reject audit with counts and what the sample can show |
 | `results/` | filter runs, shortlist, one-change outputs |
 | `evaluations/`, `transcripts/` | the two server evaluations and the MCP message logs (the raw Claude run log is kept private and git-ignored) |
@@ -51,7 +51,7 @@ Claude Code calls the server through `transcripts/mcp-config.json` (`claude -p .
 `check.py`, `report.py`, `watch.py`, `validate.py`); its JS2 tests were not carried over, so that code is untested here.
 
 ## What this does not show
-- The filter and labeler were checked on small hand-labelled samples (62 and 24 items); the v2 filter changes were tuned on the audit
+- The filter and labeler were checked on small samples (62 and 24 items) labelled by one person; the v2 filter changes were tuned on the audit
   sample and have no held-out measurement. The one-change result is weak (p = 0.25).
 - `cannot_tell` never fired on a real posting; it is tested on constructed postings.
 - The agent was not run on a real resume or on any live board in JS3.

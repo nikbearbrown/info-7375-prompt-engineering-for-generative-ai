@@ -1,4 +1,4 @@
-"""Blind hand-check of the claim labeler. Seeded sample of (posting, claim) pairs. Vrajesh reads the posting text
+"""Blind check of the claim labeler. Seeded sample of (posting, claim) pairs. Vrajesh reads the posting text
 excerpts and writes supported / contradicted / insufficient; the labeler's labels are in claim-check-key.json,
 opened only after his labels are saved. Excerpts use BROAD patterns (not the labeler's own) so a labeler miss is visible."""
 import csv

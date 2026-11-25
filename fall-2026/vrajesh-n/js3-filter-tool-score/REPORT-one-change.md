@@ -35,7 +35,7 @@ There are no fitted weights and nothing was trained. The scorer is a filter of r
   samples (audit sheet, claim-check sheet), and drawn and committed (`55a0bae`) before any Claude output existed. The filter and
   labeler were not tuned on them.
 - **Ran:** 40 calls on 2026-11-25, 0 errors, 3 at a time, A and B interleaved. Outputs: `results/onechange-outputs.json`.
-- **Judged:** Vrajesh labelled each sentence accurate or misleading without knowing the variant (`review/onechange-labels.csv`,
+- **Judged:** Vrajesh labelled each sentence accurate or misleading with the variant hidden (`review/onechange-labels.csv`,
   committed `a116952` before the key was opened).
 
 ## 3. Result
@@ -57,7 +57,7 @@ intervals overlap. This is a sample estimate, not a rate for all postings.
 - **No repeat run.** Each variant ran once per pair. I did not run A against A, so Claude's own run-to-run variation is unmeasured.
   Some of the three differences could be that.
 - **Imperfect blinding.** B's sentences sometimes repeat the claim's wording, which can reveal the variant to the judge.
-- **One judge**, and Vrajesh's notes name the same distinctions the rule uses, so agreement is partly shared framing.
+- **One judge**, and the notes name the same distinctions the rule uses, so agreement is partly shared framing.
 - **Narrow claims:** all three differences came from `early_career` (2) and `stack_fit` (1). The sample has few `ai_focus` and
   `us_location` pairs.
 

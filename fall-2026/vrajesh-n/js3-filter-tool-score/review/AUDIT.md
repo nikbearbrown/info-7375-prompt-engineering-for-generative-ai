@@ -1,4 +1,4 @@
-# Reject audit (filter v1) with my hand verdicts
+# Reject audit (filter v1) with my labels
 
 All counts below are recomputed by `python scripts/audit_summary.py` (output saved in `results/audit-summary.txt`) from my labels
 (`audit-labels.csv`), the key (`audit-key.json`) and the snapshot. Draft prepared with Claude (SOURCES.md); the verdicts are Vrajesh's.
@@ -14,7 +14,8 @@ with the filter's verdicts hidden in `audit-key.json`:
 | Close calls | 12 | defined before looking: 8 R1 rejects whose title still says engineer, developer or architect with no seniority word, and 4 R2 rejects where the only trigger was exactly "3+ years" |
 | Kept | 15 | simple random sample of the 99 kept |
 
-I judged each one by hand (Y, N or ?) and my labels were committed (`183e7f3`) before the key was opened. After the key was opened I
+I labelled each one Y, N or ?, and my labels were committed (`183e7f3`) before the key was opened; the sheet hid the filter's verdicts.
+Every error count below is an error against my labels. After the key was opened I
 changed two labels from N to ? (items 26 and 34, `cbcec48`); my notes on those items said the facts were unknown.
 
 ## Results
@@ -32,7 +33,7 @@ changed two labels from N to ? (items 26 and 34, `cbcec48`); my notes on those i
 - **The kept side is where the filter was weakest:** about one in five of the 15 kept postings (3) was clearly wrong, plus two I could
   not decide. The interval is wide (7% to 45%) because n is 15. This is a sample estimate, not a measured rate for all 99.
 - **Shared framing:** my notes cite the filter's own rule codes, so agreement on the N verdicts is partly agreement with the same
-  rules, not an independent judgement. One judge labelled everything.
+  rules, not an independent judgement. One person labelled everything.
 - **Tuning on the audit:** the v2 changes came from these labels, so v2 looks better on this sample by construction. The held-out
   measurement for a change is in `REPORT-one-change.md`; the v2 filter changes themselves have **no** held-out measurement.
 
@@ -49,11 +50,11 @@ changed two labels from N to ? (items 26 and 34, `cbcec48`); my notes on those i
 
 ## Rules added, cut or rejected after measuring (FILTER.md version log has the same list)
 - **Changed R4** to also catch "may not be able to employ ... sponsorship" and visa-word + "sponsorship at this time". Measured:
-  v1 R4 matched **0 of 3,068** postings; v2 moves 14 postings (all Roblox). Only items 6 and 15 of those 14 are hand-checked.
+  v1 R4 matched **0 of 3,068** postings; v2 moves 14 postings (all Roblox). Only items 6 and 15 of those 14 are in the labelled sample.
 - **Changed R5** to also catch "secret clearance" and "government clearance". Moves 1 posting (item 18). Bare "clearance" was not added.
 - **Changed R1** to allow "Backend / API Engineer" (only "/ API"). Moves 4 postings: 2 relevant, 2 rejected by R3.
 - **Rejected** adding "Web Application Developer", "Security Engineer", "Solutions Engineer", "Integration Reliability Engineer"
-  to R1: I judged items 5, 29, 42, 47 and 52 as N.
+  to R1: I labelled items 5, 29, 42, 47 and 52 as N.
 - **Rejected** a PhD/degree rule: one case (item 26), now "?".
 
 ## Wrong versions the tests catch

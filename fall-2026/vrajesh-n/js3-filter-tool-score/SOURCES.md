@@ -23,19 +23,19 @@
 - **Python 3.13.3**, standard library only for everything in this folder.
 
 ## What Claude (Claude Code, `claude-sonnet-5-5`) contributed
-Claude wrote the code and drafted the prose; Vrajesh made the decisions and did the hand labelling. By part:
+Claude wrote the code and drafted the prose; Vrajesh made the decisions and labelled the sample items. By part:
 
 | Part | Claude | Vrajesh |
 |---|---|---|
 | `FILTER.md` v1 | formatted it and drafted the one-line reasons from his answers (his to rewrite) | decided the role list, excluded ML roles, kept AI engineer, chose the abstention conditions, named the three wrong filters, chose the fetch server |
 | `rule.py`, `claims.py`, `mcp_server.py`, all scripts and tests | wrote all of it, tests before code | read the red/green outputs; chose the changes (R4/R5/R1 widening, shipped-only `stack_fit`, option lists count, variant B as default) |
-| Reject audit, claim-check, one-change sheets | built the blind sheets, seeds and keys; computed the numbers | judged every item by hand; his labels were committed before each key was opened |
+| Reject audit, claim-check, one-change sheets | built the blind sheets, seeds and keys; computed the numbers | labelled every item; his labels were committed before each key was opened, and the sheets hid the filter's verdicts |
 | MCP server evaluations | installed and read the fetch server, ran the experiments, wrote the evidence | **trust decisions: to be written in his words** |
 | `REPORT-one-change.md`, `review/AUDIT.md`, README, this file | drafted | to review and rewrite; his reasons and trust decisions are marked as his to add |
 | `FRICTIONAL.md`, the sign-off and the driver's seat table | will list the facts to prompt him | **will be his words** |
 
 ## What I accepted, changed or rejected from Claude (details go in FRICTIONAL.md in my own words)
-- Claude's first claim labeler wording said "shipped" but the code matched my whole skills list; my hand labels showed it, and I chose
+- Claude's first claim labeler wording said "shipped" but the code matched my whole skills list; my labels showed it, and I chose
   the "shipped only" reading.
 - Claude's first option-list exclusion was dropped after my own labels (items 22, 23) contradicted it.
 - Claude's first "no network" guard patched `connect()` only; evaluating the server found `connect_ex()` got past it.
