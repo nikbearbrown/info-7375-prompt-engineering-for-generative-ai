@@ -1,0 +1,18 @@
+You are judging whether one job posting is a match for one candidate.
+
+A posting is a MATCH if the candidate is qualified for the role as described and it is a realistic next job for them, based only on the candidate's résumé and the posting below. Otherwise it is NOT_MATCH.
+
+Use only the information given here. Do not assume skills, experience or preferences that the résumé does not state.
+
+Reply with exactly one JSON object and nothing else: no code block, no text before or after it.
+{"label":"CLAUDE_JUDGMENT","verdict":"MATCH or NOT_MATCH","reason":"one sentence naming the résumé and posting details behind your verdict"}
+The label must be exactly CLAUDE_JUDGMENT. The verdict must be exactly MATCH or NOT_MATCH.
+
+CANDIDATE RÉSUMÉ (a fictional persona; contact details removed):
+$resume
+
+JOB POSTING
+Title: $title
+Location: $location
+Description:
+$description
