@@ -43,6 +43,10 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **Trust decisions and sign-off:** approved both trust decisions and the sign-off wording on 2026-11-25. Codex
   helped draft the wording. Signed: "Ashwin Thankachan, November 25, 2026", for the limited checks described, not
   full rubric completion.
+- **Driver's-seat table:** approved on 2026-11-25 with two changes (the label "Intended division of
+  responsibility", and the wording of the signature row).
+- **Implementation readings I1–I9:** reviewed retrospectively on 2026-11-25, after implementation. Agreed with I1–I4,
+  I6 and I9; disagreed with I5 and I7, which are recorded as unresolved; accepted I8 only as a limitation.
 - **Ran the tests personally:** 55 tests at `b616bc09`, OK, exit 0 (`drafting/checks-run-by-ashwin.txt`).
 - **FRICTIONAL.md:** supplied draft lines written with Codex, and confirmed them on 2026-11-25 as descriptions of
   the recorded events. Asked that the three personal slots be marked "Not supplied".
@@ -77,7 +81,8 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   - `audit/FALSE-FRIENDS.md`;
   - the notes in `drafting/`.
 - **Choices FILTER.md left open:** where filter.py had to interpret FILTER.md, Claude Code chose. Those choices are
-  listed in `drafting/IMPLEMENTATION-NOTES.md` and await Ashwin's review.
+  listed in `drafting/IMPLEMENTATION-NOTES.md`. Ashwin reviewed them retrospectively on 2026-11-25, after
+  implementation; two disagreements, I5 and I7, remain unresolved.
 - **Mistakes, recorded rather than hidden:**
   - First reported 59 tests when there were 46.
   - Committed AI-assisted verdicts as "Ashwin's audit verdicts" (`e5828b69` … `54cecbe8`), corrected in `b03e6b29`.

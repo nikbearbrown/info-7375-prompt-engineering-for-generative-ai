@@ -2,6 +2,7 @@
 
 FILTER.md v1.0 (`a3a7a2af`) did not settle these points. Claude Code chose the readings below while
 implementing `jobfilter/filter.py` and `filters/v1.0.json`. These are not decisions by Ashwin until marked so.
+Ashwin reviewed them retrospectively on 2026-11-25; see the section at the end.
 
 | # | Gap in FILTER.md | Reading in v1.0 | Effect in the corpus (`runs/v1.0/location-coverage.md`) |
 |---|---|---|---|
@@ -18,3 +19,21 @@ implementing `jobfilter/filter.py` and `filters/v1.0.json`. These are not decisi
 One implementation bug was found and fixed **before** the v1.0 run was committed. `Washington, D.C.` (66 postings) at
 first read as unresolved, because "Washington" was matched as a state name before the city-alias check ran.
 FILTER.md lists that city alias, so the check order was fixed.
+
+## Ashwin's retrospective review (2026-11-25, after implementation)
+
+Ashwin gave these decisions in chat on 2026-11-25, **after** filter v1.0 and v1.1 had been implemented and run.
+They did not guide the implementation.
+
+- **No change to code or results.** The code, the committed runs and every reported number stay as they were.
+- **Disagreements are not fixed.** They are recorded as unresolved limitations.
+
+| # | Ashwin's decision | Status |
+|---|---|---|
+| I1, I2, I3 | Agree with the normalization, provided genuinely different or ambiguous locations remain distinguishable | Agreed, with that condition. No check of the condition was added |
+| I4 | Agree. Region-restricted remote work should not imply remote work from anywhere in the US | Agreed |
+| I5 | **Disagree** with ignoring structured remote fields in scoring. Conflicting fields should lead to REVIEW under the gate | **Unresolved limitation.** Not implemented; v1.0 and v1.1 still ignore structured fields when scoring |
+| I6 | Agree. Broad regions that do not establish US eligibility stay unresolved | Agreed |
+| I7 | **Disagree.** `Munich, DE` must not be read as Delaware | **Known unresolved parsing defect.** Not fixed. It did not change that posting's final decision, which is REJECT because the title has no qualifying role phrase |
+| I8 | Accepted **only as an implementation limitation**, not as full compliance with the truncation rule. Non-empty text can still be incomplete | Limitation |
+| I9 | Agree, as a workflow safeguard, not a security boundary | Agreed. The held-out comparison stays labeled potentially contaminated |

@@ -15,8 +15,19 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 | 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
 | 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
-| 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. ⚠ The driver's-seat table is Claude Code's draft and not approved |
+| 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. Driver's-seat table approved with Ashwin's changes |
 | Frictional | `FRICTIONAL.md` | Lines drafted with Codex, confirmed by Ashwin as descriptions of the recorded events; three personal slots marked "Not supplied" |
+
+## Known unresolved limitations (recorded 2026-11-25, after implementation)
+
+From Ashwin's retrospective review of `drafting/IMPLEMENTATION-NOTES.md`:
+
+- **I5:** structured remote fields are shown but not scored. Ashwin's position is that conflicting fields should
+  give REVIEW.
+- **I7:** `Munich, DE` is read as Delaware. This parsing defect did not change that posting's decision.
+- **I8:** only empty descriptions become REVIEW. Non-empty text can still be truncated.
+
+None of these is fixed. The code and the committed results are unchanged.
 
 ## Sample sizes: what the brief requires and what we chose
 

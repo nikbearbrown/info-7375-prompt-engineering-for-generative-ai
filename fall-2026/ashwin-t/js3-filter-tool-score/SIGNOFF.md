@@ -43,9 +43,15 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
   never judged.
 - **The v0 (JS1 rule) comparison.** FILTER.md names it, but it was not re-run.
 - **Whether any job is still open.** The snapshot is from 2026-11-09.
-- **The choices in `drafting/IMPLEMENTATION-NOTES.md`** (I1–I9), including `Munich, DE` being read as Delaware.
+- **The choices in `drafting/IMPLEMENTATION-NOTES.md`** (I1–I9). Ashwin reviewed them after signing, retrospectively. Two disagreements remain unresolved defects: I5 (structured remote fields are not scored) and I7 (`Munich, DE` is read as Delaware). I8 is accepted only as a limitation.
 
-## Driver's seat (Claude Code's draft; not approved by Ashwin)
+## Driver's seat: intended division of responsibility
+
+Claude Code drafted this table. Ashwin approved it on 2026-11-25 with two changes: this label, and the wording of the
+last row.
+
+**What actually happened:** the claim labels and the 47 audit verdicts were AI-assisted (Codex), not independent
+human judgments. The table describes the intended split, not what was done in this assignment.
 
 | Task | Claude should | Ashwin should | Why |
 |---|---|---|---|
@@ -53,4 +59,4 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
 | Write claims about a posting | Quote the posting, abstain when it is silent | Label each claim S / C / I | Matching words is not support; that call needs a reader |
 | Judge whether a posting is worth Supriya's time | Show the evidence: duties, years, location, clearance | **Make the judgment** | Fit, eligibility and willingness are the job seeker's facts and decisions, not the posting's |
 | Run and evaluate tools | Probe them, record transcripts, compare declared and actual | Decide what to trust and with what access | Trust is an authorization, and only the person can grant it |
-| Report results | Draft, recompute, and flag contamination | Sign or withhold | The signature says the person checked it |
+| Report results | Draft, recompute, and flag contamination | Sign or withhold | The signature identifies exactly what the person checked and what remains unverified |
