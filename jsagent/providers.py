@@ -32,6 +32,14 @@ def list_url(provider, board):
     return f"https://api.lever.co/v0/postings/{board}?mode=json"
 
 
+def snapshot_url(provider, board):
+    """JS3 (FILTER.md section 3): one list request per board WITH descriptions. Greenhouse needs ?content=true; Lever already has them."""
+    validate(provider, board)
+    if provider == GREENHOUSE:
+        return f"https://boards-api.greenhouse.io/v1/boards/{board}/jobs?content=true"
+    return list_url(provider, board)
+
+
 def detail_url(provider, board, job_id):
     validate(provider, board)
     if provider != GREENHOUSE:
