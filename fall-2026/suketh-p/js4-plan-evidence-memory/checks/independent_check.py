@@ -8,11 +8,15 @@ each body's sha256 against the trace, and flags every count that disagrees with 
 recount: the count in trace.json, in results.json, and in the results.md and trace.md
 tables. Given two state files, it also compares the state saved before the run with the
 one after it, and flags every claim in results.json that they contradict. Without them
-(count-only mode) it skips every state check and says so. It checks consistency with the
-saved evidence; it cannot tell whether a board's real contents were complete.
+(count-only mode) it skips every state check and says so. Given earlier saved captures
+(--earlier, oldest first), it recomputes the new postings from their raw bodies instead of
+from any state file (PLAN.md v0.2: "Subtract the prior seen-key set from the verified
+current set"), and notes how many earlier keys are missing from this list, which leaves
+their liveness unresolved. It checks consistency with the saved evidence; it cannot tell
+whether a board's real contents were complete.
 
 Usage (from the JS4 folder):
-  python3 -I checks/independent_check.py runs/RUN_ID
+  python3 -I checks/independent_check.py runs/RUN_ID [--earlier runs/EARLIER_ID ...]
   python3 -I checks/independent_check.py runs/RUN_ID --state-before FILE|none --state-after FILE|none
 
 Take the "before" copy yourself before the run (cp state/state.json somewhere outside
@@ -55,9 +59,9 @@ def keys_in_body(board, body):
     return keys
 
 
-def displayed_counts(path):
-    """(board, jobs) for each row of each Markdown table that has a Board and a Jobs column
-    and a whole number in its Jobs cell. A '—' or empty Jobs cell is not a count."""
+def displayed_counts(path, column="Jobs"):
+    """(board, count) for each row of each Markdown table that has a Board column and the
+    given column, with a whole number in that column. A '—' or empty cell is not a count."""
     found, header = [], None
     for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
@@ -70,11 +74,42 @@ def displayed_counts(path):
             continue
         if all(cell and set(cell) <= set("-:") for cell in cells):
             continue
-        if "Board" in header and "Jobs" in header and len(cells) == len(header):
-            jobs = cells[header.index("Jobs")]
-            if re.fullmatch(r"\d+", jobs):
-                found.append((cells[header.index("Board")], int(jobs)))
+        if "Board" in header and column in header and len(cells) == len(header):
+            count = cells[header.index(column)]
+            if re.fullmatch(r"\d+", count):
+                found.append((cells[header.index("Board")], int(count)))
     return found
+
+
+def first_request_time(trace):
+    """The earliest 'at' of the trace's request events, or None if they carry no times."""
+    times = [e["at"] for e in trace.get("events", []) if e.get("event") == "request" and e.get("at")]
+    return min(times) if times else None
+
+
+def earlier_capture(folder):
+    """(capture time, {board: keys}, flags) for an earlier saved capture. Its raw bodies are read
+    and hash-checked as the run's own are. A body that fails its hash gives no keys."""
+    trace = json.loads((folder / "trace.json").read_text(encoding="utf-8"))
+    keys_by_board, flags = {}, []
+    for event in trace.get("events", []):
+        if event.get("event") != "request" or not event.get("raw"):
+            continue
+        board = event.get("board")
+        path = folder / event["raw"]
+        if not path.exists():
+            flags.append(f"earlier capture {folder.name}: {board}: the raw file {event['raw']} named in its "
+                         "trace is missing")
+            continue
+        body = gzip.decompress(path.read_bytes())
+        if hashlib.sha256(body).hexdigest() != event.get("sha256"):
+            flags.append(f"earlier capture {folder.name}: {board}: {event['raw']} does not match the sha256 "
+                         "recorded in its trace")
+            continue
+        keys = keys_in_body(board, body) if event.get("status") == 200 else None
+        if keys is not None:
+            keys_by_board[board] = keys
+    return first_request_time(trace), keys_by_board, flags
 
 
 def read_state(path):
@@ -90,9 +125,10 @@ def seen_keys(state_data, board):
     return list(state_data["boards"][board].get("seen", {}))
 
 
-def check(run_dir, before_path=None, after_path=None):
+def check(run_dir, before_path=None, after_path=None, earlier=()):
     """(notes, flags) for one run folder. With neither state file given (count-only mode),
-    the state checks are skipped and a note says so."""
+    the state checks are skipped and a note says so. earlier: saved captures, oldest first,
+    whose raw bodies give the prior seen keys for the new-key check."""
     count_only = before_path is None and after_path is None
     notes, flags = [], []
     trace = json.loads((run_dir / "trace.json").read_text(encoding="utf-8"))
@@ -126,9 +162,25 @@ def check(run_dir, before_path=None, after_path=None):
         elif recorded is not None and recorded != len(keys):
             flags.append(f"{board}: trace.json records {recorded} jobs; its saved response has {len(keys)}")
 
+    prior, latest, listed, order = {}, {}, {}, []
+    for folder in map(Path, earlier):
+        at, keys_by_board, more = earlier_capture(folder)
+        flags.extend(more)
+        order.append((folder.name, at))
+        for board, keys in keys_by_board.items():
+            prior.setdefault(board, set()).update(keys)
+            latest[board] = set(keys)
+            listed[board] = listed.get(board, 0) + 1
+    if earlier:
+        order.append((run_dir.name, first_request_time(trace)))
+        for (name_a, at_a), (name_b, at_b) in zip(order, order[1:]):
+            if at_a and at_b and not at_a < at_b:
+                flags.append(f"the captures are not in time order: {name_a} ({at_a}) is given before {name_b} ({at_b})")
+
     before_raw, before = (None, None) if count_only else read_state(before_path)
     after_raw, after = (None, None) if count_only else read_state(after_path)
     usable = [row for row in results.get("boards", []) if row.get("outcome") == "usable"]
+    expected_new = {}
 
     for row in usable:
         board = row["board"]
@@ -145,6 +197,26 @@ def check(run_dir, before_path=None, after_path=None):
                          "cannot be told apart from a board that could not be checked")
         if row.get("jobs") != len(keys):
             flags.append(f"{board}: results.json reports {row.get('jobs')} jobs; its saved response has {len(keys)}")
+        if earlier and board not in prior:
+            expected_new[board] = 0
+            notes.append(f"{board}: no earlier capture lists this board, so this snapshot is its baseline")
+            if row.get("baseline") is not True or row.get("new_keys"):
+                flags.append(f"{board}: no earlier capture lists this board, so this snapshot is a baseline with no "
+                             f"new postings, but the report says baseline={row.get('baseline')}, "
+                             f"new={row.get('new_keys')}")
+        elif earlier:
+            current = set(keys)
+            expected = [k for k in keys if k not in prior[board]]
+            expected_new[board] = len(expected)
+            missing = len(latest[board] - current)
+            returned = len((current & prior[board]) - latest[board])
+            notes.append(f"{board}: against {listed[board]} earlier capture(s): {len(expected)} new, {missing} "
+                         f"missing from this list (liveness unresolved), {returned} returned")
+            if row.get("baseline") is True:
+                flags.append(f"{board}: the report says baseline=True, but an earlier capture lists this board")
+            if row.get("new_keys") != expected:
+                flags.append(f"{board}: results.json reports new postings {row.get('new_keys')}; recomputed from the "
+                             f"saved body and the earlier captures: {expected}")
         if count_only:
             continue
         earlier = seen_keys(before, board)
@@ -167,6 +239,11 @@ def check(run_dir, before_path=None, after_path=None):
                 flags.append(f"{board}: {name} shows {shown} jobs, but no saved response with a jobs list backs it")
             elif shown != len(keys):
                 flags.append(f"{board}: {name} shows {shown} jobs; its saved response has {len(keys)}")
+    if earlier and (run_dir / "results.md").exists():
+        for board, shown in displayed_counts(run_dir / "results.md", "New"):
+            if board in expected_new and shown != expected_new[board]:
+                flags.append(f"{board}: results.md shows {shown} new; recomputed from the saved body and the "
+                             f"earlier captures: {expected_new[board]}")
 
     if status == "finished":
         for row in results.get("boards", []):
@@ -175,6 +252,8 @@ def check(run_dir, before_path=None, after_path=None):
 
     if count_only:
         notes.append("state not checked (count-only mode: no --state-before or --state-after given)")
+        if not earlier:
+            notes.append("new postings not checked (no --earlier capture and no state files)")
         return notes, flags
 
     changed = before_raw != after_raw
@@ -203,12 +282,15 @@ def main(argv=None):
     parser.add_argument("run_dir")
     parser.add_argument("--state-before", help="a copy of state/state.json taken before the run, or none")
     parser.add_argument("--state-after", help="state/state.json after the run, or none")
+    parser.add_argument("--earlier", action="append", default=[], metavar="RUN_DIR",
+                        help="an earlier saved capture whose raw bodies give the prior seen keys; repeat, oldest first")
     args = parser.parse_args(argv)
     if (args.state_before is None) != (args.state_after is None):
         parser.error("give both --state-before and --state-after, or neither (count-only mode)")
-    notes, flags = check(Path(args.run_dir), args.state_before, args.state_after)
-    compared = ("the trace, the report, its displays and the saved bodies (state not checked)"
-                if args.state_before is None else "the report, the saved bodies and the state files")
+    notes, flags = check(Path(args.run_dir), args.state_before, args.state_after, args.earlier)
+    earlier = " and the earlier captures" if args.earlier else ""
+    compared = (f"the trace, the report, its displays, the saved bodies{earlier} (state not checked)"
+                if args.state_before is None else f"the report, the saved bodies{earlier} and the state files")
     for note in notes:
         print(f"  {note}")
     for flag in flags:
