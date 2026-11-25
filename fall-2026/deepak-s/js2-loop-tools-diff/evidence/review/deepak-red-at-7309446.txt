@@ -1,0 +1,54 @@
+Tue Nov 10 15:52:09 EST 2026
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____________________ test_error_exit_does_not_create_state _____________________
+
+wd = PosixPath('/private/var/folders/4n/rkcytgyj1zg60n76w9v9w1cw0000gn/T/pytest-of-deepakzedler/pytest-32/test_error_exit_does_not_creat0/js2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10bd78640>
+capsys = <_pytest.capture.CaptureFixture object at 0x10bd06510>
+
+    def test_error_exit_does_not_create_state(wd, monkeypatch, capsys):
+        """No prior state. A baseline run would create state/seen.json; on ERROR it must not."""
+        _fail_summary_write(monkeypatch)
+        code = run_loop(SeededTransport(three_ok_routes()))
+        assert code == 1
+>       assert (wd / "state" / "seen.json").exists() is False
+E       AssertionError: assert True is False
+E        +  where True = exists()
+E        +    where exists = ((PosixPath('/private/var/folders/4n/rkcytgyj1zg60n76w9v9w1cw0000gn/T/pytest-of-deepakzedler/pytest-32/test_error_exit_does_not_creat0/js2') / 'state') / 'seen.json').exists
+
+/private/tmp/js2-red/fall2026/deepak-kumaran-ts/js2-loop-tools-diff/tests/js2/test_review_state_on_error.py:33: AssertionError
+----------------------------- Captured stderr call -----------------------------
+jobwatch: ERROR: could not write the run record: OSError: SEEDED: disk full
+_____________ test_error_exit_leaves_existing_state_byte_identical _____________
+
+wd = PosixPath('/private/var/folders/4n/rkcytgyj1zg60n76w9v9w1cw0000gn/T/pytest-of-deepakzedler/pytest-32/test_error_exit_leaves_existin0/js2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10bc7b6f0>
+capsys = <_pytest.capture.CaptureFixture object at 0x10be7afd0>
+
+    def test_error_exit_leaves_existing_state_byte_identical(wd, monkeypatch, capsys):
+        """Prior state exists and the faulted run sees a new posting, so state would change."""
+        assert run_loop(SeededTransport(three_ok_routes())) == 0
+        seen = wd / "state" / "seen.json"
+        before = seen.read_bytes()
+        capsys.readouterr()
+    
+        routes = three_ok_routes()
+        routes[GH.format("seeded-gh")] = ok(seeded("SEEDED_greenhouse_three_jobs.json"))
+        _fail_summary_write(monkeypatch)
+        code = run_loop(SeededTransport(routes), now=NOW + timedelta(minutes=5))
+    
+        assert code == 1
+>       assert seen.read_bytes() == before
+E       assert b'{\n  "schem...200500Z"\n}\n' == b'{\n  "schem...200000Z"\n}\n'
+E         
+E         At index 125 diff: b',' != b'\n'
+E         Use -v to get more diff
+
+/private/tmp/js2-red/fall2026/deepak-kumaran-ts/js2-loop-tools-diff/tests/js2/test_review_state_on_error.py:50: AssertionError
+----------------------------- Captured stderr call -----------------------------
+jobwatch: ERROR: could not write the run record: OSError: SEEDED: disk full
+=========================== short test summary info ============================
+FAILED tests/js2/test_review_state_on_error.py::test_error_exit_does_not_create_state
+FAILED tests/js2/test_review_state_on_error.py::test_error_exit_leaves_existing_state_byte_identical
+2 failed in 0.28s
