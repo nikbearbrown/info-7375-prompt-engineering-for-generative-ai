@@ -46,6 +46,16 @@ From `python3 -m jobfilter.compare v1.0 v1.1`, which writes `changes/HELDOUT-v1.
 
 Neither version marked any held-out posting REVIEW.
 
+Ashwin labeled 7 held-out postings Y. This is what each version decided for them:
+
+| Version | KEEP | REVIEW | REJECT |
+|---|---:|---:|---:|
+| v1.0 | 0 | 0 | 7 |
+| v1.1 | 1 | 0 | 6 |
+
+So v1.0 kept none of the seven and v1.1 kept one. That one is the Mission Manager posting, and the disclosure
+below applies to it.
+
 **What this shows.** Exactly one held-out posting changed: "Software Engineer - Mission Manager", labeled Y, went
 from REJECT to KEEP.
 

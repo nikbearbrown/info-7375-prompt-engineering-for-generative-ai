@@ -18,6 +18,22 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | ⚠ Ashwin's to write and sign |
 | Frictional | `FRICTIONAL.md` | ⚠ Ashwin's experience lines |
 
+## Sample sizes: what the brief requires and what we chose
+
+| Item | Size here | Brief | Origin of the size |
+|---|---|---|---|
+| Random rejects judged by hand | 30 of 750 | **Required: at least 30** | Brief minimum |
+| Closest calls near the threshold | 6 at score 6 + 5 at score 7 | **Required**, no size given | Chosen by Claude Code (`jobfilter/audit.py`) |
+| Kept sample | 6 of 13 | **Required**, no size given | Chosen by Claude Code |
+| Exclusion-check postings (level II, "manager", forward deployed) | 8 | Not required | Chosen; FILTER.md section 10 promised it; optional |
+| REVIEW postings | 7 (all) | Not required | Chosen; optional |
+| Held-out labels | 30 | **Required:** "measure on labels you held out", no size given | Chosen by Claude Code (`jobfilter/heldout.py`) |
+| Shortlist | all 18 v1.0 KEEPs | **Required:** label every claim for each shortlisted posting | Set by the filter, not by hand |
+| Claims per posting | 3 to 5, giving 90 | **Required:** label **every** claim | The 3–5 limit was chosen in `prompts/claims-v1.md` |
+
+The brief allows no reduction below its minimums. The 47-posting minimum audit is the first three rows. The 90
+claims are all required, because the brief says "label every claim".
+
 ## Language and toolchain
 
 - **Language:** Python 3, standard library only. Tested on Python 3.9.6 (`python3`) and 3.12.15
