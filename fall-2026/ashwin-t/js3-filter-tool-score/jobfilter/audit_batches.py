@@ -78,5 +78,78 @@ def write_batches() -> int:
     return len(order)
 
 
+
+
+# Review cards (2026-11-25): per posting, verbatim excerpts for duties, requirements, employment type and clearance,
+# found by fixed section headings. "not found" means the pattern found nothing, not that the posting is silent.
+# Headings are tried in order, most specific first; the first one found wins. A bare "requirements" only counts
+# when a colon follows it, because Klaviyo's opening boilerplate says "beyond the traditional job requirements".
+DUTIES = [re.compile(x, re.I) for x in (r"what you'?ll do", r"what you will do", r"core responsibilities",
+                                        r"responsibilities\s*:", r"the role\b", r"about the role", r"your impact",
+                                        r"in this role,? you")]
+REQUIRES = [re.compile(x, re.I) for x in (r"what we require", r"what you bring", r"skills you'?ll need to bring",
+                                          r"who you are", r"what we'?re looking for", r"minimum qualifications",
+                                          r"qualifications\s*:", r"requirements\s*:", r"you might be a (?:good|great) fit")]
+EMPLOYMENT = re.compile(r"\b(full[- ]time|part[- ]time|intern(?:ship)?|contractor|contract (?:role|position)|"
+                        r"contract[- ]to[- ]hire|temporary|fixed[- ]term)\b", re.I)
+
+
+def _after(text: str, patterns, width: int = 260) -> str:
+    for pattern in patterns:
+        m = pattern.search(text)
+        if m:
+            return "…" + text[m.start():m.end() + width].strip() + "…"
+    return ""
+
+
+def card(n: int, p: dict) -> list:
+    text = plain(p["content"])
+    st = p.get("structured") or {}
+    declared = st.get("commitment") or st.get("employmentType")
+    in_text = sorted({m.group(1).lower() for m in EMPLOYMENT.finditer(p["title"] + " " + text)})
+    missing = []
+    duties, req = _after(text, DUTIES), _after(text, REQUIRES)
+    years = excerpts(text, PATTERNS["experience"], limit=3, width=50)
+    clear = excerpts(text, PATTERNS["clearance"], limit=2, width=60)
+    if not duties:
+        missing.append("duties heading")
+    if not req:
+        missing.append("requirements heading")
+    if not years:
+        missing.append("years of experience")
+    if not declared:
+        missing.append("declared employment type")
+    workplace = ", ".join(f"{k} {v}" for k, v in st.items() if k in ("workplaceType", "isRemote", "country")) or "none given"
+    L = [f"### {n}. {p['title']}", "",
+         f"- **Board / link:** {p['provider']}/{p['board']} · {p['absolute_url']}",
+         f"- **Location:** {'; '.join(locations(p)) or '(none)'} · structured: {workplace}",
+         f"- **Employment type:** declared {declared or 'none'}; words in title/text: {', '.join(in_text) or 'none'}",
+         f"- **Duties:** {duties or 'not found'}",
+         f"- **Requirements:** {req or 'not found'}",
+         f"- **Years mentioned:** {' / '.join(years) or 'none found'}",
+         f"- **Clearance:** {' / '.join(clear) or 'none found'}",
+         f"- **Flags:** {', '.join(missing) or 'none'}", ""]
+    return [x.replace("|", "/") for x in L]
+
+
+def write_cards() -> None:
+    sel = json.loads(SELECTION.read_text())
+    keep = minimum_keys(sel)
+    n_of = {k: i for i, k in enumerate(sel["sheet_order"], 1)}
+    order = [k for k in sel["sheet_order"] if k in keep]
+    by = {p["key"]: p for p in load()["postings"]}
+    L = ["# Review cards for the minimum audit sample (blind)", "",
+         "Verbatim excerpts found by fixed headings and patterns. They can miss or mis-cut text; open the link or "
+         "`audit-sheet.md` (same n) when a field says not found. No filter output and no suggested verdict is shown.", "",
+         CLEARANCE_RULE, ""]
+    for b in range(0, len(order), BATCH):
+        L += [f"## Batch {b // BATCH + 1}", ""]
+        for k in order[b:b + BATCH]:
+            L += card(n_of[k], by[k])
+    (LABELS / "audit-review-cards.md").write_text("\n".join(L) + "\n")
+    print(f"labels/audit-review-cards.md: {len(order)} cards")
+
+
 if __name__ == "__main__":
     write_batches()
+    write_cards()

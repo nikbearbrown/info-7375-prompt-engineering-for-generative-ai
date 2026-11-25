@@ -3,7 +3,7 @@ import json
 import unittest
 
 from jobfilter.audit import LABELS, SELECTION, strata, tally, wilson
-from jobfilter.audit_batches import MINIMUM_STRATA, minimum_keys, write_batches
+from jobfilter.audit_batches import MINIMUM_STRATA, minimum_keys, write_batches, write_cards
 from jobfilter.corpus import HERE
 from jobfilter.heldout import heldout_keys
 from jobfilter.serve_tool import build_server
@@ -87,6 +87,13 @@ class MinimumSample(unittest.TestCase):
         for leak in ("random_reject", "close_below", "close_at", "kept_random", "exclusion_check", "KEEP", "REJECT", "REVIEW"):
             self.assertNotIn(leak, text)
         self.assertEqual(text.count("\n| "), 47 + 5)   # one row per posting plus one header per batch
+
+    def test_review_cards_are_blind_and_complete(self):
+        write_cards()
+        text = (LABELS / "audit-review-cards.md").read_text()
+        self.assertEqual(text.count("\n### "), 47)
+        for leak in ("random_reject", "close_below", "kept_random", "KEEP", "REJECT", "REVIEW", "proposed", "suggest"):
+            self.assertNotIn(leak, text)
 
     def test_blank_rows_are_not_judged_not_verdicts(self):
         tmp = HERE / "tests" / "tmp"
