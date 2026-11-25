@@ -75,3 +75,52 @@ Both servers were evaluated against the same five questions:
 3. **Include a one-line explanation for each gate and scoring rule** in `judge_posting` output, pulled directly from `FILTER.md`.
 4. **State `"saved run of Nov 23, 2026; not live"` in every tool description**, not just `search_postings`.
 5. **Eliminate duplicate payload text** by keeping the full posting object in `structuredContent` and returning a concise summary string in `content`.
+
+---
+
+## 4. Declared versus actual, what a client is not entitled to, and my trust decision
+
+### `js3-job-filter`
+
+| It declares | What it actually does | Evidence |
+| :--- | :--- | :--- |
+| `instructions: "Read-only lookups over one saved job-board run (Nov 23, 2026). Nothing here applies, sends, or changes anything."` | True for data outside the folder. It does write one file: its own call log, appended on every call and confined to `out/`. | `log_path()` in `agent/mcp_server.py`; `test_log_must_stay_in_folder` |
+| `readOnlyHint: true`, `destructiveHint: false`, `openWorldHint: false` on all 4 tools | Matches what the tools do (no network, no subprocess, no data writes), but the server never reads these hints: they are labels, not enforcement. | `test_tools_list_is_read_only`; Section 1, comparison |
+| `inputSchema` with `additionalProperties: false` and a `board` enum | Not enforced until `e273c8e`: an extra `"delete": true` was accepted and `board: "lever"` returned `0` results. Enforced since. | `test_unknown_argument_is_refused`, `test_unknown_board_is_not_searched_not_no_matches` |
+| `idempotentHint: true` | The same call returns the same result (fixed data). Each call still adds one log row. | Server log, `evidence/mcp/claude-code-server-log.jsonl` |
+
+**What a compatible client is not entitled to:**
+- **Live or current postings.** Every answer comes from the Nov 23, 2026 snapshot. Only `search_postings` says so in its description (finding 4).
+- **Absence of a job anywhere.** `"0 results"` means `"not in these three boards on Nov 23"`. Since `e273c8e`, an unknown board returns `"I did not search"`, not `0`.
+- **Sam's decision.** `judge_posting`'s `keep` is the `v1.2` filter's output, with `50%` precision on `v1.0`'s kept set and `4` held-out false positives under `v1.2`. It is not my judgment of the posting.
+- **Rule meanings from the server.** Gate and rule codes (`G3`, `R1`) are returned without explanation (finding 3). A client that needs them must read `FILTER.md`.
+- **Any file, path, or network access.** No tool takes a path or URL. There is nothing to apply, send, or change with, so a client asking for that gets `-32602` unknown tool.
+
+**My trust decision:** I trust `js3-job-filter` for local, read-only lookups over the saved Nov 23 snapshot when running at or after commit `e273c8e` (which enforces input schemas and rejects unqueried boards) with its call log confined to `out/`. Because its annotations are unenforced labels, its search is substring-only, and its data is a static snapshot, I do not trust its search output without checking returned titles or treat its results as live job availability.
+
+---
+
+### Official Filesystem server (`@modelcontextprotocol/server-filesystem` 2.4.0)
+
+| It declares | What it actually does (from source; not run) | Evidence |
+| :--- | :--- | :--- |
+| Access only to `"allowed directories"` | Holds in the code I read: paths resolved, normalized, and prefix-checked; symlink targets re-checked. But a client's MCP Roots replace the command-line directories unless `--confine-roots` is set. | Section 2, Access limits |
+| Annotations, including `readOnlyHint` and `destructiveHint` | Used as enforcement: `--read-only` removes every tool whose `readOnlyHint` is not `true`. | Section 2, Tool annotations |
+| `16` tools, `6` of which change files | Write, edit, and move tools are exposed by default; `write_file` overwrites, and `move_file` removes the source. | Section 2, Reads / changes |
+| No per-call audit log | None found in the parts I read. | Section 2, Logging (partly read) |
+
+**What a compatible client is not entitled to:**
+- Paths outside the allowed directories, including through symlinks.
+- Writes when the server runs with `--read-only`.
+- Its own directory scope, once `--confine-roots` is set. Without that flag, the client can widen access by sending Roots. That is a property of the server's configuration, not a limit the client respects.
+- A record of what it did, since no per-call log was found.
+
+**My trust decision:** I would run the official Filesystem server only with both `--read-only` and `--confine-roots` set on a single scratch directory so write tools are removed and a client cannot widen scope via MCP Roots. Because write tools are enabled by default, no per-call audit log appeared in the source I read, and I evaluated it from a partial static source read without running it, I do not trust it with default flags or access to important directories.
+
+---
+
+### On `"the real transcript in both directions"`
+
+- **Raw JSON-RPC in both directions:** Recorded for the scripted session (`evidence/mcp/scripted-transcript.jsonl`, `15` messages).
+- **The live Claude Code session:** Recorded from the client side. All `10` calls to this server (plus `1` call to Claude Code's own `ToolSearch`) and their results are in `evidence/mcp/claude-code-transcript.jsonl`. The server's own record of the same `10` calls is in `evidence/mcp/claude-code-server-log.jsonl`.
+- **What was not captured:** The live session's raw wire messages.
