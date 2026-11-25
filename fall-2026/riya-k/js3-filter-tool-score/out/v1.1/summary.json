@@ -1,0 +1,47 @@
+{
+  "filter": "v1.1",
+  "filter_file": "filter-v1.1.json",
+  "corpus": "JS2 20261110T194501Z-live-day2",
+  "total": 2576,
+  "decisions": {
+    "rejected": 2505,
+    "kept": 46,
+    "cannot_tell": 25
+  },
+  "gate_failures (a posting can fail several)": {
+    "G1": 828,
+    "G2": 1165,
+    "G3": 17,
+    "G4": 18,
+    "G5": 2221,
+    "G6": 1301
+  },
+  "abstain": {
+    "A3": 11,
+    "A2": 14
+  },
+  "by_board": {
+    "greenhouse:databricks": {
+      "rejected": 910,
+      "kept": 4
+    },
+    "greenhouse:anthropic": {
+      "rejected": 661,
+      "cannot_tell": 5,
+      "kept": 11
+    },
+    "ashby:openai": {
+      "rejected": 780,
+      "cannot_tell": 20,
+      "kept": 30
+    },
+    "ashby:notion": {
+      "rejected": 154,
+      "kept": 1
+    }
+  },
+  "boards_with_no_data": {
+    "ashby:notarealco-js2": "no data (HTTP 404 in JS2, planted)",
+    "smartrecruiters:hubspot": "no data (HTTP 200 with 0 postings in JS2: suspect empty)"
+  }
+}

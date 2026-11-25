@@ -1,0 +1,122 @@
+{
+ "item": 48,
+ "board": "greenhouse:anthropic",
+ "id": "5451081008",
+ "title": "Policy Development, Technical AI Governance",
+ "utc": "2026-11-24T22:47:13Z",
+ "seconds": 8.8,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "cannot_tell",
+  "score": 3,
+  "reasons": [
+   "Rule 1 passes: the location is US-based, \"San Francisco, CA | New York City, NY | Washington, DC\"",
+   "Rule 2 cannot be applied: the posting gives no number of years and says \"Years of experience required will correlate with the internal job level requirements for the position\"",
+   "Rule 3 does not clearly exclude it: this is policy work (\"Review and give substantive input on federal, state, and global frontier AI safety bills\"), which is not mainly selling, account management, recruiting, finance, legal or operations",
+   "Full-time status is not stated (the employment type field is blank)",
+   "Weak fit and likely senior: it asks for expertise in \"loss-of-control, alignment, compute governance\" and pays \"$265,000 — $295,000 USD\", while her background is LLM engineering"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nRules (apply in order; quote the posting for each one you use):\n1. If the location is only outside the US, the answer is \"not\".\n2. If the smallest number of years of experience the posting asks for is more than 3, the answer is \"not\". \"Preferred\" years count the same as required years.\n3. If the role is mainly selling, account management, recruiting, finance, legal or operations, the answer is \"not\", even if the title says AI.\n4. If the posting does not say enough to apply rules 1-3, the answer is \"cannot_tell\".\n\nThe posting:\n- Board: greenhouse:anthropic\n- Title: Policy Development, Technical AI Governance\n- Location: San Francisco, CA | New York City, NY | Washington, DC\n- Employment type field: (board does not say)\n- Text:\nAbout Anthropic Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems. About the role Anthropic believes AI capabilities are improving rapidly, and that AI safety policy needs to keep pace. Our Policy Development team translates technical insights into workable new policy ideas for governing frontier AI. As a member of the Policy Development team, you will drive our work on technical and cross-lab safety practices, deepen our work on frontier AI legislation, and develop new technical governance ideas that you pressure-test with researchers and carry into policy proposals. You will work closely with policy colleagues and with research, alignment, safety, and legal teams, and you’ll move easily between technical detail and how policy actually gets made. Key responsibilities Help develop technical safety best practices and standards for frontier development, working closely with policy, research, and safeguards teams Support cross-lab discussions and initiatives and serve as the Anthropic representative in key standards initiatives and groups Review and give substantive input on federal, state, and global frontier AI safety bills, including on risk reporting, independent evaluation, and incident reporting, helping shape AI safety legislation development Work with our external affairs policy teams to strengthen our frontier AI legislative framework Contribute research and analysis across the policy team’s pacing workstreams, including developing novel policy proposals that address challenges related to the acceleration of AI R&D Engage with the external AI safety and governance community to track new thinking and feed it into our own Write clear memos and briefings that help leadership align on decisions Minimum qualifications Are fluent in frontier AI safety and technical AI governance: the main players, proposals, and debates Can read legislative text and comment usefully on it Have expertise in any of the following domains: loss-of-control, alignment, compute governance, independent evaluation, model weight security, risk reporting Write clearly for researchers, leadership, and policymakers Can pick up new technical topics quickly and translate them to the broader policy landscape Are comfortable with ambiguity and can own a project end to end Preferred qualifications Are excited about standards work, and also want to contribute across the wider technical governance agenda Have direct experience in an AI governance or safety research organization or frontier lab Have experience working closely with standards bodies or industry consortia Have experience developing and shaping technical legislation Have published novel policy thinking on AI governance The annual compensation range for this role is listed below. For sales roles, the range provided is the role’s On Target Earnings (\"OTE\") range, meaning that the range includes both the sales commissions/sales bonuses target and annual base salary for the role. Annual Salary: $265,000 — $295,000 USD Logistics Minimum education: Bachelor’s degree or an equivalent combination of education, training, and/or experience Required field of study: A field relevant to the role as demonstrated through coursework, training, or professional experience Minimum years of experience: Years of experience required will correlate with the internal job level requirements for the position Location-based hybrid policy: Currently, we expect all staff to be in one of our offices at least 25% of the time. However, some roles may require more time in our offices. Visa sponsorship: We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate. But if we make you an offer, we will make every reasonable effort to get you a visa, and we retain an immigration lawyer to help with this. For roles performing work in California: We will consider for employment all qualified applicants, including those with arrest or conviction records or criminal histories, in a manner consistent with the requirements of applicable state and local laws, including the San Francisco Fair Chance Ordinance, the City of Los Angeles’ Fair Chance Initiative for Hiring Ordinance, the Los Angeles County Fair Chance Ordinance for Employers, and the California Fair Chance Act. We encourage you to apply even if you do not believe you meet every single qualification. Not all strong candidates will meet every single qualification as listed. Research shows that people who identify as being from underrepresented groups are more prone to experiencing imposter syndrome and doubting the strength of their candidacy, so we urge you not to exclude yourself prematurely and to submit an application if you're interested in this work. We think AI systems like the ones we're building have enormous social and ethical implications. We think this makes representation even more important, and we strive to include a range of diverse perspectives on our team. Your safety matters to us. To protect yourself from potential scams, remember that Anthropic recruiters only contact you from @anthropic.com email addresses. In some cases, we may partner with vetted recruiting agencies who will identify themselves as working on behalf of Anthropic. Be cautious of emails from other domains. Legitimate Anthropic recruiters will never ask for money, fees, or banking information before your first day. If you're ever unsure about a communication, don't click any links—visit anthropic.com/careers directly for confirmed position openings. How we're different We believe that the highest-impact AI research will be big science. At Anthropic we work as a single cohesive team on just a few large-scale research efforts. And we value impact — […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\n",
+ "cli_json": {
+  "duration_api_ms": 7894,
+  "stop_reason": "end_turn",
+  "session_id": "2b3f262b-eb4c-4acb-a684-84b8d5dab2aa",
+  "total_cost_usd": 0.053161799999999995,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4658,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 788,
+   "output_tokens_details": {
+    "thinking_tokens": 492
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4658,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 788,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4658,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4658
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 788,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4658,
+    "webSearchRequests": 0,
+    "costUSD": 0.053161799999999995,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 492,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4658,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"cannot_tell\", \"score\": 3, \"reasons\": [\"Rule 1 passes: the location is US-based, \\\"San Francisco, CA | New York City, NY | Washington, DC\\\"\", \"Rule 2 cannot be applied: the posting gives no number of years and says \\\"Years of experience required will correlate with the internal job level requirements for the position\\\"\", \"Rule 3 does not clearly exclude it: this is policy work (\\\"Review and give substantive input on federal, state, and global frontier AI safety bills\\\"), which is not mainly selling, account management, recruiting, finance, legal or operations\", \"Full-time status is not stated (the employment type field is blank)\", \"Weak fit and likely senior: it asks for expertise in \\\"loss-of-control, alignment, compute governance\\\" and pays \\\"$265,000 — $295,000 USD\\\", while her background is LLM engineering\"]}",
+  "ttft_ms": 5694,
+  "type": "result",
+  "duration_ms": 8028,
+  "uuid": "f2f9f012-e5dd-4902-bf7f-673984567b11",
+  "ttft_stream_ms": 1016,
+  "time_to_request_ms": 118,
+  "first_content_frame_ms": 1016,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

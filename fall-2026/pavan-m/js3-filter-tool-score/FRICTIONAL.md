@@ -53,3 +53,32 @@ Honest notes: (1) I judged 9 internships not relevant for Alex's level, but neit
 ## Entry 14 — November 23, 2026: Held-out results changed my conclusion
 On 20 held-out postings, v1.0, C1 and C3 all agree with me on 18/20 (95% interval 70–97%). C1's dev gain (37→40/48) did not show up on postings it wasn't chosen from, so I added it to v1.1 only with that caveat. C3 rejected: of its 12 added KEEPs, I judged 3 relevant (25%); 7 of the 9 bad ones were internships, which exposed that FILTER.md has no internship rule. Both held-out misses (H02, H27) are Palantir, consistent with the Lever retrieval gap. C2, C4 and an internship rule were considered but not tested (time).
 v1.1 = v1.0 + years cutoff 5, applied via config/filter_v1_1.json; code defaults unchanged, so no test was modified.
+
+## Entry 15 — November 23, 2026: Source-grounded shortlist
+Labeled all 50 claims for FILTER v1.1's top 10 against each posting's text, with evidence quotes (shortlist/claim_labels.csv). 17 supported, 7 contradicted, 26 insufficient. Only 4 of 20 "requires <skill>" claims were supported. Relevance ≠ entailment: S04 matched "Docker" but says "prior expertise in every tool ... is not required". Abstention counterexample: S02, S05, S07, S10 state no years, yet the justification claims Alex's ~3 years fits; the abstention rule only works per posting, not per claim. Also found the years rule misses spelled-out numbers (S09 "at least five years").
+My first save of the labels didn't reach the CSV (TextEdit); the count check caught it (all 50 blank), and I re-wrote the file with my labels before committing.
+
+## Entry 16 — November 24, 2026: MCP server tests written before implementation
+Wrote 8 tests in tests/test_mcp_server.py before agent/mcp_server.py exists: initialize declares tools, the initialized notification gets no reply, tools/list offers exactly score_posting with required title/location/content, tools/call uses FILTER v1.1 (5+ years rejected), a missing argument is a tool error not a crash, an unknown tool such as apply_to_job is a protocol error (-32602), and an unknown method is -32601.
+
+## Entry 17 — November 25, 2026: MCP server and my own client
+Claude Code wrote agent/mcp_server.py (JSON-RPC 2.0 over stdio, from scratch, no SDK), agent/mcp_client.py and a project .mcp.json. Verified myself: 69 tests pass; `git diff tests/ FILTER.md` empty. Ran my client on S04 and S01: initialize (protocol 2025-06-18), tools/list (only score_posting), two tools/call (KEEP 9, KEEP 11, matching the v1.1 decisions file), and apply_to_job refused with -32602. Client- and server-side transcripts saved in out/transcripts/.
+Things to evaluate later (declared vs actual): the tool declares readOnlyHint true, but the server writes a transcript file; serverInfo says version 1.1 while each score result says filter_version "1.0" with a years_cutoff override; the server answers tools/call even without a prior initialize; it supports protocol versions only up to 2025-06-18.
+
+## Entry 18 — November 25, 2026: Claude Code used my MCP server
+The desktop app's /mcp opened the account-level Connectors list, where my project server isn't shown. Asking in a new Code session started in js3-filter-tool-score worked: Claude Code found js3-job-filter from the project .mcp.json, called score_posting once, and showed the exact result (KEEP, score 11). Server-side transcript: out/transcripts/server-2026-11-25T060303.jsonl.
+Claude noticed something I hadn't: the test description I sent (drafted with Claude in chat) was only ~26 real words, padded with 50 repeated "team" words, which pushed it past the 50-word rule. The filter's word count checks length, not meaning, so filler defeats the abstention rule. Another real limit of FILTER.md §2.6/§3.7.
+
+## Entry 19 — November 25, 2026: Evaluating Microsoft Learn's MCP server
+Called https://learn.microsoft.com/api/mcp myself with curl (not via my agent): initialize, notifications/initialized, tools/list, then four tools/call tests. All saved in evidence/other_server_mslearn/. Findings: the same search twice gave identical results; a search with no query returned empty results with no error; a non-Microsoft fetch URL was refused only in the text, with isError unset; the session ID is base64 JSON containing my clientInfo and a userIdClaim. Wrote TOOL_SERVER.md with both evaluations and my trust decisions (drafted with Claude from these transcripts; I checked each claim against the saved files).
+Small snag: my terminal printed "command not found: #" for comment lines in a pasted block; harmless, the requests still ran.
+
+## Entry 20 — November 25, 2026: Live run 3 and the what-moves-the-score report
+Ran the loop live on Nov 25 (third real day; evidence/run3_terminal_2026-11-25.txt) and scored it with FILTER v1.1. Wrote WHAT_MOVES_THE_SCORE.md: the origin of every number, the one-change-at-a-time results (C1 added, C3 rejected; C2 and C4 not tested), and why persistence across sessions is not proof of training (v1.1 lives in a config file; Claude Code's tool knowledge comes from .mcp.json). Drafted with Claude from my committed results; I checked each number against out/measure/ and heldout/.
+Correction: WHAT_MOVES_THE_SCORE.md first said "3 of 4 Palantir misses"; there are 3 (A30 confirmed, H02 and H27 not verified). Fixed.
+
+## Note on dates
+Entries 8–15 are headed "November 23, 2026", but the commits for that work happened on Nov 24 (12:35–13:44) and Nov 25 (00:40–04:13). The git log timestamps are the accurate record; the entry headings were drafted with Claude and not updated as the work continued past midnight.
+
+## Entry 21 — November 25, 2026: README and SOURCES
+Signed the README sign-off; kept all eight "Not checked" items. Fixed a wrong reference Claude had drafted in the README's "What ran" table (pointed to a non-existent FILTER.md section; now audit/comparison_2026-11-23.txt). Wrote SOURCES.md, including the mistakes Claude made during JS3 that I caught.

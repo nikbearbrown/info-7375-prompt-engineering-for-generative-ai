@@ -1,0 +1,121 @@
+{
+ "item": 3,
+ "board": "ashby:notion",
+ "id": "def3f337-5593-491c-b34d-e0b53f2a5cac",
+ "title": "Software Engineer, AI Product Security",
+ "utc": "2026-11-24T22:45:43Z",
+ "seconds": 7.0,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 1,
+  "reasons": [
+   "Seniority far exceeds her ~1 year: \"8-10+ years of experience designing, building, or securing complex software systems\"",
+   "Salary band signals senior/staff level: \"$270,000 - $340,000 per year\"",
+   "Security-engineering focus rather than AI/ML/data: \"help define the security foundations for our AI products\"",
+   "Location is US and full-time (\"San Francisco, California; New York, New York; Remote\", \"FullTime\"), but these don't offset the experience gap"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: ashby:notion\n- Title: Software Engineer, AI Product Security\n- Location: San Francisco, California; New York, New York; Remote\n- Employment type field: FullTime\n- Text:\nWho We Are Notion is the collaborative AI workspace where teams and agents think together . We're building one place where your knowledge, projects, meetings, and AI tools live side by side, so work is faster, clearer, and less fragmented. Millions of individuals, small teams, and large companies run their work on Notion. Notinos (our employees) are customer zero in bringing this future of work to life. We care about craft, building things that last, and the belief that great work is still fundamentally human. Our goal isn’t to ship the next feature. Each and every team of Notinos is working to set the standard for how humans work together in the AI era. From building a business’s system of record to making and managing AI agents to automating away the busy work, we care deeply about giving our customers more time for their life’s work. About the Role: Notion is looking for an experienced engineer who has designed and built secure software systems to help define the security foundations for our AI products. You’ll work with product and engineering teams on agent runtimes, tool permissions, retrieval, content writes, observability, and abuse-resistant design. You’ll turn product risks into clear architecture, reusable guardrails, automated tests, and production systems that help teams ship new features safely. This role is based in San Francisco. We work from our offices on Mondays, Tuesdays and Thursdays (our Anchor Days) because we do our best thinking and building together in person. We’re looking for someone who’s excited to work alongside the team during those days. What You'll Achieve: Define and build security architecture for product surfaces that operate across customer workspace content, including tool execution, content writes, retrieval, permission checks, provenance, and auditability. Make the secure path the easy path for product teams by shipping reusable libraries, review patterns, test fixtures, and guardrails that prevent classes of vulnerabilities. Build automated red-team and regression testing for risks such as prompt injection, indirect instruction following, data exfiltration, tool misuse, cross-tenant leakage, and unsafe workspace mutations. Translate threat models for new product surfaces into concrete engineering requirements, production checks, and launch criteria. Use production signals, incident learnings, and targeted experiments to harden Notion over time, then feed those learnings back into architecture and developer workflows. Help define the security bar for how engineers use coding agents, MCP-enabled tools, hooks, and internal automation without introducing new risk. Skills You'll Need to Bring: Secure software engineering craft: You have 8-10+ years of experience designing, building, or securing complex software systems, and you are comfortable working in production code with product and platform engineers. Security architecture judgment: You can look at a complex system and reason about where the permissions, data flow, or trust boundaries are likely to get weird, and help re-design it to make them better. Security product strategy: You can turn a complex security risk you see into a product design or architecture that can be built. Builder mindset: You’d rather leave behind a useful tool, test, library, or pattern than a task or project for someone else to pick up later. Nice to Haves: Experience building or securing products with tool use, retrieval, workflow automation, content writes, or complex permission boundaries. Hands-on experience with prompt-injection testing, red teaming, model behavior evaluation, or abuse-resistant application design. Experience with enterprise SaaS security models: permissions, sharing, audit logs, data residency, encryption, compliance, or customer-facing trust guarantees. Experience building developer tooling, CI checks, coding-agent workflows, MCP integrations, or internal frameworks that shape how engineers build software. Public security research, vulnerability writeups, conference talks, or open-source work related to product security or secure developer infrastructure. Notion is committed to providing highly competitive cash compensation, equity, and benefits. The compensation offered for this role will be based on multiple factors such as location, the role’s scope and complexity, and the candidate’s experience and expertise, and may vary from the range provided below. For roles based in San Francisco, the estimated base salary range for this role is $270,000 - $340,000 per year. By clicking “Submit Application”, I understand and agree that Notion and its affiliates and subsidiaries will collect and process my information in accordance with Notion’s Global Recruiting Privacy Policy . #LI-Onsite A Note on AI You don’t need deep AI expertise for every role, but we do expect every Notino to be intellectually curious, drawn to tinkering and discovery, and excited to use AI as a real collaborator in their work. For some roles, AI fluency is a core requirement — when that’s the case, we'll say so explicitly in the qualifications. People who thrive here don’t treat AI as a novelty. They use it to think better, and make their work easier for others to build on. Equal Opportunity & Accommodations We hire talented people from a wide range of backgrounds. If you’re excited about this role but don’t meet every bullet, we still encourage you to apply. Notion is an equal opportunity employer and does not discriminate on the basis of any legally protected characteristic. Consistent with applicable law, we will consider for employment qualified applicants with arrest and conviction records. Notion provides reasonable accommodations during the application process; if you need one, please let your recruiter know. Notion is proud to be an equal opportunity employer. We do not discriminate in hiring or any employment decision based on race, color, religion, national origin, age, sex (including pregnancy, childbirth, or related med […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 3593,
+  "stop_reason": "end_turn",
+  "session_id": "c8b45b40-e2bd-4507-9faa-f47b02a634bc",
+  "total_cost_usd": 0.0402178,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4535,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 190,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4535,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 190,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4535,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4535
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 190,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4535,
+    "webSearchRequests": 0,
+    "costUSD": 0.0402178,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4535,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 1, \"reasons\": [\"Seniority far exceeds her ~1 year: \\\"8-10+ years of experience designing, building, or securing complex software systems\\\"\", \"Salary band signals senior/staff level: \\\"$270,000 - $340,000 per year\\\"\", \"Security-engineering focus rather than AI/ML/data: \\\"help define the security foundations for our AI products\\\"\", \"Location is US and full-time (\\\"San Francisco, California; New York, New York; Remote\\\", \\\"FullTime\\\"), but these don't offset the experience gap\"]}",
+  "ttft_ms": 4513,
+  "type": "result",
+  "duration_ms": 4548,
+  "uuid": "4652d6f2-1da2-48b6-85d9-7be6c14e9fdd",
+  "ttft_stream_ms": 2782,
+  "time_to_request_ms": 957,
+  "first_content_frame_ms": 2783,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

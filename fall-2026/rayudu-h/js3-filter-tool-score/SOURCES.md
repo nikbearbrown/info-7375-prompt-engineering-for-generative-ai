@@ -45,10 +45,13 @@
 
 - **The filter:** the answers to Q1–Q7 (role words, exclusions, seniority, location, sponsorship, threshold, shortlist size), and "c without phrases" for "Account" (FILTER.md section 7).
 - **Claude's proposed parts of the filter:** "accept" for the evidence rules, the expected sources and the wrong versions.
-- **Every hand verdict:** 95 postings, judged blind.
+- **Every hand verdict:** 95 postings, plus 20 for the X1 test, plus 90 in the second pass, all judged blind.
 - **The rule changes after the audit:** "X1 accept, X2 reject, X3 reject, X4 Reject".
 - **The claim labels:** "all ok" twice, then "a" (correct the three labels that broke the rule).
 - **The trust decisions:** "T1 a, T2 a".
+- **The follow-up tests:** "1 and 2 plus 3".
+- **The second labeling pass:** "a" (all 90). The reason for it came from Hemanth: "I did not see the experience in job description".
+- **v1.2 (delegated, not Hemanth's own choice):** "Do whatever you recommend and complete the project, I need to submit this today". Z5 was accepted; Y1, Y2, Y3 and Y5 were rejected.
 - **The sign-off** (see `README.md`).
 
 ## What Claude contributed (Claude Code, Opus 5.5, Nov 20–22, 2026)
@@ -58,4 +61,10 @@
 - **Runs:** the Nov 20 collection run, every filter run, the sampling, the audit computation, and the measurements of X1–X4.
 - **Claude-produced data:** the claim labels (one fresh `claude -p` per posting), the rule re-check that found 3 labels breaking the rule, and every Claude-judge experiment.
 - **Tool servers:** both transcripts and both evaluations, including finding the roots behavior and the `boards_with_result` gap.
+- **Nov 22–24:**
+  - the X1 out-of-sample test, E5, and the SEEDED injection test;
+  - both labeling views. The first view's blind spot was Claude's choice, and Hemanth's remark exposed it;
+  - the second-pass tooling (`js3/relabel.py`), including a view defect Claude found and fixed before any label;
+  - the corrected-label reports;
+  - the experience rule R17, with its cut-off measured among 3–6 and the range false friend.
 - **Drafts:** `AUDIT.md`, `SHORTLIST.md`, `EVAL-OWN-SERVER.md`, `EVAL-OTHER-SERVER.md`, `SCORE.md`, `README.md`, this file and `FRICTIONAL.md`.

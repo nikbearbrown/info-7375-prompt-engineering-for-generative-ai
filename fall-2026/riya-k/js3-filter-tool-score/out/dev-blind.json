@@ -1,0 +1,169 @@
+{
+ "split": "audit",
+ "n_labeled": 58,
+ "filters": {
+  "v1": {
+   "n": 58,
+   "agree": 36,
+   "agree_rate": 0.621,
+   "wilson95": [
+    0.492,
+    0.734
+   ],
+   "show_predicted": 10,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 8,
+    "show->not": 8,
+    "not->not": 34,
+    "cannot_tell->show": 2,
+    "not->show": 3,
+    "show->show": 2,
+    "not->cannot_tell": 1
+   }
+  },
+  "c1-years-gate": {
+   "n": 58,
+   "agree": 42,
+   "agree_rate": 0.724,
+   "wilson95": [
+    0.598,
+    0.822
+   ],
+   "show_predicted": 5,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 7,
+    "not->not": 40,
+    "show->not": 3,
+    "cannot_tell->show": 2,
+    "not->show": 3,
+    "show->show": 2,
+    "not->cannot_tell": 1
+   }
+  },
+  "c2-years-pattern": {
+   "n": 58,
+   "agree": 36,
+   "agree_rate": 0.621,
+   "wilson95": [
+    0.492,
+    0.734
+   ],
+   "show_predicted": 10,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 8,
+    "show->not": 8,
+    "not->not": 34,
+    "cannot_tell->show": 2,
+    "not->show": 3,
+    "show->show": 2,
+    "not->cannot_tell": 1
+   }
+  },
+  "c3-us-cities": {
+   "n": 58,
+   "agree": 41,
+   "agree_rate": 0.707,
+   "wilson95": [
+    0.58,
+    0.808
+   ],
+   "show_predicted": 10,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 3,
+    "show->not": 8,
+    "not->not": 39,
+    "not->show": 4,
+    "show->show": 2,
+    "not->cannot_tell": 1,
+    "cannot_tell->show": 1
+   }
+  },
+  "c4-cut-agents": {
+   "n": 58,
+   "agree": 38,
+   "agree_rate": 0.655,
+   "wilson95": [
+    0.527,
+    0.764
+   ],
+   "show_predicted": 10,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 6,
+    "show->not": 8,
+    "not->not": 36,
+    "cannot_tell->show": 2,
+    "not->show": 3,
+    "show->show": 2,
+    "not->cannot_tell": 1
+   }
+  },
+  "v1.1": {
+   "n": 58,
+   "agree": 48,
+   "agree_rate": 0.828,
+   "wilson95": [
+    0.711,
+    0.904
+   ],
+   "show_predicted": 5,
+   "show_hand": 7,
+   "show_both": 2,
+   "confusion (pred,hand)": {
+    "cannot_tell->not": 1,
+    "not->not": 46,
+    "show->not": 3,
+    "not->show": 4,
+    "show->show": 2,
+    "not->cannot_tell": 1,
+    "cannot_tell->show": 1
+   }
+  }
+ },
+ "claude": {
+  "D-B1-baseline-dev": {
+   "n": 58,
+   "agree": 51,
+   "agree_rate": 0.879,
+   "wilson95": [
+    0.771,
+    0.94
+   ],
+   "show_predicted": 1,
+   "show_hand": 7,
+   "show_both": 1,
+   "confusion (pred,hand)": {
+    "not->not": 50,
+    "not->show": 6,
+    "show->show": 1,
+    "not->cannot_tell": 1
+   }
+  }
+ },
+ "always_not": {
+  "n": 58,
+  "agree": 50,
+  "agree_rate": 0.862,
+  "wilson95": [
+   0.751,
+   0.928
+  ],
+  "show_predicted": 0,
+  "show_hand": 7,
+  "show_both": 0,
+  "confusion (pred,hand)": {
+   "not->not": 50,
+   "not->show": 7,
+   "not->cannot_tell": 1
+  }
+ }
+}

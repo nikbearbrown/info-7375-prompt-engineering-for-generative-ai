@@ -1,0 +1,122 @@
+{
+ "item": 26,
+ "board": "greenhouse:anthropic",
+ "id": "5454673008",
+ "title": "Applied AI Engineer, Startups (Physical AI)",
+ "utc": "2026-11-24T21:34:10Z",
+ "seconds": 5.6,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "show",
+  "score": 6,
+  "reasons": [
+   "Title \"Applied AI Engineer, Startups (Physical AI)\" matches her AI engineering focus (LangGraph agents, LLM evaluation, MLflow pipelines)",
+   "Location \"San Francisco, CA\" is US-based",
+   "Title has no \"Senior\", \"Staff\" or \"Lead\", though without posting text the required years of experience are unknown and may exceed her ~1 year",
+   "Employment type is not stated (\"board does not say\"), so full-time is likely but not confirmed",
+   "\"Physical AI\" may favor robotics or embodied-AI experience she does not list"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: greenhouse:anthropic\n- Title: Applied AI Engineer, Startups (Physical AI)\n- Location: San Francisco, CA\n- Employment type field: (board does not say)\n- Text:\n(not shown)\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 4572,
+  "stop_reason": "end_turn",
+  "session_id": "32d8f14c-6501-4462-be33-8f3e337443bd",
+  "total_cost_usd": 0.0294458,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2761,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 361,
+   "output_tokens_details": {
+    "thinking_tokens": 135
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2761,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 361,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 2761,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2761
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 361,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 2761,
+    "webSearchRequests": 0,
+    "costUSD": 0.0294458,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 135,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 2761,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"show\", \"score\": 6, \"reasons\": [\"Title \\\"Applied AI Engineer, Startups (Physical AI)\\\" matches her AI engineering focus (LangGraph agents, LLM evaluation, MLflow pipelines)\", \"Location \\\"San Francisco, CA\\\" is US-based\", \"Title has no \\\"Senior\\\", \\\"Staff\\\" or \\\"Lead\\\", though without posting text the required years of experience are unknown and may exceed her ~1 year\", \"Employment type is not stated (\\\"board does not say\\\"), so full-time is likely but not confirmed\", \"\\\"Physical AI\\\" may favor robotics or embodied-AI experience she does not list\"]}",
+  "ttft_ms": 2560,
+  "type": "result",
+  "duration_ms": 4677,
+  "uuid": "a29dc9f6-d849-4c50-b71f-babaf3bc84cc",
+  "ttft_stream_ms": 1100,
+  "time_to_request_ms": 102,
+  "first_content_frame_ms": 1100,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

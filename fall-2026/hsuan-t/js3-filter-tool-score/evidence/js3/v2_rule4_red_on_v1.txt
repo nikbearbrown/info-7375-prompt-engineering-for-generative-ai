@@ -1,0 +1,16 @@
+        verdict, failed, result = _judge(criteria, sentence)
+>       assert (verdict, failed) == ("not_relevant", "4")
+        verdict, failed, result = _judge(criteria, sentence)
+>       assert (verdict, failed) == ("not_relevant", "4")
+        verdict, failed, result = _judge(criteria, sentence)
+>       assert (verdict, failed, result) == ("not_relevant", "4", f"max {largest} years > 4")
+        verdict, failed, result = _judge(criteria, sentence)
+>       assert (verdict, failed, result) == ("not_relevant", "4", f"max {largest} years > 4")
+FAILED tests/test_js3_filter_v2.py::test_a_ceiling_below_aarav_cuts[0-1 years of experience in software engineering or a relevant field-1]
+FAILED tests/test_js3_filter_v2.py::test_a_ceiling_below_aarav_cuts[New grad candidates should have no more than 18 months of professional experience-1.5]
+FAILED tests/test_js3_filter_v2.py::test_b2_reads_a_number_in_brackets - asse...
+FAILED tests/test_js3_filter_v2.py::test_b2_the_largest_number_decides[Have 5+ years of experience in engineering, including 3+ years of experience in infrastructure-5]
+FAILED tests/test_js3_filter_v2.py::test_b2_the_largest_number_decides[plus six (6) years of software development experience. Must also have four (4) years of Java-6]
+FAILED tests/test_js3_filter_v2.py::test_b2_keeps_a_posting_within_reach - As...
+FAILED tests/test_js3_filter_v2.py::test_year_ceilings_reads_months_and_ranges
+========================= 7 failed, 2 passed in 0.04s ==========================

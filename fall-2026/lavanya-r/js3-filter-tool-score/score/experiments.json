@@ -1,0 +1,8 @@
+{
+ "_comment": "One change per experiment, each against E0. Defined and committed before any call. Labels: held-out group H (audit/draw.json), 21 judged by Lavanya. Claude is called through `claude -p` (Claude Code 2.1.312, NEU login), from a folder outside this repo, with --tools \"\" and --no-session-persistence.",
+ "E0a": {"what": "baseline", "prompt": "score-v1.md", "context": "persona-summary.md", "model": "sonnet"},
+ "E0b": {"what": "baseline again (noise floor: same everything, new session)", "prompt": "score-v1.md", "context": "persona-summary.md", "model": "sonnet"},
+ "E1":  {"what": "the PROMPT: v1 -> v2 (explicit decision order)", "prompt": "score-v2.md", "context": "persona-summary.md", "model": "sonnet"},
+ "E2":  {"what": "the CONTEXT: persona summary -> the full fictional resume JSON", "prompt": "score-v1.md", "context": "../../persona/priya-nair.resume.json", "model": "sonnet"},
+ "E3":  {"what": "a SETTING: model sonnet -> haiku", "prompt": "score-v1.md", "context": "persona-summary.md", "model": "haiku"}
+}

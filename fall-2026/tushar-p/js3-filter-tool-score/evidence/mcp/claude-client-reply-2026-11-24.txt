@@ -1,0 +1,16 @@
+Claude Code as the MCP client for tools/mcp_server.py (JS3 step 2.3)
+Date: 2026-11-24 23:01:39 EST (2026-11-25T04:01:39Z) to 2026-11-25T04:01:47Z
+Claude Code version: 2.1.332 (claude --version)
+Working directory: fall-2026/tushar-p/js3-filter-tool-score/
+Command (exactly as run):
+claude -p --mcp-config mcp-config.json --strict-mcp-config --tools "" --allowedTools "mcp__js3_filter__score_posting" --no-session-persistence "Use the score_posting tool to score ashby/notion posting 85947779-6b87-466a-98bc-30a640448c28 and greenhouse/stripe posting 8144196, then tell me in two sentences why each got its verdict."
+Flags beyond the brief's example: --strict-mcp-config (load only this server), --tools "" (no built-in tools), --no-session-persistence (no saved session).
+Exit code: 0
+stderr (verbatim): ⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+Server transcript of this session: evidence/mcp/transcript-run-20261125T040140Z-bfa84e.jsonl
+==== Claude's reply (stdout, verbatim, unedited) ====
+**ashby/notion 85947779-… "Software Engineer, Early Career (AI)": keep (score 4, threshold 2).** It passed all five gates: the title names a target role with no seniority word, San Francisco is in the US, the only experience requirement is a maximum of "less than two years," and the text doesn't refuse sponsorship. It then scored 2 topic points for "distributed systems" and "infrastructure" and 2 skills points for "TypeScript" and "React," for a total of 4, which clears the threshold of 2.
+
+**greenhouse/stripe 8144196 "AI Engineer": reject.** It passed the role, seniority, US-location and sponsorship gates but failed G4 because the posting requires "4+ years," and every required minimum is over 2 years. Since a gate failed, the posting was never scored, so there's no topic or skills score to report.
+
+These verdicts come from applying the FILTER.md v0.2 rules (frozen commit `f3edf99`) to the saved text in run `run-20261122T042828Z-07c6f0`. They aren't facts about the jobs, and no one has checked them by hand.

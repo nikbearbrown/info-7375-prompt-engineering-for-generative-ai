@@ -1,0 +1,118 @@
+{
+ "_comment": "Corrections to Riya's frozen blind labels (hand-labels.json, sha256 in hand-labels.sha256). Each was made in chat AFTER she had seen the filter's verdicts and Claude's questions, so they are NOT blind. Results are reported both with and without them. 'riya' is her wording, verbatim.",
+ "corrections": [
+  {
+   "item": 16,
+   "split": "heldout",
+   "from": "cannot_tell",
+   "to": "not",
+   "said_utc": "2026-11-24T21:50:10Z",
+   "riya": "16 - change to Not",
+   "prompted_by": "Claude pointed out that her reason (lacks every listed requirement) did not match 'Can't tell'"
+  },
+  {
+   "item": 17,
+   "split": "audit",
+   "from": "show",
+   "to": "cannot_tell",
+   "said_utc": "2026-11-24T21:51:23Z",
+   "riya": "17 change to cant tell i went through the JD now",
+   "prompted_by": "Claude listed #17 among rows needing a reason (no years stated)"
+  },
+  {
+   "item": 19,
+   "split": "audit",
+   "from": "not",
+   "to": "show",
+   "said_utc": "2026-11-24T22:23:53Z",
+   "riya": "19 change to show",
+   "prompted_by": "Claude listed #19 among rows needing a reason (no years stated); filter v1 had kept it",
+   "withdrawn": {
+    "said_utc": "2026-11-24T22:26:38Z",
+    "riya": "A, keep 19 as not",
+    "why": "her reason was her own experience; she chose to judge every label as the persona Arya, so the original blind label (not) stands"
+   }
+  },
+  {
+   "item": 32,
+   "split": "audit",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:29:56Z",
+   "riya": "32 change to Not",
+   "prompted_by": "Claude quoted the posting: 'This role is based in our London office' and 'hybrid work model of 3 days in the office per week'; the 'Remote' in the location came from the JS2 parser appending it for Ashby isRemote=true"
+  },
+  {
+   "item": 35,
+   "split": "heldout",
+   "from": "not",
+   "to": "show",
+   "said_utc": "2026-11-24T22:31:17Z",
+   "riya": "35 change to show",
+   "prompted_by": "Claude listed #35 among rows needing a reason (no years stated); filter v1 had kept it; Claude baseline B1 also said show"
+  },
+  {
+   "item": 45,
+   "split": "audit",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:33:20Z",
+   "riya": "for arya it will be a no",
+   "prompted_by": "Riya realised the blind label used her own background, not the persona's (same issue as #19, option A)"
+  },
+  {
+   "item": 48,
+   "split": "heldout",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:35:43Z",
+   "riya": "48 change to Not",
+   "prompted_by": "Claude showed the persona never mentions governance (co-op = drift monitoring + LLM evaluation) and quoted #48's minimum qualifications (legislative text, policymakers)"
+  },
+  {
+   "item": 56,
+   "split": "audit",
+   "from": "cannot_tell",
+   "to": "not",
+   "said_utc": "2026-11-24T22:37:18Z",
+   "riya": "change to not",
+   "prompted_by": "Claude pointed out her reason (no cybersecurity experience) did not match 'Can't tell'"
+  },
+  {
+   "item": 58,
+   "split": "audit",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:37:51Z",
+   "riya": "58 not",
+   "prompted_by": "Claude listed #58 as borderline (customer-facing architect role, no years stated)"
+  },
+  {
+   "item": 69,
+   "split": "audit",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:38:49Z",
+   "riya": "69 change to not no ex in this",
+   "prompted_by": "Claude quoted 'Significant experience delivering large-scale infrastructure' and called it an operations/planning role"
+  },
+  {
+   "item": 75,
+   "split": "heldout",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:39:43Z",
+   "riya": "75 no ex in this change to not",
+   "prompted_by": "Claude flagged 'Director' title, partnerships/sales, 'senior executive engagement' as a likely misclick"
+  },
+  {
+   "item": 26,
+   "split": "heldout",
+   "from": "show",
+   "to": "not",
+   "said_utc": "2026-11-24T22:40:19Z",
+   "riya": "26 not becaue 4+ years",
+   "prompted_by": "Claude quoted '4+ years of technical experience' against her FILTER rule (min years > 3 contradicts)"
+  }
+ ]
+}
