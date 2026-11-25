@@ -8,6 +8,7 @@ from. The conditions were fixed in this file before any held-out label existed (
   C   the context: the rule Claude is given is FILTER.md v1 (Shreyash's words) instead of CONTRACT.md
   S   a setting: model haiku instead of opus
   T   the tool list: the score_posting tool (this folder's MCP server) is offered and allowed
+  B3  B a third time, after all the others (added later, still before any held-out label)
 The filter-file change is deterministic and is measured in js3/score.py, not here.
 
   python3 -m js3.experiments B [P C ...]       (resumable: a saved call is never repeated)
@@ -27,6 +28,9 @@ CONDITIONS = {
     "C": {"prompt": "prompts/context-filter-v1.md", "model": "opus", "tool": False},
     "S": {"prompt": "prompts/baseline-v1.md", "model": "haiku", "tool": False},
     "T": {"prompt": "prompts/baseline-v1.md", "model": "opus", "tool": True},
+    # Added 2026-11-25 ~17:50 EST, after B..T had run and BEFORE any held-out label existed: B once more,
+    # in new sessions after C changed the context, to show the change did not persist (SCORE.md section 3).
+    "B3": {"prompt": "prompts/baseline-v1.md", "model": "opus", "tool": False},
 }
 
 
