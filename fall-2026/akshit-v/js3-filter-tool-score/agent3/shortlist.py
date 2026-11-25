@@ -8,11 +8,10 @@ For each shortlisted posting:
   3. A second fresh Claude session (prompts/check_v1.md) labels what the verbatim quotes mean (E4).
      It sees only the posting text and the claims: no résumé, no score, no verdict.
   4. claims.answer applies A1-A3: relevant / not_relevant / cannot_tell.
-Then I verify every label by hand (labels/claim_checks.csv); where I disagree, my label stands.
-Writes out/shortlist/<version>/run.json and labels/claim_checks_blank.csv.
+Then I verify every label by hand, blind to the checker (scripts/claim_server.py ->
+labels/claim_checks_<version>.csv); where I disagree, my label stands. Writes out/shortlist/<version>/run.json.
 """
 import argparse
-import csv
 import json
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -131,24 +130,14 @@ def main(argv=None) -> int:
            "prompts": ["prompts/justify_v1.md", "prompts/check_v1.md"], "records": recs}
     folder = policy.OUT / "shortlist" / cfg["version"]
     policy.write_bytes(folder / "run.json", (json.dumps(out, indent=1, ensure_ascii=False) + "\n").encode("utf-8"))
-    rows = []
-    for rank, pid in enumerate(ids, 1):
-        for j, cm in enumerate(recs[pid].get("claims", []), 1):
-            rows.append({"rank": rank, "id": pid, "title": recs[pid]["title"], "claim_no": j, "kind": cm["kind"],
-                         "claim": cm["claim"], "quote": cm["quote"], "checker_label": cm["label"],
-                         "checker_why": cm.get("why", ""), "my_label": "", "my_note": ""})
-    sheet = ROOT / "labels" / "claim_checks_blank.csv"
-    with sheet.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0]) if rows else ["rank"])
-        w.writeheader()
-        w.writerows(rows)
     for pid in ids:
         r = recs[pid]
         labs = [x["label"] for x in r.get("claims", [])]
         print(f"{r['answer']['answer']:<13} {r['title'][:50]:<50} claims {len(labs)}: "
               f"S{labs.count('supported')} C{labs.count('contradicted')} I{labs.count('insufficient')}"
               f"{'  ' + r['rejection'] if r.get('rejection') else ''}")
-    print(f"{len(rows)} claims -> {sheet.relative_to(ROOT)}")
+    print(f"{sum(len(r.get('claims', [])) for r in recs.values())} claims -> {(folder / 'run.json').relative_to(ROOT)}"
+          "; hand check: python -B scripts/claim_server.py --version " + cfg["version"])
     return 0
 
 
