@@ -1,0 +1,1139 @@
+{
+ "kit": "claims",
+ "filter_run": "2026-11-21T044414Z",
+ "seed": 2026112102,
+ "postings": [
+  {
+   "posting": 1,
+   "board": "ashby-openai",
+   "id": "783704d7-5afa-45aa-899b-1d6799f73004",
+   "title": "Software Engineer, Agent Platform",
+   "shortlist_rank": 1,
+   "score": 70
+  },
+  {
+   "posting": 2,
+   "board": "ashby-openai",
+   "id": "4f2d9849-ad00-48d5-a22f-0cb943723999",
+   "title": "EDA Cloud & Developer Infrastructure Engineer",
+   "shortlist_rank": 2,
+   "score": 70
+  },
+  {
+   "posting": 3,
+   "board": "ashby-openai",
+   "id": "0b9e565a-ae5f-40fc-8350-b59f71f76df1",
+   "title": "Software Engineer, Host Assurance",
+   "shortlist_rank": 9,
+   "score": 65
+  },
+  {
+   "posting": 4,
+   "board": "ashby-openai",
+   "id": "40f2f959-20f8-40ca-8b8c-154b6774193a",
+   "title": "Software Engineer, Compute Foundations",
+   "shortlist_rank": 7,
+   "score": 65
+  },
+  {
+   "posting": 5,
+   "board": "ashby-openai",
+   "id": "ca300a6d-a2a7-4580-aad7-323fbdfee7b1",
+   "title": "Software Engineer, Compute Infrastructure",
+   "shortlist_rank": 3,
+   "score": 70
+  },
+  {
+   "posting": 6,
+   "board": "ashby-openai",
+   "id": "26cfb873-f30a-4a13-b7b6-52833ea48ec9",
+   "title": "Full Stack Software Engineer, ChatGPT Finances",
+   "shortlist_rank": 6,
+   "score": 65
+  },
+  {
+   "posting": 7,
+   "board": "ashby-openai",
+   "id": "eefeb527-4e36-432e-a787-88e4672e29e1",
+   "title": "Software Engineer, Codex Cyber",
+   "shortlist_rank": 10,
+   "score": 65
+  },
+  {
+   "posting": 8,
+   "board": "ashby-openai",
+   "id": "21bfde35-ffec-42d2-a2c6-8a03dad789d5",
+   "title": "Software Engineer, Core Services",
+   "shortlist_rank": 4,
+   "score": 70
+  },
+  {
+   "posting": 9,
+   "board": "ashby-openai",
+   "id": "596e543a-0ab9-471e-a1ff-40fd55c74fce",
+   "title": "Software Engineer, Ads Integrity",
+   "shortlist_rank": 8,
+   "score": 65
+  },
+  {
+   "posting": 10,
+   "board": "lever-palantir",
+   "id": "cd2423c6-da68-430c-8be5-0ae7eea36497",
+   "title": "Software Engineer - Environment Platform",
+   "shortlist_rank": 5,
+   "score": 70
+  }
+ ],
+ "claims": [
+  {
+   "claim": "01.1",
+   "posting": 1,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "01.2",
+   "posting": 1,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "01.3",
+   "posting": 1,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "01.4",
+   "posting": 1,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "01.5",
+   "posting": 1,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "01.6",
+   "posting": 1,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "01.7",
+   "posting": 1,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "01.8a",
+   "posting": 1,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (the phrase 'looking for')"
+  },
+  {
+   "claim": "01.8b",
+   "posting": 1,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (the word 'your')"
+  },
+  {
+   "claim": "01.8c",
+   "posting": 1,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "01.8d",
+   "posting": 1,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Cloud infrastructure",
+   "text": "It describes work in the topic group Cloud infrastructure (\"cloud infrastructure\").",
+   "label": "supported",
+   "why": "it names 'cloud infrastructure' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "02.1",
+   "posting": 2,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "02.2",
+   "posting": 2,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "02.3",
+   "posting": 2,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "02.4",
+   "posting": 2,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'EDA Cloud & Developer Infrastructure Engineer' has 'Infrastructure Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "02.5",
+   "posting": 2,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "1 sentence(s) speak to status, but none states a U.S.-person, clearance or no-sponsorship requirement or offers sponsorship"
+  },
+  {
+   "claim": "02.6",
+   "posting": 2,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "02.7",
+   "posting": 2,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "02.8a",
+   "posting": 2,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "02.8b",
+   "posting": 2,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Databases",
+   "text": "It describes work in the topic group Databases (\"PostgreSQL\").",
+   "label": "supported",
+   "why": "it names 'PostgreSQL' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "02.8c",
+   "posting": 2,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Cloud infrastructure",
+   "text": "It describes work in the topic group Cloud infrastructure (\"cloud infrastructure\").",
+   "label": "supported",
+   "why": "it names 'cloud infrastructure' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "02.8d",
+   "posting": 2,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Developer tools",
+   "text": "It describes work in the topic group Developer tools (\"developer tools\").",
+   "label": "supported",
+   "why": "it names 'developer tools' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "03.1",
+   "posting": 3,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "03.2",
+   "posting": 3,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "03.3",
+   "posting": 3,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "03.4",
+   "posting": 3,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "03.5",
+   "posting": 3,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "03.6",
+   "posting": 3,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "03.7",
+   "posting": 3,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "03.8a",
+   "posting": 3,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "03.8b",
+   "posting": 3,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (the phrase 'seeking')"
+  },
+  {
+   "claim": "03.8c",
+   "posting": 3,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "04.1",
+   "posting": 4,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "04.2",
+   "posting": 4,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "04.3",
+   "posting": 4,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "04.4",
+   "posting": 4,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "04.5",
+   "posting": 4,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "04.6",
+   "posting": 4,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "04.7",
+   "posting": 4,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "04.8a",
+   "posting": 4,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "insufficient",
+   "why": "it names 'APIs' with an action word, but nothing in it says this is the role's work; it may describe the company"
+  },
+  {
+   "claim": "04.8b",
+   "posting": 4,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "04.8c",
+   "posting": 4,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Cloud infrastructure",
+   "text": "It describes work in the topic group Cloud infrastructure (\"Kubernetes\").",
+   "label": "insufficient",
+   "why": "it names 'Kubernetes' with an action word, but nothing in it says this is the role's work; it may describe the company"
+  },
+  {
+   "claim": "05.1",
+   "posting": 5,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "05.2",
+   "posting": 5,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "05.3",
+   "posting": 5,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "05.4",
+   "posting": 5,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "05.5",
+   "posting": 5,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "05.6",
+   "posting": 5,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "05.7",
+   "posting": 5,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "05.8a",
+   "posting": 5,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "05.8b",
+   "posting": 5,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "05.8c",
+   "posting": 5,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Cloud infrastructure",
+   "text": "It describes work in the topic group Cloud infrastructure (\"Kubernetes\").",
+   "label": "supported",
+   "why": "it names 'Kubernetes' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "05.8d",
+   "posting": 5,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Developer tools",
+   "text": "It describes work in the topic group Developer tools (\"developer tools\").",
+   "label": "insufficient",
+   "why": "it names 'developer tools' with an action word, but nothing in it says this is the role's work; it may describe the company"
+  },
+  {
+   "claim": "06.1",
+   "posting": 6,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "06.2",
+   "posting": 6,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "06.3",
+   "posting": 6,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "06.4",
+   "posting": 6,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Full Stack Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "06.5",
+   "posting": 6,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "06.6",
+   "posting": 6,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "06.7",
+   "posting": 6,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "06.8a",
+   "posting": 6,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "06.8b",
+   "posting": 6,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "06.8c",
+   "posting": 6,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "07.1",
+   "posting": 7,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "07.2",
+   "posting": 7,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "07.3",
+   "posting": 7,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "07.4",
+   "posting": 7,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "07.5",
+   "posting": 7,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "07.6",
+   "posting": 7,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "07.7",
+   "posting": 7,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "07.8a",
+   "posting": 7,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "07.8b",
+   "posting": 7,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "07.8c",
+   "posting": 7,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Developer tools",
+   "text": "It describes work in the topic group Developer tools (\"developer tools\").",
+   "label": "supported",
+   "why": "it names 'developer tools' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "08.1",
+   "posting": 8,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "08.2",
+   "posting": 8,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "08.3",
+   "posting": 8,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "08.4",
+   "posting": 8,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "08.5",
+   "posting": 8,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "08.6",
+   "posting": 8,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "08.7",
+   "posting": 8,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "08.8a",
+   "posting": 8,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "08.8b",
+   "posting": 8,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (the phrase 'looking for')"
+  },
+  {
+   "claim": "08.8c",
+   "posting": 8,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (the phrase 'looking for')"
+  },
+  {
+   "claim": "08.8d",
+   "posting": 8,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Developer tools",
+   "text": "It describes work in the topic group Developer tools (\"CI/CD\").",
+   "label": "supported",
+   "why": "it names 'CI/CD' with an action word, and is about the role (a list item)"
+  },
+  {
+   "claim": "09.1",
+   "posting": 9,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "09.2",
+   "posting": 9,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'San Francisco' is in one of the preferred places"
+  },
+  {
+   "claim": "09.3",
+   "posting": 9,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "09.4",
+   "posting": 9,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "09.5",
+   "posting": 9,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "09.6",
+   "posting": 9,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "1 sentence(s) mention a start word or a date, but none gives a start month, season or a flexible start"
+  },
+  {
+   "claim": "09.7",
+   "posting": 9,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "insufficient",
+   "why": "no sentence states a number of years; silence is never support"
+  },
+  {
+   "claim": "09.8a",
+   "posting": 9,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Backend",
+   "text": "It describes work in the topic group Backend (\"backend\").",
+   "label": "supported",
+   "why": "it names 'backend' with an action word, and is about the role (the phrase 'looking for')"
+  },
+  {
+   "claim": "09.8b",
+   "posting": 9,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "09.8c",
+   "posting": 9,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Developer tools",
+   "text": "It describes work in the topic group Developer tools (\"build systems\").",
+   "label": "supported",
+   "why": "it names 'build systems' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "10.1",
+   "posting": 10,
+   "type": 1,
+   "rule": "R1",
+   "group": null,
+   "text": "The posting is full time.",
+   "label": "supported",
+   "why": "the employment type is read as 'FullTime', one of ['FullTime']"
+  },
+  {
+   "claim": "10.2",
+   "posting": 10,
+   "type": 2,
+   "rule": "R2",
+   "group": null,
+   "text": "It is in one of Jane's areas, or US remote.",
+   "label": "supported",
+   "why": "R2's reading: 'Seattle, WA' is in one of the preferred places"
+  },
+  {
+   "claim": "10.3",
+   "posting": 10,
+   "type": 3,
+   "rule": "R3",
+   "group": null,
+   "text": "Its title has no level word.",
+   "label": "supported",
+   "why": "the title has none of the 15 level words"
+  },
+  {
+   "claim": "10.4",
+   "posting": 10,
+   "type": 4,
+   "rule": "R4",
+   "group": null,
+   "text": "Its title names a software engineering role.",
+   "label": "supported",
+   "why": "the role part 'Software Engineer' has 'Software Engineer' and no excluded phrase"
+  },
+  {
+   "claim": "10.5",
+   "posting": 10,
+   "type": 5,
+   "rule": "R5",
+   "group": null,
+   "text": "It states no U.S.-person, clearance or no-sponsorship requirement.",
+   "label": "insufficient",
+   "why": "no sentence speaks to status, sponsorship or clearance; silence is never support"
+  },
+  {
+   "claim": "10.6",
+   "posting": 10,
+   "type": 6,
+   "rule": "R6",
+   "group": null,
+   "text": "It requires no start before May 2027.",
+   "label": "insufficient",
+   "why": "no sentence mentions a start or a date; silence is never support"
+  },
+  {
+   "claim": "10.7",
+   "posting": 10,
+   "type": 7,
+   "rule": "R7",
+   "group": null,
+   "text": "It asks for 3 years or fewer, or makes more years optional.",
+   "label": "supported",
+   "why": "asks for 3 years, not more than 3"
+  },
+  {
+   "claim": "10.8a",
+   "posting": 10,
+   "type": 8,
+   "rule": "topic words",
+   "group": "APIs",
+   "text": "It describes work in the topic group APIs (\"APIs\").",
+   "label": "supported",
+   "why": "it names 'APIs' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "10.8b",
+   "posting": 10,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Distributed systems",
+   "text": "It describes work in the topic group Distributed systems (\"distributed systems\").",
+   "label": "supported",
+   "why": "it names 'distributed systems' with an action word, and is about the role (it opens with 'Build')"
+  },
+  {
+   "claim": "10.8c",
+   "posting": 10,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Cloud infrastructure",
+   "text": "It describes work in the topic group Cloud infrastructure (\"Kubernetes\").",
+   "label": "supported",
+   "why": "it names 'Kubernetes' with an action word, and is about the role (the word 'you')"
+  },
+  {
+   "claim": "10.8d",
+   "posting": 10,
+   "type": 8,
+   "rule": "topic words",
+   "group": "Microservices",
+   "text": "It describes work in the topic group Microservices (\"microservices\").",
+   "label": "supported",
+   "why": "it names 'microservices' with an action word, and is about the role (the word 'you')"
+  }
+ ]
+}

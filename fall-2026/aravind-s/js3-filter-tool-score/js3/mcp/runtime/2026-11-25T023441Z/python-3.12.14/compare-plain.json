@@ -1,0 +1,56 @@
+{
+ "name": "plain",
+ "about": "each traced run against the same server not traced",
+ "pairs": [
+  {
+   "left": "own-a",
+   "right": "own-plain",
+   "answers_equal": true,
+   "left_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+   "right_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+   "answer_differences": [],
+   "stderr_last_lines": {
+    "equal": true,
+    "left": {
+     "early": "",
+     "main": "",
+     "lifecycle": "",
+     "bytes": "",
+     "deep": ""
+    },
+    "right": {
+     "early": "",
+     "main": "",
+     "lifecycle": "",
+     "bytes": "",
+     "deep": ""
+    }
+   }
+  },
+  {
+   "left": "other-a",
+   "right": "other-plain",
+   "answers_equal": true,
+   "left_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+   "right_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+   "answer_differences": [],
+   "stderr_last_lines": {
+    "equal": true,
+    "left": {
+     "early": "",
+     "main": "",
+     "lifecycle": "",
+     "bytes": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+     "deep": "RecursionError: maximum recursion depth exceeded while decoding a JSON array from a unicode string"
+    },
+    "right": {
+     "early": "",
+     "main": "",
+     "lifecycle": "",
+     "bytes": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+     "deep": "RecursionError: maximum recursion depth exceeded while decoding a JSON array from a unicode string"
+    }
+   }
+  }
+ ]
+}

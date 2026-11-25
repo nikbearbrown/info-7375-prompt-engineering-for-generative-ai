@@ -1,0 +1,274 @@
+{
+ "run": "other-a",
+ "about": "the lesson 8 reference server, traced",
+ "tree": "the repo",
+ "server_file": "js3/mcp/other-server/main.py",
+ "server_sha256": "948337afc71b67b659aac44b4a8f3efec5dc699b9bb7c2e683dd6888068b1769",
+ "sandbox": null,
+ "command": [
+  "python3",
+  "-B",
+  "-I",
+  "tools/mcp_trace_boot.py",
+  "<event log>",
+  "js3/mcp/other-server/main.py",
+  "--stdio"
+ ],
+ "client": {
+  "steps": 30,
+  "as_the_plan_expects": 30
+ },
+ "answers": {
+  "lines_from_the_server": 21,
+  "exit_codes": {
+   "early": 0,
+   "main": 0,
+   "lifecycle": 0,
+   "bytes": 1,
+   "deep": 1
+  },
+  "sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8"
+ },
+ "python": "3.9.6",
+ "sessions": [
+  "early",
+  "main",
+  "lifecycle",
+  "bytes",
+  "deep"
+ ],
+ "writes": [],
+ "file_changes": [],
+ "sockets": [],
+ "network": [],
+ "processes": [],
+ "ctypes": {},
+ "reads": {
+  "server": {
+   "python": {
+    "files": [
+     "<python>/_compression.py",
+     "<python>/argparse.py",
+     "<python>/bz2.py",
+     "<python>/fnmatch.py",
+     "<python>/gettext.py",
+     "<python>/json/__init__.py",
+     "<python>/json/decoder.py",
+     "<python>/json/encoder.py",
+     "<python>/json/scanner.py",
+     "<python>/locale.py",
+     "<python>/lzma.py",
+     "<python>/shutil.py",
+     "<python>/threading.py"
+    ],
+    "listings": {
+     "<python>/json (os.listdir)": 5
+    }
+   },
+   "code": {
+    "files": [
+     "<repo>/js3/mcp/other-server/main.py"
+    ]
+   }
+  },
+  "exit": {
+   "python": {
+    "files": [
+     "<python>/codecs.py",
+     "<python>/json/__init__.py",
+     "<python>/json/decoder.py",
+     "<python>/runpy.py"
+    ]
+   },
+   "code": {
+    "files": [
+     "<repo>/js3/mcp/other-server/main.py"
+    ]
+   },
+   "launcher": {
+    "files": [
+     "<boot>/mcp_trace_boot.py"
+    ]
+   }
+  }
+ },
+ "modules": {
+  "before_the_hook": [
+   "__main__",
+   "_abc",
+   "_bootlocale",
+   "_codecs",
+   "_collections_abc",
+   "_frozen_importlib",
+   "_frozen_importlib_external",
+   "_imp",
+   "_io",
+   "_locale",
+   "_signal",
+   "_sitebuiltins",
+   "_stat",
+   "_thread",
+   "_warnings",
+   "_weakref",
+   "abc",
+   "builtins",
+   "codecs",
+   "encodings",
+   "encodings.aliases",
+   "encodings.cp437",
+   "encodings.latin_1",
+   "encodings.utf_8",
+   "genericpath",
+   "io",
+   "marshal",
+   "os",
+   "os.path",
+   "posix",
+   "posixpath",
+   "pwd",
+   "site",
+   "stat",
+   "sys",
+   "time",
+   "zipimport"
+  ],
+  "launcher": [
+   "runpy",
+   "importlib.machinery",
+   "importlib",
+   "types",
+   "warnings",
+   "importlib.util",
+   "importlib.abc",
+   "typing",
+   "collections",
+   "heapq",
+   "_heapq",
+   "itertools",
+   "keyword",
+   "operator",
+   "_operator",
+   "reprlib",
+   "_collections",
+   "collections.abc",
+   "contextlib",
+   "functools",
+   "_functools",
+   "re",
+   "enum",
+   "sre_compile",
+   "_sre",
+   "sre_parse",
+   "sre_constants",
+   "copyreg",
+   "pkgutil",
+   "weakref",
+   "_weakrefset"
+  ],
+  "server": [
+   "argparse",
+   "gettext",
+   "json",
+   "json.decoder",
+   "json.scanner",
+   "_json",
+   "json.encoder",
+   "locale",
+   "errno",
+   "shutil",
+   "fnmatch",
+   "zlib",
+   "bz2",
+   "_compression",
+   "threading",
+   "_bz2",
+   "lzma",
+   "_lzma",
+   "grp"
+  ],
+  "at_exit": [],
+  "not_loaded": [],
+  "network_or_process": []
+ },
+ "launcher": {
+  "python_files": 25,
+  "listings": {
+   "<python>/collections": 5,
+   "<python>/importlib": 5
+  },
+  "other_reads": {}
+ },
+ "per_session": {
+  "early": {
+   "data_reads": 0,
+   "listings": 1,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 19
+  },
+  "main": {
+   "data_reads": 0,
+   "listings": 1,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 19
+  },
+  "lifecycle": {
+   "data_reads": 0,
+   "listings": 1,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 19
+  },
+  "bytes": {
+   "data_reads": 0,
+   "listings": 1,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 19
+  },
+  "deep": {
+   "data_reads": 0,
+   "listings": 1,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 19
+  }
+ },
+ "other_events": {
+  "launcher": {
+   "compile or marshal.loads": 135,
+   "exec": 135,
+   "object.__getattr__": 10,
+   "object.__setattr__": 25,
+   "sys._getframe": 55
+  },
+  "server": {
+   "compile or marshal.loads": 75,
+   "exec": 75,
+   "object.__setattr__": 5,
+   "sys._getframe": 5
+  },
+  "exit": {
+   "sys.excepthook": 2
+  }
+ },
+ "hook_errors": 0,
+ "unreadable_lines": 0,
+ "sessions_without_a_record": []
+}
