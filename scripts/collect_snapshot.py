@@ -1,11 +1,12 @@
 """JS3 Step 2: collect one fresh snapshot of the ten JS2 boards, with descriptions (FILTER.md section 3).
 
 One GET per board through JS2's LiveFetcher: allow-listed hosts only, HTTPS GET only, 1 s apart per host, every redirect hop checked.
-Raw bytes are saved unchanged with their sha256. A failed board is "not observed" and an empty one is "0 postings, needs review",
+Raw bytes are saved gzipped (lossless) with the sha256 of the original bytes. A failed board is "not observed" and an empty one is "0 postings, needs review",
 never "no relevant jobs". The script refuses to overwrite an existing snapshot folder.
 
     python3 scripts/collect_snapshot.py            # writes snapshot/<today ET>/
 """
+import gzip
 import hashlib
 import json
 import sys
@@ -46,9 +47,11 @@ def main():
                "error": r.error, "redirect_hops": r.hops, "file": None, "sha256": None, "bytes": None,
                "postings": None, "no_description": None, "outcome": None}
         if r.body is not None:
-            path = out / "raw" / f"{provider}__{board}.json"
-            path.write_bytes(r.body)
-            row.update(file=str(path.relative_to(out)), sha256=hashlib.sha256(r.body).hexdigest(), bytes=len(r.body))
+            path = out / "raw" / f"{provider}__{board}.json.gz"
+            gz = gzip.compress(r.body, mtime=0)  # lossless; sha256 is of the original bytes
+            path.write_bytes(gz)
+            row.update(file=str(path.relative_to(out)), sha256=hashlib.sha256(r.body).hexdigest(), bytes=len(r.body),
+                       gz_bytes=len(gz), gz_sha256=hashlib.sha256(gz).hexdigest())
         if r.status == 200:
             try:
                 postings = providers.parse_list(provider, r.body, board)
