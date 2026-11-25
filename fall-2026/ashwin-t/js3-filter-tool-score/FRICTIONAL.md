@@ -70,6 +70,17 @@ are attributed below; no personal thinking or feelings are inferred.
 - **Evidence:** `evaluations/`, `transcripts/`.
 - **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Approved in evaluations/*/EVALUATION.md on 2026-11-25.
 
+## 2026-11-25 (evening): blind engineering rejects after a TA-style review
+
+- **What happened:** Ashwin answered 20 newly drawn engineering-titled rejects through a four-option form, then
+  corrected 6 answers (106, 108, 109, 115, 117, 118) that contradicted their own cards. Final: 5 Y, 11 N, 4 ?. No
+  rule was changed.
+- **Evidence:** `labels/blind-eng-rejects-sheet.csv`, `audit/BLIND-EXTRA.md`, FILTER.md section 10.
+- **(Ashwin; drafted by Claude Code, approved by Ashwin in chat on 2026-11-25)** "My quick blind answers exposed a
+  conflict I had not noticed: I said yes to roles my own FILTER.md excludes. On review I corrected answers that
+  contradicted their own cards. I did not change any rule on 20 quick answers; the next step is to settle the
+  preference first, then label a clean set."
+
 ## Follow-up verification
 
 - **(Ashwin)** All 47 required audit rows now have Ashwin's confirmed personal verdicts, with prior AI exposure disclosed. Claim labels remain AI-assisted. The trust decisions, sign-off and signature were already confirmed on 2026-11-25.

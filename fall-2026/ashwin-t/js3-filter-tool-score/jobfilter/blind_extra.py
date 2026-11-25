@@ -21,7 +21,7 @@ import re
 import sys
 from pathlib import Path
 
-from .audit import SELECTION
+from .audit import SELECTION, wilson
 from .audit_batches import CLEARANCE_RULE, card
 from .claim_cards import context
 from .claims import plain
@@ -45,11 +45,14 @@ def _decisions(version: str = "v1.0") -> list:
     return json.loads((HERE / "runs" / version / "decisions-dev.json").read_text())
 
 
-def engineering_reject_keys() -> list:
+def engineering_pool() -> list:
     used = set(json.loads(SELECTION.read_text())["sheet_order"])  # all 61 postings of every audit stratum
-    pool = sorted(d["key"] for d in _decisions() if d["decision"] == "REJECT" and ENG_TITLE.search(d["title"])
+    return sorted(d["key"] for d in _decisions() if d["decision"] == "REJECT" and ENG_TITLE.search(d["title"])
                   and d["key"] not in used)
-    return random.Random(ENG_SEED).sample(pool, ENG_N)
+
+
+def engineering_reject_keys() -> list:
+    return random.Random(ENG_SEED).sample(engineering_pool(), ENG_N)
 
 
 def claim_ids() -> list:
@@ -155,8 +158,24 @@ def report() -> Path:
          f"Answered: {len(eng)} of {ENG_N}. Y (a miss by the filter): {counts['Y']} · N: {counts['N']} · ?: {counts['?']}.", "",
          "Ashwin answered in chat through a fixed four-option form (Y new-grad backend fit / N wrong role or too senior / "
          "N location or job type / ? can't tell); each question showed the posting's title, company, location, job "
-         "type, stated years and clearance text, and nothing from the filter. The reason column is the option chosen. "
-         "Any unanswered row is left blank, not filled in.", ""]
+         "type, stated years and clearance text, and nothing from the filter. After a TA-style review pointed out "
+         "answers that contradicted their own cards, Ashwin corrected 6 of them (106, 108, 109, 115, 117, 118); each "
+         "row keeps its first answer in the reason. The card-fact reasons were drafted by Claude Code and approved by "
+         "Ashwin. Any unanswered row is left blank, not filled in.", ""]
+    if eng:
+        k, n, q = counts["Y"], len(eng), counts["?"]
+        lo, hi = wilson(k, n)
+        lo2, hi2 = wilson(k + q, n)
+        pool = len(engineering_pool())
+        L += ["**What a sample this size can show.**", "",
+              f"- The draw is {n} of the {pool} engineering-titled v1.0 rejects outside the earlier audit sample, not "
+              f"of all 750 rejects. Non-engineering rejects are not covered by it.",
+              f"- {k} of {n} were judged Y (a filter miss): {k / n:.0%}, 95% Wilson interval {lo:.0%} to {hi:.0%}. "
+              f"If all {q} '?' rows turned out Y, it would be {k + q} of {n}, interval {lo2:.0%} to {hi2:.0%}.",
+              "- Even the lower bound means a real share of engineering-titled rejects are jobs Supriya would want. "
+              "The interval is wide; 20 postings cannot say which rule causes most misses.",
+              "- The verdicts were quick form answers, and 6 were corrected after review, so they are less careful "
+              "than a full read of each posting.", ""]
     if eng:
         L += ["| n | Title | Filter reason | Ashwin | Reason |", "|---|---|---|---|---|"]
         for r in eng:
@@ -167,12 +186,14 @@ def report() -> Path:
         excluded = [r["n"] for r in ys if any("excluded" in x for x in dec[r["key"]]["reasons"])]
         L += ["**What this shows (computed, no judgment added).**", "",
               f"- {len(ys)} of the {len(eng)} answered rejects are Y: by these verdicts the filter missed them.",
-              f"- {len(excluded)} of those Y rows ({', '.join(excluded) or 'none'}) were rejected by an exclusion "
+              f"- Y rows rejected by an exclusion: {len(excluded)} ({', '.join(excluded) or 'none'}). Each was rejected by an exclusion "
               "that the approved FILTER.md asked for (forward deployed, internship, or a seniority term such as senior or sr). So these verdicts disagree with "
               "the written filter rules, not only with the code.",
-              f"- {len(clear)} Y rows ({', '.join(clear) or 'none'}) mention a security clearance. Ashwin's earlier "
-              "labeling rule says clearance with unknown eligibility is `?`. These verdicts are recorded as given; "
-              "the conflict is left visible, not resolved.", ""]
+              (f"- {len(clear)} Y rows ({', '.join(clear)}) mention a security clearance. Ashwin's earlier labeling "
+               "rule says clearance with unknown eligibility is `?`. These verdicts are recorded as given; the "
+               "conflict is left visible, not resolved." if clear else
+               "- No Y row mentions a security clearance: after the corrections, every clearance posting is `?` or "
+               "`N`, consistent with Ashwin's clearance rule."), ""]
     claims = {r["claim_id"]: r for r in _rows(HERE / "shortlist" / "claim-sheet.csv")}
     hum = [r for r in _rows(CLAIM_SHEET) if r["human_label"].strip()]
     agree = sum(1 for r in hum if r["human_label"].strip().upper() == claims[r["claim_id"]]["label"])

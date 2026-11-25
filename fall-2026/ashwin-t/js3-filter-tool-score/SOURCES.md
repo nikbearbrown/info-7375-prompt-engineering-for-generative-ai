@@ -57,8 +57,10 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 
 - **After a strict TA-style review (2026-11-25, evening; review text pasted by Ashwin):** Claude Code wrote
   `jobfilter/such_as.py`, `jobfilter/preinit_probe.py` and `jobfilter/blind_extra.py` with their tests, ran the
-  before-`initialize` probes on both servers (22:25 UTC), and drew the blind worksheets. Any verdicts, labels or
-  hand scores in `audit/BLIND-EXTRA.md` are Ashwin's, typed into the sheets named there.
+  before-`initialize` probes on both servers (22:25 UTC), and drew the blind worksheets. The 20 verdicts in
+  `audit/BLIND-EXTRA.md` are Ashwin's choices from a four-option form (6 corrected by Ashwin after review); the
+  card-fact reasons, the FILTER.md section 10 rows of that evening, one Frictional paragraph and the SIGNOFF addendum
+  were drafted by Claude Code and approved by Ashwin. A Claude Code subagent wrote `tests/test_recompute_v10.py`.
 
 ## What Codex contributed (as relayed by Ashwin)
 

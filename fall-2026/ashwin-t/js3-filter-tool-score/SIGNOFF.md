@@ -21,6 +21,24 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
                     This signs the limited checks described, not full rubric completion.
 ```
 
+## Addendum, 2026-11-25 (evening)
+
+Drafted by Claude Code and approved by Ashwin in chat on 2026-11-25. Ashwin's signature above stays on the
+original wording; this addendum adds later checks and gaps.
+
+```text
+Checked (with Claude's help):
+              Claude Code ran the full suite, now 87 tests, on Python 3.9.6 and 3.12.15; I did not rerun it.
+              tests/test_recompute_v10.py (15 tests, written by a Claude subagent without importing
+              jobfilter/filter.py) re-derives every v1.0 title gate, topic group, score and decision from
+              FILTER.md and filters/v1.0.json. It agrees on all 775 development postings. FILTER.md section 4
+              also requires an eligible location: 4 postings reach 7 only with non-US locations and are
+              correctly REJECT.
+Not checked:  - The 15-claim blind sample was prepared but not labeled.
+              - My 20 blind verdicts came from a 4-option form; 6 were corrected after review.
+              - I did not compute the two hand scores in drafting/hand-score-check.md.
+```
+
 ## Facts Ashwin can check, with the test or file for each
 
 | Property | Test or evidence |
