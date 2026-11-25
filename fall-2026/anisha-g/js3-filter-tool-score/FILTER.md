@@ -1,5 +1,5 @@
 # FILTER.md: Job-Search Agent 3
-**Anisha Gaikar · version 1.0 · 2026-11-25 ~2:05 pm, written before any JS3 code.**
+**Anisha Gaikar · version 1.0 · 2026-11-25 ~2:05 pm, written before any JS3 code** (commit `7ee4178`). **Current version: 1.2** (see the change log at the end; sections 1–4 below are v1.0 exactly as gated, with the later rules in §5).
 
 **Who chose what.**
 - **Mine:** I made every decision in this file. Claude offered options and I chose: title words, seniority, the text rule, boards, evidence rules, abstention, missing fields and wrong versions.
@@ -51,7 +51,25 @@
 1. **Substring match:** "analyst" or "BI" matched inside other words. For example, "BI" in "ability" or "possibility" would make many unrelated postings look relevant: a false-friend filter.
 2. **Rank by word count:** score = the number of skill words found, with no cap and no rules. A long posting that lists every tool would always rank first, even a Senior one.
 
+## 5. Rules after measuring (v1.1 and v1.2)
+Every change below came from the **audit** (groups A, B and C; AUDIT.md), never from the held-out set H. Each was measured on H afterwards (WHAT_MOVES_THE_SCORE.md). Each is in its own filter file (`filters/filter_v1.1.json`, `filters/filter_v1.2.json`), with tests written before the code.
+
+| Rule | Status | Version | Evidence that led to it | Reason (one line) |
+|---|---|---|---|---|
+| **R1b** reject a title containing `engineer` (whole word) | **ADDED** | 1.1 | C: *Software Engineer, Data Warehouse Analytics* was kept; my verdict was "n" | "Analytics" in an engineering title is a **false friend** for R1. |
+| **R4 fix:** ignore an "N years" followed within 40 characters by `education / university / college / degree / school` | **ADDED** | 1.1 | C: *Financial Data Analyst Intern* had "At least 2 years of **university education**" counted as experience | Years of study are not years of experience (**false friend**). |
+| **R5** reject a location that names a non-US place and no US place; missing or vague locations pass | **ADDED** | 1.2 | C: both kept **intern** postings were "n" in my verdicts, with **Toronto** and **Singapore** in my reasons; many A reasons name non-US cities | Nadia is in Boston. Location was the most frequent reason in my "n" verdicts that the filter couldn't see. |
+| Exclude `FP&A` titles | **REJECTED after measuring** | — | C: 2 FP&A Analysts kept, both "n" ("finance role, wants finance degree") | It would fix 2 audit items, but it's a domain judgment about one family of titles. I'd rather keep a readable rule set than add a word rule for each domain I dislike. Recorded as a known source of wrong keeps. |
+| Add `specialist` as a role word | **REJECTED after measuring** | — | B: *Compensation Specialist* was rejected (R1); my verdict was "y" | On the whole corpus it would add 1 keep from 52 "specialist" titles. One posting doesn't justify widening R1. |
+| Case-sensitive `Excel` (so "you **excel** at" stops counting) | **REJECTED for now** | — | *Credit Risk Operations Analyst* ("You excel in…") is a **held-out** item | A clear false friend, but I found it on a held-out item. Changing the filter because of it would contaminate the held-out measurement. Candidate for v1.3. |
+| Read "two (2) years" | **REJECTED for now** | — | *Operations Insights…* is a **held-out** item | Same reason as Excel. |
+| **Cut** any v1.0 rule | none | — | Random rejects: 0 of 30 wrong (AUDIT.md) | No v1.0 rule was shown to reject good postings in the random sample. |
+
+**Who decided:** Claude measured each candidate on the corpus and proposed it. I chose: accept both v1.1 rules, add R5, reject FP&A and specialist (2026-11-25, ~2:55 pm).
+
 ## Change log
 | Version | Date | Change | Why |
 |---|---|---|---|
 | 1.0 | 2026-11-25 | First version, before any code | — |
+| 1.1 | 2026-11-25 | + R1b (no `engineer` titles); R4 ignores education years | Two false friends in the audit's kept sample (§5) |
+| 1.2 | 2026-11-25 | + R5 US-only location | My audit reasons (§5) |
