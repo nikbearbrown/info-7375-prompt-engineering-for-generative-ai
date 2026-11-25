@@ -78,10 +78,19 @@ A missing lead proves nothing: Claude's list is a list of places to look.
 
 ## The trust decision (the student's)
 
+The student's decision, pasted in chat on 2026-11-25 (arrived by 08:41 EST), in their words:
+
 ```text
-Decision:     allow / deny / pending  ____________
-For task:     ____________
-Server:       jobwatch-js3 0.1.1 (this folder, commit ________)
-Re-review if: ____________
-Why, in my words: ____________
+Decision:     allow
+For task:     Look up the v0.1 filter result for one saved public posting at a time in a controlled local session.
+Server:       jobwatch-js3 0.1.1, commit 459cf329
+Re-review if: The server, client, corpus, or tool scope changes, or I need it to handle retries or overlapping requests.
+Why, in my words: The score matched a recomputation from the saved posting. The 0.1.1 harness recorded 49 file reads and zero writes, network calls, or process launches on the tested inputs. The server accepts a second initialize and misses repeated request IDs, so I’d use one initialization and a unique ID for each request.
 ```
+
+Claude Code checked the facts in it against this evaluation, and each one is in the record:
+- the recomputation (the "Evidence" ledger row);
+- 49 reads and no writes, sockets or processes in the 0.1.1 harness run;
+- the second `initialize` and the repeated request ids ("What it declares").
+
+Claude Code supplied the commit, `459cf329`, for the blank in the form.

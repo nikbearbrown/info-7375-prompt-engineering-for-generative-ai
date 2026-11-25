@@ -65,10 +65,14 @@ Claude (claude-opus-5-5, 2026-11-24 23:03 UTC) got Chapter 8's instruction with 
 
 ## The trust decision (the student's)
 
+The student's decision, pasted in chat on 2026-11-25 (arrived by 08:41 EST), in their words:
+
 ```text
-Decision:     allow / deny / pending  ____________
-For task:     ____________
-Server:       info7375-readonly 1.0.0, main.py at a8629ce1 (sha256 948337af…1769)
-Re-review if: ____________
-Why, in my words: ____________
+Decision:     deny
+For task:     Connect this server as a dependency in the JS3 posting workflow.
+Server:       info7375-readonly 1.0.0, main.py at a8629ce1, SHA-256 948337af…1769
+Re-review if: A pinned revision provides the needed posting lookup and host tests cover ping, request IDs, initialization, and tool argument errors.
+Why, in my words: The 17 reads and zero writes describe a run against one classroom fixture. For JS3, the client needs predictable session and error handling. This server accepts Boolean IDs and empty or repeated initialization, fails ping, and reports arguments that fail the tool schema as protocol errors.
 ```
+
+Claude Code checked the four behaviours the student names against this evaluation's harness transcript and leads, and each one is in the record. "Fails ping" here means the server answers `ping` with `-32601`, method not found.

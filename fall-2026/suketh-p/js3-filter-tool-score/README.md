@@ -15,17 +15,18 @@ JS3 has five parts:
 
 Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURCES.md](SOURCES.md) says who wrote what.
 
-## Status on 2026-11-25, 08:30 EST
+## Status on 2026-11-25, 08:45 EST
 
 | Part | State |
 | --- | --- |
-| FILTER.md v0.1, code and tests | done; 279 tests pass |
+| FILTER.md v0.1, code and tests | done; 295 tests pass |
 | Reject audit (the student's 80 verdicts) | done: [reports/REJECT-AUDIT.md](reports/REJECT-AUDIT.md) |
 | One change, measured on held-out labels | done, once: [reports/ONE-CHANGE.md](reports/ONE-CHANGE.md). v0.2 matches 24 of 26 scored held-out rows, but the student's bar is **not met** (P53) |
 | Where every number came from | [reports/NUMBERS.md](reports/NUMBERS.md) |
 | Shortlist claims | done: [reports/SHORTLIST.md](reports/SHORTLIST.md). The student labelled all 64 (48 supported, 16 insufficient). Claude's challenge proposed 5 changes, and the student's decisions moved 10 labels (final 40 supported, 24 insufficient, 0 contradicted). The report includes the relevance-versus-entailment case (R4-C4) and the abstention rule with two counterexamples |
-| Tool server and two evaluations | server, transcripts and both evaluations done. **The student's trust decisions are pending** ([evaluations/](evaluations/)) |
-| Frictional entries 2–4, the sign-off | **pending, the student's** |
+| Tool server and two evaluations | done. The student's decisions: **allow** this folder's server for one saved posting at a time in a controlled local session; **deny** the course's server as a dependency for the JS3 workflow ([evaluations/](evaluations/)) |
+| Frictional entries 2–4 | done, the student's ([FRICTIONAL.md](FRICTIONAL.md)) |
+| The sign-off | written by the student and **withheld** (below) |
 
 ## Language, toolchain, and what a TA needs
 
@@ -211,14 +212,43 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
 | **The reject audit and false friends** | Compared the filter with the development labels; found the candidate false friends and the gap; drafted the report | Named both false friends | Naming a false friend says which matches the student counts as wrong | [REJECT-AUDIT.md](reports/REJECT-AUDIT.md) |
 | **The one change** | Wrote the options with their development effects; coded the chosen rule test-first; ran the held-out comparison once and reported it as it came out | Chose the change, how Can’t tell counts, and that "unmet requirement" covers both the filter and the claims | The objective and the stop rule are written first, by the person who owns the result (Ch. 9) | `4fec7d70`, `65c132b7` |
 | **The shortlist claims** | Drafted the 64 claims and quotes; checked that each quote exists; looked for the sentence that would flip each label (5 found); Claude Code checked that two of those sentences are in all eight postings | Labelled all 64; decided each of the 5 proposals and applied two of them to all eight ranks; kept the eight abstentions | A quote can be exact and still not support the claim. Only a reader who has read the passage can say | `9dd1ef76` |
-| **The tool server** | Wrote and tested it; recorded a real session and the harness runs; drafted both evaluations and checked Claude's leads against the spec | **Allow / deny / pending for each server (pending)**, in their own words | Trusting a server means deciding what it may touch on the student's behalf | [evaluations/](evaluations/) |
-| **The sign-off** | Lists the facts below | **Writes it, from the record, and signs or withholds it (pending)** | Their name goes on it | below |
+| **The tool server** | Wrote and tested it; recorded a real session and the harness runs; drafted both evaluations and checked Claude's leads against the spec | Decided, in their own words: allow this folder's server for one saved posting at a time in a controlled local session; deny the course's server as a dependency | Trusting a server means deciding what it may touch on the student's behalf | [evaluations/](evaluations/) |
+| **The sign-off** | Listed the facts below; ran the student's three named checks again to compare results (Claude Code's run) | Wrote it and **withheld** it, pending their own Terminal rerun | Their name goes on it | below |
 
-## Sign-off (the student's; not yet written)
+## Sign-off (the student's): withheld
+
+**Withheld by the student on 2026-11-25.** It was pasted in chat (arrived by 08:41 EST) and is reproduced verbatim:
+
+```text
+Sign-off · Job-Search Agent 3
+Checked:      My runs matched all three saved response hashes, independently recounted 1,551 postings, confirmed unchanged state, and passed 60 targeted tests.
+How:          I used the recorded outputs and made the four decisions on the claim challenge. I drafted FILTER.md and the initial posting and claim labels myself. My own Terminal rerun is pending.
+Not checked:  A fresh independently labeled benchmark, a corpus from a different day, or a live host session using jobwatch-js3 0.1.1.
+Not claiming: Corpus-wide accuracy, MCP conformance, or that v0.2 met my stop rule. P53 still reached the shortlist.
+Signed or withheld: Withheld · Suketh Reddy Produtoor · 2026-11-25
+```
+
+The student's reason, in Frictional entry 4: "I’m withholding sign-off while I reproduce the Terminal checks and document my work in SOURCES.md."
+
+### The three checks the student names
+
+The student wrote: "I ran these from the JS3 project folder. Use the same commands for my own Terminal record." Their commands and reported results:
+
+| Check | Command | The student's reported result |
+| --- | --- | --- |
+| Targeted tests | `python3 -B -W error -m unittest -v tests.test_filter_doc tests.test_experience tests.test_evidence tests.test_claim_labels tests.test_mcp_server` | "60 passed" |
+| Saved response integrity | `python3 -B -m jobwatch verify runs/2026-11-24-js3-corpus` | "All three SHA-256 hashes matched the trace" |
+| Independent recount and state check | `python3 -I -B checks/independent_check.py runs/2026-11-24-js3-corpus --state-before evidence/state/before-2026-11-24-js3-corpus.json --state-after evidence/state/after-2026-11-24-js3-corpus.json` | "631 Anthropic, 890 Databricks, 30 Linear. The state snapshots matched byte for byte." |
+
+The third command was pasted on three lines without line-continuation backslashes. It is shown here on one line, which is how it runs.
+
+- **Claude Code's run, not the student's.** Claude Code ran the same three commands on `7e4ae241` (2026-11-25, 13:43Z) and got the results the student reports: 60 tests OK, three hashes OK, and PASS with 631 / 890 / 30 jobs and "state file unchanged between the two copies" ([evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt](evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt)).
+- **The student's own output is not here yet.** No Terminal output from the student's own run is in this repository. The sign-off's How line says "My own Terminal rerun is pending."
+
 
 ### The facts Claude Code listed for it
 
-- **The student's own checks so far:** the 80 verdicts, the 64 claim labels, the four decisions on Claude's challenge, their choices in FILTER.md, and naming the false friends. As of 2026-11-25 08:30 EST the student has not yet run any test or command themselves in JS3.
+- **The student's own checks so far:** the 80 verdicts, the 64 claim labels, the four decisions on Claude's challenge, their choices in FILTER.md, naming the false friends, and the two trust decisions. The three Terminal checks above are reported by the student; their own output is pending.
 - **Claude Code's tests and checks:**
   - 279 tests, offline.
   - 16 wrong versions swapped in and caught.
