@@ -136,5 +136,10 @@ def write_report(source: str = "hand") -> None:
             if loc.get("best"):
                 L.append(f"  - location read as {loc['best']['kind']} from \"{loc['best']['value']}\"")
     AUDIT.mkdir(exist_ok=True)
+    if source == "hand":
+        L += ["", "## Later check: a second, blind draw", "",
+              "25 of the 30 random rejects above failed the role gate, so this sample could hardly find a real miss. "
+              "A further draw of 20 engineering-titled rejects, judged later the same day, is in "
+              "`audit/BLIND-EXTRA.md`, with its own sample-size statement and the rows corrected after review."]
     (AUDIT / out_name).write_text("\n".join(L) + "\n")
     print(f"audit/{out_name} written; random rejects Y {rr['Y']}/{fn_known}, kept N {kr['N']}/{fp_known}")

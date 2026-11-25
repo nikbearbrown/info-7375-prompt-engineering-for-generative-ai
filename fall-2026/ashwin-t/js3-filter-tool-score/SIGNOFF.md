@@ -23,8 +23,8 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
 
 ## Addendum, 2026-11-25 (evening)
 
-Drafted by Claude Code and approved by Ashwin in chat on 2026-11-25. Ashwin's signature above stays on the
-original wording; this addendum adds later checks and gaps.
+Drafted by Claude Code and approved by Ashwin in chat on 2026-11-25. Ashwin's first signature stays on the
+original wording; this addendum adds later checks and gaps and carries its own signature.
 
 ```text
 Checked (with Claude's help):
@@ -35,12 +35,20 @@ Checked (with Claude's help):
               also requires an eligible location: 4 postings reach 7 only with non-US locations and are
               correctly REJECT.
 Checked by hand (added after the hand check, later that evening):
-              I labeled a blind sample of 15 claims (10 of 15 agree with Codex), and applied the written
+              I labeled a sample of 15 claims with the Codex label hidden (12 of 15 agree with Codex,
+              after re-labeling H12, whose first card stated a false fact, and correcting H13), and applied the written
               rule to two postings: both decisions match the code; my scores (7 and 5) are one below the
               code's (8 and 6), recorded as given (audit/BLIND-EXTRA.md).
 Not checked:  - The other 75 claims have only Codex labels.
-              - My 20 blind verdicts came from a 4-option form; 6 were corrected after review.
+              - My 20 blind verdicts came from a 4-option form; 9 were corrected after review, so those 9 are
+                not blind. Final: 2 Y, 14 N, 4 ?.
+              - The claim sample is not fully blind: I had relayed all 90 Codex labels earlier that day.
+Test counts:  55 (my run at b616bc09) and 56 (Claude Code's run at 4943de33) above are earlier runs at those
+              commits. The current suite at this addendum is 87 tests.
+Signed or withheld (addendum): Signed: Ashwin Thankachan, November 25, 2026.
 ```
+
+The addendum signature was given by Ashwin in chat on 2026-11-25 (evening), after the second TA-style review.
 
 ## Facts Ashwin can check, with the test or file for each
 

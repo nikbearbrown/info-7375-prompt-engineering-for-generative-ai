@@ -73,7 +73,7 @@ are attributed below; no personal thinking or feelings are inferred.
 ## 2026-11-25 (evening): blind engineering rejects after a TA-style review
 
 - **What happened:** Ashwin answered 20 newly drawn engineering-titled rejects through a four-option form, then
-  corrected 6 answers (106, 108, 109, 115, 117, 118) that contradicted their own cards. Final: 5 Y, 11 N, 4 ?. No
+  corrected 9 answers (101, 106, 108, 109, 110, 115, 116, 117, 118) that contradicted their own cards or reasons, over two reviews. Final: 2 Y, 14 N, 4 ?. No
   rule was changed.
 - **Evidence:** `labels/blind-eng-rejects-sheet.csv`, `audit/BLIND-EXTRA.md`, FILTER.md section 10.
 - **(Ashwin; drafted by Claude Code, approved by Ashwin in chat on 2026-11-25)** "My quick blind answers exposed a

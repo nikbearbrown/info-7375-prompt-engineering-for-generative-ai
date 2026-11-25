@@ -58,7 +58,7 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **After a strict TA-style review (2026-11-25, evening; review text pasted by Ashwin):** Claude Code wrote
   `jobfilter/such_as.py`, `jobfilter/preinit_probe.py` and `jobfilter/blind_extra.py` with their tests, ran the
   before-`initialize` probes on both servers (22:25 UTC), and drew the blind worksheets. The 20 verdicts, 15 claim labels
-  and 2 hand scores in `audit/BLIND-EXTRA.md` are Ashwin's choices in chat (no recommended answer shown; the verdicts from a four-option form (6 corrected by Ashwin after review); the
+  and 2 hand scores in `audit/BLIND-EXTRA.md` are Ashwin's choices in chat (no recommended answer shown; 9 verdicts, H12 and H13 were changed after TA-style reviews, H12 because Claude Code's card had stated a false fact; the verdicts from a four-option form (6 corrected by Ashwin after review); the
   card-fact reasons, the FILTER.md section 10 rows of that evening, one Frictional paragraph and the SIGNOFF addendum
   were drafted by Claude Code and approved by Ashwin. A Claude Code subagent wrote `tests/test_recompute_v10.py`.
 
@@ -99,6 +99,9 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   - Committed `cf210f14` before its test passed, fixed in `036e6fae`.
   - Recorded Codex's 29 excerpt-based claim labels as Ashwin's own (`2d01d368` … `e13682ec`, `267dfff9`); Ashwin
     corrected that on 2026-11-25.
+  - Told Ashwin, on claim card H12 and then in SHORTLIST.md (`ed75078f`), that "relocation" never appears in a
+    posting. It does ("Relocation assistance"); a case-sensitive search missed it. Corrected after a second
+    TA-style review, and Ashwin re-labeled H12 with the correct fact.
   - Printed the held-out labels while checking the sheet, which is one reason the held-out comparison is
     potentially contaminated.
 

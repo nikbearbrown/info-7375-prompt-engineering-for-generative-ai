@@ -94,7 +94,7 @@ need its own one-change run, and a clean evaluation set.
 The 20 blind engineering-titled rejects (`audit/BLIND-EXTRA.md`) were drawn and labeled after v1.1 was frozen, and
 neither Claude nor Codex saw those labels before. On them, v1.0 and v1.1 make identical decisions (all 20 REJECT,
 same scores): none of their titles contains "mission manager". So the clean set confirms the change touches nothing
-it was not aimed at, and it misses the same 5 postings Ashwin labeled Y. It cannot show whether the change helps,
+it was not aimed at, and it misses the same 2 postings Ashwin labeled Y (after Ashwin's corrections). It cannot show whether the change helps,
 because it contains no posting the change affects. Computed with `runs/v1.0` and `runs/v1.1` decisions on 2026-11-25.
 
 ## 4. What persistence is not proof of

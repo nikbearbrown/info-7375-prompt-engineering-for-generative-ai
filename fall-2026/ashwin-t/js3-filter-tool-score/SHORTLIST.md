@@ -22,9 +22,13 @@ column separates two kinds:
 
 **Human check, added 2026-11-25 (evening).** Ashwin labeled a blind random sample of 15 of the 90 claims (seed
 20261128), with the Codex label hidden (`shortlist/claim-human-sheet.csv`, `audit/BLIND-EXTRA.md`). Ashwin agreed
-with Codex on 10 of 15. One disagreement shows a gap in the Codex labels: claim H12 (`palantir-71ed917e-c5`) says the
-posting "lists relocation assistance as a benefit", but the word "relocation" never appears in it. Codex labeled it
-S; Ashwin labeled it C. The other 75 claims have only the Codex label.
+with Codex on 12 of 15 (H9, H11 and H15 differ). The Codex label was hidden on each card, but the check is not fully
+blind: earlier that day Ashwin had relayed all 90 Codex labels in chat. **Correction:** an earlier version of this
+paragraph said claim H12 (`palantir-71ed917e-c5`) was a Codex error because "relocation" never appears in the
+posting. That was false: the benefits list says "Relocation assistance". Claude Code's case-sensitive search had
+missed it, and the same false fact was shown on Ashwin's card, so Ashwin's first label (C) rested on it. Ashwin
+re-labeled H12 as S with the correct fact; H13 was also corrected after review. The other 75 claims have only the
+Codex label.
 
 ## What ran
 
@@ -110,7 +114,7 @@ US, so "I cannot tell" stays the right answer on remote eligibility for those po
 
 ## Still open
 
-- **All 90 labels are AI-assisted; 15 also have a blind human label (10 of 15 agree).** Ashwin may review any of them and override them in
+- **All 90 labels are AI-assisted; 15 also have a human label made with the Codex label hidden (12 of 15 agree).** Ashwin may review any of them and override them in
   `claim-sheet.csv`. A changed row should keep the earlier label in `note`.
 - The 2 v1.1-only KEEPs have no claims. That is by scope, because the shortlist is v1.0's, but it means the claim check says nothing about them.
 - One possible next change, to one object: add the structured fields to the context Claude is given. It is not

@@ -92,3 +92,7 @@ So the random-reject result shows that wanted postings are rare among the mostly
   - Kubernetes via "kubernetes": …ted system to allow the remote operation and maintenance of kubernetes clusters. our mission is to extract the entire state of a c…
   - Distributed Systems via "distributed systems": …of container technologies like oci and docker, storage, and distributed systems, you’ll find opportunities here to dive deep into storage f…
   - location read as us-location from "New York, NY"
+
+## Later check: a second, blind draw
+
+25 of the 30 random rejects above failed the role gate, so this sample could hardly find a real miss. A further draw of 20 engineering-titled rejects, judged later the same day, is in `audit/BLIND-EXTRA.md`, with its own sample-size statement and the rows corrected after review.
