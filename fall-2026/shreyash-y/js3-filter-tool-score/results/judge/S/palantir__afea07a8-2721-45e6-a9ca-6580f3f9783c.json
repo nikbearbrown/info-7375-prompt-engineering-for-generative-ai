@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:56+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:afea07a8-2721-45e6-a9ca-6580f3f9783c",
+ "raw_text": "{\"posting_id\": \"palantir:afea07a8-2721-45e6-a9ca-6580f3f9783c\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Software Engineer - Apollo Platform' matches a target role, and the content mentions two résumé skills (Docker and Java), with no stated minimum experience and no exclusion triggers. The department is 'Dev', which is not an allowed department, and the location is Seattle, WA with no Boston or U.S.-remote support, so conditions 2 and 3 fail.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:afea07a8-2721-45e6-a9ca-6580f3f9783c",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Software Engineer - Apollo Platform' matches a target role, and the content mentions two résumé skills (Docker and Java), with no stated minimum experience and no exclusion triggers. The department is 'Dev', which is not an allowed department, and the location is Seattle, WA with no Boston or U.S.-remote support, so conditions 2 and 3 fail."
+ },
+ "made_up_quotes": [],
+ "session_id": "a059662b-1975-4592-8bfa-b21bce63d632",
+ "cost_usd": 0.00112082,
+ "duration_ms": 6508
+}

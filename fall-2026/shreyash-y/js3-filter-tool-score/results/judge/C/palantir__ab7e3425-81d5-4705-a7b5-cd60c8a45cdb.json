@@ -1,0 +1,41 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "C",
+ "called_at": "2026-11-25T22:32:04+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/context-filter-v1.md",
+ "prompt_sha256": "58a6ce4a84d8a18e69a9cbf0a6dee46a7a8302f248021f151fcccdd8d4990b13",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb",
+ "raw_text": "{\"posting_id\": \"palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting's location and offices both say New York, NY, and the content never offers Boston or US remote work, so it fails condition 3 against the résumé location (Boston, MA) and remote_ok. The title contains 'Software Engineer' (matches target_roles) and Palantir's 'Dev' department counts as Engineering under the Palantir-specific rule. The content names Java, Python and Docker from the résumé skills and states no years of experience, which passes as 'not stated' against experience_years. No title words or job-type terms from the résumé exclusions appear, so this is a closest call that fails only on location.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting's location and offices both say New York, NY, and the content never offers Boston or US remote work, so it fails condition 3 against the résumé location (Boston, MA) and remote_ok. The title contains 'Software Engineer' (matches target_roles) and Palantir's 'Dev' department counts as Engineering under the Palantir-specific rule. The content names Java, Python and Docker from the résumé skills and states no years of experience, which passes as 'not stated' against experience_years. No title words or job-type terms from the résumé exclusions appear, so this is a closest call that fails only on location."
+ },
+ "made_up_quotes": [],
+ "session_id": "36583616-7da4-4606-b30e-062d5ba6aca6",
+ "cost_usd": 0.0422192,
+ "duration_ms": 5559
+}

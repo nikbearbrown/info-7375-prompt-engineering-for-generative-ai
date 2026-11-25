@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:50+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb",
+ "raw_text": "{\"posting_id\": \"palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer' (resume target_roles), and the content mentions Java, Python, and Docker (resume skills), so Conditions 1 and 4 pass. The department is 'Dev', which is not an allowed department (Condition 2 fails), and the location and offices are New York, NY with no explicit support for remote U.S. work, so Condition 3 fails against the resume location Boston, MA and remote_ok. No experience years are stated and no exclusion applies, so Conditions 5 and 6 pass.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:ab7e3425-81d5-4705-a7b5-cd60c8a45cdb",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title contains 'Software Engineer' (resume target_roles), and the content mentions Java, Python, and Docker (resume skills), so Conditions 1 and 4 pass. The department is 'Dev', which is not an allowed department (Condition 2 fails), and the location and offices are New York, NY with no explicit support for remote U.S. work, so Condition 3 fails against the resume location Boston, MA and remote_ok. No experience years are stated and no exclusion applies, so Conditions 5 and 6 pass."
+ },
+ "made_up_quotes": [],
+ "session_id": "c2e90982-bf18-49b6-ad93-b9032aa8f48f",
+ "cost_usd": 0.00143232,
+ "duration_ms": 6264
+}

@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "T",
+ "called_at": "2026-11-25T22:33:22+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": true,
+ "tool_calls": 0,
+ "posting_key": "oscar:8380036",
+ "raw_text": "{\"posting_id\": \"oscar:8380036\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases from target_roles (Condition 1), and the department 'Oscar Medical Group' is not an allowed department (Condition 2). The content mentions none of the ten résumé skills (Condition 4). Location passes because the role is remote within US states that include Massachusetts, and experience passes because the content requires '3+ years', but the role still fails Conditions 1, 2 and 4.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:8380036",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   4
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "experience_years",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases from target_roles (Condition 1), and the department 'Oscar Medical Group' is not an allowed department (Condition 2). The content mentions none of the ten résumé skills (Condition 4). Location passes because the role is remote within US states that include Massachusetts, and experience passes because the content requires '3+ years', but the role still fails Conditions 1, 2 and 4."
+ },
+ "made_up_quotes": [],
+ "session_id": "c7bf69ee-9d7b-4323-8004-8e5ce911a55e",
+ "cost_usd": 0.0345516,
+ "duration_ms": 7860
+}

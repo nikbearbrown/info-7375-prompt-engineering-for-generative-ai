@@ -1,0 +1,42 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:47+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:67110929-adea-41c3-851a-8882e222d9e4",
+ "raw_text": "{\"posting_id\": \"palantir:67110929-adea-41c3-851a-8882e222d9e4\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3, 5], \"resume_fields\": [\"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Software Engineer - Edge AI Systems' passes Condition 1, and the content mentions two résumé skills (Python, PyTorch), so Condition 4 passes. The department is 'Dev', which is not an allowed department (Condition 2 fails), and the location is Seattle, WA with no Boston or explicit US-remote support against the résumé's location and remote_ok fields (Condition 3 fails). The content requires 5+ years of experience, above the résumé's experience_years of 3 (Condition 5 fails), while no exclusion applies (Condition 6 passes).\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:67110929-adea-41c3-851a-8882e222d9e4",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3,
+   5
+  ],
+  "resume_fields": [
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Software Engineer - Edge AI Systems' passes Condition 1, and the content mentions two résumé skills (Python, PyTorch), so Condition 4 passes. The department is 'Dev', which is not an allowed department (Condition 2 fails), and the location is Seattle, WA with no Boston or explicit US-remote support against the résumé's location and remote_ok fields (Condition 3 fails). The content requires 5+ years of experience, above the résumé's experience_years of 3 (Condition 5 fails), while no exclusion applies (Condition 6 passes)."
+ },
+ "made_up_quotes": [],
+ "session_id": "40198a78-c0b7-47a7-8a67-ee08f6415566",
+ "cost_usd": 0.00116332,
+ "duration_ms": 7706
+}

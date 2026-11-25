@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B",
+ "called_at": "2026-11-25T22:29:06+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "oscar:8380036",
+ "raw_text": "{\"posting_id\": \"oscar:8380036\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases, so Condition 1 fails. The department 'Oscar Medical Group' is not an allowed department, so Condition 2 fails. The content mentions none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker), so Condition 4 fails. Location passes because the role is remote and Massachusetts is a permitted residence state, experience passes at 3+ years against the résumé's experience_years of 3, and the title has no excluded words.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:8380036",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   4
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "experience_years",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases, so Condition 1 fails. The department 'Oscar Medical Group' is not an allowed department, so Condition 2 fails. The content mentions none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker), so Condition 4 fails. Location passes because the role is remote and Massachusetts is a permitted residence state, experience passes at 3+ years against the résumé's experience_years of 3, and the title has no excluded words."
+ },
+ "made_up_quotes": [],
+ "session_id": "bc38d695-01d5-46c8-90ca-2fc49ee66a68",
+ "cost_usd": 0.0335784,
+ "duration_ms": 6681
+}

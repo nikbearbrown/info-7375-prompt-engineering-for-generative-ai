@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "T",
+ "called_at": "2026-11-25T22:33:14+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": true,
+ "tool_calls": 0,
+ "posting_key": "oscar:7573013",
+ "raw_text": "{\"posting_id\": \"oscar:7573013\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [3, 4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains Software Engineer and the department is Engineering, matching target_roles, so Conditions 1 and 2 pass. The location is Los Angeles, with a hybrid schedule of 3 days per week in office and no US-remote option, so it does not match the résumé location of Boston, MA or remote_ok, and Condition 3 fails. The content names none of the résumé skills (it lists AWS/GCP, Terraform, Kubernetes and similar tools), so Condition 4 fails. The content requires 6+ years, more than the 3-year limit, so Condition 5 fails, while Condition 6 passes because the title has no excluded word and the content does not explicitly require relocation.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:7573013",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   3,
+   4,
+   5
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title contains Software Engineer and the department is Engineering, matching target_roles, so Conditions 1 and 2 pass. The location is Los Angeles, with a hybrid schedule of 3 days per week in office and no US-remote option, so it does not match the résumé location of Boston, MA or remote_ok, and Condition 3 fails. The content names none of the résumé skills (it lists AWS/GCP, Terraform, Kubernetes and similar tools), so Condition 4 fails. The content requires 6+ years, more than the 3-year limit, so Condition 5 fails, while Condition 6 passes because the title has no excluded word and the content does not explicitly require relocation."
+ },
+ "made_up_quotes": [],
+ "session_id": "2dd1a274-b76a-4da0-a678-082409913fc9",
+ "cost_usd": 0.0383356,
+ "duration_ms": 7703
+}

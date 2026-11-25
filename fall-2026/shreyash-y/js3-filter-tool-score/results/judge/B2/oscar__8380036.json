@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B2",
+ "called_at": "2026-11-25T22:30:00+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "oscar:8380036",
+ "raw_text": "{\"posting_id\": \"oscar:8380036\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases from target_roles, so Condition 1 fails. The department 'Oscar Medical Group' is not an allowed department, so Condition 2 fails. The content mentions none of the résumé skills (e.g., Python, Java, SQL, Docker), so Condition 4 fails. The US-remote location includes Massachusetts, matching location and remote_ok, and the 3+ year experience minimum and exclusions checks pass.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:8380036",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   4
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "experience_years",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title 'Physician - Virtual Urgent Care (Part-Time)' contains none of the required engineering phrases from target_roles, so Condition 1 fails. The department 'Oscar Medical Group' is not an allowed department, so Condition 2 fails. The content mentions none of the résumé skills (e.g., Python, Java, SQL, Docker), so Condition 4 fails. The US-remote location includes Massachusetts, matching location and remote_ok, and the 3+ year experience minimum and exclusions checks pass."
+ },
+ "made_up_quotes": [],
+ "session_id": "a5a939b7-360b-4ef3-8e76-831fa7e0baab",
+ "cost_usd": 0.0181826,
+ "duration_ms": 7774
+}

@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B",
+ "called_at": "2026-11-25T22:29:18+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:67110929-adea-41c3-851a-8882e222d9e4",
+ "raw_text": "{\"posting_id\": \"palantir:67110929-adea-41c3-851a-8882e222d9e4\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer', which matches target_roles, and the content mentions the skills Python and PyTorch. The posting's department 'Dev' is not one of the allowed departments, so condition 2 fails. The posting location and offices are Seattle, WA, with no explicit US remote support, which fails condition 3 against the résumé location of Boston, MA and remote_ok. The content requires 5+ years of experience, which exceeds the 3-year limit tied to experience_years; the exclusions in condition 6 do not apply because the title has no excluded words and the posting is not contract-only, unpaid, or explicitly requiring relocation.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:67110929-adea-41c3-851a-8882e222d9e4",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3,
+   5
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title contains 'Software Engineer', which matches target_roles, and the content mentions the skills Python and PyTorch. The posting's department 'Dev' is not one of the allowed departments, so condition 2 fails. The posting location and offices are Seattle, WA, with no explicit US remote support, which fails condition 3 against the résumé location of Boston, MA and remote_ok. The content requires 5+ years of experience, which exceeds the 3-year limit tied to experience_years; the exclusions in condition 6 do not apply because the title has no excluded words and the posting is not contract-only, unpaid, or explicitly requiring relocation."
+ },
+ "made_up_quotes": [],
+ "session_id": "fc9c71ba-5b8e-45ac-9fd9-526903aeb4fa",
+ "cost_usd": 0.0380904,
+ "duration_ms": 6756
+}

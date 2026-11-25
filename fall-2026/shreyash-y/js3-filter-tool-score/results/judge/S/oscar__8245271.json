@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:35+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "oscar:8245271",
+ "raw_text": "{\"posting_id\": \"oscar:8245271\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title \\\"Part-Time Physician (Bilingual Spanish) - Virtual Urgent Care\\\" contains none of the required role phrases (resume target_roles), and the department \\\"Oscar Medical Group\\\" is not an allowed department. The content mentions none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker). Location (remote, Massachusetts listed among eligible states), experience (3+ years vs. experience_years 3), and exclusions pass.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:8245271",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   4
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title \"Part-Time Physician (Bilingual Spanish) - Virtual Urgent Care\" contains none of the required role phrases (resume target_roles), and the department \"Oscar Medical Group\" is not an allowed department. The content mentions none of the résumé skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker). Location (remote, Massachusetts listed among eligible states), experience (3+ years vs. experience_years 3), and exclusions pass."
+ },
+ "made_up_quotes": [],
+ "session_id": "e501562e-ac84-4111-89f0-940c35698ea1",
+ "cost_usd": 0.0010513200000000001,
+ "duration_ms": 5851
+}

@@ -1,0 +1,38 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "C",
+ "called_at": "2026-11-25T22:31:28+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/context-filter-v1.md",
+ "prompt_sha256": "58a6ce4a84d8a18e69a9cbf0a6dee46a7a8302f248021f151fcccdd8d4990b13",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "klaviyo:7696724003",
+ "raw_text": "{\"posting_id\": \"klaviyo:7696724003\", \"verdict\": \"Relevant\", \"failed_conditions\": [], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"experience_years\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Software Engineer - Growth' contains 'Software Engineer', which matches target_roles, and has no excluded whole word such as Director, Staff, Principal, Manager or Lead (exclusions). The departments field is 'Engineering', and the location and offices fields (Boston, MA; Boston) match the résumé location, with content confirming on-site work at the Boston HQ. The content names TypeScript, React and Python from the skills list. Experience is marked 'not stated' because the content asks for an 'extensive background' but gives no minimum years (experience_years), and the content does not say the role is contract, part-time, temporary or unpaid.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "klaviyo:7696724003",
+  "verdict": "Relevant",
+  "failed_conditions": [],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "experience_years",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title 'Senior Software Engineer - Growth' contains 'Software Engineer', which matches target_roles, and has no excluded whole word such as Director, Staff, Principal, Manager or Lead (exclusions). The departments field is 'Engineering', and the location and offices fields (Boston, MA; Boston) match the résumé location, with content confirming on-site work at the Boston HQ. The content names TypeScript, React and Python from the skills list. Experience is marked 'not stated' because the content asks for an 'extensive background' but gives no minimum years (experience_years), and the content does not say the role is contract, part-time, temporary or unpaid."
+ },
+ "made_up_quotes": [],
+ "session_id": "3793729c-bf06-4cfe-bef9-c10cde2ddf5a",
+ "cost_usd": 0.062128,
+ "duration_ms": 9177
+}

@@ -89,6 +89,19 @@ def quotes_in(justification):
     return [q for q in re.findall(r'"([^"]{3,})"', justification or "") if q.lower() != "not stated"]
 
 
+QUOTE_MARKS = str.maketrans({"\u201c": "'", "\u201d": "'", "\u2018": "'", "\u2019": "'", '"': "'"})
+
+
+def normal(s):
+    """For the second, normalized check: quote marks made alike, trailing punctuation dropped."""
+    return squash(s).translate(QUOTE_MARKS).lower().rstrip(",.;:!? ")
+
+
+def made_up_quotes_normalized(justification, p):
+    hay = normal(" ".join([p["title"], p["location"], " ".join(p["offices"]), " ".join(p["departments"]), p["content"]]))
+    return [q for q in quotes_in(justification) if normal(q) not in hay]
+
+
 def made_up_quotes(justification, p):
     """WV4 on a real model: double-quoted text in the justification that is in none of the posting's fields."""
     hay = squash(" ".join([p["title"], p["location"], " ".join(p["offices"]), " ".join(p["departments"]), p["content"]])).lower()

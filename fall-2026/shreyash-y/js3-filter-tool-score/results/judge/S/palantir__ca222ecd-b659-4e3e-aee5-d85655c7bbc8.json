@@ -1,0 +1,42 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:57+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8",
+ "raw_text": "{\"posting_id\": \"palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 1 passes because the title contains 'Software Engineer'. Condition 2 fails because the posting's departments field is 'Dev', which is not an allowed department. Condition 3 fails because the location and offices fields are both Washington, D.C., and the generic 'Remote on an exceptional basis' boilerplate in the content does not explicitly support remote work for this role in the US. Conditions 4 to 6 pass: the content mentions Python, Java, TypeScript, and React from the résumé skills, no experience requirement is stated, and no exclusion applies.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "Condition 1 passes because the title contains 'Software Engineer'. Condition 2 fails because the posting's departments field is 'Dev', which is not an allowed department. Condition 3 fails because the location and offices fields are both Washington, D.C., and the generic 'Remote on an exceptional basis' boilerplate in the content does not explicitly support remote work for this role in the US. Conditions 4 to 6 pass: the content mentions Python, Java, TypeScript, and React from the résumé skills, no experience requirement is stated, and no exclusion applies."
+ },
+ "made_up_quotes": [],
+ "session_id": "20474400-4ac6-4dab-b5e6-f5a2728219e5",
+ "cost_usd": 0.0012534199999999999,
+ "duration_ms": 7145
+}
