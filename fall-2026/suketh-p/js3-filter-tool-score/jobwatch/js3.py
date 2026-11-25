@@ -337,6 +337,27 @@ def audit_dev(audit_path, sample_path, labels_path, out_dir):
     return rows
 
 
+def dev_effect(run_dir, sample_path, labels_path, variant_paths):
+    """What each variant changes on the 50 development labels (never the held-out 30), and how
+    many of all postings would reach Alex."""
+    from jobwatch import measure, sample, variants
+
+    items, _ = corpus.load(run_dir)
+    members = json.loads(Path(sample_path).read_text(encoding="utf-8"))["members"]
+    labels = json.loads(Path(labels_path).read_text(encoding="utf-8"))["labels"]
+    dev = {(m["board"], m["key"]): m["label_id"] for m in sample.development(members)}
+    base = variants.rescore(items)
+    reach = sum(measure.decision(r) == "reaches" for r in base.values())
+    for path in variant_paths:
+        spec = variants.load(path)
+        after = variants.rescore(items, spec)
+        flips = sorted((dev[k], labels[dev[k]]["label"], measure.decision(base[k]), measure.decision(after[k]))
+                       for k in dev if measure.decision(base[k]) != measure.decision(after[k]))
+        changed = ", ".join(f"{i} ({label}: {a} -> {b})" for i, label, a, b in flips) or "none"
+        print(f"{spec['name']}: reaching {reach} -> {sum(measure.decision(r) == 'reaches' for r in after.values())}; "
+              f"development rows that change: {changed}")
+
+
 def held_out_run(run_dir, sample_path, labels_path, variant_path, out_dir):
     """The one held-out comparison (Chapter 9): v0.1 and the variant on the 30 held-out labels.
     Refuses to run into a folder that already holds results."""
@@ -453,6 +474,11 @@ def main(argv=None):
     dev.add_argument("--sample", required=True)
     dev.add_argument("--labels", required=True)
     dev.add_argument("--out", required=True)
+    eff = commands.add_parser("dev-effect", help="what each variant changes on the development labels only")
+    eff.add_argument("run_dir")
+    eff.add_argument("--sample", required=True)
+    eff.add_argument("--labels", required=True)
+    eff.add_argument("variants", nargs="+")
     hel = commands.add_parser("held-out", help="the one held-out comparison: v0.1 and a variant (refuses a second run)")
     hel.add_argument("run_dir")
     hel.add_argument("--sample", required=True)
@@ -460,6 +486,9 @@ def main(argv=None):
     hel.add_argument("--variant", required=True)
     hel.add_argument("--out", required=True)
     args = parser.parse_args(argv)
+    if args.command == "dev-effect":
+        dev_effect(args.run_dir, args.sample, args.labels, args.variants)
+        return 0
     if args.command == "held-out":
         from jobwatch import held_out
         try:

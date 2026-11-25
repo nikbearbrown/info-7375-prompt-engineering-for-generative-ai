@@ -1,6 +1,6 @@
 # Where every number in the scorer came from (Chapter 9)
 
-Claude Code drafted this table on 2026-11-24 from FILTER.md, the code and the commit record. "Hand-set" means a person chose the value. "Fitted" would mean an optimizer chose it from labels. **Nothing in this scorer is fitted**, and no number was chosen by looking at a hand label. "Inherited" means it was carried over unchanged from earlier work.
+Claude Code drafted this table on 2026-11-24 from FILTER.md, the code and the commit record. "Hand-set" means a person chose the value. "Fitted" would mean an optimizer chose it from labels. **Nothing in this scorer is fitted.** v0.1's numbers were all set before any hand label existed. v0.2's one new number (3 years) was chosen after the 50 development labels, never the 30 held-out ones. (This sentence was revised on 2026-11-24 after the reject audit; until then it read "no number was chosen by looking at a hand label".) "Inherited" means it was carried over unchanged from earlier work.
 
 ## The filter (FILTER.md v0.1, `jobwatch/screen.py`)
 
@@ -42,6 +42,16 @@ Claude Code drafted this table on 2026-11-24 from FILTER.md, the code and the co
 | Kept sample | 10 | hand-set | Claude Code |
 | Sample seed, shuffle seed | 20261124, 1125 | hand-set (the date) | Claude Code |
 | Bar | 27 of 30 held-out decisions; no unmet requirement cleared; at most one wrong exclusion | hand-set, before JS3 | the student (film beat B17, 2026-11-21) |
+| Can’t tell in the held-out score | left out; pass at 90% of the Yes and No rows | chosen from Claude Code's options after the development audit, before the held-out run | the student |
+| What counts as a cleared unmet requirement (filter side) | a reaching row labelled No whose reason states years without "preferred", or names a minimum, a requirement, a clearance, new graduates or entry-level applicants | Claude Code's mechanical reading of the student's "Both", fixed in FILTER.md and `jobwatch/held_out.py` before the run | Claude Code |
+
+## FILTER.md v0.2 (added 2026-11-24, after the reject audit)
+
+| Object | Value | Origin | Who | Record |
+| --- | --- | --- | --- | --- |
+| Experience minimum | 3 years (v0.1: no rule) | hand-set. The number is in the option Claude Code wrote, and the student chose that option. Claude Code put 3 in it because the one development posting labelled Yes that states years (P30) asks for 2+. 3 and 4 gave the same development result | the student's choice | FILTER.md; `variants/v0.2-experience-minimum.json` |
+| How a description is read: block tags, a bold heading's 100-character limit, the preferred markers (preferred, nice to have, bonus, a plus, pluses, may also), the words that make a mention not a requirement (after, every, last, past, first, next, previous, recent, within; ago, thereafter, old), number words one to twenty | — | hand-set from FILTER.md ("Five years preferred") and the text of development and other non-held-out postings, before the held-out run | Claude Code | `jobwatch/experience.py`, `tests/test_experience.py` |
+| Candidate changes not chosen | 3 committed specs | written by Claude Code to reproduce the development counts | Claude Code | `variants/candidates/` |
 
 ## Inherited from JS2, not changed in JS3
 

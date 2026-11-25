@@ -1,0 +1,7 @@
+$ python3 -m jobwatch.js3 dev-effect runs/2026-11-24-js3-corpus --sample labels/v0.1-sample.json --labels labels/hand-labels.json variants/v0.2-experience-minimum.json variants/candidates/*.json
+# 2026-11-25T00:49:03Z, after the held-out run; development rows only, reproducing the counts the student saw at about 19:30 EST
+v0.2: reaching 42 -> 28; development rows that change: P25 (no: reaches -> rejected), P44 (no: reaches -> rejected), P46 (no: reaches -> rejected), P56 (no: reaches -> rejected), P71 (no: reaches -> rejected)
+add early-career phrases to the description topics: reaching 42 -> 44; development rows that change: P30 (yes: rejected -> reaches)
+cut ai from the title topics: reaching 42 -> 36; development rows that change: P20 (cannot tell: reaches -> rejected), P44 (no: reaches -> rejected), P46 (no: reaches -> rejected), P71 (no: reaches -> rejected)
+cut machine learning from the description topics: reaching 42 -> 26; development rows that change: P16 (cannot tell: reaches -> rejected), P25 (no: reaches -> rejected), P37 (cannot tell: reaches -> rejected), P57 (cannot tell: reaches -> rejected), P72 (cannot tell: reaches -> rejected), P77 (cannot tell: reaches -> rejected)
+# exit code 0
