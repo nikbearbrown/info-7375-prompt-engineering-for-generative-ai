@@ -66,6 +66,15 @@ Take the title up to the first `,`, ` - `, `(`, or `:`. Trim it and collapse whi
     below Maya's level.
   - Inherited from JS1 Gate 2, including its whole-word revision ("Intern" matched
     "International" in 8 JS1 titles).
+- **Technical Program Manager roles [DECIDED 2026-11-25, before the audit recheck]:**
+  - A TPM role counts as PM work for Maya only if the posting describes **owning product
+    direction**: deciding what gets built, setting the product strategy or roadmap. A posting
+    that describes only program delivery (coordinating schedules, dependencies, launches) does
+    not count.
+  - The same years, location, and sponsorship conditions then apply.
+  - This is a rule for **hand judgment** (audit and labels). The filter still gives TPM titles
+    the core tier, because it cannot read "owns product direction" from a title. Whether to
+    change that is a v1.1 question, and needs audit rows.
 - **`:` is a cut character** so that "Product Manager: New Grad Accelerator" has the prefix
   "Product Manager". The junior override still sets T to 0.
 
