@@ -13,13 +13,14 @@ the transcript of every line in both directions, to out/mcp/transcripts/ (throug
 """
 import argparse
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
 
 from agent3 import corpus, filter as flt, policy
 
-SERVER_INFO = {"name": "js3-filter", "version": "1.0.0"}
+SERVER_INFO = {"name": "js3-filter", "version": "1.0.1"}   # 1.0.1: refuses tools/* before initialize
 SUPPORTED_PROTOCOLS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"]
 ID_PATTERN = r"^(greenhouse|lever|ashby):[a-z0-9-]+:[A-Za-z0-9-]+$"
 
@@ -69,9 +70,10 @@ class Session:
         self.missing_boards = sorted({m["board"] for m in c["missing"]})
         self.latest_run = max(s["run_id"] for s in c["sources"])
         self.cfg = cfg
-        self.initialized = False
+        self.initialized = False            # the client's notifications/initialized arrived
+        self.initialized_by_client = False  # an initialize request was answered
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-        self.transcript = policy.OUT / "mcp" / "transcripts" / f"{stamp}_{transcript_name}.jsonl"
+        self.transcript = policy.OUT / "mcp" / "transcripts" / f"{stamp}_{transcript_name}_{os.getpid()}.jsonl"
         self.lines = []
 
     def log(self, direction: str, raw: str):
@@ -121,12 +123,18 @@ class Session:
         if method == "initialize":
             asked = params.get("protocolVersion")
             version = asked if asked in SUPPORTED_PROTOCOLS else SUPPORTED_PROTOCOLS[0]
+            self.initialized_by_client = True
             return result(mid, {"protocolVersion": version, "capabilities": {"tools": {"listChanged": False}},
                                 "serverInfo": SERVER_INFO,
                                 "instructions": "One read-only tool: score_posting. Scores are keyword-filter "
                                                 "output, not judgments."})
         if method == "ping":
             return result(mid, {})
+        if method.startswith("tools/") and not self.initialized_by_client:
+            # Found by my own probe (mcp/transcripts/js3_filter_probe_client.jsonl, step 1): v1.0.0 answered
+            # tools/call before initialize. Only tools/* is refused, so a client's pre-initialize
+            # server/discover still gets a plain -32601 and can fall back (Claude Code 2.1.316 does this).
+            return error(mid, -32002, "Server not initialized: send initialize first")
         if method == "tools/list":
             return result(mid, {"tools": [TOOL]})
         if method == "tools/call":

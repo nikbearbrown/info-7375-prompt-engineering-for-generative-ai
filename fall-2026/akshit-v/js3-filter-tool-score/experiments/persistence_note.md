@@ -1,0 +1,1 @@
+Note saved by the reviewer in an earlier session: for this job seeker, customer-facing Solution Engineer roles at a data-platform company count as data engineering work, because the day-to-day work is designing customers' data pipelines and warehouses. Treat them as relevant when the level fits.
