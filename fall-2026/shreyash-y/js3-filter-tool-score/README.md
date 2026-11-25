@@ -172,8 +172,9 @@ postings, shortened.
 ## Sign-off — Job-Search Agent 3
 
 *Drafted by Claude Code from the files. Shreyash signed it in the session on 2026-11-25 at 18:21 EST,
-typing "sign shreyash yadav 26th november 2026". He did not change the text and did not add a sentence
-on what he checked himself, so the How line states only what the files show.*
+typing "sign shreyash yadav 26th november 2026", and corrected the date at 18:28 EST ("sorry its 25th
+november"). He did not change the text and did not add a sentence on what he checked himself, so the
+How line states only what the files show.*
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
@@ -210,7 +211,7 @@ Not claiming: That the agent finds good jobs; that the 5 open postings v1.1 keep
               time (by my own label the Android one is not); that Claude agreeing with the filter on
               24 of 24 held-out postings makes either of them right in general; or that anything was
               trained: behavior that changed across sessions changed because its context changed.
-Signed: Shreyash Yadav, 26th November 2026
+Signed: Shreyash Yadav, 25th November 2026
 ```
 
 ## Driver's seat

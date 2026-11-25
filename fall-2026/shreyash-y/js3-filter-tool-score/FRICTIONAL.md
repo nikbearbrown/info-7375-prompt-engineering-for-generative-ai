@@ -19,7 +19,7 @@ here says what he thought.*
   - Before saving, asked for three answers to be double-checked (31, 39, 49).
 - **About 18:07.** Decided the v1.1 changes from their measurements: adopted 4 and rejected 2. Labeled
   the three disputed claims and wrote both trust decisions (`61e0d4c0`).
-- **18:21.** Signed the sign-off in the session, without changing it ("sign shreyash yadav 26th november 2026").
+- **18:21.** Signed the sign-off in the session, without changing it ("sign shreyash yadav 26th november 2026"); at 18:28 corrected the date ("sorry its 25th november").
 
 ### In my own words
 
