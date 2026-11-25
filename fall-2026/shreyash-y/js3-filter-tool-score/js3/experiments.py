@@ -28,7 +28,7 @@ CONDITIONS = {
     "C": {"prompt": "prompts/context-filter-v1.md", "model": "opus", "tool": False},
     "S": {"prompt": "prompts/baseline-v1.md", "model": "haiku", "tool": False},
     "T": {"prompt": "prompts/baseline-v1.md", "model": "opus", "tool": True},
-    # Added 2026-11-25 at 17:37 EST (commit JS3-CP10), after B..T had run and BEFORE any held-out label existed: B once more,
+    # Added 2026-11-25 and committed at 17:38:07 EST (JS3-CP10), after B..T had run and BEFORE any held-out label existed: B once more,
     # in new sessions after C changed the context, to show the change did not persist (SCORE.md section 3).
     "B3": {"prompt": "prompts/baseline-v1.md", "model": "opus", "tool": False},
 }
