@@ -113,3 +113,22 @@ FILTER.md does not say what happens to a posting with no id. The reader still tr
 board is unverified), because a board's state is kept by posting ids, and an answer in which no posting has a
 title is also still unverified. FILTER.md also does not say which failed rule is the deciding one; the engine runs
 every rule and names the first failure in the order R1 to R8, as contract v0.2 did. **Proposed for v1.1:** say both.
+
+## 7. Found by the fresh set (2026-11-24): R4's title words, and a cutoff equal to the start score
+
+Added by Claude Code after the fresh set was scored (`js3/fresh/2026-11-22T084738Z/RESULTS.md`, `c01dc04`). Of the 12
+postings v1.1 newly recommends, Aravind rejected 2: "Software Engineer - Frontend Developer Productivity" (Palantir;
+his note: "Frontend-focused role, outside Jane's main interests") and "Control Systems Software Engineer, Robotics"
+(OpenAI; "Specialized robotics and control systems role requiring hardware-focused experience"). R4 passed both
+because each title contains "Software Engineer". Both scored 50, the start, with no topic group, so at v1.1's cutoff of
+50 the score screened nothing and R4 alone let them through. On the whole v1.1 run, 25 of the 99 kept postings score 50
+with no topic group, and each of those two titles is the only kept one with its words ("Frontend"; "Control Systems"
+or "Robotics").
+
+**Not proposed; Aravind's call if there is a v1.2.** The options, with what this set shows (development data from the
+moment one is chosen from it, so a new set would be needed to test the choice):
+- add title words to R4's excludes, such as "Control Systems" and "Frontend": on this run that removes exactly these
+  two kept postings;
+- a cutoff above the start score, so a posting needs at least one topic group: at 55, v1.1 would agree with him on 6
+  of the 12 (it would drop both rejects and 6 of his 10 keeps), against 10 of 12 at 50;
+- leave both as they are and accept such keeps: a person reads every shortlisted posting anyway.

@@ -13,7 +13,9 @@ Written by Claude Code on 2026-11-22. Every number below recomputes from the fil
    (`b8e3a25`).
 3. **Measured once, on labels held out:** [`EXPERIMENTS.md`](EXPERIMENTS.md), against Aravind's 30 frozen held-out
    verdicts (`1e2b1e1`), on 2026-11-22 at 08:36 UTC (`cb1b50c`). Every run is kept in `runs/`.
-4. **What persistence is not proof of:** the last section of `EXPERIMENTS.md`.
+4. **What persistence is not proof of:** the last section of `EXPERIMENTS.md`. JS1 showed the other half: the
+   Claude judge's repeated verdicts were repeatable and still wrong on two of five postings
+   ([`experiment/SAMPLING.md`](../../experiment/SAMPLING.md)), so agreement across runs is not correctness either.
 
 ## What the measurement showed
 
@@ -34,6 +36,17 @@ Written by Claude Code on 2026-11-22. Every number below recomputes from the fil
 
 A rate for all postings; anything about boards the agent does not watch or about live postings; whether a cutoff of 50
 would still agree with him on another day's postings. Two predictions held only in part, and are reported as such.
+
+What the draw could detect, computed after the fact on 2026-11-24 ([`js3/checks/BASELINES.md`](../checks/BASELINES.md),
+section 4):
+- X3's "no card changes" says little: a uniform draw of 15 from the 69 eligible kept postings misses all 4 whose score
+  X3 moves 36.6% of the time.
+- X2 did change which rules fail on 69 rejected postings, two of them held-out cards (03 and 11), without moving a fate
+  or a score; `EXPERIMENTS.md` compares fates and scores only, so it reports no change.
+- X4's prediction "fewer recommended" could not have shown at the cutoff of 60: X4 moves no recommendation at 60
+  anywhere in the whole run.
+
+The calls made from these results were then tested on fresh labels: [`js3/fresh/2026-11-22T084738Z/`](../fresh/2026-11-22T084738Z/RESULTS.md).
 
 ## What it leads to (FILTER.md v1.1)
 

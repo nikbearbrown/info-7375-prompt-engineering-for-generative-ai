@@ -257,5 +257,39 @@ class CommittedTranscriptTest(unittest.TestCase):
                              ["initialize", "notifications/initialized", "tools/list", "tools/call"])
 
 
+class EvidenceVersionTest(unittest.TestCase):
+    """The client compares a score_posting result with the filter run of the FILTER.md version the server names.
+
+    2026-11-24: once FILTER.md v1.1 had its own run, the newest run was v1.1's while the server scores with v1.0.
+    """
+
+    def test_the_run_of_the_servers_own_version_is_the_one_compared(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            record_v10 = {"fate": "kept", "score": 65}
+            for run, version, record in (("2026-11-21T000000Z", "1.0", record_v10),
+                                         ("2026-11-22T000000Z", "1.1", {"fate": "kept", "score": 55})):
+                folder = repo / "js3" / "filter-run" / run
+                folder.mkdir(parents=True)
+                (folder / "verdicts.json").write_text(json.dumps({
+                    "meta": {"filter_version": version, "filter_md_sha256": "f" * 64,
+                             "sources": [{"key": "ashby-x", "sha256": "a" * 64}]},
+                    "records": [dict(record, board="ashby-x", id="p1")]}), encoding="utf-8")
+
+            def line(version):
+                payload = {"tool": "score_posting", "board": "ashby-x", "posting_id": "p1",
+                           "record": dict(record_v10, board="ashby-x", id="p1"),
+                           "source": {"sha256": "a" * 64}, "filter": {"version": version, "sha256": "f" * 64}}
+                result = {"isError": False, "content": [{"type": "text", "text": json.dumps(payload)}]}
+                return {"type": "line", "dir": "server->client", "session": "s1",
+                        "text": json.dumps({"jsonrpc": "2.0", "id": 1, "result": result})}
+
+            [check] = client.evidence_checks([line("1.0")], repo)
+            self.assertEqual((check["filter_run"], check["filter_version"]), ("2026-11-21T000000Z", "1.0"))
+            self.assertTrue(check["record_equal"] and check["same_saved_answer"] and check["same_filter_md"])
+            [missing] = client.evidence_checks([line("9.9")], repo)
+            self.assertEqual((missing["filter_run"], missing["record_equal"]), (None, False))
+
+
 if __name__ == "__main__":
     unittest.main()

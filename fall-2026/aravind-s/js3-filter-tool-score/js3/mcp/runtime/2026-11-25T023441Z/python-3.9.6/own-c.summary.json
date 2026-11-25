@@ -1,0 +1,409 @@
+{
+ "run": "own-c",
+ "about": "our server, traced, the network denied by sandbox-exec",
+ "tree": "the repo",
+ "server_file": "job_agent/mcp_server.py",
+ "server_sha256": "db44168911705a2ee853b999ac1ebac7ddbc10914c293ce418f7478799c5a347",
+ "sandbox": "(version 1)(allow default)(deny network*)",
+ "command": [
+  "/usr/bin/sandbox-exec",
+  "-p",
+  "(version 1)(allow default)(deny network*)",
+  "python3",
+  "-B",
+  "tools/mcp_trace_boot.py",
+  "<event log>",
+  "-m",
+  "job_agent.mcp_server"
+ ],
+ "client": {
+  "steps": 31,
+  "as_the_plan_expects": 31
+ },
+ "answers": {
+  "lines_from_the_server": 26,
+  "exit_codes": {
+   "early": 0,
+   "main": 0,
+   "lifecycle": 0,
+   "bytes": 0,
+   "deep": 0
+  },
+  "sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b"
+ },
+ "filter_md_sha256": "4d79d279f5b5157e8905cb0e2109e4c50b1b983d410d8bff2a0614077e32a572",
+ "python": "3.9.6",
+ "sessions": [
+  "early",
+  "main",
+  "lifecycle",
+  "bytes",
+  "deep"
+ ],
+ "writes": [],
+ "file_changes": [],
+ "sockets": [],
+ "network": [],
+ "processes": [],
+ "ctypes": {},
+ "reads": {
+  "server": {
+   "python": {
+    "files": [
+     "<python>/__future__.py",
+     "<python>/_compression.py",
+     "<python>/argparse.py",
+     "<python>/bz2.py",
+     "<python>/copy.py",
+     "<python>/datetime.py",
+     "<python>/fnmatch.py",
+     "<python>/gettext.py",
+     "<python>/gzip.py",
+     "<python>/hashlib.py",
+     "<python>/html/__init__.py",
+     "<python>/html/entities.py",
+     "<python>/json/__init__.py",
+     "<python>/json/decoder.py",
+     "<python>/json/encoder.py",
+     "<python>/json/scanner.py",
+     "<python>/linecache.py",
+     "<python>/locale.py",
+     "<python>/lzma.py",
+     "<python>/ntpath.py",
+     "<python>/pathlib.py",
+     "<python>/platform.py",
+     "<python>/selectors.py",
+     "<python>/shutil.py",
+     "<python>/signal.py",
+     "<python>/struct.py",
+     "<python>/subprocess.py",
+     "<python>/threading.py",
+     "<python>/token.py",
+     "<python>/tokenize.py",
+     "<python>/traceback.py",
+     "<python>/urllib/__init__.py",
+     "<python>/urllib/parse.py"
+    ],
+    "listings": {
+     "<python>/html (os.listdir)": 5,
+     "<python>/json (os.listdir)": 5,
+     "<python>/urllib (os.listdir)": 5
+    }
+   },
+   "code": {
+    "files": [
+     "<repo>/job_agent/__init__.py",
+     "<repo>/job_agent/errors.py",
+     "<repo>/job_agent/evidence.py",
+     "<repo>/job_agent/filter.py",
+     "<repo>/job_agent/filter_run.py",
+     "<repo>/job_agent/mcp_server.py",
+     "<repo>/job_agent/providers.py",
+     "<repo>/job_agent/resume.py",
+     "<repo>/job_agent/rule.py"
+    ],
+    "listings": {
+     "<repo>/job_agent (os.listdir)": 5
+    }
+   },
+   "filter": {
+    "opens": {
+     "<repo>/FILTER.md": 6
+    }
+   },
+   "persona": {
+    "opens": {
+     "<repo>/persona/jane-doe.json": 3
+    }
+   },
+   "runs": {
+    "opens": {
+     "<repo>/runs/2026-11-08T221447Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-08T221447Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-08T222101Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-08T222101Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-08T232915Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-08T232915Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-08T233158Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-08T233158Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-09T210704Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-09T210704Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-20T113915Z/boards/ashby-openai/attempt-1.meta.json": 2,
+     "<repo>/runs/2026-11-20T113915Z/boards/greenhouse-verkada/attempt-1.meta.json": 1,
+     "<repo>/runs/2026-11-20T114036Z/boards/ashby-openai/attempt-1.json.gz": 2,
+     "<repo>/runs/2026-11-20T114036Z/boards/ashby-openai/attempt-1.meta.json": 4,
+     "<repo>/runs/2026-11-20T114036Z/boards/greenhouse-verkada/attempt-1.json.gz": 1,
+     "<repo>/runs/2026-11-20T114036Z/boards/greenhouse-verkada/attempt-1.meta.json": 2
+    },
+    "listings": {
+     "<repo>/runs (os.listdir)": 3,
+     "<repo>/runs/2026-10-30T093102Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-10-30T093102Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-10-31T231042Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-10-31T231042Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-08T221447Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-08T221447Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-08T221447Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-08T221447Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-08T222101Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-08T222101Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-08T222101Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-08T222101Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-08T232915Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-08T232915Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-08T232915Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-08T232915Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-08T233158Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-08T233158Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-08T233158Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-08T233158Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-09T210704Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-09T210704Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-09T210704Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-09T210704Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-20T113915Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-20T113915Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-20T113915Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-20T113915Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1,
+     "<repo>/runs/2026-11-20T114036Z/boards/ashby-openai (os.scandir)": 2,
+     "<repo>/runs/2026-11-20T114036Z/boards/ashby-openai (pathlib.Path.glob)": 2,
+     "<repo>/runs/2026-11-20T114036Z/boards/greenhouse-verkada (os.scandir)": 1,
+     "<repo>/runs/2026-11-20T114036Z/boards/greenhouse-verkada (pathlib.Path.glob)": 1
+    }
+   },
+   "repo": {
+    "listings": {
+     "<repo> (os.listdir)": 5
+    }
+   }
+  },
+  "exit": {}
+ },
+ "modules": {
+  "before_the_hook": [
+   "__main__",
+   "_abc",
+   "_bootlocale",
+   "_codecs",
+   "_collections_abc",
+   "_frozen_importlib",
+   "_frozen_importlib_external",
+   "_imp",
+   "_io",
+   "_locale",
+   "_signal",
+   "_sitebuiltins",
+   "_stat",
+   "_thread",
+   "_warnings",
+   "_weakref",
+   "abc",
+   "builtins",
+   "codecs",
+   "encodings",
+   "encodings.aliases",
+   "encodings.cp437",
+   "encodings.latin_1",
+   "encodings.utf_8",
+   "genericpath",
+   "io",
+   "marshal",
+   "os",
+   "os.path",
+   "posix",
+   "posixpath",
+   "pwd",
+   "site",
+   "stat",
+   "sys",
+   "time",
+   "zipimport"
+  ],
+  "launcher": [
+   "runpy",
+   "importlib.machinery",
+   "importlib",
+   "types",
+   "warnings",
+   "importlib.util",
+   "importlib.abc",
+   "typing",
+   "collections",
+   "heapq",
+   "_heapq",
+   "itertools",
+   "keyword",
+   "operator",
+   "_operator",
+   "reprlib",
+   "_collections",
+   "collections.abc",
+   "contextlib",
+   "functools",
+   "_functools",
+   "re",
+   "enum",
+   "sre_compile",
+   "_sre",
+   "sre_parse",
+   "sre_constants",
+   "copyreg",
+   "pkgutil",
+   "weakref",
+   "_weakrefset"
+  ],
+  "server": [
+   "job_agent",
+   "__future__",
+   "argparse",
+   "gettext",
+   "hashlib",
+   "_hashlib",
+   "_blake2",
+   "_sha3",
+   "json",
+   "json.decoder",
+   "json.scanner",
+   "_json",
+   "json.encoder",
+   "platform",
+   "subprocess",
+   "errno",
+   "signal",
+   "threading",
+   "grp",
+   "_posixsubprocess",
+   "select",
+   "selectors",
+   "math",
+   "traceback",
+   "linecache",
+   "tokenize",
+   "token",
+   "unicodedata",
+   "datetime",
+   "_datetime",
+   "pathlib",
+   "fnmatch",
+   "ntpath",
+   "urllib.parse",
+   "urllib",
+   "job_agent.filter",
+   "job_agent.resume",
+   "copy",
+   "job_agent.errors",
+   "job_agent.providers",
+   "html",
+   "html.entities",
+   "job_agent.rule",
+   "job_agent.filter_run",
+   "gzip",
+   "struct",
+   "_struct",
+   "zlib",
+   "_compression",
+   "job_agent.evidence",
+   "locale",
+   "shutil",
+   "bz2",
+   "_bz2",
+   "lzma",
+   "_lzma"
+  ],
+  "at_exit": [],
+  "not_loaded": [
+   "msvcrt",
+   "nt",
+   "org.python.core",
+   "org.python",
+   "org"
+  ],
+  "network_or_process": [
+   "_posixsubprocess",
+   "select",
+   "selectors",
+   "subprocess"
+  ]
+ },
+ "launcher": {
+  "python_files": 25,
+  "listings": {
+   "<boot>": 5,
+   "<python>/collections": 5,
+   "<python>/importlib": 5
+  },
+  "other_reads": {}
+ },
+ "per_session": {
+  "early": {
+   "data_reads": 0,
+   "listings": 5,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 56
+  },
+  "main": {
+   "data_reads": 36,
+   "listings": 56,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 56
+  },
+  "lifecycle": {
+   "data_reads": 0,
+   "listings": 5,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 56
+  },
+  "bytes": {
+   "data_reads": 0,
+   "listings": 5,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 56
+  },
+  "deep": {
+   "data_reads": 0,
+   "listings": 5,
+   "writes": 0,
+   "sockets": 0,
+   "network": 0,
+   "processes": 0,
+   "ctypes": 0,
+   "modules_loaded": 56
+  }
+ },
+ "other_events": {
+  "launcher": {
+   "compile or marshal.loads": 135,
+   "exec": 135,
+   "object.__getattr__": 10,
+   "object.__setattr__": 25,
+   "sys._getframe": 55
+  },
+  "server": {
+   "builtins.id": 40,
+   "compile or marshal.loads": 245,
+   "exec": 245,
+   "object.__setattr__": 55,
+   "sys._getframe": 35
+  },
+  "exit": {}
+ },
+ "hook_errors": 0,
+ "unreadable_lines": 0,
+ "sessions_without_a_record": []
+}

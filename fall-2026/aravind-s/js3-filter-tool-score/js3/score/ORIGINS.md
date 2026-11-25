@@ -55,3 +55,34 @@ In the audit, Aravind kept every kept posting he judged, whatever its score: 6 o
 would not; the hard rules did that work (0 wrong keeps). The 60 cutoff therefore leaves out 11 of the 16 kept postings
 he judged worth Jane's time. That is why the cutoff is one of the changes measured on the held-out set
 (`CHANGES-TO-MEASURE.md`). No number was changed to fit these labels.
+
+## FILTER.md v1.1 (added 2026-11-24)
+
+v1.1 (2026-11-22) changed five numbers or lists. Three are Aravind's calls, made after he saw the held-out results, so
+the held-out set cannot test them (`js3/heldout/2026-11-21T044414Z/CHANGES.md`); the fresh set in
+`js3/fresh/2026-11-22T084738Z/` was drawn on 2026-11-24 to test them on labels that played no part in them.
+
+| Number or list | v1.0 | v1.1 | Origin |
+|---|---|---|---|
+| Shortlist cutoff | 60 | 50 | hand-set by Aravind on 2026-11-22, chosen after the held-out measurement (`EXPERIMENTS.md`: 22 of 27 agree at 60, 27 of 27 at 50) |
+| An export-control line | a caution, 0 points | 10 points off, still a caution | hand-set by Aravind on 2026-11-22, after the same measurement (his six "?" verdicts) |
+| "build systems" in Developer tools | in | out | Aravind's call on 2026-11-22, after his claim label 09.8c and the measured change X3 |
+| Company words for R7 | 7 | 4 (growth, revenue, customers out) | Claude Code's implementation change X2, measured before it was adopted (77 fires in 72 postings, every one a real requirement) |
+| Sentence splitter | splits after "U.S." | keeps "U.S.", "e.g.", "i.e." whole | Claude Code's implementation change X1, after audit card 17 |
+
+## Numbers in the measurements, not in the score (added 2026-11-24)
+
+These numbers decide what was sampled and how results are stated. None of them was fitted on labels.
+
+| Number | Value | Where | Origin |
+|---|---|---|---|
+| Random rejects in the audit | 30 | `tools/audit_kit.py` | inherited from the brief ("at least 30 random rejects") |
+| The audit's other groups | 8 close kept, 7 close rejected, 10 kept | `tools/audit_kit.py` | hand-set by Claude Code |
+| Held-out draw | 15 kept, 15 rejected | `tools/heldout_kit.py` | hand-set by Claude Code |
+| Fresh draw for v1.1 | 12, every one of 3, 3 and 2 by stratum | `tools/fresh_kit.py` | hand-set by Claude Code |
+| Seeds | audit 20261121 (order 20261122), claims 2026112102, held-out 2026112103 (order +1), fresh 2026112401 (order +1) | the kits | hand-set by Claude Code, a new one for each kit, recorded before each draw |
+| Confidence level | one-sided 95% (Clopper-Pearson) | `tools/score_audit.py` (`ALPHA`) | convention |
+| Words of description on a card | 150 | `tools/audit_kit.py` (`FIRST_WORDS`) | hand-set by Claude Code |
+| Words of description in the chat view | 32 | `tools/chat_cards.py` | hand-set by Claude Code, to keep a batch of cards readable in one message |
+| Tool calls per MCP session | 50 | `job_agent/mcp_server.py` (`MAX_CALLS`) | hand-set by Claude Code |
+| The fresh set's predictions | Keep on at least 9 of 12; "?" on at least 2 of 3; the controls as expected | `tools/fresh_kit.py` | Claude Code's, written before any verdict |

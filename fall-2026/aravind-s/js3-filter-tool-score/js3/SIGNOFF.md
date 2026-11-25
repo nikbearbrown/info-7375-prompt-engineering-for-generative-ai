@@ -66,3 +66,28 @@ chose earlier that day; signed after it, so the sign-off covers it.)
 | Flags possible sponsorship, clearance, location and experience restrictions. | Review unclear requirements and decide when more information is needed. | A keyword match cannot always explain the real meaning of a job requirement. | card 17 (`AFTER-REVEAL.md`); my six "?" verdicts |
 | Compares my judgments with the filter's and the checker's results and highlights disagreements. | Review disagreements and decide whether to change my judgment or the rule. | Agreement with the filter does not automatically make a decision correct. | the audit's and the claims' RESULTS.md (`79df09c`, `57041c4`); `FLIP-CHECKS.md` (`cb4943a`) |
 | Runs the agent and prepares the results. | Decide whether I trust the tool and whether its output is useful. | I am responsible for how I use the results and the decisions I make from them. | my trust lines in `js3/mcp/EVALUATION-OWN.md` and `EVALUATION-OTHER.md`; the live Claude Code run (`ad1714d`) |
+
+## After I signed (added 2026-11-24)
+
+My signature above covers the work up to 2026-11-22 and is unchanged. These came after it. Claude Code wrote this
+section from the record at my request; I chose to add it and sign it.
+
+**Checked:**
+- v1.1 on fresh labels, by hand: I judged 20 postings I had never been shown, blind, and my verdicts were committed
+  before the answers were opened (`1bbbcf6`; the set was sealed with Claude Code's predictions in `9cdf591`). v1.1's
+  recommendation agrees with me on 15 of the 17 I judged and v1.0's on 7, and all three predictions held. I rejected
+  two postings the filter kept, a frontend productivity role and a robotics control-systems role
+  (`js3/fresh/2026-11-22T084738Z/RESULTS.md`, `c01dc04`). This answers the "Not checked" line about v1.1 on new
+  labels for this one small draw only.
+- Both MCP servers at run time, traced by Claude Code: no file written (ours wrote only its transcript, when asked),
+  no socket, no process, and the same answers with the network denied (`js3/mcp/runtime/2026-11-25T023441Z/`). On
+  Python 3.9.6 our server loads the `subprocess` module through the standard library's `platform`, without starting
+  a process.
+- My trust decision on our server, reopened because the server and the filter changed after I wrote it (`b8e3a25`,
+  `5dff01f`): still pending, with the same scope (`js3/mcp/EVALUATION-OWN.md`).
+
+**Still not checked:** whether either server is secure or conforms to the MCP specification (the traces are not that
+testing); whether v1.1 holds beyond these 20 postings; and what to do about the two postings the filter kept and I
+rejected (FILTER-CHANGES-PENDING.md, item 7): not decided.
+
+**Signed for these additions:** Aravind Sundaravadivelu, 2026-11-24.

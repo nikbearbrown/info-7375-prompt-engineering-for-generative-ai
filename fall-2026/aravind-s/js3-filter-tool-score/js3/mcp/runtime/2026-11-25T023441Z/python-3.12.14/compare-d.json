@@ -1,0 +1,52 @@
+{
+ "name": "d",
+ "about": "our server at a54c424 (the evaluated commit) against the current server, and against our client's run of a54c424 recorded on 2026-11-21",
+ "pairs": [
+  {
+   "left": "own-d",
+   "right": "own-a",
+   "answers_equal": false,
+   "left_sha256": "02fff3bfdbfd6f0d6fbc009f8bced3e3189c9bedc58253ec45ea81838f8944e0",
+   "right_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+   "answer_differences": [
+    {
+     "session": "main",
+     "step": 4,
+     "id": 3,
+     "path": "$.result.content[0].text (its JSON).filter.sha256",
+     "left": "f1edbf0b5319d0c42645e892d6ef39f738f964128f3146fb82abea06438ba6f1",
+     "right": "4d79d279f5b5157e8905cb0e2109e4c50b1b983d410d8bff2a0614077e32a572"
+    },
+    {
+     "session": "main",
+     "step": 5,
+     "id": 4,
+     "path": "$.result.content[0].text (its JSON).filter.sha256",
+     "left": "f1edbf0b5319d0c42645e892d6ef39f738f964128f3146fb82abea06438ba6f1",
+     "right": "4d79d279f5b5157e8905cb0e2109e4c50b1b983d410d8bff2a0614077e32a572"
+    }
+   ],
+   "summaries_equal": false,
+   "summary_differences": [
+    {
+     "path": "$.filter_md_sha256",
+     "left": "f1edbf0b5319d0c42645e892d6ef39f738f964128f3146fb82abea06438ba6f1",
+     "right": "4d79d279f5b5157e8905cb0e2109e4c50b1b983d410d8bff2a0614077e32a572"
+    },
+    {
+     "path": "$.server_sha256",
+     "left": "e39a82fe67a097d206ee49e1758bf68a4242107c265b4350bbca5e8d84e5325c",
+     "right": "db44168911705a2ee853b999ac1ebac7ddbc10914c293ce418f7478799c5a347"
+    }
+   ]
+  },
+  {
+   "left": "own-d",
+   "right": "js3/mcp/transcripts/2026-11-21T084407Z-own-client.jsonl",
+   "answers_equal": true,
+   "left_sha256": "02fff3bfdbfd6f0d6fbc009f8bced3e3189c9bedc58253ec45ea81838f8944e0",
+   "right_sha256": "02fff3bfdbfd6f0d6fbc009f8bced3e3189c9bedc58253ec45ea81838f8944e0",
+   "answer_differences": []
+  }
+ ]
+}

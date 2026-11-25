@@ -1,0 +1,402 @@
+{
+ "folder": "2026-11-25T023441Z",
+ "recorded_at": "2026-11-25T02:34:41Z",
+ "recorded_local": "2026-11-24 21:34 EST",
+ "commit": "03ff5d801ad10db93cf93949d0f6c79e5b794976",
+ "command": "python3 tools/mcp_runtime_trace.py record --python /opt/homebrew/bin/python3.12 --python /usr/bin/python3",
+ "tool": "tools/mcp_runtime_trace.py",
+ "across": [
+  "`own-a`: answers the same under 3.12.14 and 3.9.6; modules: 3.12.14 none, 3.9.6 _posixsubprocess, select, selectors, subprocess.",
+  "`own-b`: answers the same under 3.12.14 and 3.9.6; modules: 3.12.14 none, 3.9.6 _posixsubprocess, select, selectors, subprocess.",
+  "`own-c`: answers the same under 3.12.14 and 3.9.6; modules: 3.12.14 none, 3.9.6 _posixsubprocess, select, selectors, subprocess.",
+  "`own-d`: answers the same under 3.12.14 and 3.9.6; modules: 3.12.14 none, 3.9.6 _posixsubprocess, select, selectors, subprocess.",
+  "`own-plain`: answers the same under 3.12.14 and 3.9.6.",
+  "`other-a`: answers the same under 3.12.14 and 3.9.6.",
+  "`other-c`: answers the same under 3.12.14 and 3.9.6.",
+  "`other-plain`: answers the same under 3.12.14 and 3.9.6."
+ ],
+ "tool_sha256": {
+  "tools/mcp_runtime_trace.py": "4b376d78ab48f87fca0ab92d9f9ce3ae31587c252f2ca538cd3418b3947ad56d",
+  "tools/mcp_trace_boot.py": "fa4c869d2db387f2366f1dab878cc82b11c74948131808fef2efb18fe068c356"
+ },
+ "interpreters": [
+  {
+   "python": "/opt/homebrew/bin/python3.12",
+   "version": "3.12.14",
+   "folder": "python-3.12.14",
+   "sandbox": {
+    "available": true,
+    "profile": "(version 1)(allow default)(deny network*)",
+    "planted_connect_to_127.0.0.1_port_9": "PermissionError 1"
+   },
+   "comparison_lines": [
+    "`own-c` against `own-a`: the same answers; event summaries the same (`compare-c.md`).",
+    "`other-c` against `other-a`: the same answers; event summaries the same (`compare-c.md`).",
+    "`own-d` against `own-a`: 2 differing fields (`$.result.content[0].text (its JSON).filter.sha256`); event summaries differ in `$.filter_md_sha256`, `$.server_sha256` (`compare-d.md`).",
+    "`own-d` against `js3/mcp/transcripts/2026-11-21T084407Z-own-client.jsonl`: the same answers (`compare-d.md`).",
+    "`own-a` against `own-plain`: the same answers (`compare-plain.md`).",
+    "`other-a` against `other-plain`: the same answers (`compare-plain.md`)."
+   ],
+   "runs": [
+    {
+     "label": "own-a",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server, traced, without --transcript",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-a.client.jsonl",
+      "own-a.summary.json",
+      "own-a.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "own-b",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": true,
+     "sandbox": false,
+     "about": "our server, traced, with --transcript",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-b.client.jsonl",
+      "own-b.server.jsonl",
+      "own-b.summary.json",
+      "own-b.summary.md"
+     ],
+     "seen": {
+      "writes": "`<repo>/js3/mcp/transcripts/runtime-trace-own-b.jsonl`: 5 open(s), mode None, O_WRONLY+O_APPEND+O_CREAT+O_NOFOLLOW+O_CLOEXEC; `<repo>/js3/mcp/transcripts/runtime-trace-own-b.jsonl`: 5 open(s), mode 'a', O_WRONLY+O_APPEND+O_CREAT+O_CLOEXEC (through the descriptor just opened)",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "own-c",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": true,
+     "about": "our server, traced, the network denied by sandbox-exec",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-c.client.jsonl",
+      "own-c.summary.json",
+      "own-c.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "own-d",
+     "server": "own",
+     "tree": "a54c424",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server at a54c424 (the evaluated commit), traced",
+     "answers_sha256": "02fff3bfdbfd6f0d6fbc009f8bced3e3189c9bedc58253ec45ea81838f8944e0",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-d.client.jsonl",
+      "own-d.summary.json",
+      "own-d.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "own-plain",
+     "server": "own",
+     "tree": "current",
+     "traced": false,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server, not traced (the control)",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-plain.client.jsonl"
+     ]
+    },
+    {
+     "label": "other-a",
+     "server": "other",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "the lesson 8 reference server, traced",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-a.client.jsonl",
+      "other-a.summary.json",
+      "other-a.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "other-c",
+     "server": "other",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": true,
+     "about": "the lesson 8 reference server, traced, the network denied by sandbox-exec",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-c.client.jsonl",
+      "other-c.summary.json",
+      "other-c.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "other-plain",
+     "server": "other",
+     "tree": "current",
+     "traced": false,
+     "transcript": false,
+     "sandbox": false,
+     "about": "the lesson 8 reference server, not traced (the control)",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-plain.client.jsonl"
+     ]
+    }
+   ]
+  },
+  {
+   "python": "/usr/bin/python3",
+   "version": "3.9.6",
+   "folder": "python-3.9.6",
+   "sandbox": {
+    "available": true,
+    "profile": "(version 1)(allow default)(deny network*)",
+    "planted_connect_to_127.0.0.1_port_9": "PermissionError 1"
+   },
+   "comparison_lines": [
+    "`own-c` against `own-a`: the same answers; event summaries the same (`compare-c.md`).",
+    "`other-c` against `other-a`: the same answers; event summaries the same (`compare-c.md`).",
+    "`own-d` against `own-a`: 2 differing fields (`$.result.content[0].text (its JSON).filter.sha256`); event summaries differ in `$.filter_md_sha256`, `$.server_sha256` (`compare-d.md`).",
+    "`own-d` against `js3/mcp/transcripts/2026-11-21T084407Z-own-client.jsonl`: the same answers (`compare-d.md`).",
+    "`own-a` against `own-plain`: the same answers (`compare-plain.md`).",
+    "`other-a` against `other-plain`: the same answers (`compare-plain.md`)."
+   ],
+   "runs": [
+    {
+     "label": "own-a",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server, traced, without --transcript",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-a.client.jsonl",
+      "own-a.summary.json",
+      "own-a.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "_posixsubprocess, select, selectors, subprocess"
+     }
+    },
+    {
+     "label": "own-b",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": true,
+     "sandbox": false,
+     "about": "our server, traced, with --transcript",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-b.client.jsonl",
+      "own-b.server.jsonl",
+      "own-b.summary.json",
+      "own-b.summary.md"
+     ],
+     "seen": {
+      "writes": "`<repo>/js3/mcp/transcripts/runtime-trace-own-b.jsonl`: 5 open(s), mode None, O_WRONLY+O_APPEND+O_CREAT+O_NOFOLLOW+O_CLOEXEC; `<repo>/js3/mcp/transcripts/runtime-trace-own-b.jsonl`: 5 open(s), mode 'a', O_WRONLY+O_APPEND+O_CREAT+O_CLOEXEC (through the descriptor just opened)",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "_posixsubprocess, select, selectors, subprocess"
+     }
+    },
+    {
+     "label": "own-c",
+     "server": "own",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": true,
+     "about": "our server, traced, the network denied by sandbox-exec",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-c.client.jsonl",
+      "own-c.summary.json",
+      "own-c.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "_posixsubprocess, select, selectors, subprocess"
+     }
+    },
+    {
+     "label": "own-d",
+     "server": "own",
+     "tree": "a54c424",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server at a54c424 (the evaluated commit), traced",
+     "answers_sha256": "02fff3bfdbfd6f0d6fbc009f8bced3e3189c9bedc58253ec45ea81838f8944e0",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-d.client.jsonl",
+      "own-d.summary.json",
+      "own-d.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "_posixsubprocess, select, selectors, subprocess"
+     }
+    },
+    {
+     "label": "own-plain",
+     "server": "own",
+     "tree": "current",
+     "traced": false,
+     "transcript": false,
+     "sandbox": false,
+     "about": "our server, not traced (the control)",
+     "answers_sha256": "81e722ad72d6fb0b6d21d2c79220a7a434e6dcbeb9cc34aee3c8ed0ddbc32d2b",
+     "steps": 31,
+     "as_the_plan_expects": 31,
+     "files": [
+      "own-plain.client.jsonl"
+     ]
+    },
+    {
+     "label": "other-a",
+     "server": "other",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": false,
+     "about": "the lesson 8 reference server, traced",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-a.client.jsonl",
+      "other-a.summary.json",
+      "other-a.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "other-c",
+     "server": "other",
+     "tree": "current",
+     "traced": true,
+     "transcript": false,
+     "sandbox": true,
+     "about": "the lesson 8 reference server, traced, the network denied by sandbox-exec",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-c.client.jsonl",
+      "other-c.summary.json",
+      "other-c.summary.md"
+     ],
+     "seen": {
+      "writes": "none",
+      "sockets": "none",
+      "processes": "none",
+      "modules": "none"
+     }
+    },
+    {
+     "label": "other-plain",
+     "server": "other",
+     "tree": "current",
+     "traced": false,
+     "transcript": false,
+     "sandbox": false,
+     "about": "the lesson 8 reference server, not traced (the control)",
+     "answers_sha256": "3c9b99926cefa3e8c18cb202f37f15fa570ee93ab6776d325331c0bb8b5b0bb8",
+     "steps": 30,
+     "as_the_plan_expects": 30,
+     "files": [
+      "other-plain.client.jsonl"
+     ]
+    }
+   ]
+  }
+ ]
+}

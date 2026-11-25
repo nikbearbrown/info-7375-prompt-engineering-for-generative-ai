@@ -3,13 +3,17 @@
 JS3, step 2 item 3: "evaluate it the way you would a server someone else wrote." The server was built by Claude Code
 at my request (commit `a54c424`). This evaluation was drafted by Claude Code on 2026-11-21 from the source, the
 recorded runs and the tests named below; every claim carries its evidence type. The trust decision at the end is mine
-(written on 2026-11-22).
+(written on 2026-11-22). On 2026-11-24 Claude Code added runtime traces where this evaluation had said run-time
+behavior was uninspected, and, after my decision, a section on what changed since I wrote it.
 
 ## What was evaluated, and with what
 
 - **The object.** `job_agent/mcp_server.py` at commit `a54c424` (SHA-256 `e39a82fe67a0...5325c`), server name
   `job-search-agent`, version `1.0.0`, protocol version `2025-11-25`, started as
   `python3 -B -m job_agent.mcp_server [--transcript js3/mcp/transcripts/NAME.jsonl]`. One tool, `score_posting`.
+  The current file, changed in `5dff01f` on 2026-11-22, has SHA-256
+  `db44168911705a2ee853b999ac1ebac7ddbc10914c293ce418f7478799c5a347`; what changed is in "Changes after the trust
+  decision" at the end. [independently sourced: git history]
 - **The task it is evaluated for.** Score one posting from the agent's saved board answers with FILTER.md v1.0 for
   the fictional persona Jane Doe, so that Claude can be offered the agent's filter as a tool (the JS3 brief). Nothing
   else.
@@ -23,11 +27,16 @@ recorded runs and the tests named below; every claim carries its evidence type. 
      in `tools/mutants.py`.
   4. The MCP 2025-11-25 specification pages for the lifecycle, the transports and tools
      (modelcontextprotocol.io/specification/2025-11-25/...), read on 2026-11-21.
+  5. Runtime traces, made by Claude Code on 2026-11-24 (`js3/mcp/runtime/2026-11-25T023441Z/`, named in UTC): our
+     client's same five sessions, with the server's code unchanged and run under a Python audit hook (PEP 578) by
+     `tools/mcp_runtime_trace.py`, on Python 3.12.14 and 3.9.6. Runs: traced without and with `--transcript`, traced
+     with the network denied by `sandbox-exec`, traced at `a54c424`, and not traced as a control. The trace's own
+     tests are `tests/test_mcp_runtime_trace.py` (17). The folder's README gives the command that re-checks it.
 - **Evidence types**, as chapter 8 names them:
   - **advertised**: what the server says about itself (its tool listing, its initialize answer).
   - **source-inspected**: read in the code.
   - **executed on a fixture**: a run we made and recorded, on constructed postings (the tests) or on the saved board
-    answers of run `2026-11-20T114036Z` (the transcripts). The run is named each time.
+    answers of run `2026-11-20T114036Z` (the transcripts and the runtime traces). The run is named each time.
   - **independently sourced**: from a source the server did not write (the MCP specification, the committed filter
     run, the course repo's history).
   - **uninspected**: not looked at. Not the same as "none".
@@ -59,7 +68,7 @@ recorded runs and the tests named below; every claim carries its evidence type. 
 |---|---|---|---|
 | One tool, `score_posting` | tools/list | `tools/list` returns the one `TOOL` object; `tools/call` runs nothing else | advertised; source-inspected; executed on a fixture (session `main`, step 3 and 7) |
 | "The tool reads saved files only" | tool description | `score_posting` reads `runs/<run>/boards/<board>/attempt-*.meta.json` and the saved body (through `filter_run.newest_answers`), `FILTER.md` (rules and SHA-256) and `persona/jane-doe.json` (through `resume.load`) | source-inspected |
-| "it fetches nothing" | tool description | No network call on the tool's code path; the import graph loads no `socket`, `ssl`, `http` or `subprocess` module (only `urllib.parse`). Network behavior at run time was not observed. | source-inspected (code path, import graph); runtime network: **uninspected** |
+| "it fetches nothing" | tool description | No network call on the tool's code path; the repo's modules import no `socket`, `ssl`, `http` or `subprocess` module (only `urllib.parse`). At run time, in the five traced sessions on Python 3.12.14 and 3.9.6: no socket was created and no network call was made, and with the network denied by `sandbox-exec` every answer was the same. On 3.12.14 no `socket`, `ssl`, `http` or `subprocess` module loaded. On 3.9.6, `subprocess`, `_posixsubprocess`, `select` and `selectors` did load: the server imports `platform` (line 48), and Python 3.9's `platform.py` imports `subprocess` when it loads; no process was started. | source-inspected (code path, the repo's imports); executed on a fixture (runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`) |
 | "and changes no file" | tool description | `score_posting` calls only reading functions. A whole session without `--transcript` left a copy of the repo byte for byte unchanged. | source-inspected; executed on a fixture (test above, P9) |
 | `readOnlyHint: true`, `openWorldHint: false` | tool annotations | As above. The tools page says clients "MUST consider tool annotations to be untrusted unless they come from trusted servers": these two are the server's own testimony. | advertised; independently sourced (tools page) |
 | `board` is one of three boards; `posting_id` is a lowercase UUID or a number; no other argument | inputSchema | `argument_problems` checks the same three things; the `board` value only selects one of three fixed entries in `BOARDS`, and the board key used in a path comes from that entry, never from the client's string | source-inspected; executed on a fixture (session `main`, steps 8 and 9; test `test_arguments_that_fail_the_input_schema_are_tool_errors_that_never_echo_the_value`) |
@@ -145,7 +154,7 @@ repo; with `-B` the tests find no new file]
 | call more than 50 times in one session | `isError: true`, budget used up | executed on a fixture (test) |
 | start, stop or move the transcript | no message can; only the command line | source-inspected |
 | change any data | no method writes | source-inspected; executed on a fixture (the unchanged copy of the repo) |
-| reach the network through the server | no network code on any path the server runs | source-inspected; runtime: **uninspected** |
+| reach the network through the server | no network code on any path the server runs; in the traced sessions no socket was created, no network call was made and no process was started, and with the network denied every answer was the same | source-inspected; executed on a fixture (runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`) |
 
 ## Findings
 
@@ -174,14 +183,30 @@ repo; with `-B` the tests find no new file]
    for) are each caught by at least one test: the full run of 2026-11-21 (08:49 to 09:08 UTC) caught 82 of 82 planted
    mistakes, these six included (`js3/checks/mutants-2026-11-21-mcp.txt`). [executed on a fixture]
 10. The server is a subset of MCP 2025-11-25 (Ledger 1, P14): not conformant, and not shown to be secure.
+11. (Added 2026-11-24.) In the five traced sessions, on Python 3.12.14 and 3.9.6, the server opened no file to write
+    and changed no file, except the transcript when it was started with `--transcript` (per session, one `os.open`
+    with `O_WRONLY`, `O_APPEND`, `O_CREAT` and `O_NOFOLLOW`, then that descriptor opened in mode `a`). It created no
+    socket, made no network call and started no process. It read its own nine modules, FILTER.md, the persona, files
+    under `runs/` and Python's own files, and nothing else. With the network denied by `sandbox-exec` every answer was
+    the same, and every traced answer was the same as the untraced one. This is what happened in these runs on these
+    inputs, not proof for every input; the source reading above covers the code paths. [executed on a fixture:
+    runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`]
+12. (Added 2026-11-24.) On Python 3.9.6 the modules `subprocess`, `_posixsubprocess`, `select` and `selectors` load
+    when the server starts, because the standard library's `platform`, which the server imports, imports `subprocess`
+    when it loads (Python 3.9.6's `platform.py`, line 119); on 3.12.14 they do not. The reading of the import graph on
+    2026-11-21 covered the repo's own imports, not the standard library's. No process was started in any traced
+    session. [executed on a fixture: the same trace; source-inspected: `platform.py`]
 
 ## Not checked
 
-- Network behavior at run time (no trace, no sandbox). **uninspected**
-- Any other version of the server, and any change after `a54c424`. **uninspected**
+- Run-time behavior outside the traced sessions: any other input or client, and anything done in C below the audit
+  hook (the system loader opening a C extension module, a C library opening a file or a socket by itself, such as the
+  OpenSSL library behind `hashlib`). **uninspected**
+- Any version of the server other than `a54c424` and the current file (`db441689...a347`), both traced on 2026-11-24
+  and compared in "Changes after the trust decision". **uninspected**
 - How Claude Code handles a server that answers a different protocol version. **uninspected**
 - Whether the two postings' records are right about the postings (E3). **uninspected**
-- Anything outside the recorded transcripts and the tests named above.
+- Anything outside the recorded transcripts, the runtime traces and the tests named above.
 
 ## Facts the trust decision should rest on
 
@@ -190,14 +215,18 @@ repo; with `-B` the tests find no new file]
 - What it reads: saved board answers, FILTER.md, the fictional persona (source-inspected); never my résumé or
   contacts.
 - What it writes: nothing, except the transcript an operator asks for, inside `js3/mcp/transcripts/` only (source and
-  tests); Python's bytecode caches if `-B` is left out (executed).
-- What it reaches: no network code on its path (source-inspected); runtime network uninspected.
+  tests); Python's bytecode caches if `-B` is left out (executed). In the traced sessions, no write but that
+  transcript (executed on a fixture: runtime trace, 2026-11-24).
+- What it reaches: no network code on its path (source-inspected); in the traced sessions no socket, no network call
+  and no process, and the same answers with the network denied (executed on a fixture: runtime trace, 2026-11-24). On
+  Python 3.9.6 the standard library's `platform` loads `subprocess` when the server starts, without starting a process.
 - How it behaved with a real client: one live Claude Code call, the expected tool call and the exact text handed on;
   one unexpected probe (`server/discover`) refused with -32000; shut down by SIGINT.
 - What its results claim and do not claim: the record of FILTER.md v1.0 over a saved answer, marked not live; Claude's
   restatement kept the values and dropped that provenance.
 - Version and provenance: commit `a54c424`, server `1.0.0`, protocol `2025-11-25`, maintained in this repo, written by
-  Claude Code at my request; six planted mistakes caught.
+  Claude Code at my request; six planted mistakes caught. (The file has changed since: see "Changes after the trust
+  decision".)
 - What would reopen the decision: a new tool or argument, a change to `job_agent/mcp_server.py` or to the modules it
   calls, a new FILTER.md version, a change to what the boards or the persona hold, a new Claude Code version or host
   configuration, or a task that sends results anywhere but Claude's context.
@@ -207,4 +236,44 @@ repo; with `-B` the tests find no new file]
 **Pending.** I would use `score_posting` for local, read-only scoring of saved postings with server version 1.0.0 at commit `a54c424`, but I would not approve it for broader use yet. I would reconsider after MCP conformance and security testing, or if the server, its arguments, the filter, or the Claude Code version changes.
 
 *Aravind, 2026-11-22. In my own words; Claude Code only turned the dash into a full stop and marked the names as code.*
+
+## Changes after the trust decision (added 2026-11-24)
+
+Written by Claude Code on 2026-11-24. The decision above was committed in `d4c9eb0` on 2026-11-22 at 03:26 ET, for
+the server at `a54c424`. Two commits made later that night changed the server or the modules it calls.
+[independently sourced: git history; source-inspected: the diffs]
+
+| Commit | When (ET) | What changed | Why FILTER.md v1.0's scoring stays the same |
+|---|---|---|---|
+| `b8e3a25`, "Two optional switches for v1.1 candidates, both absent in FILTER.md v1.0" | 2026-11-22 03:32 | `job_agent/filter.py` (13 lines added, 3 removed): `split_sentences` can keep listed abbreviations such as "U.S." inside a sentence (Section 7's optional `splitter_keeps`), and `score` adds a term only when `ranking.caution_penalty` is set. | v1.0's Section 7 has neither key, so neither switch acts. Tests in `tests/test_filter_switches.py`: `test_v1_0_has_neither_switch`, `test_splitter_keeps_us_inside_a_sentence_only_when_asked`, `test_caution_penalty_only_when_set`, `test_v1_0_judgments_unchanged_by_the_new_code`. |
+| `5dff01f`, "FILTER.md v1.1 (2026-11-22), added below v1.0, which is unchanged" | 2026-11-22 03:47 | `FILTER.md`: v1.1 added below v1.0, with its own Section 7 (293 lines added, none removed). `job_agent/filter.py` (20 added, 6 removed): `load_rules` reads every Section 7 and returns the newest unless a version is named. `job_agent/filter_run.py` (3 added, 2 removed): `run` takes `rules_version` and passes it on; `newest_answers`, the one function of that module the server calls, is unchanged. `job_agent/mcp_server.py` (6 added, 1 removed): a constant `SERVED_FILTER_VERSION = "1.0"` with a three-line comment, and `score_posting` calls `flt.load_rules(repo / "FILTER.md", version=SERVED_FILTER_VERSION)` where it called `flt.load_rules(repo / "FILTER.md")`. (`job_agent/__main__.py` gained `--filter-version`; the server does not use it.) | The server names v1.0, and v1.0's text is unchanged. Tests in `tests/test_filter_v1_1.py`: `test_version_1_0_text_is_unchanged`, `test_the_newest_is_1_1_and_1_0_can_still_be_named`, `test_1_1_differs_from_1_0_only_where_the_document_says`, `test_the_mcp_server_stays_on_the_version_it_was_evaluated_with`. |
+
+The server still answers `initialize` with version `1.0.0`, as at `a54c424`: the version a client sees did not move
+with the code. [source-inspected; executed on a fixture]
+
+What the runtime comparison showed [executed on a fixture: runtime trace, 2026-11-24,
+`js3/mcp/runtime/2026-11-25T023441Z/`, `compare-d.md` in each Python's folder]:
+
+- The server at `a54c424` (a `git archive` of that commit) and the current server answered all five sessions the same,
+  on Python 3.12.14 and on 3.9.6, except one field in two messages: `filter.sha256` inside the text of the
+  `score_posting` results for the kept posting (main session, step 4, id 3) and the rejected posting (step 5, id 4).
+  That field is FILTER.md's SHA-256: `f1edbf0b5319d0c42645e892d6ef39f738f964128f3146fb82abea06438ba6f1` at `a54c424`
+  (v1.0 only), `4d79d279f5b5157e8905cb0e2109e4c50b1b983d410d8bff2a0614077e32a572` now (v1.0, then v1.1).
+  `filter.version` is "1.0" in both, and the records (fate, rules, score, topics) are equal.
+- The `a54c424` run's answers are the same as the ones our client recorded from that commit on 2026-11-21
+  (`js3/mcp/transcripts/2026-11-21T084407Z-own-client.jsonl`).
+- The two traces list the same files read and the same modules loaded, and no write, socket or process in either.
+  They differ only in the server's SHA-256 and FILTER.md's.
+
+What this means for the decision: "What would reopen the decision", above, names "a change to `job_agent/mcp_server.py`
+or to the modules it calls, a new FILTER.md version". Both happened after the decision was written, so by this
+evaluation's own terms the decision is reopened. The decision itself says it would be reconsidered "if the server, its
+arguments, the filter, or the Claude Code version changes". The comparison shows that the scoring served in these
+sessions did not change; it does not make the call.
+
+**Aravind's call after these changes:** **Still pending.** Same scope as before: fine for local, read-only scoring
+of saved postings, not approved for broader use until conformance and security testing.
+
+*Aravind, 2026-11-24. He chose this from the two options Claude Code laid out with the evidence above (still pending,
+or allow for local read-only use); the words are the option's, which he picked.*
 

@@ -6,7 +6,8 @@ server. Python 3 standard library only; tested on Python 3.12.14 and 3.9.6. The 
 CLI 2.1.326 that the Claude desktop app bundles.
 
 Claude Code built the server, the client, the Claude Code run script and the tests, ran them, and drafted the two
-evaluations, at my request. The trust decision at the end of each evaluation is mine.
+evaluations, at my request. The trust decision at the end of each evaluation is mine. On 2026-11-24 Claude Code added
+the runtime trace (below) and put its evidence into both evaluations.
 
 ## What is here
 
@@ -19,8 +20,11 @@ evaluations, at my request. The trust decision at the end of each evaluation is 
 | `js3/mcp/transcripts/` | Every transcript (next table). |
 | `js3/mcp/EVALUATION-OWN.md` | Our server: the four ledgers, declared against actual, what a client is not entitled to, the findings, and my trust decision. |
 | `js3/mcp/EVALUATION-OTHER.md` | The same for the lesson 8 reference server. |
-| `tests/test_mcp_server.py`, `tests/test_mcp_client.py` | 33 and 9 tests. |
+| `tests/test_mcp_server.py`, `tests/test_mcp_client.py` | 33 and 10 tests. |
 | `js3/checks/mutants-2026-11-21-mcp.txt` | The full mutants run with six planted server mistakes. |
+| `tools/mcp_runtime_trace.py`, `tools/mcp_trace_boot.py` | The runtime trace (2026-11-24): each server, its code unchanged, run under a Python audit hook (PEP 578) through our client's five sessions; what it opens, writes, connects to and starts, and its answers compared across runs. |
+| `js3/mcp/runtime/2026-11-25T023441Z/` | The trace's evidence, recorded on 2026-11-24 (the name is UTC), on Python 3.12.14 and 3.9.6: an event summary (JSON and Markdown) and the client's transcript for each run, and the comparisons. Its README says what the runs show and gives the command that re-checks them. |
+| `tests/test_mcp_runtime_trace.py` | 17 tests of the trace: a planted write, socket and process are caught, reads and writes are told apart, a planted environment value never comes out, the traced server's stdout is JSON-RPC only, a known small run's summary. |
 
 ## How to run
 
@@ -38,6 +42,11 @@ python3 tools/mcp_client.py other
 # Claude Code as the client: without --live it only prints the command. The one live call was made on 2026-11-21.
 python3 tools/mcp_claude_run.py --board ashby-openai --posting-id f3ddd41c-541f-485e-90d6-86c26e018e9f
 python3 tools/mcp_claude_run.py --board ashby-openai --posting-id f3ddd41c-541f-485e-90d6-86c26e018e9f --live
+
+# The runtime trace: every run (both servers: traced, with --transcript, with the network denied, our server at
+# a54c424, and not traced), saved in js3/mcp/runtime/<UTC time>/; then the same runs again, compared with that folder
+python3 tools/mcp_runtime_trace.py record --python /opt/homebrew/bin/python3.12 --python /usr/bin/python3
+python3 tools/mcp_runtime_trace.py check js3/mcp/runtime/2026-11-25T023441Z
 
 # The tests, and the planted mistakes
 python3 -m unittest discover -s tests -t .
@@ -64,13 +73,28 @@ temporary folder as a placeholder, so no record names this Mac's account.
 | `2026-11-21T084542Z-claude-code-answer.md` | the same | Claude's final answer word for word, with the date, the model, the prompt and the system prompt, and the run's nine checks. |
 | `2026-11-21T084542Z-claude-code-run.json` | the same | The command (all flags), the prompts, the environment's variable names, the exit code and the checks with what each one saw. Seven passed; two failed on client behavior the script did not expect (`EVALUATION-OWN.md`, finding 5). |
 
+## The runtime trace (2026-11-24)
+
+The evaluations first said that run-time file and network behavior was uninspected. On 2026-11-24 Claude Code ran
+each server, its code unchanged, under a Python audit hook (`tools/mcp_trace_boot.py` installs it, then runs the
+server with `runpy`) through our client's five sessions, on Python 3.12.14 and 3.9.6: traced, traced with
+`--transcript` (ours), traced with the network denied by `sandbox-exec`, our server at `a54c424`, and not traced. The
+hook keeps arguments only for an allowlist of events (file paths, modes and flags, socket addresses, a started
+program's file name, module names) and never an environment value. Everything is in
+`js3/mcp/runtime/2026-11-25T023441Z/`, whose README says what the runs show; in short, for these sessions on these
+inputs: neither server wrote a file (ours only the transcript it was asked for), created a socket or started a
+process; with the network denied every answer was the same; on Python 3.9.6 the standard library's `platform`, which
+our server imports, loads `subprocess` without starting anything; and our server at `a54c424` gives the same answers as
+today's except FILTER.md's SHA-256. Evidence type: executed on a fixture. It is not proof for every input.
+
 ## The other server's provenance
 
 `js3/mcp/other-server/main.py` is `lessons/08-mcp-from-scratch/code/main.py` from the course repository
 (github.com/nikbearbrown/info-7375-prompt-engineering-for-generative-ai), taken with `git show` from my local clone's
 `upstream/main` at commit `5639e4c8`; nothing was downloaded. Git blob `f33ea9de` (the same as upstream), SHA-256
 `948337af...8b1769`. The file was last changed in commit `a8629ce1` (2026-09-06, Nik Bear Brown). The repository's
-LICENSE is the MIT License. The copy is unchanged; the evaluation's line numbers refer to it.
+LICENSE is the MIT License. The copy is unchanged (checked again on 2026-11-24 against the clone's blob at `5639e4c8`);
+the evaluation's line numbers refer to it.
 
 ## Notes
 

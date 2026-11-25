@@ -3,7 +3,9 @@
 JS3, step 2 item 3: "Evaluate one other tool server from a source you can name the same way." The other server is the
 reference implementation of the course's lesson 8, written by the instructor. This evaluation was drafted by Claude
 Code on 2026-11-21 from the source, one recorded run of our client against it, and the course repo's history; every
-claim carries its evidence type. The trust decision at the end is mine (written on 2026-11-22).
+claim carries its evidence type. The trust decision at the end is mine (written on 2026-11-22). On 2026-11-24 Claude
+Code added runtime traces where this evaluation had said run-time behavior was uninspected, and checked that the copy
+is still the same bytes.
 
 ## What was evaluated, and with what
 
@@ -14,6 +16,11 @@ claim carries its evidence type. The trust decision at the end is mine (written 
   License.
 - **The copy.** `js3/mcp/other-server/main.py`, made with `git show`, byte for byte: its git blob hash is the upstream
   blob's, `f33ea9de`, and its SHA-256 is `948337af...8b1769`. 72 lines; it imports `argparse`, `json` and `sys`.
+  Checked again on 2026-11-24: the copy's SHA-256 is still
+  `948337afc71b67b659aac44b4a8f3efec5dc699b9bb7c2e683dd6888068b1769` and its git blob still
+  `f33ea9ded4a5373d6b3a9bca60a458eec66f3fc8`, the blob of `lessons/08-mcp-from-scratch/code/main.py` at `5639e4c8` in
+  my local clone; one commit in this repo touched the copy, `e06d824` (2026-11-21), which added it. The file is
+  unchanged. [independently sourced: the git objects of both repos]
 - **What it says it is.** Server name `info7375-readonly`, version `1.0.0`, protocol version `2025-11-25`; one tool,
   `lookup`, "Read a public course fixture". Run as a stdio server with `python3 main.py --stdio`.
 - **The task it is evaluated for.** A classroom comparison: answer the lookup for key `office` from the declared course
@@ -28,8 +35,13 @@ claim carries its evidence type. The trust decision at the end is mine (written 
      run on every test run.
   4. Chapter 8 of the course book, which describes this server, and the MCP 2025-11-25 specification pages for the
      lifecycle, the transports and tools, read on 2026-11-21.
-- **Evidence types**: advertised, source-inspected, executed on a fixture (here: the recorded run and the test),
-  independently sourced, uninspected, as in `EVALUATION-OWN.md`.
+  5. Runtime traces, made by Claude Code on 2026-11-24 (`js3/mcp/runtime/2026-11-25T023441Z/`, named in UTC): the same
+     five sessions of our client, with the copy unchanged and run under a Python audit hook (PEP 578) by
+     `tools/mcp_runtime_trace.py`, on Python 3.12.14 and 3.9.6, in the environment named above. Runs: traced, traced
+     with the network denied by `sandbox-exec`, and not traced as a control. The folder's README gives the command
+     that re-checks it.
+- **Evidence types**: advertised, source-inspected, executed on a fixture (here: the recorded run, the test and the
+  runtime traces), independently sourced, uninspected, as in `EVALUATION-OWN.md`.
 
 ## Ledger 1: Protocol. Is the exchange well formed and in order?
 
@@ -69,8 +81,15 @@ no write except `print(...)` to stdout (lines 60 and 69). [source-inspected]
 
 - **Reads:** `sys.stdin` (line 63). No file, no network, no environment variable. [source-inspected]
 - **Writes:** stdout only. [source-inspected]
-- **At run time:** file and network behavior were not traced; the claim above rests on reading all 72 lines.
-  [runtime: **uninspected**]
+- **At run time:** traced on 2026-11-24 in the five sessions of our client, on Python 3.12.14 and 3.9.6. The server
+  read its own file and Python's own files and nothing else; it opened no file to write, changed no file, created no
+  socket, made no network call and started no process. The modules it loaded were `argparse` and `gettext`, `json`
+  and its parts, `locale`, `errno`, `shutil` with `fnmatch` and the compression modules `shutil` imports (`zlib`,
+  `bz2`, `lzma`), and on 3.9.6 also `threading` and `grp`: none that can reach a network or start a process. With the
+  network denied by `sandbox-exec` every answer was the same. When the process ended on the bytes and deep inputs,
+  Python's traceback printer read the source files named in the traceback. This is what happened in these runs on
+  these inputs, not proof for every input; the claim for every input still rests on reading all 72 lines.
+  [executed on a fixture: runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`; source-inspected]
 - **Who maintains it:** the course instructor, in the course repository; one commit touched the file, on 2026-09-06.
   [independently sourced: the course repo's git history]
 
@@ -106,7 +125,7 @@ no write except `print(...)` to stdout (lines 60 and 69). [source-inspected]
 | send a line nested 20,000 deep | **the process ends** (exit 1) | executed on a fixture (session `deep`) |
 | initialize a second time | accepted: a second result | executed on a fixture (session `lifecycle`, step 3) |
 | run a tool through a notification | nothing: dropped, not run | executed on a fixture (session `lifecycle`, step 4) |
-| change any data, or reach a file or the network through the server | no code that could | source-inspected; runtime: **uninspected** |
+| change any data, or reach a file or the network through the server | no code that could; in the traced sessions no file was opened to write, none was read but its own and Python's, no socket was created and no process started, and with the network denied every answer was the same | source-inspected; executed on a fixture (runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`) |
 
 ## Findings
 
@@ -123,21 +142,30 @@ no write except `print(...)` to stdout (lines 60 and 69). [source-inspected]
 6. The server keeps no record of its own; a review depends on the client's transcript. [source-inspected]
 7. A subset of MCP 2025-11-25, not conformant, and not shown to be secure; the course presents it as a teaching
    subset. [source-inspected; independently sourced]
+8. (Added 2026-11-24.) In the five traced sessions, on Python 3.12.14 and 3.9.6, the server read only its own file and
+   Python's own files, wrote nothing but stdout, created no socket, made no network call and started no process. With
+   the network denied by `sandbox-exec` every answer was the same, and every traced answer was the same as the untraced
+   one. On 3.9.6 the bytes and deep inputs ended the process as on 3.12.14 (`UnicodeDecodeError`, `RecursionError`,
+   exit code 1). This is what happened in these runs on these inputs, not proof for every input. [executed on a
+   fixture: runtime trace, 2026-11-24, `js3/mcp/runtime/2026-11-25T023441Z/`]
 
 ## Not checked
 
-- File and network behavior at run time (no trace, no sandbox). **uninspected**
+- Run-time behavior outside the traced sessions: any other input or client, and anything done in C below the audit
+  hook (the system loader opening a C extension module, a C library opening a file or a socket by itself).
+  **uninspected**
 - Any other version of the file, and the course repo after `5639e4c8`. **uninspected**
-- The bytes and deep cases under another locale or another Python than 3.12.14. **uninspected**
+- The bytes and deep cases under another locale, or under a Python other than 3.12.14 and 3.9.6. **uninspected**
 - Whether the fixture value is true in the world (E3). **uninspected**
-- Anything outside the recorded transcript and the test named above.
+- Anything outside the recorded transcript, the runtime traces and the test named above.
 
 ## Facts the trust decision should rest on
 
 - Source and provenance: the course instructor's file, MIT-licensed repository, blob `f33ea9de`, last changed
-  2026-09-06; copied byte for byte, not downloaded.
-- Capability: one literal mapping; no file, network or process code in the 72 lines (source-inspected); runtime
-  behavior not traced.
+  2026-09-06; copied byte for byte, not downloaded; still the same bytes on 2026-11-24.
+- Capability: one literal mapping; no file, network or process code in the 72 lines (source-inspected); in the traced
+  sessions no write, socket or process, and no read but its own file and Python's (executed on a fixture: runtime
+  trace, 2026-11-24).
 - Protocol: a correct two-flag lifecycle for the cases run; no params checking on `initialize`; input validation
   answered as a protocol error.
 - Robustness: two malformed inputs end the process (executed).

@@ -36,3 +36,63 @@ they were written.
 *Evidence:* audit verdicts `45fc2c0`, scored in `79df09c` (`js3/audit/2026-11-21T044414Z/RESULTS.md`; card 17 in
 `AFTER-REVEAL.md`); the card fix and rebuilt held-out cards `f629b8c`; held-out verdicts `1e2b1e1` (still sealed);
 claim labels `1608a04`, scored in `57041c4`, flip checks `cb4943a`.
+
+## Sunday 2026-11-22, after 3:15 AM ET and that evening (written on 2026-11-24; my notes, organized by Claude Code)
+
+**Tried and expected.** Before any v1.1 call I checked two things myself. At 3:18 AM I ran my own test
+(`tests/test_aravind_own_rule.py`, written from my R1: an internship posting must be rejected, with R1 deciding), and
+it passed. At 3:19 AM I reran `tools/score_audit.py` and `tools/score_claims.py`: the same numbers, and both
+RESULTS.md files byte for byte the same. Then I made my three calls for v1.1. I wanted the score to put first the
+postings that pass the important requirements, without technical keywords being the only way onto the shortlist.
+
+**Surprise.** I realized that some phrases can look like technical topics without describing the work. "build
+systems" was a good example (my claim label 09.8c): it can mean building systems in general, not build tools for
+developers. Matching words is not enough; the context matters.
+
+**My changes.** I set the shortlist cutoff at 50, the score every posting starts with, so a suitable posting is not
+left off just because it names no extra topic; on my held-out cards a cutoff of 60 had left out 5 of my 12 Keeps (22
+of 27 agreed at 60, 27 of 27 at 50). An export-control line now costs 10 points: the posting stays kept, not
+rejected, but ranks lower, because the line does not say whether Jane is eligible. I dropped "build systems" from
+Developer tools because it created false matches. These three calls are FILTER.md v1.1. I felt more comfortable
+signing off after them, and I signed that evening at 8:20 PM ET, although I knew the filter was not perfect and needed
+more testing.
+
+**Claude's part.** Claude Code laid out each call with the held-out numbers behind it. I took its recommended cutoff
+of 50; on the other two it recommended neither option, and I chose "cost 10 points" over leaving the line a caution
+with no points, and "drop it" over keeping "build systems". It then wrote v1.1 around my calls with its two
+implementation fixes (the sentence splitter and the company words), applied v1.1 to all 1,509 postings, ran the 82
+planted mistakes again, and kept the MCP server on v1.0, the version I had evaluated.
+
+**Still unsure.** My calls came from the held-out results, so that set could no longer test them: when I signed,
+v1.1 had not been tested on postings I had not seen.
+
+*Evidence:* my test `3ed19d2`; the recomputation in `js3/SIGNOFF.md`; the held-out measurement `cb1b50c`; FILTER.md
+v1.1 `5dff01f` and its run `eb8ebd7`; the held-out set marked development data `4e8089e`; the 82 planted mistakes
+again `c9417c6`; the sign-off signed `c8fbb73`.
+
+## Tuesday 2026-11-24 (written the same evening, before the scores; my notes, organized by Claude Code)
+
+**Tried.** I judged 20 fresh cards, postings I had never been shown, to test my three v1.1 calls on labels that
+played no part in them. The set was sealed before I saw any card, and my verdicts were committed before its answers
+were opened.
+
+**Claude's part.** Claude Code drew the cards by a written rule, sealed the answers and wrote down its predictions
+before I saw them. Its first chat version of the cards replaced each description with its own summary, so it
+withdrew that version and sent cards made by a script from the sealed file before I judged them. It then scored my
+verdicts and prepared the comparison.
+
+**Still unsure.** While judging, I noticed that some roles are hard to classify from their titles and short
+descriptions alone. Robotics, machine learning, frontend productivity and infrastructure roles can overlap with
+software engineering but may not match Jane's experience equally well. I marked three postings "?" because their
+export-control lines do not say who is eligible. I want to make sure the agent does not confuse a related technical
+area with a genuinely suitable job.
+
+**The scores** (added by Claude Code from RESULTS.md after the scoring): on the 12 postings v1.1 newly recommends, I
+kept 10 and rejected 2, the frontend productivity role (card 03) and the robotics control-systems role (card 05), so
+v1.1's cutoff agreed with me on 10 and v1.0's on 2. Those two are the first postings the filter kept that I rejected:
+both titles contain "Software Engineer", which my R4 passes, and both scored 50 with no topic group. I marked all three
+export-control postings "?", and the five control cards came out as expected.
+
+*Evidence:* the sealed set `9cdf591` (seed 2026112401, predictions in `PREDICTIONS.md`); the chat view and the
+withdrawn first version `62df039` (`CHANGES.md`); my verdicts `1bbbcf6`; the scores `c01dc04`
+(`js3/fresh/2026-11-22T084738Z/RESULTS.md`).

@@ -456,14 +456,19 @@ def compare_with_server_log(log: list, server_log: Path) -> dict:
 
 
 def evidence_checks(log: list, repo: Path) -> list:
-    """Each successful score_posting result against the committed filter run's record of the same posting."""
-    runs = sorted(p for p in (repo / "js3" / "filter-run").glob("*") if (p / "verdicts.json").exists()) \
-        if (repo / "js3" / "filter-run").exists() else []
+    """Each successful score_posting result against the committed filter run of the same FILTER.md version.
+
+    FILTER.md keeps every version, and the server names the one it scored with; the newest committed run of that
+    version is the one to compare with (comparing with a run of another version would test the wrong rules).
+    """
+    base = repo / "js3" / "filter-run"
+    runs = sorted(p for p in base.glob("*") if (p / "verdicts.json").exists()) if base.exists() else []
     if not runs:
         return []
-    verdicts = json.loads((runs[-1] / "verdicts.json").read_text(encoding="utf-8"))
-    records = {(r["board"], r["id"]): r for r in verdicts["records"]}
-    shas = {s["key"]: s["sha256"] for s in verdicts["meta"]["sources"]}
+    by_version = {}
+    for run in runs:  # oldest first, so the newest run of each version is the one kept
+        data = json.loads((run / "verdicts.json").read_text(encoding="utf-8"))
+        by_version[data["meta"].get("filter_version", "1.0")] = (run, data)
     checks = []
     for entry in log:
         if entry["type"] != "line" or entry["dir"] != "server->client":
@@ -479,9 +484,18 @@ def evidence_checks(log: list, repo: Path) -> list:
         if not isinstance(payload, dict) or payload.get("tool") != "score_posting":
             continue
         key = (payload["board"], payload["posting_id"])
+        version = (payload.get("filter") or {}).get("version")
+        run, verdicts = by_version.get(version, (None, None))
+        if verdicts is None:
+            checks.append({"session": entry["session"], "board": key[0], "posting_id": key[1],
+                           "fate": payload["record"]["fate"], "filter_run": None, "filter_version": version,
+                           "same_saved_answer": False, "same_filter_md": False, "record_equal": False})
+            continue
+        records = {(r["board"], r["id"]): r for r in verdicts["records"]}
+        shas = {s["key"]: s["sha256"] for s in verdicts["meta"]["sources"]}
         committed = records.get(key)
         checks.append({"session": entry["session"], "board": key[0], "posting_id": key[1],
-                       "fate": payload["record"]["fate"], "filter_run": runs[-1].name,
+                       "fate": payload["record"]["fate"], "filter_run": run.name, "filter_version": version,
                        "same_saved_answer": shas.get(key[0]) == payload["source"]["sha256"],
                        "same_filter_md": verdicts["meta"]["filter_md_sha256"] == payload["filter"]["sha256"],
                        "record_equal": committed is not None and committed == payload["record"]})
