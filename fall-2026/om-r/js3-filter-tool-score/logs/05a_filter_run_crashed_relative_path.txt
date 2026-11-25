@@ -1,0 +1,14 @@
+$ python3 -m js3.run_filter logs/run_20261121T132140Z.json
+# 2026-11-21T13:22:16Z
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/omraut/Desktop/js3-filter-tool-score/js3/run_filter.py", line 90, in <module>
+    main()
+  File "/Users/omraut/Desktop/js3-filter-tool-score/js3/run_filter.py", line 55, in main
+    record = {"filter_version": flt.VERSION, "source_run": str(Path(report_path).relative_to(ROOT)),
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15_3/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 730, in relative_to
+    raise ValueError("{!r} is not in the subpath of {!r}"
+ValueError: 'logs/run_20261121T132140Z.json' is not in the subpath of '/Users/omraut/Desktop/js3-filter-tool-score' OR one path is relative and the other is absolute.
+# exit 1

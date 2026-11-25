@@ -1,0 +1,131 @@
+$ python3 -m unittest -v tests.test_reject_audit   # new group-B tests vs the full-B module (before the change)
+# 2026-11-21T13:38:45Z
+test_default_near_sample_size_is_38_random_plus_forced (tests.test_reject_audit.RejectAuditDraw.test_default_near_sample_size_is_38_random_plus_forced) ... ERROR
+test_draw_order_does_not_depend_on_input_order (tests.test_reject_audit.RejectAuditDraw.test_draw_order_does_not_depend_on_input_order) ... ok
+test_insufficient_data_never_drawn_anywhere (tests.test_reject_audit.RejectAuditDraw.test_insufficient_data_never_drawn_anywhere) ... ok
+test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample) ... ERROR
+test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects) ... ERROR
+test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool (tests.test_reject_audit.RejectAuditDraw.test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool) ... ok
+test_relevant_group_is_every_relevant_posting (tests.test_reject_audit.RejectAuditDraw.test_relevant_group_is_every_relevant_posting) ... ok
+test_seed_is_fixed_and_documented (tests.test_reject_audit.RejectAuditDraw.test_seed_is_fixed_and_documented) ... ok
+
+======================================================================
+ERROR: test_default_near_sample_size_is_38_random_plus_forced (tests.test_reject_audit.RejectAuditDraw.test_default_near_sample_size_is_38_random_plus_forced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 62, in test_default_near_sample_size_is_38_random_plus_forced
+    self.assertEqual(self.ra.N_NEAR_SAMPLE, 38)
+                     ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'js3.reject_audit' has no attribute 'N_NEAR_SAMPLE'
+
+======================================================================
+ERROR: test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 50, in test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample
+    d = self.ra.draw(self.out, n_near=3)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 45, in test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects
+    self.assertEqual(sorted(r["id"] for r in self.draw["near_threshold_population"]),
+                                             ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'near_threshold_population'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.014s
+
+FAILED (errors=3)
+# exit 1
+$ python3 -m unittest -v tests.test_reject_audit   # after fixing test setUp to n_near=3; module still the full-B version
+# 2026-11-21T13:38:59Z
+test_default_near_sample_size_is_38_random_plus_forced (tests.test_reject_audit.RejectAuditDraw.test_default_near_sample_size_is_38_random_plus_forced) ... ERROR
+test_draw_order_does_not_depend_on_input_order (tests.test_reject_audit.RejectAuditDraw.test_draw_order_does_not_depend_on_input_order) ... ERROR
+test_insufficient_data_never_drawn_anywhere (tests.test_reject_audit.RejectAuditDraw.test_insufficient_data_never_drawn_anywhere) ... ERROR
+test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample) ... ERROR
+test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects) ... ERROR
+test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool (tests.test_reject_audit.RejectAuditDraw.test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool) ... ERROR
+test_relevant_group_is_every_relevant_posting (tests.test_reject_audit.RejectAuditDraw.test_relevant_group_is_every_relevant_posting) ... ERROR
+test_seed_is_fixed_and_documented (tests.test_reject_audit.RejectAuditDraw.test_seed_is_fixed_and_documented) ... ERROR
+
+======================================================================
+ERROR: test_default_near_sample_size_is_38_random_plus_forced (tests.test_reject_audit.RejectAuditDraw.test_default_near_sample_size_is_38_random_plus_forced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_draw_order_does_not_depend_on_input_order (tests.test_reject_audit.RejectAuditDraw.test_draw_order_does_not_depend_on_input_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_insufficient_data_never_drawn_anywhere (tests.test_reject_audit.RejectAuditDraw.test_insufficient_data_never_drawn_anywhere)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_group_is_forced_rule2_only_plus_seeded_subsample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects (tests.test_reject_audit.RejectAuditDraw.test_near_threshold_population_is_exactly_one_word_plus_rule2_only_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool (tests.test_reject_audit.RejectAuditDraw.test_random_sample_is_n_drawn_only_from_the_reject_sampling_pool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_relevant_group_is_every_relevant_posting (tests.test_reject_audit.RejectAuditDraw.test_relevant_group_is_every_relevant_posting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+======================================================================
+ERROR: test_seed_is_fixed_and_documented (tests.test_reject_audit.RejectAuditDraw.test_seed_is_fixed_and_documented)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_reject_audit.py", line 24, in setUp
+    self.draw = reject_audit.draw(self.out, n_near=3)  # fixture pool has only 5 exactly-1-word postings
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: draw() got an unexpected keyword argument 'n_near'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.015s
+
+FAILED (errors=8)
+# exit 1

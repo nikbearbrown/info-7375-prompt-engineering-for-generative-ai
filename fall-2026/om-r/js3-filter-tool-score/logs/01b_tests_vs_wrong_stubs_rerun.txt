@@ -1,0 +1,188 @@
+$ JS3_FILTER_IMPL=js3.wrong_stub_filter JS3_GROUNDING_IMPL=js3.wrong_stub_grounding python3 -m unittest -v tests.test_wrong_versions
+# rerun after adding test_empty_or_blank_quote_is_not_supported (added after log 01, before js3/grounding.py was written)
+# 2026-11-21T13:21:13Z
+test_buckets_partition_every_posting_exactly_once (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_buckets_partition_every_posting_exactly_once) ... ok
+test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) ... 
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=101, content='') ... FAIL
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=102, content=None) ... FAIL
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=103, content='   \n\t  ') ... FAIL
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=104, content='&lt;p&gt; &lt;/p&gt;') ... FAIL
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=105, content='') ... FAIL
+  test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=106, content=None) ... FAIL
+test_empty_postings_are_in_neither_relevant_nor_rejected (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_empty_postings_are_in_neither_relevant_nor_rejected) ... FAIL
+test_reject_sampling_pool_excludes_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_reject_sampling_pool_excludes_insufficient_data) ... FAIL
+test_claim_whose_quote_is_not_in_posting_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_whose_quote_is_not_in_posting_is_not_supported) ... FAIL
+test_claim_with_exact_quote_in_content_is_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_with_exact_quote_in_content_is_supported) ... ok
+test_claim_with_exact_quote_in_title_is_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_with_exact_quote_in_title_is_supported) ... FAIL
+test_claim_with_no_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_with_no_quote_is_not_supported) ... FAIL
+test_empty_or_blank_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_empty_or_blank_quote_is_not_supported) ... 
+  test_empty_or_blank_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_empty_or_blank_quote_is_not_supported) (quote='') ... FAIL
+  test_empty_or_blank_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_empty_or_blank_quote_is_not_supported) (quote='   ') ... FAIL
+test_mixed_batch_is_labeled_per_claim_not_uniformly (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_mixed_batch_is_labeled_per_claim_not_uniformly) ... FAIL
+test_paraphrased_or_recased_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_paraphrased_or_recased_quote_is_not_supported) ... FAIL
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=101, content='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'rejected' != 'insufficient_data'
+- rejected
++ insufficient_data
+
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=102, content=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'rejected' != 'insufficient_data'
+- rejected
++ insufficient_data
+
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=103, content='   \n\t  ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'rejected' != 'insufficient_data'
+- rejected
++ insufficient_data
+
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=104, content='&lt;p&gt; &lt;/p&gt;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'rejected' != 'insufficient_data'
+- rejected
++ insufficient_data
+
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=105, content='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'relevant' != 'insufficient_data'
+- relevant
++ insufficient_data
+
+
+======================================================================
+FAIL: test_each_empty_posting_is_flagged_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_each_empty_posting_is_flagged_insufficient_data) (id=106, content=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 78, in test_each_empty_posting_is_flagged_insufficient_data
+    self.assertEqual(self.impl.classify(p)["bucket"], "insufficient_data")
+AssertionError: 'relevant' != 'insufficient_data'
+- relevant
++ insufficient_data
+
+
+======================================================================
+FAIL: test_empty_postings_are_in_neither_relevant_nor_rejected (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_empty_postings_are_in_neither_relevant_nor_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 84, in test_empty_postings_are_in_neither_relevant_nor_rejected
+    self.assertEqual(self.empty_ids & rejected, set(), "empty-content postings leaked into rejected")
+AssertionError: Items in the first set but not the second:
+104
+101
+102
+103 : empty-content postings leaked into rejected
+
+======================================================================
+FAIL: test_reject_sampling_pool_excludes_insufficient_data (tests.test_wrong_versions.WrongVersion1RejectBucketDropsInsufficientData.test_reject_sampling_pool_excludes_insufficient_data)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 90, in test_reject_sampling_pool_excludes_insufficient_data
+    self.assertEqual(self.empty_ids & pool, set(), "you can't hand-judge a posting with no text")
+AssertionError: Items in the first set but not the second:
+104
+101
+102
+103 : you can't hand-judge a posting with no text
+
+======================================================================
+FAIL: test_claim_whose_quote_is_not_in_posting_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_whose_quote_is_not_in_posting_is_not_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 134, in test_claim_whose_quote_is_not_in_posting_is_not_supported
+    self.assertNotEqual(r["label"], "supported")
+AssertionError: 'supported' == 'supported'
+
+======================================================================
+FAIL: test_claim_with_exact_quote_in_title_is_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_with_exact_quote_in_title_is_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 129, in test_claim_with_exact_quote_in_title_is_supported
+    self.assertEqual(r["field"], "title")
+AssertionError: 'content' != 'title'
+- content
++ title
+
+
+======================================================================
+FAIL: test_claim_with_no_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_claim_with_no_quote_is_not_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 139, in test_claim_with_no_quote_is_not_supported
+    self.assertNotEqual(r["label"], "supported")
+AssertionError: 'supported' == 'supported'
+
+======================================================================
+FAIL: test_empty_or_blank_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_empty_or_blank_quote_is_not_supported) (quote='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 145, in test_empty_or_blank_quote_is_not_supported
+    self.assertNotEqual(self.label("Uses PyTorch", q)["label"], "supported")
+AssertionError: 'supported' == 'supported'
+
+======================================================================
+FAIL: test_empty_or_blank_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_empty_or_blank_quote_is_not_supported) (quote='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 145, in test_empty_or_blank_quote_is_not_supported
+    self.assertNotEqual(self.label("Uses PyTorch", q)["label"], "supported")
+AssertionError: 'supported' == 'supported'
+
+======================================================================
+FAIL: test_mixed_batch_is_labeled_per_claim_not_uniformly (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_mixed_batch_is_labeled_per_claim_not_uniformly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 158, in test_mixed_batch_is_labeled_per_claim_not_uniformly
+    self.assertEqual([r["label"] == "supported" for r in out], [True, False, True])
+AssertionError: Lists differ: [True, True, True] != [True, False, True]
+
+First differing element 1:
+True
+False
+
+- [True, True, True]
+?        ^^^
+
++ [True, False, True]
+?        ^^^^
+
+
+======================================================================
+FAIL: test_paraphrased_or_recased_quote_is_not_supported (tests.test_wrong_versions.WrongVersion2ClaimsLabeledWithoutGroundingCheck.test_paraphrased_or_recased_quote_is_not_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_wrong_versions.py", line 150, in test_paraphrased_or_recased_quote_is_not_supported
+    self.assertNotEqual(r["label"], "supported")
+AssertionError: 'supported' == 'supported'
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.004s
+
+FAILED (failures=15)
+# exit 1

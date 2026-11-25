@@ -1,0 +1,22 @@
+# python3 -m unittest -v tests.test_mcp_server  (after js3/mcp_server.py)
+Mon Nov 23 00:02:38 UTC 2026
+test_parse_error_invalid_request_unknown_method (tests.test_mcp_server.JsonRpc.test_parse_error_invalid_request_unknown_method) ... ok
+test_initialize_result_shape (tests.test_mcp_server.Lifecycle.test_initialize_result_shape) ... ok
+test_notification_gets_no_response (tests.test_mcp_server.Lifecycle.test_notification_gets_no_response) ... ok
+test_requests_before_initialize_are_refused_except_ping (tests.test_mcp_server.Lifecycle.test_requests_before_initialize_are_refused_except_ping) ... ok
+test_unsupported_version_gets_servers_version (tests.test_mcp_server.Lifecycle.test_unsupported_version_gets_servers_version) ... ok
+test_subprocess_session (tests.test_mcp_server.OverRealStdio.test_subprocess_session) ... ok
+test_adhoc_title_and_content (tests.test_mcp_server.ToolsCall.test_adhoc_title_and_content) ... ok
+test_missing_key_is_execution_error_not_a_verdict (tests.test_mcp_server.ToolsCall.test_missing_key_is_execution_error_not_a_verdict) ... ok
+test_rejected_posting_never_calls_claude (tests.test_mcp_server.ToolsCall.test_rejected_posting_never_calls_claude) ... ok
+test_relevant_posting_is_judged_and_matches_output_schema (tests.test_mcp_server.ToolsCall.test_relevant_posting_is_judged_and_matches_output_schema) ... ok
+test_unknown_posting_is_execution_error (tests.test_mcp_server.ToolsCall.test_unknown_posting_is_execution_error) ... ok
+test_unknown_tool_and_invalid_arguments_are_protocol_errors (tests.test_mcp_server.ToolsCall.test_unknown_tool_and_invalid_arguments_are_protocol_errors) ... ok
+test_exactly_one_tool_with_schemas (tests.test_mcp_server.ToolsList.test_exactly_one_tool_with_schemas) ... ok
+test_every_line_logged_verbatim_both_directions (tests.test_mcp_server.WireLogAndWrites.test_every_line_logged_verbatim_both_directions) ... ok
+test_writes_outside_write_root_are_refused (tests.test_mcp_server.WireLogAndWrites.test_writes_outside_write_root_are_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.476s
+
+OK

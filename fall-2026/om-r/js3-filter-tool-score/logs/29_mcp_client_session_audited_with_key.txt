@@ -1,0 +1,92 @@
+>>> {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "js3-test-client", "version": "0.1.0"}}}
+<<< {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-06-18","capabilities":{"tools":{"listChanged":false}},"serverInfo":{"name":"js3-score","title":"JS3 posting scorer (filter v1.1.0 + shortlist-v1)","version":"0.1.0"},"instructions":"One tool, score_posting. Judged calls are billed and not idempotent."}}
+>>> {"jsonrpc": "2.0", "method": "notifications/initialized"}
+>>> {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}
+<<< {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"score_posting","title":"Score a job posting for Priya Nair","description":"Runs one posting through filter v1.1.0 (FILTER.md rules 1-4). If the filter bucket is 'relevant', makes ONE real Claude judgment (claude-opus-5-5, prompt shortlist-v1) and returns the verdict with every claim grounded against the posting text (supported / contradicted / insufficient). If the bucket is not 'relevant', Claude is not called and judgment is null. Persona is fixed (JS1 resume.json, fictional). Each judged call is billed, non-deterministic, and writes a transcript under logs/mcp/.","inputSchema":{"type":"object","description":"Either {board, id} for a posting in the committed 2026-11-21 evidence, or {title, content} for an ad hoc posting. Not both.","properties":{"board":{"type":"string","enum":["gitlab","stripe","palantir"]},"id":{"type":["string","integer"]},"title":{"type":"string","minLength":1},"content":{"type":"string"}},"additionalProperties":false,"oneOf":[{"required":["board","id"],"properties":{"board":{},"id":{}},"additionalProperties":false},{"required":["title","content"],"properties":{"title":{},"content":{}},"additionalProperties":false}]},"outputSchema":{"type":"object","required":["posting","filter","judgment"],"properties":{"posting":{"type":"object","required":["source","board","id","title","url"],"properties":{"source":{"type":"string","enum":["committed_evidence","adhoc"]},"board":{"type":"string"},"id":{"type":["string","integer"]},"title":{"type":"string"},"url":{"type":["string","null"]}},"additionalProperties":false},"filter":{"type":"object","required":["version","bucket","reasons","eligibility_flags"],"properties":{"version":{"type":"string"},"bucket":{"type":"string","enum":["relevant","rejected","insufficient_data"]},"reasons":{"type":"array","items":{"type":"string"}},"eligibility_flags":{"type":"array","items":{"type":"object","required":["kind","quote"],"properties":{"kind":{"type":"string","enum":["graduation","clearance"]},"quote":{"type":"string"}},"additionalProperties":false}}},"additionalProperties":false},"judgment":{"type":["object","null"],"description":"null when the filter bucket is not 'relevant' (Claude is not called).","required":["model","prompt_version","verdict","claims","message_id","transcript"],"properties":{"model":{"type":"string"},"prompt_version":{"type":"string"},"verdict":{"type":"string","enum":["relevant","not relevant"]},"claims":{"type":"array","items":{"type":"object","required":["claim","quote","label","field","quote_label","contradicted_by","contradicted_by_field"],"properties":{"claim":{"type":"string"},"quote":{"type":["string","null"]},"label":{"type":"string","enum":["supported","contradicted","insufficient"]},"field":{"type":["string","null"],"enum":["title","content",null]},"quote_label":{"type":"string","enum":["supported","insufficient"]},"contradicted_by":{"type":["string","null"]},"contradicted_by_field":{"type":["string","null"],"enum":["title","content",null]}},"additionalProperties":false}},"message_id":{"type":"string"},"transcript":{"type":"string"}},"additionalProperties":false}},"additionalProperties":false},"annotations":{"readOnlyHint":false,"destructiveHint":false,"idempotentHint":false,"openWorldHint":true}}]}}
+>>> {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"board": "gitlab", "id": 8704363002}}}
+<<< {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"Judgment unavailable (JUDGMENT_ERROR): AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011ChJvCSUJFcYStESEQGrSp'}. Transcript: /Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/judge_transcripts/gitlab_8704363002_2.json"}],"isError":true}}
+>>> {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"board": "gitlab", "id": 8396674002}}}
+<<< {"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"{\"posting\": {\"source\": \"committed_evidence\", \"board\": \"gitlab\", \"id\": 8396674002, \"title\": \"Manager/Senior Manager, Solution Architects - San Francisco\", \"url\": \"https://job-boards.greenhouse.io/gitlab/jobs/8396674002\"}, \"filter\": {\"version\": \"1.1.0-candidate\", \"bucket\": \"rejected\", \"reasons\": [\"rule 1: 0 of 6 role/skill words (need >= 2)\", \"rule 4: seniority word 'Manager' in title\"], \"eligibility_flags\": []}, \"judgment\": null}"},{"type":"text","text":"filter 1.1.0-candidate: rejected - Claude not called.\n  rule 1: 0 of 6 role/skill words (need >= 2)\n  rule 4: seniority word 'Manager' in title"}],"structuredContent":{"posting":{"source":"committed_evidence","board":"gitlab","id":8396674002,"title":"Manager/Senior Manager, Solution Architects - San Francisco","url":"https://job-boards.greenhouse.io/gitlab/jobs/8396674002"},"filter":{"version":"1.1.0-candidate","bucket":"rejected","reasons":["rule 1: 0 of 6 role/skill words (need >= 2)","rule 4: seniority word 'Manager' in title"],"eligibility_flags":[]},"judgment":null},"isError":false}}
+>>> {"jsonrpc": "2.0", "id": 5, "method": "tools/call", "params": {"name": "delete_everything", "arguments": {}}}
+<<< {"jsonrpc":"2.0","id":5,"error":{"code":-32602,"message":"Unknown tool: 'delete_everything'"}}
+>>> {"jsonrpc": "2.0", "id": 6, "method": "tools/call", "params": {"name": "score_posting", "arguments": {"board": "gitlab", "id": 1, "title": "x", "content": "y"}}}
+<<< {"jsonrpc":"2.0","id":6,"error":{"code":-32602,"message":"Invalid arguments for score_posting","data":{"errors":["arguments: must match exactly one of oneOf, matched 0"]}}}
+>>> {this is not json
+<<< {"jsonrpc":"2.0","id":null,"error":{"code":-32700,"message":"Parse error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}}
+>>> [{"jsonrpc": "2.0", "id": 7, "method": "ping"}]
+<<< {"jsonrpc":"2.0","id":null,"error":{"code":-32600,"message":"Invalid Request: JSON-RPC batches are not supported"}}
+--- server stderr ---
+js3-score MCP server 0.1.0 (protocol 2025-06-18); wire log: /Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/judge_transcripts", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/dev/null"}
+AUDIT {"kind": "process", "event": "subprocess.Popen", "executable": "uname", "argv": "['uname', '-p']", "env": "[not recorded]"}
+AUDIT {"kind": "write_open", "path": "/dev/null"}
+AUDIT {"kind": "process", "event": "subprocess.Popen", "executable": "file", "argv": "['file', '-b', '/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin/python3.11']", "env": "[not recorded]"}
+AUDIT {"kind": "network", "event": "socket.getaddrinfo", "args": ["api.anthropic.com", "443", "0", "1", "0"]}
+AUDIT {"kind": "network", "event": "socket.connect", "args": ["<socket.socket fd=6, family=30, type=1, proto=6, laddr=('::', 0, 0, 0)>", "('2607:6bc0::10', 443, 0, 0)"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/judge_transcripts/gitlab_8704363002_2.json"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+AUDIT {"kind": "fs_mutation", "event": "os.mkdir", "args": ["/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp", "511", "-1"]}
+AUDIT {"kind": "write_open", "path": "/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl"}
+--- cross-check: client record (17 lines) vs server wire log (17 lines) ---
+IDENTICAL
+client log: logs/mcp/client_20261123T003202Z.jsonl
+server log: logs/mcp/server_20261123T003202Z_5774.jsonl
+server exit code: 0
+--- audit: 42 events ---
+  write INSIDE logs/mcp: /Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/judge_transcripts/gitlab_8704363002_2.json
+  write INSIDE logs/mcp: /Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/server_20261123T003202Z_5774.jsonl
+  write OUTSIDE logs/mcp: /dev/null
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp/judge_transcripts', '511', '-1']
+  process: subprocess.Popen None
+  process: subprocess.Popen None
+  network: socket.getaddrinfo ['api.anthropic.com', '443', '0', '1', '0']
+  network: socket.connect ["<socket.socket fd=6, family=30, type=1, proto=6, laddr=('::', 0, 0, 0)>", "('2607:6bc0::10', 443, 0, 0)"]
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']
+  fs_mutation: os.mkdir ['/Users/omraut/Desktop/js3-filter-tool-score/logs/mcp', '511', '-1']

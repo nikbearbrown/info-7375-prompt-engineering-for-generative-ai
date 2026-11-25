@@ -1,0 +1,46 @@
+$ python3 -m unittest -v tests.test_rule4   # real js3/rule4.py + js3/filter_v110.py
+# 2026-11-22T00:54:39Z
+test_clearance_requirement_flags_without_firing (tests.test_rule4.EligibilityIsFlaggedNeverRejected.test_clearance_requirement_flags_without_firing) ... ok
+test_flag_quotes_are_from_the_posting (tests.test_rule4.EligibilityIsFlaggedNeverRejected.test_flag_quotes_are_from_the_posting) ... ok
+test_graduation_requirement_flags_without_firing (tests.test_rule4.EligibilityIsFlaggedNeverRejected.test_graduation_requirement_flags_without_firing) ... ok
+test_c03_style_posting_stays_relevant (tests.test_rule4.FilterV110Integration.test_c03_style_posting_stays_relevant) ... ok
+test_eligibility_flag_is_carried_but_bucket_unchanged (tests.test_rule4.FilterV110Integration.test_eligibility_flag_is_carried_but_bucket_unchanged) ... ok
+test_rule3_still_wins (tests.test_rule4.FilterV110Integration.test_rule3_still_wins) ... ok
+test_rule4_turns_relevant_into_rejected_with_reason (tests.test_rule4.FilterV110Integration.test_rule4_turns_relevant_into_rejected_with_reason) ... ok
+test_v100_module_is_untouched (tests.test_rule4.FilterV110Integration.test_v100_module_is_untouched) ... ok
+test_management_phrases_fire (tests.test_rule4.ManagementScope.test_management_phrases_fire) ... ok
+test_non_people_management_does_not_fire (tests.test_rule4.ManagementScope.test_non_people_management_does_not_fire) ... ok
+test_each_listed_title_word_fires (tests.test_rule4.SeniorityTitle.test_each_listed_title_word_fires) ... ok
+test_senior_is_not_a_listed_word (tests.test_rule4.SeniorityTitle.test_senior_is_not_a_listed_word) ... ok
+test_title_word_in_content_only_does_not_fire (tests.test_rule4.SeniorityTitle.test_title_word_in_content_only_does_not_fire) ... ok
+test_title_words_are_whole_word (tests.test_rule4.SeniorityTitle.test_title_words_are_whole_word) ... ok
+test_at_least_n_years_fires (tests.test_rule4.YearMinimums.test_at_least_n_years_fires) ... FAIL
+test_below_3_does_not_fire (tests.test_rule4.YearMinimums.test_below_3_does_not_fire) ... ok
+test_n_plus_years_at_or_above_3_fires (tests.test_rule4.YearMinimums.test_n_plus_years_at_or_above_3_fires) ... ok
+test_n_plus_years_without_the_word_experience_fires (tests.test_rule4.YearMinimums.test_n_plus_years_without_the_word_experience_fires) ... ok
+test_no_years_minimum_does_not_fire (tests.test_rule4.YearMinimums.test_no_years_minimum_does_not_fire) ... ok
+test_range_uses_its_lower_bound (tests.test_rule4.YearMinimums.test_range_uses_its_lower_bound) ... ok
+test_spelled_out_numbers (tests.test_rule4.YearMinimums.test_spelled_out_numbers) ... FAIL
+test_years_mentioned_without_a_minimum_does_not_fire (tests.test_rule4.YearMinimums.test_years_mentioned_without_a_minimum_does_not_fire) ... ok
+
+======================================================================
+FAIL: test_at_least_n_years_fires (tests.test_rule4.YearMinimums.test_at_least_n_years_fires)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_rule4.py", line 37, in test_at_least_n_years_fires
+    self.assertTrue(check("Technical Solutions Engineer",
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_spelled_out_numbers (tests.test_rule4.YearMinimums.test_spelled_out_numbers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_rule4.py", line 56, in test_spelled_out_numbers
+    self.assertTrue(check("Engineer", SKILLS + "At least four years of backend experience.")["fires"])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.008s
+
+FAILED (failures=2)
+# exit 1

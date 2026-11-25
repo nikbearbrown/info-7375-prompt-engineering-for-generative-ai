@@ -1,0 +1,192 @@
+# python3 -m unittest -v tests.test_mcp_server  (js3/mcp_server.py does not exist yet)
+Mon Nov 23 00:01:49 UTC 2026
+test_parse_error_invalid_request_unknown_method (tests.test_mcp_server.JsonRpc.test_parse_error_invalid_request_unknown_method) ... ERROR
+test_initialize_result_shape (tests.test_mcp_server.Lifecycle.test_initialize_result_shape) ... ERROR
+test_notification_gets_no_response (tests.test_mcp_server.Lifecycle.test_notification_gets_no_response) ... ERROR
+test_requests_before_initialize_are_refused_except_ping (tests.test_mcp_server.Lifecycle.test_requests_before_initialize_are_refused_except_ping) ... ERROR
+test_unsupported_version_gets_servers_version (tests.test_mcp_server.Lifecycle.test_unsupported_version_gets_servers_version) ... ERROR
+test_subprocess_session (tests.test_mcp_server.OverRealStdio.test_subprocess_session) ... FAIL
+test_adhoc_title_and_content (tests.test_mcp_server.ToolsCall.test_adhoc_title_and_content) ... ERROR
+test_missing_key_is_execution_error_not_a_verdict (tests.test_mcp_server.ToolsCall.test_missing_key_is_execution_error_not_a_verdict) ... ERROR
+test_rejected_posting_never_calls_claude (tests.test_mcp_server.ToolsCall.test_rejected_posting_never_calls_claude) ... ERROR
+test_relevant_posting_is_judged_and_matches_output_schema (tests.test_mcp_server.ToolsCall.test_relevant_posting_is_judged_and_matches_output_schema) ... ERROR
+test_unknown_posting_is_execution_error (tests.test_mcp_server.ToolsCall.test_unknown_posting_is_execution_error) ... ERROR
+test_unknown_tool_and_invalid_arguments_are_protocol_errors (tests.test_mcp_server.ToolsCall.test_unknown_tool_and_invalid_arguments_are_protocol_errors) ... ERROR
+test_exactly_one_tool_with_schemas (tests.test_mcp_server.ToolsList.test_exactly_one_tool_with_schemas) ... ERROR
+test_every_line_logged_verbatim_both_directions (tests.test_mcp_server.WireLogAndWrites.test_every_line_logged_verbatim_both_directions) ... ERROR
+test_writes_outside_write_root_are_refused (tests.test_mcp_server.WireLogAndWrites.test_writes_outside_write_root_are_refused) ... ERROR
+
+======================================================================
+ERROR: test_parse_error_invalid_request_unknown_method (tests.test_mcp_server.JsonRpc.test_parse_error_invalid_request_unknown_method)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_initialize_result_shape (tests.test_mcp_server.Lifecycle.test_initialize_result_shape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_notification_gets_no_response (tests.test_mcp_server.Lifecycle.test_notification_gets_no_response)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_requests_before_initialize_are_refused_except_ping (tests.test_mcp_server.Lifecycle.test_requests_before_initialize_are_refused_except_ping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_unsupported_version_gets_servers_version (tests.test_mcp_server.Lifecycle.test_unsupported_version_gets_servers_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_adhoc_title_and_content (tests.test_mcp_server.ToolsCall.test_adhoc_title_and_content)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_missing_key_is_execution_error_not_a_verdict (tests.test_mcp_server.ToolsCall.test_missing_key_is_execution_error_not_a_verdict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_rejected_posting_never_calls_claude (tests.test_mcp_server.ToolsCall.test_rejected_posting_never_calls_claude)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_relevant_posting_is_judged_and_matches_output_schema (tests.test_mcp_server.ToolsCall.test_relevant_posting_is_judged_and_matches_output_schema)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_unknown_posting_is_execution_error (tests.test_mcp_server.ToolsCall.test_unknown_posting_is_execution_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_unknown_tool_and_invalid_arguments_are_protocol_errors (tests.test_mcp_server.ToolsCall.test_unknown_tool_and_invalid_arguments_are_protocol_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_exactly_one_tool_with_schemas (tests.test_mcp_server.ToolsList.test_exactly_one_tool_with_schemas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_every_line_logged_verbatim_both_directions (tests.test_mcp_server.WireLogAndWrites.test_every_line_logged_verbatim_both_directions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+ERROR: test_writes_outside_write_root_are_refused (tests.test_mcp_server.WireLogAndWrites.test_writes_outside_write_root_are_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 65, in setUp
+    self.s = mcp().Server(client_factory=lambda: self.fake, log_dir=self.tmp, write_root=self.tmp)
+             ^^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 34, in mcp
+    import js3.mcp_server
+ModuleNotFoundError: No module named 'js3.mcp_server'
+
+======================================================================
+FAIL: test_subprocess_session (tests.test_mcp_server.OverRealStdio.test_subprocess_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_mcp_server.py", line 197, in test_subprocess_session
+    self.assertEqual([o["id"] for o in out], [1, 2, 3])        # stdout carries only MCP responses
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != [1, 2, 3]
+
+Second list contains 3 additional elements.
+First extra element 0:
+1
+
+- []
++ [1, 2, 3]
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.125s
+
+FAILED (failures=1, errors=14)

@@ -1,0 +1,12 @@
+$ python3 -m js3.reject_audit logs/run_20261121T132140Z.json
+# 2026-11-21T13:35:57Z
+reject audit draw over logs/filter_run_20261121T132140Z.json  seed 20261121
+  A random_rejected : 30 of 1312  boards gitlab 7, stripe 16, palantir 7
+  B near_threshold  : 156 (exactly-1-word 154, rule-2-only 2); overlap with A: 4 ['A09=gitlab:8615268002', 'A22=gitlab:8957066002', 'A19=stripe:8112043', 'A05=stripe:8354762']
+  C relevant        : 20 (all)
+  to hand-judge     : 202 distinct postings
+  wrote logs/reject_audit/A_random_rejected_BLANK.md  (197 KB)
+  wrote logs/reject_audit/B_near_threshold_BLANK.md  (988 KB)
+  wrote logs/reject_audit/C_relevant_BLANK.md  (138 KB)
+  wrote logs/reject_audit/draw_manifest.json  (32 KB)
+# exit 0

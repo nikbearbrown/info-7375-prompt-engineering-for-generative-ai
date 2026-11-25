@@ -1,0 +1,231 @@
+# python3 -m unittest -v tests.test_shortlist  (js3/shortlist.py does not exist yet)
+Sun Nov 22 20:48:50 UTC 2026
+test_contradiction_appears_before_the_supported_claims (tests.test_shortlist.AbstentionRule.test_contradiction_appears_before_the_supported_claims) ... ERROR
+test_every_claim_is_rendered_with_its_label (tests.test_shortlist.AbstentionRule.test_every_claim_is_rendered_with_its_label) ... ERROR
+test_no_contradiction_no_warning (tests.test_shortlist.AbstentionRule.test_no_contradiction_no_warning) ... ERROR
+test_relevant_with_contradiction_surfaces_it (tests.test_shortlist.AbstentionRule.test_relevant_with_contradiction_surfaces_it) ... ERROR
+test_invalid_output_is_unavailable_not_repaired (tests.test_shortlist.Judge.test_invalid_output_is_unavailable_not_repaired) ... ERROR
+test_no_api_key_refuses_to_fabricate (tests.test_shortlist.Judge.test_no_api_key_refuses_to_fabricate) ... ERROR
+test_ok_result_and_full_transcript (tests.test_shortlist.Judge.test_ok_result_and_full_transcript) ... ERROR
+test_transcripts_are_never_overwritten (tests.test_shortlist.Judge.test_transcripts_are_never_overwritten) ... ERROR
+test_wrong_model_or_stop_reason_is_invalid (tests.test_shortlist.Judge.test_wrong_model_or_stop_reason_is_invalid) ... ERROR
+test_every_label_comes_from_the_grounding_check (tests.test_shortlist.Label.test_every_label_comes_from_the_grounding_check) ... ERROR
+test_self_flagged_contradiction_is_contradicted_and_keeps_both_quotes (tests.test_shortlist.Label.test_self_flagged_contradiction_is_contradicted_and_keeps_both_quotes) ... ERROR
+test_wrong_version_never_hardcodes_supported (tests.test_shortlist.Label.test_wrong_version_never_hardcodes_supported) ... ERROR
+test_rejects_bad_verdict_and_fences (tests.test_shortlist.Validate.test_rejects_bad_verdict_and_fences) ... ERROR
+test_rejects_empty_claims_and_malformed_claim (tests.test_shortlist.Validate.test_rejects_empty_claims_and_malformed_claim) ... ERROR
+test_rejects_extra_or_missing_keys (tests.test_shortlist.Validate.test_rejects_extra_or_missing_keys) ... ERROR
+test_unfindable_contradiction_quote_is_invalid (tests.test_shortlist.Validate.test_unfindable_contradiction_quote_is_invalid) ... ERROR
+test_unfindable_supporting_quote_is_not_invalid (tests.test_shortlist.Validate.test_unfindable_supporting_quote_is_not_invalid) ... ERROR
+test_valid_object_passes (tests.test_shortlist.Validate.test_valid_object_passes) ... ERROR
+
+======================================================================
+ERROR: test_contradiction_appears_before_the_supported_claims (tests.test_shortlist.AbstentionRule.test_contradiction_appears_before_the_supported_claims)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 173, in test_contradiction_appears_before_the_supported_claims
+    text = sl().render(self.result(self.CONTRA))
+           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_every_claim_is_rendered_with_its_label (tests.test_shortlist.AbstentionRule.test_every_claim_is_rendered_with_its_label)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 180, in test_every_claim_is_rendered_with_its_label
+    text = sl().render(self.result(self.CONTRA))
+           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_no_contradiction_no_warning (tests.test_shortlist.AbstentionRule.test_no_contradiction_no_warning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 177, in test_no_contradiction_no_warning
+    self.assertNotIn("CONTRADICTION", sl().render(self.result(self.CONTRA[:1])))
+                                      ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_relevant_with_contradiction_surfaces_it (tests.test_shortlist.AbstentionRule.test_relevant_with_contradiction_surfaces_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 166, in test_relevant_with_contradiction_surfaces_it
+    text = sl().render(self.result(self.CONTRA))
+           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_invalid_output_is_unavailable_not_repaired (tests.test_shortlist.Judge.test_invalid_output_is_unavailable_not_repaired)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 138, in test_invalid_output_is_unavailable_not_repaired
+    r = sl().judge(P, RESUME, FakeClient("not json"), transcript_dir=self.tmp)
+        ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_no_api_key_refuses_to_fabricate (tests.test_shortlist.Judge.test_no_api_key_refuses_to_fabricate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 125, in test_no_api_key_refuses_to_fabricate
+    with self.assertRaises(sl().MissingAPIKey):
+                           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_ok_result_and_full_transcript (tests.test_shortlist.Judge.test_ok_result_and_full_transcript)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 129, in test_ok_result_and_full_transcript
+    r = sl().judge(P, RESUME, FakeClient(claims_json()), transcript_dir=self.tmp)
+        ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_transcripts_are_never_overwritten (tests.test_shortlist.Judge.test_transcripts_are_never_overwritten)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 150, in test_transcripts_are_never_overwritten
+    a = sl().judge(P, RESUME, FakeClient(claims_json()), transcript_dir=self.tmp)["transcript"]
+        ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_wrong_model_or_stop_reason_is_invalid (tests.test_shortlist.Judge.test_wrong_model_or_stop_reason_is_invalid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 144, in test_wrong_model_or_stop_reason_is_invalid
+    self.assertEqual(sl().judge(P, RESUME, FakeClient(claims_json(), model="other"),
+                     ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_every_label_comes_from_the_grounding_check (tests.test_shortlist.Label.test_every_label_comes_from_the_grounding_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 102, in test_every_label_comes_from_the_grounding_check
+    self.assertEqual([c["label"] for c in sl().label(P, claims)],
+                                          ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_self_flagged_contradiction_is_contradicted_and_keeps_both_quotes (tests.test_shortlist.Label.test_self_flagged_contradiction_is_contradicted_and_keeps_both_quotes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 111, in test_self_flagged_contradiction_is_contradicted_and_keeps_both_quotes
+    r = sl().label(P, [{"claim": "Remote-friendly, fits open_to_remote.",
+        ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_wrong_version_never_hardcodes_supported (tests.test_shortlist.Label.test_wrong_version_never_hardcodes_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 107, in test_wrong_version_never_hardcodes_supported
+    r = sl().label(P, [{"claim": "x", "quote": "invented text", "contradicted_by": None}])
+        ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_rejects_bad_verdict_and_fences (tests.test_shortlist.Validate.test_rejects_bad_verdict_and_fences)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 77, in test_rejects_bad_verdict_and_fences
+    self.assertInvalid(claims_json(verdict="Relevant"))
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 65, in assertInvalid
+    with self.assertRaises(sl().JudgmentInvalid):
+                           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_rejects_empty_claims_and_malformed_claim (tests.test_shortlist.Validate.test_rejects_empty_claims_and_malformed_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 81, in test_rejects_empty_claims_and_malformed_claim
+    self.assertInvalid(claims_json(claims=[]))
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 65, in assertInvalid
+    with self.assertRaises(sl().JudgmentInvalid):
+                           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_rejects_extra_or_missing_keys (tests.test_shortlist.Validate.test_rejects_extra_or_missing_keys)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 73, in test_rejects_extra_or_missing_keys
+    self.assertInvalid(claims_json(confidence=0.9))
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 65, in assertInvalid
+    with self.assertRaises(sl().JudgmentInvalid):
+                           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_unfindable_contradiction_quote_is_invalid (tests.test_shortlist.Validate.test_unfindable_contradiction_quote_is_invalid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 87, in test_unfindable_contradiction_quote_is_invalid
+    self.assertInvalid(claims_json(claims=[{"claim": "Remote.", "quote": "Fully remote within the US.",
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 65, in assertInvalid
+    with self.assertRaises(sl().JudgmentInvalid):
+                           ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_unfindable_supporting_quote_is_not_invalid (tests.test_shortlist.Validate.test_unfindable_supporting_quote_is_not_invalid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 91, in test_unfindable_supporting_quote_is_not_invalid
+    sl().validate(claims_json(claims=[{"claim": "x", "quote": "Not in the posting at all.",
+    ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+======================================================================
+ERROR: test_valid_object_passes (tests.test_shortlist.Validate.test_valid_object_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 69, in test_valid_object_passes
+    out = sl().validate(claims_json(), P)
+          ^^^^
+  File "/Users/omraut/Desktop/js3-filter-tool-score/tests/test_shortlist.py", line 59, in sl
+    import js3.shortlist
+ModuleNotFoundError: No module named 'js3.shortlist'
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.011s
+
+FAILED (errors=18)
