@@ -38,8 +38,12 @@ test('W4: the spec cannot keep a posting without a PM title (max score with T=0 
 });
 
 test('W11: behavior follows the spec object, not constants in the code', () => {
-  const p = mk({ text: 'Payments and data. 3+ years of experience in product.' });
-  assert.equal(scorePosting(p, { spec, prefs: PREFS }).decision, 'keep');
+  // One topic term, so the score is below 1 and a stricter threshold can reject it.
+  // (Fixed after the gate commit: the first fixture scored 1.0, which no threshold <= 1 rejects.)
+  const p = mk({ text: 'Payments. 3+ years of experience in product.' });
+  const r = scorePosting(p, { spec, prefs: PREFS });
+  assert.equal(r.decision, 'keep');
+  assert.ok(r.score < 0.99);
   const strict = clone(spec); strict.threshold = 0.99;
   assert.equal(scorePosting(p, { spec: strict, prefs: PREFS }).decision, 'reject');
   const noTopic = clone(spec); noTopic.topic.terms = ['zzz-not-a-word'];
