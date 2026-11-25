@@ -1,0 +1,106 @@
+Source read for the evaluation of the official MCP 'fetch' reference server (not run: it needs Python >= 3.11.5 and the mcp SDK; this machine has 3.9.6).
+Repository: https://github.com/modelcontextprotocol/servers  commit c799c8552b0f27b7a33a7b9233773da144dddcf5 (Wed Nov 18 04:06:40 2026 -0500)
+Package: src/fetch/pyproject.toml version 2026.11.18
+Cloned (git clone --depth 1) and read on 2026-11-25 01:50 EST. Excerpts below are verbatim with line numbers.
+
+=== src/fetch/src/mcp_server_fetch/server.py lines 947-949
+   947	FETCH_TOOL_DESCRIPTION = """Fetches a URL from the internet and optionally extracts its contents as markdown.
+   948	
+   949	Although originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that."""
+
+=== src/fetch/src/mcp_server_fetch/server.py lines 1019-1032
+  1019	    @server.tool(
+  1020	        name="fetch",
+  1021	        description=FETCH_TOOL_DESCRIPTION,
+  1022	        # Reads only, changes nothing, and repeating a request has no further
+  1023	        # side effect; it reaches arbitrary hosts on the internet (#3572).
+  1024	        annotations=ToolAnnotations(
+  1025	            read_only_hint=True,
+  1026	            destructive_hint=False,
+  1027	            idempotent_hint=True,
+  1028	            open_world_hint=True,
+  1029	        ),
+  1030	        # The result is page text for the model, so no outputSchema.
+  1031	        structured_output=False,
+  1032	    )
+
+=== src/fetch/src/mcp_server_fetch/server.py lines 1077-1092
+  1077	        if not ignore_robots_txt:
+  1078	            await check_may_autonomously_fetch_url(
+  1079	                page_url, user_agent_autonomous, proxy_url, allow_private_ips, allowed
+  1080	            )
+  1081	
+  1082	        content, prefix = await fetch_url(
+  1083	            page_url,
+  1084	            user_agent_autonomous,
+  1085	            force_raw=raw,
+  1086	            timeout_ms=timeout_ms,
+  1087	            proxy_url=proxy_url,
+  1088	            allow_private_ips=allow_private_ips,
+  1089	            allowed_hosts=allowed,
+  1090	            check_robots_txt=not ignore_robots_txt,
+  1091	            use_readability_js=use_readability_js,
+  1092	        )
+
+=== src/fetch/src/mcp_server_fetch/server.py lines 1093-1106
+  1093	        original_length = len(content)
+  1094	        if start_index >= original_length:
+  1095	            content = "<error>No more content available.</error>"
+  1096	        else:
+  1097	            # Never empty: start_index < original_length and max_length > 0.
+  1098	            truncated_content = content[start_index : start_index + max_length]
+  1099	            content = truncated_content
+  1100	            actual_content_length = len(truncated_content)
+  1101	            remaining_content = original_length - (start_index + actual_content_length)
+  1102	            # Only add the prompt to continue fetching if there is still remaining content
+  1103	            if actual_content_length == max_length and remaining_content > 0:
+  1104	                next_start = start_index + actual_content_length
+  1105	                content += f"\n\n<error>Content truncated. Call the fetch tool with a start_index of {next_start} to get more content.</error>"
+  1106	        return f"{prefix}Contents of {page_url}:\n{content}"
+
+=== src/fetch/src/mcp_server_fetch/readability_js.py lines 24-31
+    24	#
+    25	# readabilipy >= 0.3.0 ships only `package.json` for its JavaScript and runs
+    26	# `npm install` on first use, which reaches the npm registry during a tool call
+    27	# (#4830). That stays the behaviour (the README states it), but the install now
+    28	# runs at most once per process, under a lock and a timeout. It installs into
+    29	# readabilipy's own `javascript` directory, so dependencies an operator
+    30	# installed there ahead of time (the README says how) are found and nothing is
+    31	# fetched.
+
+=== src/fetch/src/mcp_server_fetch/readability_js.py lines 161-188
+   161	def _install_dependencies(jsdir: Path) -> bool:
+   162	    """`npm install` readabilipy's JavaScript dependencies; whether it worked."""
+   163	    npm = shutil.which("npm")
+   164	    if npm is None:
+   165	        _log(
+   166	            "npm was not found on PATH, so Readability.js's dependencies cannot be "
+   167	            f"installed in {jsdir}; using the pure-Python extractor"
+   168	        )
+   169	        return False
+   170	    _log(
+   171	        f"installing Readability.js's dependencies with npm in {jsdir} (first use; "
+   172	        "this contacts the npm registry)"
+   173	    )
+   174	    done = _run(
+   175	        [npm, "install", "--no-audit", "--no-fund"],
+   176	        timeout=INSTALL_TIMEOUT_SECONDS,
+   177	        cwd=jsdir,
+   178	    )
+   179	    if done is None:
+   180	        return False
+   181	    _forward(done.stdout)
+   182	    _forward(done.stderr)
+   183	    if done.returncode != 0 or not _dependencies_installed(jsdir):
+   184	        _log(
+   185	            f"npm install failed (exit {done.returncode}); using the pure-Python extractor"
+   186	        )
+   187	        return False
+   188	    return True
+
+=== src/fetch/README.md lines 9-13
+     9	Requires MCP Python SDK 2.x (`mcp>=2.3,<3`).
+    10	
+    11	> [!CAUTION]
+    12	> This server can access local/internal IP addresses and may represent a security risk. Exercise caution when using this MCP server to ensure this does not expose any sensitive data.
+    13	>
