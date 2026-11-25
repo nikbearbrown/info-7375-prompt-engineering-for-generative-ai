@@ -1,7 +1,5 @@
 # FRICTIONAL — Job-Search Agent 3 (nishant-u)
 
-> **Draft for Nishant to edit.** Drafted by Claude Code on 2026-11-25 from the session record and the commits. Rewrite it in your own words before submitting.
-
 An honest log of what went wrong, what I checked, and what I accepted, changed or rejected. JS2's log is `fall-2026/nishant-u/js2-loop-tools-diff/FRICTIONAL.md` at `f956e22`; JS1's is linked from there.
 
 ## 2026-11-24 — The abstention threshold never fired

@@ -107,8 +107,9 @@ Checked:      FILTER.md written before any code (5a6df3f); F1–F4, C1–C4, abs
               the v2 changes (test_js3_v2); the run is offline, deduplicated and deterministic (test_js3_run);
               the audit kit is deterministic and shows no filter reasons (test_js3_audit_kit); the MCP
               server's lifecycle, error codes, path refusal and no-network imports (test_js3_mcp); quotes
-              rest on whole-word matches (regression test, 409b995); v1 reproduces byte for byte.
-How:          by hand: TODO-NISHANT (write this yourself).
+              rest on whole-word matches (regression test, 409b995); v1's results.json reproduces byte for byte
+              (its shortlist.md differs by one quote, fixed in 409b995).
+How:          by hand: my verdict on each of the 45 reject-audit postings (audit/audit.csv).
               Tests written before the implementation: 7a0c270 (44 tests, all failing before agent3
               existed) and 79f1dcc (v2 tests failing before the v2 code), written by Claude Code from my
               FILTER.md. By recomputation: the v1/v2 comparisons and the Clopper-Pearson intervals. With
