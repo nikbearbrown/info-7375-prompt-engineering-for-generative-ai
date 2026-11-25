@@ -1,102 +1,77 @@
 # Job-Search Agent 3: The Filter, the Tool, and the Score
 
-> DRAFT (Claude, Nov 24, 2026), to be checked and rewritten by me before submission.
+This repository contains five components built for Job-Search Agent 3:
 
-This project has five parts:
+- **Pre-code filter specification (`FILTER.md`):** Rules, evidence requirements, source expectations, and wrong-version definitions written and committed before any filter code existed.
+- **Hand-judged baseline audit (`audit/filter-v1.0/`):** Manual judgments across a random reject sample, close calls, and all kept postings from the `v1.0` baseline run.
+- **Source-grounded shortlist (`shortlist/`):** Claim-level verification labeling every claim as `supported`, `contradicted`, or `insufficient` with verbatim quotes from the posting text.
+- **Stdlib MCP tool server (`agent/mcp_server.py`, `mcp/EVALUATIONS.md`):** A read-only stdio JSON-RPC 2.0 server written from scratch using the Python standard library, complete with scripted and live Claude Code transcripts and two server evaluations.
+- **Single-variable rule iteration (`score/report.md`, `score/origins.md`):** One rule change (`v1.2`) chosen from `dev` labels and the audit, then evaluated once on `heldout` labels.
 
-- a relevance filter written as a spec before any code (`FILTER.md`);
-- a hand-judged audit of what it rejects and keeps;
-- a source-grounded shortlist, where every claim is labeled supported, contradicted or insufficient with verbatim quotes;
-- an MCP tool server written from scratch, with real transcripts and two evaluations;
-- one rule change, measured on dev labels and then once on held-out labels.
+**Persona:** Sam Rivera, a fictional new-grad software engineer in the US (`examples/persona.example.json`). No real résumé, contacts, tracker, or applications are stored in this repository, and the agent never submits applications, sends emails or messages, or logs into accounts.
 
-**Persona:** **Sam Rivera**, a fictional new-grad software engineer in the US (`examples/persona.example.json`). No real résumé, contacts, tracker or applications are in this folder. The agent never applies, emails, messages or logs in.
+## Starting point
 
-## What I started from
-
-My Job-Search Agent 2 (`../js2-loop-tools-diff/`). I reused its collection loop, its allow-list policy and its skill matcher; `SOURCES.md` lists what was copied and changed.
-
-JS3 re-collected the three boards with `?content=true`, because JS2's Greenhouse data had no posting text to quote. That is one run: `evidence/run-20261123-185425Z`, Nov 23, 2026, with 3 GET requests and 400 postings.
+This project builds on my Job-Search Agent 2 (`../js2-loop-tools-diff/`), reusing its collection loop, allow-list policy, and skill matcher (`SOURCES.md` records what was copied and modified). Because JS2's Greenhouse responses did not include job description text to quote, JS3 re-collected all three boards with `?content=true` in a single run (`evidence/run-20261123-185425Z`, Nov 23, 2026: 3 GET requests returning 400 postings).
 
 ## Language and toolchain
 
-- Python 3.12.7, **standard library only** (nothing to install)
-- Tests use `unittest`
-- Tested on macOS. On Nov 24, 2026, Claude cloned this branch fresh at `2f40542` into a scratch folder and re-ran every command above except the live `agent.loop` (it replayed the saved run instead) and `claude mcp add`.
-  - All 57 tests passed, and all five wrong versions were caught.
-  - The filter, evaluate, shortlist and recount commands printed the numbers in this README.
-  - Regenerating the shortlist left the committed files unchanged (`git status` was clean).
+- **Runtime:** Python `3.12.7`, standard library only (zero third-party dependencies).
+- **Testing:** `unittest`.
+- **Verification:** Tested on macOS. On Nov 24, 2026, Claude cloned this branch fresh at commit `2f40542` into a scratch directory and re-ran every command below except the live `agent.loop` collector (replaying the saved run instead) and `claude mcp add`:
+  - All 57 unit tests passed, and all five wrong versions (`W1`–`W5`) were caught.
+  - The filter, evaluation, shortlist, and survey-recount commands reproduced every number reported in this README.
+  - Re-running the shortlist generator left all committed files unchanged (`git status` remained clean).
 
 ## Commands
 
-Run everything from this folder (`fall-2026/atharva-c/js3-filter-tool-score/`).
-
-**All tests (57):**
+Run all commands from this folder (`fall-2026/atharva-c/js3-filter-tool-score/`):
 
 ```bash
+# Run all 57 unit tests
 python3 -m unittest discover -s tests -t .
-```
 
-**Check that each wrong version W1–W5 is caught by a test:**
-
-```bash
+# Verify that wrong versions W1–W5 fail their corresponding tests
 python3 -m tests.wrong_versions
-```
 
-**Load the saved run, or re-collect live (3 real GET requests):**
-
-```bash
+# Load the saved Nov 23 run
 python3 -m agent.postings
-```
 
-```bash
-python3 -m agent.loop
-```
-
-**Run the filter (current rules, v1.2) and compare with dev labels:**
-
-```bash
+# Run the current filter (v1.2) and compare against dev labels
 python3 -m agent.filter --labels labels/dev.csv
-```
 
-**Score a saved filter run against labels (reads files only):**
-
-```bash
+# Score a saved filter run against labels (reads saved files only)
 python3 -m agent.evaluate evidence/filter-v1.2/decisions.jsonl labels/dev.csv
-```
 
-**Build the shortlist:**
-
-```bash
+# Generate the source-grounded shortlist
 python3 -m agent.shortlist
-```
 
-**Read one posting:**
-
-```bash
+# Inspect a single posting in full
 python3 -m agent.label_sheet --show affirm:8032173003
+
+# Replay the scripted MCP client session
+python3 -m tests.mcp_scripted_client out/scripted.jsonl
+
+# Recompute all survey counts
+python3 -m score.recount
 ```
 
-**The MCP server (stdio):**
+**MCP server** (waits for a client on stdin; Ctrl+C to stop):
 
 ```bash
 python3 -m agent.mcp_server
 ```
 
-```bash
-python3 -m tests.mcp_scripted_client out/scripted.jsonl
-```
-
-To use it from Claude Code, register it for this project only:
+**Register it in Claude Code** (local scope, this project only):
 
 ```bash
 claude mcp add --scope local js3-job-filter -- python3 "$PWD/agent/mcp_server.py"
 ```
 
-**Recount the survey numbers:**
+**Re-collect live** (makes 3 real GET requests):
 
 ```bash
-python3 -m score.recount
+python3 -m agent.loop
 ```
 
 ## What is where
