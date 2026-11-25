@@ -31,3 +31,16 @@ hits = [p["title"] for p in ps if "software engineer i" in p["title"].lower()]
 kinds = collections.Counter("SWE I" if re.search(r"Engineer I\b(?!I)", t) else "SWE II" if "Engineer II" in t else "other"
                             for t in hits)
 print(f"substring 'Software Engineer I': {len(hits)}", dict(kinds))
+
+
+def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """95% Wilson score interval for k successes in n trials."""
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return max(0.0, centre - half), min(1.0, centre + half)
+
+
+lo, hi = wilson(0, 30)
+print(f"audit: 0 of 30 random rejects wrong -> 95% Wilson {lo:.1%} to {hi:.1%}; "
+      f"x 378 rejects = about {lo * 378:.0f} to {hi * 378:.0f} (a sample estimate for this run)")
