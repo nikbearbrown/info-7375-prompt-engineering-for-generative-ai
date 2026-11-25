@@ -70,3 +70,17 @@ At about 17:30 EST, Claude Code asked four questions about gaps in v0.1. The ans
 ## Addition before the reject audit and before any tuning (2026-11-24, about 17:50 EST)
 
 **The held-out set (Chapter 9).** The student chose "15 kept + 15 rejected", one of three options Claude Code wrote. The option, in Claude Code's words: "Random 15 from the 42 kept or review, and 15 from the 1,509 rejected. Tests both sides. The 50/50 mix isn't the corpus mix, so agreement isn't a rate for all postings." The other options were 30 at random from all 1,551 postings, and 30 at random from the 138 that pass the role and level rules. The 30 are drawn once, with a fixed seed, before any rule changes, and are never used to change a rule.
+
+## After the reject audit, before any held-out label was scored (2026-11-24, about 19:35 EST)
+
+Claude Code compared v0.1 with the 50 development labels (`audit/v0.1/DEV-COMPARISON.md`; the two held-out groups are not in it) and asked four questions. The answers are the student's. Every option's wording is Claude Code's.
+
+**The one change in v0.2.** The student chose "Experience-minimum rule": "Reject when the description sets a minimum of 3+ years that is not marked preferred. Dev (quick count): fixes P25, P44, P46, P56, P71; costs no Yes. About 28 of 42 still reach Alex." The other options were cutting "ai" from the title topics, adding early-career phrases to the description topics, and no change. Nothing else in v0.1 changes. How the rule decides that a statement sets a minimum, and what "marked preferred" means, is written in `jobwatch/screen.py` and its tests, committed before the held-out comparison runs.
+
+**How a held-out Can’t tell counts.** The student chose "Leave out, scale to 90%": "Score only the Yes and No rows; pass at 90% of them." The other options were "Always a miss" and "Match if shown to Alex". The first part of the bar now reads: at least 90% of the held-out rows labeled Yes or No match the filter's decision (27 of 30, scaled to the rows that can be scored).
+
+**Unmet requirements.** The bar says it didn't work if the reader "clears even one unmet requirement". Asked whether that applies to the filter's held-out decisions, the student chose "Both": "Both the filter's kept held-out rows and the shortlist claims." For the filter, Claude Code's mechanical reading, fixed before the run: a held-out row counts as a cleared unmet requirement when the filter keeps it or holds it for review, the student labeled it No, and the student's reason either states a number of years without the word "preferred" or names a minimum, a requirement, a clearance, new graduates or entry-level applicants. Every other reaching row labeled No is listed with the student's reason and not counted.
+
+**Unchanged:** it didn't work if the filter rejects more than one held-out posting labeled Yes ("wrongly rules out more than one eligible posting"), or if a check misses a deliberate failure.
+
+**False friends.** Asked which false friend the reject audit names, the student chose "Both": "machine learning" matched in descriptions, and "ai" matched in Applied AI titles (`reports/REJECT-AUDIT.md`).
