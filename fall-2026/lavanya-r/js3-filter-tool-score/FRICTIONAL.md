@@ -1,7 +1,15 @@
 # FRICTIONAL — Job-Search Agent 3
 
 An honest, dated log, including what went wrong and what is unresolved.
-Lavanya R. All entries are from 2026-11-24, in ET. Commit hashes are in brackets.
+Lavanya R. Entries are from 2026-11-24 (ET) unless dated otherwise. Commit hashes are in brackets.
+
+## In my own words (Lavanya R, written 2026-11-25)
+
+I wrote this section myself. Claude only fixed capitalisation.
+
+- **What surprised me most:** CA was taken as California even though the province said Ontario, and also keywords in the Databricks footer was being considered in the evaluation.
+- **What was hard, and what I did:** Understanding what a tool server is and how the jobs were being graded. Judging 71 different postings was exhausting. I asked Claude to explain everything to me before I gave my input in anything.
+- **What I'd do differently in JS4:** Probably read the full postings first instead of the summaries.
 
 ## 17:00 — starting point and collection
 
@@ -65,6 +73,24 @@ Lavanya R. All entries are from 2026-11-24, in ET. Commit hashes are in brackets
 - **Hand check:** I checked 3 labels.
   - I first disagreed with a "contradicted" label, then agreed once Claude restated what the labels mean.
   - I still disagree on Unity Catalog. A Databricks job will use it, but my own rule says the quote must say so. I haven't resolved this.
+
+## What I accepted, modified or rejected from Claude
+
+The full table is in SOURCES.md. In short:
+- **Accepted:**
+  - every FILTER.md rule and reason, each one of Claude's options [75b2de8];
+  - FILTER.md sections 2–4 as drafted;
+  - Claude's recommendations on X1–X4 [b5230a4] and on deferring the footer fix (X5);
+  - all code and tests, which Claude wrote.
+- **Modified:**
+  - added "Head of" to R1;
+  - dropped JS1's "Sales" from R2, after seeing it would reject "Full Stack Software Engineer, Sales Platform";
+  - added wrong version W6.
+- **Rejected:**
+  - Claude's "insufficient" label on "The role uses Unity Catalog" (SHORTLIST.md §4);
+  - the offer to make the tool server read the newest saved run;
+  - labelling the last 9 held-out postings.
+- **Changed my answer after Claude explained:** one claim-label check, from "disagree" to "agree", once Claude restated what "contradicted" means (SHORTLIST.md §4).
 
 ## What I understand now / still don't
 

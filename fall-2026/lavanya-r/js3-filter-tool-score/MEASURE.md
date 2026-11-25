@@ -23,6 +23,9 @@ This file covers three things: where every number came from, what changed when e
 | Claude judge context | `score/context/persona-summary.md` | **hand-written by Claude** from the fictional résumé |
 | Model | `sonnet` (reported as `claude-sonnet-5-5`) | **a setting**: the alias Claude Code resolves |
 | Text sent to Claude | first 6,000 characters | **hand-set by Claude**, to bound cost |
+| Shortlist size | top 10 of the kept postings, by score (ties by key) | **hand-set by Claude** (`agent/shortlist.py`, `N`) |
+| Longest quote allowed in a claim label | 30 words | **hand-set by Claude** (the labelling prompt in `agent/shortlist.py`). Not enforced by the checker. |
+| Sample sizes and seed | 30 / 10 / 10 / 30 (groups A, B, C, H); seed in `audit/SEED` | sizes **hand-set by Claude** (30 is the brief's minimum); seed **random** (`secrets.randbelow`), committed before the draw |
 
 **Nothing in the scorer was fitted to labels.** The only measurements that shaped it are the four one-change comparisons in AUDIT.md §4, made on my audit labels (groups A–C).
 

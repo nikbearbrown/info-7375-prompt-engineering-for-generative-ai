@@ -71,6 +71,9 @@ python3 -B audit/measure.py --heldout
 ```bash
 python3 -B audit/tables.py
 ```
+```bash
+python3 -B audit/measure.py --footer
+```
 
 **5. The shortlist: re-check every saved Claude label against the posting text (no Claude call)**
 ```bash

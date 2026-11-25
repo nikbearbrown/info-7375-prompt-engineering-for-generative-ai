@@ -2,6 +2,7 @@
 
 python3 -B audit/measure.py            # dev labels only: groups A, B, C
 python3 -B audit/measure.py --heldout  # group H (only for the final check)
+python3 -B audit/measure.py --footer   # X5, found after the audit (see below)
 
 A posting counts as wrong when the filter keeps it and the hand verdict is
 "n", or rejects it and the hand verdict is "y". "?" verdicts are left out.
@@ -54,7 +55,31 @@ def evaluate(p, cfg, opts):
     return r
 
 
+def footer_report():
+    """X5 (found in the shortlist step, after the audit): drop each Databricks
+    posting's "About Databricks" footer before scoring. Compared with v1.1 on
+    the whole corpus and on every hand-judged posting (groups A, B, C, H)."""
+    cfg = json.loads((HERE / "config" / "filter.json").read_text())
+    hand = {json.loads(l)["key"]: json.loads(l)["verdict"]
+            for l in open(HERE / "audit/hand_verdicts.jsonl")}
+    changed = []
+    for p in corpus.load(HERE / "runs/2026-11-24T220432Z-live"):
+        q = p
+        if p["board"] == "databricks" and "About Databricks" in p["text"]:
+            q = dict(p, text=p["text"][:p["text"].index("About Databricks")])
+        a, b = flt.evaluate(p, cfg), flt.evaluate(q, cfg)
+        if a["verdict"] != b["verdict"]:
+            changed.append((p["key"], p["title"].strip(), a["verdict"], a["score"],
+                            b["verdict"], b["score"], hand.get(p["key"], "-")))
+    print(f"X5 drop the 'About Databricks' footer: {len(changed)} verdicts change "
+          f"in the corpus; {sum(1 for c in changed if c[6] != '-')} of them hand-judged")
+    for c in changed:
+        print(f"  {c[1][:60]:60} v1.1 {c[2]} ({c[3]}) -> X5 {c[4]} ({c[5]})  my verdict: {c[6]}")
+
+
 def main():
+    if "--footer" in sys.argv:
+        return footer_report()
     groups = ("H",) if "--heldout" in sys.argv else ("A", "B", "C")
     draw = json.loads((HERE / "audit/draw.json").read_text())
     hand = {json.loads(l)["key"]: json.loads(l)["verdict"]

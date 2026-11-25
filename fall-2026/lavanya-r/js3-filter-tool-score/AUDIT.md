@@ -52,6 +52,10 @@
 - **The smallest "N years"** (R5). "2 years of hands-on experience with big data" made the smallest number 2, while the same posting asks for "5+ years" (items 39 and 54). Both are in the held-out group, so I did not use them to choose a rule (X3 below).
 - **"Manager" in "Software Engineer, Ads Manager"** (not in the sample). It is a product name, but R1 reads it as a management title.
 
+**A second false friend, found after the audit: the Databricks footer.** While labelling the shortlist (SHORTLIST.md §1a), Claude found that every one of the 890 Databricks postings ends with the same "About Databricks" paragraph. It contains "…analytics and **agents**", "**Unity Catalog**" and the word **Databricks**, so S2 and S3 give every Databricks posting points for words that describe the company, not the job.
+- Measured as X5 (§4): dropping the footer changes 6 verdicts in the corpus, none of them among my hand verdicts.
+- Deferred to the next version.
+
 ## 4. Rules added, cut and rejected after measuring
 
 `audit/measure.py` re-runs each variant (one change from v1.0 each) against my 49 y/n verdicts in groups A–C. Output: `logs/js3-01-measure-dev.txt`.
@@ -63,6 +67,7 @@
 | X2 add "Forward Deployed" to S1 | 6 | 124 | **rejected**: no measured gain |
 | X3 R5 uses the largest years asked | 6 | 109 | **rejected**: no measured gain on audit labels |
 | X4 ", CA" after a Canadian place is not California | 6 | 115 | **adopted** → FILTER.md v1.1 (fixes the false friend's wrong reason) |
+| X5 ignore the "About Databricks" footer (found later, measured against v1.1) | 6 (unchanged: none of the 6 postings it changes is hand-judged) | 110 (5 fewer kept; 1 more "cannot tell") | **deferred**: no hand label covers any posting it changes; measure on new labels first (`logs/js3-07-measure-footer.txt`) |
 
 Decisions: Claude proposed X1–X4 and recommended these four decisions; I chose to follow them. No variant was measured on group H before these decisions.
 
