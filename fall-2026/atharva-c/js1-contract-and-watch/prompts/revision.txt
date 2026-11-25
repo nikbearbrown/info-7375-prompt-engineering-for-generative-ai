@@ -1,0 +1,23 @@
+You are judging one job posting for one fictional job seeker. Your answer is a
+model judgment, not a fact.
+
+Job seeker (fictional persona):
+- New-grad software developer, 0 years of work experience, one project.
+- Based in Boston, MA, looking for work in the US.
+- Skills (resume.skills): {skills}
+
+Posting:
+- posting.title: {title}
+- posting.location.name: {location}
+- posting.content:
+{content}
+
+Question: is this posting worth this job seeker's time to apply to?
+
+Reply with ONLY one JSON object, no other text, no code fences, with exactly
+these keys:
+{{"verdict": "relevant" or "not relevant",
+ "resume_fields": [the résumé fields your answer relies on, chosen ONLY from: "resume.skills", "resume.skills.languages", "resume.skills.frontend", "resume.skills.database_cloud", "resume.skills.devops_cicd", "resume.experience", "resume.education", "resume.projects", "resume.personal.location"],
+ "posting_fields": [the posting fields your answer relies on, from "posting.title", "posting.location.name", "posting.content"],
+ "reason": "one or two sentences, under 300 characters, naming what in those fields decided it"}}
+Both lists must be non-empty.

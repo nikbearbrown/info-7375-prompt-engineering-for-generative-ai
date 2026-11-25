@@ -1,0 +1,108 @@
+[
+  {
+    "mode": "1 chat",
+    "at": "2026-10-30T07:53:07+00:00",
+    "model": "claude-sonnet-5-5",
+    "tools_available": "",
+    "allowed_rules": [],
+    "tool_calls": [],
+    "files_in_folder_after": [],
+    "permission_denials": [],
+    "result": "{\"verdict\": \"not relevant\", \"resume_fields\": [\"resume.experience\", \"resume.projects\"], \"posting_fields\": [\"posting.content\", \"posting.title\"], \"reason\": \"The posting requires 8+ years of security engineering and experience building security programs, while the seeker is a new grad with 0 years of experience and one project. The seniority gap is disqualifying.\"}",
+    "is_error": false,
+    "validated": {
+      "verdict": "not relevant",
+      "resume_fields": [
+        "resume.experience",
+        "resume.projects"
+      ],
+      "posting_fields": [
+        "posting.content",
+        "posting.title"
+      ],
+      "reason": "The posting requires 8+ years of security engineering and experience building security programs, while the seeker is a new grad with 0 years of experience and one project. The seniority gap is disqualifying."
+    }
+  },
+  {
+    "mode": "2 file",
+    "at": "2026-10-30T07:53:12+00:00",
+    "model": "claude-sonnet-5-5",
+    "tools_available": "Read",
+    "allowed_rules": [
+      "Read"
+    ],
+    "tool_calls": [
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/private/var/folders/xc/8d0cqkfj7kb19d9dh96z6c300000gn/T/tmpg15nugbb/posting.txt"
+        }
+      }
+    ],
+    "files_in_folder_after": [
+      "posting.txt"
+    ],
+    "permission_denials": [],
+    "result": "{\"verdict\": \"not relevant\", \"resume_fields\": [\"resume.experience\", \"resume.personal.location\"], \"posting_fields\": [\"posting.title\", \"posting.content\", \"posting.location.name\"], \"reason\": \"The role is a senior Security Engineer requiring 8+ years of security experience and program-building, while the seeker is a new grad with 0 years. It is also based in SF, New York or Seattle, not Boston.\"}",
+    "is_error": false,
+    "validated": {
+      "verdict": "not relevant",
+      "resume_fields": [
+        "resume.experience",
+        "resume.personal.location"
+      ],
+      "posting_fields": [
+        "posting.title",
+        "posting.content",
+        "posting.location.name"
+      ],
+      "reason": "The role is a senior Security Engineer requiring 8+ years of security experience and program-building, while the seeker is a new grad with 0 years. It is also based in SF, New York or Seattle, not Boston."
+    }
+  },
+  {
+    "mode": "3 agent",
+    "at": "2026-10-30T07:53:17+00:00",
+    "model": "claude-sonnet-5-5",
+    "tools_available": "WebFetch,Write,Read",
+    "allowed_rules": [
+      "WebFetch(domain:boards-api.greenhouse.io)",
+      "Write",
+      "Read"
+    ],
+    "tool_calls": [
+      {
+        "tool": "WebFetch",
+        "input": {
+          "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs/7776179",
+          "prompt": "Return the job title, location name, and a summary of the content including required years of experience, skills, and level."
+        }
+      },
+      {
+        "tool": "Write",
+        "input": {
+          "file_path": "/private/var/folders/xc/8d0cqkfj7kb19d9dh96z6c300000gn/T/tmpm9anm6xu/state.json",
+          "content": "{\"posting_id\": 7776179, \"verdict\": \"not relevant\"}\n"
+        }
+      }
+    ],
+    "files_in_folder_after": [
+      "state.json"
+    ],
+    "permission_denials": [],
+    "result": "{\"verdict\": \"not relevant\", \"resume_fields\": [\"resume.experience\", \"resume.skills\"], \"posting_fields\": [\"posting.title\", \"posting.content\", \"posting.location.name\"], \"reason\": \"Senior Security Engineer role requiring 8+ years of security experience and program-building; a new grad with 0 years of experience and one project doesn't meet it. Locations are SF, NY and Seattle, not Boston.\"}",
+    "is_error": false,
+    "validated": {
+      "verdict": "not relevant",
+      "resume_fields": [
+        "resume.experience",
+        "resume.skills"
+      ],
+      "posting_fields": [
+        "posting.title",
+        "posting.content",
+        "posting.location.name"
+      ],
+      "reason": "Senior Security Engineer role requiring 8+ years of security experience and program-building; a new grad with 0 years of experience and one project doesn't meet it. Locations are SF, NY and Seattle, not Boston."
+    }
+  }
+]
