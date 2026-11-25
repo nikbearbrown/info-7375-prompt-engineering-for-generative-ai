@@ -18,6 +18,11 @@
 // in my_verdict; the previous one is kept in a new column first_pass_verdict; my_note becomes
 // "recheck 2026-11-25: <reason>" (a reason is required; an earlier note is kept before it).
 // Resumable: ids whose first_pass_verdict is already set are skipped.
+//
+// Label mode: ... tools/judge-audit.mjs --sheet labels/label-sheet.csv
+// Detected from the sheet's label_id column. Same keys, notes, and byte-preserving writes; the
+// value goes in my_label. Held-out rows are offered first, then dev, but the split is never shown
+// (nor any filter output). If only held-out gets labeled, dev stays empty and is declared unlabeled.
 import { readFileSync, writeFileSync, renameSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,11 +33,14 @@ import { Sheet } from '../src/sheet.mjs';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const { values } = parseArgs({ options: { sheet: { type: 'string', default: 'audit/audit-sheet.csv' }, all: { type: 'boolean', default: false }, recheck: { type: 'string' } } });
 const SHEET = resolve(ROOT, values.sheet);
-const planned = values.all ? null : new Set(JSON.parse(readFileSync(join(ROOT, 'audit', 'judging-plan.json'), 'utf8')).to_judge);
 const VERDICT = { r: 'relevant', n: 'not_relevant', c: 'cannot_tell' };
 
 let lastWritten = readFileSync(SHEET, 'utf8');
 const sheet = new Sheet(lastWritten);
+const LABEL_MODE = sheet.has('label_id');
+const ID = LABEL_MODE ? 'label_id' : 'audit_id', VCOL = LABEL_MODE ? 'my_label' : 'my_verdict';
+if (LABEL_MODE && values.recheck) throw new Error('--recheck works on the audit sheet only');
+const planned = LABEL_MODE || values.all ? null : new Set(JSON.parse(readFileSync(join(ROOT, 'audit', 'judging-plan.json'), 'utf8')).to_judge);
 
 function save() {
   const onDisk = readFileSync(SHEET, 'utf8');
@@ -137,18 +145,22 @@ async function recheckMode(arg) {
 }
 if (values.recheck) await recheckMode(values.recheck);
 
-const queue = sheet.rows.filter(r => (!planned || planned.has(sheet.get(r, 'audit_id'))) && sheet.get(r, 'my_verdict') === '');
+const open = r => (!planned || planned.has(sheet.get(r, ID))) && sheet.get(r, VCOL) === '';
+// Label mode: held-out first (stable order within each half). The order is the only trace of the split.
+const queue = LABEL_MODE
+  ? [...sheet.rows.filter(r => open(r) && sheet.get(r, 'set') === 'heldout'), ...sheet.rows.filter(r => open(r) && sheet.get(r, 'set') !== 'heldout')]
+  : sheet.rows.filter(open);
 const total = planned ? planned.size : sheet.rows.length;
 console.log(`${values.sheet}: ${queue.length} row(s) left to judge${planned ? ` of ${total} planned` : ''}. Keys: r relevant · n not_relevant · c cannot_tell · s skip · o full text · q quit\n`);
 
 let done = 0;
 for (const row of queue) {
-  const id = sheet.get(row, 'audit_id'), file = sheet.get(row, 'posting_file');
+  const id = sheet.get(row, ID), file = sheet.get(row, 'posting_file');
   const show = () => console.log(`── ${id} ─────────────────────────────── (${queue.length - done} left)\n  title:      ${sheet.get(row, 'title')}\n  location:   ${sheet.get(row, 'location') || '(missing)'}\n  department: ${sheet.get(row, 'department') || '(missing)'}\n  full text:  ${file}\n  excerpt:\n${wrap(sheet.get(row, 'excerpt'))}\n`);
   show();
   let k;
   for (;;) {
-    k = await key('verdict [r/n/c], s skip, o full text, q quit: ');
+  k = await key(`${LABEL_MODE ? 'label' : 'verdict'} [r/n/c], s skip, o full text, q quit: `);
     if (k === 'o') { try { console.log('\n' + readFileSync(join(ROOT, file), 'utf8') + '\n'); } catch (e) { console.log(`cannot read ${file}: ${e.message}`); } show(); continue; }
     if (k in VERDICT || k === 's' || k === 'q') break;
     console.log(`  "${k}" is not a key.`);
@@ -156,12 +168,12 @@ for (const row of queue) {
   if (k === 'q') break;
   if (k === 's') { console.log('  skipped (still empty; offered again next run)\n'); done++; continue; }
   const note = ((await line('  note (optional, Enter for none): ')) ?? '').replace(/[\r\n]+/g, ' ').trim();
-  sheet.set(row, 'my_verdict', VERDICT[k]);
+  sheet.set(row, VCOL, VERDICT[k]);
   if (note) sheet.set(row, 'my_note', note);
   save();
   console.log(`  saved ${id} = ${VERDICT[k]}${note ? ` · note: ${note}` : ''}\n`);
   done++;
 }
-const left = sheet.rows.filter(r => (!planned || planned.has(sheet.get(r, 'audit_id'))) && sheet.get(r, 'my_verdict') === '').length;
-console.log(`Stopped. ${left} row(s) still without a verdict${planned ? ' (planned rows)' : ''}. Every verdict given is already saved.`);
+const left = sheet.rows.filter(open).length;
+console.log(`Stopped. ${left} row(s) still without a ${LABEL_MODE ? 'label' : 'verdict'}${planned ? ' (planned rows)' : ''}. Every ${LABEL_MODE ? 'label' : 'verdict'} given is already saved.`);
 process.exit(0);
