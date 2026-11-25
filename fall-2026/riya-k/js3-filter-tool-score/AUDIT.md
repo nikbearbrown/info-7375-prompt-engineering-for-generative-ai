@@ -89,5 +89,24 @@ All candidates were measured on the 58 audit labels (dev) only; I chose v1.1 fro
 
 v1.1 on the whole corpus: **46 kept, 2,505 rejected, 25 cannot_tell** (`out/v1.1/summary.json`).
 
-**Not re-audited:** I did not draw a new random-reject sample for v1.1. v1.1 rejects about 290 more postings than v1,
-and nothing here checks what those are.
+## 5. Re-audit of v1.1's rejects (2026-11-25 UTC)
+
+Done after comparing with classmates, to close the "not re-audited" gap. New seed 7376, drawn and committed before
+I saw any card (`audit/v1.1/sample.json`, commit `a7be142`). None of my first 78 could be drawn. Blind sheet, same
+layout (`audit/v1.1/label-sheet.html`). My labels were frozen with their hash before any comparison
+(`audit/v1.1/hand-labels.json` + `.sha256`, commit `f85069a`).
+
+| Stratum | n | Drawn from | I'd show | 95% Wilson interval |
+|---|---|---|---|---|
+| R2: random v1.1 rejects | 30 | 2,435 v1.1 rejects not already labeled | **0** | 0% – 11.4% |
+| NR: newly rejected by v1.1 (v1 said kept or cannot_tell) | 10 | 278 | **0** | 0% – 27.8% |
+
+- **What it can say:** in 40 blind draws I found no posting v1.1 threw away that I'd show Arya. Across the 2,435
+  rejects, the sample is consistent with anywhere from 0 to about 280 good postings lost. The 10 newly rejected
+  ones lost no good job, but 10 is too few to say much beyond that.
+- **Why v1.1 rejected them** (a posting can fail several gates): R2: G5 no ROLE word 26, G6 years 19, G2 seniority 16,
+  G1 location 9. NR: mostly G5 (e.g. "Software Engineer, Search Infrastructure", "Network Engineer") and G6
+  (e.g. "Data Engineer, GTM", 5 years).
+- **How fast, said plainly:** the sheet was committed at 01:14 UTC and my labels were downloaded at 01:19:57 UTC,
+  so the 40 cards took about **6 minutes (about 9 seconds each)**, and I typed **no reasons**. These verdicts are quick
+  reads of the title, location and the two boxes. They are weaker evidence than my first 78.

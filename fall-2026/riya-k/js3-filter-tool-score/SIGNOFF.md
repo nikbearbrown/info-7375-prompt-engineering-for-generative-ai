@@ -16,6 +16,7 @@
 | The tool server: protocol shapes, one read-only tool, refuses extra arguments / unknown tools / writes outside `transcripts/` | `tests/test_mcp_server.py` (12 tests); real transcripts s1, s2 | by tests + real Claude Code sessions |
 | The filter's errors on real postings | 78 blind hand labels; reasons and 11 corrections in my words | **by hand**: me |
 | The years box on the label sheet missed "8 or more years" | card #41 | **by hand**: I found it |
+| What v1.1 throws away | 40 new blind cards (30 random rejects + 10 newly rejected): 0 I'd show (`AUDIT.md` §5) | **by hand**: me, quickly |
 | Whether a sampled posting is still open | I opened one OpenAI posting from my 78 cards on OpenAI's live careers page (2026-11-24). It was **no longer listed**. I don't remember which card. | **by hand**: one posting only |
 
 **How:** by hand (all 78 labels, the reasons, the corrections, every rule and threshold decision); by tests and a
@@ -25,7 +26,8 @@ drafted the weights I accepted, wrote all the code, ran every Claude session, an
 my corrections).
 
 **Not checked:**
-1. What v1.1 throws away. It rejects about 290 more postings than v1, and I didn't draw a new random-reject sample.
+1. Most of what v1.1 throws away. I re-audited 40 of its rejects blind (0 I'd show; `AUDIT.md` §5), but quickly
+   (about 6 minutes, no reasons). The interval still allows up to about 11% of 2,435 rejects being good.
 2. Whether any scorer finds good jobs. My held-out set has 3 blind Shows (1 after corrections), too few to measure.
    "Always say not" beats every scorer on blind held-out labels.
 3. The "N years" pattern: the 80-character "experience" window and the "smallest number" rule. Claude wrote them,
@@ -42,7 +44,7 @@ my corrections).
 - That my corrected labels are blind. They were made after seeing the filter's verdicts.
 - That a `kept` posting is worth applying to.
 
-**Signed or withheld:** Signed: Riya Kapadnis, 2026-11-24
+**Signed or withheld:** Signed: Riya Kapadnis, 2026-11-24 (re-confirmed the same evening after the v1.1 re-audit was added: "yes signature is okay")
 
 ---
 

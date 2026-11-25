@@ -105,9 +105,9 @@ agreement (ties go to 6, then to the lower value). The held-out 20 were scored a
 | 9–11 | 50 | 55 | 0 | 0 | 16 |
 
 **The fit picks 8, and 8 keeps nothing.** Agreement is highest when the filter rejects everything, because most of my
-labels are Not. Fitting on agreement just rediscovers "always say not". v1.1 still uses the hand-set 6 (Riya's decision on this: see below). The fit is evidence
+labels are Not. Fitting on agreement just rediscovers "always say not". v1.1 keeps the hand-set 6 (my decision, below). The fit is evidence
 *against* trusting agreement as the thing to optimize, not evidence for 8.
 
 The other direction is the real trade-off. Threshold 3 keeps 11 dev postings and catches 5 of my 7 blind dev Shows;
 6 catches 2. Caring more about not missing a good job than about reading fewer postings would mean lowering the threshold, not
-raising it. That is a choice for Riya, and agreement can't make it. **Decision:** _pending Riya_. A better target than agreement (for example, Shows caught per posting read) is not measured here.
+raising it. That is a choice for Riya, and agreement can't make it. **Decision (Riya, in chat, 2026-11-24):** "keep 6". A better target than agreement (for example, Shows caught per posting read) is not measured here.
