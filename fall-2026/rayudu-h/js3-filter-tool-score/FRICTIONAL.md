@@ -110,7 +110,7 @@
 - **What Hemanth decided:** "Do whatever you recommend and complete the project, I need to submit this today".
   - FILTER.md v1.2 records Z5 accepted and Y1, Y2, Y3 and Y5 rejected as **delegated** decisions.
   - The held-out set, never used to fit the cut-off, shows false keeps 18 → 7 with no relevant posting lost. It also shows that keeping nothing would score higher on accuracy, because only 5 of 40 are relevant now.
-- **The sign-off:** when Claude tried to type Hemanth's name into it under that same instruction, the action was blocked. The signature line is left for Hemanth.
+- **The sign-off:** when Claude tried to type Hemanth's name into it under that same instruction, the action was blocked, so the signature line was left blank. Hemanth then signed explicitly: "Sign it : Hemanth Rayudu, Nov 24, 2026".
 - **Unresolved:**
   - no posting labeled after v1.2 existed;
   - the 4 new postings on the v1.2 shortlist were never claim-checked;

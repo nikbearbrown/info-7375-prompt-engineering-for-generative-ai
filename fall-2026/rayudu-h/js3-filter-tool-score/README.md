@@ -91,6 +91,7 @@ claude -p "Which job postings are new since the Nov 7 snapshot (2026-11-07T18424
 | **Persistence** | JS1's exact Oct 31 prompts (hashes verified) gave **20 of 20** identical verdicts on Nov 22, which is not evidence of memory or training |
 | **Second labeling pass** (Nov 23–24) | the first view had shown the experience requirement in **0 of 90** postings that state one. Re-shown with it visible, **39 of 90** verdicts changed (35 relevant → not relevant). Corrected audit: misses **3/30** (not 11/30); kept but unwanted **7/15** (not 2/15). The problem was precision |
 | **v1.2** (Nov 24; decisions delegated: "Do whatever you recommend…") | R17 accepted: reject at 5+ years (cut-off fitted, ranges by lower bound). Y1, Y2, Y3, Y5 rejected. Corrected tuning labels: 57 → **70/75**, precision 56% → 87%. **Held-out (corrected): false keeps 18 → 7, relevant kept 2 → 2.** Keeping nothing would still score higher on accuracy (35/40, since only 5 of the 40 are relevant), so accuracy isn't the measure here |
+| **Fresh-copy check** (Nov 24, commit `a26edc0`, Python 3.9.6) | 107 tests passed; `filter` (v1.2 results), `audit`, `experiment report` and `x1test report` (both label sets), `relabel report` and `shortlist-final` all regenerated **byte-identical** files |
 | **Follow-ups after "Are you sure we are doing it right?"** (Nov 22–23) | **X1 out of sample:** on 10 never-labeled postings X1 changes, v1.1 was right 7/10 and v1.0 3/10 (`audit/x1-results.md`). **E5**, context under prompt v3: 0 verdict flips, but confidence rose. **SEEDED injection** through my server: Claude didn't follow the planted instruction, and warned Priya not to email contact details (`EVAL-OWN-SERVER.md` section 6) |
 
 ## Sign-off: Job-Search Agent 3
@@ -128,7 +129,9 @@ Not claiming: that 3/30 (3-26%) or 11/30 is a measured miss rate for the corpus;
               that the filter or Claude knows what is worth Priya's time;
               that any sameness or change across sessions reflects training;
               that the snapshots are complete or current after Nov 20
-Signed or withheld: ____________ (Hemanth to sign or withhold)
+Signed or withheld: Hemanth Rayudu, Nov 24, 2026
+              (Hemanth's reply in chat: "Sign it : Hemanth Rayudu, Nov 24, 2026"; typed into this
+              file by Claude Code)
 ```
 
 ## Driver's seat
