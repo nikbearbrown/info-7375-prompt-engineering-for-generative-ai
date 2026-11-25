@@ -1,6 +1,6 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.1.0-b — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
+**Version 1.1.0-c — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
 
 This is the gate. The filter is this document: the machine-readable block in §6 is what the
 code loads (`src/spec.mjs`). No weight, word, or threshold lives anywhere else. To change the
@@ -357,7 +357,7 @@ The committed implementation re-counts in Phase 2, and any difference is recorde
   `e0d80ff0` (`audit/sponsor-visa-hits.md`).
 - **Changes that can add postings to the shortlist** still require audit rows.
 - **Planned for v1.1, not applied.** It is held until all audit verdicts are in, so that the
-  audit measures v1.0.0.
+  audit measures v1.0.0. **Applied in v1.1.0-c** (§9), after the verdicts and the recheck.
   - Add exactly the two missed phrasings from `e0d80ff0` to `vetoes.sponsorship`:
     - `no visa/relocation support` (gh-airbnb:8299386)
     - `unable to provide … visa sponsorship` (lv-spotify:a3c9129a-…). This one is a bounded
@@ -410,7 +410,7 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 
 ```json filter-spec
 {
-  "version": "1.1.0-b",
+  "version": "1.1.0-c",
   "title": {
     "cut_chars": [",", " - ", "(", ":"],
     "tiers": {
@@ -423,7 +423,8 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
   "experience": { "stretch_value": 0.5, "junior_upper_max": 2, "impute": 0.5 },
   "location": { "aliases": { "sf": "San Francisco", "bay area": "San Francisco", "la": "Los Angeles" }, "impute": 0.0 },
   "vetoes": {
-    "sponsorship": ["unable to sponsor", "not able to sponsor", "will not sponsor", "does not sponsor", "cannot sponsor", "without sponsorship", "sponsorship is not available"],
+    "sponsorship": ["unable to sponsor", "not able to sponsor", "will not sponsor", "does not sponsor", "cannot sponsor", "without sponsorship", "sponsorship is not available", "no visa/relocation support"],
+    "sponsorship_patterns": ["unable to provide (?:[a-z]+ ){0,3}visa sponsorship"],
     "citizenship": ["security clearance", "u.s. citizen", "us citizenship", "citizenship is required"]
   },
   "weights": { "title": 0.40, "location": 0.25, "experience": 0.25, "topic": 0.10 },
