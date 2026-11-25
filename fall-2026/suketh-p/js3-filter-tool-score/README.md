@@ -15,7 +15,7 @@ JS3 has five parts:
 
 Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURCES.md](SOURCES.md) says who wrote what.
 
-## Status on 2026-11-25, 08:45 EST
+## Status on 2026-11-25, 09:00 EST
 
 | Part | State |
 | --- | --- |
@@ -26,7 +26,7 @@ Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURC
 | Shortlist claims | done: [reports/SHORTLIST.md](reports/SHORTLIST.md). The student labelled all 64 (48 supported, 16 insufficient). Claude's challenge proposed 5 changes, and the student's decisions moved 10 labels (final 40 supported, 24 insufficient, 0 contradicted). The report includes the relevance-versus-entailment case (R4-C4) and the abstention rule with two counterexamples |
 | Tool server and two evaluations | done. The student's decisions: **allow** this folder's server for one saved posting at a time in a controlled local session; **deny** the course's server as a dependency for the JS3 workflow ([evaluations/](evaluations/)) |
 | Frictional entries 2–4 | done, the student's ([FRICTIONAL.md](FRICTIONAL.md)) |
-| The sign-off | written by the student and **withheld** (below) |
+| The sign-off | written by the student, first withheld, then **signed** after their own Terminal run (below) |
 
 ## Language, toolchain, and what a TA needs
 
@@ -213,11 +213,13 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
 | **The one change** | Wrote the options with their development effects; coded the chosen rule test-first; ran the held-out comparison once and reported it as it came out | Chose the change, how Can’t tell counts, and that "unmet requirement" covers both the filter and the claims | The objective and the stop rule are written first, by the person who owns the result (Ch. 9) | `4fec7d70`, `65c132b7` |
 | **The shortlist claims** | Drafted the 64 claims and quotes; checked that each quote exists; looked for the sentence that would flip each label (5 found); Claude Code checked that two of those sentences are in all eight postings | Labelled all 64; decided each of the 5 proposals and applied two of them to all eight ranks; kept the eight abstentions | A quote can be exact and still not support the claim. Only a reader who has read the passage can say | `9dd1ef76` |
 | **The tool server** | Wrote and tested it; recorded a real session and the harness runs; drafted both evaluations and checked Claude's leads against the spec | Decided, in their own words: allow this folder's server for one saved posting at a time in a controlled local session; deny the course's server as a dependency | Trusting a server means deciding what it may touch on the student's behalf | [evaluations/](evaluations/) |
-| **The sign-off** | Listed the facts below; ran the student's three named checks again to compare results (Claude Code's run) | Wrote it and **withheld** it; then ran the three checks in their own Terminal (60 tests OK, three hashes OK, PASS) | Their name goes on it | below |
+| **The sign-off** | Listed the facts below; ran the student's three named checks again to compare results (Claude Code's run) | Wrote it and **withheld** it; ran the three checks in their own Terminal (60 tests OK, three hashes OK, PASS); then **signed** it | Their name goes on it | below |
 
-## Sign-off (the student's): withheld
+## Sign-off (the student's): signed, after first withholding it
 
-**Withheld by the student on 2026-11-25.** It was pasted in chat (arrived by 08:41 EST) and is reproduced verbatim:
+**Signed by the student on 2026-11-25, after first withholding it.** Both versions are kept.
+
+**1. As first written: withheld** (`46bd9301`). It was pasted in chat (arrived by 08:41 EST) and is reproduced verbatim:
 
 ```text
 Sign-off · Job-Search Agent 3
@@ -229,6 +231,17 @@ Signed or withheld: Withheld · Suketh Reddy Produtoor · 2026-11-25
 ```
 
 The student's reason, in Frictional entry 4: "I’m withholding sign-off while I reproduce the Terminal checks and document my work in SOURCES.md."
+
+**2. Signed, after the student's own Terminal run.** The student ran the three checks in their own Terminal (`9d2a77a6`) and chose "Sign it now". Asked how the signed How line should read, they chose "Drop that sentence". That was Claude Code's option: it removes "My own Terminal rerun is pending." and changes nothing else. The last line uses the name and date from the student's withheld line:
+
+```text
+Sign-off · Job-Search Agent 3
+Checked:      My runs matched all three saved response hashes, independently recounted 1,551 postings, confirmed unchanged state, and passed 60 targeted tests.
+How:          I used the recorded outputs and made the four decisions on the claim challenge. I drafted FILTER.md and the initial posting and claim labels myself.
+Not checked:  A fresh independently labeled benchmark, a corpus from a different day, or a live host session using jobwatch-js3 0.1.1.
+Not claiming: Corpus-wide accuracy, MCP conformance, or that v0.2 met my stop rule. P53 still reached the shortlist.
+Signed or withheld: Signed · Suketh Reddy Produtoor · 2026-11-25
+```
 
 ### The three checks the student names
 
@@ -245,7 +258,7 @@ The third command was pasted on three lines without line-continuation backslashe
 - **Claude Code's run, not the student's.** Claude Code ran the same three commands on `7e4ae241` (2026-11-25, 13:43Z) and got the results the student reports: 60 tests OK, three hashes OK, and PASS with 631 / 890 / 30 jobs and "state file unchanged between the two copies" ([evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt](evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt)).
 - **The student's own run (added later, 2026-11-25, about 08:51 EST).** The student ran the three commands in their own Terminal, from this folder, and pasted the output: 60 tests OK, three hashes OK, and PASS with 631 / 890 / 30 and the state unchanged ([evidence/terminal/2026-11-25-the-students-three-checks-run-by-student.txt](evidence/terminal/2026-11-25-the-students-three-checks-run-by-student.txt)).
 - **Their first attempt failed.** It was run from the home folder and found none of the modules ([the first attempt](evidence/terminal/2026-11-25-the-students-three-checks-first-attempt-from-home-folder.txt)).
-- **The sign-off above predates that run.** It was written before the run and is unchanged until the student revises it.
+- **The withheld version predates that run, and the signed version follows it.**
 
 
 ### The facts Claude Code listed for it

@@ -29,4 +29,4 @@ The student's headings and words, as pasted. The student's "⚬" bullets are sho
 > - The hash checks, recount, and tests gave me specific evidence I can reproduce. They answered whether the saved records and tested behavior agreed. P53 still showed where my screening rule fell short.
 > - I’m withholding sign-off while I reproduce the Terminal checks and document my work in SOURCES.md. I’d use a fresh set of independently chosen labels before treating the agreement score as an independent benchmark.
 
-*Note by Claude Code, for traceability:* entry 2 names commit `65c132b7` (the held-out run) and entry 3 names `f4a08d28` (the decisions on the challenge); both exist on this branch. Entry 2 is about work done on 2026-11-24, and its heading says it looks back.
+*Notes by Claude Code, for traceability:* after entry 4, the student ran the three checks in their own Terminal (`9d2a77a6`) and then signed. Both sign-off versions are in the README. Entry 2 names commit `65c132b7` (the held-out run) and entry 3 names `f4a08d28` (the decisions on the challenge); both exist on this branch. Entry 2 is about work done on 2026-11-24, and its heading says it looks back.
