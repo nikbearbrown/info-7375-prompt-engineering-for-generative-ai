@@ -1,0 +1,137 @@
+RED: the new-key check tests, before any change to checks/independent_check.py for them
+Run by Claude Code at 2026-11-25T17:50:17Z, Python 3.12.7, from the JS4 folder, at commit d536d8e1:
+  python3 -B -W error -m unittest tests.test_new_key_check -v
+
+test_a_baseline_claim_for_a_board_with_history_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_baseline_claim_for_a_board_with_history_is_flagged) ... FAIL
+test_a_board_that_no_earlier_capture_lists_is_a_baseline (tests.test_new_key_check.NewKeyCheckTest.test_a_board_that_no_earlier_capture_lists_is_a_baseline) ... FAIL
+test_a_correct_new_key_claim_passes (tests.test_new_key_check.NewKeyCheckTest.test_a_correct_new_key_claim_passes) ... FAIL
+test_a_returning_key_is_not_new (tests.test_new_key_check.NewKeyCheckTest.test_a_returning_key_is_not_new) ... FAIL
+test_a_wrong_new_key_claim_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_wrong_new_key_claim_is_flagged) ... FAIL
+test_an_earlier_capture_that_does_not_match_its_hash_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_an_earlier_capture_that_does_not_match_its_hash_is_flagged) ... FAIL
+test_captures_given_out_of_time_order_are_flagged (tests.test_new_key_check.NewKeyCheckTest.test_captures_given_out_of_time_order_are_flagged) ... FAIL
+test_the_new_count_shown_in_results_md_is_checked (tests.test_new_key_check.NewKeyCheckTest.test_the_new_count_shown_in_results_md_is_checked) ... FAIL
+test_without_earlier_captures_or_state_files_new_keys_are_not_checked (tests.test_new_key_check.NewKeyCheckTest.test_without_earlier_captures_or_state_files_new_keys_are_not_checked) ... FAIL
+test_nov_24_against_nov_8 (tests.test_new_key_check.RealCapturesNewKeyTest.test_nov_24_against_nov_8) ... FAIL
+
+======================================================================
+FAIL: test_a_baseline_claim_for_a_board_with_history_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_baseline_claim_for_a_board_with_history_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 122, in test_a_baseline_claim_for_a_board_with_history_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmpvfgtori0/runs/R0
+
+
+======================================================================
+FAIL: test_a_board_that_no_earlier_capture_lists_is_a_baseline (tests.test_new_key_check.NewKeyCheckTest.test_a_board_that_no_earlier_capture_lists_is_a_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 109, in test_a_board_that_no_earlier_capture_lists_is_a_baseline
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmptj9su2u_/runs/R0
+
+
+======================================================================
+FAIL: test_a_correct_new_key_claim_passes (tests.test_new_key_check.NewKeyCheckTest.test_a_correct_new_key_claim_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 74, in test_a_correct_new_key_claim_passes
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmpd_582lui/runs/R0
+
+
+======================================================================
+FAIL: test_a_returning_key_is_not_new (tests.test_new_key_check.NewKeyCheckTest.test_a_returning_key_is_not_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 93, in test_a_returning_key_is_not_new
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmphkf6oid5/runs/R0 --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmphkf6oid5/runs/R1
+
+
+======================================================================
+FAIL: test_a_wrong_new_key_claim_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_wrong_new_key_claim_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 83, in test_a_wrong_new_key_claim_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmpr4nrgan_/runs/R0
+
+
+======================================================================
+FAIL: test_an_earlier_capture_that_does_not_match_its_hash_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_an_earlier_capture_that_does_not_match_its_hash_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 140, in test_an_earlier_capture_that_does_not_match_its_hash_is_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmptgusd3u0/runs/R0
+
+
+======================================================================
+FAIL: test_captures_given_out_of_time_order_are_flagged (tests.test_new_key_check.NewKeyCheckTest.test_captures_given_out_of_time_order_are_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 148, in test_captures_given_out_of_time_order_are_flagged
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmp4mimomyv/runs/R-late
+
+
+======================================================================
+FAIL: test_the_new_count_shown_in_results_md_is_checked (tests.test_new_key_check.NewKeyCheckTest.test_the_new_count_shown_in_results_md_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 131, in test_the_new_count_shown_in_results_md_is_checked
+    self.assertEqual(code, 1, out)
+AssertionError: 2 != 1 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/tmp60ouuthb/runs/R0
+
+
+======================================================================
+FAIL: test_without_earlier_captures_or_state_files_new_keys_are_not_checked (tests.test_new_key_check.NewKeyCheckTest.test_without_earlier_captures_or_state_files_new_keys_are_not_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 156, in test_without_earlier_captures_or_state_files_new_keys_are_not_checked
+    self.assertIn("new postings not checked (no --earlier capture and no state files)", out)
+AssertionError: 'new postings not checked (no --earlier capture and no state files)' not found in '  report: status incomplete, state_advanced False\n  greenhouse/anthropic: saved body is HTTP 200, 60 bytes, 2 jobs\n  state not checked (count-only mode: no --state-before or --state-after given)\nPASS: no contradiction found between the trace, the report, its displays and the saved bodies (state not checked)\n'
+
+======================================================================
+FAIL: test_nov_24_against_nov_8 (tests.test_new_key_check.RealCapturesNewKeyTest.test_nov_24_against_nov_8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_new_key_check.py", line 168, in test_nov_24_against_nov_8
+    self.assertEqual(code, 0, out)
+AssertionError: 2 != 0 : usage: independent_check.py [-h] [--state-before STATE_BEFORE]
+                            [--state-after STATE_AFTER]
+                            run_dir
+independent_check.py: error: unrecognized arguments: --earlier /Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/runs/2026-11-08-normal-1
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.223s
+
+FAILED (failures=10)
+
+exit code: 1
