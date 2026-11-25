@@ -213,7 +213,7 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
 | **The one change** | Wrote the options with their development effects; coded the chosen rule test-first; ran the held-out comparison once and reported it as it came out | Chose the change, how Can’t tell counts, and that "unmet requirement" covers both the filter and the claims | The objective and the stop rule are written first, by the person who owns the result (Ch. 9) | `4fec7d70`, `65c132b7` |
 | **The shortlist claims** | Drafted the 64 claims and quotes; checked that each quote exists; looked for the sentence that would flip each label (5 found); Claude Code checked that two of those sentences are in all eight postings | Labelled all 64; decided each of the 5 proposals and applied two of them to all eight ranks; kept the eight abstentions | A quote can be exact and still not support the claim. Only a reader who has read the passage can say | `9dd1ef76` |
 | **The tool server** | Wrote and tested it; recorded a real session and the harness runs; drafted both evaluations and checked Claude's leads against the spec | Decided, in their own words: allow this folder's server for one saved posting at a time in a controlled local session; deny the course's server as a dependency | Trusting a server means deciding what it may touch on the student's behalf | [evaluations/](evaluations/) |
-| **The sign-off** | Listed the facts below; ran the student's three named checks again to compare results (Claude Code's run) | Wrote it and **withheld** it, pending their own Terminal rerun | Their name goes on it | below |
+| **The sign-off** | Listed the facts below; ran the student's three named checks again to compare results (Claude Code's run) | Wrote it and **withheld** it; then ran the three checks in their own Terminal (60 tests OK, three hashes OK, PASS) | Their name goes on it | below |
 
 ## Sign-off (the student's): withheld
 
@@ -243,12 +243,14 @@ The student wrote: "I ran these from the JS3 project folder. Use the same comman
 The third command was pasted on three lines without line-continuation backslashes. It is shown here on one line, which is how it runs.
 
 - **Claude Code's run, not the student's.** Claude Code ran the same three commands on `7e4ae241` (2026-11-25, 13:43Z) and got the results the student reports: 60 tests OK, three hashes OK, and PASS with 631 / 890 / 30 jobs and "state file unchanged between the two copies" ([evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt](evidence/terminal/2026-11-25-the-students-three-checks-run-by-claude-code.txt)).
-- **The student's own output is not here yet.** No Terminal output from the student's own run is in this repository. The sign-off's How line says "My own Terminal rerun is pending."
+- **The student's own run (added later, 2026-11-25, about 08:51 EST).** The student ran the three commands in their own Terminal, from this folder, and pasted the output: 60 tests OK, three hashes OK, and PASS with 631 / 890 / 30 and the state unchanged ([evidence/terminal/2026-11-25-the-students-three-checks-run-by-student.txt](evidence/terminal/2026-11-25-the-students-three-checks-run-by-student.txt)).
+- **Their first attempt failed.** It was run from the home folder and found none of the modules ([the first attempt](evidence/terminal/2026-11-25-the-students-three-checks-first-attempt-from-home-folder.txt)).
+- **The sign-off above predates that run.** It was written before the run and is unchanged until the student revises it.
 
 
 ### The facts Claude Code listed for it
 
-- **The student's own checks so far:** the 80 verdicts, the 64 claim labels, the four decisions on Claude's challenge, their choices in FILTER.md, naming the false friends, and the two trust decisions. The three Terminal checks above are reported by the student; their own output is pending.
+- **The student's own checks so far:** the 80 verdicts, the 64 claim labels, the four decisions on Claude's challenge, their choices in FILTER.md, naming the false friends, the two trust decisions, and the three Terminal checks above, run in their own Terminal (output committed).
 - **Claude Code's tests and checks:**
   - 279 tests, offline.
   - 16 wrong versions swapped in and caught.
