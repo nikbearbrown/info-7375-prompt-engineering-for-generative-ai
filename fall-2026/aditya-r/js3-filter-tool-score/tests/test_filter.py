@@ -122,3 +122,29 @@ def test_every_match_carries_field_and_quote():
     for g in r["parts"]["T"]["groups"]:
         assert g["field"] in ("posting.title", "posting.description")
         assert g["phrase"] in g["quote"].lower().replace("-", " ")
+
+
+# ---- v1.1 (FILTER.md change log). Constructed postings; boilerplate is the real Databricks segment. ----
+V11 = load_filter("v1.1")
+DB_ABOUT = ("Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform "
+            "that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog.")
+
+
+def test_v11_boilerplate_words_do_not_count():
+    # v1.0: T = python + agents + data platform = 3; v1.1: boilerplate segment ignored -> T = 1.
+    p = P("Software Engineer - New Grad", f"You write Python.\n{DB_ABOUT}", board="databricks")
+    assert score_posting(p, V1)["parts"]["T"]["points"] == 3
+    r = score_posting(p, V11)
+    assert r["parts"]["T"]["points"] == 1
+    # R 2 + S 0 + T 1 + E 3 + Y 0 = 6 -> keep, for the stated new-grad reason
+    assert r["parts"]["E"]["points"] == 3 and r["score"] == 6 and r["verdict"] == "keep"
+
+
+def test_v11_same_words_outside_boilerplate_still_count():
+    p = P("AI Engineer", "You will build agents with Unity Catalog.\n" + DB_ABOUT, board="databricks")
+    assert {g["group"] for g in score_posting(p, V11)["parts"]["T"]["groups"]} == {"T4 agents", "T7 data platform"}
+
+
+@pytest.mark.parametrize("text,points", [("5+ years required", -1), ("3-5 years", 0), ("2 years", 0), ("none", 0)])
+def test_v11_years_bands(text, points):
+    assert score_posting(P("AI Engineer", text), V11)["parts"]["Y"]["points"] == points

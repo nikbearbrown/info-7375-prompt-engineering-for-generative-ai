@@ -41,6 +41,11 @@ def topic_points(groups, cfg):                         # W3 seam
     return min(uncapped, cfg["topic"]["cap"]), uncapped
 
 
+def load_boilerplate_segments():                       # W6 seam (v1.1 false-friend fix)
+    from .boilerplate import load
+    return load()
+
+
 def missing_fields(norm):                              # W4 seam
     return [FIELD[f] for f in ("title", "description") if not norm[f]]
 
@@ -80,8 +85,7 @@ def score_posting(posting, cfg):
     # T: distinct groups, capped. Optionally (v1.1 candidate C-a) on the description with board boilerplate removed.
     t_texts, t_norm = texts, norm
     if cfg["topic"].get("ignore_boilerplate_segments"):
-        from .boilerplate import load as load_boilerplate
-        boiler = load_boilerplate().get(posting.get("board") or "", set())
+        boiler = load_boilerplate_segments().get(posting.get("board") or "", set())
         kept = "\n".join(sg for sg in segments(texts["description"]) if normalize(sg) not in boiler)
         t_texts = {**texts, "description": kept}
         t_norm = {**norm, "description": normalize(kept)}

@@ -20,6 +20,7 @@ MUTANTS = {
     "W4 missing description -> reject": ("missing_fields",
                                          lambda norm: [] if norm["title"] else ["posting.title"]),
     "W5 level read from description": ("level_fields", lambda cfg: ["title", "description"]),
+    "W6 (v1.1) boilerplate words count again": ("load_boilerplate_segments", lambda: {}),
 }
 SUITE = [str(ROOT / "tests" / "test_filter.py")]
 

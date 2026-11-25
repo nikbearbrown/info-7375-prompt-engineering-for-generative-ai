@@ -230,3 +230,14 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
     - precision of the v1.0 keep set cannot be measured;
     - only postings that a revision newly keeps can test precision.
   - **Blindness:** Aditya edits `review/LABEL_SHEET_H2.csv` directly (no screenshots). Claude does not open it until `FREEZE.json` is committed. `js3.labels` hashes it without printing its contents.
+- **v1.1** (2026-11-25). **Chosen by Aditya** from the dev audit (`audit/AUDIT.md` §4), before any H2 label was opened. The file is `filters/v1.1.json`. Exactly three changes to v1.0; everything else is unchanged.
+  - **T: topic words in board boilerplate no longer count.**
+    - A description segment (a line or sentence) is boilerplate if its normalized form appears in ≥ 20 % of that board's postings in this corpus. The list is published in `filters/boilerplate_segments.json`, so a reader can check any quote by hand.
+    - *Reason:* "agent(s)" and "unity catalog" matched in nearly every Databricks posting only through the "About us" sentence. That is a false friend worth +2 on every posting.
+  - **Y: only N ≥ 5 costs a point**, and it now costs −1 (it was −3; N = 3–4 was −1 and is now 0).
+    - *Reason:* all three dev misses (S05, S26, S43) were core or ML engineering roles that Aditya judged worth reading despite "5+ years". In his labels, a title level word disqualifies a posting, but a stated years requirement does not.
+  - **E: an early-career phrase is worth +3** (it was +1).
+    - *Reason:* without the boilerplate points, the New Grad postings he labeled `yes` (S11, S35, S48) fall below the threshold. Their real signal is "New Grad" in the title.
+    - Alone, this change adds one false keep (S23, Product Design New Grad). With the other two changes, it adds none on dev.
+  - **Measured on dev** (53 decided labels): recall 9/9, precision 9/9, against 6/9 and 6/6 for v1.0. This is **fitted on the dev labels**: the changes were chosen to fix these misses, so dev numbers cannot validate them. Held-out set H2 does.
+  - **Known effect of the +3:** a posting with no role phrase can now reach 0 + 4 + 3 = 7. So **"no keep without a role phrase" (§1 R) no longer holds in v1.1.** No such posting is kept on dev, and H2 will show whether this happens.
