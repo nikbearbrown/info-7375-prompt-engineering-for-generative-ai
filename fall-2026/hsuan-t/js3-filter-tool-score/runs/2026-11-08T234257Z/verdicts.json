@@ -1,0 +1,3349 @@
+{
+ "run_at": "2026-11-08T23:42:57Z",
+ "exit": "budget-exhausted",
+ "exit_reason": "budget used up: claude calls",
+ "budget": {
+  "limits": {
+   "boards": 4,
+   "requests": 10,
+   "seconds": 120.0,
+   "request_seconds": 10.0,
+   "claude_calls": 30,
+   "claude_seconds": 300.0,
+   "seconds_with_claude": 480.0,
+   "report_reserve_seconds": 60.0
+  },
+  "boards_used": 4,
+  "requests_used": 4,
+  "requests_left": 6,
+  "seconds_used": 129.08,
+  "seconds_left": 0.0,
+  "claude_calls_used": 30,
+  "claude_seconds_used": 127.344
+ },
+ "boards": [
+  {
+   "board": "stripe",
+   "ats": "greenhouse",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 766,
+   "new": 86,
+   "baseline": false,
+   "source": "live",
+   "state_file": "state/stripe.state.json",
+   "raw_response": "evidence/raw/2026-11-08T234257Z/stripe_content.json"
+  },
+  {
+   "board": "cloudflare",
+   "ats": "greenhouse",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 464,
+   "new": 0,
+   "baseline": false,
+   "source": "live",
+   "state_file": "state/cloudflare.state.json",
+   "raw_response": "evidence/raw/2026-11-08T234257Z/cloudflare_content.json"
+  },
+  {
+   "board": "openai",
+   "ats": "ashby",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 816,
+   "new": 0,
+   "baseline": false,
+   "source": "live",
+   "state_file": "state/openai.state.json",
+   "raw_response": "evidence/raw/2026-11-08T234257Z/openai_content.json"
+  },
+  {
+   "board": "striqe",
+   "ats": "greenhouse",
+   "status": "failed",
+   "code": "101",
+   "code_meaning": "101 fetch: board not found (HTTP 404)",
+   "reason": "fetch failed: HTTP 404 from https://boards-api.greenhouse.io/v1/boards/striqe/jobs?content=true",
+   "budget": null,
+   "attempts": 1,
+   "fetched": null,
+   "new": null,
+   "baseline": null,
+   "source": null,
+   "state_file": "state/striqe.state.json",
+   "raw_response": null
+  }
+ ],
+ "verdicts": [
+  {
+   "posting_id": 8332467,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319488,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7997555,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8107136,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348835,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348731,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349777,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8324997,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8077971,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326105,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322584,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322582,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8250475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8280264,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352238,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349481,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349479,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8287920,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351500,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319823,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319452,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354566,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8353516,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: backend"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357739,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301957,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8275558,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346778,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336062,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338344,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8172499,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346417,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8223113,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319491,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352045,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332888,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: lead"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8318680,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301936,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: frontend"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315954,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: software engineer"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8279850,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357043,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325023,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8237533,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338849,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8328323,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325019,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335413,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336705,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348327,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352485,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8165267,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350923,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348839,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7975721,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8222642,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8189015,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8155002,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332681,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332683,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8303870,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7983854,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351504,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8337362,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8284589,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338354,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315966,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8210218,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350920,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: lead"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 6570259,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354768,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8306475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8167556,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: senior"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8317306,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: senior, staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335426,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: software engineer"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325009,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336699,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336711,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8331445,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8261010,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356916,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356917,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356912,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326579,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8304858,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332467,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "Title contains the excluded word 'Sales'.",
+     "quote": "Account Executive, AI Sales"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, AI Sales"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 8+ years of sales experience, far above 2 years plus a 2-year stretch.",
+     "quote": "8+ years of sales experience, preferably selling a technical product, with a track record of top performance"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "San Francisco, US is within the accepted 'us' location, so location is not a blocker.",
+     "quote": "San Francisco, CA; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319488,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "An Account Executive sales role is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive- Enterprise Grower"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "London, UK is not in Boston, US remote, or the United States.",
+     "quote": "London; United Kingdom Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 7+ years of sales experience, above the 2 years experience plus 2 years stretch limit.",
+     "quote": "7+ years of sales experience with strong commercial results and extensive experience selling technology products or services to upper middle market or enterprise organisations."
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requirements are enterprise sales skills, none of which appear in the engineering résumé.",
+     "quote": "A disciplined approach to CRM, account planning, and forecasting."
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7997555,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software engineering, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Enterprise - Grower"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 7+ years of sales experience, well above the 2 years of experience plus 2 stretch years (4 max).",
+     "quote": "7+ years of sales experience, preferably selling a technical product, with a track record of top performance"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The required skills are enterprise sales and negotiation, none of which appear in the résumé's engineering skills.",
+     "quote": "5+ years leading complex sales cycles with Enterprise organizations required"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The posting allows US-Remote and US locations, which the candidate can work in, so location is not a problem.",
+     "quote": "US-New York, US-Chicago, US-Remote; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8107136,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not one of the target engineering roles.",
+     "quote": "Account Executive, Enterprise (Grower)"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Posting requires 11+ years of sales experience, far above the 2 years plus 2 stretch allowed.",
+     "quote": "11+ years of sales experience, preferably selling a technical product, with a track record of top performance"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Responsibilities are enterprise sales and negotiation, none of which appear in the résumé's engineering skills.",
+     "quote": "Own the full sales cycle, from business case development, to deal structuring and negotiating, to close"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Location is in the US (West Coast or remote), which the candidate can work in, so it does not rule the posting out.",
+     "quote": "US-West Coast (Remote); US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348835,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is an enterprise sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive Enterprise (Korean-speaking, Singapore based)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The job is in Singapore, which is not Boston, US remote or the United States.",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "The posting requires 7+ years of sales experience, above the candidate's 2 years plus a 2-year stretch (4 years).",
+     "quote": "7+ years of experience in enterprise solution sales, with a proven track record of closing complex, multi-stakeholder deals"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting requires Korean language fluency, which the résumé does not show.",
+     "quote": "Solid verbal and written communication skills in both English and Korean"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348731,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Enterprise sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Enterprise (Southeast Asia)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Singapore is not in the candidate's locations (Boston, US remote, US).",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 7+ years, well above 2 years experience plus 2 stretch (4).",
+     "quote": "7+ years of experience in enterprise solution sales, with a proven track record of closing complex, multi-stakeholder deals"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requires enterprise sales and CRM skills such as Salesforce and MEDDIICC, which the résumé does not show.",
+     "quote": "Strong command of pipeline management methodologies (e.g., MEDDIICC) and CRM discipline (Salesforce)"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349777,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software, backend, platform, DevOps or SRE engineering role.",
+     "quote": "Account Executive, Large Users Platforms (China Cross Border)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Singapore is not in the candidate's allowed locations (Boston, US remote, US).",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 7+ years of sales experience, well above the candidate's 2 years plus 2 stretch.",
+     "quote": "7+ years of software sales experience selling to large users in the China market"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Posting requires enterprise sales and Mandarin fluency, none of which appear in the résumé's engineering skills.",
+     "quote": "High professional fluency in Mandarin and English, as the role involves working with users within the Greater China region"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8324997,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales Account Executive role, not a software, backend, platform, DevOps or SRE engineering role.",
+     "quote": "Account Executive, Platforms Enterprise ( Hunter ) Japan"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The job is in Tokyo, Japan, which is not Boston, US remote or the United States.",
+     "quote": "Tokyo; Japan Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "It requires 5-7 years of direct sales experience, above the 4 years the candidate can reach (2 plus 2 stretch), and the résumé shows no sales experience.",
+     "quote": "5-7 years experience of directly selling a technology product or service to Japan, preferably at an API-first company, with a record of top performance."
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8077971,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive sales role is not a software engineering, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Platforms - Hunter"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Posting requires 10+ years of sales experience, far above 2 years plus 2 stretch.",
+     "quote": "10+ years of sales experience, preferably selling a technical product, with a track record of top performance"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Posting requires enterprise sales skills, none of which appear in the résumé's engineering skills.",
+     "quote": "Proven ability to lead complex negotiations involving bespoke commercial agreements"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Chicago, US is in the United States, which the profile allows, so location is not the problem.",
+     "quote": "Chicago, IL; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326105,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software engineering, backend, platform, DevOps or SRE target role.",
+     "quote": "Account Executive, Platforms Mid Market (Hunter), Japan"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Tokyo, Japan is not Boston, US remote, or the United States.",
+     "quote": "Tokyo; Japan Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 6+ years of sales experience, above the 2 + 2 = 4 year limit, and in a field the résumé does not show.",
+     "quote": "6+ years of technology sales experience in a quota-carrying role, with a demonstrated track record of top performance in both new business acquisition and account management."
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322584,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales Account Executive role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, SMB"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.target_roles[]",
+     "result": "The duties are outbound sales and closing new business, which does not match any target engineering role.",
+     "quote": "This is a true hunting role, with a strong emphasis on outbound prospecting, pipeline generation, and closing new logos."
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The requirements are sales experience, which the résumé does not show; its skills are engineering tools.",
+     "quote": "Proven success in a closing sales role with a strong focus on net-new business acquisition"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The posting is in Dublin, Ireland, which is outside Boston and the US locations the candidate can work in.",
+     "quote": "Dublin; Ireland Locations"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322582,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales account executive role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, SMB Grower (CEE)"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "The posting is a sales role, and 'sales' is an excluded word, though it appears in the content rather than the title.",
+     "quote": "The SMB team is at the forefront of driving revenue and growth for Stripe in Europe."
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The job is in Dublin, Ireland, which is not Boston or anywhere in the US.",
+     "quote": "Dublin; Ireland Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting requires solution sales experience, which the résumé does not show; the résumé is all engineering.",
+     "quote": "2-3 full year experience in solution sales field with deals closed and onboarded successfully"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8250475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive sales role is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, SMB Grower (French speaking)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Toronto, Canada is not in Boston or the US, and the profile lists no Canadian or Canada-remote option.",
+     "quote": "Toronto, Canada; Canada Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 5+ years in a client-facing/sales role, above the 2 + 2 = 4 years allowed, and the résumé shows no sales experience.",
+     "quote": "5+ years of experience in a client-facing/sales role"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requires fluency in French and English, and the résumé shows no French or sales skills.",
+     "quote": "Superior verbal and written communication skills in English and French"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8280264,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales role (Account Executive), not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, SMB (Hunter)"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting requires sales experience, which the engineering résumé does not show.",
+     "quote": "2+ years of sales or prospecting experience, preferably at a technology company, with a track record of top performance"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The posting is in the US, which the candidate can work in.",
+     "quote": "Chicago; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352238,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, SMB (Southeast Asia)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Singapore is not among the candidate's locations (Boston, US remote, US).",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 5+ years of sales experience, above the candidate's 2 years plus 2 stretch (4), and in a field the résumé does not show.",
+     "quote": "5+ years experience in client facing/sales roles supporting customers in Southeast Asia"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349481,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive - Startups & AI  (Korean Speaking, Singapore based)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Singapore is not in the candidate's allowed locations (Boston, US remote, US).",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 5+ years of sales experience, above the candidate's 2 years plus 2 stretch, and the résumé shows no sales experience.",
+     "quote": "5+ years of sales or prospecting experience, preferably at a technology company, with a track record of top performance"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requires Korean language skills, which the résumé does not show.",
+     "quote": "Solid communication in English and Korean language, as the role involves working with users within the Korea region"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349479,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales role (Account Executive), not a software engineering, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive - Startups & AI, New Zealand"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The job is in New Zealand, which is not Boston, US remote, or the United States.",
+     "quote": "New Zealand; New Zealand Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "It requires 5+ years of sales experience, above the 2 years of experience plus 2 stretch years (4 total), and the résumé shows no sales experience.",
+     "quote": "5+ years of sales or prospecting experience, preferably at a technology company, with a track record of top performance"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8287920,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Account Executive is a sales role, not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Startups (Grower)"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 5+ years in client-facing sales, which exceeds the 4 years allowed (2 experience plus 2 stretch), and the résumé shows no sales experience.",
+     "quote": "5+ years of experience in a client-facing sales role"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Chicago, US is in the US, which the candidate can work in, so location does not rule it out.",
+     "quote": "Chicago; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351500,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales role (Account Executive), not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive - Startups (Grower), Australia"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The job is in Australia, which is not among the candidate's locations (Boston, US remote, US).",
+     "quote": "Australia; Australia Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "The posting requires 5+ years of sales experience, above the candidate's 2 years plus 2 stretch, and the résumé shows no sales experience.",
+     "quote": "5+ years of experience in a client-facing/sales role within AUNZ region"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319823,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "This is a sales Account Executive role, not a software engineering, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Startups - Grower (Italian Fluency)"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The role is in Dublin, Ireland, which is not Boston or anywhere in the US.",
+     "quote": "Dublin; Ireland Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "The posting requires 4+ years of sales experience, which the résumé does not show (2 years of engineering experience, 2 years stretch).",
+     "quote": "4+ years of experience in a client-facing or closing sales role"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting requires Italian fluency, which the résumé does not show, and lists no engineering skills as requirements.",
+     "quote": "High professional fluency in Italian and English"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "An Account Executive sales role is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive - Startups, Southeast Asia"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Singapore is not in Boston, US remote, or the United States.",
+     "quote": "Singapore; Singapore Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Posting requires 5+ years, above the 2 + 2 = 4 year limit.",
+     "quote": "5+ years of sales or client-facing experience, preferably at a high-growth SaaS company, bank, consultancy, or venture capital firm, with a track record of top performance"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319452,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A sales role (Account Executive), not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Account Executive, Strategics"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Requires 15+ years of sales experience, far above 2 years plus a 2-year stretch.",
+     "quote": "15+ years of sales experience, preferably selling a highly technical product to strategic customers, with a track record of top performance"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requirements are sales and negotiation skills; none of the résumé's engineering skills are required.",
+     "quote": "Proven ability to lead complex negotiations involving bespoke commercial agreement"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The posting lists US-Remote and US, which the candidate can work in, so location is not the problem.",
+     "quote": "San Francisco, Seattle, New York, Chicago, US-Remote; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354566,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Data analyst in sales strategy and operations is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "AMER Data Analyst - Sales Strategy and Operations"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "The title contains the excluded word 'Sales'.",
+     "quote": "AMER Data Analyst - Sales Strategy and Operations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Posting requires 3-5 years of experience, which exceeds the 4-year limit (2 + 2 stretch) at the upper end and is in a different domain (B2B sales ops/analytics).",
+     "quote": "3–5 years of work experience in B2B sales strategy and operations and/or business analytics, business strategy/operations, data science, investment banking, management consulting, and/or related domains."
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Posting requires Salesforce/CRM experience, which the résumé does not show, although SQL is present.",
+     "quote": "Experience in Salesforce (or other CRM). Intermediate to advanced SQL and strong Google Sheets or Excel modeling skills."
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Location includes US Remote, so the location is acceptable.",
+     "quote": "Chicago, US Remote, SF, NYC, Seattle; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8353516,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Posting is in Barcelona, Spain, which is not Boston, US remote, or the United States.",
+     "quote": "Barcelona; Spain Locations"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Title is a backend engineering role with no excluded title word, so the role itself fits.",
+     "quote": "Backend Engineer, Internationalisation"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Requirements are language-agnostic coding and backend experience, which the résumé shows (Java, Python, TypeScript, Kafka).",
+     "quote": "Strong coding skills in any programming language"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Climate Program Manager is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Climate Program Manager"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "Title contains the excluded word 'manager'.",
+     "quote": "Climate Program Manager"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "Posting requires 5-7+ years, above the 2 + 2 = 4 year limit.",
+     "quote": "5-7+ years of experience in corporate sustainability, climate strategy, carbon accounting, environmental consulting, or a related field"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Required emissions accounting and GHG Protocol expertise is not shown in the résumé skills.",
+     "quote": "Strong quantitative skills and expertise in emissions accounting and Greenhouse Gas Protocol"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357739,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "Title contains the excluded word 'intern'.",
+     "quote": "Controllership Intern"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Controllership (accounting) is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Controllership Intern"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Seattle is in the United States, which the profile allows.",
+     "quote": "Seattle, Washington, United States"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301957,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A recruiter role is not any of the target engineering roles.",
+     "quote": "Core Recruiter (Fixed Term)"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting requires recruiting experience, which the résumé does not show; none of the engineering skills are required.",
+     "quote": "4+ years of full-cycle recruiting experience in a fast-paced, high-growth environment, including in-house recruiting experience."
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "It requires 4+ years, which is within the 2+2 limit, but the experience is in recruiting, not engineering.",
+     "quote": "4+ years of full-cycle recruiting experience in a fast-paced, high-growth environment, including in-house recruiting experience."
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The location is remote in the US, which the candidate can work in.",
+     "quote": "Chicago, Remote; US"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8275558,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A customer support role is not a software, backend, platform, DevOps or SRE role, so it is outside the target roles.",
+     "quote": "Customer Support Specialist, Clerky"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "The posting is located in Canada, which is not among Boston, US remote, or the United States.",
+     "quote": "Canada; Canada Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "The posting's responsibilities are customer email support and help center writing, not engineering work, and its requirements are soft skills rather than technical skills the résumé shows.",
+     "quote": "Writing thoughtful and empathetic replies to customer emails using our help desk software, Help Scout"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "Data scientist in FX quantitative research is not a software, backend, platform, DevOps or SRE role.",
+     "quote": "Data Scientist, FX Quantitative Research"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.skills[].keywords[]",
+     "result": "Posting requires hands-on quantitative finance experience at a financial institution with FX, rates or market risk exposure, which the résumé does not show.",
+     "quote": "Hands-on quantitative experience at a bank, asset manager, hedge fund, trading firm, or similar financial institution, with direct exposure to FX, rates, or market risk"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Posting is in New York, NY, which is not Boston, though it is in the US; the posting requires New York presence, so remote is not an option.",
+     "quote": "New York, NY; US"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "MS holders need 2-6 years of data science or quantitative modeling experience; the candidate has about 2 years of software engineering, not data science or quant modeling.",
+     "quote": "PhD with 1-3 years, MS or MA with 2-6 years, or BS or BA with 4-8 years of data science or quantitative modeling experience"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346778,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "A data scientist in FX quantitative research is not one of the target roles (software, backend, platform, DevOps, SRE).",
+     "quote": "Data Scientist, FX Quantitative Research"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "Toronto, Canada is not in the candidate's allowed locations (Boston, US remote, US).",
+     "quote": "Toronto; Canada Locations"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "profile.years_experience",
+     "result": "The posting requires at least 3 years even with a PhD, and 6+ with an MS, which exceeds the candidate's 2 years plus a 2-year stretch.",
+     "quote": "BS/BA with 8+ years, MS/MA with 6+ years, or PhD with 3+ years of full-time experience in quantitative finance, risk modeling, quantitative research, or data science"
+    },
+    {
+     "posting_field": "content",
+     "compared_to": "resume.work[].highlights[]",
+     "result": "The posting requires hands-on FX or market risk experience at a financial institution, which the résumé does not show.",
+     "quote": "Hands-on quantitative experience at a bank, asset manager, hedge fund, trading firm, or similar financial institution, with direct exposure to FX, rates, or market risk"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336062,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338344,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8172499,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346417,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8223113,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319491,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352045,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332888,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8318680,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301936,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315954,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8279850,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357043,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325023,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8237533,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338849,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8328323,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325019,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335413,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336705,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348327,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352485,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8165267,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350923,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348839,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7975721,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8222642,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8189015,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8155002,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332681,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332683,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8303870,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7983854,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351504,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8337362,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8284589,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338354,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315966,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8210218,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350920,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 6570259,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354768,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8306475,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8167556,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8317306,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335426,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325009,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336699,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336711,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8331445,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8261010,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356916,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356917,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356912,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326579,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8304858,
+   "status": "error",
+   "error_message": "not sent: claude calls budget used up",
+   "verdict": "not_relevant",
+   "judge": "claude",
+   "kind": "judgment",
+   "justification": [],
+   "error_code": "304",
+   "board": "stripe"
+  }
+ ]
+}
