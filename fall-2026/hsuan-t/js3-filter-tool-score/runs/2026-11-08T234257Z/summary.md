@@ -1,0 +1,159 @@
+Run 2026-11-08T23:42:57Z · exit: **budget-exhausted** (budget used up: claude calls)
+Budget used: boards 4/4 · requests 4/10 · seconds 129.1/120
+Claude judge: claude-sonnet-5-5 via cli · prompt: prompts/claude_judge.v1.md · calls 30/30 (every new posting until 30 calls or 300 s are used)
+Trace: runs/2026-11-08T234257Z/trace.jsonl
+
+| board | ats | status | code | reason | fetched | new | attempts |
+|---|---|---|---|---|---|---|---|
+| stripe | greenhouse | ok |  |  | 766 | 86 | 1 |
+| cloudflare | greenhouse | ok |  |  | 464 | 0 | 1 |
+| openai | ashby | ok |  |  | 816 | 0 | 1 |
+| striqe | greenhouse | failed | 101 fetch: board not found (HTTP 404) | fetch failed: HTTP 404 from https://boards-api.greenhouse.io/v1/boards/striqe/jobs?content=true | — | — | 1 |
+
+## stripe · live
+State file: state/stripe.state.json · Raw response: evidence/raw/2026-11-08T234257Z/stripe_content.json
+
+| | rule (record) | Claude (judgment) |
+|---|---|---|
+| fetched postings | 766 | — |
+| new postings | 86 | 86 |
+| cut at 1a exclude words | 34 | — |
+| cut at 1b title | 49 | — |
+| cut at 2 location | 3 | — |
+| cut at 3 skills | 0 | — |
+| cut at 4 years | 0 | — |
+| cut at 5 visa | 0 | — |
+| cut at 6 salary | 0 | — |
+| not sent: Claude budget used up | — | 56 |
+| error | 0 | 0 |
+| **relevant** | **0** | 0 |
+| judges disagree | 0 | |
+
+| posting_id | title | rule | cut at | Claude |
+|---|---|---|---|---|
+| 8332467 | Account Executive, AI Sales | not_relevant | 1a | not_relevant |
+| 8319488 | Account Executive- Enterprise Grower | not_relevant | 1b | not_relevant |
+| 7997555 | Account Executive, Enterprise - Grower | not_relevant | 1b | not_relevant |
+| 8107136 | Account Executive, Enterprise (Grower) | not_relevant | 1b | not_relevant |
+| 8348835 | Account Executive Enterprise (Korean-speaking, Singapore based) | not_relevant | 1b | not_relevant |
+| 8348731 | Account Executive, Enterprise (Southeast Asia) | not_relevant | 1b | not_relevant |
+| 8349777 | Account Executive, Large Users Platforms (China Cross Border) | not_relevant | 1b | not_relevant |
+| 8324997 | Account Executive, Platforms Enterprise ( Hunter ) Japan | not_relevant | 1b | not_relevant |
+| 8077971 | Account Executive, Platforms - Hunter | not_relevant | 1b | not_relevant |
+| 8326105 | Account Executive, Platforms Mid Market (Hunter), Japan | not_relevant | 1b | not_relevant |
+| 8322584 | Account Executive, SMB | not_relevant | 1b | not_relevant |
+| 8322582 | Account Executive, SMB Grower (CEE) | not_relevant | 1b | not_relevant |
+| 8250475 | Account Executive, SMB Grower (French speaking) | not_relevant | 1b | not_relevant |
+| 8280264 | Account Executive, SMB (Hunter) | not_relevant | 1b | not_relevant |
+| 8352238 | Account Executive, SMB (Southeast Asia) | not_relevant | 1b | not_relevant |
+| 8349481 | Account Executive - Startups & AI  (Korean Speaking, Singapore based) | not_relevant | 1b | not_relevant |
+| 8349479 | Account Executive - Startups & AI, New Zealand | not_relevant | 1b | not_relevant |
+| 8287920 | Account Executive, Startups (Grower) | not_relevant | 1b | not_relevant |
+| 8351500 | Account Executive - Startups (Grower), Australia | not_relevant | 1b | not_relevant |
+| 8319823 | Account Executive, Startups - Grower (Italian Fluency) | not_relevant | 1b | not_relevant |
+| 8349475 | Account Executive - Startups, Southeast Asia | not_relevant | 1b | not_relevant |
+| 8319452 | Account Executive, Strategics | not_relevant | 1b | not_relevant |
+| 8354566 | AMER Data Analyst - Sales Strategy and Operations | not_relevant | 1a | not_relevant |
+| 8353516 | Backend Engineer, Internationalisation | not_relevant | 2 | not_relevant |
+| 8319831 | Climate Program Manager | not_relevant | 1a | not_relevant |
+| 8357739 | Controllership Intern | not_relevant | 1a | not_relevant |
+| 8301957 | Core Recruiter (Fixed Term) | not_relevant | 1b | not_relevant |
+| 8275558 | Customer Support Specialist, Clerky | not_relevant | 1b | not_relevant |
+| 8346831 | Data Scientist, FX Quantitative Research | not_relevant | 1b | not_relevant |
+| 8346778 | Data Scientist, FX Quantitative Research | not_relevant | 1b | not_relevant |
+| 8336062 | Deal Strategist, APAC | not_relevant | 1b | not sent: budget |
+| 8338344 | Demo Engineer | not_relevant | 1b | not sent: budget |
+| 8172499 | Engineering Manager, Agentic Commerce | not_relevant | 1a | not sent: budget |
+| 8346417 | Engineering Manager, Infrastructure (Privy) | not_relevant | 1a | not sent: budget |
+| 8223113 | Engineering Program Manager, Internal Systems | not_relevant | 1a | not sent: budget |
+| 8319491 | Enterprise Account Executive, UK Financial Services, Banking | not_relevant | 1b | not sent: budget |
+| 8352045 | Enterprise Sales Manager- FSI & Insurance | not_relevant | 1a | not sent: budget |
+| 8332888 | Events Lead, Product & Financial Services | not_relevant | 1a | not sent: budget |
+| 8318680 | Financial Services Transfer Pricing Strategist | not_relevant | 1b | not sent: budget |
+| 8301936 | Frontend Engineer, Design Systems | not_relevant | 1a | not sent: budget |
+| 8315954 | Full-Stack Software Engineer, Communication Tools | not_relevant | 2 | not sent: budget |
+| 8279850 | Head of Commercial Solutions | not_relevant | 1a | not sent: budget |
+| 8357043 | Head of Renewals, EMEA & APAC | not_relevant | 1a | not sent: budget |
+| 8325023 | Head of Southern Europe, SMB & Commercial | not_relevant | 1a | not sent: budget |
+| 8237533 | Implementation Consultant | not_relevant | 1b | not sent: budget |
+| 8338849 | Integration Engineer, Metronome | not_relevant | 1b | not sent: budget |
+| 8328323 | IT Support Engineer | not_relevant | 1b | not sent: budget |
+| 8325019 | Japan Sales Manager, Mid Market (Hunter) | not_relevant | 1a | not sent: budget |
+| 8335413 | Manager, Marketing Analytics | not_relevant | 1a | not sent: budget |
+| 8336705 | Manager, Solutions Architecture | not_relevant | 1a | not sent: budget |
+| 8348327 | OpenRouter Product Accounting | not_relevant | 1b | not sent: budget |
+| 8352485 | Operations Associate, Financial Crimes (AML Investigations) | not_relevant | 1b | not sent: budget |
+| 8165267 | Partner Development Manager, Alliances and Channels | not_relevant | 1a | not sent: budget |
+| 8350923 | Partner Development Manager, Ecosystem Partnerships | not_relevant | 1a | not sent: budget |
+| 8348839 | Partner Solutions Architect (Japan) | not_relevant | 1b | not sent: budget |
+| 7975721 | Payments Analyst | not_relevant | 1b | not sent: budget |
+| 8222642 | Payments F&S Specialist | not_relevant | 1b | not sent: budget |
+| 8189015 | People Operations Specialist, HR Compliance | not_relevant | 1b | not sent: budget |
+| 8155002 | Product Designer, Link | not_relevant | 1b | not sent: budget |
+| 8332681 | Product Design Intern | not_relevant | 1a | not sent: budget |
+| 8332683 | Product Design Intern | not_relevant | 1a | not sent: budget |
+| 8303870 | Product/Design Recruiter | not_relevant | 1b | not sent: budget |
+| 7983854 | Product Manager, Disputes | not_relevant | 1a | not sent: budget |
+| 8351504 | Recruiting Scheduler | not_relevant | 1b | not sent: budget |
+| 8337362 | Recruiting Scheduler | not_relevant | 1b | not sent: budget |
+| 8284589 | Regional Field Marketing Manager, EMEA Platforms | not_relevant | 1a | not sent: budget |
+| 8338354 | Regional Product Marketing Manager, Latin America | not_relevant | 1a | not sent: budget |
+| 8315966 | Renewals Specialist | not_relevant | 1b | not sent: budget |
+| 8210218 | Renewals Specialist | not_relevant | 1b | not sent: budget |
+| 8350920 | Revenue and Go-to-Market Accounting Lead | not_relevant | 1a | not sent: budget |
+| 6570259 | Sales Development Representative (German fluency) | not_relevant | 1a | not sent: budget |
+| 8354768 | Sales Manager, SMB Hunter | not_relevant | 1a | not sent: budget |
+| 8306475 | Security Engineer, Privy | not_relevant | 1b | not sent: budget |
+| 8167556 | Senior Leadership Recruiter | not_relevant | 1a | not sent: budget |
+| 8317306 | Senior Staff Engineer, Big Data Infrastructure | not_relevant | 1a | not sent: budget |
+| 8335426 | Software Engineer, Supportability Decisions | not_relevant | 2 | not sent: budget |
+| 8325009 | Solutions Architect (ANZ) | not_relevant | 1b | not sent: budget |
+| 8336699 | Solutions Architect Manager, Startups & SMB | not_relevant | 1a | not sent: budget |
+| 8336711 | Solutions Architect, Startups & SMB | not_relevant | 1b | not sent: budget |
+| 8331445 | Specialist Solutions Architect, Fraud & Risk | not_relevant | 1b | not sent: budget |
+| 8261010 | Staff Backend Engineer, Supportability Decisions | not_relevant | 1a | not sent: budget |
+| 8356916 | Staff Security Engineer, Abuse Control | not_relevant | 1a | not sent: budget |
+| 8356917 | Staff Security Engineer, Abuse Control | not_relevant | 1a | not sent: budget |
+| 8356912 | Staff Security Engineer, Abuse Control | not_relevant | 1a | not sent: budget |
+| 8326579 | Strategy and Analytics Business Partner | not_relevant | 1b | not sent: budget |
+| 8304858 | Technical Program Manager, Terminal | not_relevant | 1a | not sent: budget |
+
+## cloudflare · live
+State file: state/cloudflare.state.json · Raw response: evidence/raw/2026-11-08T234257Z/cloudflare_content.json
+
+| | rule (record) | Claude (judgment) |
+|---|---|---|
+| fetched postings | 464 | — |
+| new postings | 0 | — |
+| cut at 1a exclude words | 0 | — |
+| cut at 1b title | 0 | — |
+| cut at 2 location | 0 | — |
+| cut at 3 skills | 0 | — |
+| cut at 4 years | 0 | — |
+| cut at 5 visa | 0 | — |
+| cut at 6 salary | 0 | — |
+| not sent: Claude budget used up | — | — |
+| error | 0 | — |
+| **relevant** | **0** | — |
+| judges disagree | — | |
+
+## openai · live
+State file: state/openai.state.json · Raw response: evidence/raw/2026-11-08T234257Z/openai_content.json
+
+| | rule (record) | Claude (judgment) |
+|---|---|---|
+| fetched postings | 816 | — |
+| new postings | 0 | — |
+| cut at 1a exclude words | 0 | — |
+| cut at 1b title | 0 | — |
+| cut at 2 location | 0 | — |
+| cut at 3 skills | 0 | — |
+| cut at 4 years | 0 | — |
+| cut at 5 visa | 0 | — |
+| cut at 6 salary | 0 | — |
+| not sent: Claude budget used up | — | — |
+| error | 0 | — |
+| **relevant** | **0** | — |
+| judges disagree | — | |
+
+Missed a skill written another way? Add it under "skill_aliases" in personas/aarav-patel.profile.json

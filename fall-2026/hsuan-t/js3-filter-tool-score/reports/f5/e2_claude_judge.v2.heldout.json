@@ -1,0 +1,921 @@
+{
+ "experiment": "E2",
+ "object": "prompt",
+ "prompt": "claude_judge.v2",
+ "model": "claude-sonnet-5-5",
+ "via": "cli",
+ "passed": 13,
+ "total": 20,
+ "rows": [
+  {
+   "sample_id": "H01",
+   "title": "Software Engineer, Workers Deploy & Config",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": 7377424,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Software Engineer title matches a target role and contains no excluded word.",
+      "quote": "Software Engineer, Workers Deploy & Config"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Offices are in Austin, New York and San Francisco, all in the United States, which the profile allows.",
+      "quote": "In-Office; Austin, TX, United States; New York, New York, United States; San Francisco, CA, United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Resume shows TypeScript, SQL, PostgreSQL and Kubernetes, which the posting lists as desirable; Go is desired but not required.",
+      "quote": "Experience with SQL and relational databases such as PostgreSQL."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting states no minimum years of experience, so nothing counts against the candidate.",
+      "quote": "Drive projects independently from requirements and specs through implementation, testing, and release."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting does not say it will not sponsor a work visa; the export-control line concerns export licenses, not work visas.",
+      "quote": "any offer of employment may be conditioned on your authorization to receive software or technology controlled under these U.S. export laws without sponsorship for an export license."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.min_salary",
+      "result": "Only the Portugal salary is stated, and the US salary is not given, so there is no evidence of falling below the minimum.",
+      "quote": "For Portugal based hires: Estimated annual salary is between €54,000 - €75,000."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H02",
+   "title": "Full Stack Software Engineer, Cybersecurity Products",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "88654e7f-4e23-4e75-8e54-18c10d09b093",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer role and contains none of the excluded title words.",
+      "quote": "Full Stack Software Engineer, Cybersecurity Products"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting is in the United States, which is one of the listed locations.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Backend services and APIs work fits the résumé's TypeScript, Node.js, Kafka and Redis experience.",
+      "quote": "Design and operate backend services for long-running security work, including APIs, asynchronous orchestration, durable state, and integrations with developer workflows."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.work[].highlights[]",
+      "result": "Security experience is not required, so the résumé's lack of it does not count against the fit.",
+      "quote": "Application-security or cybersecurity experience is helpful, but not required."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H03",
+   "title": "Software Engineer, Full Stack — Dots",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": "dbe79b89-e593-44b3-8aec-c667f7134445",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role and has none of the excluded title words.",
+      "quote": "Software Engineer, Full Stack — Dots"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the job seeker accepts, though it is New York rather than Boston.",
+      "quote": "New York City; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The backend, API and data-model work matches the résumé's TypeScript, Node.js, PostgreSQL and Redis skills.",
+      "quote": "Build and launch features across web interfaces, APIs, backend services, and data models."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "AI experience is only a plus, so the job seeker's lack of it does not count against them, and their agent-workflow co-op work is relevant.",
+      "quote": "Prior experience with AI or machine learning is helpful, but not required."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The body text says it seeks senior-level engineers but gives no required number of years, so this is a risk and not a clear mismatch.",
+      "quote": "Senior and Staff Full Stack Software Engineers"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting says nothing against visa sponsorship, so it does not count against the job seeker.",
+      "quote": "We are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H04",
+   "title": "Software Engineer",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8267736,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a plain Software Engineer role with no excluded words, and it matches a target role.",
+      "quote": "Software Engineer"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The role is in the US, which the job seeker accepts, and the posting also allows 50% remote work.",
+      "quote": "Seattle, WA; US-PERM"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The 2 years of software development required is within the job seeker's 2 years plus a 2-year stretch.",
+      "quote": "plus two (2) years of Software Development experience"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The résumé shows AWS and has Terraform as a familiar skill. It lacks Go, Ruby, Puppet and Ansible, but this is a related infrastructure and platform role.",
+      "quote": "2 years of experience with AWS cloud infrastructure and Terraform infrastructure automation;"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Python is a listed skill on the résumé.",
+      "quote": "1 year of experience in Python programming language;"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.work[].highlights[]",
+      "result": "The job seeker has on-call experience supporting a 24/7 payment API at Infosys.",
+      "quote": "1 year of experience performing 24/7 on call rotations to support high-availability software systems;"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.min_salary",
+      "result": "The stated pay is well above the job seeker's minimum.",
+      "quote": "Salary: $190,400.00 - $285,600.00/yr"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H05",
+   "title": "Full Stack Software Engineer, Codex",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "5ebd5f66-75db-4a96-8d39-babc14f1c582",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer role, which is a target role, and contains no excluded word such as frontend or senior.",
+      "quote": "Full Stack Software Engineer, Codex"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting location includes the United States, which the job seeker can work in.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The posting asks for TypeScript, Rust or a similar language; the résumé shows TypeScript used in production and Rust as familiar.",
+      "quote": "Experience with TypeScript, Rust, or a similar systems or application programming language."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "No specific years of experience are required, only production-systems experience, which the résumé shows.",
+      "quote": "Strong software engineering fundamentals and experience building production systems."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H06",
+   "title": "Technical Support Engineer, Developer Platform",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8329741,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Not a listed target role, but a developer-facing technical role related to platform and devops work, and the title has no excluded word.",
+      "quote": "Technical Support Engineer, Developer Platform"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Austin, TX is in the United States, which the job seeker accepts, though the role is hybrid.",
+      "quote": "Hybrid; Austin, TX, United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The scripting languages the posting names (Python, JavaScript) overlap with the résumé's Python and TypeScript, and the cloud and API troubleshooting fits their AWS, Docker and Kubernetes background.",
+      "quote": "Ability to write or modify small scripts in JavaScript, Python, Bash, or a similar language to reproduce issues and inspect API behavior."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 3-5 years as a desirable level, which is within 2 years of experience plus a 2-year stretch (4 years).",
+      "quote": "3-5 years of experience in technical customer support, developer support, or a similar role troubleshooting web applications, cloud services, or APIs."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting does not refuse work-visa sponsorship; its only sponsorship mention concerns export licenses.",
+      "quote": "without sponsorship for an export license"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H07",
+   "title": "Robotics Software Engineer",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "fabfc6c5-57b5-49ba-aae9-e7dd5d7030ca",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 5+ years, but the candidate has 2 years plus a 2-year stretch, so 4 at most.",
+      "quote": "Have 5+ years of professional software engineering experience developing and shipping production-quality systems in robotics or hardware-integrated environments."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Rust or C++ proficiency is required. The résumé lists Rust only as familiar and not shipped, and has no C++.",
+      "quote": "Have strong proficiency in Rust or C++."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The role needs hardware and industrial automation integration, which is far from the candidate's backend, DevOps and cloud background.",
+      "quote": "Have extensive experience integrating and deploying industrial automation systems, off-the-shelf robotics platforms, or custom hardware into production environments."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role with no excluded words, but it is a robotics specialty rather than backend or platform work.",
+      "quote": "Robotics Software Engineer"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the candidate accepts, so it does not count against the posting.",
+      "quote": "San Francisco; United States"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H08",
+   "title": "Software Engineer, API Frontiers",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "b6a86e39-8059-4ccf-8d33-1bf5bd92fa86",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 5+ years, but the job seeker has about 2 years plus a 2-year stretch (4 total), so the requirement is out of reach.",
+      "quote": "5+ years of experience building and operating backend services or developer-facing APIs in production."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role with no excluded title words.",
+      "quote": "Software Engineer, API Frontiers"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The backend focus matches the résumé's backend skills, but this does not offset the experience gap.",
+      "quote": "We are looking for a backend software engineer to build and operate the services behind the Responses API."
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting lists US locations, which fit the job seeker's United States option.",
+      "quote": "New York City; United States; San Francisco"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H09",
+   "title": "Backend Software Engineer, GTM Innovation",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "43174eb6-0ffe-4744-9323-c7969e7ea2e1",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 6+ years, but the candidate has about 2 years and can stretch to 4, so this is out of reach.",
+      "quote": "Have 6+ years of experience as a software engineer working on applied AI or user-facing systems"
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a backend software engineer role with no excluded words, so the role type fits.",
+      "quote": "Backend Software Engineer, GTM Innovation"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the candidate lists as acceptable.",
+      "quote": "San Francisco; United States"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H10",
+   "title": "Software Engineer, Privacy Engineering (Lawful Access)",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "e99105f1-0a15-4f25-9538-60312568f835",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role with a backend focus, and it contains none of the excluded title words.",
+      "quote": "Software Engineer, Privacy Engineering (Lawful Access)"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location includes the United States, which the job seeker can work in.",
+      "quote": "United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The posting asks for general backend and production-service experience, which fits the job seeker's Java, Node.js, Kafka, PostgreSQL and on-call payment API background. It names no specific required tools they lack.",
+      "quote": "Strong backend engineering fundamentals and experience building production services or data-intensive systems."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H11",
+   "title": "Software Engineer, Developer Productivity",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "2cba0d45-7a4f-4f38-ac73-3f8633bf0349",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 5+ years, including 3+ in developer-tooling infrastructure. The candidate has about 2 years, and 2 plus the 2-year stretch gives 4, so this is out of reach.",
+      "quote": "Have 5+ years of experience in engineering, including 3+ years of experience in infrastructure building tooling for developers."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role and has no excluded title word, so the role type fits.",
+      "quote": "Software Engineer, Developer Productivity"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Several named technologies match the résumé (Python, Kafka, Postgres, Kubernetes), and Terraform is familiar but not shipped. Skills alone would not rule it out.",
+      "quote": "Some core technologies we build with include Terraform, Buildkite, Postgres, Cosmos DB, Kafka, Python, and FastAPI."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.locations[]",
+      "result": "The role is onsite in San Francisco, not Boston or remote. The profile does list the US, so this is only a minor concern.",
+      "quote": "This role is exclusively based in our San Francisco HQ."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H12",
+   "title": "Software Engineer, Search Infrastructure",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": "7caed1e8-c6f6-4569-9d45-2d7a7a56a025",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer infrastructure role, matching a target role, and contains no excluded title word.",
+      "quote": "Software Engineer, Search Infrastructure"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the job seeker accepts.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "A/B testing and experimentation tooling match the résumé's feature-flag platform work (TypeScript, Redis) and its backend and distributed-systems background.",
+      "quote": "Build experimentation tooling and automation to run reproducible A/B tests, define success metrics, and measure product impact."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting calls for a senior engineer but states no number of years, so the experience gap is uncertain and not clearly out of reach.",
+      "quote": "As a senior engineer on the Search Product Infrastructure team"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting does not say it will refuse visa sponsorship, and it offers relocation help.",
+      "quote": "offer relocation assistance to new employees"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H13",
+   "title": "Software Engineer, TPU Compilers",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "0a6f6736-8743-4528-b17c-4e1f4f8ea45c",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The role centers on TPU, kernel and ML model performance optimization, and the résumé shows none of these skills, only backend and DevOps tools.",
+      "quote": "Have practical experience optimizing machine learning workloads on TPUs, through training, inference, or both."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Kernel development and quantization work is core to the job, but the résumé has no kernel or accelerator experience.",
+      "quote": "Develop and optimize kernels, using an understanding of the surrounding model to guide implementation choices."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role, but it is a specialized compiler/accelerator role rather than the backend or platform work the seeker targets.",
+      "quote": "Software Engineer, TPU Compilers"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the seeker can work in.",
+      "quote": "San Francisco; United States"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H14",
+   "title": "Software Engineer, Enterprise Controls",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "88164d12-c8ed-4b62-ae26-dcb6f1cc8482",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "Posting requires 9+ years of backend experience, far above the candidate's 2 years plus 2 stretch (4 max).",
+      "quote": "9+ years of professional backend software engineering experience, excluding internships, building and operating production services."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.exclude_title_words[]",
+      "result": "The role is described as requiring technical leadership, which fits the excluded 'lead' seniority level even though the title itself is clean.",
+      "quote": "Experience providing technical leadership for substantial initiatives, making architectural decisions, and coordinating delivery across teams while remaining hands-on."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer role with a backend focus, which matches a target role.",
+      "quote": "Software Engineer, Enterprise Controls"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "Location is in the United States, which the candidate accepts.",
+      "quote": "San Francisco; United States"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H15",
+   "title": "Software Engineer, Privacy Engineering",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": "07153f7c-7e8b-4283-a879-cb07a224e083",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a software engineer role, which is a target role, and it has no excluded title word.",
+      "quote": "Software Engineer, Privacy Engineering"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting is in the United States, which the profile lists as an acceptable location.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The work is backend and platform engineering (services, APIs, metadata systems), which matches the résumé's backend, Kafka, SQL and Kubernetes skills. No specific tools are required.",
+      "quote": "Design and build shared services, APIs, metadata systems, and policy-enforcement mechanisms that make governance controls consistent, scalable, and auditable."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting gives no number of years, only a general expectation of substantial experience. This is a stretch for a candidate with about 2 years, but it is not clearly out of reach.",
+      "quote": "Have substantial experience designing and operating large-scale data platforms, privacy infrastructure, or governance systems in complex production environments."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H16",
+   "title": "Systems Engineer - Database Platform",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8158016,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "A database platform systems engineering role is close to the platform engineer and backend targets, and the title has no excluded word.",
+      "quote": "Systems Engineer - Database Platform"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting is in US cities, and the profile accepts the United States.",
+      "quote": "Hybrid; Austin, TX, United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The résumé lists PostgreSQL, which is the core of the team's platform.",
+      "quote": "We manage an internal, multi-region PostgreSQL platform that enables engineers to rapidly build, deploy, and operate services."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Docker and Kubernetes are listed in the résumé and match a stated requirement.",
+      "quote": "Experience with containerization technologies like Docker and Kubernetes."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The résumé shows Python, and Terraform is listed as familiar, which partly covers the scripting and infrastructure-as-code requirements.",
+      "quote": "Experience in scripting languages (Python, Bash) for automation."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.min_salary",
+      "result": "The stated pay is well above the $75,000 minimum.",
+      "quote": "For New York based hires: Estimated annual salary of $150,000 - $187,000"
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H17",
+   "title": "Full Stack Software Engineer, Growth",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "77bc0b3a-35c1-4ecf-99c7-1b3b19d959ca",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Title is a software engineer role, which is a target role, and has no excluded title word.",
+      "quote": "Full Stack Software Engineer, Growth"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting lists the United States, which is one of the candidate's accepted locations.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The role includes backend API work, and the candidate has Node.js, TypeScript and backend experience.",
+      "quote": "Plan and deploy backend APIs necessary to power these product experiences."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "A/B testing experience is wanted, and the candidate built a feature-flag platform that enabled A/B tests.",
+      "quote": "Are highly analytical and have experience designing and implementing A/B tests, with a scientific approach to data-based experiments."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H18",
+   "title": "Software Engineer, Resource Automation",
+   "hand_label": "not_relevant",
+   "claude": "relevant",
+   "pass": false,
+   "verdict": {
+    "posting_id": 8314235,
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "Software engineer role with no excluded title word, and the backend and infrastructure work fits their target roles.",
+      "quote": "Software Engineer, Resource Automation"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The posting is in South San Francisco (not Boston) and is only 50% remote, but it is listed as a US location and the profile accepts US locations.",
+      "quote": "South San Francisco, CA; US-PERM"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Docker and Kubernetes are required and appear on the résumé, so the DevOps side matches well.",
+      "quote": "Containers and orchestration, including Docker and Kubernetes and operating containerized services in production"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Go is required and missing from the résumé, but backend experience in Java and TypeScript is close, so this is a gap and not a clear mismatch.",
+      "quote": "Backend development in Go, including building production services and writing automated tests;"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 2 years of experience, which is within the profile's 2 years plus a 2-year stretch.",
+      "quote": "plus 2 years of related work experience in software engineering"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.min_salary",
+      "result": "The stated base salary starts well above the $75,000 minimum.",
+      "quote": "Salary: $156,800.00 - $235,200.00/yr."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H19",
+   "title": "Software Engineer, Foundations Search",
+   "hand_label": "relevant",
+   "claude": "relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "40ed6975-ef61-4807-b748-37c2fa2b76c7",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title is a Software Engineer role, which is a target role, and it has no excluded title word.",
+      "quote": "Software Engineer, Foundations Search"
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location lists the United States, which the job seeker can work in.",
+      "quote": "San Francisco; United States"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.work[].highlights[]",
+      "result": "Distributed systems are only a 'might thrive' preference, not a hard requirement. The résumé shows Distributed Systems coursework, Kafka and Redis, and a search-related project over Elasticsearch logs.",
+      "quote": "Experience building and scaling distributed systems."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.work[].highlights[]",
+      "result": "Search and indexing background is also a nice-to-have, and the Elasticsearch workflow is related experience.",
+      "quote": "Background in search, retrieval, or indexing systems."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting does not say it will refuse visa sponsorship, so this does not count against it.",
+      "quote": "We are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic."
+     }
+    ]
+   }
+  },
+  {
+   "sample_id": "H20",
+   "title": "Systems Software Engineer, Security, First Party Hardware",
+   "hand_label": "not_relevant",
+   "claude": "not_relevant",
+   "pass": true,
+   "verdict": {
+    "posting_id": "1c48f39f-60ea-4636-87ed-8b4b4f5243e5",
+    "status": "ok",
+    "error_message": null,
+    "verdict": "not_relevant",
+    "judge": "claude",
+    "kind": "judgment",
+    "justification": [
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "The role centers on hardware and firmware security, and the résumé shows none of these skills (backend, DevOps and cloud only).",
+      "quote": "Deep familiarity with secure boot, measured boot, TPMs, hardware roots of trust, device attestation, key provisioning, debug interfaces, firmware signing, recovery, or lifecycle-state design."
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.years_experience",
+      "result": "The posting asks for 7+ years, which is above the candidate's 2 years plus a 2-year stretch (4 years).",
+      "quote": "7+ years of hands-on experience"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "resume.skills[].keywords[]",
+      "result": "Systems code in C, C++ or Rust is required, but the candidate lists only Rust, and only as familiar and not shipped.",
+      "quote": "Ability to read and write systems code in C, C++, or Rust and to use that skill to review, prototype, test, or debug security-critical behavior."
+     },
+     {
+      "posting_field": "title",
+      "compared_to": "profile.target_roles[]",
+      "result": "The title says software engineer but the work is hardware security, which is not a backend, platform, DevOps or SRE role; no excluded title word appears.",
+      "quote": "Systems Software Engineer, Security, First Party Hardware"
+     },
+     {
+      "posting_field": "content",
+      "compared_to": "profile.needs_sponsorship",
+      "result": "The posting does not refuse sponsorship, but it mentions export-control legal status requirements that could be a further obstacle for a candidate needing a visa.",
+      "quote": "candidates for this role may need to meet certain legal status requirements as provided in those laws and regulations."
+     },
+     {
+      "posting_field": "location.name",
+      "compared_to": "profile.locations[]",
+      "result": "The location is in the United States, which the candidate accepts, so it does not count against the posting.",
+      "quote": "San Francisco; United States"
+     }
+    ]
+   }
+  }
+ ]
+}

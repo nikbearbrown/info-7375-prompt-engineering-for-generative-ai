@@ -1,0 +1,26 @@
+{
+  "_comment": "FILTER.md Rule 7, Version 1.1. A location is split into parts on ';', '|' and '·'. Each part is checked in this order: US markers, exact US forms, full US state names, a trailing two-letter US postal code, the exact US city lookup, then non-US countries and bare non-US cities. Anything else is unknown. Lists are extended only after measuring missed locations, with a FILTER.md Version History row.",
+  "version": "1.1",
+
+  "us_markers": ["United States", "USA", "U.S."],
+  "us_exact": ["US - Remote"],
+
+  "us_states": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia"],
+
+  "us_postal_codes": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"],
+
+  "us_cities": {
+    "_source": "City-only US names in the saved OpenAI postings (San Francisco, New York City, Seattle, Mountain View) plus my FILTER.md Version 1.0 examples. Matched exactly, ignoring case.",
+    "names": ["San Francisco", "New York City", "New York", "Seattle", "Mountain View", "Bellevue", "Boston", "Austin", "Chicago", "Denver", "Atlanta", "Los Angeles", "San Diego", "Dallas", "Washington, D.C.", "Washington, DC", "Washington DC"]
+  },
+
+  "non_us_countries": {
+    "_source": "Country names and the short forms used in the saved postings (UK, UAE, NL, CAN, IE, CH). 'Georgia' is left out because US state names are checked first. 'IN' is left out because it is Indiana's postal code.",
+    "names": ["Argentina", "Australia", "Austria", "Belgium", "Brazil", "Bulgaria", "Canada", "Chile", "China", "Colombia", "Costa Rica", "Croatia", "Czech Republic", "Czechia", "Denmark", "Egypt", "Estonia", "Finland", "France", "Germany", "Greece", "Hong Kong", "Hungary", "India", "Indonesia", "Ireland", "Israel", "Italy", "Japan", "Kenya", "Korea", "South Korea", "Latvia", "Lithuania", "Luxembourg", "Malaysia", "Mexico", "Netherlands", "New Zealand", "Nigeria", "Norway", "Pakistan", "Peru", "Philippines", "Poland", "Portugal", "Romania", "Saudi Arabia", "Serbia", "Singapore", "Slovakia", "South Africa", "Spain", "Sweden", "Switzerland", "Taiwan", "Thailand", "Turkey", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Vietnam", "UK", "UAE", "NL", "CAN", "IE", "CH"]
+  },
+
+  "non_us_bare_cities": {
+    "_source": "Bare non-US city names that appear in the saved postings without a country. Matched exactly, ignoring case, after removing a trailing ' - Remote'.",
+    "names": ["Singapore", "São Paulo", "Sao Paulo", "Madrid", "Bangalore", "Brussels", "Mexico City"]
+  }
+}

@@ -1,0 +1,1742 @@
+{
+ "run_at": "2026-11-08T22:49:11Z",
+ "exit": "incomplete",
+ "exit_reason": "1 of 4 boards not ok (1 failed, 0 skipped)",
+ "budget": {
+  "limits": {
+   "boards": 4,
+   "requests": 10,
+   "seconds": 120.0,
+   "request_seconds": 10.0,
+   "claude_calls": 3,
+   "claude_call_seconds": 300.0,
+   "seconds_with_claude": 1080.0,
+   "report_reserve_seconds": 60.0
+  },
+  "boards_used": 4,
+  "requests_used": 4,
+  "requests_left": 6,
+  "seconds_used": 1.922,
+  "seconds_left": 118.078,
+  "claude_calls_used": 0
+ },
+ "boards": [
+  {
+   "board": "stripe",
+   "ats": "greenhouse",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 766,
+   "new": 86,
+   "baseline": false,
+   "source": "live",
+   "state_file": "state/stripe.state.json",
+   "raw_response": "evidence/raw/2026-11-08T224911Z/stripe_content.json"
+  },
+  {
+   "board": "cloudflare",
+   "ats": "greenhouse",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 464,
+   "new": 0,
+   "baseline": true,
+   "source": "live",
+   "state_file": "state/cloudflare.state.json",
+   "raw_response": "evidence/raw/2026-11-08T224911Z/cloudflare_content.json"
+  },
+  {
+   "board": "openai",
+   "ats": "ashby",
+   "status": "ok",
+   "code": null,
+   "code_meaning": null,
+   "reason": "",
+   "budget": null,
+   "attempts": 1,
+   "fetched": 816,
+   "new": 0,
+   "baseline": true,
+   "source": "live",
+   "state_file": "state/openai.state.json",
+   "raw_response": "evidence/raw/2026-11-08T224911Z/openai_content.json"
+  },
+  {
+   "board": "striqe",
+   "ats": "greenhouse",
+   "status": "failed",
+   "code": "101",
+   "code_meaning": "101 fetch: board not found (HTTP 404)",
+   "reason": "fetch failed: HTTP 404 from https://boards-api.greenhouse.io/v1/boards/striqe/jobs?content=true",
+   "budget": null,
+   "attempts": 1,
+   "fetched": null,
+   "new": null,
+   "baseline": null,
+   "source": null,
+   "state_file": "state/striqe.state.json",
+   "raw_response": null
+  }
+ ],
+ "verdicts": [
+  {
+   "posting_id": 8332467,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319488,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7997555,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8107136,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348835,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348731,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349777,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8324997,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8077971,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326105,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322584,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8322582,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8250475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8280264,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352238,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349481,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349479,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8287920,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351500,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319823,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8349475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319452,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354566,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8353516,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: backend"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357739,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301957,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8275558,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346831,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346778,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336062,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338344,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8172499,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8346417,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8223113,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8319491,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352045,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332888,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: lead"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8318680,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8301936,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: frontend"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315954,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: software engineer"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8279850,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8357043,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325023,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: head"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8237533,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338849,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8328323,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325019,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335413,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336705,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348327,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8352485,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8165267,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350923,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8348839,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7975721,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8222642,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8189015,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8155002,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332681,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8332683,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: intern"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8303870,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 7983854,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8351504,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8337362,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8284589,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8338354,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8315966,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8210218,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8350920,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: lead"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 6570259,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8354768,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager, sales"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8306475,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8167556,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: senior"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8317306,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: senior, staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8335426,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "match: software engineer"
+    },
+    {
+     "posting_field": "location.name",
+     "compared_to": "profile.locations[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8325009,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336699,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8336711,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8331445,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8261010,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356916,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356917,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8356912,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: staff"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8326579,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "no match"
+    },
+    {
+     "posting_field": "title",
+     "compared_to": "profile.target_roles[]",
+     "result": "no match"
+    }
+   ],
+   "board": "stripe"
+  },
+  {
+   "posting_id": 8304858,
+   "status": "ok",
+   "error_message": null,
+   "verdict": "not_relevant",
+   "judge": "rule",
+   "kind": "record",
+   "justification": [
+    {
+     "posting_field": "title",
+     "compared_to": "profile.exclude_title_words[]",
+     "result": "match: manager"
+    }
+   ],
+   "board": "stripe"
+  }
+ ]
+}

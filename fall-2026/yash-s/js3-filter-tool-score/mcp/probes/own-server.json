@@ -1,0 +1,17 @@
+{
+  "_comment": "Scripted session for my own server. The posting in step 1 is CONSTRUCTED for this test, not a real posting. Steps 4-9 probe what a client is not entitled to.",
+  "steps": [
+    {"tool": "score_posting", "arguments": {
+      "title": "Data Engineer",
+      "location": "San Francisco, CA",
+      "description": "About the role\nYou will build data pipelines and machine learning models.\nMinimum qualifications:\nPython and SQL on AWS.\nNo prior experience required."}},
+    {"tool": "search_saved_postings", "arguments": {"decision": "review", "limit": 3}},
+    {"tool": "search_saved_postings", "arguments": {"board": "OpenAI", "title_contains": "Applied AI", "limit": 5}},
+    {"tool": "search_saved_postings", "arguments": {"limit": 500}},
+    {"tool": "score_posting", "arguments": {"title": "Data Engineer", "description": "x", "path": "/etc/passwd"}},
+    {"tool": "apply_to_job", "arguments": {"board": "OpenAI", "id": "577e6673-0a4a-491b-9a0d-facbdd3bdf3c"}},
+    {"request": "resources/list"},
+    {"raw": "{this is not json"},
+    {"request": "ping"}
+  ]
+}
