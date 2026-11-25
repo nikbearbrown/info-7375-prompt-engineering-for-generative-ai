@@ -8,7 +8,7 @@ state exactly which labels touched which decision.
 | File | Who made it | Use |
 |---|---|---|
 | `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4). Ashwin confirmed in chat on 2026-11-25 that these are their own judgments | Held-out measurement of one frozen change; **potentially contaminated** (see below) |
-| `labels/audit-sheet.csv` | Blank: no hand verdicts yet | The only verdicts `--report` reads |
+| `labels/audit-sheet.csv` | Ashwin's personal verdicts for all 47 minimum-sample rows, confirmed in chat on 2026-11-25 after seeing the AI suggestions and filter results (not blind; recorded in `7e5c3d02`) | The only verdicts `--report` reads |
 | `labels/audit-ai-draft.csv` | Codex, inferred from Ashwin's 30 held-out labels | Proposals only; not read by code |
 | `labels/audit-ai-assisted.csv` | 47 Codex suggestions inferred from Ashwin's held-out labels, supplied by Ashwin in chat in batches 1–5 on 2026-11-25. Ashwin states they are not independent hand judgments. 46 match the draft; row 35 differs (draft Y, supplied ?) | Exploratory only: `python3 -m jobfilter.audit --exploratory` writes `audit/EXPLORATORY-v1.0-ai-assisted.md` |
 
@@ -34,8 +34,12 @@ The brief (Step 2.1, graded 12 points) asks for these to be judged by hand:
 random_reject 30, close_below 6, close_at 5 and kept_random 6. That is 47 distinct postings, with blind review cards in
 `labels/audit-review-cards.md`.
 
-**0 of 47 have an independent hand verdict.** Until they do, the error counts, the honest statement of what the
-sample can say, and any named false friend rest on AI-assisted verdicts, and must be reported that way.
+**Status, updated 2026-11-25 after `7e5c3d02`.** Ashwin confirmed a personal review of all 47 rows and kept the
+suggested verdicts. That review came after Ashwin had seen Codex's suggestions and the filter's results, so it was
+**not blind**. `audit/REPORT-v1.0.md` reports these verdicts, with that exposure recorded on every row.
+
+Until then this section read "0 of 47 have an independent hand verdict". That was true when it was written: the
+sheet was blank between `b03e6b29` and `7e5c3d02`.
 
 The other two strata, `exclusion_check` (8) and `review` (7), are optional. If they stay unjudged, the FILTER.md
 section 10 row "level-II and forward-deployed exclusions kept" stays **not measured**.

@@ -75,7 +75,9 @@ from REJECT to KEEP.
 - No unused set can test this change. None of the Cloudflare snapshot's titles contains "mission manager", so both
   versions behave identically there.
 
-**The bigger finding, independent of the change.** Both versions reject 6 of 7 postings Ashwin labeled Y:
+**The bigger finding, independent of the change.** Apart from the Mission Manager posting, both versions reject
+the other 6 postings Ashwin labeled Y. v1.0 rejects all 7. Why the reject audit missed this is explained in
+`audit/REPORT-v1.0.md`. The 6:
 
 | Reason | Count | Postings |
 |---|---:|---|

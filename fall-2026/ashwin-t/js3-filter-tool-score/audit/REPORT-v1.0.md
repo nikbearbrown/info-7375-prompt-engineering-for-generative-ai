@@ -19,6 +19,15 @@ Y = Supriya would want to see it, N = would not, ? = cannot tell from the postin
 - **Random kept:** 1 of 4 resolved Y/N verdicts disagree with KEEP, with 2 unresolved ?. The approximate 95% Wilson interval on resolved verdicts only is 4.6% to 69.9%. In the drawn sample the corresponding unknown-outcome range is 16.7% to 50.0%. The sampling pool contains 13 KEEPs after excluding the selected threshold cases; this is not an estimate for all KEEPs. Wilson intervals here use a binomial approximation without finite-population correction. Missing judgments may be systematic, and prior AI exposure can bias labels.
 - With about 30 random rejects, a problem affecting a few percent of rejects can easily appear 0 times. Zero observed errors would not have meant zero errors.
 
+## Why this sample and the held-out set point different ways
+
+The random rejects found 0 wanted postings among those with a Y/N verdict. The held-out set (Ashwin's labels) has 7 of 7 postings labeled Y rejected by v1.0. The two samples contain different kinds of postings:
+
+- **Random rejects:** 25 of 30 failed the role gate (no qualifying role phrase). Across all 750 development rejects, 608 did, so most rejects are sales, legal and other non-engineering titles, and a random sample mostly re-checks that gate, where wanted postings are rare.
+- **Held-out set:** drawn with 20 of 30 postings from engineering-like titles (`jobfilter/heldout.py`), so it over-samples the postings where the topic, threshold and seniority rules decide. The rejected Y postings' first reasons: 0 topic group(s); 2 required (2); title has no qualifying role phrase (2); title contains excluded seniority term (2); score 6 below threshold 7 (1).
+
+So the random-reject result shows that wanted postings are rare among the mostly non-engineering titles the filter rejects. It does not show that the filter rarely misses wanted postings. In the held-out set the misses are engineering-like titles, rejected by the role list as well as by the topic, threshold and seniority rules. Next time, engineering-titled rejects should be sampled separately. The held-out set is potentially contaminated (CHANGE.md), so its counts are a pointer, not a measured rate.
+
 ## Every audited posting
 
 | Key | Title | Strata | Filter | Score | Reason | Verdict | Note |

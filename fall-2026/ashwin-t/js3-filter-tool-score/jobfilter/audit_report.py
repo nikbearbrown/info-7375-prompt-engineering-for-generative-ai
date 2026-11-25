@@ -41,6 +41,40 @@ SOURCES = {
 }
 
 
+def contrast_with_heldout(sel: dict, dev: dict) -> list:
+    """Why the random-reject sample and the held-out set point different ways (added 2026-11-25).
+
+    Uses the v1.0 held-out decisions, opened after v1.1 was frozen (CHANGE.md, c9821188). The held-out set is
+    potentially contaminated; this section only compares what kinds of postings each sample contains.
+    """
+    import collections
+    gate = "title has no qualifying role phrase"
+    rr = sel["strata"]["random_reject"]["selected"]
+    pop = sel["strata"]["random_reject"]["population"]
+    rr_gate = sum(1 for k in rr if dev[k]["reasons"][0] == gate)
+    pop_gate = sum(1 for k in pop if dev[k]["reasons"][0] == gate)
+    held = {d["key"]: d for d in json.loads((HERE / "runs" / VERSION / "heldout-decisions.sealed.json").read_text())}
+    labels = read_verdicts(LABELS / "heldout-sheet.csv")
+    ys = [k for k, v in labels.items() if v["verdict"] == "Y"]
+    y_rej = [k for k in ys if held[k]["decision"] == "REJECT"]
+    why = collections.Counter(held[k]["reasons"][0].split('"')[0].strip() for k in y_rej)
+    return ["## Why this sample and the held-out set point different ways", "",
+            f"The random rejects found 0 wanted postings among those with a Y/N verdict. The held-out set (Ashwin's labels) "
+            f"has {len(y_rej)} of {len(ys)} postings labeled Y rejected by {VERSION}. The two samples contain different "
+            "kinds of postings:", "",
+            f"- **Random rejects:** {rr_gate} of {len(rr)} failed the role gate (no qualifying role phrase). Across all "
+            f"{len(pop)} development rejects, {pop_gate} did, so most rejects are sales, legal and other non-engineering "
+            "titles, and a random sample mostly re-checks that gate, where wanted postings are rare.",
+            "- **Held-out set:** drawn with 20 of 30 postings from engineering-like titles (`jobfilter/heldout.py`), so it "
+            "over-samples the postings where the topic, threshold and seniority rules decide. The rejected Y postings' "
+            "first reasons: " + "; ".join(f"{r} ({n})" for r, n in why.most_common()) + ".",
+            "", "So the random-reject result shows that wanted postings are rare among the mostly non-engineering titles "
+            "the filter rejects. It does not show that the filter rarely misses wanted postings. In the held-out set the "
+            "misses are engineering-like titles, rejected by the role list as well as by the topic, threshold and "
+            "seniority rules. Next time, engineering-titled rejects should be sampled separately. The held-out set is "
+            "potentially contaminated (CHANGE.md), so its counts are a pointer, not a measured rate.", ""]
+
+
 def write_report(source: str = "hand") -> None:
     csv_path, out_name, title, intro = SOURCES[source]
     sel = json.loads(SELECTION.read_text())
@@ -81,8 +115,9 @@ def write_report(source: str = "hand") -> None:
           "this is not an estimate for all KEEPs. Wilson intervals here use a binomial approximation without "
           "finite-population correction. Missing judgments may be systematic, and prior AI exposure can bias labels.",
           "- With about 30 random rejects, a problem affecting a few percent of rejects can easily appear 0 times. "
-          "Zero observed errors would not have meant zero errors.", "",
-          "## Every audited posting", "",
+          "Zero observed errors would not have meant zero errors.", ""]
+    L += contrast_with_heldout(sel, dev)
+    L += ["## Every audited posting", "",
           "| Key | Title | Strata | Filter | Score | Reason | Verdict | Note |", "|---|---|---|---|---:|---|---|---|"]
     for k in sorted(verdicts, key=lambda k: (sel["categories"][k][0], k)):
         d, v = dev[k], verdicts[k]
