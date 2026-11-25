@@ -1,3 +1,4 @@
+# (The home folder in paths below is shown as ~.)
 # 2026-11-25 18:09:54 EST: python3 -m unittest tests.test_js3_filter_v11 -v  (before filter-v1.1.json and the v1.1 code)
 Traceback (most recent call last):
   File "<frozen runpy>", line 203, in _run_module_as_main
@@ -21,9 +22,9 @@ Traceback (most recent call last):
               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
   File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 137, in loadTestsFromName
     module = __import__(module_name)
-  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11.py", line 14, in <module>
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11.py", line 14, in <module>
     V11 = filtering.load_config(HERE / "filter-v1.1.json")
-  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/filtering.py", line 38, in load_config
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/filtering.py", line 38, in load_config
     return json.loads(pathlib.Path(path).read_text())
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
   File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
@@ -32,4 +33,4 @@ Traceback (most recent call last):
   File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
     return io.open(self, mode, buffering, encoding, errors, newline)
            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/filter-v1.1.json'
+FileNotFoundError: [Errno 2] No such file or directory: '~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/filter-v1.1.json'
