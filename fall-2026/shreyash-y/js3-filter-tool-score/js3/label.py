@@ -81,9 +81,13 @@ def compact(p, n, total):
              f"   Location: {p['location'] or '(not given)'} | Offices: {', '.join(p['offices']) or '(not given)'} | "
              f"Department: {', '.join(p['departments']) or '(not given)'} | Employment: {p.get('employment_type') or '(not given)'}"
              + ("" if p["open_in_latest_run"] else " | closed since " + str(p["last_seen"])),
-             f"   Ad opens: {content[:260].strip()}…"]
+             f"   Ad opens: {content[:250].strip()}…"]
     if req:
-        lines.append(f"   Under its requirements headings: {req[:380].strip()}…")
+        # 1400 characters, not 380: the first chat batch cut posting 8's requirements short (FRICTIONAL.md)
+        more = "… (say full " + str(n) + " for the rest)" if len(req) > 1400 else ""
+        lines.append(f"   Under its requirements and preferred headings: {req[:1400].strip()}{more}")
+    else:
+        lines.append(f"   (no requirements heading found) {content[250:1150].strip()}…")
     return "\n".join(lines)
 
 

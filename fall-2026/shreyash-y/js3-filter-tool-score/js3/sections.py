@@ -43,7 +43,14 @@ def squash(s):
     return re.sub(r"\s+", " ", s or "").strip()
 
 
+def plain_quotes(s):
+    """Curly apostrophes as straight ones, so "What We’re Looking For" reads like "What We're Looking
+    For" (fixed 2026-11-25 after Shreyash's note on posting 8; tests/test_js3_sections_apostrophe.py)."""
+    return (s or "").replace("\u2019", "'").replace("\u2018", "'")
+
+
 def kind_of(heading_text):
+    heading_text = plain_quotes(heading_text)
     for kind, rx in KINDS:
         if rx.search(heading_text):
             return kind
@@ -53,7 +60,7 @@ def kind_of(heading_text):
 def looks_like_heading(text, hint=False):
     """A heading is a block the HTML marks as one (h1-h6, or wholly bold), or a short line ending in
     ':', or a line of six words or fewer, without end punctuation, that uses a heading word."""
-    t = squash(text)
+    t = plain_quotes(squash(text))
     if not t:
         return False
     words = t.rstrip(":").split()
