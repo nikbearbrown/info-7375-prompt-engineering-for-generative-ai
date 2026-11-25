@@ -1,0 +1,40 @@
+{
+  "_comment": "FILTER.md v1.0 section 1, transcribed. Change FILTER.md first, then this file.",
+  "version": "1.0",
+  "threshold": 4,
+  "close_call_scores": [3, 4],
+  "rules": {
+    "R1": {
+      "name": "role words",
+      "field": "title",
+      "match": "whole_word",
+      "weight": 3,
+      "counted": "once",
+      "words": ["ai engineer", "ml engineer", "machine learning",
+                "data engineer", "ml infrastructure", "ml platform"]
+    },
+    "R2": {
+      "name": "topic words",
+      "field": "body_text",
+      "match": "whole_word",
+      "weight_per_distinct_word": 1,
+      "cap": 3,
+      "words": ["llm", "pytorch", "tensorflow", "inference", "training",
+                "embedding", "retrieval", "mlops", "model", "spark"]
+    },
+    "R3": {
+      "name": "exclusion: clearance",
+      "fields": ["title", "body_text"],
+      "match": "substring",
+      "action": "reject",
+      "words": ["clearance"]
+    },
+    "R4": {
+      "name": "exclusion: management titles",
+      "field": "title",
+      "match": "whole_word",
+      "action": "reject",
+      "words": ["manager", "director", "head of", "vp"]
+    }
+  }
+}
