@@ -54,7 +54,10 @@ class Server:
         self.log = None
         if log_dir is not None:
             log_dir = pathlib.Path(log_dir).resolve()
-            if not str(log_dir).startswith(str((HERE / "transcripts").resolve())):
+            root = (HERE / "transcripts").resolve()
+            # A path test, not a string test: transcripts-evil/ starts with the same letters
+            # (fixed 2026-11-25 after the independent review; tests/test_js3_mcp_server_review.py).
+            if not (log_dir == root or log_dir.is_relative_to(root)):
                 raise SystemExit("the transcript folder must be inside transcripts/")
             log_dir.mkdir(parents=True, exist_ok=True)
             stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -71,9 +74,13 @@ class Server:
         """One parsed message in; a response dict out, or None for a notification."""
         if not isinstance(msg, dict) or msg.get("jsonrpc") != "2.0" or not isinstance(msg.get("method"), str):
             return error(msg.get("id") if isinstance(msg, dict) else None, -32600, "Invalid Request")
-        mid, method, params = msg.get("id"), msg["method"], msg.get("params") or {}
+        mid, method, params = msg.get("id"), msg["method"], msg.get("params")
         if "id" not in msg:  # a notification: never answered
             return None
+        if params is None:
+            params = {}
+        if not isinstance(params, dict):  # fixed 2026-11-25 after the independent review: this crashed
+            return error(mid, -32602, "Invalid params: params must be an object")
         if method == "initialize":
             asked = params.get("protocolVersion")
             return result(mid, {"protocolVersion": asked if asked in SUPPORTED else SUPPORTED[0],
@@ -88,11 +95,12 @@ class Server:
         if method == "tools/call":
             if params.get("name") != TOOL["name"]:
                 return error(mid, -32602, f"Unknown tool: {params.get('name')!r}")
-            return result(mid, self.call(params.get("arguments") or {}))
+            args = params.get("arguments")
+            return result(mid, self.call({} if args is None else args))
         return error(mid, -32601, f"Method not found: {method}")
 
     def call(self, args):
-        if set(args) != {"posting_key"} or not isinstance(args.get("posting_key"), str):
+        if not isinstance(args, dict) or set(args) != {"posting_key"} or not isinstance(args.get("posting_key"), str):
             return tool_error("score_posting takes exactly one argument, posting_key (a string like klaviyo:7792539003).")
         key = args["posting_key"].strip()
         if not KEY_RE.match(key):
